@@ -176,7 +176,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
       } else if ( null == o || !(o instanceof Arez_NoVerifyActionModel) ) {
         return false;
       } else {
-        final Arez_NoVerifyActionModel that = (Arez_NoVerifyActionModel) o;;
+        final Arez_NoVerifyActionModel that = (Arez_NoVerifyActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -210,7 +210,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
       } else if ( null == o || !(o instanceof Arez_ObservableReferenceModel) ) {
         return false;
       } else {
-        final Arez_ObservableReferenceModel that = (Arez_ObservableReferenceModel) o;;
+        final Arez_ObservableReferenceModel that = (Arez_ObservableReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

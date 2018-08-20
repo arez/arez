@@ -166,7 +166,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
       } else if ( null == o || !(o instanceof Arez_OverloadedActions) ) {
         return false;
       } else {
-        final Arez_OverloadedActions that = (Arez_OverloadedActions) o;;
+        final Arez_OverloadedActions that = (Arez_OverloadedActions) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

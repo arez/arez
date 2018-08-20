@@ -165,7 +165,7 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
     } else if ( null == o || !(o instanceof Arez_DaggerDisabledRepository) ) {
       return false;
     } else {
-      final Arez_DaggerDisabledRepository that = (Arez_DaggerDisabledRepository) o;;
+      final Arez_DaggerDisabledRepository that = (Arez_DaggerDisabledRepository) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

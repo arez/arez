@@ -209,7 +209,7 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
     } else if ( null == o || !(o instanceof Arez_RepositoryWithMultipleCtors) ) {
       return false;
     } else {
-      final Arez_RepositoryWithMultipleCtors that = (Arez_RepositoryWithMultipleCtors) o;;
+      final Arez_RepositoryWithMultipleCtors that = (Arez_RepositoryWithMultipleCtors) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

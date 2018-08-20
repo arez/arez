@@ -183,7 +183,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
       } else if ( null == o || !(o instanceof NonGetterInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final NonGetterInverseModel_Arez_Element that = (NonGetterInverseModel_Arez_Element) o;;
+        final NonGetterInverseModel_Arez_Element that = (NonGetterInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

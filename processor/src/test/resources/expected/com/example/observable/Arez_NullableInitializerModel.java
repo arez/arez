@@ -158,7 +158,7 @@ public final class Arez_NullableInitializerModel extends NullableInitializerMode
       } else if ( null == o || !(o instanceof Arez_NullableInitializerModel) ) {
         return false;
       } else {
-        final Arez_NullableInitializerModel that = (Arez_NullableInitializerModel) o;;
+        final Arez_NullableInitializerModel that = (Arez_NullableInitializerModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

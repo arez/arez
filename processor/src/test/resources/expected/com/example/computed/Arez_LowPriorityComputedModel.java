@@ -140,7 +140,7 @@ public final class Arez_LowPriorityComputedModel extends LowPriorityComputedMode
       } else if ( null == o || !(o instanceof Arez_LowPriorityComputedModel) ) {
         return false;
       } else {
-        final Arez_LowPriorityComputedModel that = (Arez_LowPriorityComputedModel) o;;
+        final Arez_LowPriorityComputedModel that = (Arez_LowPriorityComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

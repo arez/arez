@@ -179,7 +179,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
       } else if ( null == o || !(o instanceof Arez_NullableLazyLoadReferenceModel) ) {
         return false;
       } else {
-        final Arez_NullableLazyLoadReferenceModel that = (Arez_NullableLazyLoadReferenceModel) o;;
+        final Arez_NullableLazyLoadReferenceModel that = (Arez_NullableLazyLoadReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

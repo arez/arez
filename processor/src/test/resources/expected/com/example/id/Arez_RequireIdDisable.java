@@ -124,7 +124,7 @@ final class Arez_RequireIdDisable extends RequireIdDisable implements Disposable
       } else if ( null == o || !(o instanceof Arez_RequireIdDisable) ) {
         return false;
       } else {
-        final Arez_RequireIdDisable that = (Arez_RequireIdDisable) o;;
+        final Arez_RequireIdDisable that = (Arez_RequireIdDisable) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -143,7 +143,7 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
       } else if ( null == o || !(o instanceof Arez_ProtectedAccessComponent) ) {
         return false;
       } else {
-        final Arez_ProtectedAccessComponent that = (Arez_ProtectedAccessComponent) o;;
+        final Arez_ProtectedAccessComponent that = (Arez_ProtectedAccessComponent) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

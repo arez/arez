@@ -183,7 +183,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
       } else if ( null == o || !(o instanceof ObservableSetInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final ObservableSetInverseModel_Arez_Element that = (ObservableSetInverseModel_Arez_Element) o;;
+        final ObservableSetInverseModel_Arez_Element that = (ObservableSetInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

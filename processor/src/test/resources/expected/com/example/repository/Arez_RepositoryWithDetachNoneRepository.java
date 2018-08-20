@@ -154,7 +154,7 @@ final class Arez_RepositoryWithDetachNoneRepository extends RepositoryWithDetach
       } else if ( null == o || !(o instanceof Arez_RepositoryWithDetachNoneRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithDetachNoneRepository that = (Arez_RepositoryWithDetachNoneRepository) o;;
+        final Arez_RepositoryWithDetachNoneRepository that = (Arez_RepositoryWithDetachNoneRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

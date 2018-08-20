@@ -152,7 +152,7 @@ final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel implement
       } else if ( null == o || !(o instanceof Arez_ReduceAccessLevelModel) ) {
         return false;
       } else {
-        final Arez_ReduceAccessLevelModel that = (Arez_ReduceAccessLevelModel) o;;
+        final Arez_ReduceAccessLevelModel that = (Arez_ReduceAccessLevelModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

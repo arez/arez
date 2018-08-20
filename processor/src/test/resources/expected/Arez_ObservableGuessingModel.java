@@ -205,7 +205,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
       } else if ( null == o || !(o instanceof Arez_ObservableGuessingModel) ) {
         return false;
       } else {
-        final Arez_ObservableGuessingModel that = (Arez_ObservableGuessingModel) o;;
+        final Arez_ObservableGuessingModel that = (Arez_ObservableGuessingModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

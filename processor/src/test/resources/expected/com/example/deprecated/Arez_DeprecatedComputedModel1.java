@@ -139,7 +139,7 @@ public final class Arez_DeprecatedComputedModel1 extends DeprecatedComputedModel
       } else if ( null == o || !(o instanceof Arez_DeprecatedComputedModel1) ) {
         return false;
       } else {
-        final Arez_DeprecatedComputedModel1 that = (Arez_DeprecatedComputedModel1) o;;
+        final Arez_DeprecatedComputedModel1 that = (Arez_DeprecatedComputedModel1) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

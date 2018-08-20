@@ -138,7 +138,7 @@ public final class Arez_BasicActionModel extends BasicActionModel implements Dis
       } else if ( null == o || !(o instanceof Arez_BasicActionModel) ) {
         return false;
       } else {
-        final Arez_BasicActionModel that = (Arez_BasicActionModel) o;;
+        final Arez_BasicActionModel that = (Arez_BasicActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

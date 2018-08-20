@@ -178,7 +178,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel impleme
       } else if ( null == o || !(o instanceof Arez_EagerLoadReferenceModel) ) {
         return false;
       } else {
-        final Arez_EagerLoadReferenceModel that = (Arez_EagerLoadReferenceModel) o;;
+        final Arez_EagerLoadReferenceModel that = (Arez_EagerLoadReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

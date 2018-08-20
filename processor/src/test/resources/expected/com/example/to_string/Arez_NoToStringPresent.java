@@ -124,7 +124,7 @@ public final class Arez_NoToStringPresent extends NoToStringPresent implements D
       } else if ( null == o || !(o instanceof Arez_NoToStringPresent) ) {
         return false;
       } else {
-        final Arez_NoToStringPresent that = (Arez_NoToStringPresent) o;;
+        final Arez_NoToStringPresent that = (Arez_NoToStringPresent) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

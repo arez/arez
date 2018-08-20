@@ -168,7 +168,7 @@ public final class Arez_ObservableNonnullMapModel extends ObservableNonnullMapMo
       } else if ( null == o || !(o instanceof Arez_ObservableNonnullMapModel) ) {
         return false;
       } else {
-        final Arez_ObservableNonnullMapModel that = (Arez_ObservableNonnullMapModel) o;;
+        final Arez_ObservableNonnullMapModel that = (Arez_ObservableNonnullMapModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

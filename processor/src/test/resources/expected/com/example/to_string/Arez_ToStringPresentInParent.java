@@ -124,7 +124,7 @@ public final class Arez_ToStringPresentInParent extends ToStringPresentInParent 
       } else if ( null == o || !(o instanceof Arez_ToStringPresentInParent) ) {
         return false;
       } else {
-        final Arez_ToStringPresentInParent that = (Arez_ToStringPresentInParent) o;;
+        final Arez_ToStringPresentInParent that = (Arez_ToStringPresentInParent) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

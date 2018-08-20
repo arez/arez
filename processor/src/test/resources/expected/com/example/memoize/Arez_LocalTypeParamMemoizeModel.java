@@ -140,7 +140,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
       } else if ( null == o || !(o instanceof Arez_LocalTypeParamMemoizeModel) ) {
         return false;
       } else {
-        final Arez_LocalTypeParamMemoizeModel that = (Arez_LocalTypeParamMemoizeModel) o;;
+        final Arez_LocalTypeParamMemoizeModel that = (Arez_LocalTypeParamMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

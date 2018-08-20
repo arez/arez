@@ -250,7 +250,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
       } else if ( null == o || !(o instanceof MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) ) {
         return false;
       } else {
-        final MultipleReferenceWithInverseWithSameTarget_Arez_RoleType that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) o;;
+        final MultipleReferenceWithInverseWithSameTarget_Arez_RoleType that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -114,7 +114,7 @@ public final class Arez_LongComponentId extends LongComponentId implements Dispo
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_LongComponentId that = (Arez_LongComponentId) o;;
+        final Arez_LongComponentId that = (Arez_LongComponentId) o;
         return getId() == that.getId();
       }
     } else {

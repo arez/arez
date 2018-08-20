@@ -163,7 +163,7 @@ public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateMode
       } else if ( null == o || !(o instanceof Arez_DisposeOnDeactivateModel) ) {
         return false;
       } else {
-        final Arez_DisposeOnDeactivateModel that = (Arez_DisposeOnDeactivateModel) o;;
+        final Arez_DisposeOnDeactivateModel that = (Arez_DisposeOnDeactivateModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

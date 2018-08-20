@@ -235,7 +235,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
       } else if ( null == o || !(o instanceof MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) ) {
         return false;
       } else {
-        final MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) o;;
+        final MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

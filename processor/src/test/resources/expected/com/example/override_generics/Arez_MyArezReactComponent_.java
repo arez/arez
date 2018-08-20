@@ -124,7 +124,7 @@ public final class Arez_MyArezReactComponent_ extends MyArezReactComponent_ impl
       } else if ( null == o || !(o instanceof Arez_MyArezReactComponent_) ) {
         return false;
       } else {
-        final Arez_MyArezReactComponent_ that = (Arez_MyArezReactComponent_) o;;
+        final Arez_MyArezReactComponent_ that = (Arez_MyArezReactComponent_) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

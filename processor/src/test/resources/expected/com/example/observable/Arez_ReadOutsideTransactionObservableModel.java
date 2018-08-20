@@ -159,7 +159,7 @@ public final class Arez_ReadOutsideTransactionObservableModel extends ReadOutsid
       } else if ( null == o || !(o instanceof Arez_ReadOutsideTransactionObservableModel) ) {
         return false;
       } else {
-        final Arez_ReadOutsideTransactionObservableModel that = (Arez_ReadOutsideTransactionObservableModel) o;;
+        final Arez_ReadOutsideTransactionObservableModel that = (Arez_ReadOutsideTransactionObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

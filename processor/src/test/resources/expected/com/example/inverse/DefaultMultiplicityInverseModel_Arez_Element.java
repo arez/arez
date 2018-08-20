@@ -183,7 +183,7 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
       } else if ( null == o || !(o instanceof DefaultMultiplicityInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final DefaultMultiplicityInverseModel_Arez_Element that = (DefaultMultiplicityInverseModel_Arez_Element) o;;
+        final DefaultMultiplicityInverseModel_Arez_Element that = (DefaultMultiplicityInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

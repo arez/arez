@@ -138,7 +138,7 @@ public final class Arez_NotObservableModel extends NotObservableModel implements
       } else if ( null == o || !(o instanceof Arez_NotObservableModel) ) {
         return false;
       } else {
-        final Arez_NotObservableModel that = (Arez_NotObservableModel) o;;
+        final Arez_NotObservableModel that = (Arez_NotObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

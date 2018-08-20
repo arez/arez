@@ -140,7 +140,7 @@ public final class Arez_MultiThrowAction extends MultiThrowAction implements Dis
       } else if ( null == o || !(o instanceof Arez_MultiThrowAction) ) {
         return false;
       } else {
-        final Arez_MultiThrowAction that = (Arez_MultiThrowAction) o;;
+        final Arez_MultiThrowAction that = (Arez_MultiThrowAction) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

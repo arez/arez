@@ -144,7 +144,7 @@ public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTracked
       } else if ( null == o || !(o instanceof Arez_NormalPriorityTrackedModel) ) {
         return false;
       } else {
-        final Arez_NormalPriorityTrackedModel that = (Arez_NormalPriorityTrackedModel) o;;
+        final Arez_NormalPriorityTrackedModel that = (Arez_NormalPriorityTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

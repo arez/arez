@@ -138,7 +138,7 @@ public final class Arez_AnnotatedConcreteModel extends AnnotatedConcreteModel im
       } else if ( null == o || !(o instanceof Arez_AnnotatedConcreteModel) ) {
         return false;
       } else {
-        final Arez_AnnotatedConcreteModel that = (Arez_AnnotatedConcreteModel) o;;
+        final Arez_AnnotatedConcreteModel that = (Arez_AnnotatedConcreteModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

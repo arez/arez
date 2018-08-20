@@ -138,7 +138,7 @@ public final class Arez_ActionTypeParametersModel<T extends Integer> extends Act
       } else if ( null == o || !(o instanceof Arez_ActionTypeParametersModel) ) {
         return false;
       } else {
-        final Arez_ActionTypeParametersModel that = (Arez_ActionTypeParametersModel) o;;
+        final Arez_ActionTypeParametersModel that = (Arez_ActionTypeParametersModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

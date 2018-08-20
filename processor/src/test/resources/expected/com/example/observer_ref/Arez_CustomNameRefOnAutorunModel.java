@@ -150,7 +150,7 @@ public final class Arez_CustomNameRefOnAutorunModel extends CustomNameRefOnAutor
       } else if ( null == o || !(o instanceof Arez_CustomNameRefOnAutorunModel) ) {
         return false;
       } else {
-        final Arez_CustomNameRefOnAutorunModel that = (Arez_CustomNameRefOnAutorunModel) o;;
+        final Arez_CustomNameRefOnAutorunModel that = (Arez_CustomNameRefOnAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

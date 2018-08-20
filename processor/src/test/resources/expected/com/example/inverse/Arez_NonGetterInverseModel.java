@@ -210,7 +210,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel implements 
       } else if ( null == o || !(o instanceof Arez_NonGetterInverseModel) ) {
         return false;
       } else {
-        final Arez_NonGetterInverseModel that = (Arez_NonGetterInverseModel) o;;
+        final Arez_NonGetterInverseModel that = (Arez_NonGetterInverseModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

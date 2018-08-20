@@ -173,7 +173,7 @@ public final class Arez_ComputedMapModel extends ComputedMapModel implements Dis
       } else if ( null == o || !(o instanceof Arez_ComputedMapModel) ) {
         return false;
       } else {
-        final Arez_ComputedMapModel that = (Arez_ComputedMapModel) o;;
+        final Arez_ComputedMapModel that = (Arez_ComputedMapModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

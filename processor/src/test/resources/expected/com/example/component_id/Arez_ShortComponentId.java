@@ -114,7 +114,7 @@ public final class Arez_ShortComponentId extends ShortComponentId implements Dis
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_ShortComponentId that = (Arez_ShortComponentId) o;;
+        final Arez_ShortComponentId that = (Arez_ShortComponentId) o;
         return getId() == that.getId();
       }
     } else {

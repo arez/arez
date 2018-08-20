@@ -170,7 +170,7 @@ public final class Arez_AbstractCollectionObservableModel extends AbstractCollec
       } else if ( null == o || !(o instanceof Arez_AbstractCollectionObservableModel) ) {
         return false;
       } else {
-        final Arez_AbstractCollectionObservableModel that = (Arez_AbstractCollectionObservableModel) o;;
+        final Arez_AbstractCollectionObservableModel that = (Arez_AbstractCollectionObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

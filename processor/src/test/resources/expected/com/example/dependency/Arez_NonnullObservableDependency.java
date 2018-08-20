@@ -163,7 +163,7 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
       } else if ( null == o || !(o instanceof Arez_NonnullObservableDependency) ) {
         return false;
       } else {
-        final Arez_NonnullObservableDependency that = (Arez_NonnullObservableDependency) o;;
+        final Arez_NonnullObservableDependency that = (Arez_NonnullObservableDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

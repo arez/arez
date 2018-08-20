@@ -212,7 +212,7 @@ final class Arez_LazyLoadObservableReferenceModel extends LazyLoadObservableRefe
       } else if ( null == o || !(o instanceof Arez_LazyLoadObservableReferenceModel) ) {
         return false;
       } else {
-        final Arez_LazyLoadObservableReferenceModel that = (Arez_LazyLoadObservableReferenceModel) o;;
+        final Arez_LazyLoadObservableReferenceModel that = (Arez_LazyLoadObservableReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

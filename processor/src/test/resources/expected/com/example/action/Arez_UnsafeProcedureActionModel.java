@@ -138,7 +138,7 @@ public final class Arez_UnsafeProcedureActionModel extends UnsafeProcedureAction
       } else if ( null == o || !(o instanceof Arez_UnsafeProcedureActionModel) ) {
         return false;
       } else {
-        final Arez_UnsafeProcedureActionModel that = (Arez_UnsafeProcedureActionModel) o;;
+        final Arez_UnsafeProcedureActionModel that = (Arez_UnsafeProcedureActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

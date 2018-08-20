@@ -114,7 +114,7 @@ public final class Arez_ObjectComponentId extends ObjectComponentId implements D
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_ObjectComponentId that = (Arez_ObjectComponentId) o;;
+        final Arez_ObjectComponentId that = (Arez_ObjectComponentId) o;
         return null != getId() && getId().equals( that.getId() );
       }
     } else {

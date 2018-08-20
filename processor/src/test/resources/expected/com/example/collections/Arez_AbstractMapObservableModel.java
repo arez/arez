@@ -170,7 +170,7 @@ public final class Arez_AbstractMapObservableModel extends AbstractMapObservable
       } else if ( null == o || !(o instanceof Arez_AbstractMapObservableModel) ) {
         return false;
       } else {
-        final Arez_AbstractMapObservableModel that = (Arez_AbstractMapObservableModel) o;;
+        final Arez_AbstractMapObservableModel that = (Arez_AbstractMapObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

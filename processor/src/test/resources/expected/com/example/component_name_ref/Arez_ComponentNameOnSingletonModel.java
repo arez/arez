@@ -138,7 +138,7 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
       } else if ( null == o || !(o instanceof Arez_ComponentNameOnSingletonModel) ) {
         return false;
       } else {
-        final Arez_ComponentNameOnSingletonModel that = (Arez_ComponentNameOnSingletonModel) o;;
+        final Arez_ComponentNameOnSingletonModel that = (Arez_ComponentNameOnSingletonModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

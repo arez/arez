@@ -210,7 +210,7 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
       } else if ( null == o || !(o instanceof Arez_NonObservableNullableManyReferenceModel) ) {
         return false;
       } else {
-        final Arez_NonObservableNullableManyReferenceModel that = (Arez_NonObservableNullableManyReferenceModel) o;;
+        final Arez_NonObservableNullableManyReferenceModel that = (Arez_NonObservableNullableManyReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

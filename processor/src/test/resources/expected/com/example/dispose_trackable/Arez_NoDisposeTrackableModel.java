@@ -122,7 +122,7 @@ public final class Arez_NoDisposeTrackableModel extends NoDisposeTrackableModel 
       } else if ( null == o || !(o instanceof Arez_NoDisposeTrackableModel) ) {
         return false;
       } else {
-        final Arez_NoDisposeTrackableModel that = (Arez_NoDisposeTrackableModel) o;;
+        final Arez_NoDisposeTrackableModel that = (Arez_NoDisposeTrackableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

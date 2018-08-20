@@ -140,7 +140,7 @@ public final class Arez_BasicInjectModel extends BasicInjectModel implements Dis
       } else if ( null == o || !(o instanceof Arez_BasicInjectModel) ) {
         return false;
       } else {
-        final Arez_BasicInjectModel that = (Arez_BasicInjectModel) o;;
+        final Arez_BasicInjectModel that = (Arez_BasicInjectModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

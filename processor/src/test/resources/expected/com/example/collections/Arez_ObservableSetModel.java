@@ -168,7 +168,7 @@ public final class Arez_ObservableSetModel extends ObservableSetModel implements
       } else if ( null == o || !(o instanceof Arez_ObservableSetModel) ) {
         return false;
       } else {
-        final Arez_ObservableSetModel that = (Arez_ObservableSetModel) o;;
+        final Arez_ObservableSetModel that = (Arez_ObservableSetModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -138,7 +138,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
       } else if ( null == o || !(o instanceof Arez_ReadOnlyActionModel) ) {
         return false;
       } else {
-        final Arez_ReadOnlyActionModel that = (Arez_ReadOnlyActionModel) o;;
+        final Arez_ReadOnlyActionModel that = (Arez_ReadOnlyActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

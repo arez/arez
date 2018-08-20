@@ -168,7 +168,7 @@ public final class Arez_ObservableNonnullCollectionModel extends ObservableNonnu
       } else if ( null == o || !(o instanceof Arez_ObservableNonnullCollectionModel) ) {
         return false;
       } else {
-        final Arez_ObservableNonnullCollectionModel that = (Arez_ObservableNonnullCollectionModel) o;;
+        final Arez_ObservableNonnullCollectionModel that = (Arez_ObservableNonnullCollectionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

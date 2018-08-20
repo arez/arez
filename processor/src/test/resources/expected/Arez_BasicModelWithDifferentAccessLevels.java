@@ -264,7 +264,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       } else if ( null == o || !(o instanceof Arez_BasicModelWithDifferentAccessLevels) ) {
         return false;
       } else {
-        final Arez_BasicModelWithDifferentAccessLevels that = (Arez_BasicModelWithDifferentAccessLevels) o;;
+        final Arez_BasicModelWithDifferentAccessLevels that = (Arez_BasicModelWithDifferentAccessLevels) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

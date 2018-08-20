@@ -159,7 +159,7 @@ final class Arez_RepositoryWithExplicitNonStandardId extends RepositoryWithExpli
     } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
       return false;
     } else {
-      final Arez_RepositoryWithExplicitNonStandardId that = (Arez_RepositoryWithExplicitNonStandardId) o;;
+      final Arez_RepositoryWithExplicitNonStandardId that = (Arez_RepositoryWithExplicitNonStandardId) o;
       return object_id() == that.object_id();
     }
   }

@@ -139,7 +139,7 @@ public final class Arez_NormalPriorityComputedModel extends NormalPriorityComput
       } else if ( null == o || !(o instanceof Arez_NormalPriorityComputedModel) ) {
         return false;
       } else {
-        final Arez_NormalPriorityComputedModel that = (Arez_NormalPriorityComputedModel) o;;
+        final Arez_NormalPriorityComputedModel that = (Arez_NormalPriorityComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -138,7 +138,7 @@ public final class Arez_GenericsModel extends GenericsModel implements Disposabl
       } else if ( null == o || !(o instanceof Arez_GenericsModel) ) {
         return false;
       } else {
-        final Arez_GenericsModel that = (Arez_GenericsModel) o;;
+        final Arez_GenericsModel that = (Arez_GenericsModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

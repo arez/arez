@@ -168,7 +168,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
       } else if ( null == o || !(o instanceof Arez_NestedModel_BasicActionModelRepository) ) {
         return false;
       } else {
-        final Arez_NestedModel_BasicActionModelRepository that = (Arez_NestedModel_BasicActionModelRepository) o;;
+        final Arez_NestedModel_BasicActionModelRepository that = (Arez_NestedModel_BasicActionModelRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -139,7 +139,7 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
       } else if ( null == o || !(o instanceof Arez_UnsafeSpecificProcedureActionModel) ) {
         return false;
       } else {
-        final Arez_UnsafeSpecificProcedureActionModel that = (Arez_UnsafeSpecificProcedureActionModel) o;;
+        final Arez_UnsafeSpecificProcedureActionModel that = (Arez_UnsafeSpecificProcedureActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

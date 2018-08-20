@@ -177,7 +177,7 @@ final class Arez_NonnullLazyLoadReferenceModel extends NonnullLazyLoadReferenceM
       } else if ( null == o || !(o instanceof Arez_NonnullLazyLoadReferenceModel) ) {
         return false;
       } else {
-        final Arez_NonnullLazyLoadReferenceModel that = (Arez_NonnullLazyLoadReferenceModel) o;;
+        final Arez_NonnullLazyLoadReferenceModel that = (Arez_NonnullLazyLoadReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

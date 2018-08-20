@@ -145,7 +145,7 @@ public final class Arez_HighestPriorityTrackedModel extends HighestPriorityTrack
       } else if ( null == o || !(o instanceof Arez_HighestPriorityTrackedModel) ) {
         return false;
       } else {
-        final Arez_HighestPriorityTrackedModel that = (Arez_HighestPriorityTrackedModel) o;;
+        final Arez_HighestPriorityTrackedModel that = (Arez_HighestPriorityTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

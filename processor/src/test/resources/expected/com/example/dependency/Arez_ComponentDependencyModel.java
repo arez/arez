@@ -136,7 +136,7 @@ public final class Arez_ComponentDependencyModel extends ComponentDependencyMode
       } else if ( null == o || !(o instanceof Arez_ComponentDependencyModel) ) {
         return false;
       } else {
-        final Arez_ComponentDependencyModel that = (Arez_ComponentDependencyModel) o;;
+        final Arez_ComponentDependencyModel that = (Arez_ComponentDependencyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

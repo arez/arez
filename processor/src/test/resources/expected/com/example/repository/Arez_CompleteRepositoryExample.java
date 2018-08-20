@@ -231,7 +231,7 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
       return false;
     } else {
-      final Arez_CompleteRepositoryExample that = (Arez_CompleteRepositoryExample) o;;
+      final Arez_CompleteRepositoryExample that = (Arez_CompleteRepositoryExample) o;
       return getId() == that.getId();
     }
   }

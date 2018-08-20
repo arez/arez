@@ -136,7 +136,7 @@ public final class Arez_TypeParametersOnModel<T extends Integer> extends TypePar
       } else if ( null == o || !(o instanceof Arez_TypeParametersOnModel) ) {
         return false;
       } else {
-        final Arez_TypeParametersOnModel that = (Arez_TypeParametersOnModel) o;;
+        final Arez_TypeParametersOnModel that = (Arez_TypeParametersOnModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

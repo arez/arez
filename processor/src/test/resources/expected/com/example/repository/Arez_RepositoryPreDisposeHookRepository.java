@@ -168,7 +168,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
       } else if ( null == o || !(o instanceof Arez_RepositoryPreDisposeHookRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryPreDisposeHookRepository that = (Arez_RepositoryPreDisposeHookRepository) o;;
+        final Arez_RepositoryPreDisposeHookRepository that = (Arez_RepositoryPreDisposeHookRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -173,7 +173,7 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
       } else if ( null == o || !(o instanceof Arez_AbstractObservableDependency) ) {
         return false;
       } else {
-        final Arez_AbstractObservableDependency that = (Arez_AbstractObservableDependency) o;;
+        final Arez_AbstractObservableDependency that = (Arez_AbstractObservableDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

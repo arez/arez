@@ -139,7 +139,7 @@ public final class Arez_BasicMemoizeModel extends BasicMemoizeModel implements D
       } else if ( null == o || !(o instanceof Arez_BasicMemoizeModel) ) {
         return false;
       } else {
-        final Arez_BasicMemoizeModel that = (Arez_BasicMemoizeModel) o;;
+        final Arez_BasicMemoizeModel that = (Arez_BasicMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

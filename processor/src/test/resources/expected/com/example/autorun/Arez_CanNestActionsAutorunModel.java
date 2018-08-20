@@ -143,7 +143,7 @@ public final class Arez_CanNestActionsAutorunModel extends CanNestActionsAutorun
       } else if ( null == o || !(o instanceof Arez_CanNestActionsAutorunModel) ) {
         return false;
       } else {
-        final Arez_CanNestActionsAutorunModel that = (Arez_CanNestActionsAutorunModel) o;;
+        final Arez_CanNestActionsAutorunModel that = (Arez_CanNestActionsAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

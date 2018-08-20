@@ -168,7 +168,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
       } else if ( null == o || !(o instanceof Arez_RepositoryWithSingletonRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithSingletonRepository that = (Arez_RepositoryWithSingletonRepository) o;;
+        final Arez_RepositoryWithSingletonRepository that = (Arez_RepositoryWithSingletonRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

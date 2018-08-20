@@ -138,7 +138,7 @@ public final class Arez_DisposeTrackableModel extends DisposeTrackableModel impl
       } else if ( null == o || !(o instanceof Arez_DisposeTrackableModel) ) {
         return false;
       } else {
-        final Arez_DisposeTrackableModel that = (Arez_DisposeTrackableModel) o;;
+        final Arez_DisposeTrackableModel that = (Arez_DisposeTrackableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

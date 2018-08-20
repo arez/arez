@@ -210,7 +210,7 @@ final class Arez_EagerLoadObservableReferenceModel extends EagerLoadObservableRe
       } else if ( null == o || !(o instanceof Arez_EagerLoadObservableReferenceModel) ) {
         return false;
       } else {
-        final Arez_EagerLoadObservableReferenceModel that = (Arez_EagerLoadObservableReferenceModel) o;;
+        final Arez_EagerLoadObservableReferenceModel that = (Arez_EagerLoadObservableReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

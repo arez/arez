@@ -159,7 +159,7 @@ public final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends Abst
       } else if ( null == o || !(o instanceof Arez_AbstractNonPrimitiveNonnullObservablesModel) ) {
         return false;
       } else {
-        final Arez_AbstractNonPrimitiveNonnullObservablesModel that = (Arez_AbstractNonPrimitiveNonnullObservablesModel) o;;
+        final Arez_AbstractNonPrimitiveNonnullObservablesModel that = (Arez_AbstractNonPrimitiveNonnullObservablesModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

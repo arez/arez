@@ -143,7 +143,7 @@ public final class Arez_HighestPriorityAutorunModel extends HighestPriorityAutor
       } else if ( null == o || !(o instanceof Arez_HighestPriorityAutorunModel) ) {
         return false;
       } else {
-        final Arez_HighestPriorityAutorunModel that = (Arez_HighestPriorityAutorunModel) o;;
+        final Arez_HighestPriorityAutorunModel that = (Arez_HighestPriorityAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

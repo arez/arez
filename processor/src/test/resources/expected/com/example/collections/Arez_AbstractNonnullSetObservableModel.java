@@ -170,7 +170,7 @@ public final class Arez_AbstractNonnullSetObservableModel extends AbstractNonnul
       } else if ( null == o || !(o instanceof Arez_AbstractNonnullSetObservableModel) ) {
         return false;
       } else {
-        final Arez_AbstractNonnullSetObservableModel that = (Arez_AbstractNonnullSetObservableModel) o;;
+        final Arez_AbstractNonnullSetObservableModel that = (Arez_AbstractNonnullSetObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

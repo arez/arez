@@ -177,7 +177,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
       } else if ( null == o || !(o instanceof Arez_LazyLoadReferenceModel) ) {
         return false;
       } else {
-        final Arez_LazyLoadReferenceModel that = (Arez_LazyLoadReferenceModel) o;;
+        final Arez_LazyLoadReferenceModel that = (Arez_LazyLoadReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

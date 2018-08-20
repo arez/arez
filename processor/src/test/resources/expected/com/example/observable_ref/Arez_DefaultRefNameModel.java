@@ -161,7 +161,7 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
       } else if ( null == o || !(o instanceof Arez_DefaultRefNameModel) ) {
         return false;
       } else {
-        final Arez_DefaultRefNameModel that = (Arez_DefaultRefNameModel) o;;
+        final Arez_DefaultRefNameModel that = (Arez_DefaultRefNameModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

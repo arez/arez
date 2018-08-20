@@ -144,7 +144,7 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
       } else if ( null == o || !(o instanceof Arez_DeriveTrackedModel) ) {
         return false;
       } else {
-        final Arez_DeriveTrackedModel that = (Arez_DeriveTrackedModel) o;;
+        final Arez_DeriveTrackedModel that = (Arez_DeriveTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

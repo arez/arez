@@ -139,7 +139,7 @@ public final class Arez_BasicComputedModel extends BasicComputedModel implements
       } else if ( null == o || !(o instanceof Arez_BasicComputedModel) ) {
         return false;
       } else {
-        final Arez_BasicComputedModel that = (Arez_BasicComputedModel) o;;
+        final Arez_BasicComputedModel that = (Arez_BasicComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

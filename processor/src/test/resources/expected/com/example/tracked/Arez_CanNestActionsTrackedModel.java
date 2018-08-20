@@ -145,7 +145,7 @@ public final class Arez_CanNestActionsTrackedModel extends CanNestActionsTracked
       } else if ( null == o || !(o instanceof Arez_CanNestActionsTrackedModel) ) {
         return false;
       } else {
-        final Arez_CanNestActionsTrackedModel that = (Arez_CanNestActionsTrackedModel) o;;
+        final Arez_CanNestActionsTrackedModel that = (Arez_CanNestActionsTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

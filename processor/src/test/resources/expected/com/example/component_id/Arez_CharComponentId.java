@@ -114,7 +114,7 @@ public final class Arez_CharComponentId extends CharComponentId implements Dispo
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_CharComponentId that = (Arez_CharComponentId) o;;
+        final Arez_CharComponentId that = (Arez_CharComponentId) o;
         return getId() == that.getId();
       }
     } else {

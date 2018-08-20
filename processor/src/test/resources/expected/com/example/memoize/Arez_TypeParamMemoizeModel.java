@@ -139,7 +139,7 @@ public final class Arez_TypeParamMemoizeModel<T> extends TypeParamMemoizeModel<T
       } else if ( null == o || !(o instanceof Arez_TypeParamMemoizeModel) ) {
         return false;
       } else {
-        final Arez_TypeParamMemoizeModel that = (Arez_TypeParamMemoizeModel) o;;
+        final Arez_TypeParamMemoizeModel that = (Arez_TypeParamMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

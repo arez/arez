@@ -143,7 +143,7 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
       } else if ( null == o || !(o instanceof Arez_ComponentTypeNameModel) ) {
         return false;
       } else {
-        final Arez_ComponentTypeNameModel that = (Arez_ComponentTypeNameModel) o;;
+        final Arez_ComponentTypeNameModel that = (Arez_ComponentTypeNameModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

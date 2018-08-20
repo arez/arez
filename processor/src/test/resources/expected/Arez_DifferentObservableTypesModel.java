@@ -367,7 +367,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       } else if ( null == o || !(o instanceof Arez_DifferentObservableTypesModel) ) {
         return false;
       } else {
-        final Arez_DifferentObservableTypesModel that = (Arez_DifferentObservableTypesModel) o;;
+        final Arez_DifferentObservableTypesModel that = (Arez_DifferentObservableTypesModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

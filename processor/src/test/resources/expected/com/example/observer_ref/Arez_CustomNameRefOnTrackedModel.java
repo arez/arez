@@ -152,7 +152,7 @@ public final class Arez_CustomNameRefOnTrackedModel extends CustomNameRefOnTrack
       } else if ( null == o || !(o instanceof Arez_CustomNameRefOnTrackedModel) ) {
         return false;
       } else {
-        final Arez_CustomNameRefOnTrackedModel that = (Arez_CustomNameRefOnTrackedModel) o;;
+        final Arez_CustomNameRefOnTrackedModel that = (Arez_CustomNameRefOnTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

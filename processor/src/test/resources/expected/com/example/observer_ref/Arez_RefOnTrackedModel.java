@@ -152,7 +152,7 @@ public final class Arez_RefOnTrackedModel extends RefOnTrackedModel implements D
       } else if ( null == o || !(o instanceof Arez_RefOnTrackedModel) ) {
         return false;
       } else {
-        final Arez_RefOnTrackedModel that = (Arez_RefOnTrackedModel) o;;
+        final Arez_RefOnTrackedModel that = (Arez_RefOnTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

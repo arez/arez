@@ -166,7 +166,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
       } else if ( null == o || !(o instanceof Arez_NonnullAbstractObservableDependency) ) {
         return false;
       } else {
-        final Arez_NonnullAbstractObservableDependency that = (Arez_NonnullAbstractObservableDependency) o;;
+        final Arez_NonnullAbstractObservableDependency that = (Arez_NonnullAbstractObservableDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

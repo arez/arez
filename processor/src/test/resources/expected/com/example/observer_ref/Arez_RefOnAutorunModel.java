@@ -150,7 +150,7 @@ public final class Arez_RefOnAutorunModel extends RefOnAutorunModel implements D
       } else if ( null == o || !(o instanceof Arez_RefOnAutorunModel) ) {
         return false;
       } else {
-        final Arez_RefOnAutorunModel that = (Arez_RefOnAutorunModel) o;;
+        final Arez_RefOnAutorunModel that = (Arez_RefOnAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

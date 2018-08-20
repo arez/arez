@@ -147,7 +147,7 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
       } else if ( null == o || !(o instanceof Arez_RawComputedValueModel) ) {
         return false;
       } else {
-        final Arez_RawComputedValueModel that = (Arez_RawComputedValueModel) o;;
+        final Arez_RawComputedValueModel that = (Arez_RawComputedValueModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

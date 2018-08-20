@@ -142,7 +142,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_ComponentIdOnSingletonModel that = (Arez_ComponentIdOnSingletonModel) o;;
+        final Arez_ComponentIdOnSingletonModel that = (Arez_ComponentIdOnSingletonModel) o;
         return getId() == that.getId();
       }
     } else {

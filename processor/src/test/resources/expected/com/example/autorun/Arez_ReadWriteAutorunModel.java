@@ -142,7 +142,7 @@ public final class Arez_ReadWriteAutorunModel extends ReadWriteAutorunModel impl
       } else if ( null == o || !(o instanceof Arez_ReadWriteAutorunModel) ) {
         return false;
       } else {
-        final Arez_ReadWriteAutorunModel that = (Arez_ReadWriteAutorunModel) o;;
+        final Arez_ReadWriteAutorunModel that = (Arez_ReadWriteAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

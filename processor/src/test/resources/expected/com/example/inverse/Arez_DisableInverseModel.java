@@ -124,7 +124,7 @@ final class Arez_DisableInverseModel extends DisableInverseModel implements Disp
       } else if ( null == o || !(o instanceof Arez_DisableInverseModel) ) {
         return false;
       } else {
-        final Arez_DisableInverseModel that = (Arez_DisableInverseModel) o;;
+        final Arez_DisableInverseModel that = (Arez_DisableInverseModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

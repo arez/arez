@@ -167,7 +167,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
       } else if ( null == o || !(o instanceof Arez_MyModel) ) {
         return false;
       } else {
-        final Arez_MyModel that = (Arez_MyModel) o;;
+        final Arez_MyModel that = (Arez_MyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

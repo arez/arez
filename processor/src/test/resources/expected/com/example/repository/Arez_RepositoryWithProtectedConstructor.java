@@ -165,7 +165,7 @@ final class Arez_RepositoryWithProtectedConstructor extends RepositoryWithProtec
     } else if ( null == o || !(o instanceof Arez_RepositoryWithProtectedConstructor) ) {
       return false;
     } else {
-      final Arez_RepositoryWithProtectedConstructor that = (Arez_RepositoryWithProtectedConstructor) o;;
+      final Arez_RepositoryWithProtectedConstructor that = (Arez_RepositoryWithProtectedConstructor) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

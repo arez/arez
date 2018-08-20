@@ -169,7 +169,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
       } else if ( null == o || !(o instanceof Arez_PackageAccessRepositoryExampleRepository) ) {
         return false;
       } else {
-        final Arez_PackageAccessRepositoryExampleRepository that = (Arez_PackageAccessRepositoryExampleRepository) o;;
+        final Arez_PackageAccessRepositoryExampleRepository that = (Arez_PackageAccessRepositoryExampleRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -168,7 +168,7 @@ public final class Arez_ObservableMapModel extends ObservableMapModel implements
       } else if ( null == o || !(o instanceof Arez_ObservableMapModel) ) {
         return false;
       } else {
-        final Arez_ObservableMapModel that = (Arez_ObservableMapModel) o;;
+        final Arez_ObservableMapModel that = (Arez_ObservableMapModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -178,7 +178,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
       } else if ( null == o || !(o instanceof Arez_NonJavabeanNameReferenceModel) ) {
         return false;
       } else {
-        final Arez_NonJavabeanNameReferenceModel that = (Arez_NonJavabeanNameReferenceModel) o;;
+        final Arez_NonJavabeanNameReferenceModel that = (Arez_NonJavabeanNameReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -181,7 +181,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
       } else if ( null == o || !(o instanceof Arez_SubpackageModel) ) {
         return false;
       } else {
-        final Arez_SubpackageModel that = (Arez_SubpackageModel) o;;
+        final Arez_SubpackageModel that = (Arez_SubpackageModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

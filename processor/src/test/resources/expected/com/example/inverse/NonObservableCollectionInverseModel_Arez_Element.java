@@ -183,7 +183,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
       } else if ( null == o || !(o instanceof NonObservableCollectionInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final NonObservableCollectionInverseModel_Arez_Element that = (NonObservableCollectionInverseModel_Arez_Element) o;;
+        final NonObservableCollectionInverseModel_Arez_Element that = (NonObservableCollectionInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

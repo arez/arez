@@ -144,7 +144,7 @@ public final class Arez_DeriveFinalOnDepsChangedModel extends DeriveFinalOnDepsC
       } else if ( null == o || !(o instanceof Arez_DeriveFinalOnDepsChangedModel) ) {
         return false;
       } else {
-        final Arez_DeriveFinalOnDepsChangedModel that = (Arez_DeriveFinalOnDepsChangedModel) o;;
+        final Arez_DeriveFinalOnDepsChangedModel that = (Arez_DeriveFinalOnDepsChangedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

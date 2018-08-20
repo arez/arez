@@ -165,7 +165,7 @@ final class Arez_RepositoryWithCreateOnly extends RepositoryWithCreateOnly imple
     } else if ( null == o || !(o instanceof Arez_RepositoryWithCreateOnly) ) {
       return false;
     } else {
-      final Arez_RepositoryWithCreateOnly that = (Arez_RepositoryWithCreateOnly) o;;
+      final Arez_RepositoryWithCreateOnly that = (Arez_RepositoryWithCreateOnly) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

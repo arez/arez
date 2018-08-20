@@ -165,7 +165,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModel extends RepositoryW
     } else if ( null == o || !(o instanceof Arez_RepositoryWithInitializerNameCollisionModel) ) {
       return false;
     } else {
-      final Arez_RepositoryWithInitializerNameCollisionModel that = (Arez_RepositoryWithInitializerNameCollisionModel) o;;
+      final Arez_RepositoryWithInitializerNameCollisionModel that = (Arez_RepositoryWithInitializerNameCollisionModel) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

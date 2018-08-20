@@ -210,7 +210,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
       } else if ( null == o || !(o instanceof Arez_DefaultMultiplicityInverseModel) ) {
         return false;
       } else {
-        final Arez_DefaultMultiplicityInverseModel that = (Arez_DefaultMultiplicityInverseModel) o;;
+        final Arez_DefaultMultiplicityInverseModel that = (Arez_DefaultMultiplicityInverseModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

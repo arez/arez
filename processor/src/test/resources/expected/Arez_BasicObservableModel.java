@@ -150,7 +150,7 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
       } else if ( null == o || !(o instanceof Arez_BasicObservableModel) ) {
         return false;
       } else {
-        final Arez_BasicObservableModel that = (Arez_BasicObservableModel) o;;
+        final Arez_BasicObservableModel that = (Arez_BasicObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

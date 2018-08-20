@@ -151,7 +151,7 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
       } else if ( null == o || !(o instanceof Arez_ObservableTypeParametersModel) ) {
         return false;
       } else {
-        final Arez_ObservableTypeParametersModel that = (Arez_ObservableTypeParametersModel) o;;
+        final Arez_ObservableTypeParametersModel that = (Arez_ObservableTypeParametersModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

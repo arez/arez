@@ -124,7 +124,7 @@ public final class Arez_ToStringPresent extends ToStringPresent implements Dispo
       } else if ( null == o || !(o instanceof Arez_ToStringPresent) ) {
         return false;
       } else {
-        final Arez_ToStringPresent that = (Arez_ToStringPresent) o;;
+        final Arez_ToStringPresent that = (Arez_ToStringPresent) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

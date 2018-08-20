@@ -140,7 +140,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
       } else if ( null == o || !(o instanceof Arez_PostConstructModel) ) {
         return false;
       } else {
-        final Arez_PostConstructModel that = (Arez_PostConstructModel) o;;
+        final Arez_PostConstructModel that = (Arez_PostConstructModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

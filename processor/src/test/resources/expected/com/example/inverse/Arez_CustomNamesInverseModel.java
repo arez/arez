@@ -210,7 +210,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
       } else if ( null == o || !(o instanceof Arez_CustomNamesInverseModel) ) {
         return false;
       } else {
-        final Arez_CustomNamesInverseModel that = (Arez_CustomNamesInverseModel) o;;
+        final Arez_CustomNamesInverseModel that = (Arez_CustomNamesInverseModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

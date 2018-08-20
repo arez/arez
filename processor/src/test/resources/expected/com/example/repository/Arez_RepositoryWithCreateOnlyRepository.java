@@ -168,7 +168,7 @@ final class Arez_RepositoryWithCreateOnlyRepository extends RepositoryWithCreate
       } else if ( null == o || !(o instanceof Arez_RepositoryWithCreateOnlyRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithCreateOnlyRepository that = (Arez_RepositoryWithCreateOnlyRepository) o;;
+        final Arez_RepositoryWithCreateOnlyRepository that = (Arez_RepositoryWithCreateOnlyRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

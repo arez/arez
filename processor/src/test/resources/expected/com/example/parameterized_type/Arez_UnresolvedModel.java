@@ -153,7 +153,7 @@ final class Arez_UnresolvedModel<X extends Number> extends UnresolvedModel<X> im
       } else if ( null == o || !(o instanceof Arez_UnresolvedModel) ) {
         return false;
       } else {
-        final Arez_UnresolvedModel that = (Arez_UnresolvedModel) o;;
+        final Arez_UnresolvedModel that = (Arez_UnresolvedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -132,7 +132,7 @@ final class Arez_EnableVerifyModel extends EnableVerifyModel implements Disposab
       } else if ( null == o || !(o instanceof Arez_EnableVerifyModel) ) {
         return false;
       } else {
-        final Arez_EnableVerifyModel that = (Arez_EnableVerifyModel) o;;
+        final Arez_EnableVerifyModel that = (Arez_EnableVerifyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

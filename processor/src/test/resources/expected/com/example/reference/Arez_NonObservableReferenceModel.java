@@ -178,7 +178,7 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
       } else if ( null == o || !(o instanceof Arez_NonObservableReferenceModel) ) {
         return false;
       } else {
-        final Arez_NonObservableReferenceModel that = (Arez_NonObservableReferenceModel) o;;
+        final Arez_NonObservableReferenceModel that = (Arez_NonObservableReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

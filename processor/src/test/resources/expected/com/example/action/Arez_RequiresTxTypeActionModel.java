@@ -138,7 +138,7 @@ public final class Arez_RequiresTxTypeActionModel extends RequiresTxTypeActionMo
       } else if ( null == o || !(o instanceof Arez_RequiresTxTypeActionModel) ) {
         return false;
       } else {
-        final Arez_RequiresTxTypeActionModel that = (Arez_RequiresTxTypeActionModel) o;;
+        final Arez_RequiresTxTypeActionModel that = (Arez_RequiresTxTypeActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

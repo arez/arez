@@ -150,7 +150,7 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
       } else if ( null == o || !(o instanceof Arez_ObservableModelWithUnconventionalNames) ) {
         return false;
       } else {
-        final Arez_ObservableModelWithUnconventionalNames that = (Arez_ObservableModelWithUnconventionalNames) o;;
+        final Arez_ObservableModelWithUnconventionalNames that = (Arez_ObservableModelWithUnconventionalNames) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

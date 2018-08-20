@@ -204,7 +204,7 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
       } else if ( null == o || !(o instanceof Arez_ImplicitSingletonModel) ) {
         return false;
       } else {
-        final Arez_ImplicitSingletonModel that = (Arez_ImplicitSingletonModel) o;;
+        final Arez_ImplicitSingletonModel that = (Arez_ImplicitSingletonModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

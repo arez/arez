@@ -153,7 +153,7 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Iden
       } else if ( null == o || !(o instanceof Arez_ResolvedModel) ) {
         return false;
       } else {
-        final Arez_ResolvedModel that = (Arez_ResolvedModel) o;;
+        final Arez_ResolvedModel that = (Arez_ResolvedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

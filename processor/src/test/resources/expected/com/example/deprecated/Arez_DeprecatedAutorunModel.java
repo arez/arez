@@ -144,7 +144,7 @@ public final class Arez_DeprecatedAutorunModel extends DeprecatedAutorunModel im
       } else if ( null == o || !(o instanceof Arez_DeprecatedAutorunModel) ) {
         return false;
       } else {
-        final Arez_DeprecatedAutorunModel that = (Arez_DeprecatedAutorunModel) o;;
+        final Arez_DeprecatedAutorunModel that = (Arez_DeprecatedAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

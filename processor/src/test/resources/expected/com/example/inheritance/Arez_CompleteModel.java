@@ -381,7 +381,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_CompleteModel that = (Arez_CompleteModel) o;;
+        final Arez_CompleteModel that = (Arez_CompleteModel) o;
         return getId() == that.getId();
       }
     } else {

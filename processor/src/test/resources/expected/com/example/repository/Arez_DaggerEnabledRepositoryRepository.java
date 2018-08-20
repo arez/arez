@@ -168,7 +168,7 @@ final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledReposito
       } else if ( null == o || !(o instanceof Arez_DaggerEnabledRepositoryRepository) ) {
         return false;
       } else {
-        final Arez_DaggerEnabledRepositoryRepository that = (Arez_DaggerEnabledRepositoryRepository) o;;
+        final Arez_DaggerEnabledRepositoryRepository that = (Arez_DaggerEnabledRepositoryRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

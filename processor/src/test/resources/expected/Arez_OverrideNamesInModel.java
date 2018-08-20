@@ -217,7 +217,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       } else if ( null == o || !(o instanceof Arez_OverrideNamesInModel) ) {
         return false;
       } else {
-        final Arez_OverrideNamesInModel that = (Arez_OverrideNamesInModel) o;;
+        final Arez_OverrideNamesInModel that = (Arez_OverrideNamesInModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

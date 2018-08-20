@@ -179,7 +179,7 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
       } else if ( null == o || !(o instanceof Arez_DefaultMethodsModel) ) {
         return false;
       } else {
-        final Arez_DefaultMethodsModel that = (Arez_DefaultMethodsModel) o;;
+        final Arez_DefaultMethodsModel that = (Arez_DefaultMethodsModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

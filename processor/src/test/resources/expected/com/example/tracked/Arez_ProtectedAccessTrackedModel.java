@@ -144,7 +144,7 @@ public final class Arez_ProtectedAccessTrackedModel extends ProtectedAccessTrack
       } else if ( null == o || !(o instanceof Arez_ProtectedAccessTrackedModel) ) {
         return false;
       } else {
-        final Arez_ProtectedAccessTrackedModel that = (Arez_ProtectedAccessTrackedModel) o;;
+        final Arez_ProtectedAccessTrackedModel that = (Arez_ProtectedAccessTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

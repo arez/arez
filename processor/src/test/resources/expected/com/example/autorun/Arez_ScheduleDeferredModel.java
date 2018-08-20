@@ -138,7 +138,7 @@ public final class Arez_ScheduleDeferredModel extends ScheduleDeferredModel impl
       } else if ( null == o || !(o instanceof Arez_ScheduleDeferredModel) ) {
         return false;
       } else {
-        final Arez_ScheduleDeferredModel that = (Arez_ScheduleDeferredModel) o;;
+        final Arez_ScheduleDeferredModel that = (Arez_ScheduleDeferredModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

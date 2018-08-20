@@ -165,7 +165,7 @@ final class Arez_RepositoryWithAttachOnly extends RepositoryWithAttachOnly imple
     } else if ( null == o || !(o instanceof Arez_RepositoryWithAttachOnly) ) {
       return false;
     } else {
-      final Arez_RepositoryWithAttachOnly that = (Arez_RepositoryWithAttachOnly) o;;
+      final Arez_RepositoryWithAttachOnly that = (Arez_RepositoryWithAttachOnly) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

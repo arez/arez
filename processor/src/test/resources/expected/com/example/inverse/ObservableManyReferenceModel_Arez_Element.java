@@ -216,7 +216,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
       } else if ( null == o || !(o instanceof ObservableManyReferenceModel_Arez_Element) ) {
         return false;
       } else {
-        final ObservableManyReferenceModel_Arez_Element that = (ObservableManyReferenceModel_Arez_Element) o;;
+        final ObservableManyReferenceModel_Arez_Element that = (ObservableManyReferenceModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

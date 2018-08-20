@@ -178,7 +178,7 @@ public final class Arez_ComputedKeepAliveListModel extends ComputedKeepAliveList
       } else if ( null == o || !(o instanceof Arez_ComputedKeepAliveListModel) ) {
         return false;
       } else {
-        final Arez_ComputedKeepAliveListModel that = (Arez_ComputedKeepAliveListModel) o;;
+        final Arez_ComputedKeepAliveListModel that = (Arez_ComputedKeepAliveListModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

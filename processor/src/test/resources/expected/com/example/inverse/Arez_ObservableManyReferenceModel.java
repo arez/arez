@@ -210,7 +210,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
       } else if ( null == o || !(o instanceof Arez_ObservableManyReferenceModel) ) {
         return false;
       } else {
-        final Arez_ObservableManyReferenceModel that = (Arez_ObservableManyReferenceModel) o;;
+        final Arez_ObservableManyReferenceModel that = (Arez_ObservableManyReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

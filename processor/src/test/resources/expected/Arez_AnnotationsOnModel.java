@@ -183,7 +183,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
       } else if ( null == o || !(o instanceof Arez_AnnotationsOnModel) ) {
         return false;
       } else {
-        final Arez_AnnotationsOnModel that = (Arez_AnnotationsOnModel) o;;
+        final Arez_AnnotationsOnModel that = (Arez_AnnotationsOnModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

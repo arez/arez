@@ -122,7 +122,7 @@ public final class Arez_EmptyModel extends EmptyModel implements Disposable, Ide
       } else if ( null == o || !(o instanceof Arez_EmptyModel) ) {
         return false;
       } else {
-        final Arez_EmptyModel that = (Arez_EmptyModel) o;;
+        final Arez_EmptyModel that = (Arez_EmptyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

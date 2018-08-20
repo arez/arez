@@ -138,7 +138,7 @@ public final class Arez_NoInjectModel extends NoInjectModel implements Disposabl
       } else if ( null == o || !(o instanceof Arez_NoInjectModel) ) {
         return false;
       } else {
-        final Arez_NoInjectModel that = (Arez_NoInjectModel) o;;
+        final Arez_NoInjectModel that = (Arez_NoInjectModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -124,7 +124,7 @@ public final class Arez_NonReservedNameModel extends NonReservedNameModel implem
       } else if ( null == o || !(o instanceof Arez_NonReservedNameModel) ) {
         return false;
       } else {
-        final Arez_NonReservedNameModel that = (Arez_NonReservedNameModel) o;;
+        final Arez_NonReservedNameModel that = (Arez_NonReservedNameModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

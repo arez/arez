@@ -165,7 +165,7 @@ final class Arez_RepositoryWithDestroyAndDetach extends RepositoryWithDestroyAnd
     } else if ( null == o || !(o instanceof Arez_RepositoryWithDestroyAndDetach) ) {
       return false;
     } else {
-      final Arez_RepositoryWithDestroyAndDetach that = (Arez_RepositoryWithDestroyAndDetach) o;;
+      final Arez_RepositoryWithDestroyAndDetach that = (Arez_RepositoryWithDestroyAndDetach) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

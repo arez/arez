@@ -143,7 +143,7 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
       } else if ( null == o || !(o instanceof Arez_SimpleComponent) ) {
         return false;
       } else {
-        final Arez_SimpleComponent that = (Arez_SimpleComponent) o;;
+        final Arez_SimpleComponent that = (Arez_SimpleComponent) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

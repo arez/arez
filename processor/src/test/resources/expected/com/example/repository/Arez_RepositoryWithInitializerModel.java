@@ -165,7 +165,7 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
     } else if ( null == o || !(o instanceof Arez_RepositoryWithInitializerModel) ) {
       return false;
     } else {
-      final Arez_RepositoryWithInitializerModel that = (Arez_RepositoryWithInitializerModel) o;;
+      final Arez_RepositoryWithInitializerModel that = (Arez_RepositoryWithInitializerModel) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

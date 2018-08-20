@@ -136,7 +136,7 @@ public final class Arez_BasicDependencyModel extends BasicDependencyModel implem
       } else if ( null == o || !(o instanceof Arez_BasicDependencyModel) ) {
         return false;
       } else {
-        final Arez_BasicDependencyModel that = (Arez_BasicDependencyModel) o;;
+        final Arez_BasicDependencyModel that = (Arez_BasicDependencyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

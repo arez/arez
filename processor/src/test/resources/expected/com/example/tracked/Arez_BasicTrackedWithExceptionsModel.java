@@ -145,7 +145,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
       } else if ( null == o || !(o instanceof Arez_BasicTrackedWithExceptionsModel) ) {
         return false;
       } else {
-        final Arez_BasicTrackedWithExceptionsModel that = (Arez_BasicTrackedWithExceptionsModel) o;;
+        final Arez_BasicTrackedWithExceptionsModel that = (Arez_BasicTrackedWithExceptionsModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

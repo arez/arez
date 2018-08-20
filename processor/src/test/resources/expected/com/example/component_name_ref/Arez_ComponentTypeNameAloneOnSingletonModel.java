@@ -143,7 +143,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
       } else if ( null == o || !(o instanceof Arez_ComponentTypeNameAloneOnSingletonModel) ) {
         return false;
       } else {
-        final Arez_ComponentTypeNameAloneOnSingletonModel that = (Arez_ComponentTypeNameAloneOnSingletonModel) o;;
+        final Arez_ComponentTypeNameAloneOnSingletonModel that = (Arez_ComponentTypeNameAloneOnSingletonModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

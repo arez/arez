@@ -173,7 +173,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
       } else if ( null == o || !(o instanceof Arez_SetNullObservableDependency) ) {
         return false;
       } else {
-        final Arez_SetNullObservableDependency that = (Arez_SetNullObservableDependency) o;;
+        final Arez_SetNullObservableDependency that = (Arez_SetNullObservableDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

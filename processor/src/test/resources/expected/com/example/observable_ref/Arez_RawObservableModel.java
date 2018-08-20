@@ -161,7 +161,7 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
       } else if ( null == o || !(o instanceof Arez_RawObservableModel) ) {
         return false;
       } else {
-        final Arez_RawObservableModel that = (Arez_RawObservableModel) o;;
+        final Arez_RawObservableModel that = (Arez_RawObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

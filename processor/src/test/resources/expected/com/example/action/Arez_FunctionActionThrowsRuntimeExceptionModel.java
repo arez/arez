@@ -138,7 +138,7 @@ public final class Arez_FunctionActionThrowsRuntimeExceptionModel extends Functi
       } else if ( null == o || !(o instanceof Arez_FunctionActionThrowsRuntimeExceptionModel) ) {
         return false;
       } else {
-        final Arez_FunctionActionThrowsRuntimeExceptionModel that = (Arez_FunctionActionThrowsRuntimeExceptionModel) o;;
+        final Arez_FunctionActionThrowsRuntimeExceptionModel that = (Arez_FunctionActionThrowsRuntimeExceptionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -180,7 +180,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
       } else if ( null == o || !(o instanceof Arez_ComplexDependencyWithCustomNameMethodModel) ) {
         return false;
       } else {
-        final Arez_ComplexDependencyWithCustomNameMethodModel that = (Arez_ComplexDependencyWithCustomNameMethodModel) o;;
+        final Arez_ComplexDependencyWithCustomNameMethodModel that = (Arez_ComplexDependencyWithCustomNameMethodModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

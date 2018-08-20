@@ -126,7 +126,7 @@ public final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel im
       } else if ( null == o || !(o instanceof Arez_ScopedButNoDaggerModel) ) {
         return false;
       } else {
-        final Arez_ScopedButNoDaggerModel that = (Arez_ScopedButNoDaggerModel) o;;
+        final Arez_ScopedButNoDaggerModel that = (Arez_ScopedButNoDaggerModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

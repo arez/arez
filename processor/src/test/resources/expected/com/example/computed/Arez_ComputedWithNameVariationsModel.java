@@ -178,7 +178,7 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
       } else if ( null == o || !(o instanceof Arez_ComputedWithNameVariationsModel) ) {
         return false;
       } else {
-        final Arez_ComputedWithNameVariationsModel that = (Arez_ComputedWithNameVariationsModel) o;;
+        final Arez_ComputedWithNameVariationsModel that = (Arez_ComputedWithNameVariationsModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

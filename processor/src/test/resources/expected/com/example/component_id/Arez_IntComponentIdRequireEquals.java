@@ -109,7 +109,7 @@ public final class Arez_IntComponentIdRequireEquals extends IntComponentIdRequir
     } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
       return false;
     } else {
-      final Arez_IntComponentIdRequireEquals that = (Arez_IntComponentIdRequireEquals) o;;
+      final Arez_IntComponentIdRequireEquals that = (Arez_IntComponentIdRequireEquals) o;
       return getId() == that.getId();
     }
   }

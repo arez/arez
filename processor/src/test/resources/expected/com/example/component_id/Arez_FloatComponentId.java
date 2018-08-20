@@ -114,7 +114,7 @@ public final class Arez_FloatComponentId extends FloatComponentId implements Dis
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_FloatComponentId that = (Arez_FloatComponentId) o;;
+        final Arez_FloatComponentId that = (Arez_FloatComponentId) o;
         return getId() == that.getId();
       }
     } else {

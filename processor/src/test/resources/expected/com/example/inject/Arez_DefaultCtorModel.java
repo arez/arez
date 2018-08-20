@@ -140,7 +140,7 @@ public final class Arez_DefaultCtorModel extends DefaultCtorModel implements Dis
       } else if ( null == o || !(o instanceof Arez_DefaultCtorModel) ) {
         return false;
       } else {
-        final Arez_DefaultCtorModel that = (Arez_DefaultCtorModel) o;;
+        final Arez_DefaultCtorModel that = (Arez_DefaultCtorModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

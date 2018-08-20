@@ -188,7 +188,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element extends NonObse
       } else if ( null == o || !(o instanceof NonObservableNullableManyReferenceModel_Arez_Element) ) {
         return false;
       } else {
-        final NonObservableNullableManyReferenceModel_Arez_Element that = (NonObservableNullableManyReferenceModel_Arez_Element) o;;
+        final NonObservableNullableManyReferenceModel_Arez_Element that = (NonObservableNullableManyReferenceModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

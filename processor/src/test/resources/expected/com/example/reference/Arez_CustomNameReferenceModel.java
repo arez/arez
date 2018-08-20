@@ -178,7 +178,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
       } else if ( null == o || !(o instanceof Arez_CustomNameReferenceModel) ) {
         return false;
       } else {
-        final Arez_CustomNameReferenceModel that = (Arez_CustomNameReferenceModel) o;;
+        final Arez_CustomNameReferenceModel that = (Arez_CustomNameReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

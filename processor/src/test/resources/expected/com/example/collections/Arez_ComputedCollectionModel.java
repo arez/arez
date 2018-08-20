@@ -173,7 +173,7 @@ public final class Arez_ComputedCollectionModel extends ComputedCollectionModel 
       } else if ( null == o || !(o instanceof Arez_ComputedCollectionModel) ) {
         return false;
       } else {
-        final Arez_ComputedCollectionModel that = (Arez_ComputedCollectionModel) o;;
+        final Arez_ComputedCollectionModel that = (Arez_ComputedCollectionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

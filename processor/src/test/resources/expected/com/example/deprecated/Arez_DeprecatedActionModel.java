@@ -140,7 +140,7 @@ public final class Arez_DeprecatedActionModel extends DeprecatedActionModel impl
       } else if ( null == o || !(o instanceof Arez_DeprecatedActionModel) ) {
         return false;
       } else {
-        final Arez_DeprecatedActionModel that = (Arez_DeprecatedActionModel) o;;
+        final Arez_DeprecatedActionModel that = (Arez_DeprecatedActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

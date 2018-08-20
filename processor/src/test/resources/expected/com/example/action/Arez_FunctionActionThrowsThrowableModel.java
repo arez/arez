@@ -136,7 +136,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
       } else if ( null == o || !(o instanceof Arez_FunctionActionThrowsThrowableModel) ) {
         return false;
       } else {
-        final Arez_FunctionActionThrowsThrowableModel that = (Arez_FunctionActionThrowsThrowableModel) o;;
+        final Arez_FunctionActionThrowsThrowableModel that = (Arez_FunctionActionThrowsThrowableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

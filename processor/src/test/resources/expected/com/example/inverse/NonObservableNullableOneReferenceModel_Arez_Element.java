@@ -188,7 +188,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
       } else if ( null == o || !(o instanceof NonObservableNullableOneReferenceModel_Arez_Element) ) {
         return false;
       } else {
-        final NonObservableNullableOneReferenceModel_Arez_Element that = (NonObservableNullableOneReferenceModel_Arez_Element) o;;
+        final NonObservableNullableOneReferenceModel_Arez_Element that = (NonObservableNullableOneReferenceModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

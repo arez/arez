@@ -169,7 +169,7 @@ final class Arez_CompleteRepositoryExampleRepository extends CompleteRepositoryE
       } else if ( null == o || !(o instanceof Arez_CompleteRepositoryExampleRepository) ) {
         return false;
       } else {
-        final Arez_CompleteRepositoryExampleRepository that = (Arez_CompleteRepositoryExampleRepository) o;;
+        final Arez_CompleteRepositoryExampleRepository that = (Arez_CompleteRepositoryExampleRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

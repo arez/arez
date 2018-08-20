@@ -139,7 +139,7 @@ public final class Arez_CustomPriorityMemoizeModel extends CustomPriorityMemoize
       } else if ( null == o || !(o instanceof Arez_CustomPriorityMemoizeModel) ) {
         return false;
       } else {
-        final Arez_CustomPriorityMemoizeModel that = (Arez_CustomPriorityMemoizeModel) o;;
+        final Arez_CustomPriorityMemoizeModel that = (Arez_CustomPriorityMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

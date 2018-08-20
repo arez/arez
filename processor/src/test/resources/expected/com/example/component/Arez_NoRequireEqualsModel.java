@@ -138,7 +138,7 @@ public final class Arez_NoRequireEqualsModel extends NoRequireEqualsModel implem
       } else if ( null == o || !(o instanceof Arez_NoRequireEqualsModel) ) {
         return false;
       } else {
-        final Arez_NoRequireEqualsModel that = (Arez_NoRequireEqualsModel) o;;
+        final Arez_NoRequireEqualsModel that = (Arez_NoRequireEqualsModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

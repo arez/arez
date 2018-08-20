@@ -144,7 +144,7 @@ public final class Arez_BasicTrackedModel extends BasicTrackedModel implements D
       } else if ( null == o || !(o instanceof Arez_BasicTrackedModel) ) {
         return false;
       } else {
-        final Arez_BasicTrackedModel that = (Arez_BasicTrackedModel) o;;
+        final Arez_BasicTrackedModel that = (Arez_BasicTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

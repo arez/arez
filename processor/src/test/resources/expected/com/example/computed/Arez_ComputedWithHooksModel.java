@@ -139,7 +139,7 @@ public final class Arez_ComputedWithHooksModel extends ComputedWithHooksModel im
       } else if ( null == o || !(o instanceof Arez_ComputedWithHooksModel) ) {
         return false;
       } else {
-        final Arez_ComputedWithHooksModel that = (Arez_ComputedWithHooksModel) o;;
+        final Arez_ComputedWithHooksModel that = (Arez_ComputedWithHooksModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

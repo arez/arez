@@ -202,7 +202,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       } else if ( null == o || !(o instanceof Arez_TrackedAllTypesModel) ) {
         return false;
       } else {
-        final Arez_TrackedAllTypesModel that = (Arez_TrackedAllTypesModel) o;;
+        final Arez_TrackedAllTypesModel that = (Arez_TrackedAllTypesModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

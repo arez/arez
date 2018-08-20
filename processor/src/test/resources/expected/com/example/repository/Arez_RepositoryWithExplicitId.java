@@ -158,7 +158,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
     } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
       return false;
     } else {
-      final Arez_RepositoryWithExplicitId that = (Arez_RepositoryWithExplicitId) o;;
+      final Arez_RepositoryWithExplicitId that = (Arez_RepositoryWithExplicitId) o;
       return getId() == that.getId();
     }
   }

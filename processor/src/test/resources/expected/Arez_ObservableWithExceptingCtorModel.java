@@ -150,7 +150,7 @@ public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithE
       } else if ( null == o || !(o instanceof Arez_ObservableWithExceptingCtorModel) ) {
         return false;
       } else {
-        final Arez_ObservableWithExceptingCtorModel that = (Arez_ObservableWithExceptingCtorModel) o;;
+        final Arez_ObservableWithExceptingCtorModel that = (Arez_ObservableWithExceptingCtorModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

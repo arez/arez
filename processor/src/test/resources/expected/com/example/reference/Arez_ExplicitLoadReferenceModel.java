@@ -188,7 +188,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
       } else if ( null == o || !(o instanceof Arez_ExplicitLoadReferenceModel) ) {
         return false;
       } else {
-        final Arez_ExplicitLoadReferenceModel that = (Arez_ExplicitLoadReferenceModel) o;;
+        final Arez_ExplicitLoadReferenceModel that = (Arez_ExplicitLoadReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

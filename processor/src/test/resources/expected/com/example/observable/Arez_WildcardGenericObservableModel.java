@@ -153,7 +153,7 @@ public final class Arez_WildcardGenericObservableModel<T> extends WildcardGeneri
       } else if ( null == o || !(o instanceof Arez_WildcardGenericObservableModel) ) {
         return false;
       } else {
-        final Arez_WildcardGenericObservableModel that = (Arez_WildcardGenericObservableModel) o;;
+        final Arez_WildcardGenericObservableModel that = (Arez_WildcardGenericObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

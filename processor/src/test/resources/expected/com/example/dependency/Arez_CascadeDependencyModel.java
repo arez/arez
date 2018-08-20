@@ -136,7 +136,7 @@ public final class Arez_CascadeDependencyModel extends CascadeDependencyModel im
       } else if ( null == o || !(o instanceof Arez_CascadeDependencyModel) ) {
         return false;
       } else {
-        final Arez_CascadeDependencyModel that = (Arez_CascadeDependencyModel) o;;
+        final Arez_CascadeDependencyModel that = (Arez_CascadeDependencyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

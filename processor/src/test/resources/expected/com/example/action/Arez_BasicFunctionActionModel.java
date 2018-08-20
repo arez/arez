@@ -138,7 +138,7 @@ public final class Arez_BasicFunctionActionModel extends BasicFunctionActionMode
       } else if ( null == o || !(o instanceof Arez_BasicFunctionActionModel) ) {
         return false;
       } else {
-        final Arez_BasicFunctionActionModel that = (Arez_BasicFunctionActionModel) o;;
+        final Arez_BasicFunctionActionModel that = (Arez_BasicFunctionActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

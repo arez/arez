@@ -114,7 +114,7 @@ public final class Arez_ByteComponentId extends ByteComponentId implements Dispo
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_ByteComponentId that = (Arez_ByteComponentId) o;;
+        final Arez_ByteComponentId that = (Arez_ByteComponentId) o;
         return getId() == that.getId();
       }
     } else {

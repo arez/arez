@@ -139,7 +139,7 @@ public final class Arez_TypeParametersModel extends TypeParametersModel implemen
       } else if ( null == o || !(o instanceof Arez_TypeParametersModel) ) {
         return false;
       } else {
-        final Arez_TypeParametersModel that = (Arez_TypeParametersModel) o;;
+        final Arez_TypeParametersModel that = (Arez_TypeParametersModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

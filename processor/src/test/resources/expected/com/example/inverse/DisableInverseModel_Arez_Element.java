@@ -178,7 +178,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
       } else if ( null == o || !(o instanceof DisableInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final DisableInverseModel_Arez_Element that = (DisableInverseModel_Arez_Element) o;;
+        final DisableInverseModel_Arez_Element that = (DisableInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -142,7 +142,7 @@ public final class Arez_NormalPriorityAutorunModel extends NormalPriorityAutorun
       } else if ( null == o || !(o instanceof Arez_NormalPriorityAutorunModel) ) {
         return false;
       } else {
-        final Arez_NormalPriorityAutorunModel that = (Arez_NormalPriorityAutorunModel) o;;
+        final Arez_NormalPriorityAutorunModel that = (Arez_NormalPriorityAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

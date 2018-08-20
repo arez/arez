@@ -168,7 +168,7 @@ public final class Arez_ObservableCollectionModel extends ObservableCollectionMo
       } else if ( null == o || !(o instanceof Arez_ObservableCollectionModel) ) {
         return false;
       } else {
-        final Arez_ObservableCollectionModel that = (Arez_ObservableCollectionModel) o;;
+        final Arez_ObservableCollectionModel that = (Arez_ObservableCollectionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

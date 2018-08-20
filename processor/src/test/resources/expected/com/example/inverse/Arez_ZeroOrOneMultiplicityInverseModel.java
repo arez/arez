@@ -184,7 +184,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
       } else if ( null == o || !(o instanceof Arez_ZeroOrOneMultiplicityInverseModel) ) {
         return false;
       } else {
-        final Arez_ZeroOrOneMultiplicityInverseModel that = (Arez_ZeroOrOneMultiplicityInverseModel) o;;
+        final Arez_ZeroOrOneMultiplicityInverseModel that = (Arez_ZeroOrOneMultiplicityInverseModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

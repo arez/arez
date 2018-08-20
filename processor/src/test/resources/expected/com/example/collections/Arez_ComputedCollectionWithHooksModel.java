@@ -176,7 +176,7 @@ public final class Arez_ComputedCollectionWithHooksModel extends ComputedCollect
       } else if ( null == o || !(o instanceof Arez_ComputedCollectionWithHooksModel) ) {
         return false;
       } else {
-        final Arez_ComputedCollectionWithHooksModel that = (Arez_ComputedCollectionWithHooksModel) o;;
+        final Arez_ComputedCollectionWithHooksModel that = (Arez_ComputedCollectionWithHooksModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

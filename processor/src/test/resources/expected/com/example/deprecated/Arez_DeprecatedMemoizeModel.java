@@ -141,7 +141,7 @@ public final class Arez_DeprecatedMemoizeModel extends DeprecatedMemoizeModel im
       } else if ( null == o || !(o instanceof Arez_DeprecatedMemoizeModel) ) {
         return false;
       } else {
-        final Arez_DeprecatedMemoizeModel that = (Arez_DeprecatedMemoizeModel) o;;
+        final Arez_DeprecatedMemoizeModel that = (Arez_DeprecatedMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

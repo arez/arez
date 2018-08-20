@@ -126,7 +126,7 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
       } else if ( null == o || !(o instanceof Arez_ScopedInjectModel) ) {
         return false;
       } else {
-        final Arez_ScopedInjectModel that = (Arez_ScopedInjectModel) o;;
+        final Arez_ScopedInjectModel that = (Arez_ScopedInjectModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -210,7 +210,7 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
       } else if ( null == o || !(o instanceof Arez_EagerObservableReadOutsideTransactionReferenceModel) ) {
         return false;
       } else {
-        final Arez_EagerObservableReadOutsideTransactionReferenceModel that = (Arez_EagerObservableReadOutsideTransactionReferenceModel) o;;
+        final Arez_EagerObservableReadOutsideTransactionReferenceModel that = (Arez_EagerObservableReadOutsideTransactionReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

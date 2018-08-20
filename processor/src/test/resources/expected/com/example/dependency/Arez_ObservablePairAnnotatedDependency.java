@@ -173,7 +173,7 @@ public final class Arez_ObservablePairAnnotatedDependency extends ObservablePair
       } else if ( null == o || !(o instanceof Arez_ObservablePairAnnotatedDependency) ) {
         return false;
       } else {
-        final Arez_ObservablePairAnnotatedDependency that = (Arez_ObservablePairAnnotatedDependency) o;;
+        final Arez_ObservablePairAnnotatedDependency that = (Arez_ObservablePairAnnotatedDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

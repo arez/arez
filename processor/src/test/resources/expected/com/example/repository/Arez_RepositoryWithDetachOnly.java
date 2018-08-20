@@ -165,7 +165,7 @@ final class Arez_RepositoryWithDetachOnly extends RepositoryWithDetachOnly imple
     } else if ( null == o || !(o instanceof Arez_RepositoryWithDetachOnly) ) {
       return false;
     } else {
-      final Arez_RepositoryWithDetachOnly that = (Arez_RepositoryWithDetachOnly) o;;
+      final Arez_RepositoryWithDetachOnly that = (Arez_RepositoryWithDetachOnly) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

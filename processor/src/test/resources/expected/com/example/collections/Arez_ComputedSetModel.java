@@ -173,7 +173,7 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
       } else if ( null == o || !(o instanceof Arez_ComputedSetModel) ) {
         return false;
       } else {
-        final Arez_ComputedSetModel that = (Arez_ComputedSetModel) o;;
+        final Arez_ComputedSetModel that = (Arez_ComputedSetModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

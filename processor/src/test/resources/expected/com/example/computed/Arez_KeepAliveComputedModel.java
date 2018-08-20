@@ -144,7 +144,7 @@ public final class Arez_KeepAliveComputedModel extends KeepAliveComputedModel im
       } else if ( null == o || !(o instanceof Arez_KeepAliveComputedModel) ) {
         return false;
       } else {
-        final Arez_KeepAliveComputedModel that = (Arez_KeepAliveComputedModel) o;;
+        final Arez_KeepAliveComputedModel that = (Arez_KeepAliveComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

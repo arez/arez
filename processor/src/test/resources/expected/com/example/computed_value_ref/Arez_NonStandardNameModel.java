@@ -147,7 +147,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
       } else if ( null == o || !(o instanceof Arez_NonStandardNameModel) ) {
         return false;
       } else {
-        final Arez_NonStandardNameModel that = (Arez_NonStandardNameModel) o;;
+        final Arez_NonStandardNameModel that = (Arez_NonStandardNameModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

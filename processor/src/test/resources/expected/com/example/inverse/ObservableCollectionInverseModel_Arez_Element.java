@@ -183,7 +183,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
       } else if ( null == o || !(o instanceof ObservableCollectionInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final ObservableCollectionInverseModel_Arez_Element that = (ObservableCollectionInverseModel_Arez_Element) o;;
+        final ObservableCollectionInverseModel_Arez_Element that = (ObservableCollectionInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

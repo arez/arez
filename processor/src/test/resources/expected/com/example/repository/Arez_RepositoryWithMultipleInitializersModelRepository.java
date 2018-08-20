@@ -168,7 +168,7 @@ final class Arez_RepositoryWithMultipleInitializersModelRepository extends Repos
       } else if ( null == o || !(o instanceof Arez_RepositoryWithMultipleInitializersModelRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithMultipleInitializersModelRepository that = (Arez_RepositoryWithMultipleInitializersModelRepository) o;;
+        final Arez_RepositoryWithMultipleInitializersModelRepository that = (Arez_RepositoryWithMultipleInitializersModelRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

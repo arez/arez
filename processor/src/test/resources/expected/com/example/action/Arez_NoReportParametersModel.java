@@ -138,7 +138,7 @@ public final class Arez_NoReportParametersModel extends NoReportParametersModel 
       } else if ( null == o || !(o instanceof Arez_NoReportParametersModel) ) {
         return false;
       } else {
-        final Arez_NoReportParametersModel that = (Arez_NoReportParametersModel) o;;
+        final Arez_NoReportParametersModel that = (Arez_NoReportParametersModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

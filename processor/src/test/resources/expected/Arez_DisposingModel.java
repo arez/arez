@@ -139,7 +139,7 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
       } else if ( null == o || !(o instanceof Arez_DisposingModel) ) {
         return false;
       } else {
-        final Arez_DisposingModel that = (Arez_DisposingModel) o;;
+        final Arez_DisposingModel that = (Arez_DisposingModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

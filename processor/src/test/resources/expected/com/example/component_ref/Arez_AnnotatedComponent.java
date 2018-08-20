@@ -144,7 +144,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
       } else if ( null == o || !(o instanceof Arez_AnnotatedComponent) ) {
         return false;
       } else {
-        final Arez_AnnotatedComponent that = (Arez_AnnotatedComponent) o;;
+        final Arez_AnnotatedComponent that = (Arez_AnnotatedComponent) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

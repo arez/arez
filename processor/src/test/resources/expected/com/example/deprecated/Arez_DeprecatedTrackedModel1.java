@@ -146,7 +146,7 @@ public final class Arez_DeprecatedTrackedModel1 extends DeprecatedTrackedModel1 
       } else if ( null == o || !(o instanceof Arez_DeprecatedTrackedModel1) ) {
         return false;
       } else {
-        final Arez_DeprecatedTrackedModel1 that = (Arez_DeprecatedTrackedModel1) o;;
+        final Arez_DeprecatedTrackedModel1 that = (Arez_DeprecatedTrackedModel1) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

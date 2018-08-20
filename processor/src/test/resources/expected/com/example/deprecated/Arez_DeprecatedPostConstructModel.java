@@ -141,7 +141,7 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
       } else if ( null == o || !(o instanceof Arez_DeprecatedPostConstructModel) ) {
         return false;
       } else {
-        final Arez_DeprecatedPostConstructModel that = (Arez_DeprecatedPostConstructModel) o;;
+        final Arez_DeprecatedPostConstructModel that = (Arez_DeprecatedPostConstructModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -138,7 +138,7 @@ final class Arez_PublicCtorNonPublicModel extends PublicCtorNonPublicModel imple
       } else if ( null == o || !(o instanceof Arez_PublicCtorNonPublicModel) ) {
         return false;
       } else {
-        final Arez_PublicCtorNonPublicModel that = (Arez_PublicCtorNonPublicModel) o;;
+        final Arez_PublicCtorNonPublicModel that = (Arez_PublicCtorNonPublicModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

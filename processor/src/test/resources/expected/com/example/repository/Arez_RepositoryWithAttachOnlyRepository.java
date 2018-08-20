@@ -167,7 +167,7 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
       } else if ( null == o || !(o instanceof Arez_RepositoryWithAttachOnlyRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithAttachOnlyRepository that = (Arez_RepositoryWithAttachOnlyRepository) o;;
+        final Arez_RepositoryWithAttachOnlyRepository that = (Arez_RepositoryWithAttachOnlyRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

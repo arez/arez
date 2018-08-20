@@ -176,7 +176,7 @@ public final class Arez_ComputedNonnullSetModel extends ComputedNonnullSetModel 
       } else if ( null == o || !(o instanceof Arez_ComputedNonnullSetModel) ) {
         return false;
       } else {
-        final Arez_ComputedNonnullSetModel that = (Arez_ComputedNonnullSetModel) o;;
+        final Arez_ComputedNonnullSetModel that = (Arez_ComputedNonnullSetModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

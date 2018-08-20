@@ -154,7 +154,7 @@ public final class Arez_AbstractObservablesModel extends AbstractObservablesMode
       } else if ( null == o || !(o instanceof Arez_AbstractObservablesModel) ) {
         return false;
       } else {
-        final Arez_AbstractObservablesModel that = (Arez_AbstractObservablesModel) o;;
+        final Arez_AbstractObservablesModel that = (Arez_AbstractObservablesModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

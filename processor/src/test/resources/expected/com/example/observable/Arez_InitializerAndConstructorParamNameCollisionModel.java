@@ -156,7 +156,7 @@ final class Arez_InitializerAndConstructorParamNameCollisionModel extends Initia
       } else if ( null == o || !(o instanceof Arez_InitializerAndConstructorParamNameCollisionModel) ) {
         return false;
       } else {
-        final Arez_InitializerAndConstructorParamNameCollisionModel that = (Arez_InitializerAndConstructorParamNameCollisionModel) o;;
+        final Arez_InitializerAndConstructorParamNameCollisionModel that = (Arez_InitializerAndConstructorParamNameCollisionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

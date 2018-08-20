@@ -135,7 +135,7 @@ final class Arez_RepositoryExample extends RepositoryExample implements Disposab
     } else if ( null == o || !(o instanceof Arez_RepositoryExample) ) {
       return false;
     } else {
-      final Arez_RepositoryExample that = (Arez_RepositoryExample) o;;
+      final Arez_RepositoryExample that = (Arez_RepositoryExample) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

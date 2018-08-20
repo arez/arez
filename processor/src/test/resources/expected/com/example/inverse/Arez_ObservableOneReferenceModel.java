@@ -184,7 +184,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
       } else if ( null == o || !(o instanceof Arez_ObservableOneReferenceModel) ) {
         return false;
       } else {
-        final Arez_ObservableOneReferenceModel that = (Arez_ObservableOneReferenceModel) o;;
+        final Arez_ObservableOneReferenceModel that = (Arez_ObservableOneReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

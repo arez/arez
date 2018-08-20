@@ -145,7 +145,7 @@ public final class Arez_LowPriorityTrackedModel extends LowPriorityTrackedModel 
       } else if ( null == o || !(o instanceof Arez_LowPriorityTrackedModel) ) {
         return false;
       } else {
-        final Arez_LowPriorityTrackedModel that = (Arez_LowPriorityTrackedModel) o;;
+        final Arez_LowPriorityTrackedModel that = (Arez_LowPriorityTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

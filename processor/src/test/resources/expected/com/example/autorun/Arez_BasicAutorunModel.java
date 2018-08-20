@@ -142,7 +142,7 @@ public final class Arez_BasicAutorunModel extends BasicAutorunModel implements D
       } else if ( null == o || !(o instanceof Arez_BasicAutorunModel) ) {
         return false;
       } else {
-        final Arez_BasicAutorunModel that = (Arez_BasicAutorunModel) o;;
+        final Arez_BasicAutorunModel that = (Arez_BasicAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

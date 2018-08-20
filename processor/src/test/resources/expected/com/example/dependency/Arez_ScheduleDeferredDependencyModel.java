@@ -132,7 +132,7 @@ final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDepende
       } else if ( null == o || !(o instanceof Arez_ScheduleDeferredDependencyModel) ) {
         return false;
       } else {
-        final Arez_ScheduleDeferredDependencyModel that = (Arez_ScheduleDeferredDependencyModel) o;;
+        final Arez_ScheduleDeferredDependencyModel that = (Arez_ScheduleDeferredDependencyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

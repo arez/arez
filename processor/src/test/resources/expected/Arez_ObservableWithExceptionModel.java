@@ -150,7 +150,7 @@ public final class Arez_ObservableWithExceptionModel extends ObservableWithExcep
       } else if ( null == o || !(o instanceof Arez_ObservableWithExceptionModel) ) {
         return false;
       } else {
-        final Arez_ObservableWithExceptionModel that = (Arez_ObservableWithExceptionModel) o;;
+        final Arez_ObservableWithExceptionModel that = (Arez_ObservableWithExceptionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

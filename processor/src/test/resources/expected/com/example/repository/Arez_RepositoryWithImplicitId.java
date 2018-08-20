@@ -165,7 +165,7 @@ final class Arez_RepositoryWithImplicitId extends RepositoryWithImplicitId imple
     } else if ( null == o || !(o instanceof Arez_RepositoryWithImplicitId) ) {
       return false;
     } else {
-      final Arez_RepositoryWithImplicitId that = (Arez_RepositoryWithImplicitId) o;;
+      final Arez_RepositoryWithImplicitId that = (Arez_RepositoryWithImplicitId) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

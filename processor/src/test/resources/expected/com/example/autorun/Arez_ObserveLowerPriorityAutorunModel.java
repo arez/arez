@@ -143,7 +143,7 @@ public final class Arez_ObserveLowerPriorityAutorunModel extends ObserveLowerPri
       } else if ( null == o || !(o instanceof Arez_ObserveLowerPriorityAutorunModel) ) {
         return false;
       } else {
-        final Arez_ObserveLowerPriorityAutorunModel that = (Arez_ObserveLowerPriorityAutorunModel) o;;
+        final Arez_ObserveLowerPriorityAutorunModel that = (Arez_ObserveLowerPriorityAutorunModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

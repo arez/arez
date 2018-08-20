@@ -168,7 +168,7 @@ final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWith
       } else if ( null == o || !(o instanceof Arez_RepositoryWithInitializerModelRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithInitializerModelRepository that = (Arez_RepositoryWithInitializerModelRepository) o;;
+        final Arez_RepositoryWithInitializerModelRepository that = (Arez_RepositoryWithInitializerModelRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

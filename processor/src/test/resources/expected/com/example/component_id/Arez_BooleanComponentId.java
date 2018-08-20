@@ -114,7 +114,7 @@ public final class Arez_BooleanComponentId extends BooleanComponentId implements
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_BooleanComponentId that = (Arez_BooleanComponentId) o;;
+        final Arez_BooleanComponentId that = (Arez_BooleanComponentId) o;
         return getId() == that.getId();
       }
     } else {

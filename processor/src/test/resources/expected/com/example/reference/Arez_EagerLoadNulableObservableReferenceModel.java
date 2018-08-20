@@ -216,7 +216,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
       } else if ( null == o || !(o instanceof Arez_EagerLoadNulableObservableReferenceModel) ) {
         return false;
       } else {
-        final Arez_EagerLoadNulableObservableReferenceModel that = (Arez_EagerLoadNulableObservableReferenceModel) o;;
+        final Arez_EagerLoadNulableObservableReferenceModel that = (Arez_EagerLoadNulableObservableReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

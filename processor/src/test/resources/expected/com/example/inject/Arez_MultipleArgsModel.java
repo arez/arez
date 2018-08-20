@@ -140,7 +140,7 @@ public final class Arez_MultipleArgsModel extends MultipleArgsModel implements D
       } else if ( null == o || !(o instanceof Arez_MultipleArgsModel) ) {
         return false;
       } else {
-        final Arez_MultipleArgsModel that = (Arez_MultipleArgsModel) o;;
+        final Arez_MultipleArgsModel that = (Arez_MultipleArgsModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

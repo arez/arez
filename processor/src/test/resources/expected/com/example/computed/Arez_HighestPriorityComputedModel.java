@@ -140,7 +140,7 @@ public final class Arez_HighestPriorityComputedModel extends HighestPriorityComp
       } else if ( null == o || !(o instanceof Arez_HighestPriorityComputedModel) ) {
         return false;
       } else {
-        final Arez_HighestPriorityComputedModel that = (Arez_HighestPriorityComputedModel) o;;
+        final Arez_HighestPriorityComputedModel that = (Arez_HighestPriorityComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

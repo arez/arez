@@ -176,7 +176,7 @@ public final class Arez_ComputedNonnullMapModel extends ComputedNonnullMapModel 
       } else if ( null == o || !(o instanceof Arez_ComputedNonnullMapModel) ) {
         return false;
       } else {
-        final Arez_ComputedNonnullMapModel that = (Arez_ComputedNonnullMapModel) o;;
+        final Arez_ComputedNonnullMapModel that = (Arez_ComputedNonnullMapModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

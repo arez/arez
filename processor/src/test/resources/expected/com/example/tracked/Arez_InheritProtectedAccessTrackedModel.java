@@ -144,7 +144,7 @@ public final class Arez_InheritProtectedAccessTrackedModel extends InheritProtec
       } else if ( null == o || !(o instanceof Arez_InheritProtectedAccessTrackedModel) ) {
         return false;
       } else {
-        final Arez_InheritProtectedAccessTrackedModel that = (Arez_InheritProtectedAccessTrackedModel) o;;
+        final Arez_InheritProtectedAccessTrackedModel that = (Arez_InheritProtectedAccessTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

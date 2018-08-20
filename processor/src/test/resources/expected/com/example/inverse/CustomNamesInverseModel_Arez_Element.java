@@ -183,7 +183,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
       } else if ( null == o || !(o instanceof CustomNamesInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final CustomNamesInverseModel_Arez_Element that = (CustomNamesInverseModel_Arez_Element) o;;
+        final CustomNamesInverseModel_Arez_Element that = (CustomNamesInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

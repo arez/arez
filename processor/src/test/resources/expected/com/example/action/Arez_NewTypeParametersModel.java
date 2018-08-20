@@ -138,7 +138,7 @@ public final class Arez_NewTypeParametersModel extends NewTypeParametersModel im
       } else if ( null == o || !(o instanceof Arez_NewTypeParametersModel) ) {
         return false;
       } else {
-        final Arez_NewTypeParametersModel that = (Arez_NewTypeParametersModel) o;;
+        final Arez_NewTypeParametersModel that = (Arez_NewTypeParametersModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

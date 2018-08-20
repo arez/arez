@@ -177,7 +177,7 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
       } else if ( null == o || !(o instanceof Arez_RefOnBothModel) ) {
         return false;
       } else {
-        final Arez_RefOnBothModel that = (Arez_RefOnBothModel) o;;
+        final Arez_RefOnBothModel that = (Arez_RefOnBothModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

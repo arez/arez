@@ -147,7 +147,7 @@ public final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter im
       } else if ( null == o || !(o instanceof Arez_ObservableWithNoSetter) ) {
         return false;
       } else {
-        final Arez_ObservableWithNoSetter that = (Arez_ObservableWithNoSetter) o;;
+        final Arez_ObservableWithNoSetter that = (Arez_ObservableWithNoSetter) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

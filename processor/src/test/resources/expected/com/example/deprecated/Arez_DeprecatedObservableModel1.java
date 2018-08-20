@@ -155,7 +155,7 @@ public final class Arez_DeprecatedObservableModel1 extends DeprecatedObservableM
       } else if ( null == o || !(o instanceof Arez_DeprecatedObservableModel1) ) {
         return false;
       } else {
-        final Arez_DeprecatedObservableModel1 that = (Arez_DeprecatedObservableModel1) o;;
+        final Arez_DeprecatedObservableModel1 that = (Arez_DeprecatedObservableModel1) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

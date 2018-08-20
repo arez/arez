@@ -232,7 +232,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
     } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
       return false;
     } else {
-      final Arez_PackageAccessRepositoryExample that = (Arez_PackageAccessRepositoryExample) o;;
+      final Arez_PackageAccessRepositoryExample that = (Arez_PackageAccessRepositoryExample) o;
       return getId() == that.getId();
     }
   }

@@ -138,7 +138,7 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
       } else if ( null == o || !(o instanceof Arez_UnsafeFunctionActionModel) ) {
         return false;
       } else {
-        final Arez_UnsafeFunctionActionModel that = (Arez_UnsafeFunctionActionModel) o;;
+        final Arez_UnsafeFunctionActionModel that = (Arez_UnsafeFunctionActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -140,7 +140,7 @@ public final class Arez_ScheduleDeferredKeepAliveComputedModel extends ScheduleD
       } else if ( null == o || !(o instanceof Arez_ScheduleDeferredKeepAliveComputedModel) ) {
         return false;
       } else {
-        final Arez_ScheduleDeferredKeepAliveComputedModel that = (Arez_ScheduleDeferredKeepAliveComputedModel) o;;
+        final Arez_ScheduleDeferredKeepAliveComputedModel that = (Arez_ScheduleDeferredKeepAliveComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

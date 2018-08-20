@@ -210,7 +210,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
       } else if ( null == o || !(o instanceof Arez_ObservableSetInverseModel) ) {
         return false;
       } else {
-        final Arez_ObservableSetInverseModel that = (Arez_ObservableSetInverseModel) o;;
+        final Arez_ObservableSetInverseModel that = (Arez_ObservableSetInverseModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

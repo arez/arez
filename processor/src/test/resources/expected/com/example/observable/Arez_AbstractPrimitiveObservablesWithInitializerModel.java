@@ -155,7 +155,7 @@ public final class Arez_AbstractPrimitiveObservablesWithInitializerModel extends
       } else if ( null == o || !(o instanceof Arez_AbstractPrimitiveObservablesWithInitializerModel) ) {
         return false;
       } else {
-        final Arez_AbstractPrimitiveObservablesWithInitializerModel that = (Arez_AbstractPrimitiveObservablesWithInitializerModel) o;;
+        final Arez_AbstractPrimitiveObservablesWithInitializerModel that = (Arez_AbstractPrimitiveObservablesWithInitializerModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

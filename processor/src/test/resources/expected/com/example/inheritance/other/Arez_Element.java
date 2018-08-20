@@ -185,7 +185,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
       } else if ( null == o || !(o instanceof Arez_Element) ) {
         return false;
       } else {
-        final Arez_Element that = (Arez_Element) o;;
+        final Arez_Element that = (Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

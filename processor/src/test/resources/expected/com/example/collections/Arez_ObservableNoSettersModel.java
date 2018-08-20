@@ -217,7 +217,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
       } else if ( null == o || !(o instanceof Arez_ObservableNoSettersModel) ) {
         return false;
       } else {
-        final Arez_ObservableNoSettersModel that = (Arez_ObservableNoSettersModel) o;;
+        final Arez_ObservableNoSettersModel that = (Arez_ObservableNoSettersModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

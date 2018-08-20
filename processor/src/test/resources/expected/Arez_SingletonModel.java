@@ -216,7 +216,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
       } else if ( null == o || !(o instanceof Arez_SingletonModel) ) {
         return false;
       } else {
-        final Arez_SingletonModel that = (Arez_SingletonModel) o;;
+        final Arez_SingletonModel that = (Arez_SingletonModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

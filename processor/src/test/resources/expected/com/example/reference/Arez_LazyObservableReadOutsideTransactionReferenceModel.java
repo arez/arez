@@ -212,7 +212,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
       } else if ( null == o || !(o instanceof Arez_LazyObservableReadOutsideTransactionReferenceModel) ) {
         return false;
       } else {
-        final Arez_LazyObservableReadOutsideTransactionReferenceModel that = (Arez_LazyObservableReadOutsideTransactionReferenceModel) o;;
+        final Arez_LazyObservableReadOutsideTransactionReferenceModel that = (Arez_LazyObservableReadOutsideTransactionReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

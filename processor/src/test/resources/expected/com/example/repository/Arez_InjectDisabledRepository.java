@@ -165,7 +165,7 @@ final class Arez_InjectDisabledRepository extends InjectDisabledRepository imple
     } else if ( null == o || !(o instanceof Arez_InjectDisabledRepository) ) {
       return false;
     } else {
-      final Arez_InjectDisabledRepository that = (Arez_InjectDisabledRepository) o;;
+      final Arez_InjectDisabledRepository that = (Arez_InjectDisabledRepository) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

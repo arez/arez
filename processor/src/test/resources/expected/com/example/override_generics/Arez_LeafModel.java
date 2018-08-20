@@ -124,7 +124,7 @@ public final class Arez_LeafModel extends LeafModel implements Disposable, Ident
       } else if ( null == o || !(o instanceof Arez_LeafModel) ) {
         return false;
       } else {
-        final Arez_LeafModel that = (Arez_LeafModel) o;;
+        final Arez_LeafModel that = (Arez_LeafModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

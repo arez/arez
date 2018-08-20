@@ -180,7 +180,7 @@ final class Arez_InjectDisabledRepositoryRepository extends InjectDisabledReposi
       } else if ( null == o || !(o instanceof Arez_InjectDisabledRepositoryRepository) ) {
         return false;
       } else {
-        final Arez_InjectDisabledRepositoryRepository that = (Arez_InjectDisabledRepositoryRepository) o;;
+        final Arez_InjectDisabledRepositoryRepository that = (Arez_InjectDisabledRepositoryRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -109,7 +109,7 @@ public final class Arez_BooleanComponentIdRequireEquals extends BooleanComponent
     } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
       return false;
     } else {
-      final Arez_BooleanComponentIdRequireEquals that = (Arez_BooleanComponentIdRequireEquals) o;;
+      final Arez_BooleanComponentIdRequireEquals that = (Arez_BooleanComponentIdRequireEquals) o;
       return getId() == that.getId();
     }
   }

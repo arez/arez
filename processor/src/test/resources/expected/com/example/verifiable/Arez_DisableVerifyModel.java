@@ -193,7 +193,7 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
       } else if ( null == o || !(o instanceof Arez_DisableVerifyModel) ) {
         return false;
       } else {
-        final Arez_DisableVerifyModel that = (Arez_DisableVerifyModel) o;;
+        final Arez_DisableVerifyModel that = (Arez_DisableVerifyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

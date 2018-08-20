@@ -173,7 +173,7 @@ public final class Arez_ComputedListModel extends ComputedListModel implements D
       } else if ( null == o || !(o instanceof Arez_ComputedListModel) ) {
         return false;
       } else {
-        final Arez_ComputedListModel that = (Arez_ComputedListModel) o;;
+        final Arez_ComputedListModel that = (Arez_ComputedListModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

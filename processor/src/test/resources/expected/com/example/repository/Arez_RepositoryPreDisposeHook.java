@@ -167,7 +167,7 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
     } else if ( null == o || !(o instanceof Arez_RepositoryPreDisposeHook) ) {
       return false;
     } else {
-      final Arez_RepositoryPreDisposeHook that = (Arez_RepositoryPreDisposeHook) o;;
+      final Arez_RepositoryPreDisposeHook that = (Arez_RepositoryPreDisposeHook) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
     }
   }

@@ -162,7 +162,7 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
       } else if ( null == o || !(o instanceof Arez_GenericObservableRefModel) ) {
         return false;
       } else {
-        final Arez_GenericObservableRefModel that = (Arez_GenericObservableRefModel) o;;
+        final Arez_GenericObservableRefModel that = (Arez_GenericObservableRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

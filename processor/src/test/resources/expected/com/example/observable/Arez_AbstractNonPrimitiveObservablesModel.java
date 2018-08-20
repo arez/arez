@@ -156,7 +156,7 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
       } else if ( null == o || !(o instanceof Arez_AbstractNonPrimitiveObservablesModel) ) {
         return false;
       } else {
-        final Arez_AbstractNonPrimitiveObservablesModel that = (Arez_AbstractNonPrimitiveObservablesModel) o;;
+        final Arez_AbstractNonPrimitiveObservablesModel that = (Arez_AbstractNonPrimitiveObservablesModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -171,7 +171,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
       } else if ( null == o || !(o instanceof Arez_ObservableDependency) ) {
         return false;
       } else {
-        final Arez_ObservableDependency that = (Arez_ObservableDependency) o;;
+        final Arez_ObservableDependency that = (Arez_ObservableDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

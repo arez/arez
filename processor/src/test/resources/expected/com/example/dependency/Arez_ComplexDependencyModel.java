@@ -179,7 +179,7 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
       } else if ( null == o || !(o instanceof Arez_ComplexDependencyModel) ) {
         return false;
       } else {
-        final Arez_ComplexDependencyModel that = (Arez_ComplexDependencyModel) o;;
+        final Arez_ComplexDependencyModel that = (Arez_ComplexDependencyModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

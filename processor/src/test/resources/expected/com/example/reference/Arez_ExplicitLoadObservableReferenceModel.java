@@ -220,7 +220,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
       } else if ( null == o || !(o instanceof Arez_ExplicitLoadObservableReferenceModel) ) {
         return false;
       } else {
-        final Arez_ExplicitLoadObservableReferenceModel that = (Arez_ExplicitLoadObservableReferenceModel) o;;
+        final Arez_ExplicitLoadObservableReferenceModel that = (Arez_ExplicitLoadObservableReferenceModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -136,7 +136,7 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
       } else if ( null == o || !(o instanceof NestedModel_Arez_BasicActionModel) ) {
         return false;
       } else {
-        final NestedModel_Arez_BasicActionModel that = (NestedModel_Arez_BasicActionModel) o;;
+        final NestedModel_Arez_BasicActionModel that = (NestedModel_Arez_BasicActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

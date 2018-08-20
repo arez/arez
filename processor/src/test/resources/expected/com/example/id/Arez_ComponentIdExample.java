@@ -114,7 +114,7 @@ final class Arez_ComponentIdExample extends ComponentIdExample implements Dispos
       } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
         return false;
       } else {
-        final Arez_ComponentIdExample that = (Arez_ComponentIdExample) o;;
+        final Arez_ComponentIdExample that = (Arez_ComponentIdExample) o;
         return getId() == that.getId();
       }
     } else {

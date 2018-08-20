@@ -204,7 +204,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
       } else if ( null == o || !(o instanceof Arez_SingletonWithIdModel) ) {
         return false;
       } else {
-        final Arez_SingletonWithIdModel that = (Arez_SingletonWithIdModel) o;;
+        final Arez_SingletonWithIdModel that = (Arez_SingletonWithIdModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

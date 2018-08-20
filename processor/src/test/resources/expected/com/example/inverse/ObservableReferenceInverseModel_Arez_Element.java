@@ -216,7 +216,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
       } else if ( null == o || !(o instanceof ObservableReferenceInverseModel_Arez_Element) ) {
         return false;
       } else {
-        final ObservableReferenceInverseModel_Arez_Element that = (ObservableReferenceInverseModel_Arez_Element) o;;
+        final ObservableReferenceInverseModel_Arez_Element that = (ObservableReferenceInverseModel_Arez_Element) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

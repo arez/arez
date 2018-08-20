@@ -169,7 +169,7 @@ final class Arez_RepositoryWithExplicitNonStandardIdRepository extends Repositor
       } else if ( null == o || !(o instanceof Arez_RepositoryWithExplicitNonStandardIdRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithExplicitNonStandardIdRepository that = (Arez_RepositoryWithExplicitNonStandardIdRepository) o;;
+        final Arez_RepositoryWithExplicitNonStandardIdRepository that = (Arez_RepositoryWithExplicitNonStandardIdRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

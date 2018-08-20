@@ -169,7 +169,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
       } else if ( null == o || !(o instanceof Arez_RepositoryWithInitializerNameCollisionModelRepository) ) {
         return false;
       } else {
-        final Arez_RepositoryWithInitializerNameCollisionModelRepository that = (Arez_RepositoryWithInitializerNameCollisionModelRepository) o;;
+        final Arez_RepositoryWithInitializerNameCollisionModelRepository that = (Arez_RepositoryWithInitializerNameCollisionModelRepository) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

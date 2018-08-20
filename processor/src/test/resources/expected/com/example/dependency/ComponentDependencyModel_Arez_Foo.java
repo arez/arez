@@ -124,7 +124,7 @@ final class ComponentDependencyModel_Arez_Foo extends ComponentDependencyModel.F
       } else if ( null == o || !(o instanceof ComponentDependencyModel_Arez_Foo) ) {
         return false;
       } else {
-        final ComponentDependencyModel_Arez_Foo that = (ComponentDependencyModel_Arez_Foo) o;;
+        final ComponentDependencyModel_Arez_Foo that = (ComponentDependencyModel_Arez_Foo) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {
