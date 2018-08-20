@@ -19,8 +19,8 @@ complete as there is too much un-said.
 
 * Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`
 
-* Reorg code so that `ComputedValue` can exist without an Observer. Useful if computed is derived from
-  external state or an active process. 
+* Add the ability for `ComputedValue` to not generate an error if it observes no arez properties. This is to
+  allow `ComputedValue` to derive from elements outside the system. 
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
