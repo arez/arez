@@ -55,6 +55,10 @@ public abstract class AbstractArezIntegrationTest
     if ( !_ignoreObserverErrors )
     {
       System.out.println( message );
+      if ( null != throwable )
+      {
+        throwable.printStackTrace();
+      }
     }
   }
 

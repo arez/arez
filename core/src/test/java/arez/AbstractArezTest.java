@@ -232,6 +232,10 @@ public abstract class AbstractArezTest
     if ( !_ignoreObserverErrors )
     {
       System.out.println( message );
+      if ( null != throwable )
+      {
+        throwable.printStackTrace();
+      }
     }
   }
 
