@@ -14,7 +14,6 @@ import arez.timeddisposer.TimedDisposer;
 import com.google.gwt.core.client.EntryPoint;
 import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnull;
-import jsinterop.base.Js;
 
 public class TimedDisposerExample
   implements EntryPoint
