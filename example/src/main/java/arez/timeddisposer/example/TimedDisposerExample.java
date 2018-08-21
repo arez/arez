@@ -3,6 +3,7 @@ package arez.timeddisposer.example;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -23,7 +24,7 @@ public class TimedDisposerExample
   {
     final ArezContext context = Arez.context();
     final IntervalTicker ticker = IntervalTicker.create();
-    final arez.Observable<Object> observable = context.observable();
+    final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.autorun( () -> {
       if ( !Disposable.isDisposed( ticker ) )
       {
