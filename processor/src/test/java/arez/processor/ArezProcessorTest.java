@@ -588,6 +588,8 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified observable = DISABLE and disposeOnDeactivate = true which is not a valid combination" },
         new Object[]{ "com.example.component.NonStaticNestedModel",
                       "@ArezComponent target must not be a non-static nested class" },
+        new Object[]{ "com.example.component.UnexpectedAbstractComponent",
+                      "@ArezComponent target must be concrete if the allowConcrete parameter is set to true" },
 
         new Object[]{ "com.example.component_id.ComponentIdDuplicatedModel",
                       "@ComponentId target duplicates existing method named getId" },

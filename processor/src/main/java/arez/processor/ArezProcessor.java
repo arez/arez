@@ -266,9 +266,15 @@ public final class ArezProcessor
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
-    if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) && !allowConcrete )
+    final boolean isClassAbstract = typeElement.getModifiers().contains( Modifier.ABSTRACT );
+    if ( !isClassAbstract && !allowConcrete )
     {
       throw new ArezProcessorException( "@ArezComponent target must be abstract unless the allowConcrete " +
+                                        "parameter is set to true", typeElement );
+    }
+    else if ( isClassAbstract && allowConcrete )
+    {
+      throw new ArezProcessorException( "@ArezComponent target must be concrete if the allowConcrete " +
                                         "parameter is set to true", typeElement );
     }
 

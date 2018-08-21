@@ -115,6 +115,8 @@
 * 💥 **\[core\]** Change the `arez.spy.Component*Event` spy events to use `ComponentInfo` rather than `Component`.
 * 💥 **\[core\]** Replace usage of the `arez.annotations.Priority` enum with `arez.Priority` and remove
   the `arez.annotations.Priority` class.
+* **\[processor\]** Generate an error if a component sets the `allowConcrete` to `true` in the `@ArezComponent`
+  annotation but is actually an abstract class.
 
 ### [v0.104](https://github.com/arez/arez/tree/v0.104) (2018-08-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.103...v0.104)
