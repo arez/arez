@@ -148,7 +148,7 @@ public class ComponentTest
     handler.assertEventCount( 1 );
 
     final ComponentCreateCompletedEvent event = handler.assertNextEvent( ComponentCreateCompletedEvent.class );
-    assertEquals( event.getComponent(), component );
+    assertEquals( event.getComponentInfo().getName(), component.getName() );
   }
 
   @Test
@@ -550,7 +550,7 @@ public class ComponentTest
     handler.assertEventCount( 6 );
     {
       final ComponentDisposeStartedEvent event = handler.assertNextEvent( ComponentDisposeStartedEvent.class );
-      assertEquals( event.getComponent(), component );
+      assertEquals( event.getComponentInfo().getName(), component.getName() );
     }
 
     final String actionName = component.getName() + ".dispose";
@@ -567,7 +567,7 @@ public class ComponentTest
 
     {
       final ComponentDisposeCompletedEvent event = handler.assertNextEvent( ComponentDisposeCompletedEvent.class );
-      assertEquals( event.getComponent(), component );
+      assertEquals( event.getComponentInfo().getName(), component.getName() );
     }
   }
 }

@@ -1,6 +1,5 @@
 package arez.spy;
 
-import arez.Component;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -13,17 +12,17 @@ public final class ComponentCreateCompletedEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ComponentCreateCompletedEvent.class );
   @Nonnull
-  private final Component _component;
+  private final ComponentInfo _componentInfo;
 
-  public ComponentCreateCompletedEvent( @Nonnull final Component component )
+  public ComponentCreateCompletedEvent( @Nonnull final ComponentInfo componentInfo )
   {
-    _component = Objects.requireNonNull( component );
+    _componentInfo = Objects.requireNonNull( componentInfo );
   }
 
   @Nonnull
-  public Component getComponent()
+  public ComponentInfo getComponentInfo()
   {
-    return _component;
+    return _componentInfo;
   }
 
   /**
@@ -33,6 +32,6 @@ public final class ComponentCreateCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", TYPE_NAME );
-    map.put( "component", getComponent().getName() );
+    map.put( "component", getComponentInfo().getName() );
   }
 }

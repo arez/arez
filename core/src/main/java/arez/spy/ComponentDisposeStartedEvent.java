@@ -13,17 +13,17 @@ public final class ComponentDisposeStartedEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ComponentDisposeStartedEvent.class );
   @Nonnull
-  private final Component _component;
+  private final ComponentInfo _componentInfo;
 
-  public ComponentDisposeStartedEvent( @Nonnull final Component component )
+  public ComponentDisposeStartedEvent( @Nonnull final ComponentInfo componentInfo )
   {
-    _component = Objects.requireNonNull( component );
+    _componentInfo = Objects.requireNonNull( componentInfo );
   }
 
   @Nonnull
-  public Component getComponent()
+  public ComponentInfo getComponentInfo()
   {
-    return _component;
+    return _componentInfo;
   }
 
   /**
@@ -33,6 +33,6 @@ public final class ComponentDisposeStartedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", TYPE_NAME );
-    map.put( "component", getComponent().getName() );
+    map.put( "component", getComponentInfo().getName() );
   }
 }

@@ -2,6 +2,7 @@ package arez.spy;
 
 import arez.AbstractArezTest;
 import arez.Arez;
+import arez.ArezContext;
 import arez.Component;
 import java.util.HashMap;
 import org.testng.annotations.Test;
@@ -13,10 +14,12 @@ public class ComponentDisposeCompletedEventTest
   @Test
   public void basicOperation()
   {
-    final Component component = Arez.context().component( "Foo", "1" );
-    final ComponentDisposeCompletedEvent event = new ComponentDisposeCompletedEvent( component );
+    final ArezContext context = Arez.context();
+    final Component component = context.component( "Foo", "1" );
+    final ComponentInfo info = context.getSpy().asComponentInfo( component );
+    final ComponentDisposeCompletedEvent event = new ComponentDisposeCompletedEvent( info );
 
-    assertEquals( event.getComponent(), component );
+    assertEquals( event.getComponentInfo(), info );
 
     final HashMap<String, Object> data = new HashMap<>();
     event.toMap( data );

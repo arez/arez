@@ -2791,7 +2791,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 1 );
     final ComponentCreateStartedEvent event = handler.assertEvent( ComponentCreateStartedEvent.class, 0 );
-    assertEquals( event.getComponent(), component );
+    assertEquals( event.getComponentInfo().getName(), component.getName() );
   }
 
   @Test

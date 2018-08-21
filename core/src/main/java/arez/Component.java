@@ -3,6 +3,7 @@ package arez;
 import arez.spy.ComponentCreateCompletedEvent;
 import arez.spy.ComponentDisposeCompletedEvent;
 import arez.spy.ComponentDisposeStartedEvent;
+import arez.spy.ComponentInfo;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -136,7 +137,8 @@ public final class Component
       _disposed = true;
       if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
-        getContext().getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( this ) );
+        final ComponentInfo info = getContext().getSpy().asComponentInfo( this );
+        getContext().getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( info ) );
       }
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, true, false, () -> {
         if ( null != _preDispose )
@@ -160,7 +162,8 @@ public final class Component
       } );
       if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
-        getContext().getSpy().reportSpyEvent( new ComponentDisposeCompletedEvent( this ) );
+        final ComponentInfo info = getContext().getSpy().asComponentInfo( this );
+        getContext().getSpy().reportSpyEvent( new ComponentDisposeCompletedEvent( info ) );
       }
     }
   }
@@ -213,7 +216,8 @@ public final class Component
       _complete = true;
       if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
-        getContext().getSpy().reportSpyEvent( new ComponentCreateCompletedEvent( this ) );
+        final ComponentInfo component = getContext().getSpy().asComponentInfo( this );
+        getContext().getSpy().reportSpyEvent( new ComponentCreateCompletedEvent( component ) );
       }
     }
   }

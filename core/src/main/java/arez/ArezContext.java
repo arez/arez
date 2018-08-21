@@ -232,7 +232,7 @@ public final class ArezContext
     map.put( id, component );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComponentCreateStartedEvent( component ) );
+      getSpy().reportSpyEvent( new ComponentCreateStartedEvent( getSpy().asComponentInfo( component ) ) );
     }
     return component;
   }
