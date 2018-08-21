@@ -3,7 +3,7 @@ package arez.when;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.Priority;
 import arez.SafeFunction;
@@ -104,7 +104,7 @@ public class WhenTest
     throws Throwable
   {
     final ArezContext context = Arez.context();
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 

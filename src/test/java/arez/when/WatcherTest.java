@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
-import arez.Observable;
+import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverError;
 import arez.ObserverErrorHandler;
@@ -30,8 +30,8 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
-    final Observable observable2 = context.observable();
+    final ObservableValue observable = context.observable();
+    final ObservableValue observable2 = context.observable();
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final AtomicBoolean result = new AtomicBoolean();
@@ -109,7 +109,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -294,7 +294,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -337,7 +337,7 @@ public class WatcherTest
   {
     final ArezContext context = Arez.context();
 
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -391,7 +391,7 @@ public class WatcherTest
     };
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicBoolean result = new AtomicBoolean();
 
@@ -444,7 +444,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicInteger effectRun = new AtomicInteger();
 
@@ -475,7 +475,7 @@ public class WatcherTest
     final ObserverErrorHandler handler = ( observer, error, throwable ) -> errorCount.incrementAndGet();
     context.addObserverErrorHandler( handler );
 
-    final Observable observable = context.observable();
+    final ObservableValue observable = context.observable();
 
     final AtomicInteger effectRun = new AtomicInteger();
 
