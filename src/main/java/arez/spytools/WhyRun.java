@@ -3,7 +3,7 @@ package arez.spytools;
 import arez.Arez;
 import arez.Spy;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
 import elemental2.dom.DomGlobal;
@@ -188,9 +188,9 @@ public final class WhyRun
   }
 
   private static void describeDependencies( @Nonnull final StringBuilder sb,
-                                            @Nonnull final List<ObservableInfo> dependencies )
+                                            @Nonnull final List<ObservableValueInfo> dependencies )
   {
-    for ( final ObservableInfo observable : dependencies )
+    for ( final ObservableValueInfo observable : dependencies )
     {
       sb.append( "    - " );
       describeObservable( sb, observable );
@@ -198,7 +198,7 @@ public final class WhyRun
     }
   }
 
-  private static void describeObservable( @Nonnull final StringBuilder sb, @Nonnull final ObservableInfo observable )
+  private static void describeObservable( @Nonnull final StringBuilder sb, @Nonnull final ObservableValueInfo observable )
   {
     sb.append( observable.isComputedValue() ? "ComputedValue" : "Observable" );
     sb.append( " '" );

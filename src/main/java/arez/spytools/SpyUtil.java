@@ -12,9 +12,9 @@ import arez.spy.ComputedValueActivatedEvent;
 import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ObservableChangedEvent;
-import arez.spy.ObservableCreatedEvent;
-import arez.spy.ObservableDisposedEvent;
+import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObservableValueCreatedEvent;
+import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverErrorEvent;
@@ -80,9 +80,9 @@ public final class SpyUtil
     else if ( ObserverCreatedEvent.class == type ||
               ObserverDisposedEvent.class == type ||
               ObserverErrorEvent.class == type ||
-              ObservableCreatedEvent.class == type ||
-              ObservableDisposedEvent.class == type ||
-              ObservableChangedEvent.class == type ||
+              ObservableValueCreatedEvent.class == type ||
+              ObservableValueDisposedEvent.class == type ||
+              ObservableValueChangedEvent.class == type ||
               ComputedValueActivatedEvent.class == type ||
               ComputedValueDeactivatedEvent.class == type ||
               ComputedValueCreatedEvent.class == type ||

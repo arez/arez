@@ -13,9 +13,9 @@ import arez.spy.ComputedValueActivatedEvent;
 import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ObservableChangedEvent;
-import arez.spy.ObservableCreatedEvent;
-import arez.spy.ObservableDisposedEvent;
+import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObservableValueCreatedEvent;
+import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverErrorEvent;
@@ -78,9 +78,9 @@ public class ConsoleSpyEventProcessor
     on( ObserverDisposedEvent.class, this::onObserverDisposed );
     on( ObserverErrorEvent.class, this::onObserverError );
 
-    on( ObservableCreatedEvent.class, this::onObservableCreated );
-    on( ObservableDisposedEvent.class, this::onObservableDisposed );
-    on( ObservableChangedEvent.class, this::onObservableChanged );
+    on( ObservableValueCreatedEvent.class, this::onObservableValueCreated );
+    on( ObservableValueDisposedEvent.class, this::onObservableValueDisposed );
+    on( ObservableValueChangedEvent.class, this::onObservableValueChanged );
 
     on( ComputedValueCreatedEvent.class, this::onComputedValueCreated );
     on( ComputedValueActivatedEvent.class, this::onComputedValueActivated );
@@ -109,7 +109,7 @@ public class ConsoleSpyEventProcessor
   protected void onComponentCreateStarted( @Nonnull final SpyUtil.NestingDelta d,
                                            @Nonnull final ComponentCreateStartedEvent e )
   {
-    log( d, "%cComponent Create Started " + e.getComponent().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Create Started " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
@@ -121,7 +121,7 @@ public class ConsoleSpyEventProcessor
   protected void onComponentCreateCompletedEvent( @Nonnull final SpyUtil.NestingDelta d,
                                                   @Nonnull final ComponentCreateCompletedEvent e )
   {
-    log( d, "%cComponent Create Completed " + e.getComponent().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Create Completed " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
@@ -133,7 +133,7 @@ public class ConsoleSpyEventProcessor
   protected void onComponentDisposeStarted( @Nonnull final SpyUtil.NestingDelta d,
                                             @Nonnull final ComponentDisposeStartedEvent e )
   {
-    log( d, "%cComponent Dispose Started " + e.getComponent().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Dispose Started " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
@@ -145,7 +145,7 @@ public class ConsoleSpyEventProcessor
   protected void onComponentDisposeCompleted( @Nonnull final SpyUtil.NestingDelta d,
                                               @Nonnull final ComponentDisposeCompletedEvent e )
   {
-    log( d, "%cComponent Dispose Completed " + e.getComponent().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Dispose Completed " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
@@ -189,9 +189,10 @@ public class ConsoleSpyEventProcessor
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObservableCreated( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableCreatedEvent e )
+  protected void onObservableValueCreated( @Nonnull final SpyUtil.NestingDelta d,
+                                           @Nonnull final ObservableValueCreatedEvent e )
   {
-    log( d, "%cObservable Created " + e.getObservable().getName(), OBSERVABLE_COLOR );
+    log( d, "%cObservable Created " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
   }
 
   /**
@@ -200,9 +201,10 @@ public class ConsoleSpyEventProcessor
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObservableDisposed( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableDisposedEvent e )
+  protected void onObservableValueDisposed( @Nonnull final SpyUtil.NestingDelta d,
+                                            @Nonnull final ObservableValueDisposedEvent e )
   {
-    log( d, "%cObservable Disposed " + e.getObservable().getName(), OBSERVABLE_COLOR );
+    log( d, "%cObservable Disposed " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
   }
 
   /**
@@ -211,10 +213,11 @@ public class ConsoleSpyEventProcessor
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObservableChanged( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableChangedEvent e )
+  protected void onObservableValueChanged( @Nonnull final SpyUtil.NestingDelta d,
+                                           @Nonnull final ObservableValueChangedEvent e )
   {
     DomGlobal.console.log( "%cObservable Changed " +
-                           e.getObservable().getName() +
+                           e.getObservableValue().getName() +
                            ( Arez.arePropertyIntrospectorsEnabled() ? " Value: %o " : null ),
                            OBSERVABLE_COLOR,
                            ( Arez.arePropertyIntrospectorsEnabled() ? e.getValue() : null ) );

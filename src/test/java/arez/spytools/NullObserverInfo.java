@@ -3,7 +3,7 @@ package arez.spytools;
 import arez.Priority;
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +53,7 @@ final class NullObserverInfo
 
   @Nonnull
   @Override
-  public List<ObservableInfo> getDependencies()
+  public List<ObservableValueInfo> getDependencies()
   {
     return Collections.emptyList();
   }
