@@ -122,7 +122,6 @@ public class MemoizedIntegrationTest
     throws Throwable
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final ArezContext context = Arez.context();
 
@@ -147,7 +146,6 @@ public class MemoizedIntegrationTest
   {
     ArezTestUtil.disableNativeComponents();
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final ArezContext context = Arez.context();
 

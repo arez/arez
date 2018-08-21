@@ -353,7 +353,6 @@ public class ComputedValueTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =

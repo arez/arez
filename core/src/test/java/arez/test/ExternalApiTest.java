@@ -226,7 +226,6 @@ public class ExternalApiTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
     final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();

@@ -2218,7 +2218,6 @@ public class ArezContextTest
   public void autorun_noObservers()
     throws Exception
   {
-    setPrintObserverErrors( false );
     setIgnoreObserverErrors( true );
 
     Arez.context().setNextNodeId( 22 );

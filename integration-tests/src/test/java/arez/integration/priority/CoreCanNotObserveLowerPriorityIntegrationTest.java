@@ -17,7 +17,6 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
     throws Throwable
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final ArezContext context = Arez.context();
 

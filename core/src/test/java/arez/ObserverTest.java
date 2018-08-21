@@ -560,7 +560,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final Observer observer = newReadOnlyObserver();
 
@@ -1057,7 +1056,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final AtomicBoolean hasErrorOccurred = new AtomicBoolean();
     hasErrorOccurred.set( false );
@@ -1171,7 +1169,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final ArezContext context = Arez.context();
 
@@ -1331,7 +1328,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final String name = ValueUtil.randomString();
     final TransactionMode mode = TransactionMode.READ_ONLY;
@@ -1447,7 +1443,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final ArezContext context = Arez.context();
     final SafeFunction<String> function1 = () -> {
@@ -1484,7 +1479,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final SafeFunction<String> function1 = () -> {
       observeADependency();

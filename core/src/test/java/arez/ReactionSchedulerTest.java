@@ -631,7 +631,6 @@ public class ReactionSchedulerTest
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
     setIgnoreObserverErrors( true );
-    setPrintObserverErrors( false );
 
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 

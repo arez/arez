@@ -16,7 +16,6 @@ public abstract class AbstractArezTest
 {
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
-  private boolean _printObserverErrors;
 
   @BeforeMethod
   protected void beforeTest()
@@ -28,7 +27,6 @@ public abstract class AbstractArezTest
     ArezTestUtil.resetState();
     getProxyLogger().setLogger( new TestLogger() );
     _ignoreObserverErrors = false;
-    _printObserverErrors = true;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
   }
@@ -220,11 +218,6 @@ public abstract class AbstractArezTest
     _ignoreObserverErrors = ignoreObserverErrors;
   }
 
-  protected final void setPrintObserverErrors( final boolean printObserverErrors )
-  {
-    _printObserverErrors = printObserverErrors;
-  }
-
   protected static void observeADependency()
   {
     Arez.context().observable().reportObserved();
@@ -236,7 +229,7 @@ public abstract class AbstractArezTest
   {
     final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
     _observerErrors.add( message );
-    if ( _printObserverErrors )
+    if ( !_ignoreObserverErrors )
     {
       System.out.println( message );
     }

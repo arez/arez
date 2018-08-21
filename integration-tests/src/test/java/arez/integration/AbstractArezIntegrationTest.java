@@ -27,17 +27,11 @@ public abstract class AbstractArezIntegrationTest
 {
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
-  private boolean _printObserverErrors;
   private String _currentMethod;
 
   protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
   {
     _ignoreObserverErrors = ignoreObserverErrors;
-  }
-
-  protected final void setPrintObserverErrors( final boolean printObserverErrors )
-  {
-    _printObserverErrors = printObserverErrors;
   }
 
   @BeforeMethod
@@ -48,7 +42,6 @@ public abstract class AbstractArezIntegrationTest
     BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
     _ignoreObserverErrors = false;
-    _printObserverErrors = true;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
   }
@@ -59,7 +52,7 @@ public abstract class AbstractArezIntegrationTest
   {
     final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
     _observerErrors.add( message );
-    if ( _printObserverErrors )
+    if ( !_ignoreObserverErrors )
     {
       System.out.println( message );
     }
