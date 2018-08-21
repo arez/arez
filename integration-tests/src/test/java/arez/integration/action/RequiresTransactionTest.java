@@ -53,7 +53,7 @@ public class RequiresTransactionTest
     recorder.assertNextEvent( TransactionStartedEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
     recorder.assertNextEvent( ObservableValueChangedEvent.class,
-                              a -> assertEquals( a.getObservable().getName(), "MyComponent.0.time" ) );
+                              a -> assertEquals( a.getObservableValue().getName(), "MyComponent.0.time" ) );
     recorder.assertNextEvent( TransactionCompletedEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
     recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
@@ -93,7 +93,7 @@ public class RequiresTransactionTest
     recorder.assertNextEvent( TransactionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
     recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
     recorder.assertNextEvent( ObservableValueChangedEvent.class,
-                              a -> assertEquals( a.getObservable().getName(), "MyComponent2.0.time" ) );
+                              a -> assertEquals( a.getObservableValue().getName(), "MyComponent2.0.time" ) );
     recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
     recorder.assertNextEvent( TransactionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
     recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
