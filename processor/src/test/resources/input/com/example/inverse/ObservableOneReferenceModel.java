@@ -7,7 +7,6 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @ArezComponent
 abstract class ObservableOneReferenceModel

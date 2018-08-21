@@ -11,7 +11,6 @@ import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Repository;
 import arez.component.Identifiable;
-import arez.component.Linkable;
 import arez.component.TypeBasedLocator;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Objects;
