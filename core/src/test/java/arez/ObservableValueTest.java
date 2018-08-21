@@ -265,7 +265,7 @@ public class ObservableValueTest
 
     final ObservableValueDisposedEvent event = handler.assertEvent( ObservableValueDisposedEvent.class );
 
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
   }
 
   @Test
@@ -1485,7 +1485,7 @@ public class ObservableValueTest
     handler.assertEventCount( 2 );
 
     final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
     assertEquals( event.getValue(), null );
 
     handler.assertEvent( ReactionScheduledEvent.class, 1 );
@@ -1512,7 +1512,7 @@ public class ObservableValueTest
     handler.assertEventCount( 1 );
 
     final ObservableValueChangedEvent event = handler.assertNextEvent( ObservableValueChangedEvent.class );
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
     assertEquals( event.getValue(), currentValue );
   }
 
@@ -1550,7 +1550,7 @@ public class ObservableValueTest
     handler.assertEventCount( 2 );
 
     final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
     assertEquals( event.getValue(), null );
 
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
@@ -1587,7 +1587,7 @@ public class ObservableValueTest
     handler.assertEventCount( 4 );
 
     final ObservableValueChangedEvent event = handler.assertNextEvent( ObservableValueChangedEvent.class );
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
 
     handler.assertNextEvent( ReactionScheduledEvent.class );
     handler.assertNextEvent( ObservableValueChangedEvent.class );
@@ -1680,7 +1680,7 @@ public class ObservableValueTest
     handler.assertEventCount( 2 );
 
     final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
     assertEquals( event.getValue(), null );
 
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
@@ -1729,7 +1729,7 @@ public class ObservableValueTest
     handler.assertEventCount( 2 );
 
     final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 0 );
-    assertEquals( event.getObservable().getName(), observableValue.getName() );
+    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
     assertEquals( event.getValue(), expectedValue );
 
     assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
@@ -1767,12 +1767,12 @@ public class ObservableValueTest
     assertEquals( observer.getState(), ObserverState.STALE );
 
     handler.assertEventCount( 4 );
-    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservable().getName(),
+    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservableValue().getName(),
                   observableValue.getName() );
     assertEquals( handler.assertNextEvent( ReactionScheduledEvent.class ).getObserver().getName(), observer.getName() );
-    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservable().getName(),
+    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservableValue().getName(),
                   observableValue.getName() );
-    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservable().getName(),
+    assertEquals( handler.assertNextEvent( ObservableValueChangedEvent.class ).getObservableValue().getName(),
                   observableValue.getName() );
   }
 

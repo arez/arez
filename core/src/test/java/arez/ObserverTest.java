@@ -1260,7 +1260,7 @@ public class ObserverTest
     handler.assertEvent( TransactionStartedEvent.class, 1 );
     {
       final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 2 );
-      assertEquals( event.getObservable().getName(), computedValue.getObservableValue().getName() );
+      assertEquals( event.getObservableValue().getName(), computedValue.getObservableValue().getName() );
     }
     handler.assertEvent( ComputedValueDeactivatedEvent.class, 3 );
     handler.assertEvent( TransactionCompletedEvent.class, 4 );
