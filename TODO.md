@@ -13,8 +13,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Change spy event `ComputeCompletedEvent` to include value completed and whether it was a change?
-
 * Consider caching all the infos the first time they are used to dramatically speed up spy logging
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
