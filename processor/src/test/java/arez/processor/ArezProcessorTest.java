@@ -295,9 +295,11 @@ public class ArezProcessorTest
   public void processSuccessfulMultipleInverseWithSameTarget()
     throws Exception
   {
-    final JavaFileObject source1 = fixture( "input/com/example/inverse/MultipleReferenceWithInverseWithSameTarget.java" );
+    final JavaFileObject source1 =
+      fixture( "input/com/example/inverse/MultipleReferenceWithInverseWithSameTarget.java" );
     final String output1 = "expected/com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleType.java";
-    final String output2 = "expected/com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation.java";
+    final String output2 =
+      "expected/com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation.java";
     assertSuccessfulCompile( Collections.singletonList( source1 ), Arrays.asList( output1, output2 ) );
   }
 
