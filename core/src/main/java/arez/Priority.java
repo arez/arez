@@ -5,6 +5,12 @@ package arez;
  * Observers with higher priorities will react first. If observers have equal priorities then observers
  * scheduled first will react first. Observers must not depend upon ComputedValue instances with
  * a lower priority otherwise priority is ignored.
+ *
+ * <p>A user should be very careful when specifying a {@link #HIGH} priority as it is possible that
+ * the the reaction will be scheduled part way through the process of disposing and/or unlinking one-or-more
+ * components. Dispose reactions will often be scheduled with a higher priority but reactions unlinking disposed
+ * arez components from remaining arez components. In many cases this may mean invoking
+ * {@link Disposable#isDisposed(Object)} before accessing arez components.</p>
  */
 public enum Priority
 {

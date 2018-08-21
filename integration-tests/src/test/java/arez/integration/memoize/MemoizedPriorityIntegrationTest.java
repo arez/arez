@@ -154,13 +154,13 @@ public class MemoizedPriorityIntegrationTest
 
     abstract void setName( @Nonnull String name );
 
-    @Memoize( priority = arez.annotations.Priority.LOW )
+    @Memoize( priority = Priority.LOW )
     boolean search1( @Nonnull final String value )
     {
       return getName().contains( value );
     }
 
-    @Memoize( priority = arez.annotations.Priority.HIGH )
+    @Memoize( priority = Priority.HIGH )
     boolean search2( @Nonnull final String value )
     {
       return getName().contains( value );

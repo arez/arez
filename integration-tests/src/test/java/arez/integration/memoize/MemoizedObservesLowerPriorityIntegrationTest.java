@@ -62,7 +62,7 @@ public class MemoizedObservesLowerPriorityIntegrationTest
 
     abstract void setName( @Nonnull String name );
 
-    @Computed( priority = arez.annotations.Priority.LOWEST )
+    @Computed( priority = Priority.LOWEST )
     boolean isNameEmpty()
     {
       return getName().isEmpty();

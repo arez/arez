@@ -25,7 +25,7 @@ public class JDependTest
 
     final JavaPackage arez = constraint.addPackage( "arez" );
     final JavaPackage spy = constraint.addPackage( "arez.spy" );
-    constraint.addPackage( "arez.annotations" );
+    final JavaPackage annotations = constraint.addPackage( "arez.annotations" );
     final JavaPackage component = constraint.addPackage( "arez.component" );
     final JavaPackage braincheck = constraint.addPackage( "org.realityforge.braincheck" );
     final JavaPackage jsinterop = constraint.addPackage( "jsinterop.annotations" );
@@ -40,6 +40,9 @@ public class JDependTest
      */
     spy.dependsUpon( arez );
     arez.dependsUpon( spy );
+
+    // Annotations use Priority from arez
+    annotations.dependsUpon( arez );
 
     component.dependsUpon( braincheck );
     component.dependsUpon( arez );

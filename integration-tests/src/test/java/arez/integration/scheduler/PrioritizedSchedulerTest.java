@@ -1,11 +1,11 @@
 package arez.integration.scheduler;
 
 import arez.Disposable;
+import arez.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
-import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
