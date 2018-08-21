@@ -14,20 +14,20 @@ public final class ObservableValueChangedEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ObservableValueChangedEvent.class );
   @Nonnull
-  private final ObservableValueInfo _observable;
+  private final ObservableValueInfo _observableValue;
   @Nullable
   private final Object _value;
 
-  public ObservableValueChangedEvent( @Nonnull final ObservableValueInfo observable, @Nullable final Object value )
+  public ObservableValueChangedEvent( @Nonnull final ObservableValueInfo observableValue, @Nullable final Object value )
   {
-    _observable = Objects.requireNonNull( observable );
+    _observableValue = Objects.requireNonNull( observableValue );
     _value = value;
   }
 
   @Nonnull
-  public ObservableValueInfo getObservable()
+  public ObservableValueInfo getObservableValue()
   {
-    return _observable;
+    return _observableValue;
   }
 
   @Nullable
@@ -43,7 +43,7 @@ public final class ObservableValueChangedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", TYPE_NAME );
-    map.put( "observable", getObservable().getName() );
+    map.put( "observable", getObservableValue().getName() );
     if ( Arez.arePropertyIntrospectorsEnabled() )
     {
       map.put( "value", getValue() );

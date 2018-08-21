@@ -12,17 +12,17 @@ public final class ObservableValueDisposedEvent
 {
   public static final String TYPE_NAME = EventUtil.getName( ObservableValueDisposedEvent.class );
   @Nonnull
-  private final ObservableValueInfo _observable;
+  private final ObservableValueInfo _observableValue;
 
-  public ObservableValueDisposedEvent( @Nonnull final ObservableValueInfo observable )
+  public ObservableValueDisposedEvent( @Nonnull final ObservableValueInfo observableValue )
   {
-    _observable = Objects.requireNonNull( observable );
+    _observableValue = Objects.requireNonNull( observableValue );
   }
 
   @Nonnull
-  public ObservableValueInfo getObservable()
+  public ObservableValueInfo getObservableValue()
   {
-    return _observable;
+    return _observableValue;
   }
 
   /**
@@ -32,6 +32,6 @@ public final class ObservableValueDisposedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", TYPE_NAME );
-    map.put( "observable", getObservable().getName() );
+    map.put( "observable", getObservableValue().getName() );
   }
 }
