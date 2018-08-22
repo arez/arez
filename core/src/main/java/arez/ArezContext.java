@@ -388,7 +388,7 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed.
+   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -412,7 +412,7 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed.
+   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -437,7 +437,7 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed.
+   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority     the priority of the associated observer.
    * @return the ComputedValue instance.
    */
@@ -464,7 +464,7 @@ public final class ArezContext
    * @param onActivate     the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate   the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale        the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose      the procedure to invoke when the ComputedValue is disposed.
+   * @param onDispose      the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority       the priority of the associated observer.
    * @param keepAlive      true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
@@ -505,7 +505,7 @@ public final class ArezContext
    * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed.
+   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority                         the priority of the associated observer.
    * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
@@ -807,7 +807,7 @@ public final class ArezContext
    * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any.
+   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
    * @return the new Observer.
    */
   @Nonnull

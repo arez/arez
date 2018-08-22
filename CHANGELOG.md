@@ -228,6 +228,9 @@
   annotated methods that either specify or default the value of the `verifyRequired` annotation parameter
   to `true` will still register the write and will not generate an invariant failure if that is the only
   arez activity within the scope of the action method.
+* **\[core\]** Ensure that the `OnDispose` hook method passed to the `ArezContext.computed(...)` and
+  `ArezContext.autorun(...)` methods is run within the scope of the associated observers dispose transaction.
+  Improve the javadocs to document this behaviour.
 
 ### [v0.96](https://github.com/arez/arez/tree/v0.96) (2018-07-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.95...v0.96)

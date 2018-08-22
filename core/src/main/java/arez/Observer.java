@@ -187,8 +187,6 @@ public final class Observer
   {
     if ( !isDisposedOrDisposing() )
     {
-      _state = ObserverState.DISPOSING;
-      runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                true,
                                false,
@@ -220,7 +218,8 @@ public final class Observer
   {
     getContext().getTransaction().reportDispose( this );
     markDependenciesLeastStaleObserverAsUpToDate();
-    clearDependencies();
+    setState( ObserverState.DISPOSING );
+    runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
   }
 
   void markAsDisposed()
@@ -363,7 +362,8 @@ public final class Observer
           schedule();
         }
       }
-      else if ( ObserverState.INACTIVE == _state )
+      else if ( ObserverState.INACTIVE == _state ||
+                ( ObserverState.INACTIVE != originalState && ObserverState.DISPOSING == _state ) )
       {
         if ( isComputedValue() )
         {
