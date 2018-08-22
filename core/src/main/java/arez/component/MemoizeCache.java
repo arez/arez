@@ -8,6 +8,7 @@ import arez.Disposable;
 import arez.Priority;
 import arez.Procedure;
 import arez.SafeFunction;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -274,7 +275,15 @@ public final class MemoizeCache<T>
     {
       stack.push( (Map) stack.peek().get( args[ i ] ) );
     }
-    getContext().scheduleDispose( ( (ComputedValue<T>) stack.peek().remove( args[ size ] ) ) );
+    final ComputedValue<T> computedValue = (ComputedValue<T>) stack.peek().remove( args[ size ] );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> null != computedValue,
+                 () -> "Arez-0193: MemoizeCache.disposeComputedValue called with args " + Arrays.asList( args ) +
+                       " but unable to locate corresponding ComputedValue." );
+    }
+    assert null != computedValue;
+    getContext().scheduleDispose( computedValue );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();

@@ -231,6 +231,8 @@
 * **\[core\]** Ensure that the `OnDispose` hook method passed to the `ArezContext.computed(...)` and
   `ArezContext.autorun(...)` methods is run within the scope of the associated observers dispose transaction.
   Improve the javadocs to document this behaviour.
+* **\[core\]** Add invariant check to ensure that a meaningful error is raised if attempting to dispose
+  non-existent `ComputedValue` within a `MemoizeCache`.
 
 ### [v0.96](https://github.com/arez/arez/tree/v0.96) (2018-07-05)
 [Full Changelog](https://github.com/arez/arez/compare/v0.95...v0.96)

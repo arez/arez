@@ -256,6 +256,25 @@ public class MemoizeCacheTest
   }
 
   @Test
+  public void disposeComputedValue_noComputedValueCachedForArgs()
+  {
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null,
+                          null,
+                          ValueUtil.randomString(),
+                          args -> args[ 0 ] + "." + args[ 1 ],
+                          1,
+                          Priority.NORMAL,
+                          false );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> cache.disposeComputedValue( "a" ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0193: MemoizeCache.disposeComputedValue called with args [a] but unable to locate corresponding ComputedValue." );
+  }
+
+  @Test
   public void get_passedBadArgCounts()
   {
     final MemoizeCache<String> cache =
