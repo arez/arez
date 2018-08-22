@@ -201,8 +201,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CompleteModel.class, getId() ), () -> "Attempted to lookup self in Locator with type CompleteModel and id '" + getId() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CompleteModel.class, getId() ) );
-      this.$$arezi$$_delink_myEntity();
-      this.$$arezi$$_link_myEntity();
+      final int $$arezv$$_myEntityId = this.getMyEntityId();
+      final BaseCompleteModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteModel.MyEntity.class, $$arezv$$_myEntityId );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + getComponentName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = " + getMyEntityId() );
       for( final Element element : this.$$arezd$$_elements ) {
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + getComponentName() + "' contains disposed element '" + element + "'" );

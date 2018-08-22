@@ -130,8 +130,9 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_Blah();
-      this.$$arezi$$_link_Blah();
+      final int $$arezv$$_BlahId = this.getMyEntityId();
+      final CustomNameReferenceModel.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, $$arezv$$_BlahId );
+      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

@@ -138,10 +138,12 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_completeModel();
-      this.$$arezi$$_link_completeModel();
-      this.$$arezi$$_delink_child();
-      this.$$arezi$$_link_child();
+      final int $$arezv$$_completeModelId = this.getCompleteModelId();
+      final CompleteModel $$arezv$$_completeModel = this.$$arezi$$_locator().findById( CompleteModel.class, $$arezv$$_completeModelId );
+      Guards.apiInvariant( () -> null != $$arezv$$_completeModel, () -> "Reference named 'completeModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inheritance.CompleteModel and id = " + getCompleteModelId() );
+      final int $$arezv$$_childId = this.getChildId();
+      final CompleteModel $$arezv$$_child = this.$$arezi$$_locator().findById( CompleteModel.class, $$arezv$$_childId );
+      Guards.apiInvariant( () -> null != $$arezv$$_child, () -> "Reference named 'child' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inheritance.CompleteModel and id = " + getChildId() );
     }
   }
 

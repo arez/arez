@@ -3,27 +3,48 @@ package arez.integration.verify;
 import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComponentId;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Repository;
-import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
 import arez.component.Verifiable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
-import java.util.Objects;
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public class VerifyIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test
-  public void scenario()
+  public void verifyOnDisposeCausesException()
     throws Throwable
   {
-    final VerifyIntegrationTest_Model2Repository repository =
-      VerifyIntegrationTest_Model2Repository.newRepository();
+    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+
+    final TypeBasedLocator locator = new TypeBasedLocator();
+    Arez.context().registerLocator( locator );
+
+    final HashMap<Object, Model2> entities2 = new HashMap<>();
+    locator.registerLookup( Model2.class, entities2::get );
+
+    final Model2 model2a = repository.create( 1 );
+    entities2.put( model2a.getId(), model2a );
+
+    final Model1 model1 = Model1.create( 0, model2a.getId() );
+
+    Disposable.dispose( model1 );
+    entities2.clear();
+
+    assertInvariant( () -> Verifiable.verify( model1 ),
+                     "Method named 'verify' invoked on disposed component named 'Model1.0'" );
+  }
+
+  @Test
+  public void unableToLocateOther()
+    throws Throwable
+  {
+    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -33,65 +54,73 @@ public class VerifyIntegrationTest
     locator.registerLookup( Model1.class, entities1::get );
     locator.registerLookup( Model2.class, entities2::get );
 
-    final Model2 model2a = repository.create();
-    final Object model2aId = Objects.requireNonNull( Identifiable.getArezId( model2a ) );
-    entities2.put( model2aId, model2a );
+    final Model2 model2a = repository.create( 1 );
+    entities2.put( model2a.getId(), model2a );
 
-    final Model1 model1 = Model1.create( model2aId );
-    final Object model1Id = Objects.requireNonNull( Identifiable.getArezId( model1 ) );
-    entities1.put( model1Id, model1 );
+    final Model1 model1 = Model1.create( 0, model2a.getId() );
+    entities1.put( model1.getId(), model1 );
 
-    // Should verify as will link correctly
-    Verifiable.verify( model1 );
+    entities2.clear();
 
-    {
-      entities2.clear();
-
-      // Fail to verify as related is missing
-      assertInvariant( () -> Verifiable.verify( model1 ),
-                       "Reference method named 'getModel2' invoked on component named 'Model1.0' is unable to resolve entity of type arez.integration.verify.VerifyIntegrationTest.Model2 and id = 0" );
-      entities2.put( model2aId, model2a );
-    }
-
-    {
-      entities1.clear();
-
-      // Fail to verify as missing self
-      assertInvariant( () -> Verifiable.verify( model1 ),
-                       "Attempted to lookup self in Locator with type VerifyIntegrationTest.Model1 and id '0' but unable to locate self. Actual value: null" );
-
-      entities1.put( model1Id, model1 );
-    }
-
-    Disposable.dispose( model1 );
-
-    // Fail to verify as disposed
     assertInvariant( () -> Verifiable.verify( model1 ),
-                     "Method named 'verify' invoked on disposed component named 'Model1.0'" );
+                     "Reference named 'model2' on component named 'Model1.0' is unable to resolve entity of type arez.integration.verify.VerifyIntegrationTest.Model2 and id = 1" );
+  }
+
+  @Test
+  public void unableToLocateSelf()
+    throws Throwable
+  {
+    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+
+    final TypeBasedLocator locator = new TypeBasedLocator();
+    Arez.context().registerLocator( locator );
+
+    final HashMap<Object, Model2> entities2 = new HashMap<>();
+    locator.registerLookup( Model2.class, entities2::get );
+
+    final Model2 model2a = repository.create( 1 );
+    entities2.put( model2a.getId(), model2a );
+
+    assertInvariant( () -> Verifiable.verify( Model1.create( 0, model2a.getId() ) ),
+                     "Attempted to lookup self in Locator with type VerifyIntegrationTest.Model1 and id '0' but unable to locate self. Actual value: null" );
+  }
+
+  @Test
+  public void modelWithoutVerify()
+    throws Throwable
+  {
+    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+    Verifiable.verify( repository.create( 0 ) );
   }
 
   @ArezComponent
   static abstract class Model1
   {
-    @Nonnull
-    private final Object _model2Id;
+    private final int _id;
+    private final int _model2Id;
 
-    static Model1 create( @Nonnull final Object model2Id )
+    static Model1 create( final int id, final int model2Id )
     {
-      return new VerifyIntegrationTest_Arez_Model1( model2Id );
+      return new VerifyIntegrationTest_Arez_Model1( id, model2Id );
     }
 
-    Model1( @Nonnull final Object model2Id )
+    Model1( final int id, final int model2Id )
     {
+      _id = id;
       _model2Id = model2Id;
+    }
+
+    @ComponentId
+    final int getId()
+    {
+      return _id;
     }
 
     @Reference
     abstract Model2 getModel2();
 
     @ReferenceId
-    @Nonnull
-    final Object getModel2Id()
+    final int getModel2Id()
     {
       return _model2Id;
     }
@@ -101,5 +130,17 @@ public class VerifyIntegrationTest
   @ArezComponent( allowEmpty = true )
   static abstract class Model2
   {
+    private final int _id;
+
+    Model2( final int id )
+    {
+      _id = id;
+    }
+
+    @ComponentId
+    final int getId()
+    {
+      return _id;
+    }
   }
 }

@@ -133,8 +133,9 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_packageAccessWithDifferentPackageInverseModel();
-      this.$$arezi$$_link_packageAccessWithDifferentPackageInverseModel();
+      final int $$arezv$$_packageAccessWithDifferentPackageInverseModelId = this.getPackageAccessWithDifferentPackageInverseModelId();
+      final PackageAccessWithDifferentPackageInverseModel $$arezv$$_packageAccessWithDifferentPackageInverseModel = this.$$arezi$$_locator().findById( PackageAccessWithDifferentPackageInverseModel.class, $$arezv$$_packageAccessWithDifferentPackageInverseModelId );
+      Guards.apiInvariant( () -> null != $$arezv$$_packageAccessWithDifferentPackageInverseModel, () -> "Reference named 'packageAccessWithDifferentPackageInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.PackageAccessWithDifferentPackageInverseModel and id = " + getPackageAccessWithDifferentPackageInverseModelId() );
     }
   }
 

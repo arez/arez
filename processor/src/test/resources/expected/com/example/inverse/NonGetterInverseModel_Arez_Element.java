@@ -131,8 +131,9 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonGetterInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_nonGetterInverseModel();
-      this.$$arezi$$_link_nonGetterInverseModel();
+      final int $$arezv$$_nonGetterInverseModelId = this.getNonGetterInverseModelId();
+      final NonGetterInverseModel $$arezv$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, $$arezv$$_nonGetterInverseModelId );
+      Guards.apiInvariant( () -> null != $$arezv$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
     }
   }
 

@@ -136,10 +136,12 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_parent();
-      this.$$arezi$$_link_parent();
-      this.$$arezi$$_delink_child();
-      this.$$arezi$$_link_child();
+      final int $$arezv$$_parentId = this.getParentId();
+      final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_parent = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, $$arezv$$_parentId );
+      Guards.apiInvariant( () -> null != $$arezv$$_parent, () -> "Reference named 'parent' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
+      final int $$arezv$$_childId = this.getChildId();
+      final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_child = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, $$arezv$$_childId );
+      Guards.apiInvariant( () -> null != $$arezv$$_child, () -> "Reference named 'child' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
     }
   }
 

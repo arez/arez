@@ -131,8 +131,9 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableCollectionInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableCollectionInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableCollectionInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_observableCollectionInverseModel();
-      this.$$arezi$$_link_observableCollectionInverseModel();
+      final int $$arezv$$_observableCollectionInverseModelId = this.getObservableCollectionInverseModelId();
+      final ObservableCollectionInverseModel $$arezv$$_observableCollectionInverseModel = this.$$arezi$$_locator().findById( ObservableCollectionInverseModel.class, $$arezv$$_observableCollectionInverseModelId );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableCollectionInverseModel, () -> "Reference named 'observableCollectionInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableCollectionInverseModel and id = " + getObservableCollectionInverseModelId() );
     }
   }
 

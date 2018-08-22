@@ -463,6 +463,51 @@ final class ReferenceDescriptor
     return ClassName.bestGuess( sb.toString() );
   }
 
+  void buildVerify( @Nonnull final CodeBlock.Builder builder )
+  {
+    final String idName = GeneratorUtil.VARIABLE_PREFIX + _name + "Id";
+    final String refName = GeneratorUtil.VARIABLE_PREFIX + _name;
+
+    builder.addStatement( "final $T $N = this.$N()",
+                          getIdMethod().getReturnType(),
+                          idName,
+                          getIdMethod().getSimpleName() );
+    if ( isNullable() )
+    {
+      final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+      nestedBlock.beginControlFlow( "if ( null != $N )", idName );
+      buildVerify( nestedBlock, idName, refName );
+      nestedBlock.endControlFlow();
+      builder.add( nestedBlock.build() );
+    }
+    else
+    {
+      buildVerify( builder, idName, refName );
+      ;
+    }
+  }
+
+  private void buildVerify( @Nonnull final CodeBlock.Builder builder,
+                            @Nonnull final String idName,
+                            @Nonnull final String refName )
+  {
+    builder.addStatement( "final $T $N = this.$N().findById( $T.class, $N )",
+                          getMethod().getReturnType(),
+                          refName,
+                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          getMethod().getReturnType(),
+                          idName );
+    builder.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
+                          "on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                          "and id = \" + $N() )",
+                          GeneratorUtil.GUARDS_CLASSNAME,
+                          refName,
+                          _name,
+                          _componentDescriptor.getComponentNameMethodName(),
+                          getMethod().getReturnType().toString(),
+                          getIdMethod().getSimpleName() );
+  }
+
   void validate()
     throws ArezProcessorException
   {

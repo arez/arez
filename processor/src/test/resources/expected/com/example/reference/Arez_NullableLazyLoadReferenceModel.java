@@ -129,8 +129,11 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NullableLazyLoadReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NullableLazyLoadReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NullableLazyLoadReferenceModel.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_myEntity();
-      this.$$arezi$$_link_myEntity();
+      final Integer $$arezv$$_myEntityId = this.getMyEntityId();
+      if ( null != $$arezv$$_myEntityId ) {
+        final NullableLazyLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( NullableLazyLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
+        Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
+      }
     }
   }
 

@@ -131,8 +131,11 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonObservableNullableZeroOrOneReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_nonObservableNullableZeroOrOneReferenceModel();
-      this.$$arezi$$_link_nonObservableNullableZeroOrOneReferenceModel();
+      final Integer $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId = this.getNonObservableNullableZeroOrOneReferenceModelId();
+      if ( null != $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId ) {
+        final NonObservableNullableZeroOrOneReferenceModel $$arezv$$_nonObservableNullableZeroOrOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.class, $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId );
+        Guards.apiInvariant( () -> null != $$arezv$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
+      }
     }
   }
 

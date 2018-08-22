@@ -131,8 +131,9 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNamesInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNamesInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNamesInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_zoom();
-      this.$$arezi$$_link_zoom();
+      final int $$arezv$$_zoomId = this.getXId();
+      final CustomNamesInverseModel $$arezv$$_zoom = this.$$arezi$$_locator().findById( CustomNamesInverseModel.class, $$arezv$$_zoomId );
+      Guards.apiInvariant( () -> null != $$arezv$$_zoom, () -> "Reference named 'zoom' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.CustomNamesInverseModel and id = " + getXId() );
     }
   }
 

@@ -139,8 +139,9 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableReferenceInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableReferenceInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableReferenceInverseModel.Element.class, $$arezi$$_id() ) );
-      this.$$arezi$$_delink_observableReferenceInverseModel();
-      this.$$arezi$$_link_observableReferenceInverseModel();
+      final int $$arezv$$_observableReferenceInverseModelId = this.getObservableReferenceInverseModelId();
+      final ObservableReferenceInverseModel $$arezv$$_observableReferenceInverseModel = this.$$arezi$$_locator().findById( ObservableReferenceInverseModel.class, $$arezv$$_observableReferenceInverseModelId );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableReferenceInverseModel, () -> "Reference named 'observableReferenceInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableReferenceInverseModel and id = " + getObservableReferenceInverseModelId() );
     }
   }
 
