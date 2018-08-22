@@ -185,15 +185,11 @@ final class ReferenceDescriptor
     builder.returns( TypeName.get( _method.getReturnType() ) );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
-    final boolean isNullable =
-      !getIdMethod().getReturnType().getKind().isPrimitive() &&
-      null == ProcessorUtil.findAnnotationByType( getIdMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
-
     if ( !"LAZY".equals( _linkType ) )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-      if ( isNullable )
+      if ( isNullable() )
       {
         block.addStatement( "$T.apiInvariant( () -> null != $N || null == $N(), () -> \"Nullable reference method " +
                             "named '$N' invoked on component named '\" + $N() + \"' and reference has not been " +
@@ -261,6 +257,12 @@ final class ReferenceDescriptor
     return builder.build();
   }
 
+  private boolean isNullable()
+  {
+    return !getIdMethod().getReturnType().getKind().isPrimitive() &&
+           null == ProcessorUtil.findAnnotationByType( getIdMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+  }
+
   @Nonnull
   private MethodSpec buildLinkMethod()
     throws ArezProcessorException
@@ -270,10 +272,6 @@ final class ReferenceDescriptor
     builder.addModifiers( Modifier.PRIVATE );
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
 
-    final boolean isNullable =
-      !getIdMethod().getReturnType().getKind().isPrimitive() &&
-      null == ProcessorUtil.findAnnotationByType( getIdMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
-
     if ( "EAGER".equals( getLinkType() ) )
     {
       /*
@@ -281,7 +279,7 @@ final class ReferenceDescriptor
        * as the link method only called when a link is required.
        */
       builder.addStatement( "final $T id = this.$N()", getIdMethod().getReturnType(), getIdMethod().getSimpleName() );
-      if ( isNullable )
+      if ( isNullable() )
       {
         final CodeBlock.Builder nestedBlock = CodeBlock.builder();
         nestedBlock.beginControlFlow( "if ( null != id )" );
@@ -301,7 +299,7 @@ final class ReferenceDescriptor
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( null == this.$N )", getFieldName() );
       block.addStatement( "final $T id = this.$N()", getIdMethod().getReturnType(), getIdMethod().getSimpleName() );
-      if ( isNullable )
+      if ( isNullable() )
       {
         final CodeBlock.Builder nestedBlock = CodeBlock.builder();
         nestedBlock.beginControlFlow( "if ( null != id )" );
