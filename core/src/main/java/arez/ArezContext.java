@@ -1130,7 +1130,8 @@ public final class ArezContext
                              mutator );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObservableValueCreatedEvent( new ObservableValueInfoImpl( getSpy(), observableValue ) ) );
+      getSpy().reportSpyEvent( new ObservableValueCreatedEvent( new ObservableValueInfoImpl( getSpy(),
+                                                                                             observableValue ) ) );
     }
     return observableValue;
   }
