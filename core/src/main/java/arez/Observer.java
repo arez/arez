@@ -714,9 +714,9 @@ public final class Observer
                    () -> "Arez-0092: Observer named '" + getName() + "' is inactive but still has dependencies: " +
                          getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
       }
-      if ( isComputedValue() && isNotDisposed() )
+      if ( null != _computedValue && _computedValue.isNotDisposed() )
       {
-        final ObservableValue<?> observableValue = getComputedValue().getObservableValue();
+        final ObservableValue<?> observableValue = _computedValue.getObservableValue();
         invariant( () -> Objects.equals( observableValue.hasOwner() ? observableValue.getOwner() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
                          "does not link back to observer." );
