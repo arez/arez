@@ -4,7 +4,7 @@ title: @ComponentId
 
 The {@api_url: annotations.ComponentId} annotation can be applied to a single method in the component. The
 method must return a unique, non-null identifier for the component instance. This value will be converted
-to a string to create the names of the underlying {@api_url: Observable}, {@api_url: Observer} and
+to a string to create the names of the underlying {@api_url: ObservableValue}, {@api_url: Observer} and
 {@api_url: ComputedValue} primitives. If the [`@Repository`](repositories.md) annotation is present on the
 component, the method will also return the key that is used to store the component in a map.
 

@@ -27,7 +27,7 @@ Within the Arez system a computed value observable is represented by an instance
 class. The {@api_url: ComputedValue} class contains a cache of the value that is computed and a reference to the
 function that computes the value. It provides a method {@api_url: ComputedValue.get()::ComputedValue::get()} to
 access the cached value or recalculate the value if it is stale. The {@api_url: ComputedValue} contains the necessary
-logic required to determine staleness and notify dependencies. Internally it uses instances of {@api_url: Observable}
+logic required to determine staleness and notify dependencies. Internally it uses instances of {@api_url: ObservableValue}
 and {@api_url: Observer} to achieve this goal.
 
 The {@api_url: ComputedValue} class is a relatively low-level primitive and users typically use higher level

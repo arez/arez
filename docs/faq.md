@@ -30,9 +30,9 @@ with {@api_url: annotations.ArezComponent}  then this means
 that the code must:
 
 * mutate the property using the setter method to mark the property as changed. The generated code ultimately calls
-  the {@api_url: Observable.reportChanged()::Observable::reportChanged()} method to mark the property as changed.
+  the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} method to mark the property as changed.
 * access the property using the getter method.. The generated code ultimately calls the
-  {@api_url: Observable.reportObserved()::Observable::reportObserved()} method to mark the property as observed.
+  {@api_url: ObservableValue.reportObserved()::ObservableValue::reportObserved()} method to mark the property as observed.
   This will add it as a dependency to the containing `@Autorun` method.
 
 Typically this problem arises when you mutate field directly within the same class. Consider this problematic code
@@ -84,8 +84,8 @@ difference is how the state is mutated within `rideTrain()` method.
 ### Why do the change events/notifications not include a description of the change?
 
 In many state management frameworks, notifications of change are accompanied by a description
-of change but not so in Arez. For example in Arez the {@api_url: Observable.reportChanged()::Observable::reportChanged()}
-method accepts no change description, the {@api_url: spy.ObservableChangedEvent} class
+of change but not so in Arez. For example in Arez the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()}
+method accepts no change description, the {@api_url: spy.ObservableValueChangedEvent} class
 has no description of a change and there is no way for an {@api_url: Observer} to receive changes.
 
 The reason is that change descriptions seem to be used as an optimization strategy needed in very specific

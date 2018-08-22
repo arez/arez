@@ -39,11 +39,11 @@ the component another value for `props`. The react framework is wholly responsib
 component that `props` has changed. Making this `props` property observable within Arez involved the following
 changes.
 
-* Disabling the `@Observable` setter via the {@api_url: Observable.expectSetter()::annotations.Observable::expectSetter()}
+* Disabling the `@Observable` setter via the {@api_url: ObservableValue.expectSetter()::annotations.Observable::expectSetter()}
   parameter on the getter.
-* Accessing the underlying {@api_url: Observable} primitive using the {@api_url: annotations.ObservableRef} annotation.
+* Accessing the underlying {@api_url: ObservableValue} primitive using the {@api_url: annotations.ObservableRef} annotation.
   See [accessing primitives](accessing_primitives.md) documentation on details on how this is achieved.
-* Manually invoking {@api_url: Observable.reportChanged()::Observable::reportChanged()} in the callback.
+* Manually invoking {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} in the callback.
 
 For example:
 
