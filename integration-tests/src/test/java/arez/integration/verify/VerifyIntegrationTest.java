@@ -41,6 +41,29 @@ public class VerifyIntegrationTest
   }
 
   @Test
+  public void verifySuccess()
+    throws Throwable
+  {
+    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+
+    final TypeBasedLocator locator = new TypeBasedLocator();
+    Arez.context().registerLocator( locator );
+
+    final HashMap<Object, Model1> entities1 = new HashMap<>();
+    final HashMap<Object, Model2> entities2 = new HashMap<>();
+    locator.registerLookup( Model1.class, entities1::get );
+    locator.registerLookup( Model2.class, entities2::get );
+
+    final Model2 model2a = repository.create( 1 );
+    entities2.put( model2a.getId(), model2a );
+
+    final Model1 model1 = Model1.create( 0, model2a.getId() );
+    entities1.put( model1.getId(), model1 );
+
+    Verifiable.verify( model1 );
+  }
+
+  @Test
   public void unableToLocateOther()
     throws Throwable
   {
