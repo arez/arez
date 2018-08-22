@@ -713,7 +713,7 @@ public final class Observer
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      if ( isInactive() )
+      if ( isInactive() && !isDisposing() )
       {
         invariant( () -> getDependencies().isEmpty(),
                    () -> "Arez-0092: Observer named '" + getName() + "' is inactive but still has dependencies: " +
