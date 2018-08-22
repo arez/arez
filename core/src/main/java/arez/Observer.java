@@ -175,12 +175,7 @@ public final class Observer
 
   boolean isComputedValue()
   {
-    /*
-     * We do not use "null != _derivedValue" as it is called from constructor of observable
-     * prior to assigning it to _derivedValue. However it is only called if Arez.shouldEnforceTransactionType()
-     * so we can use "null != _derivedValue" when not enabled.
-     */
-    return Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED == getMode() : null != _computedValue;
+    return null != _computedValue;
   }
 
   /**
