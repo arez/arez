@@ -261,7 +261,7 @@ public final class MemoizeCache<T>
     {
       invariant( () -> args.length == _argCount,
                  () -> "Arez-0163: MemoizeCache.disposeComputedValue called with " + args.length +
-                       " argument but expected " + _argCount + " arguments." );
+                       " argument(s) but expected " + _argCount + " argument(s)." );
     }
     if ( _disposed )
     {

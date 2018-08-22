@@ -252,7 +252,7 @@ public class MemoizeCacheTest
       expectThrows( IllegalStateException.class, () -> cache.disposeComputedValue( "a" ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0163: MemoizeCache.disposeComputedValue called with 1 argument but expected 2 arguments." );
+                  "Arez-0163: MemoizeCache.disposeComputedValue called with 1 argument(s) but expected 2 argument(s)." );
   }
 
   @Test
