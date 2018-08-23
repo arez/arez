@@ -35,7 +35,7 @@ public class ReferenceNotFoundIntegrationTest
       expectThrows( IllegalStateException.class, () -> safeAction( () -> Model1.create( model2Id ) ) );
 
     assertEquals( exception.getMessage(),
-                  "Reference method named 'getModel2' invoked on component named 'Model1.0' is unable to resolve entity of type arez.integration.references.ReferenceNotFoundIntegrationTest.Model2 and id = 0" );
+                  "Reference named 'model2' on component named 'Model1.0' is unable to resolve entity of type arez.integration.references.ReferenceNotFoundIntegrationTest.Model2 and id = 0" );
   }
 
   @ArezComponent
