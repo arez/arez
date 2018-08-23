@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.32](https://github.com/arez/arez-idlestatus/tree/v0.32) (2018-08-23)
+[Full Changelog](https://github.com/arez/arez-idlestatus/compare/v0.31...v0.32)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.105'
 
