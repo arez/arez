@@ -81,7 +81,8 @@ complete as there is too much un-said.
 * Mobx has interesting output from `trace()` call (a.k.a. WhyRun in Arez terms) that formats nicely in DevTools
   debugger. How does it do this?
 
-* Support `@Reference` and `@Dependency` on the same method?
+* Support `@Reference` and `@Dependency` on the same method? Alternatively we could assume that `@Reference`
+  implies `@Dependency` and allow configuration of cascade action onto reference?
 
 ## Process
 
