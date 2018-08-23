@@ -525,6 +525,52 @@ public final class ArezContext
                                         final boolean runImmediately,
                                         final boolean observeLowerPriorityDependencies )
   {
+    return computed( component,
+                     name,
+                     function,
+                     onActivate,
+                     onDeactivate,
+                     onStale,
+                     onDispose,
+                     priority,
+                     keepAlive,
+                     runImmediately,
+                     observeLowerPriorityDependencies,
+                     true );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>                              the type of the computed value.
+   * @param component                        the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name                             the name of the ComputedValue.
+   * @param function                         the function that computes the value.
+   * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
+   * @param priority                         the priority of the associated observer.
+   * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
+   * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the computed can observe lower priority dependencies.
+   * @param arezOnlyDependencies             true if the computed is only derived from arez state.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale,
+                                        @Nullable final Procedure onDispose,
+                                        @Nonnull final Priority priority,
+                                        final boolean keepAlive,
+                                        final boolean runImmediately,
+                                        final boolean observeLowerPriorityDependencies,
+                                        final boolean arezOnlyDependencies )
+  {
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !keepAlive || null == onActivate,
@@ -540,7 +586,8 @@ public final class ArezContext
                            function,
                            priority,
                            keepAlive,
-                           observeLowerPriorityDependencies );
+                           observeLowerPriorityDependencies,
+                           arezOnlyDependencies );
     final Observer observer = computedValue.getObserver();
     // Null check before setting hook fields. It seems that this decreases runtime memory pressure
     // in some environments with the penalty of a slight increase in code size. This will need to be

@@ -10,6 +10,7 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
+import arez.Priority;
 import arez.Procedure;
 import arez.SafeFunction;
 import arez.SpyEventHandler;
@@ -167,7 +168,8 @@ public class ExternalApiTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( name, function );
+    final ComputedValue<String> computedValue =
+      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -635,7 +637,8 @@ public class ExternalApiTest
   /**
    * Test we are not in a transaction by trying to observe an observableValue.
    */
-  private void assertNotInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue observableValue )
+  private void assertNotInTransaction( @Nonnull final ArezContext context,
+                                       @Nonnull final ObservableValue observableValue )
   {
     assertEquals( context.isTransactionActive(), false );
     assertThrows( observableValue::reportObserved );

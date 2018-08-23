@@ -5,6 +5,14 @@
 * **\[processor\]** The invariant check generated to verify the link step of references was being generated
   outside of the associated guard resulting. This could result in dead-code not being eliminated in GWT2.x
   and triggered warnings in source code analysis programs such as spotbugs.
+* **\[core\]** Add an additional `ArezContext.computed(...)` method that takes a `arezOnlyDependencies` parameter.
+  The parameter defaults to `true` which means that the `ComputedValue` created expects the compute function to
+  access at least one Arez `ObservableValue` or `ComputedValue` within the scope of the function. It will also
+  generate an invariant failure if this is not the case and `apiInvariants` are enabled. The new parameter allows
+  the construction of `ComputedValue` instances that do not check invariants. This makes it possible for
+  `ComputedValue` instances to be derived from external, non-arez reactive elements that explicitly trigger changes
+  via `ComputedValue.reportPossiblyChanged()`. `ComputedValue.reportPossiblyChanged()` has also been changed
+  to generate an invarint failure if it is invoked and `arezOnlyDependencies` is `true`.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

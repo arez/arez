@@ -24,7 +24,7 @@ public class ComputedValueTest
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -80,7 +80,7 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, true, true );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, true, true, true );
 
     computedValue.getObserver().invokeReaction();
 
@@ -113,7 +113,14 @@ public class ComputedValueTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(), null, ValueUtil.randomString(), () -> "", Priority.HIGH, false, false );
+      new ComputedValue<>( Arez.context(),
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Priority.HIGH,
+                           false,
+                           false,
+                           true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
   }
 
@@ -135,7 +142,14 @@ public class ComputedValueTest
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new ComputedValue<>( context, component, name, () -> "", Priority.NORMAL, false, false ) );
+                    () -> new ComputedValue<>( context,
+                                               component,
+                                               name,
+                                               () -> "",
+                                               Priority.NORMAL,
+                                               false,
+                                               false,
+                                               true ) );
     assertEquals( exception.getMessage(),
                   "Arez-0048: ComputedValue named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -156,7 +170,7 @@ public class ComputedValueTest
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, component, name, () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, component, name, () -> "", Priority.NORMAL, false, false, true );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
@@ -190,7 +204,7 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
     ref.set( computedValue );
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -215,7 +229,7 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -251,7 +265,7 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -289,7 +303,7 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -325,7 +339,7 @@ public class ComputedValueTest
       throw new IllegalStateException( message );
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -356,7 +370,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false );
+      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false, true );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
@@ -367,6 +381,20 @@ public class ComputedValueTest
                   "Observer: XYZ Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
     assertEquals( exception.getMessage(),
                   "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
+  }
+
+  @Test
+  public void compute_noDependencies_but_mustAccessArezState_is_false()
+    throws Exception
+  {
+    setIgnoreObserverErrors( true );
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue =
+      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false, false );
+
+    final String value = Arez.context().safeAction( computedValue::get );
+    assertNotNull( value );
   }
 
   @Test
@@ -463,7 +491,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -482,7 +510,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -508,7 +536,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -534,7 +562,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -564,7 +592,7 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -583,7 +611,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
@@ -608,7 +636,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -669,7 +697,8 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( name, function );
+    final ComputedValue<String> computedValue =
+      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -722,7 +751,8 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( name, function );
+    final ComputedValue<String> computedValue =
+      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -747,6 +777,28 @@ public class ComputedValueTest
                   computedValue.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
+  @Test
+  public void reportPossiblyChanged_arezOnlyDependencies()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observableValue = context.observable();
+
+    final SafeFunction<String> function = () -> {
+      observableValue.reportObserved();
+      return "";
+    };
+    final ComputedValue<String> computedValue = context.computed( function );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.safeAction( false, computedValue::reportPossiblyChanged ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
+                  computedValue.getName() + "' but the computed value has arezOnlyDependencies = true." );
+  }
 
   @Test
   public void reportPossiblyChanged_computedAlreadyScheduled()
@@ -765,7 +817,8 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( name, function );
+    final ComputedValue<String> computedValue =
+      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

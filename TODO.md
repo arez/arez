@@ -21,8 +21,7 @@ complete as there is too much un-said.
 
 * Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`
 
-* Add the ability for `ComputedValue` to not generate an error if it observes no arez properties. This is to
-  allow `ComputedValue` to derive from elements outside the system.
+* Add support for the `arezOnlyDependencies` parameter on `@Computed`.
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.

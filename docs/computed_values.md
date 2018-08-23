@@ -64,3 +64,17 @@ tested using `Object.equals(...)` method.
 Exceptions thrown when calculating computed values are caught by the Arez runtime using the same mechanisms that
 handle [errors](observers.md#error-handling) in observers. The exception is cached and will be re-thrown if a
 transaction attempts to access the computed value.
+
+## Non-Arez Dependencies
+
+In some cases a {@api_url: ComputedValue} can be derived from non-arez dependencies. In these scenarios it is
+expected that the developer will need to explicitly track the non-arez dependency and notify the
+{@api_url: ComputedValue} when the dependency has changed by invoking the method
+{@api_url: ComputedValue.reportPossiblyChanged()::ComputedValue::reportPossiblyChanged()}. The {@api_url: ComputedValue}
+will then be marked as possibly changed and will recalculate the value either on next access or when the
+Arez scheduler is next invoked. This approach is particularly useful if you are attempting to integrate with
+event based systems or event-driven reactive frameworks such as [RxJava](https://github.com/ReactiveX/RxJava).
+
+It should be noted that the {@api_url: ComputedValue.reportPossiblyChanged()::ComputedValue::reportPossiblyChanged()}
+can only be invoked if the {@api_url: ComputedValue} was created with the parameter `arezOnlyDependencies`
+set to `true`.
