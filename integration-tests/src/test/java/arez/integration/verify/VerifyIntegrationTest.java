@@ -12,6 +12,7 @@ import arez.component.Verifiable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 public class VerifyIntegrationTest
   extends AbstractArezIntegrationTest
@@ -59,6 +60,9 @@ public class VerifyIntegrationTest
 
     final Model1 model1 = Model1.create( 0, model2a.getId() );
     entities1.put( model1.getId(), model1 );
+
+    assertTrue( model1 instanceof Verifiable );
+    assertFalse( model2a instanceof Verifiable );
 
     Verifiable.verify( model1 );
   }
