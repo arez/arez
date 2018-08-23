@@ -1988,6 +1988,7 @@ public class ArezContextTest
     assertEquals( computedValue.getObserver().getName(), name );
     assertEquals( computedValue.getObserver().getOnDispose(), onDispose );
     assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
+    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
   }
 
   @Test
