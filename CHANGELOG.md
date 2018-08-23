@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
+[Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
 
 * **\[processor\]** Adding `@Deprecated` to methods annotated with `@ComponentId`, `@ComponentRef`,
   `@ContextRef`, `@ContextTypeNameRef`, `@ComponentNameRef`, `@DependencyRef`, `@ObserverRef`, `@ObserverRef`
