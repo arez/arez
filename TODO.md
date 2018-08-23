@@ -78,9 +78,6 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Mobx has interesting output from `trace()` call (a.k.a. WhyRun in Arez terms) that formats nicely in DevTools
-  debugger. How does it do this?
-
 * Support `@Reference` and `@Dependency` on the same method? Alternatively we could assume that `@Reference`
   implies `@Dependency` and allow configuration of cascade action onto reference?
 
