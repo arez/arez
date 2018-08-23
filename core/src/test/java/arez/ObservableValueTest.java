@@ -103,7 +103,8 @@ public class ObservableValueTest
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new ObservableValue<>( context, component, name, null, null, null ) );
+      expectThrows( IllegalStateException.class,
+                    () -> new ObservableValue<>( context, component, name, null, null, null ) );
     assertEquals( exception.getMessage(),
                   "Arez-0054: ObservableValue named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -382,7 +383,8 @@ public class ObservableValueTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
                     () -> context.safeAction( false,
-                                              () -> context.safeAction( name, (SafeProcedure) observableValue::dispose ) ) );
+                                              () -> context.safeAction( name,
+                                                                        (SafeProcedure) observableValue::dispose ) ) );
 
     assertTrue( exception.getMessage().startsWith( "Arez-0119: Attempting to create READ_WRITE transaction named '" +
                                                    name + "' but it is nested in transaction named '" ) );
@@ -404,10 +406,12 @@ public class ObservableValueTest
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new ObservableValue<>( context, null, name, owner, null, null ) );
+      expectThrows( IllegalStateException.class,
+                    () -> new ObservableValue<>( context, null, name, owner, null, null ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0057: ObservableValue named '" + name + "' has owner specified but owner is not a derivation." );
+                  "Arez-0057: ObservableValue named '" + name +
+                  "' has owner specified but owner is not a derivation." );
   }
 
   @Test

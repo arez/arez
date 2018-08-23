@@ -300,8 +300,9 @@ public class ObserverTest
       expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesBackLink( "TEST1" ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0090: TEST1: Observer named '" + observer.getName() + "' has ObservableValue dependency named '" +
-                  observableValue.getName() + "' which does not contain the observer in the list of observers." );
+                  "Arez-0090: TEST1: Observer named '" + observer.getName() + "' has ObservableValue " +
+                  "dependency named '" + observableValue.getName() + "' which does not contain the observer in " +
+                  "the list of observers." );
 
     //Setup correct back link
     observableValue.addObserver( observer );
@@ -355,7 +356,8 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0089: TEST2: The set of dependencies in observer named '" + observer.getName() +
-                  "' is not unique. Current list: '[" + observableValue.getName() + ", " + observableValue.getName() + "]'." );
+                  "' is not unique. Current list: '[" + observableValue.getName() + ", " +
+                  observableValue.getName() + "]'." );
   }
 
   @Test
