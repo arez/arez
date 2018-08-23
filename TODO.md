@@ -13,6 +13,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Implement something similar to `getDependencyTree` from mobx
+
 * Consider caching all the infos the first time they are used to dramatically speed up spy logging
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
