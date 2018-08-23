@@ -154,8 +154,8 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     }
     final int id = this.getNonObservableCollectionInverseModelId();
     this.$$arezr$$_nonObservableCollectionInverseModel = this.$$arezi$$_locator().findById( NonObservableCollectionInverseModel.class, id );
+    Guards.apiInvariant( () -> null != $$arezr$$_nonObservableCollectionInverseModel, () -> "Reference named 'nonObservableCollectionInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableCollectionInverseModel and id = " + getNonObservableCollectionInverseModelId() );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableCollectionInverseModel, () -> "Reference method named 'getNonObservableCollectionInverseModel' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableCollectionInverseModel and id = " + getNonObservableCollectionInverseModelId() );
     }
     ( (Arez_NonObservableCollectionInverseModel) this.$$arezr$$_nonObservableCollectionInverseModel ).$$arezir$$_elements_add( this );
   }

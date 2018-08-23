@@ -154,8 +154,8 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
       final Integer id = this.getMyEntityId();
       if ( null != id ) {
         this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NullableLazyLoadReferenceModel.MyEntity.class, id );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
         if ( Arez.shouldCheckApiInvariants() ) {
-          Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference method named 'getMyEntity' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
         }
       }
     }

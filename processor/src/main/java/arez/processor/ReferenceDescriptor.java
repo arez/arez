@@ -325,15 +325,15 @@ final class ReferenceDescriptor
                           getMethod().getReturnType() );
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference method named '$N' " +
-                        "invoked on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
-                        "and id = \" + $N() )",
-                        GeneratorUtil.GUARDS_CLASSNAME,
-                        getFieldName(),
-                        getMethod().getSimpleName(),
-                        _componentDescriptor.getComponentNameMethodName(),
-                        getMethod().getReturnType().toString(),
-                        getIdMethod().getSimpleName() );
+    builder.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
+                          "on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                          "and id = \" + $N() )",
+                          GeneratorUtil.GUARDS_CLASSNAME,
+                          getFieldName(),
+                          _name,
+                          _componentDescriptor.getComponentNameMethodName(),
+                          getMethod().getReturnType().toString(),
+                          getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.addCode( block.build() );
     if ( hasInverse() )
@@ -357,15 +357,15 @@ final class ReferenceDescriptor
                           getMethod().getReturnType() );
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference method named '$N' " +
-                        "invoked on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
-                        "and id = \" + $N() )",
-                        GeneratorUtil.GUARDS_CLASSNAME,
-                        getFieldName(),
-                        getMethod().getSimpleName(),
-                        _componentDescriptor.getComponentNameMethodName(),
-                        getMethod().getReturnType().toString(),
-                        getIdMethod().getSimpleName() );
+    builder.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
+                          "on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                          "and id = \" + $N() )",
+                          GeneratorUtil.GUARDS_CLASSNAME,
+                          getFieldName(),
+                          _name,
+                          _componentDescriptor.getComponentNameMethodName(),
+                          getMethod().getReturnType().toString(),
+                          getIdMethod().getSimpleName() );
     block.endControlFlow();
     builder.add( block.build() );
     if ( hasInverse() )

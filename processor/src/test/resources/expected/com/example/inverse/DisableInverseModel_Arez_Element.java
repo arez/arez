@@ -153,8 +153,8 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     }
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( DisableInverseModel.class, id );
+    Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
     }
   }
 

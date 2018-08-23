@@ -173,8 +173,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( null == this.$$arezr$$_parent ) {
       final int id = this.getParentId();
       this.$$arezr$$_parent = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, id );
+      Guards.apiInvariant( () -> null != $$arezr$$_parent, () -> "Reference named 'parent' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_parent, () -> "Reference method named 'getParent' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
       }
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_parent ).$$arezir$$_childGeneralisations_add( this );
     }
@@ -206,8 +206,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( null == this.$$arezr$$_child ) {
       final int id = this.getChildId();
       this.$$arezr$$_child = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, id );
+      Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference named 'child' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference method named 'getChild' invoked on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
       }
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zset( this );
     }
