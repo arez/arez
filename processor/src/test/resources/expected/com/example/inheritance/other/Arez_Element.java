@@ -172,8 +172,8 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     }
     final int id = this.getCompleteModelId();
     this.$$arezr$$_completeModel = this.$$arezi$$_locator().findById( CompleteModel.class, id );
-    Guards.apiInvariant( () -> null != $$arezr$$_completeModel, () -> "Reference named 'completeModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inheritance.CompleteModel and id = " + getCompleteModelId() );
     if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_completeModel, () -> "Reference named 'completeModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inheritance.CompleteModel and id = " + getCompleteModelId() );
     }
     ( (Arez_CompleteModel) this.$$arezr$$_completeModel ).$$arezir$$_elements_add( this );
   }

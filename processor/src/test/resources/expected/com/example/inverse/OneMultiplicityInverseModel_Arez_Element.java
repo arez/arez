@@ -154,8 +154,8 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
     }
     final int id = this.getOneMultiplicityInverseModelId();
     this.$$arezr$$_oneMultiplicityInverseModel = this.$$arezi$$_locator().findById( OneMultiplicityInverseModel.class, id );
-    Guards.apiInvariant( () -> null != $$arezr$$_oneMultiplicityInverseModel, () -> "Reference named 'oneMultiplicityInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.OneMultiplicityInverseModel and id = " + getOneMultiplicityInverseModelId() );
     if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_oneMultiplicityInverseModel, () -> "Reference named 'oneMultiplicityInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.OneMultiplicityInverseModel and id = " + getOneMultiplicityInverseModelId() );
     }
     ( (Arez_OneMultiplicityInverseModel) this.$$arezr$$_oneMultiplicityInverseModel ).$$arezir$$_element_set( this );
   }

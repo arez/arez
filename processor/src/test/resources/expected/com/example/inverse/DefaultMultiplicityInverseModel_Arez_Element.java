@@ -154,8 +154,8 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
     }
     final int id = this.getDefaultMultiplicityInverseModelId();
     this.$$arezr$$_defaultMultiplicityInverseModel = this.$$arezi$$_locator().findById( DefaultMultiplicityInverseModel.class, id );
-    Guards.apiInvariant( () -> null != $$arezr$$_defaultMultiplicityInverseModel, () -> "Reference named 'defaultMultiplicityInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.DefaultMultiplicityInverseModel and id = " + getDefaultMultiplicityInverseModelId() );
     if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_defaultMultiplicityInverseModel, () -> "Reference named 'defaultMultiplicityInverseModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.DefaultMultiplicityInverseModel and id = " + getDefaultMultiplicityInverseModelId() );
     }
     ( (Arez_DefaultMultiplicityInverseModel) this.$$arezr$$_defaultMultiplicityInverseModel ).$$arezir$$_elements_add( this );
   }
