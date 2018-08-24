@@ -65,6 +65,8 @@ task 'site:link_check' do
     excludes << 'https://github.com/arez/arez/compare/'
     excludes << 'https://github.com/arez/arez.github.io/settings'
     excludes << 'https://docs.oracle.com/javase/8/docs/api'
+    excludes << 'https://buildr.apache.org'
+    excludes << 'https://maven.apache.org'
     DOWNSTREAM_PROJECTS.each do |project_name|
       excludes << "#{base_url}/#{project_name.gsub(/^arez-/, '')}"
     end
