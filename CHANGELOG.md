@@ -13,6 +13,8 @@
   `ComputedValue` instances to be derived from external, non-arez reactive elements that explicitly trigger changes
   via `ComputedValue.reportPossiblyChanged()`. `ComputedValue.reportPossiblyChanged()` has also been changed
   to generate an invarint failure if it is invoked and `arezOnlyDependencies` is `true`.
+* **\[core\]** Add the `arezOnlyDependencies` parameter to the `@Computed` annotation and update the annotation
+  processor to support generate the supporting infrastructure. If the parameter is set to `false` the
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

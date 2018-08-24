@@ -1,5 +1,6 @@
 package arez.annotations;
 
+import arez.ComputedValue;
 import arez.Priority;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -69,4 +70,15 @@ public @interface Computed
    * @return false if observing lower priority dependencies should result in invariant failure in development mode.
    */
   boolean observeLowerPriorityDependencies() default false;
+
+  /**
+   * Flag indicating whether the value of the computed is solely dependent on arez elements.
+   * If set to true then Arez will verify that the function annotated by this accesses arez elements
+   * (i.e. instances of {@link arez.ObservableValue} or instances of {@link arez.ComputedValue}). If set
+   * to false then the component must define a {@link ComputedValueRef} method and should invoke
+   * {@link ComputedValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
+   *
+   * @return true if the computed is solely dependent on arez elements.
+   */
+  boolean arezOnlyDependencies() default true;
 }
