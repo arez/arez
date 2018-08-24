@@ -56,17 +56,11 @@ The callbacks are:
 
 Every time an activated computed value's dependency is marked as stale, the computed value will attempt to
 re-computed the computed value. If the computed value is equal to the cached value then the computed value
-will be marked as unchanged and no downstream observers or computed values will be scheduled.
-
-The determination of whether "the computed value is equal" is delegated to a functional interface that is
-supplied to the {@api_url: ComputedValue} instance when it is constructed. The most common approach is to
-use the `Object.equals(...)` to perform comparison and thus delegate equality comparison to the supplied
-value. (The [components](components.md) framework achieves this by passing the a method reference to
-builtin comparator via `Objects::equals`.) However users can supply their own equality code when using the
-low-level API.
+will be marked as unchanged and no downstream observers or computed values will be scheduled. Equality is
+tested using `Object.equals(...)` method.
 
 ## Error Handling
 
 Exceptions thrown when calculating computed values are caught by the Arez runtime using the same mechanisms that
-handle [errors](observers.md#error-handling) in observers. The exception is cached and will be re-thrown in any
-observer that attempts to access the computed value.
+handle [errors](observers.md#error-handling) in observers. The exception is cached and will be re-thrown if a
+transaction attempts to access the computed value.
