@@ -21,8 +21,6 @@ complete as there is too much un-said.
 
 * Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`
 
-* Add support for the `arezOnlyDependencies` parameter on `@Computed`.
-
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
 
