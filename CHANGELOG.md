@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[processor\]** The invariant check generated to verify the link step of references was being generated
+  outside of the associated guard resulting. This could result in dead-code not being eliminated in GWT2.x
+  and triggered warnings in source code analysis programs such as spotbugs.
+
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
 

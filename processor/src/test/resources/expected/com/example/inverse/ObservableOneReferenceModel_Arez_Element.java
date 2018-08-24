@@ -187,8 +187,8 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
     }
     final int id = this.getObservableOneReferenceModelId();
     this.$$arezr$$_observableOneReferenceModel = this.$$arezi$$_locator().findById( ObservableOneReferenceModel.class, id );
-    Guards.apiInvariant( () -> null != $$arezr$$_observableOneReferenceModel, () -> "Reference named 'observableOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableOneReferenceModel and id = " + getObservableOneReferenceModelId() );
     if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_observableOneReferenceModel, () -> "Reference named 'observableOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableOneReferenceModel and id = " + getObservableOneReferenceModelId() );
     }
     ( (Arez_ObservableOneReferenceModel) this.$$arezr$$_observableOneReferenceModel ).$$arezir$$_element_set( this );
   }

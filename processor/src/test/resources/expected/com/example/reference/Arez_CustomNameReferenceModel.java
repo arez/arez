@@ -153,8 +153,8 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     }
     final int id = this.getMyEntityId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, id );
-    Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
     if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

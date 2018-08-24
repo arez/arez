@@ -187,8 +187,8 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     }
     final int id = this.getObservableManyReferenceModelId();
     this.$$arezr$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, id );
-    Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
     ( (Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel ).$$arezir$$_elements_add( this );
   }
