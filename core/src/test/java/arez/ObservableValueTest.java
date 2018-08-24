@@ -541,7 +541,8 @@ public class ObservableValueTest
                            () -> "",
                            Priority.NORMAL,
                            false,
-                           false ).getObservableValue();
+                           false,
+                           true ).getObservableValue();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final IllegalStateException exception =
@@ -578,7 +579,8 @@ public class ObservableValueTest
                            () -> "",
                            Priority.NORMAL,
                            false,
-                           false ).getObservableValue();
+                           false,
+                           true ).getObservableValue();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     observableValue.addObserver( observer );
@@ -1225,7 +1227,7 @@ public class ObservableValueTest
     setupReadOnlyTransaction( context );
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, true, false );
+      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, true, false, true );
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
     final IllegalStateException exception =
@@ -1708,7 +1710,8 @@ public class ObservableValueTest
                            () -> expectedValue,
                            Priority.NORMAL,
                            false,
-                           false );
+                           false,
+                           true );
     computedValue.setValue( expectedValue );
     final Observer derivation =
       computedValue.getObserver();

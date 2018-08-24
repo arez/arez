@@ -987,7 +987,8 @@ public class TransactionTest
                            () -> "",
                            Priority.NORMAL,
                            true,
-                           false ).getObserver();
+                           false,
+                           true ).getObserver();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );

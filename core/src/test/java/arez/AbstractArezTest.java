@@ -141,7 +141,7 @@ public abstract class AbstractArezTest
   @Nonnull
   private ComputedValue<String> newComputedValue( @Nonnull final ArezContext context )
   {
-    return new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false );
+    return new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
   }
 
   @Nonnull

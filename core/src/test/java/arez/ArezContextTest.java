@@ -1981,6 +1981,7 @@ public class ArezContextTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.isKeepAlive(), false );
+    assertEquals( computedValue.arezOnlyDependencies(), true );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -2026,6 +2027,27 @@ public class ArezContextTest
                                true );
 
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
+  }
+
+  @Test
+  public void computedValue_mayNotAccessArezState()
+    throws Exception
+  {
+    final ComputedValue<String> computedValue =
+      Arez.context().computed( null,
+                               ValueUtil.randomString(),
+                               () -> "",
+                               null,
+                               null,
+                               null,
+                               null,
+                               Priority.NORMAL,
+                               false,
+                               false,
+                               true,
+                               false );
+
+    assertEquals( computedValue.arezOnlyDependencies(), false );
   }
 
   @Test

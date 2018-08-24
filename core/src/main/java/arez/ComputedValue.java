@@ -40,6 +40,11 @@ public final class ComputedValue<T>
    */
   private final boolean _keepAlive;
   /**
+   * Flag indicating whether the ComputedValue is expected to have accessed observable data within the scope
+   * of the compute function. This flag is ignored unless {@link Arez#shouldCheckApiInvariants()} returns true.
+   */
+  private final boolean _arezOnlyDependencies;
+  /**
    * The associated observable value.
    */
   @Nonnull
@@ -87,7 +92,8 @@ public final class ComputedValue<T>
                  @Nonnull final SafeFunction<T> function,
                  @Nonnull final Priority priority,
                  final boolean keepAlive,
-                 final boolean observeLowerPriorityDependencies )
+                 final boolean observeLowerPriorityDependencies,
+                 final boolean arezOnlyDependencies )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -101,6 +107,7 @@ public final class ComputedValue<T>
     _value = null;
     _computing = false;
     _keepAlive = keepAlive;
+    _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
     _observer = new Observer( Arez.areZonesEnabled() ? context : null,
                               null,
                               Arez.areNamesEnabled() ? getName() : null,
@@ -182,6 +189,12 @@ public final class ComputedValue<T>
    */
   public void reportPossiblyChanged()
   {
+     if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_arezOnlyDependencies,
+                    () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
+                          getName() + "' but the computed value has arezOnlyDependencies = true." );
+    }
     Transaction.current().verifyWriteAllowed( getObservableValue() );
     if ( ObserverState.UP_TO_DATE == getObserver().getState() )
     {
@@ -356,13 +369,16 @@ public final class ComputedValue<T>
         _error = null;
         getObservableValue().reportChangeConfirmed();
       }
-      if ( Arez.shouldCheckInvariants() )
+      if ( Arez.shouldCheckApiInvariants() )
       {
-        final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
-        invariant( () -> null != observableValues && !observableValues.isEmpty(),
-                   () -> "Arez-0173: ComputedValue named '" + getName() + "' completed compute but is not " +
-                         "observing any properties. As a result compute will never be rescheduled. " +
-                         "This is not a ComputedValue candidate." );
+        if ( _arezOnlyDependencies )
+        {
+          final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
+          apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),
+                        () -> "Arez-0173: ComputedValue named '" + getName() + "' completed compute but is not " +
+                              "observing any properties. As a result compute will never be rescheduled. " +
+                              "This is not a ComputedValue candidate." );
+        }
       }
     }
     catch ( final Exception e )
@@ -419,6 +435,11 @@ public final class ComputedValue<T>
   boolean isKeepAlive()
   {
     return _keepAlive;
+  }
+
+  boolean arezOnlyDependencies()
+  {
+    return _arezOnlyDependencies;
   }
 
   void setValue( final T value )
