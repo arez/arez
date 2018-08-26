@@ -11,6 +11,8 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
+* Add test to verify that `@Track` transactions are top level.
+
 ## Enhancements
 
 * Implement something similar to `getDependencyTree` from mobx
