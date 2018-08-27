@@ -208,32 +208,6 @@ public class ExternalApiTest
   }
 
   @Test
-  public void createReactionObserver()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final AtomicInteger callCount = new AtomicInteger();
-
-    final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( name, false, () -> {
-      observeADependency();
-      callCount.incrementAndGet();
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isWriteTransactionActive(), false );
-      assertEquals( context.isTrackingTransactionActive(), true );
-    }, true );
-
-    assertEquals( observer.getName(), name );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
-    assertEquals( callCount.get(), 1 );
-
-    observer.dispose();
-
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), false );
-  }
-
-  @Test
   public void observerErrorHandler()
     throws Exception
   {
