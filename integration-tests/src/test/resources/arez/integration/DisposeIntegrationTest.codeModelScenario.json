@@ -30,6 +30,10 @@
     },
     {
         "observer": "Printer",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Printer",
         "type": "ReactionStarted"
     },
     {

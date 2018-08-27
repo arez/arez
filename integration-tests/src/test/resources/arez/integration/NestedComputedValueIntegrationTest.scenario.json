@@ -338,6 +338,10 @@
     },
     {
         "observer": "Observer@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@1",
         "type": "ReactionStarted"
     },
     {
@@ -459,6 +463,10 @@
     },
     {
         "observer": "Observer@3",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@3",
         "type": "ReactionStarted"
     },
     {
@@ -505,6 +513,10 @@
     },
     {
         "observer": "Observer@5",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@5",
         "type": "ReactionStarted"
     },
     {
@@ -548,6 +560,10 @@
     {
         "observer": "Observer@7",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@7",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@7",
@@ -622,6 +638,10 @@
     },
     {
         "observer": "Observer@9",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@9",
         "type": "ReactionStarted"
     },
     {
@@ -693,6 +713,10 @@
     },
     {
         "observer": "Observer@11",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@11",
         "type": "ReactionStarted"
     },
     {
@@ -761,6 +785,10 @@
     {
         "observer": "Observer@13",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@13",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@13",
@@ -910,6 +938,10 @@
     },
     {
         "observer": "Observer@15",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@15",
         "type": "ReactionStarted"
     },
     {
@@ -953,6 +985,10 @@
     {
         "observer": "Observer@17",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@17",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@17",
@@ -1002,6 +1038,10 @@
     },
     {
         "observer": "Observer@19",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@19",
         "type": "ReactionStarted"
     },
     {
@@ -1045,6 +1085,10 @@
     {
         "observer": "Observer@21",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@21",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@21",
@@ -1119,6 +1163,10 @@
     },
     {
         "observer": "Observer@23",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@23",
         "type": "ReactionStarted"
     },
     {
@@ -1187,6 +1235,10 @@
     {
         "observer": "Observer@25",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@25",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@25",
@@ -1311,6 +1363,10 @@
     },
     {
         "observer": "Observer@27",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@27",
         "type": "ReactionStarted"
     },
     {
@@ -1357,6 +1413,10 @@
     },
     {
         "observer": "Observer@29",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@29",
         "type": "ReactionStarted"
     },
     {
@@ -1400,6 +1460,10 @@
     {
         "observer": "Observer@31",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@31",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@31",
@@ -1474,6 +1538,10 @@
     },
     {
         "observer": "Observer@33",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@33",
         "type": "ReactionStarted"
     },
     {
@@ -1542,6 +1610,10 @@
     {
         "observer": "Observer@35",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@35",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@35",
@@ -1641,6 +1713,10 @@
     },
     {
         "observer": "Observer@37",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@37",
         "type": "ReactionStarted"
     },
     {
@@ -1684,6 +1760,10 @@
     {
         "observer": "Observer@39",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "Observer@39",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "Observer@39",

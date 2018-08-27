@@ -6,6 +6,10 @@
     },
     {
         "observer": "TransportType",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "TransportType",
         "type": "ReactionStarted"
     },
     {
@@ -53,6 +57,10 @@
     {
         "observer": "ResolvedType",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "ResolvedType",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "ResolvedType",

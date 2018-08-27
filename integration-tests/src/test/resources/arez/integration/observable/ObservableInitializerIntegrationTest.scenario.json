@@ -26,6 +26,10 @@
     },
     {
         "observer": "FirstNamePrinter",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "FirstNamePrinter",
         "type": "ReactionStarted"
     },
     {
@@ -73,6 +77,10 @@
     {
         "observer": "FullNamePrinter",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "FullNamePrinter",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "FullNamePrinter",

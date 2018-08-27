@@ -46,6 +46,10 @@
     },
     {
         "observer": "FirstNamePrinter1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "FirstNamePrinter1",
         "type": "ReactionStarted"
     },
     {
@@ -91,6 +95,10 @@
     {
         "observer": "FirstNamePrinter2",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "FirstNamePrinter2",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "FirstNamePrinter2",
@@ -139,6 +147,10 @@
     {
         "observer": "FullNamePrinter1",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "FullNamePrinter1",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "FullNamePrinter1",
@@ -187,6 +199,10 @@
     {
         "observer": "FullNamePrinter2",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "FullNamePrinter2",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "FullNamePrinter2",

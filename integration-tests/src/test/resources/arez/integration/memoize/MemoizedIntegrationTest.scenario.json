@@ -22,6 +22,10 @@
     },
     {
         "observer": "SearchResult - red",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "SearchResult - red",
         "type": "ReactionStarted"
     },
     {
@@ -98,6 +102,10 @@
     {
         "observer": "SearchResult - ill",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "SearchResult - ill",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "SearchResult - ill",
@@ -180,6 +188,10 @@
     },
     {
         "observer": "SearchResult - red - 20",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "SearchResult - red - 20",
         "type": "ReactionStarted"
     },
     {
@@ -256,6 +268,10 @@
     {
         "observer": "SearchResult - red - 5",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "SearchResult - red - 5",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "SearchResult - red - 5",
