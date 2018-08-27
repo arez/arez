@@ -15,6 +15,8 @@ import arez.Procedure;
 import arez.SafeFunction;
 import arez.SpyEventHandler;
 import arez.Zone;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
@@ -692,6 +694,49 @@ public class ExternalApiTest
     } );
 
     assertNotInTransaction( context, observableValue );
+  }
+
+  @Test
+  public void setEnvironment()
+  {
+    final ArrayList<String> trace = new ArrayList<>();
+
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = context.observable();
+
+    context.setEnvironment( a -> {
+      trace.add( "PreTrace" );
+      a.call();
+      trace.add( "PostTrace" );
+    } );
+
+    context.autorun( () -> {
+      observable.reportObserved();
+      trace.add( "Autorun" );
+    } );
+
+    context.safeAction( () -> {
+      observable.reportChanged();
+      trace.add( "Action" );
+    } );
+
+    assertEquals( trace,
+                  Arrays.asList( /* The initial immediate execution of autorun */
+                                 "Autorun",
+                                 /*
+                                  * The autorun calls ArezContext.triggerScheduler so environment
+                                  * invoked to run scheduler
+                                  */
+                                 "PreTrace", "PostTrace",
+                                 /*
+                                  * Explicit action!
+                                  */
+                                 "Action",
+                                 /*
+                                  * Action triggers scheduler and autorun reacts to changes
+                                  */
+                                 "PreTrace", "Autorun", "PostTrace" ) );
   }
 
   /**
