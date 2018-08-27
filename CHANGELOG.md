@@ -15,6 +15,7 @@
   to generate an invarint failure if it is invoked and `arezOnlyDependencies` is `true`.
 * **\[core\]** Add the `arezOnlyDependencies` parameter to the `@Computed` annotation and update the annotation
   processor to support generate the supporting infrastructure. If the parameter is set to `false` the
+* **\[gwt-output-qa\]** Fix assertions that broke due to rename of class `Observable` to `ObservableValue`.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
