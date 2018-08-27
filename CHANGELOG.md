@@ -23,6 +23,7 @@
   via the `arez.Spy` interface. This dramatically improves the performance during debugging by eliminating
   excessive garbage collection. Assertions have been added to the `gwt-output-qa` module to ensure that the
   cached fields never flow through into production code.
+* **\[core\]** Add some additional tests of the external API of `arez.ArezContext`.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

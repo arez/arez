@@ -16,6 +16,9 @@ complete as there is too much un-said.
 * Add ability for user to explicitly call `Observer.schedule()`. This way things like `minimumDelay`,
   `throttle` etc. all become user-space concerns.
 
+* Consider changing the way `runImmediate` works so that it actually triggers scheduler rather than
+  immediately invoking. Otherwise invocation is not wrapped in `ReactionEnvironment`.
+
 * Implement something similar to `getDependencyTree` from mobx
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.

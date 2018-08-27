@@ -15,6 +15,8 @@ import arez.Procedure;
 import arez.SafeFunction;
 import arez.SpyEventHandler;
 import arez.Zone;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
@@ -144,6 +146,8 @@ public class ExternalApiTest
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
       assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), true );
+      assertEquals( context.isTrackingTransactionActive(), false );
 
       computedValue.dispose();
 
@@ -179,6 +183,10 @@ public class ExternalApiTest
     context.autorun( () -> {
       autorunCallCount.incrementAndGet();
       assertEquals( computedValue.get(), expected.get() );
+
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), false );
+      assertEquals( context.isTrackingTransactionActive(), true );
     } );
 
     assertEquals( autorunCallCount.get(), 1 );
@@ -212,6 +220,9 @@ public class ExternalApiTest
     final Observer observer = context.autorun( name, false, () -> {
       observeADependency();
       callCount.incrementAndGet();
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), false );
+      assertEquals( context.isTrackingTransactionActive(), true );
     }, true );
 
     assertEquals( observer.getName(), name );
@@ -291,13 +302,21 @@ public class ExternalApiTest
                        () -> {
                          observableValue.reportObserved();
                          reactionCount.incrementAndGet();
+                         assertEquals( context.isTransactionActive(), true );
+                         assertEquals( context.isWriteTransactionActive(), false );
+                         assertEquals( context.isTrackingTransactionActive(), true );
                        },
                        true );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
-    context.safeAction( ValueUtil.randomString(), true, observableValue::reportChanged );
+    context.safeAction( ValueUtil.randomString(), true, () -> {
+      observableValue.reportChanged();
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), true );
+      assertEquals( context.isTrackingTransactionActive(), false );
+    } );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -353,6 +372,9 @@ public class ExternalApiTest
                          observableValue2.reportObserved();
                          observableValue3.reportObserved();
                          reactionCount.incrementAndGet();
+                         assertEquals( context.isTransactionActive(), true );
+                         assertEquals( context.isWriteTransactionActive(), false );
+                         assertEquals( context.isTrackingTransactionActive(), true );
                        },
                        true );
 
@@ -623,6 +645,98 @@ public class ExternalApiTest
 
     assertEquals( callCount.get(), 1 );
     assertEquals( context.isSchedulerPaused(), false );
+  }
+
+  @Test
+  public void noTxAction()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue observableValue = context.observable();
+
+    assertNotInTransaction( context, observableValue );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    context.action( () -> {
+      assertInTransaction( context, observableValue );
+
+      context.noTxAction( () -> {
+        assertNotInTransaction( context, observableValue );
+      } );
+
+      assertInTransaction( context, observableValue );
+
+      final String actual1 =
+        context.noTxAction( () -> {
+          assertNotInTransaction( context, observableValue );
+          return expectedValue;
+        } );
+      assertEquals( actual1, expectedValue );
+
+      assertInTransaction( context, observableValue );
+
+      context.safeNoTxAction( () -> {
+        assertNotInTransaction( context, observableValue );
+      } );
+
+      assertInTransaction( context, observableValue );
+
+      final String actual2 =
+        context.safeNoTxAction( () -> {
+          assertNotInTransaction( context, observableValue );
+          return expectedValue;
+        } );
+      assertEquals( actual2, expectedValue );
+
+      assertInTransaction( context, observableValue );
+    } );
+
+    assertNotInTransaction( context, observableValue );
+  }
+
+  @Test
+  public void setEnvironment()
+  {
+    final ArrayList<String> trace = new ArrayList<>();
+
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = context.observable();
+
+    context.setEnvironment( a -> {
+      trace.add( "PreTrace" );
+      a.call();
+      trace.add( "PostTrace" );
+    } );
+
+    context.autorun( () -> {
+      observable.reportObserved();
+      trace.add( "Autorun" );
+    } );
+
+    context.safeAction( () -> {
+      observable.reportChanged();
+      trace.add( "Action" );
+    } );
+
+    assertEquals( trace,
+                  Arrays.asList( /* The initial immediate execution of autorun */
+                                 "Autorun",
+                                 /*
+                                  * The autorun calls ArezContext.triggerScheduler so environment
+                                  * invoked to run scheduler
+                                  */
+                                 "PreTrace", "PostTrace",
+                                 /*
+                                  * Explicit action!
+                                  */
+                                 "Action",
+                                 /*
+                                  * Action triggers scheduler and autorun reacts to changes
+                                  */
+                                 "PreTrace", "Autorun", "PostTrace" ) );
   }
 
   /**
