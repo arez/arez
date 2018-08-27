@@ -613,7 +613,7 @@ public final class ArezContext
     }
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( new ComputedValueInfoImpl( getSpy(), computedValue ) ) );
+      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue.asInfo() ) );
     }
     if ( keepAlive )
     {
@@ -1073,7 +1073,7 @@ public final class ArezContext
                     canNestActions );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObserverCreatedEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
+      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer.asInfo() ) );
     }
     return observer;
   }
@@ -1177,8 +1177,7 @@ public final class ArezContext
                              mutator );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObservableValueCreatedEvent( new ObservableValueInfoImpl( getSpy(),
-                                                                                             observableValue ) ) );
+      getSpy().reportSpyEvent( new ObservableValueCreatedEvent( observableValue.asInfo() ) );
     }
     return observableValue;
   }
@@ -1193,7 +1192,7 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ReactionScheduledEvent( new ObserverInfoImpl( getSpy(), observer ) ) );
+      getSpy().reportSpyEvent( new ReactionScheduledEvent( observer.asInfo() ) );
     }
     if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {
@@ -2520,7 +2519,7 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObserverErrorEvent( new ObserverInfoImpl( getSpy(), observer ), error, throwable ) );
+      getSpy().reportSpyEvent( new ObserverErrorEvent( observer.asInfo(), error, throwable ) );
     }
     if ( Arez.areObserverErrorHandlersEnabled() )
     {

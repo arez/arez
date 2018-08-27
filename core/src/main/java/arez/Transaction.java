@@ -1,6 +1,8 @@
 package arez;
 
+import arez.spy.ObserverInfo;
 import arez.spy.TransactionCompletedEvent;
+import arez.spy.TransactionInfo;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -92,6 +94,12 @@ final class Transaction
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
    */
   private boolean _readOrWriteOccurred;
+  /**
+   * Cached info object associated with element.
+   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   */
+  @Nullable
+  private TransactionInfoImpl _info;
 
   /**
    * Return true if there is a transaction for speciffied context in progress.
@@ -175,8 +183,7 @@ final class Transaction
     if ( context.willPropagateSpyEvents() )
     {
       assert null != name;
-      final ObserverInfoImpl trackerInfo =
-        null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
+      final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
       final boolean mutation =
         !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
       context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, trackerInfo ) );
@@ -217,8 +224,7 @@ final class Transaction
         final boolean mutation =
           !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
         final Observer tracker = c_transaction.getTracker();
-        final ObserverInfoImpl trackerInfo =
-          null != tracker ? new ObserverInfoImpl( c_transaction.getContext().getSpy(), tracker ) : null;
+        final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
         final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
         c_transaction.getContext().getSpy().
           reportSpyEvent( new TransactionCompletedEvent( name, mutation, trackerInfo, duration ) );
@@ -1025,6 +1031,27 @@ final class Transaction
   ArrayList<ObservableValue> getPendingDeactivations()
   {
     return _pendingDeactivations;
+  }
+
+  /**
+   * Return the info associated with this class.
+   *
+   * @return the info associated with this class.
+   */
+  @SuppressWarnings( "ConstantConditions" )
+  @Nonnull
+  TransactionInfo asInfo()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areSpiesEnabled,
+                 () -> "Arez-0198: TransactionInfo.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    }
+    if ( Arez.areSpiesEnabled() && null == _info )
+    {
+      _info = new TransactionInfoImpl( this );
+    }
+    return Arez.areSpiesEnabled() ? _info : null;
   }
 
   static void setTransaction( @Nullable final Transaction transaction )

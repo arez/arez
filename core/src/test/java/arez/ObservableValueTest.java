@@ -7,6 +7,7 @@ import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueDisposedEvent;
+import arez.spy.ObservableValueInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ReactionScheduledEvent;
@@ -1799,5 +1800,27 @@ public class ObservableValueTest
     final String secondValue = ValueUtil.randomString();
     value.set( secondValue );
     assertEquals( observableValue.getAccessor().get(), secondValue );
+  }
+
+  @Test
+  public void asInfo()
+  {
+    final ObservableValue<String> observableValue = Arez.context().observable();
+
+    final ObservableValueInfo info = observableValue.asInfo();
+    assertEquals( info.getName(), observableValue.getName() );
+  }
+
+  @Test
+  public void asInfo_spyDisabled()
+  {
+    ArezTestUtil.disableSpies();
+    ArezTestUtil.resetState();
+
+    final ObservableValue<String> observableValue = Arez.context().observable();
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observableValue::asInfo );
+    assertEquals( exception.getMessage(),
+                  "Arez-0196: ObservableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }

@@ -13,15 +13,11 @@ import static org.realityforge.braincheck.Guards.*;
 final class TransactionInfoImpl
   implements TransactionInfo
 {
-  private final Spy _spy;
   @Nonnull
   private final Transaction _transaction;
-  @Nullable
-  private TransactionInfo _parent;
 
-  TransactionInfoImpl( @Nonnull final Spy spy, @Nonnull final Transaction transaction )
+  TransactionInfoImpl( @Nonnull final Transaction transaction )
   {
-    _spy = Objects.requireNonNull( spy );
     _transaction = Objects.requireNonNull( transaction );
   }
 
@@ -51,23 +47,8 @@ final class TransactionInfoImpl
   @Override
   public TransactionInfo getParent()
   {
-    if ( null != _parent )
-    {
-      return _parent;
-    }
-    else
-    {
-      final Transaction previous = getTransaction().getPrevious();
-      if ( null != previous )
-      {
-        _parent = new TransactionInfoImpl( _spy, previous );
-        return _parent;
-      }
-      else
-      {
-        return null;
-      }
-    }
+    final Transaction previous = _transaction.getPrevious();
+    return null != previous ? previous.asInfo() : null;
   }
 
   /**
@@ -90,7 +71,7 @@ final class TransactionInfoImpl
     apiInvariant( () -> null != tracker,
                   () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
     assert null != tracker;
-    return new ObserverInfoImpl( _spy, tracker );
+    return tracker.asInfo();
   }
 
   @Nonnull

@@ -4,6 +4,7 @@ import arez.spy.ComputedValueActivatedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueDisposedEvent;
+import arez.spy.ObservableValueInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import java.util.ArrayList;
@@ -85,6 +86,12 @@ public final class ObservableValue<T>
    */
   @Nullable
   private final PropertyMutator<T> _mutator;
+  /**
+   * Cached info object associated with element.
+   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   */
+  @Nullable
+  private ObservableValueInfo _info;
 
   ObservableValue( @Nullable final ArezContext context,
                    @Nullable final Component component,
@@ -166,7 +173,7 @@ public final class ObservableValue<T>
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObservableValueDisposedEvent( new ObservableValueInfoImpl( getSpy(), this ) ) );
+          reportSpyEvent( new ObservableValueDisposedEvent( asInfo() ) );
         }
         if ( null != _component )
         {
@@ -324,8 +331,7 @@ public final class ObservableValue<T>
       _owner.setState( ObserverState.INACTIVE );
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputedValueDeactivatedEvent( new ComputedValueInfoImpl( getSpy(),
-                                                                                      _owner.getComputedValue() ) ) );
+        reportSpyEvent( new ComputedValueDeactivatedEvent( _owner.getComputedValue().asInfo() ) );
       }
     }
   }
@@ -352,8 +358,7 @@ public final class ObservableValue<T>
     _owner.setState( ObserverState.UP_TO_DATE );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ComputedValueActivatedEvent( new ComputedValueInfoImpl( getSpy(),
-                                                                                  _owner.getComputedValue() ) ) );
+      reportSpyEvent( new ComputedValueActivatedEvent( _owner.getComputedValue().asInfo() ) );
     }
   }
 
@@ -511,7 +516,7 @@ public final class ObservableValue<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableValueChangedEvent( new ObservableValueInfoImpl( getSpy(), this ), getObservableValue() ) );
+      reportSpyEvent( new ObservableValueChangedEvent( asInfo(), getObservableValue() ) );
     }
     getContext().getTransaction().reportChanged( this );
   }
@@ -520,7 +525,7 @@ public final class ObservableValue<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableValueChangedEvent( new ObservableValueInfoImpl( getSpy(), this ), getObservableValue() ) );
+      reportSpyEvent( new ObservableValueChangedEvent( asInfo(), getObservableValue() ) );
     }
     getContext().getTransaction().reportChangeConfirmed( this );
   }
@@ -547,6 +552,27 @@ public final class ObservableValue<T>
       }
     }
     return null;
+  }
+
+  /**
+   * Return the info associated with this class.
+   *
+   * @return the info associated with this class.
+   */
+  @SuppressWarnings( "ConstantConditions" )
+  @Nonnull
+  ObservableValueInfo asInfo()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areSpiesEnabled,
+                 () -> "Arez-0196: ObservableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    }
+    if ( Arez.areSpiesEnabled() && null == _info )
+    {
+      _info = new ObservableValueInfoImpl( getContext().getSpy(), this );
+    }
+    return Arez.areSpiesEnabled() ? _info : null;
   }
 
   void invariantOwner()

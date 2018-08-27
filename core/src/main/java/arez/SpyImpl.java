@@ -137,7 +137,7 @@ final class SpyImpl
       apiInvariant( this::isTransactionActive,
                     () -> "Arez-0105: Spy.getTransaction() invoked but no transaction active." );
     }
-    return new TransactionInfoImpl( this, getContext().getTransaction() );
+    return getContext().getTransaction().asInfo();
   }
 
   /**
@@ -261,7 +261,7 @@ final class SpyImpl
   @Override
   public ComputedValueInfo asComputedValue( @Nonnull final ObservableValue<?> observableValue )
   {
-    return new ComputedValueInfoImpl( this, observableValue.getOwner().getComputedValue() );
+    return observableValue.getOwner().getComputedValue().asInfo();
   }
 
   /**
@@ -298,7 +298,7 @@ final class SpyImpl
   @Override
   public ComputedValueInfo asComputedValue( @Nonnull final Observer observer )
   {
-    return new ComputedValueInfoImpl( this, observer.getComputedValue() );
+    return observer.getComputedValue().asInfo();
   }
 
   /**
@@ -342,7 +342,7 @@ final class SpyImpl
                  () -> "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     final Component component = observableValue.getComponent();
-    return null == component ? null : new ComponentInfoImpl( this, component );
+    return null == component ? null : component.asInfo();
   }
 
   /**
@@ -358,7 +358,7 @@ final class SpyImpl
                  () -> "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     final Component component = observer.getComponent();
-    return null == component ? null : new ComponentInfoImpl( this, component );
+    return null == component ? null : component.asInfo();
   }
 
   /**
@@ -374,7 +374,7 @@ final class SpyImpl
                  () -> "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     final Component component = computedValue.getComponent();
-    return null == component ? null : new ComponentInfoImpl( this, component );
+    return null == component ? null : component.asInfo();
   }
 
   /**
@@ -385,7 +385,7 @@ final class SpyImpl
   public ComponentInfo findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
     final Component component = getContext().findComponent( type, id );
-    return null != component ? new ComponentInfoImpl( this, component ) : null;
+    return null != component ? component.asInfo() : null;
   }
 
   /**
@@ -395,9 +395,9 @@ final class SpyImpl
   @Override
   public Collection<ComponentInfo> findAllComponentsByType( @Nonnull final String type )
   {
-    final List<ComponentInfoImpl> infos =
+    final List<ComponentInfo> infos =
       getContext().findAllComponentsByType( type ).stream().
-        map( component -> new ComponentInfoImpl( this, component ) ).
+        map( Component::asInfo ).
         collect( Collectors.toList() );
     return Collections.unmodifiableCollection( infos );
   }
@@ -473,7 +473,9 @@ final class SpyImpl
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> null != accessor,
-                    () -> "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue.getName() + "' but " +
+                    () -> "Arez-0112: Spy.getValue invoked on ObservableValue named '" +
+                          observableValue.getName() +
+                          "' but " +
                           "ObservableValue has no property accessor." );
     }
     assert null != accessor;
@@ -542,7 +544,7 @@ final class SpyImpl
   @Override
   public ComponentInfo asComponentInfo( @Nonnull final Component component )
   {
-    return new ComponentInfoImpl( this, component );
+    return component.asInfo();
   }
 
   /**
@@ -552,7 +554,7 @@ final class SpyImpl
   @Override
   public ObserverInfo asObserverInfo( @Nonnull final Observer observer )
   {
-    return new ObserverInfoImpl( this, observer );
+    return observer.asInfo();
   }
 
   /**
@@ -562,7 +564,7 @@ final class SpyImpl
   @Override
   public <T> ObservableValueInfo asObservableValueInfo( @Nonnull final ObservableValue<T> observableValue )
   {
-    return new ObservableValueInfoImpl( this, observableValue );
+    return observableValue.asInfo();
   }
 
   /**
@@ -572,7 +574,7 @@ final class SpyImpl
   @Override
   public <T> ComputedValueInfo asComputedValueInfo( @Nonnull final ComputedValue<T> computedValue )
   {
-    return new ComputedValueInfoImpl( this, computedValue );
+    return computedValue.asInfo();
   }
 
   @Nonnull

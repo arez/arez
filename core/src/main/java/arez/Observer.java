@@ -3,6 +3,7 @@ package arez;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
 import arez.spy.ObserverDisposedEvent;
+import arez.spy.ObserverInfo;
 import arez.spy.ReactionCompletedEvent;
 import arez.spy.ReactionStartedEvent;
 import java.util.ArrayList;
@@ -83,6 +84,12 @@ public final class Observer
    * Flag set to true if the Observer allows nested actions.
    */
   private final boolean _canNestActions;
+  /**
+   * Cached info object associated with element.
+   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   */
+  @Nullable
+  private ObserverInfo _info;
 
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
@@ -195,7 +202,7 @@ public final class Observer
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObserverDisposedEvent( new ObserverInfoImpl( getContext().getSpy(), this ) ) );
+          reportSpyEvent( new ObserverDisposedEvent( asInfo() ) );
         }
         if ( null != _component )
         {
@@ -511,11 +518,11 @@ public final class Observer
         start = System.currentTimeMillis();
         if ( isComputedValue() )
         {
-          reportSpyEvent( new ComputeStartedEvent( new ComputedValueInfoImpl( getSpy(), getComputedValue() ) ) );
+          reportSpyEvent( new ComputeStartedEvent( getComputedValue().asInfo() ) );
         }
         else
         {
-          reportSpyEvent( new ReactionStartedEvent( new ObserverInfoImpl( getSpy(), this ) ) );
+          reportSpyEvent( new ReactionStartedEvent( asInfo() ) );
         }
       }
       else
@@ -539,12 +546,11 @@ public final class Observer
         final long duration = System.currentTimeMillis() - start;
         if ( isComputedValue() )
         {
-          reportSpyEvent( new ComputeCompletedEvent( new ComputedValueInfoImpl( getSpy(), getComputedValue() ),
-                                                     duration ) );
+          reportSpyEvent( new ComputeCompletedEvent( getComputedValue().asInfo(), duration ) );
         }
         else
         {
-          reportSpyEvent( new ReactionCompletedEvent( new ObserverInfoImpl( getSpy(), this ), duration ) );
+          reportSpyEvent( new ReactionCompletedEvent( asInfo(), duration ) );
         }
       }
     }
@@ -762,6 +768,27 @@ public final class Observer
   Component getComponent()
   {
     return _component;
+  }
+
+  /**
+   * Return the info associated with this class.
+   *
+   * @return the info associated with this class.
+   */
+  @SuppressWarnings( "ConstantConditions" )
+  @Nonnull
+  ObserverInfo asInfo()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areSpiesEnabled,
+                 () -> "Arez-0197: Observer.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    }
+    if ( Arez.areSpiesEnabled() && null == _info )
+    {
+      _info = new ObserverInfoImpl( getContext().getSpy(), this );
+    }
+    return Arez.areSpiesEnabled() ? _info : null;
   }
 
   void markAsScheduled()

@@ -33,7 +33,7 @@ final class ComputedValueInfoImpl
   {
     return computedValues
       .stream()
-      .map( o -> new ComputedValueInfoImpl( spy, o ) )
+      .map( ComputedValue::asInfo )
       .collect( Collectors.toList() );
   }
 

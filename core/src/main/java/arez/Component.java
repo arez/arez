@@ -56,6 +56,12 @@ public final class Component
   private final SafeProcedure _postDispose;
   private boolean _complete;
   private boolean _disposed;
+  /**
+   * Cached info object associated with element.
+   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   */
+  @Nullable
+  private ComponentInfo _info;
 
   Component( @Nullable final ArezContext context,
              @Nonnull final String type,
@@ -223,6 +229,27 @@ public final class Component
   }
 
   /**
+   * Return the info associated with this class.
+   *
+   * @return the info associated with this class.
+   */
+  @SuppressWarnings( "ConstantConditions" )
+  @Nonnull
+  ComponentInfo asInfo()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areSpiesEnabled,
+                 () -> "Arez-0194: Component.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    }
+    if ( Arez.areSpiesEnabled() && null == _info )
+    {
+      _info = new ComponentInfoImpl( getContext().getSpy(), this );
+    }
+    return Arez.areSpiesEnabled() ? _info : null;
+  }
+
+  /**
    * Return the observers associated with the component.
    *
    * @return the observers associated with the component.
@@ -289,12 +316,20 @@ public final class Component
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !_complete,
-                    () -> "Arez-0042: Component.addObservableValue invoked on component '" + getName() + "' " +
-                          "specifying ObservableValue named '" + observableValue.getName() + "' when component.complete() " +
+                    () -> "Arez-0042: Component.addObservableValue invoked on component '" +
+                          getName() +
+                          "' " +
+                          "specifying ObservableValue named '" +
+                          observableValue.getName() +
+                          "' when component.complete() " +
                           "has already been called." );
       apiInvariant( () -> !_observableValues.contains( observableValue ),
-                    () -> "Arez-0043: Component.addObservableValue invoked on component '" + getName() + "' " +
-                          "specifying ObservableValue named '" + observableValue.getName() + "' when ObservableValue already " +
+                    () -> "Arez-0043: Component.addObservableValue invoked on component '" +
+                          getName() +
+                          "' " +
+                          "specifying ObservableValue named '" +
+                          observableValue.getName() +
+                          "' when ObservableValue already " +
                           "exists for component." );
     }
     _observableValues.add( observableValue );
@@ -311,8 +346,12 @@ public final class Component
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> _observableValues.contains( observableValue ),
-                    () -> "Arez-0044: Component.removeObservableValue invoked on component '" + getName() + "' " +
-                          "specifying ObservableValue named '" + observableValue.getName() + "' when ObservableValue does not " +
+                    () -> "Arez-0044: Component.removeObservableValue invoked on component '" +
+                          getName() +
+                          "' " +
+                          "specifying ObservableValue named '" +
+                          observableValue.getName() +
+                          "' when ObservableValue does not " +
                           "exist for component." );
     }
     _observableValues.remove( observableValue );

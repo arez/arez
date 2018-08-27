@@ -8,6 +8,7 @@ import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObserverDisposedEvent;
+import arez.spy.ObserverInfo;
 import arez.spy.ReactionCompletedEvent;
 import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
@@ -1604,5 +1605,27 @@ public class ObserverTest
     observableValue.addObserver( observer );
 
     assertEquals( observer.shouldCompute(), false );
+  }
+
+  @Test
+  public void asInfo()
+  {
+    final Observer observer = Arez.context().tracker( ValueUtil::randomString );
+
+    final ObserverInfo info = observer.asInfo();
+    assertEquals( info.getName(), observer.getName() );
+  }
+
+  @Test
+  public void asInfo_spyDisabled()
+  {
+    ArezTestUtil.disableSpies();
+    ArezTestUtil.resetState();
+
+    final Observer observer = Arez.context().tracker( ValueUtil::randomString );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::asInfo );
+    assertEquals( exception.getMessage(),
+                  "Arez-0197: Observer.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }
