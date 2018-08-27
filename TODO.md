@@ -13,6 +13,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add ability for user to explicitly call `Observer.schedule()`. This way things like `minimumDelay`,
+  `throttle` etc. all become user-space concerns.
+
 * Implement something similar to `getDependencyTree` from mobx
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
