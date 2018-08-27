@@ -46,7 +46,7 @@ The simplified rules are:
 
 It should be noted that these rules are in addition to the rule that a read-write transaction can not be nested
 within a read-only transaction. Actions default to read-write transactions but may be made read-only. Observers
-default to read-only transactions but may be made read-write. Computed values create read-only transactions. 
+default to read-only transactions but may be made read-write. Computed values create read-only transactions.
 
 ## Nesting Non-Transactional Actions
 
