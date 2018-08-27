@@ -144,6 +144,8 @@ public class ExternalApiTest
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
       assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), true );
+      assertEquals( context.isTrackingTransactionActive(), false );
 
       computedValue.dispose();
 
@@ -179,6 +181,10 @@ public class ExternalApiTest
     context.autorun( () -> {
       autorunCallCount.incrementAndGet();
       assertEquals( computedValue.get(), expected.get() );
+
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), false );
+      assertEquals( context.isTrackingTransactionActive(), true );
     } );
 
     assertEquals( autorunCallCount.get(), 1 );
@@ -212,6 +218,9 @@ public class ExternalApiTest
     final Observer observer = context.autorun( name, false, () -> {
       observeADependency();
       callCount.incrementAndGet();
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), false );
+      assertEquals( context.isTrackingTransactionActive(), true );
     }, true );
 
     assertEquals( observer.getName(), name );
@@ -291,13 +300,21 @@ public class ExternalApiTest
                        () -> {
                          observableValue.reportObserved();
                          reactionCount.incrementAndGet();
+                         assertEquals( context.isTransactionActive(), true );
+                         assertEquals( context.isWriteTransactionActive(), false );
+                         assertEquals( context.isTrackingTransactionActive(), true );
                        },
                        true );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
 
-    context.safeAction( ValueUtil.randomString(), true, observableValue::reportChanged );
+    context.safeAction( ValueUtil.randomString(), true, () -> {
+      observableValue.reportChanged();
+      assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isWriteTransactionActive(), true );
+      assertEquals( context.isTrackingTransactionActive(), false );
+    } );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( ArezObserverTestUtil.isActive( observer ), true );
@@ -353,6 +370,9 @@ public class ExternalApiTest
                          observableValue2.reportObserved();
                          observableValue3.reportObserved();
                          reactionCount.incrementAndGet();
+                         assertEquals( context.isTransactionActive(), true );
+                         assertEquals( context.isWriteTransactionActive(), false );
+                         assertEquals( context.isTrackingTransactionActive(), true );
                        },
                        true );
 
