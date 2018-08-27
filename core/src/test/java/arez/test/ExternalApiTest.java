@@ -570,7 +570,7 @@ public class ExternalApiTest
           assertEquals( autorunCallCount2.get(), 1 );
         } );
 
-        // Second context runs now as it got to it's top level trnsaction
+        // Second context runs now as it got to it's top level transaction
         assertEquals( autorunCallCount2.get(), 2 );
 
         assertInTransaction( context1, observableValue1 );
