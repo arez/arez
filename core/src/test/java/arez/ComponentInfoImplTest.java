@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ComponentInfo;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -26,7 +27,7 @@ public class ComponentInfoImplTest
     component.addObservableValue( observableValue );
     component.addComputedValue( computedValue );
 
-    final ComponentInfoImpl info = new ComponentInfoImpl( context.getSpy(), component );
+    final ComponentInfo info = component.asInfo();
 
     assertEquals( info.getType(), type );
     assertEquals( info.getId(), id );
@@ -60,9 +61,9 @@ public class ComponentInfoImplTest
     final Component component1 = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
     final Component component2 = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final ComponentInfoImpl info1a = new ComponentInfoImpl( context.getSpy(), component1 );
-    final ComponentInfoImpl info1b = new ComponentInfoImpl( context.getSpy(), component1 );
-    final ComponentInfoImpl info2 = new ComponentInfoImpl( context.getSpy(), component2 );
+    final ComponentInfo info1a = component1.asInfo();
+    final ComponentInfo info1b = new ComponentInfoImpl( context.getSpy(), component1 );
+    final ComponentInfo info2 = component2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertEquals( info1a.equals( "" ), false );

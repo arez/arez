@@ -5,6 +5,7 @@ import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateCompletedEvent;
 import arez.spy.ComponentDisposeCompletedEvent;
 import arez.spy.ComponentDisposeStartedEvent;
+import arez.spy.ComponentInfo;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.concurrent.atomic.AtomicReference;
@@ -569,5 +570,35 @@ public class ComponentTest
       final ComponentDisposeCompletedEvent event = handler.assertNextEvent( ComponentDisposeCompletedEvent.class );
       assertEquals( event.getComponentInfo().getName(), component.getName() );
     }
+  }
+
+  @Test
+  public void asInfo()
+  {
+    final ArezContext context = Arez.context();
+
+    final Component component =
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final ComponentInfo info = component.asInfo();
+    assertEquals( info.getId(), component.getId() );
+    assertEquals( info.getName(), component.getName() );
+    assertEquals( info.getType(), component.getType() );
+  }
+
+  @Test
+  public void asInfo_spyDisabled()
+  {
+    ArezTestUtil.disableSpies();
+    ArezTestUtil.resetState();
+
+    final ArezContext context = Arez.context();
+
+    final Component component =
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::asInfo );
+    assertEquals( exception.getMessage(),
+                  "Arez-0194: Component.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }

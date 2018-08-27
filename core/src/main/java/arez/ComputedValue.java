@@ -1,6 +1,7 @@
 package arez;
 
 import arez.spy.ComputedValueDisposedEvent;
+import arez.spy.ComputedValueInfo;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -85,6 +86,12 @@ public final class ComputedValue<T>
    */
   @Nullable
   private Procedure _onStale;
+  /**
+   * Cached info object associated with element.
+   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   */
+  @Nullable
+  private ComputedValueInfo _info;
 
   ComputedValue( @Nullable final ArezContext context,
                  @Nullable final Component component,
@@ -189,7 +196,7 @@ public final class ComputedValue<T>
    */
   public void reportPossiblyChanged()
   {
-     if ( Arez.shouldCheckApiInvariants() )
+    if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !_arezOnlyDependencies,
                     () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
@@ -224,7 +231,7 @@ public final class ComputedValue<T>
       _error = null;
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputedValueDisposedEvent( new ComputedValueInfoImpl( getSpy(), this ) ) );
+        reportSpyEvent( new ComputedValueDisposedEvent( asInfo() ) );
       }
       if ( null != _component )
       {
@@ -419,6 +426,27 @@ public final class ComputedValue<T>
         _computing = false;
       }
     }
+  }
+
+  /**
+   * Return the info associated with this class.
+   *
+   * @return the info associated with this class.
+   */
+  @SuppressWarnings( "ConstantConditions" )
+  @Nonnull
+  ComputedValueInfo asInfo()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areSpiesEnabled,
+                 () -> "Arez-0195: ComputedValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    }
+    if ( Arez.areSpiesEnabled() && null == _info )
+    {
+      _info = new ComputedValueInfoImpl( getContext().getSpy(), this );
+    }
+    return Arez.areSpiesEnabled() ? _info : null;
   }
 
   @Nullable

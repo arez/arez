@@ -15,6 +15,12 @@
   to generate an invarint failure if it is invoked and `arezOnlyDependencies` is `true`.
 * **\[core\]** Add the `arezOnlyDependencies` parameter to the `@Computed` annotation and update the annotation
   processor to support generate the supporting infrastructure. If the parameter is set to `false` the
+* **\[gwt-output-qa\]** Fix assertions that broke due to rename of class `Observable` to `ObservableValue`.
+* **\[core\]** Cache the `*Info` classes that are created for Arez elements `Component`, `ObservableValue`,
+  `ComputedValue`, `Observer` and `Transaction` when generating spy events or when interacting with a context
+  via the `arez.Spy` interface. This dramatically improves the performance during debugging by eliminating
+  excessive garbage collection. Assertions have been added to the `gwt-output-qa` module to ensure that the
+  cached fields never flow through into production code.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

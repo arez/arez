@@ -33,7 +33,7 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );
 
     // This should be eliminated as only used during invariant checking
-    index.assertNoMemberMatches( "arez\\.Observable", "preReportChanged" );
+    index.assertNoMemberMatches( "arez\\.ObservableValue", "preReportChanged" );
 
     // No repository should have equals defined
     assertEquals( index, ".*(\\.|_)Arez_[^\\.]Repository", false );
@@ -66,7 +66,7 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.ComputedValue", "getError" );
     index.assertNoMemberMatches( "arez\\.ComputedValue", "setError" );
     index.assertNoMemberMatches( "arez\\.ComputedValue", "setComputing" );
-    index.assertNoMemberMatches( "arez\\.Observable", "getWorkState" );
+    index.assertNoMemberMatches( "arez\\.ObservableValue", "getWorkState" );
     index.assertNoMemberMatches( "arez\\.Observer", "markAsScheduled" );
     index.assertNoMemberMatches( "arez\\.ObserverErrorHandlerSupport", "getObserverErrorHandlers" );
     index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getPendingObservers" );
@@ -173,6 +173,11 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.spy\\..*", enabled );
     index.assertSymbol( "arez\\.Spy.*", enabled );
     index.assertSymbol( "arez\\..*InfoImpl", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "_info", enabled );
+    index.assertSymbol( "arez\\.ComputedValue", "_info", enabled );
+    index.assertSymbol( "arez\\.Observer", "_info", enabled );
+    index.assertSymbol( "arez\\.Transaction", "_info", enabled );
+    index.assertSymbol( "arez\\.Component", "_info", enabled );
   }
 
   /**

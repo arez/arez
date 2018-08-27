@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ComputedValueInfo;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
@@ -29,7 +30,7 @@ public class ComputedValueInfoImplTest
       } );
     final Observer observer = context.autorun( computedValue::get );
 
-    final ComputedValueInfoImpl info = new ComputedValueInfoImpl( context.getSpy(), computedValue );
+    final ComputedValueInfo info = computedValue.asInfo();
 
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
@@ -68,9 +69,9 @@ public class ComputedValueInfoImplTest
     final ComputedValue<Object> computedValue1 = context.computed( () -> "1" );
     final ComputedValue<Object> computedValue2 = context.computed( () -> "2" );
 
-    final ComputedValueInfoImpl info1a = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
-    final ComputedValueInfoImpl info1b = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
-    final ComputedValueInfoImpl info2 = new ComputedValueInfoImpl( context.getSpy(), computedValue2 );
+    final ComputedValueInfo info1a = computedValue1.asInfo();
+    final ComputedValueInfo info1b = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
+    final ComputedValueInfo info2 = computedValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertEquals( info1a.equals( "" ), false );

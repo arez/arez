@@ -33,7 +33,7 @@ final class ObservableValueInfoImpl
   {
     return observableValues
       .stream()
-      .map( o -> new ObservableValueInfoImpl( spy, o ) )
+      .map( ObservableValue::asInfo )
       .collect( Collectors.toList() );
   }
 

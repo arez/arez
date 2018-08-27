@@ -3,6 +3,7 @@ package arez;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComputedValueDisposedEvent;
+import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
@@ -840,5 +841,39 @@ public class ComputedValueTest
 
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 2 );
+  }
+
+  @Test
+  public void asInfo()
+  {
+    final ArezContext context = Arez.context();
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue = context.computed( function );
+
+    final ComputedValueInfo info = computedValue.asInfo();
+    assertEquals( info.getName(), computedValue.getName() );
+  }
+
+  @Test
+  public void asInfo_spyDisabled()
+  {
+    ArezTestUtil.disableSpies();
+    ArezTestUtil.resetState();
+
+    final ArezContext context = Arez.context();
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue = context.computed( function );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::asInfo );
+    assertEquals( exception.getMessage(),
+                  "Arez-0195: ComputedValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }

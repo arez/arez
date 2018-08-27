@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ObserverInfo;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -18,7 +19,7 @@ public class ObserverInfoImplTest
     final ObservableValue<Object> observableValue = context.observable();
     final Observer observer = context.autorun( name, false, observableValue::reportObserved );
 
-    final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
+    final ObserverInfo info = observer.asInfo();
 
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
@@ -50,7 +51,7 @@ public class ObserverInfoImplTest
 
     final Observer observer = computedValue.getObserver();
 
-    final ObserverInfoImpl info = new ObserverInfoImpl( context.getSpy(), observer );
+    final ObserverInfo info = observer.asInfo();
 
     assertEquals( info.getName(), name );
 
@@ -68,9 +69,9 @@ public class ObserverInfoImplTest
     final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observableValue::reportObserved );
     final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observableValue::reportObserved );
 
-    final ObserverInfoImpl info1a = new ObserverInfoImpl( context.getSpy(), observer1 );
-    final ObserverInfoImpl info1b = new ObserverInfoImpl( context.getSpy(), observer1 );
-    final ObserverInfoImpl info2 = new ObserverInfoImpl( context.getSpy(), observer2 );
+    final ObserverInfo info1a = observer1.asInfo();
+    final ObserverInfo info1b = new ObserverInfoImpl( context.getSpy(), observer1 );
+    final ObserverInfo info2 = observer2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertEquals( info1a.equals( "" ), false );

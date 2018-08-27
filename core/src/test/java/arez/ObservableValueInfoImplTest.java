@@ -1,6 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
+import arez.spy.ObservableValueInfo;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
@@ -20,7 +21,7 @@ public class ObservableValueInfoImplTest
     final ObservableValue<Object> observableValue = context.observable( name );
     final Observer observer = context.autorun( observableValue::reportObserved );
 
-    final ObservableValueInfoImpl info = new ObservableValueInfoImpl( context.getSpy(), observableValue );
+    final ObservableValueInfo info = observableValue.asInfo();
 
     assertEquals( info.getComponent(), null );
     assertEquals( info.getName(), name );
@@ -57,7 +58,7 @@ public class ObservableValueInfoImplTest
     final ObservableValue<String> observableValue = context.observable( component, name, value::get, value::set );
     final Observer observer = context.autorun( observableValue::reportObserved );
 
-    final ObservableValueInfoImpl info = new ObservableValueInfoImpl( context.getSpy(), observableValue );
+    final ObservableValueInfo info = observableValue.asInfo();
 
     final ComponentInfo componentInfo = info.getComponent();
     assertNotNull( componentInfo );
@@ -99,7 +100,7 @@ public class ObservableValueInfoImplTest
 
     final ObservableValue<String> observableValue = computedValue.getObservableValue();
 
-    final ObservableValueInfoImpl info = new ObservableValueInfoImpl( context.getSpy(), observableValue );
+    final ObservableValueInfo info = observableValue.asInfo();
 
     assertEquals( info.getName(), name );
 
@@ -116,9 +117,9 @@ public class ObservableValueInfoImplTest
     final ObservableValue<Object> observableValue1 = context.observable();
     final ObservableValue<Object> observableValue2 = context.observable();
 
-    final ObservableValueInfoImpl info1a = new ObservableValueInfoImpl( context.getSpy(), observableValue1 );
-    final ObservableValueInfoImpl info1b = new ObservableValueInfoImpl( context.getSpy(), observableValue1 );
-    final ObservableValueInfoImpl info2 = new ObservableValueInfoImpl( context.getSpy(), observableValue2 );
+    final ObservableValueInfo info1a = observableValue1.asInfo();
+    final ObservableValueInfo info1b = new ObservableValueInfoImpl( context.getSpy(), observableValue1 );
+    final ObservableValueInfo info2 = observableValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertEquals( info1a.equals( "" ), false );

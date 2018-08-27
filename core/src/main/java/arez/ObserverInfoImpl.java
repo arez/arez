@@ -33,7 +33,7 @@ final class ObserverInfoImpl
   {
     return observers
       .stream()
-      .map( o -> new ObserverInfoImpl( spy, o ) )
+      .map( Observer::asInfo )
       .collect( Collectors.toList() );
   }
 
