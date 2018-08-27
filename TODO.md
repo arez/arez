@@ -11,9 +11,10 @@ complete as there is too much un-said.
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
   if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
-* Add test to verify that `@Track` transactions are top level.
-
 ## Enhancements
+
+* Add ability for user to explicitly call `Observer.schedule()`. This way things like `minimumDelay`,
+  `throttle` etc. all become user-space concerns.
 
 * Implement something similar to `getDependencyTree` from mobx
 

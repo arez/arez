@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* **\[core\]** Add invariant check that stops an observer's transaction from executing within the scope of
+  another transaction.
 * **\[processor\]** The invariant check generated to verify the link step of references was being generated
   outside of the associated guard resulting. This could result in dead-code not being eliminated in GWT2.x
   and triggered warnings in source code analysis programs such as spotbugs.

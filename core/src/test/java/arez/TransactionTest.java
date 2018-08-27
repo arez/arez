@@ -2507,6 +2507,28 @@ public class TransactionTest
   }
 
   @Test
+  public void begin_attempt_to_nestAction_in_non_computed_tracker_transaction()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer tracker = context.tracker( () -> {
+    } );
+    setCurrentTransaction( newReadWriteObserver() );
+
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, tracker ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for the " +
+                  "observer named '" + tracker.getName() + "' but the transaction is not a top-level transaction " +
+                  "when this is required. This may be a result of nesting a track() call inside an action or " +
+                  "another observer function." );
+  }
+
+  @Test
   public void beginTransaction_attemptToNest_READ_ONLY_in_READ_WRITE_OWNED()
     throws Exception
   {
