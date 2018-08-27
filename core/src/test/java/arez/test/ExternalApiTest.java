@@ -645,6 +645,55 @@ public class ExternalApiTest
     assertEquals( context.isSchedulerPaused(), false );
   }
 
+  @Test
+  public void noTxAction()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue observableValue = context.observable();
+
+    assertNotInTransaction( context, observableValue );
+
+    final String expectedValue = ValueUtil.randomString();
+
+    context.action( () -> {
+      assertInTransaction( context, observableValue );
+
+      context.noTxAction( () -> {
+        assertNotInTransaction( context, observableValue );
+      } );
+
+      assertInTransaction( context, observableValue );
+
+      final String actual1 =
+        context.noTxAction( () -> {
+          assertNotInTransaction( context, observableValue );
+          return expectedValue;
+        } );
+      assertEquals( actual1, expectedValue );
+
+      assertInTransaction( context, observableValue );
+
+      context.safeNoTxAction( () -> {
+        assertNotInTransaction( context, observableValue );
+      } );
+
+      assertInTransaction( context, observableValue );
+
+      final String actual2 =
+        context.safeNoTxAction( () -> {
+          assertNotInTransaction( context, observableValue );
+          return expectedValue;
+        } );
+      assertEquals( actual2, expectedValue );
+
+      assertInTransaction( context, observableValue );
+    } );
+
+    assertNotInTransaction( context, observableValue );
+  }
+
   /**
    * Test we are in a transaction by trying to observe an observableValue.
    */
