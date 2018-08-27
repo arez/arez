@@ -148,9 +148,9 @@ final class Transaction
                             @Nullable final TransactionMode mode,
                             @Nullable final Observer tracker )
   {
-    if ( Arez.shouldCheckApiInvariants() )
+    if ( Arez.shouldCheckApiInvariants() && Arez.shouldEnforceTransactionType()  )
     {
-      if ( Arez.shouldEnforceTransactionType() && null != c_transaction )
+      if ( null != c_transaction )
       {
         apiInvariant( () -> TransactionMode.READ_WRITE_OWNED != c_transaction.getMode() ||
                             TransactionMode.READ_WRITE_OWNED == mode,
@@ -162,6 +162,13 @@ final class Transaction
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
                             c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
+        apiInvariant( () -> c_transaction.getContext() != context ||
+                            TransactionMode.READ_WRITE_OWNED == mode ||
+                            null == tracker,
+                      () -> "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for " +
+                            "the observer named '" + Objects.requireNonNull( tracker ).getName() + "' but the " +
+                            "transaction is not a top-level transaction when this is required. This may be a result " +
+                            "of nesting a track() call inside an action or another observer function." );
       }
     }
     if ( Arez.shouldCheckInvariants() )
