@@ -22,6 +22,10 @@
     },
     {
         "observer": "Observer@1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "Observer@1",
         "type": "ReactionStarted"
     },
     {

@@ -22,6 +22,10 @@
     },
     {
         "observer": "AR1",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "AR1",
         "type": "ReactionStarted"
     },
     {
@@ -90,6 +94,10 @@
     {
         "observer": "AR4",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR4",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "AR4",
@@ -207,6 +215,10 @@
     {
         "observer": "AR3",
         "type": "ObserverCreated"
+    },
+    {
+        "observer": "AR3",
+        "type": "ReactionScheduled"
     },
     {
         "observer": "AR3",

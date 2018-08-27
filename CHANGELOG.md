@@ -24,6 +24,14 @@
   excessive garbage collection. Assertions have been added to the `gwt-output-qa` module to ensure that the
   cached fields never flow through into production code.
 * **\[core\]** Add some additional tests of the external API of `arez.ArezContext`.
+* **\[core\]** Change the way autorun observers and `keepAlive` computed values schedule their initial execution
+  if the `runImmediate` parameter is `true` to align between the low-level API in the `arez` package and the
+  way it was implemented in the component layer. Previously in the low-level API, the initial executions would
+  not be wrapped in a call to `arez.ReactionEnvironment` if it was present as they were invoked inline but they
+  would be wrapped in the component API. In the low-level API they would be invoked immediately regardless of
+  whether there was other higher priority reactions pending while the component API would schedule the reaction
+  and process the reactions using the normal scheduling priority ordering. The low-level API has been updated
+  to match the component API and will schedule the reaction using the standard mechanisms.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

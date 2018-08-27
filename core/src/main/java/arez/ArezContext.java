@@ -617,13 +617,10 @@ public final class ArezContext
     }
     if ( keepAlive )
     {
+      scheduleReaction( computedValue.getObserver() );
       if ( runImmediately )
       {
-        computedValue.getObserver().invokeReaction();
-      }
-      else
-      {
-        scheduleReaction( computedValue.getObserver() );
+        triggerScheduler();
       }
     }
     return computedValue;
@@ -882,13 +879,10 @@ public final class ArezContext
     {
       observer.setOnDispose( onDispose );
     }
+    scheduleReaction( observer );
     if ( runImmediately )
     {
-      observer.invokeReaction();
-    }
-    else
-    {
-      scheduleReaction( observer );
+      triggerScheduler();
     }
     return observer;
   }

@@ -22,6 +22,10 @@
     },
     {
         "observer": "SearchResult - red - 20",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "SearchResult - red - 20",
         "type": "ReactionStarted"
     },
     {

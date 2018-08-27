@@ -722,13 +722,10 @@ public class ExternalApiTest
     } );
 
     assertEquals( trace,
-                  Arrays.asList( /* The initial immediate execution of autorun */
-                                 "Autorun",
-                                 /*
-                                  * The autorun calls ArezContext.triggerScheduler so environment
-                                  * invoked to run scheduler
+                  Arrays.asList( /*
+                                  * Initial autorun reaction as runImmediate parameter was true
                                   */
-                                 "PreTrace", "PostTrace",
+                                 "PreTrace", "Autorun", "PostTrace",
                                  /*
                                   * Explicit action!
                                   */

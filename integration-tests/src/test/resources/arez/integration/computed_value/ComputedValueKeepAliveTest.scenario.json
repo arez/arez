@@ -5,6 +5,10 @@
         "type": "ComputedValueCreated"
     },
     {
+        "observer": "TestComputed",
+        "type": "ReactionScheduled"
+    },
+    {
         "computed": "TestComputed",
         "type": "ComputeStarted"
     },

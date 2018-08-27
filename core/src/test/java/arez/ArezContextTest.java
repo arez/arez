@@ -2348,15 +2348,54 @@ public class ArezContextTest
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 1 );
 
-    handler.assertEventCount( 7 );
+    handler.assertEventCount( 8 );
 
-    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), name );
-    assertEquals( handler.assertEvent( ReactionStartedEvent.class, 1 ).getObserver().getName(), name );
-    assertEquals( handler.assertEvent( ActionStartedEvent.class, 2 ).getName(), name );
-    assertEquals( handler.assertEvent( TransactionStartedEvent.class, 3 ).getTracker().getName(), name );
-    assertEquals( handler.assertEvent( TransactionCompletedEvent.class, 4 ).getTracker().getName(), name );
-    assertEquals( handler.assertEvent( ActionCompletedEvent.class, 5 ).getName(), name );
-    assertEquals( handler.assertEvent( ReactionCompletedEvent.class, 6 ).getObserver().getName(), name );
+    assertEquals( handler.assertNextEvent( ObserverCreatedEvent.class ).getObserver().getName(), name );
+    assertEquals( handler.assertNextEvent( ReactionScheduledEvent.class ).getObserver().getName(), name );
+    assertObserverReaction( handler, name );
+  }
+
+  @SuppressWarnings( "ConstantConditions" )
+  @Test
+  public void autorun_runImmediately_will_obeyNormalSchedulingPriorities()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observableValue = Arez.context().observable();
+
+    final Observer observer1 = context.autorun( "O1", observableValue::reportObserved );
+    final Observer observer2 =
+      context.autorun( "O2", false, observableValue::reportObserved, Priority.HIGH, true );
+
+    final Disposable schedulerLock = context.pauseScheduler();
+
+    // Trigger change that should schedule above observers
+    context.safeAction( observableValue::reportChanged );
+
+    final Observer observer3 =
+      context.autorun( "O3", false, observableValue::reportObserved, true );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    schedulerLock.dispose();
+
+    handler.assertEventCount( 6 * 3 );
+
+    assertObserverReaction( handler, observer2.getName() );
+    assertObserverReaction( handler, observer1.getName() );
+    assertObserverReaction( handler, observer3.getName() );
+  }
+
+  private void assertObserverReaction( @Nonnull final TestSpyEventHandler handler, @Nonnull final String name )
+  {
+    assertEquals( handler.assertNextEvent( ReactionStartedEvent.class ).getObserver().getName(), name );
+    assertEquals( handler.assertNextEvent( ActionStartedEvent.class ).getName(), name );
+    assertEquals( handler.assertNextEvent( TransactionStartedEvent.class ).getName(), name );
+    assertEquals( handler.assertNextEvent( TransactionCompletedEvent.class ).getName(), name );
+    assertEquals( handler.assertNextEvent( ActionCompletedEvent.class ).getName(), name );
+    assertEquals( handler.assertNextEvent( ReactionCompletedEvent.class ).getObserver().getName(), name );
   }
 
   @Test

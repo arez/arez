@@ -6,6 +6,10 @@
     },
     {
         "observer": "ComponentCount",
+        "type": "ReactionScheduled"
+    },
+    {
+        "observer": "ComponentCount",
         "type": "ReactionStarted"
     },
     {
