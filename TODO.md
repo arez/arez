@@ -16,8 +16,11 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add ability for user to explicitly call `Observer.schedule()`. This way things like `minimumDelay`,
-  `throttle` etc. all become user-space concerns.
+* Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
+  lower api layer. It would make it possible to control whether observers are invoked by scheduler and to
+  control the relationship between a dependency going stale and an observer being scheduled. This will
+  involve exposing methods `Observer.schedule()` and `Observer.reportStale()` so that users can explicitly
+  control capabilities. This way things like `minimumDelay`, `throttle` etc. all become user-space concerns.
 
 * Add `Observer.reportStale()` so can explicitly mark an observer as stale and have it rescheduled.
 
