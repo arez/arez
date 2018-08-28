@@ -319,6 +319,12 @@ public final class Observer
     return !isActive();
   }
 
+  public void reportStale()
+  {
+    //TODO: This should only be invokable if in transaction and this observer is configured to allow external dependencies
+    setState( ObserverState.STALE );
+  }
+
   /**
    * Set the state of the observer.
    * Call the hook actions for relevant state change.
@@ -481,6 +487,16 @@ public final class Observer
   void setScheduledFlag()
   {
     _scheduled = true;
+  }
+
+  /**
+   * Schedule this observer if it does not already have a reaction pending.
+   */
+  public void schedule()
+  {
+    //TODO: This should only be invokable if this observer is configured to allow external schedule
+    scheduleReaction();
+    getContext().triggerScheduler();
   }
 
   /**
