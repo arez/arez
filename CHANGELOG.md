@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.30](https://github.com/arez/arez-spytools/tree/v0.30) (2018-08-28)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.29...v0.30)
 
 * Migrate the react4j specific spytools from `react4j` project to this library.
 
