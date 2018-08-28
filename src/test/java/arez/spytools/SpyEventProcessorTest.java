@@ -1,5 +1,9 @@
 package arez.spytools;
 
+import arez.Arez;
+import arez.ArezContext;
+import arez.ObservableValue;
+import arez.Observer;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
@@ -124,7 +128,11 @@ public class SpyEventProcessorTest
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
 
-    final ObserverCreatedEvent event = new ObserverCreatedEvent( new NullObserverInfo() );
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+    final Observer observer = context.autorun( observable::reportObserved );
+
+    final ObserverCreatedEvent event = new ObserverCreatedEvent( context.getSpy().asObserverInfo( observer ) );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
     final BiConsumer<SpyUtil.NestingDelta, ObserverCreatedEvent> handler =
