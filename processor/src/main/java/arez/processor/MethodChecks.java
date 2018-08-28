@@ -3,6 +3,7 @@ package arez.processor;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
@@ -23,11 +24,11 @@ final class MethodChecks
    */
   static void mustBeWrappable( @Nonnull final TypeElement targetType,
                                @Nonnull final String annotationName,
-                               @Nonnull final ExecutableElement method )
+                               @Nonnull final Element element )
     throws ArezProcessorException
   {
-    mustBeOverridable( targetType, annotationName, method );
-    mustNotBeAbstract( annotationName, method );
+    mustBeOverridable( targetType, annotationName, element );
+    mustNotBeAbstract( annotationName, element );
   }
 
   /**
@@ -36,11 +37,11 @@ final class MethodChecks
    */
   static void mustBeOverridable( @Nonnull final TypeElement targetType,
                                  @Nonnull final String annotationName,
-                                 @Nonnull final ExecutableElement method )
+                                 @Nonnull final Element element )
     throws ArezProcessorException
   {
-    mustNotBeFinal( annotationName, method );
-    mustBeSubclassCallable( targetType, annotationName, method );
+    mustNotBeFinal( annotationName, element );
+    mustBeSubclassCallable( targetType, annotationName, element );
   }
 
   /**
@@ -49,12 +50,12 @@ final class MethodChecks
    */
   static void mustBeSubclassCallable( @Nonnull final TypeElement targetType,
                                       @Nonnull final String annotationName,
-                                      @Nonnull final ExecutableElement method )
+                                      @Nonnull final Element element )
     throws ArezProcessorException
   {
-    mustNotBeStatic( annotationName, method );
-    mustNotBePrivate( annotationName, method );
-    mustNotBePackageAccessInDifferentPackage( targetType, annotationName, method );
+    mustNotBeStatic( annotationName, element );
+    mustNotBePrivate( annotationName, element );
+    mustNotBePackageAccessInDifferentPackage( targetType, annotationName, element );
   }
 
   /**
@@ -75,60 +76,60 @@ final class MethodChecks
     mustNotThrowAnyExceptions( annotationName, method );
   }
 
-  static void mustNotBePublic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  static void mustNotBePublic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.PUBLIC ) )
+    if ( element.getModifiers().contains( Modifier.PUBLIC ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must not be public", method );
+                                        " target must not be public", element );
     }
   }
 
-  private static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  private static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.STATIC ) )
+    if ( element.getModifiers().contains( Modifier.STATIC ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must not be static", method );
+                                        " target must not be static", element );
     }
   }
 
-  static void mustNotBeAbstract( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  static void mustNotBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.ABSTRACT ) )
+    if ( element.getModifiers().contains( Modifier.ABSTRACT ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must not be abstract", method );
+                                        " target must not be abstract", element );
     }
   }
 
-  static void mustBeAbstract( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  static void mustBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ArezProcessorException
   {
-    if ( !method.getModifiers().contains( Modifier.ABSTRACT ) )
+    if ( !element.getModifiers().contains( Modifier.ABSTRACT ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be abstract",
-                                        method );
+                                        element );
     }
   }
 
   private static void mustNotBePrivate( @Nonnull final String annotationName,
-                                        @Nonnull final ExecutableElement method )
+                                        @Nonnull final Element element )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    if ( element.getModifiers().contains( Modifier.PRIVATE ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must not be private", method );
+                                        " target must not be private", element );
     }
   }
 
   private static void mustNotBePackageAccessInDifferentPackage( @Nonnull final TypeElement component,
                                                                 @Nonnull final String annotationName,
-                                                                @Nonnull final ExecutableElement method )
+                                                                @Nonnull final Element method )
     throws ArezProcessorException
   {
     final Set<Modifier> modifiers = method.getModifiers();
@@ -152,24 +153,23 @@ final class MethodChecks
     }
   }
 
-  private static void mustNotBeFinal( @Nonnull final String annotationName,
-                                      @Nonnull final ExecutableElement method )
+  private static void mustNotBeFinal( @Nonnull final String annotationName, @Nonnull final Element Element )
     throws ArezProcessorException
   {
-    if ( method.getModifiers().contains( Modifier.FINAL ) )
+    if ( Element.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must not be final", method );
+                                        " target must not be final", Element );
     }
   }
 
-  static void mustBeFinal( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  static void mustBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ArezProcessorException
   {
-    if ( !method.getModifiers().contains( Modifier.FINAL ) )
+    if ( !element.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must be final",
-                                        method );
+                                        element );
     }
   }
 

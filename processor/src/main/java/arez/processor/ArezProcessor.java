@@ -118,6 +118,12 @@ public final class ArezProcessor
             final TypeElement typeElement = (TypeElement) executableElement.getEnclosingElement();
             location = typeElement.getQualifiedName() + "." + executableElement.getSimpleName();
           }
+          else if ( errorLocation instanceof VariableElement )
+          {
+            final VariableElement variableElement = (VariableElement) errorLocation;
+            final TypeElement typeElement = (TypeElement) variableElement.getEnclosingElement();
+            location = typeElement.getQualifiedName() + "." + variableElement.getSimpleName();
+          }
           else
           {
             assert errorLocation instanceof TypeElement;
