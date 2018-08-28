@@ -355,7 +355,7 @@ public final class Observer
       {
         if ( schedule )
         {
-          schedule();
+          scheduleReaction();
         }
       }
       else if ( null != _computedValue &&
@@ -366,7 +366,7 @@ public final class Observer
         runHook( _computedValue.getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
-          schedule();
+          scheduleReaction();
         }
       }
       else if ( ObserverState.INACTIVE == _state ||
@@ -486,7 +486,7 @@ public final class Observer
   /**
    * Schedule this observer if it does not already have a reaction pending.
    */
-  void schedule()
+  void scheduleReaction()
   {
     if ( isNotDisposed() )
     {

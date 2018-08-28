@@ -3,7 +3,6 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
-import arez.ArezObserverTestUtil;
 import arez.ArezTestUtil;
 import arez.ComputedValue;
 import arez.Disposable;
@@ -209,32 +208,6 @@ public class ExternalApiTest
   }
 
   @Test
-  public void createReactionObserver()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final AtomicInteger callCount = new AtomicInteger();
-
-    final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( name, false, () -> {
-      observeADependency();
-      callCount.incrementAndGet();
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isWriteTransactionActive(), false );
-      assertEquals( context.isTrackingTransactionActive(), true );
-    }, true );
-
-    assertEquals( observer.getName(), name );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
-    assertEquals( callCount.get(), 1 );
-
-    observer.dispose();
-
-    assertEquals( ArezObserverTestUtil.isActive( observer ), false );
-  }
-
-  @Test
   public void observerErrorHandler()
     throws Exception
   {
@@ -309,7 +282,7 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     context.safeAction( ValueUtil.randomString(), true, () -> {
       observableValue.reportChanged();
@@ -319,7 +292,7 @@ public class ExternalApiTest
     } );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
   }
 
   @Test
@@ -342,13 +315,13 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // Run an "action"
     context.action( ValueUtil.randomString(), true, observableValue::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
   }
 
   @Test
@@ -379,13 +352,13 @@ public class ExternalApiTest
                        true );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // Run an "action"
     context.action( ValueUtil.randomString(), true, observableValue1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // Update observer1+observer2 in transaction
     context.action( ValueUtil.randomString(),
@@ -396,7 +369,7 @@ public class ExternalApiTest
                     } );
 
     assertEquals( reactionCount.get(), 3 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     context.action( ValueUtil.randomString(),
                     true,
@@ -406,13 +379,13 @@ public class ExternalApiTest
                     } );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // observableValue4 should not cause a reaction as not observed
     context.action( ValueUtil.randomString(), true, observableValue4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( ArezObserverTestUtil.isActive( observer ), true );
+    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
   }
 
   @Test

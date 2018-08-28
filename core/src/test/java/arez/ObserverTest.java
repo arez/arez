@@ -846,7 +846,7 @@ public class ObserverTest
 
     assertEquals( observer.isScheduled(), false );
 
-    observer.schedule();
+    observer.scheduleReaction();
 
     final ArezContext context = Arez.context();
 
@@ -855,7 +855,7 @@ public class ObserverTest
     assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
 
     //Duplicate schedule should not result in it being added again
-    observer.schedule();
+    observer.scheduleReaction();
 
     assertEquals( observer.isScheduled(), true );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
@@ -872,7 +872,7 @@ public class ObserverTest
 
     observer.setState( ObserverState.DISPOSED );
 
-    observer.schedule();
+    observer.scheduleReaction();
 
     assertEquals( observer.isScheduled(), false );
   }
@@ -884,7 +884,7 @@ public class ObserverTest
     final Observer observer = newReadOnlyObserver();
     setCurrentTransaction( observer );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::scheduleReaction );
 
     assertEquals( exception.getMessage(),
                   "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
