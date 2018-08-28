@@ -587,6 +587,8 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified the deferSchedule = true annotation parameter but has no methods annotated with @Autorun" },
         new Object[]{ "com.example.component.ModelWithAbstractMethod",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named someMethod" },
+        new Object[]{ "com.example.component.NonEmptyComponent",
+                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun" },
         new Object[]{ "com.example.component.BadTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.BadTypeComponent2",
