@@ -357,7 +357,11 @@ public final class Observer
     {
       final ObserverState originalState = _state;
       _state = state;
-      if ( null == _computedValue && ObserverState.STALE == state )
+      if ( Arez.shouldCheckInvariants() && ObserverState.DISPOSED == originalState )
+      {
+        fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
+      }
+      else if ( null == _computedValue && ObserverState.STALE == state )
       {
         if ( schedule )
         {
@@ -391,13 +395,6 @@ public final class Observer
         if ( isComputedValue() )
         {
           runHook( getComputedValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
-        }
-      }
-      else if ( ObserverState.DISPOSED == originalState )
-      {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
         }
       }
       if ( Arez.shouldCheckInvariants() )

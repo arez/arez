@@ -34,6 +34,8 @@
   to match the component API and will schedule the reaction using the standard mechanisms.
 * **\[core\]** Add `ObserverInfo.isActive()` method so that the spy subsystem can inspect whether an observer
   is active.
+* **\[core\]** Improve invariant checking `Observer.setState(...)` so that any attempt to change from `DISPSOED`
+  to a non-`DISPOSED` state will generate in invariant failure.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
