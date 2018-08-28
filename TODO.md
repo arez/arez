@@ -4,13 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## 0.105 Changes
-
-* Document `@Reference`, `@ReferenceId`, `@Inverse`
-
-* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
-  if change so that glue code is correctly regenerated without forcing rebuild from tool.
-
 ## Enhancements
 
 * Add ability for user to explicitly call `Observer.schedule()`. This way things like `minimumDelay`,
@@ -95,6 +88,11 @@ complete as there is too much un-said.
   - https://github.com/siom79/japicmp
 
 ## Documentation
+
+* Document `@Reference`, `@ReferenceId`, `@Inverse`
+
+* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
+  if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
 * Document creation of component. i.e. The order of operations
 
