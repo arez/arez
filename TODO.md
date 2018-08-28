@@ -4,16 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## 0.105 Changes
-
-* Document `@Reference`, `@ReferenceId`, `@Inverse`
-
-* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
-  if change so that glue code is correctly regenerated without forcing rebuild from tool.
-
-* Document requirements on public API of `Observable`, `ComputedValue` etc. i.e. To call `reportObserved()`
-  must be in transaction. To call `reportChanged()` must be in read-write transaction.
-
 ## Enhancements
 
 * Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
@@ -23,6 +13,15 @@ complete as there is too much un-said.
   control capabilities. This way things like `minimumDelay`, `throttle` etc. all become user-space concerns.
 
 * Add `Observer.reportStale()` so can explicitly mark an observer as stale and have it rescheduled.
+
+* Configuration in `arez.Observer` is mostly a bunch of boolean flags or enums. Some of these flags are
+  immutable after initial construction and some are runtime state. Most of these could be collapsed into
+  a bits array. It is possible that we could add some customization in javascript so that they appear as
+  enumerable properties in development mode and thus are easy to decipher in browser? Step 1 could be
+  moving all the config time properties to bit array (priority is the only one we use at runtime and we
+  could put them on lower bits so a simple mask could get it out).
+   * Config time: `_mode`, `_priority`, `_canTrackExplicitly`, `_observeLowerPriorityDependencies`, `_canNestActions`
+   * Runtime:`_state`, `_scheduled`
 
 * Implement something similar to `getDependencyTree` from mobx
 
@@ -101,6 +100,14 @@ complete as there is too much un-said.
   - https://github.com/siom79/japicmp
 
 ## Documentation
+
+* Document `@Reference`, `@ReferenceId`, `@Inverse`
+
+* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
+  if change so that glue code is correctly regenerated without forcing rebuild from tool.
+
+* Document requirements on public API of `Observable`, `ComputedValue` etc. i.e. To call `reportObserved()`
+  must be in transaction. To call `reportChanged()` must be in read-write transaction.
 
 * Document creation of component. i.e. The order of operations
 
