@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Migrate the react4j specific spytools from `react4j` project to this library.
+
 ### [v0.29](https://github.com/arez/arez-spytools/tree/v0.29) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.28...v0.29)
 
