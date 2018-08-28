@@ -5,6 +5,7 @@ final class Constants
   static final String ACTION_ANNOTATION_CLASSNAME = "arez.annotations.Action";
   static final String COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ArezComponent";
   static final String AUTORUN_ANNOTATION_CLASSNAME = "arez.annotations.Autorun";
+  static final String CASCADE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.CascadeDispose";
   static final String DEPENDENCY_ANNOTATION_CLASSNAME = "arez.annotations.Dependency";
   static final String REFERENCE_ANNOTATION_CLASSNAME = "arez.annotations.Reference";
   static final String INVERSE_ANNOTATION_CLASSNAME = "arez.annotations.Inverse";
@@ -29,6 +30,7 @@ final class Constants
   static final String PRE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PreDispose";
   static final String REPOSITORY_ANNOTATION_CLASSNAME = "arez.annotations.Repository";
   static final String TRACK_ANNOTATION_CLASSNAME = "arez.annotations.Track";
+  static final String DISPOSABLE_CLASSNAME = "arez.Disposable";
   static final String DISPOSE_TRACKABLE_CLASSNAME = "arez.component.DisposeTrackable";
 
   static final String EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";

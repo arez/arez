@@ -151,6 +151,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   private void $$arezi$$_preDispose() {
+    Disposable.dispose( _myDisposableField );
     for ( final Element other : new ArrayList<>( $$arezd$$_elements ) ) {
       ( (Arez_Element) other ).$$arezi$$_delink_completeModel();
     }

@@ -146,6 +146,9 @@ final class ComponentDescriptor
   private final Map<ExecutableElement, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
+  private final Map<VariableElement, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
+  private final Collection<CascadeDisposableDescriptor> _roCascadeDisposes =
+    Collections.unmodifiableCollection( _cascadeDisposes.values() );
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
   private final Collection<ReferenceDescriptor> _roReferences =
     Collections.unmodifiableCollection( _references.values() );
@@ -1110,20 +1113,21 @@ final class ComponentDescriptor
       _roMemoizes.isEmpty() &&
       _roTrackeds.isEmpty() &&
       _roDependencies.isEmpty() &&
+      _roCascadeDisposes.isEmpty() &&
       _roReferences.isEmpty() &&
       _roInverses.isEmpty() &&
       _roAutoruns.isEmpty();
 
     if ( !_allowEmpty && hasReactiveElements )
     {
-      throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, @Computed, " +
-                                        "@Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Autorun",
-                                        _element );
+      throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
+                                        "@CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
+                                        "@Reference, @Dependency, @Track or @Autorun", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
-                                        "annotated with @Action, @Computed, @Memoize, @Observable, @Inverse, " +
+                                        "annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
                                         "@Reference, @Dependency, @Track or @Autorun", _element );
     }
 
@@ -1323,6 +1327,45 @@ final class ComponentDescriptor
     ensureNoAbstractMethods( setters.values() );
     ensureNoAbstractMethods( trackeds.values() );
     ensureNoAbstractMethods( onDepsChangeds.values() );
+
+    processCascadeDisposeFields();
+  }
+
+  private void processCascadeDisposeFields()
+  {
+    ProcessorUtil.getFieldElements( _element )
+      .stream()
+      .filter( f -> null != ProcessorUtil.findAnnotationByType( f, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) )
+      .forEach( this::processCascadeDisposeField );
+  }
+
+  private void processCascadeDisposeField( @Nonnull final VariableElement f )
+  {
+    MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, f );
+    mustBeCascadeDisposeTypeCompatible( f );
+    _cascadeDisposes.put( f, new CascadeDisposableDescriptor( f ) );
+  }
+
+  private void mustBeCascadeDisposeTypeCompatible( final @Nonnull VariableElement f )
+  {
+    final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+    assert null != disposable;
+    final TypeMirror typeMirror = f.asType();
+    if ( !_typeUtils.isAssignable( typeMirror, disposable.asType() ) )
+    {
+      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
+      final AnnotationMirror value =
+        null != typeElement ?
+        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
+        null;
+      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      {
+        //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
+        throw new ArezProcessorException( "@CascadeDispose target must be assignable to " +
+                                          Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
+                                          f );
+      }
+    }
   }
 
   private void autodetectObservableInitializers()
@@ -2520,7 +2563,7 @@ final class ComponentDescriptor
       builder.addMethod( buildInternalObserve() );
       builder.addMethod( buildObserve() );
     }
-    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() )
+    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
     {
       builder.addMethod( buildInternalPreDispose() );
     }
@@ -3045,7 +3088,7 @@ final class ComponentDescriptor
                                   getComponentNameMethodName(),
                                   ".dispose" );
 
-    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() )
+    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
     {
       actionBlock.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
@@ -3159,6 +3202,7 @@ final class ComponentDescriptor
     {
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
+    _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
     _roReferences.forEach( r -> r.buildDisposer( builder ) );
     _roInverses.forEach( r -> r.buildDisposer( builder ) );
     if ( _disposeTrackable )
