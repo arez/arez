@@ -13,6 +13,16 @@ public interface ObserverInfo
   extends ElementInfo
 {
   /**
+   * Return true if the Observer is active.
+   * A normal observer is considered active if it is not disposed. An observer where {@link #isComputedValue()}
+   * returns true if the observer is not disposed and either the {@link arez.ComputedValue} is being observed
+   * or has been configured as a <code>keepAlive</code> {@link arez.ComputedValue}.
+   *
+   * @return true if the Observer is active.
+   */
+  boolean isActive();
+
+  /**
    * Return true if the Observer is currently running.
    *
    * @return true if the Observer is currently running.

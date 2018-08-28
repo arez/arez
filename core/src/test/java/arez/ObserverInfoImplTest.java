@@ -29,6 +29,7 @@ public class ObserverInfoImplTest
     assertEquals( info.getDependencies().get( 0 ).getName(), observableValue.getName() );
     assertUnmodifiable( info.getDependencies() );
 
+    assertEquals( info.isActive(), true );
     assertEquals( info.isComputedValue(), false );
     assertEquals( info.isReadOnly(), true );
     assertEquals( info.getPriority(), Priority.NORMAL );
@@ -39,6 +40,7 @@ public class ObserverInfoImplTest
     observer.dispose();
 
     assertEquals( info.isDisposed(), true );
+    assertEquals( info.isActive(), false );
   }
 
   @Test
@@ -57,6 +59,9 @@ public class ObserverInfoImplTest
 
     assertEquals( info.isComputedValue(), true );
     assertEquals( info.asComputedValue().getName(), computedValue.getName() );
+
+    // Not yet observed
+    assertEquals( info.isActive(), false );
   }
 
   @SuppressWarnings( "EqualsWithItself" )

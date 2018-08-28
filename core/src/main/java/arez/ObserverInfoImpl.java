@@ -58,6 +58,15 @@ final class ObserverInfoImpl
    * {@inheritDoc}
    */
   @Override
+  public boolean isActive()
+  {
+    return _observer.isActive();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public boolean isRunning()
   {
     return _spy.isRunning( _observer );
