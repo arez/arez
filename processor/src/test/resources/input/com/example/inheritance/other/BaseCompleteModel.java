@@ -2,10 +2,12 @@ package com.example.inheritance.other;
 
 import arez.ArezContext;
 import arez.Component;
+import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.Autorun;
+import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
@@ -29,6 +31,9 @@ import javax.annotation.Nonnull;
 
 public abstract class BaseCompleteModel
 {
+  @CascadeDispose
+  protected Disposable _myDisposableField;
+
   @Action
   public void myAction()
   {
