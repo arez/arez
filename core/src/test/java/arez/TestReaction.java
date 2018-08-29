@@ -8,6 +8,7 @@ class TestReaction
   implements Reaction
 {
   private final ArrayList<Observer> _observers = new ArrayList<>();
+  private int _currentIndex;
 
   @Override
   public void react( @Nonnull final Observer observer )
@@ -23,8 +24,10 @@ class TestReaction
     _observers.add( observer );
   }
 
-  void assertObserver( final int index, @Nonnull final Observer observer )
+  void assertNextObserver( @Nonnull final Observer observer )
   {
+    final int index = _currentIndex;
+    _currentIndex++;
     assertTrue( _observers.size() > index );
     assertEquals( _observers.get( index ), observer );
   }

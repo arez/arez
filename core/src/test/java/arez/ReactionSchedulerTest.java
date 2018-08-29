@@ -466,7 +466,7 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( observer.isScheduled(), false );
 
-    reaction.assertObserver( 0, observer );
+    reaction.assertNextObserver( observer );
 
     final boolean ran2 = scheduler.runObserver();
 
