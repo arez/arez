@@ -1,7 +1,7 @@
 package arez;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -235,7 +235,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.HIGHEST,
                                              false,
                                              false,
@@ -248,7 +249,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
                                              false,
@@ -261,7 +263,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
                                              false,
@@ -304,7 +307,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.HIGHEST,
                                              false,
                                              false,
@@ -316,7 +320,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.LOWEST,
                                              false,
                                              false,
@@ -328,7 +333,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
                                              false,
@@ -340,7 +346,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.NORMAL,
                                              false,
                                              false,
@@ -352,7 +359,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.LOW,
                                              false,
                                              false,
@@ -364,7 +372,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.LOWEST,
                                              false,
                                              false,
@@ -376,7 +385,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
                                              false,
@@ -388,7 +398,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.NORMAL,
                                              false,
                                              false,
@@ -400,7 +411,8 @@ public class ReactionSchedulerTest
                                              ValueUtil.randomString(),
                                              null,
                                              TransactionMode.READ_ONLY,
-                                             new TestReaction(),
+                                             new CountingProcedure(),
+                                             new CountingProcedure(),
                                              Priority.LOW,
                                              false,
                                              false,
@@ -465,8 +477,11 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     final Observer observer = newReadWriteObserver();
-    final TestReaction reaction = (TestReaction) observer.getReaction();
-    assertNotNull( reaction );
+    final CountingProcedure trackedExecutable = (CountingProcedure) observer.getTrackedExecutable();
+    assertNotNull( trackedExecutable );
+
+    final CountingProcedure onDepsUpdated = (CountingProcedure) observer.getOnDepsUpdated();
+    assertNotNull( onDepsUpdated );
 
     setCurrentTransaction( observer );
 
@@ -484,18 +499,18 @@ public class ReactionSchedulerTest
     final boolean ran = scheduler.runObserver();
 
     assertEquals( ran, true );
-    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( onDepsUpdated.getCallCount(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 1 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
     assertEquals( observer.isScheduled(), false );
 
-    reaction.assertNextObserver( observer );
-
     final boolean ran2 = scheduler.runObserver();
 
     assertEquals( ran2, false );
-    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( onDepsUpdated.getCallCount(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
@@ -509,7 +524,7 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     final Observer observer = newReadWriteObserver();
-    final TestReaction reaction = (TestReaction) observer.getReaction();
+    final CountingProcedure reaction = (CountingProcedure) observer.getTrackedExecutable();
     assertNotNull( reaction );
 
     setCurrentTransaction( observer );
@@ -535,8 +550,9 @@ public class ReactionSchedulerTest
   public void runObserver_multiplePendingObservers()
     throws Exception
   {
-    Arez.context().markSchedulerAsActive();
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
+    context.markSchedulerAsActive();
+    final ReactionScheduler scheduler = context.getScheduler();
 
     setupReadWriteTransaction();
 
@@ -545,42 +561,44 @@ public class ReactionSchedulerTest
     final int round3Size = 1;
     final Observer[] observers = new Observer[ round1Size ];
     final ObservableValue<?>[] observableValues = new ObservableValue[ observers.length ];
-    final TestReaction[] reactions = new TestReaction[ observers.length ];
+    final CountingProcedure[] reactions = new CountingProcedure[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
       final int currentIndex = i;
       if ( i != 0 && 0 == i % 2 )
       {
-        reactions[ i ] = new TestReaction()
+        reactions[ i ] = new CountingProcedure()
         {
           @Override
-          protected void performReact( @Nonnull final Observer observer )
+          public void call()
+            throws Throwable
           {
-            super.performReact( observer );
+            super.call();
             if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
             {
-              observers[ currentIndex ].setState( ObserverState.STALE );
+              observers[ currentIndex ].schedule();
             }
           }
         };
       }
       else
       {
-        reactions[ i ] = new TestReaction();
+        reactions[ i ] = new CountingProcedure();
       }
       observers[ i ] =
-        new Observer( Arez.context(),
+        new Observer( context,
                       null,
                       ValueUtil.randomString(),
                       null,
                       TransactionMode.READ_WRITE,
+                      null,
                       reactions[ i ],
                       Priority.NORMAL,
                       false,
                       false,
                       true,
-                      true,
-                      false );
+                      false,
+                      true );
       observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
@@ -651,56 +669,48 @@ public class ReactionSchedulerTest
     assertEquals( reactions[ 9 ].getCallCount(), 1 );
   }
 
-  @Test//( timeOut = 5000L )
+  @Test( timeOut = 5000L )
   public void runObserver_RunawayReactionsDetected()
     throws Exception
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
     setIgnoreObserverErrors( true );
 
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
-
-    final Observer observer = newReadWriteObserver();
-
-    setCurrentTransaction( observer );
-
-    final TestReaction reaction = new TestReaction()
+    final AtomicReference<Observer> observerReference = new AtomicReference<>();
+    final CountingProcedure trackedExecutable = new CountingProcedure()
     {
       @Override
-      protected void performReact( @Nonnull final Observer observer )
+      public void call()
+        throws Throwable
       {
-        super.performReact( observer );
-        observer.setState( ObserverState.STALE );
+        observerReference.get().reportStale();
       }
     };
-    final Observer toSchedule =
-      new Observer( Arez.context(),
+    final ArezContext context = Arez.context();
+    final Observer observer =
+      new Observer( context,
                     null,
                     "MyObserver",
                     null,
                     TransactionMode.READ_WRITE,
-                    reaction,
+                    trackedExecutable,
+                    null,
                     Priority.NORMAL,
                     false,
                     false,
                     true,
-                    true,
-                    false );
-    final ObservableValue<?> observableValue = newObservable();
+                    false,
+                    true );
+    observerReference.set( observer );
+    context.pauseScheduler();
+    context.safeAction( null, true, false, observer::reportStale );
 
-    toSchedule.setState( ObserverState.UP_TO_DATE );
-    observableValue.addObserver( toSchedule );
-    toSchedule.getDependencies().add( observableValue );
+    assertEquals( observer.isScheduled(), true );
 
-    //observer has reaction so setStale should result in reschedule
-    toSchedule.setState( ObserverState.STALE );
-    assertEquals( toSchedule.isScheduled(), true );
-
-    Transaction.setTransaction( null );
-
+    final ReactionScheduler scheduler = context.getScheduler();
     scheduler.setMaxReactionRounds( 20 );
 
-    Arez.context().markSchedulerAsActive();
+    context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
     final IllegalStateException exception =
@@ -712,7 +722,7 @@ public class ReactionSchedulerTest
       } );
     assertEquals( exception.getMessage(),
                   "Arez-0101: Runaway reaction(s) detected. Observers still running after 20 rounds. " +
-                  "Current observers include: [" + toSchedule.getName() + "]" );
+                  "Current observers include: [" + observer.getName() + "]" );
 
     assertEquals( reactionCount.get(), 20 );
 
@@ -729,50 +739,44 @@ public class ReactionSchedulerTest
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
     BrainCheckTestUtil.setCheckInvariants( false );
 
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver();
-
-    setCurrentTransaction( observer );
-
-    final TestReaction reaction = new TestReaction()
+    final AtomicReference<Observer> observerReference = new AtomicReference<>();
+    final CountingProcedure trackedExecutable = new CountingProcedure()
     {
       @Override
-      public void react( @Nonnull final Observer observer )
-        throws Exception
+      public void call()
+        throws Throwable
       {
-        super.react( observer );
-        observer.setState( ObserverState.STALE );
+        observerReference.get().reportStale();
       }
     };
-    final Observer toSchedule =
-      new Observer( Arez.context(),
+    final Observer observer =
+      new Observer( context,
                     null,
                     ValueUtil.randomString(),
                     null,
                     TransactionMode.READ_ONLY,
-                    reaction,
+                    trackedExecutable,
+                    null,
                     Priority.NORMAL,
                     false,
                     false,
                     true,
                     true,
                     false );
-    final ObservableValue<?> observableValue = newObservable();
 
-    toSchedule.setState( ObserverState.UP_TO_DATE );
-    observableValue.addObserver( toSchedule );
-    toSchedule.getDependencies().add( observableValue );
-
-    //observer has reaction so setStale should result in reschedule
-    toSchedule.setState( ObserverState.STALE );
-    assertEquals( toSchedule.isScheduled(), true );
+    observerReference.set( observer );
+    context.pauseScheduler();
+    context.safeAction( null, true, false, observer::reportStale );
+    assertEquals( observer.isScheduled(), true );
 
     Transaction.setTransaction( null );
 
+    final ReactionScheduler scheduler = context.getScheduler();
     scheduler.setMaxReactionRounds( 20 );
 
-    Arez.context().markSchedulerAsActive();
+    context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
     while ( scheduler.runObserver() )
@@ -805,28 +809,29 @@ public class ReactionSchedulerTest
 
     final Observer[] observers = new Observer[ 10 ];
     final ObservableValue[] observableValues = new ObservableValue[ observers.length ];
-    final TestReaction[] reactions = new TestReaction[ observers.length ];
+    final CountingProcedure[] reactions = new CountingProcedure[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
       final int currentIndex = i;
       if ( i != 0 && 0 == i % 2 )
       {
-        reactions[ i ] = new TestReaction()
+        reactions[ i ] = new CountingProcedure()
         {
           @Override
-          protected void performReact( @Nonnull final Observer observer )
+          public void call()
+            throws Throwable
           {
-            super.performReact( observer );
+            super.call();
             if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
             {
-              observers[ currentIndex ].setState( ObserverState.STALE );
+              observers[ currentIndex ].reportStale();
             }
           }
         };
       }
       else
       {
-        reactions[ i ] = new TestReaction();
+        reactions[ i ] = new CountingProcedure();
       }
       observers[ i ] =
         new Observer( Arez.context(),
@@ -835,12 +840,13 @@ public class ReactionSchedulerTest
                       null,
                       TransactionMode.READ_WRITE,
                       reactions[ i ],
+                      null,
                       Priority.NORMAL,
                       false,
                       false,
                       true,
-                      true,
-                      false );
+                      false,
+                      true );
       observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
@@ -880,28 +886,29 @@ public class ReactionSchedulerTest
 
     final Observer[] observers = new Observer[ 10 ];
     final ObservableValue[] observableValues = new ObservableValue[ observers.length ];
-    final TestReaction[] reactions = new TestReaction[ observers.length ];
+    final CountingProcedure[] reactions = new CountingProcedure[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
       final int currentIndex = i;
       if ( i != 0 && 0 == i % 2 )
       {
-        reactions[ i ] = new TestReaction()
+        reactions[ i ] = new CountingProcedure()
         {
           @Override
-          protected void performReact( @Nonnull final Observer observer )
+          public void call()
+            throws Throwable
           {
-            super.performReact( observer );
+            super.call();
             if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
             {
-              observers[ currentIndex ].setState( ObserverState.STALE );
+              observers[ currentIndex ].reportStale();
             }
           }
         };
       }
       else
       {
-        reactions[ i ] = new TestReaction();
+        reactions[ i ] = new CountingProcedure();
       }
       observers[ i ] =
         new Observer( Arez.context(),
@@ -910,12 +917,13 @@ public class ReactionSchedulerTest
                       null,
                       TransactionMode.READ_WRITE,
                       reactions[ i ],
+                      null,
                       Priority.NORMAL,
                       false,
                       false,
                       true,
-                      true,
-                      false );
+                      false,
+                      true );
       observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );

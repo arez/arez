@@ -58,15 +58,29 @@ public final class Observer
    */
   private boolean _scheduled;
   /**
+   * Flag indicating whether next scheduled invocation should invokeReaction {@link #_trackedExecutable} or {@link #_onDepsUpdated}.
+   */
+  private boolean _trackScheduledNext;
+  /**
    * The transaction mode in which the observer executes.
    */
   @Nullable
   private final TransactionMode _mode;
   /**
-   * The code responsible for responding to changes if any.
+   * Observed executable to invokeReaction if any.
+   * This may be null if external scheduler is responsible for executing the tracked executable via
+   * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
+   * {@link #_onDepsUpdated} must not be null.
    */
-  @Nonnull
-  private final Reaction _reaction;
+  @Nullable
+  private final Procedure _trackedExecutable;
+  /**
+   * Callback invoked when dependencies are updated.
+   * This may be null when the observer re-executes the tracked executable when dependencies change
+   * bu in that case {@link #_trackedExecutable} must not be null.
+   */
+  @Nullable
+  private final Procedure _onDepsUpdated;
   /**
    * The priority of the observer.
    */
@@ -104,7 +118,8 @@ public final class Observer
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nullable final TransactionMode mode,
-            @Nonnull final Reaction reaction,
+            @Nullable final Procedure trackedExecutable,
+            @Nullable final Procedure onDepsUpdated,
             @Nonnull final Priority priority,
             final boolean canTrackExplicitly,
             final boolean observeLowerPriorityDependencies,
@@ -151,7 +166,8 @@ public final class Observer
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
     _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
-    _reaction = Objects.requireNonNull( reaction );
+    _trackedExecutable = trackedExecutable;
+    _onDepsUpdated = onDepsUpdated;
     _priority = Objects.requireNonNull( priority );
     _canTrackExplicitly = canTrackExplicitly;
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
@@ -301,17 +317,6 @@ public final class Observer
   {
     assert Arez.shouldEnforceTransactionType();
     return _mode;
-  }
-
-  /**
-   * Return the reaction.
-   *
-   * @return the reaction.
-   */
-  @Nonnull
-  Reaction getReaction()
-  {
-    return _reaction;
   }
 
   /**
@@ -528,6 +533,7 @@ public final class Observer
 
   /**
    * Schedule this observer if it does not already have a reaction pending.
+   * The observer will not actually react if it is not already marked as STALE.
    */
   public void schedule()
   {
@@ -537,6 +543,7 @@ public final class Observer
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule = false." );
     }
+    _trackScheduledNext = null != _trackedExecutable;
     scheduleReaction();
     getContext().triggerScheduler();
   }
@@ -592,7 +599,15 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( ObserverState.UP_TO_DATE != getState() )
         {
-          getReaction().react( this );
+          if ( null == _onDepsUpdated || _trackScheduledNext )
+          {
+            _trackScheduledNext = false;
+            runTrackedExecutable();
+          }
+          else
+          {
+            _onDepsUpdated.call();
+          }
         }
       }
       catch ( final Throwable t )
@@ -612,6 +627,38 @@ public final class Observer
         }
       }
     }
+  }
+
+  private void runTrackedExecutable()
+    throws Throwable
+  {
+    assert null != _trackedExecutable;
+    final Procedure action;
+    if ( Arez.shouldCheckInvariants() && arezOnlyDependencies() )
+    {
+      action = () -> {
+        _trackedExecutable.call();
+        final Transaction current = Transaction.current();
+
+        final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
+        invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
+                         ( null != observableValues && !observableValues.isEmpty() ),
+                   () -> "Arez-0172: Autorun observer named '" + getName() + "' completed " +
+                         "reaction but is not observing any properties. As a result the observer will never " +
+                         "be rescheduled. This may not be an autorun candidate." );
+      };
+    }
+    else
+    {
+      action = _trackedExecutable;
+    }
+    getContext().action( Arez.areNamesEnabled() ? getName() : null,
+                         Arez.shouldEnforceTransactionType() ? getMode() : null,
+                         false,
+                         true,
+                         action,
+                         null == _computedValue,
+                         this );
   }
 
   /**
@@ -852,5 +899,17 @@ public final class Observer
   void markAsScheduled()
   {
     _scheduled = true;
+  }
+
+  @Nullable
+  Procedure getTrackedExecutable()
+  {
+    return _trackedExecutable;
+  }
+
+  @Nullable
+  Procedure getOnDepsUpdated()
+  {
+    return _onDepsUpdated;
   }
 }

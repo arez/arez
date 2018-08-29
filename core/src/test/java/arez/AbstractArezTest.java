@@ -113,12 +113,13 @@ public abstract class AbstractArezTest
                          ValueUtil.randomString(),
                          null,
                          TransactionMode.READ_WRITE,
-                         new TestReaction(),
+                         new CountingProcedure(),
+                         new CountingProcedure(),
                          Priority.NORMAL,
                          false,
                          false,
                          true,
-                         true,
+                         false,
                          false );
   }
 
@@ -143,7 +144,14 @@ public abstract class AbstractArezTest
   @Nonnull
   private ComputedValue<String> newComputedValue( @Nonnull final ArezContext context )
   {
-    return new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    return new ComputedValue<>( context,
+                                null,
+                                ValueUtil.randomString(),
+                                () -> "",
+                                Priority.NORMAL,
+                                false,
+                                false,
+                                true );
   }
 
   @Nonnull
@@ -166,12 +174,13 @@ public abstract class AbstractArezTest
                          ValueUtil.randomString(),
                          null,
                          TransactionMode.READ_ONLY,
-                         new TestReaction(),
+                         new CountingProcedure(),
+                         new CountingProcedure(),
                          Priority.NORMAL,
                          false,
                          false,
                          true,
-                         true,
+                         false,
                          false );
   }
 
@@ -244,7 +253,7 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  protected final ArrayList<String> getObserverErrors()
+  final ArrayList<String> getObserverErrors()
   {
     return _observerErrors;
   }

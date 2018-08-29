@@ -205,7 +205,19 @@ public class ObservableValueTest
     final ArezContext context = new ArezContext();
     final ObservableValue<?> observableValue = newObservable( context );
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            new CountingProcedure(),
+                                            null,
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            false );
 
     setupReadOnlyTransaction( context );
 
@@ -528,7 +540,8 @@ public class ObservableValueTest
                     ValueUtil.randomString(),
                     null,
                     TransactionMode.READ_ONLY,
-                    new TestReaction(),
+                    new CountingProcedure(),
+                    new CountingProcedure(),
                     Priority.HIGH,
                     false,
                     false,
@@ -568,7 +581,8 @@ public class ObservableValueTest
                     ValueUtil.randomString(),
                     null,
                     TransactionMode.READ_ONLY,
-                    new TestReaction(),
+                    new CountingProcedure(),
+                    new CountingProcedure(),
                     Priority.HIGH,
                     false,
                     true,

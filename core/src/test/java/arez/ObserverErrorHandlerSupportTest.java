@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "Duplicates" )
 public class ObserverErrorHandlerSupportTest
   extends AbstractArezTest
 {
@@ -177,7 +178,8 @@ public class ObserverErrorHandlerSupportTest
                     null,
                     null,
                     TransactionMode.READ_ONLY,
-                    new TestReaction(),
+                    new CountingProcedure(),
+                    new CountingProcedure(),
                     Priority.NORMAL,
                     false,
                     false,

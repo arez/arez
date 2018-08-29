@@ -30,14 +30,16 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final Reaction reaction = new TestReaction();
+    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer =
       new Observer( context,
                     null,
                     name,
                     null,
                     TransactionMode.READ_ONLY,
-                    reaction,
+                    trackedExecutable,
+                    onDepsUpdated,
                     Priority.NORMAL,
                     false,
                     false,
@@ -58,7 +60,8 @@ public class ObserverTest
 
     // Reaction attributes
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getReaction(), reaction );
+    assertEquals( observer.getTrackedExecutable(), trackedExecutable );
+    assertEquals( observer.getOnDepsUpdated(), onDepsUpdated );
     assertEquals( observer.isScheduled(), false );
 
     assertEquals( observer.isComputedValue(), false );
@@ -100,7 +103,8 @@ public class ObserverTest
                                         name,
                                         null,
                                         TransactionMode.READ_WRITE_OWNED,
-                                        new TestReaction(),
+                                        new CountingProcedure(),
+                                        new CountingProcedure(),
                                         Priority.NORMAL,
                                         false,
                                         false,
@@ -126,7 +130,8 @@ public class ObserverTest
                                         name,
                                         null,
                                         TransactionMode.READ_ONLY,
-                                        new TestReaction(),
+                                        new CountingProcedure(),
+                                        new CountingProcedure(),
                                         Priority.LOWEST,
                                         false,
                                         true,
@@ -154,7 +159,8 @@ public class ObserverTest
                                         name,
                                         null,
                                         TransactionMode.READ_ONLY,
-                                        new TestReaction(),
+                                        new CountingProcedure(),
+                                        new CountingProcedure(),
                                         Priority.NORMAL,
                                         false,
                                         false,
@@ -182,7 +188,8 @@ public class ObserverTest
                     name,
                     null,
                     null,
-                    new TestReaction(),
+                    new CountingProcedure(),
+                    new CountingProcedure(),
                     Priority.NORMAL,
                     false,
                     false,
@@ -206,7 +213,8 @@ public class ObserverTest
                                         name,
                                         computedValue,
                                         TransactionMode.READ_ONLY,
-                                        new TestReaction(),
+                                        new CountingProcedure(),
+                                        new CountingProcedure(),
                                         Priority.NORMAL,
                                         false,
                                         false,
@@ -231,7 +239,8 @@ public class ObserverTest
                                         computedValue.getName(),
                                         computedValue,
                                         TransactionMode.READ_WRITE_OWNED,
-                                        new TestReaction(),
+                                        new CountingProcedure(),
+                                        new CountingProcedure(),
                                         Priority.NORMAL,
                                         true,
                                         false,
@@ -266,7 +275,8 @@ public class ObserverTest
                                         name,
                                         null,
                                         TransactionMode.READ_ONLY,
-                                        new TestReaction(),
+                                        new CountingProcedure(),
+                                        new CountingProcedure(),
                                         Priority.NORMAL,
                                         false,
                                         false,
@@ -297,7 +307,8 @@ public class ObserverTest
                     name,
                     null,
                     TransactionMode.READ_ONLY,
-                    new TestReaction(),
+                    new CountingProcedure(),
+                    new CountingProcedure(),
                     Priority.NORMAL,
                     false,
                     false,
@@ -1205,17 +1216,11 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final TransactionMode mode = TransactionMode.READ_ONLY;
 
-    final AtomicInteger callCount = new AtomicInteger();
     final AtomicInteger errorCount = new AtomicInteger();
 
     context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
 
-    final Reaction reaction = observer -> {
-      callCount.incrementAndGet();
-      assertEquals( observer.getContext(), context );
-      assertEquals( context.isTransactionActive(), false );
-      assertEquals( observer.getName(), name );
-    };
+    final CountingProcedure trackedExecutable = new CountingProcedure();
 
     final Observer observer =
       new Observer( context,
@@ -1223,17 +1228,18 @@ public class ObserverTest
                     name,
                     null,
                     mode,
-                    reaction,
+                    trackedExecutable,
+                    null,
                     Priority.NORMAL,
                     false,
                     false,
                     true,
-                    true,
+                    false,
                     false );
 
     observer.invokeReaction();
 
-    assertEquals( callCount.get(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
     assertEquals( errorCount.get(), 0 );
   }
 
@@ -1244,33 +1250,45 @@ public class ObserverTest
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     Arez.context().getSpy().addSpyEventHandler( handler );
 
+    final CountingProcedure trackedExecutable = new CountingProcedure()
+    {
+      @Override
+      public void call()
+        throws Throwable
+      {
+        super.call();
+        Thread.sleep( 1 );
+      }
+    };
     final Observer observer =
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
                     null,
                     TransactionMode.READ_ONLY,
-                    o -> Thread.sleep( 1 ),
+                    trackedExecutable,
+                    null,
                     Priority.NORMAL,
                     false,
                     false,
                     true,
-                    true,
+                    false,
                     false );
 
     observer.invokeReaction();
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 6 );
 
-    {
-      final ReactionStartedEvent event = handler.assertEvent( ReactionStartedEvent.class, 0 );
-      assertEquals( event.getObserver().getName(), observer.getName() );
-    }
-    {
-      final ReactionCompletedEvent event = handler.assertEvent( ReactionCompletedEvent.class, 1 );
-      assertEquals( event.getObserver().getName(), observer.getName() );
-      assertTrue( event.getDuration() > 0 );
-    }
+    handler.assertNextEvent( ReactionStartedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
+    handler.assertNextEvent( ReactionCompletedEvent.class, e -> {
+      assertEquals( e.getObserver().getName(), observer.getName() );
+      assertTrue( e.getDuration() > 0 );
+    } );
   }
 
   @SuppressWarnings( "ConstantConditions" )
@@ -1322,44 +1340,47 @@ public class ObserverTest
   public void invokeReaction_onDisposedObserver()
     throws Exception
   {
-    final TestReaction reaction = new TestReaction();
+    final CountingProcedure trackedExecutable = new CountingProcedure();
     final Observer observer =
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
                     null,
                     TransactionMode.READ_ONLY,
-                    reaction,
+                    trackedExecutable,
+                    null,
                     Priority.NORMAL,
                     false,
                     false,
                     true,
-                    true,
+                    false,
                     false );
 
     observer.invokeReaction();
 
-    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
 
     observer.markAsDisposed();
 
     observer.invokeReaction();
 
-    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
   }
 
   @Test
   public void invokeReaction_onUpToDateObserver()
     throws Exception
   {
-    final TestReaction reaction = new TestReaction();
+    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer =
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
                     null,
                     TransactionMode.READ_ONLY,
-                    reaction,
+                    trackedExecutable,
+                    onDepsUpdated,
                     Priority.NORMAL,
                     false,
                     false,
@@ -1374,7 +1395,8 @@ public class ObserverTest
     //Invoke reaction
     observer.invokeReaction();
 
-    assertEquals( reaction.getCallCount(), 0 );
+    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 
   @Test
@@ -1386,7 +1408,6 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final TransactionMode mode = TransactionMode.READ_ONLY;
 
-    final AtomicInteger callCount = new AtomicInteger();
     final AtomicInteger errorCount = new AtomicInteger();
 
     final RuntimeException exception = new RuntimeException( "X" );
@@ -1397,9 +1418,15 @@ public class ObserverTest
       assertEquals( throwable, exception );
     } );
 
-    final Reaction reaction = observer -> {
-      callCount.incrementAndGet();
-      throw exception;
+    final CountingProcedure trackedExecutable = new CountingProcedure()
+    {
+      @Override
+      public void call()
+        throws Throwable
+      {
+        super.call();
+        throw exception;
+      }
     };
 
     final Observer observer =
@@ -1408,17 +1435,18 @@ public class ObserverTest
                     name,
                     null,
                     mode,
-                    reaction,
+                    trackedExecutable,
+                    null,
                     Priority.NORMAL,
                     false,
                     false,
                     true,
-                    true,
+                    false,
                     false );
 
     observer.invokeReaction();
 
-    assertEquals( callCount.get(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
     assertEquals( errorCount.get(), 1 );
   }
 
@@ -1687,7 +1715,8 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            new TestReaction(),
+                                            new CountingProcedure(),
+                                            new CountingProcedure(),
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1717,7 +1746,8 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            new TestReaction(),
+                                            new CountingProcedure(),
+                                            new CountingProcedure(),
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1749,7 +1779,8 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            new TestReaction(),
+                                            new CountingProcedure(),
+                                            new CountingProcedure(),
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1783,7 +1814,8 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            new TestReaction(),
+                                            new CountingProcedure(),
+                                            new CountingProcedure(),
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1813,13 +1845,15 @@ public class ObserverTest
     final ArezContext context = Arez.context();
 
     setupReadWriteTransaction();
-    final TestReaction reaction = new TestReaction();
+    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            reaction,
+                                            trackedExecutable,
+                                            onDepsUpdated,
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1848,7 +1882,8 @@ public class ObserverTest
 
     // reaction not executed as state was still UP_TO_DATE
     assertEquals( observer.isScheduled(), false );
-    assertEquals( reaction.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 
   @Test
@@ -1858,13 +1893,15 @@ public class ObserverTest
     final ArezContext context = Arez.context();
 
     setupReadWriteTransaction();
-    final TestReaction reaction = new TestReaction();
+    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            reaction,
+                                            trackedExecutable,
+                                            onDepsUpdated,
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1886,9 +1923,9 @@ public class ObserverTest
 
     schedulerLock.dispose();
 
-    // reaction not executed as state was still UP_TO_DATE
     assertEquals( observer.isScheduled(), false );
-    assertEquals( reaction.getCallCount(), 0 );
+    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 
   @Test
@@ -1898,13 +1935,15 @@ public class ObserverTest
     final ArezContext context = Arez.context();
 
     setupReadWriteTransaction();
-    final TestReaction reaction = new TestReaction();
+    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
-                                            reaction,
+                                            trackedExecutable,
+                                            onDepsUpdated,
                                             Priority.NORMAL,
                                             false,
                                             false,
@@ -1933,6 +1972,7 @@ public class ObserverTest
 
     schedulerLock.dispose();
 
-    assertEquals( reaction.getCallCount(), 0 );
+    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 }

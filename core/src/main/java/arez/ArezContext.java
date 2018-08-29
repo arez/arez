@@ -951,7 +951,8 @@ public final class ArezContext
       observer( component,
                 name,
                 mutation,
-                new RunProcedureAsActionReaction( executable ),
+                executable,
+                null,
                 priority,
                 false,
                 observeLowerPriorityDependencies,
@@ -1162,7 +1163,7 @@ public final class ArezContext
    * @param name                             the name of the observer.
    * @param mutation                         true if the observer may modify state during tracking, false otherwise.
    * @param priority                         the priority of the observer.
-   * @param executable                       the executable invoked as the reaction.
+   * @param onDepsUpdated                    the hook invoked when dependencies changed.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from tracker action.
    * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
@@ -1173,7 +1174,7 @@ public final class ArezContext
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure onDepsUpdated,
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions,
@@ -1183,7 +1184,8 @@ public final class ArezContext
     return observer( component,
                      name,
                      mutation,
-                     new RunProcedureReaction( executable ),
+                     null,
+                     onDepsUpdated,
                      priority,
                      true,
                      observeLowerPriorityDependencies,
@@ -1195,18 +1197,20 @@ public final class ArezContext
   /**
    * Create an observer with specified parameters.
    *
-   * @param component the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observer.
-   * @param mutation  true if the reaction may modify state, false otherwise.
-   * @param reaction  the reaction defining observer.
-   * @param priority  the priority of the observer.
+   * @param component         the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name              the name of the observer.
+   * @param mutation          true if the reaction may modify state, false otherwise.
+   * @param trackedExecutable the tracking executable.
+   * @param onDepsUpdated     the hook invoked when dependencies changed.
+   * @param priority          the priority of the observer.
    * @return the new Observer.
    */
   @Nonnull
   Observer observer( @Nullable final Component component,
                      @Nullable final String name,
                      final boolean mutation,
-                     @Nonnull final Reaction reaction,
+                     @Nullable final Procedure trackedExecutable,
+                     @Nullable final Procedure onDepsUpdated,
                      @Nonnull final Priority priority,
                      final boolean canTrackExplicitly,
                      final boolean observeLowerPriorityDependencies,
@@ -1221,7 +1225,8 @@ public final class ArezContext
                     generateNodeName( "Observer", name ),
                     null,
                     mode,
-                    reaction,
+                    trackedExecutable,
+                    onDepsUpdated,
                     priority,
                     canTrackExplicitly,
                     observeLowerPriorityDependencies,
@@ -2389,13 +2394,13 @@ public final class ArezContext
                 parameters );
   }
 
-  void safeAction( @Nullable final String name,
-                   @Nullable final TransactionMode mode,
-                   final boolean verifyActionRequired,
-                   final boolean requireNewTransaction,
-                   @Nonnull final SafeProcedure executable,
-                   @Nullable final Observer tracker,
-                   @Nonnull final Object... parameters )
+  private void safeAction( @Nullable final String name,
+                           @Nullable final TransactionMode mode,
+                           final boolean verifyActionRequired,
+                           final boolean requireNewTransaction,
+                           @Nonnull final SafeProcedure executable,
+                           @Nullable final Observer tracker,
+                           @Nonnull final Object... parameters )
   {
     final boolean tracked = null != tracker;
     Throwable t = null;
