@@ -239,7 +239,9 @@ public class ReactionSchedulerTest
                                              Priority.HIGHEST,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer1 = newReadOnlyObserver();
     final Observer observer2 = new Observer( Arez.context(),
                                              null,
@@ -250,7 +252,9 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer3 = newReadOnlyObserver();
     final Observer observer4 = new Observer( Arez.context(),
                                              null,
@@ -261,7 +265,9 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -302,7 +308,9 @@ public class ReactionSchedulerTest
                                              Priority.HIGHEST,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer1 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -312,7 +320,9 @@ public class ReactionSchedulerTest
                                              Priority.LOWEST,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer2 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -322,7 +332,9 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer3 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -332,7 +344,9 @@ public class ReactionSchedulerTest
                                              Priority.NORMAL,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer4 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -342,7 +356,9 @@ public class ReactionSchedulerTest
                                              Priority.LOW,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer5 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -352,7 +368,9 @@ public class ReactionSchedulerTest
                                              Priority.LOWEST,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer6 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -362,7 +380,9 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer7 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -372,7 +392,9 @@ public class ReactionSchedulerTest
                                              Priority.NORMAL,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
     final Observer observer8 = new Observer( Arez.context(),
                                              null,
                                              ValueUtil.randomString(),
@@ -382,7 +404,9 @@ public class ReactionSchedulerTest
                                              Priority.LOW,
                                              false,
                                              false,
-                                             true );
+                                             true,
+                                             true,
+                                             false );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -554,7 +578,9 @@ public class ReactionSchedulerTest
                       Priority.NORMAL,
                       false,
                       false,
-                      true );
+                      true,
+                      true,
+                      false );
       observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
@@ -657,7 +683,9 @@ public class ReactionSchedulerTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
     final ObservableValue<?> observableValue = newObservable();
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
@@ -727,7 +755,9 @@ public class ReactionSchedulerTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
     final ObservableValue<?> observableValue = newObservable();
 
     toSchedule.setState( ObserverState.UP_TO_DATE );
@@ -808,7 +838,9 @@ public class ReactionSchedulerTest
                       Priority.NORMAL,
                       false,
                       false,
-                      true );
+                      true,
+                      true,
+                      false );
       observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
@@ -881,7 +913,9 @@ public class ReactionSchedulerTest
                       Priority.NORMAL,
                       false,
                       false,
-                      true );
+                      true,
+                      true,
+                      false );
       observableValues[ i ] = newObservable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );

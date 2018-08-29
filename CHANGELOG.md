@@ -36,6 +36,10 @@
   is active.
 * **\[core\]** Improve invariant checking `Observer.setState(...)` so that any attempt to change from `DISPSOED`
   to a non-`DISPOSED` state will generate in invariant failure.
+* **\[core\]** Support passing in `arezOnlyDependencies` parameter when creating `track` and `autorun` observers.
+  This makes it possible for code to explicitly invoke the newly added method `Observer.reportStale()` to mark an
+  observer as stale and re-schedule the reaction associated with the observer. This makes it easier to access
+  non-arez dependencies in an observer and trigger the observer when the dependency changes.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

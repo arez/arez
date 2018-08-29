@@ -23,7 +23,7 @@ final class RunProcedureAsActionReaction
     throws Throwable
   {
     final Procedure action;
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckInvariants() && observer.arezOnlyDependencies() )
     {
       action = () -> {
         _action.call();

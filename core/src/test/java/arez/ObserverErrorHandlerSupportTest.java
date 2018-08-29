@@ -181,7 +181,9 @@ public class ObserverErrorHandlerSupportTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 

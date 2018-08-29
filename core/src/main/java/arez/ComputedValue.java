@@ -41,11 +41,6 @@ public final class ComputedValue<T>
    */
   private final boolean _keepAlive;
   /**
-   * Flag indicating whether the ComputedValue is expected to have accessed observable data within the scope
-   * of the compute function. This flag is ignored unless {@link Arez#shouldCheckApiInvariants()} returns true.
-   */
-  private final boolean _arezOnlyDependencies;
-  /**
    * The associated observable value.
    */
   @Nonnull
@@ -114,7 +109,6 @@ public final class ComputedValue<T>
     _value = null;
     _computing = false;
     _keepAlive = keepAlive;
-    _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
     _observer = new Observer( Arez.areZonesEnabled() ? context : null,
                               null,
                               Arez.areNamesEnabled() ? getName() : null,
@@ -130,6 +124,8 @@ public final class ComputedValue<T>
                               priority,
                               false,
                               observeLowerPriorityDependencies,
+                              false,
+                              Arez.shouldCheckApiInvariants() && arezOnlyDependencies,
                               false );
     _observableValue =
       new ObservableValue<>( context,
@@ -198,7 +194,7 @@ public final class ComputedValue<T>
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !_arezOnlyDependencies,
+      apiInvariant( () -> !getObserver().arezOnlyDependencies(),
                     () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
                           getName() + "' but the computed value has arezOnlyDependencies = true." );
     }
@@ -378,7 +374,7 @@ public final class ComputedValue<T>
       }
       if ( Arez.shouldCheckApiInvariants() )
       {
-        if ( _arezOnlyDependencies )
+        if ( getObserver().arezOnlyDependencies() )
         {
           final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
           apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),
@@ -463,11 +459,6 @@ public final class ComputedValue<T>
   boolean isKeepAlive()
   {
     return _keepAlive;
-  }
-
-  boolean arezOnlyDependencies()
-  {
-    return _arezOnlyDependencies;
   }
 
   void setValue( final T value )

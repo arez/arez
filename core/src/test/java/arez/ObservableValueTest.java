@@ -532,7 +532,9 @@ public class ObservableValueTest
                     Priority.HIGH,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue =
@@ -570,7 +572,9 @@ public class ObservableValueTest
                     Priority.HIGH,
                     false,
                     true,
-                    true );
+                    true,
+                    true,
+                    false );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue =

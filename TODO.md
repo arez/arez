@@ -22,9 +22,9 @@ complete as there is too much un-said.
   involve exposing methods `Observer.schedule()` and `Observer.reportStale()` so that users can explicitly
   control capabilities. This way things like `minimumDelay`, `throttle` etc. all become user-space concerns.
 
-* Add `Observer.reportStale()` so can explicitly mark an observer as stale and have it rescheduled.
-
 * Implement something similar to `getDependencyTree` from mobx
+
+* Add support for `arezOnlyDependencies` and `supportsManualSchedule` into `@Autorun` and `@Track`.
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
 

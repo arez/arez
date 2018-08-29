@@ -5,6 +5,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ObservableValue;
 import arez.Observer;
+import arez.Priority;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -47,10 +48,10 @@ public class ObserverApiTest
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( () -> {
+    final Observer observer = context.autorun( null, null, false, () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    } );
+    }, Priority.NORMAL, true, false, false, true, true, null );
 
     assertEquals( callCount.get(), 1 );
 
@@ -67,10 +68,10 @@ public class ObserverApiTest
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( () -> {
+    final Observer observer = context.autorun( null, null, false, () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    } );
+    }, Priority.NORMAL, true, false, true, false, true, null );
 
     assertEquals( callCount.get(), 1 );
 
@@ -92,7 +93,15 @@ public class ObserverApiTest
     final AtomicInteger scheduleCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( null, null, true, scheduleCallCount::incrementAndGet );
+    final Observer observer = context.tracker( null,
+                                               null,
+                                               true,
+                                               scheduleCallCount::incrementAndGet,
+                                               Priority.NORMAL,
+                                               false,
+                                               false,
+                                               true,
+                                               true );
 
     assertEquals( scheduleCallCount.get(), 0 );
     assertEquals( executeCallCount.get(), 0 );

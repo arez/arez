@@ -41,7 +41,9 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -102,7 +104,9 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         false,
-                                        true ) );
+                                        true,
+                                        true,
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0079: Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
@@ -126,7 +130,9 @@ public class ObserverTest
                                         Priority.LOWEST,
                                         false,
                                         true,
-                                        true ) );
+                                        true,
+                                        true,
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0184: Observer named '" + name + "' has LOWEST priority but has passed " +
@@ -152,7 +158,9 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         false,
-                                        true ) );
+                                        true,
+                                        true,
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0082: Observer named '" + name + "' specified mode 'READ_ONLY' " +
@@ -169,7 +177,18 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
 
     final Observer observer =
-      new Observer( Arez.context(), null, name, null, null, new TestReaction(), Priority.NORMAL, false, false, true );
+      new Observer( Arez.context(),
+                    null,
+                    name,
+                    null,
+                    null,
+                    new TestReaction(),
+                    Priority.NORMAL,
+                    false,
+                    false,
+                    true,
+                    true,
+                    false );
     assertThrows( observer::getMode );
   }
 
@@ -191,7 +210,9 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         false,
-                                        true ) );
+                                        true,
+                                        true,
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0081: Attempted to construct an observer named '" + name + "' with READ_ONLY " +
@@ -214,7 +235,9 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         true,
                                         false,
-                                        true ) );
+                                        true,
+                                        true,
+                                        false ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0080: Attempted to construct an ComputedValue '" + computedValue.getName() +
@@ -247,7 +270,9 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         false,
-                                        true ) );
+                                        true,
+                                        true,
+                                        false ) );
     assertEquals( exception.getMessage(),
                   "Arez-0083: Observer named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -276,7 +301,9 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
 
@@ -836,7 +863,7 @@ public class ObserverTest
   }
 
   @Test
-  public void schedule()
+  public void scheduleReaction()
     throws Exception
   {
     setupReadWriteTransaction();
@@ -863,7 +890,7 @@ public class ObserverTest
   }
 
   @Test
-  public void schedule_when_Disposed()
+  public void scheduleReaction_when_Disposed()
     throws Exception
   {
     setupReadWriteTransaction();
@@ -878,7 +905,7 @@ public class ObserverTest
   }
 
   @Test
-  public void schedule_whenInactive()
+  public void scheduleReaction_whenInactive()
     throws Exception
   {
     final Observer observer = newReadOnlyObserver();
@@ -1191,7 +1218,18 @@ public class ObserverTest
     };
 
     final Observer observer =
-      new Observer( context, null, name, null, mode, reaction, Priority.NORMAL, false, false, true );
+      new Observer( context,
+                    null,
+                    name,
+                    null,
+                    mode,
+                    reaction,
+                    Priority.NORMAL,
+                    false,
+                    false,
+                    true,
+                    true,
+                    false );
 
     observer.invokeReaction();
 
@@ -1216,7 +1254,9 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
 
     observer.invokeReaction();
 
@@ -1293,7 +1333,9 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
 
     observer.invokeReaction();
 
@@ -1321,7 +1363,9 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
 
     setupReadWriteTransaction();
     observer.setState( ObserverState.UP_TO_DATE );
@@ -1368,7 +1412,9 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     false,
-                    true );
+                    true,
+                    true,
+                    false );
 
     observer.invokeReaction();
 
@@ -1627,5 +1673,266 @@ public class ObserverTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::asInfo );
     assertEquals( exception.getMessage(),
                   "Arez-0197: Observer.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+  }
+
+  @Test
+  public void reportStale()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            new TestReaction(),
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            false );
+    observer.setState( ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+
+    observer.reportStale();
+
+    assertEquals( observer.isScheduled(), true );
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+  }
+
+  @Test
+  public void reportStale_arezOnlyDependencies()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            new TestReaction(),
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            true,
+                                            false );
+    observer.setState( ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                  "' but arezOnlyDependencies = true." );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+  }
+
+  @Test
+  public void reportStale_noTransaction()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            new TestReaction(),
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            false );
+    observer.setState( ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+
+    Transaction.setTransaction( null );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0200: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                  "' when there is no active transaction." );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+  }
+
+  @Test
+  public void reportStale_readOnlyTransaction()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            new TestReaction(),
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            false );
+    observer.setState( ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+
+    setupReadOnlyTransaction();
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0201: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                  "' when the active transaction '" + Transaction.current().getName() + "' is READ_ONLY rather " +
+                  "than READ_WRITE." );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+  }
+
+  @Test
+  public void schedule()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final TestReaction reaction = new TestReaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            reaction,
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            true );
+    observer.setState( ObserverState.STALE );
+
+    // reset the scheduling that occurred due to setState
+    observer.clearScheduledFlag();
+    context.getScheduler().getPendingObservers().clear();
+
+    assertEquals( observer.isScheduled(), false );
+    Transaction.setTransaction( null );
+
+    final Disposable schedulerLock = context.pauseScheduler();
+
+    observer.schedule();
+
+    assertEquals( observer.isScheduled(), true );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+
+    schedulerLock.dispose();
+
+    // reaction not executed as state was still UP_TO_DATE
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( reaction.getCallCount(), 1 );
+  }
+
+  @Test
+  public void schedule_but_state_UP_TO_DATE()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final TestReaction reaction = new TestReaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            reaction,
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            true );
+    observer.setState( ObserverState.UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
+    Transaction.setTransaction( null );
+
+    final Disposable schedulerLock = context.pauseScheduler();
+
+    observer.schedule();
+
+    assertEquals( observer.isScheduled(), true );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+
+    schedulerLock.dispose();
+
+    // reaction not executed as state was still UP_TO_DATE
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( reaction.getCallCount(), 0 );
+  }
+
+  @Test
+  public void schedule_onNonManualScheduleObserver()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    setupReadWriteTransaction();
+    final TestReaction reaction = new TestReaction();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            null,
+                                            TransactionMode.READ_ONLY,
+                                            reaction,
+                                            Priority.NORMAL,
+                                            false,
+                                            false,
+                                            true,
+                                            false,
+                                            false );
+    observer.setState( ObserverState.STALE );
+
+    // reset the scheduling that occurred due to setState
+    observer.clearScheduledFlag();
+    context.getScheduler().getPendingObservers().clear();
+
+    assertEquals( observer.isScheduled(), false );
+    Transaction.setTransaction( null );
+
+    final Disposable schedulerLock = context.pauseScheduler();
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +
+                  "' but supportsManualSchedule = false." );
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+
+    schedulerLock.dispose();
+
+    assertEquals( reaction.getCallCount(), 0 );
   }
 }

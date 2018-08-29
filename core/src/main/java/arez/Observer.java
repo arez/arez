@@ -85,6 +85,14 @@ public final class Observer
    */
   private final boolean _canNestActions;
   /**
+   * Flag set to true if the Observer allows nested actions.
+   */
+  private final boolean _arezOnlyDependencies;
+  /**
+   * Flag set to true if the Observer supports invocations of {@link #schedule()} from outside.
+   */
+  private final boolean _supportsManualSchedule;
+  /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
@@ -100,7 +108,9 @@ public final class Observer
             @Nonnull final Priority priority,
             final boolean canTrackExplicitly,
             final boolean observeLowerPriorityDependencies,
-            final boolean canNestActions )
+            final boolean canNestActions,
+            final boolean arezOnlyDependencies,
+            final boolean supportsManualSchedule )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -146,6 +156,8 @@ public final class Observer
     _canTrackExplicitly = canTrackExplicitly;
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
+    _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
+    _supportsManualSchedule = Arez.shouldCheckApiInvariants() && supportsManualSchedule;
     if ( null == _computedValue )
     {
       if ( null != _component )
@@ -163,6 +175,16 @@ public final class Observer
   Priority getPriority()
   {
     return _priority;
+  }
+
+  boolean arezOnlyDependencies()
+  {
+    return _arezOnlyDependencies;
+  }
+
+  boolean supportsManualSchedule()
+  {
+    return _supportsManualSchedule;
   }
 
   boolean canTrackExplicitly()
@@ -319,9 +341,27 @@ public final class Observer
     return !isActive();
   }
 
+  /**
+   * This method should be invoked if the observer has non-arez dependencies and one of
+   * these dependencies has been updated. This will mark the observer as stale and reschedule
+   * the reaction if necessary. The method must be invoked from within a read-write transaction.
+   * the reaction if necessary. The method must be invoked from within a read-write transaction.
+   */
   public void reportStale()
   {
-    //TODO: This should only be invokable if in transaction and this observer is configured to allow external dependencies
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_arezOnlyDependencies,
+                    () -> "Arez-0199: Observer.reportStale() invoked on observer named '" + getName() +
+                          "' but arezOnlyDependencies = true." );
+      apiInvariant( () -> getContext().isTransactionActive(),
+                    () -> "Arez-0200: Observer.reportStale() invoked on observer named '" + getName() +
+                          "' when there is no active transaction." );
+      apiInvariant( () -> TransactionMode.READ_WRITE == getContext().getTransaction().getMode(),
+                    () -> "Arez-0201: Observer.reportStale() invoked on observer named '" + getName() +
+                          "' when the active transaction '" + getContext().getTransaction().getName() +
+                          "' is " + getContext().getTransaction().getMode() + " rather than READ_WRITE." );
+    }
     setState( ObserverState.STALE );
   }
 
@@ -491,7 +531,12 @@ public final class Observer
    */
   public void schedule()
   {
-    //TODO: This should only be invokable if this observer is configured to allow external schedule
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> _supportsManualSchedule,
+                    () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
+                          "' but supportsManualSchedule = false." );
+    }
     scheduleReaction();
     getContext().triggerScheduler();
   }
