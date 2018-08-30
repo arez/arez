@@ -954,7 +954,6 @@ public final class ArezContext
                 executable,
                 null,
                 priority,
-                false,
                 observeLowerPriorityDependencies,
                 canNestActions,
                 arezOnlyDependencies,
@@ -1187,7 +1186,6 @@ public final class ArezContext
                      null,
                      onDepsUpdated,
                      priority,
-                     true,
                      observeLowerPriorityDependencies,
                      canNestActions,
                      arezOnlyDependencies,
@@ -1212,7 +1210,6 @@ public final class ArezContext
                      @Nullable final Procedure trackedExecutable,
                      @Nullable final Procedure onDepsUpdated,
                      @Nonnull final Priority priority,
-                     final boolean canTrackExplicitly,
                      final boolean observeLowerPriorityDependencies,
                      final boolean canNestActions,
                      final boolean arezOnlyDependencies,
@@ -1228,7 +1225,6 @@ public final class ArezContext
                     trackedExecutable,
                     onDepsUpdated,
                     priority,
-                    canTrackExplicitly,
                     observeLowerPriorityDependencies,
                     canNestActions,
                     arezOnlyDependencies,
@@ -1728,7 +1724,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0017: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -1949,7 +1945,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0018: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -2168,7 +2164,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -2381,7 +2377,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0020: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }

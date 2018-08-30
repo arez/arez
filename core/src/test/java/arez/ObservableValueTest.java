@@ -216,7 +216,6 @@ public class ObservableValueTest
                                             null,
                                             Priority.NORMAL,
                                             false,
-                                            false,
                                             true,
                                             false,
                                             false );
@@ -583,7 +582,6 @@ public class ObservableValueTest
                     new CountingProcedure(),
                     Priority.HIGH,
                     false,
-                    false,
                     true,
                     true,
                     false );
@@ -623,7 +621,6 @@ public class ObservableValueTest
                     new CountingProcedure(),
                     new CountingProcedure(),
                     Priority.HIGH,
-                    false,
                     true,
                     true,
                     true,

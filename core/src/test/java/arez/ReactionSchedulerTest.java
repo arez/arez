@@ -247,7 +247,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.HIGHEST,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -261,7 +260,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -274,7 +272,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              new CountingProcedure(),
                                              Priority.HIGH,
-                                             false,
                                              false,
                                              true,
                                              true,
@@ -320,7 +317,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.HIGHEST,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -332,7 +328,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              new CountingProcedure(),
                                              Priority.LOWEST,
-                                             false,
                                              false,
                                              true,
                                              true,
@@ -346,7 +341,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -358,7 +352,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              new CountingProcedure(),
                                              Priority.NORMAL,
-                                             false,
                                              false,
                                              true,
                                              true,
@@ -372,7 +365,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.LOW,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -384,7 +376,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              new CountingProcedure(),
                                              Priority.LOWEST,
-                                             false,
                                              false,
                                              true,
                                              true,
@@ -398,7 +389,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.HIGH,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -411,7 +401,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              Priority.NORMAL,
                                              false,
-                                             false,
                                              true,
                                              true,
                                              false );
@@ -423,7 +412,6 @@ public class ReactionSchedulerTest
                                              new CountingProcedure(),
                                              new CountingProcedure(),
                                              Priority.LOW,
-                                             false,
                                              false,
                                              true,
                                              true,
@@ -607,7 +595,6 @@ public class ReactionSchedulerTest
                       reactions[ i ],
                       Priority.NORMAL,
                       false,
-                      false,
                       true,
                       false,
                       true );
@@ -709,7 +696,6 @@ public class ReactionSchedulerTest
                     null,
                     Priority.NORMAL,
                     false,
-                    false,
                     true,
                     false,
                     true );
@@ -772,7 +758,6 @@ public class ReactionSchedulerTest
                     trackedExecutable,
                     null,
                     Priority.NORMAL,
-                    false,
                     false,
                     true,
                     true,
@@ -856,7 +841,6 @@ public class ReactionSchedulerTest
                       null,
                       Priority.NORMAL,
                       false,
-                      false,
                       true,
                       false,
                       true );
@@ -933,7 +917,6 @@ public class ReactionSchedulerTest
                       reactions[ i ],
                       null,
                       Priority.NORMAL,
-                      false,
                       false,
                       true,
                       false,

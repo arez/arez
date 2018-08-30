@@ -42,7 +42,6 @@ public class ObserverTest
                     onDepsUpdated,
                     Priority.NORMAL,
                     false,
-                    false,
                     true,
                     true,
                     false );
@@ -107,7 +106,6 @@ public class ObserverTest
                                         new CountingProcedure(),
                                         Priority.NORMAL,
                                         false,
-                                        false,
                                         true,
                                         true,
                                         false ) );
@@ -134,7 +132,6 @@ public class ObserverTest
                                         null,
                                         Priority.NORMAL,
                                         false,
-                                        false,
                                         true,
                                         true,
                                         false ) );
@@ -160,7 +157,6 @@ public class ObserverTest
                                         new CountingProcedure(),
                                         new CountingProcedure(),
                                         Priority.LOWEST,
-                                        false,
                                         true,
                                         true,
                                         true,
@@ -190,7 +186,6 @@ public class ObserverTest
                                         new CountingProcedure(),
                                         Priority.NORMAL,
                                         false,
-                                        false,
                                         true,
                                         true,
                                         false ) );
@@ -219,7 +214,6 @@ public class ObserverTest
                     new CountingProcedure(),
                     Priority.NORMAL,
                     false,
-                    false,
                     true,
                     true,
                     false );
@@ -244,7 +238,6 @@ public class ObserverTest
                                         new CountingProcedure(),
                                         new CountingProcedure(),
                                         Priority.NORMAL,
-                                        false,
                                         false,
                                         true,
                                         true,
@@ -271,7 +264,6 @@ public class ObserverTest
                                         new CountingProcedure(),
                                         new CountingProcedure(),
                                         Priority.NORMAL,
-                                        true,
                                         false,
                                         true,
                                         true,
@@ -279,7 +271,7 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0080: Attempted to construct an ComputedValue '" + computedValue.getName() +
-                  "' that could track explicitly." );
+                  "' that has onDepsUpdated hook." );
   }
 
   @Test
@@ -307,7 +299,6 @@ public class ObserverTest
                                         new CountingProcedure(),
                                         new CountingProcedure(),
                                         Priority.NORMAL,
-                                        false,
                                         false,
                                         true,
                                         true,
@@ -339,7 +330,6 @@ public class ObserverTest
                     new CountingProcedure(),
                     new CountingProcedure(),
                     Priority.NORMAL,
-                    false,
                     false,
                     true,
                     true,
@@ -1260,7 +1250,6 @@ public class ObserverTest
                     null,
                     Priority.NORMAL,
                     false,
-                    false,
                     true,
                     false,
                     false );
@@ -1297,7 +1286,6 @@ public class ObserverTest
                     trackedExecutable,
                     null,
                     Priority.NORMAL,
-                    false,
                     false,
                     true,
                     false,
@@ -1375,7 +1363,6 @@ public class ObserverTest
                     null,
                     Priority.NORMAL,
                     false,
-                    false,
                     true,
                     false,
                     false );
@@ -1406,7 +1393,6 @@ public class ObserverTest
                     trackedExecutable,
                     onDepsUpdated,
                     Priority.NORMAL,
-                    false,
                     false,
                     true,
                     true,
@@ -1462,7 +1448,6 @@ public class ObserverTest
                     trackedExecutable,
                     null,
                     Priority.NORMAL,
-                    false,
                     false,
                     true,
                     false,
@@ -1743,7 +1728,6 @@ public class ObserverTest
                                             new CountingProcedure(),
                                             Priority.NORMAL,
                                             false,
-                                            false,
                                             true,
                                             false,
                                             false );
@@ -1773,7 +1757,6 @@ public class ObserverTest
                                             new CountingProcedure(),
                                             new CountingProcedure(),
                                             Priority.NORMAL,
-                                            false,
                                             false,
                                             true,
                                             true,
@@ -1806,7 +1789,6 @@ public class ObserverTest
                                             new CountingProcedure(),
                                             new CountingProcedure(),
                                             Priority.NORMAL,
-                                            false,
                                             false,
                                             true,
                                             false,
@@ -1868,7 +1850,6 @@ public class ObserverTest
                                             onDepsUpdated,
                                             Priority.NORMAL,
                                             false,
-                                            false,
                                             true,
                                             false,
                                             true );
@@ -1916,7 +1897,6 @@ public class ObserverTest
                                             onDepsUpdated,
                                             Priority.NORMAL,
                                             false,
-                                            false,
                                             true,
                                             false,
                                             true );
@@ -1957,7 +1937,6 @@ public class ObserverTest
                                             trackedExecutable,
                                             onDepsUpdated,
                                             Priority.NORMAL,
-                                            false,
                                             false,
                                             true,
                                             false,

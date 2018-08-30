@@ -87,10 +87,6 @@ public final class Observer
   @Nonnull
   private final Priority _priority;
   /**
-   * Flag set to true if Observer can be passed as tracker into one of the {@link ArezContext#track(Observer, Function, Object...)} methods.
-   */
-  private final boolean _canTrackExplicitly;
-  /**
    * Flag set to true if the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
    */
   private final boolean _observeLowerPriorityDependencies;
@@ -121,7 +117,6 @@ public final class Observer
             @Nullable final Procedure trackedExecutable,
             @Nullable final Procedure onDepsUpdated,
             @Nonnull final Priority priority,
-            final boolean canTrackExplicitly,
             final boolean observeLowerPriorityDependencies,
             final boolean canNestActions,
             final boolean arezOnlyDependencies,
@@ -138,9 +133,9 @@ public final class Observer
                      () -> "Arez-0079: Attempted to construct an observer named '" + getName() + "' with " +
                            "READ_WRITE_OWNED transaction mode but no ComputedValue." );
           assert null != computedValue;
-          invariant( () -> !canTrackExplicitly,
-                     () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that could " +
-                           "track explicitly." );
+          invariant( () -> null == onDepsUpdated,
+                     () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that has " +
+                           "onDepsUpdated hook." );
         }
         else if ( null != computedValue )
         {
@@ -172,7 +167,6 @@ public final class Observer
     _trackedExecutable = trackedExecutable;
     _onDepsUpdated = onDepsUpdated;
     _priority = Objects.requireNonNull( priority );
-    _canTrackExplicitly = canTrackExplicitly;
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
     _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
@@ -206,9 +200,9 @@ public final class Observer
     return _supportsManualSchedule;
   }
 
-  boolean canTrackExplicitly()
+  boolean isTrackingExecutableExternal()
   {
-    return _canTrackExplicitly;
+    return null == _trackedExecutable;
   }
 
   boolean canNestActions()

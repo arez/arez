@@ -182,7 +182,6 @@ public class ObserverErrorHandlerSupportTest
                     new CountingProcedure(),
                     Priority.NORMAL,
                     false,
-                    false,
                     true,
                     true,
                     false );

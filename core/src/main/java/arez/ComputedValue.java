@@ -117,7 +117,6 @@ public final class ComputedValue<T>
                               this::compute,
                               null,
                               priority,
-                              false,
                               observeLowerPriorityDependencies,
                               false,
                               Arez.shouldCheckApiInvariants() && arezOnlyDependencies,

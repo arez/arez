@@ -2630,7 +2630,6 @@ public class ArezContextTest
                         Priority.NORMAL,
                         false,
                         false,
-                        false,
                         true,
                         false );
 
@@ -2650,16 +2649,15 @@ public class ArezContextTest
       context.observer( null,
                         ValueUtil.randomString(),
                         false,
-                        new CountingProcedure(),
+                        null,
                         new CountingProcedure(),
                         Priority.NORMAL,
-                        true,
                         false,
                         false,
                         true,
                         false );
 
-    assertEquals( observer.canTrackExplicitly(), true );
+    assertEquals( observer.isTrackingExecutableExternal(), true );
   }
 
   @Test
@@ -2673,9 +2671,8 @@ public class ArezContextTest
                         ValueUtil.randomString(),
                         false,
                         new CountingProcedure(),
-                        new CountingProcedure(),
+                        null,
                         Priority.NORMAL,
-                        true,
                         true,
                         false,
                         true,
