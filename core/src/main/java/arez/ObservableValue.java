@@ -403,6 +403,11 @@ public final class ObservableValue<T>
                        " priority but the ObservableValue's owner is scheduled at a " +
                        getOwner().getPriority() + " priority." );
     }
+    rawAddObserver( observer );
+  }
+
+  void rawAddObserver( @Nonnull final Observer observer )
+  {
     getObservers().add( observer );
 
     final ObserverState state = ObserverState.getLeastStaleObserverState( observer.getState() );

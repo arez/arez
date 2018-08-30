@@ -614,7 +614,7 @@ public class ReactionSchedulerTest
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
-      observableValues[ i ].addObserver( observers[ i ] );
+      observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has reaction so setStale should result in reschedule
@@ -863,7 +863,7 @@ public class ReactionSchedulerTest
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
-      observableValues[ i ].addObserver( observers[ i ] );
+      observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has reaction so setStale should result in reschedule
@@ -941,7 +941,7 @@ public class ReactionSchedulerTest
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
-      observableValues[ i ].addObserver( observers[ i ] );
+      observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has reaction so setStale should result in reschedule

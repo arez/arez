@@ -941,10 +941,10 @@ public class ObservableValueTest
     observer3.getDependencies().add( observableValue );
     observer4.getDependencies().add( observableValue );
 
-    observableValue.addObserver( observer1 );
-    observableValue.addObserver( observer2 );
-    observableValue.addObserver( observer3 );
-    observableValue.addObserver( observer4 );
+    observableValue.rawAddObserver( observer1 );
+    observableValue.rawAddObserver( observer2 );
+    observableValue.rawAddObserver( observer3 );
+    observableValue.rawAddObserver( observer4 );
 
     observableValue.setLeastStaleObserverState( ObserverState.STALE );
 
@@ -1000,11 +1000,10 @@ public class ObservableValueTest
 
     observer1.getDependencies().add( observableValue );
     observer2.getDependencies().add( observableValue );
-    //observer3.getDependencies().add( observableValue );
 
-    observableValue.addObserver( observer1 );
-    observableValue.addObserver( observer2 );
-    observableValue.addObserver( observer3 );
+    observableValue.rawAddObserver( observer1 );
+    observableValue.rawAddObserver( observer2 );
+    observableValue.rawAddObserver( observer3 );
 
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
@@ -1126,7 +1125,7 @@ public class ObservableValueTest
 
     assertEquals( observableValue.isPendingDeactivation(), false );
 
-    observableValue.addObserver( observer );
+    observableValue.rawAddObserver( observer );
     observer.getDependencies().add( observableValue );
 
     final IllegalStateException exception =

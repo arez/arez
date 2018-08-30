@@ -236,7 +236,7 @@ public class ComputedValueTest
     setCurrentTransaction( computedValue.getObserver() );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -273,7 +273,7 @@ public class ComputedValueTest
     setCurrentTransaction( computedValue.getObserver() );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -312,7 +312,7 @@ public class ComputedValueTest
     setCurrentTransaction( computedValue.getObserver() );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -349,7 +349,7 @@ public class ComputedValueTest
     setCurrentTransaction( computedValue.getObserver() );
 
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );

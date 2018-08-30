@@ -493,7 +493,7 @@ public class ObserverTest
 
       final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
       newDependencies.add( observable );
-      observable.addObserver( observer );
+      observable.rawAddObserver( observer );
 
       observer.replaceDependencies( newDependencies );
 
@@ -663,8 +663,8 @@ public class ObserverTest
 
     observer.getDependencies().add( observableValue1 );
     observer.getDependencies().add( observableValue2 );
-    observableValue1.addObserver( observer );
-    observableValue2.addObserver( observer );
+    observableValue1.rawAddObserver( observer );
+    observableValue2.rawAddObserver( observer );
 
     assertEquals( observer.getDependencies().size(), 2 );
     assertEquals( observableValue1.getObservers().size(), 1 );
@@ -726,8 +726,8 @@ public class ObserverTest
 
     observer.getDependencies().add( observableValue1 );
     observer.getDependencies().add( observableValue2 );
-    observableValue1.addObserver( observer );
-    observableValue2.addObserver( observer );
+    observableValue1.rawAddObserver( observer );
+    observableValue2.rawAddObserver( observer );
 
     assertEquals( observer.getDependencies().size(), 2 );
     assertEquals( observableValue1.getObservers().size(), 1 );
@@ -755,7 +755,7 @@ public class ObserverTest
     setupReadWriteTransaction();
 
     watcher.setState( ObserverState.UP_TO_DATE );
-    observer.getComputedValue().getObservableValue().addObserver( watcher );
+    observer.getComputedValue().getObservableValue().rawAddObserver( watcher );
     watcher.getDependencies().add( observer.getComputedValue().getObservableValue() );
 
     watcher.setState( ObserverState.UP_TO_DATE );
