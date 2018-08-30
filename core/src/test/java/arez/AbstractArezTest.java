@@ -193,6 +193,7 @@ public abstract class AbstractArezTest
 
   final void setCurrentTransaction( @Nonnull final Observer observer )
   {
+    Transaction.setTransaction( null );
     final ArezContext context = observer.getContext();
     Transaction.setTransaction( new Transaction( context,
                                                  null,
