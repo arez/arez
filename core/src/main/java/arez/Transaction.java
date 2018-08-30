@@ -148,7 +148,7 @@ final class Transaction
                             @Nullable final TransactionMode mode,
                             @Nullable final Observer tracker )
   {
-    if ( Arez.shouldCheckApiInvariants() && Arez.shouldEnforceTransactionType()  )
+    if ( Arez.shouldCheckApiInvariants() && Arez.shouldEnforceTransactionType() )
     {
       if ( null != c_transaction )
       {

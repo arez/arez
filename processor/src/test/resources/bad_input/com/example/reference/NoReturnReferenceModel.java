@@ -8,7 +8,7 @@ import arez.annotations.ReferenceId;
 abstract class NoReturnReferenceModel
 {
   @Reference
-  abstract void getMyEntity(  );
+  abstract void getMyEntity();
 
   @ReferenceId
   int getMyEntityId()

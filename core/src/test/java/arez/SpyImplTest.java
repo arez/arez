@@ -383,7 +383,8 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservableValue() ), true );
+    assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservableValue() ),
+                  true );
     assertEquals( spy.isComputedValue( newObservable( context ) ), false );
   }
 
@@ -593,7 +594,8 @@ public class SpyImplTest
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final ObservableValue<Object> observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue<Object> observableValue1 =
+      context.observable( component, ValueUtil.randomString(), null, null );
     final ObservableValue<Object> observableValue2 = context.observable();
 
     final ComponentInfo info = spy.getComponent( observableValue1 );

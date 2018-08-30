@@ -10,7 +10,7 @@ import arez.component.DisposeTrackable;
 @ArezComponent( allowEmpty = true )
 public abstract class SetNullObservableNoSetterDependency
 {
-  @Observable(expectSetter = false)
+  @Observable( expectSetter = false )
   @Dependency( action = Dependency.Action.SET_NULL )
   DisposeTrackable getTime()
   {
