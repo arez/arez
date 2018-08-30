@@ -249,7 +249,7 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_canExplicitlyTrack_and_ComputableValue()
+  public void construct_with_onDepsUpdated_and_ComputableValue()
     throws Exception
   {
     final ArezContext context = Arez.context();
