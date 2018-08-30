@@ -576,7 +576,7 @@ public class ReactionSchedulerTest
             super.call();
             if ( ( currentIndex == 8 && getCallCount() <= 2 ) || getCallCount() <= 1 )
             {
-              observers[ currentIndex ].schedule();
+              observers[ currentIndex ].reportStale();
             }
           }
         };
@@ -591,13 +591,13 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       null,
                       TransactionMode.READ_WRITE,
-                      null,
                       reactions[ i ],
+                      null,
                       Priority.NORMAL,
                       false,
                       true,
                       false,
-                      true );
+                      false );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );

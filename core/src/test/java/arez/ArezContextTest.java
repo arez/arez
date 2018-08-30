@@ -2535,7 +2535,6 @@ public class ArezContextTest
     final boolean observeLowerPriorityDependencies = true;
     final boolean canNestActions = true;
     final boolean arezOnlyDependencies = false;
-    final boolean supportsManualSchedule = true;
     final Observer observer = context.tracker( null,
                                                name,
                                                false,
@@ -2543,8 +2542,7 @@ public class ArezContextTest
                                                Priority.HIGH,
                                                observeLowerPriorityDependencies,
                                                canNestActions,
-                                               arezOnlyDependencies,
-                                               supportsManualSchedule );
+                                               arezOnlyDependencies );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
@@ -2554,7 +2552,7 @@ public class ArezContextTest
     assertEquals( observer.canObserveLowerPriorityDependencies(), observeLowerPriorityDependencies );
     assertEquals( observer.canNestActions(), canNestActions );
     assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
-    assertEquals( observer.supportsManualSchedule(), supportsManualSchedule );
+    assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 

@@ -40,13 +40,12 @@
   This makes it possible for code to explicitly invoke the newly added method `Observer.reportStale()` to mark an
   observer as stale and re-schedule the reaction associated with the observer. This makes it easier to access
   non-arez dependencies in an observer and trigger the observer when the dependency changes.
-* **\[core\]** Support passing in `supportsManualSchedule` parameter when creating `track` and `autorun`
+* **\[core\]** Support passing in `supportsManualSchedule` parameter when creating `autorun`
   observers and add the method `Observer.schedule()` that can be invoked when `supportsManualSchedule` is set
   to `true`. The `schedule()` method will add the observer to the schedulers queue and trigger the scheduler
   if it is not already active. For current `autorun` observers this has no direct impact as they are automatically
   added to the queue when they are marked as `STALE` and enqueueing an observer that is not `STALE` is effectively
-  a no-op. For `track` observers, the `schedule()` method will result in the `onDepsUpdated` hook method being
-  invoked.
+  a no-op.
 * **\[core\]** Add invariant check to verify that only the tracker associated with the current transaction can
   be added as an observer to an observable.
 * **\[core\]** Rename the `executable` parameter on `ArezContext.tracker(...)` methods to `onDepsUpdated` to align

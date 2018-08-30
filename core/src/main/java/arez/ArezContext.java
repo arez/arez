@@ -1126,47 +1126,10 @@ public final class ArezContext
    * @param name                             the name of the observer.
    * @param mutation                         true if the observer may modify state during tracking, false otherwise.
    * @param priority                         the priority of the observer.
-   * @param executable                       the executable invoked as the reaction.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from tracker action.
-   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer tracker( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure executable,
-                           @Nonnull final Priority priority,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           final boolean arezOnlyDependencies )
-  {
-    return tracker( component,
-                    name,
-                    mutation,
-                    executable,
-                    priority,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    arezOnlyDependencies,
-                    false );
-  }
-
-  /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
-   *
-   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
-   * @param priority                         the priority of the observer.
    * @param onDepsUpdated                    the hook invoked when dependencies changed.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from tracker action.
    * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @param supportsManualSchedule           true if the observer can manually schedule observer by calling {@link Observer#schedule()}.
    * @return the new Observer.
    */
   @Nonnull
@@ -1177,8 +1140,7 @@ public final class ArezContext
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions,
-                           final boolean arezOnlyDependencies,
-                           final boolean supportsManualSchedule )
+                           final boolean arezOnlyDependencies )
   {
     return observer( component,
                      name,
@@ -1189,7 +1151,7 @@ public final class ArezContext
                      observeLowerPriorityDependencies,
                      canNestActions,
                      arezOnlyDependencies,
-                     supportsManualSchedule );
+                     false );
   }
 
   /**
