@@ -12,7 +12,7 @@ public class TransactionInfoImplTest
   public void nonTracking_READ_WRITE()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -28,7 +28,7 @@ public class TransactionInfoImplTest
   public void getTracker_whenNoTracker()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -46,7 +46,7 @@ public class TransactionInfoImplTest
   public void transaction_calculating_computedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer observer = newComputedValueObserver( context );
     final Transaction transaction =
@@ -64,7 +64,7 @@ public class TransactionInfoImplTest
   public void nested()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final Observer observer1 = newReadOnlyObserver( context );
     final Observer observer2 = newReadOnlyObserver( context );

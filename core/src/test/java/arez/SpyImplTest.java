@@ -36,7 +36,7 @@ public class SpyImplTest
   public void basicOperation()
     throws Exception
   {
-    final SpyImpl spy = new SpyImpl( new ArezContext() );
+    final SpyImpl spy = new SpyImpl( Arez.context() );
 
     final Object event = new Object();
 
@@ -72,7 +72,7 @@ public class SpyImplTest
   @Test
   public void reportSpyEvent_whenNoListeners()
   {
-    final SpyImpl spy = new SpyImpl( new ArezContext() );
+    final SpyImpl spy = new SpyImpl( Arez.context() );
 
     assertFalse( spy.willPropagateSpyEvents() );
 
@@ -90,7 +90,7 @@ public class SpyImplTest
   public void addSpyEventHandler_alreadyExists()
     throws Exception
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final SpyImpl support = new SpyImpl( Arez.context() );
 
     final SpyEventHandler handler = new TestSpyEventHandler();
     support.addSpyEventHandler( handler );
@@ -106,7 +106,7 @@ public class SpyImplTest
   public void removeSpyEventHandler_noExists()
     throws Exception
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final SpyImpl support = new SpyImpl( Arez.context() );
 
     final SpyEventHandler handler = new TestSpyEventHandler();
 
@@ -120,7 +120,7 @@ public class SpyImplTest
   @Test
   public void multipleHandlers()
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final SpyImpl support = new SpyImpl( Arez.context() );
 
     final Object event = new Object();
 
@@ -153,7 +153,7 @@ public class SpyImplTest
   @Test
   public void onSpyEvent_whereOneHandlerGeneratesError()
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final SpyImpl support = new SpyImpl( Arez.context() );
 
     final Object event = new Object();
 
@@ -195,7 +195,7 @@ public class SpyImplTest
   public void isTransactionActive()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -210,7 +210,7 @@ public class SpyImplTest
   public void isActive()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -227,7 +227,7 @@ public class SpyImplTest
   public void isComputing()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -243,7 +243,7 @@ public class SpyImplTest
   public void getObservers()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -266,7 +266,7 @@ public class SpyImplTest
   public void getTransactionComputing()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -295,7 +295,7 @@ public class SpyImplTest
   public void getTransactionComputing_missingTracker()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -318,7 +318,7 @@ public class SpyImplTest
   public void getDependencies()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -342,7 +342,7 @@ public class SpyImplTest
   public void getDependenciesDuringComputation()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -379,7 +379,7 @@ public class SpyImplTest
   public void isComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -392,7 +392,7 @@ public class SpyImplTest
   public void asComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -407,7 +407,7 @@ public class SpyImplTest
   public void Observable_getObservers()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -429,7 +429,7 @@ public class SpyImplTest
   public void Observer_isComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -441,7 +441,7 @@ public class SpyImplTest
   public void Observer_asComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -455,7 +455,7 @@ public class SpyImplTest
   public void getTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -468,7 +468,7 @@ public class SpyImplTest
   public void getTransaction_whenNoTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -482,7 +482,7 @@ public class SpyImplTest
   public void isRunning()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -503,7 +503,7 @@ public class SpyImplTest
   public void isScheduled()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -520,7 +520,7 @@ public class SpyImplTest
   public void Observer_getDependencies()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -543,7 +543,7 @@ public class SpyImplTest
   public void Ovserver_getDependenciesWhileRunning()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 
@@ -577,7 +577,7 @@ public class SpyImplTest
   public void isReadOnly()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final SpyImpl spy = new SpyImpl( context );
 

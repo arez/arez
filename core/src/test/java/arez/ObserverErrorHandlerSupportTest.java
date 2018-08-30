@@ -14,7 +14,7 @@ public class ObserverErrorHandlerSupportTest
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer observer = newReadOnlyObserver( context );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
@@ -88,7 +88,7 @@ public class ObserverErrorHandlerSupportTest
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer observer = newReadOnlyObserver( context );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
@@ -124,7 +124,7 @@ public class ObserverErrorHandlerSupportTest
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer observer = newReadOnlyObserver( context );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
@@ -171,7 +171,7 @@ public class ObserverErrorHandlerSupportTest
 
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer observer =
       new Observer( context,
                     null,
