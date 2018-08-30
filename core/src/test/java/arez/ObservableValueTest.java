@@ -10,7 +10,9 @@ import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.ObservableValueInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import arez.spy.ReactionCompletedEvent;
 import arez.spy.ReactionScheduledEvent;
+import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
@@ -277,9 +279,26 @@ public class ObservableValueTest
 
     assertEquals( observableValue.isDisposed(), true );
 
-    final ObservableValueDisposedEvent event = handler.assertEvent( ObservableValueDisposedEvent.class );
+    handler.assertEventCount( 9 );
 
-    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
+    handler.assertNextEvent( ActionStartedEvent.class,
+                             event -> assertEquals( event.getName(), observableValue.getName() + ".dispose" ) );
+    handler.assertNextEvent( TransactionStartedEvent.class,
+                             event -> assertEquals( event.getName(), observableValue.getName() + ".dispose" ) );
+    handler.assertNextEvent( ObservableValueChangedEvent.class,
+                             event -> assertEquals( event.getObservableValue().getName(), observableValue.getName() ) );
+    handler.assertNextEvent( ReactionScheduledEvent.class,
+                             event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( TransactionCompletedEvent.class,
+                             event -> assertEquals( event.getName(), observableValue.getName() + ".dispose" ) );
+    handler.assertNextEvent( ActionCompletedEvent.class,
+                             event -> assertEquals( event.getName(), observableValue.getName() + ".dispose" ) );
+    handler.assertNextEvent( ReactionStartedEvent.class,
+                             event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ReactionCompletedEvent.class,
+                             event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ObservableValueDisposedEvent.class,
+                             event -> assertEquals( event.getObservableValue().getName(), observableValue.getName() ) );
   }
 
   @Test
