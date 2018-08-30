@@ -1742,7 +1742,9 @@ public class ArezContextTest
   public void observerErrorHandler()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
+    // Clear out handler added as part of test infrastructure
+    context.getObserverErrorHandlerSupport().getObserverErrorHandlers().clear();
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
@@ -1782,7 +1784,9 @@ public class ArezContextTest
   public void reportObserverError_when_spyEventHandler_present()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
+    // Clear out handler added as part of test infrastructure
+    context.getObserverErrorHandlerSupport().getObserverErrorHandlers().clear();
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
