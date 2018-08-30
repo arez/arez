@@ -45,7 +45,20 @@ task 'error_codes:print_unused' do
   end
 end
 
-desc 'Print out next error_code'
-task 'error_codes:print_next' do
+desc 'Print out new error_code that has not yet been used'
+task 'error_codes:print_new_error_code' do
   puts "Arez-#{sprintf('%04d',load_error_codes.keys.sort.last.to_i + 1)}"
+end
+
+desc 'Print out next error code. Reusing any that have been retired.'
+task 'error_codes:next' do
+  keys = load_error_codes.keys.sort
+  max_value = keys.last.to_i
+  1.upto(max_value).collect{|v| '%04d' % v }.each do |v|
+    unless keys.delete(v.to_s)
+      puts "Arez-#{v} (previously used)"
+      break
+    end
+  end
+  puts "Arez-#{sprintf('%04d',max_value + 1)} (new)"
 end
