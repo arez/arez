@@ -16,6 +16,13 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Rename trackedExecutable to tracked in Observer
+
+* Derive Observer.mode from mutation flag and non-nullness of _computedValue
+
+* Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
+  This flag will default to false.
+
 * Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
   lower api layer.
 
