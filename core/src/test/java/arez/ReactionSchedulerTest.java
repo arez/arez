@@ -16,7 +16,7 @@ public class ReactionSchedulerTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final ReactionScheduler scheduler = new ReactionScheduler( context );
+    final ReactionScheduler scheduler = context.getScheduler();
 
     assertEquals( scheduler.getContext(), context );
 
@@ -48,7 +48,7 @@ public class ReactionSchedulerTest
   public void setMaxReactionRounds()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
 
@@ -63,7 +63,7 @@ public class ReactionSchedulerTest
   public void setMaxReactionRounds_negativeValue()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
 
@@ -79,9 +79,10 @@ public class ReactionSchedulerTest
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
 
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
     final IllegalStateException exception =
@@ -102,9 +103,10 @@ public class ReactionSchedulerTest
   {
     ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
 
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
     assertThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
@@ -119,9 +121,9 @@ public class ReactionSchedulerTest
   {
     BrainCheckTestUtil.setCheckInvariants( false );
 
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = Arez.context().autorun( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
     scheduler.onRunawayReactionsDetected();
@@ -131,9 +133,10 @@ public class ReactionSchedulerTest
   public void scheduleDispose()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
@@ -147,9 +150,10 @@ public class ReactionSchedulerTest
   public void scheduleDispose_alreadyScheduled()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
@@ -169,9 +173,10 @@ public class ReactionSchedulerTest
   public void runDispose()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Disposable disposable = newObservable();
+    final Disposable disposable = context.observable();
 
     scheduler.scheduleDispose( disposable );
 
@@ -188,31 +193,33 @@ public class ReactionSchedulerTest
   public void runDisposeInsideTransaction()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
     assertEquals( scheduler.hasTasksToSchedule(), false );
 
-    scheduler.scheduleDispose( newObservable() );
+    scheduler.scheduleDispose( context.observable() );
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
 
-    setCurrentTransaction( newReadWriteObserver() );
+    setCurrentTransaction( newReadWriteObserver( context ) );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, scheduler::runDispose );
 
     assertEquals( exception.getMessage(),
                   "Arez-0156: Invoked runDispose when transaction named '" +
-                  Arez.context().getTransaction().getName() + "' is active." );
+                  context.getTransaction().getName() + "' is active." );
   }
 
   @Test
   public void scheduleReaction()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -228,9 +235,10 @@ public class ReactionSchedulerTest
   public void scheduleReaction_highPriorityObserver()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer0 = new Observer( Arez.context(),
+    final Observer observer0 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -243,8 +251,8 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer1 = newReadOnlyObserver();
-    final Observer observer2 = new Observer( Arez.context(),
+    final Observer observer1 = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -257,8 +265,8 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer3 = newReadOnlyObserver();
-    final Observer observer4 = new Observer( Arez.context(),
+    final Observer observer3 = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -300,9 +308,10 @@ public class ReactionSchedulerTest
   public void scheduleReaction_multipleObserverPriorities()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer0 = new Observer( Arez.context(),
+    final Observer observer0 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -315,7 +324,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer1 = new Observer( Arez.context(),
+    final Observer observer1 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -328,7 +337,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer2 = new Observer( Arez.context(),
+    final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -341,7 +350,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer3 = new Observer( Arez.context(),
+    final Observer observer3 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -354,7 +363,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer4 = new Observer( Arez.context(),
+    final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -367,7 +376,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer5 = new Observer( Arez.context(),
+    final Observer observer5 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -380,7 +389,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer6 = new Observer( Arez.context(),
+    final Observer observer6 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -393,7 +402,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer7 = new Observer( Arez.context(),
+    final Observer observer7 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -406,7 +415,7 @@ public class ReactionSchedulerTest
                                              true,
                                              true,
                                              false );
-    final Observer observer8 = new Observer( Arez.context(),
+    final Observer observer8 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              null,
@@ -455,9 +464,10 @@ public class ReactionSchedulerTest
   public void scheduleReaction_observerAlreadyScheduled()
     throws Exception
   {
-    final ReactionScheduler scheduler = new ReactionScheduler( Arez.context() );
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     scheduler.getPendingObservers().add( observer );
 
@@ -473,15 +483,16 @@ public class ReactionSchedulerTest
   public void runObserver_singlePendingObserver()
     throws Exception
   {
-    Arez.context().markSchedulerAsActive();
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
+    context.markSchedulerAsActive();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadWriteObserver();
+    final Observer observer = newReadWriteObserver( context );
     final CountingProcedure trackedExecutable = (CountingProcedure) observer.getTrackedExecutable();
     assertNotNull( trackedExecutable );
 
     final CountingProcedure onDepsUpdated = (CountingProcedure) observer.getOnDepsUpdated();
-    assertNotNull( onDepsUpdated );
+    assertNull( onDepsUpdated );
 
     setCurrentTransaction( observer );
 
@@ -499,8 +510,7 @@ public class ReactionSchedulerTest
     final boolean ran = scheduler.runObserver();
 
     assertEquals( ran, true );
-    assertEquals( trackedExecutable.getCallCount(), 0 );
-    assertEquals( onDepsUpdated.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 1 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
@@ -509,8 +519,7 @@ public class ReactionSchedulerTest
     final boolean ran2 = scheduler.runObserver();
 
     assertEquals( ran2, false );
-    assertEquals( trackedExecutable.getCallCount(), 0 );
-    assertEquals( onDepsUpdated.getCallCount(), 1 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
@@ -521,9 +530,10 @@ public class ReactionSchedulerTest
   public void runObserver_insideTransaction()
     throws Exception
   {
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadWriteObserver();
+    final Observer observer = newReadWriteObserver( context );
     final CountingProcedure reaction = (CountingProcedure) observer.getTrackedExecutable();
     assertNotNull( reaction );
 
@@ -543,7 +553,7 @@ public class ReactionSchedulerTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0100: Invoked runObserver when transaction named '" +
-                  Arez.context().getTransaction().getName() + "' is active." );
+                  context.getTransaction().getName() + "' is active." );
   }
 
   @Test
@@ -555,6 +565,8 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     setupReadWriteTransaction();
+    // Purge the autorun that was scheduled
+    scheduler.getPendingObservers().clear();
 
     final int round1Size = 10;
     final int round2Size = 4;
@@ -599,7 +611,7 @@ public class ReactionSchedulerTest
                       true,
                       false,
                       true );
-      observableValues[ i ] = newObservable();
+      observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
       observableValues[ i ].addObserver( observers[ i ] );
@@ -796,6 +808,7 @@ public class ReactionSchedulerTest
   public void runPendingTasks()
     throws Exception
   {
+    final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
     setupReadWriteTransaction();
@@ -803,7 +816,7 @@ public class ReactionSchedulerTest
     final Disposable[] disposables = new Disposable[ 3 ];
     for ( int i = 0; i < disposables.length; i++ )
     {
-      disposables[ i ] = newObservable();
+      disposables[ i ] = context.observable();
       scheduler.scheduleDispose( disposables[ i ] );
     }
 
@@ -847,7 +860,7 @@ public class ReactionSchedulerTest
                       true,
                       false,
                       true );
-      observableValues[ i ] = newObservable();
+      observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
       observableValues[ i ].addObserver( observers[ i ] );
@@ -880,7 +893,8 @@ public class ReactionSchedulerTest
   public void runPendingTasks_onlyReactions()
     throws Exception
   {
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
     setupReadWriteTransaction();
 
@@ -911,7 +925,7 @@ public class ReactionSchedulerTest
         reactions[ i ] = new CountingProcedure();
       }
       observers[ i ] =
-        new Observer( Arez.context(),
+        new Observer( context,
                       null,
                       ValueUtil.randomString(),
                       null,
@@ -924,7 +938,7 @@ public class ReactionSchedulerTest
                       true,
                       false,
                       true );
-      observableValues[ i ] = newObservable();
+      observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
       observableValues[ i ].addObserver( observers[ i ] );
@@ -950,12 +964,13 @@ public class ReactionSchedulerTest
   public void runPendingTasks_onlyDisposables()
     throws Exception
   {
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
+    final ReactionScheduler scheduler = context.getScheduler();
 
     final Disposable[] disposables = new Disposable[ 3 ];
     for ( int i = 0; i < disposables.length; i++ )
     {
-      disposables[ i ] = newObservable();
+      disposables[ i ] = context.observable();
       scheduler.scheduleDispose( disposables[ i ] );
     }
 

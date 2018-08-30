@@ -85,90 +85,10 @@ public abstract class AbstractArezTest
     getField( object.getClass(), fieldName ).set( object, value );
   }
 
-  /**
-   * Typically called to stop observer from being deactivate or stop invariant checks failing.
-   */
-  @SuppressWarnings( "UnusedReturnValue" )
-  @Nonnull
-  final Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
-  {
-    final Observer randomObserver = newReadOnlyObserver( observer.getContext() );
-    randomObserver.setState( ObserverState.UP_TO_DATE );
-    observer.getComputedValue().getObservableValue().addObserver( randomObserver );
-    randomObserver.getDependencies().add( observer.getComputedValue().getObservableValue() );
-    return randomObserver;
-  }
-
-  @Nonnull
-  final Observer newReadWriteObserver()
-  {
-    return newReadWriteObserver( Arez.context() );
-  }
-
   @Nonnull
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
-    return new Observer( context,
-                         null,
-                         ValueUtil.randomString(),
-                         null,
-                         TransactionMode.READ_WRITE,
-                         new CountingProcedure(),
-                         new CountingProcedure(),
-                         Priority.NORMAL,
-                         false,
-                         false,
-                         true,
-                         false,
-                         false );
-  }
-
-  @Nonnull
-  final Observer newComputedValueObserver()
-  {
-    return newComputedValueObserver( Arez.context() );
-  }
-
-  @Nonnull
-  final Observer newComputedValueObserver( @Nonnull final ArezContext context )
-  {
-    return context.computed( () -> "" ).getObserver();
-  }
-
-  @Nonnull
-  final Observer newObserver( @Nonnull final ArezContext context )
-  {
-    return newReadOnlyObserver( context );
-  }
-
-  @Nonnull
-  final Observer newReadOnlyObserver()
-  {
-    return newReadOnlyObserver( Arez.context() );
-  }
-
-  @Nonnull
-  final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
-  {
-    return new Observer( context,
-                         null,
-                         ValueUtil.randomString(),
-                         null,
-                         TransactionMode.READ_ONLY,
-                         new CountingProcedure(),
-                         new CountingProcedure(),
-                         Priority.NORMAL,
-                         false,
-                         false,
-                         true,
-                         false,
-                         false );
-  }
-
-  @Nonnull
-  final ObservableValue<?> newObservable()
-  {
-    return Arez.context().observable();
+    return context.autorun( true, new CountAndObserveProcedure() );
   }
 
   final void setupReadOnlyTransaction()
@@ -178,7 +98,8 @@ public abstract class AbstractArezTest
 
   final void setupReadOnlyTransaction( @Nonnull final ArezContext context )
   {
-    setCurrentTransaction( newReadOnlyObserver( context ) );
+    Transaction.setTransaction( null );
+    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
   }
 
   final void setupReadWriteTransaction()
@@ -188,6 +109,7 @@ public abstract class AbstractArezTest
 
   private void setupReadWriteTransaction( @Nonnull final ArezContext context )
   {
+    Transaction.setTransaction( null );
     setCurrentTransaction( newReadWriteObserver( context ) );
   }
 

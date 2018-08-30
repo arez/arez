@@ -66,8 +66,8 @@ public class TransactionInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer1 = newReadOnlyObserver( context );
-    final Observer observer2 = newReadOnlyObserver( context );
+    final Observer observer1 = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer2 = context.autorun( new CountAndObserveProcedure() );
 
     final Transaction transaction1 =
       new Transaction( context, null, observer1.getName(), TransactionMode.READ_ONLY, observer1 );

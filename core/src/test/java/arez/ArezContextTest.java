@@ -887,7 +887,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertThrowsWithMessage( () -> context.track( observer, callCount::incrementAndGet ),
                              "Arez-0017: Attempted to track Observer named '" + observer.getName() +
@@ -1163,7 +1163,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertThrowsWithMessage( () -> context.safeTrack( observer, callCount::incrementAndGet ),
                              "Arez-0018: Attempted to track Observer named '" + observer.getName() +
@@ -1332,7 +1332,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     final SafeProcedure procedure = callCount::incrementAndGet;
     assertThrowsWithMessage( () -> context.safeTrack( observer, procedure ),
@@ -1383,7 +1383,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     final Procedure procedure = callCount::incrementAndGet;
     assertThrowsWithMessage( () -> context.track( observer, procedure ),
@@ -1853,7 +1853,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1869,7 +1869,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1884,7 +1884,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer derivation = newComputedValueObserver();
+    final Observer derivation = context.computed( () -> "" ).getObserver();
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1902,7 +1902,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -3303,7 +3303,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = Arez.context().autorun( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
