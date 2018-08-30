@@ -49,6 +49,8 @@
   invoked.
 * **\[core\]** Add invariant check to verify that only the tracker associated with the current transaction can
   be added as an observer to an observable.
+* **\[core\]** Rename the `executable` parameter on `ArezContext.tracker(...)` methods to `onDepsUpdated` to align
+  with the terminology in the component model and indicate intent.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
