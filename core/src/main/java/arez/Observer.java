@@ -161,6 +161,9 @@ public final class Observer
       invariant( () -> Priority.LOWEST != priority || !observeLowerPriorityDependencies,
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "observeLowerPriorityDependencies = true which should be false as no lower priority." );
+      invariant( () -> null != trackedExecutable || null != onDepsUpdated,
+                 () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
+                       "trackedExecutable parameter or the onDepsUpdated parameter." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;

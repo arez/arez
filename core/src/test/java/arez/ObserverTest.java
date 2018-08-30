@@ -118,6 +118,33 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_no_tracked_and_no_onDepsUpdated_parameer()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        null,
+                                        TransactionMode.READ_ONLY,
+                                        null,
+                                        null,
+                                        Priority.NORMAL,
+                                        false,
+                                        false,
+                                        true,
+                                        true,
+                                        false ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
+                  "the trackedExecutable parameter or the onDepsUpdated parameter." );
+  }
+
+  @Test
   public void construct_with_canObserveLowerPriorityDependencies_but_LOWEST_priority()
     throws Exception
   {
