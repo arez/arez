@@ -47,6 +47,8 @@
   added to the queue when they are marked as `STALE` and enqueueing an observer that is not `STALE` is effectively
   a no-op. For `track` observers, the `schedule()` method will result in the `onDepsUpdated` hook method being
   invoked.
+* **\[core\]** Add invariant check to verify that only the tracker associated with the current transaction can
+  be added as an observer to an observable.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

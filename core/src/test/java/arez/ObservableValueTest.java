@@ -548,6 +548,27 @@ public class ObservableValueTest
   }
 
   @Test
+  public void addObserver_whenObserverIsNotTrackerAssociatedWithTransaction()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+
+    final ObservableValue<?> observableValue = context.observable();
+
+    context.safeAction( null, true, false, () -> {
+
+      final IllegalStateException exception =
+        expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
+
+      assertEquals( exception.getMessage(),
+                    "Arez-0203: Attempting to add observer named '" + observer.getName() + "' to " +
+                    "ObservableValue named '" + observableValue.getName() + "' but the observer is not the " +
+                    "tracker in transaction named '" + context.getTransaction().getName() + "'." );
+    } );
+  }
+
+  @Test
   public void addObserver_highPriorityObserver_normalPriorityComputed()
     throws Exception
   {
