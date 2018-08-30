@@ -217,7 +217,6 @@ public class ObservableValueTest
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            false,
                                             false );
 
     setupReadOnlyTransaction( context );
@@ -583,8 +582,7 @@ public class ObservableValueTest
                     Priority.HIGH,
                     false,
                     true,
-                    true,
-                    false );
+                    true );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue =
@@ -623,8 +621,7 @@ public class ObservableValueTest
                     Priority.HIGH,
                     true,
                     true,
-                    true,
-                    false );
+                    true );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue =

@@ -43,8 +43,7 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    true,
-                    false );
+                    true );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -107,8 +106,7 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0079: Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
@@ -133,8 +131,7 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
@@ -159,8 +156,7 @@ public class ObserverTest
                                         Priority.LOWEST,
                                         true,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0184: Observer named '" + name + "' has LOWEST priority but has passed " +
@@ -187,8 +183,7 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0082: Observer named '" + name + "' specified mode 'READ_ONLY' " +
@@ -215,8 +210,7 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    true,
-                    false );
+                    true );
     assertThrows( observer::getMode );
   }
 
@@ -240,8 +234,7 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0081: Attempted to construct an observer named '" + name + "' with READ_ONLY " +
@@ -266,8 +259,7 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0080: Attempted to construct an ComputedValue '" + computedValue.getName() +
@@ -301,8 +293,7 @@ public class ObserverTest
                                         Priority.NORMAL,
                                         false,
                                         true,
-                                        true,
-                                        false ) );
+                                        true ) );
     assertEquals( exception.getMessage(),
                   "Arez-0083: Observer named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -332,8 +323,7 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    true,
-                    false );
+                    true );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
 
@@ -1251,7 +1241,6 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    false,
                     false );
 
     observer.invokeReaction();
@@ -1288,7 +1277,6 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    false,
                     false );
 
     observer.invokeReaction();
@@ -1364,7 +1352,6 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    false,
                     false );
 
     observer.invokeReaction();
@@ -1395,8 +1382,7 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    true,
-                    false );
+                    true );
 
     setupReadWriteTransaction();
     observer.setState( ObserverState.UP_TO_DATE );
@@ -1450,7 +1436,6 @@ public class ObserverTest
                     Priority.NORMAL,
                     false,
                     true,
-                    false,
                     false );
 
     observer.invokeReaction();
@@ -1729,7 +1714,6 @@ public class ObserverTest
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            false,
                                             false );
     observer.setState( ObserverState.UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
@@ -1759,8 +1743,7 @@ public class ObserverTest
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            true,
-                                            false );
+                                            true );
     observer.setState( ObserverState.UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
@@ -1791,7 +1774,6 @@ public class ObserverTest
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            false,
                                             false );
     observer.setState( ObserverState.UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
@@ -1851,8 +1833,7 @@ public class ObserverTest
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            false,
-                                            true );
+                                            false );
     observer.setState( ObserverState.STALE );
 
     // reset the scheduling that occurred due to setState
@@ -1898,8 +1879,7 @@ public class ObserverTest
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            false,
-                                            true );
+                                            false );
     observer.setState( ObserverState.UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
     Transaction.setTransaction( null );
@@ -1928,18 +1908,16 @@ public class ObserverTest
 
     setupReadWriteTransaction();
     final CountingProcedure trackedExecutable = new CountingProcedure();
-    final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             null,
                                             TransactionMode.READ_ONLY,
                                             trackedExecutable,
-                                            onDepsUpdated,
+                                            null,
                                             Priority.NORMAL,
                                             false,
                                             true,
-                                            false,
                                             false );
     observer.setState( ObserverState.STALE );
 
@@ -1956,7 +1934,7 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +
-                  "' but supportsManualSchedule = false." );
+                  "' but supportsManualSchedule() returns false." );
     assertEquals( observer.isScheduled(), false );
     assertEquals( observer.getState(), ObserverState.STALE );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
@@ -1964,6 +1942,5 @@ public class ObserverTest
     schedulerLock.dispose();
 
     assertEquals( trackedExecutable.getCallCount(), 0 );
-    assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 }

@@ -2301,6 +2301,7 @@ public class ArezContextTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2447,21 +2448,20 @@ public class ArezContextTest
   public void autorun_supportsManualSchedule()
     throws Exception
   {
-    final boolean supportsManualSchedule = false;
     final Observer observer =
       Arez.context().autorun( null,
                               ValueUtil.randomString(),
                               ValueUtil.randomBoolean(),
                               AbstractArezTest::observeADependency,
+                              ValueUtil::randomString,
                               Priority.NORMAL,
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
-                              supportsManualSchedule,
                               null );
 
-    assertEquals( observer.supportsManualSchedule(), supportsManualSchedule );
+    assertEquals( observer.supportsManualSchedule(), true );
   }
 
   @Test
@@ -2628,8 +2628,7 @@ public class ArezContextTest
                         Priority.NORMAL,
                         false,
                         false,
-                        true,
-                        false );
+                        true );
 
     handler.assertEventCount( 1 );
 
@@ -2652,8 +2651,7 @@ public class ArezContextTest
                         Priority.NORMAL,
                         false,
                         false,
-                        true,
-                        false );
+                        true );
 
     assertEquals( observer.isTrackingExecutableExternal(), true );
   }
@@ -2673,8 +2671,7 @@ public class ArezContextTest
                         Priority.NORMAL,
                         true,
                         false,
-                        true,
-                        false );
+                        true );
 
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }

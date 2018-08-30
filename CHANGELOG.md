@@ -40,12 +40,15 @@
   This makes it possible for code to explicitly invoke the newly added method `Observer.reportStale()` to mark an
   observer as stale and re-schedule the reaction associated with the observer. This makes it easier to access
   non-arez dependencies in an observer and trigger the observer when the dependency changes.
-* **\[core\]** Support passing in `supportsManualSchedule` parameter when creating `autorun`
-  observers and add the method `Observer.schedule()` that can be invoked when `supportsManualSchedule` is set
-  to `true`. The `schedule()` method will add the observer to the schedulers queue and trigger the scheduler
-  if it is not already active. For current `autorun` observers this has no direct impact as they are automatically
-  added to the queue when they are marked as `STALE` and enqueueing an observer that is not `STALE` is effectively
-  a no-op.
+* **\[core\]** Add the ability to pass in an `onDepsUpdated` hook to `ArezContext.autorun(...)` methods. This
+  hook method will be invoked when the system detects that dependencies have been updated but it is up to
+  non-arez code to invoke the newly added method `Observer.schedule()` that will schedule the observer. The
+  `schedule()` method will add the observer to the schedulers queue and trigger the scheduler
+  if it is not already active and not paused. It should be noted that invoking the `schedule()` method when the
+  observer has not been marked as `STALE` is effectively a no-op. The observer will be scheduled but when it comes
+  to invoke the observer, it will be skipped if it is `UP_TO_DATE`. This feature makes it possible for the arez
+  framework to manage execution of the observer and detection of dependency changes but make scheduling a
+  user-space concern. This makes it possible to debounce, throttle, delay etc. in application layer.
 * **\[core\]** Add invariant check to verify that only the tracker associated with the current transaction can
   be added as an observer to an observable.
 * **\[core\]** Rename the `executable` parameter on `ArezContext.tracker(...)` methods to `onDepsUpdated` to align

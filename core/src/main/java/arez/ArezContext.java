@@ -909,12 +909,12 @@ public final class ArezContext
                     name,
                     mutation,
                     executable,
+                    null,
                     priority,
                     runImmediately,
                     observeLowerPriorityDependencies,
                     canNestActions,
                     arezOnlyDependencies,
-                    false,
                     onDispose );
   }
 
@@ -925,12 +925,12 @@ public final class ArezContext
    * @param name                             the name of the observer.
    * @param mutation                         true if the executable may modify state, false otherwise.
    * @param executable                       the executable defining the observer.
+   * @param onDepsUpdated                    the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param priority                         the priority of the observer.
    * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from autorun.
    * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @param supportsManualSchedule           true if the observer can manually schedule observer by calling {@link Observer#schedule()}.
    * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
    * @return the new Observer.
    */
@@ -939,12 +939,12 @@ public final class ArezContext
                            @Nullable final String name,
                            final boolean mutation,
                            @Nonnull final Procedure executable,
+                           @Nullable final Procedure onDepsUpdated,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions,
                            final boolean arezOnlyDependencies,
-                           final boolean supportsManualSchedule,
                            @Nullable final Procedure onDispose )
   {
     final Observer observer =
@@ -952,12 +952,12 @@ public final class ArezContext
                 name,
                 mutation,
                 executable,
-                null,
+                onDepsUpdated,
                 priority,
                 observeLowerPriorityDependencies,
                 canNestActions,
-                arezOnlyDependencies,
-                supportsManualSchedule );
+                arezOnlyDependencies
+      );
     // See similar code in computed(...) implementation for explanation of this code
     if ( null != onDispose )
     {
@@ -1150,8 +1150,7 @@ public final class ArezContext
                      priority,
                      observeLowerPriorityDependencies,
                      canNestActions,
-                     arezOnlyDependencies,
-                     false );
+                     arezOnlyDependencies );
   }
 
   /**
@@ -1174,8 +1173,7 @@ public final class ArezContext
                      @Nonnull final Priority priority,
                      final boolean observeLowerPriorityDependencies,
                      final boolean canNestActions,
-                     final boolean arezOnlyDependencies,
-                     final boolean supportsManualSchedule )
+                     final boolean arezOnlyDependencies )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
@@ -1189,8 +1187,7 @@ public final class ArezContext
                     priority,
                     observeLowerPriorityDependencies,
                     canNestActions,
-                    arezOnlyDependencies,
-                    supportsManualSchedule );
+                    arezOnlyDependencies );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer.asInfo() ) );

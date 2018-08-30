@@ -119,8 +119,7 @@ public final class ComputedValue<T>
                               priority,
                               observeLowerPriorityDependencies,
                               false,
-                              Arez.shouldCheckApiInvariants() && arezOnlyDependencies,
-                              false );
+                              Arez.shouldCheckApiInvariants() && arezOnlyDependencies );
     _observableValue =
       new ObservableValue<>( context,
                              null,

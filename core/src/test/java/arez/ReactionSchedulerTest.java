@@ -248,8 +248,7 @@ public class ReactionSchedulerTest
                                              Priority.HIGHEST,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer1 = context.autorun( new CountAndObserveProcedure() );
     final Observer observer2 = new Observer( context,
                                              null,
@@ -261,8 +260,7 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer3 = context.autorun( new CountAndObserveProcedure() );
     final Observer observer4 = new Observer( context,
                                              null,
@@ -274,8 +272,7 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -318,8 +315,7 @@ public class ReactionSchedulerTest
                                              Priority.HIGHEST,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer1 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -330,8 +326,7 @@ public class ReactionSchedulerTest
                                              Priority.LOWEST,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -342,8 +337,7 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer3 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -354,8 +348,7 @@ public class ReactionSchedulerTest
                                              Priority.NORMAL,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -366,8 +359,7 @@ public class ReactionSchedulerTest
                                              Priority.LOW,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer5 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -378,8 +370,7 @@ public class ReactionSchedulerTest
                                              Priority.LOWEST,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer6 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -390,8 +381,7 @@ public class ReactionSchedulerTest
                                              Priority.HIGH,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer7 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -402,8 +392,7 @@ public class ReactionSchedulerTest
                                              Priority.NORMAL,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
     final Observer observer8 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -414,8 +403,7 @@ public class ReactionSchedulerTest
                                              Priority.LOW,
                                              false,
                                              true,
-                                             true,
-                                             false );
+                                             true );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -596,7 +584,6 @@ public class ReactionSchedulerTest
                       Priority.NORMAL,
                       false,
                       true,
-                      false,
                       false );
       observableValues[ i ] = context.observable();
 
@@ -697,8 +684,7 @@ public class ReactionSchedulerTest
                     Priority.NORMAL,
                     false,
                     true,
-                    false,
-                    true );
+                    false );
     observerReference.set( observer );
     context.pauseScheduler();
     context.safeAction( null, true, false, observer::reportStale );
@@ -760,8 +746,7 @@ public class ReactionSchedulerTest
                     Priority.NORMAL,
                     false,
                     true,
-                    true,
-                    false );
+                    true );
 
     observerReference.set( observer );
     context.pauseScheduler();
@@ -842,8 +827,7 @@ public class ReactionSchedulerTest
                       Priority.NORMAL,
                       false,
                       true,
-                      false,
-                      true );
+                      false );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );
@@ -919,8 +903,7 @@ public class ReactionSchedulerTest
                       Priority.NORMAL,
                       false,
                       true,
-                      false,
-                      true );
+                      false );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( ObserverState.UP_TO_DATE );

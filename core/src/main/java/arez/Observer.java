@@ -99,10 +99,6 @@ public final class Observer
    */
   private final boolean _arezOnlyDependencies;
   /**
-   * Flag set to true if the Observer supports invocations of {@link #schedule()} from outside.
-   */
-  private final boolean _supportsManualSchedule;
-  /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
@@ -119,8 +115,7 @@ public final class Observer
             @Nonnull final Priority priority,
             final boolean observeLowerPriorityDependencies,
             final boolean canNestActions,
-            final boolean arezOnlyDependencies,
-            final boolean supportsManualSchedule )
+            final boolean arezOnlyDependencies )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -170,7 +165,6 @@ public final class Observer
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
     _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
-    _supportsManualSchedule = Arez.shouldCheckApiInvariants() && supportsManualSchedule;
     if ( null == _computedValue )
     {
       if ( null != _component )
@@ -195,9 +189,14 @@ public final class Observer
     return _arezOnlyDependencies;
   }
 
+  /**
+   * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
+   * This is true if both a {@link #_trackedExecutable} and {@link #_onDepsUpdated} parameters
+   * are provided at construction.
+   */
   boolean supportsManualSchedule()
   {
-    return _supportsManualSchedule;
+    return Arez.shouldCheckApiInvariants() && null != _trackedExecutable && null != _onDepsUpdated;
   }
 
   boolean isTrackingExecutableExternal()
@@ -536,9 +535,9 @@ public final class Observer
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> _supportsManualSchedule,
+      apiInvariant( () -> supportsManualSchedule(),
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
-                          "' but supportsManualSchedule = false." );
+                          "' but supportsManualSchedule() returns false." );
     }
     _trackScheduledNext = null != _trackedExecutable;
     scheduleReaction();

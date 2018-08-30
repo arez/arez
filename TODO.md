@@ -17,14 +17,11 @@ complete as there is too much un-said.
 ## Enhancements
 
 * Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
-  lower api layer. It would make it possible to control whether observers are invoked by scheduler and to
-  control the relationship between a dependency going stale and an observer being scheduled. This will
-  involve exposing methods `Observer.schedule()` and `Observer.reportStale()` so that users can explicitly
-  control capabilities. This way things like `minimumDelay`, `throttle` etc. all become user-space concerns.
+  lower api layer.
 
 * Implement something similar to `getDependencyTree` from mobx
 
-* Add support for `arezOnlyDependencies` and `supportsManualSchedule` into `@Autorun` and `@Track`.
+* Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
 
