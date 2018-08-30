@@ -192,7 +192,7 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_mode_but_checking_DIsabled()
+  public void construct_with_mode_but_checking_Disabled()
     throws Exception
   {
     ArezTestUtil.noEnforceTransactionType();
