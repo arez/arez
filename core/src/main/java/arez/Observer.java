@@ -60,7 +60,7 @@ public final class Observer
   /**
    * Flag indicating whether next scheduled invocation should invokeReaction {@link #_trackedExecutable} or {@link #_onDepsUpdated}.
    */
-  private boolean _trackScheduledNext;
+  private boolean _executeTrackedNext;
   /**
    * The transaction mode in which the observer executes.
    */
@@ -165,6 +165,7 @@ public final class Observer
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
     _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
+    _executeTrackedNext = null != _trackedExecutable;
     if ( null == _computedValue )
     {
       if ( null != _component )
@@ -539,7 +540,7 @@ public final class Observer
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule() returns false." );
     }
-    _trackScheduledNext = null != _trackedExecutable;
+    _executeTrackedNext = null != _trackedExecutable;
     scheduleReaction();
     getContext().triggerScheduler();
   }
@@ -595,13 +596,14 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( ObserverState.UP_TO_DATE != getState() )
         {
-          if ( null == _onDepsUpdated || _trackScheduledNext )
+          if ( _executeTrackedNext )
           {
-            _trackScheduledNext = false;
+            _executeTrackedNext = null == _onDepsUpdated;
             runTrackedExecutable();
           }
           else
           {
+            assert null != _onDepsUpdated;
             _onDepsUpdated.call();
           }
         }
@@ -907,5 +909,10 @@ public final class Observer
   Procedure getOnDepsUpdated()
   {
     return _onDepsUpdated;
+  }
+
+  boolean shouldExecuteTrackedNext()
+  {
+    return _executeTrackedNext;
   }
 }

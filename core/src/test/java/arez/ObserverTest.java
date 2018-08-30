@@ -50,6 +50,8 @@ public class ObserverTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.toString(), name );
 
+    assertEquals( observer.shouldExecuteTrackedNext(), true );
+
     // Starts out inactive and inactive means no dependencies
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.isActive(), false );
@@ -73,6 +75,31 @@ public class ObserverTest
   }
 
   @Test
+  public void initialState_externallyTracked()
+    throws Exception
+  {
+    final CountingProcedure onDepsUpdated = new CountingProcedure();
+    final Observer observer =
+      new Observer( Arez.context(),
+                    null,
+                    ValueUtil.randomString(),
+                    null,
+                    TransactionMode.READ_ONLY,
+                    null,
+                    onDepsUpdated,
+                    Priority.NORMAL,
+                    false,
+                    true,
+                    true );
+
+    assertEquals( observer.shouldExecuteTrackedNext(), false );
+
+    assertEquals( observer.getTrackedExecutable(), null );
+    assertEquals( observer.getOnDepsUpdated(), onDepsUpdated );
+    assertEquals( observer.isComputedValue(), false );
+  }
+
+  @Test
   public void initialStateForComputedValueObserver()
     throws Exception
   {
@@ -80,6 +107,7 @@ public class ObserverTest
     final Observer observer = computedValue.getObserver();
 
     assertEquals( observer.isComputedValue(), true );
+    assertEquals( observer.shouldExecuteTrackedNext(), true );
 
     assertEquals( computedValue.getObservableValue().getName(), observer.getName() );
     assertEquals( computedValue.getObservableValue().getOwner(), observer );
