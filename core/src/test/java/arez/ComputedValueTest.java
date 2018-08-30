@@ -663,7 +663,7 @@ public class ComputedValueTest
   public void getObservable_onDisposedObserver()
     throws Exception
   {
-    final ComputedValue<String> computedValue = newComputedValue();
+    final ComputedValue<String> computedValue = Arez.context().computed( () -> "" );
 
     computedValue.setDisposed( true );
 
