@@ -148,8 +148,8 @@ public class ComponentTest
 
     handler.assertEventCount( 1 );
 
-    final ComponentCreateCompletedEvent event = handler.assertNextEvent( ComponentCreateCompletedEvent.class );
-    assertEquals( event.getComponentInfo().getName(), component.getName() );
+    handler.assertNextEvent( ComponentCreateCompletedEvent.class,
+                             event -> assertEquals( event.getComponentInfo().getName(), component.getName() ) );
   }
 
   @Test
@@ -549,27 +549,16 @@ public class ComponentTest
     component.dispose();
 
     handler.assertEventCount( 6 );
-    {
-      final ComponentDisposeStartedEvent event = handler.assertNextEvent( ComponentDisposeStartedEvent.class );
-      assertEquals( event.getComponentInfo().getName(), component.getName() );
-    }
+    handler.assertNextEvent( ComponentDisposeStartedEvent.class,
+                             e -> assertEquals( e.getComponentInfo().getName(), component.getName() ) );
 
     final String actionName = component.getName() + ".dispose";
-    {
-      final ActionStartedEvent event = handler.assertNextEvent( ActionStartedEvent.class );
-      assertEquals( event.getName(), actionName );
-    }
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), actionName ) );
     handler.assertNextEvent( TransactionStartedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
-    {
-      final ActionCompletedEvent event = handler.assertNextEvent( ActionCompletedEvent.class );
-      assertEquals( event.getName(), actionName );
-    }
-
-    {
-      final ComponentDisposeCompletedEvent event = handler.assertNextEvent( ComponentDisposeCompletedEvent.class );
-      assertEquals( event.getComponentInfo().getName(), component.getName() );
-    }
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), actionName ) );
+    handler.assertNextEvent( ComponentDisposeCompletedEvent.class,
+                             e -> assertEquals( e.getComponentInfo().getName(), component.getName() ) );
   }
 
   @Test

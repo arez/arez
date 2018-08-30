@@ -1038,12 +1038,12 @@ public class ObserverTest
     assertEquals( observer.isDisposed(), true );
 
     handler.assertEventCount( 5 );
-    handler.assertEvent( ActionStartedEvent.class, 0 );
-    handler.assertEvent( TransactionStartedEvent.class, 1 );
-    handler.assertEvent( TransactionCompletedEvent.class, 2 );
-    handler.assertEvent( ActionCompletedEvent.class, 3 );
-    final ObserverDisposedEvent event = handler.assertEvent( ObserverDisposedEvent.class, 4 );
-    assertEquals( event.getObserver().getName(), observer.getName() );
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+    handler.assertNextEvent( ObserverDisposedEvent.class,
+                             event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
   }
 
   @Test
@@ -1318,22 +1318,18 @@ public class ObserverTest
 
     handler.assertEventCount( 6 );
 
-    {
-      final ComputeStartedEvent event = handler.assertEvent( ComputeStartedEvent.class, 0 );
-      assertEquals( event.getComputedValue().getName(), computedValue.getName() );
-    }
-    handler.assertEvent( TransactionStartedEvent.class, 1 );
-    {
-      final ObservableValueChangedEvent event = handler.assertEvent( ObservableValueChangedEvent.class, 2 );
-      assertEquals( event.getObservableValue().getName(), computedValue.getObservableValue().getName() );
-    }
-    handler.assertEvent( ComputedValueDeactivatedEvent.class, 3 );
-    handler.assertEvent( TransactionCompletedEvent.class, 4 );
-    {
-      final ComputeCompletedEvent event = handler.assertEvent( ComputeCompletedEvent.class, 5 );
+    handler.assertNextEvent( ComputeStartedEvent.class,
+                             e -> assertEquals( e.getComputedValue().getName(), computedValue.getName() ) );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class,
+                             e -> assertEquals( e.getObservableValue().getName(),
+                                                computedValue.getObservableValue().getName() ) );
+    handler.assertNextEvent( ComputedValueDeactivatedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ComputeCompletedEvent.class, event -> {
       assertEquals( event.getComputedValue().getName(), computedValue.getName() );
       assertTrue( event.getDuration() >= 0 );
-    }
+    } );
   }
 
   @Test

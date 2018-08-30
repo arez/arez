@@ -3,6 +3,7 @@ package arez;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import static org.testng.Assert.*;
 
 final class TestSpyEventHandler
@@ -20,35 +21,18 @@ final class TestSpyEventHandler
     _events.add( event );
   }
 
-  /**
-   * Assert Event at index is of specific type and return it.
-   */
-  @Nonnull
-  <T> T assertEvent( @Nonnull final Class<T> type, final int index )
-  {
-    assertTrue( eventCount() > index );
-    final Object event = _events.get( index );
-    assertTrue( type.isInstance( event ),
-                "Expected event at index " + index + " to be of type " + type + " but is " +
-                " of type " + event.getClass() + " with value " + event );
-    return type.cast( event );
-  }
-
   void assertEventCount( final int count )
   {
-    assertEquals( eventCount(), count, "Actual events: " + _events );
+    assertEquals( _events.size(), count, "Actual events: " + _events );
   }
 
   /**
    * Assert "next" Event is of specific type.
    * Increment the next counter.
    */
-  @Nonnull
-  <T> T assertNextEvent( @Nonnull final Class<T> type )
+  <T> void assertNextEvent( @Nonnull final Class<T> type )
   {
-    final T event = assertEvent( type, _currentAssertIndex );
-    _currentAssertIndex++;
-    return event;
+    assertEvent( type, null );
   }
 
   /**
@@ -57,13 +41,21 @@ final class TestSpyEventHandler
    */
   <T> void assertNextEvent( @Nonnull final Class<T> type, @Nonnull final Consumer<T> action )
   {
-    final T event = assertEvent( type, _currentAssertIndex );
-    _currentAssertIndex++;
-    action.accept( event );
+    assertEvent( type, action );
   }
 
-  private int eventCount()
+  private <T> void assertEvent( @Nonnull final Class<T> type, @Nullable final Consumer<T> action )
   {
-    return _events.size();
+    assertTrue( _events.size() > _currentAssertIndex );
+    final Object e = _events.get( _currentAssertIndex );
+    assertTrue( type.isInstance( e ),
+                "Expected event at index " + _currentAssertIndex + " to be of type " + type + " but is " +
+                " of type " + e.getClass() + " with value " + e );
+    _currentAssertIndex++;
+    final T event = type.cast( e );
+    if ( null != action )
+    {
+      action.accept( event );
+    }
   }
 }

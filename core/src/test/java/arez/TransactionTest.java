@@ -2439,10 +2439,11 @@ public class TransactionTest
     Transaction.begin( context, name, TransactionMode.READ_ONLY, null );
 
     handler.assertEventCount( 1 );
-    final TransactionStartedEvent event = handler.assertEvent( TransactionStartedEvent.class, 0 );
-    assertEquals( event.getName(), name );
-    assertEquals( event.isMutation(), false );
-    assertEquals( event.getTracker(), null );
+    handler.assertNextEvent( TransactionStartedEvent.class, event -> {
+      assertEquals( event.getName(), name );
+      assertEquals( event.isMutation(), false );
+      assertEquals( event.getTracker(), null );
+    } );
   }
 
   @Test
@@ -2688,11 +2689,12 @@ public class TransactionTest
     Transaction.commit( transaction );
 
     handler.assertEventCount( 1 );
-    final TransactionCompletedEvent event = handler.assertEvent( TransactionCompletedEvent.class, 0 );
-    assertEquals( event.getName(), name );
-    assertEquals( event.isMutation(), false );
-    assertEquals( event.getTracker(), null );
-    assertTrue( event.getDuration() >= 0 );
+    handler.assertNextEvent( TransactionCompletedEvent.class, event -> {
+      assertEquals( event.getName(), name );
+      assertEquals( event.isMutation(), false );
+      assertEquals( event.getTracker(), null );
+      assertTrue( event.getDuration() >= 0 );
+    } );
   }
 
   @Test
