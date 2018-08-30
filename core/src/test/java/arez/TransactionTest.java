@@ -173,7 +173,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final ObservableValue<?> observableValue1 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
     final ObservableValue<?> observableValue2 = derivation.getComputedValue().getObservableValue();
@@ -215,7 +215,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( transaction.getObservableValues(), null );
@@ -259,7 +259,7 @@ public class TransactionTest
     tracker.setState( ObserverState.STALE );
     assertEquals( tracker.getState(), ObserverState.STALE );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.STALE );
     tracker.getDependencies().add( observableValue );
     observableValue.addObserver( tracker );
@@ -281,7 +281,7 @@ public class TransactionTest
 
     transaction.beginTracking();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getObservers().size(), 0 );
@@ -312,7 +312,7 @@ public class TransactionTest
 
     transaction.beginTracking();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getObservers().size(), 0 );
@@ -362,7 +362,7 @@ public class TransactionTest
 
     transaction.beginTracking();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getObservers().size(), 0 );
@@ -394,7 +394,7 @@ public class TransactionTest
 
     transaction.beginTracking();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getObservers().size(), 0 );
@@ -511,11 +511,11 @@ public class TransactionTest
     tracker.setState( ObserverState.DISPOSED );
 
     // This dependency "retained" (until tracker disposed)
-    final ObservableValue<?> observableValue1 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
     // This dependency no longer observed
-    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue2 = context.observable();
     // This dependency newly observed (until tracker disposed)
-    final ObservableValue<?> observableValue3 = newObservable( context );
+    final ObservableValue<?> observableValue3 = context.observable();
 
     tracker.getDependencies().add( observableValue1 );
     tracker.getDependencies().add( observableValue2 );
@@ -558,7 +558,7 @@ public class TransactionTest
     observer2.setState( ObserverState.STALE );
 
     // Setup existing observableValue dependency
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     observer2.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer2 );
@@ -593,7 +593,7 @@ public class TransactionTest
     ensureDerivationHasObserver( tracker );
 
     // Setup existing observable dependency
-    final ObservableValue<?> observableValue1 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
     tracker.getDependencies().add( observableValue1 );
     observableValue1.getObservers().add( tracker );
 
@@ -622,7 +622,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     transaction.safeGetObservables().add( observableValue );
 
@@ -651,10 +651,10 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final ObservableValue<?> observableValue1 = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
-    final ObservableValue<?> observableValue3 = newObservable( context );
-    final ObservableValue<?> observableValue4 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
+    final ObservableValue<?> observableValue4 = context.observable();
 
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue2 );
@@ -689,7 +689,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     transaction.safeGetObservables().add( observableValue );
     transaction.safeGetObservables().add( observableValue );
@@ -721,8 +721,8 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final ObservableValue<?> observableValue1 = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
 
     /*
      * Forcing the order 1, 1, 2, 1 means that the sequence needs to be collapsed and 2 will be moved so 1, 2
@@ -759,8 +759,8 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final ObservableValue<?> observableValue1 = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
 
     tracker.getDependencies().add( observableValue1 );
     tracker.getDependencies().add( observableValue2 );
@@ -799,11 +799,11 @@ public class TransactionTest
     ensureDerivationHasObserver( tracker );
 
     // This dependency retained
-    final ObservableValue<?> observableValue1 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
     // This dependency no longer observed
-    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue2 = context.observable();
     // This dependency newly observed
-    final ObservableValue<?> observableValue3 = newObservable( context );
+    final ObservableValue<?> observableValue3 = context.observable();
 
     tracker.getDependencies().add( observableValue1 );
     tracker.getDependencies().add( observableValue2 );
@@ -1117,7 +1117,7 @@ public class TransactionTest
 
     tracker.setState( ObserverState.UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.queueForDeactivation( observableValue ) );
@@ -1254,7 +1254,7 @@ public class TransactionTest
     //Setup transaction as queueForDeactivation retrieves trnsaction from context
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue1 = newObservable( context );
+    final ObservableValue<?> observableValue1 = context.observable();
 
     final Observer derivation1 = newComputedValueObserver( context );
     derivation1.setState( ObserverState.UP_TO_DATE );
@@ -1312,7 +1312,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> baseObservableValue = newObservable( context );
+    final ObservableValue<?> baseObservableValue = context.observable();
     final Observer derivation = newComputedValueObserver( context );
     derivation.setState( ObserverState.UP_TO_DATE );
 
@@ -1371,7 +1371,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     //Should produce no error
     transaction.verifyWriteAllowed( observableValue );
@@ -1385,7 +1385,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.verifyWriteAllowed( observableValue ) );
@@ -1403,7 +1403,7 @@ public class TransactionTest
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     //Should produce no error
     transaction.verifyWriteAllowed( observableValue );
@@ -1419,7 +1419,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
 
     final ObservableValue<?> observableValue1 = tracker.getComputedValue().getObservableValue();
-    final ObservableValue<?> observableValue2 = newObservable( context );
+    final ObservableValue<?> observableValue2 = context.observable();
 
     tracker.getDependencies().add( observableValue2 );
     observableValue2.getObservers().add( tracker );
@@ -1445,7 +1445,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
     assertEquals( transaction.hasReadOrWriteOccurred(), false );
@@ -1465,7 +1465,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -1494,7 +1494,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -1527,7 +1527,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -1557,7 +1557,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -1588,7 +1588,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -1616,7 +1616,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer1 = newComputedValueObserver( context );
@@ -1841,7 +1841,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -2133,7 +2133,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
 
     final Observer observer = newComputedValueObserver( context );
@@ -2207,7 +2207,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
     Transaction.setTransaction( transaction );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     final Observer observer = newReadOnlyObserver( context );
 
@@ -2231,7 +2231,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     final Observer observer = newReadOnlyObserver( context );
 
     final Transaction transaction =
@@ -2250,7 +2250,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     final Observer observer = newReadOnlyObserver( context );
 
     final Transaction transaction =

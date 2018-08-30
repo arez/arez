@@ -402,7 +402,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -792,7 +792,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( true, callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -909,7 +909,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1110,7 +1110,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1284,7 +1284,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1405,7 +1405,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1455,7 +1455,7 @@ public class ArezContextTest
     assertThrowsWithMessage( context::getTransaction,
                              "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1538,7 +1538,7 @@ public class ArezContextTest
     assertThrowsWithMessage( context::getTransaction,
                              "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();

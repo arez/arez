@@ -327,7 +327,7 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observableValue );
 
@@ -349,9 +349,9 @@ public class SpyImplTest
     final Observer observer = newComputedValueObserver( context );
     final ComputedValue<?> computedValue = observer.getComputedValue();
 
-    final ObservableValue<?> observableValue = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
-    final ObservableValue<?> observableValue3 = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
 
     observableValue.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observableValue );
@@ -385,7 +385,7 @@ public class SpyImplTest
 
     assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservableValue() ),
                   true );
-    assertEquals( spy.isComputedValue( newObservable( context ) ), false );
+    assertEquals( spy.isComputedValue( context.observable() ), false );
   }
 
   @Test
@@ -411,7 +411,7 @@ public class SpyImplTest
 
     final SpyImpl spy = new SpyImpl( context );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( spy.getObservers( observableValue ).size(), 0 );
 
@@ -528,7 +528,7 @@ public class SpyImplTest
 
     assertEquals( spy.getDependencies( observer ).size(), 0 );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
@@ -549,9 +549,9 @@ public class SpyImplTest
 
     final Observer observer = newReadOnlyObserver( context );
 
-    final ObservableValue<?> observableValue = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
-    final ObservableValue<?> observableValue3 = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
 
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
