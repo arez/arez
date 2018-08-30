@@ -116,7 +116,7 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_no_tracked_and_no_onDepsUpdated_parameer()
+  public void construct_with_no_tracked_and_no_onDepsUpdated_parameter()
     throws Exception
   {
     final String name = ValueUtil.randomString();
