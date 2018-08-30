@@ -48,7 +48,7 @@ public class TransactionInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newComputedValueObserver( context );
+    final Observer observer = context.computed( () -> "" ).getObserver();
     final Transaction transaction =
       new Transaction( context, null, observer.getName(), observer.getMode(), observer );
     final TransactionInfo info = transaction.asInfo();

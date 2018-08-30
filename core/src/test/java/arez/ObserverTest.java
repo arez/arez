@@ -78,7 +78,7 @@ public class ObserverTest
   public void initialStateForComputedValueObserver()
     throws Exception
   {
-    final ComputedValue<String> computedValue = newComputedValue();
+    final ComputedValue<String> computedValue = Arez.context().computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     assertEquals( observer.isComputedValue(), true );
@@ -760,7 +760,7 @@ public class ObserverTest
   {
     setupReadWriteTransaction();
 
-    final ComputedValue<String> computedValue = newComputedValue();
+    final ComputedValue<String> computedValue = Arez.context().computed( () -> "" );
     final ObservableValue<String> derivedValue = computedValue.getObservableValue();
     final Observer observer = computedValue.getObserver();
 
