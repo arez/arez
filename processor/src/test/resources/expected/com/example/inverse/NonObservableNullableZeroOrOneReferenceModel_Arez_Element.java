@@ -158,8 +158,8 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
     final Integer id = this.getNonObservableNullableZeroOrOneReferenceModelId();
     if ( null != id ) {
       this.$$arezr$$_nonObservableNullableZeroOrOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.class, id );
-      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
       if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
       }
       ( (Arez_NonObservableNullableZeroOrOneReferenceModel) this.$$arezr$$_nonObservableNullableZeroOrOneReferenceModel ).$$arezir$$_element_zset( this );
     } else {

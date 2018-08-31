@@ -158,8 +158,8 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
     final Integer id = this.getNonObservableNullableOneReferenceModelId();
     if ( null != id ) {
       this.$$arezr$$_nonObservableNullableOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableOneReferenceModel.class, id );
-      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableOneReferenceModel, () -> "Reference named 'nonObservableNullableOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableOneReferenceModel and id = " + getNonObservableNullableOneReferenceModelId() );
       if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableOneReferenceModel, () -> "Reference named 'nonObservableNullableOneReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableOneReferenceModel and id = " + getNonObservableNullableOneReferenceModelId() );
       }
       ( (Arez_NonObservableNullableOneReferenceModel) this.$$arezr$$_nonObservableNullableOneReferenceModel ).$$arezir$$_element_set( this );
     } else {

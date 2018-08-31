@@ -158,8 +158,8 @@ final class NonObservableNullableManyReferenceModel_Arez_Element extends NonObse
     final Integer id = this.getNonObservableNullableManyReferenceModelId();
     if ( null != id ) {
       this.$$arezr$$_nonObservableNullableManyReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableManyReferenceModel.class, id );
-      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableManyReferenceModel, () -> "Reference named 'nonObservableNullableManyReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableManyReferenceModel and id = " + getNonObservableNullableManyReferenceModelId() );
       if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableManyReferenceModel, () -> "Reference named 'nonObservableNullableManyReferenceModel' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableManyReferenceModel and id = " + getNonObservableNullableManyReferenceModelId() );
       }
       ( (Arez_NonObservableNullableManyReferenceModel) this.$$arezr$$_nonObservableNullableManyReferenceModel ).$$arezir$$_elements_add( this );
     } else {
