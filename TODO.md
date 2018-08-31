@@ -142,6 +142,9 @@ complete as there is too much un-said.
   incremental = computed, observer = observer). They manually trigger scheduling (via stabilize call)
   and assume a DAG rather than a graph that will eventually stabilize.
 
+* http://www.umut-acar.org/self-adjusting-computation
+* https://blog.janestreet.com/introducing-incremental/
+
 * Interestingly it also supports persistent data structures from functional programming paradigms. This
   feels very similar to the `CachedRelationship` from Rose.
 
