@@ -90,6 +90,8 @@ complete as there is too much un-said.
 * Support `@Reference` and `@Dependency` on the same method? Alternatively we could assume that `@Reference`
   implies `@Dependency` and allow configuration of cascade action onto reference?
 
+* Add ArchUnit rules to codebase - https://github.com/TNG/ArchUnit
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
