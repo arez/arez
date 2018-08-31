@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
+[Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
 
 * **\[core\]** Add invariant check that stops an observer's transaction from executing within the scope of
   another transaction.
