@@ -364,28 +364,28 @@ public class ArezContextTest
                       () -> context.action( "A1", true, false, true, AbstractArezTest::observeADependency ) );
 
       assertEquals( exception1.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       final IllegalStateException exception2 =
         expectThrows( IllegalStateException.class,
                       () -> context.action( "A2", true, false, true, () -> 1 ) );
 
       assertEquals( exception2.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       final IllegalStateException exception3 =
         expectThrows( IllegalStateException.class,
                       () -> context.safeAction( "A3", true, false, true, AbstractArezTest::observeADependency ) );
 
       assertEquals( exception3.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       final IllegalStateException exception4 =
         expectThrows( IllegalStateException.class,
                       () -> context.safeAction( "A4", true, false, true, () -> 1 ) );
 
       assertEquals( exception4.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
     } );
   }
 

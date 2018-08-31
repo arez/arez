@@ -1718,7 +1718,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         result = executable.call();
@@ -1938,7 +1938,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         result = executable.call();
@@ -2165,7 +2165,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         executable.call();
@@ -2369,7 +2369,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         executable.call();
@@ -2416,7 +2416,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final TransactionMode mode )
+  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final Observer tracker )
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
@@ -2424,8 +2424,10 @@ public final class ArezContext
       if ( null != parentTransaction )
       {
         final Observer parent = parentTransaction.getTracker();
-        apiInvariant( () -> null == parent || parent.canNestActions() || TransactionMode.READ_WRITE_OWNED == mode,
-                      () -> "Arez-0187: Attempting to nest " + mode + " action named '" + name + "' " +
+        apiInvariant( () -> null == parent ||
+                            parent.canNestActions() ||
+                            ( null != tracker && tracker.isComputedValue() ),
+                      () -> "Arez-0187: Attempting to nest action named '" + name + "' " +
                             "inside transaction named '" + parentTransaction.getName() + "' created by an " +
                             "observer that does not allow nested actions." );
       }

@@ -55,6 +55,7 @@
   with the terminology in the component model and indicate intent.
 * **\[core\]** Rename the `executable` parameter on `ArezContext.autorun(...)` methods to `tracked` so that there
   is consistent terminology within the core api.
+* **\[core\]** Avoid emitting transaction mode in invariant failure messages when incorrect nesting of actions occur.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
