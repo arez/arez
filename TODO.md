@@ -20,7 +20,7 @@ complete as there is too much un-said.
   enumerable properties in development mode and thus are easy to decipher in browser? Step 1 could be
   moving all the config time properties to bit array (priority is the only one we use at runtime and we
   could put them on lower bits so a simple mask could get it out).
-   * Config time: `_mode`, `_priority`, `_canTrackExplicitly`, `_observeLowerPriorityDependencies`, `_canNestActions`
+   * Config time: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions`
    * Runtime:`_state`, `_scheduled`
 
 * Implement something similar to `getDependencyTree` from mobx
