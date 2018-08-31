@@ -95,7 +95,7 @@ public final class Observer
    */
   private final boolean _canNestActions;
   /**
-   * Flag set to true if the Observer allows nested actions.
+   * Flag set to true if the application code can invoke {@link Observer#reportStale()} to indicate non-arez dependency has changed.
    */
   private final boolean _arezOnlyDependencies;
   /**
