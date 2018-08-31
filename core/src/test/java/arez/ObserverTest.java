@@ -60,7 +60,7 @@ public class ObserverTest
 
     // Reaction attributes
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getTrackedExecutable(), trackedExecutable );
+    assertEquals( observer.getTracked(), trackedExecutable );
     assertEquals( observer.getOnDepsUpdated(), onDepsUpdated );
     assertEquals( observer.isScheduled(), false );
 
@@ -94,7 +94,7 @@ public class ObserverTest
 
     assertEquals( observer.shouldExecuteTrackedNext(), false );
 
-    assertEquals( observer.getTrackedExecutable(), null );
+    assertEquals( observer.getTracked(), null );
     assertEquals( observer.getOnDepsUpdated(), onDepsUpdated );
     assertEquals( observer.isComputedValue(), false );
   }
@@ -163,7 +163,7 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
-                  "the trackedExecutable parameter or the onDepsUpdated parameter." );
+                  "the tracked parameter or the onDepsUpdated parameter." );
   }
 
   @Test

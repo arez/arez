@@ -58,7 +58,7 @@ public final class Observer
    */
   private boolean _scheduled;
   /**
-   * Flag indicating whether next scheduled invocation should invokeReaction {@link #_trackedExecutable} or {@link #_onDepsUpdated}.
+   * Flag indicating whether next scheduled invocation should invokeReaction {@link #_tracked} or {@link #_onDepsUpdated}.
    */
   private boolean _executeTrackedNext;
   /**
@@ -73,11 +73,11 @@ public final class Observer
    * {@link #_onDepsUpdated} must not be null.
    */
   @Nullable
-  private final Procedure _trackedExecutable;
+  private final Procedure _tracked;
   /**
    * Callback invoked when dependencies are updated.
    * This may be null when the observer re-executes the tracked executable when dependencies change
-   * bu in that case {@link #_trackedExecutable} must not be null.
+   * bu in that case {@link #_tracked} must not be null.
    */
   @Nullable
   private final Procedure _onDepsUpdated;
@@ -110,7 +110,7 @@ public final class Observer
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nullable final TransactionMode mode,
-            @Nullable final Procedure trackedExecutable,
+            @Nullable final Procedure tracked,
             @Nullable final Procedure onDepsUpdated,
             @Nonnull final Priority priority,
             final boolean observeLowerPriorityDependencies,
@@ -151,21 +151,21 @@ public final class Observer
       invariant( () -> Priority.LOWEST != priority || !observeLowerPriorityDependencies,
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "observeLowerPriorityDependencies = true which should be false as no lower priority." );
-      invariant( () -> null != trackedExecutable || null != onDepsUpdated,
+      invariant( () -> null != tracked || null != onDepsUpdated,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
-                       "trackedExecutable parameter or the onDepsUpdated parameter." );
+                       "tracked parameter or the onDepsUpdated parameter." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
     _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
-    _trackedExecutable = trackedExecutable;
+    _tracked = tracked;
     _onDepsUpdated = onDepsUpdated;
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
     _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
-    _executeTrackedNext = null != _trackedExecutable;
+    _executeTrackedNext = null != _tracked;
     if ( null == _computedValue )
     {
       if ( null != _component )
@@ -192,17 +192,17 @@ public final class Observer
 
   /**
    * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
-   * This is true if both a {@link #_trackedExecutable} and {@link #_onDepsUpdated} parameters
+   * This is true if both a {@link #_tracked} and {@link #_onDepsUpdated} parameters
    * are provided at construction.
    */
   boolean supportsManualSchedule()
   {
-    return Arez.shouldCheckApiInvariants() && null != _trackedExecutable && null != _onDepsUpdated;
+    return Arez.shouldCheckApiInvariants() && null != _tracked && null != _onDepsUpdated;
   }
 
   boolean isTrackingExecutableExternal()
   {
-    return null == _trackedExecutable;
+    return null == _tracked;
   }
 
   boolean canNestActions()
@@ -540,7 +540,7 @@ public final class Observer
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule() returns false." );
     }
-    _executeTrackedNext = null != _trackedExecutable;
+    _executeTrackedNext = null != _tracked;
     scheduleReaction();
     getContext().triggerScheduler();
   }
@@ -630,12 +630,12 @@ public final class Observer
   private void runTrackedExecutable()
     throws Throwable
   {
-    assert null != _trackedExecutable;
+    assert null != _tracked;
     final Procedure action;
     if ( Arez.shouldCheckInvariants() && arezOnlyDependencies() )
     {
       action = () -> {
-        _trackedExecutable.call();
+        _tracked.call();
         final Transaction current = Transaction.current();
 
         final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
@@ -648,7 +648,7 @@ public final class Observer
     }
     else
     {
-      action = _trackedExecutable;
+      action = _tracked;
     }
     getContext().action( Arez.areNamesEnabled() ? getName() : null,
                          Arez.shouldEnforceTransactionType() ? getMode() : null,
@@ -900,9 +900,9 @@ public final class Observer
   }
 
   @Nullable
-  Procedure getTrackedExecutable()
+  Procedure getTracked()
   {
-    return _trackedExecutable;
+    return _tracked;
   }
 
   @Nullable

@@ -464,8 +464,8 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = newReadWriteObserver( context );
-    final CountingProcedure trackedExecutable = (CountingProcedure) observer.getTrackedExecutable();
-    assertNotNull( trackedExecutable );
+    final CountingProcedure tracked = (CountingProcedure) observer.getTracked();
+    assertNotNull( tracked );
 
     final CountingProcedure onDepsUpdated = (CountingProcedure) observer.getOnDepsUpdated();
     assertNull( onDepsUpdated );
@@ -473,7 +473,7 @@ public class ReactionSchedulerTest
     setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
-    //observer has reaction so setStale should result in reschedule
+    //observer has tracked so setStale should result in reschedule
     observer.setState( ObserverState.STALE );
 
     Transaction.setTransaction( null );
@@ -486,7 +486,7 @@ public class ReactionSchedulerTest
     final boolean ran = scheduler.runObserver();
 
     assertEquals( ran, true );
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( tracked.getCallCount(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 1 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
@@ -495,7 +495,7 @@ public class ReactionSchedulerTest
     final boolean ran2 = scheduler.runObserver();
 
     assertEquals( ran2, false );
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( tracked.getCallCount(), 1 );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
@@ -510,13 +510,13 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = newReadWriteObserver( context );
-    final CountingProcedure reaction = (CountingProcedure) observer.getTrackedExecutable();
-    assertNotNull( reaction );
+    final CountingProcedure tracked = (CountingProcedure) observer.getTracked();
+    assertNotNull( tracked );
 
     setCurrentTransaction( observer );
 
     observer.setState( ObserverState.UP_TO_DATE );
-    //observer has reaction so setStale should result in reschedule
+    //observer has tracked so setStale should result in reschedule
     observer.setState( ObserverState.STALE );
 
     assertEquals( observer.isScheduled(), true );
@@ -549,13 +549,13 @@ public class ReactionSchedulerTest
     final int round3Size = 1;
     final Observer[] observers = new Observer[ round1Size ];
     final ObservableValue<?>[] observableValues = new ObservableValue[ observers.length ];
-    final CountingProcedure[] reactions = new CountingProcedure[ observers.length ];
+    final CountingProcedure[] trackeds = new CountingProcedure[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
       final int currentIndex = i;
       if ( i != 0 && 0 == i % 2 )
       {
-        reactions[ i ] = new CountingProcedure()
+        trackeds[ i ] = new CountingProcedure()
         {
           @Override
           public void call()
@@ -571,7 +571,7 @@ public class ReactionSchedulerTest
       }
       else
       {
-        reactions[ i ] = new CountingProcedure();
+        trackeds[ i ] = new CountingProcedure();
       }
       observers[ i ] =
         new Observer( context,
@@ -579,7 +579,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       null,
                       TransactionMode.READ_WRITE,
-                      reactions[ i ],
+                      trackeds[ i ],
                       null,
                       Priority.NORMAL,
                       false,
@@ -591,7 +591,7 @@ public class ReactionSchedulerTest
       observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
-      //observer has reaction so setStale should result in reschedule
+      //observer has tracked so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );
       assertEquals( observers[ i ].isScheduled(), true );
     }
@@ -643,16 +643,16 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.isReactionsRunning(), false );
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
-    assertEquals( reactions[ 0 ].getCallCount(), 1 );
-    assertEquals( reactions[ 1 ].getCallCount(), 1 );
-    assertEquals( reactions[ 2 ].getCallCount(), 2 );
-    assertEquals( reactions[ 3 ].getCallCount(), 1 );
-    assertEquals( reactions[ 4 ].getCallCount(), 2 );
-    assertEquals( reactions[ 5 ].getCallCount(), 1 );
-    assertEquals( reactions[ 6 ].getCallCount(), 2 );
-    assertEquals( reactions[ 7 ].getCallCount(), 1 );
-    assertEquals( reactions[ 8 ].getCallCount(), 3 );
-    assertEquals( reactions[ 9 ].getCallCount(), 1 );
+    assertEquals( trackeds[ 0 ].getCallCount(), 1 );
+    assertEquals( trackeds[ 1 ].getCallCount(), 1 );
+    assertEquals( trackeds[ 2 ].getCallCount(), 2 );
+    assertEquals( trackeds[ 3 ].getCallCount(), 1 );
+    assertEquals( trackeds[ 4 ].getCallCount(), 2 );
+    assertEquals( trackeds[ 5 ].getCallCount(), 1 );
+    assertEquals( trackeds[ 6 ].getCallCount(), 2 );
+    assertEquals( trackeds[ 7 ].getCallCount(), 1 );
+    assertEquals( trackeds[ 8 ].getCallCount(), 3 );
+    assertEquals( trackeds[ 9 ].getCallCount(), 1 );
   }
 
   @Test( timeOut = 5000L )
@@ -792,13 +792,13 @@ public class ReactionSchedulerTest
 
     final Observer[] observers = new Observer[ 10 ];
     final ObservableValue[] observableValues = new ObservableValue[ observers.length ];
-    final CountingProcedure[] reactions = new CountingProcedure[ observers.length ];
+    final CountingProcedure[] trackeds = new CountingProcedure[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
       final int currentIndex = i;
       if ( i != 0 && 0 == i % 2 )
       {
-        reactions[ i ] = new CountingProcedure()
+        trackeds[ i ] = new CountingProcedure()
         {
           @Override
           public void call()
@@ -814,7 +814,7 @@ public class ReactionSchedulerTest
       }
       else
       {
-        reactions[ i ] = new CountingProcedure();
+        trackeds[ i ] = new CountingProcedure();
       }
       observers[ i ] =
         new Observer( Arez.context(),
@@ -822,7 +822,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       null,
                       TransactionMode.READ_WRITE,
-                      reactions[ i ],
+                      trackeds[ i ],
                       null,
                       Priority.NORMAL,
                       false,
@@ -834,7 +834,7 @@ public class ReactionSchedulerTest
       observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
-      //observer has reaction so setStale should result in reschedule
+      //observer has tracked so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );
     }
 
@@ -868,13 +868,13 @@ public class ReactionSchedulerTest
 
     final Observer[] observers = new Observer[ 10 ];
     final ObservableValue[] observableValues = new ObservableValue[ observers.length ];
-    final CountingProcedure[] reactions = new CountingProcedure[ observers.length ];
+    final CountingProcedure[] trackeds = new CountingProcedure[ observers.length ];
     for ( int i = 0; i < observers.length; i++ )
     {
       final int currentIndex = i;
       if ( i != 0 && 0 == i % 2 )
       {
-        reactions[ i ] = new CountingProcedure()
+        trackeds[ i ] = new CountingProcedure()
         {
           @Override
           public void call()
@@ -890,7 +890,7 @@ public class ReactionSchedulerTest
       }
       else
       {
-        reactions[ i ] = new CountingProcedure();
+        trackeds[ i ] = new CountingProcedure();
       }
       observers[ i ] =
         new Observer( context,
@@ -898,7 +898,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       null,
                       TransactionMode.READ_WRITE,
-                      reactions[ i ],
+                      trackeds[ i ],
                       null,
                       Priority.NORMAL,
                       false,
@@ -910,7 +910,7 @@ public class ReactionSchedulerTest
       observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
-      //observer has reaction so setStale should result in reschedule
+      //observer has tracked so setStale should result in reschedule
       observers[ i ].setState( ObserverState.STALE );
     }
 

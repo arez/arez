@@ -53,6 +53,8 @@
   be added as an observer to an observable.
 * **\[core\]** Rename the `executable` parameter on `ArezContext.tracker(...)` methods to `onDepsUpdated` to align
   with the terminology in the component model and indicate intent.
+* **\[core\]** Rename the `executable` parameter on `ArezContext.autorun(...)` methods to `tracked` so that there
+  is consistent terminology within the core api.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)
