@@ -32,6 +32,8 @@
   whether there was other higher priority reactions pending while the component API would schedule the reaction
   and process the reactions using the normal scheduling priority ordering. The low-level API has been updated
   to match the component API and will schedule the reaction using the standard mechanisms.
+* **\[core\]** Add the `@CascadeDispose` annotation that can be applied to fields and will result in the
+  value being disposed when the component is disposed.
 * **\[core\]** Add `ObserverInfo.isActive()` method so that the spy subsystem can inspect whether an observer
   is active.
 * **\[core\]** Improve invariant checking `Observer.setState(...)` so that any attempt to change from `DISPSOED`
