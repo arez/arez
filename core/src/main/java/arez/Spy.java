@@ -286,7 +286,7 @@ public interface Spy
    * Return true if the specified ObservableValue has an accessor.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
-   * @param <T>        The type of the value that is observableValue.
+   * @param <T>             The type of the value that is observableValue.
    * @param observableValue the ObservableValue.
    * @return true if an accessor is available.
    */
@@ -297,7 +297,7 @@ public interface Spy
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
    * and {@link #hasAccessor(ObservableValue)} for the same element returns true.
    *
-   * @param <T>        The type of the value that is observableValue.
+   * @param <T>             The type of the value that is observableValue.
    * @param observableValue the ObservableValue.
    * @return the value of the observableValue.
    * @throws Throwable if the property accessor throws an exception.
@@ -310,7 +310,7 @@ public interface Spy
    * Return true if the specified ObservableValue has a mutator.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
-   * @param <T>        The type of the value that is observableValue.
+   * @param <T>             The type of the value that is observableValue.
    * @param observableValue the ObservableValue.
    * @return true if a mutator is available.
    */
@@ -321,9 +321,9 @@ public interface Spy
    * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
    * and {@link #hasMutator(ObservableValue)} for the same element returns true.
    *
-   * @param <T>        The type of the value that is observableValue.
+   * @param <T>             The type of the value that is observableValue.
    * @param observableValue the ObservableValue.
-   * @param value      the value to set
+   * @param value           the value to set
    * @throws Throwable if the property accessor throws an exception.
    */
   <T> void setValue( @Nonnull ObservableValue<T> observableValue, @Nullable T value )
@@ -363,7 +363,7 @@ public interface Spy
   /**
    * Convert the specified observableValue into an ObservableValueInfo.
    *
-   * @param <T>        The type of the value that is observableValue.
+   * @param <T>             The type of the value that is observableValue.
    * @param observableValue the ObservableValue.
    * @return the ObservableValueInfo wrapping observableValue.
    */

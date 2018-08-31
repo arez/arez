@@ -33,7 +33,7 @@ public class NodeTest
   public void basicOperation()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
 
     final TestNode node = new TestNode( context, name );
@@ -48,7 +48,7 @@ public class NodeTest
   {
     ArezTestUtil.disableNames();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final TestNode node = new TestNode( context, null );
     assertEquals( node.getContext(), context );
@@ -64,7 +64,7 @@ public class NodeTest
   {
     ArezTestUtil.disableNames();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
@@ -80,7 +80,7 @@ public class NodeTest
   {
     ArezTestUtil.disableZones();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> new TestNode( context, ValueUtil.randomString() ) );

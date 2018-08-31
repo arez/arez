@@ -21,7 +21,7 @@ public class MultipleReferenceWithInverseWithSameTarget
     RoleTypeGeneralisation( final int parentId, final int childId )
     {
       _parentId = parentId;
-      _childId = childId ;
+      _childId = childId;
     }
 
     @Reference( load = LinkType.EXPLICIT, inverseName = "childGeneralisations", inverseMultiplicity = Multiplicity.MANY )

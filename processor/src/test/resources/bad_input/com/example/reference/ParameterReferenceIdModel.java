@@ -11,7 +11,7 @@ abstract class ParameterReferenceIdModel
   abstract MyEntity getMyEntity();
 
   @ReferenceId
-  int getMyEntityId(int i)
+  int getMyEntityId( int i )
   {
     return 0;
   }

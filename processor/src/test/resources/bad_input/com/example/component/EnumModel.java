@@ -7,7 +7,6 @@ import arez.annotations.Observable;
 public enum EnumModel
 {
   A, B;
-
   private long _field;
 
   @Observable

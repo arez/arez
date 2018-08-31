@@ -13,6 +13,6 @@ public abstract class NonStandardNameModel
     return 0;
   }
 
-  @ComputedValueRef(name = "time")
+  @ComputedValueRef( name = "time" )
   abstract arez.ComputedValue timeComputedValue();
 }

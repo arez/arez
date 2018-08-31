@@ -232,11 +232,11 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     setCurrentTransaction( computedValue.getObserver() );
 
-    final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -268,11 +268,12 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+
     setCurrentTransaction( computedValue.getObserver() );
 
-    final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -306,11 +307,12 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+
     setCurrentTransaction( computedValue.getObserver() );
 
-    final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -342,11 +344,12 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
 
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+
     setCurrentTransaction( computedValue.getObserver() );
 
-    final Observer observer = newReadOnlyObserver( context );
     observer.setState( ObserverState.POSSIBLY_STALE );
-    computedValue.getObserver().getComputedValue().getObservableValue().addObserver( observer );
+    computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
     computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
@@ -404,8 +407,8 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -426,8 +429,8 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
     observer.setState( ObserverState.UP_TO_DATE );
@@ -663,7 +666,7 @@ public class ComputedValueTest
   public void getObservable_onDisposedObserver()
     throws Exception
   {
-    final ComputedValue<String> computedValue = newComputedValue();
+    final ComputedValue<String> computedValue = Arez.context().computed( () -> "" );
 
     computedValue.setDisposed( true );
 

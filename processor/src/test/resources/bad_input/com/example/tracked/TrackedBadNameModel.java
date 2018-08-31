@@ -7,7 +7,7 @@ import arez.annotations.Track;
 @ArezComponent
 public abstract class TrackedBadNameModel
 {
-  @Track(name = "-ace")
+  @Track( name = "-ace" )
   static void render()
   {
   }

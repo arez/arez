@@ -8,5 +8,5 @@ import arez.annotations.ComponentRef;
 abstract class ParametersModel
 {
   @ComponentRef
-  abstract Component getComponent(int i);
+  abstract Component getComponent( int i );
 }

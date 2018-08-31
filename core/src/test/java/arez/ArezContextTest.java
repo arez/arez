@@ -364,28 +364,28 @@ public class ArezContextTest
                       () -> context.action( "A1", true, false, true, AbstractArezTest::observeADependency ) );
 
       assertEquals( exception1.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       final IllegalStateException exception2 =
         expectThrows( IllegalStateException.class,
                       () -> context.action( "A2", true, false, true, () -> 1 ) );
 
       assertEquals( exception2.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       final IllegalStateException exception3 =
         expectThrows( IllegalStateException.class,
                       () -> context.safeAction( "A3", true, false, true, AbstractArezTest::observeADependency ) );
 
       assertEquals( exception3.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       final IllegalStateException exception4 =
         expectThrows( IllegalStateException.class,
                       () -> context.safeAction( "A4", true, false, true, () -> 1 ) );
 
       assertEquals( exception4.getMessage(),
-                    "Arez-0187: Attempting to nest READ_WRITE action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
+                    "Arez-0187: Attempting to nest action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
     } );
   }
 
@@ -402,7 +402,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -448,8 +448,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -457,21 +456,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), null );
       assertEquals( e.returnsResult(), true );
@@ -482,7 +478,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -517,8 +513,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -526,21 +521,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), ioException );
       assertEquals( e.returnsResult(), true );
@@ -551,7 +543,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -763,31 +755,27 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
       assertEquals( parameters.length, 0 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.isMutation(), true );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.isMutation(), true );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getThrowable(), null );
       assertEquals( e.returnsResult(), true );
       assertEquals( e.getResult(), v0 );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
       assertEquals( parameters.length, 0 );
-    }
+    } );
   }
 
   @Test
@@ -804,7 +792,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( true, callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -858,31 +846,27 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.isTracked(), true );
       final Object[] parameters = e.getParameters();
       assertEquals( parameters.length, 3 );
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.isMutation(), true );
       final ObserverInfo info = e.getTracker();
       assertNotNull( info );
       assertEquals( info.getName(), tracker.getName() );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.isMutation(), true );
       final ObserverInfo info = e.getTracker();
       assertNotNull( info );
       assertEquals( info.getName(), tracker.getName() );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getThrowable(), null );
       assertEquals( e.returnsResult(), true );
       assertEquals( e.getResult(), v0 );
@@ -892,7 +876,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -903,7 +887,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertThrowsWithMessage( () -> context.track( observer, callCount::incrementAndGet ),
                              "Arez-0017: Attempted to track Observer named '" + observer.getName() +
@@ -925,7 +909,7 @@ public class ArezContextTest
 
     final String expectedValue = ValueUtil.randomString();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -971,8 +955,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -980,21 +963,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), null );
       assertEquals( e.returnsResult(), true );
@@ -1005,7 +985,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -1041,8 +1021,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -1050,21 +1029,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), secException );
       assertEquals( e.returnsResult(), true );
@@ -1075,7 +1051,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -1134,7 +1110,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1187,7 +1163,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertThrowsWithMessage( () -> context.safeTrack( observer, callCount::incrementAndGet ),
                              "Arez-0018: Attempted to track Observer named '" + observer.getName() +
@@ -1263,8 +1239,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -1272,21 +1247,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), secException );
       assertEquals( e.returnsResult(), false );
@@ -1297,7 +1269,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -1312,7 +1284,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1360,7 +1332,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     final SafeProcedure procedure = callCount::incrementAndGet;
     assertThrowsWithMessage( () -> context.safeTrack( observer, procedure ),
@@ -1411,7 +1383,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = newObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     final Procedure procedure = callCount::incrementAndGet;
     assertThrowsWithMessage( () -> context.track( observer, procedure ),
@@ -1433,7 +1405,7 @@ public class ArezContextTest
 
     final Observer tracker = context.tracker( callCount::incrementAndGet );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1483,7 +1455,7 @@ public class ArezContextTest
     assertThrowsWithMessage( context::getTransaction,
                              "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1523,8 +1495,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -1532,21 +1503,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), null );
       assertEquals( e.returnsResult(), false );
@@ -1557,7 +1525,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -1570,7 +1538,7 @@ public class ArezContextTest
     assertThrowsWithMessage( context::getTransaction,
                              "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
 
     final int nextNodeId = context.currentNextTransactionId();
@@ -1613,8 +1581,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -1622,21 +1589,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), null );
       assertEquals( e.returnsResult(), false );
@@ -1647,7 +1611,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -1683,8 +1647,7 @@ public class ArezContextTest
 
     handler.assertEventCount( 4 );
 
-    {
-      final ActionStartedEvent e = handler.assertEvent( ActionStartedEvent.class, 0 );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isTracked(), false );
       final Object[] parameters = e.getParameters();
@@ -1692,21 +1655,18 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
-    {
-      final TransactionStartedEvent e = handler.assertEvent( TransactionStartedEvent.class, 1 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final TransactionCompletedEvent e = handler.assertEvent( TransactionCompletedEvent.class, 2 );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.isMutation(), mutation );
       assertEquals( e.getTracker(), null );
-    }
-    {
-      final ActionCompletedEvent e = handler.assertEvent( ActionCompletedEvent.class, 3 );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
       assertEquals( e.getName(), name );
       assertEquals( e.getThrowable(), ioException );
       assertEquals( e.returnsResult(), false );
@@ -1717,7 +1677,7 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
-    }
+    } );
   }
 
   @Test
@@ -1782,7 +1742,9 @@ public class ArezContextTest
   public void observerErrorHandler()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
+    // Clear out handler added as part of test infrastructure
+    context.getObserverErrorHandlerSupport().getObserverErrorHandlers().clear();
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
@@ -1822,7 +1784,9 @@ public class ArezContextTest
   public void reportObserverError_when_spyEventHandler_present()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
+    // Clear out handler added as part of test infrastructure
+    context.getObserverErrorHandlerSupport().getObserverErrorHandlers().clear();
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
@@ -1837,11 +1801,11 @@ public class ArezContextTest
 
     handler.assertEventCount( 1 );
 
-    final ObserverErrorEvent event = handler.assertEvent( ObserverErrorEvent.class, 0 );
-
-    assertEquals( event.getObserver().getName(), observer.getName() );
-    assertEquals( event.getError(), observerError );
-    assertEquals( event.getThrowable(), throwable );
+    handler.assertNextEvent( ObserverErrorEvent.class, event -> {
+      assertEquals( event.getObserver().getName(), observer.getName() );
+      assertEquals( event.getError(), observerError );
+      assertEquals( event.getThrowable(), throwable );
+    } );
   }
 
   @Test
@@ -1889,7 +1853,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1905,7 +1869,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1920,7 +1884,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer derivation = newComputedValueObserver();
+    final Observer derivation = context.computed( () -> "" ).getObserver();
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1938,7 +1902,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1949,8 +1913,8 @@ public class ArezContextTest
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
     handler.assertEventCount( 1 );
-    final ReactionScheduledEvent event = handler.assertEvent( ReactionScheduledEvent.class, 0 );
-    assertEquals( event.getObserver().getName(), observer.getName() );
+    handler.assertNextEvent( ReactionScheduledEvent.class,
+                             event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
   }
 
   @Test
@@ -1981,7 +1945,7 @@ public class ArezContextTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.isKeepAlive(), false );
-    assertEquals( computedValue.arezOnlyDependencies(), true );
+    assertEquals( computedValue.getObserver().arezOnlyDependencies(), true );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -2047,7 +2011,7 @@ public class ArezContextTest
                                true,
                                false );
 
-    assertEquals( computedValue.arezOnlyDependencies(), false );
+    assertEquals( computedValue.getObserver().arezOnlyDependencies(), false );
   }
 
   @Test
@@ -2181,8 +2145,8 @@ public class ArezContextTest
 
     handler.assertEventCount( 1 );
 
-    final ComputedValueCreatedEvent event = handler.assertEvent( ComputedValueCreatedEvent.class, 0 );
-    assertEquals( event.getComputedValue().getName(), computedValue.getName() );
+    handler.assertNextEvent( ComputedValueCreatedEvent.class,
+                             event -> assertEquals( event.getComputedValue().getName(), computedValue.getName() ) );
   }
 
   @Test
@@ -2259,6 +2223,22 @@ public class ArezContextTest
   }
 
   @Test
+  public void autorun_noObservers_nonArezDependencies()
+    throws Exception
+  {
+    setIgnoreObserverErrors( true );
+
+    final ArezContext context = Arez.context();
+    final AtomicInteger callCount = new AtomicInteger();
+    context.autorun( null, null, false, callCount::incrementAndGet, Priority.NORMAL, true, false, true, false, null );
+
+    assertEquals( callCount.get(), 1 );
+
+    // No observer errors even though the executable accesses no arez dependencies
+    assertEquals( getObserverErrors().size(), 0 );
+  }
+
+  @Test
   public void autorun_minimumParameters()
     throws Exception
   {
@@ -2321,6 +2301,7 @@ public class ArezContextTest
     assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2350,8 +2331,8 @@ public class ArezContextTest
 
     handler.assertEventCount( 8 );
 
-    assertEquals( handler.assertNextEvent( ObserverCreatedEvent.class ).getObserver().getName(), name );
-    assertEquals( handler.assertNextEvent( ReactionScheduledEvent.class ).getObserver().getName(), name );
+    handler.assertNextEvent( ObserverCreatedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
+    handler.assertNextEvent( ReactionScheduledEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
     assertObserverReaction( handler, name );
   }
 
@@ -2390,12 +2371,12 @@ public class ArezContextTest
 
   private void assertObserverReaction( @Nonnull final TestSpyEventHandler handler, @Nonnull final String name )
   {
-    assertEquals( handler.assertNextEvent( ReactionStartedEvent.class ).getObserver().getName(), name );
-    assertEquals( handler.assertNextEvent( ActionStartedEvent.class ).getName(), name );
-    assertEquals( handler.assertNextEvent( TransactionStartedEvent.class ).getName(), name );
-    assertEquals( handler.assertNextEvent( TransactionCompletedEvent.class ).getName(), name );
-    assertEquals( handler.assertNextEvent( ActionCompletedEvent.class ).getName(), name );
-    assertEquals( handler.assertNextEvent( ReactionCompletedEvent.class ).getObserver().getName(), name );
+    handler.assertNextEvent( ReactionStartedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
+    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( ReactionCompletedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
   }
 
   @Test
@@ -2403,8 +2384,8 @@ public class ArezContextTest
     throws Exception
   {
     final Observer observer =
-      Arez.context()
-        .autorun( null, ValueUtil.randomString(), true, AbstractArezTest::observeADependency, Priority.HIGH, false );
+      Arez.context().
+        autorun( null, ValueUtil.randomString(), true, AbstractArezTest::observeADependency, Priority.HIGH, false );
 
     assertEquals( observer.getPriority(), Priority.HIGH );
   }
@@ -2441,6 +2422,46 @@ public class ArezContextTest
                               canNestActions );
 
     assertEquals( observer.canNestActions(), canNestActions );
+  }
+
+  @Test
+  public void autorun_arezOnlyDependencies()
+    throws Exception
+  {
+    final boolean arezOnlyDependencies = false;
+    final Observer observer =
+      Arez.context().autorun( null,
+                              ValueUtil.randomString(),
+                              ValueUtil.randomBoolean(),
+                              AbstractArezTest::observeADependency,
+                              Priority.NORMAL,
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              arezOnlyDependencies,
+                              null );
+
+    assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
+  }
+
+  @Test
+  public void autorun_supportsManualSchedule()
+    throws Exception
+  {
+    final Observer observer =
+      Arez.context().autorun( null,
+                              ValueUtil.randomString(),
+                              ValueUtil.randomBoolean(),
+                              AbstractArezTest::observeADependency,
+                              ValueUtil::randomString,
+                              Priority.NORMAL,
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              ValueUtil.randomBoolean(),
+                              null );
+
+    assertEquals( observer.supportsManualSchedule(), true );
   }
 
   @Test
@@ -2494,9 +2515,10 @@ public class ArezContextTest
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
     handler.assertEventCount( 2 );
-
-    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), observer.getName() );
-    assertEquals( handler.assertEvent( ReactionScheduledEvent.class, 1 ).getObserver().getName(), observer.getName() );
+    handler.assertNextEvent( ObserverCreatedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ReactionScheduledEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
   @Test
@@ -2510,19 +2532,34 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.tracker( null, name, false, callCount::incrementAndGet, Priority.HIGH );
+    final boolean observeLowerPriorityDependencies = true;
+    final boolean canNestActions = true;
+    final boolean arezOnlyDependencies = false;
+    final Observer observer = context.tracker( null,
+                                               name,
+                                               false,
+                                               callCount::incrementAndGet,
+                                               Priority.HIGH,
+                                               observeLowerPriorityDependencies,
+                                               canNestActions,
+                                               arezOnlyDependencies );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
+    assertEquals( observer.canObserveLowerPriorityDependencies(), observeLowerPriorityDependencies );
+    assertEquals( observer.canNestActions(), canNestActions );
+    assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
+    assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
     handler.assertEventCount( 1 );
 
-    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), observer.getName() );
+    handler.assertNextEvent( ObserverCreatedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
   @Test
@@ -2560,12 +2597,17 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@" + nextNodeId );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observer.canObserveLowerPriorityDependencies(), false );
+    assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.arezOnlyDependencies(), true );
+    assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
     handler.assertEventCount( 1 );
 
-    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), observer.getName() );
+    handler.assertNextEvent( ObserverCreatedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
   @Test
@@ -2581,15 +2623,17 @@ public class ArezContextTest
       context.observer( null,
                         ValueUtil.randomString(),
                         true,
-                        new TestReaction(),
+                        new CountingProcedure(),
+                        new CountingProcedure(),
                         Priority.NORMAL,
                         false,
                         false,
-                        false );
+                        true );
 
     handler.assertEventCount( 1 );
 
-    assertEquals( handler.assertEvent( ObserverCreatedEvent.class, 0 ).getObserver().getName(), observer.getName() );
+    handler.assertNextEvent( ObserverCreatedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
   @Test
@@ -2602,13 +2646,14 @@ public class ArezContextTest
       context.observer( null,
                         ValueUtil.randomString(),
                         false,
-                        new TestReaction(),
+                        null,
+                        new CountingProcedure(),
                         Priority.NORMAL,
-                        true,
                         false,
-                        false );
+                        false,
+                        true );
 
-    assertEquals( observer.canTrackExplicitly(), true );
+    assertEquals( observer.isTrackingExecutableExternal(), true );
   }
 
   @Test
@@ -2618,7 +2663,15 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.observer( null, ValueUtil.randomString(), false, new TestReaction(), Priority.NORMAL, true, true, false );
+      context.observer( null,
+                        ValueUtil.randomString(),
+                        false,
+                        new CountingProcedure(),
+                        null,
+                        Priority.NORMAL,
+                        true,
+                        false,
+                        true );
 
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }
@@ -2700,8 +2753,8 @@ public class ArezContextTest
 
     assertEquals( observableValue.getName(), name );
     handler.assertEventCount( 1 );
-    final ObservableValueCreatedEvent event = handler.assertEvent( ObservableValueCreatedEvent.class, 0 );
-    assertEquals( event.getObservableValue().getName(), observableValue.getName() );
+    handler.assertNextEvent( ObservableValueCreatedEvent.class,
+                             e -> assertEquals( e.getObservableValue().getName(), observableValue.getName() ) );
   }
 
   @Test
@@ -2851,8 +2904,8 @@ public class ArezContextTest
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     handler.assertEventCount( 1 );
-    final ComponentCreateStartedEvent event = handler.assertEvent( ComponentCreateStartedEvent.class, 0 );
-    assertEquals( event.getComponentInfo().getName(), component.getName() );
+    handler.assertNextEvent( ComponentCreateStartedEvent.class,
+                             event -> assertEquals( event.getComponentInfo().getName(), component.getName() ) );
   }
 
   @Test
@@ -3242,7 +3295,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = newReadOnlyObserver();
+    final Observer observer = Arez.context().autorun( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 

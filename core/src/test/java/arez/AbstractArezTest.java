@@ -85,102 +85,10 @@ public abstract class AbstractArezTest
     getField( object.getClass(), fieldName ).set( object, value );
   }
 
-  /**
-   * Typically called to stop observer from being deactivate or stop invariant checks failing.
-   */
-  @SuppressWarnings( "UnusedReturnValue" )
-  @Nonnull
-  final Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
-  {
-    final Observer randomObserver = newReadOnlyObserver( observer.getContext() );
-    randomObserver.setState( ObserverState.UP_TO_DATE );
-    observer.getComputedValue().getObservableValue().addObserver( randomObserver );
-    randomObserver.getDependencies().add( observer.getComputedValue().getObservableValue() );
-    return randomObserver;
-  }
-
-  @Nonnull
-  final Observer newReadWriteObserver()
-  {
-    return newReadWriteObserver( Arez.context() );
-  }
-
   @Nonnull
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
-    return new Observer( context,
-                         null,
-                         ValueUtil.randomString(),
-                         null,
-                         TransactionMode.READ_WRITE,
-                         new TestReaction(),
-                         Priority.NORMAL,
-                         false,
-                         false,
-                         true );
-  }
-
-  @Nonnull
-  final Observer newComputedValueObserver()
-  {
-    return newComputedValueObserver( Arez.context() );
-  }
-
-  @Nonnull
-  final Observer newComputedValueObserver( @Nonnull final ArezContext context )
-  {
-    return newComputedValue( context ).getObserver();
-  }
-
-  @Nonnull
-  final ComputedValue<String> newComputedValue()
-  {
-    return newComputedValue( Arez.context() );
-  }
-
-  @Nonnull
-  private ComputedValue<String> newComputedValue( @Nonnull final ArezContext context )
-  {
-    return new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
-  }
-
-  @Nonnull
-  final Observer newObserver( @Nonnull final ArezContext context )
-  {
-    return newReadOnlyObserver( context );
-  }
-
-  @Nonnull
-  final Observer newReadOnlyObserver()
-  {
-    return newReadOnlyObserver( Arez.context() );
-  }
-
-  @Nonnull
-  final Observer newReadOnlyObserver( @Nonnull final ArezContext context )
-  {
-    return new Observer( context,
-                         null,
-                         ValueUtil.randomString(),
-                         null,
-                         TransactionMode.READ_ONLY,
-                         new TestReaction(),
-                         Priority.NORMAL,
-                         false,
-                         false,
-                         true );
-  }
-
-  @Nonnull
-  final ObservableValue<?> newObservable()
-  {
-    return newObservable( Arez.context() );
-  }
-
-  @Nonnull
-  final ObservableValue<?> newObservable( final ArezContext context )
-  {
-    return new ObservableValue<>( context, null, ValueUtil.randomString(), null, null, null );
+    return context.autorun( true, new CountAndObserveProcedure() );
   }
 
   final void setupReadOnlyTransaction()
@@ -190,7 +98,8 @@ public abstract class AbstractArezTest
 
   final void setupReadOnlyTransaction( @Nonnull final ArezContext context )
   {
-    setCurrentTransaction( newReadOnlyObserver( context ) );
+    Transaction.setTransaction( null );
+    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
   }
 
   final void setupReadWriteTransaction()
@@ -200,11 +109,13 @@ public abstract class AbstractArezTest
 
   private void setupReadWriteTransaction( @Nonnull final ArezContext context )
   {
+    Transaction.setTransaction( null );
     setCurrentTransaction( newReadWriteObserver( context ) );
   }
 
   final void setCurrentTransaction( @Nonnull final Observer observer )
   {
+    Transaction.setTransaction( null );
     final ArezContext context = observer.getContext();
     Transaction.setTransaction( new Transaction( context,
                                                  null,
@@ -240,7 +151,7 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  protected final ArrayList<String> getObserverErrors()
+  final ArrayList<String> getObserverErrors()
   {
     return _observerErrors;
   }

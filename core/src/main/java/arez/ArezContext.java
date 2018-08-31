@@ -646,55 +646,55 @@ public final class ArezContext
   /**
    * Create a read-only autorun observer and run immediately.
    *
-   * @param executable the executable defining the observer.
+   * @param tracked the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nonnull final Procedure executable )
+  public Observer autorun( @Nonnull final Procedure tracked )
   {
-    return autorun( null, executable );
+    return autorun( null, tracked );
   }
 
   /**
    * Create a read-only autorun observer and run immediately.
    *
-   * @param name       the name of the observer.
-   * @param executable the executable defining the observer.
+   * @param name    the name of the observer.
+   * @param tracked the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final String name, @Nonnull final Procedure executable )
+  public Observer autorun( @Nullable final String name, @Nonnull final Procedure tracked )
   {
-    return autorun( name, false, executable );
+    return autorun( name, false, tracked );
   }
 
   /**
    * Create an autorun observer and run immediately.
    *
-   * @param mutation   true if the executable may modify state, false otherwise.
-   * @param executable the executable defining the observer.
+   * @param mutation true if the executable may modify state, false otherwise.
+   * @param tracked  the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( final boolean mutation, @Nonnull final Procedure executable )
+  public Observer autorun( final boolean mutation, @Nonnull final Procedure tracked )
   {
-    return autorun( null, mutation, executable );
+    return autorun( null, mutation, tracked );
   }
 
   /**
    * Create an autorun observer and run immediately.
    *
-   * @param name       the name of the observer.
-   * @param mutation   true if the executable may modify state, false otherwise.
-   * @param executable the executable defining the observer.
+   * @param name     the name of the observer.
+   * @param mutation true if the executable may modify state, false otherwise.
+   * @param tracked  the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable )
+                           @Nonnull final Procedure tracked )
   {
-    return autorun( name, mutation, executable, true );
+    return autorun( name, mutation, tracked, true );
   }
 
   /**
@@ -702,17 +702,17 @@ public final class ArezContext
    *
    * @param name           the name of the observer.
    * @param mutation       true if the executable may modify state, false otherwise.
-   * @param executable     the executable defining the observer.
+   * @param tracked        the executable tracked by the observer.
    * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure tracked,
                            final boolean runImmediately )
   {
-    return autorun( name, mutation, executable, Priority.NORMAL, runImmediately );
+    return autorun( name, mutation, tracked, Priority.NORMAL, runImmediately );
   }
 
   /**
@@ -720,7 +720,7 @@ public final class ArezContext
    *
    * @param name           the name of the observer.
    * @param mutation       true if the executable may modify state, false otherwise.
-   * @param executable     the executable defining the observer.
+   * @param tracked        the executable tracked by the observer.
    * @param priority       the priority of the observer.
    * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
    * @return the new Observer.
@@ -728,29 +728,29 @@ public final class ArezContext
   @Nonnull
   public Observer autorun( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure tracked,
                            @Nonnull final Priority priority,
                            final boolean runImmediately )
   {
-    return autorun( null, name, mutation, executable, priority, runImmediately );
+    return autorun( null, name, mutation, tracked, priority, runImmediately );
   }
 
   /**
    * Create an autorun observer.
    *
-   * @param component  the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name       the name of the observer.
-   * @param mutation   true if the executable may modify state, false otherwise.
-   * @param executable the executable defining the observer.
+   * @param component the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param mutation  true if the executable may modify state, false otherwise.
+   * @param tracked   the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable )
+                           @Nonnull final Procedure tracked )
   {
-    return autorun( component, name, mutation, executable, Priority.NORMAL, false );
+    return autorun( component, name, mutation, tracked, Priority.NORMAL, false );
   }
 
   /**
@@ -759,7 +759,7 @@ public final class ArezContext
    * @param component      the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name           the name of the observer.
    * @param mutation       true if the executable may modify state, false otherwise.
-   * @param executable     the executable defining the observer.
+   * @param tracked        the executable tracked by the observer.
    * @param priority       the priority of the observer.
    * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
    * @return the new Observer.
@@ -768,11 +768,11 @@ public final class ArezContext
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure tracked,
                            @Nonnull final Priority priority,
                            final boolean runImmediately )
   {
-    return autorun( component, name, mutation, executable, priority, runImmediately, false );
+    return autorun( component, name, mutation, tracked, priority, runImmediately, false );
   }
 
   /**
@@ -781,7 +781,7 @@ public final class ArezContext
    * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
    * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param executable                       the executable defining the observer.
+   * @param tracked                          the executable tracked by the observer.
    * @param priority                         the priority of the observer.
    * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
@@ -791,7 +791,7 @@ public final class ArezContext
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure tracked,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies )
@@ -799,7 +799,7 @@ public final class ArezContext
     return autorun( component,
                     name,
                     mutation,
-                    executable,
+                    tracked,
                     priority,
                     runImmediately,
                     observeLowerPriorityDependencies,
@@ -812,7 +812,7 @@ public final class ArezContext
    * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
    * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param executable                       the executable defining the observer.
+   * @param tracked                          the executable tracked by the observer.
    * @param priority                         the priority of the observer.
    * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
@@ -823,7 +823,7 @@ public final class ArezContext
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure tracked,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
@@ -832,11 +832,12 @@ public final class ArezContext
     return autorun( component,
                     name,
                     mutation,
-                    executable,
+                    tracked,
                     priority,
                     runImmediately,
                     observeLowerPriorityDependencies,
                     canNestActions,
+                    true,
                     null );
   }
 
@@ -846,7 +847,7 @@ public final class ArezContext
    * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name                             the name of the observer.
    * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param executable                       the executable defining the observer.
+   * @param tracked                          the executable tracked by the observer.
    * @param priority                         the priority of the observer.
    * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
@@ -858,22 +859,105 @@ public final class ArezContext
   public Observer autorun( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure tracked,
                            @Nonnull final Priority priority,
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions,
                            @Nullable final Procedure onDispose )
   {
+    return autorun( component,
+                    name,
+                    mutation,
+                    tracked,
+                    priority,
+                    runImmediately,
+                    observeLowerPriorityDependencies,
+                    canNestActions,
+                    true,
+                    onDispose );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
+   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the executable may modify state, false otherwise.
+   * @param tracked                          the executable tracked by the observer.
+   * @param priority                         the priority of the observer.
+   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param canNestActions                   true if the observer can start actions from autorun.
+   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
+   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure tracked,
+                           @Nonnull final Priority priority,
+                           final boolean runImmediately,
+                           final boolean observeLowerPriorityDependencies,
+                           final boolean canNestActions,
+                           final boolean arezOnlyDependencies,
+                           @Nullable final Procedure onDispose )
+  {
+    return autorun( component,
+                    name,
+                    mutation,
+                    tracked,
+                    null,
+                    priority,
+                    runImmediately,
+                    observeLowerPriorityDependencies,
+                    canNestActions,
+                    arezOnlyDependencies,
+                    onDispose );
+  }
+
+  /**
+   * Create an autorun observer.
+   *
+   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the executable may modify state, false otherwise.
+   * @param tracked                          the executable tracked by the observer.
+   * @param onDepsUpdated                    the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param priority                         the priority of the observer.
+   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param canNestActions                   true if the observer can start actions from autorun.
+   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
+   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer autorun( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure tracked,
+                           @Nullable final Procedure onDepsUpdated,
+                           @Nonnull final Priority priority,
+                           final boolean runImmediately,
+                           final boolean observeLowerPriorityDependencies,
+                           final boolean canNestActions,
+                           final boolean arezOnlyDependencies,
+                           @Nullable final Procedure onDispose )
+  {
     final Observer observer =
       observer( component,
                 name,
                 mutation,
-                new RunProcedureAsActionReaction( executable ),
+                tracked,
+                onDepsUpdated,
                 priority,
-                false,
                 observeLowerPriorityDependencies,
-                canNestActions );
+                canNestActions,
+                arezOnlyDependencies
+      );
     // See similar code in computed(...) implementation for explanation of this code
     if ( null != onDispose )
     {
@@ -892,13 +976,13 @@ public final class ArezContext
    * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param executable the executable invoked as the reaction.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nonnull final Procedure executable )
+  public Observer tracker( @Nonnull final Procedure onDepsUpdated )
   {
-    return tracker( false, executable );
+    return tracker( false, onDepsUpdated );
   }
 
   /**
@@ -906,14 +990,14 @@ public final class ArezContext
    * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param mutation   true if the observer may modify state during tracking, false otherwise.
-   * @param executable the executable invoked as the reaction.
+   * @param mutation      true if the observer may modify state during tracking, false otherwise.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( final boolean mutation, @Nonnull final Procedure executable )
+  public Observer tracker( final boolean mutation, @Nonnull final Procedure onDepsUpdated )
   {
-    return tracker( null, mutation, executable );
+    return tracker( null, mutation, onDepsUpdated );
   }
 
   /**
@@ -921,17 +1005,17 @@ public final class ArezContext
    * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param name       the name of the observer.
-   * @param mutation   true if the observer may modify state during tracking, false otherwise.
-   * @param executable the executable invoked as the reaction.
+   * @param name          the name of the observer.
+   * @param mutation      true if the observer may modify state during tracking, false otherwise.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable )
+                           @Nonnull final Procedure onDepsUpdated )
   {
-    return tracker( null, name, mutation, executable );
+    return tracker( null, name, mutation, onDepsUpdated );
   }
 
   /**
@@ -939,19 +1023,19 @@ public final class ArezContext
    * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param component  the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name       the name of the observer.
-   * @param mutation   true if the observer may modify state during tracking, false otherwise.
-   * @param executable the executable invoked as the reaction.
+   * @param component     the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param mutation      true if the observer may modify state during tracking, false otherwise.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable )
+                           @Nonnull final Procedure onDepsUpdated )
   {
-    return tracker( component, name, mutation, executable, Priority.NORMAL );
+    return tracker( component, name, mutation, onDepsUpdated, Priority.NORMAL );
   }
 
   /**
@@ -959,21 +1043,21 @@ public final class ArezContext
    * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
    * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
    *
-   * @param component  the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name       the name of the observer.
-   * @param mutation   true if the observer may modify state during tracking, false otherwise.
-   * @param priority   the priority of the observer.
-   * @param executable the executable invoked as the reaction.
+   * @param component     the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param mutation      true if the observer may modify state during tracking, false otherwise.
+   * @param priority      the priority of the observer.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure onDepsUpdated,
                            @Nonnull final Priority priority )
   {
-    return tracker( component, name, mutation, executable, priority, false );
+    return tracker( component, name, mutation, onDepsUpdated, priority, false );
   }
 
   /**
@@ -985,7 +1069,7 @@ public final class ArezContext
    * @param name                             the name of the observer.
    * @param mutation                         true if the observer may modify state during tracking, false otherwise.
    * @param priority                         the priority of the observer.
-   * @param executable                       the executable invoked as the reaction.
+   * @param onDepsUpdated                    the hook invoked when dependencies changed.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @return the new Observer.
    */
@@ -993,11 +1077,11 @@ public final class ArezContext
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure onDepsUpdated,
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies )
   {
-    return tracker( component, name, mutation, executable, priority, observeLowerPriorityDependencies, false );
+    return tracker( component, name, mutation, onDepsUpdated, priority, observeLowerPriorityDependencies, false );
   }
 
   /**
@@ -1009,7 +1093,7 @@ public final class ArezContext
    * @param name                             the name of the observer.
    * @param mutation                         true if the observer may modify state during tracking, false otherwise.
    * @param priority                         the priority of the observer.
-   * @param executable                       the executable invoked as the reaction.
+   * @param onDepsUpdated                    the hook invoked when dependencies changed.
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from tracker action.
    * @return the new Observer.
@@ -1018,40 +1102,78 @@ public final class ArezContext
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
                            final boolean mutation,
-                           @Nonnull final Procedure executable,
+                           @Nonnull final Procedure onDepsUpdated,
                            @Nonnull final Priority priority,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions )
   {
+    return tracker( component,
+                    name,
+                    mutation,
+                    onDepsUpdated,
+                    priority,
+                    observeLowerPriorityDependencies,
+                    canNestActions,
+                    true );
+  }
+
+  /**
+   * Create a "tracker" observer.
+   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
+   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
+   *
+   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name                             the name of the observer.
+   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
+   * @param priority                         the priority of the observer.
+   * @param onDepsUpdated                    the hook invoked when dependencies changed.
+   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param canNestActions                   true if the observer can start actions from tracker action.
+   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer tracker( @Nullable final Component component,
+                           @Nullable final String name,
+                           final boolean mutation,
+                           @Nonnull final Procedure onDepsUpdated,
+                           @Nonnull final Priority priority,
+                           final boolean observeLowerPriorityDependencies,
+                           final boolean canNestActions,
+                           final boolean arezOnlyDependencies )
+  {
     return observer( component,
                      name,
                      mutation,
-                     new RunProcedureReaction( executable ),
+                     null,
+                     onDepsUpdated,
                      priority,
-                     true,
                      observeLowerPriorityDependencies,
-                     canNestActions );
+                     canNestActions,
+                     arezOnlyDependencies );
   }
 
   /**
    * Create an observer with specified parameters.
    *
-   * @param component the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observer.
-   * @param mutation  true if the reaction may modify state, false otherwise.
-   * @param reaction  the reaction defining observer.
-   * @param priority  the priority of the observer.
+   * @param component         the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name              the name of the observer.
+   * @param mutation          true if the reaction may modify state, false otherwise.
+   * @param trackedExecutable the tracking executable.
+   * @param onDepsUpdated     the hook invoked when dependencies changed.
+   * @param priority          the priority of the observer.
    * @return the new Observer.
    */
   @Nonnull
   Observer observer( @Nullable final Component component,
                      @Nullable final String name,
                      final boolean mutation,
-                     @Nonnull final Reaction reaction,
+                     @Nullable final Procedure trackedExecutable,
+                     @Nullable final Procedure onDepsUpdated,
                      @Nonnull final Priority priority,
-                     final boolean canTrackExplicitly,
                      final boolean observeLowerPriorityDependencies,
-                     final boolean canNestActions )
+                     final boolean canNestActions,
+                     final boolean arezOnlyDependencies )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
     final Observer observer =
@@ -1060,11 +1182,12 @@ public final class ArezContext
                     generateNodeName( "Observer", name ),
                     null,
                     mode,
-                    reaction,
+                    trackedExecutable,
+                    onDepsUpdated,
                     priority,
-                    canTrackExplicitly,
                     observeLowerPriorityDependencies,
-                    canNestActions );
+                    canNestActions,
+                    arezOnlyDependencies );
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer.asInfo() ) );
@@ -1560,7 +1683,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0017: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -1595,7 +1718,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         result = executable.call();
@@ -1781,7 +1904,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0018: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -1815,7 +1938,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         result = executable.call();
@@ -2000,7 +2123,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -2042,7 +2165,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         executable.call();
@@ -2213,7 +2336,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::canTrackExplicitly,
+      apiInvariant( tracker::isTrackingExecutableExternal,
                     () -> "Arez-0020: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -2226,13 +2349,13 @@ public final class ArezContext
                 parameters );
   }
 
-  void safeAction( @Nullable final String name,
-                   @Nullable final TransactionMode mode,
-                   final boolean verifyActionRequired,
-                   final boolean requireNewTransaction,
-                   @Nonnull final SafeProcedure executable,
-                   @Nullable final Observer tracker,
-                   @Nonnull final Object... parameters )
+  private void safeAction( @Nullable final String name,
+                           @Nullable final TransactionMode mode,
+                           final boolean verifyActionRequired,
+                           final boolean requireNewTransaction,
+                           @Nonnull final SafeProcedure executable,
+                           @Nullable final Observer tracker,
+                           @Nonnull final Object... parameters )
   {
     final boolean tracked = null != tracker;
     Throwable t = null;
@@ -2246,7 +2369,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
-      verifyActionNestingAllowed( name, mode );
+      verifyActionNestingAllowed( name, tracker );
       if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
       {
         executable.call();
@@ -2293,7 +2416,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final TransactionMode mode )
+  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final Observer tracker )
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
@@ -2301,8 +2424,10 @@ public final class ArezContext
       if ( null != parentTransaction )
       {
         final Observer parent = parentTransaction.getTracker();
-        apiInvariant( () -> null == parent || parent.canNestActions() || TransactionMode.READ_WRITE_OWNED == mode,
-                      () -> "Arez-0187: Attempting to nest " + mode + " action named '" + name + "' " +
+        apiInvariant( () -> null == parent ||
+                            parent.canNestActions() ||
+                            ( null != tracker && tracker.isComputedValue() ),
+                      () -> "Arez-0187: Attempting to nest action named '" + name + "' " +
                             "inside transaction named '" + parentTransaction.getName() + "' created by an " +
                             "observer that does not allow nested actions." );
       }

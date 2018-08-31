@@ -6,13 +6,13 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
-  lower api layer. It would make it possible to control whether observers are invoked by scheduler and to
-  control the relationship between a dependency going stale and an observer being scheduled. This will
-  involve exposing methods `Observer.schedule()` and `Observer.reportStale()` so that users can explicitly
-  control capabilities. This way things like `minimumDelay`, `throttle` etc. all become user-space concerns.
+* Derive Observer.mode from mutation flag and non-nullness of _computedValue
 
-* Add `Observer.reportStale()` so can explicitly mark an observer as stale and have it rescheduled.
+* Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
+  This flag will default to false.
+
+* Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
+  lower api layer.
 
 * Configuration in `arez.Observer` is mostly a bunch of boolean flags or enums. Some of these flags are
   immutable after initial construction and some are runtime state. Most of these could be collapsed into
@@ -24,6 +24,8 @@ complete as there is too much un-said.
    * Runtime:`_state`, `_scheduled`
 
 * Implement something similar to `getDependencyTree` from mobx
+
+* Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
 

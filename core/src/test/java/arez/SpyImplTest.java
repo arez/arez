@@ -36,7 +36,7 @@ public class SpyImplTest
   public void basicOperation()
     throws Exception
   {
-    final SpyImpl spy = new SpyImpl( new ArezContext() );
+    final SpyImpl spy = (SpyImpl) Arez.context().getSpy();
 
     final Object event = new Object();
 
@@ -72,7 +72,7 @@ public class SpyImplTest
   @Test
   public void reportSpyEvent_whenNoListeners()
   {
-    final SpyImpl spy = new SpyImpl( new ArezContext() );
+    final Spy spy = Arez.context().getSpy();
 
     assertFalse( spy.willPropagateSpyEvents() );
 
@@ -90,13 +90,13 @@ public class SpyImplTest
   public void addSpyEventHandler_alreadyExists()
     throws Exception
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final Spy spy = Arez.context().getSpy();
 
     final SpyEventHandler handler = new TestSpyEventHandler();
-    support.addSpyEventHandler( handler );
+    spy.addSpyEventHandler( handler );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> support.addSpyEventHandler( handler ) );
+      expectThrows( IllegalStateException.class, () -> spy.addSpyEventHandler( handler ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0102: Attempting to add handler " + handler + " that is already in the list of spy handlers." );
@@ -106,12 +106,12 @@ public class SpyImplTest
   public void removeSpyEventHandler_noExists()
     throws Exception
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final Spy spy = Arez.context().getSpy();
 
     final SpyEventHandler handler = new TestSpyEventHandler();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> support.removeSpyEventHandler( handler ) );
+      expectThrows( IllegalStateException.class, () -> spy.removeSpyEventHandler( handler ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0103: Attempting to remove handler " + handler + " that is not in the list of spy handlers." );
@@ -120,7 +120,7 @@ public class SpyImplTest
   @Test
   public void multipleHandlers()
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final SpyImpl spy = (SpyImpl) Arez.context().getSpy();
 
     final Object event = new Object();
 
@@ -131,19 +131,19 @@ public class SpyImplTest
     final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
     final SpyEventHandler handler2 = e -> callCount2.incrementAndGet();
     final SpyEventHandler handler3 = e -> callCount3.incrementAndGet();
-    support.addSpyEventHandler( handler1 );
-    support.addSpyEventHandler( handler2 );
-    support.addSpyEventHandler( handler3 );
+    spy.addSpyEventHandler( handler1 );
+    spy.addSpyEventHandler( handler2 );
+    spy.addSpyEventHandler( handler3 );
 
-    assertEquals( support.getSpyEventHandlers().size(), 3 );
+    assertEquals( spy.getSpyEventHandlers().size(), 3 );
 
-    support.reportSpyEvent( event );
+    spy.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount2.get(), 1 );
     assertEquals( callCount3.get(), 1 );
 
-    support.reportSpyEvent( event );
+    spy.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 2 );
     assertEquals( callCount2.get(), 2 );
@@ -153,7 +153,7 @@ public class SpyImplTest
   @Test
   public void onSpyEvent_whereOneHandlerGeneratesError()
   {
-    final SpyImpl support = new SpyImpl( new ArezContext() );
+    final Spy spy = Arez.context().getSpy();
 
     final Object event = new Object();
 
@@ -167,11 +167,11 @@ public class SpyImplTest
       throw exception;
     };
     final SpyEventHandler handler3 = e -> callCount3.incrementAndGet();
-    support.addSpyEventHandler( handler1 );
-    support.addSpyEventHandler( handler2 );
-    support.addSpyEventHandler( handler3 );
+    spy.addSpyEventHandler( handler1 );
+    spy.addSpyEventHandler( handler2 );
+    spy.addSpyEventHandler( handler3 );
 
-    support.reportSpyEvent( event );
+    spy.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount3.get(), 1 );
@@ -183,7 +183,7 @@ public class SpyImplTest
                   "Exception when notifying spy handler '" + handler2 + "' of '" + event + "' event." );
     assertEquals( entry1.getThrowable(), exception );
 
-    support.reportSpyEvent( event );
+    spy.reportSpyEvent( event );
 
     assertEquals( callCount1.get(), 2 );
     assertEquals( callCount3.get(), 2 );
@@ -195,9 +195,9 @@ public class SpyImplTest
   public void isTransactionActive()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
     assertEquals( spy.isTransactionActive(), false );
 
@@ -210,12 +210,11 @@ public class SpyImplTest
   public void isActive()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
     assertEquals( spy.isActive( computedValue ), false );
     setupReadOnlyTransaction( context );
@@ -227,12 +226,11 @@ public class SpyImplTest
   public void isComputing()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
     assertEquals( spy.isComputing( computedValue ), false );
     computedValue.setComputing( true );
@@ -243,15 +241,15 @@ public class SpyImplTest
   public void getObservers()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final ComputedValue<?> computedValue = newComputedValueObserver( context ).getComputedValue();
+    final ComputedValue<?> computedValue = context.computed( () -> "" );
 
     assertEquals( spy.getObservers( computedValue ).size(), 0 );
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     observer.getDependencies().add( computedValue.getObservableValue() );
     computedValue.getObservableValue().getObservers().add( observer );
 
@@ -266,13 +264,13 @@ public class SpyImplTest
   public void getTransactionComputing()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final SpyImpl spy = (SpyImpl) context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final Observer observer2 = newReadOnlyObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final Observer observer = computedValue.getObserver();
+    final Observer observer2 = context.autorun( new CountAndObserveProcedure() );
 
     computedValue.setComputing( true );
 
@@ -295,12 +293,11 @@ public class SpyImplTest
   public void getTransactionComputing_missingTracker()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final SpyImpl spy = (SpyImpl) context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
     computedValue.setComputing( true );
 
@@ -318,16 +315,15 @@ public class SpyImplTest
   public void getDependencies()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
     assertEquals( spy.getDependencies( computedValue ).size(), 0 );
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
     observableValue.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observableValue );
 
@@ -342,16 +338,15 @@ public class SpyImplTest
   public void getDependenciesDuringComputation()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
-    final ObservableValue<?> observableValue = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
-    final ObservableValue<?> observableValue3 = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
 
     observableValue.getObservers().add( computedValue.getObserver() );
     computedValue.getObserver().getDependencies().add( observableValue );
@@ -379,25 +374,26 @@ public class SpyImplTest
   public void isComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    assertEquals( spy.isComputedValue( newComputedValueObserver( context ).getComputedValue().getObservableValue() ), true );
-    assertEquals( spy.isComputedValue( newObservable( context ) ), false );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    assertEquals( spy.isComputedValue( computedValue.getObservableValue() ),
+                  true );
+    assertEquals( spy.isComputedValue( context.observable() ), false );
   }
 
   @Test
   public void asComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ObservableValue<?> observableValue = observer.getComputedValue().getObservableValue();
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
     assertEquals( spy.asComputedValue( observableValue ).getName(), computedValue.getName() );
   }
@@ -406,15 +402,15 @@ public class SpyImplTest
   public void Observable_getObservers()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final ObservableValue<?> observableValue = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( spy.getObservers( observableValue ).size(), 0 );
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     observableValue.getObservers().add( observer );
 
     final List<ObserverInfo> observers = spy.getObservers( observableValue );
@@ -428,24 +424,24 @@ public class SpyImplTest
   public void Observer_isComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    assertEquals( spy.isComputedValue( newComputedValueObserver( context ) ), true );
-    assertEquals( spy.isComputedValue( newReadOnlyObserver( context ) ), false );
+    assertEquals( spy.isComputedValue( context.computed( () -> "" ).getObserver() ), true );
+    assertEquals( spy.isComputedValue( context.autorun( new CountAndObserveProcedure() ) ), false );
   }
 
   @Test
   public void Observer_asComputedValue()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newComputedValueObserver( context );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
+    final ComputedValue<?> computedValue = context.computed( () -> "" );
+    final Observer observer = computedValue.getObserver();
 
     assertEquals( spy.asComputedValue( observer ).getName(), computedValue.getName() );
   }
@@ -454,9 +450,9 @@ public class SpyImplTest
   public void getTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
     setupReadOnlyTransaction( context );
 
@@ -467,9 +463,8 @@ public class SpyImplTest
   public void getTransaction_whenNoTransaction()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
-
-    final SpyImpl spy = new SpyImpl( context );
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, spy::getTransaction );
 
@@ -481,32 +476,35 @@ public class SpyImplTest
   public void isRunning()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicReference<Observer> ref = new AtomicReference<>();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( null, false, () -> {
+      assertEquals( context.getSpy().isRunning( ref.get() ), true );
+      callCount.incrementAndGet();
+      observeADependency();
+    }, false );
+    ref.set( observer );
 
-    assertEquals( spy.isRunning( observer ), false );
+    assertEquals( context.getSpy().isRunning( observer ), false );
+    assertEquals( callCount.get(), 0 );
 
-    setCurrentTransaction( observer );
+    context.triggerScheduler();
 
-    assertEquals( spy.isRunning( observer ), true );
-
-    setupReadOnlyTransaction( context );
-
-    assertEquals( spy.isRunning( observer ), false );
+    assertEquals( callCount.get(), 1 );
   }
 
   @Test
   public void isScheduled()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
     assertEquals( spy.isScheduled( observer ), false );
 
@@ -519,21 +517,16 @@ public class SpyImplTest
   public void Observer_getDependencies()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newReadOnlyObserver( context );
-
-    assertEquals( spy.getDependencies( observer ).size(), 0 );
-
-    final ObservableValue<?> observableValue = newObservable( context );
-    observableValue.getObservers().add( observer );
-    observer.getDependencies().add( observableValue );
+    final ObservableValue<Object> observable = context.observable();
+    final Observer observer = context.autorun( observable::reportObserved );
 
     final List<ObservableValueInfo> dependencies = spy.getDependencies( observer );
     assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.get( 0 ).getName(), observableValue.getName() );
+    assertEquals( dependencies.get( 0 ).getName(), observable.getName() );
 
     assertUnmodifiable( dependencies );
   }
@@ -542,15 +535,15 @@ public class SpyImplTest
   public void Ovserver_getDependenciesWhileRunning()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    final Observer observer = newReadOnlyObserver( context );
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
 
-    final ObservableValue<?> observableValue = newObservable( context );
-    final ObservableValue<?> observableValue2 = newObservable( context );
-    final ObservableValue<?> observableValue3 = newObservable( context );
+    final ObservableValue<?> observableValue = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
 
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
@@ -576,12 +569,12 @@ public class SpyImplTest
   public void isReadOnly()
     throws Exception
   {
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
 
-    final SpyImpl spy = new SpyImpl( context );
+    final Spy spy = context.getSpy();
 
-    assertEquals( spy.isReadOnly( newReadOnlyObserver( context ) ), true );
-    assertEquals( spy.isReadOnly( newComputedValueObserver( context ) ), true );
+    assertEquals( spy.isReadOnly( context.autorun( new CountAndObserveProcedure() ) ), true );
+    assertEquals( spy.isReadOnly( context.computed( () -> "" ).getObserver() ), true );
     assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
   }
 
@@ -593,7 +586,8 @@ public class SpyImplTest
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final ObservableValue<Object> observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue<Object> observableValue1 =
+      context.observable( component, ValueUtil.randomString(), null, null );
     final ObservableValue<Object> observableValue2 = context.observable();
 
     final ComponentInfo info = spy.getComponent( observableValue1 );

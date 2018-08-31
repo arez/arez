@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 public abstract class MiddleModel<W extends Writer>
-  extends AbstractModel<IOException,W>
+  extends AbstractModel<IOException, W>
 {
   public MiddleModel( final W writer )
   {

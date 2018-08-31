@@ -36,6 +36,28 @@
   value being disposed when the component is disposed.
 * **\[core\]** Add `ObserverInfo.isActive()` method so that the spy subsystem can inspect whether an observer
   is active.
+* **\[core\]** Improve invariant checking `Observer.setState(...)` so that any attempt to change from `DISPSOED`
+  to a non-`DISPOSED` state will generate in invariant failure.
+* **\[core\]** Support passing in `arezOnlyDependencies` parameter when creating `track` and `autorun` observers.
+  This makes it possible for code to explicitly invoke the newly added method `Observer.reportStale()` to mark an
+  observer as stale and re-schedule the reaction associated with the observer. This makes it easier to access
+  non-arez dependencies in an observer and trigger the observer when the dependency changes.
+* **\[core\]** Add the ability to pass in an `onDepsUpdated` hook to `ArezContext.autorun(...)` methods. This
+  hook method will be invoked when the system detects that dependencies have been updated but it is up to
+  non-arez code to invoke the newly added method `Observer.schedule()` that will schedule the observer. The
+  `schedule()` method will add the observer to the schedulers queue and trigger the scheduler
+  if it is not already active and not paused. It should be noted that invoking the `schedule()` method when the
+  observer has not been marked as `STALE` is effectively a no-op. The observer will be scheduled but when it comes
+  to invoke the observer, it will be skipped if it is `UP_TO_DATE`. This feature makes it possible for the arez
+  framework to manage execution of the observer and detection of dependency changes but make scheduling a
+  user-space concern. This makes it possible to debounce, throttle, delay etc. in application layer.
+* **\[core\]** Add invariant check to verify that only the tracker associated with the current transaction can
+  be added as an observer to an observable.
+* **\[core\]** Rename the `executable` parameter on `ArezContext.tracker(...)` methods to `onDepsUpdated` to align
+  with the terminology in the component model and indicate intent.
+* **\[core\]** Rename the `executable` parameter on `ArezContext.autorun(...)` methods to `tracked` so that there
+  is consistent terminology within the core api.
+* **\[core\]** Avoid emitting transaction mode in invariant failure messages when incorrect nesting of actions occur.
 
 ### [v0.105](https://github.com/arez/arez/tree/v0.105) (2018-08-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.104...v0.105)

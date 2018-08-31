@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @Repository
-@ArezComponent(disposeTrackable = Feature.DISABLE)
+@ArezComponent( disposeTrackable = Feature.DISABLE )
 public abstract class SingletonAndRepository
 {
   @Action

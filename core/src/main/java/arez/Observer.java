@@ -58,24 +58,34 @@ public final class Observer
    */
   private boolean _scheduled;
   /**
+   * Flag indicating whether next scheduled invocation should invokeReaction {@link #_tracked} or {@link #_onDepsUpdated}.
+   */
+  private boolean _executeTrackedNext;
+  /**
    * The transaction mode in which the observer executes.
    */
   @Nullable
   private final TransactionMode _mode;
   /**
-   * The code responsible for responding to changes if any.
+   * Observed executable to invokeReaction if any.
+   * This may be null if external scheduler is responsible for executing the tracked executable via
+   * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
+   * {@link #_onDepsUpdated} must not be null.
    */
-  @Nonnull
-  private final Reaction _reaction;
+  @Nullable
+  private final Procedure _tracked;
+  /**
+   * Callback invoked when dependencies are updated.
+   * This may be null when the observer re-executes the tracked executable when dependencies change
+   * bu in that case {@link #_tracked} must not be null.
+   */
+  @Nullable
+  private final Procedure _onDepsUpdated;
   /**
    * The priority of the observer.
    */
   @Nonnull
   private final Priority _priority;
-  /**
-   * Flag set to true if Observer can be passed as tracker into one of the {@link ArezContext#track(Observer, Function, Object...)} methods.
-   */
-  private final boolean _canTrackExplicitly;
   /**
    * Flag set to true if the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
    */
@@ -84,6 +94,10 @@ public final class Observer
    * Flag set to true if the Observer allows nested actions.
    */
   private final boolean _canNestActions;
+  /**
+   * Flag set to true if the Observer allows nested actions.
+   */
+  private final boolean _arezOnlyDependencies;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -96,11 +110,12 @@ public final class Observer
             @Nullable final String name,
             @Nullable final ComputedValue<?> computedValue,
             @Nullable final TransactionMode mode,
-            @Nonnull final Reaction reaction,
+            @Nullable final Procedure tracked,
+            @Nullable final Procedure onDepsUpdated,
             @Nonnull final Priority priority,
-            final boolean canTrackExplicitly,
             final boolean observeLowerPriorityDependencies,
-            final boolean canNestActions )
+            final boolean canNestActions,
+            final boolean arezOnlyDependencies )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -113,9 +128,9 @@ public final class Observer
                      () -> "Arez-0079: Attempted to construct an observer named '" + getName() + "' with " +
                            "READ_WRITE_OWNED transaction mode but no ComputedValue." );
           assert null != computedValue;
-          invariant( () -> !canTrackExplicitly,
-                     () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that could " +
-                           "track explicitly." );
+          invariant( () -> null == onDepsUpdated,
+                     () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that has " +
+                           "onDepsUpdated hook." );
         }
         else if ( null != computedValue )
         {
@@ -136,16 +151,21 @@ public final class Observer
       invariant( () -> Priority.LOWEST != priority || !observeLowerPriorityDependencies,
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "observeLowerPriorityDependencies = true which should be false as no lower priority." );
+      invariant( () -> null != tracked || null != onDepsUpdated,
+                 () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
+                       "tracked parameter or the onDepsUpdated parameter." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
     _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
-    _reaction = Objects.requireNonNull( reaction );
+    _tracked = tracked;
+    _onDepsUpdated = onDepsUpdated;
     _priority = Objects.requireNonNull( priority );
-    _canTrackExplicitly = canTrackExplicitly;
     _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
     _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
+    _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
+    _executeTrackedNext = null != _tracked;
     if ( null == _computedValue )
     {
       if ( null != _component )
@@ -165,9 +185,24 @@ public final class Observer
     return _priority;
   }
 
-  boolean canTrackExplicitly()
+  boolean arezOnlyDependencies()
   {
-    return _canTrackExplicitly;
+    return _arezOnlyDependencies;
+  }
+
+  /**
+   * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
+   * This is true if both a {@link #_tracked} and {@link #_onDepsUpdated} parameters
+   * are provided at construction.
+   */
+  boolean supportsManualSchedule()
+  {
+    return Arez.shouldCheckApiInvariants() && null != _tracked && null != _onDepsUpdated;
+  }
+
+  boolean isTrackingExecutableExternal()
+  {
+    return null == _tracked;
   }
 
   boolean canNestActions()
@@ -282,17 +317,6 @@ public final class Observer
   }
 
   /**
-   * Return the reaction.
-   *
-   * @return the reaction.
-   */
-  @Nonnull
-  Reaction getReaction()
-  {
-    return _reaction;
-  }
-
-  /**
    * Return true if the observer is active.
    * Being "active" means that the state of the observer is not {@link ObserverState#INACTIVE},
    * {@link ObserverState#DISPOSING} or {@link ObserverState#DISPOSED}.
@@ -317,6 +341,30 @@ public final class Observer
   boolean isInactive()
   {
     return !isActive();
+  }
+
+  /**
+   * This method should be invoked if the observer has non-arez dependencies and one of
+   * these dependencies has been updated. This will mark the observer as stale and reschedule
+   * the reaction if necessary. The method must be invoked from within a read-write transaction.
+   * the reaction if necessary. The method must be invoked from within a read-write transaction.
+   */
+  public void reportStale()
+  {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !_arezOnlyDependencies,
+                    () -> "Arez-0199: Observer.reportStale() invoked on observer named '" + getName() +
+                          "' but arezOnlyDependencies = true." );
+      apiInvariant( () -> getContext().isTransactionActive(),
+                    () -> "Arez-0200: Observer.reportStale() invoked on observer named '" + getName() +
+                          "' when there is no active transaction." );
+      apiInvariant( () -> TransactionMode.READ_WRITE == getContext().getTransaction().getMode(),
+                    () -> "Arez-0201: Observer.reportStale() invoked on observer named '" + getName() +
+                          "' when the active transaction '" + getContext().getTransaction().getName() +
+                          "' is " + getContext().getTransaction().getMode() + " rather than READ_WRITE." );
+    }
+    setState( ObserverState.STALE );
   }
 
   /**
@@ -351,7 +399,11 @@ public final class Observer
     {
       final ObserverState originalState = _state;
       _state = state;
-      if ( null == _computedValue && ObserverState.STALE == state )
+      if ( Arez.shouldCheckInvariants() && ObserverState.DISPOSED == originalState )
+      {
+        fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
+      }
+      else if ( null == _computedValue && ObserverState.STALE == state )
       {
         if ( schedule )
         {
@@ -385,13 +437,6 @@ public final class Observer
         if ( isComputedValue() )
         {
           runHook( getComputedValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
-        }
-      }
-      else if ( ObserverState.DISPOSED == originalState )
-      {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
         }
       }
       if ( Arez.shouldCheckInvariants() )
@@ -485,6 +530,23 @@ public final class Observer
 
   /**
    * Schedule this observer if it does not already have a reaction pending.
+   * The observer will not actually react if it is not already marked as STALE.
+   */
+  public void schedule()
+  {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( this::supportsManualSchedule,
+                    () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
+                          "' but supportsManualSchedule() returns false." );
+    }
+    _executeTrackedNext = null != _tracked;
+    scheduleReaction();
+    getContext().triggerScheduler();
+  }
+
+  /**
+   * Schedule this observer if it does not already have a reaction pending.
    */
   void scheduleReaction()
   {
@@ -534,7 +596,16 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( ObserverState.UP_TO_DATE != getState() )
         {
-          getReaction().react( this );
+          if ( _executeTrackedNext )
+          {
+            _executeTrackedNext = null == _onDepsUpdated;
+            runTrackedExecutable();
+          }
+          else
+          {
+            assert null != _onDepsUpdated;
+            _onDepsUpdated.call();
+          }
         }
       }
       catch ( final Throwable t )
@@ -554,6 +625,38 @@ public final class Observer
         }
       }
     }
+  }
+
+  private void runTrackedExecutable()
+    throws Throwable
+  {
+    assert null != _tracked;
+    final Procedure action;
+    if ( Arez.shouldCheckInvariants() && arezOnlyDependencies() )
+    {
+      action = () -> {
+        _tracked.call();
+        final Transaction current = Transaction.current();
+
+        final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
+        invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
+                         ( null != observableValues && !observableValues.isEmpty() ),
+                   () -> "Arez-0172: Autorun observer named '" + getName() + "' completed " +
+                         "reaction but is not observing any properties. As a result the observer will never " +
+                         "be rescheduled. This may not be an autorun candidate." );
+      };
+    }
+    else
+    {
+      action = _tracked;
+    }
+    getContext().action( Arez.areNamesEnabled() ? getName() : null,
+                         Arez.shouldEnforceTransactionType() ? getMode() : null,
+                         false,
+                         true,
+                         action,
+                         null == _computedValue,
+                         this );
   }
 
   /**
@@ -794,5 +897,22 @@ public final class Observer
   void markAsScheduled()
   {
     _scheduled = true;
+  }
+
+  @Nullable
+  Procedure getTracked()
+  {
+    return _tracked;
+  }
+
+  @Nullable
+  Procedure getOnDepsUpdated()
+  {
+    return _onDepsUpdated;
+  }
+
+  boolean shouldExecuteTrackedNext()
+  {
+    return _executeTrackedNext;
   }
 }

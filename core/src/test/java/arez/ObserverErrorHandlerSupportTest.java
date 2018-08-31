@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "Duplicates" )
 public class ObserverErrorHandlerSupportTest
   extends AbstractArezTest
 {
@@ -13,8 +14,8 @@ public class ObserverErrorHandlerSupportTest
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
-    final Observer observer = newReadOnlyObserver( context );
+    final ArezContext context = Arez.context();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
@@ -87,8 +88,8 @@ public class ObserverErrorHandlerSupportTest
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
-    final Observer observer = newReadOnlyObserver( context );
+    final ArezContext context = Arez.context();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
@@ -123,8 +124,8 @@ public class ObserverErrorHandlerSupportTest
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
-    final Observer observer = newReadOnlyObserver( context );
+    final ArezContext context = Arez.context();
+    final Observer observer = context.autorun( new CountAndObserveProcedure() );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 
@@ -170,17 +171,18 @@ public class ObserverErrorHandlerSupportTest
 
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
-    final ArezContext context = new ArezContext();
+    final ArezContext context = Arez.context();
     final Observer observer =
       new Observer( context,
                     null,
                     null,
                     null,
                     TransactionMode.READ_ONLY,
-                    new TestReaction(),
+                    new CountingProcedure(),
+                    new CountingProcedure(),
                     Priority.NORMAL,
                     false,
-                    false,
+                    true,
                     true );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
