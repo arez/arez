@@ -2505,9 +2505,9 @@ public class TransactionTest
                     () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
     assertEquals( exception.getMessage(),
                   "Arez-0186: Attempting to create READ_WRITE transaction named '" + name +
-                  "' nested in transaction named '" + transaction.getName() + "' with mode READ_WRITE_OWNED. " +
-                  "ComputedValues must not invoke actions or track methods as they should derive values from " +
-                  "other computeds and observables." );
+                  "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
+                  "ComputedValues must not invoke actions or track methods as they should derive " +
+                  "values from other computeds and observables." );
   }
 
   @Test
@@ -2548,9 +2548,9 @@ public class TransactionTest
                     () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
     assertEquals( exception.getMessage(),
                   "Arez-0186: Attempting to create READ_ONLY transaction named '" + name +
-                  "' nested in transaction named '" + transaction.getName() + "' with mode READ_WRITE_OWNED. " +
-                  "ComputedValues must not invoke actions or track methods as they should derive values from " +
-                  "other computeds and observables." );
+                  "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
+                  "ComputedValues must not invoke actions or track methods as they should derive " +
+                  "values from other computeds and observables." );
   }
 
   @Test
