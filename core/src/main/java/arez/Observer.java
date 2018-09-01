@@ -62,11 +62,6 @@ public final class Observer
    */
   private boolean _executeTrackedNext;
   /**
-   * The transaction mode in which the observer executes.
-   */
-  @Nullable
-  private final TransactionMode _mode;
-  /**
    * Observed executable to invokeReaction if any.
    * This may be null if external scheduler is responsible for executing the tracked executable via
    * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
@@ -82,28 +77,12 @@ public final class Observer
   @Nullable
   private final Procedure _onDepsUpdated;
   /**
-   * The priority of the observer.
-   */
-  @Nonnull
-  private final Priority _priority;
-  /**
-   * Flag set to true if the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
-   */
-  private final boolean _observeLowerPriorityDependencies;
-  /**
-   * Flag set to true if the Observer allows nested actions.
-   */
-  private final boolean _canNestActions;
-  /**
-   * Flag set to true if the application code can invoke {@link Observer#reportStale()} to indicate non-arez dependency has changed.
-   */
-  private final boolean _arezOnlyDependencies;
-  /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
   @Nullable
   private ObserverInfo _info;
+  private final int _options;
 
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
@@ -158,14 +137,41 @@ public final class Observer
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
-    _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
     _tracked = tracked;
     _onDepsUpdated = onDepsUpdated;
-    _priority = Objects.requireNonNull( priority );
-    _observeLowerPriorityDependencies = Arez.shouldCheckInvariants() && observeLowerPriorityDependencies;
-    _canNestActions = Arez.shouldCheckApiInvariants() && canNestActions;
-    _arezOnlyDependencies = Arez.shouldCheckApiInvariants() && arezOnlyDependencies;
     _executeTrackedNext = null != _tracked;
+
+    int options =
+      Arez.shouldCheckApiInvariants() || Arez.shouldCheckApiInvariants() ?
+      ( arezOnlyDependencies ? 0 : Options.MANUAL_REPORT_STALE_ALLOWED ) |
+      ( observeLowerPriorityDependencies ? Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES : 0 ) |
+      ( canNestActions ? Options.NESTED_ACTIONS_ALLOWED : Options.NESTED_ACTIONS_DISALLOWED ) |
+      ( Arez.shouldEnforceTransactionType() ?
+        TransactionMode.READ_WRITE == mode ? Options.READ_WRITE : Options.READ_ONLY :
+        0 )
+                                                                         : 0;
+
+    switch ( priority )
+    {
+      case HIGHEST:
+        options |= Options.PRIORITY_HIGHEST;
+        break;
+      case HIGH:
+        options |= Options.PRIORITY_HIGH;
+        break;
+      case NORMAL:
+        options |= Options.PRIORITY_NORMAL;
+        break;
+      case LOW:
+        options |= Options.PRIORITY_LOW;
+        break;
+      case LOWEST:
+        options |= Options.PRIORITY_LOWEST;
+        break;
+    }
+
+    _options = options;
+
     if ( null == _computedValue )
     {
       if ( null != _component )
@@ -182,12 +188,13 @@ public final class Observer
   @Nonnull
   Priority getPriority()
   {
-    return _priority;
+    return Priority.values()[ Options.extractPriority( _options ) ];
   }
 
   boolean arezOnlyDependencies()
   {
-    return _arezOnlyDependencies;
+    assert Arez.shouldCheckApiInvariants();
+    return 0 == ( _options & Options.MANUAL_REPORT_STALE_ALLOWED );
   }
 
   /**
@@ -207,12 +214,14 @@ public final class Observer
 
   boolean canNestActions()
   {
-    return _canNestActions;
+    assert Arez.shouldCheckApiInvariants();
+    return 0 != ( _options & Options.NESTED_ACTIONS_ALLOWED );
   }
 
   boolean canObserveLowerPriorityDependencies()
   {
-    return _observeLowerPriorityDependencies;
+    assert Arez.shouldCheckApiInvariants();
+    return 0 != ( _options & Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
   }
 
   boolean isComputedValue()
@@ -309,11 +318,15 @@ public final class Observer
    *
    * @return the transaction mode in which the observer executes.
    */
-  @Nullable
+  @Nonnull
   TransactionMode getMode()
   {
     assert Arez.shouldEnforceTransactionType();
-    return _mode;
+    return null != _computedValue ?
+           TransactionMode.READ_WRITE_OWNED :
+           0 != ( _options & Options.READ_WRITE ) ?
+           TransactionMode.READ_WRITE :
+           TransactionMode.READ_ONLY;
   }
 
   /**
@@ -353,7 +366,7 @@ public final class Observer
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !_arezOnlyDependencies,
+      apiInvariant( () -> !arezOnlyDependencies(),
                     () -> "Arez-0199: Observer.reportStale() invoked on observer named '" + getName() +
                           "' but arezOnlyDependencies = true." );
       apiInvariant( () -> getContext().isTransactionActive(),
