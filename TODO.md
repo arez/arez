@@ -25,6 +25,8 @@ complete as there is too much un-said.
 
 * Implement something similar to `getDependencyTree` from mobx
 
+* Consider removing `Observer._onStale` field.
+
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
