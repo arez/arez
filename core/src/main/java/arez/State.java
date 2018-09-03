@@ -9,6 +9,8 @@ final class State
 {
   /**
    * Mask used to extract state bits.
+   * State is the lowest bits as it is the most frequently accessed numeric fields
+   * and placing values at lower part of integer avoids a shift.
    */
   static final int STATE_MASK = 0b00000000000000000000000000000111;
   /**
