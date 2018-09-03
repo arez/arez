@@ -8,6 +8,10 @@ import javax.annotation.Nonnull;
 final class State
 {
   /**
+   * Flag indicating whether next scheduled invocation of {@link Observer} should invokeReaction {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
+   */
+  static final int EXECUTE_TRACKED_NEXT = 0b00000000000000000000000000010000;
+  /**
    * The observer has been scheduled.
    */
   static final int SCHEDULED = 0b00000000000000000000000000001000;
@@ -16,7 +20,7 @@ final class State
    * State is the lowest bits as it is the most frequently accessed numeric fields
    * and placing values at lower part of integer avoids a shift.
    */
-  static final int STATE_MASK = 0b00000000000000000000000000000111;
+  private static final int STATE_MASK = 0b00000000000000000000000000000111;
   /**
    * The observer has been disposed.
    */
@@ -48,7 +52,7 @@ final class State
   /**
    * Mask that identifies the bits associated with runtime configuration.
    */
-  static final int RUNTIME_CONFIG_MASK = 0b00000000000000000000000000001111;
+  static final int RUNTIME_CONFIG_MASK = 0b00000000000000000000000000011111;
 
   /**
    * Extract and return the observer's state.

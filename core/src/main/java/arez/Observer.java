@@ -48,10 +48,6 @@ public final class Observer
   @Nonnull
   private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
-   * Flag indicating whether next scheduled invocation should invokeReaction {@link #_tracked} or {@link #_onDepsUpdated}.
-   */
-  private boolean _executeTrackedNext;
-  /**
    * Observed executable to invokeReaction if any.
    * This may be null if external scheduler is responsible for executing the tracked executable via
    * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
@@ -129,7 +125,6 @@ public final class Observer
     _computedValue = computedValue;
     _tracked = tracked;
     _onDepsUpdated = onDepsUpdated;
-    _executeTrackedNext = null != _tracked;
 
     int options =
       Arez.shouldCheckApiInvariants() || Arez.shouldCheckApiInvariants() ?
@@ -161,8 +156,8 @@ public final class Observer
     }
 
     options |= State.STATE_INACTIVE;
-
     _options = options;
+    executeTrackedNextIfPresent();
 
     if ( null == _computedValue )
     {
@@ -549,7 +544,7 @@ public final class Observer
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule() returns false." );
     }
-    _executeTrackedNext = null != _tracked;
+    executeTrackedNextIfPresent();
     scheduleReaction();
     getContext().triggerScheduler();
   }
@@ -605,9 +600,9 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( State.STATE_UP_TO_DATE != getState() )
         {
-          if ( _executeTrackedNext )
+          if ( shouldExecuteTrackedNext() )
           {
-            _executeTrackedNext = null == _onDepsUpdated;
+            executeOnDepsUpdatedNextIfPresent();
             runTrackedExecutable();
           }
           else
@@ -925,6 +920,22 @@ public final class Observer
 
   boolean shouldExecuteTrackedNext()
   {
-    return _executeTrackedNext;
+    return 0 != ( _options & State.EXECUTE_TRACKED_NEXT );
+  }
+
+  private void executeTrackedNextIfPresent()
+  {
+    if ( null != _tracked )
+    {
+      _options |= State.EXECUTE_TRACKED_NEXT;
+    }
+  }
+
+  private void executeOnDepsUpdatedNextIfPresent()
+  {
+    if ( null != _onDepsUpdated )
+    {
+      _options &= ~State.EXECUTE_TRACKED_NEXT;
+    }
   }
 }
