@@ -1032,7 +1032,7 @@ final class Transaction
     return _tracker;
   }
 
-  boolean isComputedValueTracker()
+  private boolean isComputedValueTracker()
   {
     return null != _tracker && _tracker.isComputedValue();
   }
