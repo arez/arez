@@ -48,11 +48,6 @@ public final class Observer
   @Nonnull
   private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
-   * Flag indicating whether this observer has been scheduled.
-   * Should always be false unless _reaction is non-null.
-   */
-  private boolean _scheduled;
-  /**
    * Flag indicating whether next scheduled invocation should invokeReaction {@link #_tracked} or {@link #_onDepsUpdated}.
    */
   private boolean _executeTrackedNext;
@@ -523,7 +518,7 @@ public final class Observer
    */
   boolean isScheduled()
   {
-    return _scheduled;
+    return 0 != ( _options & State.SCHEDULED );
   }
 
   /**
@@ -531,7 +526,7 @@ public final class Observer
    */
   void clearScheduledFlag()
   {
-    _scheduled = false;
+    _options &= ~State.SCHEDULED;
   }
 
   /**
@@ -539,7 +534,7 @@ public final class Observer
    */
   void setScheduledFlag()
   {
-    _scheduled = true;
+    _options |= State.SCHEDULED;
   }
 
   /**
@@ -914,11 +909,6 @@ public final class Observer
       _info = new ObserverInfoImpl( getContext().getSpy(), this );
     }
     return Arez.areSpiesEnabled() ? _info : null;
-  }
-
-  void markAsScheduled()
-  {
-    _scheduled = true;
   }
 
   @Nullable

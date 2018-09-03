@@ -8,6 +8,10 @@ import javax.annotation.Nonnull;
 final class State
 {
   /**
+   * The observer has been scheduled.
+   */
+  static final int SCHEDULED = 0b00000000000000000000000000001000;
+  /**
    * Mask used to extract state bits.
    * State is the lowest bits as it is the most frequently accessed numeric fields
    * and placing values at lower part of integer avoids a shift.
@@ -41,6 +45,10 @@ final class State
    * A dependency has changed so the observer will need to recompute.
    */
   static final int STATE_STALE = 0b00000000000000000000000000000110;
+  /**
+   * Mask that identifies the bits associated with runtime configuration.
+   */
+  static final int RUNTIME_CONFIG_MASK = 0b00000000000000000000000000001111;
 
   /**
    * Extract and return the observer's state.

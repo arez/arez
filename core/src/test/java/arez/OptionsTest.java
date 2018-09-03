@@ -76,7 +76,7 @@ public class OptionsTest
       final Map.Entry<String, Integer> outerEntry = entries.get( i );
       final int outerValue = outerEntry.getValue();
 
-      if ( ( ( Options.OPTIONS_MASK | State.STATE_MASK ) & outerValue ) != outerValue )
+      if ( ( ( Options.OPTIONS_MASK | State.RUNTIME_CONFIG_MASK ) & outerValue ) != outerValue )
       {
         fail( "Constant " + outerEntry.getKey() + " in class " + Options.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );

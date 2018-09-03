@@ -508,7 +508,7 @@ public class SpyImplTest
 
     assertEquals( spy.isScheduled( observer ), false );
 
-    observer.markAsScheduled();
+    observer.setScheduledFlag();
 
     assertEquals( spy.isScheduled( observer ), true );
   }
