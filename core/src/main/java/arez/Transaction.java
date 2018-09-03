@@ -427,7 +427,7 @@ final class Transaction
         // Mark the tracker as up to date at the start of the transaction.
         // If it is made stale during the transaction then completeTracking() will fix the
         // state of the _tracker.
-        _tracker.setState( ObserverState.UP_TO_DATE );
+        _tracker.setState( State.STATE_UP_TO_DATE );
       }
       // Ensure dependencies "LeastStaleObserverState" state is kept up to date.
       _tracker.markDependenciesLeastStaleObserverAsUpToDate();
@@ -630,23 +630,23 @@ final class Transaction
       observableValue.invariantLeastStaleObserverState();
     }
 
-    if ( observableValue.hasObservers() && ObserverState.STALE != observableValue.getLeastStaleObserverState() )
+    if ( observableValue.hasObservers() && State.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
-      observableValue.setLeastStaleObserverState( ObserverState.STALE );
+      observableValue.setLeastStaleObserverState( State.STATE_STALE );
       final ArrayList<Observer> observers = observableValue.getObservers();
       for ( final Observer observer : observers )
       {
-        final ObserverState state = observer.getState();
+        final int state = observer.getState();
         if ( Arez.shouldCheckInvariants() )
         {
-          invariant( () -> ObserverState.INACTIVE != state,
+          invariant( () -> State.STATE_INACTIVE != state,
                      () -> "Arez-0145: Transaction named '" + getName() + "' has attempted to explicitly " +
                            "change observableValue named '" + observableValue.getName() + "' and observableValue " +
-                           "is in unexpected state " + state.name() + "." );
+                           "is in unexpected state " + State.getStateName( state ) + "." );
         }
-        if ( ObserverState.STALE != state )
+        if ( State.STATE_STALE != state )
         {
-          observer.setState( ObserverState.STALE );
+          observer.setState( State.STATE_STALE );
         }
       }
     }
@@ -681,19 +681,19 @@ final class Transaction
       observableValue.invariantLeastStaleObserverState();
     }
 
-    if ( observableValue.hasObservers() && ObserverState.UP_TO_DATE == observableValue.getLeastStaleObserverState() )
+    if ( observableValue.hasObservers() && State.STATE_UP_TO_DATE == observableValue.getLeastStaleObserverState() )
     {
-      observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+      observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
       for ( final Observer observer : observableValue.getObservers() )
       {
-        final ObserverState state = observer.getState();
-        if ( ObserverState.UP_TO_DATE == state )
+        final int state = observer.getState();
+        if ( State.STATE_UP_TO_DATE == state )
         {
-          observer.setState( ObserverState.POSSIBLY_STALE );
+          observer.setState( State.STATE_POSSIBLY_STALE );
         }
         else
         {
-          assert ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state;
+          assert State.STATE_STALE == state || State.STATE_POSSIBLY_STALE == state;
         }
       }
     }
@@ -723,17 +723,17 @@ final class Transaction
       observableValue.invariantLeastStaleObserverState();
     }
     verifyWriteAllowed( observableValue );
-    if ( observableValue.hasObservers() && ObserverState.STALE != observableValue.getLeastStaleObserverState() )
+    if ( observableValue.hasObservers() && State.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
-      observableValue.setLeastStaleObserverState( ObserverState.STALE );
+      observableValue.setLeastStaleObserverState( State.STATE_STALE );
 
       for ( final Observer observer : observableValue.getObservers() )
       {
-        if ( ObserverState.POSSIBLY_STALE == observer.getState() )
+        if ( State.STATE_POSSIBLY_STALE == observer.getState() )
         {
-          observer.setState( ObserverState.STALE );
+          observer.setState( State.STATE_STALE );
         }
-        else if ( ObserverState.UP_TO_DATE == observer.getState() )
+        else if ( State.STATE_UP_TO_DATE == observer.getState() )
         {
           /*
            * This happens when the observer is reacting to the change and this
@@ -744,7 +744,7 @@ final class Transaction
           {
             invariantObserverIsTracker( observableValue, observer );
           }
-          observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+          observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
         }
       }
     }
@@ -833,18 +833,18 @@ final class Transaction
     if ( Arez.shouldCheckInvariants() )
     {
       _tracker.invariantDependenciesUnique( "Pre completeTracking" );
-      invariant( () -> _tracker.getState() != ObserverState.INACTIVE || _tracker.isDisposed(),
+      invariant( () -> _tracker.getState() != State.STATE_INACTIVE || _tracker.isDisposed(),
                  () -> "Arez-0155: Transaction named '" + getName() + "' called completeTracking but _tracker state " +
                        "of INACTIVE is not expected when tracker has not been disposed." );
     }
 
-    // the newDerivation state should be ObserverState.UP_TO_DATE in most cases
+    // the newDerivation state should be State.STATE_UP_TO_DATE in most cases
     // as that is what it was set to in beginTracking. However if an observer adds a
     // new observable, the tracker itself is stale and the observable has a LeastStaleObserverState
     // of STALE due to another observer, the newDerivationState value can be incorrect
     // The state tracker can also be disposed within the scope of the transaction which will lead to
     // DISPOSED or DISPOSING state.
-    ObserverState newDerivationState = ObserverState.getLeastStaleObserverState( _tracker.getState() );
+    int newDerivationState = _tracker.getLeastStaleObserverState();
 
     boolean dependenciesChanged = false;
     int currentIndex = 0;
@@ -869,8 +869,8 @@ final class Transaction
           if ( observableValue.hasOwner() )
           {
             final Observer owner = observableValue.getOwner();
-            final ObserverState dependenciesState = owner.getState();
-            if ( dependenciesState == ObserverState.STALE )
+            final int dependenciesState = owner.getState();
+            if ( dependenciesState == State.STATE_STALE )
             {
               newDerivationState = dependenciesState;
             }
@@ -901,9 +901,9 @@ final class Transaction
     // tracking operation but they have had no chance to propagate staleness to this
     // observer so rectify this. This should NOT reschedule tracker.
     // NOTE: This must occur before subsequent observable.addObserver() calls
-    if ( !_tracker.isDisposedOrDisposing() && ObserverState.UP_TO_DATE != newDerivationState )
+    if ( !_tracker.isDisposedOrDisposing() && State.STATE_UP_TO_DATE != newDerivationState )
     {
-      if ( _tracker.getState().ordinal() < newDerivationState.ordinal() )
+      if ( _tracker.getState() < newDerivationState )
       {
         _tracker.setState( newDerivationState, false );
       }
@@ -924,9 +924,8 @@ final class Transaction
           dependenciesChanged = true;
           if ( Arez.shouldCheckInvariants() )
           {
-            final ObserverState leastStaleObserverState = observableValue.getLeastStaleObserverState();
-            assert !( ObserverState.isNotActive( leastStaleObserverState ) ||
-                      leastStaleObserverState.ordinal() > newDerivationState.ordinal() );
+            final int leastStaleObserverState = observableValue.getLeastStaleObserverState();
+            assert !( State.isNotActive( leastStaleObserverState ) || leastStaleObserverState > newDerivationState );
           }
         }
       }

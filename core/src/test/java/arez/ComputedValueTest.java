@@ -59,7 +59,7 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().isComputedValue(), true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
-    assertEquals( computedValue.getObserver().getState(), ObserverState.INACTIVE );
+    assertEquals( computedValue.getObserver().getState(), State.STATE_INACTIVE );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getObservableValue().hasOwner(), true );
     assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
@@ -99,7 +99,7 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().isComputedValue(), true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
-    assertEquals( computedValue.getObserver().getState(), ObserverState.UP_TO_DATE );
+    assertEquals( computedValue.getObserver().getState(), State.STATE_UP_TO_DATE );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getObservableValue().hasOwner(), true );
     assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
@@ -235,11 +235,11 @@ public class ComputedValueTest
     final Observer observer = context.autorun( new CountAndObserveProcedure() );
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( State.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     computedValue.setValue( value1 );
 
@@ -250,7 +250,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), value2 );
     assertEquals( computedValue.getError(), null );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -272,11 +272,11 @@ public class ComputedValueTest
 
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( State.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     computedValue.setValue( null );
     computedValue.setError( new IllegalStateException() );
@@ -289,7 +289,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), value2 );
     assertEquals( computedValue.getError(), null );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -311,11 +311,11 @@ public class ComputedValueTest
 
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( State.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     value.set( value1 );
     computedValue.setValue( value1 );
@@ -326,7 +326,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), value1 );
     // Verify state does not change
-    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observer.getState(), State.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -348,11 +348,11 @@ public class ComputedValueTest
 
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( State.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     computedValue.setValue( value1 );
 
@@ -363,7 +363,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), null );
     assertEquals( computedValue.getError(), exception );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -411,7 +411,7 @@ public class ComputedValueTest
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
 
     assertEquals( observer.isDisposed(), false );
 
@@ -420,7 +420,7 @@ public class ComputedValueTest
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observer.getState(), ObserverState.DISPOSED );
+    assertEquals( observer.getState(), State.STATE_DISPOSED );
   }
 
   @Test
@@ -433,7 +433,7 @@ public class ComputedValueTest
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
 
     assertEquals( observer.isDisposed(), false );
 
@@ -445,7 +445,7 @@ public class ComputedValueTest
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observer.getState(), ObserverState.DISPOSED );
+    assertEquals( observer.getState(), State.STATE_DISPOSED );
 
     handler.assertEventCount( 14 );
 
@@ -500,11 +500,11 @@ public class ComputedValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     computedValue.setValue( "XXX" );
 
     assertEquals( computedValue.get(), "XXX" );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -519,14 +519,14 @@ public class ComputedValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
     computedValue.setError( error );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::get );
     assertEquals( exception, error );
 
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     // Get again produces the same exception again
     final IllegalStateException exception2 = expectThrows( IllegalStateException.class, computedValue::get );
@@ -545,14 +545,14 @@ public class ComputedValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     final Error error = new Error();
     computedValue.setError( error );
 
     final Error exception = expectThrows( Error.class, computedValue::get );
     assertEquals( exception, error );
 
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     // Get again produces the same exception again
     final Error exception2 = expectThrows( Error.class, computedValue::get );
@@ -571,7 +571,7 @@ public class ComputedValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
 
     computedValue.setValue( "" );
@@ -582,7 +582,7 @@ public class ComputedValueTest
                   "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
                   computedValue.getName() + "' but still has a non-null value." );
 
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -601,11 +601,11 @@ public class ComputedValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.STALE );
+    observer.setState( State.STATE_STALE );
     computedValue.setValue( "XXX" );
 
     assertEquals( computedValue.get(), "" );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -620,7 +620,7 @@ public class ComputedValueTest
 
     setCurrentTransaction( observer );
 
-    observer.setState( ObserverState.STALE );
+    observer.setState( State.STATE_STALE );
     computedValue.setValue( "XXX" );
 
     observer.markAsDisposed();
@@ -645,7 +645,7 @@ public class ComputedValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     computedValue.setValue( "XXX" );
 
     computedValue.setComputing( true );
@@ -659,7 +659,7 @@ public class ComputedValueTest
     computedValue.setComputing( false );
 
     assertEquals( computedValue.get(), "XXX" );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test

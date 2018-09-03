@@ -38,11 +38,6 @@ public final class Observer
   @Nullable
   private Procedure _onDispose;
   /**
-   * The state of the observer relative to the observers dependencies.
-   */
-  @Nonnull
-  private ObserverState _state = ObserverState.INACTIVE;
-  /**
    * The observables that this observer receives notifications from.
    * These are the dependencies within the dependency graph and will
    * typically correspond to the observables that were accessed in last
@@ -82,7 +77,7 @@ public final class Observer
    */
   @Nullable
   private ObserverInfo _info;
-  private final int _options;
+  private int _options;
 
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
@@ -169,6 +164,8 @@ public final class Observer
         options |= Options.PRIORITY_LOWEST;
         break;
     }
+
+    options |= State.STATE_INACTIVE;
 
     _options = options;
 
@@ -261,7 +258,7 @@ public final class Observer
       {
         _computedValue.dispose();
       }
-      _state = ObserverState.DISPOSED;
+      markAsDisposed();
     }
   }
 
@@ -269,13 +266,13 @@ public final class Observer
   {
     getContext().getTransaction().reportDispose( this );
     markDependenciesLeastStaleObserverAsUpToDate();
-    setState( ObserverState.DISPOSING );
+    setState( State.STATE_DISPOSING );
     runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
   }
 
   void markAsDisposed()
   {
-    _state = ObserverState.DISPOSED;
+    _options = State.setState( _options, State.STATE_DISPOSED );
   }
 
   /**
@@ -284,12 +281,12 @@ public final class Observer
   @Override
   public boolean isDisposed()
   {
-    return ObserverState.DISPOSED == _state;
+    return State.STATE_DISPOSED == getState();
   }
 
   boolean isDisposedOrDisposing()
   {
-    return ObserverState.DISPOSING.ordinal() >= _state.ordinal();
+    return State.STATE_DISPOSING >= getState();
   }
 
   /**
@@ -299,18 +296,22 @@ public final class Observer
    */
   boolean isDisposing()
   {
-    return ObserverState.DISPOSING == _state;
+    return State.STATE_DISPOSING == getState();
   }
 
   /**
-   * Return the state of the observer.
+   * Return the state of the observer relative to the observers dependencies.
    *
-   * @return the state of the observer.
+   * @return the state of the observer relative to the observers dependencies.
    */
-  @Nonnull
-  ObserverState getState()
+  int getState()
   {
-    return _state;
+    return State.getState( _options );
+  }
+
+  int getLeastStaleObserverState()
+  {
+    return State.getLeastStaleObserverState( _options );
   }
 
   /**
@@ -331,8 +332,8 @@ public final class Observer
 
   /**
    * Return true if the observer is active.
-   * Being "active" means that the state of the observer is not {@link ObserverState#INACTIVE},
-   * {@link ObserverState#DISPOSING} or {@link ObserverState#DISPOSED}.
+   * Being "active" means that the state of the observer is not {@link State#STATE_INACTIVE},
+   * {@link State#STATE_DISPOSING} or {@link State#STATE_DISPOSED}.
    *
    * <p>An inactive observer has no dependencies and depending on the type of observer may
    * have other consequences. i.e. An inactive observer will never be scheduled even if it has a
@@ -342,7 +343,7 @@ public final class Observer
    */
   boolean isActive()
   {
-    return ObserverState.isActive( getState() );
+    return State.isActive( _options );
   }
 
   /**
@@ -377,17 +378,17 @@ public final class Observer
                           "' when the active transaction '" + getContext().getTransaction().getName() +
                           "' is " + getContext().getTransaction().getMode() + " rather than READ_WRITE." );
     }
-    setState( ObserverState.STALE );
+    setState( State.STATE_STALE );
   }
 
   /**
    * Set the state of the observer.
    * Call the hook actions for relevant state change.
-   * This is equivalent to passing true in <code>schedule</code> parameter to {@link #setState(ObserverState, boolean)}
+   * This is equivalent to passing true in <code>schedule</code> parameter to {@link #setState(int, boolean)}
    *
    * @param state the new state of the observer.
    */
-  void setState( @Nonnull final ObserverState state )
+  void setState( final int state )
   {
     setState( state, true );
   }
@@ -399,7 +400,7 @@ public final class Observer
    * @param state    the new state of the observer.
    * @param schedule true if a state transition can cause observer to reschedule, false otherwise.
    */
-  void setState( @Nonnull final ObserverState state, final boolean schedule )
+  void setState( final int state, final boolean schedule )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -408,15 +409,15 @@ public final class Observer
                        "no active transaction." );
       invariantState();
     }
-    if ( !state.equals( _state ) )
+    final int originalState = getState();
+    if ( state != originalState )
     {
-      final ObserverState originalState = _state;
-      _state = state;
-      if ( Arez.shouldCheckInvariants() && ObserverState.DISPOSED == originalState )
+      _options = State.setState( _options, state );
+      if ( Arez.shouldCheckInvariants() && State.STATE_DISPOSED == originalState )
       {
         fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
       }
-      else if ( null == _computedValue && ObserverState.STALE == state )
+      else if ( null == _computedValue && State.STATE_STALE == state )
       {
         if ( schedule )
         {
@@ -424,8 +425,8 @@ public final class Observer
         }
       }
       else if ( null != _computedValue &&
-                ObserverState.UP_TO_DATE == originalState &&
-                ( ObserverState.STALE == state || ObserverState.POSSIBLY_STALE == state ) )
+                State.STATE_UP_TO_DATE == originalState &&
+                ( State.STATE_STALE == state || State.STATE_POSSIBLY_STALE == state ) )
       {
         _computedValue.getObservableValue().reportPossiblyChanged();
         runHook( _computedValue.getOnStale(), ObserverError.ON_STALE_ERROR );
@@ -434,8 +435,8 @@ public final class Observer
           scheduleReaction();
         }
       }
-      else if ( ObserverState.INACTIVE == _state ||
-                ( ObserverState.INACTIVE != originalState && ObserverState.DISPOSING == _state ) )
+      else if ( State.STATE_INACTIVE == state ||
+                ( State.STATE_INACTIVE != originalState && State.STATE_DISPOSING == state ) )
       {
         if ( isComputedValue() )
         {
@@ -445,7 +446,7 @@ public final class Observer
         }
         clearDependencies();
       }
-      else if ( ObserverState.INACTIVE == originalState )
+      else if ( State.STATE_INACTIVE == originalState )
       {
         if ( isComputedValue() )
         {
@@ -509,7 +510,7 @@ public final class Observer
       dependency.removeObserver( this );
       if ( !dependency.hasObservers() )
       {
-        dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+        dependency.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
       }
     } );
     getDependencies().clear();
@@ -607,7 +608,7 @@ public final class Observer
       try
       {
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
-        if ( ObserverState.UP_TO_DATE != getState() )
+        if ( State.STATE_UP_TO_DATE != getState() )
         {
           if ( _executeTrackedNext )
           {
@@ -680,7 +681,7 @@ public final class Observer
   {
     for ( final ObservableValue dependency : getDependencies() )
     {
-      dependency.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+      dependency.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
     }
   }
 
@@ -700,14 +701,15 @@ public final class Observer
    */
   boolean shouldCompute()
   {
-    switch ( getState() )
+    final int state = getState();
+    switch ( state )
     {
-      case UP_TO_DATE:
+      case State.STATE_UP_TO_DATE:
         return false;
-      case INACTIVE:
-      case STALE:
+      case State.STATE_INACTIVE:
+      case State.STATE_STALE:
         return true;
-      case POSSIBLY_STALE:
+      case State.STATE_POSSIBLY_STALE:
       {
         for ( final ObservableValue observableValue : getDependencies() )
         {
@@ -723,7 +725,7 @@ public final class Observer
             {
             }
             // Call to get() will update this state if ComputedValue changed
-            if ( ObserverState.STALE == getState() )
+            if ( State.STATE_STALE == getState() )
             {
               return true;
             }

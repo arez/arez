@@ -192,9 +192,9 @@ public final class ComputedValue<T>
                           getName() + "' but the computed value has arezOnlyDependencies = true." );
     }
     Transaction.current().verifyWriteAllowed( getObservableValue() );
-    if ( ObserverState.UP_TO_DATE == getObserver().getState() )
+    if ( State.STATE_UP_TO_DATE == getObserver().getState() )
     {
-      getObserver().setState( ObserverState.POSSIBLY_STALE );
+      getObserver().setState( State.STATE_POSSIBLY_STALE );
     }
   }
 

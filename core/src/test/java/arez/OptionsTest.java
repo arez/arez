@@ -28,11 +28,11 @@ public class OptionsTest
   public void extractPriority()
     throws Exception
   {
-    assertEquals( Options.extractPriority( Options.PRIORITY_HIGHEST ), 0 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_HIGH ), 1 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_NORMAL ), 2 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_LOW ), 3 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_LOWEST ), 4 );
+    assertEquals( Options.extractPriority( Options.PRIORITY_HIGHEST | State.STATE_INACTIVE ), 0 );
+    assertEquals( Options.extractPriority( Options.PRIORITY_HIGH | State.STATE_INACTIVE ), 1 );
+    assertEquals( Options.extractPriority( Options.PRIORITY_NORMAL | State.STATE_INACTIVE ), 2 );
+    assertEquals( Options.extractPriority( Options.PRIORITY_LOW | State.STATE_INACTIVE ), 3 );
+    assertEquals( Options.extractPriority( Options.PRIORITY_LOWEST | State.STATE_INACTIVE ), 4 );
   }
 
   @Test
@@ -58,6 +58,17 @@ public class OptionsTest
         values.put( name, (Integer) field.get( null ) );
       }
     }
+    for ( final Field field : State.class.getDeclaredFields() )
+    {
+      final String name = field.getName();
+      if ( !Modifier.isPrivate( field.getModifiers() ) &&
+           !field.isSynthetic() &&
+           !name.endsWith( "_MASK" ) &&
+           !name.endsWith( "_SHIFT" ) )
+      {
+        values.put( name, (Integer) field.get( null ) );
+      }
+    }
     final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>( values.entrySet() );
     final int size = entries.size();
     for ( int i = 0; i < size; i++ )
@@ -65,7 +76,7 @@ public class OptionsTest
       final Map.Entry<String, Integer> outerEntry = entries.get( i );
       final int outerValue = outerEntry.getValue();
 
-      if ( ( Options.OPTIONS_MASK & outerValue ) != outerValue )
+      if ( ( ( Options.OPTIONS_MASK | State.STATE_MASK ) & outerValue ) != outerValue )
       {
         fail( "Constant " + outerEntry.getKey() + " in class " + Options.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );

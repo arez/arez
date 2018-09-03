@@ -152,12 +152,12 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    assertEquals( tracker.getState(), ObserverState.INACTIVE );
+    assertEquals( tracker.getState(), State.STATE_INACTIVE );
 
     transaction.begin();
 
     //Just verify that it ultimately invokes beginTracking
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -173,11 +173,11 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue1 = context.observable();
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.UP_TO_DATE );
+    derivation.setState( State.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue2 = derivation.getComputedValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue2 );
@@ -197,7 +197,7 @@ public class TransactionTest
     transaction.commit();
 
     // The next code block essentially verifies it calls completeTracking
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
@@ -207,7 +207,7 @@ public class TransactionTest
     assertEquals( observableValue2.isPendingDeactivation(), false );
     assertEquals( observableValue2.isActive(), false );
     assertEquals( observableValue2.getOwner(), derivation );
-    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+    assertEquals( derivation.getState(), State.STATE_INACTIVE );
   }
 
   @Test
@@ -240,11 +240,11 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    assertEquals( tracker.getState(), ObserverState.INACTIVE );
+    assertEquals( tracker.getState(), State.STATE_INACTIVE );
 
     transaction.beginTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -258,18 +258,18 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    tracker.setState( ObserverState.STALE );
-    assertEquals( tracker.getState(), ObserverState.STALE );
+    tracker.setState( State.STATE_STALE );
+    assertEquals( tracker.getState(), State.STATE_STALE );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_STALE );
     tracker.getDependencies().add( observableValue );
     observableValue.rawAddObserver( tracker );
 
     transaction.beginTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -440,7 +440,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     ensureDerivationHasObserver( tracker );
 
@@ -450,7 +450,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
   }
@@ -485,7 +485,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.INACTIVE );
+    tracker.setState( State.STATE_INACTIVE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::completeTracking );
@@ -510,7 +510,7 @@ public class TransactionTest
 
     tracker.markDependenciesLeastStaleObserverAsUpToDate();
     tracker.clearDependencies();
-    tracker.setState( ObserverState.DISPOSED );
+    tracker.setState( State.STATE_DISPOSED );
 
     // This dependency "retained" (until tracker disposed)
     final ObservableValue<?> observableValue1 = context.observable();
@@ -532,7 +532,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.DISPOSED );
+    assertEquals( tracker.getState(), State.STATE_DISPOSED );
     final ArrayList<ObservableValue<?>> dependencies1 = tracker.getDependencies();
     assertTrue( dependencies1 != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
@@ -556,8 +556,8 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.STALE );
-    observer2.setState( ObserverState.STALE );
+    tracker.setState( State.STATE_STALE );
+    observer2.setState( State.STATE_STALE );
 
     // Setup existing observableValue dependency
     final ObservableValue<?> observableValue = context.observable();
@@ -572,12 +572,12 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.STALE );
+    assertEquals( tracker.getState(), State.STATE_STALE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue.getObservers().size(), 2 );
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
   }
 
   @Test
@@ -590,7 +590,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     ensureDerivationHasObserver( tracker );
 
@@ -603,7 +603,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -622,7 +622,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -632,7 +632,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observableValue ), true );
@@ -651,7 +651,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue1 = context.observable();
     final ObservableValue<?> observableValue2 = context.observable();
@@ -667,7 +667,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 4 );
     assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
@@ -689,7 +689,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -702,7 +702,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observableValue ), true );
@@ -721,7 +721,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue1 = context.observable();
     final ObservableValue<?> observableValue2 = context.observable();
@@ -738,7 +738,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
     assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
@@ -757,7 +757,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     ensureDerivationHasObserver( tracker );
 
@@ -777,7 +777,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
     assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
@@ -798,7 +798,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     // This dependency retained
     final ObservableValue<?> observableValue1 = context.observable();
@@ -820,7 +820,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
     assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
@@ -840,12 +840,12 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     ensureDerivationHasObserver( tracker );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.UP_TO_DATE );
+    derivation.setState( State.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
@@ -856,7 +856,7 @@ public class TransactionTest
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observableValue ), true );
@@ -873,12 +873,12 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     ensureDerivationHasObserver( tracker );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.STALE );
+    derivation.setState( State.STATE_STALE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
@@ -887,18 +887,18 @@ public class TransactionTest
 
     final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.STALE );
+    assertEquals( tracker.getState(), State.STATE_STALE );
     assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observableValue ), true );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
     // Make sure the derivation observer has state updated
-    assertEquals( tracker.getState(), ObserverState.STALE );
+    assertEquals( tracker.getState(), State.STATE_STALE );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -912,18 +912,18 @@ public class TransactionTest
     setCurrentTransaction( tracker );
 
     ensureDerivationHasObserver( tracker );
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.POSSIBLY_STALE );
+    derivation.setState( State.STATE_POSSIBLY_STALE );
 
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     Transaction.setTransaction( null );
     final Observer observer = context.autorun( new CountAndObserveProcedure() );
     setupReadWriteTransaction();
-    observer.setState( ObserverState.STALE );
+    observer.setState( State.STATE_STALE );
 
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
@@ -934,13 +934,13 @@ public class TransactionTest
 
     Transaction.current().completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( tracker.getDependencies().contains( observableValue ), true );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
     // Make sure the derivation observer has state updated
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -955,10 +955,10 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.STALE );
+    derivation.setState( State.STATE_STALE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
@@ -966,11 +966,11 @@ public class TransactionTest
 
     final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -1000,10 +1000,10 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.STALE );
+    derivation.setState( State.STATE_STALE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
@@ -1011,11 +1011,11 @@ public class TransactionTest
 
     final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( tracker.getState(), State.STATE_UP_TO_DATE );
     assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -1037,7 +1037,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<String> observableValue = context.computed( () -> "" ).getObservableValue();
 
@@ -1062,7 +1062,7 @@ public class TransactionTest
     final Transaction transaction2 =
       new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction2 );
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<String> observableValue = context.computed( () -> "" ).getObservableValue();
 
@@ -1093,7 +1093,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<String> observableValue = context.computed( () -> "" ).getObservableValue();
 
@@ -1118,7 +1118,7 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -1141,7 +1141,7 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.UP_TO_DATE );
+    derivation.setState( State.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     observableValue.markAsPendingDeactivation();
@@ -1159,7 +1159,7 @@ public class TransactionTest
     assertEquals( observableValue.isPendingDeactivation(), false );
     assertEquals( observableValue.isActive(), false );
     assertEquals( observableValue.getOwner(), derivation );
-    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+    assertEquals( derivation.getState(), State.STATE_INACTIVE );
   }
 
   @Test
@@ -1188,10 +1188,10 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer otherObserver = context.computed( () -> "" ).getObserver();
-    otherObserver.setState( ObserverState.UP_TO_DATE );
+    otherObserver.setState( State.STATE_UP_TO_DATE );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.UP_TO_DATE );
+    derivation.setState( State.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     observableValue.markAsPendingDeactivation();
@@ -1210,7 +1210,7 @@ public class TransactionTest
 
     assertEquals( observableValue.isPendingDeactivation(), false );
     assertEquals( observableValue.isActive(), true );
-    assertEquals( derivation.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( derivation.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1223,10 +1223,10 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer otherObserver = context.computed( () -> "" ).getObserver();
-    otherObserver.setState( ObserverState.UP_TO_DATE );
+    otherObserver.setState( State.STATE_UP_TO_DATE );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.UP_TO_DATE );
+    derivation.setState( State.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
 
     observableValue.markAsPendingDeactivation();
@@ -1260,7 +1260,7 @@ public class TransactionTest
     final ObservableValue<?> observableValue1 = context.observable();
 
     final Observer derivation1 = context.computed( () -> "" ).getObserver();
-    derivation1.setState( ObserverState.UP_TO_DATE );
+    derivation1.setState( State.STATE_UP_TO_DATE );
 
     derivation1.getDependencies().add( observableValue1 );
     observableValue1.getObservers().add( derivation1 );
@@ -1268,7 +1268,7 @@ public class TransactionTest
     final ObservableValue<?> observableValue2 = derivation1.getComputedValue().getObservableValue();
 
     final Observer derivation2 = context.computed( () -> "" ).getObserver();
-    derivation2.setState( ObserverState.UP_TO_DATE );
+    derivation2.setState( State.STATE_UP_TO_DATE );
 
     derivation2.getDependencies().add( observableValue2 );
     observableValue2.getObservers().add( derivation2 );
@@ -1298,10 +1298,10 @@ public class TransactionTest
     assertEquals( observableValue1.isPendingDeactivation(), false );
     assertEquals( observableValue1.isActive(), true );
     assertEquals( observableValue1.hasOwner(), false );
-    assertEquals( derivation2.getState(), ObserverState.INACTIVE );
+    assertEquals( derivation2.getState(), State.STATE_INACTIVE );
     assertEquals( derivation2.getDependencies().size(), 0 );
     assertEquals( observableValue2.getObservers().size(), 0 );
-    assertEquals( derivation1.getState(), ObserverState.INACTIVE );
+    assertEquals( derivation1.getState(), State.STATE_INACTIVE );
     assertEquals( derivation1.getDependencies().size(), 0 );
     assertEquals( observableValue1.getObservers().size(), 0 );
   }
@@ -1317,7 +1317,7 @@ public class TransactionTest
 
     final ObservableValue<?> baseObservableValue = context.observable();
     final Observer derivation = context.computed( () -> "" ).getObserver();
-    derivation.setState( ObserverState.UP_TO_DATE );
+    derivation.setState( State.STATE_UP_TO_DATE );
 
     derivation.getDependencies().add( baseObservableValue );
     baseObservableValue.getObservers().add( derivation );
@@ -1341,7 +1341,7 @@ public class TransactionTest
     assertEquals( derivedObservableValue.isPendingDeactivation(), false );
     assertEquals( derivedObservableValue.isActive(), false );
     assertEquals( derivedObservableValue.getOwner(), derivation );
-    assertEquals( derivation.getState(), ObserverState.INACTIVE );
+    assertEquals( derivation.getState(), State.STATE_INACTIVE );
     assertEquals( derivation.getDependencies().size(), 0 );
     assertEquals( baseObservableValue.getObservers().size(), 0 );
   }
@@ -1450,12 +1450,12 @@ public class TransactionTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
     assertEquals( transaction.hasReadOrWriteOccurred(), false );
 
     transaction.reportChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
     assertEquals( transaction.hasReadOrWriteOccurred(), true );
   }
 
@@ -1469,22 +1469,22 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
     assertEquals( transaction.hasReadOrWriteOccurred(), false );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
     assertEquals( transaction.hasReadOrWriteOccurred(), true );
   }
 
@@ -1498,15 +1498,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
 
@@ -1531,15 +1531,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
 
@@ -1561,15 +1561,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.INACTIVE );
+    observer.setState( State.STATE_INACTIVE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.INACTIVE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_INACTIVE );
 
     Transaction.setTransaction( transaction );
 
@@ -1592,22 +1592,22 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( State.STATE_POSSIBLY_STALE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), State.STATE_POSSIBLY_STALE );
 
     Transaction.setTransaction( transaction );
 
     transaction.reportChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -1620,35 +1620,35 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer1 = context.computed( () -> "" ).getObserver();
-    observer1.setState( ObserverState.UP_TO_DATE );
+    observer1.setState( State.STATE_UP_TO_DATE );
     observer1.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer1 );
 
     final Observer observer2 = context.computed( () -> "" ).getObserver();
-    observer2.setState( ObserverState.STALE );
+    observer2.setState( State.STATE_STALE );
     observer2.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer2 );
 
     final Observer observer3 = context.computed( () -> "" ).getObserver();
-    observer3.setState( ObserverState.STALE );
+    observer3.setState( State.STATE_STALE );
     observer3.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer3 );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer1.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer2.getState(), ObserverState.STALE );
-    assertEquals( observer3.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer1.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer2.getState(), State.STATE_STALE );
+    assertEquals( observer3.getState(), State.STATE_STALE );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer1.getState(), ObserverState.STALE );
-    assertEquals( observer2.getState(), ObserverState.STALE );
-    assertEquals( observer3.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( observer1.getState(), State.STATE_STALE );
+    assertEquals( observer2.getState(), State.STATE_STALE );
+    assertEquals( observer3.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -1661,24 +1661,24 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
     transaction.reportPossiblyChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), State.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -1691,18 +1691,18 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
 
@@ -1727,15 +1727,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
 
     transaction.reportPossiblyChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1749,16 +1749,16 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, calculator );
     Transaction.setTransaction( transaction );
 
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
     observableValue.getObservers().add( calculator );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( calculator.getState(), State.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportPossiblyChanged( observableValue ) );
@@ -1780,26 +1780,26 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
     observableValue.getObservers().add( calculator );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( calculator.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
 
     // A computed that causes another computed to recalculate should be allowed
     transaction.reportPossiblyChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -1810,18 +1810,18 @@ public class TransactionTest
     setupReadOnlyTransaction();
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     // A read-only transaction can not cause a computed to recalculate
 
@@ -1832,7 +1832,7 @@ public class TransactionTest
                   "Arez-0148: Transaction named '" + Transaction.current().getName() + "' attempted to " +
                   "call reportPossiblyChanged in read-only transaction." );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1845,15 +1845,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
 
@@ -1876,38 +1876,38 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer1 = context.computed( () -> "" ).getObserver();
-    observer1.setState( ObserverState.UP_TO_DATE );
+    observer1.setState( State.STATE_UP_TO_DATE );
     observer1.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer1 );
 
     final Observer observer2 = context.computed( () -> "" ).getObserver();
-    observer2.setState( ObserverState.POSSIBLY_STALE );
+    observer2.setState( State.STATE_POSSIBLY_STALE );
     observer2.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer2 );
 
     final Observer observer3 = context.computed( () -> "" ).getObserver();
-    observer3.setState( ObserverState.STALE );
+    observer3.setState( State.STATE_STALE );
     observer3.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer3 );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer1.getState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer2.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer3.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer1.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer2.getState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer3.getState(), State.STATE_STALE );
 
     Transaction.setTransaction( transaction );
     transaction.reportPossiblyChanged( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer1.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer2.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer3.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer1.getState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer2.getState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer3.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -1918,10 +1918,10 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     setCurrentTransaction( calculator );
 
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
     observableValue.getObservers().add( calculator );
@@ -1929,8 +1929,8 @@ public class TransactionTest
     context.getTransaction().reportChangeConfirmed( observableValue );
 
     // Assume observer is being updated so keep that state
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( calculator.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( calculator.getState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1941,10 +1941,10 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     setCurrentTransaction( calculator );
 
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
     observableValue.getObservers().add( calculator );
@@ -1971,15 +1971,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
 
     transaction.reportChangeConfirmed( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1992,10 +1992,10 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
     observer.setState( observableValue.getLeastStaleObserverState() );
@@ -2005,8 +2005,8 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -2019,10 +2019,10 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_STALE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
     observer.setState( observableValue.getLeastStaleObserverState() );
@@ -2032,8 +2032,8 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( observer.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -2047,10 +2047,10 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, calculator );
     Transaction.setTransaction( transaction );
 
-    calculator.setState( ObserverState.POSSIBLY_STALE );
+    calculator.setState( State.STATE_POSSIBLY_STALE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     calculator.getDependencies().add( observableValue );
     observableValue.getObservers().add( calculator );
@@ -2058,8 +2058,8 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( calculator.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( calculator.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -2073,13 +2073,13 @@ public class TransactionTest
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
     Transaction.setTransaction( transaction );
 
-    tracker.setState( ObserverState.UP_TO_DATE );
+    tracker.setState( State.STATE_UP_TO_DATE );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.POSSIBLY_STALE );
+    calculator.setState( State.STATE_POSSIBLY_STALE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
 
     calculator.getDependencies().add( observableValue );
     observableValue.getObservers().add( calculator );
@@ -2104,18 +2104,18 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( transaction );
 
@@ -2137,15 +2137,15 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( State.STATE_UP_TO_DATE );
     observer.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> transaction.reportChangeConfirmed( observableValue ) );
@@ -2166,38 +2166,38 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
-    calculator.setState( ObserverState.UP_TO_DATE );
+    calculator.setState( State.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
-    observableValue.setLeastStaleObserverState( ObserverState.UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
 
     final Observer observer1 = context.computed( () -> "" ).getObserver();
-    observer1.setState( ObserverState.POSSIBLY_STALE );
+    observer1.setState( State.STATE_POSSIBLY_STALE );
     observer1.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer1 );
 
     final Observer observer2 = context.computed( () -> "" ).getObserver();
-    observer2.setState( ObserverState.POSSIBLY_STALE );
+    observer2.setState( State.STATE_POSSIBLY_STALE );
     observer2.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer2 );
 
     final Observer observer3 = context.computed( () -> "" ).getObserver();
-    observer3.setState( ObserverState.STALE );
+    observer3.setState( State.STATE_STALE );
     observer3.getDependencies().add( observableValue );
     observableValue.getObservers().add( observer3 );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.UP_TO_DATE );
-    assertEquals( observer1.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer2.getState(), ObserverState.POSSIBLY_STALE );
-    assertEquals( observer3.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer1.getState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer2.getState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer3.getState(), State.STATE_STALE );
 
     Transaction.setTransaction( transaction );
     transaction.reportChangeConfirmed( observableValue );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), ObserverState.STALE );
-    assertEquals( observer1.getState(), ObserverState.STALE );
-    assertEquals( observer2.getState(), ObserverState.STALE );
-    assertEquals( observer3.getState(), ObserverState.STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_STALE );
+    assertEquals( observer1.getState(), State.STATE_STALE );
+    assertEquals( observer2.getState(), State.STATE_STALE );
+    assertEquals( observer3.getState(), State.STATE_STALE );
   }
 
   @Test
@@ -3049,7 +3049,7 @@ public class TransactionTest
     Transaction.setTransaction( null );
     final Observer randomObserver = observer.getContext().autorun( new CountAndObserveProcedure() );
     setupReadWriteTransaction();
-    randomObserver.setState( ObserverState.UP_TO_DATE );
+    randomObserver.setState( State.STATE_UP_TO_DATE );
     final ComputedValue<?> computedValue = observer.getComputedValue();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
     observableValue.rawAddObserver( randomObserver );

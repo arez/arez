@@ -218,7 +218,7 @@ public class SpyImplTest
 
     assertEquals( spy.isActive( computedValue ), false );
     setupReadOnlyTransaction( context );
-    computedValue.getObserver().setState( ObserverState.UP_TO_DATE );
+    computedValue.getObserver().setState( State.STATE_UP_TO_DATE );
     assertEquals( spy.isActive( computedValue ), true );
   }
 
