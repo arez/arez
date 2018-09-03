@@ -178,10 +178,15 @@ public final class Observer
     }
   }
 
+  int getPriorityIndex()
+  {
+    return Flags.getPriority( _flags );
+  }
+
   @Nonnull
   Priority getPriority()
   {
-    return Priority.values()[ Flags.getPriority( _flags ) ];
+    return Priority.values()[ getPriorityIndex() ];
   }
 
   boolean arezOnlyDependencies()

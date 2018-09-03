@@ -285,17 +285,17 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
 
-    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).size(), 1 );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 0 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOWEST ).size(), 0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).size(), 1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).size(), 0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).size(), 0 );
 
-    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).get( 0 ), observer0 );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 0 ), observer2 );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer4 );
-    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 0 ), observer1 );
-    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 1 ), observer3 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).get( 0 ), observer0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 0 ), observer2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 1 ), observer4 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 0 ), observer1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 1 ), observer3 );
   }
 
   @Test
@@ -419,21 +419,21 @@ public class ReactionSchedulerTest
     scheduler.scheduleReaction( observer8 );
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).size(), 1 );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOW ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOWEST ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).size(), 1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).size(), 2 );
 
-    assertEquals( scheduler.getPendingObservers( Priority.HIGHEST ).get( 0 ), observer0 );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer6 );
-    assertEquals( scheduler.getPendingObservers( Priority.HIGH ).get( 1 ), observer6 );
-    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 0 ), observer3 );
-    assertEquals( scheduler.getPendingObservers( Priority.NORMAL ).get( 1 ), observer7 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOW ).get( 0 ), observer4 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOW ).get( 1 ), observer8 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOWEST ).get( 0 ), observer1 );
-    assertEquals( scheduler.getPendingObservers( Priority.LOWEST ).get( 1 ), observer5 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).get( 0 ), observer0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 1 ), observer6 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 1 ), observer6 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 0 ), observer3 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 1 ), observer7 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).get( 0 ), observer4 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).get( 1 ), observer8 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).get( 0 ), observer1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).get( 1 ), observer5 );
   }
 
   @Test
