@@ -137,7 +137,7 @@ public class ArezContextTest
        */
       if ( count.decrementAndGet() > 0 )
       {
-        context.safeAction( null, true, false, () -> observerReference.get().setState( State.STATE_STALE ) );
+        context.safeAction( null, true, false, () -> observerReference.get().setState( Flags.STATE_STALE ) );
       }
       environment.set( null );
     } );
@@ -2213,7 +2213,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 1 );
 
@@ -2253,7 +2253,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( callCount.get(), 1 );
@@ -2298,7 +2298,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canNestActions(), false );
     assertEquals( observer.supportsManualSchedule(), false );
@@ -2325,7 +2325,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 1 );
 
@@ -2509,7 +2509,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
@@ -2546,7 +2546,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
     assertEquals( observer.canObserveLowerPriorityDependencies(), observeLowerPriorityDependencies );
@@ -2596,7 +2596,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), "Observer@" + nextNodeId );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( observer.canNestActions(), false );
     assertEquals( observer.arezOnlyDependencies(), true );

@@ -472,9 +472,9 @@ public class ReactionSchedulerTest
 
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     //observer has tracked so setStale should result in reschedule
-    observer.setState( State.STATE_STALE );
+    observer.setState( Flags.STATE_STALE );
 
     Transaction.setTransaction( null );
 
@@ -515,9 +515,9 @@ public class ReactionSchedulerTest
 
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     //observer has tracked so setStale should result in reschedule
-    observer.setState( State.STATE_STALE );
+    observer.setState( Flags.STATE_STALE );
 
     assertEquals( observer.isScheduled(), true );
     assertEquals( scheduler.getPendingObservers().size(), 1 );
@@ -587,12 +587,12 @@ public class ReactionSchedulerTest
                       false );
       observableValues[ i ] = context.observable();
 
-      observers[ i ].setState( State.STATE_UP_TO_DATE );
+      observers[ i ].setState( Flags.STATE_UP_TO_DATE );
       observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has tracked so setStale should result in reschedule
-      observers[ i ].setState( State.STATE_STALE );
+      observers[ i ].setState( Flags.STATE_STALE );
       assertEquals( observers[ i ].isScheduled(), true );
     }
 
@@ -830,12 +830,12 @@ public class ReactionSchedulerTest
                       false );
       observableValues[ i ] = context.observable();
 
-      observers[ i ].setState( State.STATE_UP_TO_DATE );
+      observers[ i ].setState( Flags.STATE_UP_TO_DATE );
       observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has tracked so setStale should result in reschedule
-      observers[ i ].setState( State.STATE_STALE );
+      observers[ i ].setState( Flags.STATE_STALE );
     }
 
     Transaction.setTransaction( null );
@@ -906,12 +906,12 @@ public class ReactionSchedulerTest
                       false );
       observableValues[ i ] = context.observable();
 
-      observers[ i ].setState( State.STATE_UP_TO_DATE );
+      observers[ i ].setState( Flags.STATE_UP_TO_DATE );
       observableValues[ i ].rawAddObserver( observers[ i ] );
       observers[ i ].getDependencies().add( observableValues[ i ] );
 
       //observer has tracked so setStale should result in reschedule
-      observers[ i ].setState( State.STATE_STALE );
+      observers[ i ].setState( Flags.STATE_STALE );
     }
 
     Transaction.setTransaction( null );

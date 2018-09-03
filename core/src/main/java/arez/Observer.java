@@ -68,7 +68,13 @@ public final class Observer
    */
   @Nullable
   private ObserverInfo _info;
-  private int _options;
+  /**
+   * A bitfield that contains config time and runtime flags/state.
+   * See the values in {@link Flags} that are covered by the masks
+   * {@link Flags#RUNTIME_FLAGS_MASK} and {@link Flags#CONFIG_FLAGS_MASK}
+   * for acceptable values.
+   */
+  private int _flags;
 
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
@@ -155,8 +161,8 @@ public final class Observer
         break;
     }
 
-    options |= State.STATE_INACTIVE;
-    _options = options;
+    options |= Flags.STATE_INACTIVE;
+    _flags = options;
     executeTrackedNextIfPresent();
 
     if ( null == _computedValue )
@@ -175,13 +181,13 @@ public final class Observer
   @Nonnull
   Priority getPriority()
   {
-    return Priority.values()[ Options.getPriority( _options ) ];
+    return Priority.values()[ Flags.getPriority( _flags ) ];
   }
 
   boolean arezOnlyDependencies()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 == ( _options & Options.MANUAL_REPORT_STALE_ALLOWED );
+    return 0 == ( _flags & Options.MANUAL_REPORT_STALE_ALLOWED );
   }
 
   /**
@@ -202,13 +208,13 @@ public final class Observer
   boolean canNestActions()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 != ( _options & Options.NESTED_ACTIONS_ALLOWED );
+    return 0 != ( _flags & Options.NESTED_ACTIONS_ALLOWED );
   }
 
   boolean canObserveLowerPriorityDependencies()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 != ( _options & Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    return 0 != ( _flags & Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
   }
 
   boolean isComputedValue()
@@ -256,13 +262,13 @@ public final class Observer
   {
     getContext().getTransaction().reportDispose( this );
     markDependenciesLeastStaleObserverAsUpToDate();
-    setState( State.STATE_DISPOSING );
+    setState( Flags.STATE_DISPOSING );
     runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
   }
 
   void markAsDisposed()
   {
-    _options = State.setState( _options, State.STATE_DISPOSED );
+    _flags = Flags.setState( _flags, Flags.STATE_DISPOSED );
   }
 
   /**
@@ -271,12 +277,12 @@ public final class Observer
   @Override
   public boolean isDisposed()
   {
-    return State.STATE_DISPOSED == getState();
+    return Flags.STATE_DISPOSED == getState();
   }
 
   boolean isDisposedOrDisposing()
   {
-    return State.STATE_DISPOSING >= getState();
+    return Flags.STATE_DISPOSING >= getState();
   }
 
   /**
@@ -286,7 +292,7 @@ public final class Observer
    */
   boolean isDisposing()
   {
-    return State.STATE_DISPOSING == getState();
+    return Flags.STATE_DISPOSING == getState();
   }
 
   /**
@@ -296,12 +302,12 @@ public final class Observer
    */
   int getState()
   {
-    return State.getState( _options );
+    return Flags.getState( _flags );
   }
 
   int getLeastStaleObserverState()
   {
-    return State.getLeastStaleObserverState( _options );
+    return Flags.getLeastStaleObserverState( _flags );
   }
 
   /**
@@ -315,15 +321,15 @@ public final class Observer
     assert Arez.shouldEnforceTransactionType();
     return null != _computedValue ?
            TransactionMode.READ_WRITE_OWNED :
-           0 != ( _options & Options.READ_WRITE ) ?
+           0 != ( _flags & Options.READ_WRITE ) ?
            TransactionMode.READ_WRITE :
            TransactionMode.READ_ONLY;
   }
 
   /**
    * Return true if the observer is active.
-   * Being "active" means that the state of the observer is not {@link State#STATE_INACTIVE},
-   * {@link State#STATE_DISPOSING} or {@link State#STATE_DISPOSED}.
+   * Being "active" means that the state of the observer is not {@link Flags#STATE_INACTIVE},
+   * {@link Flags#STATE_DISPOSING} or {@link Flags#STATE_DISPOSED}.
    *
    * <p>An inactive observer has no dependencies and depending on the type of observer may
    * have other consequences. i.e. An inactive observer will never be scheduled even if it has a
@@ -333,7 +339,7 @@ public final class Observer
    */
   boolean isActive()
   {
-    return State.isActive( _options );
+    return Flags.isActive( _flags );
   }
 
   /**
@@ -368,7 +374,7 @@ public final class Observer
                           "' when the active transaction '" + getContext().getTransaction().getName() +
                           "' is " + getContext().getTransaction().getMode() + " rather than READ_WRITE." );
     }
-    setState( State.STATE_STALE );
+    setState( Flags.STATE_STALE );
   }
 
   /**
@@ -402,12 +408,12 @@ public final class Observer
     final int originalState = getState();
     if ( state != originalState )
     {
-      _options = State.setState( _options, state );
-      if ( Arez.shouldCheckInvariants() && State.STATE_DISPOSED == originalState )
+      _flags = Flags.setState( _flags, state );
+      if ( Arez.shouldCheckInvariants() && Flags.STATE_DISPOSED == originalState )
       {
         fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
       }
-      else if ( null == _computedValue && State.STATE_STALE == state )
+      else if ( null == _computedValue && Flags.STATE_STALE == state )
       {
         if ( schedule )
         {
@@ -415,8 +421,8 @@ public final class Observer
         }
       }
       else if ( null != _computedValue &&
-                State.STATE_UP_TO_DATE == originalState &&
-                ( State.STATE_STALE == state || State.STATE_POSSIBLY_STALE == state ) )
+                Flags.STATE_UP_TO_DATE == originalState &&
+                ( Flags.STATE_STALE == state || Flags.STATE_POSSIBLY_STALE == state ) )
       {
         _computedValue.getObservableValue().reportPossiblyChanged();
         runHook( _computedValue.getOnStale(), ObserverError.ON_STALE_ERROR );
@@ -425,8 +431,8 @@ public final class Observer
           scheduleReaction();
         }
       }
-      else if ( State.STATE_INACTIVE == state ||
-                ( State.STATE_INACTIVE != originalState && State.STATE_DISPOSING == state ) )
+      else if ( Flags.STATE_INACTIVE == state ||
+                ( Flags.STATE_INACTIVE != originalState && Flags.STATE_DISPOSING == state ) )
       {
         if ( isComputedValue() )
         {
@@ -436,7 +442,7 @@ public final class Observer
         }
         clearDependencies();
       }
-      else if ( State.STATE_INACTIVE == originalState )
+      else if ( Flags.STATE_INACTIVE == originalState )
       {
         if ( isComputedValue() )
         {
@@ -500,7 +506,7 @@ public final class Observer
       dependency.removeObserver( this );
       if ( !dependency.hasObservers() )
       {
-        dependency.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+        dependency.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
       }
     } );
     getDependencies().clear();
@@ -513,7 +519,7 @@ public final class Observer
    */
   boolean isScheduled()
   {
-    return 0 != ( _options & State.SCHEDULED );
+    return 0 != ( _flags & Flags.SCHEDULED );
   }
 
   /**
@@ -521,7 +527,7 @@ public final class Observer
    */
   void clearScheduledFlag()
   {
-    _options &= ~State.SCHEDULED;
+    _flags &= ~Flags.SCHEDULED;
   }
 
   /**
@@ -529,7 +535,7 @@ public final class Observer
    */
   void setScheduledFlag()
   {
-    _options |= State.SCHEDULED;
+    _flags |= Flags.SCHEDULED;
   }
 
   /**
@@ -598,7 +604,7 @@ public final class Observer
       try
       {
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
-        if ( State.STATE_UP_TO_DATE != getState() )
+        if ( Flags.STATE_UP_TO_DATE != getState() )
         {
           if ( shouldExecuteTrackedNext() )
           {
@@ -671,7 +677,7 @@ public final class Observer
   {
     for ( final ObservableValue dependency : getDependencies() )
     {
-      dependency.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+      dependency.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     }
   }
 
@@ -694,12 +700,12 @@ public final class Observer
     final int state = getState();
     switch ( state )
     {
-      case State.STATE_UP_TO_DATE:
+      case Flags.STATE_UP_TO_DATE:
         return false;
-      case State.STATE_INACTIVE:
-      case State.STATE_STALE:
+      case Flags.STATE_INACTIVE:
+      case Flags.STATE_STALE:
         return true;
-      case State.STATE_POSSIBLY_STALE:
+      case Flags.STATE_POSSIBLY_STALE:
       {
         for ( final ObservableValue observableValue : getDependencies() )
         {
@@ -715,7 +721,7 @@ public final class Observer
             {
             }
             // Call to get() will update this state if ComputedValue changed
-            if ( State.STATE_STALE == getState() )
+            if ( Flags.STATE_STALE == getState() )
             {
               return true;
             }
@@ -727,7 +733,7 @@ public final class Observer
         if ( Arez.shouldCheckInvariants() )
         {
           fail( () -> "Arez-0205: Observer.shouldCompute() invoked on observer named '" + getName() +
-                      "' but observer is in state " + State.getStateName( getState() ) );
+                      "' but observer is in state " + Flags.getStateName( getState() ) );
         }
     }
     /*
@@ -920,14 +926,14 @@ public final class Observer
 
   boolean shouldExecuteTrackedNext()
   {
-    return 0 != ( _options & State.EXECUTE_TRACKED_NEXT );
+    return 0 != ( _flags & Flags.EXECUTE_TRACKED_NEXT );
   }
 
   private void executeTrackedNextIfPresent()
   {
     if ( null != _tracked )
     {
-      _options |= State.EXECUTE_TRACKED_NEXT;
+      _flags |= Flags.EXECUTE_TRACKED_NEXT;
     }
   }
 
@@ -935,7 +941,7 @@ public final class Observer
   {
     if ( null != _onDepsUpdated )
     {
-      _options &= ~State.EXECUTE_TRACKED_NEXT;
+      _flags &= ~Flags.EXECUTE_TRACKED_NEXT;
     }
   }
 }

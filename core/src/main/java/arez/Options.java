@@ -8,38 +8,26 @@ public final class Options
   /**
    * Flag indicating that the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
    */
-  public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 0b10000000000000000000000000000000;
+  public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES;
   /**
    * Indicates that the an action can be created from within the Observers tracked function.
    */
-  public static final int NESTED_ACTIONS_ALLOWED = 0b01000000000000000000000000000000;
+  public static final int NESTED_ACTIONS_ALLOWED = Flags.NESTED_ACTIONS_ALLOWED;
   /**
    * Indicates that the an action must not be created from within the Observers tracked function.
    */
-  public static final int NESTED_ACTIONS_DISALLOWED = 0b00100000000000000000000000000000;
-  /**
-   * Mask to extract "NESTED_ACTIONS" option so can derive default value if required.
-   */
-  static final int NESTED_ACTIONS_MASK = 0b01100000000000000000000000000000;
+  public static final int NESTED_ACTIONS_DISALLOWED = Flags.NESTED_ACTIONS_DISALLOWED;
   /**
    * Flag set to true if the application code can invoke {@link Observer#reportStale()} to indicate non-arez dependency has changed.
    */
-  public static final int MANUAL_REPORT_STALE_ALLOWED = 0b00010000000000000000000000000000;
-  /**
-   * Mask used to extract priority bits.
-   */
-  private static final int PRIORITY_MASK = 0b00001110000000000000000000000000;
-  /**
-   * Shift used to extract priority after applying mask.
-   */
-  private static final int PRIORITY_SHIFT = 25;
+  public static final int MANUAL_REPORT_STALE_ALLOWED = Flags.MANUAL_REPORT_STALE_ALLOWED;
   /**
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
    * (and thus remove elements from being scheduled).
    * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
    */
-  public static final int PRIORITY_HIGHEST = 0b00000010000000000000000000000000;
+  public static final int PRIORITY_HIGHEST = Flags.PRIORITY_HIGHEST;
   /**
    * High priority.
    * To reduce the chance that downstream elements will react multiple times within a single
@@ -47,12 +35,12 @@ public final class Options
    * reactions.
    * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
    */
-  public static final int PRIORITY_HIGH = 0b00000100000000000000000000000000;
+  public static final int PRIORITY_HIGH = Flags.PRIORITY_HIGH;
   /**
    * Normal priority if no other priority otherwise specified.
    * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
    */
-  public static final int PRIORITY_NORMAL = 0b00000110000000000000000000000000;
+  public static final int PRIORITY_NORMAL = Flags.PRIORITY_NORMAL;
   /**
    * Low priority.
    * Usually used to schedule observers that reflect state onto non-reactive
@@ -62,7 +50,7 @@ public final class Options
    * this reaction multiple times within a single reaction round.
    * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
    */
-  public static final int PRIORITY_LOW = 0b00001000000000000000000000000000;
+  public static final int PRIORITY_LOW = Flags.PRIORITY_LOW;
   /**
    * Lowest priority. Use this priority if the observer is a {@link ComputedValue} that
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -70,57 +58,17 @@ public final class Options
    * another observers reaction.
    * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
    */
-  public static final int PRIORITY_LOWEST = 0b00001010000000000000000000000000;
-  /**
-   * Mask used to extract transaction mode bits.
-   */
-  private static final int TRANSACTION_MASK = 0b00000001100000000000000000000000;
+  public static final int PRIORITY_LOWEST = Flags.PRIORITY_LOWEST;
   /**
    * The observer can only read arez state.
+   * Only one of READ_ONLY and {@link #READ_WRITE} should be specified.
    */
-  public static final int READ_ONLY = 0b00000001000000000000000000000000;
+  public static final int READ_ONLY = Flags.READ_ONLY;
   /**
    * The observer can read or write arez state.
+   * Only one of {@link #READ_ONLY} and READ_WRITE should be specified.
    */
-  public static final int READ_WRITE = 0b00000000100000000000000000000000;
-  /**
-   * Mask that identifies the bits associated with static configuration.
-   */
-  static final int OPTIONS_MASK = 0b11111111100000000000000000000000;
-
-  /**
-   * Return true if options contains priority.
-   *
-   * @param options the options.
-   * @return true if options contains priority.
-   */
-  static boolean isPrioritySpecified( final int options )
-  {
-    return 0 != ( options & PRIORITY_MASK );
-  }
-
-  /**
-   * Extract and return the priority value ranging from the highest priority 0 and lowest priority 4.
-   * This method assumes that options has valid priority and will not attempt to re-check.
-   *
-   * @param options the options.
-   * @return the priority.
-   */
-  static int getPriority( final int options )
-  {
-    return ( ( options & PRIORITY_MASK ) >> PRIORITY_SHIFT ) - 1;
-  }
-
-  /**
-   * Return true if options contains transaction mode.
-   *
-   * @param options the options.
-   * @return true if options contains transaction mode.
-   */
-  static boolean isTransactionModeSpecified( final int options )
-  {
-    return 0 != ( options & TRANSACTION_MASK );
-  }
+  public static final int READ_WRITE = Flags.READ_WRITE;
 
   private Options()
   {

@@ -71,7 +71,7 @@ public class ObservableValueTest
     final Observer observer = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observableValue.getOwner(), observer );
     assertEquals( observableValue.getComponent(), null );
@@ -221,8 +221,8 @@ public class ObservableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
-    observer.setState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
@@ -244,7 +244,7 @@ public class ObservableValueTest
     assertEquals( observableValue.isDisposed(), true );
     assertEquals( observableValue.getWorkState(), ObservableValue.DISPOSED );
 
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     assertFalse( context.getTopLevelObservables().containsKey( observableValue.getName() ) );
   }
@@ -300,8 +300,8 @@ public class ObservableValueTest
     final Observer observer = context.autorun( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
-    observer.setState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
@@ -356,8 +356,8 @@ public class ObservableValueTest
 
     setCurrentTransaction( newReadWriteObserver( context ) );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
-    observer.setState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
@@ -379,7 +379,7 @@ public class ObservableValueTest
     assertEquals( observableValue.isDisposed(), true );
     assertEquals( observableValue.getWorkState(), ObservableValue.DISPOSED );
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
   @Test
@@ -394,8 +394,8 @@ public class ObservableValueTest
 
     setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
-    observer.setState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
@@ -491,7 +491,7 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( observableValue.hasObservers(), false );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     // Handle addition of observer in correct state
     observableValue.addObserver( observer );
@@ -499,7 +499,7 @@ public class ObservableValueTest
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
     assertEquals( observableValue.hasObserver( observer ), true );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -513,13 +513,13 @@ public class ObservableValueTest
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( State.STATE_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
-    observer.setState( State.STATE_POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     observableValue.addObserver( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_POSSIBLY_STALE );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -533,7 +533,7 @@ public class ObservableValueTest
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.setWorkState( ObservableValue.DISPOSED );
 
@@ -594,7 +594,7 @@ public class ObservableValueTest
                            false,
                            false,
                            true ).getObservableValue();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
@@ -633,7 +633,7 @@ public class ObservableValueTest
                            false,
                            false,
                            true ).getObservableValue();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
 
@@ -649,7 +649,7 @@ public class ObservableValueTest
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observer.markAsDisposed();
 
@@ -732,15 +732,15 @@ public class ObservableValueTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( observableValue.hasObservers(), false );
 
-    observer.setState( State.STATE_UP_TO_DATE );
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
     assertEquals( observableValue.hasObserver( observer ), true );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.removeObserver( observer );
 
@@ -748,7 +748,7 @@ public class ObservableValueTest
     assertEquals( observableValue.hasObservers(), false );
     assertEquals( observableValue.hasObserver( observer ), false );
     // It should be updated that it is not removeObserver that updates LeastStaleObserverState
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -765,15 +765,15 @@ public class ObservableValueTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( observableValue.hasObservers(), false );
 
-    observer.setState( State.STATE_UP_TO_DATE );
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
     assertEquals( observableValue.hasObserver( observer ), true );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.removeObserver( observer );
 
@@ -781,7 +781,7 @@ public class ObservableValueTest
     assertEquals( observableValue.hasObservers(), false );
     assertEquals( observableValue.hasObserver( observer ), false );
     // It should be updated that it is not removeObserver that updates LeastStaleObserverState
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     assertEquals( observableValue.isPendingDeactivation(), true );
     final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
@@ -803,15 +803,15 @@ public class ObservableValueTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( observableValue.hasObservers(), false );
 
-    observer.setState( State.STATE_UP_TO_DATE );
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
     assertEquals( observableValue.hasObserver( observer ), true );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
@@ -825,7 +825,7 @@ public class ObservableValueTest
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
     assertEquals( observableValue.hasObserver( observer ), true );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -840,7 +840,7 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( observableValue.hasObservers(), false );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> observableValue.removeObserver( observer ) );
@@ -861,9 +861,9 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
     setCurrentTransaction( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -874,17 +874,17 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE ) );
+                    () -> observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0074: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
                   observableValue.getName() + "' when there is no active transaction." );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -897,17 +897,17 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
     setCurrentTransaction( observer );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> observableValue.setLeastStaleObserverState( State.STATE_INACTIVE ) );
+                    () -> observableValue.setLeastStaleObserverState( Flags.STATE_INACTIVE ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
                   observableValue.getName() + "' with invalid value INACTIVE." );
 
-    assertEquals( observableValue.getLeastStaleObserverState(), State.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -918,7 +918,7 @@ public class ObservableValueTest
     setupReadOnlyTransaction( context );
     final ObservableValue<?> observableValue = context.observable();
 
-    observableValue.setLeastStaleObserverState( State.STATE_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observableValue::invariantLeastStaleObserverState );
@@ -928,7 +928,7 @@ public class ObservableValueTest
                   observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
                   "cached value 'STALE'." );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -944,10 +944,10 @@ public class ObservableValueTest
 
     setupReadWriteTransaction();
 
-    observer1.setState( State.STATE_UP_TO_DATE );
-    observer2.setState( State.STATE_POSSIBLY_STALE );
-    observer3.setState( State.STATE_STALE );
-    observer4.setState( State.STATE_INACTIVE );
+    observer1.setState( Flags.STATE_UP_TO_DATE );
+    observer2.setState( Flags.STATE_POSSIBLY_STALE );
+    observer3.setState( Flags.STATE_STALE );
+    observer4.setState( Flags.STATE_INACTIVE );
 
     final ObservableValue<?> observableValue = Arez.context().observable();
 
@@ -961,7 +961,7 @@ public class ObservableValueTest
     observableValue.rawAddObserver( observer3 );
     observableValue.rawAddObserver( observer4 );
 
-    observableValue.setLeastStaleObserverState( State.STATE_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observableValue::invariantLeastStaleObserverState );
@@ -971,7 +971,7 @@ public class ObservableValueTest
                   observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
                   "cached value 'STALE'." );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -1007,9 +1007,9 @@ public class ObservableValueTest
 
     setupReadWriteTransaction();
 
-    observer1.setState( State.STATE_UP_TO_DATE );
-    observer2.setState( State.STATE_POSSIBLY_STALE );
-    observer3.setState( State.STATE_STALE );
+    observer1.setState( Flags.STATE_UP_TO_DATE );
+    observer2.setState( Flags.STATE_POSSIBLY_STALE );
+    observer3.setState( Flags.STATE_STALE );
 
     final ObservableValue<?> observableValue = Arez.context().observable();
 
@@ -1020,7 +1020,7 @@ public class ObservableValueTest
     observableValue.rawAddObserver( observer2 );
     observableValue.rawAddObserver( observer3 );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, observableValue::invariantObserversLinked );
@@ -1045,7 +1045,7 @@ public class ObservableValueTest
     final Observer observer = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observableValue.isPendingDeactivation(), false );
 
@@ -1069,7 +1069,7 @@ public class ObservableValueTest
     final Observer observer = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     observableValue.markAsPendingDeactivation();
 
@@ -1090,7 +1090,7 @@ public class ObservableValueTest
     final Observer observer = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observableValue.isPendingDeactivation(), false );
 
@@ -1136,7 +1136,7 @@ public class ObservableValueTest
     final Observer derivation = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    derivation.setState( State.STATE_UP_TO_DATE );
+    derivation.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observableValue.isPendingDeactivation(), false );
 
@@ -1162,7 +1162,7 @@ public class ObservableValueTest
     final Observer observer = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     observableValue.markAsPendingDeactivation();
 
@@ -1182,15 +1182,15 @@ public class ObservableValueTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.deactivate();
 
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
   }
 
   @Test
@@ -1203,16 +1203,16 @@ public class ObservableValueTest
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     observableValue.deactivate();
 
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
 
     handler.assertEventCount( 1 );
     handler.assertNextEvent( ComputedValueDeactivatedEvent.class,
@@ -1229,11 +1229,11 @@ public class ObservableValueTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
@@ -1258,7 +1258,7 @@ public class ObservableValueTest
 
     observableValue.deactivate();
 
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
   }
 
   @Test
@@ -1308,15 +1308,15 @@ public class ObservableValueTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    observer.setState( State.STATE_INACTIVE );
+    observer.setState( Flags.STATE_INACTIVE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
 
     observableValue.activate();
 
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1328,18 +1328,18 @@ public class ObservableValueTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    observer.setState( State.STATE_INACTIVE );
+    observer.setState( Flags.STATE_INACTIVE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
     observableValue.activate();
 
-    assertEquals( observer.getState(), State.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     handler.assertEventCount( 1 );
 
@@ -1356,11 +1356,11 @@ public class ObservableValueTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    observer.setState( State.STATE_INACTIVE );
+    observer.setState( Flags.STATE_INACTIVE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    assertEquals( observer.getState(), State.STATE_INACTIVE );
+    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
 
     Transaction.setTransaction( null );
 
@@ -1381,7 +1381,7 @@ public class ObservableValueTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
@@ -1510,10 +1510,10 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1523,7 +1523,7 @@ public class ObservableValueTest
 
     observableValue.reportChanged();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
   @Test
@@ -1534,10 +1534,10 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1550,7 +1550,7 @@ public class ObservableValueTest
 
     observableValue.reportChanged();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
 
     handler.assertEventCount( 2 );
 
@@ -1569,12 +1569,12 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final String currentValue = ValueUtil.randomString();
     final ObservableValue<?> observableValue =
       new ObservableValue<>( context, null, ValueUtil.randomString(), null, () -> currentValue, null );
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1601,10 +1601,10 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final ObservableValue<?> observableValue = context.observable( name, accessor, null );
-    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1617,7 +1617,7 @@ public class ObservableValueTest
 
     observableValue.reportChanged();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
 
     handler.assertEventCount( 2 );
 
@@ -1637,10 +1637,10 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1655,7 +1655,7 @@ public class ObservableValueTest
     observableValue.reportChanged();
     observableValue.reportChanged();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
 
     handler.assertEventCount( 4 );
 
@@ -1675,15 +1675,15 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer derivation = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    derivation.setState( State.STATE_UP_TO_DATE );
+    derivation.setState( Flags.STATE_UP_TO_DATE );
 
-    observableValue.setLeastStaleObserverState( State.STATE_UP_TO_DATE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1693,7 +1693,7 @@ public class ObservableValueTest
 
     observableValue.reportPossiblyChanged();
 
-    assertEquals( observer.getState(), State.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -1704,15 +1704,15 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer derivation = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    derivation.setState( State.STATE_UP_TO_DATE );
+    derivation.setState( Flags.STATE_UP_TO_DATE );
 
-    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1722,7 +1722,7 @@ public class ObservableValueTest
 
     observableValue.reportChangeConfirmed();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
   @Test
@@ -1733,15 +1733,15 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer derivation = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    derivation.setState( State.STATE_UP_TO_DATE );
+    derivation.setState( Flags.STATE_UP_TO_DATE );
 
-    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1754,7 +1754,7 @@ public class ObservableValueTest
 
     observableValue.reportChangeConfirmed();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
 
     handler.assertEventCount( 2 );
 
@@ -1775,7 +1775,7 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final String expectedValue = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
@@ -1792,10 +1792,10 @@ public class ObservableValueTest
                         true );
     computedValue.setValue( expectedValue );
     final Observer derivation = computedValue.getObserver();
-    derivation.setState( State.STATE_UP_TO_DATE );
+    derivation.setState( Flags.STATE_UP_TO_DATE );
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
-    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1808,7 +1808,7 @@ public class ObservableValueTest
 
     observableValue.reportChangeConfirmed();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
 
     handler.assertEventCount( 2 );
 
@@ -1829,15 +1829,15 @@ public class ObservableValueTest
     final Observer observer = newReadWriteObserver( context );
     setCurrentTransaction( observer );
 
-    observer.setState( State.STATE_POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer derivation = computedValue.getObserver();
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    derivation.setState( State.STATE_UP_TO_DATE );
+    derivation.setState( Flags.STATE_UP_TO_DATE );
 
-    observableValue.setLeastStaleObserverState( State.STATE_POSSIBLY_STALE );
+    observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1852,7 +1852,7 @@ public class ObservableValueTest
     observableValue.reportChangeConfirmed();
     observableValue.reportChangeConfirmed();
 
-    assertEquals( observer.getState(), State.STATE_STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
 
     handler.assertEventCount( 4 );
     handler.assertNextEvent( ObservableValueChangedEvent.class,
