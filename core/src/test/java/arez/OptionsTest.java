@@ -25,14 +25,14 @@ public class OptionsTest
   }
 
   @Test
-  public void extractPriority()
+  public void getPriority()
     throws Exception
   {
-    assertEquals( Options.extractPriority( Options.PRIORITY_HIGHEST | State.STATE_INACTIVE ), 0 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_HIGH | State.STATE_INACTIVE ), 1 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_NORMAL | State.STATE_INACTIVE ), 2 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_LOW | State.STATE_INACTIVE ), 3 );
-    assertEquals( Options.extractPriority( Options.PRIORITY_LOWEST | State.STATE_INACTIVE ), 4 );
+    assertEquals( Options.getPriority( Options.PRIORITY_HIGHEST | State.STATE_INACTIVE ), 0 );
+    assertEquals( Options.getPriority( Options.PRIORITY_HIGH | State.STATE_INACTIVE ), 1 );
+    assertEquals( Options.getPriority( Options.PRIORITY_NORMAL | State.STATE_INACTIVE ), 2 );
+    assertEquals( Options.getPriority( Options.PRIORITY_LOW | State.STATE_INACTIVE ), 3 );
+    assertEquals( Options.getPriority( Options.PRIORITY_LOWEST | State.STATE_INACTIVE ), 4 );
   }
 
   @Test

@@ -106,7 +106,7 @@ public final class Options
    * @param options the options.
    * @return the priority.
    */
-  static int extractPriority( final int options )
+  static int getPriority( final int options )
   {
     return ( ( options & PRIORITY_MASK ) >> PRIORITY_SHIFT ) - 1;
   }

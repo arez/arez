@@ -175,7 +175,7 @@ public final class Observer
   @Nonnull
   Priority getPriority()
   {
-    return Priority.values()[ Options.extractPriority( _options ) ];
+    return Priority.values()[ Options.getPriority( _options ) ];
   }
 
   boolean arezOnlyDependencies()
