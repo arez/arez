@@ -1473,6 +1473,20 @@ public class ObserverTest
   }
 
   @Test
+  public void shouldCompute_DISPOSING()
+    throws Exception
+  {
+    final Observer observer = Arez.context().autorun( new CountAndObserveProcedure() );
+    setCurrentTransaction( observer );
+
+    observer.setState( State.STATE_DISPOSING );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::shouldCompute );
+    assertEquals( exception.getMessage(),
+                  "Arez-0205: Observer.shouldCompute() invoked on observer named 'Observer@1' but observer is in state DISPOSING" );
+  }
+
+  @Test
   public void shouldCompute_UP_TO_DATE()
     throws Exception
   {

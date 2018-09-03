@@ -732,6 +732,13 @@ public final class Observer
           }
         }
       }
+      break;
+      default:
+        if ( Arez.shouldCheckInvariants() )
+        {
+          fail( () -> "Arez-0205: Observer.shouldCompute() invoked on observer named '" + getName() +
+                      "' but observer is in state " + State.getStateName( getState() ) );
+        }
     }
     /*
      * This results in POSSIBLY_STALE returning to UP_TO_DATE
