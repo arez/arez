@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Remove TransactionMode
+
 * Derive Observer.mode from mutation flag and non-nullness of _computedValue
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
