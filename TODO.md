@@ -27,6 +27,9 @@ complete as there is too much un-said.
 
 * Consider removing `Observer._onStale` field.
 
+* Several of the methods on `Spy` interface have duplicates in `*Info` classes. The methods on `SPy` interface
+  can be removed.
+
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
 * Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
