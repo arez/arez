@@ -52,13 +52,15 @@ end
 
 desc 'Print out next error code. Reusing any that have been retired.'
 task 'error_codes:next' do
+  found = false
   keys = load_error_codes.keys.sort
   max_value = keys.last.to_i
   1.upto(max_value).collect{|v| '%04d' % v }.each do |v|
     unless keys.delete(v.to_s)
       puts "Arez-#{v} (previously used)"
+      found = true
       break
     end
   end
-  puts "Arez-#{sprintf('%04d',max_value + 1)} (new)"
+  puts "Arez-#{sprintf('%04d',max_value + 1)} (new)" unless found
 end
