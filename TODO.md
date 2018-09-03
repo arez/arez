@@ -27,7 +27,7 @@ complete as there is too much un-said.
 
 * Implement something similar to `getDependencyTree` from mobx
 
-* Consider removing `Observer._onStale` field.
+* Consider removing `Observer._onDispose` field.
 
 * Several of the methods on `Spy` interface have duplicates in `*Info` classes. The methods on `SPy` interface
   can be removed.
