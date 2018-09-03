@@ -173,6 +173,7 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.spy\\..*", enabled );
     index.assertSymbol( "arez\\.Spy.*", enabled );
     index.assertSymbol( "arez\\..*InfoImpl", enabled );
+    index.assertSymbol( "arez\\..*Info", enabled );
     index.assertSymbol( "arez\\.ObservableValue", "_info", enabled );
     index.assertSymbol( "arez\\.ComputedValue", "_info", enabled );
     index.assertSymbol( "arez\\.Observer", "_info", enabled );

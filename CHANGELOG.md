@@ -5,6 +5,8 @@
 * **\[processor\]** The invariant check generated to link references was being generated outside of the
   associated guard. This could result in dead-code not being eliminated in GWT2.x and triggered warnings
   in source code analysis programs such as spotbugs.
+* **\[gwt-output-qa\]** Add assertion to verify that the `arez.*Info` interfaces are not present if
+  `Arez.areSpiesEnabled()` returns false.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
