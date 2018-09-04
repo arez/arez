@@ -160,14 +160,71 @@ final class Flags
   }
 
   /**
-   * Return true if options contains transaction mode.
+   * Extract and return the priority value ranging from the highest priority 0 and lowest priority 4.
+   * This method assumes that flags has valid priority and will not attempt to re-check.
    *
-   * @param options the options.
-   * @return true if options contains transaction mode.
+   * @param flags the flags.
+   * @return the priority.
    */
-  static boolean isTransactionModeSpecified( final int options )
+  static int getPriorityIndex( final int flags )
   {
-    return 0 != ( options & TRANSACTION_MASK );
+    return ( getPriority( flags ) >> PRIORITY_SHIFT ) - 1;
+  }
+
+  /**
+   * Return true if flags contains nested action rule.
+   *
+   * @param flags the flags.
+   * @return true if flags contains nested action rule.
+   */
+  static boolean isNestedActionsModeSpecified( final int flags )
+  {
+    return 0 != ( flags & NESTED_ACTIONS_MASK );
+  }
+
+  /**
+   * Return true if flags contains transaction mode.
+   *
+   * @param flags the flags.
+   * @return true if flags contains transaction mode.
+   */
+  static boolean isTransactionModeSpecified( final int flags )
+  {
+    return 0 != ( flags & TRANSACTION_MASK );
+  }
+
+  /**
+   * Return true if flags contains a valid transaction mode.
+   *
+   * @param flags the flags.
+   * @return true if flags contains transaction mode.
+   */
+  static boolean isTransactionModeValid( final int flags )
+  {
+    return 0 != ( flags & READ_ONLY ) ^ 0 != ( flags & READ_WRITE );
+  }
+
+  /**
+   * Return name of transaction mode.
+   *
+   * @param flags the flags.
+   * @return true if flags contains transaction mode.
+   */
+  @Nonnull
+  static String getTransactionModeName( final int flags )
+  {
+    if ( 0 != ( flags & READ_ONLY ) )
+    {
+      return "READ_ONLY";
+    }
+    else if ( 0 != ( flags & READ_WRITE ) )
+    {
+      return "READ_WRITE";
+    }
+    else
+    {
+      return "UNKNOWN(" + flags + ")";
+    }
   }
 
   /**
@@ -261,5 +318,19 @@ final class Flags
 
   private Flags()
   {
+  }
+  static int defaultPriorityUnlessSpecified( final int flags )
+  {
+    return isPrioritySpecified( flags ) ? 0 : PRIORITY_NORMAL;
+  }
+
+  static int defaultNestedActionRuleUnlessSpecified( final int flags )
+  {
+    return !Arez.shouldCheckInvariants() || isNestedActionsModeSpecified( flags ) ? 0 : NESTED_ACTIONS_DISALLOWED;
+  }
+
+  static int defaultObserverTransactionModeUnlessSpecified( final int flags )
+  {
+    return !Arez.shouldEnforceTransactionType() || isTransactionModeSpecified( flags ) ? 0 : READ_ONLY;
   }
 }

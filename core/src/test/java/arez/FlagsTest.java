@@ -136,11 +136,11 @@ public class FlagsTest
   public void getPriority()
     throws Exception
   {
-    assertEquals( Flags.getPriority( Flags.PRIORITY_HIGHEST | Flags.STATE_INACTIVE ), 0 );
-    assertEquals( Flags.getPriority( Flags.PRIORITY_HIGH | Flags.STATE_INACTIVE ), 1 );
-    assertEquals( Flags.getPriority( Flags.PRIORITY_NORMAL | Flags.STATE_INACTIVE ), 2 );
-    assertEquals( Flags.getPriority( Flags.PRIORITY_LOW | Flags.STATE_INACTIVE ), 3 );
-    assertEquals( Flags.getPriority( Flags.PRIORITY_LOWEST | Flags.STATE_INACTIVE ), 4 );
+    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST | Flags.STATE_INACTIVE ), 0 );
+    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_HIGH | Flags.STATE_INACTIVE ), 1 );
+    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL | Flags.STATE_INACTIVE ), 2 );
+    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_LOW | Flags.STATE_INACTIVE ), 3 );
+    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_LOWEST | Flags.STATE_INACTIVE ), 4 );
   }
 
   @Test
@@ -151,6 +151,73 @@ public class FlagsTest
     assertTrue( Flags.isTransactionModeSpecified( Flags.READ_WRITE ) );
     assertFalse( Flags.isTransactionModeSpecified( 0 ) );
     assertFalse( Flags.isTransactionModeSpecified( Flags.PRIORITY_LOWEST ) );
+  }
+
+  @Test
+  public void isTransactionModeValid()
+    throws Exception
+  {
+    assertTrue( Flags.isTransactionModeValid( Flags.READ_ONLY ) );
+    assertTrue( Flags.isTransactionModeValid( Flags.READ_WRITE ) );
+    assertFalse( Flags.isTransactionModeValid( 0 ) );
+    assertFalse( Flags.isTransactionModeValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isTransactionModeValid( Flags.READ_ONLY | Flags.READ_WRITE ) );
+  }
+
+  @Test
+  public void getTransactionModeName()
+    throws Exception
+  {
+    assertEquals( Flags.getTransactionModeName( Flags.READ_ONLY ), "READ_ONLY" );
+    assertEquals( Flags.getTransactionModeName( Flags.READ_WRITE ), "READ_WRITE" );
+    assertEquals( Flags.getTransactionModeName( 0 ), "UNKNOWN(0)" );
+  }
+
+  @Test
+  public void isNestedActionsModeSpecified()
+    throws Exception
+  {
+    assertTrue( Flags.isNestedActionsModeSpecified( Flags.NESTED_ACTIONS_ALLOWED ) );
+    assertTrue( Flags.isNestedActionsModeSpecified( Flags.NESTED_ACTIONS_DISALLOWED ) );
+    assertFalse( Flags.isNestedActionsModeSpecified( 0 ) );
+    assertFalse( Flags.isNestedActionsModeSpecified( Flags.PRIORITY_LOWEST ) );
+  }
+
+  @Test
+  public void defaultPriorityUnlessSpecified()
+  {
+    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_HIGHEST ), 0 );
+    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_HIGH ), 0 );
+    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_NORMAL ), 0 );
+    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_LOW ), 0 );
+    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_LOWEST ), 0 );
+    assertEquals( Flags.defaultPriorityUnlessSpecified( 0 ), Flags.PRIORITY_NORMAL );
+    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.READ_ONLY ), Flags.PRIORITY_NORMAL );
+  }
+
+  @Test
+  public void defaultNestedActionRuleUnlessSpecified()
+  {
+    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.NESTED_ACTIONS_ALLOWED ), 0 );
+    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED ), 0 );
+    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( 0 ), Flags.NESTED_ACTIONS_DISALLOWED );
+    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.READ_ONLY ), Flags.NESTED_ACTIONS_DISALLOWED );
+
+    ArezTestUtil.noCheckInvariants();
+    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( 0 ), Flags.NESTED_ACTIONS_DISALLOWED );
+  }
+
+  @Test
+  public void defaultObserverTransactionModeUnlessSpecified()
+  {
+    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( Flags.READ_ONLY ), 0 );
+    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( Flags.READ_WRITE ), 0 );
+    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), Flags.READ_ONLY );
+    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED ),
+                  Flags.READ_ONLY );
+
+    ArezTestUtil.noEnforceTransactionType();
+    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), Flags.READ_ONLY );
   }
 
   @Test
