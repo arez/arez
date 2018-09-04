@@ -241,23 +241,25 @@ public class ReactionSchedulerTest
     final Observer observer0 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGHEST );
     final Observer observer1 = context.autorun( new CountAndObserveProcedure() );
     final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGH );
     final Observer observer3 = context.autorun( new CountAndObserveProcedure() );
     final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGH );
+
+    context.triggerScheduler();
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -296,57 +298,59 @@ public class ReactionSchedulerTest
     final Observer observer0 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGHEST );
     final Observer observer1 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_LOWEST );
     final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGH );
     final Observer observer3 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_NORMAL );
     final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_LOW );
     final Observer observer5 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_LOWEST );
     final Observer observer6 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGH );
     final Observer observer7 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_NORMAL );
     final Observer observer8 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             new CountingProcedure(),
+                                             new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_LOW );
+
+    context.triggerScheduler();
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
