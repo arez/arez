@@ -105,7 +105,7 @@ public final class Observer
           computedValue::compute,
           null,
           flags |
-          (Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0) |
+          ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
           Flags.defaultPriorityUnlessSpecified( flags ) );
   }
