@@ -956,8 +956,7 @@ public final class ArezContext
                 priority,
                 observeLowerPriorityDependencies,
                 canNestActions,
-                arezOnlyDependencies
-      );
+                arezOnlyDependencies );
     // See similar code in computed(...) implementation for explanation of this code
     if ( null != onDispose )
     {
