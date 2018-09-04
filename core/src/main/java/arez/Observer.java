@@ -44,7 +44,7 @@ public final class Observer
   @Nonnull
   private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
-   * Observed executable to invokeReaction if any.
+   * Observed executable to invoke if any.
    * This may be null if external scheduler is responsible for executing the tracked executable via
    * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
    * {@link #_onDepsUpdated} must not be null.

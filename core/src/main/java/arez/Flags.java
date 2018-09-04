@@ -90,7 +90,7 @@ final class Flags
    */
   static final int CONFIG_FLAGS_MASK = 0b11111111100000000000000000000000;
   /**
-   * Flag indicating whether next scheduled invocation of {@link Observer} should invokeReaction {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
+   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
    */
   static final int EXECUTE_TRACKED_NEXT = 0b00000000000000000000000000010000;
   /**
