@@ -129,13 +129,13 @@ public final class Observer
           Flags.defaultObserverTransactionModeUnlessSpecified( flags ) );
   }
 
-  Observer( @Nullable final ArezContext context,
-            @Nullable final Component component,
-            @Nullable final String name,
-            @Nullable final ComputedValue<?> computedValue,
-            @Nullable final Procedure tracked,
-            @Nullable final Procedure onDepsUpdated,
-            final int flags )
+  private Observer( @Nullable final ArezContext context,
+                    @Nullable final Component component,
+                    @Nullable final String name,
+                    @Nullable final ComputedValue<?> computedValue,
+                    @Nullable final Procedure tracked,
+                    @Nullable final Procedure onDepsUpdated,
+                    final int flags )
   {
     super( context, name );
     _flags = flags | Flags.STATE_INACTIVE;

@@ -168,7 +168,6 @@ public class ObserverTest
                     () -> new Observer( Arez.context(),
                                         null,
                                         name,
-                                        null,
                                         new CountingProcedure(),
                                         new CountingProcedure(),
                                         Flags.READ_ONLY ) );
