@@ -103,7 +103,10 @@ public final class Observer
           computedValue,
           computedValue::compute,
           null,
-          flags | Flags.READ_ONLY | Flags.NESTED_ACTIONS_DISALLOWED | Flags.defaultPriorityUnlessSpecified( flags ) );
+          flags |
+          (Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0) |
+          Flags.NESTED_ACTIONS_DISALLOWED |
+          Flags.defaultPriorityUnlessSpecified( flags ) );
   }
 
   Observer( @Nullable final ArezContext context,
