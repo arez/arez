@@ -22,7 +22,7 @@ final class Flags
   /**
    * Mask to extract "NESTED_ACTIONS" option so can derive default value if required.
    */
-  static final int NESTED_ACTIONS_MASK = 0b01100000000000000000000000000000;
+  private static final int NESTED_ACTIONS_MASK = 0b01100000000000000000000000000000;
   /**
    * Flag set to true if the application code can invoke {@link Observer#reportStale()} to indicate non-arez dependency has changed.
    */
