@@ -213,6 +213,7 @@ final class Flags
   @Nonnull
   static String getTransactionModeName( final int flags )
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     if ( 0 != ( flags & READ_ONLY ) )
     {
       return "READ_ONLY";
