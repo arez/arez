@@ -176,14 +176,9 @@ public class ObserverErrorHandlerSupportTest
       new Observer( context,
                     null,
                     null,
+                    new CountingProcedure(),
                     null,
-                    TransactionMode.READ_ONLY,
-                    new CountingProcedure(),
-                    new CountingProcedure(),
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+                    0 );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
     final Throwable throwable = null;
 

@@ -88,40 +88,81 @@ public final class Observer
             final boolean canNestActions,
             final boolean arezOnlyDependencies )
   {
+    this( context, component, name, computedValue, tracked, onDepsUpdated,
+          Arez.shouldCheckApiInvariants() || Arez.shouldCheckApiInvariants()
+          ? ( arezOnlyDependencies ? 0 : Flags.MANUAL_REPORT_STALE_ALLOWED ) |
+            ( observeLowerPriorityDependencies ? Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES : 0 ) |
+            ( canNestActions ? Flags.NESTED_ACTIONS_ALLOWED : Flags.NESTED_ACTIONS_DISALLOWED ) |
+            Flags.priorityToFlag( priority ) |
+            ( Arez.shouldEnforceTransactionType() ?
+              TransactionMode.READ_WRITE == mode ? Flags.READ_WRITE : Flags.READ_ONLY :
+              0 )
+          : 0 );
+  }
+
+  Observer( @Nonnull final ComputedValue<?> computedValue, final int flags )
+  {
+    this( Arez.areZonesEnabled() ? computedValue.getContext() : null,
+          null,
+          Arez.areNamesEnabled() ? computedValue.getName() : null,
+          computedValue,
+          computedValue::compute,
+          null,
+          flags | Flags.READ_ONLY | Flags.NESTED_ACTIONS_DISALLOWED | Flags.defaultPriorityUnlessSpecified( flags ) );
+  }
+
+  Observer( @Nullable final ArezContext context,
+            @Nullable final Component component,
+            @Nullable final String name,
+            @Nullable final Procedure tracked,
+            @Nullable final Procedure onDepsUpdated,
+            final int flags )
+  {
+    this( context,
+          component,
+          name,
+          null,
+          tracked,
+          onDepsUpdated,
+          flags |
+          Flags.defaultPriorityUnlessSpecified( flags ) |
+          Flags.defaultNestedActionRuleUnlessSpecified( flags ) |
+          Flags.defaultObserverTransactionModeUnlessSpecified( flags ) );
+  }
+
+  Observer( @Nullable final ArezContext context,
+            @Nullable final Component component,
+            @Nullable final String name,
+            @Nullable final ComputedValue<?> computedValue,
+            @Nullable final Procedure tracked,
+            @Nullable final Procedure onDepsUpdated,
+            final int flags )
+  {
     super( context, name );
+    _flags = flags | Flags.STATE_INACTIVE;
     if ( Arez.shouldCheckInvariants() )
     {
       if ( Arez.shouldEnforceTransactionType() )
       {
-        if ( TransactionMode.READ_WRITE_OWNED == mode )
-        {
-          invariant( () -> null != computedValue,
-                     () -> "Arez-0079: Attempted to construct an observer named '" + getName() + "' with " +
-                           "READ_WRITE_OWNED transaction mode but no ComputedValue." );
-          assert null != computedValue;
-          invariant( () -> null == onDepsUpdated,
-                     () -> "Arez-0080: Attempted to construct an ComputedValue '" + getName() + "' that has " +
-                           "onDepsUpdated hook." );
-        }
-        else if ( null != computedValue )
-        {
-          fail( () -> "Arez-0081: Attempted to construct an observer named '" + getName() + "' with " + mode +
-                      " transaction mode and a ComputedValue." );
-        }
+        invariant( () -> Flags.isTransactionModeValid( flags ),
+                   () -> "Arez-0079: Observer named '" + getName() + "' incorrectly specified both READ_ONLY " +
+                         "and READ_WRITE transaction mode flags." );
       }
       else
       {
-        invariant( () -> null == mode,
-                   () -> "Arez-0082: Observer named '" + getName() + "' specified mode '" + mode + "' when " +
-                         "Arez.enforceTransactionType() is false." );
-        assert null == mode;
+        invariant( () -> !Flags.isTransactionModeSpecified( flags ),
+                   () -> "Arez-0082: Observer named '" + getName() + "' specified transaction mode '" +
+                         Flags.getTransactionModeName( flags ) + "' when Arez.enforceTransactionType() is false." );
       }
+      //TODO: Check Priority valid
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
-      invariant( () -> Priority.LOWEST != priority || !observeLowerPriorityDependencies,
+      invariant( () -> Flags.getPriority( _flags ) != Flags.PRIORITY_LOWEST ||
+                       0 == ( _flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
-                       "observeLowerPriorityDependencies = true which should be false as no lower priority." );
+                       "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
+                       "has no lower priority." );
       invariant( () -> null != tracked || null != onDepsUpdated,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
                        "tracked parameter or the onDepsUpdated parameter." );
@@ -132,37 +173,6 @@ public final class Observer
     _tracked = tracked;
     _onDepsUpdated = onDepsUpdated;
 
-    int options =
-      Arez.shouldCheckApiInvariants() || Arez.shouldCheckApiInvariants() ?
-      ( arezOnlyDependencies ? 0 : Options.MANUAL_REPORT_STALE_ALLOWED ) |
-      ( observeLowerPriorityDependencies ? Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES : 0 ) |
-      ( canNestActions ? Options.NESTED_ACTIONS_ALLOWED : Options.NESTED_ACTIONS_DISALLOWED ) |
-      ( Arez.shouldEnforceTransactionType() ?
-        TransactionMode.READ_WRITE == mode ? Options.READ_WRITE : Options.READ_ONLY :
-        0 )
-                                                                         : 0;
-
-    switch ( priority )
-    {
-      case HIGHEST:
-        options |= Options.PRIORITY_HIGHEST;
-        break;
-      case HIGH:
-        options |= Options.PRIORITY_HIGH;
-        break;
-      case NORMAL:
-        options |= Options.PRIORITY_NORMAL;
-        break;
-      case LOW:
-        options |= Options.PRIORITY_LOW;
-        break;
-      case LOWEST:
-        options |= Options.PRIORITY_LOWEST;
-        break;
-    }
-
-    options |= Flags.STATE_INACTIVE;
-    _flags = options;
     executeTrackedNextIfPresent();
 
     if ( null == _computedValue )
@@ -180,7 +190,7 @@ public final class Observer
 
   int getPriorityIndex()
   {
-    return Flags.getPriority( _flags );
+    return Flags.getPriorityIndex( _flags );
   }
 
   @Nonnull

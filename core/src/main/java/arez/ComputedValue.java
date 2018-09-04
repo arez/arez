@@ -109,17 +109,13 @@ public final class ComputedValue<T>
     _value = null;
     _computing = false;
     _keepAlive = keepAlive;
-    _observer = new Observer( Arez.areZonesEnabled() ? context : null,
-                              null,
-                              Arez.areNamesEnabled() ? getName() : null,
-                              this,
-                              Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
-                              this::compute,
-                              null,
-                              priority,
-                              observeLowerPriorityDependencies,
-                              false,
-                              Arez.shouldCheckApiInvariants() && arezOnlyDependencies );
+    final int flags =
+      Flags.priorityToFlag( priority ) |
+      ( Arez.shouldCheckApiInvariants() && !arezOnlyDependencies ? Flags.MANUAL_REPORT_STALE_ALLOWED : 0 ) |
+      ( Arez.shouldCheckApiInvariants() && observeLowerPriorityDependencies ?
+        Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES :
+        0 );
+    _observer = new Observer( this, flags );
     _observableValue =
       new ObservableValue<>( context,
                              null,

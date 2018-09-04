@@ -32,18 +32,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final CountingProcedure trackedExecutable = new CountingProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
-    final Observer observer =
-      new Observer( context,
-                    null,
-                    name,
-                    null,
-                    TransactionMode.READ_ONLY,
-                    trackedExecutable,
-                    onDepsUpdated,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+    final Observer observer = new Observer( context, null, name, trackedExecutable, onDepsUpdated, 0 );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -79,18 +68,7 @@ public class ObserverTest
     throws Exception
   {
     final CountingProcedure onDepsUpdated = new CountingProcedure();
-    final Observer observer =
-      new Observer( Arez.context(),
-                    null,
-                    ValueUtil.randomString(),
-                    null,
-                    TransactionMode.READ_ONLY,
-                    null,
-                    onDepsUpdated,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+    final Observer observer = new Observer( Arez.context(), null, ValueUtil.randomString(), null, onDepsUpdated, 0 );
 
     assertEquals( observer.shouldExecuteTrackedNext(), false );
 
@@ -117,31 +95,6 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_READ_WRITE_OWNED_but_noComputableValue()
-    throws Exception
-  {
-    final String name = ValueUtil.randomString();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        null,
-                                        TransactionMode.READ_WRITE_OWNED,
-                                        new CountingProcedure(),
-                                        new CountingProcedure(),
-                                        Priority.NORMAL,
-                                        false,
-                                        true,
-                                        true ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0079: Attempted to construct an observer named '" + name + "' with READ_WRITE_OWNED " +
-                  "transaction mode but no ComputedValue." );
-  }
-
-  @Test
   public void construct_with_no_tracked_and_no_onDepsUpdated_parameter()
     throws Exception
   {
@@ -153,13 +106,8 @@ public class ObserverTest
                                         null,
                                         name,
                                         null,
-                                        TransactionMode.READ_ONLY,
                                         null,
-                                        null,
-                                        Priority.NORMAL,
-                                        false,
-                                        true,
-                                        true ) );
+                                        0 ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
@@ -167,7 +115,7 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_canObserveLowerPriorityDependencies_but_LOWEST_priority()
+  public void construct_with_OBSERVE_LOWER_PRIORITY_DEPENDENCIES_and_PRIORITY_LOWEST()
     throws Exception
   {
     final String name = ValueUtil.randomString();
@@ -177,18 +125,14 @@ public class ObserverTest
                     () -> new Observer( Arez.context(),
                                         null,
                                         name,
-                                        null,
-                                        TransactionMode.READ_ONLY,
                                         new CountingProcedure(),
                                         new CountingProcedure(),
-                                        Priority.LOWEST,
-                                        true,
-                                        true,
-                                        true ) );
+                                        Flags.PRIORITY_LOWEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0184: Observer named '" + name + "' has LOWEST priority but has passed " +
-                  "observeLowerPriorityDependencies = true which should be false as no lower priority." );
+                  "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
+                  "has no lower priority." );
   }
 
   @Test
@@ -205,22 +149,18 @@ public class ObserverTest
                                         null,
                                         name,
                                         null,
-                                        TransactionMode.READ_ONLY,
                                         new CountingProcedure(),
                                         new CountingProcedure(),
-                                        Priority.NORMAL,
-                                        false,
-                                        true,
-                                        true ) );
+                                        Flags.READ_ONLY ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0082: Observer named '" + name + "' specified mode 'READ_ONLY' " +
+                  "Arez-0082: Observer named '" + name + "' specified transaction mode 'READ_ONLY' " +
                   "when Arez.enforceTransactionType() is false." );
   }
 
   @SuppressWarnings( "ResultOfMethodCallIgnored" )
   @Test
-  public void construct_with_no_mode_and_noEnforceTransactionType()
+  public void getMode_noEnforceTransactionType()
     throws Exception
   {
     ArezTestUtil.noEnforceTransactionType();
@@ -231,67 +171,10 @@ public class ObserverTest
       new Observer( Arez.context(),
                     null,
                     name,
-                    null,
-                    null,
                     new CountingProcedure(),
                     new CountingProcedure(),
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+                    0 );
     assertThrows( observer::getMode );
-  }
-
-  @Test
-  public void construct_with_READ_ONLY_but_ComputableValue()
-    throws Exception
-  {
-    final String name = ValueUtil.randomString();
-
-    final ArezContext context = Arez.context();
-    final ComputedValue<?> computedValue = context.computed( () -> "" );
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( context,
-                                        null,
-                                        name,
-                                        computedValue,
-                                        TransactionMode.READ_ONLY,
-                                        new CountingProcedure(),
-                                        new CountingProcedure(),
-                                        Priority.NORMAL,
-                                        false,
-                                        true,
-                                        true ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0081: Attempted to construct an observer named '" + name + "' with READ_ONLY " +
-                  "transaction mode and a ComputedValue." );
-  }
-
-  @Test
-  public void construct_with_onDepsUpdated_and_ComputableValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-    final ComputedValue<?> computedValue = context.computed( () -> "" );
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( context,
-                                        null,
-                                        computedValue.getName(),
-                                        computedValue,
-                                        TransactionMode.READ_WRITE_OWNED,
-                                        new CountingProcedure(),
-                                        new CountingProcedure(),
-                                        Priority.NORMAL,
-                                        false,
-                                        true,
-                                        true ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0080: Attempted to construct an ComputedValue '" + computedValue.getName() +
-                  "' that has onDepsUpdated hook." );
   }
 
   @Test
@@ -314,14 +197,9 @@ public class ObserverTest
                     () -> new Observer( Arez.context(),
                                         component,
                                         name,
-                                        null,
-                                        TransactionMode.READ_ONLY,
                                         new CountingProcedure(),
                                         new CountingProcedure(),
-                                        Priority.NORMAL,
-                                        false,
-                                        true,
-                                        true ) );
+                                        0 ) );
     assertEquals( exception.getMessage(),
                   "Arez-0083: Observer named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -344,14 +222,9 @@ public class ObserverTest
       new Observer( Arez.context(),
                     component,
                     name,
-                    null,
-                    TransactionMode.READ_ONLY,
                     new CountingProcedure(),
                     new CountingProcedure(),
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+                    0 );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
 
@@ -1249,27 +1122,13 @@ public class ObserverTest
 
     final ArezContext context = Arez.context();
 
-    final String name = ValueUtil.randomString();
-    final TransactionMode mode = TransactionMode.READ_ONLY;
-
     final AtomicInteger errorCount = new AtomicInteger();
 
     context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
 
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
 
-    final Observer observer =
-      new Observer( context,
-                    null,
-                    name,
-                    null,
-                    mode,
-                    trackedExecutable,
-                    null,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    false );
+    final Observer observer = new Observer( context, null, ValueUtil.randomString(), trackedExecutable, null, 0 );
 
     observer.invokeReaction();
 
@@ -1282,7 +1141,11 @@ public class ObserverTest
     throws Exception
   {
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    Arez.context().getSpy().addSpyEventHandler( handler );
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = context.observable();
+
+    context.getSpy().addSpyEventHandler( handler );
 
     final CountingProcedure trackedExecutable = new CountingProcedure()
     {
@@ -1290,22 +1153,18 @@ public class ObserverTest
       public void call()
         throws Throwable
       {
+        observable.reportObserved();
         super.call();
         Thread.sleep( 1 );
       }
     };
     final Observer observer =
-      new Observer( Arez.context(),
+      new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    null,
-                    TransactionMode.READ_ONLY,
                     trackedExecutable,
                     null,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    false );
+                    0 );
 
     observer.invokeReaction();
 
@@ -1368,19 +1227,14 @@ public class ObserverTest
   public void invokeReaction_onDisposedObserver()
     throws Exception
   {
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountingProcedure trackedExecutable = new CountAndObserveProcedure();
     final Observer observer =
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
-                    null,
-                    TransactionMode.READ_ONLY,
                     trackedExecutable,
                     null,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    false );
+                    0 );
 
     observer.invokeReaction();
 
@@ -1403,14 +1257,9 @@ public class ObserverTest
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
-                    null,
-                    TransactionMode.READ_ONLY,
                     trackedExecutable,
                     onDepsUpdated,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+                    0 );
 
     setupReadWriteTransaction();
     observer.setState( Flags.STATE_UP_TO_DATE );
@@ -1428,9 +1277,6 @@ public class ObserverTest
     throws Exception
   {
     setIgnoreObserverErrors( true );
-
-    final String name = ValueUtil.randomString();
-    final TransactionMode mode = TransactionMode.READ_ONLY;
 
     final AtomicInteger errorCount = new AtomicInteger();
 
@@ -1456,15 +1302,10 @@ public class ObserverTest
     final Observer observer =
       new Observer( Arez.context(),
                     null,
-                    name,
-                    null,
-                    mode,
+                    ValueUtil.randomString(),
                     trackedExecutable,
                     null,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    false );
+                    0 );
 
     observer.invokeReaction();
 
@@ -1676,15 +1517,11 @@ public class ObserverTest
                            false,
                            true );
 
-    final int stateX = observer.getState();
-
     observer.getDependencies().add( computedValue2.getObservableValue() );
     computedValue2.getObservableValue().addObserver( observer );
 
     // Set it to same so no change
     computedValue2.setValue( "" );
-
-    final int state = observer.getState();
 
     assertEquals( observer.shouldCompute(), false );
 
@@ -1754,14 +1591,9 @@ public class ObserverTest
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            null,
-                                            TransactionMode.READ_ONLY,
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            false );
+                                            Flags.MANUAL_REPORT_STALE_ALLOWED );
     observer.setState( Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
@@ -1783,14 +1615,9 @@ public class ObserverTest
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            null,
-                                            TransactionMode.READ_ONLY,
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            true );
+                                            0 );
     observer.setState( Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
@@ -1814,14 +1641,9 @@ public class ObserverTest
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            null,
-                                            TransactionMode.READ_ONLY,
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            false );
+                                            Flags.MANUAL_REPORT_STALE_ALLOWED );
     observer.setState( Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
@@ -1868,19 +1690,14 @@ public class ObserverTest
     final ArezContext context = Arez.context();
 
     setupReadWriteTransaction();
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            null,
-                                            TransactionMode.READ_ONLY,
                                             trackedExecutable,
                                             onDepsUpdated,
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            false );
+                                            0 );
     observer.setState( Flags.STATE_STALE );
 
     // reset the scheduling that occurred due to setState
@@ -1919,14 +1736,9 @@ public class ObserverTest
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            null,
-                                            TransactionMode.READ_ONLY,
                                             trackedExecutable,
                                             onDepsUpdated,
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            false );
+                                            0 );
     observer.setState( Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
     Transaction.setTransaction( null );
@@ -1958,14 +1770,9 @@ public class ObserverTest
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            null,
-                                            TransactionMode.READ_ONLY,
                                             trackedExecutable,
                                             null,
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            false );
+                                            0 );
     observer.setState( Flags.STATE_STALE );
 
     // reset the scheduling that occurred due to setState

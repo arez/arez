@@ -241,38 +241,23 @@ public class ReactionSchedulerTest
     final Observer observer0 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.HIGHEST,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_HIGHEST );
     final Observer observer1 = context.autorun( new CountAndObserveProcedure() );
     final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.HIGH,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_HIGH );
     final Observer observer3 = context.autorun( new CountAndObserveProcedure() );
     final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.HIGH,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_HIGH );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -285,17 +270,20 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
 
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).size(), 1 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).size(), 0 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).size(), 0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST ) ).size(), 1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGH ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOW ) ).size(), 0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOWEST ) ).size(), 0 );
 
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).get( 0 ), observer0 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 0 ), observer2 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 1 ), observer4 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 0 ), observer1 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 1 ), observer3 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST ) ).get( 0 ),
+                  observer0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGH ) ).get( 0 ), observer2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGH ) ).get( 1 ), observer4 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).get( 0 ),
+                  observer1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).get( 1 ),
+                  observer3 );
   }
 
   @Test
@@ -308,102 +296,57 @@ public class ReactionSchedulerTest
     final Observer observer0 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.HIGHEST,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_HIGHEST );
     final Observer observer1 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.LOWEST,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_LOWEST );
     final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.HIGH,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_HIGH );
     final Observer observer3 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.NORMAL,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_NORMAL );
     final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.LOW,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_LOW );
     final Observer observer5 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.LOWEST,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_LOWEST );
     final Observer observer6 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.HIGH,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_HIGH );
     final Observer observer7 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.NORMAL,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_NORMAL );
     final Observer observer8 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
-                                             null,
-                                             TransactionMode.READ_ONLY,
                                              new CountingProcedure(),
                                              new CountingProcedure(),
-                                             Priority.LOW,
-                                             false,
-                                             true,
-                                             true );
+                                             Flags.PRIORITY_LOW );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -419,21 +362,26 @@ public class ReactionSchedulerTest
     scheduler.scheduleReaction( observer8 );
 
     assertEquals( scheduler.hasTasksToSchedule(), true );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).size(), 1 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).size(), 2 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST ) ).size(), 1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGH ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOW ) ).size(), 2 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOWEST ) ).size(), 2 );
 
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGHEST ) ).get( 0 ), observer0 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 1 ), observer6 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_HIGH ) ).get( 1 ), observer6 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 0 ), observer3 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) ).get( 1 ), observer7 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).get( 0 ), observer4 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOW ) ).get( 1 ), observer8 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).get( 0 ), observer1 );
-    assertEquals( scheduler.getPendingObservers( Flags.getPriority( Flags.PRIORITY_LOWEST ) ).get( 1 ), observer5 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST ) ).get( 0 ),
+                  observer0 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGH ) ).get( 1 ), observer6 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_HIGH ) ).get( 1 ), observer6 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).get( 0 ),
+                  observer3 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).get( 1 ),
+                  observer7 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOW ) ).get( 0 ), observer4 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOW ) ).get( 1 ), observer8 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOWEST ) ).get( 0 ),
+                  observer1 );
+    assertEquals( scheduler.getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_LOWEST ) ).get( 1 ),
+                  observer5 );
   }
 
   @Test
@@ -577,14 +525,9 @@ public class ReactionSchedulerTest
         new Observer( context,
                       null,
                       ValueUtil.randomString(),
-                      null,
-                      TransactionMode.READ_WRITE,
                       trackeds[ i ],
                       null,
-                      Priority.NORMAL,
-                      false,
-                      true,
-                      false );
+                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );
@@ -677,14 +620,9 @@ public class ReactionSchedulerTest
       new Observer( context,
                     null,
                     "MyObserver",
-                    null,
-                    TransactionMode.READ_WRITE,
                     trackedExecutable,
                     null,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    false );
+                    Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED );
     observerReference.set( observer );
     context.pauseScheduler();
     context.safeAction( null, true, false, observer::reportStale );
@@ -739,14 +677,9 @@ public class ReactionSchedulerTest
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    null,
-                    TransactionMode.READ_ONLY,
                     trackedExecutable,
                     null,
-                    Priority.NORMAL,
-                    false,
-                    true,
-                    true );
+                    0 );
 
     observerReference.set( observer );
     context.pauseScheduler();
@@ -820,14 +753,9 @@ public class ReactionSchedulerTest
         new Observer( Arez.context(),
                       null,
                       ValueUtil.randomString(),
-                      null,
-                      TransactionMode.READ_WRITE,
                       trackeds[ i ],
                       null,
-                      Priority.NORMAL,
-                      false,
-                      true,
-                      false );
+                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );
@@ -896,14 +824,9 @@ public class ReactionSchedulerTest
         new Observer( context,
                       null,
                       ValueUtil.randomString(),
-                      null,
-                      TransactionMode.READ_WRITE,
                       trackeds[ i ],
                       null,
-                      Priority.NORMAL,
-                      false,
-                      true,
-                      false );
+                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );

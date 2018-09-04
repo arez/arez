@@ -349,7 +349,7 @@ final class ReactionScheduler
   @Nonnull
   CircularBuffer<Observer> getPendingObservers()
   {
-    return getPendingObservers( Flags.getPriority( Flags.PRIORITY_NORMAL ) );
+    return getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) );
   }
 
   @Nonnull

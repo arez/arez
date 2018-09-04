@@ -210,14 +210,9 @@ public class ObservableValueTest
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
+                                            new CountAndObserveProcedure(),
                                             null,
-                                            TransactionMode.READ_ONLY,
-                                            new CountingProcedure(),
-                                            null,
-                                            Priority.NORMAL,
-                                            false,
-                                            true,
-                                            false );
+                                            0 );
 
     setupReadOnlyTransaction( context );
 
@@ -575,14 +570,9 @@ public class ObservableValueTest
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    null,
-                    TransactionMode.READ_ONLY,
                     new CountingProcedure(),
                     new CountingProcedure(),
-                    Priority.HIGH,
-                    false,
-                    true,
-                    true );
+                    Flags.PRIORITY_HIGH );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue =
@@ -614,14 +604,9 @@ public class ObservableValueTest
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
+                    new CountingProcedure(),
                     null,
-                    TransactionMode.READ_ONLY,
-                    new CountingProcedure(),
-                    new CountingProcedure(),
-                    Priority.HIGH,
-                    true,
-                    true,
-                    true );
+                    Flags.PRIORITY_HIGH | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue =
