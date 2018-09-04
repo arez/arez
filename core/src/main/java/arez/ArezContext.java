@@ -5,7 +5,6 @@ import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ObservableValueCreatedEvent;
-import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
@@ -895,7 +894,6 @@ public final class ArezContext
                 observeLowerPriorityDependencies,
                 canNestActions,
                 arezOnlyDependencies );
-    scheduleReaction( observer );
     if ( runImmediately )
     {
       triggerScheduler();
@@ -1108,28 +1106,17 @@ public final class ArezContext
                      final boolean arezOnlyDependencies )
   {
     final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Observer observer =
-      new Observer( Arez.areZonesEnabled() ? this : null,
-                    component,
-                    generateNodeName( "Observer", name ),
-                    null,
-                    mode,
-                    trackedExecutable,
-                    onDepsUpdated,
-                    priority,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    arezOnlyDependencies );
-    reportObserverCreatedEvent( observer );
-    return observer;
-  }
-
-  private void reportObserverCreatedEvent( @Nonnull final Observer observer )
-  {
-    if ( willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer.asInfo() ) );
-    }
+    return new Observer( Arez.areZonesEnabled() ? this : null,
+                         component,
+                         generateNodeName( "Observer", name ),
+                         null,
+                         mode,
+                         trackedExecutable,
+                         onDepsUpdated,
+                         priority,
+                         observeLowerPriorityDependencies,
+                         canNestActions,
+                         arezOnlyDependencies );
   }
 
   /**

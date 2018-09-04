@@ -7,9 +7,11 @@ import arez.spy.ComputeStartedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.ReactionCompletedEvent;
+import arez.spy.ReactionScheduledEvent;
 import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
@@ -51,7 +53,7 @@ public class ObserverTest
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getTracked(), trackedExecutable );
     assertEquals( observer.getOnDepsUpdated(), onDepsUpdated );
-    assertEquals( observer.isScheduled(), false );
+    assertEquals( observer.isScheduled(), true );
 
     assertEquals( observer.isComputedValue(), false );
 
@@ -1124,8 +1126,6 @@ public class ObserverTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    context.getSpy().addSpyEventHandler( handler );
-
     final CountingProcedure trackedExecutable = new CountingProcedure()
     {
       @Override
@@ -1137,6 +1137,8 @@ public class ObserverTest
         Thread.sleep( 1 );
       }
     };
+    context.getSpy().addSpyEventHandler( handler );
+
     final Observer observer =
       new Observer( context,
                     null,
@@ -1145,10 +1147,14 @@ public class ObserverTest
                     null,
                     0 );
 
-    observer.invokeReaction();
+    context.triggerScheduler();
 
-    handler.assertEventCount( 6 );
+    handler.assertEventCount( 8 );
 
+    handler.assertNextEvent( ObserverCreatedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ReactionScheduledEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ReactionStartedEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
@@ -1230,24 +1236,27 @@ public class ObserverTest
   public void invokeReaction_onUpToDateObserver()
     throws Exception
   {
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
+    final ArezContext context = Arez.context();
     final Observer observer =
-      new Observer( Arez.context(),
+      new Observer( context,
                     null,
                     ValueUtil.randomString(),
                     trackedExecutable,
                     onDepsUpdated,
                     0 );
 
-    setupReadWriteTransaction();
-    observer.setState( Flags.STATE_UP_TO_DATE );
-    Transaction.setTransaction( null );
+    context.triggerScheduler();
 
-    //Invoke reaction
+    assertEquals( trackedExecutable.getCallCount(), 1 );
+
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+
+    //Invoke reaction - observer is uptodate
     observer.invokeReaction();
 
-    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
     assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 
@@ -1566,22 +1575,25 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    setupReadWriteTransaction();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             new CountingProcedure(),
                                             new CountingProcedure(),
                                             Flags.MANUAL_REPORT_STALE_ALLOWED );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    context.triggerScheduler();
+
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
-    observer.reportStale();
+    context.safeAction( null, true, false, () -> {
+      observer.reportStale();
 
-    assertEquals( observer.isScheduled(), true );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+      assertEquals( observer.isScheduled(), true );
+      assertEquals( observer.getState(), Flags.STATE_STALE );
+      assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+      assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+    } );
   }
 
   @Test
@@ -1590,24 +1602,27 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    setupReadWriteTransaction();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            new CountingProcedure(),
-                                            new CountingProcedure(),
+                                            new CountAndObserveProcedure(),
+                                            null,
                                             0 );
-    observer.setState( Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.isScheduled(), false );
+    context.triggerScheduler();
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
-                  "' but arezOnlyDependencies = true." );
-    assertEquals( observer.isScheduled(), false );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( observer.isScheduled(), false );
+
+    context.safeAction( null, true, false, () -> {
+      final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
+
+      assertEquals( exception.getMessage(),
+                    "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                    "' but arezOnlyDependencies = true." );
+      assertEquals( observer.isScheduled(), false );
+      assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+      assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    } );
   }
 
   @Test
@@ -1616,17 +1631,17 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    setupReadWriteTransaction();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             new CountingProcedure(),
                                             new CountingProcedure(),
                                             Flags.MANUAL_REPORT_STALE_ALLOWED );
-    observer.setState( Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.isScheduled(), false );
 
-    Transaction.setTransaction( null );
+    context.triggerScheduler();
+
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.isScheduled(), false );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
 
@@ -1709,8 +1724,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    setupReadWriteTransaction();
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
@@ -1718,9 +1732,13 @@ public class ObserverTest
                                             trackedExecutable,
                                             onDepsUpdated,
                                             0 );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    context.triggerScheduler();
+
+    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( onDepsUpdated.getCallCount(), 0 );
+
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
-    Transaction.setTransaction( null );
 
     final Disposable schedulerLock = context.pauseScheduler();
 
@@ -1734,7 +1752,7 @@ public class ObserverTest
     schedulerLock.dispose();
 
     assertEquals( observer.isScheduled(), false );
-    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( trackedExecutable.getCallCount(), 1 );
     assertEquals( onDepsUpdated.getCallCount(), 0 );
   }
 

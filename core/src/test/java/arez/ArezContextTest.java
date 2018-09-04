@@ -2591,9 +2591,11 @@ public class ArezContextTest
                         false,
                         true );
 
-    handler.assertEventCount( 1 );
+    handler.assertEventCount( 2 );
 
     handler.assertNextEvent( ObserverCreatedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ReactionScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 

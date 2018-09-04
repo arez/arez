@@ -2,6 +2,7 @@ package arez;
 
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
+import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.ReactionCompletedEvent;
@@ -182,6 +183,17 @@ public final class Observer
       else if ( Arez.areRegistriesEnabled() )
       {
         getContext().registerObserver( this );
+      }
+    }
+    if ( null == _computedValue )
+    {
+      if ( willPropagateSpyEvents() )
+      {
+        getSpy().reportSpyEvent( new ObserverCreatedEvent( asInfo() ) );
+      }
+      if ( null != _tracked )
+      {
+        getContext().scheduleReaction( this );
       }
     }
   }
