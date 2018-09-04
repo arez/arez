@@ -621,14 +621,8 @@ public class SpyImplTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final ComputedValue<Object> computedValue1 =
-      context.computed( component,
-                        ValueUtil.randomString(),
-                        () -> "",
-                        null,
-                        null,
-                        null,
-                        null );
-    final ComputedValue<Object> computedValue2 = context.computed( () -> "" );
+      context.computed( component, ValueUtil.randomString(), ValueUtil::randomString );
+    final ComputedValue<Object> computedValue2 = context.computed( ValueUtil::randomString );
 
     final ComponentInfo info = spy.getComponent( computedValue1 );
     assertNotNull( info );

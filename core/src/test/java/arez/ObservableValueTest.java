@@ -1770,7 +1770,6 @@ public class ObservableValueTest
                         null,
                         null,
                         null,
-                        null,
                         Priority.NORMAL,
                         false,
                         false,

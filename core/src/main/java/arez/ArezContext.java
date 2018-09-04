@@ -376,7 +376,7 @@ public final class ArezContext
                                         @Nullable final String name,
                                         @Nonnull final SafeFunction<T> function )
   {
-    return computed( component, name, function, null, null, null, null );
+    return computed( component, name, function, null, null, null );
   }
 
   /**
@@ -388,7 +388,6 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -396,10 +395,9 @@ public final class ArezContext
                                         @Nonnull final SafeFunction<T> function,
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose )
+                                        @Nullable final Procedure onStale )
   {
-    return computed( null, name, function, onActivate, onDeactivate, onStale, onDispose );
+    return computed( null, name, function, onActivate, onDeactivate, onStale );
   }
 
   /**
@@ -412,7 +410,6 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -421,10 +418,9 @@ public final class ArezContext
                                         @Nonnull final SafeFunction<T> function,
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose )
+                                        @Nullable final Procedure onStale )
   {
-    return computed( component, name, function, onActivate, onDeactivate, onStale, onDispose, Priority.NORMAL );
+    return computed( component, name, function, onActivate, onDeactivate, onStale, Priority.NORMAL );
   }
 
   /**
@@ -437,7 +433,6 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority     the priority of the associated observer.
    * @return the ComputedValue instance.
    */
@@ -448,10 +443,9 @@ public final class ArezContext
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
                                         @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
                                         @Nonnull final Priority priority )
   {
-    return computed( component, name, function, onActivate, onDeactivate, onStale, onDispose, priority, false, false );
+    return computed( component, name, function, onActivate, onDeactivate, onStale, priority, false, false );
   }
 
   /**
@@ -464,7 +458,6 @@ public final class ArezContext
    * @param onActivate     the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate   the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale        the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose      the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority       the priority of the associated observer.
    * @param keepAlive      true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
@@ -477,7 +470,6 @@ public final class ArezContext
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
                                         @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
                                         @Nonnull final Priority priority,
                                         final boolean keepAlive,
                                         final boolean runImmediately )
@@ -488,7 +480,6 @@ public final class ArezContext
                      onActivate,
                      onDeactivate,
                      onStale,
-                     onDispose,
                      priority,
                      keepAlive,
                      runImmediately,
@@ -505,7 +496,6 @@ public final class ArezContext
    * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority                         the priority of the associated observer.
    * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
@@ -519,7 +509,6 @@ public final class ArezContext
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
                                         @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
                                         @Nonnull final Priority priority,
                                         final boolean keepAlive,
                                         final boolean runImmediately,
@@ -531,7 +520,6 @@ public final class ArezContext
                      onActivate,
                      onDeactivate,
                      onStale,
-                     onDispose,
                      priority,
                      keepAlive,
                      runImmediately,
@@ -549,7 +537,6 @@ public final class ArezContext
    * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
    * @param priority                         the priority of the associated observer.
    * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
    * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
@@ -564,7 +551,6 @@ public final class ArezContext
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
                                         @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
                                         @Nonnull final Priority priority,
                                         final boolean keepAlive,
                                         final boolean runImmediately,
@@ -588,7 +574,6 @@ public final class ArezContext
                            keepAlive,
                            observeLowerPriorityDependencies,
                            arezOnlyDependencies );
-    final Observer observer = computedValue.getObserver();
     // Null check before setting hook fields. It seems that this decreases runtime memory pressure
     // in some environments with the penalty of a slight increase in code size. This will need to be
     // rechecked once we move off GWT2.x/ES3 and onto J2CL and preferably added to an automated performance
@@ -606,10 +591,6 @@ public final class ArezContext
     if ( null != onStale )
     {
       computedValue.setOnStale( onStale );
-    }
-    if ( null != onDispose )
-    {
-      observer.setOnDispose( onDispose );
     }
     if ( willPropagateSpyEvents() )
     {
@@ -837,45 +818,7 @@ public final class ArezContext
                     runImmediately,
                     observeLowerPriorityDependencies,
                     canNestActions,
-                    true,
-                    null );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           @Nullable final Procedure onDispose )
-  {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    true,
-                    onDispose );
+                    true );
   }
 
   /**
@@ -890,7 +833,6 @@ public final class ArezContext
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from autorun.
    * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
    * @return the new Observer.
    */
   @Nonnull
@@ -902,8 +844,7 @@ public final class ArezContext
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions,
-                           final boolean arezOnlyDependencies,
-                           @Nullable final Procedure onDispose )
+                           final boolean arezOnlyDependencies )
   {
     return autorun( component,
                     name,
@@ -914,8 +855,7 @@ public final class ArezContext
                     runImmediately,
                     observeLowerPriorityDependencies,
                     canNestActions,
-                    arezOnlyDependencies,
-                    onDispose );
+                    arezOnlyDependencies );
   }
 
   /**
@@ -931,7 +871,6 @@ public final class ArezContext
    * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
    * @param canNestActions                   true if the observer can start actions from autorun.
    * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
    * @return the new Observer.
    */
   @Nonnull
@@ -944,8 +883,7 @@ public final class ArezContext
                            final boolean runImmediately,
                            final boolean observeLowerPriorityDependencies,
                            final boolean canNestActions,
-                           final boolean arezOnlyDependencies,
-                           @Nullable final Procedure onDispose )
+                           final boolean arezOnlyDependencies )
   {
     final Observer observer =
       observer( component,
@@ -957,11 +895,6 @@ public final class ArezContext
                 observeLowerPriorityDependencies,
                 canNestActions,
                 arezOnlyDependencies );
-    // See similar code in computed(...) implementation for explanation of this code
-    if ( null != onDispose )
-    {
-      observer.setOnDispose( onDispose );
-    }
     scheduleReaction( observer );
     if ( runImmediately )
     {

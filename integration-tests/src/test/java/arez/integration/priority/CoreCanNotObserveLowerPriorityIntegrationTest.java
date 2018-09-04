@@ -31,7 +31,6 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
                         null,
                         null,
                         null,
-                        null,
                         Priority.LOWEST );
     // Attempts to observe lower priority
     final ComputedValue<Integer> computedValue2 = context.computed( () -> computedValue1.get() + 42 );

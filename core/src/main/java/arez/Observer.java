@@ -33,11 +33,6 @@ public final class Observer
   @Nullable
   private final ComputedValue<?> _computedValue;
   /**
-   * Hook action called when the Observer is disposed.
-   */
-  @Nullable
-  private Procedure _onDispose;
-  /**
    * The observables that this observer receives notifications from.
    * These are the dependencies within the dependency graph and will
    * typically correspond to the observables that were accessed in last
@@ -278,7 +273,6 @@ public final class Observer
     getContext().getTransaction().reportDispose( this );
     markDependenciesLeastStaleObserverAsUpToDate();
     setState( Flags.STATE_DISPOSING );
-    runHook( getOnDispose(), ObserverError.ON_DISPOSE_ERROR );
   }
 
   void markAsDisposed()
@@ -489,27 +483,6 @@ public final class Observer
         getContext().reportObserverError( this, error, t );
       }
     }
-  }
-
-  /**
-   * Set the onDispose hook.
-   *
-   * @param onDispose the hook.
-   */
-  void setOnDispose( @Nullable final Procedure onDispose )
-  {
-    _onDispose = onDispose;
-  }
-
-  /**
-   * Return the onDispose hook.
-   *
-   * @return the onDispose hook.
-   */
-  @Nullable
-  Procedure getOnDispose()
-  {
-    return _onDispose;
   }
 
   /**

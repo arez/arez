@@ -241,7 +241,6 @@ public final class MemoizeCache<T>
                                   null,
                                   onDeactivate,
                                   null,
-                                  null,
                                   _priority,
                                   false,
                                   true,

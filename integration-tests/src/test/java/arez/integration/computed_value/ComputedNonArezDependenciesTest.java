@@ -34,7 +34,6 @@ public class ComputedNonArezDependenciesTest
                         null,
                         null,
                         null,
-                        null,
                         Priority.NORMAL,
                         true,
                         true,

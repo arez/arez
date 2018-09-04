@@ -452,12 +452,10 @@ public class ComponentTest
                                                            () -> "",
                                                            null,
                                                            null,
-                                                           null,
                                                            null );
     final ComputedValue computedValue2 = context.computed( component,
                                                            ValueUtil.randomString(),
                                                            () -> "",
-                                                           null,
                                                            null,
                                                            null,
                                                            null );

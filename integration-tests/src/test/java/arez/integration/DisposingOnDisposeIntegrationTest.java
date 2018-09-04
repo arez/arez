@@ -31,10 +31,10 @@ public class DisposingOnDisposeIntegrationTest
     {
       _effect = effect;
       final ArezContext context = Arez.context();
-      _condition = context.computed( null, null, condition, null, this::dispose, null, null, Priority.NORMAL );
+      _condition = context.computed( null, null, condition, null, this::dispose, null, Priority.NORMAL );
       final Procedure onDispose = () -> Disposable.dispose( _condition );
       _observer =
-        context.autorun( null, null, true, this::checkCondition, Priority.NORMAL, false, true, true, onDispose );
+        context.autorun( null, null, true, this::checkCondition, Priority.NORMAL, false, true, true );
       context.triggerScheduler();
     }
 

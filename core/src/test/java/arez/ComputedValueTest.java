@@ -702,7 +702,7 @@ public class ComputedValueTest
       return String.valueOf( result.get() );
     };
     final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
+      context.computed( null, name, function, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -756,7 +756,7 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
+      context.computed( null, name, function, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -822,7 +822,7 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
+      context.computed( null, name, function, null, null, null, Priority.NORMAL, false, false, false, false );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

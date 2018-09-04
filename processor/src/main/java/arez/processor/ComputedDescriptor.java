@@ -446,9 +446,6 @@ final class ComputedDescriptor
       sb.append( "null" );
     }
 
-    sb.append( ", " );
-
-    sb.append( "null" );
     if ( hasNonNormalPriority() || _keepAlive || _observeLowerPriorityDependencies || !_arezOnlyDependencies )
     {
       if ( _keepAlive || _observeLowerPriorityDependencies || !_arezOnlyDependencies )

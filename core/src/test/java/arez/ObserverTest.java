@@ -391,7 +391,7 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final Observer observer =
-      context.autorun( null, null, false, new CountingProcedure(), Priority.NORMAL, true, false, false, false, null );
+      context.autorun( null, null, false, new CountingProcedure(), Priority.NORMAL, true, false, false, false );
 
     final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
@@ -904,27 +904,6 @@ public class ObserverTest
 
     // This verifies no new transactions were created
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId );
-  }
-
-  @Test
-  public void dispose_invokedHook()
-    throws Exception
-  {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
-    setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
-    final AtomicInteger callCount = new AtomicInteger();
-    observer.setOnDispose( callCount::incrementAndGet );
-
-    Transaction.setTransaction( null );
-
-    assertEquals( observer.isDisposed(), false );
-    assertEquals( callCount.get(), 0 );
-
-    observer.dispose();
-
-    assertEquals( observer.isDisposed(), true );
-    assertEquals( callCount.get(), 1 );
   }
 
   @Test
@@ -1666,7 +1645,7 @@ public class ObserverTest
     final ArezContext context = Arez.context();
 
     final Observer observer =
-      context.autorun( null, null, false, new CountingProcedure(), Priority.NORMAL, true, false, false, false, null );
+      context.autorun( null, null, false, new CountingProcedure(), Priority.NORMAL, true, false, false, false );
 
     context.safeAction( null, false, false, () -> observer.setState( Flags.STATE_UP_TO_DATE ) );
     assertEquals( observer.isScheduled(), false );

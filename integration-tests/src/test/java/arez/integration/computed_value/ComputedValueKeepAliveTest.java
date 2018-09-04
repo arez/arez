@@ -35,7 +35,6 @@ public class ComputedValueKeepAliveTest
                         null,
                         null,
                         null,
-                        null,
                         Priority.NORMAL,
                         true,
                         true );

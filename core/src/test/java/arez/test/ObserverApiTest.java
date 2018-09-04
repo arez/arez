@@ -52,7 +52,7 @@ public class ObserverApiTest
     final Observer observer = context.autorun( null, null, false, () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Priority.NORMAL, true, false, false, true, null );
+    }, onDepsUpdatedCallCount::incrementAndGet, Priority.NORMAL, true, false, false, true );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsUpdatedCallCount.get(), 0 );
@@ -74,7 +74,7 @@ public class ObserverApiTest
     final Observer observer = context.autorun( null, null, false, () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, Priority.NORMAL, true, false, true, false, null );
+    }, Priority.NORMAL, true, false, true, false );
 
     assertEquals( callCount.get(), 1 );
 
@@ -95,7 +95,7 @@ public class ObserverApiTest
     final Observer observer = context.autorun( null, null, false, () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Priority.NORMAL, true, false, true, false, null );
+    }, onDepsUpdatedCallCount::incrementAndGet, Priority.NORMAL, true, false, true, false );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsUpdatedCallCount.get(), 0 );

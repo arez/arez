@@ -1931,7 +1931,6 @@ public class ArezContextTest
     final Procedure onActivate = ValueUtil::randomString;
     final Procedure onDeactivate = ValueUtil::randomString;
     final Procedure onStale = ValueUtil::randomString;
-    final Procedure onDispose = ValueUtil::randomString;
     final ComputedValue<String> computedValue =
       context.computed( null,
                         name,
@@ -1939,7 +1938,6 @@ public class ArezContextTest
                         onActivate,
                         onDeactivate,
                         onStale,
-                        onDispose,
                         Priority.HIGH );
 
     assertEquals( computedValue.getName(), name );
@@ -1951,7 +1949,6 @@ public class ArezContextTest
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
     assertEquals( computedValue.getOnStale(), onStale );
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObserver().getOnDispose(), onDispose );
     assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
   }
@@ -1967,7 +1964,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      context.computed( component, name, () -> "", null, null, null, null );
+      context.computed( component, name, () -> "", null, null, null );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
@@ -1981,7 +1978,6 @@ public class ArezContextTest
       Arez.context().computed( null,
                                ValueUtil.randomString(),
                                () -> "",
-                               null,
                                null,
                                null,
                                null,
@@ -2001,7 +1997,6 @@ public class ArezContextTest
       Arez.context().computed( null,
                                ValueUtil.randomString(),
                                () -> "",
-                               null,
                                null,
                                null,
                                null,
@@ -2034,7 +2029,6 @@ public class ArezContextTest
                         null,
                         null,
                         null,
-                        null,
                         Priority.NORMAL,
                         true,
                         true );
@@ -2061,7 +2055,6 @@ public class ArezContextTest
       context.computed( null,
                         name,
                         action,
-                        null,
                         null,
                         null,
                         null,
@@ -2098,7 +2091,6 @@ public class ArezContextTest
     assertEquals( computedValue.getOnActivate(), null );
     assertEquals( computedValue.getOnDeactivate(), null );
     assertEquals( computedValue.getOnStale(), null );
-    assertEquals( computedValue.getObserver().getOnDispose(), null );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
   }
 
@@ -2123,7 +2115,6 @@ public class ArezContextTest
     assertEquals( computedValue.getOnActivate(), null );
     assertEquals( computedValue.getOnDeactivate(), null );
     assertEquals( computedValue.getOnStale(), null );
-    assertEquals( computedValue.getObserver().getOnDispose(), null );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
   }
@@ -2170,7 +2161,6 @@ public class ArezContextTest
                                             action,
                                             null,
                                             null,
-                                            null,
                                             Priority.NORMAL,
                                             true,
                                             true ) );
@@ -2192,7 +2182,6 @@ public class ArezContextTest
                                             () -> "",
                                             null,
                                             action,
-                                            null,
                                             null,
                                             Priority.NORMAL,
                                             true,
@@ -2230,7 +2219,7 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
-    context.autorun( null, null, false, callCount::incrementAndGet, Priority.NORMAL, true, false, true, false, null );
+    context.autorun( null, null, false, callCount::incrementAndGet, Priority.NORMAL, true, false, true, false );
 
     assertEquals( callCount.get(), 1 );
 
@@ -2438,8 +2427,8 @@ public class ArezContextTest
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
-                              arezOnlyDependencies,
-                              null );
+                              arezOnlyDependencies
+      );
 
     assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
   }
@@ -2458,37 +2447,9 @@ public class ArezContextTest
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
                               ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              null );
+                              ValueUtil.randomBoolean() );
 
     assertEquals( observer.supportsManualSchedule(), true );
-  }
-
-  @Test
-  public void autorun_disposeHook()
-    throws Exception
-  {
-    final AtomicInteger disposeHookCallCount = new AtomicInteger();
-    final Observer observer =
-      Arez.context().autorun( null,
-                              ValueUtil.randomString(),
-                              ValueUtil.randomBoolean(),
-                              AbstractArezTest::observeADependency,
-                              Priority.NORMAL,
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              disposeHookCallCount::incrementAndGet );
-
-    assertEquals( disposeHookCallCount.get(), 0 );
-
-    Disposable.dispose( observer );
-
-    assertEquals( disposeHookCallCount.get(), 1 );
-
-    Disposable.dispose( observer );
-
-    assertEquals( disposeHookCallCount.get(), 1 );
   }
 
   @Test
