@@ -153,7 +153,9 @@ public final class Observer
                    () -> "Arez-0082: Observer named '" + getName() + "' specified transaction mode '" +
                          Flags.getTransactionModeName( flags ) + "' when Arez.enforceTransactionType() is false." );
       }
-      //TODO: Check Priority valid
+      invariant( () -> Flags.isPriorityValid( _flags ),
+                 () -> "Arez-0080: Observer named '" + getName() + "' has invalid priority " +
+                       Flags.getPriorityIndex( _flags ) + "." );
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );

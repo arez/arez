@@ -148,6 +148,18 @@ final class Flags
   }
 
   /**
+   * Return true if flags contains valid priority.
+   *
+   * @param flags the flags.
+   * @return true if flags contains priority.
+   */
+  static boolean isPriorityValid( final int flags )
+  {
+    final int priorityIndex = getPriorityIndex( flags );
+    return priorityIndex <= 4 && priorityIndex >= 0;
+  }
+
+  /**
    * Extract and return the priority value ranging from the highest priority 0 and lowest priority 4.
    * This method assumes that flags has valid priority and will not attempt to re-check.
    *

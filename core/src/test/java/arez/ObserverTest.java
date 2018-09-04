@@ -117,6 +117,24 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_invalid_priority()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        null,
+                                        Flags.PRIORITY_LOWEST + Flags.PRIORITY_HIGHEST ) );
+
+    assertEquals( exception.getMessage(), "Arez-0080: Observer named '" + name + "' has invalid priority 5." );
+  }
+
+  @Test
   public void construct_with_OBSERVE_LOWER_PRIORITY_DEPENDENCIES_and_PRIORITY_LOWEST()
     throws Exception
   {
