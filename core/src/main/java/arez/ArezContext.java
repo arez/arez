@@ -1188,11 +1188,16 @@ public final class ArezContext
                     observeLowerPriorityDependencies,
                     canNestActions,
                     arezOnlyDependencies );
+    reportObserverCreatedEvent( observer );
+    return observer;
+  }
+
+  private void reportObserverCreatedEvent( @Nonnull final Observer observer )
+  {
     if ( willPropagateSpyEvents() )
     {
       getSpy().reportSpyEvent( new ObserverCreatedEvent( observer.asInfo() ) );
     }
-    return observer;
   }
 
   /**
