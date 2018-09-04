@@ -204,7 +204,7 @@ public class FlagsTest
     assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.READ_ONLY ), Flags.NESTED_ACTIONS_DISALLOWED );
 
     ArezTestUtil.noCheckInvariants();
-    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( 0 ), Flags.NESTED_ACTIONS_DISALLOWED );
+    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( 0 ), 0 );
   }
 
   @Test
@@ -217,7 +217,7 @@ public class FlagsTest
                   Flags.READ_ONLY );
 
     ArezTestUtil.noEnforceTransactionType();
-    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), Flags.READ_ONLY );
+    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), 0 );
   }
 
   @Test
