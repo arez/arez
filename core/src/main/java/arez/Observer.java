@@ -192,7 +192,7 @@ public final class Observer
   boolean arezOnlyDependencies()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 == ( _flags & Options.MANUAL_REPORT_STALE_ALLOWED );
+    return 0 == ( _flags & Flags.MANUAL_REPORT_STALE_ALLOWED );
   }
 
   /**
@@ -213,13 +213,13 @@ public final class Observer
   boolean canNestActions()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 != ( _flags & Options.NESTED_ACTIONS_ALLOWED );
+    return 0 != ( _flags & Flags.NESTED_ACTIONS_ALLOWED );
   }
 
   boolean canObserveLowerPriorityDependencies()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 != ( _flags & Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    return 0 != ( _flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
   }
 
   boolean isComputedValue()
@@ -326,7 +326,7 @@ public final class Observer
     assert Arez.shouldEnforceTransactionType();
     return null != _computedValue ?
            TransactionMode.READ_WRITE_OWNED :
-           0 != ( _flags & Options.READ_WRITE ) ?
+           0 != ( _flags & Flags.READ_WRITE ) ?
            TransactionMode.READ_WRITE :
            TransactionMode.READ_ONLY;
   }
