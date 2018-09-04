@@ -39,7 +39,7 @@ final class Flags
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
    * (and thus remove elements from being scheduled).
-   * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
+   * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
   static final int PRIORITY_HIGHEST = 0b00000010000000000000000000000000;
   /**
@@ -47,12 +47,12 @@ final class Flags
    * To reduce the chance that downstream elements will react multiple times within a single
    * reaction round, this priority should be used when the observer may trigger many downstream
    * reactions.
-   * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
+   * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
   static final int PRIORITY_HIGH = 0b00000100000000000000000000000000;
   /**
    * Normal priority if no other priority otherwise specified.
-   * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
+   * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
   static final int PRIORITY_NORMAL = 0b00000110000000000000000000000000;
   /**
@@ -62,7 +62,7 @@ final class Flags
    * perform network operations etc. These reactions are often at low priority
    * to avoid recalculation of dependencies (i.e. {@link ComputedValue}s) triggering
    * this reaction multiple times within a single reaction round.
-   * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
+   * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
   static final int PRIORITY_LOW = 0b00001000000000000000000000000000;
   /**
@@ -70,7 +70,7 @@ final class Flags
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
    * recomputing state that is likely to either be unobserved or recomputed as part of
    * another observers reaction.
-   * <p>Only one of the PRIORITY_* options should be applied to observer.</p>
+   * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
   static final int PRIORITY_LOWEST = 0b00001010000000000000000000000000;
   /**
@@ -137,26 +137,26 @@ final class Flags
   static final int RUNTIME_FLAGS_MASK = 0b00000000000000000000000000011111;
 
   /**
-   * Return true if options contains priority.
+   * Return true if flags contains priority.
    *
-   * @param options the options.
-   * @return true if options contains priority.
+   * @param flags the flags.
+   * @return true if flags contains priority.
    */
-  static boolean isPrioritySpecified( final int options )
+  static boolean isPrioritySpecified( final int flags )
   {
-    return 0 != ( options & PRIORITY_MASK );
+    return 0 != ( flags & PRIORITY_MASK );
   }
 
   /**
    * Extract and return the priority value ranging from the highest priority 0 and lowest priority 4.
-   * This method assumes that options has valid priority and will not attempt to re-check.
+   * This method assumes that flags has valid priority and will not attempt to re-check.
    *
-   * @param options the options.
+   * @param flags the flags.
    * @return the priority.
    */
-  static int getPriority( final int options )
+  static int getPriority( final int flags )
   {
-    return ( ( options & PRIORITY_MASK ) >> PRIORITY_SHIFT ) - 1;
+    return flags & PRIORITY_MASK;
   }
 
   /**
@@ -173,60 +173,60 @@ final class Flags
   /**
    * Extract and return the observer's state.
    *
-   * @param options the options.
+   * @param flags the flags.
    * @return the state.
    */
-  static int getState( final int options )
+  static int getState( final int flags )
   {
-    return options & STATE_MASK;
+    return flags & STATE_MASK;
   }
 
   /**
-   * Return the new value of options when supplied with specified state.
+   * Return the new value of flags when supplied with specified state.
    *
-   * @param options the options.
-   * @param state   the new state.
-   * @return the new options.
+   * @param flags the flags.
+   * @param state the new state.
+   * @return the new flags.
    */
-  static int setState( final int options, final int state )
+  static int setState( final int flags, final int state )
   {
-    return ( options & ~STATE_MASK ) | state;
+    return ( flags & ~STATE_MASK ) | state;
   }
 
   /**
    * Return true if the state is UP_TO_DATE, POSSIBLY_STALE or STALE.
    * The inverse of {@link #isNotActive(int)}
    *
-   * @param options the options to check.
+   * @param flags the flags to check.
    * @return true if the state is UP_TO_DATE, POSSIBLY_STALE or STALE.
    */
-  static boolean isActive( final int options )
+  static boolean isActive( final int flags )
   {
-    return getState( options ) > STATE_INACTIVE;
+    return getState( flags ) > STATE_INACTIVE;
   }
 
   /**
    * Return true if the state is INACTIVE, DISPOSING or DISPOSED.
    * The inverse of {@link #isActive(int)}
    *
-   * @param options the options to check.
+   * @param flags the flags to check.
    * @return true if the state is INACTIVE, DISPOSING or DISPOSED.
    */
-  static boolean isNotActive( final int options )
+  static boolean isNotActive( final int flags )
   {
-    return !isActive( options );
+    return !isActive( flags );
   }
 
   /**
    * Return the least stale observer state. if the state is not active
    * then the {@link #STATE_UP_TO_DATE} will be returned.
    *
-   * @param options the options to check.
+   * @param flags the flags to check.
    * @return the least stale observer state.
    */
-  static int getLeastStaleObserverState( final int options )
+  static int getLeastStaleObserverState( final int flags )
   {
-    final int state = getState( options );
+    final int state = getState( flags );
     return state > STATE_INACTIVE ? state : STATE_UP_TO_DATE;
   }
 
