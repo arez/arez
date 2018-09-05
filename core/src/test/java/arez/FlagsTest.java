@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -252,8 +253,48 @@ public class FlagsTest
   }
 
   @Test
-  public void optionsAreUnique()
+  public void flagsAreUnique()
     throws Exception
+  {
+    final HashMap<String, Integer> flags = extractFlags();
+    final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>( flags.entrySet() );
+    final int size = entries.size();
+    for ( int i = 0; i < size; i++ )
+    {
+      final Map.Entry<String, Integer> entry = entries.get( i );
+      final int value = entry.getValue();
+
+      for ( int j = i + 1; j < size; j++ )
+      {
+        final Map.Entry<String, Integer> innerEntry = entries.get( j );
+        final int innerValue = innerEntry.getValue();
+        if ( innerValue == value )
+        {
+          fail( "Flags in class " + Flags.class.getName() + " are not unique. Flag named " + entry.getKey() +
+                " and flag named " + innerEntry.getKey() + " have the same value: " + value );
+        }
+      }
+    }
+  }
+
+  @Test
+  public void flagsAreCoveredByMasks()
+    throws Exception
+  {
+    for ( final Map.Entry<String, Integer> entry : new ArrayList<>( extractFlags().entrySet() ) )
+    {
+      final int value = entry.getValue();
+      if ( ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK ) & value ) != value )
+      {
+        fail( "Flag named " + entry.getKey() + " in class " + Flags.class.getName() + " is not within " +
+              "expected configuration mask. Update mask or configuration value." );
+      }
+    }
+  }
+
+  @Nonnull
+  private HashMap<String, Integer> extractFlags()
+    throws IllegalAccessException
   {
     final HashMap<String, Integer> flags = new HashMap<>();
     for ( final Field field : Flags.class.getDeclaredFields() )
@@ -268,30 +309,6 @@ public class FlagsTest
         flags.put( name, value );
       }
     }
-    final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>( flags.entrySet() );
-    final int size = entries.size();
-    for ( int i = 0; i < size; i++ )
-    {
-      final Map.Entry<String, Integer> entry = entries.get( i );
-      final String name = entry.getKey();
-      final int value = entry.getValue();
-
-      if ( ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK ) & value ) != value )
-      {
-        fail( "Flag named " + name + " in class " + Flags.class.getName() + " is not within " +
-              "expected configuration mask. Update mask or configuration value." );
-      }
-
-      for ( int j = i + 1; j < size; j++ )
-      {
-        final Map.Entry<String, Integer> innerEntry = entries.get( j );
-        final int innerValue = innerEntry.getValue();
-        if ( innerValue == value )
-        {
-          fail( "Flags in class " + Flags.class.getName() + " are not unique. Flag named " + name +
-                " and flag named " + innerEntry.getKey() + " have the same value: " + value );
-        }
-      }
-    }
+    return flags;
   }
 }
