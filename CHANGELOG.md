@@ -23,6 +23,8 @@
   values: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions` and
   `_arezOnlyDependencies`. The runtime fields collapsed into the bit field include: `_state`, `_scheduled` and
   `_executeTrackedNext`. The `ComputedValue._keepAlive` field has also been merged into the bit field.
+* **\[core\]** Remove the method `Spy.getObservers(ObservableValue)` as the same information is available
+  via `ObservableValueInfo.getObservers()`.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

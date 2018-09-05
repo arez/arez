@@ -122,16 +122,6 @@ public interface Spy
   ComputedValueInfo asComputedValue( @Nonnull ObservableValue<?> observableValue );
 
   /**
-   * Return the list of observers for the ObservableValue.
-   * The list is an immutable copy of the observers of the {@link ObservableValue}.
-   *
-   * @param observableValue the ObservableValue.
-   * @return the list of observers for ObservableValue.
-   */
-  @Nonnull
-  List<ObserverInfo> getObservers( @Nonnull ObservableValue<?> observableValue );
-
-  /**
    * Return true if the Observer is currently running.
    *
    * @param observer the Observer.

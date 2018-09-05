@@ -267,16 +267,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Nonnull
-  @Override
-  public List<ObserverInfo> getObservers( @Nonnull final ObservableValue<?> observableValue )
-  {
-    return ObserverInfoImpl.asUnmodifiableInfos( this, observableValue.getObservers() );
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isReadOnly( @Nonnull final Observer observer )
   {

@@ -34,7 +34,6 @@ public interface ObservableValueInfo
    * The list is an immutable copy of the observers of the {@link ObservableValue}.
    *
    * @return the list of observers for Observable.
-   * @see arez.Spy#getObservers(ObservableValue)
    */
   @Nonnull
   List<ObserverInfo> getObservers();

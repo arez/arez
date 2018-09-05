@@ -79,7 +79,7 @@ final class ObservableValueInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return _spy.getObservers( _observableValue );
+    return ObserverInfoImpl.asUnmodifiableInfos( _spy, _observableValue.getObservers() );
   }
 
   /**

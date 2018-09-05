@@ -399,28 +399,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void Observable_getObservers()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<?> observableValue = context.observable();
-
-    assertEquals( spy.getObservers( observableValue ).size(), 0 );
-
-    final Observer observer = context.observer( new CountAndObserveProcedure() );
-    observableValue.getObservers().add( observer );
-
-    final List<ObserverInfo> observers = spy.getObservers( observableValue );
-    assertEquals( observers.size(), 1 );
-    assertEquals( observers.iterator().next().getName(), observer.getName() );
-
-    assertUnmodifiable( observers );
-  }
-
-  @Test
   public void Observer_isComputedValue()
     throws Exception
   {
