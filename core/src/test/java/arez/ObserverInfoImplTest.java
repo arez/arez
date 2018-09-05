@@ -1,9 +1,13 @@
 package arez;
 
+import arez.spy.ElementInfo;
+import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -98,6 +102,58 @@ public class ObserverInfoImplTest
     final Observer observer = context.observer( observableValue::reportObserved, Options.READ_WRITE );
 
     assertEquals( observer.asInfo().isReadOnly(), false );
+  }
+
+  @Test
+  public void getDependencies()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    final ObservableValue<Object> observable = context.observable();
+    final Observer observer = context.observer( observable::reportObserved );
+
+    final List<ObservableValueInfo> dependencies = spy.asObserverInfo( observer ).getDependencies();
+    assertEquals( dependencies.size(), 1 );
+    assertEquals( dependencies.get( 0 ).getName(), observable.getName() );
+
+    assertUnmodifiable( dependencies );
+  }
+
+  @Test
+  public void Ovserver_getDependenciesWhileRunning()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+
+    final ObservableValue<?> observableValue = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
+
+    observableValue.getObservers().add( observer );
+    observer.getDependencies().add( observableValue );
+
+    setCurrentTransaction( observer );
+
+    assertEquals( spy.asObserverInfo( observer ).getDependencies().size(), 0 );
+
+    context.getTransaction().safeGetObservables().add( observableValue2 );
+    context.getTransaction().safeGetObservables().add( observableValue3 );
+    context.getTransaction().safeGetObservables().add( observableValue2 );
+
+    final List<String> dependencies = spy.asObserverInfo( observer ).getDependencies().stream().
+      map( ElementInfo::getName ).collect( Collectors.toList() );
+    assertEquals( dependencies.size(), 2 );
+    assertEquals( dependencies.contains( observableValue2.getName() ), true );
+    assertEquals( dependencies.contains( observableValue3.getName() ), true );
+
+    assertUnmodifiable( spy.asObserverInfo( observer ).getDependencies() );
   }
 
   @Test

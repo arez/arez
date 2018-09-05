@@ -4,6 +4,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -123,7 +124,25 @@ final class ObserverInfoImpl
   @Override
   public List<ObservableValueInfo> getDependencies()
   {
-    return _spy.getDependencies( _observer );
+    final Transaction transaction = _spy.isTransactionActive() ? getTrackerTransaction() : null;
+    if ( null != transaction )
+    {
+      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      if ( null == observableValues )
+      {
+        return Collections.emptyList();
+      }
+      else
+      {
+        // Copy the list removing any duplicates that may exist.
+        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
+        return ObservableValueInfoImpl.asUnmodifiableInfos( list );
+      }
+    }
+    else
+    {
+      return ObservableValueInfoImpl.asUnmodifiableInfos( _observer.getDependencies() );
+    }
   }
 
   /**

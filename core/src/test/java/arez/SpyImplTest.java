@@ -451,58 +451,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void Observer_getDependencies()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( observable::reportObserved );
-
-    final List<ObservableValueInfo> dependencies = spy.getDependencies( observer );
-    assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.get( 0 ).getName(), observable.getName() );
-
-    assertUnmodifiable( dependencies );
-  }
-
-  @Test
-  public void Ovserver_getDependenciesWhileRunning()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final Observer observer = context.observer( new CountAndObserveProcedure() );
-
-    final ObservableValue<?> observableValue = context.observable();
-    final ObservableValue<?> observableValue2 = context.observable();
-    final ObservableValue<?> observableValue3 = context.observable();
-
-    observableValue.getObservers().add( observer );
-    observer.getDependencies().add( observableValue );
-
-    setCurrentTransaction( observer );
-
-    assertEquals( spy.getDependencies( observer ).size(), 0 );
-
-    context.getTransaction().safeGetObservables().add( observableValue2 );
-    context.getTransaction().safeGetObservables().add( observableValue3 );
-    context.getTransaction().safeGetObservables().add( observableValue2 );
-
-    final List<String> dependencies = spy.getDependencies( observer ).stream().
-      map( ElementInfo::getName ).collect( Collectors.toList() );
-    assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observableValue2.getName() ), true );
-    assertEquals( dependencies.contains( observableValue3.getName() ), true );
-
-    assertUnmodifiable( spy.getDependencies( observer ) );
-  }
-
-  @Test
   public void getComponent_Observable()
   {
     final ArezContext context = Arez.context();

@@ -76,7 +76,6 @@ public interface ObserverInfo
    * completes.
    *
    * @return the list of dependencies for the Observer.
-   * @see arez.Spy#getDependencies(arez.Observer)
    */
   @Nonnull
   List<ObservableValueInfo> getDependencies();

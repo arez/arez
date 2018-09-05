@@ -141,20 +141,6 @@ public interface Spy
   ComputedValueInfo asComputedValue( @Nonnull Observer observer );
 
   /**
-   * Return the list of dependencies of the Observer.
-   * The list is an immutable copy of the dependencies of the {@link Observer}.
-   * If the {@link Observer} is currently running (i.e. {@link #isRunning(Observer)}
-   * returns true) then the dependencies are provisional and may be added to as transaction
-   * completes.
-   *
-   * @param observer the Observer.
-   * @return the list of dependencies for the Observer.
-   * @see arez.spy.ObserverInfo#getDependencies()
-   */
-  @Nonnull
-  List<ObservableValueInfo> getDependencies( @Nonnull Observer observer );
-
-  /**
    * Return the component for specified ObservableValue.
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
