@@ -178,7 +178,6 @@ final class ObserverInfoImpl
     return _observer.hashCode();
   }
 
-
   /**
    * Get transaction with specified observer as tracker.
    */
