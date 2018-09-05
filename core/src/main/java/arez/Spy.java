@@ -6,7 +6,6 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
 import java.util.Collection;
-import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
