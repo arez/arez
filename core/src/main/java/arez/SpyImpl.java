@@ -187,12 +187,12 @@ final class SpyImpl
       {
         // Copy the list removing any duplicates that may exist.
         final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
-        return ObservableValueInfoImpl.asUnmodifiableInfos( this, list );
+        return ObservableValueInfoImpl.asUnmodifiableInfos( list );
       }
     }
     else
     {
-      return ObservableValueInfoImpl.asUnmodifiableInfos( this, computedValue.getObserver().getDependencies() );
+      return ObservableValueInfoImpl.asUnmodifiableInfos( computedValue.getObserver().getDependencies() );
     }
   }
 

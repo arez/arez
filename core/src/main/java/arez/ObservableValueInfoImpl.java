@@ -28,8 +28,7 @@ final class ObservableValueInfoImpl
   }
 
   @Nonnull
-  private static List<ObservableValueInfo> asInfos( @Nonnull final Spy spy,
-                                                    @Nonnull final Collection<ObservableValue<?>> observableValues )
+  private static List<ObservableValueInfo> asInfos( @Nonnull final Collection<ObservableValue<?>> observableValues )
   {
     return observableValues
       .stream()
@@ -38,10 +37,9 @@ final class ObservableValueInfoImpl
   }
 
   @Nonnull
-  static List<ObservableValueInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
-                                                        @Nonnull final Collection<ObservableValue<?>> observableValues )
+  static List<ObservableValueInfo> asUnmodifiableInfos( @Nonnull final Collection<ObservableValue<?>> observableValues )
   {
-    return Collections.unmodifiableList( asInfos( spy, observableValues ) );
+    return Collections.unmodifiableList( asInfos( observableValues ) );
   }
 
   /**

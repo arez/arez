@@ -64,7 +64,7 @@ final class ComponentInfoImpl
   @Override
   public List<ObservableValueInfo> getObservableValues()
   {
-    return ObservableValueInfoImpl.asUnmodifiableInfos( _spy, _observableValues );
+    return ObservableValueInfoImpl.asUnmodifiableInfos( _observableValues );
   }
 
   /**
