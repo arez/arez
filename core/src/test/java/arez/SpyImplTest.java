@@ -6,7 +6,6 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -547,11 +546,5 @@ public class SpyImplTest
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( list.iterator().next() ) );
-  }
-
-  private <T> void assertUnmodifiable( @Nonnull final List<T> list )
-  {
-    assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );
-    assertThrows( UnsupportedOperationException.class, () -> list.add( list.get( 0 ) ) );
   }
 }
