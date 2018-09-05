@@ -10,6 +10,9 @@
 * **\[core\]** Remove the `onDispose` parameter from the `ArezContext.autorun(...)` methods and the
   `ArezContext.computed(...)` methods. This hook method was never used from within the component model
   and infrequently used (if ever) from the raw API. Removing it reduced code complexity and size.
+* **\[core\]** Add invariant to ensure that the parameter `runImmediately` parameter can only be `true`
+  if `keepAlive` parameter is `true` when creating computed values via the `ArezContext.computed(...)`
+  methods.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
