@@ -83,7 +83,6 @@ public interface ObserverInfo
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
    * @return the component that contains Observer if any.
-   * @see arez.Spy#getComponent(arez.Observer)
    */
   @Nullable
   ComponentInfo getComponent();

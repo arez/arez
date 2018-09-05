@@ -267,22 +267,6 @@ final class SpyImpl
    */
   @Nullable
   @Override
-  public ComponentInfo getComponent( @Nonnull final Observer observer )
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( Arez::areNativeComponentsEnabled,
-                 () -> "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-    }
-    final Component component = observer.getComponent();
-    return null == component ? null : component.asInfo();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Nullable
-  @Override
   public ComponentInfo getComponent( @Nonnull final ComputedValue<?> computedValue )
   {
     if ( Arez.shouldCheckInvariants() )

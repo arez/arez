@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ComponentInfo;
 import arez.spy.ElementInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
@@ -175,6 +176,40 @@ public class ObserverInfoImplTest
 
     // Not yet observed
     assertEquals( info.isActive(), false );
+  }
+
+  @Test
+  public void getComponent_Observer()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Component component =
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final Observer observer1 =
+      context.observer( component, null, AbstractArezTest::observeADependency );
+    final Observer observer2 = context.observer( AbstractArezTest::observeADependency );
+
+    final ComponentInfo info = spy.asObserverInfo( observer1 ).getComponent();
+    assertNotNull( info );
+    assertEquals( info.getName(), component.getName() );
+    assertEquals( spy.asObserverInfo( observer2 ).getComponent(), null );
+  }
+
+  @Test
+  public void getComponent_Observer_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.asObserverInfo( observer ).getComponent() );
+    assertEquals( exception.getMessage(),
+                  "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @SuppressWarnings( "EqualsWithItself" )

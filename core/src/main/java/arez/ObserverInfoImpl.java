@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * A implementation of {@link ObserverInfo} that proxies to a {@link Observer}.
@@ -152,7 +153,13 @@ final class ObserverInfoImpl
   @Override
   public ComponentInfo getComponent()
   {
-    return _spy.getComponent( _observer );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
+    final Component component = _observer.getComponent();
+    return null == component ? null : component.asInfo();
   }
 
   /**

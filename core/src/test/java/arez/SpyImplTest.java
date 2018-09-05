@@ -493,40 +493,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void getComponent_Observer()
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final Component component =
-      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observer observer1 =
-      context.observer( component, null, AbstractArezTest::observeADependency );
-    final Observer observer2 = context.observer( AbstractArezTest::observeADependency );
-
-    final ComponentInfo info = spy.getComponent( observer1 );
-    assertNotNull( info );
-    assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.getComponent( observer2 ), null );
-  }
-
-  @Test
-  public void getComponent_Observer_nativeComponentsDisabled()
-  {
-    ArezTestUtil.disableNativeComponents();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final Observer value = context.observer( AbstractArezTest::observeADependency );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-  }
-
-  @Test
   public void component_finders()
   {
     final ArezContext context = Arez.context();

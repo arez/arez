@@ -132,17 +132,6 @@ public interface Spy
   ComponentInfo getComponent( @Nonnull ObservableValue<?> observableValue );
 
   /**
-   * Return the component for specified Observer.
-   * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
-   *
-   * @param observer the Observer.
-   * @return the component that contains Observer if any.
-   * @see arez.spy.ObserverInfo#getComponent()
-   */
-  @Nullable
-  ComponentInfo getComponent( @Nonnull Observer observer );
-
-  /**
    * Return the component for specified ComputedValue.
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
