@@ -30,7 +30,7 @@ public class ComputedValueTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.toString(), name );
-    assertEquals( computedValue.isKeepAlive(), false );
+    assertEquals( computedValue.getObserver().isKeepAlive(), false );
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
 
     // Value starts out as null
@@ -88,7 +88,7 @@ public class ComputedValueTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.toString(), name );
-    assertEquals( computedValue.isKeepAlive(), true );
+    assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
 
     // Value is populated as keepAlive

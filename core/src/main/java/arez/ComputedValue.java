@@ -36,11 +36,6 @@ public final class ComputedValue<T>
    */
   private final SafeFunction<T> _function;
   /**
-   * Flag indicating whether the ComputedValue should be "kept alive". This essentially means it is activated on
-   * creation and never deactivates.
-   */
-  private final boolean _keepAlive;
-  /**
    * The associated observable value.
    */
   @Nonnull
@@ -109,10 +104,10 @@ public final class ComputedValue<T>
     _function = Objects.requireNonNull( function );
     _value = null;
     _computing = false;
-    _keepAlive = keepAlive;
     final int flags =
       Flags.priorityToFlag( priority ) |
       ( runImmediately ? Flags.REACT_IMMEDIATELY : Flags.DEFER_REACT ) |
+      ( keepAlive ? Flags.KEEPALIVE : Flags.DEACTIVATE_ON_UNOBSERVE ) |
       ( Arez.shouldCheckApiInvariants() && !arezOnlyDependencies ? Flags.MANUAL_REPORT_STALE_ALLOWED : 0 ) |
       ( Arez.shouldCheckApiInvariants() && observeLowerPriorityDependencies ?
         Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES :
@@ -445,11 +440,6 @@ public final class ComputedValue<T>
   T getValue()
   {
     return _value;
-  }
-
-  boolean isKeepAlive()
-  {
-    return _keepAlive;
   }
 
   void setValue( final T value )

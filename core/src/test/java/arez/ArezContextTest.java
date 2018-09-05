@@ -1942,7 +1942,7 @@ public class ArezContextTest
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
-    assertEquals( computedValue.isKeepAlive(), false );
+    assertEquals( computedValue.getObserver().isKeepAlive(), false );
     assertEquals( computedValue.getObserver().arezOnlyDependencies(), true );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), onActivate );
@@ -2034,7 +2034,7 @@ public class ArezContextTest
                         true );
 
     assertEquals( computedValue.getName(), name );
-    assertEquals( computedValue.isKeepAlive(), true );
+    assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( calls.get(), 1 );
   }
 
@@ -2063,7 +2063,7 @@ public class ArezContextTest
                         false );
 
     assertEquals( computedValue.getName(), name );
-    assertEquals( computedValue.isKeepAlive(), true );
+    assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( calls.get(), 0 );
 
     context.triggerScheduler();

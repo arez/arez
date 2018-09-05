@@ -206,6 +206,18 @@ public class FlagsTest
   }
 
   @Test
+  public void getKeepAliveType()
+    throws Exception
+  {
+    assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGHEST | Flags.KEEPALIVE ), Flags.KEEPALIVE );
+    assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGH | Flags.SCHEDULED_EXTERNALLY ),
+                  Flags.SCHEDULED_EXTERNALLY );
+    assertEquals( Flags.getScheduleType( Flags.PRIORITY_NORMAL | Flags.DEACTIVATE_ON_UNOBSERVE ),
+                  Flags.DEACTIVATE_ON_UNOBSERVE );
+    assertEquals( Flags.getScheduleType( Flags.PRIORITY_NORMAL ), 0 );
+  }
+
+  @Test
   public void defaultPriorityUnlessSpecified()
   {
     assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_HIGHEST ), 0 );
@@ -283,6 +295,8 @@ public class FlagsTest
   {
     // Configs with these prefixes may overlap
     final HashMap<String, String> exceptions = new HashMap<>();
+    exceptions.put( "KEEPALIVE", "SCHEDULED_EXTERNALLY" );
+    exceptions.put( "DEACTIVATE_ON_UNOBSERVE", "SCHEDULED_EXTERNALLY" );
 
     // Configs with these prefixes may overlap
     final ArrayList<String> exceptionPrefixes = new ArrayList<>();

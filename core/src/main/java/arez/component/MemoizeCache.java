@@ -243,7 +243,7 @@ public final class MemoizeCache<T>
                                   null,
                                   _priority,
                                   false,
-                                  true,
+                                  false,
                                   _observeLowerPriorityDependencies );
   }
 

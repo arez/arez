@@ -959,7 +959,7 @@ final class Transaction
     {
       final ComputedValue<?> computedValue = _tracker.getComputedValue();
       final ObservableValue<?> observableValue = computedValue.getObservableValue();
-      if ( !observableValue.hasObservers() && !computedValue.isKeepAlive() )
+      if ( !observableValue.hasObservers() && !computedValue.getObserver().isKeepAlive() )
       {
         queueForDeactivation( observableValue );
       }

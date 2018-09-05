@@ -156,6 +156,26 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_READ_ONLY_and_READ_WRITE()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        null,
+                                        Flags.READ_ONLY | Flags.READ_WRITE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0079: Observer named '" + name + "' incorrectly specified both " +
+                  "READ_ONLY and READ_WRITE transaction mode flags." );
+  }
+
+  @Test
   public void construct_with_REACT_IMMEDIATELY_and_DEFER_REACT()
     throws Exception
   {
@@ -192,7 +212,43 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0206: Observer named '" + name + "' incorrectly specified REACT_IMMEDIATELY " +
-                  "flag but the tracked function is scheduled externally." );
+                  "flag but the tracked function is null." );
+  }
+
+  @Test
+  public void construct_with_SCHEDULED_EXTERNALLY_and_no_tracked()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        new CountingProcedure(),
+                                        Flags.SCHEDULED_EXTERNALLY ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0207: Observer named '" + name + "' specified SCHEDULED_EXTERNALLY schedule type but " +
+                  "the tracked function is non-null." );
+  }
+
+  @Test
+  public void construct_with_computed_value_REACT_IMMEDIATELY_and_not_KEEPALIVE()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( computedValue, Flags.REACT_IMMEDIATELY ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0208: ComputedValue named 'ComputedValue@1' incorrectly specified REACT_IMMEDIATELY flag but not the KEEPALIVE flag." );
   }
 
   @Test

@@ -107,8 +107,9 @@ public final class Observer
           computedValue::compute,
           null,
           flags |
+          ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? 0 : Flags.DEACTIVATE_ON_UNOBSERVE ) |
           Flags.defaultReactTypeUnlessSpecified( flags,
-                                                 computedValue.isKeepAlive() ?
+                                                 ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ) ?
                                                  Flags.REACT_IMMEDIATELY :
                                                  Flags.DEFER_REACT ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
@@ -130,6 +131,7 @@ public final class Observer
           tracked,
           onDepsUpdated,
           flags |
+          ( null == tracked ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
           Flags.defaultReactTypeUnlessSpecified( flags,
                                                  null == tracked ? Flags.DEFER_REACT : Flags.REACT_IMMEDIATELY ) |
           Flags.defaultPriorityUnlessSpecified( flags ) |
@@ -169,7 +171,7 @@ public final class Observer
                        "REACT_IMMEDIATELY and DEFER_REACT flags." );
       invariant( () -> 0 == ( flags & Flags.REACT_IMMEDIATELY ) || null != tracked,
                  () -> "Arez-0206: Observer named '" + getName() + "' incorrectly specified " +
-                       "REACT_IMMEDIATELY flag but the tracked function is scheduled externally." );
+                       "REACT_IMMEDIATELY flag but the tracked function is null." );
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
@@ -181,6 +183,16 @@ public final class Observer
       invariant( () -> null != tracked || null != onDepsUpdated,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
                        "tracked parameter or the onDepsUpdated parameter." );
+      // Next line seems to be impossible to create from tests
+      assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != tracked;
+      invariant( () -> Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == tracked,
+                 () -> "Arez-0207: Observer named '" + getName() + "' specified SCHEDULED_EXTERNALLY schedule " +
+                       "type but the tracked function is non-null." );
+      invariant( () -> !( Flags.REACT_IMMEDIATELY == ( flags & Flags.REACT_IMMEDIATELY ) &&
+                          Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
+                          null != computedValue ),
+                 () -> "Arez-0208: ComputedValue named '" + getName() + "' incorrectly specified " +
+                       "REACT_IMMEDIATELY flag but not the KEEPALIVE flag." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
@@ -951,6 +963,11 @@ public final class Observer
   Procedure getOnDepsUpdated()
   {
     return _onDepsUpdated;
+  }
+
+  boolean isKeepAlive()
+  {
+    return Flags.KEEPALIVE == Flags.getScheduleType( _flags );
   }
 
   boolean shouldExecuteTrackedNext()

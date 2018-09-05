@@ -26,6 +26,7 @@ complete as there is too much un-said.
   could put them on lower bits so a simple mask could get it out).
    * Config time: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions`
    * Runtime:`_state`, `_scheduled`
+   * Also Computed._keepAlive converted to bit on config mask
 
 * Implement something similar to `getDependencyTree` from mobx
 

@@ -104,9 +104,29 @@ final class Flags
    */
   static final int DEFER_REACT = 0b00000000001000000000000000000000;
   /**
+   * Mask used to extract react type bits.
+   */
+  private static final int SCHEDULE_TYPE_MASK = 0b00000000000110000000000000000000;
+  /**
+   * The runtime will keep the observer reacting to dependencies until disposed. This should not be
+   * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
+   * that supply a tracked function.
+   */
+  static final int KEEPALIVE = 0b00000000000100000000000000000000;
+  /**
+   * The flag is valid on observers associated with computed values and will deactivate the observer if the
+   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   */
+  static final int DEACTIVATE_ON_UNOBSERVE = 0b00000000000010000000000000000000;
+  /**
+   * The flag is valid on observers associated with computed values and will deactivate the observer if the
+   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   */
+  static final int SCHEDULED_EXTERNALLY = 0b00000000000110000000000000000000;
+  /**
    * Mask that identifies the bits associated with static configuration.
    */
-  static final int CONFIG_FLAGS_MASK = 0b11111111111000000000000000000000;
+  static final int CONFIG_FLAGS_MASK = 0b11111111111110000000000000000000;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
    */
@@ -278,6 +298,17 @@ final class Flags
     {
       return "UNKNOWN(" + flags + ")";
     }
+  }
+
+  /**
+   * Extract and return the schedule type.
+   *
+   * @param flags the flags.
+   * @return the schedule type.
+   */
+  static int getScheduleType( final int flags )
+  {
+    return flags & SCHEDULE_TYPE_MASK;
   }
 
   /**

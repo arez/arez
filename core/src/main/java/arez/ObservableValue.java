@@ -283,7 +283,7 @@ public final class ObservableValue<T>
    */
   boolean canDeactivate()
   {
-    return hasOwner() && !getOwner().getComputedValue().isKeepAlive();
+    return hasOwner() && !getOwner().isKeepAlive();
   }
 
   /**
