@@ -62,15 +62,6 @@ public interface Spy
   TransactionInfo getTransaction();
 
   /**
-   * Convert the ObservableValue to a ComputedValue.
-   * This method should only be called if {@link #isComputedValue(ObservableValue)} returns true.
-   *
-   * @param observableValue the ObservableValue.
-   * @return the ComputedValue instance.
-   */
-  ComputedValueInfo asComputedValue( @Nonnull ObservableValue<?> observableValue );
-
-  /**
    * Return the component for specified ObservableValue.
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *

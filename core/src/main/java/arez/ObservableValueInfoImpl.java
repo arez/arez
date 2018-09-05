@@ -67,7 +67,7 @@ final class ObservableValueInfoImpl
   @Override
   public ComputedValueInfo asComputedValue()
   {
-    return _spy.asComputedValue( _observableValue );
+    return _observableValue.getOwner().getComputedValue().asInfo();
   }
 
   /**

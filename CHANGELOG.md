@@ -25,6 +25,7 @@
   `_executeTrackedNext`. The `ComputedValue._keepAlive` field has also been merged into the bit field.
 * **\[core\]** Remove the method `Spy.getObservers(ObservableValue)` that was replaced by `ObservableValueInfo.getObservers()`.
 * **\[core\]** Remove the method `Spy.asComputedValue(ObservableValue)` that was replaced by `ObservableValueInfo.asComputedValue()`.
+* **\[core\]** Remove the method `Spy.asComputedValue(ObservableValue)` that was replaced by `ObservableValueInfo.asComputedValue()`.
 * **\[core\]** Remove the method `Spy.isReadOnly(Observer)` that was replaced by `ObserverInfo.isReadOnly()`.
 * **\[core\]** Remove the method `Spy.isScheduled(Observer)` that was replaced by `ObserverInfo.isScheduled()`.
 * **\[core\]** Remove the method `Spy.isRunning(Observer)` that was replaced by `ObserverInfo.isRunning()`.
