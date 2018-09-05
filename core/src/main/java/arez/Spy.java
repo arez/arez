@@ -63,16 +63,6 @@ public interface Spy
   TransactionInfo getTransaction();
 
   /**
-   * Return true if the specified ComputedValue is "computing".
-   * This implies that the current transaction or one of the parent transactions is calculating the
-   * ComputedValue at the moment.
-   *
-   * @param computedValue the ComputedValue.
-   * @return true if there is a transaction active.
-   */
-  boolean isComputing( @Nonnull ComputedValue<?> computedValue );
-
-  /**
    * Return true if the ComputedValue is active.
    * A ComputedValue is active if there is one or more Observers and the value will be calculated.
    *

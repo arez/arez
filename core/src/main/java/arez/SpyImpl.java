@@ -152,15 +152,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Override
-  public boolean isComputing( @Nonnull final ComputedValue<?> computedValue )
-  {
-    return computedValue.isComputing();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public List<ObserverInfo> getObservers( @Nonnull final ComputedValue<?> computedValue )

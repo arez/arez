@@ -18,7 +18,6 @@ public interface ComputedValueInfo
    * ComputedValue at the moment.
    *
    * @return true if there is a transaction active.
-   * @see arez.Spy#isComputing(arez.ComputedValue)
    */
   boolean isComputing();
 

@@ -223,21 +223,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isComputing()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    assertEquals( spy.isComputing( computedValue ), false );
-    computedValue.setComputing( true );
-    assertEquals( spy.isComputing( computedValue ), true );
-  }
-
-  @Test
   public void getObservers()
     throws Exception
   {

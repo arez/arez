@@ -60,6 +60,21 @@ public class ComputedValueInfoImplTest
     assertEquals( info.isDisposed(), true );
   }
 
+  @Test
+  public void isComputing()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+
+    assertEquals( spy.asComputedValueInfo( computedValue ).isComputing(), false );
+    computedValue.setComputing( true );
+    assertEquals( spy.asComputedValueInfo( computedValue ).isComputing(), true );
+  }
+
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
