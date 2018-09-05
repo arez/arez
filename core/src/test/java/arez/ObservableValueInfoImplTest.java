@@ -269,4 +269,21 @@ public class ObservableValueInfoImplTest
     assertEquals( exception2.getMessage(),
                   "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
+
+  @Test
+  public void observable_hasMutator_introspectorsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.disablePropertyIntrospectors();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final ObservableValue<Integer> observableValue = context.observable();
+
+    final IllegalStateException exception2 =
+      expectThrows( IllegalStateException.class, () -> context.action( () -> observableValue.asInfo().hasMutator() ) );
+    assertEquals( exception2.getMessage(),
+                  "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+  }
 }

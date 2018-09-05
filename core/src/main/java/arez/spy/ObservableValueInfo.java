@@ -70,7 +70,6 @@ public interface ObservableValueInfo
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
    * @return true if a mutator is available.
-   * @see arez.Spy#hasMutator(ObservableValue)
    */
   boolean hasMutator();
 

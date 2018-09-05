@@ -209,20 +209,6 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public <T> boolean hasMutator( @Nonnull final ObservableValue<T> observableValue )
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-    }
-    return null != observableValue.getMutator();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public <T> void setValue( @Nonnull final ObservableValue<T> observableValue, @Nullable final T value )
     throws Throwable
   {

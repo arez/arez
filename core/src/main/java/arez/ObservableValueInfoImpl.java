@@ -142,7 +142,12 @@ final class ObservableValueInfoImpl
   @Override
   public boolean hasMutator()
   {
-    return _spy.hasMutator( _observableValue );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
+    return null != _observableValue.getMutator();
   }
 
   /**
