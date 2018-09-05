@@ -2589,6 +2589,7 @@ public class ArezContextTest
                         Priority.NORMAL,
                         false,
                         false,
+                        false,
                         true );
 
     handler.assertEventCount( 2 );
@@ -2614,6 +2615,7 @@ public class ArezContextTest
                         Priority.NORMAL,
                         false,
                         false,
+                        false,
                         true );
 
     assertEquals( observer.isTrackingExecutableExternal(), true );
@@ -2629,9 +2631,10 @@ public class ArezContextTest
       context.observer( null,
                         ValueUtil.randomString(),
                         false,
-                        new CountingProcedure(),
+                        new CountAndObserveProcedure(),
                         null,
                         Priority.NORMAL,
+                        true,
                         true,
                         false,
                         true );

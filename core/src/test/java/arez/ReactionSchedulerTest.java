@@ -668,7 +668,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
 
     final AtomicReference<Observer> observerReference = new AtomicReference<>();
-    final CountingProcedure trackedExecutable = new CountingProcedure()
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure()
     {
       @Override
       public void call()
@@ -683,14 +683,12 @@ public class ReactionSchedulerTest
                     ValueUtil.randomString(),
                     trackedExecutable,
                     null,
-                    0 );
+                    Flags.DEFER_REACT );
 
     observerReference.set( observer );
     context.pauseScheduler();
     context.safeAction( null, true, false, observer::reportStale );
     assertEquals( observer.isScheduled(), true );
-
-    Transaction.setTransaction( null );
 
     final ReactionScheduler scheduler = context.getScheduler();
     scheduler.setMaxReactionRounds( 20 );
@@ -759,7 +757,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       trackeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED );
+                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED | Flags.DEFER_REACT );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );
@@ -830,7 +828,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       trackeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED );
+                      Flags.READ_WRITE | Flags.MANUAL_REPORT_STALE_ALLOWED | Flags.DEFER_REACT );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );

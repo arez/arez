@@ -94,6 +94,7 @@ public final class ComputedValue<T>
                  @Nonnull final SafeFunction<T> function,
                  @Nonnull final Priority priority,
                  final boolean keepAlive,
+                 final boolean runImmediately,
                  final boolean observeLowerPriorityDependencies,
                  final boolean arezOnlyDependencies )
   {
@@ -111,6 +112,7 @@ public final class ComputedValue<T>
     _keepAlive = keepAlive;
     final int flags =
       Flags.priorityToFlag( priority ) |
+      ( runImmediately ? Flags.REACT_IMMEDIATELY : Flags.DEFER_REACT ) |
       ( Arez.shouldCheckApiInvariants() && !arezOnlyDependencies ? Flags.MANUAL_REPORT_STALE_ALLOWED : 0 ) |
       ( Arez.shouldCheckApiInvariants() && observeLowerPriorityDependencies ?
         Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES :

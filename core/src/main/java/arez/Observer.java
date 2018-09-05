@@ -80,6 +80,7 @@ public final class Observer
             @Nullable final Procedure tracked,
             @Nullable final Procedure onDepsUpdated,
             @Nonnull final Priority priority,
+            final boolean runImmediately,
             final boolean observeLowerPriorityDependencies,
             final boolean canNestActions,
             final boolean arezOnlyDependencies )
@@ -89,6 +90,7 @@ public final class Observer
           ? ( arezOnlyDependencies ? 0 : Flags.MANUAL_REPORT_STALE_ALLOWED ) |
             ( observeLowerPriorityDependencies ? Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES : 0 ) |
             ( canNestActions ? Flags.NESTED_ACTIONS_ALLOWED : Flags.NESTED_ACTIONS_DISALLOWED ) |
+            ( runImmediately ? Flags.REACT_IMMEDIATELY : Flags.DEFER_REACT ) |
             Flags.priorityToFlag( priority ) |
             ( Arez.shouldEnforceTransactionType() ?
               TransactionMode.READ_WRITE == mode ? Flags.READ_WRITE : Flags.READ_ONLY :
@@ -105,6 +107,10 @@ public final class Observer
           computedValue::compute,
           null,
           flags |
+          Flags.defaultReactTypeUnlessSpecified( flags,
+                                                 computedValue.isKeepAlive() ?
+                                                 Flags.REACT_IMMEDIATELY :
+                                                 Flags.DEFER_REACT ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
           Flags.defaultPriorityUnlessSpecified( flags ) );
@@ -124,6 +130,8 @@ public final class Observer
           tracked,
           onDepsUpdated,
           flags |
+          Flags.defaultReactTypeUnlessSpecified( flags,
+                                                 null == tracked ? Flags.DEFER_REACT : Flags.REACT_IMMEDIATELY ) |
           Flags.defaultPriorityUnlessSpecified( flags ) |
           Flags.defaultNestedActionRuleUnlessSpecified( flags ) |
           Flags.defaultObserverTransactionModeUnlessSpecified( flags ) );
@@ -156,6 +164,12 @@ public final class Observer
       invariant( () -> Flags.isPriorityValid( _flags ),
                  () -> "Arez-0080: Observer named '" + getName() + "' has invalid priority " +
                        Flags.getPriorityIndex( _flags ) + "." );
+      invariant( () -> Flags.isReactTypeValid( flags ),
+                 () -> "Arez-0081: Observer named '" + getName() + "' incorrectly specified both " +
+                       "REACT_IMMEDIATELY and DEFER_REACT flags." );
+      invariant( () -> 0 == ( flags & Flags.REACT_IMMEDIATELY ) || null != tracked,
+                 () -> "Arez-0206: Observer named '" + getName() + "' incorrectly specified " +
+                       "REACT_IMMEDIATELY flag but the tracked function is scheduled externally." );
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
@@ -195,8 +209,18 @@ public final class Observer
       }
       if ( null != _tracked )
       {
-        getContext().scheduleReaction( this );
+        initialSchedule();
       }
+    }
+  }
+
+  void initialSchedule()
+  {
+    final ArezContext context = getContext();
+    context.scheduleReaction( this );
+    if ( 0 != ( _flags & Flags.REACT_IMMEDIATELY ) )
+    {
+      context.triggerScheduler();
     }
   }
 

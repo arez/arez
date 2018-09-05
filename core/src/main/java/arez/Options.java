@@ -69,6 +69,19 @@ public final class Options
    * Only one of {@link #READ_ONLY} and READ_WRITE should be specified.
    */
   public static final int READ_WRITE = Flags.READ_WRITE;
+  /**
+   * The scheduler will be triggered when the observer is created to immediately invoke the
+   * {@link Observer#_tracked} function. This configuration should not be specified if there
+   * is no {@link Observer#_tracked} function supplied and {@link #DEFER_REACT} is not specified.
+   */
+  public static final int REACT_IMMEDIATELY = Flags.REACT_IMMEDIATELY;
+  /**
+   * The scheduler will not be triggered when the observer is created. The observer either
+   * has no {@link Observer#_tracked} function or is responsible for ensuring that
+   * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
+   * specified if {@link #REACT_IMMEDIATELY} is specified.
+   */
+  public static final int DEFER_REACT = Flags.DEFER_REACT;
 
   private Options()
   {

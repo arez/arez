@@ -994,6 +994,7 @@ public class TransactionTest
                            Priority.NORMAL,
                            true,
                            false,
+                           false,
                            true ).getObserver();
 
     final Transaction transaction =

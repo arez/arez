@@ -184,6 +184,27 @@ public class FlagsTest
   }
 
   @Test
+  public void isReactTypeSpecified()
+    throws Exception
+  {
+    assertTrue( Flags.isReactTypeSpecified( Flags.REACT_IMMEDIATELY ) );
+    assertTrue( Flags.isReactTypeSpecified( Flags.DEFER_REACT ) );
+    assertFalse( Flags.isReactTypeSpecified( 0 ) );
+    assertFalse( Flags.isReactTypeSpecified( Flags.PRIORITY_LOWEST ) );
+  }
+
+  @Test
+  public void isReactTypeValid()
+    throws Exception
+  {
+    assertTrue( Flags.isReactTypeValid( Flags.REACT_IMMEDIATELY ) );
+    assertTrue( Flags.isReactTypeValid( Flags.DEFER_REACT ) );
+    assertFalse( Flags.isReactTypeValid( 0 ) );
+    assertFalse( Flags.isReactTypeValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isReactTypeValid( Flags.READ_ONLY | Flags.READ_WRITE ) );
+  }
+
+  @Test
   public void defaultPriorityUnlessSpecified()
   {
     assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_HIGHEST ), 0 );
@@ -218,6 +239,16 @@ public class FlagsTest
 
     ArezTestUtil.noEnforceTransactionType();
     assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), 0 );
+  }
+
+  @Test
+  public void defaultReactTypeUnlessSpecified()
+  {
+    assertEquals( Flags.defaultReactTypeUnlessSpecified( Flags.REACT_IMMEDIATELY, Flags.REACT_IMMEDIATELY ), 0 );
+    assertEquals( Flags.defaultReactTypeUnlessSpecified( Flags.DEFER_REACT, Flags.REACT_IMMEDIATELY ), 0 );
+    assertEquals( Flags.defaultReactTypeUnlessSpecified( 0, Flags.REACT_IMMEDIATELY ), Flags.REACT_IMMEDIATELY );
+    assertEquals( Flags.defaultReactTypeUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED, Flags.REACT_IMMEDIATELY ),
+                  Flags.REACT_IMMEDIATELY );
   }
 
   @Test

@@ -32,9 +32,9 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
-    final Observer observer = new Observer( context, null, name, trackedExecutable, onDepsUpdated, 0 );
+    final Observer observer = new Observer( context, null, name, trackedExecutable, onDepsUpdated, Flags.DEFER_REACT );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -156,6 +156,46 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_REACT_IMMEDIATELY_and_DEFER_REACT()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        null,
+                                        Flags.REACT_IMMEDIATELY | Flags.DEFER_REACT ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0081: Observer named '" + name + "' incorrectly specified both " +
+                  "REACT_IMMEDIATELY and DEFER_REACT flags." );
+  }
+
+  @Test
+  public void construct_with_REACT_IMMEDIATELY_and_no_tracked()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        null,
+                                        new CountingProcedure(),
+                                        Flags.REACT_IMMEDIATELY ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0206: Observer named '" + name + "' incorrectly specified REACT_IMMEDIATELY " +
+                  "flag but the tracked function is scheduled externally." );
+  }
+
+  @Test
   public void construct_with_mode_but_checking_Disabled()
     throws Exception
   {
@@ -190,8 +230,8 @@ public class ObserverTest
       new Observer( Arez.context(),
                     null,
                     name,
-                    new CountingProcedure(),
-                    new CountingProcedure(),
+                    new CountAndObserveProcedure(),
+                    null,
                     0 );
     assertThrows( observer::getMode );
   }
@@ -241,8 +281,8 @@ public class ObserverTest
       new Observer( Arez.context(),
                     component,
                     name,
-                    new CountingProcedure(),
-                    new CountingProcedure(),
+                    new CountAndObserveProcedure(),
+                    null,
                     0 );
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
@@ -1205,6 +1245,7 @@ public class ObserverTest
                            Priority.NORMAL,
                            false,
                            false,
+                           false,
                            true );
 
     computedValue.getObserver().invokeReaction();
@@ -1379,7 +1420,15 @@ public class ObserverTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           function,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1391,7 +1440,15 @@ public class ObserverTest
       return "";
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function2, Priority.NORMAL, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           function2,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     observer.getDependencies().add( computedValue2.getObservableValue() );
     computedValue2.getObservableValue().addObserver( observer );
@@ -1416,7 +1473,15 @@ public class ObserverTest
       return ValueUtil.randomString();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function1, Priority.NORMAL, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           function1,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
 
@@ -1427,7 +1492,15 @@ public class ObserverTest
       throw new IllegalStateException();
     };
     final ComputedValue<String> computedValue2 =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           function,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     observer.getDependencies().add( computedValue2.getObservableValue() );
     computedValue2.getObservableValue().addObserver( observer );
@@ -1458,6 +1531,7 @@ public class ObserverTest
                            Priority.NORMAL,
                            false,
                            false,
+                           false,
                            true );
     final Observer observer = computedValue.getObserver();
     setCurrentTransaction( observer );
@@ -1474,6 +1548,7 @@ public class ObserverTest
                            ValueUtil.randomString(),
                            function,
                            Priority.NORMAL,
+                           false,
                            false,
                            false,
                            true );
@@ -1504,7 +1579,7 @@ public class ObserverTest
                            function,
                            Priority.NORMAL,
                            false,
-                           false,
+                           false, false,
                            true );
 
     final Observer observer = computedValue.getObserver();
@@ -1519,7 +1594,7 @@ public class ObserverTest
                            function,
                            Priority.NORMAL,
                            false,
-                           false,
+                           false, false,
                            true );
 
     observer.getDependencies().add( computedValue2.getObservableValue() );
@@ -1548,6 +1623,7 @@ public class ObserverTest
                            ValueUtil.randomString(),
                            function,
                            Priority.NORMAL,
+                           false,
                            false,
                            false,
                            true );
@@ -1700,7 +1776,6 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    setupReadWriteTransaction();
     final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
     final Observer observer = new Observer( context,
@@ -1708,15 +1783,19 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             trackedExecutable,
                                             onDepsUpdated,
-                                            0 );
-    observer.setState( Flags.STATE_STALE );
+                                            Flags.DEFER_REACT );
 
-    // reset the scheduling that occurred due to setState
-    observer.clearScheduledFlag();
-    context.getScheduler().getPendingObservers().clear();
+    context.safeAction( null, true, false, () -> {
+      observer.setState( Flags.STATE_STALE );
+
+      // reset the scheduling that occurred due to setState
+      observer.clearScheduledFlag();
+      context.getScheduler().getPendingObservers().clear();
+    } );
 
     assertEquals( observer.isScheduled(), false );
-    Transaction.setTransaction( null );
+    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( onDepsUpdated.getCallCount(), 0 );
 
     final Disposable schedulerLock = context.pauseScheduler();
 
@@ -1779,22 +1858,22 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    setupReadWriteTransaction();
-    final CountingProcedure trackedExecutable = new CountingProcedure();
+    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
                                             trackedExecutable,
                                             null,
-                                            0 );
-    observer.setState( Flags.STATE_STALE );
+                                            Flags.DEFER_REACT );
+    context.safeAction( null, true, false, () -> {
+      observer.setState( Flags.STATE_STALE );
 
-    // reset the scheduling that occurred due to setState
-    observer.clearScheduledFlag();
-    context.getScheduler().getPendingObservers().clear();
+      // reset the scheduling that occurred due to setState
+      observer.clearScheduledFlag();
+      context.getScheduler().getPendingObservers().clear();
+    } );
 
     assertEquals( observer.isScheduled(), false );
-    Transaction.setTransaction( null );
 
     final Disposable schedulerLock = context.pauseScheduler();
 

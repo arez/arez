@@ -570,8 +570,8 @@ public class ObservableValueTest
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    new CountingProcedure(),
-                    new CountingProcedure(),
+                    new CountAndObserveProcedure(),
+                    null,
                     Flags.PRIORITY_HIGH );
     setCurrentTransaction( observer );
 
@@ -581,6 +581,7 @@ public class ObservableValueTest
                            ValueUtil.randomString(),
                            () -> "",
                            Priority.NORMAL,
+                           false,
                            false,
                            false,
                            true ).getObservableValue();
@@ -604,7 +605,7 @@ public class ObservableValueTest
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    new CountingProcedure(),
+                    new CountAndObserveProcedure(),
                     null,
                     Flags.PRIORITY_HIGH | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     setCurrentTransaction( observer );
@@ -615,6 +616,7 @@ public class ObservableValueTest
                            ValueUtil.randomString(),
                            () -> "",
                            Priority.NORMAL,
+                           false,
                            false,
                            false,
                            true ).getObservableValue();
@@ -1272,7 +1274,15 @@ public class ObservableValueTest
     setupReadOnlyTransaction( context );
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, true, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           ValueUtil.randomString(),
+                           () -> "",
+                           Priority.NORMAL,
+                           true,
+                           false,
+                           false,
+                           true );
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
     final IllegalStateException exception =

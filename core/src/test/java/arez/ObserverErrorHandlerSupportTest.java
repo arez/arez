@@ -176,7 +176,7 @@ public class ObserverErrorHandlerSupportTest
       new Observer( context,
                     null,
                     null,
-                    new CountingProcedure(),
+                    new CountAndObserveProcedure(),
                     null,
                     0 );
     final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;

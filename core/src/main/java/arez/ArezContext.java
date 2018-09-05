@@ -571,6 +571,7 @@ public final class ArezContext
                            function,
                            priority,
                            keepAlive,
+                           runImmediately,
                            observeLowerPriorityDependencies,
                            arezOnlyDependencies );
     // Null check before setting hook fields. It seems that this decreases runtime memory pressure
@@ -597,11 +598,7 @@ public final class ArezContext
     }
     if ( keepAlive )
     {
-      scheduleReaction( computedValue.getObserver() );
-      if ( runImmediately )
-      {
-        triggerScheduler();
-      }
+      computedValue.getObserver().initialSchedule();
     }
     return computedValue;
   }
@@ -884,21 +881,16 @@ public final class ArezContext
                            final boolean canNestActions,
                            final boolean arezOnlyDependencies )
   {
-    final Observer observer =
-      observer( component,
-                name,
-                mutation,
-                tracked,
-                onDepsUpdated,
-                priority,
-                observeLowerPriorityDependencies,
-                canNestActions,
-                arezOnlyDependencies );
-    if ( runImmediately )
-    {
-      triggerScheduler();
-    }
-    return observer;
+    return observer( component,
+                     name,
+                     mutation,
+                     tracked,
+                     onDepsUpdated,
+                     priority,
+                     runImmediately,
+                     observeLowerPriorityDependencies,
+                     canNestActions,
+                     arezOnlyDependencies );
   }
 
   /**
@@ -1078,6 +1070,7 @@ public final class ArezContext
                      null,
                      onDepsUpdated,
                      priority,
+                     false,
                      observeLowerPriorityDependencies,
                      canNestActions,
                      arezOnlyDependencies );
@@ -1101,6 +1094,7 @@ public final class ArezContext
                      @Nullable final Procedure trackedExecutable,
                      @Nullable final Procedure onDepsUpdated,
                      @Nonnull final Priority priority,
+                     final boolean runImmediately,
                      final boolean observeLowerPriorityDependencies,
                      final boolean canNestActions,
                      final boolean arezOnlyDependencies )
@@ -1114,6 +1108,7 @@ public final class ArezContext
                          trackedExecutable,
                          onDepsUpdated,
                          priority,
+                         runImmediately,
                          observeLowerPriorityDependencies,
                          canNestActions,
                          arezOnlyDependencies );

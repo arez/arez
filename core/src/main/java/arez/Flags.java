@@ -86,9 +86,27 @@ final class Flags
    */
   static final int READ_WRITE = 0b00000000100000000000000000000000;
   /**
+   * Mask used to extract react type bits.
+   */
+  private static final int REACT_TYPE_MASK = 0b00000000011000000000000000000000;
+  /**
+   * The scheduler will be triggered when the observer is created to immediately invoke the
+   * {@link Observer#_tracked} function. This configuration should not be specified if there
+   * is no {@link Observer#_tracked} function supplied. This should not be
+   * specified if {@link #DEFER_REACT} is specified.
+   */
+  static final int REACT_IMMEDIATELY = 0b00000000010000000000000000000000;
+  /**
+   * The scheduler will not be triggered when the observer is created. The observer either
+   * has no {@link Observer#_tracked} function or is responsible for ensuring that
+   * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
+   * specified if {@link #REACT_IMMEDIATELY} is specified.
+   */
+  static final int DEFER_REACT = 0b00000000001000000000000000000000;
+  /**
    * Mask that identifies the bits associated with static configuration.
    */
-  static final int CONFIG_FLAGS_MASK = 0b11111111100000000000000000000000;
+  static final int CONFIG_FLAGS_MASK = 0b11111111111000000000000000000000;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
    */
@@ -214,6 +232,28 @@ final class Flags
   static boolean isTransactionModeValid( final int flags )
   {
     return 0 != ( flags & READ_ONLY ) ^ 0 != ( flags & READ_WRITE );
+  }
+
+  /**
+   * Return true if flags contains react type.
+   *
+   * @param flags the flags.
+   * @return true if flags contains react type.
+   */
+  static boolean isReactTypeSpecified( final int flags )
+  {
+    return 0 != ( flags & REACT_TYPE_MASK );
+  }
+
+  /**
+   * Return true if flags contains a valid react type.
+   *
+   * @param flags the flags.
+   * @return true if flags contains react type.
+   */
+  static boolean isReactTypeValid( final int flags )
+  {
+    return 0 != ( flags & REACT_IMMEDIATELY ) ^ 0 != ( flags & DEFER_REACT );
   }
 
   /**
@@ -364,5 +404,10 @@ final class Flags
   static int defaultObserverTransactionModeUnlessSpecified( final int flags )
   {
     return !Arez.shouldEnforceTransactionType() || isTransactionModeSpecified( flags ) ? 0 : READ_ONLY;
+  }
+
+  static int defaultReactTypeUnlessSpecified( final int flags, final int defaultFlag )
+  {
+    return isReactTypeSpecified( flags ) ? 0 : defaultFlag;
   }
 }
