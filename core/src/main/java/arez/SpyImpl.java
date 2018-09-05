@@ -382,7 +382,7 @@ final class SpyImpl
   @Override
   public Collection<ObservableValueInfo> findAllTopLevelObservableValues()
   {
-    return ObservableValueInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelObservables().values() );
+    return ObservableValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelObservables().values() );
   }
 
   /**
