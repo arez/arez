@@ -132,20 +132,6 @@ public interface Spy
   <T> boolean hasAccessor( @Nonnull ObservableValue<T> observableValue );
 
   /**
-   * Return the value of the specified ObservableValue.
-   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
-   * and {@link #hasAccessor(ObservableValue)} for the same element returns true.
-   *
-   * @param <T>             The type of the value that is observableValue.
-   * @param observableValue the ObservableValue.
-   * @return the value of the observableValue.
-   * @throws Throwable if the property accessor throws an exception.
-   */
-  @Nullable
-  <T> T getValue( @Nonnull ObservableValue<T> observableValue )
-    throws Throwable;
-
-  /**
    * Return true if the specified ObservableValue has a mutator.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *

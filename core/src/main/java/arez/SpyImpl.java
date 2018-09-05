@@ -222,32 +222,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Nullable
-  @Override
-  public <T> T getValue( @Nonnull final ObservableValue<T> observableValue )
-    throws Throwable
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-    }
-    final PropertyAccessor<T> accessor = observableValue.getAccessor();
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> null != accessor,
-                    () -> "Arez-0112: Spy.getValue invoked on ObservableValue named '" +
-                          observableValue.getName() +
-                          "' but " +
-                          "ObservableValue has no property accessor." );
-    }
-    assert null != accessor;
-    return accessor.get();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public <T> boolean hasMutator( @Nonnull final ObservableValue<T> observableValue )
   {

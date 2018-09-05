@@ -4,6 +4,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.PropertyAccessor;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.invariant;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * A implementation of {@link ObservableValueInfo} that proxies to a {@link ObservableValue}.
@@ -114,7 +115,20 @@ final class ObservableValueInfoImpl
   public Object getValue()
     throws Throwable
   {
-    return _spy.getValue( _observableValue );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
+    final PropertyAccessor<?> accessor = _observableValue.getAccessor();
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> null != accessor,
+                    () -> "Arez-0112: Spy.getValue invoked on ObservableValue named '" + _observableValue.getName() +
+                          "' but ObservableValue has no property accessor." );
+    }
+    assert null != accessor;
+    return accessor.get();
   }
 
   /**

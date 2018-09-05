@@ -61,7 +61,6 @@ public interface ObservableValueInfo
    *
    * @return the value of the observable.
    * @throws Throwable if the property accessor throws an exception.
-   * @see arez.Spy#getValue(ObservableValue)
    */
   @Nullable
   Object getValue()

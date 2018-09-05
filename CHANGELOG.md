@@ -27,6 +27,7 @@
 * **\[core\]** Remove the method `Spy.asComputedValue(ObservableValue)` that was replaced by `ObservableValueInfo.asComputedValue()`.
 * **\[core\]** Remove the method `Spy.asComputedValue(ObservableValue)` that was replaced by `ObservableValueInfo.asComputedValue()`.
 * **\[core\]** Remove the method `Spy.getComponent(ObservableValue)` that was replaced by `ObservableValueInfo.getComponent()`.
+* **\[core\]** Remove the method `Spy.getValue(ObservableValue)` that was replaced by `ObservableValueInfo.getValue()`.
 * **\[core\]** Remove the method `Spy.isReadOnly(Observer)` that was replaced by `ObserverInfo.isReadOnly()`.
 * **\[core\]** Remove the method `Spy.isScheduled(Observer)` that was replaced by `ObserverInfo.isScheduled()`.
 * **\[core\]** Remove the method `Spy.isRunning(Observer)` that was replaced by `ObserverInfo.isRunning()`.

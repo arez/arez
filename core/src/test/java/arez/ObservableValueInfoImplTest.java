@@ -183,7 +183,6 @@ public class ObservableValueInfoImplTest
     ArezTestUtil.disableNativeComponents();
 
     final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
 
     final ObservableValue<Object> value = context.observable();
 
@@ -193,4 +192,64 @@ public class ObservableValueInfoImplTest
                   "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
+  @Test
+  public void observable_introspection()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final AtomicReference<String> value1 = new AtomicReference<>();
+    value1.set( "23" );
+    final AtomicReference<String> value2 = new AtomicReference<>();
+    value2.set( "42" );
+
+    final ObservableValue<String> observableValue1 =
+      context.observable( ValueUtil.randomString(), value1::get, value1::set );
+    final ObservableValue<String> observableValue2 = context.observable( ValueUtil.randomString(), value2::get, null );
+    final ObservableValue<String> observableValue3 = context.observable( ValueUtil.randomString(), null, null );
+
+    assertTrue( spy.hasAccessor( observableValue1 ) );
+    assertTrue( spy.hasAccessor( observableValue2 ) );
+    assertFalse( spy.hasAccessor( observableValue3 ) );
+
+    assertTrue( spy.hasMutator( observableValue1 ) );
+    assertFalse( spy.hasMutator( observableValue2 ) );
+    assertFalse( spy.hasMutator( observableValue3 ) );
+
+    assertEquals( spy.asObservableValueInfo( observableValue1 ).getValue(), "23" );
+    assertEquals( spy.asObservableValueInfo( observableValue2 ).getValue(), "42" );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> spy.asObservableValueInfo( observableValue3 ).getValue() );
+    assertEquals( exception.getMessage(),
+                  "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue3.getName() +
+                  "' but ObservableValue has no property accessor." );
+
+    spy.setValue( observableValue1, "71" );
+
+    assertEquals( spy.asObservableValueInfo( observableValue1 ).getValue(), "71" );
+
+    final IllegalStateException exception2 =
+      expectThrows( IllegalStateException.class, () -> spy.setValue( observableValue2, "71" ) );
+    assertEquals( exception2.getMessage(),
+                  "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue2.getName() +
+                  "' but ObservableValue has no property mutator." );
+  }
+
+  @Test
+  public void observable_getValue_introspectorsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.disablePropertyIntrospectors();
+
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Integer> computedValue1 = context.observable();
+
+    final IllegalStateException exception2 =
+      expectThrows( IllegalStateException.class, () -> context.action( () -> computedValue1.asInfo().getValue() ) );
+    assertEquals( exception2.getMessage(),
+                  "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+  }
 }
