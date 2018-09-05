@@ -30,8 +30,7 @@ final class ComputedValueInfoImpl
   }
 
   @Nonnull
-  private static List<ComputedValueInfo> asInfos( @Nonnull final Spy spy,
-                                                  @Nonnull final Collection<ComputedValue<?>> computedValues )
+  private static List<ComputedValueInfo> asInfos( @Nonnull final Collection<ComputedValue<?>> computedValues )
   {
     return computedValues
       .stream()
@@ -40,10 +39,9 @@ final class ComputedValueInfoImpl
   }
 
   @Nonnull
-  static List<ComputedValueInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
-                                                      @Nonnull final Collection<ComputedValue<?>> computedValues )
+  static List<ComputedValueInfo> asUnmodifiableInfos( @Nonnull final Collection<ComputedValue<?>> computedValues )
   {
-    return Collections.unmodifiableList( asInfos( spy, computedValues ) );
+    return Collections.unmodifiableList( asInfos( computedValues ) );
   }
 
   /**

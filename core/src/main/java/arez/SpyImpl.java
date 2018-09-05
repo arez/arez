@@ -236,7 +236,7 @@ final class SpyImpl
   @Override
   public Collection<ComputedValueInfo> findAllTopLevelComputedValues()
   {
-    return ComputedValueInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelComputedValues().values() );
+    return ComputedValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelComputedValues().values() );
   }
 
   /**

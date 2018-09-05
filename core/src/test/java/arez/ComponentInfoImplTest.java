@@ -62,7 +62,7 @@ public class ComponentInfoImplTest
     final Component component2 = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final ComponentInfo info1a = component1.asInfo();
-    final ComponentInfo info1b = new ComponentInfoImpl( context.getSpy(), component1 );
+    final ComponentInfo info1b = new ComponentInfoImpl( component1 );
     final ComponentInfo info2 = component2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes

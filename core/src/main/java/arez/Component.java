@@ -244,7 +244,7 @@ public final class Component
     }
     if ( Arez.areSpiesEnabled() && null == _info )
     {
-      _info = new ComponentInfoImpl( getContext().getSpy(), this );
+      _info = new ComponentInfoImpl( this );
     }
     return Arez.areSpiesEnabled() ? _info : null;
   }
