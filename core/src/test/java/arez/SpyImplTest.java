@@ -544,19 +544,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isReadOnly()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    assertEquals( spy.isReadOnly( context.observer( new CountAndObserveProcedure() ) ), true );
-    assertEquals( spy.isReadOnly( context.computed( () -> "" ).getObserver() ), true );
-    assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
-  }
-
-  @Test
   public void getComponent_Observable()
   {
     final ArezContext context = Arez.context();

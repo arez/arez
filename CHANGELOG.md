@@ -25,6 +25,7 @@
   `_executeTrackedNext`. The `ComputedValue._keepAlive` field has also been merged into the bit field.
 * **\[core\]** Remove the method `Spy.getObservers(ObservableValue)` as the same information is available
   via `ObservableValueInfo.getObservers()`.
+* **\[core\]** Remove the method `Spy.isReadOnly(Observer)` that was replaced by `ObserverInfo.isReadOnly()`.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

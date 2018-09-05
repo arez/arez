@@ -50,7 +50,6 @@ public interface ObserverInfo
    * Return true if the Observer will use a read-only transaction.
    *
    * @return true if the Observer will use a read-only transaction.
-   * @see arez.Spy#isReadOnly(arez.Observer)
    */
   boolean isReadOnly();
 

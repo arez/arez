@@ -149,15 +149,6 @@ public interface Spy
   boolean isComputedValue( @Nonnull Observer observer );
 
   /**
-   * Return true if the Observer will use a read-only transaction.
-   *
-   * @param observer the Observer.
-   * @return true if the Observer will use a read-only transaction.
-   * @see arez.spy.ObserverInfo#isReadOnly()
-   */
-  boolean isReadOnly( @Nonnull Observer observer );
-
-  /**
    * Convert the Observer to a ComputedValue.
    * This method should only be called if {@link #isComputedValue(Observer)} returns true.
    *

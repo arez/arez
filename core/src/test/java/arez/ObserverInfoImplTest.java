@@ -44,6 +44,17 @@ public class ObserverInfoImplTest
   }
 
   @Test
+  public void isReadOnly_on_READ_WRITE_observer()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observableValue = context.observable();
+    final Observer observer = context.observer( observableValue::reportObserved, Options.READ_WRITE );
+
+    assertEquals( observer.asInfo().isReadOnly(), false );
+  }
+
+  @Test
   public void asComputedValue()
     throws Exception
   {
