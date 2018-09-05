@@ -190,7 +190,6 @@ public class ComputedValueInfoImplTest
   public void getComponent_ComputedValue()
   {
     final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
