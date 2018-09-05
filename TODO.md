@@ -10,6 +10,10 @@ complete as there is too much un-said.
 
 * Move on* parameters to ComputedValue as constructor args.
 
+* Rename `REACT_IMMEDIATELY` and `DEFER_REACT` to `RUN_IMMEDIATELY` and `RUN_LATER`????
+
+* Rename `Options` to `Flags` and `Flags` to something else? Or maybe just merge the classes.
+
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
