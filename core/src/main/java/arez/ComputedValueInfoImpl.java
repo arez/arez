@@ -116,7 +116,7 @@ final class ComputedValueInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return _spy.getObservers( _computedValue );
+    return ObserverInfoImpl.asUnmodifiableInfos( _computedValue.getObservableValue().getObservers() );
   }
 
   /**

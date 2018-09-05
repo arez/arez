@@ -63,16 +63,6 @@ public interface Spy
   TransactionInfo getTransaction();
 
   /**
-   * Return the list of observers for ComputedValue.
-   * The list is an immutable copy of the observers of the {@link ComputedValue}.
-   *
-   * @param computedValue the ComputedValue.
-   * @return the list of observers for ComputedValue.
-   */
-  @Nonnull
-  List<ObserverInfo> getObservers( @Nonnull ComputedValue<?> computedValue );
-
-  /**
    * Return true if the ObservableValue is a ComputedValue.
    *
    * @param observableValue the ObservableValue.

@@ -235,6 +235,29 @@ public class ComputedValueInfoImplTest
     assertEquals( spy.asComputedValueInfo( computedValue ).isActive(), true );
   }
 
+  @Test
+  public void getObservers()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    final ComputedValue<?> computedValue = context.computed( () -> "" );
+
+    assertEquals( spy.asComputedValueInfo( computedValue ).getObservers().size(), 0 );
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+    observer.getDependencies().add( computedValue.getObservableValue() );
+    computedValue.getObservableValue().getObservers().add( observer );
+
+    assertEquals( spy.asComputedValueInfo( computedValue ).getObservers().size(), 1 );
+    // Ensure the underlying list has the Observer in places
+    assertEquals( computedValue.getObservableValue().getObservers().size(), 1 );
+
+    assertUnmodifiable( spy.asComputedValueInfo( computedValue ).getObservers() );
+  }
+
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()

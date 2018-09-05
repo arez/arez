@@ -143,16 +143,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Nonnull
-  @Override
-  public List<ObserverInfo> getObservers( @Nonnull final ComputedValue<?> computedValue )
-  {
-    return ObserverInfoImpl.asUnmodifiableInfos( computedValue.getObservableValue().getObservers() );
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isComputedValue( @Nonnull final ObservableValue<?> observableValue )
   {

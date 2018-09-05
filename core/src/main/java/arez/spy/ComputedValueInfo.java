@@ -42,7 +42,6 @@ public interface ComputedValueInfo
    * The list is an immutable copy of the observers of the {@link arez.ComputedValue}.
    *
    * @return the list of observers for ComputedValue.
-   * @see arez.Spy#getObservers(arez.ComputedValue)
    */
   @Nonnull
   List<ObserverInfo> getObservers();
