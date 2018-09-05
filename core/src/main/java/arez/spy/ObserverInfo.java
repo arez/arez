@@ -40,7 +40,6 @@ public interface ObserverInfo
    * Return true if the Observer is a ComputedValue.
    *
    * @return true if the Observer is a ComputedValue.
-   * @see arez.Spy#isComputedValue(arez.Observer)
    */
   boolean isComputedValue();
 

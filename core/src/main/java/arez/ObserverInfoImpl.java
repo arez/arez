@@ -86,7 +86,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isComputedValue()
   {
-    return _spy.isComputedValue( _observer );
+    return _observer.isComputedValue();
   }
 
   /**

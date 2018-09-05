@@ -399,19 +399,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void Observer_isComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    assertEquals( spy.isComputedValue( context.computed( () -> "" ).getObserver() ), true );
-    assertEquals( spy.isComputedValue( context.observer( new CountAndObserveProcedure() ) ), false );
-  }
-
-
-  @Test
   public void getTransaction()
     throws Exception
   {
