@@ -56,7 +56,6 @@ public interface ComputedValueInfo
    * completes.
    *
    * @return the list of dependencies for ComputedValue.
-   * @see arez.Spy#getDependencies(arez.ComputedValue)
    */
   @Nonnull
   List<ObservableValueInfo> getDependencies();

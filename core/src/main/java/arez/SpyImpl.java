@@ -162,66 +162,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Nonnull
-  @Override
-  public List<ObservableValueInfo> getDependencies( @Nonnull final ComputedValue<?> computedValue )
-  {
-    if ( computedValue.isComputing() )
-    {
-      final Transaction transaction = getTransactionComputing( computedValue );
-      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
-      if ( null == observableValues )
-      {
-        return Collections.emptyList();
-      }
-      else
-      {
-        // Copy the list removing any duplicates that may exist.
-        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
-        return ObservableValueInfoImpl.asUnmodifiableInfos( list );
-      }
-    }
-    else
-    {
-      return ObservableValueInfoImpl.asUnmodifiableInfos( computedValue.getObserver().getDependencies() );
-    }
-  }
-
-  /**
-   * Return the transaction that is computing specified ComputedValue.
-   */
-  @Nonnull
-  Transaction getTransactionComputing( @Nonnull final ComputedValue<?> computedValue )
-  {
-    assert computedValue.isComputing();
-    final Transaction transaction = getTrackerTransaction( computedValue.getObserver() );
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> transaction != null,
-                 () -> "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as computing but " +
-                       "unable to locate transaction responsible for computing ComputedValue" );
-    }
-    assert null != transaction;
-    return transaction;
-  }
-
-  /**
-   * Get transaction with specified observer as tracker.
-   */
-  @Nullable
-  private Transaction getTrackerTransaction( @Nonnull final Observer observer )
-  {
-    Transaction t = getContext().getTransaction();
-    while ( null != t && t.getTracker() != observer )
-    {
-      t = t.getPrevious();
-    }
-    return t;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isComputedValue( @Nonnull final ObservableValue<?> observableValue )
   {

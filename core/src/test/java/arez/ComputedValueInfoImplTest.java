@@ -1,8 +1,12 @@
 package arez;
 
 import arez.spy.ComputedValueInfo;
+import arez.spy.ElementInfo;
+import arez.spy.ObservableValueInfo;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -73,6 +77,112 @@ public class ComputedValueInfoImplTest
     assertEquals( spy.asComputedValueInfo( computedValue ).isComputing(), false );
     computedValue.setComputing( true );
     assertEquals( spy.asComputedValueInfo( computedValue ).isComputing(), true );
+  }
+
+  @Test
+  public void getTransactionComputing()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final Observer observer = computedValue.getObserver();
+    final Observer observer2 = context.observer( new CountAndObserveProcedure() );
+
+    computedValue.setComputing( true );
+    final ComputedValueInfoImpl info = (ComputedValueInfoImpl) computedValue.asInfo();
+
+    final Transaction transaction =
+      new Transaction( context, null, observer.getName(), observer.getMode(), observer );
+    Transaction.setTransaction( transaction );
+
+    // This picks up where it is the first transaction in stack
+    assertEquals( info.getTransactionComputing(), transaction );
+
+    final Transaction transaction2 =
+      new Transaction( context, transaction, ValueUtil.randomString(), observer2.getMode(), observer2 );
+    Transaction.setTransaction( transaction2 );
+
+    // This picks up where it is not the first transaction in stack
+    assertEquals( info.getTransactionComputing(), transaction );
+  }
+
+  @Test
+  public void getTransactionComputing_missingTracker()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+
+    computedValue.setComputing( true );
+
+    final ComputedValueInfoImpl info = (ComputedValueInfoImpl) computedValue.asInfo();
+    setupReadOnlyTransaction( context );
+
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, info::getTransactionComputing );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as " +
+                  "computing but unable to locate transaction responsible for computing ComputedValue" );
+  }
+
+  @Test
+  public void getDependencies()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+
+    final ComputedValueInfo info = computedValue.asInfo();
+
+    assertEquals( info.getDependencies().size(), 0 );
+
+    final ObservableValue<?> observableValue = context.observable();
+    observableValue.getObservers().add( computedValue.getObserver() );
+    computedValue.getObserver().getDependencies().add( observableValue );
+
+    final List<ObservableValueInfo> dependencies = info.getDependencies();
+    assertEquals( dependencies.size(), 1 );
+    assertEquals( dependencies.iterator().next().getName(), observableValue.getName() );
+
+    assertUnmodifiable( dependencies );
+  }
+
+  @Test
+  public void getDependenciesDuringComputation()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+
+    final ObservableValue<?> observableValue = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
+
+    observableValue.getObservers().add( computedValue.getObserver() );
+    computedValue.getObserver().getDependencies().add( observableValue );
+
+    computedValue.setComputing( true );
+    final ComputedValueInfo info = computedValue.asInfo();
+
+    setCurrentTransaction( computedValue.getObserver() );
+
+    assertEquals( info.getDependencies().size(), 0 );
+
+    context.getTransaction().safeGetObservables().add( observableValue2 );
+    context.getTransaction().safeGetObservables().add( observableValue3 );
+    context.getTransaction().safeGetObservables().add( observableValue2 );
+
+    final List<String> dependencies = info.getDependencies().stream().
+      map( ElementInfo::getName ).collect( Collectors.toList() );
+    assertEquals( dependencies.size(), 2 );
+    assertEquals( dependencies.contains( observableValue2.getName() ), true );
+    assertEquals( dependencies.contains( observableValue3.getName() ), true );
+
+    assertUnmodifiable( info.getDependencies() );
   }
 
   @SuppressWarnings( "EqualsWithItself" )
