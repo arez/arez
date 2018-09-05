@@ -165,7 +165,7 @@ final class SpyImpl
   @Override
   public List<ObserverInfo> getObservers( @Nonnull final ComputedValue<?> computedValue )
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( this, computedValue.getObservableValue().getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( computedValue.getObservableValue().getObservers() );
   }
 
   /**
@@ -401,7 +401,7 @@ final class SpyImpl
   @Override
   public Collection<ObserverInfo> findAllTopLevelObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( this, getContext().getTopLevelObservers().values() );
+    return ObserverInfoImpl.asUnmodifiableInfos( getContext().getTopLevelObservers().values() );
   }
 
   /**

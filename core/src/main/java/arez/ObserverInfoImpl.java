@@ -28,8 +28,7 @@ final class ObserverInfoImpl
   }
 
   @Nonnull
-  private static List<ObserverInfo> asInfos( @Nonnull final Spy spy,
-                                             @Nonnull final Collection<Observer> observers )
+  private static List<ObserverInfo> asInfos( @Nonnull final Collection<Observer> observers )
   {
     return observers
       .stream()
@@ -38,10 +37,9 @@ final class ObserverInfoImpl
   }
 
   @Nonnull
-  static List<ObserverInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
-                                                 @Nonnull final Collection<Observer> observers )
+  static List<ObserverInfo> asUnmodifiableInfos( @Nonnull final Collection<Observer> observers )
   {
-    return Collections.unmodifiableList( asInfos( spy, observers ) );
+    return Collections.unmodifiableList( asInfos( observers ) );
   }
 
   /**

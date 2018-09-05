@@ -73,7 +73,7 @@ final class ComponentInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( _spy, _component.getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( _component.getObservers() );
   }
 
   /**
