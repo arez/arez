@@ -209,20 +209,6 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public <T> boolean hasAccessor( @Nonnull final ObservableValue<T> observableValue )
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-    }
-    return null != observableValue.getAccessor();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public <T> boolean hasMutator( @Nonnull final ObservableValue<T> observableValue )
   {
     if ( Arez.shouldCheckInvariants() )

@@ -50,7 +50,6 @@ public interface ObservableValueInfo
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
    * @return true if an accessor is available.
-   * @see arez.Spy#hasAccessor(ObservableValue)
    */
   boolean hasAccessor();
 

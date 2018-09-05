@@ -209,13 +209,13 @@ public class ObservableValueInfoImplTest
     final ObservableValue<String> observableValue2 = context.observable( ValueUtil.randomString(), value2::get, null );
     final ObservableValue<String> observableValue3 = context.observable( ValueUtil.randomString(), null, null );
 
-    assertTrue( spy.hasAccessor( observableValue1 ) );
-    assertTrue( spy.hasAccessor( observableValue2 ) );
-    assertFalse( spy.hasAccessor( observableValue3 ) );
+    assertTrue( observableValue1.asInfo().hasAccessor() );
+    assertTrue( observableValue2.asInfo().hasAccessor() );
+    assertFalse( observableValue3.asInfo().hasAccessor() );
 
-    assertTrue( spy.hasMutator( observableValue1 ) );
-    assertFalse( spy.hasMutator( observableValue2 ) );
-    assertFalse( spy.hasMutator( observableValue3 ) );
+    assertTrue( observableValue1.asInfo().hasMutator() );
+    assertFalse( observableValue2.asInfo().hasMutator() );
+    assertFalse( observableValue3.asInfo().hasMutator() );
 
     assertEquals( spy.asObservableValueInfo( observableValue1 ).getValue(), "23" );
     assertEquals( spy.asObservableValueInfo( observableValue2 ).getValue(), "42" );
@@ -251,5 +251,22 @@ public class ObservableValueInfoImplTest
       expectThrows( IllegalStateException.class, () -> context.action( () -> computedValue1.asInfo().getValue() ) );
     assertEquals( exception2.getMessage(),
                   "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+  }
+
+  @Test
+  public void observable_hasAccessor_introspectorsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.disablePropertyIntrospectors();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final ObservableValue<Integer> observableValue = context.observable();
+
+    final IllegalStateException exception2 =
+      expectThrows( IllegalStateException.class, () -> context.action( () -> observableValue.asInfo().hasAccessor() ) );
+    assertEquals( exception2.getMessage(),
+                  "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 }

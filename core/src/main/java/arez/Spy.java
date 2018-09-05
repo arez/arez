@@ -122,16 +122,6 @@ public interface Spy
   Collection<ComputedValueInfo> findAllTopLevelComputedValues();
 
   /**
-   * Return true if the specified ObservableValue has an accessor.
-   * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
-   *
-   * @param <T>             The type of the value that is observableValue.
-   * @param observableValue the ObservableValue.
-   * @return true if an accessor is available.
-   */
-  <T> boolean hasAccessor( @Nonnull ObservableValue<T> observableValue );
-
-  /**
    * Return true if the specified ObservableValue has a mutator.
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *

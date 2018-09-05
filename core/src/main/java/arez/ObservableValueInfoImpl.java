@@ -104,7 +104,12 @@ final class ObservableValueInfoImpl
   @Override
   public boolean hasAccessor()
   {
-    return _spy.hasAccessor( _observableValue );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
+    return null != _observableValue.getAccessor();
   }
 
   /**
