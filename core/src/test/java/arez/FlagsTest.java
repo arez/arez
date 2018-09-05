@@ -278,6 +278,47 @@ public class FlagsTest
   }
 
   @Test
+  public void flagsNoOverlap()
+    throws Exception
+  {
+    // Configs with these prefixes may overlap
+    final HashMap<String, String> exceptions = new HashMap<>();
+
+    // Configs with these prefixes may overlap
+    final ArrayList<String> exceptionPrefixes = new ArrayList<>();
+    exceptionPrefixes.add( "PRIORITY_" );
+    exceptionPrefixes.add( "STATE_" );
+
+    final HashMap<String, Integer> flags = extractFlags();
+    final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>( flags.entrySet() );
+    final int size = entries.size();
+    for ( int i = 0; i < size; i++ )
+    {
+      final Map.Entry<String, Integer> entry = entries.get( i );
+      final String name = entry.getKey();
+
+      for ( int j = i + 1; j < size; j++ )
+      {
+        final Map.Entry<String, Integer> innerEntry = entries.get( j );
+        final String innerName = innerEntry.getKey();
+        if ( !innerName.equals( exceptions.get( name ) ) &&
+             !name.equals( exceptions.get( innerName ) ) &&
+             exceptionPrefixes.stream().noneMatch( p -> name.startsWith( p ) && innerName.startsWith( p ) ) )
+        {
+          final int value = entry.getValue();
+          final int innerValue = innerEntry.getValue();
+          if ( ( innerValue & value ) != 0 )
+          {
+            fail( "Flags in class " + Flags.class.getName() + " overlap. Flag named " + name +
+                  " and flag named " + innerName + " have the values " + value + " and " + innerValue +
+                  " which overlap bits. These flags are not expected to overlap." );
+          }
+        }
+      }
+    }
+  }
+
+  @Test
   public void flagsAreCoveredByMasks()
     throws Exception
   {
