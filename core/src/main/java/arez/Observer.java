@@ -161,9 +161,9 @@ public final class Observer
                    () -> "Arez-0082: Observer named '" + getName() + "' specified transaction mode '" +
                          Flags.getTransactionModeName( flags ) + "' when Arez.enforceTransactionType() is false." );
       }
-      invariant( () -> Flags.isPriorityValid( _flags ),
+      invariant( () -> Flags.isPriorityValid( flags ),
                  () -> "Arez-0080: Observer named '" + getName() + "' has invalid priority " +
-                       Flags.getPriorityIndex( _flags ) + "." );
+                       Flags.getPriorityIndex( flags ) + "." );
       invariant( () -> Flags.isReactTypeValid( flags ),
                  () -> "Arez-0081: Observer named '" + getName() + "' incorrectly specified both " +
                        "REACT_IMMEDIATELY and DEFER_REACT flags." );
@@ -173,8 +173,8 @@ public final class Observer
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
-      invariant( () -> Flags.getPriority( _flags ) != Flags.PRIORITY_LOWEST ||
-                       0 == ( _flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
+      invariant( () -> Flags.getPriority( flags ) != Flags.PRIORITY_LOWEST ||
+                       0 == ( flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
                        "has no lower priority." );
