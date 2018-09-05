@@ -62,16 +62,6 @@ public interface Spy
   TransactionInfo getTransaction();
 
   /**
-   * Return the component for specified ObservableValue.
-   * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
-   *
-   * @param observableValue the ObservableValue.
-   * @return the component that contains ObservableValue if any.
-   */
-  @Nullable
-  ComponentInfo getComponent( @Nonnull ObservableValue<?> observableValue );
-
-  /**
    * Find the component identified by the specified type and id.
    *
    * @param type the component type.

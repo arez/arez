@@ -158,4 +158,39 @@ public class ObservableValueInfoImplTest
                   true );
     assertEquals( spy.asObservableValueInfo( context.observable() ).isComputedValue(), false );
   }
+
+  @Test
+  public void getComponent_Observable()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Component component =
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final ObservableValue<Object> observableValue1 =
+      context.observable( component, ValueUtil.randomString(), null, null );
+    final ObservableValue<Object> observableValue2 = context.observable();
+
+    final ComponentInfo info = spy.asObservableValueInfo( observableValue1 ).getComponent();
+    assertNotNull( info );
+    assertEquals( info.getName(), component.getName() );
+    assertEquals( spy.asObservableValueInfo( observableValue2 ).getComponent(), null );
+  }
+
+  @Test
+  public void getComponent_Observable_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final ObservableValue<Object> value = context.observable();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> value.asInfo().getComponent() );
+    assertEquals( exception.getMessage(),
+                  "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
 }

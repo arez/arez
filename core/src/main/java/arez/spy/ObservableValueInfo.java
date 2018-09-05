@@ -41,7 +41,6 @@ public interface ObservableValueInfo
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
    * @return the component that contains Observable if any.
-   * @see arez.Spy#getComponent(ObservableValue)
    */
   @Nullable
   ComponentInfo getComponent();

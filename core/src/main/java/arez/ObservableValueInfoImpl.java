@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.invariant;
 
 /**
  * A implementation of {@link ObservableValueInfo} that proxies to a {@link ObservableValue}.
@@ -87,7 +88,13 @@ final class ObservableValueInfoImpl
   @Override
   public ComponentInfo getComponent()
   {
-    return _spy.getComponent( _observableValue );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
+    final Component component = _observableValue.getComponent();
+    return null == component ? null : component.asInfo();
   }
 
   /**
