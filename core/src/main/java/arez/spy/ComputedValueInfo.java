@@ -73,7 +73,6 @@ public interface ComputedValueInfo
    *
    * @return the value of the ComputedValue.
    * @throws Throwable if the property accessor throws an exception.
-   * @see arez.Spy#getValue(arez.ComputedValue)
    */
   @Nullable
   Object getValue()

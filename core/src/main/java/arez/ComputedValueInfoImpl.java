@@ -4,6 +4,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,12 +21,10 @@ import static org.realityforge.braincheck.Guards.*;
 final class ComputedValueInfoImpl
   implements ComputedValueInfo
 {
-  private final Spy _spy;
   private final ComputedValue<?> _computedValue;
 
-  ComputedValueInfoImpl( @Nonnull final Spy spy, @Nonnull final ComputedValue<?> computedValue )
+  ComputedValueInfoImpl( @Nonnull final ComputedValue<?> computedValue )
   {
-    _spy = Objects.requireNonNull( spy );
     _computedValue = Objects.requireNonNull( computedValue );
   }
 
@@ -141,7 +140,14 @@ final class ComputedValueInfoImpl
   public Object getValue()
     throws Throwable
   {
-    return _spy.getValue( _computedValue );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
+    final PropertyAccessor<?> accessor = _computedValue.getObservableValue().getAccessor();
+    assert null != accessor;
+    return accessor.get();
   }
 
   /**

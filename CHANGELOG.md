@@ -36,6 +36,7 @@
 * **\[core\]** Remove the method `Spy.getComponent(ComputedValue)` that was replaced by `ComputedValueInfo.getComponent()`.
 * **\[core\]** Remove the method `Spy.isActive(ComputedValue)` that was replaced by `ComputedValueInfo.isActive()`.
 * **\[core\]** Remove the method `Spy.getObservers(ComputedValue)` that was replaced by `ComputedValueInfo.getObservers()`.
+* **\[core\]** Remove the method `Spy.getValue(ComputedValue)` that was replaced by `ComputedValueInfo.getValue()`.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

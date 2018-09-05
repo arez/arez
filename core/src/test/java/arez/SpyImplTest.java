@@ -631,55 +631,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void computedValue_introspection_noObservers()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue1 = context.computed( () -> {
-      observeADependency();
-      return "42";
-    } );
-
-    assertEquals( spy.getValue( computedValue1 ), null );
-  }
-
-  @Test
-  public void computedValue_introspection()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final SafeFunction<String> function = () -> {
-      observeADependency();
-      return "42";
-    };
-    final ComputedValue<String> computedValue1 = context.computed( function );
-    context.observer( computedValue1::get );
-
-    assertEquals( spy.getValue( computedValue1 ), "42" );
-  }
-
-  @Test
-  public void computedValue_getValue_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<Integer> computedValue1 = context.computed( () -> 42 );
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-  }
-
-  @Test
   public void asComponentInfo()
   {
     final ArezContext context = Arez.context();

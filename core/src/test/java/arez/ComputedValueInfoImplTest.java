@@ -257,6 +257,52 @@ public class ComputedValueInfoImplTest
     assertUnmodifiable( spy.asComputedValueInfo( computedValue ).getObservers() );
   }
 
+  @Test
+  public void computedValue_introspection_noObservers()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<String> computedValue1 = context.computed( () -> {
+      observeADependency();
+      return "42";
+    } );
+
+    assertEquals( computedValue1.asInfo().getValue(), null );
+  }
+
+  @Test
+  public void computedValue_introspection()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "42";
+    };
+    final ComputedValue<String> computedValue1 = context.computed( function );
+    context.observer( computedValue1::get );
+
+    assertEquals( computedValue1.asInfo().getValue(), "42" );
+  }
+
+  @Test
+  public void computedValue_getValue_introspectorsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.disablePropertyIntrospectors();
+
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<Integer> computedValue1 = context.computed( () -> 42 );
+
+    final IllegalStateException exception2 =
+      expectThrows( IllegalStateException.class, () -> context.action( () -> computedValue1.asInfo().getValue() ) );
+    assertEquals( exception2.getMessage(),
+                  "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+  }
+
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
@@ -267,7 +313,7 @@ public class ComputedValueInfoImplTest
     final ComputedValue<Object> computedValue2 = context.computed( () -> "2" );
 
     final ComputedValueInfo info1a = computedValue1.asInfo();
-    final ComputedValueInfo info1b = new ComputedValueInfoImpl( context.getSpy(), computedValue1 );
+    final ComputedValueInfo info1b = new ComputedValueInfoImpl( computedValue1 );
     final ComputedValueInfo info2 = computedValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes

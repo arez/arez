@@ -196,19 +196,6 @@ public interface Spy
     throws Throwable;
 
   /**
-   * Return the value of the specified ComputedValue.
-   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true.
-   *
-   * @param <T>           The type of the value that is computed.
-   * @param computedValue the ComputedValue.
-   * @return the value of the ComputedValue.
-   * @throws Throwable if the property accessor throws an exception.
-   */
-  @Nullable
-  <T> T getValue( @Nonnull ComputedValue<T> computedValue )
-    throws Throwable;
-
-  /**
    * Convert the specified component into an ComponentInfo.
    *
    * @param component the Component.

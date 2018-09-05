@@ -319,24 +319,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Nullable
-  @Override
-  public <T> T getValue( @Nonnull final ComputedValue<T> computedValue )
-    throws Throwable
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-    }
-    final PropertyAccessor<T> accessor = computedValue.getObservableValue().getAccessor();
-    assert null != accessor;
-    return accessor.get();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public ComponentInfo asComponentInfo( @Nonnull final Component component )

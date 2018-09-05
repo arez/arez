@@ -426,7 +426,7 @@ public final class ComputedValue<T>
     }
     if ( Arez.areSpiesEnabled() && null == _info )
     {
-      _info = new ComputedValueInfoImpl( getContext().getSpy(), this );
+      _info = new ComputedValueInfoImpl( this );
     }
     return Arez.areSpiesEnabled() ? _info : null;
   }
