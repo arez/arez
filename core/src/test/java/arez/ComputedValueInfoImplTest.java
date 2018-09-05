@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ElementInfo;
 import arez.spy.ObservableValueInfo;
@@ -183,6 +184,39 @@ public class ComputedValueInfoImplTest
     assertEquals( dependencies.contains( observableValue3.getName() ), true );
 
     assertUnmodifiable( info.getDependencies() );
+  }
+
+  @Test
+  public void getComponent_ComputedValue()
+  {
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    final Component component =
+      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
+    final ComputedValue<Object> computedValue1 =
+      context.computed( component, ValueUtil.randomString(), ValueUtil::randomString );
+    final ComputedValue<Object> computedValue2 = context.computed( ValueUtil::randomString );
+
+    final ComponentInfo info = computedValue1.asInfo().getComponent();
+    assertNotNull( info );
+    assertEquals( info.getName(), component.getName() );
+    assertEquals( computedValue2.asInfo().getComponent(), null );
+  }
+
+  @Test
+  public void getComponent_ComputedValue_nativeComponentsDisabled()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArezContext context = Arez.context();
+
+    final ComputedValue<Object> computedValue = context.computed( () -> "" );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, () -> computedValue.asInfo().getComponent() );
+    assertEquals( exception.getMessage(),
+                  "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @SuppressWarnings( "EqualsWithItself" )

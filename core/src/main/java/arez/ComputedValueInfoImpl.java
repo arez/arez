@@ -126,7 +126,13 @@ final class ComputedValueInfoImpl
   @Override
   public ComponentInfo getComponent()
   {
-    return _spy.getComponent( _computedValue );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
+    final Component component = _computedValue.getComponent();
+    return null == component ? null : component.asInfo();
   }
 
   /**

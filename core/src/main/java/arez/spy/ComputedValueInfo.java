@@ -65,7 +65,6 @@ public interface ComputedValueInfo
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
    * @return the component that contains ComputedValue if any.
-   * @see arez.Spy#getComponent(arez.ComputedValue)
    */
   @Nullable
   ComponentInfo getComponent();

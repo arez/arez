@@ -160,7 +160,7 @@ public class MemoizeCacheTest
 
     assertEquals( computedValue1.isDisposed(), false );
 
-    final ComponentInfo componentInfo = context.getSpy().getComponent( computedValue1 );
+    final ComponentInfo componentInfo = context.getSpy().asComputedValueInfo( computedValue1 ).getComponent();
     assertNotNull( componentInfo );
     assertEquals( componentInfo.getName(), component.getName() );
 
