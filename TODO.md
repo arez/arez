@@ -27,10 +27,6 @@ complete as there is too much un-said.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
-* Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
-
-* Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`
-
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
 
