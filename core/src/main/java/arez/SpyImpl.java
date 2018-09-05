@@ -258,15 +258,6 @@ final class SpyImpl
   /**
    * {@inheritDoc}
    */
-  @Override
-  public ComputedValueInfo asComputedValue( @Nonnull final Observer observer )
-  {
-    return observer.getComputedValue().asInfo();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public ComponentInfo getComponent( @Nonnull final ObservableValue<?> observableValue )

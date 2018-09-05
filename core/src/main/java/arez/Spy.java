@@ -131,16 +131,6 @@ public interface Spy
   boolean isComputedValue( @Nonnull Observer observer );
 
   /**
-   * Convert the Observer to a ComputedValue.
-   * This method should only be called if {@link #isComputedValue(Observer)} returns true.
-   *
-   * @param observer the Observer.
-   * @return the ComputedValue instance.
-   * @see arez.spy.ObserverInfo#asComputedValue()
-   */
-  ComputedValueInfo asComputedValue( @Nonnull Observer observer );
-
-  /**
    * Return the component for specified ObservableValue.
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *

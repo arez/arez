@@ -64,7 +64,6 @@ public interface ObserverInfo
    * This method should only be called if {@link #isComputedValue()} returns true.
    *
    * @return the ComputedValue instance.
-   * @see arez.Spy#asComputedValue(arez.Observer)
    */
   ComputedValueInfo asComputedValue();
 

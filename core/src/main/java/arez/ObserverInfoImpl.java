@@ -114,7 +114,7 @@ final class ObserverInfoImpl
   @Override
   public ComputedValueInfo asComputedValue()
   {
-    return _spy.asComputedValue( _observer );
+    return _observer.getComputedValue().asInfo();
   }
 
   /**
