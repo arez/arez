@@ -22,9 +22,6 @@ complete as there is too much un-said.
 
 * Implement something similar to `getDependencyTree` from mobx
 
-* Several of the methods on `Spy` interface have duplicates in `*Info` classes. The methods on `SPy` interface
-  can be removed.
-
 * Rename `ObservableValue.hasOwner()` to `ObservableValue.isComputedValue()`
 * Rename `ObservableValue.getOwner()` to `ObservableValue.getObserver()`
 
