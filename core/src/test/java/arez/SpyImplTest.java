@@ -437,39 +437,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void observable_setValue_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> computedValue1 = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( computedValue1, 44 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-  }
-
-  @Test
-  public void observable_setValue_noMutator()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> observableValue = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( observableValue, 44 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue.getName() +
-                  "' but ObservableValue has no property mutator." );
-  }
-
-  @Test
   public void asComponentInfo()
   {
     final ArezContext context = Arez.context();

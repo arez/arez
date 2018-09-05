@@ -80,7 +80,6 @@ public interface ObservableValueInfo
    *
    * @param value the value to set
    * @throws Throwable if the property accessor throws an exception.
-   * @see arez.Spy#setValue(ObservableValue, Object)
    */
   void setValue( @Nullable Object value )
     throws Throwable;

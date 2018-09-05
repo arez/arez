@@ -4,8 +4,6 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
-import arez.spy.PropertyAccessor;
-import arez.spy.PropertyMutator;
 import arez.spy.TransactionInfo;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -203,29 +201,6 @@ final class SpyImpl
   public Collection<ComputedValueInfo> findAllTopLevelComputedValues()
   {
     return ComputedValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelComputedValues().values() );
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public <T> void setValue( @Nonnull final ObservableValue<T> observableValue, @Nullable final T value )
-    throws Throwable
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( Arez::arePropertyIntrospectorsEnabled,
-                 () -> "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-    }
-    final PropertyMutator<T> mutator = observableValue.getMutator();
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> null != mutator,
-                    () -> "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue.getName() +
-                          "' but ObservableValue has no property mutator." );
-    }
-    assert null != mutator;
-    mutator.set( value );
   }
 
   /**

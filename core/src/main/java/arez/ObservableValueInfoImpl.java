@@ -5,6 +5,7 @@ import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.PropertyAccessor;
+import arez.spy.PropertyMutator;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -158,7 +159,20 @@ final class ObservableValueInfoImpl
   public void setValue( @Nullable final Object value )
     throws Throwable
   {
-    _spy.setValue( (ObservableValue<Object>) _observableValue, value );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::arePropertyIntrospectorsEnabled,
+                 () -> "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    }
+    final PropertyMutator mutator = _observableValue.getMutator();
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> null != mutator,
+                    () -> "Arez-0115: Spy.setValue invoked on ObservableValue named '" + _observableValue.getName() +
+                          "' but ObservableValue has no property mutator." );
+    }
+    assert null != mutator;
+    mutator.set( value );
   }
 
   /**

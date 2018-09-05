@@ -122,19 +122,6 @@ public interface Spy
   Collection<ComputedValueInfo> findAllTopLevelComputedValues();
 
   /**
-   * Set the value of the specified ObservableValue.
-   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true
-   * and {@link #hasMutator(ObservableValue)} for the same element returns true.
-   *
-   * @param <T>             The type of the value that is observableValue.
-   * @param observableValue the ObservableValue.
-   * @param value           the value to set
-   * @throws Throwable if the property accessor throws an exception.
-   */
-  <T> void setValue( @Nonnull ObservableValue<T> observableValue, @Nullable T value )
-    throws Throwable;
-
-  /**
    * Convert the specified component into an ComponentInfo.
    *
    * @param component the Component.
