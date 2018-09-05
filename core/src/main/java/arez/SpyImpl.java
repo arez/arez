@@ -144,15 +144,6 @@ final class SpyImpl
    * {@inheritDoc}
    */
   @Override
-  public boolean isComputedValue( @Nonnull final ObservableValue<?> observableValue )
-  {
-    return observableValue.hasOwner();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public ComputedValueInfo asComputedValue( @Nonnull final ObservableValue<?> observableValue )
   {
     return observableValue.getOwner().getComputedValue().asInfo();

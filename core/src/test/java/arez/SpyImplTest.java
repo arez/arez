@@ -207,20 +207,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    assertEquals( spy.isComputedValue( computedValue.getObservableValue() ),
-                  true );
-    assertEquals( spy.isComputedValue( context.observable() ), false );
-  }
-
-  @Test
   public void asComputedValue()
     throws Exception
   {

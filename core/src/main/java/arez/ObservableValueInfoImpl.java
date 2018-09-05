@@ -58,7 +58,7 @@ final class ObservableValueInfoImpl
   @Override
   public boolean isComputedValue()
   {
-    return _spy.isComputedValue( _observableValue );
+    return _observableValue.hasOwner();
   }
 
   /**

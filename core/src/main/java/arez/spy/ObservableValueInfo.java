@@ -16,7 +16,6 @@ public interface ObservableValueInfo
    * Return true if the Observable is a ComputedValue.
    *
    * @return true if the Observable is a ComputedValue.
-   * @see arez.Spy#isComputedValue(ObservableValue)
    */
   boolean isComputedValue();
 

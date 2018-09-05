@@ -62,14 +62,6 @@ public interface Spy
   TransactionInfo getTransaction();
 
   /**
-   * Return true if the ObservableValue is a ComputedValue.
-   *
-   * @param observableValue the ObservableValue.
-   * @return true if the ObservableValue is a ComputedValue.
-   */
-  boolean isComputedValue( @Nonnull ObservableValue<?> observableValue );
-
-  /**
    * Convert the ObservableValue to a ComputedValue.
    * This method should only be called if {@link #isComputedValue(ObservableValue)} returns true.
    *

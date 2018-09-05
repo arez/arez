@@ -145,4 +145,17 @@ public class ObservableValueInfoImplTest
   {
     assertThrows( UnsupportedOperationException.class, () -> collection.remove( collection.iterator().next() ) );
   }
+
+  @Test
+  public void isComputedValue()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    assertEquals( spy.asObservableValueInfo( context.computed( () -> "" ).getObservableValue() ).isComputedValue(),
+                  true );
+    assertEquals( spy.asObservableValueInfo( context.observable() ).isComputedValue(), false );
+  }
 }
