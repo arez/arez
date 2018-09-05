@@ -451,30 +451,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isRunning()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final AtomicInteger callCount = new AtomicInteger();
-    final AtomicReference<Observer> ref = new AtomicReference<>();
-
-    final Observer observer = context.observer( () -> {
-      assertEquals( context.getSpy().isRunning( ref.get() ), true );
-      callCount.incrementAndGet();
-      observeADependency();
-    }, Options.DEFER_REACT );
-    ref.set( observer );
-
-    assertEquals( context.getSpy().isRunning( observer ), false );
-    assertEquals( callCount.get(), 0 );
-
-    context.triggerScheduler();
-
-    assertEquals( callCount.get(), 1 );
-  }
-
-  @Test
   public void Observer_getDependencies()
     throws Exception
   {

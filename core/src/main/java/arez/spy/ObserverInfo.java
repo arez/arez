@@ -26,7 +26,6 @@ public interface ObserverInfo
    * Return true if the Observer is currently running.
    *
    * @return true if the Observer is currently running.
-   * @see arez.Spy#isRunning(arez.Observer)
    */
   boolean isRunning();
 

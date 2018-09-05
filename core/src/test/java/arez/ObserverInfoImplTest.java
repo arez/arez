@@ -2,6 +2,8 @@ package arez;
 
 import arez.spy.ObserverInfo;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -60,6 +62,31 @@ public class ObserverInfoImplTest
     observer.setScheduledFlag();
 
     assertEquals( info.isScheduled(), true );
+  }
+
+  @Test
+  public void isRunning()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final AtomicReference<ObserverInfo> ref = new AtomicReference<>();
+
+    final Observer observer = context.observer( () -> {
+      assertEquals( ref.get().isRunning(), true );
+      callCount.incrementAndGet();
+      observeADependency();
+    }, Options.DEFER_REACT );
+    final ObserverInfo info = context.getSpy().asObserverInfo( observer );
+    ref.set( info );
+
+    assertEquals( info.isRunning(), false );
+    assertEquals( callCount.get(), 0 );
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
   }
 
   @Test

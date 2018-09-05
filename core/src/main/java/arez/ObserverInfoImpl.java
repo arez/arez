@@ -67,7 +67,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isRunning()
   {
-    return _spy.isRunning( _observer );
+    return _spy.isTransactionActive() && null != getTrackerTransaction();
   }
 
   /**
@@ -176,5 +176,20 @@ final class ObserverInfoImpl
   public int hashCode()
   {
     return _observer.hashCode();
+  }
+
+
+  /**
+   * Get transaction with specified observer as tracker.
+   */
+  @Nullable
+  private Transaction getTrackerTransaction()
+  {
+    Transaction t = _observer.getContext().getTransaction();
+    while ( null != t && t.getTracker() != _observer )
+    {
+      t = t.getPrevious();
+    }
+    return t;
   }
 }

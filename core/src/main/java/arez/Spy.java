@@ -122,15 +122,6 @@ public interface Spy
   ComputedValueInfo asComputedValue( @Nonnull ObservableValue<?> observableValue );
 
   /**
-   * Return true if the Observer is currently running.
-   *
-   * @param observer the Observer.
-   * @return true if the Observer is currently running.
-   * @see arez.spy.ObserverInfo#isRunning()
-   */
-  boolean isRunning( @Nonnull Observer observer );
-
-  /**
    * Return true if the Observer is a ComputedValue.
    *
    * @param observer the Observer.
