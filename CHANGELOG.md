@@ -23,8 +23,7 @@
   values: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions` and
   `_arezOnlyDependencies`. The runtime fields collapsed into the bit field include: `_state`, `_scheduled` and
   `_executeTrackedNext`. The `ComputedValue._keepAlive` field has also been merged into the bit field.
-* **\[core\]** Remove the method `Spy.getObservers(ObservableValue)` as the same information is available
-  via `ObservableValueInfo.getObservers()`.
+* **\[core\]** Remove the method `Spy.getObservers(ObservableValue)` that was replaced by `ObservableValueInfo.getObservers()`.
 * **\[core\]** Remove the method `Spy.isReadOnly(Observer)` that was replaced by `ObserverInfo.isReadOnly()`.
 * **\[core\]** Remove the method `Spy.isScheduled(Observer)` that was replaced by `ObserverInfo.isScheduled()`.
 * **\[core\]** Remove the method `Spy.isRunning(Observer)` that was replaced by `ObserverInfo.isRunning()`.
