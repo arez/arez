@@ -2297,6 +2297,21 @@ public class TransactionTest
   }
 
   @Test
+  public void asInfo_whenSpyDisabled()
+  {
+    ArezTestUtil.disableSpies();
+
+    final Transaction transaction =
+      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class, transaction::asInfo );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0198: TransactionInfo.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+  }
+
+  @Test
   public void beginTransaction()
     throws Exception
   {
