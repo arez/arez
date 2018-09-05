@@ -131,15 +131,6 @@ public interface Spy
   boolean isRunning( @Nonnull Observer observer );
 
   /**
-   * Return true if the Observer is scheduled to run.
-   *
-   * @param observer the Observer.
-   * @return true if the Observer is scheduled to run.
-   * @see arez.spy.ObserverInfo#isScheduled()
-   */
-  boolean isScheduled( @Nonnull Observer observer );
-
-  /**
    * Return true if the Observer is a ComputedValue.
    *
    * @param observer the Observer.

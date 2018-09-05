@@ -34,7 +34,6 @@ public interface ObserverInfo
    * Return true if the Observer is scheduled to run.
    *
    * @return true if the Observer is scheduled to run.
-   * @see arez.Spy#isScheduled(arez.Observer)
    */
   boolean isScheduled();
 

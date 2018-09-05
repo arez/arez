@@ -78,7 +78,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isScheduled()
   {
-    return _spy.isScheduled( _observer );
+    return _observer.isScheduled();
   }
 
   /**

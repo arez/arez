@@ -475,23 +475,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isScheduled()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final Observer observer = context.observer( new CountAndObserveProcedure() );
-
-    assertEquals( spy.isScheduled( observer ), false );
-
-    observer.setScheduledFlag();
-
-    assertEquals( spy.isScheduled( observer ), true );
-  }
-
-  @Test
   public void Observer_getDependencies()
     throws Exception
   {

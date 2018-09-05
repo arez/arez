@@ -44,6 +44,25 @@ public class ObserverInfoImplTest
   }
 
   @Test
+  public void isScheduled()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+
+    final ObserverInfo info = spy.asObserverInfo( observer );
+
+    assertEquals( info.isScheduled(), false );
+
+    observer.setScheduledFlag();
+
+    assertEquals( info.isScheduled(), true );
+  }
+
+  @Test
   public void isReadOnly_on_READ_WRITE_observer()
     throws Exception
   {
