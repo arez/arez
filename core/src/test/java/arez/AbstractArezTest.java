@@ -88,7 +88,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
-    return context.autorun( true, new CountAndObserveProcedure() );
+    return context.observer( new CountAndObserveProcedure(), Options.READ_WRITE );
   }
 
   final void setupReadOnlyTransaction()
@@ -99,7 +99,7 @@ public abstract class AbstractArezTest
   final void setupReadOnlyTransaction( @Nonnull final ArezContext context )
   {
     Transaction.setTransaction( null );
-    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
+    setCurrentTransaction( context.observer( new CountAndObserveProcedure() ) );
   }
 
   final void setupReadWriteTransaction()

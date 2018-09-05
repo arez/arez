@@ -18,16 +18,6 @@ complete as there is too much un-said.
 * Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
   lower api layer.
 
-* Configuration in `arez.Observer` is mostly a bunch of boolean flags or enums. Some of these flags are
-  immutable after initial construction and some are runtime state. Most of these could be collapsed into
-  a bits array. It is possible that we could add some customization in javascript so that they appear as
-  enumerable properties in development mode and thus are easy to decipher in browser? Step 1 could be
-  moving all the config time properties to bit array (priority is the only one we use at runtime and we
-  could put them on lower bits so a simple mask could get it out).
-   * Config time: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions`
-   * Runtime:`_state`, `_scheduled`
-   * Also Computed._keepAlive converted to bit on config mask
-
 * Implement something similar to `getDependencyTree` from mobx
 
 * Several of the methods on `Spy` interface have duplicates in `*Info` classes. The methods on `SPy` interface

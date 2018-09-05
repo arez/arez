@@ -263,7 +263,7 @@ public final class Observer
     return Arez.shouldCheckApiInvariants() && null != _tracked && null != _onDepsUpdated;
   }
 
-  boolean isTrackingExecutableExternal()
+  boolean isExternalTracker()
   {
     return null == _tracked;
   }

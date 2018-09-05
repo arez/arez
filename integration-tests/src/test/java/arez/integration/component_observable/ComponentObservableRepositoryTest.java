@@ -60,7 +60,7 @@ public class ComponentObservableRepositoryTest
     // component1 has value that will sort after component2 to test sorting below
     final ComponentObservableRepositoryTest.TestComponent component1 = repository.create( 1, "B" );
 
-    final Observer observer = context.autorun( () -> repository.findById( 1 ) );
+    final Observer observer = context.observer( () -> repository.findById( 1 ) );
 
     // When the entity is found then only observe the entity
     {

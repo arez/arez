@@ -251,7 +251,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     final ObservableValue<?> observableValue = context.observable();
 
-    final Observer observer = context.autorun( observableValue::reportObserved );
+    final Observer observer = context.observer( observableValue::reportObserved );
 
     assertEquals( observableValue.isDisposed(), false );
 
@@ -292,7 +292,7 @@ public class ObservableValueTest
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
@@ -347,7 +347,7 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( newReadWriteObserver( context ) );
 
@@ -385,9 +385,9 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
+    setCurrentTransaction( context.observer( new CountAndObserveProcedure() ) );
 
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     observer.setState( Flags.STATE_UP_TO_DATE );
@@ -424,7 +424,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer owner = context.autorun( new CountAndObserveProcedure() );
+    final Observer owner = context.observer( new CountAndObserveProcedure() );
 
     setupReadOnlyTransaction( context );
 
@@ -479,7 +479,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -504,7 +504,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -524,7 +524,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -545,7 +545,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -632,7 +632,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -653,7 +653,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -689,7 +689,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -711,7 +711,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -743,7 +743,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
@@ -782,7 +782,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -820,7 +820,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -843,7 +843,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final ObservableValue<?> observableValue = context.observable();
     setCurrentTransaction( observer );
@@ -879,7 +879,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final ObservableValue<?> observableValue = context.observable();
     setCurrentTransaction( observer );
@@ -924,9 +924,9 @@ public class ObservableValueTest
   public void invariantLeastStaleObserverState_multipleObservers()
     throws Exception
   {
-    final Observer observer1 = Arez.context().autorun( new CountAndObserveProcedure() );
-    final Observer observer2 = Arez.context().autorun( new CountAndObserveProcedure() );
-    final Observer observer3 = Arez.context().autorun( new CountAndObserveProcedure() );
+    final Observer observer1 = Arez.context().observer( new CountAndObserveProcedure() );
+    final Observer observer2 = Arez.context().observer( new CountAndObserveProcedure() );
+    final Observer observer3 = Arez.context().observer( new CountAndObserveProcedure() );
     final Observer observer4 = Arez.context().computed( () -> "" ).getObserver();
 
     setupReadWriteTransaction();
@@ -988,9 +988,9 @@ public class ObservableValueTest
   public void invariantObserversLinked()
     throws Exception
   {
-    final Observer observer1 = Arez.context().autorun( new CountAndObserveProcedure() );
-    final Observer observer2 = Arez.context().autorun( new CountAndObserveProcedure() );
-    final Observer observer3 = Arez.context().autorun( new CountAndObserveProcedure() );
+    final Observer observer1 = Arez.context().observer( new CountAndObserveProcedure() );
+    final Observer observer2 = Arez.context().observer( new CountAndObserveProcedure() );
+    final Observer observer3 = Arez.context().observer( new CountAndObserveProcedure() );
 
     setupReadWriteTransaction();
 
@@ -1115,7 +1115,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setupReadOnlyTransaction( context );
 
@@ -1447,7 +1447,7 @@ public class ObservableValueTest
                                             observableValue::reportObservedIfTrackingTransactionActive ) );
 
     // Now we use a tracking transaction
-    final Observer observer = context.autorun( observableValue::reportObservedIfTrackingTransactionActive );
+    final Observer observer = context.observer( observableValue::reportObservedIfTrackingTransactionActive );
     assertEquals( observer.getDependencies().contains( observableValue ), true );
   }
 
@@ -1486,7 +1486,7 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
+    setCurrentTransaction( context.observer( new CountAndObserveProcedure() ) );
 
     final ObservableValue<?> observableValue = context.observable();
 

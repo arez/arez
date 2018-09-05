@@ -82,7 +82,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
     final IllegalStateException exception =
@@ -106,7 +106,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
     assertThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
@@ -123,7 +123,7 @@ public class ReactionSchedulerTest
 
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
-    final Observer observer = Arez.context().autorun( new CountAndObserveProcedure() );
+    final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
     scheduler.onRunawayReactionsDetected();
@@ -136,7 +136,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
@@ -153,7 +153,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 
@@ -219,7 +219,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
     assertEquals( scheduler.hasTasksToSchedule(), false );
@@ -244,14 +244,14 @@ public class ReactionSchedulerTest
                                              new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGHEST );
-    final Observer observer1 = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer1 = context.observer( new CountAndObserveProcedure() );
     final Observer observer2 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
                                              new CountAndObserveProcedure(),
                                              new CountingProcedure(),
                                              Flags.PRIORITY_HIGH );
-    final Observer observer3 = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer3 = context.observer( new CountAndObserveProcedure() );
     final Observer observer4 = new Observer( context,
                                              null,
                                              ValueUtil.randomString(),
@@ -395,7 +395,7 @@ public class ReactionSchedulerTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     scheduler.getPendingObservers().add( observer );
 

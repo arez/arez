@@ -17,7 +17,7 @@ public class ObserverInfoImplTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final ObservableValue<Object> observableValue = context.observable();
-    final Observer observer = context.autorun( name, false, observableValue::reportObserved );
+    final Observer observer = context.observer( name, observableValue::reportObserved );
 
     final ObserverInfo info = observer.asInfo();
 
@@ -71,8 +71,8 @@ public class ObserverInfoImplTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue = context.observable();
-    final Observer observer1 = context.autorun( ValueUtil.randomString(), false, observableValue::reportObserved );
-    final Observer observer2 = context.autorun( ValueUtil.randomString(), false, observableValue::reportObserved );
+    final Observer observer1 = context.observer( ValueUtil.randomString(), observableValue::reportObserved );
+    final Observer observer2 = context.observer( ValueUtil.randomString(), observableValue::reportObserved );
 
     final ObserverInfo info1a = observer1.asInfo();
     final ObserverInfo info1b = new ObserverInfoImpl( context.getSpy(), observer1 );

@@ -9,6 +9,7 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
+import arez.Options;
 import arez.Priority;
 import arez.Procedure;
 import arez.SafeFunction;
@@ -41,7 +42,7 @@ public class ExternalApiTest
       observeADependency();
       callCount.incrementAndGet();
     };
-    context.autorun( ValueUtil.randomString(), false, action, false );
+    context.observer( action, Options.DEFER_REACT );
 
     assertEquals( callCount.get(), 0 );
 
@@ -179,7 +180,7 @@ public class ExternalApiTest
 
     expected.set( "0" );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       assertEquals( computedValue.get(), expected.get() );
 
@@ -223,14 +224,14 @@ public class ExternalApiTest
       throw new RuntimeException();
     };
     // This will run immediately and generate an exception
-    context.autorun( ValueUtil.randomString(), false, reaction, true );
+    context.observer( reaction );
 
     assertEquals( callCount.get(), 1 );
 
     context.removeObserverErrorHandler( handler );
 
     // This will run immediately and generate an exception
-    context.autorun( ValueUtil.randomString(), false, reaction, true );
+    context.observer( reaction );
 
     assertEquals( callCount.get(), 1 );
   }
@@ -270,16 +271,13 @@ public class ExternalApiTest
     final AtomicInteger reactionCount = new AtomicInteger();
 
     final Observer observer =
-      context.autorun( ValueUtil.randomString(),
-                       false,
-                       () -> {
-                         observableValue.reportObserved();
-                         reactionCount.incrementAndGet();
-                         assertEquals( context.isTransactionActive(), true );
-                         assertEquals( context.isWriteTransactionActive(), false );
-                         assertEquals( context.isTrackingTransactionActive(), true );
-                       },
-                       true );
+      context.observer( () -> {
+        observableValue.reportObserved();
+        reactionCount.incrementAndGet();
+        assertEquals( context.isTransactionActive(), true );
+        assertEquals( context.isWriteTransactionActive(), false );
+        assertEquals( context.isTrackingTransactionActive(), true );
+      } );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
@@ -306,13 +304,10 @@ public class ExternalApiTest
     final AtomicInteger reactionCount = new AtomicInteger();
 
     final Observer observer =
-      context.autorun( ValueUtil.randomString(),
-                       false,
-                       () -> {
-                         observableValue.reportObserved();
-                         reactionCount.incrementAndGet();
-                       },
-                       true );
+      context.observer( () -> {
+        observableValue.reportObserved();
+        reactionCount.incrementAndGet();
+      } );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
@@ -338,18 +333,15 @@ public class ExternalApiTest
     final AtomicInteger reactionCount = new AtomicInteger();
 
     final Observer observer =
-      context.autorun( ValueUtil.randomString(),
-                       false,
-                       () -> {
-                         observableValue1.reportObserved();
-                         observableValue2.reportObserved();
-                         observableValue3.reportObserved();
-                         reactionCount.incrementAndGet();
-                         assertEquals( context.isTransactionActive(), true );
-                         assertEquals( context.isWriteTransactionActive(), false );
-                         assertEquals( context.isTrackingTransactionActive(), true );
-                       },
-                       true );
+      context.observer( () -> {
+        observableValue1.reportObserved();
+        observableValue2.reportObserved();
+        observableValue3.reportObserved();
+        reactionCount.incrementAndGet();
+        assertEquals( context.isTransactionActive(), true );
+        assertEquals( context.isWriteTransactionActive(), false );
+        assertEquals( context.isTrackingTransactionActive(), true );
+      } );
 
     assertEquals( reactionCount.get(), 1 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
@@ -519,12 +511,12 @@ public class ExternalApiTest
     final AtomicInteger autorunCallCount1 = new AtomicInteger();
     final AtomicInteger autorunCallCount2 = new AtomicInteger();
 
-    context1.autorun( () -> {
+    context1.observer( () -> {
       observableValue1.reportObserved();
       autorunCallCount1.incrementAndGet();
     } );
 
-    context2.autorun( () -> {
+    context2.observer( () -> {
       observableValue2.reportObserved();
       autorunCallCount2.incrementAndGet();
     } );
@@ -595,10 +587,10 @@ public class ExternalApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     // This would normally be scheduled and run now but scheduler should be paused
-    context.autorun( ValueUtil.randomString(), false, () -> {
+    context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, false );
+    }, Options.DEFER_REACT );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );
@@ -635,9 +627,7 @@ public class ExternalApiTest
     context.action( () -> {
       assertInTransaction( context, observableValue );
 
-      context.noTxAction( () -> {
-        assertNotInTransaction( context, observableValue );
-      } );
+      context.noTxAction( () -> assertNotInTransaction( context, observableValue ) );
 
       assertInTransaction( context, observableValue );
 
@@ -650,9 +640,7 @@ public class ExternalApiTest
 
       assertInTransaction( context, observableValue );
 
-      context.safeNoTxAction( () -> {
-        assertNotInTransaction( context, observableValue );
-      } );
+      context.safeNoTxAction( () -> assertNotInTransaction( context, observableValue ) );
 
       assertInTransaction( context, observableValue );
 
@@ -684,7 +672,7 @@ public class ExternalApiTest
       trace.add( "PostTrace" );
     } );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       observable.reportObserved();
       trace.add( "Autorun" );
     } );

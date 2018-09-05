@@ -3,7 +3,6 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
-import arez.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
@@ -30,22 +29,16 @@ public class NonTransactionEnforcingIntegrationTest
 
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
-    context.autorun( "FirstNamePrinter",
-                     () -> {
-                       observeADependency();
-                       recorder.mark( "firstName", person.getFirstName() );
-                     } );
-    context.autorun( null,
-                     "FullNamePrinter",
-                     true,
-                     () -> {
-                       observeADependency();
-                       recorder.mark( "fullname", person.getFullName() );
-                     },
-                     Priority.NORMAL,
-                     true,
-                     false,
-                     false );
+    context.observer( "FirstNamePrinter",
+                      () -> {
+                        observeADependency();
+                        recorder.mark( "firstName", person.getFirstName() );
+                      } );
+    context.observer( "FullNamePrinter",
+                      () -> {
+                        observeADependency();
+                        recorder.mark( "fullname", person.getFullName() );
+                      } );
 
     final AtomicBoolean action1ReadOnly = new AtomicBoolean( true );
     final AtomicBoolean action2ReadOnly = new AtomicBoolean( true );

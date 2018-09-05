@@ -234,7 +234,7 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( computedValue.getObserver() );
 
     observer.setState( Flags.STATE_POSSIBLY_STALE );
@@ -270,7 +270,7 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -309,7 +309,7 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -346,7 +346,7 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -767,7 +767,7 @@ public class ComputedValueTest
 
     expected.set( "0" );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       assertEquals( computedValue.get(), expected.get() );
     } );
@@ -819,7 +819,7 @@ public class ComputedValueTest
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       computedValue.get();
     } );
@@ -885,7 +885,7 @@ public class ComputedValueTest
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       computedValue.get();
     } );

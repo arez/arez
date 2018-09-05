@@ -2,6 +2,7 @@ package arez.integration.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Options;
 import arez.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
@@ -82,60 +83,48 @@ public class MemoizedPriorityIntegrationTest
     final ArezContext context = Arez.context();
     {
       final String observerName = "search1(" + key + ")";
-      context.autorun( null,
-                       observerName,
-                       false,
-                       () -> {
-                         if ( model.search1( key ) )
-                         {
-                           searches.add( observerName );
-                         }
-                         else
-                         {
-                           searches.add( "NOT(" + observerName + ")" );
-                         }
-                       },
-                       Priority.HIGHEST,
-                       true,
-                       true );
+      context.observer( observerName,
+                        () -> {
+                          if ( model.search1( key ) )
+                          {
+                            searches.add( observerName );
+                          }
+                          else
+                          {
+                            searches.add( "NOT(" + observerName + ")" );
+                          }
+                        },
+                        Options.PRIORITY_HIGHEST | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
     {
       final String observerName = "search2(" + key + ")";
-      context.autorun( null,
-                       observerName,
-                       false,
-                       () -> {
-                         if ( model.search2( key ) )
-                         {
-                           searches.add( observerName );
-                         }
-                         else
-                         {
-                           searches.add( "NOT(" + observerName + ")" );
-                         }
-                       },
-                       Priority.HIGHEST,
-                       true,
-                       true );
+      context.observer( observerName,
+                        () -> {
+                          if ( model.search2( key ) )
+                          {
+                            searches.add( observerName );
+                          }
+                          else
+                          {
+                            searches.add( "NOT(" + observerName + ")" );
+                          }
+                        },
+                        Options.PRIORITY_HIGHEST | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
     {
       final String observerName = "search3(" + key + ")";
-      context.autorun( null,
-                       observerName,
-                       false,
-                       () -> {
-                         if ( model.search3( key ) )
-                         {
-                           searches.add( observerName );
-                         }
-                         else
-                         {
-                           searches.add( "NOT(" + observerName + ")" );
-                         }
-                       },
-                       Priority.HIGHEST,
-                       true,
-                       true );
+      context.observer( observerName,
+                        () -> {
+                          if ( model.search3( key ) )
+                          {
+                            searches.add( observerName );
+                          }
+                          else
+                          {
+                            searches.add( "NOT(" + observerName + ")" );
+                          }
+                        },
+                        Options.PRIORITY_HIGHEST | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
   }
 

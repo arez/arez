@@ -19,7 +19,7 @@ public class ObservableValueInfoImplTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final ObservableValue<Object> observableValue = context.observable( name );
-    final Observer observer = context.autorun( observableValue::reportObserved );
+    final Observer observer = context.observer( observableValue::reportObserved );
 
     final ObservableValueInfo info = observableValue.asInfo();
 
@@ -56,7 +56,7 @@ public class ObservableValueInfoImplTest
     String initialValue = ValueUtil.randomString();
     value.set( initialValue );
     final ObservableValue<String> observableValue = context.observable( component, name, value::get, value::set );
-    final Observer observer = context.autorun( observableValue::reportObserved );
+    final Observer observer = context.observer( observableValue::reportObserved );
 
     final ObservableValueInfo info = observableValue.asInfo();
 

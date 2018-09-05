@@ -28,7 +28,7 @@ public class ComputedValueInfoImplTest
         observableValue.reportObserved();
         return value.get();
       } );
-    final Observer observer = context.autorun( computedValue::get );
+    final Observer observer = context.observer( computedValue::get );
 
     final ComputedValueInfo info = computedValue.asInfo();
 

@@ -5,7 +5,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ObservableValue;
 import arez.Observer;
-import arez.Priority;
+import arez.Options;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -23,13 +23,13 @@ public class ObserverApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( name, false, () -> {
+    final Observer observer = context.observer( name, () -> {
       observeADependency();
       callCount.incrementAndGet();
       assertEquals( context.isTransactionActive(), true );
       assertEquals( context.isWriteTransactionActive(), false );
       assertEquals( context.isTrackingTransactionActive(), true );
-    }, true );
+    } );
 
     assertEquals( observer.getName(), name );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
@@ -49,10 +49,10 @@ public class ObserverApiTest
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( null, null, false, () -> {
+    final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Priority.NORMAL, true, false, false, true );
+    }, onDepsUpdatedCallCount::incrementAndGet );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsUpdatedCallCount.get(), 0 );
@@ -71,10 +71,10 @@ public class ObserverApiTest
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( null, null, false, () -> {
+    final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, Priority.NORMAL, true, false, true, false );
+    }, Options.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( callCount.get(), 1 );
 
@@ -92,10 +92,10 @@ public class ObserverApiTest
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( null, null, false, () -> {
+    final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Priority.NORMAL, true, false, true, false );
+    }, onDepsUpdatedCallCount::incrementAndGet, Options.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsUpdatedCallCount.get(), 0 );

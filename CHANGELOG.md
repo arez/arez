@@ -13,6 +13,16 @@
 * **\[core\]** Add invariant to ensure that the parameter `runImmediately` parameter can only be `true`
   if `keepAlive` parameter is `true` when creating computed values via the `ArezContext.computed(...)`
   methods.
+* **\[core\]** Changed the default value for the `runImmediately` parameter passed to the
+  `ArezContext.autorun(...)` to be `true`. Previously the default value was `false` if the `autorun(...)`
+   method variant had a `component` parameter but otherwise the default value was `true`.
+* **\[core\]** Refactor the internal representation of runtime and configuration flags within `arez.Observer`
+  instances. Previously the internal state was represented by several internal variables. This resulted in
+  significant memory pressure when an application consisted of many observers. These configuration values
+  have been collapsed into a single bit field. The fields that were collapsed include the configuration
+  values: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions` and
+  `_arezOnlyDependencies`. The runtime fields collapsed into the bit field include: `_state`, `_scheduled` and
+  `_executeTrackedNext`. The `ComputedValue._keepAlive` field has also been merged into the bit field.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

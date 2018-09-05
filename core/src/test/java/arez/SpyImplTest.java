@@ -249,7 +249,7 @@ public class SpyImplTest
 
     assertEquals( spy.getObservers( computedValue ).size(), 0 );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     observer.getDependencies().add( computedValue.getObservableValue() );
     computedValue.getObservableValue().getObservers().add( observer );
 
@@ -270,7 +270,7 @@ public class SpyImplTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
-    final Observer observer2 = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer2 = context.observer( new CountAndObserveProcedure() );
 
     computedValue.setComputing( true );
 
@@ -410,7 +410,7 @@ public class SpyImplTest
 
     assertEquals( spy.getObservers( observableValue ).size(), 0 );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     observableValue.getObservers().add( observer );
 
     final List<ObserverInfo> observers = spy.getObservers( observableValue );
@@ -429,7 +429,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     assertEquals( spy.isComputedValue( context.computed( () -> "" ).getObserver() ), true );
-    assertEquals( spy.isComputedValue( context.autorun( new CountAndObserveProcedure() ) ), false );
+    assertEquals( spy.isComputedValue( context.observer( new CountAndObserveProcedure() ) ), false );
   }
 
   @Test
@@ -481,11 +481,11 @@ public class SpyImplTest
     final AtomicInteger callCount = new AtomicInteger();
     final AtomicReference<Observer> ref = new AtomicReference<>();
 
-    final Observer observer = context.autorun( null, false, () -> {
+    final Observer observer = context.observer( () -> {
       assertEquals( context.getSpy().isRunning( ref.get() ), true );
       callCount.incrementAndGet();
       observeADependency();
-    }, false );
+    }, Options.DEFER_REACT );
     ref.set( observer );
 
     assertEquals( context.getSpy().isRunning( observer ), false );
@@ -504,7 +504,7 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( spy.isScheduled( observer ), false );
 
@@ -522,7 +522,7 @@ public class SpyImplTest
     final Spy spy = context.getSpy();
 
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( observable::reportObserved );
+    final Observer observer = context.observer( observable::reportObserved );
 
     final List<ObservableValueInfo> dependencies = spy.getDependencies( observer );
     assertEquals( dependencies.size(), 1 );
@@ -539,7 +539,7 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final ObservableValue<?> observableValue = context.observable();
     final ObservableValue<?> observableValue2 = context.observable();
@@ -573,7 +573,7 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    assertEquals( spy.isReadOnly( context.autorun( new CountAndObserveProcedure() ) ), true );
+    assertEquals( spy.isReadOnly( context.observer( new CountAndObserveProcedure() ) ), true );
     assertEquals( spy.isReadOnly( context.computed( () -> "" ).getObserver() ), true );
     assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
   }
@@ -655,13 +655,8 @@ public class SpyImplTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final Observer observer1 =
-      context.autorun( component,
-                       ValueUtil.randomString(),
-                       true,
-                       AbstractArezTest::observeADependency,
-                       Priority.NORMAL,
-                       true );
-    final Observer observer2 = context.autorun( AbstractArezTest::observeADependency );
+      context.observer( component, null, AbstractArezTest::observeADependency );
+    final Observer observer2 = context.observer( AbstractArezTest::observeADependency );
 
     final ComponentInfo info = spy.getComponent( observer1 );
     assertNotNull( info );
@@ -677,7 +672,7 @@ public class SpyImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observer value = context.autorun( AbstractArezTest::observeADependency );
+    final Observer value = context.observer( AbstractArezTest::observeADependency );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
@@ -851,7 +846,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
 
     final Spy spy = context.getSpy();
 
@@ -1048,7 +1043,7 @@ public class SpyImplTest
       return "42";
     };
     final ComputedValue<String> computedValue1 = context.computed( function );
-    context.autorun( computedValue1::get );
+    context.observer( computedValue1::get );
 
     assertEquals( spy.getValue( computedValue1 ), "42" );
   }
@@ -1084,7 +1079,7 @@ public class SpyImplTest
   public void asObserverInfo()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
 
     assertEquals( info.getName(), observer.getName() );

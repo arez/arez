@@ -3,6 +3,7 @@ package arez.integration.priority;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputedValue;
+import arez.Options;
 import arez.Priority;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
@@ -34,7 +35,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
                         null,
                         Priority.LOWEST,
                         false,
-                        true,
+                        false,
                         false );
     // f3 observes lower priority
     final SafeFunction<Integer> f2 = () -> computedValue1.get() + 42;
@@ -47,7 +48,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
                         null,
                         Priority.NORMAL,
                         false,
-                        true,
+                        false,
                         true );
     // f3 observes same priority
     final SafeFunction<Integer> f3 = () -> computedValue2.get() + 42;
@@ -60,7 +61,7 @@ public class CoreCanObserveLowerPriorityIntegrationTest
                         null,
                         Priority.NORMAL,
                         false,
-                        true,
+                        false,
                         true );
 
     // f4 observes higher priority
@@ -74,15 +75,15 @@ public class CoreCanObserveLowerPriorityIntegrationTest
                         null,
                         Priority.LOWEST,
                         false,
-                        true,
+                        false,
                         false );
 
     // Observes same priority
-    context.autorun( null, "AR1", false, computedValue1::get, Priority.LOWEST, true, false );
+    context.observer( "AR1", computedValue1::get, Options.PRIORITY_LOWEST );
     // Observes lower priority
-    context.autorun( null, "AR4", false, computedValue4::get, Priority.HIGH, true, true );
+    context.observer( "AR4", computedValue4::get, Options.PRIORITY_HIGH | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     // Observes higher priority
-    context.autorun( null, "AR3", false, computedValue3::get, Priority.LOW, true, false );
+    context.observer( "AR3", computedValue3::get, Options.PRIORITY_LOW );
 
     assertMatchesFixture( recorder );
   }

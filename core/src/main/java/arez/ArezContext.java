@@ -621,276 +621,201 @@ public final class ArezContext
   }
 
   /**
-   * Create a read-only autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
    * @param tracked the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nonnull final Procedure tracked )
+  public Observer observer( @Nonnull final Procedure tracked )
   {
-    return autorun( null, tracked );
+    return observer( tracked, 0 );
   }
 
   /**
-   * Create a read-only autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
+   *
+   * @param tracked the executable tracked by the observer.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Options}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer observer( @Nonnull final Procedure tracked, final int flags )
+  {
+    return observer( (String) null, tracked, flags );
+  }
+
+  /**
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
    * @param name    the name of the observer.
    * @param tracked the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final String name, @Nonnull final Procedure tracked )
+  public Observer observer( @Nullable final String name, @Nonnull final Procedure tracked )
   {
-    return autorun( name, false, tracked );
+    return observer( name, tracked, 0 );
   }
 
   /**
-   * Create an autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
-   * @param mutation true if the executable may modify state, false otherwise.
-   * @param tracked  the executable tracked by the observer.
+   * @param name    the name of the observer.
+   * @param tracked the executable tracked by the observer.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Options}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( final boolean mutation, @Nonnull final Procedure tracked )
+  public Observer observer( @Nullable final String name, @Nonnull final Procedure tracked, final int flags )
   {
-    return autorun( null, mutation, tracked );
+    return observer( null, name, tracked, flags );
   }
 
   /**
-   * Create an autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
-   * @param name     the name of the observer.
-   * @param mutation true if the executable may modify state, false otherwise.
-   * @param tracked  the executable tracked by the observer.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked )
-  {
-    return autorun( name, mutation, tracked, true );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param name           the name of the observer.
-   * @param mutation       true if the executable may modify state, false otherwise.
-   * @param tracked        the executable tracked by the observer.
-   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           final boolean runImmediately )
-  {
-    return autorun( name, mutation, tracked, Priority.NORMAL, runImmediately );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param name           the name of the observer.
-   * @param mutation       true if the executable may modify state, false otherwise.
-   * @param tracked        the executable tracked by the observer.
-   * @param priority       the priority of the observer.
-   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately )
-  {
-    return autorun( null, name, mutation, tracked, priority, runImmediately );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param component the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
-   * @param mutation  true if the executable may modify state, false otherwise.
    * @param tracked   the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked )
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nonnull final Procedure tracked )
   {
-    return autorun( component, name, mutation, tracked, Priority.NORMAL, false );
+    return observer( component, name, tracked, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
-   * @param component      the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name           the name of the observer.
-   * @param mutation       true if the executable may modify state, false otherwise.
-   * @param tracked        the executable tracked by the observer.
-   * @param priority       the priority of the observer.
-   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param tracked   the executable tracked by the observer.
+   * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Options}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately )
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nonnull final Procedure tracked,
+                            final int flags )
   {
-    return autorun( component, name, mutation, tracked, priority, runImmediately, false );
+    return observer( component, name, Objects.requireNonNull( tracked ), null, flags );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> parameter.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies )
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    false );
+    return observer( component, name, tracked, onDepsUpdated, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions )
+  public Observer observer( @Nullable final Procedure tracked, @Nullable final Procedure onDepsUpdated )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    true );
+    return observer( tracked, onDepsUpdated, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Options}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           final boolean arezOnlyDependencies )
+  public Observer observer( @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated,
+                            final int flags )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    null,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    arezOnlyDependencies );
+    return observer( null, tracked, onDepsUpdated, flags );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param onDepsUpdated                    the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nullable final Procedure onDepsUpdated,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           final boolean arezOnlyDependencies )
+  public Observer observer( @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated )
   {
-    return observer( component,
-                     name,
-                     mutation,
-                     tracked,
-                     onDepsUpdated,
-                     priority,
-                     runImmediately,
-                     observeLowerPriorityDependencies,
-                     canNestActions,
-                     arezOnlyDependencies );
+    return observer( name, tracked, onDepsUpdated, 0 );
+  }
+
+  /**
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   *
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Options}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer observer( @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated,
+                            final int flags )
+  {
+    return observer( null, name, tracked, onDepsUpdated, flags );
+  }
+
+  /**
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   *
+   * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Options}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated,
+                            final int flags )
+  {
+    return new Observer( Arez.areZonesEnabled() ? this : null,
+                         component,
+                         generateNodeName( "Observer", name ),
+                         tracked,
+                         onDepsUpdated,
+                         flags );
   }
 
   /**
@@ -1257,7 +1182,7 @@ public final class ArezContext
 
   /**
    * Return true if there is a tracking transaction in progress.
-   * A tracking transaction is one created by an {@link Observer} via the {@link #autorun(Procedure)}
+   * A tracking transaction is one created by an {@link Observer} via the {@link #observer(Procedure)}
    * or {@link #tracker(Procedure)} methods.
    *
    * @return true if there is a tracking transaction in progress.
@@ -1602,7 +1527,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0017: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -1823,7 +1748,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0018: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -2042,7 +1967,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
@@ -2255,7 +2180,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0020: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }

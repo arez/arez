@@ -921,7 +921,7 @@ public class TransactionTest
     observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     Transaction.setTransaction( null );
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setupReadWriteTransaction();
     observer.setState( Flags.STATE_STALE );
 
@@ -2209,7 +2209,7 @@ public class TransactionTest
 
     final ObservableValue<?> observable = context.observable();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
@@ -2236,7 +2236,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
 
     final ObservableValue<?> observableValue = context.observable();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
@@ -2255,7 +2255,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
 
     final ObservableValue<?> observableValue = context.observable();
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
@@ -2266,13 +2266,13 @@ public class TransactionTest
                        transaction2,
                        ValueUtil.randomString(),
                        TransactionMode.READ_WRITE,
-                       context.autorun( new CountAndObserveProcedure() ) );
+                       context.observer( new CountAndObserveProcedure() ) );
     final Transaction transaction4 =
       new Transaction( context,
                        transaction3,
                        ValueUtil.randomString(),
                        TransactionMode.READ_WRITE,
-                       context.autorun( new CountAndObserveProcedure() ) );
+                       context.observer( new CountAndObserveProcedure() ) );
     Transaction.setTransaction( transaction4 );
 
     observableValue.rawAddObserver( observer );
@@ -2471,7 +2471,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
+    setCurrentTransaction( context.observer( new CountAndObserveProcedure() ) );
     final Transaction transaction = context.getTransaction();
 
     final String name = ValueUtil.randomString();
@@ -2491,7 +2491,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    setCurrentTransaction( context.autorun( new CountAndObserveProcedure() ) );
+    setCurrentTransaction( context.observer( new CountAndObserveProcedure() ) );
     final Transaction transaction = context.getTransaction();
     Transaction.markAsSuspended();
 
@@ -3063,7 +3063,7 @@ public class TransactionTest
   private Observer ensureDerivationHasObserver( @Nonnull final Observer observer )
   {
     Transaction.setTransaction( null );
-    final Observer randomObserver = observer.getContext().autorun( new CountAndObserveProcedure() );
+    final Observer randomObserver = observer.getContext().observer( new CountAndObserveProcedure() );
     setupReadWriteTransaction();
     randomObserver.setState( Flags.STATE_UP_TO_DATE );
     final ComputedValue<?> computedValue = observer.getComputedValue();

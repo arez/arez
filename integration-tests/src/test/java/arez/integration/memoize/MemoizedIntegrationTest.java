@@ -38,8 +38,8 @@ public class MemoizedIntegrationTest
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
-    context.autorun( "SearchResult - red",
-                     () -> {
+    context.observer( "SearchResult - red",
+                      () -> {
                        observeADependency();
                        if ( Disposable.isNotDisposed( person ) )
                        {
@@ -48,14 +48,14 @@ public class MemoizedIntegrationTest
                        searchCounts[ 0 ].incrementAndGet();
                      } );
     final Observer observer3 =
-      context.autorun( "SearchResult - ill",
-                       () -> {
+      context.observer( "SearchResult - ill",
+                        () -> {
                          observeADependency();
                          recorder.mark( "doesSearchMatch - ill", person.doesSearchMatch( "ill" ) );
                          searchCounts[ 1 ].incrementAndGet();
                        } );
-    context.autorun( "SearchResult - red - 20",
-                     () -> {
+    context.observer( "SearchResult - red - 20",
+                      () -> {
                        observeADependency();
                        if ( Disposable.isNotDisposed( person ) )
                        {
@@ -63,8 +63,8 @@ public class MemoizedIntegrationTest
                        }
                        searchCounts[ 2 ].incrementAndGet();
                      } );
-    context.autorun( "SearchResult - red - 5",
-                     () -> {
+    context.observer( "SearchResult - red - 5",
+                      () -> {
                        observeADependency();
                        if ( Disposable.isNotDisposed( person ) )
                        {
@@ -129,8 +129,8 @@ public class MemoizedIntegrationTest
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
-    context.autorun( "SearchResult - red - 20",
-                     () -> {
+    context.observer( "SearchResult - red - 20",
+                      () -> {
                        observeADependency();
                        recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
                      } );
@@ -153,8 +153,8 @@ public class MemoizedIntegrationTest
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
-    context.autorun( "SearchResult - red - 20",
-                     () -> {
+    context.observer( "SearchResult - red - 20",
+                      () -> {
                        observeADependency();
                        recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
                      } );

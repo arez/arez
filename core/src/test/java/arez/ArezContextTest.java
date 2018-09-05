@@ -58,10 +58,10 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( ValueUtil.randomString(), false, () -> {
+    context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, false );
+    }, Options.DEFER_REACT );
 
     assertEquals( callCount.get(), 0 );
 
@@ -76,10 +76,10 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( ValueUtil.randomString(), false, () -> {
+    context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, false );
+    }, Options.DEFER_REACT );
 
     assertEquals( callCount.get(), 0 );
 
@@ -103,12 +103,11 @@ public class ArezContextTest
       environment.set( null );
     } );
 
-    context.autorun( ValueUtil.randomString(), false, () -> {
+    context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
       assertEquals( environment.get(), "RED" );
-
-    }, false );
+    }, Options.DEFER_REACT );
 
     assertEquals( callCount.get(), 0 );
     assertEquals( environment.get(), null );
@@ -143,13 +142,13 @@ public class ArezContextTest
     } );
 
     final Observer observer =
-      context.autorun( ValueUtil.randomString(), false, () -> {
+      context.observer( () -> {
         final ObservableValue<Object> observableValue = Arez.context().observable();
         observableValue.reportObserved();
         callCount.incrementAndGet();
         assertEquals( environment.get(), "RED" );
 
-      }, false );
+      }, Options.DEFER_REACT );
 
     observerReference.set( observer );
 
@@ -887,7 +886,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertThrowsWithMessage( () -> context.track( observer, callCount::incrementAndGet ),
                              "Arez-0017: Attempted to track Observer named '" + observer.getName() +
@@ -1163,7 +1162,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertThrowsWithMessage( () -> context.safeTrack( observer, callCount::incrementAndGet ),
                              "Arez-0018: Attempted to track Observer named '" + observer.getName() +
@@ -1332,7 +1331,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final SafeProcedure procedure = callCount::incrementAndGet;
     assertThrowsWithMessage( () -> context.safeTrack( observer, procedure ),
@@ -1383,7 +1382,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final Procedure procedure = callCount::incrementAndGet;
     assertThrowsWithMessage( () -> context.track( observer, procedure ),
@@ -1749,7 +1748,7 @@ public class ArezContextTest
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
     final Procedure action = new NoopProcedure();
-    final Observer observer = context.autorun( ValueUtil.randomString(), true, action );
+    final Observer observer = context.observer( ValueUtil.randomString(), action, Options.READ_WRITE );
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -1791,8 +1790,7 @@ public class ArezContextTest
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
     final Procedure action = new NoopProcedure();
-    final Observer observer =
-      context.autorun( ValueUtil.randomString(), ValueUtil.randomBoolean(), action, ValueUtil.randomBoolean() );
+    final Observer observer = context.observer( action );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1853,7 +1851,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1869,7 +1867,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -1902,7 +1900,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -2191,14 +2189,14 @@ public class ArezContextTest
   }
 
   @Test
-  public void autorun_noObservers()
+  public void observer_noObservers()
     throws Exception
   {
     setIgnoreObserverErrors( true );
 
     Arez.context().setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = Arez.context().autorun( callCount::incrementAndGet );
+    final Observer observer = Arez.context().observer( callCount::incrementAndGet );
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
@@ -2212,14 +2210,14 @@ public class ArezContextTest
   }
 
   @Test
-  public void autorun_noObservers_nonArezDependencies()
+  public void autorun_noObservers_manualReportStaleAllowed()
     throws Exception
   {
     setIgnoreObserverErrors( true );
 
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
-    context.autorun( null, null, false, callCount::incrementAndGet, Priority.NORMAL, true, false, true, false );
+    context.observer( callCount::incrementAndGet, Options.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( callCount.get(), 1 );
 
@@ -2228,23 +2226,31 @@ public class ArezContextTest
   }
 
   @Test
-  public void autorun_minimumParameters()
+  public void observer_minimumParameters()
     throws Exception
   {
     final ArezContext context = Arez.context();
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( () -> {
+    final Procedure tracked = () -> {
       observeADependency();
       callCount.incrementAndGet();
-    } );
+    };
+    final Observer observer = context.observer( tracked );
 
+    assertEquals( observer.getComponent(), null );
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.isComputedValue(), false );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
+    assertEquals( observer.isKeepAlive(), true );
+    assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.getOnDepsUpdated(), null );
+    assertEquals( observer.isExternalTracker(), false );
+    assertEquals( observer.getTracked(), tracked );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2257,19 +2263,11 @@ public class ArezContextTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( component, name, true, () -> {
-      observeADependency();
-      callCount.incrementAndGet();
-    } );
+    final Observer observer = context.observer( component, name, AbstractArezTest::observeADependency );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
-
-    // Those created with components are not runImmediately
-    assertEquals( callCount.get(), 0 );
   }
 
   @Test
@@ -2280,10 +2278,10 @@ public class ArezContextTest
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( true, () -> {
+    final Observer observer = context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    } );
+    }, Options.READ_WRITE );
 
     assertEquals( observer.getName(), "Observer@22" );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
@@ -2307,15 +2305,16 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( name, true, () -> {
+    final Observer observer = context.observer( name, () -> {
       observableValue.reportObserved();
       callCount.incrementAndGet();
-    }, true );
+    }, Options.READ_WRITE );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.isExternalTracker(), false );
     assertEquals( callCount.get(), 1 );
 
     handler.assertEventCount( 8 );
@@ -2334,17 +2333,15 @@ public class ArezContextTest
 
     final ObservableValue<Object> observableValue = Arez.context().observable();
 
-    final Observer observer1 = context.autorun( "O1", observableValue::reportObserved );
-    final Observer observer2 =
-      context.autorun( "O2", false, observableValue::reportObserved, Priority.HIGH, true );
+    final Observer observer1 = context.observer( "O1", observableValue::reportObserved );
+    final Observer observer2 = context.observer( "O2", observableValue::reportObserved, Options.PRIORITY_HIGH );
 
     final Disposable schedulerLock = context.pauseScheduler();
 
     // Trigger change that should schedule above observers
     context.safeAction( observableValue::reportChanged );
 
-    final Observer observer3 =
-      context.autorun( "O3", false, observableValue::reportObserved, true );
+    final Observer observer3 = context.observer( "O3", observableValue::reportObserved );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -2372,10 +2369,8 @@ public class ArezContextTest
   public void autorun_highPriority()
     throws Exception
   {
-    final Observer observer =
-      Arez.context().
-        autorun( null, ValueUtil.randomString(), true, AbstractArezTest::observeADependency, Priority.HIGH, false );
-
+    final ArezContext context = Arez.context();
+    final Observer observer = context.observer( AbstractArezTest::observeADependency, Options.PRIORITY_HIGH );
     assertEquals( observer.getPriority(), Priority.HIGH );
   }
 
@@ -2383,15 +2378,9 @@ public class ArezContextTest
   public void autorun_canObserveLowerPriorityDependencies()
     throws Exception
   {
+    final ArezContext context = Arez.context();
     final Observer observer =
-      Arez.context().autorun( null,
-                              ValueUtil.randomString(),
-                              true,
-                              AbstractArezTest::observeADependency,
-                              Priority.HIGH,
-                              false,
-                              true );
-
+      context.observer( AbstractArezTest::observeADependency, Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }
 
@@ -2399,56 +2388,29 @@ public class ArezContextTest
   public void autorun_canNestActions()
     throws Exception
   {
-    final boolean canNestActions = true;
+    final ArezContext context = Arez.context();
     final Observer observer =
-      Arez.context().autorun( null,
-                              ValueUtil.randomString(),
-                              ValueUtil.randomBoolean(),
-                              AbstractArezTest::observeADependency,
-                              Priority.NORMAL,
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              canNestActions );
+      context.observer( AbstractArezTest::observeADependency, Options.NESTED_ACTIONS_ALLOWED );
 
-    assertEquals( observer.canNestActions(), canNestActions );
+    assertEquals( observer.canNestActions(), true );
   }
 
   @Test
   public void autorun_arezOnlyDependencies()
     throws Exception
   {
-    final boolean arezOnlyDependencies = false;
+    final ArezContext context = Arez.context();
     final Observer observer =
-      Arez.context().autorun( null,
-                              ValueUtil.randomString(),
-                              ValueUtil.randomBoolean(),
-                              AbstractArezTest::observeADependency,
-                              Priority.NORMAL,
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              arezOnlyDependencies
-      );
-
-    assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
+      context.observer( AbstractArezTest::observeADependency, Options.MANUAL_REPORT_STALE_ALLOWED );
+    assertEquals( observer.arezOnlyDependencies(), false );
   }
 
   @Test
   public void autorun_supportsManualSchedule()
     throws Exception
   {
-    final Observer observer =
-      Arez.context().autorun( null,
-                              ValueUtil.randomString(),
-                              ValueUtil.randomBoolean(),
-                              AbstractArezTest::observeADependency,
-                              ValueUtil::randomString,
-                              Priority.NORMAL,
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean(),
-                              ValueUtil.randomBoolean() );
-
+    final ArezContext context = Arez.context();
+    final Observer observer = context.observer( AbstractArezTest::observeADependency, ValueUtil::randomString );
     assertEquals( observer.supportsManualSchedule(), true );
   }
 
@@ -2463,15 +2425,16 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final Observer observer = context.autorun( name, false, () -> {
+    final Observer observer = context.observer( name, () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, false );
+    }, Options.DEFER_REACT );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.isExternalTracker(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
@@ -2511,6 +2474,7 @@ public class ArezContextTest
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
     assertEquals( observer.canObserveLowerPriorityDependencies(), observeLowerPriorityDependencies );
+    assertEquals( observer.isExternalTracker(), true );
     assertEquals( observer.canNestActions(), canNestActions );
     assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
     assertEquals( observer.supportsManualSchedule(), false );
@@ -2539,6 +2503,7 @@ public class ArezContextTest
     assertEquals( observer.getComponent(), component );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
+    assertEquals( observer.isExternalTracker(), true );
   }
 
   @Test
@@ -2559,6 +2524,7 @@ public class ArezContextTest
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
+    assertEquals( observer.isExternalTracker(), true );
     assertEquals( observer.canNestActions(), false );
     assertEquals( observer.arezOnlyDependencies(), true );
     assertEquals( observer.supportsManualSchedule(), false );
@@ -2572,7 +2538,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void createObserver_generates_spyEvent()
+  public void observer_generates_spyEvent()
     throws Exception
   {
     final ArezContext context = Arez.context();
@@ -2580,17 +2546,9 @@ public class ArezContextTest
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    final Observer observer =
-      context.observer( null,
-                        ValueUtil.randomString(),
-                        true,
-                        new CountingProcedure(),
-                        new CountingProcedure(),
-                        Priority.NORMAL,
-                        false,
-                        false,
-                        false,
-                        true );
+    context.pauseScheduler();
+
+    final Observer observer = context.observer( new CountingProcedure() );
 
     handler.assertEventCount( 2 );
 
@@ -2598,48 +2556,6 @@ public class ArezContextTest
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ReactionScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
-  }
-
-  @Test
-  public void createObserver_canTrackExplicitly()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Observer observer =
-      context.observer( null,
-                        ValueUtil.randomString(),
-                        false,
-                        null,
-                        new CountingProcedure(),
-                        Priority.NORMAL,
-                        false,
-                        false,
-                        false,
-                        true );
-
-    assertEquals( observer.isTrackingExecutableExternal(), true );
-  }
-
-  @Test
-  public void createObserver_canObserveLowerPriorityDependencies()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Observer observer =
-      context.observer( null,
-                        ValueUtil.randomString(),
-                        false,
-                        new CountAndObserveProcedure(),
-                        null,
-                        Priority.NORMAL,
-                        true,
-                        true,
-                        false,
-                        true );
-
-    assertEquals( observer.canObserveLowerPriorityDependencies(), true );
   }
 
   @Test
@@ -2752,10 +2668,10 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
 
     // This would normally be scheduled and run now but scheduler should be paused
-    context.autorun( ValueUtil.randomString(), false, () -> {
+    context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, false );
+    }, Options.DEFER_REACT );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );
@@ -3071,7 +2987,7 @@ public class ArezContextTest
 
     final ObservableValue<Object> observableValue = context.observable();
     final ComputedValue<String> computedValue = context.computed( () -> "" );
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
 
     assertThrowsWithMessage( () -> context.registerObservableValue( observableValue ),
                              "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
@@ -3122,7 +3038,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
 
     assertEquals( context.getTopLevelObservers().size(), 1 );
     assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
@@ -3261,7 +3177,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
 
-    final Observer observer = Arez.context().autorun( new CountAndObserveProcedure() );
+    final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
     assertEquals( scheduler.getPendingObservers().size(), 0 );
 

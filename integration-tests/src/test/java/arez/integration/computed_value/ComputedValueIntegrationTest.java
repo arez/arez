@@ -27,13 +27,13 @@ public class ComputedValueIntegrationTest
 
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
-    context.autorun( "FirstNamePrinter",
-                     () -> {
+    context.observer( "FirstNamePrinter",
+                      () -> {
                        observeADependency();
                        recorder.mark( "firstName", person.getFirstName() );
                      } );
-    context.autorun( "FullNamePrinter",
-                     () -> {
+    context.observer( "FullNamePrinter",
+                      () -> {
                        observeADependency();
                        recorder.mark( "fullname", person.getFullName() );
                      } );

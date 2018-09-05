@@ -29,8 +29,8 @@ public class DisposeIntegrationTest
     final CodeModel codeModel = CodeModel.create( "com.example", "MyType" );
 
     final Observer observer =
-      context.autorun( "Printer",
-                       () -> {
+      context.observer( "Printer",
+                        () -> {
                          observeADependency();
                          recorder.mark( "qualifiedName", codeModel.getQualifiedName() );
                        } );

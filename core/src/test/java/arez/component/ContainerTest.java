@@ -132,7 +132,7 @@ public class ContainerTest
     final MyContainer repository = MyContainer.create();
 
     final AtomicInteger callCount = new AtomicInteger();
-    Arez.context().autorun( () -> {
+    Arez.context().observer( () -> {
       repository.getEntitiesObservable().reportObserved();
       callCount.incrementAndGet();
     } );
