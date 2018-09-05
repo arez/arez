@@ -219,6 +219,22 @@ public class ComputedValueInfoImplTest
                   "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
+  @Test
+  public void isActive()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Spy spy = context.getSpy();
+
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
+
+    assertEquals( spy.asComputedValueInfo( computedValue ).isActive(), false );
+    setupReadOnlyTransaction( context );
+    computedValue.getObserver().setState( Flags.STATE_UP_TO_DATE );
+    assertEquals( spy.asComputedValueInfo( computedValue ).isActive(), true );
+  }
+
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()

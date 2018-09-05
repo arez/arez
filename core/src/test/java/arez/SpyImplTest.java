@@ -207,22 +207,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isActive()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    assertEquals( spy.isActive( computedValue ), false );
-    setupReadOnlyTransaction( context );
-    computedValue.getObserver().setState( Flags.STATE_UP_TO_DATE );
-    assertEquals( spy.isActive( computedValue ), true );
-  }
-
-  @Test
   public void getObservers()
     throws Exception
   {

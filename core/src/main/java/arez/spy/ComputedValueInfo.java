@@ -34,7 +34,6 @@ public interface ComputedValueInfo
    * A ComputedValue is active if there is one or more Observers and the value will be calculated.
    *
    * @return true if the ComputedValue is active.
-   * @see arez.Spy#isActive(arez.ComputedValue)
    */
   boolean isActive();
 

@@ -81,7 +81,7 @@ final class ComputedValueInfoImpl
   @Override
   public boolean isActive()
   {
-    return _spy.isActive( _computedValue );
+    return _computedValue.getObserver().isActive();
   }
 
   @Nonnull
