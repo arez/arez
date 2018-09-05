@@ -955,12 +955,14 @@ final class Transaction
       }
     }
 
-    if ( Disposable.isNotDisposed( _tracker ) &&
-         _tracker.isComputedValue() &&
-         !_tracker.getComputedValue().getObservableValue().hasObservers() &&
-         !_tracker.getComputedValue().isKeepAlive() )
+    if ( Disposable.isNotDisposed( _tracker ) && _tracker.isComputedValue() )
     {
-      queueForDeactivation( _tracker.getComputedValue().getObservableValue() );
+      final ComputedValue<?> computedValue = _tracker.getComputedValue();
+      final ObservableValue<?> observableValue = computedValue.getObservableValue();
+      if ( !observableValue.hasObservers() && !computedValue.isKeepAlive() )
+      {
+        queueForDeactivation( observableValue );
+      }
     }
 
     /*
