@@ -171,7 +171,7 @@ final class TrackedDescriptor
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
 
     final ArrayList<String> flags = new ArrayList<>();
-    flags.add( "DEFER_REACT" );
+    flags.add( "RUN_LATER" );
 
     if ( _observeLowerPriorityDependencies )
     {

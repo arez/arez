@@ -82,10 +82,10 @@ public final class Observer
           null,
           flags |
           ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? 0 : Flags.DEACTIVATE_ON_UNOBSERVE ) |
-          Flags.defaultReactTypeUnlessSpecified( flags,
-                                                 ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ) ?
-                                                 Flags.REACT_IMMEDIATELY :
-                                                 Flags.DEFER_REACT ) |
+          Flags.defaultRunTypeUnlessSpecified( flags,
+                                               ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ) ?
+                                               Flags.RUN_NOW :
+                                               Flags.RUN_LATER ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
           Flags.defaultPriorityUnlessSpecified( flags ) );
@@ -106,8 +106,8 @@ public final class Observer
           onDepsUpdated,
           flags |
           ( null == tracked ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
-          Flags.defaultReactTypeUnlessSpecified( flags,
-                                                 null == tracked ? Flags.DEFER_REACT : Flags.REACT_IMMEDIATELY ) |
+          Flags.defaultRunTypeUnlessSpecified( flags,
+                                               null == tracked ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.defaultPriorityUnlessSpecified( flags ) |
           Flags.defaultNestedActionRuleUnlessSpecified( flags ) |
           Flags.defaultObserverTransactionModeUnlessSpecified( flags ) );
@@ -140,12 +140,12 @@ public final class Observer
       invariant( () -> Flags.isPriorityValid( flags ),
                  () -> "Arez-0080: Observer named '" + getName() + "' has invalid priority " +
                        Flags.getPriorityIndex( flags ) + "." );
-      invariant( () -> Flags.isReactTypeValid( flags ),
+      invariant( () -> Flags.isRunTypeValid( flags ),
                  () -> "Arez-0081: Observer named '" + getName() + "' incorrectly specified both " +
-                       "REACT_IMMEDIATELY and DEFER_REACT flags." );
-      invariant( () -> 0 == ( flags & Flags.REACT_IMMEDIATELY ) || null != tracked,
+                       "RUN_NOW and RUN_LATER flags." );
+      invariant( () -> 0 == ( flags & Flags.RUN_NOW ) || null != tracked,
                  () -> "Arez-0206: Observer named '" + getName() + "' incorrectly specified " +
-                       "REACT_IMMEDIATELY flag but the tracked function is null." );
+                       "RUN_NOW flag but the tracked function is null." );
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
@@ -162,11 +162,11 @@ public final class Observer
       invariant( () -> Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == tracked,
                  () -> "Arez-0207: Observer named '" + getName() + "' specified SCHEDULED_EXTERNALLY schedule " +
                        "type but the tracked function is non-null." );
-      invariant( () -> !( Flags.REACT_IMMEDIATELY == ( flags & Flags.REACT_IMMEDIATELY ) &&
+      invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
                           null != computedValue ),
                  () -> "Arez-0208: ComputedValue named '" + getName() + "' incorrectly specified " +
-                       "REACT_IMMEDIATELY flag but not the KEEPALIVE flag." );
+                       "RUN_NOW flag but not the KEEPALIVE flag." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
@@ -204,7 +204,7 @@ public final class Observer
   {
     final ArezContext context = getContext();
     context.scheduleReaction( this );
-    if ( 0 != ( _flags & Flags.REACT_IMMEDIATELY ) )
+    if ( 0 != ( _flags & Flags.RUN_NOW ) )
     {
       context.triggerScheduler();
     }
@@ -858,8 +858,8 @@ public final class Observer
       }
       if ( null != _computedValue && _computedValue.isNotDisposed() )
       {
-        final ObservableValue<?> observableValue = _computedValue.getObservableValue();
-        invariant( () -> Objects.equals( observableValue.isComputedValue() ? observableValue.getObserver() : null, this ),
+        final ObservableValue<?> observable = _computedValue.getObservableValue();
+        invariant( () -> Objects.equals( observable.isComputedValue() ? observable.getObserver() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
                          "does not link back to observer." );
       }

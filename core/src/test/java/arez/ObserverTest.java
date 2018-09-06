@@ -34,7 +34,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
     final CountingProcedure onDepsUpdated = new CountingProcedure();
-    final Observer observer = new Observer( context, null, name, trackedExecutable, onDepsUpdated, Flags.DEFER_REACT );
+    final Observer observer = new Observer( context, null, name, trackedExecutable, onDepsUpdated, Flags.RUN_LATER );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -188,11 +188,11 @@ public class ObserverTest
                                         name,
                                         new CountAndObserveProcedure(),
                                         null,
-                                        Flags.REACT_IMMEDIATELY | Flags.DEFER_REACT ) );
+                                        Flags.RUN_NOW | Flags.RUN_LATER ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0081: Observer named '" + name + "' incorrectly specified both " +
-                  "REACT_IMMEDIATELY and DEFER_REACT flags." );
+                  "RUN_NOW and RUN_LATER flags." );
   }
 
   @Test
@@ -208,10 +208,10 @@ public class ObserverTest
                                         name,
                                         null,
                                         new CountingProcedure(),
-                                        Flags.REACT_IMMEDIATELY ) );
+                                        Flags.RUN_NOW ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0206: Observer named '" + name + "' incorrectly specified REACT_IMMEDIATELY " +
+                  "Arez-0206: Observer named '" + name + "' incorrectly specified RUN_NOW " +
                   "flag but the tracked function is null." );
   }
 
@@ -245,10 +245,10 @@ public class ObserverTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Observer( computedValue, Flags.REACT_IMMEDIATELY ) );
+                    () -> new Observer( computedValue, Flags.RUN_NOW ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0208: ComputedValue named 'ComputedValue@1' incorrectly specified REACT_IMMEDIATELY flag but not the KEEPALIVE flag." );
+                  "Arez-0208: ComputedValue named 'ComputedValue@1' incorrectly specified RUN_NOW flag but not the KEEPALIVE flag." );
   }
 
   @Test
@@ -427,7 +427,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( new CountingProcedure(), Flags.DEFER_REACT );
+    final Observer observer = context.observer( new CountingProcedure(), Flags.RUN_LATER );
 
     observer.invariantState();
 
@@ -1750,7 +1750,7 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             trackedExecutable,
                                             onDepsUpdated,
-                                            Flags.DEFER_REACT );
+                                            Flags.RUN_LATER );
 
     context.safeAction( null, true, false, () -> {
       observer.setState( Flags.STATE_STALE );
@@ -1831,7 +1831,7 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             trackedExecutable,
                                             null,
-                                            Flags.DEFER_REACT );
+                                            Flags.RUN_LATER );
     context.safeAction( null, true, false, () -> {
       observer.setState( Flags.STATE_STALE );
 

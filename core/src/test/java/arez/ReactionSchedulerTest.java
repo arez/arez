@@ -683,7 +683,7 @@ public class ReactionSchedulerTest
                     ValueUtil.randomString(),
                     trackedExecutable,
                     null,
-                    Flags.DEFER_REACT );
+                    Flags.RUN_LATER );
 
     observerReference.set( observer );
     context.pauseScheduler();
@@ -757,7 +757,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       trackeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES | Flags.DEFER_REACT );
+                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES | Flags.RUN_LATER );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );
@@ -828,7 +828,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       trackeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES | Flags.DEFER_REACT );
+                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES | Flags.RUN_LATER );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );

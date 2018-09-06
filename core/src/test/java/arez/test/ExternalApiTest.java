@@ -41,7 +41,7 @@ public class ExternalApiTest
       observeADependency();
       callCount.incrementAndGet();
     };
-    context.observer( action, Flags.DEFER_REACT );
+    context.observer( action, Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
 
@@ -587,7 +587,7 @@ public class ExternalApiTest
     context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );

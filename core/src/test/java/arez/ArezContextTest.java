@@ -61,7 +61,7 @@ public class ArezContextTest
     context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
 
@@ -79,7 +79,7 @@ public class ArezContextTest
     context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
 
@@ -107,7 +107,7 @@ public class ArezContextTest
       observeADependency();
       callCount.incrementAndGet();
       assertEquals( environment.get(), "RED" );
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
     assertEquals( environment.get(), null );
@@ -148,7 +148,7 @@ public class ArezContextTest
         callCount.incrementAndGet();
         assertEquals( environment.get(), "RED" );
 
-      }, Flags.DEFER_REACT );
+      }, Flags.RUN_LATER );
 
     observerReference.set( observer );
 
@@ -2000,7 +2000,7 @@ public class ArezContextTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.computed( action, Flags.KEEPALIVE | Flags.REACT_IMMEDIATELY );
+      context.computed( action, Flags.KEEPALIVE | Flags.RUN_NOW );
 
     assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( calls.get(), 1 );
@@ -2018,7 +2018,7 @@ public class ArezContextTest
       calls.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( action, Flags.KEEPALIVE | Flags.DEFER_REACT );
+    final ComputedValue<String> computedValue = context.computed( action, Flags.KEEPALIVE | Flags.RUN_LATER );
 
     assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( calls.get(), 0 );
@@ -2337,7 +2337,7 @@ public class ArezContextTest
     final Observer observer = context.observer( name, () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
@@ -2576,7 +2576,7 @@ public class ArezContextTest
     context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );

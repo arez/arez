@@ -83,7 +83,7 @@ public class ObserverInfoImplTest
       assertEquals( ref.get().isRunning(), true );
       callCount.incrementAndGet();
       observeADependency();
-    }, Flags.DEFER_REACT );
+    }, Flags.RUN_LATER );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
     ref.set( info );
 

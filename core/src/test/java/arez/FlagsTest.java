@@ -185,24 +185,14 @@ public class FlagsTest
   }
 
   @Test
-  public void isReactTypeSpecified()
+  public void isRunTypeValid()
     throws Exception
   {
-    assertTrue( Flags.isReactTypeSpecified( Flags.REACT_IMMEDIATELY ) );
-    assertTrue( Flags.isReactTypeSpecified( Flags.DEFER_REACT ) );
-    assertFalse( Flags.isReactTypeSpecified( 0 ) );
-    assertFalse( Flags.isReactTypeSpecified( Flags.PRIORITY_LOWEST ) );
-  }
-
-  @Test
-  public void isReactTypeValid()
-    throws Exception
-  {
-    assertTrue( Flags.isReactTypeValid( Flags.REACT_IMMEDIATELY ) );
-    assertTrue( Flags.isReactTypeValid( Flags.DEFER_REACT ) );
-    assertFalse( Flags.isReactTypeValid( 0 ) );
-    assertFalse( Flags.isReactTypeValid( Flags.PRIORITY_LOWEST ) );
-    assertFalse( Flags.isReactTypeValid( Flags.READ_ONLY | Flags.READ_WRITE ) );
+    assertTrue( Flags.isRunTypeValid( Flags.RUN_NOW ) );
+    assertTrue( Flags.isRunTypeValid( Flags.RUN_LATER ) );
+    assertFalse( Flags.isRunTypeValid( 0 ) );
+    assertFalse( Flags.isRunTypeValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isRunTypeValid( Flags.READ_ONLY | Flags.READ_WRITE ) );
   }
 
   @Test
@@ -257,11 +247,11 @@ public class FlagsTest
   @Test
   public void defaultReactTypeUnlessSpecified()
   {
-    assertEquals( Flags.defaultReactTypeUnlessSpecified( Flags.REACT_IMMEDIATELY, Flags.REACT_IMMEDIATELY ), 0 );
-    assertEquals( Flags.defaultReactTypeUnlessSpecified( Flags.DEFER_REACT, Flags.REACT_IMMEDIATELY ), 0 );
-    assertEquals( Flags.defaultReactTypeUnlessSpecified( 0, Flags.REACT_IMMEDIATELY ), Flags.REACT_IMMEDIATELY );
-    assertEquals( Flags.defaultReactTypeUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED, Flags.REACT_IMMEDIATELY ),
-                  Flags.REACT_IMMEDIATELY );
+    assertEquals( Flags.defaultRunTypeUnlessSpecified( Flags.RUN_NOW, Flags.RUN_NOW ), 0 );
+    assertEquals( Flags.defaultRunTypeUnlessSpecified( Flags.RUN_LATER, Flags.RUN_NOW ), 0 );
+    assertEquals( Flags.defaultRunTypeUnlessSpecified( 0, Flags.RUN_NOW ), Flags.RUN_NOW );
+    assertEquals( Flags.defaultRunTypeUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED, Flags.RUN_NOW ),
+                  Flags.RUN_NOW );
   }
 
   @Test

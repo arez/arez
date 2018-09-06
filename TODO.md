@@ -13,8 +13,6 @@ complete as there is too much un-said.
 
 * Remove TransactionMode
 
-* Rename `REACT_IMMEDIATELY` and `DEFER_REACT` to `RUN_IMMEDIATELY` and `RUN_LATER`????
-
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 

@@ -431,7 +431,7 @@ final class ComputedDescriptor
     }
 
     final ArrayList<String> flags = new ArrayList<>();
-    flags.add( "DEFER_REACT" );
+    flags.add( "RUN_LATER" );
 
     if ( _observeLowerPriorityDependencies )
     {

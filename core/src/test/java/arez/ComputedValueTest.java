@@ -368,7 +368,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      context.computed( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.DEFER_REACT );
+      context.computed( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.RUN_LATER );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
