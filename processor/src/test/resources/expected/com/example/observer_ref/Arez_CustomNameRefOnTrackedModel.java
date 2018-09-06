@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
+import arez.Options;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -41,7 +42,7 @@ public final class Arez_CustomNameRefOnTrackedModel extends CustomNameRefOnTrack
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CustomNameRefOnTrackedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Options.DEFER_REACT );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

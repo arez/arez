@@ -72,32 +72,6 @@ public final class Observer
    */
   private int _flags;
 
-  Observer( @Nullable final ArezContext context,
-            @Nullable final Component component,
-            @Nullable final String name,
-            @Nullable final ComputedValue<?> computedValue,
-            @Nullable final TransactionMode mode,
-            @Nullable final Procedure tracked,
-            @Nullable final Procedure onDepsUpdated,
-            @Nonnull final Priority priority,
-            final boolean runImmediately,
-            final boolean observeLowerPriorityDependencies,
-            final boolean canNestActions,
-            final boolean arezOnlyDependencies )
-  {
-    this( context, component, name, computedValue, tracked, onDepsUpdated,
-          Arez.shouldCheckApiInvariants() || Arez.shouldCheckApiInvariants()
-          ? ( arezOnlyDependencies ? 0 : Flags.MANUAL_REPORT_STALE_ALLOWED ) |
-            ( observeLowerPriorityDependencies ? Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES : 0 ) |
-            ( canNestActions ? Flags.NESTED_ACTIONS_ALLOWED : Flags.NESTED_ACTIONS_DISALLOWED ) |
-            ( runImmediately ? Flags.REACT_IMMEDIATELY : Flags.DEFER_REACT ) |
-            Flags.priorityToFlag( priority ) |
-            ( Arez.shouldEnforceTransactionType() ?
-              TransactionMode.READ_WRITE == mode ? Flags.READ_WRITE : Flags.READ_ONLY :
-              0 )
-          : 0 );
-  }
-
   Observer( @Nonnull final ComputedValue<?> computedValue, final int flags )
   {
     this( Arez.areZonesEnabled() ? computedValue.getContext() : null,

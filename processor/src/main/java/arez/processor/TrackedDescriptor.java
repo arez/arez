@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
@@ -159,7 +160,7 @@ final class TrackedDescriptor
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = $N().tracker( " +
                "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-               "$T.areNamesEnabled() ? $N() + $S : null, " );
+               "$T.areNamesEnabled() ? $N() + $S : null, () -> super.$N(), " );
     parameters.add( getFieldName() );
     parameters.add( _componentDescriptor.getContextMethodName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -167,24 +168,32 @@ final class TrackedDescriptor
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
-    sb.append( _mutation );
-    sb.append( ", () -> super.$N()" );
     parameters.add( _onDepsChangedMethod.getSimpleName().toString() );
 
-    if ( !"NORMAL".equals( _priority ) || _observeLowerPriorityDependencies || _canNestActions )
+    final ArrayList<String> flags = new ArrayList<>();
+    flags.add( "DEFER_REACT" );
+
+    if ( _observeLowerPriorityDependencies )
     {
-      sb.append( ", $T.$N" );
-      parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
-      parameters.add( _priority );
-      if ( _observeLowerPriorityDependencies || _canNestActions )
-      {
-        sb.append( ", " );
-        sb.append( _observeLowerPriorityDependencies );
-        if ( _canNestActions )
-        {
-          sb.append( ", true" );
-        }
-      }
+      flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( _canNestActions )
+    {
+      flags.add( "NESTED_ACTIONS_ALLOWED" );
+    }
+    if ( _mutation )
+    {
+      flags.add( "READ_WRITE" );
+    }
+    if ( !"NORMAL".equals( _priority ) )
+    {
+      flags.add( "PRIORITY_" + _priority );
+    }
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
     }
 
     sb.append( " )" );

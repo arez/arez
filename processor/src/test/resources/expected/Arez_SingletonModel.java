@@ -55,7 +55,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     this.$$arez$$_time = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_someValue = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue() );
     this.$$arez$$_myAutorun = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAutorun" : null, () -> super.myAutorun(), Options.DEFER_REACT );
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Options.DEFER_REACT );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

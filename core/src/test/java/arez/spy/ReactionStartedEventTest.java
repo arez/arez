@@ -17,7 +17,7 @@ public class ReactionStartedEventTest
   {
     final ArezContext context = Arez.context();
     final String name = "Foo@1";
-    final Observer observer = context.tracker( name, true, ValueUtil::randomString );
+    final Observer observer = context.tracker( name, ValueUtil::randomString );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
     final ReactionStartedEvent event = new ReactionStartedEvent( info );
 

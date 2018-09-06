@@ -46,7 +46,7 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RefOnBothModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Options.DEFER_REACT );
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Options.DEFER_REACT );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

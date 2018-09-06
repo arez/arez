@@ -56,7 +56,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arez$$_myField = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myField" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_myComputed = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.compute() );
     this.$$arez$$_zzzzzz = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, () -> super.zapZap(), Options.DEFER_REACT );
-    this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, () -> super.onRenderDepsChanged(), Options.DEFER_REACT );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

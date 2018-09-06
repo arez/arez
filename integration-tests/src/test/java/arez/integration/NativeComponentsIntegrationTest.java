@@ -38,7 +38,7 @@ public class NativeComponentsIntegrationTest
     final ComputedValue<String> computedValue1 =
       context.computed( component, "Attr3", () -> "", null, null, null );
 
-    final Observer observer1 = context.tracker( component, "Render", true, () -> {
+    final Observer observer1 = context.tracker( component, "Render", () -> {
     } );
 
     assertFalse( component.isComplete() );

@@ -83,7 +83,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_parentGeneralisation = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".parentGeneralisation" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_parentGeneralisation : null, null );
     this.$$arez$$_time = getContext().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale );
     this.$$arez$$_myAutorun = getContext().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, () -> super.myAutorun(), Options.DEFER_REACT );
-    this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, () -> super.onRenderDepsChanged(), Options.DEFER_REACT );
     this.$$arezd$$_elements = new ArrayList<>();
     this.$$arezd$$_$$cache$$_elements = null;
     if ( Arez.shouldCheckApiInvariants() ) {

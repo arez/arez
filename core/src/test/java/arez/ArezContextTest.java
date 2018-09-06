@@ -285,7 +285,7 @@ public class ArezContextTest
     final AtomicInteger updateCalled = new AtomicInteger();
 
     final Observer tracker =
-      context.tracker( null, null, true, updateCalled::incrementAndGet, Priority.NORMAL, false, true );
+      context.tracker( updateCalled::incrementAndGet, Options.READ_WRITE | Options.NESTED_ACTIONS_ALLOWED );
 
     context.track( tracker, () -> {
       assertTrue( context.isTransactionActive() );
@@ -354,7 +354,7 @@ public class ArezContextTest
     final AtomicInteger updateCalled = new AtomicInteger();
 
     final Observer tracker =
-      context.tracker( null, null, true, updateCalled::incrementAndGet, Priority.NORMAL, false, false );
+      context.tracker( updateCalled::incrementAndGet, Options.READ_WRITE | Options.NESTED_ACTIONS_DISALLOWED );
 
     context.track( tracker, () -> {
 
@@ -789,7 +789,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Observer tracker = context.tracker( true, callCount::incrementAndGet );
+    final Observer tracker = context.tracker( callCount::incrementAndGet, Options.READ_WRITE );
 
     final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getObservers().size(), 0 );
@@ -2456,27 +2456,23 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
-    final boolean observeLowerPriorityDependencies = true;
-    final boolean canNestActions = true;
-    final boolean arezOnlyDependencies = false;
     final Observer observer = context.tracker( null,
                                                name,
-                                               false,
                                                callCount::incrementAndGet,
-                                               Priority.HIGH,
-                                               observeLowerPriorityDependencies,
-                                               canNestActions,
-                                               arezOnlyDependencies );
+                                               Options.PRIORITY_HIGH |
+                                               Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
+                                               Options.NESTED_ACTIONS_ALLOWED |
+                                               Options.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
-    assertEquals( observer.canObserveLowerPriorityDependencies(), observeLowerPriorityDependencies );
+    assertEquals( observer.canObserveLowerPriorityDependencies(), true );
     assertEquals( observer.isExternalTracker(), true );
-    assertEquals( observer.canNestActions(), canNestActions );
-    assertEquals( observer.arezOnlyDependencies(), arezOnlyDependencies );
+    assertEquals( observer.canNestActions(), true );
+    assertEquals( observer.arezOnlyDependencies(), false );
     assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
@@ -2497,7 +2493,7 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observer observer = context.tracker( component, name, false, callCount::incrementAndGet );
+    final Observer observer = context.tracker( component, name, callCount::incrementAndGet );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
