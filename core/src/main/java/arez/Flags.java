@@ -405,24 +405,6 @@ public final class Flags
   {
   }
 
-  static int priorityToFlag( @Nonnull final Priority priority )
-  {
-    switch ( priority )
-    {
-      case HIGHEST:
-        return PRIORITY_HIGHEST;
-      case HIGH:
-        return PRIORITY_HIGH;
-      case NORMAL:
-        return PRIORITY_NORMAL;
-      case LOW:
-        return PRIORITY_LOW;
-      case LOWEST:
-      default:
-        return PRIORITY_LOWEST;
-    }
-  }
-
   static int defaultPriorityUnlessSpecified( final int flags )
   {
     return isPrioritySpecified( flags ) ? 0 : PRIORITY_NORMAL;
