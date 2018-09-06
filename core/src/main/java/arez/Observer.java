@@ -224,7 +224,7 @@ public final class Observer
   boolean arezOnlyDependencies()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 == ( _flags & Flags.MANUAL_REPORT_STALE_ALLOWED );
+    return 0 == ( _flags & Flags.NON_AREZ_DEPENDENCIES );
   }
 
   /**

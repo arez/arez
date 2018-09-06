@@ -25,9 +25,9 @@ public final class Flags
    */
   private static final int NESTED_ACTIONS_MASK = 0b01100000000000000000000000000000;
   /**
-   * Flag set to true if the application code can invoke {@link Observer#reportStale()} to indicate non-arez dependency has changed.
+   * Flag set to true if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
    */
-  public static final int MANUAL_REPORT_STALE_ALLOWED = 0b00010000000000000000000000000000;
+  public static final int NON_AREZ_DEPENDENCIES = 0b00010000000000000000000000000000;
   /**
    * Mask used to extract priority bits.
    */

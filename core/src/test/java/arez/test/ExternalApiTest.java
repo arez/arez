@@ -170,7 +170,7 @@ public class ExternalApiTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

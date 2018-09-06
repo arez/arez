@@ -74,7 +74,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    }, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
 
@@ -95,7 +95,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    }, onDepsUpdatedCallCount::incrementAndGet, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsUpdatedCallCount.get(), 0 );

@@ -443,7 +443,7 @@ final class ComputedDescriptor
     }
     if ( !_arezOnlyDependencies )
     {
-      flags.add( "MANUAL_REPORT_STALE_ALLOWED" );
+      flags.add( "NON_AREZ_DEPENDENCIES" );
     }
     if ( !"NORMAL".equals( _priority ) )
     {

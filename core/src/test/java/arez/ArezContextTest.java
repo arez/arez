@@ -1983,7 +1983,7 @@ public class ArezContextTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      Arez.context().computed( () -> "", Flags.MANUAL_REPORT_STALE_ALLOWED );
+      Arez.context().computed( () -> "", Flags.NON_AREZ_DEPENDENCIES );
     assertEquals( computedValue.getObserver().arezOnlyDependencies(), false );
   }
 
@@ -2126,7 +2126,7 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();
-    context.observer( callCount::incrementAndGet, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    context.observer( callCount::incrementAndGet, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
 
@@ -2310,7 +2310,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     final Observer observer =
-      context.observer( AbstractArezTest::observeADependency, Flags.MANUAL_REPORT_STALE_ALLOWED );
+      context.observer( AbstractArezTest::observeADependency, Flags.NON_AREZ_DEPENDENCIES );
     assertEquals( observer.arezOnlyDependencies(), false );
   }
 
@@ -2371,7 +2371,7 @@ public class ArezContextTest
                                                Flags.PRIORITY_HIGH |
                                                Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
                                                Flags.NESTED_ACTIONS_ALLOWED |
-                                               Flags.MANUAL_REPORT_STALE_ALLOWED );
+                                               Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getMode(), TransactionMode.READ_ONLY );

@@ -389,7 +389,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      context.computed( ValueUtil::randomString, Flags.MANUAL_REPORT_STALE_ALLOWED );
+      context.computed( ValueUtil::randomString, Flags.NON_AREZ_DEPENDENCIES );
 
     assertNotNull( context.safeAction( computedValue::get ) );
   }
@@ -686,7 +686,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -738,7 +738,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -802,7 +802,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

@@ -28,7 +28,7 @@ public class ComputedNonArezDependenciesTest
       return result.get();
     };
     final ComputedValue<String> computedValue =
-      context.computed( "TestComputed", action, Flags.MANUAL_REPORT_STALE_ALLOWED | Flags.KEEPALIVE );
+      context.computed( "TestComputed", action, Flags.NON_AREZ_DEPENDENCIES | Flags.KEEPALIVE );
 
     final AtomicInteger autorunCallCount = new AtomicInteger();
     autorun( () -> {
