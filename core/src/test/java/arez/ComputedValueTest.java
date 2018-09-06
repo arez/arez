@@ -24,8 +24,23 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
+    final Procedure onActivate = new NoopProcedure();
+    final Procedure onDeactivate = new NoopProcedure();
+    final Procedure onStale = new NoopProcedure();
+
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           name,
+                           function,
+                           onActivate,
+                           onDeactivate,
+                           onStale,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -35,20 +50,6 @@ public class ComputedValueTest
 
     // Value starts out as null
     assertEquals( computedValue.getValue(), null );
-
-    final Procedure onActivate = new NoopProcedure();
-    final Procedure onDeactivate = new NoopProcedure();
-    final Procedure onStale = new NoopProcedure();
-
-    // All the hooks start out null
-    assertEquals( computedValue.getOnActivate(), null );
-    assertEquals( computedValue.getOnDeactivate(), null );
-    assertEquals( computedValue.getOnStale(), null );
-
-    // Ensure hooks can be modified
-    computedValue.setOnActivate( onActivate );
-    computedValue.setOnDeactivate( onDeactivate );
-    computedValue.setOnStale( onStale );
 
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -81,7 +82,7 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, true, false, true, true );
+      new ComputedValue<>( context, null, name, function, null, null, null, Priority.NORMAL, true, false, true, true );
 
     computedValue.getObserver().invokeReaction();
 
@@ -118,6 +119,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.HIGH,
                            false,
                            false,
@@ -148,6 +152,9 @@ public class ComputedValueTest
                                                component,
                                                name,
                                                () -> "",
+                                               null,
+                                               null,
+                                               null,
                                                Priority.NORMAL,
                                                false,
                                                false,
@@ -173,7 +180,18 @@ public class ComputedValueTest
 
     final String name = ValueUtil.randomString();
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, component, name, () -> "", Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           component,
+                           name,
+                           () -> "",
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
@@ -207,7 +225,18 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           name,
+                           function,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
     ref.set( computedValue );
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -232,7 +261,18 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           name,
+                           function,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( computedValue.getObserver() );
@@ -268,7 +308,18 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           name,
+                           function,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
@@ -307,7 +358,18 @@ public class ComputedValueTest
       return value.get();
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           name,
+                           function,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
@@ -344,7 +406,18 @@ public class ComputedValueTest
       throw new IllegalStateException( message );
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           name,
+                           function,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           false,
+                           false,
+                           false,
+                           true );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
@@ -376,7 +449,18 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false, false, true );
+      new ComputedValue<>( context,
+                           null,
+                           "XYZ",
+                           ValueUtil::randomString,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           true,
+                           false,
+                           false,
+                           true );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
@@ -397,7 +481,18 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false, false, false );
+      new ComputedValue<>( context,
+                           null,
+                           "XYZ",
+                           ValueUtil::randomString,
+                           null,
+                           null,
+                           null,
+                           Priority.NORMAL,
+                           true,
+                           false,
+                           false,
+                           false );
 
     final String value = Arez.context().safeAction( computedValue::get );
     assertNotNull( value );
@@ -501,6 +596,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -528,6 +626,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -562,6 +663,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -596,6 +700,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -634,6 +741,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -661,6 +771,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -694,6 +807,9 @@ public class ComputedValueTest
                            null,
                            ValueUtil.randomString(),
                            () -> "",
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,

@@ -65,17 +65,17 @@ public final class ComputedValue<T>
    * Hook action called when the ComputedValue moves to observed state.
    */
   @Nullable
-  private Procedure _onActivate;
+  private final Procedure _onActivate;
   /**
    * Hook action called when the ComputedValue moves to un-observed state from any other state.
    */
   @Nullable
-  private Procedure _onDeactivate;
+  private final Procedure _onDeactivate;
   /**
    * Hook action called when the ComputedValue moves from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
    */
   @Nullable
-  private Procedure _onStale;
+  private final Procedure _onStale;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -87,6 +87,9 @@ public final class ComputedValue<T>
                  @Nullable final Component component,
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
+                 @Nullable final Procedure onActivate,
+                 @Nullable final Procedure onDeactivate,
+                 @Nullable final Procedure onStale,
                  @Nonnull final Priority priority,
                  final boolean keepAlive,
                  final boolean runImmediately,
@@ -102,6 +105,9 @@ public final class ComputedValue<T>
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
+    _onActivate = onActivate;
+    _onDeactivate = onDeactivate;
+    _onStale = onStale;
     _value = null;
     _computing = false;
     final int flags =
@@ -280,16 +286,6 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Set the onActivate hook.
-   *
-   * @param onActivate the hook.
-   */
-  void setOnActivate( @Nullable final Procedure onActivate )
-  {
-    _onActivate = onActivate;
-  }
-
-  /**
    * Return the onActivate hook.
    *
    * @return the onActivate hook.
@@ -301,16 +297,6 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Set the onDeactivate hook.
-   *
-   * @param onDeactivate the hook.
-   */
-  void setOnDeactivate( @Nullable final Procedure onDeactivate )
-  {
-    _onDeactivate = onDeactivate;
-  }
-
-  /**
    * Return the onDeactivate hook.
    *
    * @return the onDeactivate hook.
@@ -319,16 +305,6 @@ public final class ComputedValue<T>
   Procedure getOnDeactivate()
   {
     return _onDeactivate;
-  }
-
-  /**
-   * Set the onStale hook.
-   *
-   * @param onStale the hook.
-   */
-  void setOnStale( @Nullable final Procedure onStale )
-  {
-    _onStale = onStale;
   }
 
   /**

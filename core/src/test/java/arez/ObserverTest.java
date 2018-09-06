@@ -768,7 +768,12 @@ public class ObserverTest
   public void setState_onComputedValue()
     throws Exception
   {
-    final ComputedValue<String> computedValue = Arez.context().computed( () -> "" );
+    final TestProcedure onActivate = new TestProcedure();
+    final TestProcedure onDeactivate = new TestProcedure();
+    final TestProcedure onStale = new TestProcedure();
+
+    final ComputedValue<String> computedValue =
+      Arez.context().computed( null, null, () -> "", onActivate, onDeactivate, onStale );
     final ObservableValue<String> derivedValue = computedValue.getObservableValue();
     final Observer observer = computedValue.getObserver();
 
@@ -781,14 +786,6 @@ public class ObserverTest
     watcher.getDependencies().add( observer.getComputedValue().getObservableValue() );
 
     watcher.setState( Flags.STATE_UP_TO_DATE );
-
-    final TestProcedure onActivate = new TestProcedure();
-    final TestProcedure onDeactivate = new TestProcedure();
-    final TestProcedure onStale = new TestProcedure();
-
-    computedValue.setOnActivate( onActivate );
-    computedValue.setOnDeactivate( onDeactivate );
-    computedValue.setOnStale( onStale );
 
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
 
@@ -1297,6 +1294,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1479,6 +1479,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1499,6 +1502,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function2,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1532,6 +1538,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function1,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1551,6 +1560,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1583,6 +1595,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function1,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1602,6 +1617,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,
@@ -1632,6 +1650,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false, false,
@@ -1647,6 +1668,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false, false,
@@ -1677,6 +1701,9 @@ public class ObserverTest
                            null,
                            ValueUtil.randomString(),
                            function,
+                           null,
+                           null,
+                           null,
                            Priority.NORMAL,
                            false,
                            false,

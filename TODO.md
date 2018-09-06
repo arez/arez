@@ -10,7 +10,6 @@ complete as there is too much un-said.
   class to list flags by name ... so can give list of unexpected flags
 * Remove TransactionMode
 
-* Move on* parameters to ComputedValue as constructor args.
 
 * Rename `REACT_IMMEDIATELY` and `DEFER_REACT` to `RUN_IMMEDIATELY` and `RUN_LATER`????
 
