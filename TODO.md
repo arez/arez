@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* `MANUAL_REPORT_STALE_ALLOWED` is used to pass to computed so that it can invoke `reportPossiblyChanged` which
+  seems incorrect. We should use terminology that works for both computed and observers. Maybe `NON_AREZ_DEPENDENCIES`?
+
 * Add check into observer to ensure no flags that are not expected are passed in. Also add ability for `Flags`
   class to list flags by name ... so can give list of unexpected flags
 
