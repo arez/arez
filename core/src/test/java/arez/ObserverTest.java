@@ -1281,16 +1281,16 @@ public class ObserverTest
   public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
     throws Exception
   {
-    final ObservableValue<Object> observableValue = Arez.context().observable();
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observableValue = context.observable();
     final TestSpyEventHandler handler = new TestSpyEventHandler();
-    Arez.context().getSpy().addSpyEventHandler( handler );
 
     final SafeFunction<Integer> function = () -> {
       observableValue.reportObserved();
       return 1;
     };
     final ComputedValue<Integer> computedValue =
-      new ComputedValue<>( Arez.context(),
+      new ComputedValue<>( context,
                            null,
                            ValueUtil.randomString(),
                            function,
@@ -1302,6 +1302,8 @@ public class ObserverTest
                            false,
                            false,
                            true );
+
+    context.getSpy().addSpyEventHandler( handler );
 
     computedValue.getObserver().invokeReaction();
 

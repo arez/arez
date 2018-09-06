@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ComputedValueInfo;
 import java.util.ArrayList;
@@ -133,6 +134,10 @@ public final class ComputedValue<T>
     else if ( Arez.areRegistriesEnabled() )
     {
       getContext().registerComputedValue( this );
+    }
+    if ( willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( asInfo() ) );
     }
   }
 

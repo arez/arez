@@ -3,7 +3,6 @@ package arez;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
-import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
@@ -577,10 +576,6 @@ public final class ArezContext
                            runImmediately,
                            observeLowerPriorityDependencies,
                            arezOnlyDependencies );
-    if ( willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue.asInfo() ) );
-    }
     if ( keepAlive )
     {
       computedValue.getObserver().initialSchedule();
