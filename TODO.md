@@ -21,9 +21,6 @@ complete as there is too much un-said.
 
 * Implement something similar to `getDependencyTree` from mobx
 
-* Rename `ObservableValue.hasOwner()` to `ObservableValue.isComputedValue()`
-* Rename `ObservableValue.getOwner()` to `ObservableValue.getObserver()`
-
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless

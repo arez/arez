@@ -50,8 +50,8 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), Flags.STATE_INACTIVE );
     assertEquals( computedValue.getObservableValue().getName(), name );
-    assertEquals( computedValue.getObservableValue().hasOwner(), true );
-    assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
+    assertEquals( computedValue.getObservableValue().isComputedValue(), true );
+    assertEquals( computedValue.getObservableValue().getObserver(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
     assertEquals( context.getTopLevelObservers().size(), 0 );
@@ -90,8 +90,8 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( computedValue.getObservableValue().getName(), name );
-    assertEquals( computedValue.getObservableValue().hasOwner(), true );
-    assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
+    assertEquals( computedValue.getObservableValue().isComputedValue(), true );
+    assertEquals( computedValue.getObservableValue().getObserver(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
     assertEquals( context.getTopLevelObservers().size(), 0 );

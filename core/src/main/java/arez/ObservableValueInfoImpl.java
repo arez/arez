@@ -62,7 +62,7 @@ final class ObservableValueInfoImpl
   @Override
   public boolean isComputedValue()
   {
-    return _observableValue.hasOwner();
+    return _observableValue.isComputedValue();
   }
 
   /**
@@ -71,7 +71,7 @@ final class ObservableValueInfoImpl
   @Override
   public ComputedValueInfo asComputedValue()
   {
-    return _observableValue.getOwner().getComputedValue().asInfo();
+    return _observableValue.getObserver().getComputedValue().asInfo();
   }
 
   /**

@@ -555,7 +555,7 @@ final class Transaction
        */
       if ( Arez.shouldCheckInvariants() )
       {
-        invariant( () -> !observableValue.hasOwner() || _tracker != observableValue.getOwner(),
+        invariant( () -> !observableValue.isComputedValue() || _tracker != observableValue.getObserver(),
                    () -> "Arez-0143: Invoked observe on transaction named '" +
                          getName() +
                          "' for observableValue named '" +
@@ -671,7 +671,7 @@ final class Transaction
                  () -> "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
                        "ObservableValue named '" + observableValue.getName() + "' where the ObservableValue" +
                        " is disposed." );
-      invariant( observableValue::hasOwner,
+      invariant( observableValue::isComputedValue,
                  () -> "Arez-0147: Transaction named '" + getName() + "' has attempted to mark " +
                        "ObservableValue named '" + observableValue.getName() + "' as potentially changed but " +
                        "ObservableValue is not a derived value." );
@@ -716,7 +716,7 @@ final class Transaction
                  () -> "Arez-0149: Invoked reportChangeConfirmed on transaction named '" +
                        getName() + "' for ObservableValue named '" +
                        observableValue.getName() + "' where the ObservableValue is disposed." );
-      invariant( observableValue::hasOwner,
+      invariant( observableValue::isComputedValue,
                  () -> "Arez-0150: Transaction named '" + getName() + "' has attempted to mark " +
                        "ObservableValue named '" + observableValue.getName() + "' as potentially changed " +
                        "but ObservableValue is not a derived value." );
@@ -803,7 +803,7 @@ final class Transaction
       {
         if ( Arez.shouldCheckInvariants() )
         {
-          invariant( () -> observableValue.hasOwner() && observableValue.getOwner() == _tracker,
+          invariant( () -> observableValue.isComputedValue() && observableValue.getObserver() == _tracker,
                      () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
                            " ObservableValue named '" + observableValue.getName() + "' and the transaction mode is " +
                            "READ_WRITE_OWNED but the ObservableValue has not been created by the transaction." );
@@ -866,9 +866,9 @@ final class Transaction
           }
           currentIndex++;
 
-          if ( observableValue.hasOwner() )
+          if ( observableValue.isComputedValue() )
           {
-            final Observer owner = observableValue.getOwner();
+            final Observer owner = observableValue.getObserver();
             final int dependenciesState = owner.getState();
             if ( dependenciesState == Flags.STATE_STALE )
             {

@@ -90,7 +90,7 @@ public class ObserverTest
     assertEquals( observer.shouldExecuteTrackedNext(), true );
 
     assertEquals( computedValue.getObservableValue().getName(), observer.getName() );
-    assertEquals( computedValue.getObservableValue().getOwner(), observer );
+    assertEquals( computedValue.getObservableValue().getObserver(), observer );
 
     assertEquals( computedValue.getName(), observer.getName() );
     assertEquals( computedValue.getObserver(), observer );

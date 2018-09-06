@@ -46,10 +46,10 @@ public class ObservableValueTest
     assertEquals( observableValue.isInCurrentTracking(), false );
 
     // Fields for calculated observables in this non-calculated variant
-    assertEquals( observableValue.hasOwner(), false );
+    assertEquals( observableValue.isComputedValue(), false );
     assertEquals( observableValue.canDeactivate(), false );
 
-    assertEquals( observableValue.hasOwner(), false );
+    assertEquals( observableValue.isComputedValue(), false );
 
     assertEquals( observableValue.isActive(), true );
 
@@ -73,11 +73,11 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observableValue.getOwner(), observer );
+    assertEquals( observableValue.getObserver(), observer );
     assertEquals( observableValue.getComponent(), null );
     assertEquals( observableValue.canDeactivate(), true );
 
-    assertEquals( observableValue.hasOwner(), true );
+    assertEquals( observableValue.isComputedValue(), true );
 
     assertEquals( observableValue.isActive(), true );
 
@@ -434,8 +434,8 @@ public class ObservableValueTest
                     () -> new ObservableValue<>( context, null, name, owner, null, null ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0057: ObservableValue named '" + name +
-                  "' has owner specified but owner is not a derivation." );
+                  "Arez-0057: ObservableValue named '" + name + "' has observer specified but " +
+                  "observer is not part of a ComputedValue." );
   }
 
   @Test

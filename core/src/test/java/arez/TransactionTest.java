@@ -206,7 +206,7 @@ public class TransactionTest
     // This section essentially verifies processPendingDeactivations() is called
     assertEquals( observableValue2.isPendingDeactivation(), false );
     assertEquals( observableValue2.isActive(), false );
-    assertEquals( observableValue2.getOwner(), derivation );
+    assertEquals( observableValue2.getObserver(), derivation );
     assertEquals( derivation.getState(), Flags.STATE_INACTIVE );
   }
 
@@ -1150,7 +1150,7 @@ public class TransactionTest
 
     assertEquals( observableValue.isPendingDeactivation(), false );
     assertEquals( observableValue.isActive(), false );
-    assertEquals( observableValue.getOwner(), derivation );
+    assertEquals( observableValue.getObserver(), derivation );
     assertEquals( derivation.getState(), Flags.STATE_INACTIVE );
   }
 
@@ -1283,13 +1283,13 @@ public class TransactionTest
 
     assertEquals( observableValue3.isPendingDeactivation(), false );
     assertEquals( observableValue3.isActive(), false );
-    assertEquals( observableValue3.getOwner(), derivation2 );
+    assertEquals( observableValue3.getObserver(), derivation2 );
     assertEquals( observableValue2.isPendingDeactivation(), false );
     assertEquals( observableValue2.isActive(), false );
-    assertEquals( observableValue2.getOwner(), derivation1 );
+    assertEquals( observableValue2.getObserver(), derivation1 );
     assertEquals( observableValue1.isPendingDeactivation(), false );
     assertEquals( observableValue1.isActive(), true );
-    assertEquals( observableValue1.hasOwner(), false );
+    assertEquals( observableValue1.isComputedValue(), false );
     assertEquals( derivation2.getState(), Flags.STATE_INACTIVE );
     assertEquals( derivation2.getDependencies().size(), 0 );
     assertEquals( observableValue2.getObservers().size(), 0 );
@@ -1332,7 +1332,7 @@ public class TransactionTest
 
     assertEquals( derivedObservableValue.isPendingDeactivation(), false );
     assertEquals( derivedObservableValue.isActive(), false );
-    assertEquals( derivedObservableValue.getOwner(), derivation );
+    assertEquals( derivedObservableValue.getObserver(), derivation );
     assertEquals( derivation.getState(), Flags.STATE_INACTIVE );
     assertEquals( derivation.getDependencies().size(), 0 );
     assertEquals( baseObservableValue.getObservers().size(), 0 );

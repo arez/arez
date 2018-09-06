@@ -724,9 +724,9 @@ public final class Observer
       {
         for ( final ObservableValue observableValue : getDependencies() )
         {
-          if ( observableValue.hasOwner() )
+          if ( observableValue.isComputedValue() )
           {
-            final Observer owner = observableValue.getOwner();
+            final Observer owner = observableValue.getObserver();
             final ComputedValue computedValue = owner.getComputedValue();
             try
             {
@@ -859,7 +859,7 @@ public final class Observer
       if ( null != _computedValue && _computedValue.isNotDisposed() )
       {
         final ObservableValue<?> observableValue = _computedValue.getObservableValue();
-        invariant( () -> Objects.equals( observableValue.hasOwner() ? observableValue.getOwner() : null, this ),
+        invariant( () -> Objects.equals( observableValue.isComputedValue() ? observableValue.getObserver() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
                          "does not link back to observer." );
       }
