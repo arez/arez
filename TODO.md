@@ -8,8 +8,8 @@ complete as there is too much un-said.
 
 * Add check into observer to ensure no flags that are not expected are passed in. Also add ability for `Flags`
   class to list flags by name ... so can give list of unexpected flags
-* Remove TransactionMode
 
+* Remove TransactionMode
 
 * Rename `REACT_IMMEDIATELY` and `DEFER_REACT` to `RUN_IMMEDIATELY` and `RUN_LATER`????
 
