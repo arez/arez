@@ -8,6 +8,7 @@ import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ReactionScheduledEvent;
+import arez.spy.Spy;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;

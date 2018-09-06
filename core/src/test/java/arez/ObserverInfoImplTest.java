@@ -4,6 +4,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.ElementInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.Spy;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;

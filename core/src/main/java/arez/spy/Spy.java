@@ -1,10 +1,10 @@
-package arez;
+package arez.spy;
 
-import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
-import arez.spy.ObservableValueInfo;
-import arez.spy.ObserverInfo;
-import arez.spy.TransactionInfo;
+import arez.Arez;
+import arez.Component;
+import arez.ComputedValue;
+import arez.ObservableValue;
+import arez.Observer;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

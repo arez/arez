@@ -52,6 +52,8 @@
   use a bit mask so it is easy to pass flags when creating the underlying `ComputedValue` instances.
 * **\[core\]** Refactor the `ArezContext.computed(...)` methods to change the way configuration is passed into to
   be flags so that it matches the underlying representation of configuration.
+* **\[core\]** Move `arez.Spy` to `arez.spy.Spy` and `arez.SpyEventHandler` to `arez.spy.SpyEventHandler` so that
+  the Arez Spy API is located in a single package.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

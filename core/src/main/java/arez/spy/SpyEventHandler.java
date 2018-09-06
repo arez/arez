@@ -1,4 +1,4 @@
-package arez;
+package arez.spy;
 
 import javax.annotation.Nonnull;
 

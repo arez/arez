@@ -171,9 +171,7 @@ public final class ArezBuildAsserts
   public static void assertSpyOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
     index.assertSymbol( "arez\\.spy\\..*", enabled );
-    index.assertSymbol( "arez\\.Spy.*", enabled );
     index.assertSymbol( "arez\\..*InfoImpl", enabled );
-    index.assertSymbol( "arez\\..*Info", enabled );
     index.assertSymbol( "arez\\.Priority", enabled );
     index.assertSymbol( "arez\\.ObservableValue", "_info", enabled );
     index.assertSymbol( "arez\\.ComputedValue", "_info", enabled );

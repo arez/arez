@@ -2,6 +2,7 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ObservableValueInfo;
+import arez.spy.Spy;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;

@@ -2,7 +2,7 @@ package arez.integration.util;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.SpyEventHandler;
+import arez.spy.SpyEventHandler;
 import arez.spy.SerializableEvent;
 import java.io.File;
 import java.io.IOException;

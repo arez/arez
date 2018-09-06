@@ -12,7 +12,7 @@ import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
 import arez.SafeFunction;
-import arez.SpyEventHandler;
+import arez.spy.SpyEventHandler;
 import arez.Zone;
 import java.util.ArrayList;
 import java.util.Arrays;
