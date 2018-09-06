@@ -555,14 +555,6 @@ public final class ArezContext
                                         final boolean observeLowerPriorityDependencies,
                                         final boolean arezOnlyDependencies )
   {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> !keepAlive || null == onActivate,
-                    () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
-      apiInvariant( () -> !keepAlive || null == onDeactivate,
-                    () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
-    }
-
     return new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
                                 component,
                                 generateNodeName( "ComputedValue", name ),
