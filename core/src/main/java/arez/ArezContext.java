@@ -563,24 +563,18 @@ public final class ArezContext
                     () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
     }
 
-    final ComputedValue<T> computedValue =
-      new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
-                           component,
-                           generateNodeName( "ComputedValue", name ),
-                           function,
-                           onActivate,
-                           onDeactivate,
-                           onStale,
-                           priority,
-                           keepAlive,
-                           runImmediately,
-                           observeLowerPriorityDependencies,
-                           arezOnlyDependencies );
-    if ( keepAlive )
-    {
-      computedValue.getObserver().initialSchedule();
-    }
-    return computedValue;
+    return new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
+                                component,
+                                generateNodeName( "ComputedValue", name ),
+                                function,
+                                onActivate,
+                                onDeactivate,
+                                onStale,
+                                priority,
+                                keepAlive,
+                                runImmediately,
+                                observeLowerPriorityDependencies,
+                                arezOnlyDependencies );
   }
 
   /**

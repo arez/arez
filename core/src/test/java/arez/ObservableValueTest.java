@@ -1277,13 +1277,17 @@ public class ObservableValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    setupReadOnlyTransaction( context );
+
+    final ObservableValue<Object> observable = context.observable();
 
     final ComputedValue<String> computedValue =
       new ComputedValue<>( context,
                            null,
                            ValueUtil.randomString(),
-                           () -> "",
+                           () -> {
+                             observable.reportObserved();
+                             return "";
+                           },
                            null,
                            null,
                            null,
@@ -1295,7 +1299,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::deactivate );
+      expectThrows( IllegalStateException.class, () -> context.safeAction( observableValue::deactivate ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0061: Invoked deactivate on ObservableValue named '" +

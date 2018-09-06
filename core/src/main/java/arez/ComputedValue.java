@@ -139,6 +139,10 @@ public final class ComputedValue<T>
     {
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( asInfo() ) );
     }
+    if ( keepAlive )
+    {
+      getObserver().initialSchedule();
+    }
   }
 
   /**
