@@ -2139,56 +2139,6 @@ public class ArezContextTest
   }
 
   @Test
-  public void computedValue_withKeepAliveAndOnActivate()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Procedure action = () -> {
-    };
-    final SafeFunction<String> function = () -> {
-      observeADependency();
-      return "";
-    };
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.computed( null,
-                                            ValueUtil.randomString(),
-                                            function,
-                                            action,
-                                            null,
-                                            null,
-                                            Priority.NORMAL,
-                                            true,
-                                            true ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
-  }
-
-  @Test
-  public void computedValue_withKeepAliveAndOnDeactivate()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Procedure action = AbstractArezTest::observeADependency;
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.computed( null,
-                                            ValueUtil.randomString(),
-                                            () -> "",
-                                            null,
-                                            action,
-                                            null,
-                                            Priority.NORMAL,
-                                            true,
-                                            true ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
-  }
-
-  @Test
   public void observer_noObservers()
     throws Exception
   {

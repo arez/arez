@@ -104,6 +104,13 @@ public final class ComputedValue<T>
                  () -> "Arez-0048: ComputedValue named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
     }
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !keepAlive || null == onActivate,
+                    () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
+      apiInvariant( () -> !keepAlive || null == onDeactivate,
+                    () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
+    }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
     _onActivate = onActivate;
