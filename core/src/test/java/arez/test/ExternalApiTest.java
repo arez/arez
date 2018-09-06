@@ -10,7 +10,6 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Options;
-import arez.Priority;
 import arez.Procedure;
 import arez.SafeFunction;
 import arez.SpyEventHandler;
@@ -166,14 +165,12 @@ public class ExternalApiTest
     final AtomicInteger result = new AtomicInteger();
     final AtomicReference<String> expected = new AtomicReference<>();
 
-    final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observeADependency();
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, Priority.NORMAL, false, false, false, false );
+    final ComputedValue<String> computedValue = context.computed( function, Options.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

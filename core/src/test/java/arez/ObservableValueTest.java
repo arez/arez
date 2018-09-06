@@ -575,19 +575,7 @@ public class ObservableValueTest
                     Flags.PRIORITY_HIGH );
     setCurrentTransaction( observer );
 
-    final ObservableValue<?> observableValue =
-      new ComputedValue<>( context,
-                           null,
-                           ValueUtil.randomString(),
-                           () -> "",
-                           null,
-                           null,
-                           null,
-                           Priority.NORMAL,
-                           false,
-                           false,
-                           false,
-                           true ).getObservableValue();
+    final ObservableValue<?> observableValue = context.computed( () -> "" ).getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final IllegalStateException exception =
@@ -613,19 +601,7 @@ public class ObservableValueTest
                     Flags.PRIORITY_HIGH | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     setCurrentTransaction( observer );
 
-    final ObservableValue<?> observableValue =
-      new ComputedValue<>( context,
-                           null,
-                           ValueUtil.randomString(),
-                           () -> "",
-                           null,
-                           null,
-                           null,
-                           Priority.NORMAL,
-                           false,
-                           false,
-                           false,
-                           true ).getObservableValue();
+    final ObservableValue<?> observableValue = context.computed( () -> "" ).getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
@@ -1280,23 +1256,10 @@ public class ObservableValueTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context,
-                           null,
-                           ValueUtil.randomString(),
-                           () -> {
-                             observable.reportObserved();
-                             return "";
-                           },
-                           null,
-                           null,
-                           null,
-                           Priority.NORMAL,
-                           true,
-                           false,
-                           false,
-                           true );
-    final ObservableValue<?> observableValue = computedValue.getObservableValue();
+    final ObservableValue<?> observableValue = context.computed( () -> {
+      observable.reportObserved();
+      return "";
+    }, Options.KEEPALIVE ).getObservableValue();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.safeAction( observableValue::deactivate ) );
@@ -1786,17 +1749,7 @@ public class ObservableValueTest
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final String expectedValue = ValueUtil.randomString();
-    final ComputedValue<String> computedValue =
-      context.computed( null,
-                        ValueUtil.randomString(),
-                        () -> expectedValue,
-                        null,
-                        null,
-                        null,
-                        Priority.NORMAL,
-                        false,
-                        false,
-                        true );
+    final ComputedValue<String> computedValue = context.computed( () -> expectedValue );
     computedValue.setValue( expectedValue );
     final Observer derivation = computedValue.getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );

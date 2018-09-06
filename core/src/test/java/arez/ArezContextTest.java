@@ -1936,7 +1936,7 @@ public class ArezContextTest
                         onActivate,
                         onDeactivate,
                         onStale,
-                        Priority.HIGH );
+                        Options.PRIORITY_HIGH );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
@@ -1973,16 +1973,7 @@ public class ArezContextTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      Arez.context().computed( null,
-                               ValueUtil.randomString(),
-                               () -> "",
-                               null,
-                               null,
-                               null,
-                               Priority.NORMAL,
-                               false,
-                               false,
-                               true );
+      Arez.context().computed( () -> "", Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
   }
@@ -1992,18 +1983,7 @@ public class ArezContextTest
     throws Exception
   {
     final ComputedValue<String> computedValue =
-      Arez.context().computed( null,
-                               ValueUtil.randomString(),
-                               () -> "",
-                               null,
-                               null,
-                               null,
-                               Priority.NORMAL,
-                               false,
-                               false,
-                               true,
-                               false );
-
+      Arez.context().computed( () -> "", Options.MANUAL_REPORT_STALE_ALLOWED );
     assertEquals( computedValue.getObserver().arezOnlyDependencies(), false );
   }
 
@@ -2013,7 +1993,6 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final String name = ValueUtil.randomString();
     final AtomicInteger calls = new AtomicInteger();
     final SafeFunction<String> action = () -> {
       observeADependency();
@@ -2021,17 +2000,8 @@ public class ArezContextTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.computed( null,
-                        name,
-                        action,
-                        null,
-                        null,
-                        null,
-                        Priority.NORMAL,
-                        true,
-                        true );
+      context.computed( action, Options.KEEPALIVE | Options.REACT_IMMEDIATELY );
 
-    assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( calls.get(), 1 );
   }
@@ -2042,25 +2012,14 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final String name = ValueUtil.randomString();
     final AtomicInteger calls = new AtomicInteger();
     final SafeFunction<String> action = () -> {
       observeADependency();
       calls.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue =
-      context.computed( null,
-                        name,
-                        action,
-                        null,
-                        null,
-                        null,
-                        Priority.NORMAL,
-                        true,
-                        false );
+    final ComputedValue<String> computedValue = context.computed( action, Options.KEEPALIVE | Options.DEFER_REACT );
 
-    assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( calls.get(), 0 );
 

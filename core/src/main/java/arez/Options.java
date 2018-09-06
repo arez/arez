@@ -82,6 +82,17 @@ public final class Options
    * specified if {@link #REACT_IMMEDIATELY} is specified.
    */
   public static final int DEFER_REACT = Flags.DEFER_REACT;
+  /**
+   * The runtime will keep the observer reacting to dependencies until disposed. This should not be
+   * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
+   * that supply a tracked function.
+   */
+  public static final int KEEPALIVE = Flags.KEEPALIVE;
+  /**
+   * The flag is valid on observers associated with computed values and will deactivate the observer if the
+   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   */
+  public static final int DEACTIVATE_ON_UNOBSERVE = Flags.DEACTIVATE_ON_UNOBSERVE;
 
   private Options()
   {

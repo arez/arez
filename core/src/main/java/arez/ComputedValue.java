@@ -91,11 +91,7 @@ public final class ComputedValue<T>
                  @Nullable final Procedure onActivate,
                  @Nullable final Procedure onDeactivate,
                  @Nullable final Procedure onStale,
-                 @Nonnull final Priority priority,
-                 final boolean keepAlive,
-                 final boolean runImmediately,
-                 final boolean observeLowerPriorityDependencies,
-                 final boolean arezOnlyDependencies )
+                 final int flags )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -106,9 +102,9 @@ public final class ComputedValue<T>
     }
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !keepAlive || null == onActivate,
+      apiInvariant( () -> Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null == onActivate,
                     () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
-      apiInvariant( () -> !keepAlive || null == onDeactivate,
+      apiInvariant( () -> Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null == onDeactivate,
                     () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
@@ -118,14 +114,6 @@ public final class ComputedValue<T>
     _onStale = onStale;
     _value = null;
     _computing = false;
-    final int flags =
-      Flags.priorityToFlag( priority ) |
-      ( runImmediately ? Flags.REACT_IMMEDIATELY : Flags.DEFER_REACT ) |
-      ( keepAlive ? Flags.KEEPALIVE : Flags.DEACTIVATE_ON_UNOBSERVE ) |
-      ( Arez.shouldCheckApiInvariants() && !arezOnlyDependencies ? Flags.MANUAL_REPORT_STALE_ALLOWED : 0 ) |
-      ( Arez.shouldCheckApiInvariants() && observeLowerPriorityDependencies ?
-        Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES :
-        0 );
     _observer = new Observer( this, flags );
     _observableValue =
       new ObservableValue<>( context,
@@ -146,7 +134,7 @@ public final class ComputedValue<T>
     {
       getSpy().reportSpyEvent( new ComputedValueCreatedEvent( asInfo() ) );
     }
-    if ( keepAlive )
+    if ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) )
     {
       getObserver().initialSchedule();
     }

@@ -124,12 +124,28 @@ final class MemoizeDescriptor
 
     sb.append( "), " );
     sb.append( _memoize.getParameters().size() );
-    sb.append( ", $T.$N," );
-    sb.append( _observeLowerPriorityDependencies );
-    sb.append( " )" );
-    parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
-    parameters.add( _priority );
+    final boolean nonNormalPriority = !"NORMAL".equals( _priority );
+    if ( _observeLowerPriorityDependencies || nonNormalPriority )
+    {
+      sb.append( ", " );
+      if ( _observeLowerPriorityDependencies )
+      {
+        sb.append( "$T.OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+        parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
+      }
+      if ( nonNormalPriority )
+      {
+        if ( _observeLowerPriorityDependencies )
+        {
+          sb.append( " | " );
+        }
+        sb.append( "$T.PRIORITY_" );
+        sb.append( _priority );
+        parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
+      }
+    }
 
+    sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
 

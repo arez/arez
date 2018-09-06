@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -327,7 +328,7 @@ final class ComputedDescriptor
                  "$N().computed( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
-                 "() -> super.$N()" );
+                 "() -> super.$N(), " );
       parameters.add( getFieldName() );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
       parameters.add( _componentDescriptor.getContextMethodName() );
@@ -337,13 +338,13 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      appendInitializerSuffix( parameters, sb );
+      appendInitializerSuffix( parameters, sb, true );
 
       // Else part of ternary
       sb.append( " : $N().computed( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
-                 "() -> super.$N()" );
+                 "() -> super.$N(), " );
       parameters.add( _componentDescriptor.getContextMethodName() );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
       parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
@@ -351,21 +352,14 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( _keepAlive || hasNonNormalPriority() || _observeLowerPriorityDependencies || !_arezOnlyDependencies )
-      {
-        appendInitializerSuffix( parameters, sb );
-      }
-      else
-      {
-        sb.append( " )" );
-      }
+      appendInitializerSuffix( parameters, sb, false );
     }
     else // hasHooks()
     {
       sb.append( "this.$N = $N().computed( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
-                 "() -> super.$N()" );
+                 "() -> super.$N(), " );
       parameters.add( getFieldName() );
       parameters.add( _componentDescriptor.getContextMethodName() );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
@@ -374,103 +368,94 @@ final class ComputedDescriptor
       parameters.add( _componentDescriptor.getComponentNameMethodName() );
       parameters.add( "." + getName() );
       parameters.add( _computed.getSimpleName().toString() );
-      if ( hasHooks() ||
-           _keepAlive ||
-           hasNonNormalPriority() ||
-           _observeLowerPriorityDependencies ||
-           !_arezOnlyDependencies )
-      {
-        appendInitializerSuffix( parameters, sb );
-      }
-      else
-      {
-        sb.append( " )" );
-      }
+      appendInitializerSuffix( parameters, sb, true );
     }
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
 
-  private boolean hasNonNormalPriority()
-  {
-    return !"NORMAL".equals( _priority );
-  }
-
   private void appendInitializerSuffix( @Nonnull final ArrayList<Object> parameters,
-                                        @Nonnull final StringBuilder sb )
+                                        @Nonnull final StringBuilder sb,
+                                        final boolean areCollectionsPropertiesUnmodifiable )
   {
-    sb.append( ", " );
-    if ( isCollectionType() )
+    final boolean isCollectionType = isCollectionType();
+    if ( hasHooks() || ( isCollectionType && areCollectionsPropertiesUnmodifiable ) )
     {
-      sb.append( "this::$N" );
-      parameters.add( getOnActivateHookMethodName() );
-    }
-    else if ( null != _onActivate )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onActivate.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
-    sb.append( ", " );
-
-    if ( isCollectionType() )
-    {
-      sb.append( "this::$N" );
-      parameters.add( getOnDeactivateHookMethodName() );
-    }
-    else if ( null != _onDeactivate )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onDeactivate.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
-    sb.append( ", " );
-
-    if ( isCollectionType() )
-    {
-      sb.append( "this::$N" );
-      parameters.add( getOnStaleHookMethodName() );
-    }
-    else if ( null != _onStale )
-    {
-      sb.append( "this::$N" );
-      parameters.add( _onStale.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "null" );
-    }
-
-    if ( hasNonNormalPriority() || _keepAlive || _observeLowerPriorityDependencies || !_arezOnlyDependencies )
-    {
-      if ( _keepAlive || _observeLowerPriorityDependencies || !_arezOnlyDependencies )
+      if ( isCollectionType )
       {
-        sb.append( ", $T.$N, " );
-        parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
-        parameters.add( _priority );
-        sb.append( _keepAlive );
-        sb.append( ", false" );
-        if ( _observeLowerPriorityDependencies || !_arezOnlyDependencies )
-        {
-          sb.append( ", true" );
-          if ( !_arezOnlyDependencies )
-          {
-            sb.append( ", false" );
-          }
-        }
+        sb.append( "this::$N" );
+        parameters.add( getOnActivateHookMethodName() );
+      }
+      else if ( null != _onActivate )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onActivate.getSimpleName().toString() );
       }
       else
       {
-        sb.append( ", $T.$N" );
-        parameters.add( GeneratorUtil.PRIORITY_CLASSNAME );
-        parameters.add( _priority );
+        sb.append( "null" );
       }
+      sb.append( ", " );
+
+      if ( isCollectionType )
+      {
+        sb.append( "this::$N" );
+        parameters.add( getOnDeactivateHookMethodName() );
+      }
+      else if ( null != _onDeactivate )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onDeactivate.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( ", " );
+
+      if ( isCollectionType )
+      {
+        sb.append( "this::$N" );
+        parameters.add( getOnStaleHookMethodName() );
+      }
+      else if ( null != _onStale )
+      {
+        sb.append( "this::$N" );
+        parameters.add( _onStale.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+
+      sb.append( ", " );
     }
+
+    final ArrayList<String> flags = new ArrayList<>();
+    flags.add( "DEFER_REACT" );
+
+    if ( _observeLowerPriorityDependencies )
+    {
+      flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( _keepAlive )
+    {
+      flags.add( "KEEPALIVE" );
+    }
+    if ( !_arezOnlyDependencies )
+    {
+      flags.add( "MANUAL_REPORT_STALE_ALLOWED" );
+    }
+    if ( !"NORMAL".equals( _priority ) )
+    {
+      flags.add( "PRIORITY_" + _priority );
+    }
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
+    }
+
     sb.append( " )" );
   }
 
