@@ -24,6 +24,8 @@ complete as there is too much un-said.
 * Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
   lower api layer.
 
+* Move `Spy` and `SpyEventHandler` into `arez.spy`
+
 * Implement something similar to `getDependencyTree` from mobx
 
 * Rename `ObservableValue.hasOwner()` to `ObservableValue.isComputedValue()`
