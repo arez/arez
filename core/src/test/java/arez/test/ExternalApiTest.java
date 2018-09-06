@@ -6,10 +6,10 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
-import arez.Options;
 import arez.Procedure;
 import arez.SafeFunction;
 import arez.SpyEventHandler;
@@ -41,7 +41,7 @@ public class ExternalApiTest
       observeADependency();
       callCount.incrementAndGet();
     };
-    context.observer( action, Options.DEFER_REACT );
+    context.observer( action, Flags.DEFER_REACT );
 
     assertEquals( callCount.get(), 0 );
 
@@ -170,7 +170,7 @@ public class ExternalApiTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( function, Options.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -587,7 +587,7 @@ public class ExternalApiTest
     context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Options.DEFER_REACT );
+    }, Flags.DEFER_REACT );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );

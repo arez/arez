@@ -461,9 +461,9 @@ public class ComponentTest
                                                            null );
     final Procedure action = AbstractArezTest::observeADependency;
     final Observer observer1 =
-      context.observer( component, null, action, Options.DEFER_REACT );
+      context.observer( component, null, action, Flags.DEFER_REACT );
     final Observer observer2 =
-      context.observer( component, null, action, Options.DEFER_REACT );
+      context.observer( component, null, action, Flags.DEFER_REACT );
 
     assertEquals( component.getObservableValues().size(), 2 );
     assertEquals( component.getComputedValues().size(), 2 );

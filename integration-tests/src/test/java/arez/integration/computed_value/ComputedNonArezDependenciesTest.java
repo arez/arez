@@ -3,7 +3,7 @@ package arez.integration.computed_value;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputedValue;
-import arez.Options;
+import arez.Flags;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,7 +28,7 @@ public class ComputedNonArezDependenciesTest
       return result.get();
     };
     final ComputedValue<String> computedValue =
-      context.computed( "TestComputed", action, Options.MANUAL_REPORT_STALE_ALLOWED | Options.KEEPALIVE );
+      context.computed( "TestComputed", action, Flags.MANUAL_REPORT_STALE_ALLOWED | Flags.KEEPALIVE );
 
     final AtomicInteger autorunCallCount = new AtomicInteger();
     autorun( () -> {

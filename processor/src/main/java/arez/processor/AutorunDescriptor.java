@@ -134,7 +134,7 @@ final class AutorunDescriptor
     sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
     for ( int i = 0; i < flags.size(); i++ )
     {
-      parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
+      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
     }
 
     sb.append( " )" );

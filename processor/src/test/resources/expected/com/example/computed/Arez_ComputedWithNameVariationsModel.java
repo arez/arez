@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Options;
+import arez.Flags;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -52,10 +52,10 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ComputedWithNameVariationsModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Options.DEFER_REACT );
-    this.$$arez$$_ready = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".ready" : null, () -> super.isReady(), Options.DEFER_REACT );
-    this.$$arez$$_helper = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".helper" : null, () -> super.helper(), Options.DEFER_REACT );
-    this.$$arez$$_foo = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, () -> super.myFooHelperMethod(), Options.DEFER_REACT );
+    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.DEFER_REACT );
+    this.$$arez$$_ready = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".ready" : null, () -> super.isReady(), Flags.DEFER_REACT );
+    this.$$arez$$_helper = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".helper" : null, () -> super.helper(), Flags.DEFER_REACT );
+    this.$$arez$$_foo = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, () -> super.myFooHelperMethod(), Flags.DEFER_REACT );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

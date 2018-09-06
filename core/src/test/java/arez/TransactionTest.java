@@ -986,7 +986,7 @@ public class TransactionTest
   public void completeTracking_calculatedObservable_noObservers_keepAlive()
   {
     final ArezContext context = Arez.context();
-    final Observer tracker = context.computed( () -> "", Options.KEEPALIVE | Options.DEFER_REACT ).getObserver();
+    final Observer tracker = context.computed( () -> "", Flags.KEEPALIVE | Flags.DEFER_REACT ).getObserver();
 
     final Transaction transaction =
       new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );

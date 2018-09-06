@@ -2,7 +2,7 @@ package arez.integration.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Options;
+import arez.Flags;
 import arez.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
@@ -94,7 +94,7 @@ public class MemoizedPriorityIntegrationTest
                             searches.add( "NOT(" + observerName + ")" );
                           }
                         },
-                        Options.PRIORITY_HIGHEST | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                        Flags.PRIORITY_HIGHEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
     {
       final String observerName = "search2(" + key + ")";
@@ -109,7 +109,7 @@ public class MemoizedPriorityIntegrationTest
                             searches.add( "NOT(" + observerName + ")" );
                           }
                         },
-                        Options.PRIORITY_HIGHEST | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                        Flags.PRIORITY_HIGHEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
     {
       final String observerName = "search3(" + key + ")";
@@ -124,7 +124,7 @@ public class MemoizedPriorityIntegrationTest
                             searches.add( "NOT(" + observerName + ")" );
                           }
                         },
-                        Options.PRIORITY_HIGHEST | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                        Flags.PRIORITY_HIGHEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
   }
 

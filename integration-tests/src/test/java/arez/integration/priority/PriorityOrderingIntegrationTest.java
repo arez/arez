@@ -2,8 +2,8 @@ package arez.integration.priority;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Flags;
 import arez.ObservableValue;
-import arez.Options;
 import arez.Procedure;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -55,13 +55,13 @@ public class PriorityOrderingIntegrationTest
       observableValue.reportObserved();
       runOrder.add( "AR7" );
     };
-    context.observer( "AR1", action1, Options.PRIORITY_LOWEST | Options.DEFER_REACT );
-    context.observer( "AR2", action2, Options.PRIORITY_HIGH | Options.DEFER_REACT );
-    context.observer( "AR3", action3, Options.PRIORITY_LOW | Options.DEFER_REACT );
-    context.observer( "AR4", action4, Options.PRIORITY_NORMAL | Options.DEFER_REACT );
-    context.observer( "AR5", action5, Options.PRIORITY_NORMAL | Options.DEFER_REACT );
-    context.observer( "AR6", action6, Options.PRIORITY_HIGHEST | Options.DEFER_REACT );
-    context.observer( "AR7", action7, Options.PRIORITY_HIGH | Options.DEFER_REACT );
+    context.observer( "AR1", action1, Flags.PRIORITY_LOWEST | Flags.DEFER_REACT );
+    context.observer( "AR2", action2, Flags.PRIORITY_HIGH | Flags.DEFER_REACT );
+    context.observer( "AR3", action3, Flags.PRIORITY_LOW | Flags.DEFER_REACT );
+    context.observer( "AR4", action4, Flags.PRIORITY_NORMAL | Flags.DEFER_REACT );
+    context.observer( "AR5", action5, Flags.PRIORITY_NORMAL | Flags.DEFER_REACT );
+    context.observer( "AR6", action6, Flags.PRIORITY_HIGHEST | Flags.DEFER_REACT );
+    context.observer( "AR7", action7, Flags.PRIORITY_HIGH | Flags.DEFER_REACT );
 
     assertEquals( runOrder.size(), 0 );
 

@@ -3,9 +3,9 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
-import arez.Options;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -74,7 +74,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, Options.MANUAL_REPORT_STALE_ALLOWED );
+    }, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( callCount.get(), 1 );
 
@@ -95,7 +95,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Options.MANUAL_REPORT_STALE_ALLOWED );
+    }, onDepsUpdatedCallCount::incrementAndGet, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsUpdatedCallCount.get(), 0 );

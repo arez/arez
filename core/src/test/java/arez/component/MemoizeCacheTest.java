@@ -7,8 +7,8 @@ import arez.ArezTestUtil;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Flags;
 import arez.Observer;
-import arez.Options;
 import arez.spy.ComponentInfo;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,12 +43,12 @@ public class MemoizeCacheTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, name, function, 2, Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      new MemoizeCache<>( null, null, name, function, 2, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     assertEquals( cache.isDisposed(), false );
     assertEquals( cache.getNextIndex(), 0 );
 
-    assertEquals( cache.getFlags(), Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    assertEquals( cache.getFlags(), Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     final Observer observer1 = context.observer( () -> {
       observeADependency();

@@ -70,7 +70,7 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.computed( name, function, Options.KEEPALIVE | Options.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      context.computed( name, function, Flags.KEEPALIVE | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     computedValue.getObserver().invokeReaction();
 
@@ -102,7 +102,7 @@ public class ComputedValueTest
   public void highPriorityComputedValue()
     throws Exception
   {
-    final ComputedValue<String> computedValue = Arez.context().computed( () -> "", Options.PRIORITY_HIGH );
+    final ComputedValue<String> computedValue = Arez.context().computed( () -> "", Flags.PRIORITY_HIGH );
     assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
   }
 
@@ -173,7 +173,7 @@ public class ComputedValueTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.computed( null, () -> "", action, null, null, Options.KEEPALIVE ) );
+                    () -> context.computed( null, () -> "", action, null, null, Flags.KEEPALIVE ) );
     assertEquals( exception.getMessage(),
                   "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
   }
@@ -188,7 +188,7 @@ public class ComputedValueTest
     };
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.computed( null, () -> "", null, action, null, Options.KEEPALIVE ) );
+                    () -> context.computed( null, () -> "", null, action, null, Flags.KEEPALIVE ) );
     assertEquals( exception.getMessage(),
                   "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
   }
@@ -368,7 +368,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      context.computed( "XYZ", ValueUtil::randomString, Options.KEEPALIVE | Options.DEFER_REACT );
+      context.computed( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.DEFER_REACT );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
@@ -389,7 +389,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      context.computed( ValueUtil::randomString, Options.MANUAL_REPORT_STALE_ALLOWED );
+      context.computed( ValueUtil::randomString, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertNotNull( context.safeAction( computedValue::get ) );
   }
@@ -686,7 +686,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( function, Options.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -738,7 +738,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( function, Options.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -802,7 +802,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( function, Options.MANUAL_REPORT_STALE_ALLOWED );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

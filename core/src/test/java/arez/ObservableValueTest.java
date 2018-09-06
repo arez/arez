@@ -1259,7 +1259,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.computed( () -> {
       observable.reportObserved();
       return "";
-    }, Options.KEEPALIVE ).getObservableValue();
+    }, Flags.KEEPALIVE ).getObservableValue();
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> context.safeAction( observableValue::deactivate ) );

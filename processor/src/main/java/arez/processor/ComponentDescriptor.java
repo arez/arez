@@ -3589,7 +3589,7 @@ final class ComponentDescriptor
                             ".disposeOnDeactivate",
                             GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME,
                             getContextMethodName(),
-                            GeneratorUtil.OPTIONS_CLASSNAME );
+                            GeneratorUtil.FLAGS_CLASSNAME );
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );

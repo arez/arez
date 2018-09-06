@@ -3,8 +3,7 @@ package arez.integration.priority;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputedValue;
-import arez.Options;
-import arez.Priority;
+import arez.Flags;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
@@ -25,7 +24,7 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
       observeADependency();
       return 42;
     };
-    final ComputedValue<Integer> computedValue1 = context.computed( f1, Options.PRIORITY_LOWEST );
+    final ComputedValue<Integer> computedValue1 = context.computed( f1, Flags.PRIORITY_LOWEST );
     // Attempts to observe lower priority
     final ComputedValue<Integer> computedValue2 = context.computed( () -> computedValue1.get() + 42 );
 

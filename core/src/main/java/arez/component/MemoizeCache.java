@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Flags;
 import arez.Procedure;
 import arez.SafeFunction;
 import java.util.Arrays;
@@ -109,7 +110,7 @@ public final class MemoizeCache<T>
    * @param name      a human consumable prefix for computed values.
    * @param function  the memoized function.
    * @param argCount  the number of arguments expected to be passed to memoized function.
-   * @param flags     the flags that are used when creating ComputedValue instances. The only flags supported are the PRIORITY_* flags and {@link arez.Options#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
+   * @param flags     the flags that are used when creating ComputedValue instances. The only flags supported are the PRIORITY_* flags and {@link Flags#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
    */
   public MemoizeCache( @Nullable final ArezContext context,
                        @Nullable final Component component,

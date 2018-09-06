@@ -3,7 +3,7 @@ package arez.integration.computed_value;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputedValue;
-import arez.Options;
+import arez.Flags;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -29,7 +29,7 @@ public class ComputedValueKeepAliveTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      context.computed( "TestComputed", action, Options.KEEPALIVE );
+      context.computed( "TestComputed", action, Flags.KEEPALIVE );
 
     assertEquals( calls.get(), 1 );
 

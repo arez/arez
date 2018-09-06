@@ -1,7 +1,7 @@
 package arez.doc.examples.autorun;
 
 import arez.Arez;
-import arez.Options;
+import arez.Flags;
 
 public class AutorunExample2
 {
@@ -14,6 +14,6 @@ public class AutorunExample2
       // and any time these changed this function will be re-run.
       //DOC ELIDE START
       //DOC ELIDE END
-    }, Options.READ_WRITE );
+    }, Flags.READ_WRITE );
   }
 }

@@ -427,7 +427,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( new CountingProcedure(), Options.DEFER_REACT );
+    final Observer observer = context.observer( new CountingProcedure(), Flags.DEFER_REACT );
 
     observer.invariantState();
 
@@ -505,7 +505,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( new CountingProcedure(), Options.MANUAL_REPORT_STALE_ALLOWED );
+    final Observer observer = context.observer( new CountingProcedure(), Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
@@ -1720,7 +1720,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.observer( new CountingProcedure(), Options.MANUAL_REPORT_STALE_ALLOWED );
+    final Observer observer = context.observer( new CountingProcedure(), Flags.MANUAL_REPORT_STALE_ALLOWED );
 
     context.safeAction( null, false, false, () -> observer.setState( Flags.STATE_UP_TO_DATE ) );
     assertEquals( observer.isScheduled(), false );

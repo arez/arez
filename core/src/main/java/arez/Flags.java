@@ -3,22 +3,23 @@ package arez;
 import javax.annotation.Nonnull;
 
 /**
- * Constants and methods used to extract runtime state in Observers.
+ * Flags that can be passed when creating observers that determine the configuration of the observer.
+ * The class also contains constants and methods used to extract runtime state from Observers.
  */
-final class Flags
+public final class Flags
 {
   /**
    * Flag indicating that the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
    */
-  static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 0b10000000000000000000000000000000;
+  public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 0b10000000000000000000000000000000;
   /**
    * Indicates that the an action can be created from within the Observers tracked function.
    */
-  static final int NESTED_ACTIONS_ALLOWED = 0b01000000000000000000000000000000;
+  public static final int NESTED_ACTIONS_ALLOWED = 0b01000000000000000000000000000000;
   /**
    * Indicates that the an action must not be created from within the Observers tracked function.
    */
-  static final int NESTED_ACTIONS_DISALLOWED = 0b00100000000000000000000000000000;
+  public static final int NESTED_ACTIONS_DISALLOWED = 0b00100000000000000000000000000000;
   /**
    * Mask to extract "NESTED_ACTIONS" option so can derive default value if required.
    */
@@ -26,7 +27,7 @@ final class Flags
   /**
    * Flag set to true if the application code can invoke {@link Observer#reportStale()} to indicate non-arez dependency has changed.
    */
-  static final int MANUAL_REPORT_STALE_ALLOWED = 0b00010000000000000000000000000000;
+  public static final int MANUAL_REPORT_STALE_ALLOWED = 0b00010000000000000000000000000000;
   /**
    * Mask used to extract priority bits.
    */
@@ -41,7 +42,7 @@ final class Flags
    * (and thus remove elements from being scheduled).
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  static final int PRIORITY_HIGHEST = 0b00000010000000000000000000000000;
+  public static final int PRIORITY_HIGHEST = 0b00000010000000000000000000000000;
   /**
    * High priority.
    * To reduce the chance that downstream elements will react multiple times within a single
@@ -49,12 +50,12 @@ final class Flags
    * reactions.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  static final int PRIORITY_HIGH = 0b00000100000000000000000000000000;
+  public static final int PRIORITY_HIGH = 0b00000100000000000000000000000000;
   /**
    * Normal priority if no other priority otherwise specified.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  static final int PRIORITY_NORMAL = 0b00000110000000000000000000000000;
+  public static final int PRIORITY_NORMAL = 0b00000110000000000000000000000000;
   /**
    * Low priority.
    * Usually used to schedule observers that reflect state onto non-reactive
@@ -64,7 +65,7 @@ final class Flags
    * this reaction multiple times within a single reaction round.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  static final int PRIORITY_LOW = 0b00001000000000000000000000000000;
+  public static final int PRIORITY_LOW = 0b00001000000000000000000000000000;
   /**
    * Lowest priority. Use this priority if the observer is a {@link ComputedValue} that
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -72,7 +73,7 @@ final class Flags
    * another observers reaction.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  static final int PRIORITY_LOWEST = 0b00001010000000000000000000000000;
+  public static final int PRIORITY_LOWEST = 0b00001010000000000000000000000000;
   /**
    * Mask used to extract transaction mode bits.
    */
@@ -80,11 +81,11 @@ final class Flags
   /**
    * The observer can only read arez state.
    */
-  static final int READ_ONLY = 0b00000001000000000000000000000000;
+  public static final int READ_ONLY = 0b00000001000000000000000000000000;
   /**
    * The observer can read or write arez state.
    */
-  static final int READ_WRITE = 0b00000000100000000000000000000000;
+  public static final int READ_WRITE = 0b00000000100000000000000000000000;
   /**
    * Mask used to extract react type bits.
    */
@@ -95,14 +96,14 @@ final class Flags
    * is no {@link Observer#_tracked} function supplied. This should not be
    * specified if {@link #DEFER_REACT} is specified.
    */
-  static final int REACT_IMMEDIATELY = 0b00000000010000000000000000000000;
+  public static final int REACT_IMMEDIATELY = 0b00000000010000000000000000000000;
   /**
    * The scheduler will not be triggered when the observer is created. The observer either
    * has no {@link Observer#_tracked} function or is responsible for ensuring that
    * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
    * specified if {@link #REACT_IMMEDIATELY} is specified.
    */
-  static final int DEFER_REACT = 0b00000000001000000000000000000000;
+  public static final int DEFER_REACT = 0b00000000001000000000000000000000;
   /**
    * Mask used to extract react type bits.
    */
@@ -112,17 +113,17 @@ final class Flags
    * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
    * that supply a tracked function.
    */
-  static final int KEEPALIVE = 0b00000000000100000000000000000000;
+  public static final int KEEPALIVE = 0b00000000000100000000000000000000;
   /**
    * The flag is valid on observers associated with computed values and will deactivate the observer if the
    * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
    */
-  static final int DEACTIVATE_ON_UNOBSERVE = 0b00000000000010000000000000000000;
+  public static final int DEACTIVATE_ON_UNOBSERVE = 0b00000000000010000000000000000000;
   /**
    * The flag is valid on observers associated with computed values and will deactivate the observer if the
    * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
    */
-  static final int SCHEDULED_EXTERNALLY = 0b00000000000110000000000000000000;
+  public static final int SCHEDULED_EXTERNALLY = 0b00000000000110000000000000000000;
   /**
    * Mask that identifies the bits associated with static configuration.
    */

@@ -131,7 +131,7 @@ final class MemoizeDescriptor
       if ( _observeLowerPriorityDependencies )
       {
         sb.append( "$T.OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
-        parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
+        parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
       }
       if ( nonNormalPriority )
       {
@@ -141,7 +141,7 @@ final class MemoizeDescriptor
         }
         sb.append( "$T.PRIORITY_" );
         sb.append( _priority );
-        parameters.add( GeneratorUtil.OPTIONS_CLASSNAME );
+        parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
       }
     }
 

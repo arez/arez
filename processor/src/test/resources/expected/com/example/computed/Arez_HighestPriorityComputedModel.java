@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Options;
+import arez.Flags;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
@@ -43,7 +43,7 @@ public final class Arez_HighestPriorityComputedModel extends HighestPriorityComp
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "HighestPriorityComputedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Options.DEFER_REACT | Options.PRIORITY_HIGHEST );
+    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.DEFER_REACT | Flags.PRIORITY_HIGHEST );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
