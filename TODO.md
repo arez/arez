@@ -40,9 +40,6 @@ complete as there is too much un-said.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
-* Figure out a way to use a single entrypoint for each of `observable()`, `autorun()`, `track()` by passing
-  in an options object?
-
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
