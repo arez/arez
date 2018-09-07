@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverError;
@@ -60,7 +61,7 @@ public class WatcherTest
                    verifyActionRequired,
                    condition,
                    procedure,
-                   Priority.NORMAL,
+                   Flags.PRIORITY_NORMAL,
                    true );
 
     assertEquals( watcher.getContext(), context );
@@ -68,15 +69,15 @@ public class WatcherTest
     assertEquals( watcher.toString(), name );
     assertEquals( watcher.isMutation(), mutation );
     assertEquals( watcher.getEffect(), procedure );
-    assertEquals( watcher.getWatcher().getName(), name + ".watcher" );
-    final ComponentInfo watcherComponentInfo = context.getSpy().getComponent( watcher.getWatcher() );
+    assertEquals( watcher.getObserver().getName(), name + ".watcher" );
+    final ComponentInfo watcherComponentInfo = context.getSpy().asObserverInfo( watcher.getObserver() ).getComponent();
     assertNotNull( watcherComponentInfo );
     assertEquals( watcherComponentInfo.getId(), component.getId() );
-    final ObserverInfo observerInfo = context.getSpy().asObserverInfo( watcher.getWatcher() );
+    final ObserverInfo observerInfo = context.getSpy().asObserverInfo( watcher.getObserver() );
     assertEquals( observerInfo.getPriority(), Priority.NORMAL );
 
-    assertEquals( watcher.getCondition().getName(), name + ".condition" );
-    final ComponentInfo conditionComponentInfo = context.getSpy().getComponent( watcher.getCondition() );
+    final ComponentInfo conditionComponentInfo =
+      context.getSpy().asComputedValueInfo( watcher.getCondition() ).getComponent();
     assertNotNull( conditionComponentInfo );
     assertEquals( conditionComponentInfo.getId(), component.getId() );
 
@@ -123,7 +124,15 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, null, ValueUtil.randomString(), true, true, condition, procedure, Priority.NORMAL, false );
+    new Watcher( context,
+                 null,
+                 ValueUtil.randomString(),
+                 true,
+                 true,
+                 condition,
+                 procedure,
+                 Flags.PRIORITY_NORMAL,
+                 false );
 
     assertEquals( conditionRun.get(), 0 );
     assertEquals( effectRun.get(), 0 );
@@ -167,20 +176,25 @@ public class WatcherTest
     };
 
     final Watcher watcher3 =
-      new Watcher( context, null, ValueUtil.randomString(), true, true, condition3, procedure, Priority.NORMAL, false );
+      new Watcher( context,
+                   null,
+                   ValueUtil.randomString(),
+                   true,
+                   true,
+                   condition3,
+                   procedure,
+                   Flags.PRIORITY_NORMAL,
+                   false );
     final Watcher watcher2 =
-      new Watcher( context, null, ValueUtil.randomString(), true, true, condition2, procedure, Priority.HIGH, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, true, condition2, procedure, Flags.PRIORITY_HIGH, false );
     final Watcher watcher1 =
-      new Watcher( context, null, ValueUtil.randomString(), true, true, condition1, procedure, Priority.HIGH, false );
+      new Watcher( context, null, ValueUtil.randomString(), true, true, condition1, procedure, Flags.PRIORITY_HIGH, false );
 
-    assertEquals( context.getSpy().asObserverInfo( watcher1.getWatcher() ).getPriority(), Priority.HIGH );
+    assertEquals( context.getSpy().asObserverInfo( watcher1.getObserver() ).getPriority(), Priority.HIGH );
 
-    assertEquals( context.getSpy().asObserverInfo( watcher1.getWatcher() ).getPriority(), Priority.HIGH );
-    assertEquals( context.getSpy().asComputedValueInfo( watcher1.getCondition() ).getPriority(), Priority.HIGH );
-    assertEquals( context.getSpy().asObserverInfo( watcher2.getWatcher() ).getPriority(), Priority.HIGH );
-    assertEquals( context.getSpy().asComputedValueInfo( watcher2.getCondition() ).getPriority(), Priority.HIGH );
-    assertEquals( context.getSpy().asObserverInfo( watcher3.getWatcher() ).getPriority(), Priority.NORMAL );
-    assertEquals( context.getSpy().asComputedValueInfo( watcher3.getCondition() ).getPriority(), Priority.NORMAL );
+    assertEquals( context.getSpy().asObserverInfo( watcher1.getObserver() ).getPriority(), Priority.HIGH );
+    assertEquals( context.getSpy().asObserverInfo( watcher2.getObserver() ).getPriority(), Priority.HIGH );
+    assertEquals( context.getSpy().asObserverInfo( watcher3.getObserver() ).getPriority(), Priority.NORMAL );
 
     assertEquals( conditionRun1.get(), 0 );
     assertEquals( conditionRun2.get(), 0 );
@@ -219,7 +233,7 @@ public class WatcherTest
                    },
                    () -> {
                    },
-                   Priority.NORMAL,
+                   Flags.PRIORITY_NORMAL,
                    true );
 
     assertTrue( watcher.toString().startsWith( "arez.when.Watcher@" ), "watcher.toString() == " + watcher );
@@ -251,7 +265,7 @@ public class WatcherTest
                                        },
                                        () -> {
                                        },
-                                       Priority.NORMAL,
+                                       Flags.PRIORITY_NORMAL,
                                        true ) );
 
     assertEquals( exception.getMessage(),
@@ -281,7 +295,7 @@ public class WatcherTest
                                        },
                                        () -> {
                                        },
-                                       Priority.NORMAL,
+                                       Flags.PRIORITY_NORMAL,
                                        true ) );
 
     assertEquals( exception.getMessage(),
@@ -310,20 +324,18 @@ public class WatcherTest
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
     final Watcher
-      watcher = new Watcher( context, null, name, true, true, condition, procedure, Priority.NORMAL, true );
+      watcher = new Watcher( context, null, name, true, true, condition, procedure, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( Disposable.isDisposed( watcher ), false );
-    assertEquals( Disposable.isDisposed( watcher.getWatcher() ), false );
-    assertEquals( Disposable.isDisposed( watcher.getCondition() ), false );
+    assertEquals( Disposable.isDisposed( watcher.getObserver() ), false );
 
     result.set( true );
     Disposable.dispose( watcher );
 
     assertEquals( Disposable.isDisposed( watcher ), true );
-    assertEquals( Disposable.isDisposed( watcher.getWatcher() ), true );
-    assertEquals( Disposable.isDisposed( watcher.getCondition() ), true );
+    assertEquals( Disposable.isDisposed( watcher.getObserver() ), true );
 
     context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
@@ -353,18 +365,17 @@ public class WatcherTest
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
     final Watcher
-      watcher = new Watcher( context, null, name, true, true, condition, procedure, Priority.NORMAL, true );
+      watcher = new Watcher( context, null, name, true, true, condition, procedure, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( Disposable.isDisposed( watcher ), false );
 
     result.set( true );
-    Disposable.dispose( watcher.getWatcher() );
+    Disposable.dispose( watcher.getObserver() );
 
     assertEquals( Disposable.isDisposed( watcher ), true );
-    assertEquals( Disposable.isDisposed( watcher.getWatcher() ), true );
-    assertEquals( Disposable.isDisposed( watcher.getCondition() ), true );
+    assertEquals( Disposable.isDisposed( watcher.getObserver() ), true );
 
     context.action( ValueUtil.randomString(), true, observable::reportChanged );
 
@@ -407,16 +418,16 @@ public class WatcherTest
     };
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
-    new Watcher( context, null, name, true, true, condition, procedure, Priority.NORMAL, true );
+    new Watcher( context, null, name, true, true, condition, procedure, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
     assertEquals( errorCount.get(), 2 );
 
     //First error is the computed
-    assertEquals( context.getSpy().isComputedValue( observersErrored.get( 0 ) ), true );
+    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputedValue(), true );
     //Second error was the autorun that called the computed
-    assertEquals( context.getSpy().isComputedValue( observersErrored.get( 1 ) ), false );
+    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 1 ) ).isComputedValue(), false );
 
     result.set( true );
 
@@ -428,7 +439,7 @@ public class WatcherTest
     assertEquals( errorCount.get(), 3 );
 
     //Next error is the computed again
-    assertEquals( context.getSpy().isComputedValue( observersErrored.get( 0 ) ), true );
+    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputedValue(), true );
   }
 
   @Test
@@ -458,7 +469,7 @@ public class WatcherTest
       observeDependency();
       return true;
     };
-    new Watcher( context, null, ValueUtil.randomString(), false, true, function, effect, Priority.NORMAL, true );
+    new Watcher( context, null, ValueUtil.randomString(), false, true, function, effect, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );
@@ -489,7 +500,7 @@ public class WatcherTest
       observeDependency();
       return true;
     };
-    new Watcher( context, null, ValueUtil.randomString(), true, true, function, effect, Priority.NORMAL, true );
+    new Watcher( context, null, ValueUtil.randomString(), true, true, function, effect, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );
@@ -513,7 +524,7 @@ public class WatcherTest
       observeDependency();
       return true;
     };
-    new Watcher( context, null, ValueUtil.randomString(), true, false, function, effect, Priority.NORMAL, true );
+    new Watcher( context, null, ValueUtil.randomString(), true, false, function, effect, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 0 );
@@ -539,7 +550,7 @@ public class WatcherTest
       observeDependency();
       return true;
     };
-    new Watcher( context, null, ValueUtil.randomString(), true, true, function, effect, Priority.NORMAL, true );
+    new Watcher( context, null, ValueUtil.randomString(), true, true, function, effect, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );

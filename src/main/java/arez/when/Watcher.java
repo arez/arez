@@ -5,8 +5,8 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Flags;
 import arez.Observer;
-import arez.Priority;
 import arez.SafeFunction;
 import arez.SafeProcedure;
 import java.util.Objects;
@@ -55,7 +55,7 @@ final class Watcher
   /**
    * The observer responsible for watching the condition and running the effect reaction when condition triggered.
    */
-  private final Observer _watcher;
+  private final Observer _observer;
 
   /**
    * Create the watcher.
@@ -74,7 +74,7 @@ final class Watcher
            final boolean verifyActionRequired,
            @Nonnull final SafeFunction<Boolean> condition,
            @Nonnull final SafeProcedure effect,
-           @Nonnull final Priority priority,
+           final int priority,
            final boolean runImmediately )
   {
     if ( Arez.shouldCheckInvariants() )
@@ -86,6 +86,12 @@ final class Watcher
     {
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Watcher passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+      apiInvariant( () -> Flags.PRIORITY_HIGHEST == priority ||
+                          Flags.PRIORITY_HIGH == priority ||
+                          Flags.PRIORITY_NORMAL == priority ||
+                          Flags.PRIORITY_LOW == priority ||
+                          Flags.PRIORITY_LOWEST == priority,
+                    () -> "Watcher named '" + name + "' passed an invalid priority: " + priority );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
@@ -99,21 +105,15 @@ final class Watcher
                              null,
                              this::dispose,
                              null,
-                             null,
                              priority );
-    _watcher =
-      getContext().autorun( Arez.areNativeComponentsEnabled() ? component : null,
-                            Arez.areNamesEnabled() ? getName() + ".watcher" : null,
-                            true,
-                            this::checkCondition,
-                            priority,
-                            false,
-                            true,
-                            true,
-                            () -> Disposable.dispose( _condition ) );
+    _observer =
+      getContext().observer( Arez.areNativeComponentsEnabled() ? component : null,
+                             Arez.areNamesEnabled() ? getName() + ".watcher" : null,
+                             this::checkCondition,
+                             priority | Flags.READ_WRITE | Flags.RUN_LATER | Flags.NESTED_ACTIONS_ALLOWED );
     /*
      * Can not pass this as flag when constructing watcher, otherwise this class could attempt
-     * to dispose when condition starts as being true before _watcher has been assigned which
+     * to dispose when condition starts as being true before _observer has been assigned which
      * results in either a dangling life watcher or an invariant failure depending on configuration
      * of the application.
      */
@@ -165,9 +165,9 @@ final class Watcher
   }
 
   @Nonnull
-  Observer getWatcher()
+  Observer getObserver()
   {
-    return _watcher;
+    return _observer;
   }
 
   /**
@@ -178,7 +178,7 @@ final class Watcher
     if ( Disposable.isNotDisposed( _condition ) && _condition.get() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _verifyActionRequired, _effect );
-      Disposable.dispose( _watcher );
+      Disposable.dispose( _observer );
     }
   }
 
@@ -188,7 +188,7 @@ final class Watcher
   @Override
   public void dispose()
   {
-    Disposable.dispose( _watcher );
+    Disposable.dispose( _observer );
   }
 
   /**
@@ -197,7 +197,7 @@ final class Watcher
   @Override
   public boolean isDisposed()
   {
-    return Disposable.isDisposed( _watcher );
+    return Disposable.isDisposed( _observer );
   }
 
   boolean isMutation()
