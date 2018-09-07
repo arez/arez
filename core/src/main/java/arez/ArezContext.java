@@ -958,12 +958,11 @@ public final class ArezContext
     }
     if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {
-      final TransactionMode mode = getTransaction().getMode();
-      invariant( () -> mode != TransactionMode.READ_ONLY,
+      invariant( () -> getTransaction().isMutation() || getTransaction().isComputedValueTracker(),
                  () -> "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled during " +
                        "read-only transaction." );
       invariant( () -> getTransaction().getTracker() != observer ||
-                       mode == TransactionMode.READ_WRITE,
+                       getTransaction().isMutation(),
                  () -> "Arez-0014: Observer named '" + observer.getName() + "' attempted to schedule itself during " +
                        "read-only tracking transaction. Observers that are supporting ComputedValue instances " +
                        "must not schedule self." );
@@ -1001,7 +1000,7 @@ public final class ArezContext
   public boolean isWriteTransactionActive()
   {
     return Transaction.isTransactionActive( this ) &&
-           ( !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == Transaction.current().getMode() );
+           ( !Arez.shouldEnforceTransactionType() || Transaction.current().isMutation() );
   }
 
   /**
@@ -1301,7 +1300,7 @@ public final class ArezContext
     throws Throwable
   {
     return action( generateNodeName( "Transaction", name ),
-                   mutationToTransactionMode( mutation ),
+                   mutation,
                    verifyActionRequired,
                    requireNewTransaction,
                    executable,
@@ -1333,7 +1332,7 @@ public final class ArezContext
                           "observer is not a tracker." );
     }
     return action( generateNodeName( tracker ),
-                   Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                   Arez.shouldEnforceTransactionType() && tracker.isMutation(),
                    false,
                    true,
                    executable,
@@ -1342,7 +1341,7 @@ public final class ArezContext
   }
 
   private <T> T action( @Nullable final String name,
-                        @Nullable final TransactionMode mode,
+                        final boolean mutation,
                         final boolean verifyActionRequired,
                         final boolean requireNewTransaction,
                         @Nonnull final Function<T> executable,
@@ -1364,14 +1363,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         result = executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           result = executable.call();
@@ -1524,7 +1523,7 @@ public final class ArezContext
                            @Nonnull final Object... parameters )
   {
     return safeAction( generateNodeName( "Transaction", name ),
-                       mutationToTransactionMode( mutation ),
+                       mutation,
                        verifyActionRequired,
                        requireNewTransaction,
                        executable,
@@ -1554,7 +1553,7 @@ public final class ArezContext
                           "observer is not a tracker." );
     }
     return safeAction( generateNodeName( tracker ),
-                       Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                       Arez.shouldEnforceTransactionType() && tracker.isMutation(),
                        false,
                        true,
                        executable,
@@ -1563,7 +1562,7 @@ public final class ArezContext
   }
 
   private <T> T safeAction( @Nullable final String name,
-                            @Nullable final TransactionMode mode,
+                            final boolean mutation,
                             final boolean verifyActionRequired,
                             final boolean requireNewTransaction,
                             @Nonnull final SafeFunction<T> executable,
@@ -1584,14 +1583,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         result = executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           result = executable.call();
@@ -1741,14 +1740,14 @@ public final class ArezContext
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( generateNodeName( "Transaction", name ),
-            mutationToTransactionMode( mutation ),
-            verifyActionRequired,
-            requireNewTransaction,
-            executable,
-            true,
-            null,
-            parameters );
+    _action( generateNodeName( "Transaction", name ),
+             mutation,
+             verifyActionRequired,
+             requireNewTransaction,
+             executable,
+             true,
+             null,
+             parameters );
   }
 
   /**
@@ -1772,14 +1771,14 @@ public final class ArezContext
                     () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
-    action( generateNodeName( tracker ),
-            Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
-            false,
-            true,
-            executable,
-            true,
-            tracker,
-            parameters );
+    _action( generateNodeName( tracker ),
+            Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+             false,
+             true,
+             executable,
+             true,
+             tracker,
+             parameters );
   }
 
   @Nullable
@@ -1788,14 +1787,14 @@ public final class ArezContext
     return Arez.areNamesEnabled() ? tracker.getName() : null;
   }
 
-  void action( @Nullable final String name,
-               @Nullable final TransactionMode mode,
-               final boolean verifyActionRequired,
-               final boolean requireNewTransaction,
-               @Nonnull final Procedure executable,
-               final boolean reportAction,
-               @Nullable final Observer tracker,
-               @Nonnull final Object... parameters )
+  void _action( @Nullable final String name,
+                final boolean mutation,
+                final boolean verifyActionRequired,
+                final boolean requireNewTransaction,
+                @Nonnull final Procedure executable,
+                final boolean reportAction,
+                @Nullable final Observer tracker,
+                @Nonnull final Object... parameters )
     throws Throwable
   {
     final boolean tracked = null != tracker;
@@ -1811,14 +1810,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           executable.call();
@@ -1958,7 +1957,7 @@ public final class ArezContext
                           @Nonnull final Object... parameters )
   {
     safeAction( generateNodeName( "Transaction", name ),
-                mutationToTransactionMode( mutation ),
+                mutation,
                 verifyActionRequired,
                 requireNewTransaction,
                 executable,
@@ -1986,7 +1985,7 @@ public final class ArezContext
                           "observer is not a tracker." );
     }
     safeAction( generateNodeName( tracker ),
-                Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                Arez.shouldEnforceTransactionType() && tracker.isMutation(),
                 false,
                 true,
                 executable,
@@ -1995,7 +1994,7 @@ public final class ArezContext
   }
 
   private void safeAction( @Nullable final String name,
-                           @Nullable final TransactionMode mode,
+                           final boolean mutation,
                            final boolean verifyActionRequired,
                            final boolean requireNewTransaction,
                            @Nonnull final SafeProcedure executable,
@@ -2015,14 +2014,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           executable.call();
@@ -2082,13 +2081,10 @@ public final class ArezContext
   /**
    * Return true if action can immediately invoked, false if a transaction needs to be created.
    */
-  private boolean canImmediatelyInvokeAction( @Nullable final TransactionMode mode,
-                                              final boolean requireNewTransaction )
+  private boolean canImmediatelyInvokeAction( final boolean mutation, final boolean requireNewTransaction )
   {
     return !requireNewTransaction &&
-           ( Arez.shouldEnforceTransactionType() && TransactionMode.READ_WRITE == mode ?
-             isWriteTransactionActive() :
-             isTransactionActive() );
+           ( Arez.shouldEnforceTransactionType() && mutation ? isWriteTransactionActive() : isTransactionActive() );
   }
 
   /**
@@ -2338,20 +2334,6 @@ public final class ArezContext
                  () -> "Arez-0185: Action named '" + name + "' completed but no reads or writes " +
                        "occurred within the scope of the action." );
     }
-  }
-
-  /**
-   * Convert flag to appropriate transaction mode.
-   *
-   * @param mutation true if the transaction may modify state, false otherwise.
-   * @return the READ_WRITE transaction mode if mutation is true else READ_ONLY.
-   */
-  @Nullable
-  private TransactionMode mutationToTransactionMode( final boolean mutation )
-  {
-    return Arez.shouldEnforceTransactionType() ?
-           ( mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY ) :
-           null;
   }
 
   void registerObservableValue( @Nonnull final ObservableValue observableValue )

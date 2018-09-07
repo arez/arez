@@ -97,7 +97,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isReadOnly()
   {
-    return Arez.shouldEnforceTransactionType() && TransactionMode.READ_WRITE != _observer.getMode();
+    return Arez.shouldEnforceTransactionType() && !_observer.isMutation();
   }
 
   /**

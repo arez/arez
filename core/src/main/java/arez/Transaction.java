@@ -46,10 +46,9 @@ final class Transaction
   private final int _id;
   /**
    * Determines which write operations are permitted within the scope of the transaction if any.
-   * It is only set if {@link ArezConfig#enforceTransactionType()} returns true.
+   * It is false and ignored unless {@link ArezConfig#enforceTransactionType()} returns true.
    */
-  @Nullable
-  private final TransactionMode _mode;
+  private final boolean _mutation;
   /**
    * A list of observables that have reached zero observers within the scope of the root transaction.
    * When the root transaction completes, these observers are deactivated if they still have no observers.
@@ -137,15 +136,15 @@ final class Transaction
   /**
    * Create a new transaction.
    *
-   * @param context the associated context.
-   * @param name    the name of the transaction. Should be non-null if {@link Arez#areNamesEnabled()} is true, false otherwise.
-   * @param mode    the transaction mode.
-   * @param tracker the observer that is tracking transaction if any.
+   * @param context  the associated context.
+   * @param name     the name of the transaction. Should be non-null if {@link Arez#areNamesEnabled()} is true, false otherwise.
+   * @param mutation is transaction a READ_WRITE transaction.
+   * @param tracker  the observer that is tracking transaction if any.
    * @return the new transaction.
    */
   static Transaction begin( @Nonnull final ArezContext context,
                             @Nullable final String name,
-                            @Nullable final TransactionMode mode,
+                            final boolean mutation,
                             @Nullable final Observer tracker )
   {
     if ( Arez.shouldCheckApiInvariants() && Arez.shouldEnforceTransactionType() )
@@ -154,14 +153,14 @@ final class Transaction
       {
         final boolean inComputedTransaction = null != tracker && tracker.isComputedValue();
         apiInvariant( () -> !c_transaction.isComputedValueTracker() || inComputedTransaction,
-                      () -> "Arez-0186: Attempting to create " + mode + " transaction named '" + name + "' " +
+                      () -> "Arez-0186: Attempting to create transaction named '" + name + "' " +
                             "nested in ComputedValue transaction named '" + c_transaction.getName() + "'. " +
                             "ComputedValues must not invoke actions or track methods as " +
                             "they should derive values from other computeds and observables." );
-        apiInvariant( () -> TransactionMode.READ_WRITE != mode || TransactionMode.READ_WRITE == c_transaction.getMode(),
+        apiInvariant( () -> !mutation || c_transaction.isMutation(),
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
-                            c_transaction.getMode().name() + " which is not equal to READ_WRITE." );
+                            "READ_ONLY which is not equal to READ_WRITE." );
         apiInvariant( () -> c_transaction.getContext() != context || inComputedTransaction || null == tracker,
                       () -> "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for " +
                             "the observer named '" + Objects.requireNonNull( tracker ).getName() + "' but the " +
@@ -182,16 +181,14 @@ final class Transaction
                  () -> "Arez-0121: Attempted to create transaction named '" + name + "' while " +
                        "nested in a suspended transaction named '" + c_transaction.getName() + "'." );
     }
-    c_transaction = new Transaction( Arez.areZonesEnabled() ? context : null, c_transaction, name, mode, tracker );
+    c_transaction = new Transaction( Arez.areZonesEnabled() ? context : null, c_transaction, name, mutation, tracker );
     context.disableScheduler();
     c_transaction.begin();
     if ( context.willPropagateSpyEvents() )
     {
       assert null != name;
       final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
-      final boolean mutation =
-        !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
-      context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, mutation, trackerInfo ) );
+      context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, c_transaction.isMutation(), trackerInfo ) );
     }
     return c_transaction;
   }
@@ -226,8 +223,7 @@ final class Transaction
       if ( c_transaction.getContext().willPropagateSpyEvents() )
       {
         final String name = c_transaction.getName();
-        final boolean mutation =
-          !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == c_transaction.getMode();
+        final boolean mutation = !Arez.shouldEnforceTransactionType() || c_transaction.isMutation();
         final Observer tracker = c_transaction.getTracker();
         final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
         final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
@@ -300,7 +296,7 @@ final class Transaction
   Transaction( @Nullable final ArezContext context,
                @Nullable final Transaction previous,
                @Nullable final String name,
-               @Nullable final TransactionMode mode,
+               final boolean mutation,
                @Nullable final Observer tracker )
   {
     if ( Arez.shouldCheckInvariants() )
@@ -315,15 +311,15 @@ final class Transaction
     _id = getContext().nextTransactionId();
     _previous = previous;
     _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
-    _mode = Arez.shouldEnforceTransactionType() ? Objects.requireNonNull( mode ) : null;
+    _mutation = Arez.shouldEnforceTransactionType() && mutation;
     _tracker = tracker;
     _startedAt = Arez.areSpiesEnabled() ? System.currentTimeMillis() : 0;
 
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> TransactionMode.READ_WRITE_OWNED != mode || null != tracker,
+      invariant( () -> !( isComputedValueTracker() && _mutation ),
                  () -> "Arez-0132: Attempted to create transaction named '" + getName() +
-                       "' with mode READ_WRITE_OWNED but no tracker specified." );
+                       "' with mode READ_WRITE when ComputedValue tracker specified." );
     }
   }
 
@@ -395,11 +391,9 @@ final class Transaction
     return _id;
   }
 
-  @Nonnull
-  TransactionMode getMode()
+  boolean isMutation()
   {
-    assert null != _mode;
-    return _mode;
+    return !Arez.shouldEnforceTransactionType() || _mutation;
   }
 
   void begin()
@@ -592,9 +586,9 @@ final class Transaction
       invariant( disposable::isNotDisposed,
                  () -> "Arez-0176: Invoked reportDispose on transaction named '" + getName() +
                        "' where the element is disposed." );
-      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == getMode(),
+      invariant( () -> !Arez.shouldEnforceTransactionType() || isMutation(),
                  () -> "Arez-0177: Invoked reportDispose on transaction named '" + getName() +
-                       "' but the transaction mode is not READ_WRITE but is " + getMode() + "." );
+                       "' but the transaction mode is not READ_WRITE but is READ_ONLY." );
     }
   }
 
@@ -675,7 +669,7 @@ final class Transaction
                  () -> "Arez-0147: Transaction named '" + getName() + "' has attempted to mark " +
                        "ObservableValue named '" + observableValue.getName() + "' as potentially changed but " +
                        "ObservableValue is not a derived value." );
-      invariant( () -> !Arez.shouldEnforceTransactionType() || TransactionMode.READ_ONLY != getMode(),
+      invariant( () -> !Arez.shouldEnforceTransactionType() || isMutation() || isComputedValueTracker(),
                  () -> "Arez-0148: Transaction named '" + getName() + "' attempted to call reportPossiblyChanged in " +
                        "read-only transaction." );
       observableValue.invariantLeastStaleObserverState();
@@ -791,15 +785,7 @@ final class Transaction
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
-      if ( TransactionMode.READ_ONLY == _mode )
-      {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          fail( () -> "Arez-0152: Transaction named '" + getName() + "' attempted to change ObservableValue named '" +
-                      observableValue.getName() + "' but the transaction mode is READ_ONLY." );
-        }
-      }
-      else if ( TransactionMode.READ_WRITE_OWNED == _mode )
+      if ( isComputedValueTracker() )
       {
         if ( Arez.shouldCheckInvariants() )
         {
@@ -807,6 +793,14 @@ final class Transaction
                      () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
                            " ObservableValue named '" + observableValue.getName() + "' and the transaction mode is " +
                            "READ_WRITE_OWNED but the ObservableValue has not been created by the transaction." );
+        }
+      }
+      else if ( !isMutation() )
+      {
+        if ( Arez.shouldCheckInvariants() )
+        {
+          fail( () -> "Arez-0152: Transaction named '" + getName() + "' attempted to change ObservableValue named '" +
+                      observableValue.getName() + "' but the transaction mode is READ_ONLY." );
         }
       }
     }
@@ -1033,7 +1027,7 @@ final class Transaction
     return _tracker;
   }
 
-  private boolean isComputedValueTracker()
+  boolean isComputedValueTracker()
   {
     return null != _tracker && _tracker.isComputedValue();
   }

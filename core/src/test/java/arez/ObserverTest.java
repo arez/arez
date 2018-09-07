@@ -50,7 +50,7 @@ public class ObserverTest
     assertEquals( observer.getDependencies().size(), 0 );
 
     // Reaction attributes
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.isMutation(), false );
     assertEquals( observer.getTracked(), trackedExecutable );
     assertEquals( observer.getOnDepsUpdated(), onDepsUpdated );
     assertEquals( observer.isScheduled(), true );
@@ -275,7 +275,7 @@ public class ObserverTest
 
   @SuppressWarnings( "ResultOfMethodCallIgnored" )
   @Test
-  public void getMode_noEnforceTransactionType()
+  public void isMutation_noEnforceTransactionType()
     throws Exception
   {
     ArezTestUtil.noEnforceTransactionType();
@@ -289,7 +289,7 @@ public class ObserverTest
                     new CountAndObserveProcedure(),
                     null,
                     0 );
-    assertThrows( observer::getMode );
+    assertThrows( observer::isMutation );
   }
 
   @Test

@@ -347,19 +347,14 @@ public final class Observer
   }
 
   /**
-   * Return the transaction mode in which the observer executes.
+   * Return true if observer creates a READ_WRITE transaction.
    *
-   * @return the transaction mode in which the observer executes.
+   * @return true if observer creates a READ_WRITE transaction.
    */
-  @Nonnull
-  TransactionMode getMode()
+  boolean isMutation()
   {
     assert Arez.shouldEnforceTransactionType();
-    return null != _computedValue ?
-           TransactionMode.READ_WRITE_OWNED :
-           0 != ( _flags & Flags.READ_WRITE ) ?
-           TransactionMode.READ_WRITE :
-           TransactionMode.READ_ONLY;
+    return 0 != ( _flags & Flags.READ_WRITE );
   }
 
   /**
@@ -405,10 +400,10 @@ public final class Observer
       apiInvariant( () -> getContext().isTransactionActive(),
                     () -> "Arez-0200: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when there is no active transaction." );
-      apiInvariant( () -> TransactionMode.READ_WRITE == getContext().getTransaction().getMode(),
+      apiInvariant( () -> getContext().getTransaction().isMutation(),
                     () -> "Arez-0201: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when the active transaction '" + getContext().getTransaction().getName() +
-                          "' is " + getContext().getTransaction().getMode() + " rather than READ_WRITE." );
+                          "' is READ_ONLY rather than READ_WRITE." );
     }
     setState( Flags.STATE_STALE );
   }
@@ -675,13 +670,13 @@ public final class Observer
     {
       action = _tracked;
     }
-    getContext().action( Arez.areNamesEnabled() ? getName() : null,
-                         Arez.shouldEnforceTransactionType() ? getMode() : null,
-                         false,
-                         true,
-                         action,
+    getContext()._action( Arez.areNamesEnabled() ? getName() : null,
+                         Arez.shouldEnforceTransactionType() && isMutation(),
+                          false,
+                          true,
+                          action,
                          null == _computedValue,
-                         this );
+                          (Observer) this );
   }
 
   /**

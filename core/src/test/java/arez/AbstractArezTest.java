@@ -120,7 +120,7 @@ public abstract class AbstractArezTest
     Transaction.setTransaction( new Transaction( context,
                                                  null,
                                                  ValueUtil.randomString(),
-                                                 observer.getMode(),
+                                                 observer.isMutation(),
                                                  observer ) );
   }
 

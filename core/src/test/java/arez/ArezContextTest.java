@@ -423,7 +423,7 @@ public class ArezContextTest
         assertEquals( transaction.getPrevious(), null );
         assertEquals( transaction.getContext(), context );
         assertEquals( transaction.getId(), nextNodeId );
-        assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+        assertEquals( transaction.isMutation(), false );
 
         assertEquals( observableValue.getObservers().size(), 0 );
         assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
@@ -554,7 +554,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     context.action( name, () -> {
       observeADependency();
-      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().isMutation(), true );
       assertEquals( context.getTransaction().getName(), name );
       return ValueUtil.randomString();
     } );
@@ -743,7 +743,7 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
-        assertEquals( transaction.getMode(), TransactionMode.READ_WRITE );
+        assertEquals( transaction.isMutation(), true );
 
         return expectedValue;
       } );
@@ -808,7 +808,7 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), tracker.getName() );
-        assertEquals( transaction.getMode(), tracker.getMode() );
+        assertEquals( transaction.isMutation(), tracker.isMutation() );
 
         assertEquals( observableValue.getObservers().size(), 0 );
         assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
@@ -930,7 +930,7 @@ public class ArezContextTest
         assertEquals( transaction.getPrevious(), null );
         assertEquals( transaction.getContext(), context );
         assertEquals( transaction.getId(), nextNodeId );
-        assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+        assertEquals( transaction.isMutation(), false );
 
         assertEquals( observableValue.getObservers().size(), 0 );
         assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
@@ -1071,7 +1071,7 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), "Transaction@" + nextNodeId );
-        assertEquals( transaction.getMode(), TransactionMode.READ_WRITE );
+        assertEquals( transaction.isMutation(), true );
         return expectedValue;
       } );
 
@@ -1089,7 +1089,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     context.safeAction( name, () -> {
       observeADependency();
-      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().isMutation(), true );
       assertEquals( context.getTransaction().getName(), name );
       return ValueUtil.randomString();
     } );
@@ -1119,7 +1119,7 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), tracker.getName() );
-        assertEquals( transaction.getMode(), tracker.getMode() );
+        assertEquals( transaction.isMutation(), tracker.isMutation() );
 
         assertEquals( observableValue.getObservers().size(), 0 );
         assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
@@ -1183,7 +1183,7 @@ public class ArezContextTest
     context.safeAction( () -> {
       observeADependency();
       assertTrue( context.isTransactionActive() );
-      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().isMutation(), true );
       assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
     } );
 
@@ -1199,7 +1199,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     context.safeAction( name, () -> {
       observeADependency();
-      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().isMutation(), true );
       assertEquals( context.getTransaction().getName(), name );
     } );
   }
@@ -1292,7 +1292,7 @@ public class ArezContextTest
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), tracker.getName() );
-      assertEquals( transaction.getMode(), tracker.getMode() );
+      assertEquals( transaction.isMutation(), tracker.isMutation() );
 
       assertEquals( observableValue.getObservers().size(), 0 );
       assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
@@ -1350,7 +1350,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     context.action( name, () -> {
       observeADependency();
-      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().isMutation(), true );
       assertEquals( context.getTransaction().getName(), name );
     } );
   }
@@ -1367,7 +1367,7 @@ public class ArezContextTest
     context.action( () -> {
       observeADependency();
       assertTrue( context.isTransactionActive() );
-      assertEquals( context.getTransaction().getMode(), TransactionMode.READ_WRITE );
+      assertEquals( context.getTransaction().isMutation(), true );
       assertEquals( context.getTransaction().getName(), "Transaction@" + nextNodeId );
     } );
 
@@ -1413,7 +1413,7 @@ public class ArezContextTest
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), tracker.getName() );
-      assertEquals( transaction.getMode(), tracker.getMode() );
+      assertEquals( transaction.isMutation(), tracker.isMutation() );
 
       assertEquals( observableValue.getObservers().size(), 0 );
       assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
@@ -2108,7 +2108,7 @@ public class ArezContextTest
     final Observer observer = Arez.context().observer( callCount::incrementAndGet );
 
     assertEquals( observer.getName(), "Observer@22" );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 1 );
@@ -2150,7 +2150,7 @@ public class ArezContextTest
 
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getName(), "Observer@22" );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.isComputedValue(), false );
@@ -2193,7 +2193,7 @@ public class ArezContextTest
     }, Flags.READ_WRITE );
 
     assertEquals( observer.getName(), "Observer@22" );
-    assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
+    assertEquals( observer.isMutation(), true );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canNestActions(), false );
@@ -2220,7 +2220,7 @@ public class ArezContextTest
     }, Flags.READ_WRITE );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), TransactionMode.READ_WRITE );
+    assertEquals( observer.isMutation(), true );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.isExternalTracker(), false );
@@ -2340,7 +2340,7 @@ public class ArezContextTest
     }, Flags.RUN_LATER );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.isMutation(), false);
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.isExternalTracker(), false );
@@ -2374,7 +2374,7 @@ public class ArezContextTest
                                                Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
@@ -2426,7 +2426,7 @@ public class ArezContextTest
     final Observer observer = context.tracker( callCount::incrementAndGet );
 
     assertEquals( observer.getName(), "Observer@" + nextNodeId );
-    assertEquals( observer.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( observer.isExternalTracker(), true );

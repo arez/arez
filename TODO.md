@@ -11,8 +11,6 @@ complete as there is too much un-said.
 
 * Add rake task that scan codebase for TODOs during release and raises error if present.
 
-* Remove TransactionMode
-
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 

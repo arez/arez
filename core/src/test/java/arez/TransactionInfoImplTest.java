@@ -14,8 +14,7 @@ public class TransactionInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     final TransactionInfo info = transaction.asInfo();
 
     assertEquals( info.getName(), transaction.getName() );
@@ -30,8 +29,7 @@ public class TransactionInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     final TransactionInfo info = transaction.asInfo();
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, info::getTracker );
@@ -50,7 +48,7 @@ public class TransactionInfoImplTest
 
     final Observer observer = context.computed( () -> "" ).getObserver();
     final Transaction transaction =
-      new Transaction( context, null, observer.getName(), observer.getMode(), observer );
+      new Transaction( context, null, observer.getName(), observer.isMutation(), observer );
     final TransactionInfo info = transaction.asInfo();
 
     assertEquals( info.getName(), transaction.getName() );
@@ -69,10 +67,8 @@ public class TransactionInfoImplTest
     final Observer observer1 = context.observer( new CountAndObserveProcedure() );
     final Observer observer2 = context.observer( new CountAndObserveProcedure() );
 
-    final Transaction transaction1 =
-      new Transaction( context, null, observer1.getName(), TransactionMode.READ_ONLY, observer1 );
-    final Transaction transaction2 =
-      new Transaction( context, transaction1, observer2.getName(), TransactionMode.READ_ONLY, observer2 );
+    final Transaction transaction1 = new Transaction( context, null, observer1.getName(), false, observer1 );
+    final Transaction transaction2 = new Transaction( context, transaction1, observer2.getName(), false, observer2 );
     final TransactionInfo info = transaction2.asInfo();
 
     assertEquals( info.getName(), transaction2.getName() );

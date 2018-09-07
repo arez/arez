@@ -95,14 +95,14 @@ public class ComputedValueInfoImplTest
     final ComputedValueInfoImpl info = (ComputedValueInfoImpl) computedValue.asInfo();
 
     final Transaction transaction =
-      new Transaction( context, null, observer.getName(), observer.getMode(), observer );
+      new Transaction( context, null, observer.getName(), observer.isMutation(), observer );
     Transaction.setTransaction( transaction );
 
     // This picks up where it is the first transaction in stack
     assertEquals( info.getTransactionComputing(), transaction );
 
     final Transaction transaction2 =
-      new Transaction( context, transaction, ValueUtil.randomString(), observer2.getMode(), observer2 );
+      new Transaction( context, transaction, ValueUtil.randomString(), observer2.isMutation(), observer2 );
     Transaction.setTransaction( transaction2 );
 
     // This picks up where it is not the first transaction in stack

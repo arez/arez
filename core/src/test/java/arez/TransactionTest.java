@@ -18,7 +18,7 @@ public class TransactionTest
     final String name1 = ValueUtil.randomString();
     final int nextNodeId = context.currentNextTransactionId();
 
-    final Transaction transaction = new Transaction( context, null, name1, TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, name1, false, null );
 
     assertEquals( transaction.getName(), name1 );
     assertEquals( transaction.toString(), name1 );
@@ -28,7 +28,7 @@ public class TransactionTest
     assertEquals( transaction.getTracker(), null );
     assertEquals( transaction.getObservableValues(), null );
     assertEquals( transaction.getPendingDeactivations(), null );
-    assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( transaction.isMutation(), false );
     assertNotEquals( transaction.getStartedAt(), 0 );
 
     assertEquals( context.currentNextTransactionId(), nextNodeId + 1 );
@@ -39,7 +39,7 @@ public class TransactionTest
   {
     ArezTestUtil.disableNames();
 
-    final Transaction transaction = new Transaction( Arez.context(), null, null, TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, null, false, null );
     final IllegalStateException exception = expectThrows( IllegalStateException.class, transaction::getName );
 
     assertEquals( exception.getMessage(),
@@ -57,7 +57,7 @@ public class TransactionTest
                     () -> new Transaction( Arez.context(),
                                            null,
                                            ValueUtil.randomString(),
-                                           TransactionMode.READ_ONLY,
+                                           false,
                                            null ) );
 
     assertEquals( exception.getMessage(),
@@ -73,7 +73,7 @@ public class TransactionTest
                                                           () -> new Transaction( Arez.context(),
                                                                                  null,
                                                                                  "X",
-                                                                                 TransactionMode.READ_ONLY,
+                                                                                 false,
                                                                                  null ) );
 
     assertEquals( exception.getMessage(),
@@ -85,8 +85,7 @@ public class TransactionTest
   {
     ArezTestUtil.disableSpies();
 
-    final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, ValueUtil.randomString(), false, null );
 
     // Re-enable spy so can read field
     ArezTestUtil.enableSpies();
@@ -95,18 +94,23 @@ public class TransactionTest
   }
 
   @Test
-  public void construction_with_READ_WRITE_OWNED_but_no_tracker()
+  public void construction_with_READ_WRITE_and_computedValue()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> new Transaction( context, null, name, TransactionMode.READ_WRITE_OWNED, null ) );
+                    () -> new Transaction( context,
+                                           null,
+                                           name,
+                                           true,
+                                           computedValue.getObserver() ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0132: Attempted to create transaction named '" + name +
-                  "' with mode READ_WRITE_OWNED but no tracker specified." );
+                  "' with mode READ_WRITE when ComputedValue tracker specified." );
   }
 
   @Test
@@ -114,10 +118,8 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction1 =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    final Transaction transaction2 =
-      new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), false, null );
+    final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), false, null );
 
     assertEquals( transaction1.isRootTransaction(), true );
     assertEquals( transaction1.getRootTransaction(), transaction1 );
@@ -131,10 +133,8 @@ public class TransactionTest
   {
     ArezTestUtil.disableZones();
 
-    final Transaction transaction1 =
-      new Transaction( null, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    final Transaction transaction2 =
-      new Transaction( null, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction1 = new Transaction( null, null, ValueUtil.randomString(), false, null );
+    final Transaction transaction2 = new Transaction( null, transaction1, ValueUtil.randomString(), false, null );
 
     assertEquals( transaction1.isRootTransaction(), true );
     assertEquals( transaction1.getRootTransaction(), transaction1 );
@@ -148,8 +148,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     assertEquals( tracker.getState(), Flags.STATE_INACTIVE );
@@ -169,8 +168,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -214,8 +212,7 @@ public class TransactionTest
   public void trackingCycleWithNoTracker()
   {
     final ArezContext context = Arez.context();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -236,8 +233,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     assertEquals( tracker.getState(), Flags.STATE_INACTIVE );
@@ -252,8 +248,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     ensureDerivationHasObserver( tracker );
@@ -277,8 +272,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
@@ -308,8 +302,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
@@ -336,8 +329,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
@@ -358,8 +350,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
@@ -390,8 +381,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     transaction.beginTracking();
@@ -436,8 +426,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -460,8 +449,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
 
     // This next line forces the creation of observables
     transaction.safeGetObservables();
@@ -481,8 +469,7 @@ public class TransactionTest
 
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_INACTIVE );
@@ -502,8 +489,7 @@ public class TransactionTest
 
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     ensureDerivationHasObserver( tracker );
@@ -552,8 +538,7 @@ public class TransactionTest
     final Observer tracker = newReadWriteObserver( context );
     final Observer observer2 = newReadWriteObserver( context );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_STALE );
@@ -586,8 +571,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -618,8 +602,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -647,8 +630,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -685,8 +667,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -717,8 +698,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -753,8 +733,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -794,8 +773,7 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -836,8 +814,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -869,8 +846,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -951,8 +927,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -988,8 +963,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "", Flags.KEEPALIVE | Flags.RUN_LATER ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -1025,8 +999,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -1049,10 +1022,8 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction1 =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
-    final Transaction transaction2 =
-      new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
+    final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction2 );
     tracker.setState( Flags.STATE_UP_TO_DATE );
 
@@ -1081,8 +1052,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -1106,8 +1076,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -1128,8 +1097,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     Transaction.setTransaction( transaction );
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
@@ -1159,8 +1127,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
 
     assertNull( transaction.getPendingDeactivations() );
 
@@ -1175,8 +1142,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     Transaction.setTransaction( transaction );
 
     final Observer otherObserver = context.computed( () -> "" ).getObserver();
@@ -1210,8 +1176,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     Transaction.setTransaction( transaction );
 
     final Observer otherObserver = context.computed( () -> "" ).getObserver();
@@ -1243,8 +1208,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
 
     //Setup transaction as queueForDeactivation retrieves trnsaction from context
     Transaction.setTransaction( transaction );
@@ -1303,8 +1267,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> baseObservableValue = context.observable();
@@ -1343,10 +1306,8 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction1 =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
-    final Transaction transaction2 =
-      new Transaction( context, transaction1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), false, null );
+    final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), false, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction2::processPendingDeactivations );
@@ -1363,8 +1324,7 @@ public class TransactionTest
 
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -1377,8 +1337,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -1395,8 +1354,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
 
     final ObservableValue<?> observableValue = context.observable();
 
@@ -1410,8 +1368,7 @@ public class TransactionTest
     final ArezContext context = Arez.context();
 
     final Observer tracker = context.computed( () -> "" ).getObserver();
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
 
     final ObservableValue<?> observableValue1 = tracker.getComputedValue().getObservableValue();
     final ObservableValue<?> observableValue2 = context.observable();
@@ -1436,8 +1393,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1456,8 +1412,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1485,8 +1440,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1518,8 +1472,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1548,8 +1501,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1579,8 +1531,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1607,8 +1558,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1648,8 +1598,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -1678,8 +1627,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -1714,8 +1662,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -1737,8 +1684,7 @@ public class TransactionTest
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, calculator );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, calculator );
     Transaction.setTransaction( transaction );
 
     calculator.setState( Flags.STATE_UP_TO_DATE );
@@ -1768,8 +1714,7 @@ public class TransactionTest
 
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -1832,8 +1777,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -1863,8 +1807,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -1958,8 +1901,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -1979,8 +1921,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -2006,8 +1947,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -2035,8 +1975,7 @@ public class TransactionTest
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, calculator );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, calculator );
     Transaction.setTransaction( transaction );
 
     calculator.setState( Flags.STATE_POSSIBLY_STALE );
@@ -2061,8 +2000,7 @@ public class TransactionTest
 
     final Observer tracker = context.computed( () -> "" ).getObserver();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE_OWNED, tracker );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
     Transaction.setTransaction( transaction );
 
     tracker.setState( Flags.STATE_UP_TO_DATE );
@@ -2091,8 +2029,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -2124,8 +2061,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -2153,8 +2089,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     final Observer calculator = context.computed( () -> "" ).getObserver();
@@ -2202,8 +2137,7 @@ public class TransactionTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     Transaction.setTransaction( transaction );
 
     observable.rawAddObserver( observer );
@@ -2229,8 +2163,7 @@ public class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, observer );
     Transaction.setTransaction( transaction );
 
     observableValue.addObserver( observer );
@@ -2248,22 +2181,18 @@ public class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_WRITE, observer );
-    final Transaction transaction2 =
-      new Transaction( context, transaction, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
-    final Transaction transaction3 =
-      new Transaction( context,
-                       transaction2,
-                       ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
-                       context.observer( new CountAndObserveProcedure() ) );
-    final Transaction transaction4 =
-      new Transaction( context,
-                       transaction3,
-                       ValueUtil.randomString(),
-                       TransactionMode.READ_WRITE,
-                       context.observer( new CountAndObserveProcedure() ) );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, observer );
+    final Transaction transaction2 = new Transaction( context, transaction, ValueUtil.randomString(), true, null );
+    final Transaction transaction3 = new Transaction( context,
+                                                      transaction2,
+                                                      ValueUtil.randomString(),
+                                                      true,
+                                                      context.observer( new CountAndObserveProcedure() ) );
+    final Transaction transaction4 = new Transaction( context,
+                                                      transaction3,
+                                                      ValueUtil.randomString(),
+                                                      true,
+                                                      context.observer( new CountAndObserveProcedure() ) );
     Transaction.setTransaction( transaction4 );
 
     observableValue.rawAddObserver( observer );
@@ -2277,8 +2206,7 @@ public class TransactionTest
   {
     ArezTestUtil.disableSpies();
 
-    final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, ValueUtil.randomString(), false, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getStartedAt );
@@ -2292,8 +2220,7 @@ public class TransactionTest
   {
     ArezTestUtil.disableSpies();
 
-    final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, ValueUtil.randomString(), false, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::asInfo );
@@ -2311,20 +2238,19 @@ public class TransactionTest
     assertFalse( context.isTransactionActive() );
 
     final String name = ValueUtil.randomString();
-    final TransactionMode mode = TransactionMode.READ_ONLY;
     final Observer tracker = null;
-    final Transaction transaction = Transaction.begin( context, name, mode, tracker );
+    final Transaction transaction = Transaction.begin( context, name, false, tracker );
 
     assertTrue( context.isTransactionActive() );
 
     assertEquals( context.getTransaction(), transaction );
     assertEquals( transaction.getContext(), context );
     assertEquals( transaction.getName(), name );
-    assertEquals( transaction.getMode(), mode );
+    assertEquals( transaction.isMutation(), false );
     assertEquals( transaction.getTracker(), tracker );
     assertEquals( transaction.getPrevious(), null );
     assertEquals( transaction.getPreviousInSameContext(), null );
-    assertEquals( transaction.getMode(), TransactionMode.READ_ONLY );
+    assertEquals( transaction.isMutation(), false );
   }
 
   @Test
@@ -2337,11 +2263,11 @@ public class TransactionTest
 
     final Transaction transaction1 = Transaction.begin( context,
                                                         ValueUtil.randomString(),
-                                                        TransactionMode.READ_ONLY, null );
+                                                        false, null );
     assertTrue( context.isTransactionActive() );
 
     final Transaction transaction2 = Transaction.begin( context, ValueUtil.randomString(),
-                                                        TransactionMode.READ_ONLY, null );
+                                                        false, null );
 
     assertTrue( context.isTransactionActive() );
 
@@ -2361,12 +2287,12 @@ public class TransactionTest
     assertFalse( context2.isTransactionActive() );
 
     final Transaction transaction1 =
-      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context1, ValueUtil.randomString(), false, null );
     assertTrue( context1.isTransactionActive() );
     assertFalse( context2.isTransactionActive() );
 
     final Transaction transaction2 =
-      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context2, ValueUtil.randomString(), false, null );
 
     assertFalse( context1.isTransactionActive() );
     assertTrue( context2.isTransactionActive() );
@@ -2387,18 +2313,18 @@ public class TransactionTest
     assertFalse( context2.isTransactionActive() );
 
     final Transaction transaction1 =
-      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context1, ValueUtil.randomString(), false, null );
     assertTrue( context1.isTransactionActive() );
     assertFalse( context2.isTransactionActive() );
 
     final Transaction transaction2 =
-      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context2, ValueUtil.randomString(), false, null );
 
     assertFalse( context1.isTransactionActive() );
     assertTrue( context2.isTransactionActive() );
 
     final Transaction transaction3 =
-      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context1, ValueUtil.randomString(), false, null );
 
     assertTrue( context1.isTransactionActive() );
     assertFalse( context2.isTransactionActive() );
@@ -2423,13 +2349,13 @@ public class TransactionTest
 
     final String name1 = ValueUtil.randomString();
     final String name2 = ValueUtil.randomString();
-    Transaction.begin( context1, name1, TransactionMode.READ_ONLY, null );
+    Transaction.begin( context1, name1, false, null );
     assertTrue( context1.isTransactionActive() );
     assertTrue( context2.isTransactionActive() );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context2, name2, TransactionMode.READ_ONLY, null ) );
+                    () -> Transaction.begin( context2, name2, false, null ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0120: Zones are not enabled but the transaction named '" + name2 + "' is nested in a " +
@@ -2446,7 +2372,7 @@ public class TransactionTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    Transaction.begin( context, name, TransactionMode.READ_ONLY, null );
+    Transaction.begin( context, name, false, null );
 
     handler.assertEventCount( 1 );
     handler.assertNextEvent( TransactionStartedEvent.class, event -> {
@@ -2468,8 +2394,7 @@ public class TransactionTest
     final String name = ValueUtil.randomString();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
+      expectThrows( IllegalStateException.class, () -> Transaction.begin( context, name, true, null ) );
     assertEquals( exception.getMessage(),
                   "Arez-0119: Attempting to create READ_WRITE transaction named '" + name +
                   "' but it is nested in transaction named '" + transaction.getName() + "' with " +
@@ -2490,7 +2415,7 @@ public class TransactionTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
+                    () -> Transaction.begin( context, name, false, null ) );
     assertEquals( exception.getMessage(),
                   "Arez-0121: Attempted to create transaction named '" + name + "' while " +
                   "nested in a suspended transaction named '" + transaction.getName() + "'." );
@@ -2508,10 +2433,9 @@ public class TransactionTest
     final String name = ValueUtil.randomString();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, null ) );
+      expectThrows( IllegalStateException.class, () -> Transaction.begin( context, name, true, null ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0186: Attempting to create READ_WRITE transaction named '" + name +
+                  "Arez-0186: Attempting to create transaction named '" + name +
                   "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
                   "ComputedValues must not invoke actions or track methods as they should derive " +
                   "values from other computeds and observables." );
@@ -2530,8 +2454,7 @@ public class TransactionTest
     final String name = ValueUtil.randomString();
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, TransactionMode.READ_WRITE, tracker ) );
+      expectThrows( IllegalStateException.class, () -> Transaction.begin( context, name, true, tracker ) );
     assertEquals( exception.getMessage(),
                   "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for the " +
                   "observer named '" + tracker.getName() + "' but the transaction is not a top-level transaction " +
@@ -2552,9 +2475,9 @@ public class TransactionTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, TransactionMode.READ_ONLY, null ) );
+                    () -> Transaction.begin( context, name, false, null ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0186: Attempting to create READ_ONLY transaction named '" + name +
+                  "Arez-0186: Attempting to create transaction named '" + name +
                   "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
                   "ComputedValues must not invoke actions or track methods as they should derive " +
                   "values from other computeds and observables." );
@@ -2566,8 +2489,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
 
@@ -2584,9 +2506,9 @@ public class TransactionTest
     final ArezContext context = Arez.context();
 
     final Transaction transaction1 =
-      Transaction.begin( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context, ValueUtil.randomString(), false, null );
     final Transaction transaction2 =
-      Transaction.begin( context, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context, ValueUtil.randomString(), false, null );
 
     assertEquals( context.isTransactionActive(), true );
     assertEquals( context.isSchedulerEnabled(), false );
@@ -2610,9 +2532,9 @@ public class TransactionTest
     final ArezContext context2 = new ArezContext();
 
     final Transaction transaction1 =
-      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context1, ValueUtil.randomString(), false, null );
     final Transaction transaction2 =
-      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context2, ValueUtil.randomString(), false, null );
 
     assertEquals( context1.isTransactionActive(), false );
     assertEquals( context1.isSchedulerEnabled(), false );
@@ -2640,13 +2562,13 @@ public class TransactionTest
     final ArezContext context2 = new ArezContext();
 
     final Transaction transaction1 =
-      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context1, ValueUtil.randomString(), false, null );
     final Transaction transaction2 =
-      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context2, ValueUtil.randomString(), false, null );
     final Transaction transaction3 =
-      Transaction.begin( context1, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context1, ValueUtil.randomString(), false, null );
     final Transaction transaction4 =
-      Transaction.begin( context2, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+      Transaction.begin( context2, ValueUtil.randomString(), false, null );
 
     assertEquals( context1.isTransactionActive(), false );
     assertEquals( context1.isSchedulerEnabled(), false );
@@ -2691,8 +2613,7 @@ public class TransactionTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    final Transaction transaction =
-      new Transaction( context, null, name, TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, name, false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
 
@@ -2713,13 +2634,11 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
 
-    final Transaction transaction2 =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction2.begin();
 
     final IllegalStateException exception =
@@ -2735,8 +2654,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
     Transaction.markAsSuspended();
@@ -2755,8 +2673,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
 
     final IllegalStateException exception =
@@ -2771,8 +2688,7 @@ public class TransactionTest
   {
     ArezTestUtil.disableZones();
 
-    final Transaction transaction =
-      new Transaction( null, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( null, null, ValueUtil.randomString(), false, null );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, transaction::getPreviousInSameContext );
@@ -2787,8 +2703,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
 
@@ -2811,8 +2726,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
     Transaction.markAsSuspended();
@@ -2829,8 +2743,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
     Transaction.markAsSuspended();
@@ -2848,8 +2761,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
 
     final IllegalStateException exception =
@@ -2865,8 +2777,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
 
@@ -2883,14 +2794,12 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
     Transaction.markAsSuspended();
 
-    final Transaction transaction2 =
-      new Transaction( context, transaction, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 = new Transaction( context, transaction, ValueUtil.randomString(), false, null );
     transaction2.begin();
 
     final IllegalStateException exception =
@@ -2906,8 +2815,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
 
@@ -2924,12 +2832,10 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
 
-    final Transaction transaction2 =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction2 = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction2.begin();
     Transaction.setTransaction( transaction2 );
 
@@ -2946,8 +2852,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
     Transaction.setTransaction( transaction );
     Transaction.markAsSuspended();
@@ -2965,8 +2870,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
 
     final IllegalStateException exception =
@@ -2982,8 +2886,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction =
-      new Transaction( context, null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
     transaction.begin();
 
     assertFalse( Transaction.isTransactionActive( context ) );
@@ -3018,8 +2921,7 @@ public class TransactionTest
   @Test
   public void reportDispose()
   {
-    final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_WRITE, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, ValueUtil.randomString(), true, null );
 
     final MyDisposable node = new MyDisposable();
 
@@ -3037,8 +2939,7 @@ public class TransactionTest
   @Test
   public void reportDispose_BAD_TransactionMode()
   {
-    final Transaction transaction =
-      new Transaction( Arez.context(), null, ValueUtil.randomString(), TransactionMode.READ_ONLY, null );
+    final Transaction transaction = new Transaction( Arez.context(), null, ValueUtil.randomString(), false, null );
 
     final MyDisposable node = new MyDisposable();
 
