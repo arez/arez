@@ -11,38 +11,88 @@ public final class Flags
   /**
    * Flag indicating that the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
    */
-  public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 0b10000000000000000000000000000000;
+  public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 1 << 30;
   /**
    * Indicates that the an action can be created from within the Observers tracked function.
    */
-  public static final int NESTED_ACTIONS_ALLOWED = 0b01000000000000000000000000000000;
+  public static final int NESTED_ACTIONS_ALLOWED = 1 << 29;
   /**
    * Indicates that the an action must not be created from within the Observers tracked function.
    */
-  public static final int NESTED_ACTIONS_DISALLOWED = 0b00100000000000000000000000000000;
+  public static final int NESTED_ACTIONS_DISALLOWED = 1 << 28;
   /**
    * Mask to extract "NESTED_ACTIONS" option so can derive default value if required.
    */
-  private static final int NESTED_ACTIONS_MASK = 0b01100000000000000000000000000000;
+  private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
   /**
-   * Flag set to true if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
    */
-  public static final int NON_AREZ_DEPENDENCIES = 0b00010000000000000000000000000000;
+  public static final int NON_AREZ_DEPENDENCIES = 1 << 27;
   /**
-   * Mask used to extract priority bits.
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate dependency has changed.
    */
-  private static final int PRIORITY_MASK = 0b00001110000000000000000000000000;
+  public static final int AREZ_DEPENDENCIES_ONLY = 1 << 26;
   /**
-   * Shift used to extract priority after applying mask.
+   * Mask used to extract dependency type bits.
    */
-  private static final int PRIORITY_SHIFT = 25;
+  private static final int DEPENDENCIES_TYPE_MASK = NON_AREZ_DEPENDENCIES | AREZ_DEPENDENCIES_ONLY;
+  /**
+   * The observer can only read arez state.
+   */
+  public static final int READ_ONLY = 1 << 25;
+  /**
+   * The observer can read or write arez state.
+   */
+  public static final int READ_WRITE = 1 << 24;
+  /**
+   * Mask used to extract transaction mode bits.
+   */
+  private static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
+  /**
+   * The scheduler will be triggered when the observer is created to immediately invoke the
+   * {@link Observer#_tracked} function. This configuration should not be specified if there
+   * is no {@link Observer#_tracked} function supplied. This should not be
+   * specified if {@link #RUN_LATER} is specified.
+   */
+  public static final int RUN_NOW = 1 << 23;
+  /**
+   * The scheduler will not be triggered when the observer is created. The observer either
+   * has no {@link Observer#_tracked} function or is responsible for ensuring that
+   * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
+   * specified if {@link #RUN_NOW} is specified.
+   */
+  public static final int RUN_LATER = 1 << 22;
+  /**
+   * Mask used to extract run type bits.
+   */
+  private static final int RUN_TYPE_MASK = RUN_NOW | RUN_LATER;
+  /**
+   * The runtime will keep the observer reacting to dependencies until disposed. This should not be
+   * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
+   * that supply a tracked function.
+   */
+  public static final int KEEPALIVE = 1 << 21;
+  /**
+   * The flag is valid on observers associated with computed values and will deactivate the observer if the
+   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   */
+  public static final int DEACTIVATE_ON_UNOBSERVE = 1 << 20;
+  /**
+   * The flag is valid on observers associated with computed values and will deactivate the observer if the
+   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   */
+  public static final int SCHEDULED_EXTERNALLY = 1 << 19;
+  /**
+   * Mask used to extract react type bits.
+   */
+  private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | SCHEDULED_EXTERNALLY;
   /**
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
    * (and thus remove elements from being scheduled).
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  public static final int PRIORITY_HIGHEST = 0b00000010000000000000000000000000;
+  public static final int PRIORITY_HIGHEST = 0b001 << 16;
   /**
    * High priority.
    * To reduce the chance that downstream elements will react multiple times within a single
@@ -50,12 +100,12 @@ public final class Flags
    * reactions.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  public static final int PRIORITY_HIGH = 0b00000100000000000000000000000000;
+  public static final int PRIORITY_HIGH = 0b010 << 16;
   /**
    * Normal priority if no other priority otherwise specified.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  public static final int PRIORITY_NORMAL = 0b00000110000000000000000000000000;
+  public static final int PRIORITY_NORMAL = 0b011 << 16;
   /**
    * Low priority.
    * Usually used to schedule observers that reflect state onto non-reactive
@@ -65,7 +115,7 @@ public final class Flags
    * this reaction multiple times within a single reaction round.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  public static final int PRIORITY_LOW = 0b00001000000000000000000000000000;
+  public static final int PRIORITY_LOW = 0b100 << 16;
   /**
    * Lowest priority. Use this priority if the observer is a {@link ComputedValue} that
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -73,107 +123,72 @@ public final class Flags
    * another observers reaction.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    */
-  public static final int PRIORITY_LOWEST = 0b00001010000000000000000000000000;
+  public static final int PRIORITY_LOWEST = 0b101 << 16;
   /**
-   * Mask used to extract transaction mode bits.
+   * Mask used to extract priority bits.
    */
-  private static final int TRANSACTION_MASK = 0b00000001100000000000000000000000;
+  private static final int PRIORITY_MASK = 0b111 << 16;
   /**
-   * The observer can only read arez state.
+   * Shift used to extract priority after applying mask.
    */
-  public static final int READ_ONLY = 0b00000001000000000000000000000000;
-  /**
-   * The observer can read or write arez state.
-   */
-  public static final int READ_WRITE = 0b00000000100000000000000000000000;
-  /**
-   * Mask used to extract run type bits.
-   */
-  private static final int RUN_TYPE_MASK = 0b00000000011000000000000000000000;
-  /**
-   * The scheduler will be triggered when the observer is created to immediately invoke the
-   * {@link Observer#_tracked} function. This configuration should not be specified if there
-   * is no {@link Observer#_tracked} function supplied. This should not be
-   * specified if {@link #RUN_LATER} is specified.
-   */
-  public static final int RUN_NOW = 0b00000000010000000000000000000000;
-  /**
-   * The scheduler will not be triggered when the observer is created. The observer either
-   * has no {@link Observer#_tracked} function or is responsible for ensuring that
-   * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
-   * specified if {@link #RUN_NOW} is specified.
-   */
-  public static final int RUN_LATER = 0b00000000001000000000000000000000;
-  /**
-   * Mask used to extract react type bits.
-   */
-  private static final int SCHEDULE_TYPE_MASK = 0b00000000000110000000000000000000;
-  /**
-   * The runtime will keep the observer reacting to dependencies until disposed. This should not be
-   * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
-   * that supply a tracked function.
-   */
-  public static final int KEEPALIVE = 0b00000000000100000000000000000000;
-  /**
-   * The flag is valid on observers associated with computed values and will deactivate the observer if the
-   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
-   */
-  public static final int DEACTIVATE_ON_UNOBSERVE = 0b00000000000010000000000000000000;
-  /**
-   * The flag is valid on observers associated with computed values and will deactivate the observer if the
-   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
-   */
-  public static final int SCHEDULED_EXTERNALLY = 0b00000000000110000000000000000000;
+  private static final int PRIORITY_SHIFT = 16;
   /**
    * Mask that identifies the bits associated with static configuration.
    */
-  static final int CONFIG_FLAGS_MASK = 0b11111111111110000000000000000000;
+  static final int CONFIG_FLAGS_MASK =
+    OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
+    NESTED_ACTIONS_MASK |
+    DEPENDENCIES_TYPE_MASK |
+    TRANSACTION_MASK |
+    RUN_TYPE_MASK |
+    SCHEDULE_TYPE_MASK |
+    PRIORITY_MASK;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
    */
-  static final int EXECUTE_TRACKED_NEXT = 0b00000000000000000000000000010000;
+  static final int EXECUTE_TRACKED_NEXT = 5 << 10;
   /**
    * The observer has been scheduled.
    */
-  static final int SCHEDULED = 0b00000000000000000000000000001000;
+  static final int SCHEDULED = 4 << 9;
   /**
    * Mask used to extract state bits.
    * State is the lowest bits as it is the most frequently accessed numeric fields
    * and placing values at lower part of integer avoids a shift.
    */
-  private static final int STATE_MASK = 0b00000000000000000000000000000111;
+  private static final int STATE_MASK = 0b111;
   /**
    * The observer has been disposed.
    */
-  static final int STATE_DISPOSED = 0b00000000000000000000000000000001;
+  static final int STATE_DISPOSED = 0b001;
   /**
    * The observer is in the process of being disposed.
    */
-  static final int STATE_DISPOSING = 0b00000000000000000000000000000010;
+  static final int STATE_DISPOSING = 0b010;
   /**
    * The observer is not active and is not holding any data about it's dependencies.
    * Typically mean this tracker observer has not been run or if it is a ComputedValue that
    * there is no observer observing the associated ObservableValue.
    */
-  static final int STATE_INACTIVE = 0b00000000000000000000000000000011;
+  static final int STATE_INACTIVE = 0b011;
   /**
    * No change since last time observer was notified.
    */
-  static final int STATE_UP_TO_DATE = 0b00000000000000000000000000000100;
+  static final int STATE_UP_TO_DATE = 0b100;
   /**
    * A transitive dependency has changed but it has not been determined if a shallow
    * dependency has changed. The observer will need to check if shallow dependencies
    * have changed. Only Derived observables will propagate POSSIBLY_STALE state.
    */
-  static final int STATE_POSSIBLY_STALE = 0b00000000000000000000000000000101;
+  static final int STATE_POSSIBLY_STALE = 0b101;
   /**
    * A dependency has changed so the observer will need to recompute.
    */
-  static final int STATE_STALE = 0b00000000000000000000000000000110;
+  static final int STATE_STALE = 0b110;
   /**
    * Mask that identifies the bits associated with runtime configuration.
    */
-  static final int RUNTIME_FLAGS_MASK = 0b00000000000000000000000000011111;
+  static final int RUNTIME_FLAGS_MASK = EXECUTE_TRACKED_NEXT | SCHEDULED | STATE_MASK;
 
   /**
    * Return true if flags contains priority.
@@ -222,15 +237,28 @@ public final class Flags
     return ( getPriority( flags ) >> PRIORITY_SHIFT ) - 1;
   }
 
+  static int priority( final int flags )
+  {
+    return defaultFlagUnlessSpecified( flags, PRIORITY_MASK, PRIORITY_NORMAL );
+  }
+
+  static int nestedActionRule( final int flags )
+  {
+    return Arez.shouldCheckInvariants() ?
+           defaultFlagUnlessSpecified( flags, NESTED_ACTIONS_MASK, NESTED_ACTIONS_DISALLOWED ) :
+           0;
+  }
+
   /**
-   * Return true if flags contains nested action rule.
+   * Return true if flags contains a valid nested action mode.
    *
    * @param flags the flags.
-   * @return true if flags contains nested action rule.
+   * @return true if flags contains valid nested action mode.
    */
-  static boolean isNestedActionsModeSpecified( final int flags )
+  static boolean isNestedActionsModeValid( final int flags )
   {
-    return 0 != ( flags & NESTED_ACTIONS_MASK );
+    return NESTED_ACTIONS_ALLOWED == ( flags & NESTED_ACTIONS_ALLOWED ) ^
+           NESTED_ACTIONS_DISALLOWED == ( flags & NESTED_ACTIONS_DISALLOWED );
   }
 
   /**
@@ -242,6 +270,13 @@ public final class Flags
   static boolean isTransactionModeSpecified( final int flags )
   {
     return 0 != ( flags & TRANSACTION_MASK );
+  }
+
+  static int transactionMode( final int flags )
+  {
+    return Arez.shouldEnforceTransactionType() ?
+           defaultFlagUnlessSpecified( flags, TRANSACTION_MASK, READ_ONLY ) :
+           0;
   }
 
   /**
@@ -263,7 +298,7 @@ public final class Flags
    */
   static boolean isRunTypeValid( final int flags )
   {
-    return 0 != ( flags & RUN_NOW ) ^ 0 != ( flags & RUN_LATER );
+    return RUN_NOW == ( flags & RUN_NOW ) ^ RUN_LATER == ( flags & RUN_LATER );
   }
 
   /**
@@ -273,9 +308,9 @@ public final class Flags
    * @param defaultFlag the default flag to apply
    * @return the default run type if run type unspecified else 0.
    */
-  static int defaultRunTypeUnlessSpecified( final int flags, final int defaultFlag )
+  static int runType( final int flags, final int defaultFlag )
   {
-    return 0 != ( flags & RUN_TYPE_MASK ) ? 0 : defaultFlag;
+    return defaultFlagUnlessSpecified( flags, RUN_TYPE_MASK, defaultFlag );
   }
 
   /**
@@ -311,6 +346,19 @@ public final class Flags
   static int getScheduleType( final int flags )
   {
     return flags & SCHEDULE_TYPE_MASK;
+  }
+
+  /**
+   * Return true if flags contains a valid ScheduleType.
+   *
+   * @param flags the flags.
+   * @return true if flags contains a valid ScheduleType.
+   */
+  static boolean isScheduleTypeValid( final int flags )
+  {
+    return KEEPALIVE == ( flags & KEEPALIVE ) ^
+           DEACTIVATE_ON_UNOBSERVE == ( flags & DEACTIVATE_ON_UNOBSERVE ) ^
+           SCHEDULED_EXTERNALLY == ( flags & SCHEDULED_EXTERNALLY );
   }
 
   /**
@@ -406,18 +454,16 @@ public final class Flags
   {
   }
 
-  static int defaultPriorityUnlessSpecified( final int flags )
+  /**
+   * Return the default flag unless a value in mask is specified.
+   *
+   * @param flags       the flags.
+   * @param mask        the mask.
+   * @param defaultFlag the default flag to apply
+   * @return the default flag unless flag has value.
+   */
+  private static int defaultFlagUnlessSpecified( final int flags, final int mask, final int defaultFlag )
   {
-    return isPrioritySpecified( flags ) ? 0 : PRIORITY_NORMAL;
-  }
-
-  static int defaultNestedActionRuleUnlessSpecified( final int flags )
-  {
-    return !Arez.shouldCheckInvariants() || isNestedActionsModeSpecified( flags ) ? 0 : NESTED_ACTIONS_DISALLOWED;
-  }
-
-  static int defaultObserverTransactionModeUnlessSpecified( final int flags )
-  {
-    return !Arez.shouldEnforceTransactionType() || isTransactionModeSpecified( flags ) ? 0 : READ_ONLY;
+    return 0 != ( flags & mask ) ? 0 : defaultFlag;
   }
 }

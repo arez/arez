@@ -82,13 +82,10 @@ public final class Observer
           null,
           flags |
           ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? 0 : Flags.DEACTIVATE_ON_UNOBSERVE ) |
-          Flags.defaultRunTypeUnlessSpecified( flags,
-                                               ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ) ?
-                                               Flags.RUN_NOW :
-                                               Flags.RUN_LATER ) |
+          Flags.runType( flags, Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? Flags.RUN_NOW : Flags.RUN_LATER ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
-          Flags.defaultPriorityUnlessSpecified( flags ) );
+          Flags.priority( flags ) );
   }
 
   Observer( @Nullable final ArezContext context,
@@ -106,11 +103,10 @@ public final class Observer
           onDepsUpdated,
           flags |
           ( null == tracked ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
-          Flags.defaultRunTypeUnlessSpecified( flags,
-                                               null == tracked ? Flags.RUN_LATER : Flags.RUN_NOW ) |
-          Flags.defaultPriorityUnlessSpecified( flags ) |
-          Flags.defaultNestedActionRuleUnlessSpecified( flags ) |
-          Flags.defaultObserverTransactionModeUnlessSpecified( flags ) );
+          Flags.runType( flags, null == tracked ? Flags.RUN_LATER : Flags.RUN_NOW ) |
+          Flags.priority( flags ) |
+          Flags.nestedActionRule( flags ) |
+          Flags.transactionMode( flags ) );
   }
 
   private Observer( @Nullable final ArezContext context,

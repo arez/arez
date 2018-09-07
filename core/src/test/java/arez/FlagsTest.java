@@ -117,7 +117,7 @@ public class FlagsTest
     assertEquals( Flags.getStateName( Flags.STATE_POSSIBLY_STALE ), "POSSIBLY_STALE" );
     assertEquals( Flags.getStateName( Flags.STATE_STALE ), "STALE" );
     // State value should have been passed in
-    assertEquals( Flags.getStateName( Flags.PRIORITY_NORMAL | Flags.STATE_STALE ), "UNKNOWN(100663302)" );
+    assertEquals( Flags.getStateName( Flags.PRIORITY_NORMAL | Flags.STATE_STALE ), "UNKNOWN(196614)" );
   }
 
   @Test
@@ -175,13 +175,14 @@ public class FlagsTest
   }
 
   @Test
-  public void isNestedActionsModeSpecified()
+  public void isNestedActionsModeValid()
     throws Exception
   {
-    assertTrue( Flags.isNestedActionsModeSpecified( Flags.NESTED_ACTIONS_ALLOWED ) );
-    assertTrue( Flags.isNestedActionsModeSpecified( Flags.NESTED_ACTIONS_DISALLOWED ) );
-    assertFalse( Flags.isNestedActionsModeSpecified( 0 ) );
-    assertFalse( Flags.isNestedActionsModeSpecified( Flags.PRIORITY_LOWEST ) );
+    assertTrue( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_ALLOWED ) );
+    assertTrue( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_DISALLOWED ) );
+    assertFalse( Flags.isNestedActionsModeValid( 0 ) );
+    assertFalse( Flags.isNestedActionsModeValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ) );
   }
 
   @Test
@@ -196,7 +197,7 @@ public class FlagsTest
   }
 
   @Test
-  public void getKeepAliveType()
+  public void getScheduleType()
     throws Exception
   {
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGHEST | Flags.KEEPALIVE ), Flags.KEEPALIVE );
@@ -208,50 +209,62 @@ public class FlagsTest
   }
 
   @Test
+  public void isScheduleTypeValid()
+    throws Exception
+  {
+    assertTrue( Flags.isScheduleTypeValid( Flags.KEEPALIVE ) );
+    assertTrue( Flags.isScheduleTypeValid( Flags.DEACTIVATE_ON_UNOBSERVE ) );
+    assertTrue( Flags.isScheduleTypeValid( Flags.SCHEDULED_EXTERNALLY ) );
+    assertFalse( Flags.isScheduleTypeValid( 0 ) );
+    assertFalse( Flags.isScheduleTypeValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isScheduleTypeValid( Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ) );
+    assertFalse( Flags.isScheduleTypeValid( Flags.KEEPALIVE | Flags.SCHEDULED_EXTERNALLY ) );
+    assertFalse( Flags.isScheduleTypeValid( Flags.DEACTIVATE_ON_UNOBSERVE | Flags.SCHEDULED_EXTERNALLY ) );
+  }
+
+  @Test
   public void defaultPriorityUnlessSpecified()
   {
-    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_HIGHEST ), 0 );
-    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_HIGH ), 0 );
-    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_NORMAL ), 0 );
-    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_LOW ), 0 );
-    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.PRIORITY_LOWEST ), 0 );
-    assertEquals( Flags.defaultPriorityUnlessSpecified( 0 ), Flags.PRIORITY_NORMAL );
-    assertEquals( Flags.defaultPriorityUnlessSpecified( Flags.READ_ONLY ), Flags.PRIORITY_NORMAL );
+    assertEquals( Flags.priority( Flags.PRIORITY_HIGHEST ), 0 );
+    assertEquals( Flags.priority( Flags.PRIORITY_HIGH ), 0 );
+    assertEquals( Flags.priority( Flags.PRIORITY_NORMAL ), 0 );
+    assertEquals( Flags.priority( Flags.PRIORITY_LOW ), 0 );
+    assertEquals( Flags.priority( Flags.PRIORITY_LOWEST ), 0 );
+    assertEquals( Flags.priority( 0 ), Flags.PRIORITY_NORMAL );
+    assertEquals( Flags.priority( Flags.READ_ONLY ), Flags.PRIORITY_NORMAL );
   }
 
   @Test
   public void defaultNestedActionRuleUnlessSpecified()
   {
-    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.NESTED_ACTIONS_ALLOWED ), 0 );
-    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED ), 0 );
-    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( 0 ), Flags.NESTED_ACTIONS_DISALLOWED );
-    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( Flags.READ_ONLY ), Flags.NESTED_ACTIONS_DISALLOWED );
+    assertEquals( Flags.nestedActionRule( Flags.NESTED_ACTIONS_ALLOWED ), 0 );
+    assertEquals( Flags.nestedActionRule( Flags.NESTED_ACTIONS_DISALLOWED ), 0 );
+    assertEquals( Flags.nestedActionRule( 0 ), Flags.NESTED_ACTIONS_DISALLOWED );
+    assertEquals( Flags.nestedActionRule( Flags.READ_ONLY ), Flags.NESTED_ACTIONS_DISALLOWED );
 
     ArezTestUtil.noCheckInvariants();
-    assertEquals( Flags.defaultNestedActionRuleUnlessSpecified( 0 ), 0 );
+    assertEquals( Flags.nestedActionRule( 0 ), 0 );
   }
 
   @Test
   public void defaultObserverTransactionModeUnlessSpecified()
   {
-    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( Flags.READ_ONLY ), 0 );
-    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( Flags.READ_WRITE ), 0 );
-    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), Flags.READ_ONLY );
-    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED ),
-                  Flags.READ_ONLY );
+    assertEquals( Flags.transactionMode( Flags.READ_ONLY ), 0 );
+    assertEquals( Flags.transactionMode( Flags.READ_WRITE ), 0 );
+    assertEquals( Flags.transactionMode( 0 ), Flags.READ_ONLY );
+    assertEquals( Flags.transactionMode( Flags.NESTED_ACTIONS_DISALLOWED ), Flags.READ_ONLY );
 
     ArezTestUtil.noEnforceTransactionType();
-    assertEquals( Flags.defaultObserverTransactionModeUnlessSpecified( 0 ), 0 );
+    assertEquals( Flags.transactionMode( 0 ), 0 );
   }
 
   @Test
   public void defaultReactTypeUnlessSpecified()
   {
-    assertEquals( Flags.defaultRunTypeUnlessSpecified( Flags.RUN_NOW, Flags.RUN_NOW ), 0 );
-    assertEquals( Flags.defaultRunTypeUnlessSpecified( Flags.RUN_LATER, Flags.RUN_NOW ), 0 );
-    assertEquals( Flags.defaultRunTypeUnlessSpecified( 0, Flags.RUN_NOW ), Flags.RUN_NOW );
-    assertEquals( Flags.defaultRunTypeUnlessSpecified( Flags.NESTED_ACTIONS_DISALLOWED, Flags.RUN_NOW ),
-                  Flags.RUN_NOW );
+    assertEquals( Flags.runType( Flags.RUN_NOW, Flags.RUN_NOW ), 0 );
+    assertEquals( Flags.runType( Flags.RUN_LATER, Flags.RUN_NOW ), 0 );
+    assertEquals( Flags.runType( 0, Flags.RUN_NOW ), Flags.RUN_NOW );
+    assertEquals( Flags.runType( Flags.NESTED_ACTIONS_DISALLOWED, Flags.RUN_NOW ), Flags.RUN_NOW );
   }
 
   @Test
