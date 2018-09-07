@@ -11,7 +11,6 @@ import javax.annotation.Nullable;
 public final class TransactionStartedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( TransactionStartedEvent.class );
   @Nonnull
   private final String _name;
   private final boolean _mutation;
@@ -50,7 +49,7 @@ public final class TransactionStartedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "TransactionStarted" );
     map.put( "transaction", getName() );
     map.put( "mutation", isMutation() );
     final ObserverInfo tracker = getTracker();

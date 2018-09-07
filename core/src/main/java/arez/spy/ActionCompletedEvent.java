@@ -11,7 +11,6 @@ import javax.annotation.Nullable;
 public final class ActionCompletedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ActionCompletedEvent.class );
   @Nonnull
   private final String _name;
   /**
@@ -94,7 +93,7 @@ public final class ActionCompletedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ActionCompleted" );
     map.put( "action", getName() );
     map.put( "tracked", isTracked() );
     map.put( "duration", getDuration() );

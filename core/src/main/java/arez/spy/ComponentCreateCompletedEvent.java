@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ComponentCreateCompletedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ComponentCreateCompletedEvent.class );
   @Nonnull
   private final ComponentInfo _componentInfo;
 
@@ -31,7 +30,7 @@ public final class ComponentCreateCompletedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ComponentCreateCompleted" );
     map.put( "component", getComponentInfo().getName() );
   }
 }

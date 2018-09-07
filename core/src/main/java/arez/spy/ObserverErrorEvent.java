@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 public final class ObserverErrorEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ObserverErrorEvent.class );
   @Nonnull
   private final ObserverInfo _observer;
   @Nonnull
@@ -53,7 +52,7 @@ public final class ObserverErrorEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ObserverError" );
     map.put( "observer", getObserver().getName() );
     map.put( "errorType", getError().name() );
     final Throwable throwable = getThrowable();

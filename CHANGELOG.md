@@ -54,6 +54,8 @@
   be flags so that it matches the underlying representation of configuration.
 * **\[core\]** Move `arez.Spy` to `arez.spy.Spy` and `arez.SpyEventHandler` to `arez.spy.SpyEventHandler` so that
   the Arez Spy API is located in a single package.
+* **\[core\]** Remove the `TYPE` field from the spy events that is a constant derived at runtime and instead inline
+  the constant where it is used.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

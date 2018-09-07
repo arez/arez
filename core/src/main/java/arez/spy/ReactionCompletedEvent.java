@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ReactionCompletedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ReactionCompletedEvent.class );
   @Nonnull
   private final ObserverInfo _observer;
   private final long _duration;
@@ -39,7 +38,7 @@ public final class ReactionCompletedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ReactionCompleted" );
     map.put( "observer", getObserver().getName() );
     map.put( "duration", getDuration() );
   }

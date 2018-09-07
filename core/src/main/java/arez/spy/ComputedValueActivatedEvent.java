@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ComputedValueActivatedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ComputedValueActivatedEvent.class );
   @Nonnull
   private final ComputedValueInfo _computedValue;
 
@@ -31,7 +30,7 @@ public final class ComputedValueActivatedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ComputedValueActivated" );
     map.put( "computed", getComputedValue().getName() );
   }
 }
