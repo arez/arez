@@ -153,11 +153,9 @@ public final class Observer
       invariant( () -> null != tracked || null != onDepsUpdated,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
                        "tracked parameter or the onDepsUpdated parameter." );
-      // Next line seems to be impossible to create from tests
+      // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != tracked;
-      invariant( () -> Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == tracked,
-                 () -> "Arez-0207: Observer named '" + getName() + "' specified SCHEDULED_EXTERNALLY schedule " +
-                       "type but the tracked function is non-null." );
+      assert Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == tracked;
       invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
                           null != computedValue ),

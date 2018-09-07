@@ -216,26 +216,6 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_SCHEDULED_EXTERNALLY_and_no_tracked()
-    throws Exception
-  {
-    final String name = ValueUtil.randomString();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        new CountingProcedure(),
-                                        Flags.SCHEDULED_EXTERNALLY ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0207: Observer named '" + name + "' specified SCHEDULED_EXTERNALLY schedule type but " +
-                  "the tracked function is non-null." );
-  }
-
-  @Test
   public void construct_with_KEEPALIVE_and_DEACTIVATE_ON_UNOBSERVE()
     throws Exception
   {
