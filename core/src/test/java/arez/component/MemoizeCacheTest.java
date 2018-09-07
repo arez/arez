@@ -320,4 +320,15 @@ public class MemoizeCacheTest
     assertEquals( exception.getMessage(),
                   "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
   }
+
+  @Test
+  public void constructorPassedBadFlags()
+  {
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Flags.KEEPALIVE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + Flags.KEEPALIVE );
+  }
 }

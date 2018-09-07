@@ -128,7 +128,14 @@ public final class MemoizeCache<T>
       apiInvariant( () -> argCount > 0,
                     () -> "Arez-0160: MemoizeCache constructed with invalid argCount: " + argCount +
                           ". Expected positive value." );
-      //TODO: Memoize cache should only support PRIORITY_* and OBSERVE_LOWER_PRIORITY_DEPENDENCIES flags
+      final int mask = Flags.PRIORITY_HIGHEST |
+                       Flags.PRIORITY_HIGH |
+                       Flags.PRIORITY_NORMAL |
+                       Flags.PRIORITY_LOW |
+                       Flags.PRIORITY_LOWEST |
+                       Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES;
+      apiInvariant( () -> ( ~mask & flags ) == 0,
+                    () -> "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + ( ~mask & flags ) );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _component = Arez.areNativeComponentsEnabled() ? component : null;
