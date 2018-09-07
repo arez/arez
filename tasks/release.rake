@@ -85,7 +85,7 @@ authorURL: https://github.com/arez
 
 Changes in this release:
 
-#{changelog[start_index, end_index - start_index].gsub('https://arez.github.io','')}
+#{changelog[start_index, end_index - start_index].gsub('https://arez.github.io', '')}
 CONTENT
       setup_filename = 'docs/project_setup.md'
       IO.write(setup_filename, IO.read(setup_filename).
