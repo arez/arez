@@ -4,6 +4,8 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.Spy;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * A implementation of {@link ObserverInfo} that proxies to a {@link Observer}.
@@ -28,8 +31,7 @@ final class ObserverInfoImpl
   }
 
   @Nonnull
-  private static List<ObserverInfo> asInfos( @Nonnull final Spy spy,
-                                             @Nonnull final Collection<Observer> observers )
+  private static List<ObserverInfo> asInfos( @Nonnull final Collection<Observer> observers )
   {
     return observers
       .stream()
@@ -38,10 +40,9 @@ final class ObserverInfoImpl
   }
 
   @Nonnull
-  static List<ObserverInfo> asUnmodifiableInfos( @Nonnull final Spy spy,
-                                                 @Nonnull final Collection<Observer> observers )
+  static List<ObserverInfo> asUnmodifiableInfos( @Nonnull final Collection<Observer> observers )
   {
-    return Collections.unmodifiableList( asInfos( spy, observers ) );
+    return Collections.unmodifiableList( asInfos( observers ) );
   }
 
   /**
@@ -69,7 +70,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isRunning()
   {
-    return _spy.isRunning( _observer );
+    return _spy.isTransactionActive() && null != getTrackerTransaction();
   }
 
   /**
@@ -78,7 +79,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isScheduled()
   {
-    return _spy.isScheduled( _observer );
+    return _observer.isScheduled();
   }
 
   /**
@@ -87,7 +88,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isComputedValue()
   {
-    return _spy.isComputedValue( _observer );
+    return _observer.isComputedValue();
   }
 
   /**
@@ -96,7 +97,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isReadOnly()
   {
-    return _spy.isReadOnly( _observer );
+    return Arez.shouldEnforceTransactionType() && !_observer.isMutation();
   }
 
   /**
@@ -115,7 +116,7 @@ final class ObserverInfoImpl
   @Override
   public ComputedValueInfo asComputedValue()
   {
-    return _spy.asComputedValue( _observer );
+    return _observer.getComputedValue().asInfo();
   }
 
   /**
@@ -125,7 +126,25 @@ final class ObserverInfoImpl
   @Override
   public List<ObservableValueInfo> getDependencies()
   {
-    return _spy.getDependencies( _observer );
+    final Transaction transaction = _spy.isTransactionActive() ? getTrackerTransaction() : null;
+    if ( null != transaction )
+    {
+      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      if ( null == observableValues )
+      {
+        return Collections.emptyList();
+      }
+      else
+      {
+        // Copy the list removing any duplicates that may exist.
+        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
+        return ObservableValueInfoImpl.asUnmodifiableInfos( list );
+      }
+    }
+    else
+    {
+      return ObservableValueInfoImpl.asUnmodifiableInfos( _observer.getDependencies() );
+    }
   }
 
   /**
@@ -135,7 +154,13 @@ final class ObserverInfoImpl
   @Override
   public ComponentInfo getComponent()
   {
-    return _spy.getComponent( _observer );
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areNativeComponentsEnabled,
+                 () -> "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    }
+    final Component component = _observer.getComponent();
+    return null == component ? null : component.asInfo();
   }
 
   /**
@@ -178,5 +203,19 @@ final class ObserverInfoImpl
   public int hashCode()
   {
     return _observer.hashCode();
+  }
+
+  /**
+   * Get transaction with specified observer as tracker.
+   */
+  @Nullable
+  private Transaction getTrackerTransaction()
+  {
+    Transaction t = _observer.getContext().getTransaction();
+    while ( null != t && t.getTracker() != _observer )
+    {
+      t = t.getPrevious();
+    }
+    return t;
   }
 }

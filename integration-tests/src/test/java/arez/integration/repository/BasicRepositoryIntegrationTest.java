@@ -66,8 +66,8 @@ public class BasicRepositoryIntegrationTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    context.autorun( "ComponentCount",
-                     () -> {
+    context.observer( "ComponentCount",
+                      () -> {
                        recorder.mark( "ComponentCount", repository.findAll().size() );
                        callCount.incrementAndGet();
                      } );

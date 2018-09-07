@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ComputedValueInfo;
 import java.util.ArrayList;
@@ -36,11 +37,6 @@ public final class ComputedValue<T>
    */
   private final SafeFunction<T> _function;
   /**
-   * Flag indicating whether the ComputedValue should be "kept alive". This essentially means it is activated on
-   * creation and never deactivates.
-   */
-  private final boolean _keepAlive;
-  /**
    * The associated observable value.
    */
   @Nonnull
@@ -70,17 +66,17 @@ public final class ComputedValue<T>
    * Hook action called when the ComputedValue moves to observed state.
    */
   @Nullable
-  private Procedure _onActivate;
+  private final Procedure _onActivate;
   /**
    * Hook action called when the ComputedValue moves to un-observed state from any other state.
    */
   @Nullable
-  private Procedure _onDeactivate;
+  private final Procedure _onDeactivate;
   /**
    * Hook action called when the ComputedValue moves from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
    */
   @Nullable
-  private Procedure _onStale;
+  private final Procedure _onStale;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -92,10 +88,10 @@ public final class ComputedValue<T>
                  @Nullable final Component component,
                  @Nullable final String name,
                  @Nonnull final SafeFunction<T> function,
-                 @Nonnull final Priority priority,
-                 final boolean keepAlive,
-                 final boolean observeLowerPriorityDependencies,
-                 final boolean arezOnlyDependencies )
+                 @Nullable final Procedure onActivate,
+                 @Nullable final Procedure onDeactivate,
+                 @Nullable final Procedure onStale,
+                 final int flags )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -104,22 +100,21 @@ public final class ComputedValue<T>
                  () -> "Arez-0048: ComputedValue named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
     }
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null == onActivate,
+                    () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
+      apiInvariant( () -> Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null == onDeactivate,
+                    () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
+    }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
+    _onActivate = onActivate;
+    _onDeactivate = onDeactivate;
+    _onStale = onStale;
     _value = null;
     _computing = false;
-    _keepAlive = keepAlive;
-    _observer = new Observer( Arez.areZonesEnabled() ? context : null,
-                              null,
-                              Arez.areNamesEnabled() ? getName() : null,
-                              this,
-                              Arez.shouldEnforceTransactionType() ? TransactionMode.READ_WRITE_OWNED : null,
-                              this::compute,
-                              null,
-                              priority,
-                              observeLowerPriorityDependencies,
-                              false,
-                              Arez.shouldCheckApiInvariants() && arezOnlyDependencies );
+    _observer = new Observer( this, flags );
     _observableValue =
       new ObservableValue<>( context,
                              null,
@@ -134,6 +129,14 @@ public final class ComputedValue<T>
     else if ( Arez.areRegistriesEnabled() )
     {
       getContext().registerComputedValue( this );
+    }
+    if ( willPropagateSpyEvents() )
+    {
+      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( asInfo() ) );
+    }
+    if ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) )
+    {
+      getObserver().initialSchedule();
     }
   }
 
@@ -192,9 +195,9 @@ public final class ComputedValue<T>
                           getName() + "' but the computed value has arezOnlyDependencies = true." );
     }
     Transaction.current().verifyWriteAllowed( getObservableValue() );
-    if ( ObserverState.UP_TO_DATE == getObserver().getState() )
+    if ( Flags.STATE_UP_TO_DATE == getObserver().getState() )
     {
-      getObserver().setState( ObserverState.POSSIBLY_STALE );
+      getObserver().setState( Flags.STATE_POSSIBLY_STALE );
     }
   }
 
@@ -287,16 +290,6 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Set the onActivate hook.
-   *
-   * @param onActivate the hook.
-   */
-  void setOnActivate( @Nullable final Procedure onActivate )
-  {
-    _onActivate = onActivate;
-  }
-
-  /**
    * Return the onActivate hook.
    *
    * @return the onActivate hook.
@@ -308,16 +301,6 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Set the onDeactivate hook.
-   *
-   * @param onDeactivate the hook.
-   */
-  void setOnDeactivate( @Nullable final Procedure onDeactivate )
-  {
-    _onDeactivate = onDeactivate;
-  }
-
-  /**
    * Return the onDeactivate hook.
    *
    * @return the onDeactivate hook.
@@ -326,16 +309,6 @@ public final class ComputedValue<T>
   Procedure getOnDeactivate()
   {
     return _onDeactivate;
-  }
-
-  /**
-   * Set the onStale hook.
-   *
-   * @param onStale the hook.
-   */
-  void setOnStale( @Nullable final Procedure onStale )
-  {
-    _onStale = onStale;
   }
 
   /**
@@ -433,7 +406,7 @@ public final class ComputedValue<T>
     }
     if ( Arez.areSpiesEnabled() && null == _info )
     {
-      _info = new ComputedValueInfoImpl( getContext().getSpy(), this );
+      _info = new ComputedValueInfoImpl( this );
     }
     return Arez.areSpiesEnabled() ? _info : null;
   }
@@ -447,11 +420,6 @@ public final class ComputedValue<T>
   T getValue()
   {
     return _value;
-  }
-
-  boolean isKeepAlive()
-  {
-    return _keepAlive;
   }
 
   void setValue( final T value )

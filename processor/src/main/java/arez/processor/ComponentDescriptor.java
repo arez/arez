@@ -3579,7 +3579,7 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N = $N().computed( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "() -> $N(), null, () -> $N().scheduleDispose( this ), null, null, $T.HIGHEST )",
+                            "() -> $N(), null, () -> $N().scheduleDispose( this ), null, $T.PRIORITY_HIGHEST )",
                             GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                             getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,
@@ -3589,7 +3589,7 @@ final class ComponentDescriptor
                             ".disposeOnDeactivate",
                             GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME,
                             getContextMethodName(),
-                            GeneratorUtil.PRIORITY_CLASSNAME );
+                            GeneratorUtil.FLAGS_CLASSNAME );
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );

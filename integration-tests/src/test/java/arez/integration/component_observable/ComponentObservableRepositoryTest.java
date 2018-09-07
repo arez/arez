@@ -60,11 +60,11 @@ public class ComponentObservableRepositoryTest
     // component1 has value that will sort after component2 to test sorting below
     final ComponentObservableRepositoryTest.TestComponent component1 = repository.create( 1, "B" );
 
-    final Observer observer = context.autorun( () -> repository.findById( 1 ) );
+    final Observer observer = context.observer( () -> repository.findById( 1 ) );
 
     // When the entity is found then only observe the entity
     {
-      final List<ObservableValueInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
+      final List<ObservableValueInfo> dependencies = context.getSpy().asObserverInfo( observer ).getDependencies();
       assertEquals( dependencies.size(), 1 );
       assertEquals( dependencies.get( 0 ).getName(), "TestComponent.1.isDisposed" );
     }
@@ -73,7 +73,7 @@ public class ComponentObservableRepositoryTest
 
     // when the entity is not found then observe the set ... in case it is added in the future
     {
-      final List<ObservableValueInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
+      final List<ObservableValueInfo> dependencies = context.getSpy().asObserverInfo( observer ).getDependencies();
       assertEquals( dependencies.size(), 1 );
       assertEquals( dependencies.get( 0 ).getName(),
                     "ComponentObservableRepositoryTest_TestComponentRepository.entities" );

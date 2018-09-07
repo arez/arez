@@ -18,7 +18,6 @@ public interface ComputedValueInfo
    * ComputedValue at the moment.
    *
    * @return true if there is a transaction active.
-   * @see arez.Spy#isComputing(arez.ComputedValue)
    */
   boolean isComputing();
 
@@ -35,7 +34,6 @@ public interface ComputedValueInfo
    * A ComputedValue is active if there is one or more Observers and the value will be calculated.
    *
    * @return true if the ComputedValue is active.
-   * @see arez.Spy#isActive(arez.ComputedValue)
    */
   boolean isActive();
 
@@ -44,7 +42,6 @@ public interface ComputedValueInfo
    * The list is an immutable copy of the observers of the {@link arez.ComputedValue}.
    *
    * @return the list of observers for ComputedValue.
-   * @see arez.Spy#getObservers(arez.ComputedValue)
    */
   @Nonnull
   List<ObserverInfo> getObservers();
@@ -57,7 +54,6 @@ public interface ComputedValueInfo
    * completes.
    *
    * @return the list of dependencies for ComputedValue.
-   * @see arez.Spy#getDependencies(arez.ComputedValue)
    */
   @Nonnull
   List<ObservableValueInfo> getDependencies();
@@ -67,7 +63,6 @@ public interface ComputedValueInfo
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
    * @return the component that contains ComputedValue if any.
-   * @see arez.Spy#getComponent(arez.ComputedValue)
    */
   @Nullable
   ComponentInfo getComponent();
@@ -78,7 +73,6 @@ public interface ComputedValueInfo
    *
    * @return the value of the ComputedValue.
    * @throws Throwable if the property accessor throws an exception.
-   * @see arez.Spy#getValue(arez.ComputedValue)
    */
   @Nullable
   Object getValue()

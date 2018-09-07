@@ -64,15 +64,15 @@ public class ObservableRefTest
     final AtomicInteger ttCount = new AtomicInteger();
     final AtomicInteger rtCount = new AtomicInteger();
 
-    context.autorun( "TransportType",
-                     () -> {
+    context.observer( "TransportType",
+                      () -> {
                        observeADependency();
                        recorder.mark( "TransportType", component.getOtherID() );
                        ttCount.incrementAndGet();
                      } );
     // This is verifying that the explict reportObserved occurs
-    context.autorun( "ResolvedType",
-                     () -> {
+    context.observer( "ResolvedType",
+                      () -> {
                        observeADependency();
                        recorder.mark( "ResolvedType", component.getOther() );
                        rtCount.incrementAndGet();

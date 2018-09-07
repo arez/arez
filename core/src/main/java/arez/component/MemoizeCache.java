@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
-import arez.Priority;
+import arez.Flags;
 import arez.Procedure;
 import arez.SafeFunction;
 import java.util.Arrays;
@@ -71,14 +71,9 @@ public final class MemoizeCache<T>
    */
   private final int _argCount;
   /**
-   * The priority of the created computeds.
+   * The flags passed to the created ComputedValues.
    */
-  @Nonnull
-  private final Priority _priority;
-  /**
-   * Parameter passed to created computeds .
-   */
-  private final boolean _observeLowerPriorityDependencies;
+  private final int _flags;
   /**
    * The index of the next ComputedValue created.
    * This is only used when creating unique names for ComputedValues.
@@ -92,23 +87,39 @@ public final class MemoizeCache<T>
   /**
    * Create the Memoize method cache.
    *
-   * @param context                          the context in which to create ComputedValue instances.
-   * @param component                        the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name                             a human consumable prefix for computed values.
-   * @param function                         the memoized function.
-   * @param argCount                         the number of arguments expected to be passed to memoized function.
-   * @param priority                         the priority that used to create the ComputedValue instances.
-   * @param observeLowerPriorityDependencies the observeLowerPriorityDependencies flag that used when creating ComputedValue instances.
+   * @param context   the context in which to create ComputedValue instances.
+   * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      a human consumable prefix for computed values.
+   * @param function  the memoized function.
+   * @param argCount  the number of arguments expected to be passed to memoized function.
+   */
+  public MemoizeCache( @Nullable final ArezContext context,
+                       @Nullable final Component component,
+                       @Nullable final String name,
+                       @Nonnull final Function<T> function,
+                       final int argCount )
+  {
+    this( context, component, name, function, argCount, 0 );
+  }
+
+  /**
+   * Create the Memoize method cache.
+   *
+   * @param context   the context in which to create ComputedValue instances.
+   * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      a human consumable prefix for computed values.
+   * @param function  the memoized function.
+   * @param argCount  the number of arguments expected to be passed to memoized function.
+   * @param flags     the flags that are used when creating ComputedValue instances. The only flags supported are the PRIORITY_* flags and {@link Flags#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
    */
   public MemoizeCache( @Nullable final ArezContext context,
                        @Nullable final Component component,
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
                        final int argCount,
-                       @Nonnull final Priority priority,
-                       final boolean observeLowerPriorityDependencies )
+                       final int flags )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
@@ -117,14 +128,21 @@ public final class MemoizeCache<T>
       apiInvariant( () -> argCount > 0,
                     () -> "Arez-0160: MemoizeCache constructed with invalid argCount: " + argCount +
                           ". Expected positive value." );
+      final int mask = Flags.PRIORITY_HIGHEST |
+                       Flags.PRIORITY_HIGH |
+                       Flags.PRIORITY_NORMAL |
+                       Flags.PRIORITY_LOW |
+                       Flags.PRIORITY_LOWEST |
+                       Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES;
+      apiInvariant( () -> ( ~mask & flags ) == 0,
+                    () -> "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + ( ~mask & flags ) );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _name = Arez.areNamesEnabled() ? Objects.requireNonNull( name ) : null;
     _function = Objects.requireNonNull( function );
     _argCount = argCount;
-    _priority = Objects.requireNonNull( priority );
-    _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
+    _flags = flags;
   }
 
   /**
@@ -235,17 +253,7 @@ public final class MemoizeCache<T>
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final Procedure onDeactivate = () -> disposeComputedValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
-    return getContext().computed( component,
-                                  name,
-                                  function,
-                                  null,
-                                  onDeactivate,
-                                  null,
-                                  null,
-                                  _priority,
-                                  false,
-                                  true,
-                                  _observeLowerPriorityDependencies );
+    return getContext().computed( component, name, function, null, onDeactivate, null, _flags );
   }
 
   /**
@@ -308,14 +316,8 @@ public final class MemoizeCache<T>
     return _nextIndex;
   }
 
-  @Nonnull
-  Priority getPriority()
+  int getFlags()
   {
-    return _priority;
-  }
-
-  boolean canObserveLowerPriorityDependencies()
-  {
-    return _observeLowerPriorityDependencies;
+    return _flags;
   }
 }

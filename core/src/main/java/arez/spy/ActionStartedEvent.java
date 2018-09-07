@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ActionStartedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ActionStartedEvent.class );
   @Nonnull
   private final String _name;
   /**
@@ -50,7 +49,7 @@ public final class ActionStartedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ActionStarted" );
     map.put( "action", getName() );
     map.put( "tracked", isTracked() );
     map.put( "parameters", getParameters() );

@@ -26,7 +26,6 @@ public interface ObserverInfo
    * Return true if the Observer is currently running.
    *
    * @return true if the Observer is currently running.
-   * @see arez.Spy#isRunning(arez.Observer)
    */
   boolean isRunning();
 
@@ -34,7 +33,6 @@ public interface ObserverInfo
    * Return true if the Observer is scheduled to run.
    *
    * @return true if the Observer is scheduled to run.
-   * @see arez.Spy#isScheduled(arez.Observer)
    */
   boolean isScheduled();
 
@@ -42,7 +40,6 @@ public interface ObserverInfo
    * Return true if the Observer is a ComputedValue.
    *
    * @return true if the Observer is a ComputedValue.
-   * @see arez.Spy#isComputedValue(arez.Observer)
    */
   boolean isComputedValue();
 
@@ -50,7 +47,6 @@ public interface ObserverInfo
    * Return true if the Observer will use a read-only transaction.
    *
    * @return true if the Observer will use a read-only transaction.
-   * @see arez.Spy#isReadOnly(arez.Observer)
    */
   boolean isReadOnly();
 
@@ -67,7 +63,6 @@ public interface ObserverInfo
    * This method should only be called if {@link #isComputedValue()} returns true.
    *
    * @return the ComputedValue instance.
-   * @see arez.Spy#asComputedValue(arez.Observer)
    */
   ComputedValueInfo asComputedValue();
 
@@ -79,7 +74,6 @@ public interface ObserverInfo
    * completes.
    *
    * @return the list of dependencies for the Observer.
-   * @see arez.Spy#getDependencies(arez.Observer)
    */
   @Nonnull
   List<ObservableValueInfo> getDependencies();
@@ -89,7 +83,6 @@ public interface ObserverInfo
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
    * @return the component that contains Observer if any.
-   * @see arez.Spy#getComponent(arez.Observer)
    */
   @Nullable
   ComponentInfo getComponent();

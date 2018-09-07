@@ -24,31 +24,20 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
-
-    assertEquals( computedValue.getName(), name );
-    assertEquals( computedValue.getContext(), context );
-    assertEquals( computedValue.toString(), name );
-    assertEquals( computedValue.isKeepAlive(), false );
-    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
-
-    // Value starts out as null
-    assertEquals( computedValue.getValue(), null );
-
     final Procedure onActivate = new NoopProcedure();
     final Procedure onDeactivate = new NoopProcedure();
     final Procedure onStale = new NoopProcedure();
 
-    // All the hooks start out null
-    assertEquals( computedValue.getOnActivate(), null );
-    assertEquals( computedValue.getOnDeactivate(), null );
-    assertEquals( computedValue.getOnStale(), null );
+    final ComputedValue<String> computedValue = context.computed( name, function, onActivate, onDeactivate, onStale );
 
-    // Ensure hooks can be modified
-    computedValue.setOnActivate( onActivate );
-    computedValue.setOnDeactivate( onDeactivate );
-    computedValue.setOnStale( onStale );
+    assertEquals( computedValue.getName(), name );
+    assertEquals( computedValue.getContext(), context );
+    assertEquals( computedValue.toString(), name );
+    assertEquals( computedValue.getObserver().isKeepAlive(), false );
+    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
+
+    // Value starts out as null
+    assertEquals( computedValue.getValue(), null );
 
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -59,10 +48,10 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().isComputedValue(), true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
-    assertEquals( computedValue.getObserver().getState(), ObserverState.INACTIVE );
+    assertEquals( computedValue.getObserver().getState(), Flags.STATE_INACTIVE );
     assertEquals( computedValue.getObservableValue().getName(), name );
-    assertEquals( computedValue.getObservableValue().hasOwner(), true );
-    assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
+    assertEquals( computedValue.getObservableValue().isComputedValue(), true );
+    assertEquals( computedValue.getObservableValue().getObserver(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
     assertEquals( context.getTopLevelObservers().size(), 0 );
@@ -81,14 +70,14 @@ public class ComputedValueTest
       return "";
     };
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, true, true, true );
+      context.computed( name, function, Flags.KEEPALIVE | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     computedValue.getObserver().invokeReaction();
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.toString(), name );
-    assertEquals( computedValue.isKeepAlive(), true );
+    assertEquals( computedValue.getObserver().isKeepAlive(), true );
     assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
 
     // Value is populated as keepAlive
@@ -99,10 +88,10 @@ public class ComputedValueTest
     assertEquals( computedValue.getObserver().isComputedValue(), true );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
-    assertEquals( computedValue.getObserver().getState(), ObserverState.UP_TO_DATE );
+    assertEquals( computedValue.getObserver().getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( computedValue.getObservableValue().getName(), name );
-    assertEquals( computedValue.getObservableValue().hasOwner(), true );
-    assertEquals( computedValue.getObservableValue().getOwner(), computedValue.getObserver() );
+    assertEquals( computedValue.getObservableValue().isComputedValue(), true );
+    assertEquals( computedValue.getObservableValue().getObserver(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
     assertEquals( context.getTopLevelObservers().size(), 0 );
@@ -113,15 +102,7 @@ public class ComputedValueTest
   public void highPriorityComputedValue()
     throws Exception
   {
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( Arez.context(),
-                           null,
-                           ValueUtil.randomString(),
-                           () -> "",
-                           Priority.HIGH,
-                           false,
-                           false,
-                           true );
+    final ComputedValue<String> computedValue = Arez.context().computed( () -> "", Flags.PRIORITY_HIGH );
     assertEquals( computedValue.getObserver().getPriority(), Priority.HIGH );
   }
 
@@ -142,15 +123,7 @@ public class ComputedValueTest
 
     final String name = ValueUtil.randomString();
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new ComputedValue<>( context,
-                                               component,
-                                               name,
-                                               () -> "",
-                                               Priority.NORMAL,
-                                               false,
-                                               false,
-                                               true ) );
+      expectThrows( IllegalStateException.class, () -> context.computed( component, name, () -> "" ) );
     assertEquals( exception.getMessage(),
                   "Arez-0048: ComputedValue named '" + name + "' has component specified but " +
                   "Arez.areNativeComponentsEnabled() is false." );
@@ -170,8 +143,7 @@ public class ComputedValueTest
                      null );
 
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, component, name, () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( component, name, () -> "" );
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
@@ -191,11 +163,41 @@ public class ComputedValueTest
   }
 
   @Test
+  public void computedValue_withKeepAliveAndOnActivate()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Procedure action = () -> {
+    };
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.computed( null, () -> "", action, null, null, Flags.KEEPALIVE ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
+  }
+
+  @Test
+  public void computedValue_withKeepAliveAndOnDeactivate()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final Procedure action = () -> {
+    };
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> context.computed( null, () -> "", null, action, null, Flags.KEEPALIVE ) );
+    assertEquals( exception.getMessage(),
+                  "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
+  }
+
+  @Test
   public void computeValue()
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final String name = ValueUtil.randomString();
     final AtomicReference<String> value = new AtomicReference<>();
     final AtomicReference<ComputedValue<String>> ref = new AtomicReference<>();
     value.set( "" );
@@ -204,8 +206,7 @@ public class ComputedValueTest
       assertTrue( ref.get().isComputing() );
       return value.get();
     };
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( function );
     ref.set( computedValue );
     setCurrentTransaction( computedValue.getObserver() );
 
@@ -229,17 +230,16 @@ public class ComputedValueTest
       observeADependency();
       return value.get();
     };
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( name, function );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     computedValue.setValue( value1 );
 
@@ -250,7 +250,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), value2 );
     assertEquals( computedValue.getError(), null );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
   @Test
@@ -258,25 +258,23 @@ public class ComputedValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final String name = ValueUtil.randomString();
     final AtomicReference<String> value = new AtomicReference<>();
     final String value2 = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observeADependency();
       return value.get();
     };
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( function );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     computedValue.setValue( null );
     computedValue.setError( new IllegalStateException() );
@@ -289,7 +287,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), value2 );
     assertEquals( computedValue.getError(), null );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
   @Test
@@ -297,25 +295,23 @@ public class ComputedValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final String name = ValueUtil.randomString();
     final AtomicReference<String> value = new AtomicReference<>();
     final String value1 = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observeADependency();
       return value.get();
     };
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( function );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     value.set( value1 );
     computedValue.setValue( value1 );
@@ -326,7 +322,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), value1 );
     // Verify state does not change
-    assertEquals( observer.getState(), ObserverState.POSSIBLY_STALE );
+    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -334,25 +330,23 @@ public class ComputedValueTest
     throws Exception
   {
     final ArezContext context = Arez.context();
-    final String name = ValueUtil.randomString();
     final String value1 = ValueUtil.randomString();
     final String message = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observeADependency();
       throw new IllegalStateException( message );
     };
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, name, function, Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( function );
 
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     setCurrentTransaction( computedValue.getObserver() );
 
-    observer.setState( ObserverState.POSSIBLY_STALE );
+    observer.setState( Flags.STATE_POSSIBLY_STALE );
     computedValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computedValue.getObservableValue() );
 
-    computedValue.getObservableValue().setLeastStaleObserverState( ObserverState.POSSIBLY_STALE );
+    computedValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     computedValue.setValue( value1 );
 
@@ -363,7 +357,7 @@ public class ComputedValueTest
 
     assertEquals( computedValue.getValue(), null );
     assertEquals( computedValue.getError(), exception );
-    assertEquals( observer.getState(), ObserverState.STALE );
+    assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
   @Test
@@ -374,7 +368,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false, true );
+      context.computed( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.RUN_LATER );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
@@ -395,10 +389,9 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, "XYZ", ValueUtil::randomString, Priority.NORMAL, true, false, false );
+      context.computed( ValueUtil::randomString, Flags.NON_AREZ_DEPENDENCIES );
 
-    final String value = Arez.context().safeAction( computedValue::get );
-    assertNotNull( value );
+    assertNotNull( context.safeAction( computedValue::get ) );
   }
 
   @Test
@@ -411,7 +404,7 @@ public class ComputedValueTest
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.isDisposed(), false );
 
@@ -420,7 +413,7 @@ public class ComputedValueTest
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observer.getState(), ObserverState.DISPOSED );
+    assertEquals( observer.getState(), Flags.STATE_DISPOSED );
   }
 
   @Test
@@ -433,7 +426,7 @@ public class ComputedValueTest
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.isDisposed(), false );
 
@@ -445,7 +438,7 @@ public class ComputedValueTest
     computedValue.dispose();
 
     assertEquals( observer.isDisposed(), true );
-    assertEquals( observer.getState(), ObserverState.DISPOSED );
+    assertEquals( observer.getState(), Flags.STATE_DISPOSED );
 
     handler.assertEventCount( 14 );
 
@@ -494,17 +487,16 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     computedValue.setValue( "XXX" );
 
     assertEquals( computedValue.get(), "XXX" );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -513,20 +505,19 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
     computedValue.setError( error );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::get );
     assertEquals( exception, error );
 
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     // Get again produces the same exception again
     final IllegalStateException exception2 = expectThrows( IllegalStateException.class, computedValue::get );
@@ -539,20 +530,19 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     final Error error = new Error();
     computedValue.setError( error );
 
     final Error exception = expectThrows( Error.class, computedValue::get );
     assertEquals( exception, error );
 
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     // Get again produces the same exception again
     final Error exception2 = expectThrows( Error.class, computedValue::get );
@@ -565,13 +555,12 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
 
     computedValue.setValue( "" );
@@ -582,7 +571,7 @@ public class ComputedValueTest
                   "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
                   computedValue.getName() + "' but still has a non-null value." );
 
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -595,17 +584,16 @@ public class ComputedValueTest
       observeADependency();
       return "";
     };
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), function, Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( function );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.STALE );
+    observer.setState( Flags.STATE_STALE );
     computedValue.setValue( "XXX" );
 
     assertEquals( computedValue.get(), "" );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -614,13 +602,12 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     setCurrentTransaction( observer );
 
-    observer.setState( ObserverState.STALE );
+    observer.setState( Flags.STATE_STALE );
     computedValue.setValue( "XXX" );
 
     observer.markAsDisposed();
@@ -639,13 +626,12 @@ public class ComputedValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue =
-      new ComputedValue<>( context, null, ValueUtil.randomString(), () -> "", Priority.NORMAL, false, false, true );
+    final ComputedValue<String> computedValue = context.computed( () -> "" );
     final Observer observer = computedValue.getObserver();
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( ObserverState.UP_TO_DATE );
+    observer.setState( Flags.STATE_UP_TO_DATE );
     computedValue.setValue( "XXX" );
 
     computedValue.setComputing( true );
@@ -659,7 +645,7 @@ public class ComputedValueTest
     computedValue.setComputing( false );
 
     assertEquals( computedValue.get(), "XXX" );
-    assertEquals( observer.getState(), ObserverState.UP_TO_DATE );
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -695,21 +681,19 @@ public class ComputedValueTest
 
     final ObservableValue<Object> observableValue = context.observable();
 
-    final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observableValue.reportObserved();
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
 
     expected.set( "0" );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       assertEquals( computedValue.get(), expected.get() );
     } );
@@ -749,19 +733,17 @@ public class ComputedValueTest
 
     final ObservableValue<Object> observableValue = context.observable();
 
-    final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observableValue.reportObserved();
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       computedValue.get();
     } );
@@ -777,7 +759,7 @@ public class ComputedValueTest
     assertEquals( computedCallCount.get(), 1 );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0152: Transaction named 'Transaction@3' attempted to change ObservableValue named '" +
+                  "Arez-0152: Transaction named 'Transaction@4' attempted to change ObservableValue named '" +
                   computedValue.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
@@ -815,19 +797,17 @@ public class ComputedValueTest
 
     final ObservableValue<Object> observableValue = context.observable();
 
-    final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> {
       observableValue.reportObserved();
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue =
-      context.computed( null, name, function, null, null, null, null, Priority.NORMAL, false, false, false, false );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
 
-    context.autorun( () -> {
+    context.observer( () -> {
       autorunCallCount.incrementAndGet();
       computedValue.get();
     } );

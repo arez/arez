@@ -7,7 +7,7 @@ public class AutorunExample
   public static void main( String[] args )
     throws Throwable
   {
-    Arez.context().autorun( () -> {
+    Arez.context().observer( () -> {
       // Interact with arez observable state (or computed values) here
       // and any time these changed this function will be re-run.
       //DOC ELIDE START

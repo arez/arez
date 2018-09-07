@@ -1,5 +1,6 @@
 package arez;
 
+import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;

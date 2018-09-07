@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
+import arez.Flags;
 import arez.Observer;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -51,10 +52,10 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "TrackedAllTypesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_render1 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render1" : null, false, () -> super.onRender1DepsChanged() );
-    this.$$arez$$_render2 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render2" : null, false, () -> super.onRender2DepsChanged() );
-    this.$$arez$$_render3 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render3" : null, false, () -> super.onRender3DepsChanged() );
-    this.$$arez$$_render4 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render4" : null, false, () -> super.onRender4DepsChanged() );
+    this.$$arez$$_render1 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render1" : null, () -> super.onRender1DepsChanged(), Flags.RUN_LATER );
+    this.$$arez$$_render2 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render2" : null, () -> super.onRender2DepsChanged(), Flags.RUN_LATER );
+    this.$$arez$$_render3 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render3" : null, () -> super.onRender3DepsChanged(), Flags.RUN_LATER );
+    this.$$arez$$_render4 = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render4" : null, () -> super.onRender4DepsChanged(), Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

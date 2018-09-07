@@ -34,7 +34,7 @@ public class UnmodifiableComputedCollectionsIntegrationTest
     safeAction( () -> assertUnmodifiable( m1.calcSet(), ValueUtil::randomString ) );
     safeAction( () -> assertUnmodifiable( m1.calcList(), ValueUtil::randomString ) );
     safeAction( () -> assertUnsupportedOperation( () -> m1.calcMap().put( ValueUtil.randomString(),
-                                                                                  ValueUtil.randomString() ) ) );
+                                                                          ValueUtil.randomString() ) ) );
 
     safeAction( () -> assertNull( m1.calcCollection2() ) );
     safeAction( () -> assertNull( m1.calcSet2() ) );
@@ -78,12 +78,12 @@ public class UnmodifiableComputedCollectionsIntegrationTest
     safeAction( () -> assertUnmodifiable( m1.calcSet(), ValueUtil::randomString ) );
     safeAction( () -> assertUnmodifiable( m1.calcList(), ValueUtil::randomString ) );
     safeAction( () -> assertUnsupportedOperation( () -> m1.calcMap().put( ValueUtil.randomString(),
-                                                                                  ValueUtil.randomString() ) ) );
+                                                                          ValueUtil.randomString() ) ) );
     safeAction( () -> assertUnmodifiable( m1.calcCollection2(), ValueUtil::randomString ) );
     safeAction( () -> assertUnmodifiable( m1.calcSet2(), ValueUtil::randomString ) );
     safeAction( () -> assertUnmodifiable( m1.calcList2(), ValueUtil::randomString ) );
     safeAction( () -> assertUnsupportedOperation( () -> m1.calcMap2().put( ValueUtil.randomString(),
-                                                                                   ValueUtil.randomString() ) ) );
+                                                                           ValueUtil.randomString() ) ) );
 
     // Assert Collections contain expected
     safeAction( () -> assertTrue( m1.calcCollection().contains( collection.iterator().next() ) ) );

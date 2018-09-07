@@ -3,6 +3,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.component.ComponentState;
@@ -53,9 +54,9 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "MyContainer", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myField = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myField" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_myComputed = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.compute() );
-    this.$$arez$$_zzzzzz = $$arezi$$_context().autorun( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, false, () -> super.zapZap() );
-    this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, false, () -> super.onRenderDepsChanged() );
+    this.$$arez$$_myComputed = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.compute(), Flags.RUN_LATER );
+    this.$$arez$$_zzzzzz = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, () -> super.zapZap(), Flags.RUN_LATER );
+    this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

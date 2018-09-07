@@ -20,7 +20,7 @@ public class ObservableComponentIntegrationTest
   {
     final Model model = Model.create();
     final AtomicInteger callCount = new AtomicInteger();
-    Arez.context().autorun( () -> {
+    Arez.context().observer( () -> {
       observeADependency();
       ComponentObservable.observe( model );
       callCount.incrementAndGet();

@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ObservableValueDisposedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ObservableValueDisposedEvent.class );
   @Nonnull
   private final ObservableValueInfo _observableValue;
 
@@ -31,7 +30,7 @@ public final class ObservableValueDisposedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ObservableValueDisposed" );
     map.put( "observable", getObservableValue().getName() );
   }
 }

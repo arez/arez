@@ -3,13 +3,12 @@ package arez;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
-import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ObservableValueCreatedEvent;
-import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ReactionScheduledEvent;
+import arez.spy.Spy;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -345,21 +344,52 @@ public final class ArezContext
   @Nonnull
   public <T> ComputedValue<T> computed( @Nonnull final SafeFunction<T> function )
   {
-    return computed( null, function );
+    return computed( function, 0 );
   }
 
   /**
    * Create a ComputedValue with specified parameters.
    *
    * @param <T>      the type of the computed value.
-   * @param name     the name of the ComputedValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param function the function that computes the value.
+   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> computed( @Nonnull final SafeFunction<T> function, final int flags )
+  {
+    return computed( null, function, flags );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>      the type of the computed value.
+   * @param name     the name of the ComputedValue.
    * @param function the function that computes the value.
    * @return the ComputedValue instance.
    */
   @Nonnull
   public <T> ComputedValue<T> computed( @Nullable final String name, @Nonnull final SafeFunction<T> function )
   {
-    return computed( null, name, function );
+    return computed( name, function, 0 );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>      the type of the computed value.
+   * @param name     the name of the ComputedValue.
+   * @param function the function that computes the value.
+   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> computed( @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        final int flags )
+  {
+    return computed( null, name, function, flags );
   }
 
   /**
@@ -367,7 +397,7 @@ public final class ArezContext
    *
    * @param <T>       the type of the computed value.
    * @param component the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name      the name of the ComputedValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the ComputedValue.
    * @param function  the function that computes the value.
    * @return the ComputedValue instance.
    */
@@ -376,7 +406,49 @@ public final class ArezContext
                                         @Nullable final String name,
                                         @Nonnull final SafeFunction<T> function )
   {
-    return computed( component, name, function, null, null, null, null );
+    return computed( component, name, function, 0 );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>       the type of the computed value.
+   * @param component the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      the name of the ComputedValue.
+   * @param function  the function that computes the value.
+   * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        final int flags )
+  {
+    return computed( component, name, function, null, null, null, flags );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>          the type of the computed value.
+   * @param component    the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name         the name of the ComputedValue.
+   * @param function     the function that computes the value.
+   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> computed( @Nullable final Component component,
+                                        @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale )
+  {
+    return computed( component, name, function, onActivate, onDeactivate, onStale, 0 );
   }
 
   /**
@@ -388,7 +460,28 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
+   * @return the ComputedValue instance.
+   */
+  @Nonnull
+  public <T> ComputedValue<T> computed( @Nullable final String name,
+                                        @Nonnull final SafeFunction<T> function,
+                                        @Nullable final Procedure onActivate,
+                                        @Nullable final Procedure onDeactivate,
+                                        @Nullable final Procedure onStale )
+  {
+    return computed( name, function, onActivate, onDeactivate, onStale, 0 );
+  }
+
+  /**
+   * Create a ComputedValue with specified parameters.
+   *
+   * @param <T>          the type of the computed value.
+   * @param name         the name of the ComputedValue.
+   * @param function     the function that computes the value.
+   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -397,9 +490,9 @@ public final class ArezContext
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
                                         @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose )
+                                        final int flags )
   {
-    return computed( null, name, function, onActivate, onDeactivate, onStale, onDispose );
+    return computed( null, name, function, onActivate, onDeactivate, onStale, flags );
   }
 
   /**
@@ -412,7 +505,7 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the ComputedValue instance.
    */
   @Nonnull
@@ -422,208 +515,16 @@ public final class ArezContext
                                         @Nullable final Procedure onActivate,
                                         @Nullable final Procedure onDeactivate,
                                         @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose )
+                                        final int flags )
   {
-    return computed( component, name, function, onActivate, onDeactivate, onStale, onDispose, Priority.NORMAL );
-  }
-
-  /**
-   * Create a ComputedValue with specified parameters.
-   *
-   * @param <T>          the type of the computed value.
-   * @param component    the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputedValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose    the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
-   * @param priority     the priority of the associated observer.
-   * @return the ComputedValue instance.
-   */
-  @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
-                                        @Nonnull final Priority priority )
-  {
-    return computed( component, name, function, onActivate, onDeactivate, onStale, onDispose, priority, false, false );
-  }
-
-  /**
-   * Create a ComputedValue with specified parameters.
-   *
-   * @param <T>            the type of the computed value.
-   * @param component      the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name           the name of the ComputedValue.
-   * @param function       the function that computes the value.
-   * @param onActivate     the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate   the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale        the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose      the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
-   * @param priority       the priority of the associated observer.
-   * @param keepAlive      true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
-   * @param runImmediately ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
-   * @return the ComputedValue instance.
-   */
-  @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
-                                        @Nonnull final Priority priority,
-                                        final boolean keepAlive,
-                                        final boolean runImmediately )
-  {
-    return computed( component,
-                     name,
-                     function,
-                     onActivate,
-                     onDeactivate,
-                     onStale,
-                     onDispose,
-                     priority,
-                     keepAlive,
-                     runImmediately,
-                     false );
-  }
-
-  /**
-   * Create a ComputedValue with specified parameters.
-   *
-   * @param <T>                              the type of the computed value.
-   * @param component                        the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name                             the name of the ComputedValue.
-   * @param function                         the function that computes the value.
-   * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
-   * @param priority                         the priority of the associated observer.
-   * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
-   * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the computed can observe lower priority dependencies.
-   * @return the ComputedValue instance.
-   */
-  @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
-                                        @Nonnull final Priority priority,
-                                        final boolean keepAlive,
-                                        final boolean runImmediately,
-                                        final boolean observeLowerPriorityDependencies )
-  {
-    return computed( component,
-                     name,
-                     function,
-                     onActivate,
-                     onDeactivate,
-                     onStale,
-                     onDispose,
-                     priority,
-                     keepAlive,
-                     runImmediately,
-                     observeLowerPriorityDependencies,
-                     true );
-  }
-
-  /**
-   * Create a ComputedValue with specified parameters.
-   *
-   * @param <T>                              the type of the computed value.
-   * @param component                        the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name                             the name of the ComputedValue.
-   * @param function                         the function that computes the value.
-   * @param onActivate                       the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate                     the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale                          the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDispose                        the procedure to invoke when the ComputedValue is disposed. This will be invoked when the transition occurs and will occur in the context of the dispose transaction.
-   * @param priority                         the priority of the associated observer.
-   * @param keepAlive                        true if the ComputedValue should be activated when it is created and never deactivated. If this is true then the onActivate and onDeactivate parameters should be null.
-   * @param runImmediately                   ignored unless keepAlive is true. true to compute the value immediately, false to schedule compute for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the computed can observe lower priority dependencies.
-   * @param arezOnlyDependencies             true if the computed is only derived from arez state.
-   * @return the ComputedValue instance.
-   */
-  @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        @Nullable final Procedure onDispose,
-                                        @Nonnull final Priority priority,
-                                        final boolean keepAlive,
-                                        final boolean runImmediately,
-                                        final boolean observeLowerPriorityDependencies,
-                                        final boolean arezOnlyDependencies )
-  {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> !keepAlive || null == onActivate,
-                    () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
-      apiInvariant( () -> !keepAlive || null == onDeactivate,
-                    () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
-    }
-
-    final ComputedValue<T> computedValue =
-      new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
-                           component,
-                           generateNodeName( "ComputedValue", name ),
-                           function,
-                           priority,
-                           keepAlive,
-                           observeLowerPriorityDependencies,
-                           arezOnlyDependencies );
-    final Observer observer = computedValue.getObserver();
-    // Null check before setting hook fields. It seems that this decreases runtime memory pressure
-    // in some environments with the penalty of a slight increase in code size. This will need to be
-    // rechecked once we move off GWT2.x/ES3 and onto J2CL and preferably added to an automated performance
-    // test. This is possibly only due to the way ES3 is optimized. It should be noted that in several
-    // applications it did not have an impact on code-size and could actually decrease code-size in J2CL
-    // if these hook methods were unused
-    if ( null != onActivate )
-    {
-      computedValue.setOnActivate( onActivate );
-    }
-    if ( null != onDeactivate )
-    {
-      computedValue.setOnDeactivate( onDeactivate );
-    }
-    if ( null != onStale )
-    {
-      computedValue.setOnStale( onStale );
-    }
-    if ( null != onDispose )
-    {
-      observer.setOnDispose( onDispose );
-    }
-    if ( willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( computedValue.asInfo() ) );
-    }
-    if ( keepAlive )
-    {
-      scheduleReaction( computedValue.getObserver() );
-      if ( runImmediately )
-      {
-        triggerScheduler();
-      }
-    }
-    return computedValue;
+    return new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
+                                component,
+                                generateNodeName( "ComputedValue", name ),
+                                function,
+                                onActivate,
+                                onDeactivate,
+                                onStale,
+                                flags );
   }
 
   /**
@@ -644,337 +545,207 @@ public final class ArezContext
   }
 
   /**
-   * Create a read-only autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
    * @param tracked the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nonnull final Procedure tracked )
+  public Observer observer( @Nonnull final Procedure tracked )
   {
-    return autorun( null, tracked );
+    return observer( tracked, 0 );
   }
 
   /**
-   * Create a read-only autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
+   *
+   * @param tracked the executable tracked by the observer.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer observer( @Nonnull final Procedure tracked, final int flags )
+  {
+    return observer( (String) null, tracked, flags );
+  }
+
+  /**
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
    * @param name    the name of the observer.
    * @param tracked the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final String name, @Nonnull final Procedure tracked )
+  public Observer observer( @Nullable final String name, @Nonnull final Procedure tracked )
   {
-    return autorun( name, false, tracked );
+    return observer( name, tracked, 0 );
   }
 
   /**
-   * Create an autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
-   * @param mutation true if the executable may modify state, false otherwise.
-   * @param tracked  the executable tracked by the observer.
+   * @param name    the name of the observer.
+   * @param tracked the executable tracked by the observer.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( final boolean mutation, @Nonnull final Procedure tracked )
+  public Observer observer( @Nullable final String name, @Nonnull final Procedure tracked, final int flags )
   {
-    return autorun( null, mutation, tracked );
+    return observer( null, name, tracked, flags );
   }
 
   /**
-   * Create an autorun observer and run immediately.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
-   * @param name     the name of the observer.
-   * @param mutation true if the executable may modify state, false otherwise.
-   * @param tracked  the executable tracked by the observer.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked )
-  {
-    return autorun( name, mutation, tracked, true );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param name           the name of the observer.
-   * @param mutation       true if the executable may modify state, false otherwise.
-   * @param tracked        the executable tracked by the observer.
-   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           final boolean runImmediately )
-  {
-    return autorun( name, mutation, tracked, Priority.NORMAL, runImmediately );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param name           the name of the observer.
-   * @param mutation       true if the executable may modify state, false otherwise.
-   * @param tracked        the executable tracked by the observer.
-   * @param priority       the priority of the observer.
-   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer autorun( @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately )
-  {
-    return autorun( null, name, mutation, tracked, priority, runImmediately );
-  }
-
-  /**
-   * Create an autorun observer.
-   *
-   * @param component the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
-   * @param mutation  true if the executable may modify state, false otherwise.
    * @param tracked   the executable tracked by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked )
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nonnull final Procedure tracked )
   {
-    return autorun( component, name, mutation, tracked, Priority.NORMAL, false );
+    return observer( component, name, tracked, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an "autorun" observer that reschedules tracked procedure when dependency updates occur.
    *
-   * @param component      the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name           the name of the observer.
-   * @param mutation       true if the executable may modify state, false otherwise.
-   * @param tracked        the executable tracked by the observer.
-   * @param priority       the priority of the observer.
-   * @param runImmediately true to invoke executable immediately, false to schedule for next reaction cycle.
+   * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name      the name of the observer.
+   * @param tracked   the executable tracked by the observer.
+   * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately )
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nonnull final Procedure tracked,
+                            final int flags )
   {
-    return autorun( component, name, mutation, tracked, priority, runImmediately, false );
+    return observer( component, name, Objects.requireNonNull( tracked ), null, flags );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> parameter.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
+   * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies )
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    false );
+    return observer( component, name, tracked, onDepsUpdated, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions )
+  public Observer observer( @Nullable final Procedure tracked, @Nullable final Procedure onDepsUpdated )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    true,
-                    null );
+    return observer( tracked, onDepsUpdated, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           @Nullable final Procedure onDispose )
+  public Observer observer( @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated,
+                            final int flags )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    true,
-                    onDispose );
+    return observer( null, tracked, onDepsUpdated, flags );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           final boolean arezOnlyDependencies,
-                           @Nullable final Procedure onDispose )
+  public Observer observer( @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated )
   {
-    return autorun( component,
-                    name,
-                    mutation,
-                    tracked,
-                    null,
-                    priority,
-                    runImmediately,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    arezOnlyDependencies,
-                    onDispose );
+    return observer( name, tracked, onDepsUpdated, 0 );
   }
 
   /**
-   * Create an autorun observer.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
    *
-   * @param component                        the component containing autorun observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the executable may modify state, false otherwise.
-   * @param tracked                          the executable tracked by the observer.
-   * @param onDepsUpdated                    the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
-   * @param priority                         the priority of the observer.
-   * @param runImmediately                   true to invoke executable immediately, false to schedule for next reaction cycle.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from autorun.
-   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @param onDispose                        the hook function invoked when the autroun is disposed, if any. This will be invoked in the context of the dispose transaction.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer autorun( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure tracked,
-                           @Nullable final Procedure onDepsUpdated,
-                           @Nonnull final Priority priority,
-                           final boolean runImmediately,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           final boolean arezOnlyDependencies,
-                           @Nullable final Procedure onDispose )
+  public Observer observer( @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated,
+                            final int flags )
   {
-    final Observer observer =
-      observer( component,
-                name,
-                mutation,
-                tracked,
-                onDepsUpdated,
-                priority,
-                observeLowerPriorityDependencies,
-                canNestActions,
-                arezOnlyDependencies
-      );
-    // See similar code in computed(...) implementation for explanation of this code
-    if ( null != onDispose )
-    {
-      observer.setOnDispose( onDispose );
-    }
-    scheduleReaction( observer );
-    if ( runImmediately )
-    {
-      triggerScheduler();
-    }
-    return observer;
+    return observer( null, name, tracked, onDepsUpdated, flags );
   }
 
   /**
-   * Create a "tracker" observer that tracks code using a read-only transaction.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
+   * Create an observer.
+   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   *
+   * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
+   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer observer( @Nullable final Component component,
+                            @Nullable final String name,
+                            @Nullable final Procedure tracked,
+                            @Nullable final Procedure onDepsUpdated,
+                            final int flags )
+  {
+    return new Observer( Arez.areZonesEnabled() ? this : null,
+                         component,
+                         generateNodeName( "Observer", name ),
+                         tracked,
+                         onDepsUpdated,
+                         flags );
+  }
+
+  /**
+   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * dependencies in the tracked function are updated. Application code is responsible for executing the
+   * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
    * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
@@ -982,217 +753,91 @@ public final class ArezContext
   @Nonnull
   public Observer tracker( @Nonnull final Procedure onDepsUpdated )
   {
-    return tracker( false, onDepsUpdated );
+    return tracker( onDepsUpdated, 0 );
   }
 
   /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
+   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * dependencies in the tracked function are updated. Application code is responsible for executing the
+   * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
-   * @param mutation      true if the observer may modify state during tracking, false otherwise.
    * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( final boolean mutation, @Nonnull final Procedure onDepsUpdated )
+  public Observer tracker( @Nonnull final Procedure onDepsUpdated, final int flags )
   {
-    return tracker( null, mutation, onDepsUpdated );
+    return tracker( null, onDepsUpdated, flags );
   }
 
   /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
+   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * dependencies in the tracked function are updated. Application code is responsible for executing the
+   * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
    * @param name          the name of the observer.
-   * @param mutation      true if the observer may modify state during tracking, false otherwise.
    * @param onDepsUpdated the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nullable final String name,
-                           final boolean mutation,
+  public Observer tracker( @Nullable final String name, @Nonnull final Procedure onDepsUpdated )
+  {
+    return tracker( name, onDepsUpdated, 0 );
+  }
+
+  /**
+   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * dependencies in the tracked function are updated. Application code is responsible for executing the
+   * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   *
+   * @param name          the name of the observer.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer tracker( @Nullable final String name, @Nonnull final Procedure onDepsUpdated, final int flags )
+  {
+    return tracker( null, name, onDepsUpdated, flags );
+  }
+
+  /**
+   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * dependencies in the tracked function are updated. Application code is responsible for executing the
+   * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   *
+   * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param name          the name of the observer.
+   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @return the new Observer.
+   */
+  @Nonnull
+  public Observer tracker( @Nullable final Component component,
+                           @Nullable final String name,
                            @Nonnull final Procedure onDepsUpdated )
   {
-    return tracker( null, name, mutation, onDepsUpdated );
+    return tracker( component, name, onDepsUpdated, 0 );
   }
 
   /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
+   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * dependencies in the tracked function are updated. Application code is responsible for executing the
+   * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
-   * @param component     the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
-   * @param mutation      true if the observer may modify state during tracking, false otherwise.
    * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure onDepsUpdated )
-  {
-    return tracker( component, name, mutation, onDepsUpdated, Priority.NORMAL );
-  }
-
-  /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
-   *
-   * @param component     the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name          the name of the observer.
-   * @param mutation      true if the observer may modify state during tracking, false otherwise.
-   * @param priority      the priority of the observer.
-   * @param onDepsUpdated the hook invoked when dependencies changed.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer tracker( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
                            @Nonnull final Procedure onDepsUpdated,
-                           @Nonnull final Priority priority )
+                           final int flags )
   {
-    return tracker( component, name, mutation, onDepsUpdated, priority, false );
-  }
-
-  /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
-   *
-   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
-   * @param priority                         the priority of the observer.
-   * @param onDepsUpdated                    the hook invoked when dependencies changed.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer tracker( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure onDepsUpdated,
-                           @Nonnull final Priority priority,
-                           final boolean observeLowerPriorityDependencies )
-  {
-    return tracker( component, name, mutation, onDepsUpdated, priority, observeLowerPriorityDependencies, false );
-  }
-
-  /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
-   *
-   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
-   * @param priority                         the priority of the observer.
-   * @param onDepsUpdated                    the hook invoked when dependencies changed.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from tracker action.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer tracker( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure onDepsUpdated,
-                           @Nonnull final Priority priority,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions )
-  {
-    return tracker( component,
-                    name,
-                    mutation,
-                    onDepsUpdated,
-                    priority,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    true );
-  }
-
-  /**
-   * Create a "tracker" observer.
-   * The "tracker" observer triggers the specified executable any time any of the observers dependencies are updated.
-   * To track dependencies, this returned observer must be passed as the tracker to an track method like {@link #track(Observer, Function, Object...)}.
-   *
-   * @param component                        the component containing tracker if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name                             the name of the observer.
-   * @param mutation                         true if the observer may modify state during tracking, false otherwise.
-   * @param priority                         the priority of the observer.
-   * @param onDepsUpdated                    the hook invoked when dependencies changed.
-   * @param observeLowerPriorityDependencies true if the observer can observe lower priority dependencies.
-   * @param canNestActions                   true if the observer can start actions from tracker action.
-   * @param arezOnlyDependencies             true if the observer has non-arez dependencies and it is valid to invoke {@link Observer#reportStale()}.
-   * @return the new Observer.
-   */
-  @Nonnull
-  public Observer tracker( @Nullable final Component component,
-                           @Nullable final String name,
-                           final boolean mutation,
-                           @Nonnull final Procedure onDepsUpdated,
-                           @Nonnull final Priority priority,
-                           final boolean observeLowerPriorityDependencies,
-                           final boolean canNestActions,
-                           final boolean arezOnlyDependencies )
-  {
-    return observer( component,
-                     name,
-                     mutation,
-                     null,
-                     onDepsUpdated,
-                     priority,
-                     observeLowerPriorityDependencies,
-                     canNestActions,
-                     arezOnlyDependencies );
-  }
-
-  /**
-   * Create an observer with specified parameters.
-   *
-   * @param component         the component containing observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name              the name of the observer.
-   * @param mutation          true if the reaction may modify state, false otherwise.
-   * @param trackedExecutable the tracking executable.
-   * @param onDepsUpdated     the hook invoked when dependencies changed.
-   * @param priority          the priority of the observer.
-   * @return the new Observer.
-   */
-  @Nonnull
-  Observer observer( @Nullable final Component component,
-                     @Nullable final String name,
-                     final boolean mutation,
-                     @Nullable final Procedure trackedExecutable,
-                     @Nullable final Procedure onDepsUpdated,
-                     @Nonnull final Priority priority,
-                     final boolean observeLowerPriorityDependencies,
-                     final boolean canNestActions,
-                     final boolean arezOnlyDependencies )
-  {
-    final TransactionMode mode = mutationToTransactionMode( mutation );
-    final Observer observer =
-      new Observer( Arez.areZonesEnabled() ? this : null,
-                    component,
-                    generateNodeName( "Observer", name ),
-                    null,
-                    mode,
-                    trackedExecutable,
-                    onDepsUpdated,
-                    priority,
-                    observeLowerPriorityDependencies,
-                    canNestActions,
-                    arezOnlyDependencies );
-    if ( willPropagateSpyEvents() )
-    {
-      getSpy().reportSpyEvent( new ObserverCreatedEvent( observer.asInfo() ) );
-    }
-    return observer;
+    return observer( component, name, null, Objects.requireNonNull( onDepsUpdated ), flags );
   }
 
   /**
@@ -1313,12 +958,11 @@ public final class ArezContext
     }
     if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {
-      final TransactionMode mode = getTransaction().getMode();
-      invariant( () -> mode != TransactionMode.READ_ONLY,
+      invariant( () -> getTransaction().isMutation() || getTransaction().isComputedValueTracker(),
                  () -> "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled during " +
                        "read-only transaction." );
       invariant( () -> getTransaction().getTracker() != observer ||
-                       mode == TransactionMode.READ_WRITE,
+                       getTransaction().isMutation(),
                  () -> "Arez-0014: Observer named '" + observer.getName() + "' attempted to schedule itself during " +
                        "read-only tracking transaction. Observers that are supporting ComputedValue instances " +
                        "must not schedule self." );
@@ -1338,7 +982,7 @@ public final class ArezContext
 
   /**
    * Return true if there is a tracking transaction in progress.
-   * A tracking transaction is one created by an {@link Observer} via the {@link #autorun(Procedure)}
+   * A tracking transaction is one created by an {@link Observer} via the {@link #observer(Procedure)}
    * or {@link #tracker(Procedure)} methods.
    *
    * @return true if there is a tracking transaction in progress.
@@ -1356,7 +1000,7 @@ public final class ArezContext
   public boolean isWriteTransactionActive()
   {
     return Transaction.isTransactionActive( this ) &&
-           ( !Arez.shouldEnforceTransactionType() || TransactionMode.READ_WRITE == Transaction.current().getMode() );
+           ( !Arez.shouldEnforceTransactionType() || Transaction.current().isMutation() );
   }
 
   /**
@@ -1656,7 +1300,7 @@ public final class ArezContext
     throws Throwable
   {
     return action( generateNodeName( "Transaction", name ),
-                   mutationToTransactionMode( mutation ),
+                   mutation,
                    verifyActionRequired,
                    requireNewTransaction,
                    executable,
@@ -1666,7 +1310,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied executable with the specified Observer as the tracker.
-   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(Procedure)} methods.
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
@@ -1683,12 +1327,12 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0017: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
     return action( generateNodeName( tracker ),
-                   Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                   Arez.shouldEnforceTransactionType() && tracker.isMutation(),
                    false,
                    true,
                    executable,
@@ -1697,7 +1341,7 @@ public final class ArezContext
   }
 
   private <T> T action( @Nullable final String name,
-                        @Nullable final TransactionMode mode,
+                        final boolean mutation,
                         final boolean verifyActionRequired,
                         final boolean requireNewTransaction,
                         @Nonnull final Function<T> executable,
@@ -1719,14 +1363,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         result = executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           result = executable.call();
@@ -1879,7 +1523,7 @@ public final class ArezContext
                            @Nonnull final Object... parameters )
   {
     return safeAction( generateNodeName( "Transaction", name ),
-                       mutationToTransactionMode( mutation ),
+                       mutation,
                        verifyActionRequired,
                        requireNewTransaction,
                        executable,
@@ -1889,7 +1533,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied executable with the specified Observer as the tracker.
-   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(Procedure)} methods.
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
@@ -1904,12 +1548,12 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0018: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
     return safeAction( generateNodeName( tracker ),
-                       Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                       Arez.shouldEnforceTransactionType() && tracker.isMutation(),
                        false,
                        true,
                        executable,
@@ -1918,7 +1562,7 @@ public final class ArezContext
   }
 
   private <T> T safeAction( @Nullable final String name,
-                            @Nullable final TransactionMode mode,
+                            final boolean mutation,
                             final boolean verifyActionRequired,
                             final boolean requireNewTransaction,
                             @Nonnull final SafeFunction<T> executable,
@@ -1939,14 +1583,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         result = executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           result = executable.call();
@@ -2096,19 +1740,19 @@ public final class ArezContext
                       @Nonnull final Object... parameters )
     throws Throwable
   {
-    action( generateNodeName( "Transaction", name ),
-            mutationToTransactionMode( mutation ),
-            verifyActionRequired,
-            requireNewTransaction,
-            executable,
-            true,
-            null,
-            parameters );
+    _action( generateNodeName( "Transaction", name ),
+             mutation,
+             verifyActionRequired,
+             requireNewTransaction,
+             executable,
+             true,
+             null,
+             parameters );
   }
 
   /**
    * Execute the supplied executable with the specified Observer as the tracker.
-   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(Procedure)} methods.
    * The executable may throw an exception.
    *
    * @param tracker    the tracking Observer.
@@ -2123,18 +1767,18 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
-    action( generateNodeName( tracker ),
-            Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
-            false,
-            true,
-            executable,
-            true,
-            tracker,
-            parameters );
+    _action( generateNodeName( tracker ),
+            Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+             false,
+             true,
+             executable,
+             true,
+             tracker,
+             parameters );
   }
 
   @Nullable
@@ -2143,14 +1787,14 @@ public final class ArezContext
     return Arez.areNamesEnabled() ? tracker.getName() : null;
   }
 
-  void action( @Nullable final String name,
-               @Nullable final TransactionMode mode,
-               final boolean verifyActionRequired,
-               final boolean requireNewTransaction,
-               @Nonnull final Procedure executable,
-               final boolean reportAction,
-               @Nullable final Observer tracker,
-               @Nonnull final Object... parameters )
+  void _action( @Nullable final String name,
+                final boolean mutation,
+                final boolean verifyActionRequired,
+                final boolean requireNewTransaction,
+                @Nonnull final Procedure executable,
+                final boolean reportAction,
+                @Nullable final Observer tracker,
+                @Nonnull final Object... parameters )
     throws Throwable
   {
     final boolean tracked = null != tracker;
@@ -2166,14 +1810,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           executable.call();
@@ -2313,7 +1957,7 @@ public final class ArezContext
                           @Nonnull final Object... parameters )
   {
     safeAction( generateNodeName( "Transaction", name ),
-                mutationToTransactionMode( mutation ),
+                mutation,
                 verifyActionRequired,
                 requireNewTransaction,
                 executable,
@@ -2323,7 +1967,7 @@ public final class ArezContext
 
   /**
    * Execute the supplied executable with the specified Observer as the tracker.
-   * The Observer must be created by the {@link #tracker(String, boolean, Procedure)} methods.
+   * The Observer must be created by the {@link #tracker(Procedure)} methods.
    * The executable is should not throw an exception.
    *
    * @param tracker    the tracking Observer.
@@ -2336,12 +1980,12 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isTrackingExecutableExternal,
+      apiInvariant( tracker::isExternalTracker,
                     () -> "Arez-0020: Attempted to track Observer named '" + tracker.getName() + "' but " +
                           "observer is not a tracker." );
     }
     safeAction( generateNodeName( tracker ),
-                Arez.shouldEnforceTransactionType() ? tracker.getMode() : null,
+                Arez.shouldEnforceTransactionType() && tracker.isMutation(),
                 false,
                 true,
                 executable,
@@ -2350,7 +1994,7 @@ public final class ArezContext
   }
 
   private void safeAction( @Nullable final String name,
-                           @Nullable final TransactionMode mode,
+                           final boolean mutation,
                            final boolean verifyActionRequired,
                            final boolean requireNewTransaction,
                            @Nonnull final SafeProcedure executable,
@@ -2370,14 +2014,14 @@ public final class ArezContext
         getSpy().reportSpyEvent( new ActionStartedEvent( name, tracked, parameters ) );
       }
       verifyActionNestingAllowed( name, tracker );
-      if ( canImmediatelyInvokeAction( mode, requireNewTransaction ) )
+      if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         executable.call();
       }
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mode, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
         try
         {
           executable.call();
@@ -2437,13 +2081,10 @@ public final class ArezContext
   /**
    * Return true if action can immediately invoked, false if a transaction needs to be created.
    */
-  private boolean canImmediatelyInvokeAction( @Nullable final TransactionMode mode,
-                                              final boolean requireNewTransaction )
+  private boolean canImmediatelyInvokeAction( final boolean mutation, final boolean requireNewTransaction )
   {
     return !requireNewTransaction &&
-           ( Arez.shouldEnforceTransactionType() && TransactionMode.READ_WRITE == mode ?
-             isWriteTransactionActive() :
-             isTransactionActive() );
+           ( Arez.shouldEnforceTransactionType() && mutation ? isWriteTransactionActive() : isTransactionActive() );
   }
 
   /**
@@ -2693,20 +2334,6 @@ public final class ArezContext
                  () -> "Arez-0185: Action named '" + name + "' completed but no reads or writes " +
                        "occurred within the scope of the action." );
     }
-  }
-
-  /**
-   * Convert flag to appropriate transaction mode.
-   *
-   * @param mutation true if the transaction may modify state, false otherwise.
-   * @return the READ_WRITE transaction mode if mutation is true else READ_ONLY.
-   */
-  @Nullable
-  private TransactionMode mutationToTransactionMode( final boolean mutation )
-  {
-    return Arez.shouldEnforceTransactionType() ?
-           ( mutation ? TransactionMode.READ_WRITE : TransactionMode.READ_ONLY ) :
-           null;
   }
 
   void registerObservableValue( @Nonnull final ObservableValue observableValue )

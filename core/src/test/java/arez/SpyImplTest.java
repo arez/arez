@@ -2,15 +2,13 @@ package arez;
 
 import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
-import arez.spy.ElementInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.Spy;
+import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -207,246 +205,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void isActive()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    assertEquals( spy.isActive( computedValue ), false );
-    setupReadOnlyTransaction( context );
-    computedValue.getObserver().setState( ObserverState.UP_TO_DATE );
-    assertEquals( spy.isActive( computedValue ), true );
-  }
-
-  @Test
-  public void isComputing()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    assertEquals( spy.isComputing( computedValue ), false );
-    computedValue.setComputing( true );
-    assertEquals( spy.isComputing( computedValue ), true );
-  }
-
-  @Test
-  public void getObservers()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<?> computedValue = context.computed( () -> "" );
-
-    assertEquals( spy.getObservers( computedValue ).size(), 0 );
-
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
-    observer.getDependencies().add( computedValue.getObservableValue() );
-    computedValue.getObservableValue().getObservers().add( observer );
-
-    assertEquals( spy.getObservers( computedValue ).size(), 1 );
-    // Ensure the underlying list has the Observer in places
-    assertEquals( computedValue.getObservableValue().getObservers().size(), 1 );
-
-    assertUnmodifiable( spy.getObservers( computedValue ) );
-  }
-
-  @Test
-  public void getTransactionComputing()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final SpyImpl spy = (SpyImpl) context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    final Observer observer = computedValue.getObserver();
-    final Observer observer2 = context.autorun( new CountAndObserveProcedure() );
-
-    computedValue.setComputing( true );
-
-    final Transaction transaction =
-      new Transaction( context, null, observer.getName(), observer.getMode(), observer );
-    Transaction.setTransaction( transaction );
-
-    // This picks up where it is the first transaction in stack
-    assertEquals( spy.getTransactionComputing( computedValue ), transaction );
-
-    final Transaction transaction2 =
-      new Transaction( context, transaction, ValueUtil.randomString(), observer2.getMode(), observer2 );
-    Transaction.setTransaction( transaction2 );
-
-    // This picks up where it is not the first transaction in stack
-    assertEquals( spy.getTransactionComputing( computedValue ), transaction );
-  }
-
-  @Test
-  public void getTransactionComputing_missingTracker()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final SpyImpl spy = (SpyImpl) context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    computedValue.setComputing( true );
-
-    setupReadOnlyTransaction( context );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getTransactionComputing( computedValue ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as " +
-                  "computing but unable to locate transaction responsible for computing ComputedValue" );
-  }
-
-  @Test
-  public void getDependencies()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    assertEquals( spy.getDependencies( computedValue ).size(), 0 );
-
-    final ObservableValue<?> observableValue = context.observable();
-    observableValue.getObservers().add( computedValue.getObserver() );
-    computedValue.getObserver().getDependencies().add( observableValue );
-
-    final List<ObservableValueInfo> dependencies = spy.getDependencies( computedValue );
-    assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.iterator().next().getName(), observableValue.getName() );
-
-    assertUnmodifiable( dependencies );
-  }
-
-  @Test
-  public void getDependenciesDuringComputation()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-
-    final ObservableValue<?> observableValue = context.observable();
-    final ObservableValue<?> observableValue2 = context.observable();
-    final ObservableValue<?> observableValue3 = context.observable();
-
-    observableValue.getObservers().add( computedValue.getObserver() );
-    computedValue.getObserver().getDependencies().add( observableValue );
-
-    computedValue.setComputing( true );
-
-    setCurrentTransaction( computedValue.getObserver() );
-
-    assertEquals( spy.getDependencies( computedValue ).size(), 0 );
-
-    context.getTransaction().safeGetObservables().add( observableValue2 );
-    context.getTransaction().safeGetObservables().add( observableValue3 );
-    context.getTransaction().safeGetObservables().add( observableValue2 );
-
-    final List<String> dependencies = spy.getDependencies( computedValue ).stream().
-      map( ElementInfo::getName ).collect( Collectors.toList() );
-    assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observableValue2.getName() ), true );
-    assertEquals( dependencies.contains( observableValue3.getName() ), true );
-
-    assertUnmodifiable( spy.getDependencies( computedValue ) );
-  }
-
-  @Test
-  public void isComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    assertEquals( spy.isComputedValue( computedValue.getObservableValue() ),
-                  true );
-    assertEquals( spy.isComputedValue( context.observable() ), false );
-  }
-
-  @Test
-  public void asComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    final ObservableValue<?> observableValue = computedValue.getObservableValue();
-
-    assertEquals( spy.asComputedValue( observableValue ).getName(), computedValue.getName() );
-  }
-
-  @Test
-  public void Observable_getObservers()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<?> observableValue = context.observable();
-
-    assertEquals( spy.getObservers( observableValue ).size(), 0 );
-
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
-    observableValue.getObservers().add( observer );
-
-    final List<ObserverInfo> observers = spy.getObservers( observableValue );
-    assertEquals( observers.size(), 1 );
-    assertEquals( observers.iterator().next().getName(), observer.getName() );
-
-    assertUnmodifiable( observers );
-  }
-
-  @Test
-  public void Observer_isComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    assertEquals( spy.isComputedValue( context.computed( () -> "" ).getObserver() ), true );
-    assertEquals( spy.isComputedValue( context.autorun( new CountAndObserveProcedure() ) ), false );
-  }
-
-  @Test
-  public void Observer_asComputedValue()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<?> computedValue = context.computed( () -> "" );
-    final Observer observer = computedValue.getObserver();
-
-    assertEquals( spy.asComputedValue( observer ).getName(), computedValue.getName() );
-  }
-
-  @Test
   public void getTransaction()
     throws Exception
   {
@@ -454,9 +212,11 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    setupReadOnlyTransaction( context );
-
-    assertEquals( spy.getTransaction().getName(), context.getTransaction().getName() );
+    final String name = ValueUtil.randomString();
+    context.safeAction( name, () -> {
+      observeADependency();
+      assertEquals( spy.getTransaction().getName(), name );
+    } );
   }
 
   @Test
@@ -470,225 +230,6 @@ public class SpyImplTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0105: Spy.getTransaction() invoked but no transaction active." );
-  }
-
-  @Test
-  public void isRunning()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final AtomicInteger callCount = new AtomicInteger();
-    final AtomicReference<Observer> ref = new AtomicReference<>();
-
-    final Observer observer = context.autorun( null, false, () -> {
-      assertEquals( context.getSpy().isRunning( ref.get() ), true );
-      callCount.incrementAndGet();
-      observeADependency();
-    }, false );
-    ref.set( observer );
-
-    assertEquals( context.getSpy().isRunning( observer ), false );
-    assertEquals( callCount.get(), 0 );
-
-    context.triggerScheduler();
-
-    assertEquals( callCount.get(), 1 );
-  }
-
-  @Test
-  public void isScheduled()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
-
-    assertEquals( spy.isScheduled( observer ), false );
-
-    observer.markAsScheduled();
-
-    assertEquals( spy.isScheduled( observer ), true );
-  }
-
-  @Test
-  public void Observer_getDependencies()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( observable::reportObserved );
-
-    final List<ObservableValueInfo> dependencies = spy.getDependencies( observer );
-    assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.get( 0 ).getName(), observable.getName() );
-
-    assertUnmodifiable( dependencies );
-  }
-
-  @Test
-  public void Ovserver_getDependenciesWhileRunning()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    final Observer observer = context.autorun( new CountAndObserveProcedure() );
-
-    final ObservableValue<?> observableValue = context.observable();
-    final ObservableValue<?> observableValue2 = context.observable();
-    final ObservableValue<?> observableValue3 = context.observable();
-
-    observableValue.getObservers().add( observer );
-    observer.getDependencies().add( observableValue );
-
-    setCurrentTransaction( observer );
-
-    assertEquals( spy.getDependencies( observer ).size(), 0 );
-
-    context.getTransaction().safeGetObservables().add( observableValue2 );
-    context.getTransaction().safeGetObservables().add( observableValue3 );
-    context.getTransaction().safeGetObservables().add( observableValue2 );
-
-    final List<String> dependencies = spy.getDependencies( observer ).stream().
-      map( ElementInfo::getName ).collect( Collectors.toList() );
-    assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observableValue2.getName() ), true );
-    assertEquals( dependencies.contains( observableValue3.getName() ), true );
-
-    assertUnmodifiable( spy.getDependencies( observer ) );
-  }
-
-  @Test
-  public void isReadOnly()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Spy spy = context.getSpy();
-
-    assertEquals( spy.isReadOnly( context.autorun( new CountAndObserveProcedure() ) ), true );
-    assertEquals( spy.isReadOnly( context.computed( () -> "" ).getObserver() ), true );
-    assertEquals( spy.isReadOnly( newReadWriteObserver( context ) ), false );
-  }
-
-  @Test
-  public void getComponent_Observable()
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final Component component =
-      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final ObservableValue<Object> observableValue1 =
-      context.observable( component, ValueUtil.randomString(), null, null );
-    final ObservableValue<Object> observableValue2 = context.observable();
-
-    final ComponentInfo info = spy.getComponent( observableValue1 );
-    assertNotNull( info );
-    assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.getComponent( observableValue2 ), null );
-  }
-
-  @Test
-  public void getComponent_Observable_nativeComponentsDisabled()
-  {
-    ArezTestUtil.disableNativeComponents();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Object> value = context.observable();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0107: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-  }
-
-  @Test
-  public void getComponent_ComputedValue()
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final Component component =
-      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final ComputedValue<Object> computedValue1 =
-      context.computed( component,
-                        ValueUtil.randomString(),
-                        () -> "",
-                        null,
-                        null,
-                        null,
-                        null );
-    final ComputedValue<Object> computedValue2 = context.computed( () -> "" );
-
-    final ComponentInfo info = spy.getComponent( computedValue1 );
-    assertNotNull( info );
-    assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.getComponent( computedValue2 ), null );
-  }
-
-  @Test
-  public void getComponent_ComputedValue_nativeComponentsDisabled()
-  {
-    ArezTestUtil.disableNativeComponents();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<Object> value = context.computed( () -> "" );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
-  }
-
-  @Test
-  public void getComponent_Observer()
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final Component component =
-      context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observer observer1 =
-      context.autorun( component,
-                       ValueUtil.randomString(),
-                       true,
-                       AbstractArezTest::observeADependency,
-                       Priority.NORMAL,
-                       true );
-    final Observer observer2 = context.autorun( AbstractArezTest::observeADependency );
-
-    final ComponentInfo info = spy.getComponent( observer1 );
-    assertNotNull( info );
-    assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.getComponent( observer2 ), null );
-  }
-
-  @Test
-  public void getComponent_Observer_nativeComponentsDisabled()
-  {
-    ArezTestUtil.disableNativeComponents();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final Observer value = context.autorun( AbstractArezTest::observeADependency );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getComponent( value ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -857,7 +398,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
 
     final Spy spy = context.getSpy();
 
@@ -883,102 +424,6 @@ public class SpyImplTest
   }
 
   @Test
-  public void observable_introspection()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final AtomicReference<String> value1 = new AtomicReference<>();
-    value1.set( "23" );
-    final AtomicReference<String> value2 = new AtomicReference<>();
-    value2.set( "42" );
-
-    final ObservableValue<String> observableValue1 =
-      context.observable( ValueUtil.randomString(), value1::get, value1::set );
-    final ObservableValue<String> observableValue2 = context.observable( ValueUtil.randomString(), value2::get, null );
-    final ObservableValue<String> observableValue3 = context.observable( ValueUtil.randomString(), null, null );
-
-    assertTrue( spy.hasAccessor( observableValue1 ) );
-    assertTrue( spy.hasAccessor( observableValue2 ) );
-    assertFalse( spy.hasAccessor( observableValue3 ) );
-
-    assertTrue( spy.hasMutator( observableValue1 ) );
-    assertFalse( spy.hasMutator( observableValue2 ) );
-    assertFalse( spy.hasMutator( observableValue3 ) );
-
-    assertEquals( spy.getValue( observableValue1 ), "23" );
-    assertEquals( spy.getValue( observableValue2 ), "42" );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.getValue( observableValue3 ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue3.getName() + "' but " +
-                  "ObservableValue has no property accessor." );
-
-    spy.setValue( observableValue1, "71" );
-
-    assertEquals( spy.getValue( observableValue1 ), "71" );
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> spy.setValue( observableValue2, "71" ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue2.getName() +
-                  "' but ObservableValue has no property mutator." );
-  }
-
-  @Test
-  public void observable_getValue_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> computedValue1 = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-  }
-
-  @Test
-  public void observable_hasAccessor_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> observableValue = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasAccessor( observableValue ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0110: Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-  }
-
-  @Test
-  public void observable_hasMutator_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> observableValue = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.hasMutator( observableValue ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0113: Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-  }
-
-  @Test
   public void observable_getValue_noAccessor()
     throws Throwable
   {
@@ -988,92 +433,11 @@ public class SpyImplTest
     final ObservableValue<Integer> observableValue = context.observable();
 
     final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( observableValue ) ) );
+      expectThrows( IllegalStateException.class,
+                    () -> context.action( () -> spy.asObservableValueInfo( observableValue ).getValue() ) );
     assertEquals( exception2.getMessage(),
                   "Arez-0112: Spy.getValue invoked on ObservableValue named '" + observableValue.getName() +
                   "' but ObservableValue has no property accessor." );
-  }
-
-  @Test
-  public void observable_setValue_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> computedValue1 = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( computedValue1, 44 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0114: Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
-  }
-
-  @Test
-  public void observable_setValue_noMutator()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ObservableValue<Integer> observableValue = context.observable();
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.setValue( observableValue, 44 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0115: Spy.setValue invoked on ObservableValue named '" + observableValue.getName() +
-                  "' but ObservableValue has no property mutator." );
-  }
-
-  @Test
-  public void computedValue_introspection_noObservers()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<String> computedValue1 = context.computed( () -> {
-      observeADependency();
-      return "42";
-    } );
-
-    assertEquals( spy.getValue( computedValue1 ), null );
-  }
-
-  @Test
-  public void computedValue_introspection()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final SafeFunction<String> function = () -> {
-      observeADependency();
-      return "42";
-    };
-    final ComputedValue<String> computedValue1 = context.computed( function );
-    context.autorun( computedValue1::get );
-
-    assertEquals( spy.getValue( computedValue1 ), "42" );
-  }
-
-  @Test
-  public void computedValue_getValue_introspectorsDisabled()
-    throws Throwable
-  {
-    ArezTestUtil.disablePropertyIntrospectors();
-
-    final ArezContext context = Arez.context();
-    final Spy spy = context.getSpy();
-
-    final ComputedValue<Integer> computedValue1 = context.computed( () -> 42 );
-
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> spy.getValue( computedValue1 ) ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -1090,7 +454,7 @@ public class SpyImplTest
   public void asObserverInfo()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
 
     assertEquals( info.getName(), observer.getName() );
@@ -1119,11 +483,5 @@ public class SpyImplTest
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> list )
   {
     assertThrows( UnsupportedOperationException.class, () -> list.remove( list.iterator().next() ) );
-  }
-
-  private <T> void assertUnmodifiable( @Nonnull final List<T> list )
-  {
-    assertThrows( UnsupportedOperationException.class, () -> list.remove( 0 ) );
-    assertThrows( UnsupportedOperationException.class, () -> list.add( list.get( 0 ) ) );
   }
 }

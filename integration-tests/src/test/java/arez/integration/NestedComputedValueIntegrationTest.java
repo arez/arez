@@ -70,26 +70,26 @@ public class NestedComputedValueIntegrationTest
     final Node node19 = Node.create( filterContext, node18, "Tanker CFA-2" );
     final Node node20 = Node.create( filterContext, node18, "Tanker CFA-4" );
 
-    context.autorun( false, node1::cacheIsVisibleResult );
-    context.autorun( false, node2::cacheIsVisibleResult );
-    context.autorun( false, node3::cacheIsVisibleResult );
-    context.autorun( false, node4::cacheIsVisibleResult );
-    context.autorun( false, node5::cacheIsVisibleResult );
-    context.autorun( false, node6::cacheIsVisibleResult );
-    context.autorun( false, node7::cacheIsVisibleResult );
-    context.autorun( false, node8::cacheIsVisibleResult );
-    context.autorun( false, node9::cacheIsVisibleResult );
-    context.autorun( false, node10::cacheIsVisibleResult );
-    context.autorun( false, node11::cacheIsVisibleResult );
-    context.autorun( false, node12::cacheIsVisibleResult );
-    context.autorun( false, node13::cacheIsVisibleResult );
-    context.autorun( false, node14::cacheIsVisibleResult );
-    context.autorun( false, node15::cacheIsVisibleResult );
-    context.autorun( false, node16::cacheIsVisibleResult );
-    context.autorun( false, node17::cacheIsVisibleResult );
-    context.autorun( false, node18::cacheIsVisibleResult );
-    context.autorun( false, node19::cacheIsVisibleResult );
-    context.autorun( false, node20::cacheIsVisibleResult );
+    context.observer( node1::cacheIsVisibleResult );
+    context.observer( node2::cacheIsVisibleResult );
+    context.observer( node3::cacheIsVisibleResult );
+    context.observer( node4::cacheIsVisibleResult );
+    context.observer( node5::cacheIsVisibleResult );
+    context.observer( node6::cacheIsVisibleResult );
+    context.observer( node7::cacheIsVisibleResult );
+    context.observer( node8::cacheIsVisibleResult );
+    context.observer( node9::cacheIsVisibleResult );
+    context.observer( node10::cacheIsVisibleResult );
+    context.observer( node11::cacheIsVisibleResult );
+    context.observer( node12::cacheIsVisibleResult );
+    context.observer( node13::cacheIsVisibleResult );
+    context.observer( node14::cacheIsVisibleResult );
+    context.observer( node15::cacheIsVisibleResult );
+    context.observer( node16::cacheIsVisibleResult );
+    context.observer( node17::cacheIsVisibleResult );
+    context.observer( node18::cacheIsVisibleResult );
+    context.observer( node19::cacheIsVisibleResult );
+    context.observer( node20::cacheIsVisibleResult );
 
     assertTrue( node1.getIsVisibleResult() );
     assertTrue( node2.getIsVisibleResult() );
@@ -287,7 +287,6 @@ public class NestedComputedValueIntegrationTest
   public static abstract class Node
   {
     private final FilterContext _context;
-    private final Node _parent;
     private final ArrayList<Node> _children = new ArrayList<>();
     private String _name;
     // Cached result used in autorun tests
@@ -304,7 +303,6 @@ public class NestedComputedValueIntegrationTest
     Node( @Nonnull final FilterContext context, @Nullable final Node parent, @Nonnull final String name )
     {
       _context = context;
-      _parent = parent;
       _name = name;
       if ( null != parent )
       {
@@ -336,11 +334,6 @@ public class NestedComputedValueIntegrationTest
       return _context;
     }
 
-    public Node getParent()
-    {
-      return _parent;
-    }
-
     public ArrayList<Node> getChildren()
     {
       return _children;
@@ -349,11 +342,6 @@ public class NestedComputedValueIntegrationTest
     public boolean getIsVisibleResult()
     {
       return _isVisibleResult;
-    }
-
-    public void setIsVisibleResult( final boolean isVisibleResult )
-    {
-      _isVisibleResult = isVisibleResult;
     }
 
     public void cacheIsVisibleResult()

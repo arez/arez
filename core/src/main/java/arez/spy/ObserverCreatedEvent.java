@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ObserverCreatedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ObserverCreatedEvent.class );
   @Nonnull
   private final ObserverInfo _observer;
 
@@ -31,7 +30,7 @@ public final class ObserverCreatedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ObserverCreated" );
     map.put( "observer", getObserver().getName() );
   }
 }

@@ -16,7 +16,6 @@ public interface ObservableValueInfo
    * Return true if the Observable is a ComputedValue.
    *
    * @return true if the Observable is a ComputedValue.
-   * @see arez.Spy#isComputedValue(ObservableValue)
    */
   boolean isComputedValue();
 
@@ -25,7 +24,6 @@ public interface ObservableValueInfo
    * This method should only be called if {@link #isComputedValue()} returns true.
    *
    * @return the ComputedValue instance.
-   * @see arez.Spy#asComputedValue(ObservableValue)
    */
   ComputedValueInfo asComputedValue();
 
@@ -34,7 +32,6 @@ public interface ObservableValueInfo
    * The list is an immutable copy of the observers of the {@link ObservableValue}.
    *
    * @return the list of observers for Observable.
-   * @see arez.Spy#getObservers(ObservableValue)
    */
   @Nonnull
   List<ObserverInfo> getObservers();
@@ -44,7 +41,6 @@ public interface ObservableValueInfo
    * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
    *
    * @return the component that contains Observable if any.
-   * @see arez.Spy#getComponent(ObservableValue)
    */
   @Nullable
   ComponentInfo getComponent();
@@ -54,7 +50,6 @@ public interface ObservableValueInfo
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
    * @return true if an accessor is available.
-   * @see arez.Spy#hasAccessor(ObservableValue)
    */
   boolean hasAccessor();
 
@@ -65,7 +60,6 @@ public interface ObservableValueInfo
    *
    * @return the value of the observable.
    * @throws Throwable if the property accessor throws an exception.
-   * @see arez.Spy#getValue(ObservableValue)
    */
   @Nullable
   Object getValue()
@@ -76,7 +70,6 @@ public interface ObservableValueInfo
    * This method should not be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns false.
    *
    * @return true if a mutator is available.
-   * @see arez.Spy#hasMutator(ObservableValue)
    */
   boolean hasMutator();
 
@@ -87,7 +80,6 @@ public interface ObservableValueInfo
    *
    * @param value the value to set
    * @throws Throwable if the property accessor throws an exception.
-   * @see arez.Spy#setValue(ObservableValue, Object)
    */
   void setValue( @Nullable Object value )
     throws Throwable;

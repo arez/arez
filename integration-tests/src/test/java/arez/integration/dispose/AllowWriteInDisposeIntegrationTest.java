@@ -24,7 +24,7 @@ public class AllowWriteInDisposeIntegrationTest
     final Model2 model2 = Model2.create( model1 );
 
     final AtomicInteger callCount = new AtomicInteger();
-    Arez.context().autorun( () -> {
+    Arez.context().observer( () -> {
       // Perform observation
       model1.getName();
       callCount.incrementAndGet();

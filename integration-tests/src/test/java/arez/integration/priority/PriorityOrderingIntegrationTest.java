@@ -2,8 +2,8 @@ package arez.integration.priority;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Flags;
 import arez.ObservableValue;
-import arez.Priority;
 import arez.Procedure;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -55,13 +55,13 @@ public class PriorityOrderingIntegrationTest
       observableValue.reportObserved();
       runOrder.add( "AR7" );
     };
-    context.autorun( "AR1", false, action1, Priority.LOWEST, false );
-    context.autorun( "AR2", false, action2, Priority.HIGH, false );
-    context.autorun( "AR3", false, action3, Priority.LOW, false );
-    context.autorun( "AR4", false, action4, Priority.NORMAL, false );
-    context.autorun( "AR5", false, action5, Priority.NORMAL, false );
-    context.autorun( "AR6", false, action6, Priority.HIGHEST, false );
-    context.autorun( "AR7", false, action7, Priority.HIGH, false );
+    context.observer( "AR1", action1, Flags.PRIORITY_LOWEST | Flags.RUN_LATER );
+    context.observer( "AR2", action2, Flags.PRIORITY_HIGH | Flags.RUN_LATER );
+    context.observer( "AR3", action3, Flags.PRIORITY_LOW | Flags.RUN_LATER );
+    context.observer( "AR4", action4, Flags.PRIORITY_NORMAL | Flags.RUN_LATER );
+    context.observer( "AR5", action5, Flags.PRIORITY_NORMAL | Flags.RUN_LATER );
+    context.observer( "AR6", action6, Flags.PRIORITY_HIGHEST | Flags.RUN_LATER );
+    context.observer( "AR7", action7, Flags.PRIORITY_HIGH | Flags.RUN_LATER );
 
     assertEquals( runOrder.size(), 0 );
 

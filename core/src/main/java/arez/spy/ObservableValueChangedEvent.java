@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 public final class ObservableValueChangedEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ObservableValueChangedEvent.class );
   @Nonnull
   private final ObservableValueInfo _observableValue;
   @Nullable
@@ -42,7 +41,7 @@ public final class ObservableValueChangedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ObservableValueChanged" );
     map.put( "observable", getObservableValue().getName() );
     if ( Arez.arePropertyIntrospectorsEnabled() )
     {

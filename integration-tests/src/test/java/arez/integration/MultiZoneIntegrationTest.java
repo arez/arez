@@ -40,24 +40,24 @@ public class MultiZoneIntegrationTest
       zone2.run( () -> person2.set( PersonModel.create( "Bill", "Smith" ) ) );
     } );
 
-    context1.autorun( "FirstNamePrinter1",
-                      () -> {
+    context1.observer( "FirstNamePrinter1",
+                       () -> {
                         observeADependency();
                         recorder.mark( "firstName1", person.get().getFirstName() );
                       } );
-    context2.autorun( "FirstNamePrinter2",
-                      () -> {
+    context2.observer( "FirstNamePrinter2",
+                       () -> {
                         observeADependency();
                         recorder.mark( "firstName2", person2.get().getFirstName() );
                       } );
 
-    context1.autorun( "FullNamePrinter1",
-                      () -> {
+    context1.observer( "FullNamePrinter1",
+                       () -> {
                         observeADependency();
                         recorder.mark( "fullname1", person.get().getFullName() );
                       } );
-    context2.autorun( "FullNamePrinter2",
-                      () -> {
+    context2.observer( "FullNamePrinter2",
+                       () -> {
                         observeADependency();
                         recorder.mark( "fullname2", person2.get().getFullName() );
                       } );

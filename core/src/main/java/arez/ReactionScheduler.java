@@ -121,7 +121,7 @@ final class ReactionScheduler
                        "' when observer is already pending." );
     }
     observer.setScheduledFlag();
-    _pendingObservers[ observer.getPriority().ordinal() ].add( Objects.requireNonNull( observer ) );
+    _pendingObservers[ observer.getPriorityIndex() ].add( Objects.requireNonNull( observer ) );
   }
 
   /**
@@ -349,13 +349,13 @@ final class ReactionScheduler
   @Nonnull
   CircularBuffer<Observer> getPendingObservers()
   {
-    return getPendingObservers( Priority.NORMAL );
+    return getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) );
   }
 
   @Nonnull
-  CircularBuffer<Observer> getPendingObservers( @Nonnull final Priority priority )
+  CircularBuffer<Observer> getPendingObservers( final int priority )
   {
-    return _pendingObservers[ priority.ordinal() ];
+    return _pendingObservers[ priority ];
   }
 
   @Nonnull

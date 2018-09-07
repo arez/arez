@@ -1,6 +1,7 @@
 package arez.integration.component_observable;
 
 import arez.Arez;
+import arez.ArezContext;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
@@ -28,10 +29,11 @@ public class ComponentObservableTest
   public void scenario()
     throws Throwable
   {
+    final ArezContext context = Arez.context();
     final ComponentObservableTest_Arez_TestComponent component = new ComponentObservableTest_Arez_TestComponent();
     // The base class will verify that there are no observer errors triggered in autorun
-    final Observer observer = Arez.context().autorun( () -> ComponentObservable.observe( component ) );
-    final List<ObservableValueInfo> dependencies = Arez.context().getSpy().getDependencies( observer );
+    final Observer observer = context.observer( () -> ComponentObservable.observe( component ) );
+    final List<ObservableValueInfo> dependencies = context.getSpy().asObserverInfo( observer ).getDependencies();
     assertEquals( dependencies.size(), 1 );
     assertEquals( dependencies.get( 0 ).getName(), "TestComponent.0.isDisposed" );
   }

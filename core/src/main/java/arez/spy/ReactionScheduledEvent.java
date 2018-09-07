@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 public final class ReactionScheduledEvent
   implements SerializableEvent
 {
-  public static final String TYPE_NAME = EventUtil.getName( ReactionScheduledEvent.class );
   @Nonnull
   private final ObserverInfo _observer;
 
@@ -31,7 +30,7 @@ public final class ReactionScheduledEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", TYPE_NAME );
+    map.put( "type", "ReactionScheduled" );
     map.put( "observer", getObserver().getName() );
   }
 }

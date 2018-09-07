@@ -18,7 +18,7 @@ public class ComponentInfoImplTest
     final String type = ValueUtil.randomString();
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
-    final Observer observer = context.autorun( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractArezTest::observeADependency );
     final ObservableValue observableValue = context.observable();
     final ComputedValue computedValue = context.computed( () -> "" );
 
@@ -62,7 +62,7 @@ public class ComponentInfoImplTest
     final Component component2 = context.component( ValueUtil.randomString(), ValueUtil.randomString() );
 
     final ComponentInfo info1a = component1.asInfo();
-    final ComponentInfo info1b = new ComponentInfoImpl( context.getSpy(), component1 );
+    final ComponentInfo info1b = new ComponentInfoImpl( component1 );
     final ComponentInfo info2 = component2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes

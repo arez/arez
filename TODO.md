@@ -6,30 +6,16 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Derive Observer.mode from mutation flag and non-nullness of _computedValue
+* Change actions API to start passing bit flags as well.
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
-* Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
-  lower api layer.
-
-* Configuration in `arez.Observer` is mostly a bunch of boolean flags or enums. Some of these flags are
-  immutable after initial construction and some are runtime state. Most of these could be collapsed into
-  a bits array. It is possible that we could add some customization in javascript so that they appear as
-  enumerable properties in development mode and thus are easy to decipher in browser? Step 1 could be
-  moving all the config time properties to bit array (priority is the only one we use at runtime and we
-  could put them on lower bits so a simple mask could get it out).
-   * Config time: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions`
-   * Runtime:`_state`, `_scheduled`
+* Consider collapsing `@Autorun` and `@Track` into a single `@Observer`.
 
 * Implement something similar to `getDependencyTree` from mobx
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
-
-* Rename `OnActivate` to `OnBecomeObserved` and `OnDeactivate` to `OnBecomeUnobserved`.
-
-* Rename `disposeOnDeactivate` parameter to `disposeOnBecomeUnobserved`
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
@@ -49,9 +35,6 @@ complete as there is too much un-said.
   initial run of the function happens immediately.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
-
-* Figure out a way to use a single entrypoint for each of `observable()`, `autorun()`, `track()` by passing
-  in an options object?
 
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
@@ -141,6 +124,9 @@ complete as there is too much un-said.
 * An Ocaml framework that is very similar conceptually to Arez's core (Observable = variable,
   incremental = computed, observer = observer). They manually trigger scheduling (via stabilize call)
   and assume a DAG rather than a graph that will eventually stabilize.
+
+* http://www.umut-acar.org/self-adjusting-computation
+* https://blog.janestreet.com/introducing-incremental/
 
 * Interestingly it also supports persistent data structures from functional programming paradigms. This
   feels very similar to the `CachedRelationship` from Rose.

@@ -15,14 +15,12 @@ import javax.annotation.Nonnull;
 final class ComponentInfoImpl
   implements ComponentInfo
 {
-  private final Spy _spy;
   private final Component _component;
   private final List<ObservableValue<?>> _observableValues;
   private final List<ComputedValue<?>> _computedValues;
 
-  ComponentInfoImpl( @Nonnull final Spy spy, @Nonnull final Component component )
+  ComponentInfoImpl( @Nonnull final Component component )
   {
-    _spy = Objects.requireNonNull( spy );
     _component = Objects.requireNonNull( component );
     _observableValues = Collections.unmodifiableList( _component.getObservableValues() );
     _computedValues = Collections.unmodifiableList( _component.getComputedValues() );
@@ -64,7 +62,7 @@ final class ComponentInfoImpl
   @Override
   public List<ObservableValueInfo> getObservableValues()
   {
-    return ObservableValueInfoImpl.asUnmodifiableInfos( _spy, _observableValues );
+    return ObservableValueInfoImpl.asUnmodifiableInfos( _observableValues );
   }
 
   /**
@@ -73,7 +71,7 @@ final class ComponentInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( _spy, _component.getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( _component.getObservers() );
   }
 
   /**
@@ -82,7 +80,7 @@ final class ComponentInfoImpl
   @Override
   public List<ComputedValueInfo> getComputedValues()
   {
-    return ComputedValueInfoImpl.asUnmodifiableInfos( _spy, _computedValues );
+    return ComputedValueInfoImpl.asUnmodifiableInfos( _computedValues );
   }
 
   /**

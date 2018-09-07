@@ -5,6 +5,57 @@
 * **\[processor\]** The invariant check generated to link references was being generated outside of the
   associated guard. This could result in dead-code not being eliminated in GWT2.x and triggered warnings
   in source code analysis programs such as spotbugs.
+* **\[gwt-output-qa\]** Add assertion to verify that the `arez.*Info` interfaces are not present if
+  `Arez.areSpiesEnabled()` returns false.
+* **\[core\]** Remove the `onDispose` parameter from the `ArezContext.autorun(...)` methods and the
+  `ArezContext.computed(...)` methods. This hook method was never used from within the component model
+  and infrequently used (if ever) from the raw API. Removing it reduced code complexity and size.
+* **\[core\]** Add invariant to ensure that the parameter `runImmediately` parameter can only be `true`
+  if `keepAlive` parameter is `true` when creating computed values via the `ArezContext.computed(...)`
+  methods.
+* **\[core\]** Changed the default value for the `runImmediately` parameter passed to the
+  `ArezContext.autorun(...)` to be `true`. Previously the default value was `false` if the `autorun(...)`
+   method variant had a `component` parameter but otherwise the default value was `true`.
+* **\[core\]** Refactor the internal representation of runtime and configuration flags within `arez.Observer`
+  instances. Previously the internal state was represented by several internal variables. This resulted in
+  significant memory pressure when an application consisted of many observers. These configuration values
+  have been collapsed into a single bit field. The fields that were collapsed include the configuration
+  values: `_mode`, `_priority`, `_observeLowerPriorityDependencies`, `_canNestActions` and
+  `_arezOnlyDependencies`. The runtime fields collapsed into the bit field include: `_state`, `_scheduled` and
+  `_executeTrackedNext`. The `ComputedValue._keepAlive` field has also been merged into the bit field.
+* **\[core\]** Remove the method `Spy.getObservers(ObservableValue)` that was replaced by `ObservableValueInfo.getObservers()`.
+* **\[core\]** Remove the method `Spy.asComputedValue(ObservableValue)` that was replaced by `ObservableValueInfo.asComputedValue()`.
+* **\[core\]** Remove the method `Spy.asComputedValue(ObservableValue)` that was replaced by `ObservableValueInfo.asComputedValue()`.
+* **\[core\]** Remove the method `Spy.getComponent(ObservableValue)` that was replaced by `ObservableValueInfo.getComponent()`.
+* **\[core\]** Remove the method `Spy.getValue(ObservableValue)` that was replaced by `ObservableValueInfo.getValue()`.
+* **\[core\]** Remove the method `Spy.hasAccessor(ObservableValue)` that was replaced by `ObservableValueInfo.hasAccessor()`.
+* **\[core\]** Remove the method `Spy.hasMutator(ObservableValue)` that was replaced by `ObservableValueInfo.hasMutator()`.
+* **\[core\]** Remove the method `Spy.setValue(ObservableValue,Object)` that was replaced by `ObservableValueInfo.setValue(Object)`.
+* **\[core\]** Remove the method `Spy.isReadOnly(Observer)` that was replaced by `ObserverInfo.isReadOnly()`.
+* **\[core\]** Remove the method `Spy.isScheduled(Observer)` that was replaced by `ObserverInfo.isScheduled()`.
+* **\[core\]** Remove the method `Spy.isRunning(Observer)` that was replaced by `ObserverInfo.isRunning()`.
+* **\[core\]** Remove the method `Spy.getDependencies(Observer)` that was replaced by `ObserverInfo.getDependencies()`.
+* **\[core\]** Remove the method `Spy.asComputedValue(Observer)` that was replaced by `ObserverInfo.asComputedValue()`.
+* **\[core\]** Remove the method `Spy.isComputedValue(Observer)` that was replaced by `ObserverInfo.isComputedValue()`.
+* **\[core\]** Remove the method `Spy.getComponent(Observer)` that was replaced by `ObserverInfo.getComponent()`.
+* **\[core\]** Remove the method `Spy.isComputing(ComputedValue)` that was replaced by `ComputedValueInfo.isComputing()`.
+* **\[core\]** Remove the method `Spy.getDependencies(ComputedValue)` that was replaced by `ComputedValueInfo.getDependencies()`.
+* **\[core\]** Remove the method `Spy.getComponent(ComputedValue)` that was replaced by `ComputedValueInfo.getComponent()`.
+* **\[core\]** Remove the method `Spy.isActive(ComputedValue)` that was replaced by `ComputedValueInfo.isActive()`.
+* **\[core\]** Remove the method `Spy.getObservers(ComputedValue)` that was replaced by `ComputedValueInfo.getObservers()`.
+* **\[core\]** Remove the method `Spy.getValue(ComputedValue)` that was replaced by `ComputedValueInfo.getValue()`.
+* **\[core\]** Rename the `ArezContext.autorun(...)` methods to `ArezContext.observer(...)` and change the way
+  configuration is passed into to be flags so that it matches the underlying representation of configuration.
+* **\[core\]** Refactor the `ArezContext.tracker(...)` methods to change the way configuration is passed into to
+  be flags so that it matches the underlying representation of configuration.
+* **\[core\]** Refactor the internal representation of configuration flags within `arez.component.MemoizeCache` to
+  use a bit mask so it is easy to pass flags when creating the underlying `ComputedValue` instances.
+* **\[core\]** Refactor the `ArezContext.computed(...)` methods to change the way configuration is passed into to
+  be flags so that it matches the underlying representation of configuration.
+* **\[core\]** Move `arez.Spy` to `arez.spy.Spy` and `arez.SpyEventHandler` to `arez.spy.SpyEventHandler` so that
+  the Arez Spy API is located in a single package.
+* **\[core\]** Remove the `TYPE` field from the spy events that is a constant derived at runtime and instead inline
+  the constant where it is used.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
