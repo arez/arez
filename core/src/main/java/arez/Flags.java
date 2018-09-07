@@ -146,11 +146,11 @@ public final class Flags
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
    */
-  static final int EXECUTE_TRACKED_NEXT = 5 << 10;
+  static final int EXECUTE_TRACKED_NEXT = 1 << 10;
   /**
    * The observer has been scheduled.
    */
-  static final int SCHEDULED = 4 << 9;
+  static final int SCHEDULED = 1 << 9;
   /**
    * Mask used to extract state bits.
    * State is the lowest bits as it is the most frequently accessed numeric fields
