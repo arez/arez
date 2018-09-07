@@ -36,6 +36,10 @@ complete as there is too much un-said.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
+* Profile with D8
+  - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
+  - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
+
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
