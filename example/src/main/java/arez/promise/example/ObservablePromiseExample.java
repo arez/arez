@@ -18,7 +18,7 @@ public class ObservablePromiseExample
     final Promise<Response> fetch =
       DomGlobal.fetch( "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" );
     final ObservablePromise<Response, Object> observablePromise = ObservablePromise.create( fetch );
-    Arez.context().autorun( () -> outputStatus( observablePromise ) );
+    Arez.context().observer( () -> outputStatus( observablePromise ) );
   }
 
   private void outputStatus( @Nonnull final ObservablePromise<Response, Object> observablePromise )
