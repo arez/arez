@@ -236,6 +236,46 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_KEEPALIVE_and_DEACTIVATE_ON_UNOBSERVE()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        new CountingProcedure(),
+                                        Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0210: Observer named '" + name + "' incorrectly specified multiple schedule " +
+                  "type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
+  }
+
+  @Test
+  public void construct_with_NESTED_ACTIONS_ALLOWED_and_NESTED_ACTIONS_DISALLOWED()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        new CountingProcedure(),
+                                        Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0209: Observer named '" + name + "' incorrectly specified both the " +
+                  "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
+  }
+
+  @Test
   public void construct_with_computed_value_REACT_IMMEDIATELY_and_not_KEEPALIVE()
     throws Exception
   {

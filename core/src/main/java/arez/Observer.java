@@ -167,6 +167,12 @@ public final class Observer
                           null != computedValue ),
                  () -> "Arez-0208: ComputedValue named '" + getName() + "' incorrectly specified " +
                        "RUN_NOW flag but not the KEEPALIVE flag." );
+      invariant( () -> Flags.isNestedActionsModeValid( flags ),
+                 () -> "Arez-0209: Observer named '" + getName() + "' incorrectly specified both the " +
+                       "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
+      invariant( () -> Flags.isScheduleTypeValid( flags ),
+                 () -> "Arez-0210: Observer named '" + getName() + "' incorrectly specified multiple " +
+                       "schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
