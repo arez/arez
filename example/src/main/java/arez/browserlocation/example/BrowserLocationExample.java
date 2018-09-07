@@ -1,6 +1,8 @@
 package arez.browserlocation.example;
 
 import arez.Arez;
+import arez.ArezContext;
+import arez.Flags;
 import arez.browserlocation.BrowserLocation;
 import com.google.gwt.core.client.EntryPoint;
 import elemental2.dom.DomGlobal;
@@ -14,8 +16,9 @@ public class BrowserLocationExample
   {
     final BrowserLocation browserLocation = BrowserLocation.create();
 
-    Arez.context().autorun( true, () -> cleanLocation( browserLocation ) );
-    Arez.context().autorun( () -> printBrowserLocation( browserLocation ) );
+    final ArezContext context = Arez.context();
+    context.observer( () -> cleanLocation( browserLocation ), Flags.READ_WRITE );
+    context.observer( () -> printBrowserLocation( browserLocation ) );
 
     DomGlobal.document.querySelector( "#route_base" ).
       addEventListener( "click", e -> browserLocation.changeLocation( "" ) );
