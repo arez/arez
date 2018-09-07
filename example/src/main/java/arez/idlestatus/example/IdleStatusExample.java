@@ -12,7 +12,7 @@ public class IdleStatusExample
   public void onModuleLoad()
   {
     final IdleStatus idleStatus = IdleStatus.create();
-    Arez.context().autorun( () -> {
+    Arez.context().observer( () -> {
       final String message = "Interaction Status: " + ( idleStatus.isIdle() ? "Idle" : "Active" );
       DomGlobal.console.log( message );
     } );
