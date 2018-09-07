@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Change actions API to start passing bit flags as well.
 
-* Add rake task that scan codebase for TODOs during release and raises error if present.
-
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
