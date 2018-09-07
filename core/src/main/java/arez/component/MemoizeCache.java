@@ -119,7 +119,7 @@ public final class MemoizeCache<T>
                        final int argCount,
                        final int flags )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
