@@ -11,8 +11,7 @@ complete as there is too much un-said.
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
-* Consider collapsing `@Autorun` and `@Track` into a single `@Observer` and the same reduction at the
-  lower api layer.
+* Consider collapsing `@Autorun` and `@Track` into a single `@Observer`.
 
 * Implement something similar to `getDependencyTree` from mobx
 
