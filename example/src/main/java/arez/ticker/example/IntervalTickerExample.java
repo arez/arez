@@ -12,6 +12,6 @@ public class IntervalTickerExample
   public void onModuleLoad()
   {
     final IntervalTicker ticker = IntervalTicker.create( 1000 );
-    Arez.context().autorun( () -> DomGlobal.console.log( "Tick: " + ticker.getTickTime() ) );
+    Arez.context().observer( () -> DomGlobal.console.log( "Tick: " + ticker.getTickTime() ) );
   }
 }
