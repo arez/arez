@@ -130,7 +130,7 @@ public class SpyEventProcessorTest
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( observable::reportObserved );
+    final Observer observer = context.observer( observable::reportObserved );
 
     final ObserverCreatedEvent event = new ObserverCreatedEvent( context.getSpy().asObserverInfo( observer ) );
 

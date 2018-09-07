@@ -1,7 +1,7 @@
 package arez.spytools;
 
 import arez.Arez;
-import arez.Spy;
+import arez.spy.Spy;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
