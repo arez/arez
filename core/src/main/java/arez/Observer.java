@@ -677,11 +677,11 @@ public final class Observer
       action = _tracked;
     }
     getContext()._action( Arez.areNamesEnabled() ? getName() : null,
-                         Arez.shouldEnforceTransactionType() && isMutation(),
+                          Arez.shouldEnforceTransactionType() && isMutation(),
                           false,
                           true,
                           action,
-                         null == _computedValue,
+                          null == _computedValue,
                           (Observer) this );
   }
 
