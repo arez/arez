@@ -25,7 +25,7 @@ public class TimedDisposerExample
     final ArezContext context = Arez.context();
     final IntervalTicker ticker = IntervalTicker.create();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.autorun( () -> {
+    final Observer observer = context.observer( () -> {
       if ( !Disposable.isDisposed( ticker ) )
       {
         DomGlobal.console.log( "Tick: " + ticker.getTickTime() );
