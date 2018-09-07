@@ -167,6 +167,9 @@ public final class Observer
       invariant( () -> Flags.isScheduleTypeValid( flags ),
                  () -> "Arez-0210: Observer named '" + getName() + "' incorrectly specified multiple " +
                        "schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
+      invariant( () -> ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) == 0,
+                 () -> "Arez-0207: Observer named '" + getName() + "' specified illegal flags: " +
+                       ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) );
     }
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;

@@ -236,6 +236,25 @@ public class ObserverTest
   }
 
   @Test
+  public void construct_with_IllegalFlags()
+    throws Exception
+  {
+    final String name = ValueUtil.randomString();
+
+    final IllegalStateException exception =
+      expectThrows( IllegalStateException.class,
+                    () -> new Observer( Arez.context(),
+                                        null,
+                                        name,
+                                        new CountAndObserveProcedure(),
+                                        new CountingProcedure(),
+                                        1 << 14 ) );
+
+    assertEquals( exception.getMessage(),
+                  "Arez-0207: Observer named '" + name + "' specified illegal flags: " + ( 1 << 14 ) );
+  }
+
+  @Test
   public void construct_with_NESTED_ACTIONS_ALLOWED_and_NESTED_ACTIONS_DISALLOWED()
     throws Exception
   {
