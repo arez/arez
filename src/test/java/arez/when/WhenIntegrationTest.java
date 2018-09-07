@@ -1,7 +1,6 @@
 package arez.when;
 
 import arez.Flags;
-import arez.Priority;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
