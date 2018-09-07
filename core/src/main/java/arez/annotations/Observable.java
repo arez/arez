@@ -83,4 +83,18 @@ public @interface Observable
    * @return true to allow reads outside a transaction, false to require a transaction to read observable.
    */
   boolean readOutsideTransaction() default false;
+
+  /**
+   * Return false if the setter should verify observable value has changed before propagating change.
+   * In some scenarios, the setter method will modify the value before updating the observable or may
+   * decide to abort the update. This setting will force the generated code to check the value of the
+   * observable property after the setter and only invoke {@link ObservableValue#reportChanged()} if
+   * a change has actually occurred.
+   *
+   * <p>This parameter should not be set to false if the associated setter is abstract. It is also
+   * invalid to set this value to false if {@link #expectSetter()} is false.</p>
+   *
+   * @return false if the setter should verify observable value has changed before propagating change.
+   */
+  boolean setterAlwaysMutates() default true;
 }

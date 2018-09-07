@@ -20,10 +20,6 @@ complete as there is too much un-said.
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
 
-* Add configuration parameter to `@Observable` that will verify that the setter actually modified value
-  before propagating change as sometimes the setter will validate or normalize value which may not result in
-  actual change. Use the same equals() test that is used to check if setter call is required.
-
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 
@@ -35,6 +31,10 @@ complete as there is too much un-said.
   initial run of the function happens immediately.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
+
+* Profile with D8
+  - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
+  - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html

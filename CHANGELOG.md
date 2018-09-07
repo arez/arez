@@ -56,6 +56,10 @@
   the Arez Spy API is located in a single package.
 * **\[core\]** Remove the `TYPE` field from the spy events that is a constant derived at runtime and instead inline
   the constant where it is used.
+* **\[core\]** Add `setterAlwaysMutates` parameter to `@Observable` that defaults to true. If set to false then the
+  generated code for the setter will check that the setter actually made a change to the observable value before
+  propagating the change. This makes it possible for a setter to reject a change or transform/normalize a value
+  before assigning the value and this may not result in an actual change.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
