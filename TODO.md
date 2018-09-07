@@ -20,10 +20,6 @@ complete as there is too much un-said.
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
 
-* Add configuration parameter to `@Observable` that will verify that the setter actually modified value
-  before propagating change as sometimes the setter will validate or normalize value which may not result in
-  actual change. Use the same equals() test that is used to check if setter call is required.
-
 * Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
   it via `requestAnimationFrame`
 

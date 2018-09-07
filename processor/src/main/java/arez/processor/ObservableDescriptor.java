@@ -37,6 +37,7 @@ final class ObservableDescriptor
   private final String _name;
   private boolean _expectSetter;
   private boolean _readOutsideTransaction;
+  private boolean _setterAlwaysMutates;
   private Boolean _initializer;
   @Nullable
   private ExecutableElement _getter;
@@ -64,6 +65,7 @@ final class ObservableDescriptor
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
     setReadOutsideTransaction( false );
+    setSetterAlwaysMutates( true );
   }
 
   @Nonnull
@@ -87,6 +89,11 @@ final class ObservableDescriptor
   void setInitializer( @Nonnull final Boolean initializer )
   {
     _initializer = Objects.requireNonNull( initializer );
+  }
+
+  void setSetterAlwaysMutates( final boolean setterAlwaysMutates )
+  {
+    _setterAlwaysMutates = setterAlwaysMutates;
   }
 
   void setReadOutsideTransaction( final boolean readOutsideTransaction )
@@ -557,7 +564,28 @@ final class ObservableDescriptor
         }
       }
     }
-    codeBlock.addStatement( "this.$N.reportChanged()", getFieldName() );
+    if ( _setterAlwaysMutates )
+    {
+      codeBlock.addStatement( "this.$N.reportChanged()", getFieldName() );
+    }
+    else
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      if ( type.isPrimitive() )
+      {
+        block.beginControlFlow( "if ( $N != super.$N() )", varName, _getter.getSimpleName() );
+      }
+      else
+      {
+        block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
+                                Objects.class,
+                                varName,
+                                _getter.getSimpleName() );
+      }
+      block.addStatement( "this.$N.reportChanged()", getFieldName() );
+      block.endControlFlow();
+      codeBlock.add( block.build() );
+    }
     if ( null != _referenceDescriptor )
     {
       if ( _referenceDescriptor.hasInverse() )
@@ -777,11 +805,20 @@ final class ObservableDescriptor
 
   void validate()
   {
-    if ( !expectSetter() && !hasRefMethod() && null == _inverseDescriptor )
+    if ( !expectSetter() )
     {
-      throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
-                                        "method for observable and thus never possible to report it as changed " +
-                                        "and thus should not be observable.", getGetter() );
+      if ( !_setterAlwaysMutates )
+      {
+        throw new ArezProcessorException( "@Observable target defines expectSetter = false " +
+                                          "setterAlwaysMutates = false but this is an invalid configuration.",
+                                          getGetter() );
+      }
+      if ( !hasRefMethod() && null == _inverseDescriptor )
+      {
+        throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
+                                          "method for observable and thus never possible to report it as changed " +
+                                          "and thus should not be observable.", getGetter() );
+      }
     }
 
     if ( null != _refMethodType )
@@ -821,6 +858,11 @@ final class ObservableDescriptor
                                             "Both getter and setter must be concrete or both must be abstract.",
                                             getGetter() );
         }
+      }
+      if ( !_setterAlwaysMutates )
+      {
+        throw new ArezProcessorException( "@Observable target defines setterAlwaysMutates = false but but has " +
+                                          "defined abstract getters and setters.", getGetter() );
       }
     }
     else if ( hasSetter() && getSetter().getModifiers().contains( Modifier.ABSTRACT ) )
