@@ -4,18 +4,20 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Enhancements
+## Next Release
 
 * Change actions API to start passing bit flags as well.
+
+* Consider collapsing `@Autorun` and `@Track` into a single `@Observer`.
+
+* Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
+
+## Enhancements
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
-* Consider collapsing `@Autorun` and `@Track` into a single `@Observer`.
-
 * Implement something similar to `getDependencyTree` from mobx
-
-* Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
