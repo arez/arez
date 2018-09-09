@@ -1,6 +1,6 @@
 package com.example.autorun;
 
-import arez.Priority;
+import arez.annotations.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 

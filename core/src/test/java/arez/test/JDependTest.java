@@ -41,9 +41,6 @@ public class JDependTest
     spy.dependsUpon( arez );
     arez.dependsUpon( spy );
 
-    // Annotations use Priority from arez
-    annotations.dependsUpon( arez );
-
     component.dependsUpon( braincheck );
     component.dependsUpon( arez );
 

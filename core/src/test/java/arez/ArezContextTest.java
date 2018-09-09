@@ -9,6 +9,7 @@ import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.ObserverInfo;
+import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ReactionCompletedEvent;

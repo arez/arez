@@ -4,6 +4,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.Priority;
 import arez.spy.Spy;
 import java.util.ArrayList;
 import java.util.Collection;

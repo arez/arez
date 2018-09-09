@@ -5,6 +5,7 @@ import arez.spy.ComputeStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
+import arez.spy.Priority;
 import arez.spy.ReactionCompletedEvent;
 import arez.spy.ReactionStartedEvent;
 import java.util.ArrayList;

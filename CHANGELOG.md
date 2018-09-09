@@ -60,6 +60,10 @@
   generated code for the setter will check that the setter actually made a change to the observable value before
   propagating the change. This makes it possible for a setter to reject a change or transform/normalize a value
   before assigning the value and this may not result in an actual change.
+* 💥 **\[core\]** Replace usage of the `arez.Priority` enum with `arez.annotations.Priority` and `arez.spy.Priority`
+  and remove the `arez.Priority` class. The purpose is to migrate to where it is used and make it easy to identify
+  which code should be stripped during production compiles and under what circumstances. i.e. `arez.annotations.Priority`
+  should never be compiled to javascript and `arez.spy.Priority` should only be present if spies are enabled.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

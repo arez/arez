@@ -1,6 +1,6 @@
 package com.example.memoize;
 
-import arez.Priority;
+import arez.annotations.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 

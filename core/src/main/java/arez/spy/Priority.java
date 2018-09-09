@@ -1,4 +1,7 @@
-package arez;
+package arez.spy;
+
+import arez.ComputedValue;
+import arez.Disposable;
 
 /**
  * Enum to control scheduling priority of observers/reactions.
@@ -11,6 +14,8 @@ package arez;
  * components. Dispose reactions will often be scheduled with a higher priority but reactions unlinking disposed
  * arez components from remaining arez components. In many cases this may mean invoking
  * {@link Disposable#isDisposed(Object)} before accessing arez components.</p>
+ *
+ * @see arez.annotations.Priority
  */
 public enum Priority
 {
