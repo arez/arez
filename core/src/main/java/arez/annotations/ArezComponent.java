@@ -139,11 +139,11 @@ public @interface ArezComponent
   Feature dagger() default Feature.AUTODETECT;
 
   /**
-   * Return true if an the generated component should NOT schedule autorun actions at the end of the
-   * constructor. This is useful if the component creator will trigger schedules manually at a later time.
-   * This MUST be false if there is no autorun methods annotated on the component.
+   * Return true if an the generated component should NOT trigger scheduler at the end of the constructor.
+   * This is useful if the component creator will trigger schedules manually at a later time.
+   * This MUST be false if there is no observed methods annotated on the component.
    *
-   * @return Return true if an the generated component should NOT schedule autorun actions at the end of the constructor.
+   * @return return true if an the generated component should NOT trigger scheduler at the end of the constructor.
    */
   boolean deferSchedule() default false;
 
