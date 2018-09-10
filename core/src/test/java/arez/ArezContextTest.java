@@ -2116,7 +2116,7 @@ public class ArezContextTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Autorun observer named 'Observer@22' completed reaction but is not observing any properties. As a result the observer will never be rescheduled. This may not be an autorun candidate." );
+                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Observer named 'Observer@22' that does not use an external executor completed observed funnction but is not observing any properties. As a result the observer will never be rescheduled." );
   }
 
   @Test

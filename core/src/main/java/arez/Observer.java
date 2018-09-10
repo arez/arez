@@ -665,9 +665,9 @@ public final class Observer
         final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
-                   () -> "Arez-0172: Autorun observer named '" + getName() + "' completed " +
-                         "reaction but is not observing any properties. As a result the observer will never " +
-                         "be rescheduled. This may not be an autorun candidate." );
+                   () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
+                         "completed observed funnction but is not observing any properties. As a result the observer " +
+                         "will never be rescheduled." );
       };
     }
     else

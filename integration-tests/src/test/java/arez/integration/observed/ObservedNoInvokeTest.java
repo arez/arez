@@ -31,7 +31,7 @@ public class ObservedNoInvokeTest
     assertEquals( component._autorunCallCount, 1 );
 
     assertInvariant( component::autorun,
-                     "Autorun method named 'observed' invoked but @Autorun annotated methods should only be invoked by the runtime." );
+                     "Observed method named 'autorun' invoked but @Observed annotated methods should only be invoked by the runtime." );
     assertEquals( component._autorunCallCount, 1 );
   }
 }
