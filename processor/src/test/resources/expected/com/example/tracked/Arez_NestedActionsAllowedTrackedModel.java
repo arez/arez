@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_CanNestActionsTrackedModel extends CanNestActionsTrackedModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_NestedActionsAllowedTrackedModel extends NestedActionsAllowedTrackedModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -33,14 +33,14 @@ public final class Arez_CanNestActionsTrackedModel extends CanNestActionsTracked
   @Nonnull
   private final Observer $$arez$$_render;
 
-  public Arez_CanNestActionsTrackedModel() {
+  public Arez_NestedActionsAllowedTrackedModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CanNestActionsTrackedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "NestedActionsAllowedTrackedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_ALLOWED );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -56,7 +56,7 @@ public final class Arez_CanNestActionsTrackedModel extends CanNestActionsTracked
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'CanNestActionsTrackedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'NestedActionsAllowedTrackedModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -76,9 +76,9 @@ public final class Arez_CanNestActionsTrackedModel extends CanNestActionsTracked
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'CanNestActionsTrackedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'NestedActionsAllowedTrackedModel'" );
     }
-    return "CanNestActionsTrackedModel." + $$arezi$$_id();
+    return "NestedActionsAllowedTrackedModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -142,10 +142,10 @@ public final class Arez_CanNestActionsTrackedModel extends CanNestActionsTracked
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_CanNestActionsTrackedModel) ) {
+      } else if ( null == o || !(o instanceof Arez_NestedActionsAllowedTrackedModel) ) {
         return false;
       } else {
-        final Arez_CanNestActionsTrackedModel that = (Arez_CanNestActionsTrackedModel) o;
+        final Arez_NestedActionsAllowedTrackedModel that = (Arez_NestedActionsAllowedTrackedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

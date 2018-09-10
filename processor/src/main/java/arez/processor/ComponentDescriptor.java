@@ -552,7 +552,7 @@ final class ComponentDescriptor
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
-    final boolean canNestActions = getAnnotationParameter( annotation, "nestedActionsAllowed" );
+    final boolean nestedActionsAllowed = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final ObservedDescriptor observed =
       new ObservedDescriptor( this,
@@ -560,7 +560,7 @@ final class ComponentDescriptor
                               mutation,
                               priority.getSimpleName().toString(),
                               observeLowerPriorityDependencies,
-                              canNestActions,
+                              nestedActionsAllowed,
                               method,
                               methodType );
     _observeds.put( observed.getName(), observed );
@@ -613,7 +613,7 @@ final class ComponentDescriptor
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
-    final boolean canNestActions = getAnnotationParameter( annotation, "nestedActionsAllowed" );
+    final boolean nestedActionsAllowed = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );
@@ -621,7 +621,7 @@ final class ComponentDescriptor
                               priority.getSimpleName().toString(),
                               reportParameters,
                               observeLowerPriorityDependencies,
-                              canNestActions,
+                              nestedActionsAllowed,
                               method,
                               methodType );
   }

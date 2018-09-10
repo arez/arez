@@ -29,7 +29,7 @@ final class ObservedDescriptor
   @Nonnull
   private final String _priority;
   private final boolean _observeLowerPriorityDependencies;
-  private final boolean _canNestActions;
+  private final boolean _nestedActionsAllowed;
   @Nonnull
   private final ExecutableElement _observed;
   @Nonnull
@@ -44,7 +44,7 @@ final class ObservedDescriptor
                       final boolean mutation,
                       final String priority,
                       final boolean observeLowerPriorityDependencies,
-                      final boolean canNestActions,
+                      final boolean nestedActionsAllowed,
                       @Nonnull final ExecutableElement observed,
                       @Nonnull final ExecutableType observedType )
   {
@@ -53,7 +53,7 @@ final class ObservedDescriptor
     _mutation = mutation;
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
-    _canNestActions = canNestActions;
+    _nestedActionsAllowed = nestedActionsAllowed;
     _observed = Objects.requireNonNull( observed );
     _observedType = Objects.requireNonNull( observedType );
   }
@@ -118,7 +118,7 @@ final class ObservedDescriptor
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
     }
-    if ( _canNestActions )
+    if ( _nestedActionsAllowed )
     {
       flags.add( "NESTED_ACTIONS_ALLOWED" );
     }

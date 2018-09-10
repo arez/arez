@@ -246,7 +246,7 @@ public final class Observer
     return null == _tracked;
   }
 
-  boolean canNestActions()
+  boolean nestedActionsAllowed()
   {
     assert Arez.shouldCheckApiInvariants();
     return 0 != ( _flags & Flags.NESTED_ACTIONS_ALLOWED );

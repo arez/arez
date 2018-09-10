@@ -2069,7 +2069,7 @@ public final class ArezContext
       {
         final Observer parent = parentTransaction.getTracker();
         apiInvariant( () -> null == parent ||
-                            parent.canNestActions() ||
+                            parent.nestedActionsAllowed() ||
                             ( null != tracker && tracker.isComputedValue() ),
                       () -> "Arez-0187: Attempting to nest action named '" + name + "' " +
                             "inside transaction named '" + parentTransaction.getName() + "' created by an " +

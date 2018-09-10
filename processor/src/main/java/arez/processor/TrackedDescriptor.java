@@ -35,7 +35,7 @@ final class TrackedDescriptor
   private String _priority;
   private boolean _reportParameters;
   private boolean _observeLowerPriorityDependencies;
-  private boolean _canNestActions;
+  private boolean _nestedActionsAllowed;
   @Nullable
   private ExecutableElement _trackedMethod;
   @Nullable
@@ -88,7 +88,7 @@ final class TrackedDescriptor
                          @Nonnull final String priority,
                          final boolean reportParameters,
                          final boolean observeLowerPriorityDependencies,
-                         final boolean canNestActions,
+                         final boolean nestedActionsAllowed,
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
@@ -105,7 +105,7 @@ final class TrackedDescriptor
       _priority = Objects.requireNonNull( priority );
       _reportParameters = reportParameters;
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
-      _canNestActions = canNestActions;
+      _nestedActionsAllowed = nestedActionsAllowed;
       _trackedMethod = Objects.requireNonNull( method );
       _trackedMethodType = Objects.requireNonNull( trackedMethodType );
     }
@@ -177,7 +177,7 @@ final class TrackedDescriptor
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
     }
-    if ( _canNestActions )
+    if ( _nestedActionsAllowed )
     {
       flags.add( "NESTED_ACTIONS_ALLOWED" );
     }

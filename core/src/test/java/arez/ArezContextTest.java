@@ -2157,7 +2157,7 @@ public class ArezContextTest
     assertEquals( observer.isComputedValue(), false );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( observer.isKeepAlive(), true );
-    assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.getOnDepsUpdated(), null );
     assertEquals( observer.isExternalTracker(), false );
     assertEquals( observer.getTracked(), tracked );
@@ -2197,7 +2197,7 @@ public class ArezContextTest
     assertEquals( observer.isMutation(), true );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
-    assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 1 );
   }
@@ -2295,14 +2295,14 @@ public class ArezContextTest
   }
 
   @Test
-  public void autorun_canNestActions()
+  public void autorun_nestedActionsAllowed()
     throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer =
       context.observer( AbstractArezTest::observeADependency, Flags.NESTED_ACTIONS_ALLOWED );
 
-    assertEquals( observer.canNestActions(), true );
+    assertEquals( observer.nestedActionsAllowed(), true );
   }
 
   @Test
@@ -2381,7 +2381,7 @@ public class ArezContextTest
     assertEquals( observer.getPriority(), Priority.HIGH );
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
     assertEquals( observer.isExternalTracker(), true );
-    assertEquals( observer.canNestActions(), true );
+    assertEquals( observer.nestedActionsAllowed(), true );
     assertEquals( observer.arezOnlyDependencies(), false );
     assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 0 );
@@ -2431,7 +2431,7 @@ public class ArezContextTest
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( observer.isExternalTracker(), true );
-    assertEquals( observer.canNestActions(), false );
+    assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.arezOnlyDependencies(), true );
     assertEquals( observer.supportsManualSchedule(), false );
     assertEquals( callCount.get(), 0 );
