@@ -42,7 +42,7 @@ The simplified rules are:
   observer directly.
 * A [computed value](computed_values.md) can never invoke actions or observers but can access other computed values.
 * An [observer](observers.md) can access computed values and may be able to invoke actions depending on the
-  configuration of the action.
+  configuration of the observer.
 
 It should be noted that these rules are in addition to the rule that a read-write transaction can not be nested
 within a read-only transaction. Actions default to read-write transactions but may be made read-only. Observers
