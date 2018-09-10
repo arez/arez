@@ -2,28 +2,28 @@
 title: Computed Values
 ---
 
-Computed values are values that can be derived from the existing state or other computed values. Conceptually,
-they are very similar to formulas in spreadsheets. Computed values can't be underestimated, as they help you
-to make your actual modifiable state as small as possible. Besides that they are highly optimized, so use
-them wherever possible.
+Computed values are very similar conceptually to formulas in spreadsheets. Computed values are derived
+from observable values and/or other computed values. If a dependency is changed then the computed value
+will recalculate it's value. If the new value is different from the old value then the computed value is
+marked as changed and the change is propagated to observers.
 
-Computed values are automatically derived from your state if any value that affects them changes. Computed
-values can be optimized away in many cases by Arez as they are assumed to be pure. For example, a computed
-property won't re-run if none of the data used in the previous computation changed. Nor will a computed
-property re-run if is not in use by some other computed property or observer. In such cases it will be
-suspended.
+A computed value will only compute a value if it is active. In most circumstances, a computed value is only
+active if it is being observed by an observer or it is used by another computed value. If a computed value
+is not needed then no computation occurs.
 
-Don't confuse computed values with autorun [observers](observers.md). They are both reactively invoked
-expressions, but use computed values if you want to produce a value that can be used by other observers
-or computed values. Use autorun [observers](observers.md) if you don't want to produce a new value but
-rather want to achieve an effect such as imperative side effects like logging, making network requests
-etc.
+The benefits of computed values can not be underestimated. Computed values help you make your core state
+as small as possible. They are highly optimized and should be used wherever possible.
 
-This automatic suspension is very convenient. If a computed value is no longer observed, for example the
-UI in which it was used no longer exists, then Arez wil no longer recalculate the value. This differs from
-autorun observer's values where you must dispose of them yourself.
+Don't confuse computed values with [observers](observers.md). Both track dependencies and react to changes
+in dependencies, but use computed values if you want to produce a value that can be used by other observers
+or computed values. Use [observers](observers.md) if you don't want to produce a new value but instead want
+to produce an effect such as imperative side effects like logging, making network requests etc.
 
-Within the Arez system a computed value observable is represented by an instance of the {@api_url: ComputedValue}
+The automatic suspension of computed values is very convenient. If a computed value is no longer observed
+(i.e the UI in which it was used no longer exists), then Arez will no longer recalculate the value. This differs
+from observers that will continue to react to changes in the dependencies until the observer is disposed.
+
+Within the Arez system, a computed value is represented by an instance of the {@api_url: ComputedValue}
 class. The {@api_url: ComputedValue} class contains a cache of the value that is computed and a reference to the
 function that computes the value. It provides a method {@api_url: ComputedValue.get()::ComputedValue::get()} to
 access the cached value or recalculate the value if it is stale. The {@api_url: ComputedValue} contains the necessary
