@@ -96,6 +96,8 @@ complete as there is too much un-said.
 
 ## Documentation
 
+* The Overview page is terrible - improve it so people would want to use the product.
+
 * Document `@Reference`, `@ReferenceId`, `@Inverse`
 
 * Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
