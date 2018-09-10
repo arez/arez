@@ -21,7 +21,7 @@ There are four main variants of the action methods provided by Arez.
 * Actions that declare no checked exceptions and do not return a value.
 * Actions that declare no checked exceptions and do return a value.
 
-Due to some peculiarities with the java type system the primitive methods that invoke actions that declare no checked
+Due to some peculiarities with the java type system; the methods that invoke actions that declare no checked
 exceptions are named `safeAction` while the methods that invoke actions that declare checked exceptions are named
 `action`.
 
