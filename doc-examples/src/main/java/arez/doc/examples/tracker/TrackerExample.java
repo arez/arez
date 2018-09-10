@@ -9,7 +9,7 @@ public class TrackerExample
   public static void main( String[] args )
     throws Throwable
   {
-    final Procedure trackedFunction = () -> {
+    final Procedure observedFunction = () -> {
       // Interact with arez observable state (or computed values) here
       // and any time these changed the rescheduleRender function will
       // be run which will somehow reschedule this function.
@@ -23,11 +23,10 @@ public class TrackerExample
     // invocation. This call will need to be run at least once so that
     // the Arez runtime can determine the dependencies and reschedule
     // when the dependencies are changed.
-    Arez.context().track( tracker, trackedFunction );
+    Arez.context().track( tracker, observedFunction );
   }
 
   static void rescheduleRender()
   {
-
   }
 }
