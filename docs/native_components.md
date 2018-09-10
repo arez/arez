@@ -9,13 +9,13 @@ applications. The first Arez applications were constructed using just these prim
 Constructing primitives in this manner was tedious at best. Humans tend to want to use higher level abstractions
 and so was born the annotation driven [Component Model](components.md). Arez users could
 define "components" that consisted of [@Observable](at_observable.md) properties, [@Computed](at_computed.md)
-properties and [@Track](at_track.md) or [@Autorun](at_autorun.md) observers.
+properties and [@Observed](at_observed.md) methods or observers.
 
 The component model made authoring the reactive elements of Arez applications relatively easy. However the annotation
 processor only used naming conventions to link primitive reactive elements together. The only way to know that
 two observables were from the same component was to look at their names and if enough of the prefix matched then
-they were probably from the same component. i.e. It would be reasonably safe to assume that two observable
-properties named `"Person.42.firstName"` and `"Person.42.lastName"` where properties on a single component
+they were probably from the same component. i.e. It is reasonably safe to assume that two observable
+properties named `"Person.42.firstName"` and `"Person.42.lastName"` are properties on a single component
 of type `"Person"` with id `"42"`.
 
 This was usually sufficient for a human who was inspecting the event logs to get a gist of the interactions between
