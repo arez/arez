@@ -52,18 +52,10 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
-* Should `ArezContext` be disposable? If so it would need to enable registries by default so all resources
-  created by the context could be closed when the context is closed. It probably only makes sense in multi
-  zone scenario and should generate invariant check failure otherwise.
-
 * Should it be possible to suspend arbitrary observers?
 
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
-
-* Seriously consider enabling a compile-time option that allows pooling of Arez elements such as Observable,
-  ComputedValues and Observers. This may reduce memory pressure, particularly when using CircularBuffer to
-  implement the recycling.
 
 * Consider writing a function that builds a computed. The initial value comes from a supplier function called
   on `@OnObserve` which also triggers an async function. Subsequent values comes from the async function supplying
