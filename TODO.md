@@ -14,6 +14,8 @@ complete as there is too much un-said.
 
 * Rename `ObservableRef` to `ObservableValueRef` for the sake of consistency. 
 
+* Change terminology for observers from "tracked" to "observed" as that is much clearer.
+
 ## Enhancements
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
