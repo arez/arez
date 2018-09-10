@@ -1,8 +1,8 @@
 package com.example.computed;
 
-import arez.annotations.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
+import arez.annotations.Priority;
 
 @ArezComponent
 public abstract class HighPriorityComputedModel

@@ -1,8 +1,8 @@
 package com.example.tracked;
 
-import arez.annotations.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.OnDepsChanged;
+import arez.annotations.Priority;
 import arez.annotations.Track;
 
 @ArezComponent
