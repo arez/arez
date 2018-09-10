@@ -6,6 +6,10 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Rename `onDepsUpdated` in code to `onDepsChanged`
+
+* Consider supplying onTracked for `@Track` observed functions for sake of simplicity and code-size reduction.
+
 * Change actions API to start passing bit flags as well.
 
 * Consider collapsing `@Autorun` and `@Track` into a single `@Observer`.
