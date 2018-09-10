@@ -55,6 +55,6 @@ that is outside a transaction. i.e. A block of code can be run outside a transac
 or read-write transaction is active. This is achieved by invoking the
 {@api_url: ArezContext.noTxAction(*)::ArezContext::noTxAction(arez.Procedure)} methods. This is rarely needed
 and `99.5%` of code should never use this facility. This is only needed if the code invoked behaves differently
-depending on whether it is nested in a transaction or not. It should be noted that this code block should not
+depending on whether it is nested in a transaction or not. It should be noted that the code block **must not**
 attempt to create another transaction as this will violate the invariants of Arez and may result in
 indeterminate behaviour.
