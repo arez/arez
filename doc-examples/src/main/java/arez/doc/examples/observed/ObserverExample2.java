@@ -8,8 +8,7 @@ public class ObserverExample2
   public static void main( String[] args )
     throws Throwable
   {
-    final String name = "MyAutorunObserver";
-    Arez.context().observer( name, () -> {
+    Arez.context().observer( "MyObserver", () -> {
       // Interact with arez observable state (or computed values) here
       // and any time these changed this function will be re-run.
       //DOC ELIDE START
