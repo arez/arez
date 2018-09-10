@@ -16,8 +16,7 @@ public class TrackerExample
       //DOC ELIDE START
       //DOC ELIDE END
     };
-    final Observer tracker =
-      Arez.context().tracker( () -> rescheduleRender() );
+    final Observer tracker = Arez.context().tracker( () -> rescheduleRender() );
     //DOC ELIDE START
     //DOC ELIDE END
     // The rescheduleRender should ultimately result in the following
