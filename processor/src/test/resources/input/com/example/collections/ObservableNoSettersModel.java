@@ -3,7 +3,7 @@ package com.example.collections;
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,8 +21,8 @@ public abstract class ObservableNoSettersModel
     return new HashSet<>();
   }
 
-  @ObservableRef
-  protected abstract ObservableValue getCollectionObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue getCollectionObservableValue();
 
   @Observable( expectSetter = false )
   public Set<String> getSet()
@@ -30,8 +30,8 @@ public abstract class ObservableNoSettersModel
     return new HashSet<>();
   }
 
-  @ObservableRef
-  protected abstract ObservableValue getSetObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue getSetObservableValue();
 
   @Observable( expectSetter = false )
   public List<String> getList()
@@ -39,8 +39,8 @@ public abstract class ObservableNoSettersModel
     return new ArrayList<>();
   }
 
-  @ObservableRef
-  protected abstract ObservableValue getListObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue getListObservableValue();
 
   @Observable( expectSetter = false )
   public Map<String, String> getMap()
@@ -48,6 +48,6 @@ public abstract class ObservableNoSettersModel
     return new HashMap<>();
   }
 
-  @ObservableRef
-  protected abstract ObservableValue getMapObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue getMapObservableValue();
 }

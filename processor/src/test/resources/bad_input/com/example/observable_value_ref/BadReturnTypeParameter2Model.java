@@ -1,13 +1,13 @@
-package com.example.observable_ref;
+package com.example.observable_value_ref;
 
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class NonAlignedNameModel
+public abstract class BadReturnTypeParameter2Model
 {
   @Observable
   public long getTime()
@@ -20,6 +20,6 @@ public abstract class NonAlignedNameModel
   }
 
   @Nonnull
-  @ObservableRef
-  public abstract ObservableValue timeObservable();
+  @ObservableValueRef
+  abstract ObservableValue<?> getTimeObservableValue();
 }

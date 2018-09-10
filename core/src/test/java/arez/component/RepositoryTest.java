@@ -386,7 +386,7 @@ public class RepositoryTest
 
     @Nonnull
     @Override
-    protected ObservableValue getEntitiesObservable()
+    protected ObservableValue getEntitiesObservableValue()
     {
       return _observableValue;
     }

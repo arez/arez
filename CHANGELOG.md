@@ -71,6 +71,8 @@
 * Update the `org.realityforge.guiceyloops:guiceyloops:jar` dependency to version `0.96`.
 * 💥 **\[core\]** Rename the `onDepsUpdated` parameter to `onDepsChanged` to reflect conventions in the rest
   of the codebase.
+* 💥 **\[core\]** Rename `arez.annotations.ObservableRef` to `arez.annotations.ObservableValueRef`. The default
+  naming convention wasl also changed from `get[Name]Observable` to `get[Name]ObservableValue`.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * by an {@link ObservableValue} instance and some frameworks make use of this value to implement
  * advanced functionality.
  *
- * <p>The method that is annotated with @ObservableRef must also comply with the following constraints:</p>
+ * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
@@ -25,11 +25,11 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.METHOD )
-public @interface ObservableRef
+public @interface ObservableValueRef
 {
   /**
    * Return the name of the associated ObservableValue property that this ref relates to.
-   * This value will be derived if the method name matches the pattern "get[Name]Observable",
+   * This value will be derived if the method name matches the pattern "get[Name]ObservableValue",
    * otherwise it must be specified.
    *
    * @return the name of the associated ObservableValue.

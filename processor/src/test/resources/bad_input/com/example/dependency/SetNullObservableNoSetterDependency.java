@@ -4,7 +4,7 @@ import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Dependency;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import arez.component.DisposeTrackable;
 
 @ArezComponent( allowEmpty = true )
@@ -17,6 +17,6 @@ public abstract class SetNullObservableNoSetterDependency
     return null;
   }
 
-  @ObservableRef
-  abstract ObservableValue<DisposeTrackable> getTimeObservable();
+  @ObservableValueRef
+  abstract ObservableValue<DisposeTrackable> getTimeObservableValue();
 }

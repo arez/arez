@@ -241,9 +241,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Nonnull
   @Override
-  protected ObservableValue<String> getMyValueObservable() {
+  protected ObservableValue<String> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     return $$arez$$_myValue;
   }

@@ -3,7 +3,7 @@ package com.example.observable;
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
@@ -13,6 +13,6 @@ public abstract class AbstractGetterNoSetterModel
   public abstract long getField();
 
   @Nonnull
-  @ObservableRef
-  public abstract ObservableValue getFieldObservable();
+  @ObservableValueRef
+  public abstract ObservableValue getFieldObservableValue();
 }

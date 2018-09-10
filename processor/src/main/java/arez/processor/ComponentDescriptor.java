@@ -49,7 +49,7 @@ import static arez.processor.ProcessorUtil.*;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
-  private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
+  private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
   private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputedValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
@@ -418,21 +418,21 @@ final class ComponentDescriptor
     return observable;
   }
 
-  private void addObservableRef( @Nonnull final AnnotationMirror annotation,
-                                 @Nonnull final ExecutableElement method,
-                                 @Nonnull final ExecutableType methodType )
+  private void addObservableValueRef( @Nonnull final AnnotationMirror annotation,
+                                      @Nonnull final ExecutableElement method,
+                                      @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !toRawType( returnType ).toString().equals( "arez.ObservableValue" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ObservableRef must return an instance of " +
+      throw new ArezProcessorException( "Method annotated with @ObservableValueRef must return an instance of " +
                                         "arez.ObservableValue", method );
     }
 
@@ -443,8 +443,8 @@ final class ComponentDescriptor
       name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @ObservableRef should specify name or be " +
-                                          "named according to the convention get[Name]Observable", method );
+        throw new ArezProcessorException( "Method annotated with @ObservableValueRef should specify name or be " +
+                                          "named according to the convention get[Name]ObservableValue", method );
       }
     }
     else
@@ -452,12 +452,12 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ObservableRef target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ObservableRef target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
     }
@@ -466,8 +466,8 @@ final class ComponentDescriptor
 
     if ( observable.hasRefMethod() )
     {
-      throw new ArezProcessorException( "Method annotated with @ObservableRef defines duplicate ref accessor for " +
-                                        "observable named " + name, method );
+      throw new ArezProcessorException( "Method annotated with @ObservableValueRef defines duplicate ref " +
+                                        "accessor for observable named " + name, method );
     }
     observable.setRefMethod( method, methodType );
   }
@@ -2051,8 +2051,8 @@ final class ComponentDescriptor
     {
       if ( !observable.hasSetter() && !observable.hasGetter() )
       {
-        throw new ArezProcessorException( "@ObservableRef target unable to be associated with an Observable property",
-                                          observable.getRefMethod() );
+        throw new ArezProcessorException( "@ObservableValueRef target unable to be associated with an " +
+                                          "Observable property", observable.getRefMethod() );
       }
       else if ( !observable.hasSetter() && observable.expectSetter() )
       {
@@ -2142,8 +2142,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
     final AnnotationMirror observable =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
-    final AnnotationMirror observableRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observableValueRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror computed =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     final AnnotationMirror computedValueRef =
@@ -2202,9 +2202,9 @@ final class ComponentDescriptor
       }
       return true;
     }
-    else if ( null != observableRef )
+    else if ( null != observableValueRef )
     {
-      addObservableRef( observableRef, method, methodType );
+      addObservableValueRef( observableValueRef, method, methodType );
       return true;
     }
     else if ( null != action )
@@ -2383,7 +2383,7 @@ final class ComponentDescriptor
                     Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.MEMOIZE_ANNOTATION_CLASSNAME,

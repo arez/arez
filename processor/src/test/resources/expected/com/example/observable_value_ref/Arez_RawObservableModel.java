@@ -1,4 +1,4 @@
-package com.example.observable_ref;
+package com.example.observable_value_ref;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -9,14 +9,13 @@ import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
-import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_GenericObservableRefModel extends GenericObservableRefModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_RawObservableModel extends RawObservableModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -31,18 +30,18 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ObservableValue<GenericObservableRefModel.MyValue<String>> $$arez$$_myValue;
+  private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_GenericObservableRefModel() {
+  public Arez_RawObservableModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "GenericObservableRefModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RawObservableModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_myValue = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMyValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyValue( v ) : null );
+    this.$$arez$$_time = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -56,7 +55,7 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'GenericObservableRefModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RawObservableModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -76,9 +75,9 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'GenericObservableRefModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RawObservableModel'" );
     }
-    return "GenericObservableRefModel." + $$arezi$$_id();
+    return "RawObservableModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -105,7 +104,7 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_myValue.dispose();
+          this.$$arez$$_time.dispose();
         } } );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -115,34 +114,34 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
   }
 
   @Override
-  public GenericObservableRefModel.MyValue<String> getMyValue() {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    this.$$arez$$_myValue.reportObserved();
-    return super.getMyValue();
+    this.$$arez$$_time.reportObserved();
+    return super.getTime();
   }
 
   @Override
-  public void setMyValue(final GenericObservableRefModel.MyValue<String> time) {
+  public void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    this.$$arez$$_myValue.preReportChanged();
-    final GenericObservableRefModel.MyValue<String> $$arezv$$_currentValue = super.getMyValue();
-    if ( !Objects.equals( time, $$arezv$$_currentValue ) ) {
-      super.setMyValue( time );
-      this.$$arez$$_myValue.reportChanged();
+    this.$$arez$$_time.preReportChanged();
+    final long $$arezv$$_currentValue = super.getTime();
+    if ( time != $$arezv$$_currentValue ) {
+      super.setTime( time );
+      this.$$arez$$_time.reportChanged();
     }
   }
 
   @Nonnull
   @Override
-  public ObservableValue<GenericObservableRefModel.MyValue<String>> getMyValueObservable() {
+  public ObservableValue getTimeObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    return $$arez$$_myValue;
+    return $$arez$$_time;
   }
 
   @Override
@@ -159,10 +158,10 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_GenericObservableRefModel) ) {
+      } else if ( null == o || !(o instanceof Arez_RawObservableModel) ) {
         return false;
       } else {
-        final Arez_GenericObservableRefModel that = (Arez_GenericObservableRefModel) o;
+        final Arez_RawObservableModel that = (Arez_RawObservableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -15,7 +15,7 @@ import arez.annotations.ComputedValueRef;
 import arez.annotations.ContextRef;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import arez.annotations.Observed;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
@@ -94,8 +94,8 @@ public abstract class BaseCompleteModel
   public abstract void setMyValue( String value );
 
   @Nonnull
-  @ObservableRef
-  protected abstract ObservableValue<String> getMyValueObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue<String> getMyValueObservableValue();
 
   @Track
   public void render( final long time, float someOtherParameter )

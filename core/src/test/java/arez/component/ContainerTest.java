@@ -133,7 +133,7 @@ public class ContainerTest
 
     final AtomicInteger callCount = new AtomicInteger();
     Arez.context().observer( () -> {
-      repository.getEntitiesObservable().reportObserved();
+      repository.getEntitiesObservableValue().reportObserved();
       callCount.incrementAndGet();
     } );
 
@@ -389,7 +389,7 @@ public class ContainerTest
 
     @Nonnull
     @Override
-    protected ObservableValue getEntitiesObservable()
+    protected ObservableValue getEntitiesObservableValue()
     {
       return _observableValue;
     }

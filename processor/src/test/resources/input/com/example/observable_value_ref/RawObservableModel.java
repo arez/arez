@@ -1,13 +1,13 @@
-package com.example.observable_ref;
+package com.example.observable_value_ref;
 
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class NonAbstractModel
+public abstract class RawObservableModel
 {
   @Observable
   public long getTime()
@@ -20,9 +20,6 @@ public abstract class NonAbstractModel
   }
 
   @Nonnull
-  @ObservableRef
-  ObservableValue getTimeObservable()
-  {
-    throw new IllegalStateException();
-  }
+  @ObservableValueRef
+  public abstract ObservableValue getTimeObservable();
 }

@@ -1,13 +1,13 @@
-package com.example.observable_ref;
+package com.example.observable_value_ref;
 
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class ParametersModel
+public abstract class BadNameModel2
 {
   @Observable
   public long getTime()
@@ -20,6 +20,6 @@ public abstract class ParametersModel
   }
 
   @Nonnull
-  @ObservableRef
-  public abstract ObservableValue getTimeObservable( int i );
+  @ObservableValueRef( name = "const" )
+  public abstract ObservableValue getTimeObservableValue();
 }

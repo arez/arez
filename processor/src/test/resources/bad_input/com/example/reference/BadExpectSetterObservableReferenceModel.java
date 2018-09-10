@@ -3,7 +3,7 @@ package com.example.reference;
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 
@@ -20,8 +20,8 @@ abstract class BadExpectSetterObservableReferenceModel
     return 0;
   }
 
-  @ObservableRef
-  protected abstract ObservableValue getMyEntityIdObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue getMyEntityIdObservableValue();
 
   static class MyEntity
   {

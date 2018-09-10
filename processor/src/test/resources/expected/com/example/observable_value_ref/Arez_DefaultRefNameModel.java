@@ -1,4 +1,4 @@
-package com.example.observable_ref;
+package com.example.observable_value_ref;
 
 import arez.Arez;
 import arez.ArezContext;

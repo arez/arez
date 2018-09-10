@@ -3,16 +3,15 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ObservableValue;
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableRefNoSetterTest
+public class ObservableValueRefTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -21,12 +20,12 @@ public class ObservableRefNoSetterTest
     private int _otherID;
     private String _other;
 
-    @ObservableRef
-    abstract ObservableValue getOtherIDObservable();
+    @ObservableValueRef
+    abstract ObservableValue<Integer> getOtherIDObservableValue();
 
     String getOther()
     {
-      getOtherIDObservable().reportObserved();
+      getOtherIDObservableValue().reportObserved();
       if ( null == _other )
       {
         // Imagine that this looks up the other in a repository
@@ -38,18 +37,16 @@ public class ObservableRefNoSetterTest
       return _other;
     }
 
-    @Observable( expectSetter = false )
+    @Observable
     int getOtherID()
     {
       return _otherID;
     }
 
-    @Action
     void setOtherID( final int otherID )
     {
       _other = null;
       _otherID = otherID;
-      getOtherIDObservable().reportChanged();
     }
   }
 
@@ -59,8 +56,8 @@ public class ObservableRefNoSetterTest
   {
     final ArezContext context = Arez.context();
 
-    final TestComponent component = new ObservableRefNoSetterTest_Arez_TestComponent();
-    component.setOtherID( 1 );
+    final TestComponent component = new ObservableValueRefTest_Arez_TestComponent();
+    context.action( () -> component.setOtherID( 1 ) );
 
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
@@ -73,7 +70,7 @@ public class ObservableRefNoSetterTest
                        recorder.mark( "TransportType", component.getOtherID() );
                        ttCount.incrementAndGet();
                      } );
-    // This is verifying that the explicit reportObserved occurs
+    // This is verifying that the explict reportObserved occurs
     context.observer( "ResolvedType",
                       () -> {
                        observeADependency();
@@ -84,8 +81,7 @@ public class ObservableRefNoSetterTest
     assertEquals( ttCount.get(), 1 );
     assertEquals( rtCount.get(), 1 );
 
-    // This is verifying that the explicit reportChanged occurs
-    component.setOtherID( 22 );
+    context.action( "ID Update", true, () -> component.setOtherID( 22 ) );
 
     assertMatchesFixture( recorder );
 

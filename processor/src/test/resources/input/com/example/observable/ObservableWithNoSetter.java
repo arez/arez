@@ -3,7 +3,7 @@ package com.example.observable;
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 
 @ArezComponent
 public abstract class ObservableWithNoSetter
@@ -14,6 +14,6 @@ public abstract class ObservableWithNoSetter
     return 0;
   }
 
-  @ObservableRef
-  protected abstract ObservableValue getTimeObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue getTimeObservableValue();
 }
