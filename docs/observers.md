@@ -22,11 +22,11 @@ the [@Autorun](at_autorun.md) annotation.
 
 An example of a basic autorun observer:
 
-{@file_content: file=arez/doc/examples/autorun/AutorunExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observed/ObserverExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an autorun observer that is explicitly named, uses a read-only transaction and returns a value:
 
-{@file_content: file=arez/doc/examples/autorun/AutorunExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observed/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 ## Tracker Observers
 
