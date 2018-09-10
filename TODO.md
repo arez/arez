@@ -54,6 +54,8 @@ complete as there is too much un-said.
   created by the context could be closed when the context is closed. It probably only makes sense in multi
   zone scenario and should generate invariant check failure otherwise.
 
+* Should it be possible to suspend arbitrary observers?
+
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
 
