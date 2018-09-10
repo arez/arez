@@ -16,15 +16,15 @@ an autorun observer is defined, the tracked function will be triggered once imme
 any time the dependencies change. The Arez scheduler is also responsible for wrapping the tracked function in a
 tracking transaction.
 
-There are several low-level {@api_url: ArezContext.autorun(*)::ArezContext::autorun(arez.Procedure)}
-methods that can be used to create autorun observers, however most users will use more high-level APIs such as
+There are several low-level {@api_url: ArezContext.observed(*)::ArezContext::observed(arez.Procedure)}
+methods that can be used to create observers, however most users will use more high-level APIs such as
 the [@Autorun](at_autorun.md) annotation.
 
-An example of a basic autorun observer:
+An example of a basic observer:
 
 {@file_content: file=arez/doc/examples/observed/ObserverExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
-An example of an autorun observer that is explicitly named, uses a read-only transaction and returns a value:
+An example of an observer that is explicitly named, uses a read-only transaction and returns a value:
 
 {@file_content: file=arez/doc/examples/observed/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
