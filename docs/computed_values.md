@@ -74,5 +74,5 @@ Arez scheduler is next invoked. This approach is particularly useful if you are 
 event based systems or event-driven reactive frameworks such as [RxJava](https://github.com/ReactiveX/RxJava).
 
 It should be noted that the {@api_url: ComputedValue.reportPossiblyChanged()::ComputedValue::reportPossiblyChanged()}
-can only be invoked if the {@api_url: ComputedValue} was created with the parameter `arezOnlyDependencies`
-set to `true`.
+can only be invoked if the {@api_url: ComputedValue} was created with the flag
+{@api_url: Flags.NON_AREZ_DEPENDENCIES::Flags::NON_AREZ_DEPENDENCIES}.
