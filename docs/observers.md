@@ -4,7 +4,7 @@ title: Observers
 
 Observers are the elements within an Arez application that react to changes. Observers are about
 initiating effects. Each observer is associated with a tracked function. When the function executes,
-Arez tracks which [observables](observables.md) and [computed values](computed_values.md) are accessed
+Arez tracks which [observables](observable_values.md) and [computed values](computed_values.md) are accessed
 within the scope of the function and these elements are recorded as dependencies of the observer. Any
 time a dependency is changed, Arez will re-schedule the observer. There are two types of observer
 supported within Arez; **Autorun** observers and **Tracker** observers.

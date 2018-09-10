@@ -3,7 +3,7 @@ title: Actions
 ---
 
 Actions are the normal mechanism via which Arez state is modified. Actions wrap a function in an `untracked`
-[transaction](transactions.md). Actions are typically used to make changes in an [observable](observables.md)
+[transaction](transactions.md). Actions are typically used to make changes in an [observable](observable_values.md)
 property that will trigger the unidrectional flow of data through an Arez application.
 
 Arez actions can use read-only transactions and query the state of an Arez to perform some once-off side-effects

@@ -25,7 +25,7 @@ that use [react4j](https://react4j.github.io). The restriction makes it easy to 
 ## Tracking Transactions
 
 Transaction can also be `tracking` or `non-tracking`. A `tracking` transaction detects accesses of
-[observables](observables.md) and [computed values](computed_values.md) within the scope of a transaction.
+[observables](observable_values.md) and [computed values](computed_values.md) within the scope of a transaction.
 The observables and computed values are recorded as dependencies of the running transaction. This makes it
 possible for Arez to monitor the dependencies and re-scheduled the observer that created the `tracking`
 transaction when the dependencies change.

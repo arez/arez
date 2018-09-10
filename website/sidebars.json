@@ -9,7 +9,7 @@
     "Concepts": [
       "concepts",
       "transactions",
-      "observables",
+      "observable_values",
       "computed_values",
       "observers",
       "actions",

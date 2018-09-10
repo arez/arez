@@ -1,8 +1,8 @@
 ---
-title: Observables
+title: Observable Values
 ---
 
-The observable represents state that can be observed within Arez. Anytime you want an Arez reaction
+The observable value represents state that can be observed within Arez. Anytime you want an Arez reaction
 to track changes in a property and react to changes in the property this property should be made into
 an observable property. The only exception is when that property is derived from other observable properties
 in which case it should be modelled as a [computed value](computed_values.md).
@@ -12,8 +12,9 @@ Within the Arez system an observable is represented by an instance of the {@api_
 used to notify Arez when the state is queried or mutated.
 
 The {@api_url: ObservableValue} class is a low-level primitive and is not intended to be directly used by Arez users.
-(See the [@Observable](at_observable.md) documentation for a higher level API for defining observables.) However
-but it would be possible to implement an observable property using code such as:
+(See the [@Observable](at_observable.md) documentation for a higher level API for defining observable values.)
+
+However it is possible to manually implement an observable property using code such as:
 
 {@file_content: file=arez/doc/examples/observables/ObservableExample.java "start_line=private Observable" "end_line=^}" include_end_line=false strip_block=true}
 
@@ -23,7 +24,7 @@ This example does illustrate the basic usage of the class, notably the explicit 
 users will use higher level abstractions such as the [component](components.md) annotations and the annotation
 processor that generates the required infrastructure.
 
-Observables **must** only be accessed from within a transaction otherwise Arez will be unable to track access
+Observable values **must** be accessed from within a transaction otherwise Arez will be unable to track access
 and mutations. In development mode, when invariant checks are enabled the {@api_url: reportObserved()::ObservableValue::reportObserved()}
 method and the {@api_url: reportChanged()::ObservableValue::reportChanged()} method will throw exceptions if they
 are not invoked from within a transaction. The {@api_url: reportChanged()::ObservableValue::reportChanged()} method

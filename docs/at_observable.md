@@ -2,7 +2,7 @@
 title: @Observable
 ---
 
-The {@api_url: annotations.Observable} annotation simplifies writing [observable](observables.md) properties.
+The {@api_url: annotations.Observable} annotation simplifies writing [observable](observable_values.md) properties.
 The simplest use-case involves annotating one of a standard getter/setter pair with the annotation.
 
 For example:

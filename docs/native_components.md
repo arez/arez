@@ -2,7 +2,7 @@
 title: Native Components
 ---
 
-The core elements of Arez are [observables](observables.md), [observers](observers.md) and
+The core elements of Arez are [observables](observable_values.md), [observers](observers.md) and
 [computed values](computed_values.md) and these are all that is needed at runtime for Arez to build complex
 applications. The first Arez applications were constructed using just these primitives.
 
