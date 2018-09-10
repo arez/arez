@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * by an {@link arez.ComputedValue} instance and some frameworks make use of this value to implement
  * advanced functionality.
  *
- * <p>The method that is annotated with @ObservableRef must also comply with the following constraints:</p>
+ * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
