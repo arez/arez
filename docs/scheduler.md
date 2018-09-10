@@ -4,35 +4,42 @@ title: Scheduler
 
 Arez contains a scheduler that is responsible for:
 
-* executing the autorun observer's tracked functions when any dependencies of the tracked function are changed.
-* executing the tracker observer's scheduling callback when any dependencies of the tracked function are changed.
-* recalculating the computed value when any dependencies of the computed value is changed since it was last calculated.
+* executing the observer's `observed` function if the observer uses the Arez internal executor and the
+  observer has been scheduled.
+* executing the observer's `onDepsChanged` hook function when any dependencies of the `observed` function
+  are changed.
+* recomputing the computed value when any dependencies of the computed value are changed.
 
-In all cases the Arez scheduler reacts to changes in the Arez state and schedules a "reaction". Arez uses
-[transactions](transactions.md) to batch changes to Arez state and will only attempt to schedule a reaction when
-the outer most transaction is completed. This makes sure intermediate or incomplete values produced during a
-transaction are not visible to the rest of the application until the transaction has completed.
+The Arez runtime schedules a task when dependency changes are detected or when application code
+explicitly invokes {@api_url: Observer.schedule()::Observer::schedule()}.
 
-The scheduler contains a list of pending reactions. High priority observers are added to the start of the list while
-normal priority observers are appended to the end of the list. The scheduler will execute the observer's reactions
-in the order in which they appear in the list. A reaction is scheduled the first time any dependency of the reaction
-is changed (i.e. the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} is invoked on the
-dependency). The reaction will not be rescheduled while the reaction is in the pending reactions list.
+Arez uses [transactions](transactions.md) to batch changes to Arez state and will only attempt to
+exeucte a task when the outer most transaction is completed. This makes sure intermediate or incomplete
+values produced during a transaction are not visible to the rest of the application until the transaction has
+completed.
+
+The scheduler supports 5 different priority levels (See {@api_url: spy.Priority}) when scheduling observers.
+All higher priority observers will be be executed prior to lower priority observers. Observers with the same
+priority will be executed in the order in which they were scheduled. An observer is scheduled the first time
+any dependency of the observer is changed (i.e. the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()}
+is invoked on the dependency). The observer will not be rescheduled while the observer is in the pending
+observers list.
 
 Recalculation of computed values can be scheduled but before the transaction has completed the transaction may try
 to read the computed value in which case the computed value will be re-calculated immediately. The computed value
-will still appear in the pending reactions list but the reaction will be skipped by the scheduler.
+will still appear in the pending observers list but the task will be skipped by the scheduler.
 
-The API allows users to create autorun observers that will not run immediately. This is sometimes necessary when
-creating complex components that need to be completely constructed prior to enabling the autorun tracking function.
-To support this the Arez api provides the {@api_url: ArezContext.triggerScheduler()::ArezContext::triggerScheduler()}
-method that will start the scheduler if there are pending reactions and the scheduler is not currently running.
+The API allows applications to create observers that will not run immediately by passing the
+{@api_url: Flags.RUN_LATER::Flags::RUN_LATER} flag. This is sometimes necessary when creating complex components
+that need to be completely constructed prior to executing the observed function. To support this use-case the the
+Arez api also provides the {@api_url: ArezContext.triggerScheduler()::ArezContext::triggerScheduler()} method that
+will start the scheduler if there are pending tasks and the scheduler is not currently running.
 
 ## Pausing and Resuming
 
-It is also possible to pause and resume the scheduler when needed. This is rarely needed as it is the only mechanism
-where it is possible to create an inconsistent state in Arez. (i.e. Observables have updated but not all the autorun
-observers and computed values have reacted and are consistent with the new state.)
+It is also possible to pause and resume the scheduler when needed. This is rarely needed and somewhat dangerous to
+use as it is the only mechanism where it is possible to create an inconsistent state in Arez. (i.e. Observables have
+updated but not all the observers and computed values have reacted and are consistent with the new state.)
 
 However it is sometimes needed by Arez-based frameworks with complex concurrency needs that can ensure that no code
 interacts with Arez components while the scheduler is paused. A simple example of how pausing works is as follows:
