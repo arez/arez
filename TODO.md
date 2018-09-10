@@ -12,11 +12,11 @@ complete as there is too much un-said.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
-* Rename `ObservableRef` to `ObservableValueRef` for the sake of consistency. 
+* Rename `ObservableRef` to `ObservableValueRef` for the sake of consistency.
 
 * Change terminology for observers from "tracked" to "observed" as that is much clearer.
 
-* `@Track` annotated methods should not have parameters. 
+* `@Track` annotated methods should not have parameters.
 
 * `ArezContext.track(...)` method should not accept parameters.
 
