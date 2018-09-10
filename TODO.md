@@ -18,6 +18,8 @@ complete as there is too much un-said.
 
 * `ArezContext.track(...)` method should not accept parameters.
 
+* Rename `ArezContext.track(...)` method to `ArezContext.observe(...)`.
+
 ## Enhancements
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
