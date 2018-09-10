@@ -49,8 +49,6 @@ The callbacks are:
   having no observers. This callback is often used to unsubscribe from changes from the native platform.
 * **onStale**: This callback is invoked when the computed value is stale and needs to be recomputed. This callback
   is often used to initiate processes to update the computed value.
-* **onDispose**: This callback is invoked when the computed value is disposed. This callback is used to release
-  resources (i.e. event listeners) that have been allocated in other callbacks.
 
 ## Equality Comparison
 
