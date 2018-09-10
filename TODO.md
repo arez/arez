@@ -12,6 +12,8 @@ complete as there is too much un-said.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
+* Rename `ObservableRef` to `ObservableValueRef` for the sake of consistency. 
+
 ## Enhancements
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
