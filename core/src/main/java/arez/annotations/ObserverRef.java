@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  * Marks a template method that returns the {@link arez.Observer} instance for
  * the associated {@link Track} or {@link Observed} annotated method.
  *
- * <p>The method that is annotated with @ObserverRef must also comply with the following constraints:</p>
+ * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
