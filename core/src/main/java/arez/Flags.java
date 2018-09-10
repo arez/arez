@@ -13,11 +13,11 @@ public final class Flags
    */
   public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 1 << 30;
   /**
-   * Indicates that the an action can be created from within the Observers tracked function.
+   * Indicates that the an action can be created from within the Observers observed function.
    */
   public static final int NESTED_ACTIONS_ALLOWED = 1 << 29;
   /**
-   * Indicates that the an action must not be created from within the Observers tracked function.
+   * Indicates that the an action must not be created from within the Observers observed function.
    */
   public static final int NESTED_ACTIONS_DISALLOWED = 1 << 28;
   /**
@@ -50,14 +50,14 @@ public final class Flags
   private static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
   /**
    * The scheduler will be triggered when the observer is created to immediately invoke the
-   * {@link Observer#_tracked} function. This configuration should not be specified if there
-   * is no {@link Observer#_tracked} function supplied. This should not be
+   * {@link Observer#_observed} function. This configuration should not be specified if there
+   * is no {@link Observer#_observed} function supplied. This should not be
    * specified if {@link #RUN_LATER} is specified.
    */
   public static final int RUN_NOW = 1 << 23;
   /**
    * The scheduler will not be triggered when the observer is created. The observer either
-   * has no {@link Observer#_tracked} function or is responsible for ensuring that
+   * has no {@link Observer#_observed} function or is responsible for ensuring that
    * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
    * specified if {@link #RUN_NOW} is specified.
    */
@@ -69,7 +69,7 @@ public final class Flags
   /**
    * The runtime will keep the observer reacting to dependencies until disposed. This should not be
    * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
-   * that supply a tracked function.
+   * that supply a observed function.
    */
   public static final int KEEPALIVE = 1 << 21;
   /**
@@ -144,9 +144,9 @@ public final class Flags
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK;
   /**
-   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsChanged}.
+   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChanged}.
    */
-  static final int EXECUTE_TRACKED_NEXT = 1 << 10;
+  static final int EXECUTE_OBSERVED_NEXT = 1 << 10;
   /**
    * The observer has been scheduled.
    */
@@ -188,7 +188,7 @@ public final class Flags
   /**
    * Mask that identifies the bits associated with runtime configuration.
    */
-  static final int RUNTIME_FLAGS_MASK = EXECUTE_TRACKED_NEXT | SCHEDULED | STATE_MASK;
+  static final int RUNTIME_FLAGS_MASK = EXECUTE_OBSERVED_NEXT | SCHEDULED | STATE_MASK;
 
   /**
    * Return true if flags contains priority.

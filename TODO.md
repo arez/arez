@@ -14,9 +14,6 @@ complete as there is too much un-said.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
-* Change terminology for observers from "tracked" to "observed" as that is much clearer.
-* Rename `EXECUTE_TRACKED_NEXT` to `EXECUTE_OBSERVED_NEXT`
-
 * `@Track` annotated methods should not have parameters.
 
 * `ArezContext.track(...)` method should not accept parameters.

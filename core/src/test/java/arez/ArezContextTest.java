@@ -2143,11 +2143,11 @@ public class ArezContextTest
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Procedure tracked = () -> {
+    final Procedure observed = () -> {
       observeADependency();
       callCount.incrementAndGet();
     };
-    final Observer observer = context.observer( tracked );
+    final Observer observer = context.observer( observed );
 
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getName(), "Observer@22" );
@@ -2159,8 +2159,8 @@ public class ArezContextTest
     assertEquals( observer.isKeepAlive(), true );
     assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.getOnDepsChanged(), null );
-    assertEquals( observer.isExternalTracker(), false );
-    assertEquals( observer.getTracked(), tracked );
+    assertEquals( observer.isExternalExecutor(), false );
+    assertEquals( observer.getObserved(), observed );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2224,7 +2224,7 @@ public class ArezContextTest
     assertEquals( observer.isMutation(), true );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
-    assertEquals( observer.isExternalTracker(), false );
+    assertEquals( observer.isExternalExecutor(), false );
     assertEquals( callCount.get(), 1 );
 
     handler.assertEventCount( 8 );
@@ -2344,7 +2344,7 @@ public class ArezContextTest
     assertEquals( observer.isMutation(), false);
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
-    assertEquals( observer.isExternalTracker(), false );
+    assertEquals( observer.isExternalExecutor(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
@@ -2380,7 +2380,7 @@ public class ArezContextTest
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
-    assertEquals( observer.isExternalTracker(), true );
+    assertEquals( observer.isExternalExecutor(), true );
     assertEquals( observer.nestedActionsAllowed(), true );
     assertEquals( observer.arezOnlyDependencies(), false );
     assertEquals( observer.supportsManualSchedule(), false );
@@ -2409,7 +2409,7 @@ public class ArezContextTest
     assertEquals( observer.getComponent(), component );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
-    assertEquals( observer.isExternalTracker(), true );
+    assertEquals( observer.isExternalExecutor(), true );
   }
 
   @Test
@@ -2430,7 +2430,7 @@ public class ArezContextTest
     assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
-    assertEquals( observer.isExternalTracker(), true );
+    assertEquals( observer.isExternalExecutor(), true );
     assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.arezOnlyDependencies(), true );
     assertEquals( observer.supportsManualSchedule(), false );

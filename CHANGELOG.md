@@ -73,6 +73,8 @@
   of the codebase.
 * 💥 **\[core\]** Rename `arez.annotations.ObservableRef` to `arez.annotations.ObservableValueRef`. The default
   naming convention wasl also changed from `get[Name]Observable` to `get[Name]ObservableValue`.
+* **\[core\]** Rename the `tracked` parameter on `ArezContext.observer(...)` methods to `observed` to align
+  with documentation.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

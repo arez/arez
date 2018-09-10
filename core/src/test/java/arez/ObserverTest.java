@@ -33,16 +33,16 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChanged = new CountingProcedure();
-    final Observer observer = new Observer( context, null, name, trackedExecutable, onDepsChanged, Flags.RUN_LATER );
+    final Observer observer = new Observer( context, null, name, observed, onDepsChanged, Flags.RUN_LATER );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
     assertEquals( observer.getName(), name );
     assertEquals( observer.toString(), name );
 
-    assertEquals( observer.shouldExecuteTrackedNext(), true );
+    assertEquals( observer.shouldExecuteObservedNext(), true );
 
     // Starts out inactive and inactive means no dependencies
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
@@ -52,7 +52,7 @@ public class ObserverTest
 
     // Reaction attributes
     assertEquals( observer.isMutation(), false );
-    assertEquals( observer.getTracked(), trackedExecutable );
+    assertEquals( observer.getObserved(), observed );
     assertEquals( observer.getOnDepsChanged(), onDepsChanged );
     assertEquals( observer.isScheduled(), true );
 
@@ -67,17 +67,18 @@ public class ObserverTest
   }
 
   @Test
-  public void initialState_externallyTracked()
+  public void initialState_externalExecutor()
     throws Exception
   {
     final CountingProcedure onDepsChanged = new CountingProcedure();
     final Observer observer = new Observer( Arez.context(), null, ValueUtil.randomString(), null, onDepsChanged, 0 );
 
-    assertEquals( observer.shouldExecuteTrackedNext(), false );
+    assertEquals( observer.shouldExecuteObservedNext(), false );
 
-    assertEquals( observer.getTracked(), null );
+    assertEquals( observer.getObserved(), null );
     assertEquals( observer.getOnDepsChanged(), onDepsChanged );
     assertEquals( observer.isComputedValue(), false );
+    assertEquals( observer.isExternalExecutor(), true );
   }
 
   @Test
@@ -88,7 +89,7 @@ public class ObserverTest
     final Observer observer = computedValue.getObserver();
 
     assertEquals( observer.isComputedValue(), true );
-    assertEquals( observer.shouldExecuteTrackedNext(), true );
+    assertEquals( observer.shouldExecuteObservedNext(), true );
 
     assertEquals( computedValue.getObservableValue().getName(), observer.getName() );
     assertEquals( computedValue.getObservableValue().getObserver(), observer );
@@ -98,7 +99,7 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_no_tracked_and_no_onDepsChanged_parameter()
+  public void construct_with_no_observed_and_no_onDepsChanged_parameter()
     throws Exception
   {
     final String name = ValueUtil.randomString();
@@ -114,7 +115,7 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
-                  "the tracked parameter or the onDepsChanged parameter." );
+                  "the observed parameter or the onDepsChanged parameter." );
   }
 
   @Test
@@ -197,7 +198,7 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_REACT_IMMEDIATELY_and_no_tracked()
+  public void construct_with_REACT_IMMEDIATELY_and_no_observed()
     throws Exception
   {
     final String name = ValueUtil.randomString();
@@ -213,7 +214,7 @@ public class ObserverTest
 
     assertEquals( exception.getMessage(),
                   "Arez-0206: Observer named '" + name + "' incorrectly specified RUN_NOW " +
-                  "flag but the tracked function is null." );
+                  "flag but the observed function is null." );
   }
 
   @Test
@@ -1256,13 +1257,13 @@ public class ObserverTest
 
     context.addObserverErrorHandler( ( observer, error, throwable ) -> errorCount.incrementAndGet() );
 
-    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
 
-    final Observer observer = new Observer( context, null, ValueUtil.randomString(), trackedExecutable, null, 0 );
+    final Observer observer = new Observer( context, null, ValueUtil.randomString(), observed, null, 0 );
 
     observer.invokeReaction();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
     assertEquals( errorCount.get(), 0 );
   }
 
@@ -1275,7 +1276,7 @@ public class ObserverTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    final CountingProcedure trackedExecutable = new CountingProcedure()
+    final CountingProcedure observed = new CountingProcedure()
     {
       @Override
       public void call()
@@ -1292,7 +1293,7 @@ public class ObserverTest
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    trackedExecutable,
+                    observed,
                     null,
                     0 );
 
@@ -1355,51 +1356,51 @@ public class ObserverTest
   public void invokeReaction_onDisposedObserver()
     throws Exception
   {
-    final CountingProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountingProcedure observed = new CountAndObserveProcedure();
     final Observer observer =
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
-                    trackedExecutable,
+                    observed,
                     null,
                     0 );
 
     observer.invokeReaction();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
 
     observer.markAsDisposed();
 
     observer.invokeReaction();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
   }
 
   @Test
   public void invokeReaction_onUpToDateObserver()
     throws Exception
   {
-    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChanged = new CountingProcedure();
     final ArezContext context = Arez.context();
     final Observer observer =
       new Observer( context,
                     null,
                     ValueUtil.randomString(),
-                    trackedExecutable,
+                    observed,
                     onDepsChanged,
                     0 );
 
     context.triggerScheduler();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
     //Invoke reaction - observer is uptodate
     observer.invokeReaction();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChanged.getCallCount(), 0 );
   }
 
@@ -1419,7 +1420,7 @@ public class ObserverTest
       assertEquals( throwable, exception );
     } );
 
-    final CountingProcedure trackedExecutable = new CountingProcedure()
+    final CountingProcedure observed = new CountingProcedure()
     {
       @Override
       public void call()
@@ -1434,13 +1435,13 @@ public class ObserverTest
       new Observer( Arez.context(),
                     null,
                     ValueUtil.randomString(),
-                    trackedExecutable,
+                    observed,
                     null,
                     0 );
 
     observer.invokeReaction();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
     assertEquals( errorCount.get(), 1 );
   }
 
@@ -1783,12 +1784,12 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChanged = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            trackedExecutable,
+                                            observed,
                                             onDepsChanged,
                                             Flags.RUN_LATER );
 
@@ -1801,7 +1802,7 @@ public class ObserverTest
     } );
 
     assertEquals( observer.isScheduled(), false );
-    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( observed.getCallCount(), 0 );
     assertEquals( onDepsChanged.getCallCount(), 0 );
 
     final Disposable schedulerLock = context.pauseScheduler();
@@ -1817,7 +1818,7 @@ public class ObserverTest
 
     // reaction not executed as state was still UP_TO_DATE
     assertEquals( observer.isScheduled(), false );
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChanged.getCallCount(), 0 );
   }
 
@@ -1827,17 +1828,17 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChanged = new CountingProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            trackedExecutable,
+                                            observed,
                                             onDepsChanged,
                                             0 );
     context.triggerScheduler();
 
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChanged.getCallCount(), 0 );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
@@ -1855,7 +1856,7 @@ public class ObserverTest
     schedulerLock.dispose();
 
     assertEquals( observer.isScheduled(), false );
-    assertEquals( trackedExecutable.getCallCount(), 1 );
+    assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChanged.getCallCount(), 0 );
   }
 
@@ -1865,11 +1866,11 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final CountAndObserveProcedure trackedExecutable = new CountAndObserveProcedure();
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final Observer observer = new Observer( context,
                                             null,
                                             ValueUtil.randomString(),
-                                            trackedExecutable,
+                                            observed,
                                             null,
                                             Flags.RUN_LATER );
     context.safeAction( null, true, false, () -> {
@@ -1895,6 +1896,6 @@ public class ObserverTest
 
     schedulerLock.dispose();
 
-    assertEquals( trackedExecutable.getCallCount(), 0 );
+    assertEquals( observed.getCallCount(), 0 );
   }
 }

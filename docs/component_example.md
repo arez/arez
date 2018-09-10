@@ -120,7 +120,7 @@ frameworks you need to decouple the scheduling and execution of reactions. Anoth
 explicit control over scheduling and execution is required is when you want to rate-limit or "debounce" the
 change notifications to limit the number of times a reaction executes.
 
-To achieve either of these goals, you need to use the {@api_url: annotations.Track} and {@api_url: annotations.OnDepsChanged} annotations. The {@api_url: annotations.Track} annotation wraps a method in a tracking transaction which allows the Arez framework to detect which observable and computed properties are accessed within the scope of the transaction. If any of these properties are modified then Arez will invoke the corresponding method annotated with {@api_url: annotations.OnDepsChanged} to indicate that the tracked method needs to be rescheduled.
+To achieve either of these goals, you need to use the {@api_url: annotations.Track} and {@api_url: annotations.OnDepsChanged} annotations. The {@api_url: annotations.Track} annotation wraps a method in a tracking transaction which allows the Arez framework to detect which observable and computed properties are accessed within the scope of the transaction. If any of these properties are modified then Arez will invoke the corresponding method annotated with {@api_url: annotations.OnDepsChanged} to indicate that the observed method needs to be rescheduled.
 
 An example is illustrated below:
 
