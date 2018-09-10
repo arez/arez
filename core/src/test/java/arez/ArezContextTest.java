@@ -2158,7 +2158,7 @@ public class ArezContextTest
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
     assertEquals( observer.isKeepAlive(), true );
     assertEquals( observer.nestedActionsAllowed(), false );
-    assertEquals( observer.getOnDepsUpdated(), null );
+    assertEquals( observer.getOnDepsChanged(), null );
     assertEquals( observer.isExternalTracker(), false );
     assertEquals( observer.getTracked(), tracked );
     assertEquals( callCount.get(), 1 );

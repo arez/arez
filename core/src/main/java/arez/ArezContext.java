@@ -632,98 +632,98 @@ public final class ArezContext
 
   /**
    * Create an observer.
-   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> parameter.
+   * The user must pass either the <code>tracked</code> or <code>onDepsChanged</code> parameter.
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
    * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
-   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final Component component,
                             @Nullable final String name,
                             @Nullable final Procedure tracked,
-                            @Nullable final Procedure onDepsUpdated )
+                            @Nullable final Procedure onDepsChanged )
   {
-    return observer( component, name, tracked, onDepsUpdated, 0 );
+    return observer( component, name, tracked, onDepsChanged, 0 );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   * The user must pass either the <code>tracked</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
-   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nullable final Procedure tracked, @Nullable final Procedure onDepsUpdated )
+  public Observer observer( @Nullable final Procedure tracked, @Nullable final Procedure onDepsChanged )
   {
-    return observer( tracked, onDepsUpdated, 0 );
+    return observer( tracked, onDepsChanged, 0 );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   * The user must pass either the <code>tracked</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
-   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final Procedure tracked,
-                            @Nullable final Procedure onDepsUpdated,
+                            @Nullable final Procedure onDepsChanged,
                             final int flags )
   {
-    return observer( null, tracked, onDepsUpdated, flags );
+    return observer( null, tracked, onDepsChanged, flags );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   * The user must pass either the <code>tracked</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param name          the name of the observer.
    * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
-   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final String name,
                             @Nullable final Procedure tracked,
-                            @Nullable final Procedure onDepsUpdated )
+                            @Nullable final Procedure onDepsChanged )
   {
-    return observer( name, tracked, onDepsUpdated, 0 );
+    return observer( name, tracked, onDepsChanged, 0 );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   * The user must pass either the <code>tracked</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param name          the name of the observer.
    * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
-   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final String name,
                             @Nullable final Procedure tracked,
-                            @Nullable final Procedure onDepsUpdated,
+                            @Nullable final Procedure onDepsChanged,
                             final int flags )
   {
-    return observer( null, name, tracked, onDepsUpdated, flags );
+    return observer( null, name, tracked, onDepsChanged, flags );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>tracked</code> or <code>onDepsUpdated</code> or both parameters.
+   * The user must pass either the <code>tracked</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
    * @param tracked       the executable tracked by the observer. May be null if observer is externally scheduled.
-   * @param onDepsUpdated the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
+   * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
@@ -731,113 +731,113 @@ public final class ArezContext
   public Observer observer( @Nullable final Component component,
                             @Nullable final String name,
                             @Nullable final Procedure tracked,
-                            @Nullable final Procedure onDepsUpdated,
+                            @Nullable final Procedure onDepsChanged,
                             final int flags )
   {
     return new Observer( Arez.areZonesEnabled() ? this : null,
                          component,
                          generateNodeName( "Observer", name ),
                          tracked,
-                         onDepsUpdated,
+                         onDepsChanged,
                          flags );
   }
 
   /**
-   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the tracked function are updated. Application code is responsible for executing the
    * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
-   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param onDepsChanged the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nonnull final Procedure onDepsUpdated )
+  public Observer tracker( @Nonnull final Procedure onDepsChanged )
   {
-    return tracker( onDepsUpdated, 0 );
+    return tracker( onDepsChanged, 0 );
   }
 
   /**
-   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the tracked function are updated. Application code is responsible for executing the
    * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
-   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param onDepsChanged the hook invoked when dependencies changed.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nonnull final Procedure onDepsUpdated, final int flags )
+  public Observer tracker( @Nonnull final Procedure onDepsChanged, final int flags )
   {
-    return tracker( null, onDepsUpdated, flags );
+    return tracker( null, onDepsChanged, flags );
   }
 
   /**
-   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the tracked function are updated. Application code is responsible for executing the
    * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
    * @param name          the name of the observer.
-   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param onDepsChanged the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nullable final String name, @Nonnull final Procedure onDepsUpdated )
+  public Observer tracker( @Nullable final String name, @Nonnull final Procedure onDepsChanged )
   {
-    return tracker( name, onDepsUpdated, 0 );
+    return tracker( name, onDepsChanged, 0 );
   }
 
   /**
-   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the tracked function are updated. Application code is responsible for executing the
    * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
    * @param name          the name of the observer.
-   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param onDepsChanged the hook invoked when dependencies changed.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer tracker( @Nullable final String name, @Nonnull final Procedure onDepsUpdated, final int flags )
+  public Observer tracker( @Nullable final String name, @Nonnull final Procedure onDepsChanged, final int flags )
   {
-    return tracker( null, name, onDepsUpdated, flags );
+    return tracker( null, name, onDepsChanged, flags );
   }
 
   /**
-   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the tracked function are updated. Application code is responsible for executing the
    * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
-   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param onDepsChanged the hook invoked when dependencies changed.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
-                           @Nonnull final Procedure onDepsUpdated )
+                           @Nonnull final Procedure onDepsChanged )
   {
-    return tracker( component, name, onDepsUpdated, 0 );
+    return tracker( component, name, onDepsChanged, 0 );
   }
 
   /**
-   * Create a tracking observer. The tracking observer triggers the onDepsUpdated hook function when
+   * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the tracked function are updated. Application code is responsible for executing the
    * tracked function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
-   * @param onDepsUpdated the hook invoked when dependencies changed.
+   * @param onDepsChanged the hook invoked when dependencies changed.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
   public Observer tracker( @Nullable final Component component,
                            @Nullable final String name,
-                           @Nonnull final Procedure onDepsUpdated,
+                           @Nonnull final Procedure onDepsChanged,
                            final int flags )
   {
-    return observer( component, name, null, Objects.requireNonNull( onDepsUpdated ), flags );
+    return observer( component, name, null, Objects.requireNonNull( onDepsChanged ), flags );
   }
 
   /**
@@ -1772,7 +1772,7 @@ public final class ArezContext
                           "observer is not a tracker." );
     }
     _action( generateNodeName( tracker ),
-            Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+             Arez.shouldEnforceTransactionType() && tracker.isMutation(),
              false,
              true,
              executable,

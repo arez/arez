@@ -45,22 +45,22 @@ public class ObserverApiTest
     throws Exception
   {
     final AtomicInteger callCount = new AtomicInteger();
-    final AtomicInteger onDepsUpdatedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet );
+    }, onDepsChangedCallCount::incrementAndGet );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsUpdatedCallCount.get(), 0 );
+    assertEquals( onDepsChangedCallCount.get(), 0 );
 
     observer.schedule();
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsUpdatedCallCount.get(), 0 );
+    assertEquals( onDepsChangedCallCount.get(), 0 );
   }
 
   @Test
@@ -88,26 +88,26 @@ public class ObserverApiTest
     throws Exception
   {
     final AtomicInteger callCount = new AtomicInteger();
-    final AtomicInteger onDepsUpdatedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsUpdatedCallCount::incrementAndGet, Flags.NON_AREZ_DEPENDENCIES );
+    }, onDepsChangedCallCount::incrementAndGet, Flags.NON_AREZ_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsUpdatedCallCount.get(), 0 );
+    assertEquals( onDepsChangedCallCount.get(), 0 );
 
     context.safeAction( null, true, false, observer::reportStale );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsUpdatedCallCount.get(), 1 );
+    assertEquals( onDepsChangedCallCount.get(), 1 );
 
     observer.schedule();
 
     assertEquals( callCount.get(), 2 );
-    assertEquals( onDepsUpdatedCallCount.get(), 1 );
+    assertEquals( onDepsChangedCallCount.get(), 1 );
   }
 }

@@ -48,7 +48,7 @@ public final class Observer
    * Observed executable to invoke if any.
    * This may be null if external scheduler is responsible for executing the tracked executable via
    * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
-   * {@link #_onDepsUpdated} must not be null.
+   * {@link #_onDepsChanged} must not be null.
    */
   @Nullable
   private final Procedure _tracked;
@@ -58,7 +58,7 @@ public final class Observer
    * bu in that case {@link #_tracked} must not be null.
    */
   @Nullable
-  private final Procedure _onDepsUpdated;
+  private final Procedure _onDepsChanged;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -93,7 +93,7 @@ public final class Observer
             @Nullable final Component component,
             @Nullable final String name,
             @Nullable final Procedure tracked,
-            @Nullable final Procedure onDepsUpdated,
+            @Nullable final Procedure onDepsChanged,
             final int flags )
   {
     this( context,
@@ -101,7 +101,7 @@ public final class Observer
           name,
           null,
           tracked,
-          onDepsUpdated,
+          onDepsChanged,
           flags |
           ( null == tracked ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
           Flags.runType( flags, null == tracked ? Flags.RUN_LATER : Flags.RUN_NOW ) |
@@ -115,7 +115,7 @@ public final class Observer
                     @Nullable final String name,
                     @Nullable final ComputedValue<?> computedValue,
                     @Nullable final Procedure tracked,
-                    @Nullable final Procedure onDepsUpdated,
+                    @Nullable final Procedure onDepsChanged,
                     final int flags )
   {
     super( context, name );
@@ -151,9 +151,9 @@ public final class Observer
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
                        "has no lower priority." );
-      invariant( () -> null != tracked || null != onDepsUpdated,
+      invariant( () -> null != tracked || null != onDepsChanged,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
-                       "tracked parameter or the onDepsUpdated parameter." );
+                       "tracked parameter or the onDepsChanged parameter." );
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != tracked;
       assert Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == tracked;
@@ -176,7 +176,7 @@ public final class Observer
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
     _tracked = tracked;
-    _onDepsUpdated = onDepsUpdated;
+    _onDepsChanged = onDepsChanged;
 
     executeTrackedNextIfPresent();
 
@@ -233,12 +233,12 @@ public final class Observer
 
   /**
    * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
-   * This is true if both a {@link #_tracked} and {@link #_onDepsUpdated} parameters
+   * This is true if both a {@link #_tracked} and {@link #_onDepsChanged} parameters
    * are provided at construction.
    */
   boolean supportsManualSchedule()
   {
-    return Arez.shouldCheckApiInvariants() && null != _tracked && null != _onDepsUpdated;
+    return Arez.shouldCheckApiInvariants() && null != _tracked && null != _onDepsChanged;
   }
 
   boolean isExternalTracker()
@@ -622,13 +622,13 @@ public final class Observer
         {
           if ( shouldExecuteTrackedNext() )
           {
-            executeOnDepsUpdatedNextIfPresent();
+            executeOnDepsChangedNextIfPresent();
             runTrackedExecutable();
           }
           else
           {
-            assert null != _onDepsUpdated;
-            _onDepsUpdated.call();
+            assert null != _onDepsChanged;
+            _onDepsChanged.call();
           }
         }
       }
@@ -933,9 +933,9 @@ public final class Observer
   }
 
   @Nullable
-  Procedure getOnDepsUpdated()
+  Procedure getOnDepsChanged()
   {
-    return _onDepsUpdated;
+    return _onDepsChanged;
   }
 
   boolean isKeepAlive()
@@ -956,9 +956,9 @@ public final class Observer
     }
   }
 
-  private void executeOnDepsUpdatedNextIfPresent()
+  private void executeOnDepsChangedNextIfPresent()
   {
-    if ( null != _onDepsUpdated )
+    if ( null != _onDepsChanged )
     {
       _flags &= ~Flags.EXECUTE_TRACKED_NEXT;
     }

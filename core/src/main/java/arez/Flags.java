@@ -144,7 +144,7 @@ public final class Flags
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK;
   /**
-   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsUpdated}.
+   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_tracked} or {@link Observer#_onDepsChanged}.
    */
   static final int EXECUTE_TRACKED_NEXT = 1 << 10;
   /**

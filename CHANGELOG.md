@@ -69,6 +69,8 @@
 * 💥 **\[core\]** Rename the `@Autorun` annotation to `@Observed` to reflect naming conventions in the lower level
   api and to prepare for merging with `@Tracked` annotation.
 * Update the `org.realityforge.guiceyloops:guiceyloops:jar` dependency to version `0.96`.
+* 💥 **\[core\]** Rename the `onDepsUpdated` parameter to `onDepsChanged` to reflect conventions in the rest
+  of the codebase.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
