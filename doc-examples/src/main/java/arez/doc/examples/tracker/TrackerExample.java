@@ -20,7 +20,7 @@ public class TrackerExample
     //DOC ELIDE START
     //DOC ELIDE END
     // The rescheduleRender should ultimately result in the following
-    // invocation. This line will need to be run at least once so that
+    // invocation. This call will need to be run at least once so that
     // the Arez runtime can determine the dependencies and reschedule
     // when the dependencies are changed.
     Arez.context().track( tracker, trackedFunction );
