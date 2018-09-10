@@ -7,7 +7,7 @@ import arez.annotations.Track;
 @ArezComponent
 public abstract class CanNestActionsTrackedModel
 {
-  @Track( canNestActions = true )
+  @Track( nestedActionsAllowed = true )
   public void render( final long time, float someOtherParameter )
   {
   }

@@ -20,7 +20,7 @@ public class TrackNestNonRequiresNewActionTest
     int _depsChangedCallCount;
     int _actionCallCount;
 
-    @Track( canNestActions = true )
+    @Track( nestedActionsAllowed = true )
     public void render()
     {
       getTime2();

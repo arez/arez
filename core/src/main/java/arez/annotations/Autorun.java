@@ -75,5 +75,5 @@ public @interface Autorun
    *
    * @return true if the observer can invoke actions, false otherwise.
    */
-  boolean canNestActions() default false;
+  boolean nestedActionsAllowed() default false;
 }

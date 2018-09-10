@@ -33,7 +33,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.BasicFunctionActionModel", false, false, false },
         new Object[]{ "com.example.action.BasicActionModel", false, false, false },
         new Object[]{ "com.example.autorun.BasicAutorunModel", false, false, false },
-        new Object[]{ "com.example.autorun.CanNestActionsAutorunModel", false, false, false },
+        new Object[]{ "com.example.autorun.NestedActionsAllowedAutorunModel", false, false, false },
         new Object[]{ "com.example.autorun.HighestPriorityAutorunModel", false, false, false },
         new Object[]{ "com.example.autorun.HighPriorityAutorunModel", false, false, false },
         new Object[]{ "com.example.autorun.LowestPriorityAutorunModel", false, false, false },

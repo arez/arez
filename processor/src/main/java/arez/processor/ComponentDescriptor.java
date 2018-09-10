@@ -552,7 +552,7 @@ final class ComponentDescriptor
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
-    final boolean canNestActions = getAnnotationParameter( annotation, "canNestActions" );
+    final boolean canNestActions = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final AutorunDescriptor autorun =
       new AutorunDescriptor( this,
@@ -613,7 +613,7 @@ final class ComponentDescriptor
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
-    final boolean canNestActions = getAnnotationParameter( annotation, "canNestActions" );
+    final boolean canNestActions = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final TrackedDescriptor tracked = findOrCreateTracked( name );

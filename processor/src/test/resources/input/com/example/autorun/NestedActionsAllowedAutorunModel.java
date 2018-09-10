@@ -4,9 +4,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Autorun;
 
 @ArezComponent
-public abstract class CanNestActionsAutorunModel
+public abstract class NestedActionsAllowedAutorunModel
 {
-  @Autorun( canNestActions = true )
+  @Autorun( nestedActionsAllowed = true )
   protected void doStuff()
   {
   }

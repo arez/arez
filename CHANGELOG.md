@@ -64,6 +64,8 @@
   and remove the `arez.Priority` class. The purpose is to migrate to where it is used and make it easy to identify
   which code should be stripped during production compiles and under what circumstances. i.e. `arez.annotations.Priority`
   should never be compiled to javascript and `arez.spy.Priority` should only be present if spies are enabled.
+* 💥 **\[core\]** Rename the `canNestActions` parameter on the `@Autorun` and `@Track` annotation to
+  `nestedActionsAllowed` to align with underlying flags naming convention.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
