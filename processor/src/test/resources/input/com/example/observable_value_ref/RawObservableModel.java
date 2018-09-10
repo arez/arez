@@ -21,5 +21,5 @@ public abstract class RawObservableModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue getTimeObservable();
+  public abstract ObservableValue getTimeObservableValue();
 }

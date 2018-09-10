@@ -21,5 +21,5 @@ public abstract class DefaultRefNameModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue<Long> getTimeObservable();
+  public abstract ObservableValue<Long> getTimeObservableValue();
 }

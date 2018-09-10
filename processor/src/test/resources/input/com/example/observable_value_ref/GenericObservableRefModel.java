@@ -25,5 +25,5 @@ public abstract class GenericObservableRefModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue<MyValue<String>> getMyValueObservable();
+  public abstract ObservableValue<MyValue<String>> getMyValueObservableValue();
 }
