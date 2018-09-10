@@ -2,9 +2,9 @@ package arez.integration.scheduler;
 
 import arez.Disposable;
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
 import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;

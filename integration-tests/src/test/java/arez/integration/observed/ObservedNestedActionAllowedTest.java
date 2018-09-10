@@ -2,8 +2,8 @@ package arez.integration.observed;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
 import arez.integration.AbstractArezIntegrationTest;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;

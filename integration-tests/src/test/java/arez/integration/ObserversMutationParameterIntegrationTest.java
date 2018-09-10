@@ -2,8 +2,8 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
 import arez.annotations.Track;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
