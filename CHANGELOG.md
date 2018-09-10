@@ -72,7 +72,7 @@
 * 💥 **\[core\]** Rename the `onDepsUpdated` parameter to `onDepsChanged` to reflect conventions in the rest
   of the codebase.
 * 💥 **\[core\]** Rename `arez.annotations.ObservableRef` to `arez.annotations.ObservableValueRef`. The default
-  naming convention wasl also changed from `get[Name]Observable` to `get[Name]ObservableValue`.
+  naming convention was also changed from `get[Name]Observable` to `get[Name]ObservableValue`.
 * **\[core\]** Rename the `tracked` parameter on `ArezContext.observer(...)` methods to `observed` to align
   with documentation.
 
