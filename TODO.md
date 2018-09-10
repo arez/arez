@@ -16,6 +16,8 @@ complete as there is too much un-said.
 
 * Change terminology for observers from "tracked" to "observed" as that is much clearer.
 
+* Rename `canNestActions` in annotation processor to match parameter name.
+
 ## Enhancements
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
