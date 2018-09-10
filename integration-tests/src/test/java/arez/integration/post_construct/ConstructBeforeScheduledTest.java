@@ -1,7 +1,7 @@
 package arez.integration.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
@@ -23,10 +23,10 @@ public class ConstructBeforeScheduledTest
       _postConstructCalled = true;
     }
 
-    @Autorun
+    @Observed
     void autorun()
     {
-      // Observe something so it is valid autorun
+      // Observe something so it is valid observed
       observeADependency();
 
       _autorunCalled = true;

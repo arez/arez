@@ -6,7 +6,6 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.Action;
-import arez.annotations.Autorun;
 import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
@@ -17,6 +16,7 @@ import arez.annotations.ContextRef;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
 import arez.annotations.ObservableRef;
+import arez.annotations.Observed;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -39,7 +39,7 @@ public abstract class BaseCompleteModel
   {
   }
 
-  @Autorun
+  @Observed
   protected void myAutorun()
   {
   }

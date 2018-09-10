@@ -493,7 +493,7 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     setupReadWriteTransaction();
-    // Purge the autorun that was scheduled
+    // Purge the observer that was scheduled
     scheduler.getPendingObservers().clear();
 
     final int round1Size = 10;

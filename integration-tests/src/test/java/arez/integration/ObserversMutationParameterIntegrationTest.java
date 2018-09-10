@@ -2,7 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.Observable;
 import arez.annotations.Track;
 import javax.annotation.Nonnull;
@@ -127,7 +127,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model1();
     }
 
-    @Autorun
+    @Observed
     void myObserveReaction()
     {
       observeADependency();
@@ -160,7 +160,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Autorun
+    @Observed
     void myObserveReaction()
     {
       getName();
@@ -191,7 +191,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model3();
     }
 
-    @Autorun( mutation = true )
+    @Observed( mutation = true )
     void myObserveReaction()
     {
       observeADependency();

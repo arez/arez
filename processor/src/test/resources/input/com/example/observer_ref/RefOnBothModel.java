@@ -2,7 +2,7 @@ package com.example.observer_ref;
 
 import arez.Observer;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
@@ -23,7 +23,7 @@ public abstract class RefOnBothModel
   @ObserverRef
   abstract Observer getRenderObserver();
 
-  @Autorun
+  @Observed
   protected void doStuff()
   {
   }

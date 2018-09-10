@@ -1,13 +1,13 @@
 package com.example.deprecated;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 
 @ArezComponent
 public abstract class DeprecatedAutorunModel
 {
   @Deprecated
-  @Autorun
+  @Observed
   protected void doStuff()
   {
   }

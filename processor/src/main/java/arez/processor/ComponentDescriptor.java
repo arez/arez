@@ -137,9 +137,9 @@ final class ComponentDescriptor
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   private final Collection<MemoizeDescriptor> _roMemoizes =
     Collections.unmodifiableCollection( _memoizes.values() );
-  private final Map<String, AutorunDescriptor> _autoruns = new LinkedHashMap<>();
-  private final Collection<AutorunDescriptor> _roAutoruns =
-    Collections.unmodifiableCollection( _autoruns.values() );
+  private final Map<String, ObservedDescriptor> _observeds = new LinkedHashMap<>();
+  private final Collection<ObservedDescriptor> _roObserveds =
+    Collections.unmodifiableCollection( _observeds.values() );
   private final Map<String, TrackedDescriptor> _trackeds = new LinkedHashMap<>();
   private final Collection<TrackedDescriptor> _roTrackeds =
     Collections.unmodifiableCollection( _trackeds.values() );
@@ -222,7 +222,7 @@ final class ComponentDescriptor
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roDependencies.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
-           _roAutoruns.stream().anyMatch( e -> isDeprecated( e.getAutorun() ) ) ||
+           _roObserveds.stream().anyMatch( e -> isDeprecated( e.getObserved() ) ) ||
            _roMemoizes.stream().anyMatch( e -> isDeprecated( e.getMemoize() ) ) ||
            _roTrackeds.stream().anyMatch( e -> ( e.hasTrackedMethod() && isDeprecated( e.getTrackedMethod() ) ) ||
                                                ( e.hasOnDepsChangedMethod() &&
@@ -536,39 +536,39 @@ final class ComponentDescriptor
     }
   }
 
-  private void addAutorun( @Nonnull final AnnotationMirror annotation,
-                           @Nonnull final ExecutableElement method,
-                           @Nonnull final ExecutableType methodType )
+  private void addObserved( @Nonnull final AnnotationMirror annotation,
+                            @Nonnull final ExecutableElement method,
+                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeWrappable( getElement(), Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotReturnAnyValue( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotBePublic( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( getElement(), Constants.OBSERVED_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVED_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVED_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotReturnAnyValue( Constants.OBSERVED_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotBePublic( Constants.OBSERVED_ANNOTATION_CLASSNAME, method );
 
-    final String name = deriveAutorunName( method, annotation );
-    checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
+    final String name = deriveObservedName( method, annotation );
+    checkNameUnique( name, method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final boolean canNestActions = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
-    final AutorunDescriptor autorun =
-      new AutorunDescriptor( this,
-                             name,
-                             mutation,
-                             priority.getSimpleName().toString(),
-                             observeLowerPriorityDependencies,
-                             canNestActions,
-                             method,
-                             methodType );
-    _autoruns.put( autorun.getName(), autorun );
+    final ObservedDescriptor observed =
+      new ObservedDescriptor( this,
+                              name,
+                              mutation,
+                              priority.getSimpleName().toString(),
+                              observeLowerPriorityDependencies,
+                              canNestActions,
+                              method,
+                              methodType );
+    _observeds.put( observed.getName(), observed );
   }
 
   @Nonnull
-  private String deriveAutorunName( @Nonnull final ExecutableElement method,
-                                    @Nonnull final AnnotationMirror annotation )
+  private String deriveObservedName( @Nonnull final ExecutableElement method,
+                                     @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
@@ -580,12 +580,12 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Autorun target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Observed target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Autorun target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Observed target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
       return name;
@@ -1121,32 +1121,32 @@ final class ComponentDescriptor
       _roCascadeDisposes.isEmpty() &&
       _roReferences.isEmpty() &&
       _roInverses.isEmpty() &&
-      _roAutoruns.isEmpty();
+      _roObserveds.isEmpty();
 
     if ( !_allowEmpty && hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @Dependency, @Track or @Autorun", _element );
+                                        "@Reference, @Dependency, @Track or @Observed", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
                                         "annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @Dependency, @Track or @Autorun", _element );
+                                        "@Reference, @Dependency, @Track or @Observed", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
-                                        "annotation parameter but has no methods annotated with @Autorun, " +
+                                        "annotation parameter but has no methods annotated with @Observed, " +
                                         "@Dependency or @Computed(keepAlive=true)", _element );
     }
   }
 
   private boolean requiresSchedule()
   {
-    return !_roAutoruns.isEmpty() ||
+    return !_roObserveds.isEmpty() ||
            !_roDependencies.isEmpty() ||
            _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive );
   }
@@ -1183,14 +1183,14 @@ final class ComponentDescriptor
                          Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                          memoize.getMemoize() );
     }
-    final AutorunDescriptor autorun = _autoruns.get( name );
-    if ( null != autorun )
+    final ObservedDescriptor observed = _observeds.get( name );
+    if ( null != observed )
     {
       throw toException( name,
                          sourceAnnotationName,
                          sourceMethod,
-                         Constants.AUTORUN_ANNOTATION_CLASSNAME,
-                         autorun.getAutorun() );
+                         Constants.OBSERVED_ANNOTATION_CLASSNAME,
+                         observed.getObserved() );
     }
     // Track have pairs so let the caller determine whether a duplicate occurs in that scenario
     if ( !sourceAnnotationName.equals( Constants.TRACK_ANNOTATION_CLASSNAME ) )
@@ -2022,10 +2022,10 @@ final class ComponentDescriptor
     {
       final String key = entry.getKey();
       final CandidateMethod method = entry.getValue();
-      final AutorunDescriptor autorunDescriptor = _autoruns.get( key );
-      if ( null != autorunDescriptor )
+      final ObservedDescriptor observed = _observeds.get( key );
+      if ( null != observed )
       {
-        autorunDescriptor.setRefMethod( method.getMethod(), method.getMethodType() );
+        observed.setRefMethod( method.getMethod(), method.getMethodType() );
       }
       else
       {
@@ -2037,7 +2037,7 @@ final class ComponentDescriptor
         else
         {
           throw new ArezProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
-                                            "@Autorun or @Track method with that name exists", method.getMethod() );
+                                            "@Observed or @Track method with that name exists", method.getMethod() );
         }
       }
     }
@@ -2138,8 +2138,8 @@ final class ComponentDescriptor
 
     final AnnotationMirror action =
       ProcessorUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
-    final AnnotationMirror autorun =
-      ProcessorUtil.findAnnotationByType( method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observed =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
     final AnnotationMirror observable =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observableRef =
@@ -2212,9 +2212,9 @@ final class ComponentDescriptor
       addAction( action, method, methodType );
       return true;
     }
-    else if ( null != autorun )
+    else if ( null != observed )
     {
-      addAutorun( autorun, method, methodType );
+      addObserved( observed, method, methodType );
       return true;
     }
     else if ( null != track )
@@ -2378,7 +2378,7 @@ final class ComponentDescriptor
   {
     final String[] annotationTypes =
       new String[]{ Constants.ACTION_ANNOTATION_CLASSNAME,
-                    Constants.AUTORUN_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVED_ANNOTATION_CLASSNAME,
                     Constants.TRACK_ANNOTATION_CLASSNAME,
                     Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
@@ -2589,7 +2589,7 @@ final class ComponentDescriptor
     }
 
     _roObservables.forEach( e -> e.buildMethods( builder ) );
-    _roAutoruns.forEach( e -> e.buildMethods( builder ) );
+    _roObserveds.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
     _roMemoizes.forEach( e -> e.buildMethods( builder ) );
@@ -3105,7 +3105,7 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     }
-    _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
+    _roObserveds.forEach( observed -> observed.buildDisposer( actionBlock ) );
     _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
     _roMemoizes.forEach( computed -> computed.buildDisposer( actionBlock ) );
@@ -3350,7 +3350,7 @@ final class ComponentDescriptor
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
     _roMemoizes.forEach( e -> e.buildFields( builder ) );
-    _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
+    _roObserveds.forEach( observed -> observed.buildFields( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
     _roReferences.forEach( r -> r.buildFields( builder ) );
     if ( _disposeOnDeactivate )
@@ -3600,7 +3600,7 @@ final class ComponentDescriptor
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
     _roMemoizes.forEach( e -> e.buildInitializer( builder ) );
-    _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
+    _roObserveds.forEach( observed -> observed.buildInitializer( builder ) );
     _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
 

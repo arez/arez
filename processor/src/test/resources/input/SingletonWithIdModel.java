@@ -1,8 +1,8 @@
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
 import arez.annotations.OnDepsChanged;
 import arez.annotations.Track;
 import javax.inject.Singleton;
@@ -44,7 +44,7 @@ public abstract class SingletonWithIdModel
   {
   }
 
-  @Autorun
+  @Observed
   protected void myAutorun()
   {
   }

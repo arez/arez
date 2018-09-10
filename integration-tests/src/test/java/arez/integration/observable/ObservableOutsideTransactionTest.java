@@ -43,7 +43,7 @@ public class ObservableOutsideTransactionTest
 
     safeAction( () -> component.setTime( 37L ) );
 
-    // If gets here it reportObserved so autorun re-ran
+    // If gets here it reportObserved so observed re-ran
     assertEquals( callCount.get(), 2 );
 
     safeAction( () -> component.setTime( 42L ) );

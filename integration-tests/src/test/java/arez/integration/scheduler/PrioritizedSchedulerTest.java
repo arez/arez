@@ -2,7 +2,7 @@ package arez.integration.scheduler;
 
 import arez.Disposable;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.annotations.Priority;
@@ -57,21 +57,21 @@ public class PrioritizedSchedulerTest
       return getValue3();
     }
 
-    @Autorun( priority = Priority.HIGH )
+    @Observed( priority = Priority.HIGH )
     void autorun1a()
     {
       _calls.add( "autorun1a" );
       getValue1();
     }
 
-    @Autorun( priority = Priority.HIGH )
+    @Observed( priority = Priority.HIGH )
     void autorun1b()
     {
       _calls.add( "autorun1b" );
       computed1();
     }
 
-    @Autorun( priority = Priority.NORMAL )
+    @Observed( priority = Priority.NORMAL )
     void autorun2a()
     {
       _calls.add( "autorun2a" );
@@ -79,14 +79,14 @@ public class PrioritizedSchedulerTest
       getValue2();
     }
 
-    @Autorun( priority = Priority.NORMAL )
+    @Observed( priority = Priority.NORMAL )
     void autorun2b()
     {
       _calls.add( "autorun2b" );
       computed1();
     }
 
-    @Autorun( priority = Priority.LOW )
+    @Observed( priority = Priority.LOW )
     void autorun3a()
     {
       _calls.add( "autorun3a" );
@@ -95,7 +95,7 @@ public class PrioritizedSchedulerTest
       getValue3();
     }
 
-    @Autorun( priority = Priority.LOW )
+    @Observed( priority = Priority.LOW )
     void autorun3b()
     {
       _calls.add( "autorun3b" );

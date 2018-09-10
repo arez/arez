@@ -121,7 +121,7 @@ public final class Arez_CustomNameRefOnAutorunModel extends CustomNameRefOnAutor
   @Override
   protected void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Autorun method named 'doStuff' invoked but @Autorun annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observed method named 'doStuff' invoked but @Observed annotated methods should only be invoked by the runtime." );
     }
     super.doStuff();
   }

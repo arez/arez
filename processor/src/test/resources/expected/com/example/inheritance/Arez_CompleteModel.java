@@ -278,7 +278,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Override
   protected void myAutorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Autorun method named 'myAutorun' invoked but @Autorun annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observed method named 'myAutorun' invoked but @Observed annotated methods should only be invoked by the runtime." );
     }
     super.myAutorun();
   }

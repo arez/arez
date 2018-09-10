@@ -16,7 +16,7 @@ public class NonTransactionEnforcingIntegrationTest
   extends AbstractArezIntegrationTest
 {
   /**
-   * Tests integration between autorun and actions and sequencing of operations.
+   * Tests integration between observed and actions and sequencing of operations.
    */
   @Test
   public void personScenario()

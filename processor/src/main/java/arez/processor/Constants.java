@@ -4,7 +4,7 @@ final class Constants
 {
   static final String ACTION_ANNOTATION_CLASSNAME = "arez.annotations.Action";
   static final String COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ArezComponent";
-  static final String AUTORUN_ANNOTATION_CLASSNAME = "arez.annotations.Autorun";
+  static final String OBSERVED_ANNOTATION_CLASSNAME = "arez.annotations.Observed";
   static final String CASCADE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.CascadeDispose";
   static final String DEPENDENCY_ANNOTATION_CLASSNAME = "arez.annotations.Dependency";
   static final String REFERENCE_ANNOTATION_CLASSNAME = "arez.annotations.Reference";

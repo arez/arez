@@ -1,7 +1,7 @@
 package arez.doc.examples.at_autorun;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 
@@ -10,7 +10,7 @@ public abstract class CurrencyView
 {
   private final Currency bitcoin = new Arez_Currency();
 
-  @Autorun
+  @Observed
   void renderView()
   {
     final Element element = DomGlobal.document.getElementById( "currencyTracker" );

@@ -66,6 +66,8 @@
   should never be compiled to javascript and `arez.spy.Priority` should only be present if spies are enabled.
 * 💥 **\[core\]** Rename the `canNestActions` parameter on the `@Autorun` and `@Track` annotation to
   `nestedActionsAllowed` to align with underlying flags naming convention.
+* 💥 **\[core\]** Rename the `@Autorun` annotation to `@Observed` to reflect naming conventions in the lower level
+  api and to prepare for merging with `@Tracked` annotation.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

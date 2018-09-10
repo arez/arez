@@ -2,7 +2,7 @@ package arez.doc.examples.step4;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 
@@ -25,7 +25,7 @@ public abstract class TrainTicket
     setRemainingRides( getRemainingRides() - 1 );
   }
 
-  @Autorun
+  @Observed
   void notifyUserWhenTicketExpires()
   {
     if ( 0 == getRemainingRides() )
