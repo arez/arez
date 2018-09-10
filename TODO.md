@@ -14,10 +14,6 @@ complete as there is too much un-said.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 
-* `@Track` annotated methods should not have parameters.
-
-* `ArezContext.track(...)` method should not accept parameters.
-
 * Rename `ArezContext.track(...)` method to `ArezContext.observe(...)`.
 
 ## Enhancements
