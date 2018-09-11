@@ -85,6 +85,9 @@
   for the `reportParameters` parameter previously present on `@Track` annotation.
 * **\[core\]** Rename the `ArezContext.track(...)` methods to `ArezContext.observe(...)`. This more accurately
   reflects the intent of the operation.
+* **\[core\]** If an application invoked `Observer.schedule()` on a non-STALE `Observer` with an `observed` method
+  and an `onDepsChanged` hook present then the next time that the `Observer` reacted to changes it would invoke the
+  `observed` method rather than the `onDepsChanged` as expected. This bug has been fixed.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

@@ -631,6 +631,18 @@ public final class Observer
             _onDepsChanged.call();
           }
         }
+        else if ( shouldExecuteObservedNext() )
+        {
+          /*
+           * The observer should invoke onDepsChanged next if the following conditions hold.
+           *  - a manual schedule() invocation
+           *  - the observer is not stale, and
+           *  - there is an onDepsChanged hook present
+           *
+           *  This block ensures this is the case.
+           */
+          executeOnDepsChangedNextIfPresent();
+        }
       }
       catch ( final Throwable t )
       {
@@ -948,7 +960,7 @@ public final class Observer
     return 0 != ( _flags & Flags.EXECUTE_OBSERVED_NEXT );
   }
 
-  private void executeObservedNextIfPresent()
+  void executeObservedNextIfPresent()
   {
     if ( null != _observed )
     {

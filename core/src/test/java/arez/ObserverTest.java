@@ -1381,6 +1381,32 @@ public class ObserverTest
     throws Exception
   {
     final CountAndObserveProcedure observed = new CountAndObserveProcedure();
+    final ArezContext context = Arez.context();
+    final Observer observer =
+      new Observer( context,
+                    null,
+                    ValueUtil.randomString(),
+                    observed,
+                    null,
+                    0 );
+
+    context.triggerScheduler();
+
+    assertEquals( observed.getCallCount(), 1 );
+
+    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+
+    //Invoke reaction - observer is uptodate
+    observer.invokeReaction();
+
+    assertEquals( observed.getCallCount(), 1 );
+  }
+
+  @Test
+  public void invokeReaction_onUpToDateObserver_onDepsChanged_Present()
+    throws Exception
+  {
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChanged = new CountingProcedure();
     final ArezContext context = Arez.context();
     final Observer observer =
@@ -1397,9 +1423,14 @@ public class ObserverTest
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
+    observer.executeObservedNextIfPresent();
+
+    assertEquals( observer.shouldExecuteObservedNext(), true );
+
     //Invoke reaction - observer is uptodate
     observer.invokeReaction();
 
+    assertEquals( observer.shouldExecuteObservedNext(), false );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChanged.getCallCount(), 0 );
   }
