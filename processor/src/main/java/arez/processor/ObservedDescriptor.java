@@ -107,6 +107,11 @@ final class ObservedDescriptor
       {
         throw new ArezProcessorException( "@Observed target must not be public when executor=AREZ", method );
       }
+      if ( !reportParameters )
+      {
+        throw new ArezProcessorException( "@Observed target must not specify reportParameters parameter " +
+                                          "when executor=AREZ", method );
+      }
     }
 
     if ( null != _observed )

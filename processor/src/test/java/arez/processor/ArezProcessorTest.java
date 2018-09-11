@@ -573,6 +573,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.ObservedStaticModel", "@Observed target must not be static" },
         new Object[]{ "com.example.observed.ObservedThrowsExceptionModel",
                       "@Observed target must not throw any exceptions" },
+        new Object[]{ "com.example.observed.ReportParametersArezExecutorModel",
+                      "@Observed target must not specify reportParameters parameter when executor=AREZ" },
 
         new Object[]{ "com.example.cascade_dispose.BadType1Component",
                       "@CascadeDispose target must be assignable to arez.Disposable or a type annotated with @ArezComponent" },
