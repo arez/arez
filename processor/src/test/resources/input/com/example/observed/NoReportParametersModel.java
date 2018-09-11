@@ -8,7 +8,7 @@ import arez.annotations.OnDepsChanged;
 @ArezComponent
 public abstract class NoReportParametersModel
 {
-  @Observed( executor = Executor.APPLICATION,reportParameters = false )
+  @Observed( executor = Executor.APPLICATION, reportParameters = false )
   public void render( final long time, float someOtherParameter )
   {
   }

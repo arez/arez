@@ -8,7 +8,7 @@ import arez.annotations.OnDepsChanged;
 @ArezComponent
 public abstract class ObserveLowerPriorityTrackedModel
 {
-  @Observed( executor = Executor.APPLICATION,observeLowerPriorityDependencies = true )
+  @Observed( executor = Executor.APPLICATION, observeLowerPriorityDependencies = true )
   public void render( final long time, float someOtherParameter )
   {
   }
