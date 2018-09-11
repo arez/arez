@@ -42,25 +42,25 @@ public class MultiZoneIntegrationTest
 
     context1.observer( "FirstNamePrinter1",
                        () -> {
-                        observeADependency();
-                        recorder.mark( "firstName1", person.get().getFirstName() );
-                      } );
+                         observeADependency();
+                         recorder.mark( "firstName1", person.get().getFirstName() );
+                       } );
     context2.observer( "FirstNamePrinter2",
                        () -> {
-                        observeADependency();
-                        recorder.mark( "firstName2", person2.get().getFirstName() );
-                      } );
+                         observeADependency();
+                         recorder.mark( "firstName2", person2.get().getFirstName() );
+                       } );
 
     context1.observer( "FullNamePrinter1",
                        () -> {
-                        observeADependency();
-                        recorder.mark( "fullname1", person.get().getFullName() );
-                      } );
+                         observeADependency();
+                         recorder.mark( "fullname1", person.get().getFullName() );
+                       } );
     context2.observer( "FullNamePrinter2",
                        () -> {
-                        observeADependency();
-                        recorder.mark( "fullname2", person2.get().getFullName() );
-                      } );
+                         observeADependency();
+                         recorder.mark( "fullname2", person2.get().getFullName() );
+                       } );
 
     context1.action( "First Name Update1", true, () -> person.get().setFirstName( "Fred" ) );
     context1.action( "Last Name Update1", true, () -> person.get().setLastName( "Donaldo" ) );

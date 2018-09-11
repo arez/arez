@@ -29,14 +29,14 @@ public class ComputedValueIntegrationTest
 
     context.observer( "FirstNamePrinter",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "firstName", person.getFirstName() );
-                     } );
+                        observeADependency();
+                        recorder.mark( "firstName", person.getFirstName() );
+                      } );
     context.observer( "FullNamePrinter",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "fullname", person.getFullName() );
-                     } );
+                        observeADependency();
+                        recorder.mark( "fullname", person.getFullName() );
+                      } );
 
     context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
     context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );

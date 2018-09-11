@@ -66,17 +66,17 @@ public class ObservableValueRefTest
 
     context.observer( "TransportType",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "TransportType", component.getOtherID() );
-                       ttCount.incrementAndGet();
-                     } );
+                        observeADependency();
+                        recorder.mark( "TransportType", component.getOtherID() );
+                        ttCount.incrementAndGet();
+                      } );
     // This is verifying that the explict reportObserved occurs
     context.observer( "ResolvedType",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "ResolvedType", component.getOther() );
-                       rtCount.incrementAndGet();
-                     } );
+                        observeADependency();
+                        recorder.mark( "ResolvedType", component.getOther() );
+                        rtCount.incrementAndGet();
+                      } );
 
     assertEquals( ttCount.get(), 1 );
     assertEquals( rtCount.get(), 1 );

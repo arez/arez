@@ -68,9 +68,9 @@ public class BasicRepositoryIntegrationTest
 
     context.observer( "ComponentCount",
                       () -> {
-                       recorder.mark( "ComponentCount", repository.findAll().size() );
-                       callCount.incrementAndGet();
-                     } );
+                        recorder.mark( "ComponentCount", repository.findAll().size() );
+                        callCount.incrementAndGet();
+                      } );
 
     assertEquals( callCount.get(), 1 );
 

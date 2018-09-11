@@ -90,7 +90,7 @@ public class OneMultiplicityLazyLoadInverseIntegrationTest
       certificate1.getPerson();
       assertEquals( locatorLookupCallCount.get(), 3 );
 
-      certificate2.getPerson();;
+      certificate2.getPerson();
       assertEquals( locatorLookupCallCount.get(), 4 );
     } );
 
@@ -104,7 +104,7 @@ public class OneMultiplicityLazyLoadInverseIntegrationTest
 
   @Nonnull
   private OneMultiplicityLazyLoadInverseIntegrationTest_PersonRepository createPersonRepository( @Nonnull final TypeBasedLocator locator,
-                                                                                                     @Nonnull final AtomicInteger lookupCallCount )
+                                                                                                 @Nonnull final AtomicInteger lookupCallCount )
   {
     final OneMultiplicityLazyLoadInverseIntegrationTest_PersonRepository repository =
       OneMultiplicityLazyLoadInverseIntegrationTest_PersonRepository.newRepository();

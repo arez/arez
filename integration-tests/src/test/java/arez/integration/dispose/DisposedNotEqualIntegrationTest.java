@@ -53,7 +53,6 @@ public class DisposedNotEqualIntegrationTest
     assertEquals( model3.equals( model2 ), true );
   }
 
-
   @ArezComponent( allowEmpty = true, requireEquals = Feature.ENABLE )
   static abstract class Model1
   {

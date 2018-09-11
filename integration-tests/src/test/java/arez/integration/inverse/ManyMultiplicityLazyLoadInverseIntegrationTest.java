@@ -92,7 +92,6 @@ public class ManyMultiplicityLazyLoadInverseIntegrationTest
       assertEquals( wheel1.getCar(), car2 );
     } );
 
-
     safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
     safeAction( () -> assertEquals( car2.getWheels().size(), 1 ) );
     safeAction( () -> assertEquals( car2.getWheels().contains( wheel1 ), true ) );

@@ -77,12 +77,12 @@ public class UnmodifiableCollectionsIntegrationTest
     safeAction( () -> assertUnmodifiable( m1.getDates(), Date::new ) );
     safeAction( () -> assertUnmodifiable( m1.getTimes(), ValueUtil::randomLong ) );
     safeAction( () -> assertUnsupportedOperation( () -> m1.getPois().put( ValueUtil.randomString(),
-                                                                                  ValueUtil.randomString() ) ) );
+                                                                          ValueUtil.randomString() ) ) );
     safeAction( () -> assertUnmodifiable( m1.getNames2(), ValueUtil::randomString ) );
     safeAction( () -> assertUnmodifiable( m1.getDates2(), Date::new ) );
     safeAction( () -> assertUnmodifiable( m1.getTimes2(), ValueUtil::randomLong ) );
     safeAction( () -> assertUnsupportedOperation( () -> m1.getPois2().put( ValueUtil.randomString(),
-                                                                                   ValueUtil.randomString() ) ) );
+                                                                           ValueUtil.randomString() ) ) );
 
     // Assert Collections contain expected
     safeAction( () -> assertTrue( m1.getNames().contains( names.iterator().next() ) ) );
