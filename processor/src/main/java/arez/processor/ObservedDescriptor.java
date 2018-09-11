@@ -180,37 +180,13 @@ final class ObservedDescriptor
 
   void validate()
   {
-    if ( _arezExecutor )
+    //* Add constraint: `onDepsUpdated` should be true if `executor=APPLICATION`
+    if ( !_arezExecutor && null == _onDepsChanged )
     {
-      //  MethodChecks.mustBeFinal( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, _method );
+      assert null != _observed;
+      throw new ArezProcessorException( "@Observed target defined parameter executor=APPLICATION but does not " +
+                                        "specify an @OnDepsChanged method.", _observed );
     }
-    else
-    {
-
-    }
-    /*
-    if ( !shouldCascadeDispose() )
-    {
-      if ( null == _observable )
-      {
-        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but the dependency is " +
-                                          "not an observable so the annotation processor does not know how to set " +
-                                          "the value to null.", _method );
-      }
-      else if ( !_observable.hasSetter() )
-      {
-        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but the dependency is " +
-                                          "an observable with no setter defined so the annotation processor does " +
-                                          "not know how to set the value to null.", _method );
-      }
-      else if ( null != ProcessorUtil.findAnnotationByType( _observable.getSetter().getParameters().get( 0 ),
-                                                            Constants.NONNULL_ANNOTATION_CLASSNAME ) )
-      {
-        throw new ArezProcessorException( "@Dependency target defined an action of 'SET_NULL' but the setter is " +
-                                          "annotated with @javax.annotation.Nonnull.", _method );
-      }
-    }
-    */
   }
 
   /**

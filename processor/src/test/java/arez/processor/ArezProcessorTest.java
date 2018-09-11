@@ -556,6 +556,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.PrivateActionModel", "@Action target must not be private" },
         new Object[]{ "com.example.action.StaticActionModel", "@Action target must not be static" },
 
+        new Object[]{ "com.example.observed.ApplicationExecutorButNoOnDepsChangedModel",
+                      "@Observed target defined parameter executor=APPLICATION but does not specify an @OnDepsChanged method." },
         new Object[]{ "com.example.observed.ObservedAbstractModel", "@Observed target must not be abstract" },
         new Object[]{ "com.example.observed.ObservedBadNameModel",
                       "@Observed target specified an invalid name '-ace'. The name must be a valid java identifier." },
