@@ -29,7 +29,6 @@ import javax.annotation.Nonnull;
 public abstract class BrowserLocation
 {
   private final EventListener _listener = this::onHashChangeEvent;
-
   /**
    * The location according to the application.
    */
