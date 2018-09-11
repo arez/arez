@@ -114,6 +114,8 @@ complete as there is too much un-said.
     containership.
   - deserialization strategies to various mediums (i.e. json etc) and how dow we resolve references. How
     do we do it late? Is this extracting a part of replicant into core Arez?
+  - Interesting way to update and transmit changes via json patches
+    https://medium.com/@mweststrate/distributing-state-changes-using-snapshots-patches-and-actions-part-1-2811a2fcd65f
 
 ## Incremental
 
