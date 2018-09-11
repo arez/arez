@@ -238,11 +238,13 @@ public final class Observer
    */
   boolean supportsManualSchedule()
   {
-    return Arez.shouldCheckApiInvariants() && null != _observed && null != _onDepsChanged;
+    assert Arez.shouldCheckApiInvariants();
+    return null != _observed && null != _onDepsChanged;
   }
 
   boolean isApplicationExecutor()
   {
+    assert Arez.shouldCheckApiInvariants();
     return null == _observed;
   }
 
