@@ -78,7 +78,7 @@ public class ObserverTest
     assertEquals( observer.getObserved(), null );
     assertEquals( observer.getOnDepsChanged(), onDepsChanged );
     assertEquals( observer.isComputedValue(), false );
-    assertEquals( observer.isExternalExecutor(), true );
+    assertEquals( observer.isApplicationExecutor(), true );
   }
 
   @Test

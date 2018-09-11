@@ -47,7 +47,7 @@ public final class Observer
   /**
    * Observed function to invoke if any.
    * This may be null if external executor is responsible for executing the observed function via
-   * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
+   * methods such as {@link ArezContext#observe(Observer, Function, Object...)}. If this is null then
    * {@link #_onDepsChanged} must not be null.
    */
   @Nullable
@@ -241,7 +241,7 @@ public final class Observer
     return Arez.shouldCheckApiInvariants() && null != _observed && null != _onDepsChanged;
   }
 
-  boolean isExternalExecutor()
+  boolean isApplicationExecutor()
   {
     return null == _observed;
   }

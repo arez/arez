@@ -209,7 +209,7 @@ public class ArezContextTest
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isTrackingTransactionActive() );
     };
-    context.track( tracker, action );
+    context.observe( tracker, action );
 
     assertFalse( context.isTransactionActive() );
     assertFalse( context.isWriteTransactionActive() );
@@ -288,7 +288,7 @@ public class ArezContextTest
     final Observer tracker =
       context.tracker( updateCalled::incrementAndGet, Flags.READ_WRITE | Flags.NESTED_ACTIONS_ALLOWED );
 
-    context.track( tracker, () -> {
+    context.observe( tracker, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
 
@@ -357,7 +357,7 @@ public class ArezContextTest
     final Observer tracker =
       context.tracker( updateCalled::incrementAndGet, Flags.READ_WRITE | Flags.NESTED_ACTIONS_DISALLOWED );
 
-    context.track( tracker, () -> {
+    context.observe( tracker, () -> {
 
       final IllegalStateException exception1 =
         expectThrows( IllegalStateException.class,
@@ -805,7 +805,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String v0 =
-      context.track( tracker, () -> {
+      context.observe( tracker, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), tracker.getName() );
@@ -889,9 +889,9 @@ public class ArezContextTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertThrowsWithMessage( () -> context.track( observer, callCount::incrementAndGet ),
-                             "Arez-0017: Attempted to track Observer named '" + observer.getName() +
-                             "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.observe( observer, callCount::incrementAndGet ),
+                             "Arez-0017: Attempted to invoke observe(..) on observer named '" + observer.getName() +
+                             "' but observer is not configured to use an application executor." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -1116,7 +1116,7 @@ public class ArezContextTest
     final int nextNodeId = context.currentNextTransactionId();
 
     final String v0 =
-      context.safeTrack( tracker, () -> {
+      context.safeObserve( tracker, () -> {
         assertTrue( context.isTransactionActive() );
         final Transaction transaction = context.getTransaction();
         assertEquals( transaction.getName(), tracker.getName() );
@@ -1165,9 +1165,9 @@ public class ArezContextTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertThrowsWithMessage( () -> context.safeTrack( observer, callCount::incrementAndGet ),
-                             "Arez-0018: Attempted to track Observer named '" + observer.getName() +
-                             "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.safeObserve( observer, callCount::incrementAndGet ),
+                             "Arez-0018: Attempted to invoke safeObserve(..) on observer named '" +
+                             observer.getName() + "' but observer is not configured to use an application executor." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -1289,7 +1289,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
 
-    context.safeTrack( tracker, () -> {
+    context.safeObserve( tracker, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), tracker.getName() );
@@ -1335,9 +1335,9 @@ public class ArezContextTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final SafeProcedure procedure = callCount::incrementAndGet;
-    assertThrowsWithMessage( () -> context.safeTrack( observer, procedure ),
-                             "Arez-0020: Attempted to track Observer named '" + observer.getName() +
-                             "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.safeObserve( observer, procedure ),
+                             "Arez-0020: Attempted to invoke safeObserve(..) on observer named '" +
+                             observer.getName() + "' but observer is not configured to use an application executor." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -1386,9 +1386,9 @@ public class ArezContextTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     final Procedure procedure = callCount::incrementAndGet;
-    assertThrowsWithMessage( () -> context.track( observer, procedure ),
-                             "Arez-0019: Attempted to track Observer named '" +
-                             observer.getName() + "' but observer is not a tracker." );
+    assertThrowsWithMessage( () -> context.observe( observer, procedure ),
+                             "Arez-0019: Attempted to invoke observe(..) on observer named '" +
+                             observer.getName() + "' but observer is not configured to use an application executor." );
 
     assertEquals( callCount.get(), 0 );
   }
@@ -1410,7 +1410,7 @@ public class ArezContextTest
 
     final int nextNodeId = context.currentNextTransactionId();
 
-    context.track( tracker, () -> {
+    context.observe( tracker, () -> {
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
       assertEquals( transaction.getName(), tracker.getName() );
@@ -2159,7 +2159,7 @@ public class ArezContextTest
     assertEquals( observer.isKeepAlive(), true );
     assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.getOnDepsChanged(), null );
-    assertEquals( observer.isExternalExecutor(), false );
+    assertEquals( observer.isApplicationExecutor(), false );
     assertEquals( observer.getObserved(), observed );
     assertEquals( callCount.get(), 1 );
   }
@@ -2224,7 +2224,7 @@ public class ArezContextTest
     assertEquals( observer.isMutation(), true );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
-    assertEquals( observer.isExternalExecutor(), false );
+    assertEquals( observer.isApplicationExecutor(), false );
     assertEquals( callCount.get(), 1 );
 
     handler.assertEventCount( 8 );
@@ -2341,10 +2341,10 @@ public class ArezContextTest
     }, Flags.RUN_LATER );
 
     assertEquals( observer.getName(), name );
-    assertEquals( observer.isMutation(), false);
+    assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.getPriority(), Priority.NORMAL );
-    assertEquals( observer.isExternalExecutor(), false );
+    assertEquals( observer.isApplicationExecutor(), false );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
@@ -2380,7 +2380,7 @@ public class ArezContextTest
     assertEquals( observer.getComponent(), null );
     assertEquals( observer.getPriority(), Priority.HIGH );
     assertEquals( observer.canObserveLowerPriorityDependencies(), true );
-    assertEquals( observer.isExternalExecutor(), true );
+    assertEquals( observer.isApplicationExecutor(), true );
     assertEquals( observer.nestedActionsAllowed(), true );
     assertEquals( observer.arezOnlyDependencies(), false );
     assertEquals( observer.supportsManualSchedule(), false );
@@ -2409,7 +2409,7 @@ public class ArezContextTest
     assertEquals( observer.getComponent(), component );
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
-    assertEquals( observer.isExternalExecutor(), true );
+    assertEquals( observer.isApplicationExecutor(), true );
   }
 
   @Test
@@ -2430,7 +2430,7 @@ public class ArezContextTest
     assertEquals( observer.isMutation(), false );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertEquals( observer.canObserveLowerPriorityDependencies(), false );
-    assertEquals( observer.isExternalExecutor(), true );
+    assertEquals( observer.isApplicationExecutor(), true );
     assertEquals( observer.nestedActionsAllowed(), false );
     assertEquals( observer.arezOnlyDependencies(), true );
     assertEquals( observer.supportsManualSchedule(), false );

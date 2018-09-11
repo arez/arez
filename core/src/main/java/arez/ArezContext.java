@@ -745,7 +745,7 @@ public final class ArezContext
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   * observed function by invoking a observe method such as {@link #observe(Observer, Function, Object...)}.
    *
    * @param onDepsChanged the hook invoked when dependencies changed.
    * @return the new Observer.
@@ -759,7 +759,7 @@ public final class ArezContext
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   * observed function by invoking a observe method such as {@link #observe(Observer, Function, Object...)}.
    *
    * @param onDepsChanged the hook invoked when dependencies changed.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
@@ -774,7 +774,7 @@ public final class ArezContext
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   * observed function by invoking a observe method such as {@link #observe(Observer, Function, Object...)}.
    *
    * @param name          the name of the observer.
    * @param onDepsChanged the hook invoked when dependencies changed.
@@ -789,7 +789,7 @@ public final class ArezContext
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   * observed function by invoking a observe method such as {@link #observe(Observer, Function, Object...)}.
    *
    * @param name          the name of the observer.
    * @param onDepsChanged the hook invoked when dependencies changed.
@@ -805,7 +805,7 @@ public final class ArezContext
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   * observed function by invoking a observe method such as {@link #observe(Observer, Function, Object...)}.
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
@@ -823,7 +823,7 @@ public final class ArezContext
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChanged hook function when
    * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a track method such as {@link #track(Observer, Function, Object...)}.
+   * observed function by invoking a observe method such as {@link #observe(Observer, Function, Object...)}.
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
@@ -1309,34 +1309,34 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied executable with the specified Observer as the tracker.
+   * Execute the observed function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The executable may throw an exception.
+   * The observed function may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param tracker    the tracking Observer.
-   * @param executable the executable.
+   * @param observer   the Observer.
+   * @param observed   the observed function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @return the value returned from the observed function.
+   * @throws Exception if the observed function throws an an exception.
    */
-  public <T> T track( @Nonnull final Observer tracker,
-                      @Nonnull final Function<T> executable,
-                      @Nonnull final Object... parameters )
+  public <T> T observe( @Nonnull final Observer observer,
+                        @Nonnull final Function<T> observed,
+                        @Nonnull final Object... parameters )
     throws Throwable
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isExternalExecutor,
-                    () -> "Arez-0017: Attempted to track Observer named '" + tracker.getName() + "' but " +
-                          "observer is not a tracker." );
+      apiInvariant( observer::isApplicationExecutor,
+                    () -> "Arez-0017: Attempted to invoke observe(..) on observer named '" + observer.getName() +
+                          "' but observer is not configured to use an application executor." );
     }
-    return action( generateNodeName( tracker ),
-                   Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+    return action( generateNodeName( observer ),
+                   Arez.shouldEnforceTransactionType() && observer.isMutation(),
                    false,
                    true,
-                   executable,
-                   tracker,
+                   observed,
+                   observer,
                    parameters );
   }
 
@@ -1345,11 +1345,11 @@ public final class ArezContext
                         final boolean verifyActionRequired,
                         final boolean requireNewTransaction,
                         @Nonnull final Function<T> executable,
-                        @Nullable final Observer tracker,
+                        @Nullable final Observer observer,
                         @Nonnull final Object... parameters )
     throws Throwable
   {
-    final boolean observed = null != tracker;
+    final boolean observed = null != observer;
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
@@ -1362,7 +1362,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
       }
-      verifyActionNestingAllowed( name, tracker );
+      verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         result = executable.call();
@@ -1370,7 +1370,7 @@ public final class ArezContext
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
         try
         {
           result = executable.call();
@@ -1532,32 +1532,32 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied executable with the specified Observer as the tracker.
+   * Execute the observed function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The executable is should not throw an exception.
+   * The observed function should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param tracker    the tracking Observer.
-   * @param executable the executable.
+   * @param observer   the Observer.
+   * @param observed   the observed function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the executable.
+   * @return the value returned from the observed function.
    */
-  public <T> T safeTrack( @Nonnull final Observer tracker,
-                          @Nonnull final SafeFunction<T> executable,
-                          @Nonnull final Object... parameters )
+  public <T> T safeObserve( @Nonnull final Observer observer,
+                            @Nonnull final SafeFunction<T> observed,
+                            @Nonnull final Object... parameters )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isExternalExecutor,
-                    () -> "Arez-0018: Attempted to track Observer named '" + tracker.getName() + "' but " +
-                          "observer is not a tracker." );
+      apiInvariant( observer::isApplicationExecutor,
+                    () -> "Arez-0018: Attempted to invoke safeObserve(..) on observer named '" + observer.getName() +
+                          "' but observer is not configured to use an application executor." );
     }
-    return safeAction( generateNodeName( tracker ),
-                       Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+    return safeAction( generateNodeName( observer ),
+                       Arez.shouldEnforceTransactionType() && observer.isMutation(),
                        false,
                        true,
-                       executable,
-                       tracker,
+                       observed,
+                       observer,
                        parameters );
   }
 
@@ -1566,10 +1566,10 @@ public final class ArezContext
                             final boolean verifyActionRequired,
                             final boolean requireNewTransaction,
                             @Nonnull final SafeFunction<T> executable,
-                            @Nullable final Observer tracker,
+                            @Nullable final Observer observer,
                             @Nonnull final Object... parameters )
   {
-    final boolean observed = null != tracker;
+    final boolean observed = null != observer;
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
@@ -1582,7 +1582,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
       }
-      verifyActionNestingAllowed( name, tracker );
+      verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         result = executable.call();
@@ -1590,7 +1590,7 @@ public final class ArezContext
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
         try
         {
           result = executable.call();
@@ -1751,40 +1751,40 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied executable with the specified Observer as the tracker.
+   * Execute the observed function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The executable may throw an exception.
+   * The observed function may throw an exception.
    *
-   * @param tracker    the tracking Observer.
-   * @param executable the executable.
+   * @param observer   the Observer.
+   * @param observed   the observed function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Exception if the observed function throws an an exception.
    */
-  public void track( @Nonnull final Observer tracker,
-                     @Nonnull final Procedure executable,
-                     @Nonnull final Object... parameters )
+  public void observe( @Nonnull final Observer observer,
+                       @Nonnull final Procedure observed,
+                       @Nonnull final Object... parameters )
     throws Throwable
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isExternalExecutor,
-                    () -> "Arez-0019: Attempted to track Observer named '" + tracker.getName() + "' but " +
-                          "observer is not a tracker." );
+      apiInvariant( observer::isApplicationExecutor,
+                    () -> "Arez-0019: Attempted to invoke observe(..) on observer named '" + observer.getName() +
+                          "' but observer is not configured to use an application executor." );
     }
-    _action( generateNodeName( tracker ),
-             Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+    _action( generateNodeName( observer ),
+             Arez.shouldEnforceTransactionType() && observer.isMutation(),
              false,
              true,
-             executable,
+             observed,
              true,
-             tracker,
+             observer,
              parameters );
   }
 
   @Nullable
-  private String generateNodeName( @Nonnull final Observer tracker )
+  private String generateNodeName( @Nonnull final Observer observer )
   {
-    return Arez.areNamesEnabled() ? tracker.getName() : null;
+    return Arez.areNamesEnabled() ? observer.getName() : null;
   }
 
   void _action( @Nullable final String name,
@@ -1793,11 +1793,11 @@ public final class ArezContext
                 final boolean requireNewTransaction,
                 @Nonnull final Procedure executable,
                 final boolean reportAction,
-                @Nullable final Observer tracker,
+                @Nullable final Observer observer,
                 @Nonnull final Object... parameters )
     throws Throwable
   {
-    final boolean observed = null != tracker;
+    final boolean observed = null != observer;
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
@@ -1809,7 +1809,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
       }
-      verifyActionNestingAllowed( name, tracker );
+      verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         executable.call();
@@ -1817,7 +1817,7 @@ public final class ArezContext
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
         try
         {
           executable.call();
@@ -1966,30 +1966,30 @@ public final class ArezContext
   }
 
   /**
-   * Execute the supplied executable with the specified Observer as the tracker.
+   * Execute the observed function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The executable is should not throw an exception.
+   * The observed function should not throw an exception.
    *
-   * @param tracker    the tracking Observer.
-   * @param executable the executable.
+   * @param observer   the Observer.
+   * @param observed   the observed function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
-  public void safeTrack( @Nonnull final Observer tracker,
-                         @Nonnull final SafeProcedure executable,
-                         @Nonnull final Object... parameters )
+  public void safeObserve( @Nonnull final Observer observer,
+                           @Nonnull final SafeProcedure observed,
+                           @Nonnull final Object... parameters )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( tracker::isExternalExecutor,
-                    () -> "Arez-0020: Attempted to track Observer named '" + tracker.getName() + "' but " +
-                          "observer is not a tracker." );
+      apiInvariant( observer::isApplicationExecutor,
+                    () -> "Arez-0020: Attempted to invoke safeObserve(..) on observer named '" + observer.getName() +
+                          "' but observer is not configured to use an application executor." );
     }
-    safeAction( generateNodeName( tracker ),
-                Arez.shouldEnforceTransactionType() && tracker.isMutation(),
+    safeAction( generateNodeName( observer ),
+                Arez.shouldEnforceTransactionType() && observer.isMutation(),
                 false,
                 true,
-                executable,
-                tracker,
+                observed,
+                observer,
                 parameters );
   }
 
@@ -1998,10 +1998,10 @@ public final class ArezContext
                            final boolean verifyActionRequired,
                            final boolean requireNewTransaction,
                            @Nonnull final SafeProcedure executable,
-                           @Nullable final Observer tracker,
+                           @Nullable final Observer observer,
                            @Nonnull final Object... parameters )
   {
-    final boolean observed = null != tracker;
+    final boolean observed = null != observer;
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
@@ -2013,7 +2013,7 @@ public final class ArezContext
         assert null != name;
         getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
       }
-      verifyActionNestingAllowed( name, tracker );
+      verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
       {
         executable.call();
@@ -2021,7 +2021,7 @@ public final class ArezContext
       else
       {
         final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, tracker );
+          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
         try
         {
           executable.call();
@@ -2060,7 +2060,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final Observer tracker )
+  private void verifyActionNestingAllowed( @Nullable final String name, @Nullable final Observer observer )
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
@@ -2070,7 +2070,7 @@ public final class ArezContext
         final Observer parent = parentTransaction.getTracker();
         apiInvariant( () -> null == parent ||
                             parent.nestedActionsAllowed() ||
-                            ( null != tracker && tracker.isComputedValue() ),
+                            ( null != observer && observer.isComputedValue() ),
                       () -> "Arez-0187: Attempting to nest action named '" + name + "' " +
                             "inside transaction named '" + parentTransaction.getName() + "' created by an " +
                             "observer that does not allow nested actions." );

@@ -125,7 +125,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().track( this.$$arez$$_render, () -> super.render() );
+      $$arezi$$_context().observe( this.$$arez$$_render, () -> super.render() );
     } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

@@ -140,7 +140,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render1' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeTrack( this.$$arez$$_render1, () -> super.render1() );
+      $$arezi$$_context().safeObserve( this.$$arez$$_render1, () -> super.render1() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -154,7 +154,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().track( this.$$arez$$_render2, () -> super.render2() );
+      $$arezi$$_context().observe( this.$$arez$$_render2, () -> super.render2() );
     } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -168,7 +168,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().safeTrack( this.$$arez$$_render3, () -> super.render3() );
+      return $$arezi$$_context().safeObserve( this.$$arez$$_render3, () -> super.render3() );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -182,7 +182,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render4' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().track( this.$$arez$$_render4, () -> super.render4() );
+      return $$arezi$$_context().observe( this.$$arez$$_render4, () -> super.render4() );
     } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

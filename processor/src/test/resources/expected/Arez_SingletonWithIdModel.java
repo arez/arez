@@ -163,7 +163,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeTrack( this.$$arez$$_render2, () -> super.render2(i), i );
+      $$arezi$$_context().safeObserve( this.$$arez$$_render2, () -> super.render2(i), i );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

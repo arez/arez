@@ -41,12 +41,12 @@ public class TrackCanNotBeNestedInActionTest
 
     assertEquals( component._renderCallCount, 1 );
 
-    // Call track inside action. This should generate an exception
+    // Call observe inside action. This should generate an exception
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> safeAction( component::render ) );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0171: Attempting to create a tracking transaction named 'TestComponent1.0.render' for the observer named 'TestComponent1.0.render' but the transaction is not a top-level transaction when this is required. This may be a result of nesting a track() call inside an action or another observer function." );
+                  "Arez-0171: Attempting to create a tracking transaction named 'TestComponent1.0.render' for the observer named 'TestComponent1.0.render' but the transaction is not a top-level transaction when this is required. This may be a result of nesting a observe() call inside an action or another observer function." );
 
     assertEquals( component._renderCallCount, 1 );
   }

@@ -83,6 +83,8 @@
   annotating a method with `@Observed(executor=APPLICATION)`. The annotation processor was then updated to apply
   different constraints on the method depending upon the value of the `executor` parameter. Support was also added
   for the `reportParameters` parameter previously present on `@Track` annotation.
+* **\[core\]** Rename the `ArezContext.track(...)` methods to `ArezContext.observe(...)`. This more accurately
+  reflects the intent of the operation.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

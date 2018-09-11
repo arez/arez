@@ -155,7 +155,7 @@ final class Transaction
         apiInvariant( () -> !c_transaction.isComputedValueTracker() || inComputedTransaction,
                       () -> "Arez-0186: Attempting to create transaction named '" + name + "' " +
                             "nested in ComputedValue transaction named '" + c_transaction.getName() + "'. " +
-                            "ComputedValues must not invoke actions or track methods as " +
+                            "ComputedValues must not invoke actions or observe methods as " +
                             "they should derive values from other computeds and observables." );
         apiInvariant( () -> !mutation || c_transaction.isMutation(),
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
@@ -165,7 +165,7 @@ final class Transaction
                       () -> "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for " +
                             "the observer named '" + Objects.requireNonNull( tracker ).getName() + "' but the " +
                             "transaction is not a top-level transaction when this is required. This may be a result " +
-                            "of nesting a track() call inside an action or another observer function." );
+                            "of nesting a observe() call inside an action or another observer function." );
       }
     }
     if ( Arez.shouldCheckInvariants() )

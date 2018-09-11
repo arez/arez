@@ -382,19 +382,19 @@ final class ObservedDescriptor
 
     if ( isProcedure && isSafe )
     {
-      statement.append( "safeTrack" );
+      statement.append( "safeObserve" );
     }
     else if ( isProcedure )
     {
-      statement.append( "track" );
+      statement.append( "observe" );
     }
     else if ( isSafe )
     {
-      statement.append( "safeTrack" );
+      statement.append( "safeObserve" );
     }
     else
     {
-      statement.append( "track" );
+      statement.append( "observe" );
     }
 
     statement.append( "( this.$N, " );
