@@ -1,4 +1,4 @@
-package arez.integration.track;
+package arez.integration.observed;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;

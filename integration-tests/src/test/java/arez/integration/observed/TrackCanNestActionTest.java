@@ -1,4 +1,4 @@
-package arez.integration.track;
+package arez.integration.observed;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -11,7 +11,7 @@ import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TrackNestNonRequiresNewActionTest
+public class TrackCanNestActionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -35,7 +35,7 @@ public class TrackNestNonRequiresNewActionTest
       _depsChangedCallCount++;
     }
 
-    @Action( mutation = false )
+    @Action( mutation = false, requireNewTransaction = true )
     void myAction()
     {
       getTime();
@@ -59,7 +59,7 @@ public class TrackNestNonRequiresNewActionTest
   {
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-    final TestComponent1 component = new TrackNestNonRequiresNewActionTest_Arez_TestComponent1();
+    final TestComponent1 component = new TrackCanNestActionTest_Arez_TestComponent1();
 
     assertEquals( component._renderCallCount, 0 );
     assertEquals( component._actionCallCount, 0 );
@@ -71,8 +71,12 @@ public class TrackNestNonRequiresNewActionTest
     assertEquals( component._actionCallCount, 1 );
     assertEquals( component._depsChangedCallCount, 0 );
 
-    // This will cause rescheduling as the action does not start a new transaction
+    // This should not trigger renderDepsUpdated flag as render not observing as action obscures dependency
     safeAction( () -> component.setTime( 33L ) );
+
+    assertEquals( component._depsChangedCallCount, 0 );
+
+    safeAction( () -> component.setTime2( 33L ) );
 
     assertEquals( component._depsChangedCallCount, 1 );
 
