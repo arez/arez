@@ -35,6 +35,7 @@ final class ObservedDescriptor
   private String _priority;
   private boolean _arezExecutor;
   private boolean _reportParameters;
+  private boolean _arezOnlyDependencies;
   private boolean _observeLowerPriorityDependencies;
   private boolean _nestedActionsAllowed;
   @Nullable
@@ -82,6 +83,7 @@ final class ObservedDescriptor
                           @Nonnull final String priority,
                           final boolean arezExecutor,
                           final boolean reportParameters,
+                          final boolean arezOnlyDependencies,
                           final boolean observeLowerPriorityDependencies,
                           final boolean nestedActionsAllowed,
                           @Nonnull final ExecutableElement method,
@@ -125,6 +127,7 @@ final class ObservedDescriptor
       _priority = Objects.requireNonNull( priority );
       _arezExecutor = arezExecutor;
       _reportParameters = reportParameters;
+      _arezOnlyDependencies = arezOnlyDependencies;
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _nestedActionsAllowed = nestedActionsAllowed;
       _observed = Objects.requireNonNull( method );
@@ -192,6 +195,13 @@ final class ObservedDescriptor
       assert null != _observed;
       throw new ArezProcessorException( "@Observed target defined parameter executor=APPLICATION but does not " +
                                         "specify an @OnDepsChanged method.", _observed );
+    }
+    if ( !_arezOnlyDependencies && null == _refMethod )
+    {
+      assert null != _observed;
+      throw new ArezProcessorException( "@Observed target with parameter arezOnlyDependencies=false has not " +
+                                        "defined an @ObserverRef method and thus can not invoke reportStale().",
+                                        _observed );
     }
   }
 
@@ -273,6 +283,14 @@ final class ObservedDescriptor
     if ( _nestedActionsAllowed )
     {
       flags.add( "NESTED_ACTIONS_ALLOWED" );
+    }
+    if ( _arezOnlyDependencies )
+    {
+      flags.add( "AREZ_DEPENDENCIES_ONLY" );
+    }
+    else
+    {
+      flags.add( "NON_AREZ_DEPENDENCIES" );
     }
     if ( _mutation )
     {

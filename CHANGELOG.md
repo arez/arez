@@ -88,6 +88,8 @@
 * **\[core\]** If an application invoked `Observer.schedule()` on a non-STALE `Observer` with an `observed` method
   and an `onDepsChanged` hook present then the next time that the `Observer` reacted to changes it would invoke the
   `observed` method rather than the `onDepsChanged` as expected. This bug has been fixed.
+* **\[core\]** Add support for the `arezOnlyDependencies` parameter to the `@Observed` that makes it possible to
+  specify the flags `AREZ_DEPENDENCIES_ONLY` and `NON_AREZ_DEPENDENCIES` when using the component model.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

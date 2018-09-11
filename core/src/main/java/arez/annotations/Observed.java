@@ -1,5 +1,6 @@
 package arez.annotations;
 
+import arez.Observer;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -103,4 +104,16 @@ public @interface Observed
    * @return true to report the parameters, false otherwise.
    */
   boolean reportParameters() default true;
+
+  /**
+   * Flag indicating whether the Observer is solely dependent on arez elements.
+   * If set to true and {@link #executor()} is {@link Executor#AREZ} then Arez will verify that the
+   * function annotated by this accesses arez elements (i.e. instances of {@link arez.ObservableValue}
+   * or instances of {@link arez.ComputedValue}). If set to false then the component must define a
+   * {@link ObserverRef} method and should invoke {@link Observer#reportStale()} when the non-arez
+   * dependencies are changed.
+   *
+   * @return true if the observer is solely dependent on arez elements.
+   */
+  boolean arezOnlyDependencies() default true;
 }

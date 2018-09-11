@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Change actions API to start passing bit flags as well.
 
-* Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
-
 ## Enhancements
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.

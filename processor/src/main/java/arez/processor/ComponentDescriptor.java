@@ -545,12 +545,14 @@ final class ComponentDescriptor
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final VariableElement executor = getAnnotationParameter( annotation, "executor" );
+    final boolean arezOnlyDependencies = getAnnotationParameter( annotation, "arezOnlyDependencies" );
 
     final ObservedDescriptor observed = findOrCreateObserved( name );
     observed.setObservedMethod( mutation,
                                 priority.getSimpleName().toString(),
                                 executor.getSimpleName().toString().equals( "AREZ" ),
                                 reportParameters,
+                                arezOnlyDependencies,
                                 observeLowerPriorityDependencies,
                                 nestedActionsAllowed,
                                 method,
@@ -2027,6 +2029,7 @@ final class ComponentDescriptor
         {
           observed.setObservedMethod( false,
                                       "NORMAL",
+                                      true,
                                       true,
                                       true,
                                       false,
