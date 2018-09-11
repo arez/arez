@@ -180,7 +180,6 @@ final class ObservedDescriptor
 
   void validate()
   {
-    //* Add constraint: `onDepsUpdated` should be true if `executor=APPLICATION`
     if ( !_arezExecutor && null == _onDepsChanged )
     {
       assert null != _observed;
