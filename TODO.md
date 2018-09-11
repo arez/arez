@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Fix up component level documentation for the new annotations
 
-* Add integration tests for `@Observed(arezOnlyDependencies=false)`
-
 * Change actions API to start passing bit flags as well.
 
 ## Enhancements
