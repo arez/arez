@@ -67,21 +67,20 @@ public final class Flags
    */
   private static final int RUN_TYPE_MASK = RUN_NOW | RUN_LATER;
   /**
-   * The runtime will keep the observer reacting to dependencies until disposed. This should not be
-   * specified if {@link #DEACTIVATE_ON_UNOBSERVE} is specified. This is the default value for observers
-   * that supply a observed function.
+   * The runtime will keep the observer reacting to dependencies until disposed. This is the default value for
+   * observers that supply a observed function but may be explicitly supplied when creating {@link ComputedValue}
+   * instances.
    */
   public static final int KEEPALIVE = 1 << 21;
   /**
    * The flag is valid on observers associated with computed values and will deactivate the observer if the
-   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   * computed value has no observers.
    */
-  public static final int DEACTIVATE_ON_UNOBSERVE = 1 << 20;
+  static final int DEACTIVATE_ON_UNOBSERVE = 1 << 20;
   /**
-   * The flag is valid on observers associated with computed values and will deactivate the observer if the
-   * computed value has no observers. This should not be specified if {@link #KEEPALIVE} is specified.
+   * The flag is valid on observers where the observed function is invoked by the application.
    */
-  public static final int SCHEDULED_EXTERNALLY = 1 << 19;
+  static final int SCHEDULED_EXTERNALLY = 1 << 19;
   /**
    * Mask used to extract react type bits.
    */
