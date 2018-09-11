@@ -224,6 +224,11 @@ final class ObservedDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     parameters.add( getObserved().getSimpleName().toString() );
+    if ( null != _onDepsChanged )
+    {
+      sb.append( "() -> super.$N(), " );
+      parameters.add( _onDepsChanged.getSimpleName().toString() );
+    }
 
     appendFlags( parameters, sb );
 
