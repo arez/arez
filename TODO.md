@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Add constraint: `Observed.reportParameters` should be true if `executor=AREZ`
+
+* Add integration tests for observed than manually schedules...
 
 * Change actions API to start passing bit flags as well.
 
