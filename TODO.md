@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Add integration tests for observed than manually schedules...
-
 * Change actions API to start passing bit flags as well.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
