@@ -10,23 +10,25 @@ time a dependency is changed, Arez will invoke a hook function that will ultimat
 the observer to re-execute the observed function. The {@api_url: Observer} class represents the observer within
 the Arez toolkit.
 
-The observed function can either be invoked by the Arez runtime or it is expected to be invoked by code
-external to the Arez runtime. External execution is useful when arez needs to integrate into other scheduler
+The observed function can either be invoked by the Arez runtime or by the host application. Using Arez as the
+executor is the default choice but sometimes it is useful to designate the application as the executor.
+Application invocation of observed functions is useful when Arez needs to integrate into other scheduler
 frameworks. In most cases that use an external executor, Arez pushes change notifications to a logical queue
 and the external framework pulls change notifications during their own update phase. For example, the
 [React4j](https://react4j.github.io) library uses an external executor so that Arez can be integrated into
 reacts scheduler.
 
 An application can provide an `onDepsChanged` hook function when creating the observer and Arez will invoke
-the hook method when Arez detects that a dependency has changed. If the observer needs to support external
-execution then the hook function **must** be provided. If the hook function is provided but the observed function
-is not expected to be invoked externally, then the application code must invoke the
-{@api_url: Observer.schedule()::Observer::schedule()} either in the hook method or at some later time to
-schedule the {@api_url: Observer} so that the observed function is invoked by the Arez runtime.
+the hook method when Arez detects that a dependency has changed. If the observer needs to support application
+executor then the hook function **must** be provided. If the hook function is provided but the observed function
+is not expected to be invoked by the application, then the application code must invoke the
+{@api_url: Observer.schedule()::Observer::schedule()} method either in the hook method or at some later time.
+This will schedule the {@api_url: Observer} so that the observed function is invoked by the Arez runtime
+next time that the Arez scheduler is triggered.
 
 If an observer is created without a `onDepsChanged` hook function then Arez will automatically defines an
 `onDepsChanged` function that immediately reschedules the observer. Other reactive frameworks often refer
-to this type of an observer asn an "autorun" observer.
+to this type of an observer as an "autorun" observer.
 
 ## API
 
@@ -43,10 +45,9 @@ An example of an observer that is explicitly named and uses a read-write transac
 {@file_content: file=arez/doc/examples/observed/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 A "tracker" observer is created with a `onDepsChanged` hook function but no `observed` function. i.e. A
-tracker observer uses an external executor. A tracker observer is a little more complex within Arez. The developer
-must explicitly create the observer via {@api_url: ArezContext.tracker(*)::ArezContext::tracker(arez.Procedure)}
-invocation and then explicitly track the observed function via
-{@api_url: ArezContext.track(*)::ArezContext::track(arez.Observer,arez.Procedure)}.
+tracker observer uses an application executor. Using a tracker observer is a little more complex within Arez.
+The developer must explicitly create the observer via {@api_url: ArezContext.tracker(*)::ArezContext::tracker(arez.Procedure)}
+invocation and then explicitly observe the observed function via {@api_url: ArezContext.observe(*)::ArezContext::observe(arez.Observer,arez.Procedure)}.
 
 A very simple example of a tracker observer:
 
