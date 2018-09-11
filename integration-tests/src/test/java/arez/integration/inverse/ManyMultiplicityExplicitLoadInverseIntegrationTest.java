@@ -43,7 +43,7 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
     assertEquals( locatorLookupCallCount.get(), 0 );
 
     final AtomicInteger inverseCallCount = new AtomicInteger();
-    autorun( () -> {
+    observer( () -> {
       car.getWheels();
       inverseCallCount.incrementAndGet();
     } );
@@ -62,7 +62,7 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
     assertEquals( inverseCallCount.get(), 2 );
 
     final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
-    final Observer wheel1GetCarObserver = autorun( () -> {
+    final Observer wheel1GetCarObserver = observer( () -> {
       wheel1.getCar();
       wheel1GetCarCallCount.incrementAndGet();
     } );

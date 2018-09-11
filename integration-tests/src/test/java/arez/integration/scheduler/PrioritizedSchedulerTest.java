@@ -58,47 +58,47 @@ public class PrioritizedSchedulerTest
     }
 
     @Observed( priority = Priority.HIGH )
-    void autorun1a()
+    void observer1a()
     {
-      _calls.add( "autorun1a" );
+      _calls.add( "observer1a" );
       getValue1();
     }
 
     @Observed( priority = Priority.HIGH )
-    void autorun1b()
+    void observer1b()
     {
-      _calls.add( "autorun1b" );
+      _calls.add( "observer1b" );
       computed1();
     }
 
     @Observed( priority = Priority.NORMAL )
-    void autorun2a()
+    void observer2a()
     {
-      _calls.add( "autorun2a" );
+      _calls.add( "observer2a" );
       getValue1();
       getValue2();
     }
 
     @Observed( priority = Priority.NORMAL )
-    void autorun2b()
+    void observer2b()
     {
-      _calls.add( "autorun2b" );
+      _calls.add( "observer2b" );
       computed1();
     }
 
     @Observed( priority = Priority.LOW )
-    void autorun3a()
+    void observer3a()
     {
-      _calls.add( "autorun3a" );
+      _calls.add( "observer3a" );
       getValue1();
       getValue2();
       getValue3();
     }
 
     @Observed( priority = Priority.LOW )
-    void autorun3b()
+    void observer3b()
     {
-      _calls.add( "autorun3b" );
+      _calls.add( "observer3b" );
       computed1();
     }
   }
@@ -113,7 +113,7 @@ public class PrioritizedSchedulerTest
 
     assertEquals( component._calls.size(), 7 );
     assertEquals( component._calls.toString(),
-                  "[autorun1a, autorun1b, computed1, autorun2a, autorun2b, autorun3a, autorun3b]" );
+                  "[observer1a, observer1b, computed1, observer2a, observer2b, observer3a, observer3b]" );
 
     component._calls.clear();
 
@@ -121,21 +121,21 @@ public class PrioritizedSchedulerTest
 
     assertEquals( component._calls.size(), 7 );
     assertEquals( component._calls.toString(),
-                  "[autorun1a, computed1, autorun1b, autorun2a, autorun2b, autorun3a, autorun3b]" );
+                  "[observer1a, computed1, observer1b, observer2a, observer2b, observer3a, observer3b]" );
 
     component._calls.clear();
 
     safeAction( () -> component.setValue2( "2" ) );
 
     assertEquals( component._calls.size(), 2 );
-    assertEquals( component._calls.toString(), "[autorun2a, autorun3a]" );
+    assertEquals( component._calls.toString(), "[observer2a, observer3a]" );
 
     component._calls.clear();
 
     safeAction( () -> component.setValue3( "3" ) );
 
     assertEquals( component._calls.size(), 1 );
-    assertEquals( component._calls.toString(), "[autorun3a]" );
+    assertEquals( component._calls.toString(), "[observer3a]" );
 
     Disposable.dispose( component );
 

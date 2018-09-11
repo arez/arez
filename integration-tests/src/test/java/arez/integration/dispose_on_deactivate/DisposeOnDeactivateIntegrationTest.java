@@ -26,7 +26,7 @@ public class DisposeOnDeactivateIntegrationTest
 
     assertEquals( Disposable.isDisposed( model ), false );
 
-    final Observer observer = autorun( () -> ComponentObservable.observe( model ) );
+    final Observer observer = observer( () -> ComponentObservable.observe( model ) );
 
     assertEquals( Disposable.isDisposed( observer ), false );
 

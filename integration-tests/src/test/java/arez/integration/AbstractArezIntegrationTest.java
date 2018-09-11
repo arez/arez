@@ -135,7 +135,7 @@ public abstract class AbstractArezIntegrationTest
   }
 
   @Nonnull
-  protected final Observer autorun( @Nonnull final Procedure executable )
+  protected final Observer observer( @Nonnull final Procedure executable )
   {
     return Arez.context().observer( () -> {
       observeADependency();

@@ -2,9 +2,9 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
+import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observed;
-import arez.annotations.Track;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -223,7 +223,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model4();
     }
 
-    @Track
+    @Observed( executor = Executor.APPLICATION )
     public void myObserveReaction()
     {
       setName( "Changed" );
@@ -259,7 +259,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Track
+    @Observed( executor = Executor.APPLICATION )
     public void myObserveReaction()
     {
       getName();
@@ -294,7 +294,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model6();
     }
 
-    @Track( mutation = true )
+    @Observed( executor = Executor.APPLICATION, mutation = true )
     public void myObserveReaction()
     {
       setName( "Changed" );

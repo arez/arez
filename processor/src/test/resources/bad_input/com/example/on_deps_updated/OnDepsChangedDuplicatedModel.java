@@ -1,14 +1,14 @@
 package com.example.on_deps_updated;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Observed;
 import arez.annotations.OnDepsChanged;
-import arez.annotations.Track;
 
 @ArezComponent
 public abstract class OnDepsChangedDuplicatedModel
 {
-  @Track
-  public void render()
+  @Observed
+  void render()
   {
   }
 

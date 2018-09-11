@@ -138,9 +138,9 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
 
   @Nonnull
   @Override
-  public ObservableValue<GenericObservableRefModel.MyValue<String>> getMyValueObservable() {
+  public ObservableValue<GenericObservableRefModel.MyValue<String>> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValueObservableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return $$arez$$_myValue;
   }

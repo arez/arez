@@ -75,6 +75,14 @@
   naming convention was also changed from `get[Name]Observable` to `get[Name]ObservableValue`.
 * **\[core\]** Rename the `tracked` parameter on `ArezContext.observer(...)` methods to `observed` to align
   with documentation.
+* **\[core\]** Merge the `@Tracked` annotation into the `@Observed` annotation. This involved adding an additional
+  parameter `executor` that controls which actor is responsible for invoking the `@Observed` method. By default the
+  `executor` is set to `AREZ` which makes the invocation of the observed method the responsibility of the Arez
+  runtime. It can also be set to `APPLICATION` which means it is the responsibility of the application to invoke
+  the `@Observed` method. Previously you annotated a method with the `@Track` annotation which is equivalent to
+  annotating a method with `@Observed(executor=APPLICATION)`. The annotation processor was then updated to apply
+  different constraints on the method depending upon the value of the `executor` parameter. Support was also added
+  for the `reportParameters` parameter previously present on `@Track` annotation.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

@@ -29,7 +29,6 @@ final class Constants
   static final String POST_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PostDispose";
   static final String PRE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PreDispose";
   static final String REPOSITORY_ANNOTATION_CLASSNAME = "arez.annotations.Repository";
-  static final String TRACK_ANNOTATION_CLASSNAME = "arez.annotations.Track";
   static final String DISPOSABLE_CLASSNAME = "arez.Disposable";
   static final String DISPOSE_TRACKABLE_CLASSNAME = "arez.component.DisposeTrackable";
   static final String EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";

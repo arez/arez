@@ -12,26 +12,26 @@ public class ObservedNoInvokeTest
   @ArezComponent
   public static abstract class TestComponent
   {
-    int _autorunCallCount;
+    int _observerCallCount;
 
     @Observed
-    void autorun()
+    void observer()
     {
       // Observe something so it is valid observed
       observeADependency();
-      _autorunCallCount++;
+      _observerCallCount++;
     }
   }
 
   @Test
-  public void deferScheduleWillDelayAutorun()
+  public void deferScheduleWillDelayObserver()
   {
     final TestComponent component = new ObservedNoInvokeTest_Arez_TestComponent();
 
-    assertEquals( component._autorunCallCount, 1 );
+    assertEquals( component._observerCallCount, 1 );
 
-    assertInvariant( component::autorun,
-                     "Observed method named 'autorun' invoked but @Observed annotated methods should only be invoked by the runtime." );
-    assertEquals( component._autorunCallCount, 1 );
+    assertInvariant( component::observer,
+                     "Observed method named 'observer' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+    assertEquals( component._observerCallCount, 1 );
   }
 }

@@ -137,9 +137,9 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
 
   @Nonnull
   @Override
-  public ObservableValue<Long> getTimeObservable() {
+  public ObservableValue<Long> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeObservable' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeObservableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return $$arez$$_time;
   }

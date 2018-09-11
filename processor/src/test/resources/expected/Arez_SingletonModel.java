@@ -38,10 +38,10 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   private final ComputedValue<Integer> $$arez$$_someValue;
 
   @Nonnull
-  private final Observer $$arez$$_myAutorun;
+  private final Observer $$arez$$_render;
 
   @Nonnull
-  private final Observer $$arez$$_render;
+  private final Observer $$arez$$_myAutorun;
 
   public Arez_SingletonModel() {
     super();
@@ -54,8 +54,8 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_time = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_someValue = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue(), Flags.RUN_LATER );
-    this.$$arez$$_myAutorun = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAutorun" : null, () -> super.myAutorun(), Flags.RUN_LATER );
     this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER );
+    this.$$arez$$_myAutorun = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAutorun" : null, () -> super.myAutorun(), Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -122,8 +122,8 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_myAutorun.dispose();
           this.$$arez$$_render.dispose();
+          this.$$arez$$_myAutorun.dispose();
           this.$$arez$$_someValue.dispose();
           this.$$arez$$_time.dispose();
         } } );
@@ -157,9 +157,23 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   }
 
   @Override
+  public void render() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    try {
+      $$arezi$$_context().safeTrack( this.$$arez$$_render, () -> super.render() );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
+  }
+
+  @Override
   protected void myAutorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'myAutorun' invoked but @Observed annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observed method named 'myAutorun' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.myAutorun();
   }
@@ -184,20 +198,6 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'someValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_someValue.get();
-  }
-
-  @Override
-  public void render() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      $$arezi$$_context().safeTrack( this.$$arez$$_render, () -> super.render() );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
   }
 
   @Override

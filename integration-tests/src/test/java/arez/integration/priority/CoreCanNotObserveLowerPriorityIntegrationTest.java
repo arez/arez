@@ -28,7 +28,7 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
     // Attempts to observe lower priority
     final ComputedValue<Integer> computedValue2 = context.computed( () -> computedValue1.get() + 42 );
 
-    autorun( computedValue2::get );
+    observer( computedValue2::get );
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),

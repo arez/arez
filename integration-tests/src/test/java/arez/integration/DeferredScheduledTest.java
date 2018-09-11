@@ -12,24 +12,24 @@ public class DeferredScheduledTest
   @ArezComponent( deferSchedule = true )
   public static abstract class TestComponent
   {
-    int _autorunCallCount;
+    int _observerCallCount;
 
     @Observed
-    void autorun()
+    void observer()
     {
       // Observe something so it is valid observed
       observeADependency();
-      _autorunCallCount++;
+      _observerCallCount++;
     }
   }
 
   @Test
-  public void deferScheduleWillDelayAutorun()
+  public void deferScheduleWillDelayObserver()
   {
     final TestComponent component = new DeferredScheduledTest_Arez_TestComponent();
 
-    assertEquals( component._autorunCallCount, 0 );
+    assertEquals( component._observerCallCount, 0 );
     Arez.context().triggerScheduler();
-    assertEquals( component._autorunCallCount, 1 );
+    assertEquals( component._observerCallCount, 1 );
   }
 }

@@ -14,8 +14,8 @@ public class ConstructBeforeScheduledTest
   public static abstract class TestComponent
   {
     boolean _postConstructCalled;
-    boolean _autorunCalledBeforePostConstructCalled;
-    boolean _autorunCalled;
+    boolean _observerCalledBeforePostConstructCalled;
+    boolean _observerCalled;
 
     @PostConstruct
     void postConstruct()
@@ -24,26 +24,26 @@ public class ConstructBeforeScheduledTest
     }
 
     @Observed
-    void autorun()
+    void observer()
     {
       // Observe something so it is valid observed
       observeADependency();
 
-      _autorunCalled = true;
+      _observerCalled = true;
       if ( !_postConstructCalled )
       {
-        _autorunCalledBeforePostConstructCalled = true;
+        _observerCalledBeforePostConstructCalled = true;
       }
     }
   }
 
   @Test
-  public void autorunAndPostConstructSequencing()
+  public void observerAndPostConstructSequencing()
   {
     final TestComponent component = new ConstructBeforeScheduledTest_Arez_TestComponent();
 
-    assertTrue( component._autorunCalled );
+    assertTrue( component._observerCalled );
     assertTrue( component._postConstructCalled );
-    assertFalse( component._autorunCalledBeforePostConstructCalled );
+    assertFalse( component._observerCalledBeforePostConstructCalled );
   }
 }

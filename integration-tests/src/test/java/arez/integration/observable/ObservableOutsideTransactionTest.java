@@ -34,7 +34,7 @@ public class ObservableOutsideTransactionTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    autorun( () -> {
+    observer( () -> {
       component.getTime();
       callCount.incrementAndGet();
     } );

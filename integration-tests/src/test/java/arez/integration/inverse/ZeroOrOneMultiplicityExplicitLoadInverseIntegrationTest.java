@@ -44,7 +44,7 @@ public class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest
     assertEquals( locatorLookupCallCount.get(), 0 );
 
     final AtomicInteger inverseCallCount = new AtomicInteger();
-    autorun( () -> {
+    observer( () -> {
       person.getCertificate();
       inverseCallCount.incrementAndGet();
     } );
@@ -62,7 +62,7 @@ public class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest
     assertEquals( inverseCallCount.get(), 2 );
 
     final AtomicInteger certificate1GetPersonCallCount = new AtomicInteger();
-    final Observer certificate1GetPersonObserver = autorun( () -> {
+    final Observer certificate1GetPersonObserver = observer( () -> {
       certificate1.getPerson();
       certificate1GetPersonCallCount.incrementAndGet();
     } );

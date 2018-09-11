@@ -1,8 +1,9 @@
 package arez.integration.track;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Executor;
+import arez.annotations.Observed;
 import arez.annotations.OnDepsChanged;
-import arez.annotations.Track;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -15,7 +16,7 @@ public class TrackCanNotBeNestedInActionTest
   {
     int _renderCallCount;
 
-    @Track
+    @Observed( executor = Executor.APPLICATION )
     void render()
     {
       _renderCallCount++;

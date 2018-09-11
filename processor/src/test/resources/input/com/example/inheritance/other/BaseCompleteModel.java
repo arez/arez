@@ -13,6 +13,7 @@ import arez.annotations.ComponentRef;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import arez.annotations.ContextRef;
+import arez.annotations.Executor;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
@@ -25,7 +26,6 @@ import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Track;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -40,12 +40,12 @@ public abstract class BaseCompleteModel
   }
 
   @Observed
-  protected void myAutorun()
+  protected void myWatcher()
   {
   }
 
   @ObserverRef
-  protected abstract Observer getMyAutorunObserver();
+  protected abstract Observer getMyWatcherObserver();
 
   @ComponentId
   protected final byte getId()
@@ -97,7 +97,7 @@ public abstract class BaseCompleteModel
   @ObservableValueRef
   protected abstract ObservableValue<String> getMyValueObservableValue();
 
-  @Track
+  @Observed( executor = Executor.APPLICATION )
   public void render( final long time, float someOtherParameter )
   {
   }

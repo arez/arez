@@ -23,25 +23,25 @@ public class ComputedNonArezDependenciesComponentTest
 
     final Element element = Element.create( "" );
 
-    final AtomicInteger autorunCallCount = new AtomicInteger();
-    autorun( () -> {
-      autorunCallCount.incrementAndGet();
+    final AtomicInteger observerCallCount = new AtomicInteger();
+    observer( () -> {
+      observerCallCount.incrementAndGet();
       element.getComputed();
     } );
 
-    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
     assertEquals( element._callCount, 1 );
 
     context.action( () -> assertEquals( element.getComputed(), "" ) );
 
-    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
     assertEquals( element._callCount, 1 );
 
     context.action( () -> element.getComputedComputedValue().reportPossiblyChanged() );
 
     context.action( () -> assertEquals( element.getComputed(), "" ) );
 
-    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
     assertEquals( element._callCount, 2 );
 
     element._result = "NewValue";
@@ -50,7 +50,7 @@ public class ComputedNonArezDependenciesComponentTest
 
     context.action( () -> assertEquals( element.getComputed(), "NewValue" ) );
 
-    assertEquals( autorunCallCount.get(), 2 );
+    assertEquals( observerCallCount.get(), 2 );
     assertEquals( element._callCount, 3 );
   }
 

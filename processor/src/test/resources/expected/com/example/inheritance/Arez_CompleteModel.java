@@ -59,7 +59,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   private final ComputedValue<Long> $$arez$$_time;
 
   @Nonnull
-  private final Observer $$arez$$_myAutorun;
+  private final Observer $$arez$$_myWatcher;
 
   @Nonnull
   private final Observer $$arez$$_render;
@@ -82,7 +82,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_elements : null, null );
     this.$$arez$$_parentGeneralisation = getContext().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".parentGeneralisation" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_parentGeneralisation : null, null );
     this.$$arez$$_time = getContext().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, Flags.RUN_LATER );
-    this.$$arez$$_myAutorun = getContext().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myAutorun" : null, () -> super.myAutorun(), Flags.RUN_LATER );
+    this.$$arez$$_myWatcher = getContext().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".myWatcher" : null, () -> super.myWatcher(), Flags.RUN_LATER );
     this.$$arez$$_render = getContext().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? getComponentName() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER );
     this.$$arezd$$_elements = new ArrayList<>();
     this.$$arezd$$_$$cache$$_elements = null;
@@ -182,7 +182,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       } else {
         getContext().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_myAutorun.dispose();
+          this.$$arez$$_myWatcher.dispose();
           this.$$arez$$_render.dispose();
           this.$$arez$$_time.dispose();
           this.$$arez$$_myValue.dispose();
@@ -276,19 +276,33 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected void myAutorun() {
+  protected void myWatcher() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'myAutorun' invoked but @Observed annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observed method named 'myWatcher' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
-    super.myAutorun();
+    super.myWatcher();
   }
 
   @Override
-  protected Observer getMyAutorunObserver() {
+  protected Observer getMyWatcherObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyAutorunObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyWatcherObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
-    return $$arez$$_myAutorun;
+    return $$arez$$_myWatcher;
+  }
+
+  @Override
+  public void render(final long time, final float someOtherParameter) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+    }
+    try {
+      getContext().safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
   }
 
   @Override
@@ -320,20 +334,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeComputedValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     return $$arez$$_time;
-  }
-
-  @Override
-  public void render(final long time, final float someOtherParameter) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
-    }
-    try {
-      getContext().safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
   }
 
   @Override

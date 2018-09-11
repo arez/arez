@@ -6,9 +6,8 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Change actions API to start passing bit flags as well.
 
-* Consider collapsing `@Autorun` and `@Track` into a single `@Observer`.
+* Change actions API to start passing bit flags as well.
 
 * Add support for `arezOnlyDependencies` into `@Autorun` and `@Track`.
 

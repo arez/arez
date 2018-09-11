@@ -160,9 +160,23 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   protected void zapZap() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'zapZap' invoked but @Observed annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observed method named 'zapZap' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.zapZap();
+  }
+
+  @Override
+  public void render() throws ParseException {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    try {
+      $$arezi$$_context().track( this.$$arez$$_XX, () -> super.render() );
+    } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
   }
 
   @Override
@@ -185,20 +199,6 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'compute' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_myComputed.get();
-  }
-
-  @Override
-  public void render() throws ParseException {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      $$arezi$$_context().track( this.$$arez$$_XX, () -> super.render() );
-    } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
   }
 
   @Override

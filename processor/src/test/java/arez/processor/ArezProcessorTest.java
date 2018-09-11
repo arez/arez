@@ -32,15 +32,15 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.RequiresTxTypeActionModel", false, false, false },
         new Object[]{ "com.example.action.BasicFunctionActionModel", false, false, false },
         new Object[]{ "com.example.action.BasicActionModel", false, false, false },
-        new Object[]{ "com.example.observed.BasicAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.NestedActionsAllowedAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.HighestPriorityAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.HighPriorityAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.LowestPriorityAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.LowPriorityAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.NormalPriorityAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.ObserveLowerPriorityAutorunModel", false, false, false },
-        new Object[]{ "com.example.observed.ReadWriteAutorunModel", false, false, false },
+        new Object[]{ "com.example.observed.BasicObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.NestedActionsAllowedObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.HighestPriorityObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.HighPriorityObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.LowestPriorityObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.LowPriorityObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.NormalPriorityObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.ObserveLowerPriorityObservedModel", false, false, false },
+        new Object[]{ "com.example.observed.ReadWriteObservedModel", false, false, false },
         new Object[]{ "com.example.observed.ScheduleAfterConstructedModel", false, false, false },
         new Object[]{ "com.example.observed.ScheduleDeferredModel", false, false, false },
         new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel", false, false, false },
@@ -136,7 +136,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.dependency.ScheduleDeferredDependencyModel", false, false, false },
         new Object[]{ "com.example.dependency.SetNullObservableDependency", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedActionModel", false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedAutorunModel", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservedModel", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedComputedModel1", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedComputedModel2", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedComputedModel3", false, false, false },
@@ -145,10 +145,10 @@ public class ArezProcessorTest
         new Object[]{ "com.example.deprecated.DeprecatedObservableModel1", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedObservableModel2", false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedPostConstructModel", false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedTrackedModel1", false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedTrackedModel2", false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedTrackedModel3", false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedTrackedModel4", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservedModel1", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservedModel2", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservedModel3", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservedModel4", false, false, false },
         new Object[]{ "com.example.dispose_trackable.DisposeTrackableModel", false, false, false },
         new Object[]{ "com.example.dispose_trackable.NoDisposeTrackableModel", false, false, false },
         new Object[]{ "com.example.id.ComponentIdExample", false, false, false },
@@ -198,11 +198,11 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable_value_ref.GenericObservableRefModel", false, false, false },
         new Object[]{ "com.example.observable_value_ref.NonStandardNameModel", false, false, false },
         new Object[]{ "com.example.observable_value_ref.RawObservableModel", false, false, false },
-        new Object[]{ "com.example.observer_ref.CustomNameRefOnAutorunModel", false, false, false },
-        new Object[]{ "com.example.observer_ref.CustomNameRefOnTrackedModel", false, false, false },
-        new Object[]{ "com.example.observer_ref.RefOnAutorunModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.CustomNameRefOnObservedModel1", false, false, false },
+        new Object[]{ "com.example.observer_ref.CustomNameRefOnObservedModel2", false, false, false },
+        new Object[]{ "com.example.observer_ref.RefOnObservedModel1", false, false, false },
         new Object[]{ "com.example.observer_ref.RefOnBothModel", false, false, false },
-        new Object[]{ "com.example.observer_ref.RefOnTrackedModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.RefOnObservedModel2", false, false, false },
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false },
         new Object[]{ "com.example.post_construct.PostConstructModel", false, false, false },
         new Object[]{ "com.example.reference.CustomNameReferenceModel", false, false, false },
@@ -246,21 +246,21 @@ public class ArezProcessorTest
         new Object[]{ "com.example.reserved_names.NonReservedNameModel", false, false, false },
         new Object[]{ "com.example.to_string.NoToStringPresent", false, false, false },
         new Object[]{ "com.example.to_string.ToStringPresent", false, false, false },
-        new Object[]{ "com.example.tracked.BasicTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.BasicTrackedWithExceptionsModel", false, false, false },
-        new Object[]{ "com.example.tracked.NestedActionsAllowedTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.DeriveFinalOnDepsChangedModel", false, false, false },
-        new Object[]{ "com.example.tracked.DeriveOnDepsChangedModel", false, false, false },
-        new Object[]{ "com.example.tracked.DeriveTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.HighestPriorityTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.HighPriorityTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.NormalPriorityTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.LowestPriorityTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.LowPriorityTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.NoReportParametersModel", false, false, false },
-        new Object[]{ "com.example.tracked.ObserveLowerPriorityTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.ProtectedAccessTrackedModel", false, false, false },
-        new Object[]{ "com.example.tracked.TrackedAllTypesModel", false, false, false },
+        new Object[]{ "com.example.observed.BasicTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.BasicTrackedWithExceptionsModel", false, false, false },
+        new Object[]{ "com.example.observed.NestedActionsAllowedTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.DeriveFinalOnDepsChangedModel", false, false, false },
+        new Object[]{ "com.example.observed.DeriveOnDepsChangedModel", false, false, false },
+        new Object[]{ "com.example.observed.DeriveTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.HighestPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.HighPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.NormalPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.LowestPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.LowPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.NoReportParametersModel", false, false, false },
+        new Object[]{ "com.example.observed.ObserveLowerPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.ProtectedAccessTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.TrackedAllTypesModel", false, false, false },
         new Object[]{ "com.example.type_access_levels.ReduceAccessLevelModel", false, false, false },
         new Object[]{ "com.example.verifiable.DisableVerifyModel", false, false, false },
         new Object[]{ "com.example.verifiable.EnableVerifyModel", false, false, false },
@@ -319,8 +319,7 @@ public class ArezProcessorTest
     final String output2 = "expected/com/example/repository/Arez_CompleteRepositoryExampleRepository.java";
     final String output3 = "expected/com/example/repository/CompleteRepositoryExampleRepository.java";
     final String output4 = "expected/com/example/repository/CompleteRepositoryExampleRepositoryDaggerModule.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ),
-                             Arrays.asList( output1, output2, output3, output4 ) );
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2, output3, output4 ) );
   }
 
   @Test
@@ -334,8 +333,7 @@ public class ArezProcessorTest
     final String output2 = "expected/com/example/repository/Arez_PackageAccessRepositoryExampleRepository.java";
     final String output3 = "expected/com/example/repository/PackageAccessRepositoryExampleRepository.java";
     final String output4 = "expected/com/example/repository/PackageAccessRepositoryExampleRepositoryDaggerModule.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ),
-                             Arrays.asList( output1, output2, output3, output4 ) );
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2, output3, output4 ) );
   }
 
   @Test
@@ -343,10 +341,10 @@ public class ArezProcessorTest
     throws Exception
   {
     final JavaFileObject source1 =
-      fixture( "input/com/example/tracked/InheritProtectedAccessTrackedModel.java" );
+      fixture( "input/com/example/observed/InheritProtectedAccessTrackedModel.java" );
     final JavaFileObject source2 =
-      fixture( "input/com/example/tracked/other/BaseModelProtectedAccess.java" );
-    final String output = "expected/com/example/tracked/Arez_InheritProtectedAccessTrackedModel.java";
+      fixture( "input/com/example/observed/other/BaseModelProtectedAccess.java" );
+    final String output = "expected/com/example/observed/Arez_InheritProtectedAccessTrackedModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
@@ -462,8 +460,7 @@ public class ArezProcessorTest
     final JavaFileObject source1 = fixture( "input/DefaultMethodsModel.java" );
     final JavaFileObject source2 = fixture( "input/MyAnnotatedInterface.java" );
     final String output1 = "expected/Arez_DefaultMethodsModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ),
-                             Collections.singletonList( output1 ) );
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
   }
 
   @Test
@@ -565,7 +562,10 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.ObservedBadNameModel2",
                       "@Observed target specified an invalid name 'float'. The name must not be a java keyword." },
         new Object[]{ "com.example.observed.ObservedDuplicateModel",
-                      "@Observed specified name doStuff that duplicates @Observed defined by method foo" },
+                      "@Observed target duplicates existing method named foo" },
+        new Object[]{ "com.example.observed.ObservedDuplicateModel2",
+                      "Method annotated with @Computed specified name doStuff that duplicates @Observed defined by method foo" },
+        new Object[]{ "com.example.observed.ObservedFinalModel", "@Observed target must not be final" },
         new Object[]{ "com.example.observed.ObservedParametersModel", "@Observed target must not have any parameters" },
         new Object[]{ "com.example.observed.ObservedPrivateModel", "@Observed target must not be private" },
         new Object[]{ "com.example.observed.ObservedPublicModel", "@Observed target must not be public" },
@@ -585,18 +585,18 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.component.ConcreteComponent",
                       "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
-        new Object[]{ "com.example.component.DeferredButNoAutorunModel",
+        new Object[]{ "com.example.component.DeferredButNoObservedModel",
                       "@ArezComponent target has specified the deferSchedule = true annotation parameter but has no methods annotated with @Observed" },
         new Object[]{ "com.example.component.ModelWithAbstractMethod",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named someMethod" },
         new Object[]{ "com.example.component.NonEmptyComponent",
-                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Observed" },
+                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency or @Observed" },
         new Object[]{ "com.example.component.BadTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.BadTypeComponent2",
                       "@ArezComponent target specified an invalid type 'long'. The type must not be a java keyword." },
         new Object[]{ "com.example.component.EmptyComponent",
-                      "@ArezComponent target has no methods annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency, @Track or @Observed" },
+                      "@ArezComponent target has no methods annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, @Reference, @Dependency or @Observed" },
         new Object[]{ "com.example.component.EmptyTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class" },
@@ -684,8 +684,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoized.DuplicateMemoizeModel",
                       "Method annotated with @Memoize specified name method1 that duplicates @Memoize defined by method method1" },
         new Object[]{ "com.example.memoized.FinalMemoizeModel", "@Memoize target must not be final" },
-        new Object[]{ "com.example.memoized.NoParamMemoizeModel",
-                      "@Memoize target must have parameters" },
+        new Object[]{ "com.example.memoized.NoParamMemoizeModel", "@Memoize target must have parameters" },
         new Object[]{ "com.example.memoized.PrivateMemoizeModel", "@Memoize target must not be private" },
         new Object[]{ "com.example.memoized.StaticMemoizeModel", "@Memoize target must not be static" },
         new Object[]{ "com.example.memoized.VoidMemoizeModel", "@Memoize target must return a value" },
@@ -838,14 +837,16 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable_value_ref.DuplicateRefMethodModel",
                       "Method annotated with @ObservableValueRef defines duplicate ref accessor for observable named time" },
         new Object[]{ "com.example.observable_value_ref.FinalModel", "@ObservableValueRef target must not be final" },
-        new Object[]{ "com.example.observable_value_ref.NonAbstractModel", "@ObservableValueRef target must be abstract" },
+        new Object[]{ "com.example.observable_value_ref.NonAbstractModel",
+                      "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.NonAlignedNameModel",
                       "Method annotated with @ObservableValueRef should specify name or be named according to the convention get[Name]Observable" },
         new Object[]{ "com.example.observable_value_ref.NoObservableModel",
                       "@ObservableValueRef target unable to be associated with an Observable property" },
         new Object[]{ "com.example.observable_value_ref.ParametersModel",
                       "@ObservableValueRef target must not have any parameters" },
-        new Object[]{ "com.example.observable_value_ref.PrivateModel", "@ObservableValueRef target must not be private" },
+        new Object[]{ "com.example.observable_value_ref.PrivateModel",
+                      "@ObservableValueRef target must not be private" },
         new Object[]{ "com.example.observable_value_ref.StaticModel", "@ObservableValueRef target must not be static" },
         new Object[]{ "com.example.observable_value_ref.ThrowsExceptionModel",
                       "@ObservableValueRef target must not throw any exceptions" },
@@ -886,11 +887,10 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.FinalModel", "@ObserverRef target must not be final" },
         new Object[]{ "com.example.observer_ref.NoNameModel",
                       "Method annotated with @ObserverRef should specify name or be named according to the convention get[Name]Observer" },
-        new Object[]{ "com.example.observer_ref.ParametersModel",
-                      "@ObserverRef target must not have any parameters" },
+        new Object[]{ "com.example.observer_ref.ParametersModel", "@ObserverRef target must not have any parameters" },
         new Object[]{ "com.example.observer_ref.PrivateModel", "@ObserverRef target must not be private" },
         new Object[]{ "com.example.observer_ref.RefOnNeitherModel",
-                      "@ObserverRef target defined observer named 'render' but no @Observed or @Track method with that name exists" },
+                      "@ObserverRef target defined observer named 'render' but no @Observed method with that name exists" },
         new Object[]{ "com.example.observer_ref.StaticModel", "@ObserverRef target must not be static" },
         new Object[]{ "com.example.observer_ref.VoidReturnModel",
                       "Method annotated with @ObserverRef must return an instance of arez.Observer" },
@@ -998,20 +998,6 @@ public class ArezProcessorTest
                       "Method annotated with @Action specified name x that duplicates @Observable defined by method setTime" },
         new Object[]{ "com.example.name_duplicates.ComputedAndObservableSameNameModel",
                       "Method annotated with @Observable specified name x that duplicates @Computed defined by method m1" },
-        new Object[]{ "com.example.tracked.TrackedDuplicatedModel",
-                      "@Track target duplicates existing method named render" },
-        new Object[]{ "com.example.tracked.TrackedDuplicatedName",
-                      "Method annotated with @Computed specified name render that duplicates @Track defined by method render" },
-        new Object[]{ "com.example.tracked.TrackedAbstractModel", "@Track target must not be abstract" },
-        new Object[]{ "com.example.tracked.TrackedFinalModel", "@Track target must not be final" },
-        new Object[]{ "com.example.tracked.TrackedNotStaticModel", "@Track target must not be static" },
-        new Object[]{ "com.example.tracked.TrackedNotPrivateModel", "@Track target must not be private" },
-        new Object[]{ "com.example.tracked.TrackedMissingOnDepsChanged",
-                      "@Track target has no corresponding @OnDepsChanged that could be automatically determined" },
-        new Object[]{ "com.example.tracked.TrackedBadNameModel",
-                      "@Track target specified an invalid name '-ace'. The name must be a valid java identifier." },
-        new Object[]{ "com.example.tracked.TrackedBadNameModel2",
-                      "@Track target specified an invalid name 'import'. The name must not be a java keyword." },
 
         new Object[]{ "com.example.reference.BadExpectSetterObservableReferenceModel",
                       "@ReferenceId added to @Observable method but expectSetter = false on property which is not compatible with @ReferenceId" },
@@ -1067,7 +1053,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.on_deps_updated.OnDepsChangedBadName3",
                       "@OnDepsChanged target specified an invalid name '-ace-'. The name must be a valid java identifier." },
         new Object[]{ "com.example.on_deps_updated.OnDepsChangedNoTracked",
-                      "@OnDepsChanged target has no corresponding @Track that could be automatically determined" },
+                      "@OnDepsChanged target has no corresponding @Observed that could be automatically determined" },
         new Object[]{ "com.example.post_construct.EjbPostConstructModel",
                       "@javax.annotation.PostConstruct annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.PostConstruct annotation instead." },
         new Object[]{ "com.example.post_construct.PostConstructAbstractModel",
@@ -1098,7 +1084,7 @@ public class ArezProcessorTest
                       "Method can not be annotated with both @Observable and @OnDeactivate" },
         new Object[]{ "com.example.name_duplicates.ObservableAndOnStaleMethodModel",
                       "Method can not be annotated with both @Observable and @OnStale" },
-        new Object[]{ "com.example.name_duplicates.ActionAndAutorunMethodModel",
+        new Object[]{ "com.example.name_duplicates.ActionAndObservedMethodModel",
                       "Method can not be annotated with both @Action and @Observed" },
         new Object[]{ "com.example.name_duplicates.ActionAndComputedMethodModel",
                       "Method can not be annotated with both @Action and @Computed" },
@@ -1118,8 +1104,8 @@ public class ArezProcessorTest
                       "Method can not be annotated with both @Computed and @ComponentId" },
         new Object[]{ "com.example.name_duplicates.ComputedAndPreDisposeMethodModel",
                       "Method can not be annotated with both @Computed and @PreDispose" },
-        new Object[]{ "com.example.name_duplicates.ComputedAndTrackMethodModel",
-                      "Method can not be annotated with both @Track and @Computed" },
+        new Object[]{ "com.example.name_duplicates.ComputedAndObservedMethodModel",
+                      "Method can not be annotated with both @Observed and @Computed" },
         new Object[]{ "com.example.name_duplicates.ComputedAndPostDisposeMethodModel",
                       "Method can not be annotated with both @Computed and @PostDispose" },
         new Object[]{ "com.example.name_duplicates.ComputedAndOnActivateMethodModel",
@@ -1218,7 +1204,6 @@ public class ArezProcessorTest
         new Object[]{ "ObservableValueRef" },
         new Object[]{ "ObserverRef" },
         new Object[]{ "PostConstruct" },
-        new Object[]{ "Track" },
         new Object[]{ "OnDepsChanged" }
       };
   }
