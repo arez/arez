@@ -10,11 +10,11 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverError;
 import arez.ObserverErrorHandler;
-import arez.Priority;
 import arez.SafeFunction;
 import arez.SafeProcedure;
 import arez.spy.ComponentInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.Priority;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -186,9 +186,25 @@ public class WatcherTest
                    Flags.PRIORITY_NORMAL,
                    false );
     final Watcher watcher2 =
-      new Watcher( context, null, ValueUtil.randomString(), true, true, condition2, procedure, Flags.PRIORITY_HIGH, false );
+      new Watcher( context,
+                   null,
+                   ValueUtil.randomString(),
+                   true,
+                   true,
+                   condition2,
+                   procedure,
+                   Flags.PRIORITY_HIGH,
+                   false );
     final Watcher watcher1 =
-      new Watcher( context, null, ValueUtil.randomString(), true, true, condition1, procedure, Flags.PRIORITY_HIGH, false );
+      new Watcher( context,
+                   null,
+                   ValueUtil.randomString(),
+                   true,
+                   true,
+                   condition1,
+                   procedure,
+                   Flags.PRIORITY_HIGH,
+                   false );
 
     assertEquals( context.getSpy().asObserverInfo( watcher1.getObserver() ).getPriority(), Priority.HIGH );
 
