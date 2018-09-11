@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Add integration tests for `@Observed(arezOnlyDependencies=false)`
+
 * Change actions API to start passing bit flags as well.
 
 ## Enhancements
