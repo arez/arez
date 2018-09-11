@@ -129,6 +129,14 @@ public final class Arez_DeprecatedObservedModel3 extends DeprecatedObservedModel
   }
 
   @Override
+  Observer getRenderObserver() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getRenderObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    return $$arez$$_render;
+  }
+
+  @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );

@@ -1,9 +1,11 @@
+import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observed;
+import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 import javax.inject.Singleton;
 
@@ -43,6 +45,9 @@ public abstract class SingletonWithIdModel
   public void onRenderDepsChanged()
   {
   }
+
+  @ObserverRef
+  abstract Observer getRenderObserver();
 
   @Observed( executor = Executor.APPLICATION )
   public void render2( int i )

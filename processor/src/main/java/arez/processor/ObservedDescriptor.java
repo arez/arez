@@ -180,6 +180,13 @@ final class ObservedDescriptor
 
   void validate()
   {
+    if ( _arezExecutor && null != _onDepsChanged && null == _refMethod )
+    {
+      assert null != _observed;
+      throw new ArezProcessorException( "@Observed target with parameter executor=AREZ defined an @OnDepsChanged " +
+                                        "method but has not defined an @ObserverRef method and thus can never" +
+                                        "schedule observer.", _observed );
+    }
     if ( !_arezExecutor && null == _onDepsChanged )
     {
       assert null != _observed;

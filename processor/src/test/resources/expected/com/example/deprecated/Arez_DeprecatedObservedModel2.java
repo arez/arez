@@ -43,7 +43,7 @@ public final class Arez_DeprecatedObservedModel2 extends DeprecatedObservedModel
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DeprecatedObservedModel2", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_render = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.render(), Flags.RUN_LATER );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -122,9 +122,15 @@ public final class Arez_DeprecatedObservedModel2 extends DeprecatedObservedModel
   @Override
   void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'render' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    super.render();
+    try {
+      $$arezi$$_context().safeObserve( this.$$arez$$_render, () -> super.render() );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
   }
 
   @Override

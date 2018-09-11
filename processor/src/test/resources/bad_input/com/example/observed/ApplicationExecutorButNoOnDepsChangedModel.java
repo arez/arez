@@ -1,8 +1,10 @@
 package com.example.observed;
 
+import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observed;
+import arez.annotations.ObserverRef;
 
 @ArezComponent
 public abstract class ApplicationExecutorButNoOnDepsChangedModel
@@ -11,4 +13,7 @@ public abstract class ApplicationExecutorButNoOnDepsChangedModel
   void doStuff()
   {
   }
+
+  @ObserverRef
+  abstract Observer getDoStuffObserver();
 }

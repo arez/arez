@@ -558,6 +558,8 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.observed.ApplicationExecutorButNoOnDepsChangedModel",
                       "@Observed target defined parameter executor=APPLICATION but does not specify an @OnDepsChanged method." },
+        new Object[]{ "com.example.observed.ArezExecutorOnDepsChangedButNoObserverRefModel",
+                      "@Observed target with parameter executor=AREZ defined an @OnDepsChanged method but has not defined an @ObserverRef method and thus can neverschedule observer." },
         new Object[]{ "com.example.observed.ObservedAbstractModel", "@Observed target must not be abstract" },
         new Object[]{ "com.example.observed.ObservedBadNameModel",
                       "@Observed target specified an invalid name '-ace'. The name must be a valid java identifier." },
