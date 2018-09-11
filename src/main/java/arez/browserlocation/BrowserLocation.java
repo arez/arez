@@ -103,7 +103,7 @@ public abstract class BrowserLocation
    *
    * @param targetLocation the location to change to.
    */
-  @Action
+  @Action( verifyRequired = false )
   public void changeLocation( @Nonnull final String targetLocation )
   {
     _targetLocation = targetLocation;
