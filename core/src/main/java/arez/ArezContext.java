@@ -560,7 +560,7 @@ public final class ArezContext
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
    * @param observed the executable observed by the observer.
-   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -572,7 +572,7 @@ public final class ArezContext
   /**
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
-   * @param name    the name of the observer.
+   * @param name     the name of the observer.
    * @param observed the executable observed by the observer.
    * @return the new Observer.
    */
@@ -585,9 +585,9 @@ public final class ArezContext
   /**
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
-   * @param name    the name of the observer.
+   * @param name     the name of the observer.
    * @param observed the executable observed by the observer.
-   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -601,7 +601,7 @@ public final class ArezContext
    *
    * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
-   * @param observed   the executable observed by the observer.
+   * @param observed  the executable observed by the observer.
    * @return the new Observer.
    */
   @Nonnull
@@ -617,7 +617,7 @@ public final class ArezContext
    *
    * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
-   * @param observed   the executable observed by the observer.
+   * @param observed  the executable observed by the observer.
    * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
@@ -636,7 +636,7 @@ public final class ArezContext
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
-   * @param observed       the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observed      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
@@ -653,7 +653,7 @@ public final class ArezContext
    * Create an observer.
    * The user must pass either the <code>observed</code> or <code>onDepsChanged</code> or both parameters.
    *
-   * @param observed       the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observed      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
@@ -667,7 +667,7 @@ public final class ArezContext
    * Create an observer.
    * The user must pass either the <code>observed</code> or <code>onDepsChanged</code> or both parameters.
    *
-   * @param observed       the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observed      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
@@ -685,7 +685,7 @@ public final class ArezContext
    * The user must pass either the <code>observed</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param name          the name of the observer.
-   * @param observed       the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observed      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
@@ -702,7 +702,7 @@ public final class ArezContext
    * The user must pass either the <code>observed</code> or <code>onDepsChanged</code> or both parameters.
    *
    * @param name          the name of the observer.
-   * @param observed       the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observed      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
@@ -722,7 +722,7 @@ public final class ArezContext
    *
    * @param component     the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name          the name of the observer.
-   * @param observed       the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observed      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChanged the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags         the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
