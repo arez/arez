@@ -6,7 +6,7 @@ title: Frequently Asked Questions
 <!-- toc -->
 
 - [Application Development](#application-development)
-  * [Why are @Autorun methods not being re-run when observable properties change?](#why-are-autorun-methods-not-being-re-run-when-observable-properties-change)
+  * [Why are @Observed methods not being re-run when observable properties change?](#why-are-observed-methods-not-being-re-run-when-observable-properties-change)
 - [Library Design](#library-design)
   * [Why do the change events/notifications not include a description of the change?](#why-do-the-change-eventsnotifications-not-include-a-description-of-the-change)
 - [Component Model](#component-model)
@@ -22,10 +22,10 @@ title: Frequently Asked Questions
 
 ## Application Development
 
-### Why are @Autorun methods not being re-run when observable properties change?
+### Why are @Observed methods not being re-run when observable properties change?
 
-Arez only re-runs {@api_url: annotations.Autorun} annotated methods if it is told that an observable property that
-is a dependency of the {@api_url: annotations.Autorun} method is changed. Assuming you are using classes annotated
+Arez only re-runs {@api_url: annotations.Observed} annotated methods if it is told that an observable property that
+is a dependency of the {@api_url: annotations.Observed} method is changed. Assuming you are using classes annotated
 with {@api_url: annotations.ArezComponent}  then this means
 that the code must:
 
@@ -33,7 +33,7 @@ that the code must:
   the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} method to mark the property as changed.
 * access the property using the getter method.. The generated code ultimately calls the
   {@api_url: ObservableValue.reportObserved()::ObservableValue::reportObserved()} method to mark the property as observed.
-  This will add it as a dependency to the containing `@Autorun` method.
+  This will add it as a dependency to the containing `@Observed` method.
 
 Typically this problem arises when you mutate field directly within the same class. Consider this problematic code
 snippet:
