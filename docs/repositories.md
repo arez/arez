@@ -3,8 +3,8 @@ title: Repositories
 ---
 
 Components defined in Arez have an identifier by default. These identifiers may be an explicit value returned
-from a method annotated with {@api_url: annotations.ComponentId} or they may be an implicit
-value that is synthesized by Arez as a monotonically increasing integer for each instance of the component type.
+from a method annotated with {@api_url: annotations.ComponentId} or they may be an implicit value that is
+synthesized by Arez as a monotonically increasing integer for each instance of the component type.
 
 Repositories within Arez are a mechanism for saving references to all non-disposed instances of a particular
 component type within a particular Arez [Zone](/docs/zones.html). Each components is kept in a map with the identifier as
