@@ -23,9 +23,9 @@ The current zone can be manipulated by directly interacting with the `Arez` clas
 
 Zones also work with annotation-based [components](components.md). When components defined by the
 [@ArezComponent](at_arez_component.md) are created, they will invoke {@api_url: Arez.context()::ArezContext::context()}
-and the component will be bound to the current zone. If a method annotated with [@Action](at_action.md),
-[@Observed](at_observed.md) or [@Autorun](at_autorun.md) is invoked, the method will switch to the zone
-in which they were created if is different from the current zone.
+and the component will be bound to the current zone. If a method annotated with [@Action](at_action.md) or
+[@Observed](at_observed.md) is invoked, the method will switch to the zone in which they were created if is
+different from the current zone.
 
 An example that uses components is:
 
