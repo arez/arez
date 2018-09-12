@@ -32,14 +32,19 @@ as standard reactive components.
 
 Sometimes you want to enhance the repository implementation to add other queries or other reactive methods
 such as {@api_url: annotations.Computed} methods. The standard way to do this is to define an interface that
-extends a base extension interface and defines one or more `default` methods that define the extensions that
-you want. These `default` methods can be be annotated with Arez annotations (i.e. {@api_url: annotations.Track},
-{@api_url: annotations.Computed}, {@api_url: annotations.Autorun} etc) and access the underlying repository using
-the `self()` method that is generated on the base extension interface as well as the repository.
+has a method `self()` that returns the repository type and defines one or more `default` methods that define the
+extensions methods are needed. These `default` methods can be be annotated with Arez annotations (i.e.
+{@api_url: annotations.Observed}, {@api_url: annotations.Computed}, {@api_url: annotations.Action} etc) and access
+the underlying repository using the `self()` method.
 
 An extension may look something like:
 
-{@file_content: file=arez/doc/examples/repository/MyComponentRepositoryExtension.java "start_line=public interface"}
+{@file_content: file=arez/doc/examples/repository2/MyComponentRepositoryExtension.java "start_line=public interface"}
 
-This class must then be added to the `extensions` parameter of the {@api_url: annotations.Repository} annotation and these methods will
-be available on the repository.
+This class must then be added to the `extensions` parameter of the {@api_url: annotations.Repository} annotation
+and these methods will be available on the repository.
+
+For example:
+
+{@file_content: file=arez/doc/examples/repository2/MyComponent.java "start_line=@ArezComponent" "end_line={" include_end_line=false}
+
