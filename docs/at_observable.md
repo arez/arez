@@ -41,7 +41,7 @@ changes.
 
 * Disabling the `@Observable` setter via the {@api_url: ObservableValue.expectSetter()::annotations.Observable::expectSetter()}
   parameter on the getter.
-* Accessing the underlying {@api_url: ObservableValue} primitive using the {@api_url: annotations.ObservableRef} annotation.
+* Accessing the underlying {@api_url: ObservableValue} primitive using the {@api_url: annotations.ObservableValueRef} annotation.
   See [accessing primitives](accessing_primitives.md) documentation on details on how this is achieved.
 * Manually invoking {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} in the callback.
 
