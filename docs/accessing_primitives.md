@@ -7,8 +7,11 @@ For most applications, most of the time, this is sufficient. Very occasionally i
 underlying primitives. This could mean getting access to the {@api_url: ObservableValue} instance for
 an {@api_url: annotations.Observable} property, getting access to the {@api_url: ComputedValue} instance for a
 {@api_url: annotations.Computed} property etc. It could also be accessing information about the component such
-as the component name or the components type name. The primary reason that these primitives need to be exposed are to
-enable integration with framework specific DevTools although conceivably there are other valid use cases.
+as the component name or the components type name. Access to the underlying primitives is needed for some reactive
+features (i.e. explicit calls to {@api_url: Observer.schedule()::Observer::schedule()} to manually schedule
+observers or {@api_url: Observer.reportStale()::Observer::reportStale()}/{@api_url: ComputedValue.reportPossiblyChanged()::ComputedValue::reportPossiblyChanged()}
+when non-arez dependencies are included in the system). However another significant reason is to enable integration
+with framework specific DevTools.
 
 Accessing these these primitives is made possible through the user of the `@*Ref` annotations. The `@*Ref`
 annotations are placed on accessor methods that return the appropriate primitive. Some of these `@*Ref` annotations
