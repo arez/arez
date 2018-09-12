@@ -9,8 +9,8 @@ synthesized by Arez as a monotonically increasing integer for each instance of t
 Repositories within Arez are a mechanism for saving references to all non-disposed instances of a particular
 component type within a particular Arez [Zone](/docs/zones.html). Each components is kept in a map with the identifier as
 the key. The repositories have mechanisms for creating, destroying and finding all the component instances. If
-the component type has an explicit identifier marked with a {@api_url: annotations.ComponentId} annotation, the repository also exports
-methods to retrieve individual components.
+the component type has an explicit identifier marked with a {@api_url: annotations.ComponentId} annotation, the
+repository also exports methods to retrieve individual components by id.
 
 Repositories are an opt-in feature and a developer annotates an {@api_url: annotations.ArezComponent} annotated class
 with the {@api_url: annotations.Repository} annotation to indicate that the annotation processor must generate a
