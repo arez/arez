@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Fix up component level documentation for the new annotations
-
 * Change actions API to start passing bit flags as well.
 
 ## Enhancements
