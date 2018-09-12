@@ -18,7 +18,7 @@ The component model supports the definition of callback methods as described in 
 These methods are associated with a `@Computed` annotated method via naming conventions or through explicit
 configuration. The exact requirements for methods annotated by these annotations is defined in the API documentation.
 
-A simpl-ish example that uses the callbacks to register a listener on the underlying browser objects and
+A simplistic example that uses the callbacks to register a listener on the underlying browser objects and
 updates the computed value is as follows. This is extracted and simplified from an existing component that
 manages online state.
 
