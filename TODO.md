@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Fix up component level documentation for the new annotations
-
 * Change actions API to start passing bit flags as well.
 
 ## Enhancements
@@ -111,7 +109,7 @@ complete as there is too much un-said.
 * Document requirements on public API of `Observable`, `ComputedValue` etc. i.e. To call `reportObserved()`
   must be in transaction. To call `reportChanged()` must be in read-write transaction.
 
-* Document creation of component. i.e. The order of operations
+* Document lifecycle of component. i.e. The order of operations
 
 * Performance testing and writeup?
 
