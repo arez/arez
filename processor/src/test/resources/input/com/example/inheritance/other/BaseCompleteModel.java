@@ -6,7 +6,6 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.Action;
-import arez.annotations.Autorun;
 import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
@@ -14,9 +13,11 @@ import arez.annotations.ComponentRef;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import arez.annotations.ContextRef;
+import arez.annotations.Executor;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
+import arez.annotations.Observed;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -25,7 +26,6 @@ import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Track;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -39,13 +39,13 @@ public abstract class BaseCompleteModel
   {
   }
 
-  @Autorun
-  protected void myAutorun()
+  @Observed
+  protected void myWatcher()
   {
   }
 
   @ObserverRef
-  protected abstract Observer getMyAutorunObserver();
+  protected abstract Observer getMyWatcherObserver();
 
   @ComponentId
   protected final byte getId()
@@ -94,10 +94,10 @@ public abstract class BaseCompleteModel
   public abstract void setMyValue( String value );
 
   @Nonnull
-  @ObservableRef
-  protected abstract ObservableValue<String> getMyValueObservable();
+  @ObservableValueRef
+  protected abstract ObservableValue<String> getMyValueObservableValue();
 
-  @Track
+  @Observed( executor = Executor.APPLICATION )
   public void render( final long time, float someOtherParameter )
   {
   }

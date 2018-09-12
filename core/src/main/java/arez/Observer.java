@@ -5,6 +5,7 @@ import arez.spy.ComputeStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
+import arez.spy.Priority;
 import arez.spy.ReactionCompletedEvent;
 import arez.spy.ReactionStartedEvent;
 import java.util.ArrayList;
@@ -44,20 +45,20 @@ public final class Observer
   @Nonnull
   private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
-   * Observed executable to invoke if any.
-   * This may be null if external scheduler is responsible for executing the tracked executable via
-   * methods such as {@link ArezContext#track(Observer, Function, Object...)}. If this is null then
-   * {@link #_onDepsUpdated} must not be null.
+   * Observed function to invoke if any.
+   * This may be null if external executor is responsible for executing the observed function via
+   * methods such as {@link ArezContext#observe(Observer, Function, Object...)}. If this is null then
+   * {@link #_onDepsChanged} must not be null.
    */
   @Nullable
-  private final Procedure _tracked;
+  private final Procedure _observed;
   /**
    * Callback invoked when dependencies are updated.
-   * This may be null when the observer re-executes the tracked executable when dependencies change
-   * bu in that case {@link #_tracked} must not be null.
+   * This may be null when the observer re-executes the observed function when dependencies change
+   * but in that case {@link #_observed} must not be null.
    */
   @Nullable
-  private final Procedure _onDepsUpdated;
+  private final Procedure _onDepsChanged;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -91,19 +92,19 @@ public final class Observer
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
             @Nullable final String name,
-            @Nullable final Procedure tracked,
-            @Nullable final Procedure onDepsUpdated,
+            @Nullable final Procedure observed,
+            @Nullable final Procedure onDepsChanged,
             final int flags )
   {
     this( context,
           component,
           name,
           null,
-          tracked,
-          onDepsUpdated,
+          observed,
+          onDepsChanged,
           flags |
-          ( null == tracked ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
-          Flags.runType( flags, null == tracked ? Flags.RUN_LATER : Flags.RUN_NOW ) |
+          ( null == observed ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
+          Flags.runType( flags, null == observed ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.priority( flags ) |
           Flags.nestedActionRule( flags ) |
           Flags.transactionMode( flags ) );
@@ -113,8 +114,8 @@ public final class Observer
                     @Nullable final Component component,
                     @Nullable final String name,
                     @Nullable final ComputedValue<?> computedValue,
-                    @Nullable final Procedure tracked,
-                    @Nullable final Procedure onDepsUpdated,
+                    @Nullable final Procedure observed,
+                    @Nullable final Procedure onDepsChanged,
                     final int flags )
   {
     super( context, name );
@@ -139,9 +140,9 @@ public final class Observer
       invariant( () -> Flags.isRunTypeValid( flags ),
                  () -> "Arez-0081: Observer named '" + getName() + "' incorrectly specified both " +
                        "RUN_NOW and RUN_LATER flags." );
-      invariant( () -> 0 == ( flags & Flags.RUN_NOW ) || null != tracked,
+      invariant( () -> 0 == ( flags & Flags.RUN_NOW ) || null != observed,
                  () -> "Arez-0206: Observer named '" + getName() + "' incorrectly specified " +
-                       "RUN_NOW flag but the tracked function is null." );
+                       "RUN_NOW flag but the observed function is null." );
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
@@ -150,12 +151,12 @@ public final class Observer
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
                        "has no lower priority." );
-      invariant( () -> null != tracked || null != onDepsUpdated,
+      invariant( () -> null != observed || null != onDepsChanged,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
-                       "tracked parameter or the onDepsUpdated parameter." );
+                       "observed parameter or the onDepsChanged parameter." );
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
-      assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != tracked;
-      assert Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == tracked;
+      assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observed;
+      assert Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == observed;
       invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
                           null != computedValue ),
@@ -174,10 +175,10 @@ public final class Observer
     assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computedValue = computedValue;
-    _tracked = tracked;
-    _onDepsUpdated = onDepsUpdated;
+    _observed = observed;
+    _onDepsChanged = onDepsChanged;
 
-    executeTrackedNextIfPresent();
+    executeObservedNextIfPresent();
 
     if ( null == _computedValue )
     {
@@ -196,7 +197,7 @@ public final class Observer
       {
         getSpy().reportSpyEvent( new ObserverCreatedEvent( asInfo() ) );
       }
-      if ( null != _tracked )
+      if ( null != _observed )
       {
         initialSchedule();
       }
@@ -232,20 +233,22 @@ public final class Observer
 
   /**
    * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
-   * This is true if both a {@link #_tracked} and {@link #_onDepsUpdated} parameters
+   * This is true if both a {@link #_observed} and {@link #_onDepsChanged} parameters
    * are provided at construction.
    */
   boolean supportsManualSchedule()
   {
-    return Arez.shouldCheckApiInvariants() && null != _tracked && null != _onDepsUpdated;
+    assert Arez.shouldCheckApiInvariants();
+    return null != _observed && null != _onDepsChanged;
   }
 
-  boolean isExternalTracker()
+  boolean isApplicationExecutor()
   {
-    return null == _tracked;
+    assert Arez.shouldCheckApiInvariants();
+    return null == _observed;
   }
 
-  boolean canNestActions()
+  boolean nestedActionsAllowed()
   {
     assert Arez.shouldCheckApiInvariants();
     return 0 != ( _flags & Flags.NESTED_ACTIONS_ALLOWED );
@@ -563,7 +566,7 @@ public final class Observer
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule() returns false." );
     }
-    executeTrackedNextIfPresent();
+    executeObservedNextIfPresent();
     scheduleReaction();
     getContext().triggerScheduler();
   }
@@ -619,16 +622,28 @@ public final class Observer
         // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( Flags.STATE_UP_TO_DATE != getState() )
         {
-          if ( shouldExecuteTrackedNext() )
+          if ( shouldExecuteObservedNext() )
           {
-            executeOnDepsUpdatedNextIfPresent();
-            runTrackedExecutable();
+            executeOnDepsChangedNextIfPresent();
+            runObservedFunction();
           }
           else
           {
-            assert null != _onDepsUpdated;
-            _onDepsUpdated.call();
+            assert null != _onDepsChanged;
+            _onDepsChanged.call();
           }
+        }
+        else if ( shouldExecuteObservedNext() )
+        {
+          /*
+           * The observer should invoke onDepsChanged next if the following conditions hold.
+           *  - a manual schedule() invocation
+           *  - the observer is not stale, and
+           *  - there is an onDepsChanged hook present
+           *
+           *  This block ensures this is the case.
+           */
+          executeOnDepsChangedNextIfPresent();
         }
       }
       catch ( final Throwable t )
@@ -650,28 +665,28 @@ public final class Observer
     }
   }
 
-  private void runTrackedExecutable()
+  private void runObservedFunction()
     throws Throwable
   {
-    assert null != _tracked;
+    assert null != _observed;
     final Procedure action;
     if ( Arez.shouldCheckInvariants() && arezOnlyDependencies() )
     {
       action = () -> {
-        _tracked.call();
+        _observed.call();
         final Transaction current = Transaction.current();
 
         final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
-                   () -> "Arez-0172: Autorun observer named '" + getName() + "' completed " +
-                         "reaction but is not observing any properties. As a result the observer will never " +
-                         "be rescheduled. This may not be an autorun candidate." );
+                   () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
+                         "completed observed funnction but is not observing any properties. As a result the observer " +
+                         "will never be rescheduled." );
       };
     }
     else
     {
-      action = _tracked;
+      action = _observed;
     }
     getContext()._action( Arez.areNamesEnabled() ? getName() : null,
                           Arez.shouldEnforceTransactionType() && isMutation(),
@@ -679,7 +694,7 @@ public final class Observer
                           true,
                           action,
                           null == _computedValue,
-                          (Observer) this );
+                          this );
   }
 
   /**
@@ -926,15 +941,15 @@ public final class Observer
   }
 
   @Nullable
-  Procedure getTracked()
+  Procedure getObserved()
   {
-    return _tracked;
+    return _observed;
   }
 
   @Nullable
-  Procedure getOnDepsUpdated()
+  Procedure getOnDepsChanged()
   {
-    return _onDepsUpdated;
+    return _onDepsChanged;
   }
 
   boolean isKeepAlive()
@@ -942,24 +957,24 @@ public final class Observer
     return Flags.KEEPALIVE == Flags.getScheduleType( _flags );
   }
 
-  boolean shouldExecuteTrackedNext()
+  boolean shouldExecuteObservedNext()
   {
-    return 0 != ( _flags & Flags.EXECUTE_TRACKED_NEXT );
+    return 0 != ( _flags & Flags.EXECUTE_OBSERVED_NEXT );
   }
 
-  private void executeTrackedNextIfPresent()
+  void executeObservedNextIfPresent()
   {
-    if ( null != _tracked )
+    if ( null != _observed )
     {
-      _flags |= Flags.EXECUTE_TRACKED_NEXT;
+      _flags |= Flags.EXECUTE_OBSERVED_NEXT;
     }
   }
 
-  private void executeOnDepsUpdatedNextIfPresent()
+  private void executeOnDepsChangedNextIfPresent()
   {
-    if ( null != _onDepsUpdated )
+    if ( null != _onDepsChanged )
     {
-      _flags &= ~Flags.EXECUTE_TRACKED_NEXT;
+      _flags &= ~Flags.EXECUTE_OBSERVED_NEXT;
     }
   }
 }

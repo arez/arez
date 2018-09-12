@@ -55,8 +55,8 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myField = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myField" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_myComputed = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.compute(), Flags.RUN_LATER );
-    this.$$arez$$_zzzzzz = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, () -> super.zapZap(), Flags.RUN_LATER );
-    this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER );
+    this.$$arez$$_zzzzzz = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, () -> super.zapZap(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES_ONLY );
+    this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES_ONLY );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -160,9 +160,23 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   protected void zapZap() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Autorun method named 'zapZap' invoked but @Autorun annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observed method named 'zapZap' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.zapZap();
+  }
+
+  @Override
+  public void render() throws ParseException {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    try {
+      $$arezi$$_context().observe( this.$$arez$$_XX, () -> super.render() );
+    } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
   }
 
   @Override
@@ -185,20 +199,6 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'compute' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return this.$$arez$$_myComputed.get();
-  }
-
-  @Override
-  public void render() throws ParseException {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      $$arezi$$_context().track( this.$$arez$$_XX, () -> super.render() );
-    } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
   }
 
   @Override

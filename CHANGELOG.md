@@ -60,6 +60,36 @@
   generated code for the setter will check that the setter actually made a change to the observable value before
   propagating the change. This makes it possible for a setter to reject a change or transform/normalize a value
   before assigning the value and this may not result in an actual change.
+* 💥 **\[core\]** Replace usage of the `arez.Priority` enum with `arez.annotations.Priority` and `arez.spy.Priority`
+  and remove the `arez.Priority` class. The purpose is to migrate to where it is used and make it easy to identify
+  which code should be stripped during production compiles and under what circumstances. i.e. `arez.annotations.Priority`
+  should never be compiled to javascript and `arez.spy.Priority` should only be present if spies are enabled.
+* 💥 **\[core\]** Rename the `canNestActions` parameter on the `@Autorun` and `@Track` annotation to
+  `nestedActionsAllowed` to align with underlying flags naming convention.
+* 💥 **\[core\]** Rename the `@Autorun` annotation to `@Observed` to reflect naming conventions in the lower level
+  api and to prepare for merging with `@Tracked` annotation.
+* Update the `org.realityforge.guiceyloops:guiceyloops:jar` dependency to version `0.96`.
+* 💥 **\[core\]** Rename the `onDepsUpdated` parameter to `onDepsChanged` to reflect conventions in the rest
+  of the codebase.
+* 💥 **\[core\]** Rename `arez.annotations.ObservableRef` to `arez.annotations.ObservableValueRef`. The default
+  naming convention was also changed from `get[Name]Observable` to `get[Name]ObservableValue`.
+* **\[core\]** Rename the `tracked` parameter on `ArezContext.observer(...)` methods to `observed` to align
+  with documentation.
+* **\[core\]** Merge the `@Tracked` annotation into the `@Observed` annotation. This involved adding an additional
+  parameter `executor` that controls which actor is responsible for invoking the `@Observed` method. By default the
+  `executor` is set to `AREZ` which makes the invocation of the observed method the responsibility of the Arez
+  runtime. It can also be set to `APPLICATION` which means it is the responsibility of the application to invoke
+  the `@Observed` method. Previously you annotated a method with the `@Track` annotation which is equivalent to
+  annotating a method with `@Observed(executor=APPLICATION)`. The annotation processor was then updated to apply
+  different constraints on the method depending upon the value of the `executor` parameter. Support was also added
+  for the `reportParameters` parameter previously present on `@Track` annotation.
+* **\[core\]** Rename the `ArezContext.track(...)` methods to `ArezContext.observe(...)`. This more accurately
+  reflects the intent of the operation.
+* **\[core\]** If an application invoked `Observer.schedule()` on a non-STALE `Observer` with an `observed` method
+  and an `onDepsChanged` hook present then the next time that the `Observer` reacted to changes it would invoke the
+  `observed` method rather than the `onDepsChanged` as expected. This bug has been fixed.
+* **\[core\]** Add support for the `arezOnlyDependencies` parameter to the `@Observed` that makes it possible to
+  specify the flags `AREZ_DEPENDENCIES_ONLY` and `NON_AREZ_DEPENDENCIES` when using the component model.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

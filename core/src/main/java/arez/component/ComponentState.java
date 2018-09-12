@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.ObservableValue;
+import arez.annotations.Observed;
 import javax.annotation.Nonnull;
 
 /**
@@ -28,12 +29,12 @@ public final class ComponentState
   public final static byte COMPONENT_CONSTRUCTED = 2;
   /**
    * The {@link arez.annotations.PostConstruct} method has been invoked and
-   * the {@link arez.Component} has been instantiated. The scheduler has not been triggered.
+   * the {@link arez.Component} has been instantiated. Observers have been scheduled but the scheduler
+   * has not been triggered.
    */
   public final static byte COMPONENT_COMPLETE = 3;
   /**
-   * The scheduler has been triggered and any {@link arez.annotations.Autorun} methods have been invoked
-   * or scheduled.
+   * The scheduler has been triggered and any {@link Observed} methods have been invoked if runtime managed.
    */
   public final static byte COMPONENT_READY = 4;
   /**

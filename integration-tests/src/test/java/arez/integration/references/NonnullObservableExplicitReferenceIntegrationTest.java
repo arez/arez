@@ -66,7 +66,7 @@ public class NonnullObservableExplicitReferenceIntegrationTest
     assertEquals( findCallCount.get(), 1 );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
-    final Observer observer = autorun( () -> {
+    final Observer observer = observer( () -> {
       model1.getModel2();
       observerCallCount.incrementAndGet();
     } );

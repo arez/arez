@@ -20,7 +20,7 @@ public class NormalizingSetterIntegrationTest
     final Model model = Model.create( ValueUtil.randomString() );
 
     final AtomicInteger callCount = new AtomicInteger();
-    autorun( () -> {
+    observer( () -> {
       callCount.incrementAndGet();
       //noinspection ResultOfMethodCallIgnored
       model.getName();

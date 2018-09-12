@@ -5,6 +5,7 @@ import arez.spy.ActionStartedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ComputedValueInfo;
 import arez.spy.ObservableValueChangedEvent;
+import arez.spy.Priority;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.concurrent.atomic.AtomicInteger;

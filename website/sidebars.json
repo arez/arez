@@ -9,7 +9,7 @@
     "Concepts": [
       "concepts",
       "transactions",
-      "observables",
+      "observable_values",
       "computed_values",
       "observers",
       "actions",
@@ -27,8 +27,7 @@
       "at_computed",
       "at_memoize",
       "at_action",
-      "at_autorun",
-      "at_track",
+      "at_observed",
       "at_dependency",
       "repositories",
       "generated_classes",

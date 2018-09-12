@@ -1,7 +1,6 @@
 package arez.spy;
 
 import arez.Arez;
-import arez.Priority;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -31,9 +31,9 @@ public class DisposeIntegrationTest
     final Observer observer =
       context.observer( "Printer",
                         () -> {
-                         observeADependency();
-                         recorder.mark( "qualifiedName", codeModel.getQualifiedName() );
-                       } );
+                          observeADependency();
+                          recorder.mark( "qualifiedName", codeModel.getQualifiedName() );
+                        } );
 
     context.action( "Specific Qualified Name", true, () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
     context.action( "Reset Qualified Name to default", true, () -> codeModel.setQualifiedName( null ) );

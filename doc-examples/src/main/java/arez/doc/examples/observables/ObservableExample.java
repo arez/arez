@@ -15,6 +15,7 @@ public class ObservableExample
 
   public void setValue( final int value )
   {
+    _valueObservableValue.preReportChanged();
     if ( value != _value )
     {
       _value = value;

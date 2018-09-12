@@ -3,7 +3,7 @@ package arez.component;
 import arez.Arez;
 import arez.Disposable;
 import arez.ObservableValue;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import arez.annotations.PreDispose;
 import java.util.HashMap;
 import java.util.List;
@@ -46,10 +46,10 @@ public abstract class AbstractContainer<K, T>
                     () -> "Arez-0136: Called attach() passing an entity that is already attached " +
                           "to the container. Entity: " + entity );
     }
-    getEntitiesObservable().preReportChanged();
+    getEntitiesObservableValue().preReportChanged();
     attachEntity( entity );
     _entities.put( Identifiable.getArezId( entity ), entity );
-    getEntitiesObservable().reportChanged();
+    getEntitiesObservableValue().reportChanged();
   }
 
   /**
@@ -77,7 +77,7 @@ public abstract class AbstractContainer<K, T>
    */
   protected boolean contains( @Nonnull final T entity )
   {
-    getEntitiesObservable().reportObserved();
+    getEntitiesObservableValue().reportObserved();
     return _entities.containsKey( Identifiable.<K>getArezId( entity ) );
   }
 
@@ -115,9 +115,9 @@ public abstract class AbstractContainer<K, T>
     final T removed = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != removed )
     {
-      getEntitiesObservable().preReportChanged();
+      getEntitiesObservableValue().preReportChanged();
       detachEntity( entity, disposeEntity );
-      getEntitiesObservable().reportChanged();
+      getEntitiesObservableValue().reportChanged();
     }
     else
     {
@@ -141,7 +141,7 @@ public abstract class AbstractContainer<K, T>
       ComponentObservable.observe( entity );
       return entity;
     }
-    getEntitiesObservable().reportObserved();
+    getEntitiesObservableValue().reportObserved();
     return null;
   }
 
@@ -171,9 +171,9 @@ public abstract class AbstractContainer<K, T>
    *
    * @return the Arez observable associated with entities observable property.
    */
-  @ObservableRef
+  @ObservableValueRef
   @Nonnull
-  protected abstract ObservableValue getEntitiesObservable();
+  protected abstract ObservableValue getEntitiesObservableValue();
 
   /**
    * Return a stream of all entities in the container.
@@ -193,9 +193,9 @@ public abstract class AbstractContainer<K, T>
       .asDisposeTrackable( entity )
       .getNotifier()
       .addOnDisposeListener( this, () -> {
-        getEntitiesObservable().preReportChanged();
+        getEntitiesObservableValue().preReportChanged();
         detach( entity, false );
-        getEntitiesObservable().reportChanged();
+        getEntitiesObservableValue().reportChanged();
       } );
   }
 

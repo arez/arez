@@ -2,7 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -12,24 +12,24 @@ public class DeferredScheduledTest
   @ArezComponent( deferSchedule = true )
   public static abstract class TestComponent
   {
-    int _autorunCallCount;
+    int _observerCallCount;
 
-    @Autorun
-    void autorun()
+    @Observed
+    void observer()
     {
-      // Observe something so it is valid autorun
+      // Observe something so it is valid observed
       observeADependency();
-      _autorunCallCount++;
+      _observerCallCount++;
     }
   }
 
   @Test
-  public void deferScheduleWillDelayAutorun()
+  public void deferScheduleWillDelayObserver()
   {
     final TestComponent component = new DeferredScheduledTest_Arez_TestComponent();
 
-    assertEquals( component._autorunCallCount, 0 );
+    assertEquals( component._observerCallCount, 0 );
     Arez.context().triggerScheduler();
-    assertEquals( component._autorunCallCount, 1 );
+    assertEquals( component._observerCallCount, 1 );
   }
 }

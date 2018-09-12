@@ -25,7 +25,7 @@ that use [react4j](https://react4j.github.io). The restriction makes it easy to 
 ## Tracking Transactions
 
 Transaction can also be `tracking` or `non-tracking`. A `tracking` transaction detects accesses of
-[observables](observables.md) and [computed values](computed_values.md) within the scope of a transaction.
+[observables](observable_values.md) and [computed values](computed_values.md) within the scope of a transaction.
 The observables and computed values are recorded as dependencies of the running transaction. This makes it
 possible for Arez to monitor the dependencies and re-scheduled the observer that created the `tracking`
 transaction when the dependencies change.
@@ -42,7 +42,7 @@ The simplified rules are:
   observer directly.
 * A [computed value](computed_values.md) can never invoke actions or observers but can access other computed values.
 * An [observer](observers.md) can access computed values and may be able to invoke actions depending on the
-  configuration of the action.
+  configuration of the observer.
 
 It should be noted that these rules are in addition to the rule that a read-write transaction can not be nested
 within a read-only transaction. Actions default to read-write transactions but may be made read-only. Observers
@@ -55,6 +55,6 @@ that is outside a transaction. i.e. A block of code can be run outside a transac
 or read-write transaction is active. This is achieved by invoking the
 {@api_url: ArezContext.noTxAction(*)::ArezContext::noTxAction(arez.Procedure)} methods. This is rarely needed
 and `99.5%` of code should never use this facility. This is only needed if the code invoked behaves differently
-depending on whether it is nested in a transaction or not. It should be noted that this code block should not
+depending on whether it is nested in a transaction or not. It should be noted that the code block **must not**
 attempt to create another transaction as this will violate the invariants of Arez and may result in
 indeterminate behaviour.

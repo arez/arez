@@ -3,10 +3,10 @@ package arez.integration.memoize;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Flags;
-import arez.Priority;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
+import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
@@ -31,9 +31,9 @@ public class MemoizedPriorityIntegrationTest
 
     final ArrayList<String> searches = new ArrayList<>();
 
-    autorun( model, searches, "b" );
-    autorun( model, searches, "blue" );
-    autorun( model, searches, "r" );
+    observer( model, searches, "b" );
+    observer( model, searches, "blue" );
+    observer( model, searches, "r" );
 
     Arez.context().getSpy().addSpyEventHandler( recorder );
 
@@ -77,8 +77,9 @@ public class MemoizedPriorityIntegrationTest
     assertMatchesFixture( recorder );
   }
 
-  private void autorun( @Nonnull final Model model, @Nonnull final ArrayList<String> searches,
-                        @Nonnull final String key )
+  private void observer( @Nonnull final Model model,
+                         @Nonnull final ArrayList<String> searches,
+                         @Nonnull final String key )
   {
     final ArezContext context = Arez.context();
     {

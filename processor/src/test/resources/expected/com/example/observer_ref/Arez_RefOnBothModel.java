@@ -31,10 +31,10 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observer $$arez$$_doStuff;
+  private final Observer $$arez$$_render;
 
   @Nonnull
-  private final Observer $$arez$$_render;
+  private final Observer $$arez$$_doStuff;
 
   public Arez_RefOnBothModel() {
     super();
@@ -45,8 +45,8 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RefOnBothModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER );
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES_ONLY );
+    this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES_ONLY );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -113,8 +113,8 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_doStuff.dispose();
           this.$$arez$$_render.dispose();
+          this.$$arez$$_doStuff.dispose();
         } } );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -124,28 +124,12 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
   }
 
   @Override
-  protected void doStuff() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Autorun method named 'doStuff' invoked but @Autorun annotated methods should only be invoked by the runtime." );
-    }
-    super.doStuff();
-  }
-
-  @Override
-  Observer getDoStuffObserver() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getDoStuffObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    return $$arez$$_doStuff;
-  }
-
-  @Override
   public void render(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeTrack( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
+      $$arezi$$_context().safeObserve( this.$$arez$$_render, () -> super.render(time,someOtherParameter), time, someOtherParameter );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -159,6 +143,22 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getRenderObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return $$arez$$_render;
+  }
+
+  @Override
+  protected void doStuff() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.fail( () -> "Observed method named 'doStuff' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+    }
+    super.doStuff();
+  }
+
+  @Override
+  Observer getDoStuffObserver() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getDoStuffObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+    }
+    return $$arez$$_doStuff;
   }
 
   @Override

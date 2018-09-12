@@ -1,10 +1,10 @@
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
 import arez.annotations.Computed;
+import arez.annotations.Executor;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
 import arez.annotations.OnDepsChanged;
-import arez.annotations.Track;
 import java.text.ParseException;
 
 @ArezComponent( name = "MyContainer" )
@@ -26,7 +26,7 @@ public abstract class OverrideNamesInModel
   {
   }
 
-  @Autorun( name = "zzzzzz" )
+  @Observed( name = "zzzzzz" )
   protected void zapZap()
   {
   }
@@ -37,7 +37,7 @@ public abstract class OverrideNamesInModel
     return 0;
   }
 
-  @Track( name = "XX" )
+  @Observed( executor = Executor.APPLICATION,name = "XX" )
   public void render()
     throws ParseException
   {

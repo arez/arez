@@ -2,7 +2,7 @@
 title: @Memoize
 ---
 
-[Memoization](https://en.wikipedia.org/wiki/Memoization) is an optimization technique used primarily to speed up
+[Memoization](https://en.wikipedia.org/wiki/Memoization) is an optimization technique primarily used to speed up
 computer programs by storing the results of expensive function calls and returning the cached result when the same
 inputs occur again. Arez takes this a step further by making the memoized value observable. The memoized value will
 be re-calculated any time a dependency is updated as long as there is at least one observer.

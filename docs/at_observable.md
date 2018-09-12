@@ -2,7 +2,7 @@
 title: @Observable
 ---
 
-The {@api_url: annotations.Observable} annotation simplifies writing [observable](observables.md) properties.
+The {@api_url: annotations.Observable} annotation simplifies writing [observable](observable_values.md) properties.
 The simplest use-case involves annotating one of a standard getter/setter pair with the annotation.
 
 For example:
@@ -41,7 +41,7 @@ changes.
 
 * Disabling the `@Observable` setter via the {@api_url: ObservableValue.expectSetter()::annotations.Observable::expectSetter()}
   parameter on the getter.
-* Accessing the underlying {@api_url: ObservableValue} primitive using the {@api_url: annotations.ObservableRef} annotation.
+* Accessing the underlying {@api_url: ObservableValue} primitive using the {@api_url: annotations.ObservableValueRef} annotation.
   See [accessing primitives](accessing_primitives.md) documentation on details on how this is achieved.
 * Manually invoking {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} in the callback.
 

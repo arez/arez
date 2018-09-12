@@ -2,9 +2,9 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Track;
+import arez.annotations.Observed;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -127,7 +127,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model1();
     }
 
-    @Autorun
+    @Observed
     void myObserveReaction()
     {
       observeADependency();
@@ -160,7 +160,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Autorun
+    @Observed
     void myObserveReaction()
     {
       getName();
@@ -191,7 +191,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model3();
     }
 
-    @Autorun( mutation = true )
+    @Observed( mutation = true )
     void myObserveReaction()
     {
       observeADependency();
@@ -223,7 +223,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model4();
     }
 
-    @Track
+    @Observed( executor = Executor.APPLICATION )
     public void myObserveReaction()
     {
       setName( "Changed" );
@@ -259,7 +259,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Track
+    @Observed( executor = Executor.APPLICATION )
     public void myObserveReaction()
     {
       getName();
@@ -294,7 +294,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model6();
     }
 
-    @Track( mutation = true )
+    @Observed( executor = Executor.APPLICATION, mutation = true )
     public void myObserveReaction()
     {
       setName( "Changed" );

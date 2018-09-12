@@ -40,38 +40,38 @@ public class MemoizedIntegrationTest
 
     context.observer( "SearchResult - red",
                       () -> {
-                       observeADependency();
-                       if ( Disposable.isNotDisposed( person ) )
-                       {
-                         recorder.mark( "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
-                       }
-                       searchCounts[ 0 ].incrementAndGet();
-                     } );
+                        observeADependency();
+                        if ( Disposable.isNotDisposed( person ) )
+                        {
+                          recorder.mark( "doesSearchMatch - red", person.doesSearchMatch( "red" ) );
+                        }
+                        searchCounts[ 0 ].incrementAndGet();
+                      } );
     final Observer observer3 =
       context.observer( "SearchResult - ill",
                         () -> {
-                         observeADependency();
-                         recorder.mark( "doesSearchMatch - ill", person.doesSearchMatch( "ill" ) );
-                         searchCounts[ 1 ].incrementAndGet();
-                       } );
+                          observeADependency();
+                          recorder.mark( "doesSearchMatch - ill", person.doesSearchMatch( "ill" ) );
+                          searchCounts[ 1 ].incrementAndGet();
+                        } );
     context.observer( "SearchResult - red - 20",
                       () -> {
-                       observeADependency();
-                       if ( Disposable.isNotDisposed( person ) )
-                       {
-                         recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
-                       }
-                       searchCounts[ 2 ].incrementAndGet();
-                     } );
+                        observeADependency();
+                        if ( Disposable.isNotDisposed( person ) )
+                        {
+                          recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                        }
+                        searchCounts[ 2 ].incrementAndGet();
+                      } );
     context.observer( "SearchResult - red - 5",
                       () -> {
-                       observeADependency();
-                       if ( Disposable.isNotDisposed( person ) )
-                       {
-                         recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
-                       }
-                       searchCounts[ 3 ].incrementAndGet();
-                     } );
+                        observeADependency();
+                        if ( Disposable.isNotDisposed( person ) )
+                        {
+                          recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 5 ) );
+                        }
+                        searchCounts[ 3 ].incrementAndGet();
+                      } );
 
     for ( final AtomicInteger count : searchCounts )
     {
@@ -131,9 +131,9 @@ public class MemoizedIntegrationTest
 
     context.observer( "SearchResult - red - 20",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
-                     } );
+                        observeADependency();
+                        recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                      } );
 
     Disposable.dispose( person );
 
@@ -155,9 +155,9 @@ public class MemoizedIntegrationTest
 
     context.observer( "SearchResult - red - 20",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
-                     } );
+                        observeADependency();
+                        recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                      } );
 
     Disposable.dispose( person );
 

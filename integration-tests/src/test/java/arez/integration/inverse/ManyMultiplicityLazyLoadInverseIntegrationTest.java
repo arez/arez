@@ -42,7 +42,7 @@ public class ManyMultiplicityLazyLoadInverseIntegrationTest
     assertEquals( locatorLookupCallCount.get(), 0 );
 
     final AtomicInteger inverseCallCount = new AtomicInteger();
-    autorun( () -> {
+    observer( () -> {
       car.getWheels();
       inverseCallCount.incrementAndGet();
     } );
@@ -70,7 +70,7 @@ public class ManyMultiplicityLazyLoadInverseIntegrationTest
 
     final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
 
-    final Observer wheel1GetCarObserver = autorun( () -> {
+    final Observer wheel1GetCarObserver = observer( () -> {
       wheel1.getCar();
       wheel1GetCarCallCount.incrementAndGet();
     } );
@@ -91,7 +91,6 @@ public class ManyMultiplicityLazyLoadInverseIntegrationTest
       // Resolve the lazy reference
       assertEquals( wheel1.getCar(), car2 );
     } );
-
 
     safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
     safeAction( () -> assertEquals( car2.getWheels().size(), 1 ) );

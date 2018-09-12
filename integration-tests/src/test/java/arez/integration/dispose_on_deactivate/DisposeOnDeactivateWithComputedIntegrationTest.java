@@ -3,11 +3,11 @@ package arez.integration.dispose_on_deactivate;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
-import arez.Priority;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
+import arez.annotations.Priority;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -113,7 +113,7 @@ public class DisposeOnDeactivateWithComputedIntegrationTest
       _model2 = model2;
     }
 
-    @Autorun( mutation = true, priority = Priority.HIGH )
+    @Observed( mutation = true, priority = Priority.HIGH )
     void myAutorun()
     {
       _callCount.incrementAndGet();

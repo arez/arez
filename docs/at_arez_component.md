@@ -7,7 +7,7 @@ The annotation processor detects this annotation and scans the class and all sup
 implemented by the class looking for arez-specific annotations. Methods that that are annotated with an Arez
 annotation and have not been overridden are processed as part of this step.
 
-In the default production mode compilation, Arez components are just collections of [observables](observables.md),
+In the default production mode compilation, Arez components are just collections of [observables](observable_values.md),
 [observers](observers.md) and [computed values](computed_values.md) that are defined in a single class and share
 a similar lifecycle. In development mode [native components](native_components.md) are typically enabled and
 components have a common name from which all elements contained in the component use as the name prefix. Components

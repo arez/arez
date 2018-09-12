@@ -2437,7 +2437,7 @@ public class TransactionTest
     assertEquals( exception.getMessage(),
                   "Arez-0186: Attempting to create transaction named '" + name +
                   "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
-                  "ComputedValues must not invoke actions or track methods as they should derive " +
+                  "ComputedValues must not invoke actions or observe methods as they should derive " +
                   "values from other computeds and observables." );
   }
 
@@ -2458,7 +2458,7 @@ public class TransactionTest
     assertEquals( exception.getMessage(),
                   "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for the " +
                   "observer named '" + tracker.getName() + "' but the transaction is not a top-level transaction " +
-                  "when this is required. This may be a result of nesting a track() call inside an action or " +
+                  "when this is required. This may be a result of nesting a observe() call inside an action or " +
                   "another observer function." );
   }
 
@@ -2479,7 +2479,7 @@ public class TransactionTest
     assertEquals( exception.getMessage(),
                   "Arez-0186: Attempting to create transaction named '" + name +
                   "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
-                  "ComputedValues must not invoke actions or track methods as they should derive " +
+                  "ComputedValues must not invoke actions or observe methods as they should derive " +
                   "values from other computeds and observables." );
   }
 

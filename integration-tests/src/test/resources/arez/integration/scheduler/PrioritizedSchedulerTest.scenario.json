@@ -29,51 +29,51 @@
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ReactionScheduled"
     },
     {
@@ -81,11 +81,11 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun1a",
+        "action": "TestComponent.0.observer1a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -93,20 +93,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1a",
+        "tracker": "TestComponent.0.observer1a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun1a"
+        "transaction": "TestComponent.0.observer1a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1a",
+        "tracker": "TestComponent.0.observer1a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun1a"
+        "transaction": "TestComponent.0.observer1a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun1a",
+        "action": "TestComponent.0.observer1a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -115,15 +115,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun1b",
+        "action": "TestComponent.0.observer1b",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -131,9 +131,9 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1b",
+        "tracker": "TestComponent.0.observer1b",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun1b"
+        "transaction": "TestComponent.0.observer1b"
     },
     {
         "computed": "TestComponent.0.computed1",
@@ -157,14 +157,14 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1b",
+        "tracker": "TestComponent.0.observer1b",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun1b"
+        "transaction": "TestComponent.0.observer1b"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun1b",
+        "action": "TestComponent.0.observer1b",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -173,15 +173,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun2a",
+        "action": "TestComponent.0.observer2a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -189,20 +189,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2a",
+        "tracker": "TestComponent.0.observer2a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2a"
+        "transaction": "TestComponent.0.observer2a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2a",
+        "tracker": "TestComponent.0.observer2a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2a"
+        "transaction": "TestComponent.0.observer2a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2a",
+        "action": "TestComponent.0.observer2a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -211,15 +211,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun2b",
+        "action": "TestComponent.0.observer2b",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -227,20 +227,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2b",
+        "tracker": "TestComponent.0.observer2b",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2b"
+        "transaction": "TestComponent.0.observer2b"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2b",
+        "tracker": "TestComponent.0.observer2b",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2b"
+        "transaction": "TestComponent.0.observer2b"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2b",
+        "action": "TestComponent.0.observer2b",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -249,15 +249,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -265,20 +265,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -287,15 +287,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun3b",
+        "action": "TestComponent.0.observer3b",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -303,20 +303,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3b",
+        "tracker": "TestComponent.0.observer3b",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3b"
+        "transaction": "TestComponent.0.observer3b"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3b",
+        "tracker": "TestComponent.0.observer3b",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3b"
+        "transaction": "TestComponent.0.observer3b"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3b",
+        "action": "TestComponent.0.observer3b",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -325,7 +325,7 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ReactionCompleted"
     },
     {
@@ -347,7 +347,7 @@
         "value": "1"
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ReactionScheduled"
     },
     {
@@ -355,11 +355,11 @@
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionScheduled"
     },
     {
@@ -380,11 +380,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun1a",
+        "action": "TestComponent.0.observer1a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -392,20 +392,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1a",
+        "tracker": "TestComponent.0.observer1a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun1a"
+        "transaction": "TestComponent.0.observer1a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1a",
+        "tracker": "TestComponent.0.observer1a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun1a"
+        "transaction": "TestComponent.0.observer1a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun1a",
+        "action": "TestComponent.0.observer1a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -414,7 +414,7 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ReactionCompleted"
     },
     {
@@ -433,15 +433,15 @@
         "value": "1"
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ReactionScheduled"
     },
     {
@@ -455,11 +455,11 @@
         "type": "ComputeCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun1b",
+        "action": "TestComponent.0.observer1b",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -467,20 +467,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1b",
+        "tracker": "TestComponent.0.observer1b",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun1b"
+        "transaction": "TestComponent.0.observer1b"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun1b",
+        "tracker": "TestComponent.0.observer1b",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun1b"
+        "transaction": "TestComponent.0.observer1b"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun1b",
+        "action": "TestComponent.0.observer1b",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -489,15 +489,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun2a",
+        "action": "TestComponent.0.observer2a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -505,20 +505,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2a",
+        "tracker": "TestComponent.0.observer2a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2a"
+        "transaction": "TestComponent.0.observer2a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2a",
+        "tracker": "TestComponent.0.observer2a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2a"
+        "transaction": "TestComponent.0.observer2a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2a",
+        "action": "TestComponent.0.observer2a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -527,15 +527,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun2b",
+        "action": "TestComponent.0.observer2b",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -543,20 +543,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2b",
+        "tracker": "TestComponent.0.observer2b",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2b"
+        "transaction": "TestComponent.0.observer2b"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2b",
+        "tracker": "TestComponent.0.observer2b",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2b"
+        "transaction": "TestComponent.0.observer2b"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2b",
+        "action": "TestComponent.0.observer2b",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -565,15 +565,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -581,20 +581,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -603,15 +603,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun3b",
+        "action": "TestComponent.0.observer3b",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -619,20 +619,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3b",
+        "tracker": "TestComponent.0.observer3b",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3b"
+        "transaction": "TestComponent.0.observer3b"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3b",
+        "tracker": "TestComponent.0.observer3b",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3b"
+        "transaction": "TestComponent.0.observer3b"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3b",
+        "action": "TestComponent.0.observer3b",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -641,7 +641,7 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ReactionCompleted"
     },
     {
@@ -663,11 +663,11 @@
         "value": "2"
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionScheduled"
     },
     {
@@ -688,11 +688,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun2a",
+        "action": "TestComponent.0.observer2a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -700,20 +700,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2a",
+        "tracker": "TestComponent.0.observer2a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2a"
+        "transaction": "TestComponent.0.observer2a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun2a",
+        "tracker": "TestComponent.0.observer2a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2a"
+        "transaction": "TestComponent.0.observer2a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2a",
+        "action": "TestComponent.0.observer2a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -722,15 +722,15 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -738,20 +738,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -760,7 +760,7 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionCompleted"
     },
     {
@@ -782,7 +782,7 @@
         "value": "3"
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionScheduled"
     },
     {
@@ -803,11 +803,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionStarted"
     },
     {
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -815,20 +815,20 @@
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "mutation": false,
-        "tracker": "TestComponent.0.autorun3a",
+        "tracker": "TestComponent.0.observer3a",
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3a"
+        "transaction": "TestComponent.0.observer3a"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3a",
+        "action": "TestComponent.0.observer3a",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -837,7 +837,7 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ReactionCompleted"
     },
     {
@@ -858,7 +858,7 @@
         "transaction": "TestComponent.0.dispose"
     },
     {
-        "action": "TestComponent.0.autorun1a.dispose",
+        "action": "TestComponent.0.observer1a.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -868,18 +868,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun1a.dispose"
+        "transaction": "TestComponent.0.observer1a.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun1a.dispose"
+        "transaction": "TestComponent.0.observer1a.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun1a.dispose",
+        "action": "TestComponent.0.observer1a.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -888,11 +888,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1a",
+        "observer": "TestComponent.0.observer1a",
         "type": "ObserverDisposed"
     },
     {
-        "action": "TestComponent.0.autorun1b.dispose",
+        "action": "TestComponent.0.observer1b.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -902,18 +902,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun1b.dispose"
+        "transaction": "TestComponent.0.observer1b.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun1b.dispose"
+        "transaction": "TestComponent.0.observer1b.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun1b.dispose",
+        "action": "TestComponent.0.observer1b.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -922,11 +922,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun1b",
+        "observer": "TestComponent.0.observer1b",
         "type": "ObserverDisposed"
     },
     {
-        "action": "TestComponent.0.autorun2a.dispose",
+        "action": "TestComponent.0.observer2a.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -936,18 +936,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2a.dispose"
+        "transaction": "TestComponent.0.observer2a.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2a.dispose"
+        "transaction": "TestComponent.0.observer2a.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2a.dispose",
+        "action": "TestComponent.0.observer2a.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -956,11 +956,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2a",
+        "observer": "TestComponent.0.observer2a",
         "type": "ObserverDisposed"
     },
     {
-        "action": "TestComponent.0.autorun2b.dispose",
+        "action": "TestComponent.0.observer2b.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -970,18 +970,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun2b.dispose"
+        "transaction": "TestComponent.0.observer2b.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun2b.dispose"
+        "transaction": "TestComponent.0.observer2b.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun2b.dispose",
+        "action": "TestComponent.0.observer2b.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -990,11 +990,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun2b",
+        "observer": "TestComponent.0.observer2b",
         "type": "ObserverDisposed"
     },
     {
-        "action": "TestComponent.0.autorun3a.dispose",
+        "action": "TestComponent.0.observer3a.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -1004,18 +1004,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3a.dispose"
+        "transaction": "TestComponent.0.observer3a.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3a.dispose"
+        "transaction": "TestComponent.0.observer3a.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3a.dispose",
+        "action": "TestComponent.0.observer3a.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1024,11 +1024,11 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3a",
+        "observer": "TestComponent.0.observer3a",
         "type": "ObserverDisposed"
     },
     {
-        "action": "TestComponent.0.autorun3b.dispose",
+        "action": "TestComponent.0.observer3b.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -1038,18 +1038,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "TestComponent.0.autorun3b.dispose"
+        "transaction": "TestComponent.0.observer3b.dispose"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.autorun3b.dispose"
+        "transaction": "TestComponent.0.observer3b.dispose"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "TestComponent.0.autorun3b.dispose",
+        "action": "TestComponent.0.observer3b.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -1058,7 +1058,7 @@
         ]
     },
     {
-        "observer": "TestComponent.0.autorun3b",
+        "observer": "TestComponent.0.observer3b",
         "type": "ObserverDisposed"
     },
     {

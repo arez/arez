@@ -341,7 +341,7 @@ final class ObservableDescriptor
     }
     if ( hasRefMethod() )
     {
-      builder.addMethod( buildObservableRefMethod() );
+      builder.addMethod( buildRefMethod() );
     }
   }
 
@@ -349,7 +349,7 @@ final class ObservableDescriptor
    * Generate the accessor for ref method.
    */
   @Nonnull
-  private MethodSpec buildObservableRefMethod()
+  private MethodSpec buildRefMethod()
     throws ArezProcessorException
   {
     assert null != _refMethod;
@@ -833,7 +833,7 @@ final class ObservableDescriptor
         if ( !actual.box().toString().equals( expectedType.toString() ) )
         {
           assert null != _refMethod;
-          throw new ArezProcessorException( "@ObservableRef target has a type parameter of " + expectedType +
+          throw new ArezProcessorException( "@ObservableValueRef target has a type parameter of " + expectedType +
                                             " but @Observable method returns type of " + actual, _refMethod );
         }
       }

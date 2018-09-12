@@ -41,7 +41,7 @@ the changes. The view will be notified that the state has been updated and will 
 current state. When the view is purely a projection of the application state, the update process is relatively
 easy to implement.
 
-In some scenarios it is useful to derive one piece of data once and use it multiple locations. i.e. In the
+In some scenarios it is useful to derive a value once and use it multiple locations. i.e. In the
 shopping cart example, the total value of the goods in the shopping cart may be used to calculate the amount
-left on the voucher and the subtotal. Arez has the ability to cache this value and only recalculate it if it
-becomes stale.
+left on the voucher and the subtotal. Arez has the ability to cache this derive value and only recalculate it
+if it becomes stale.

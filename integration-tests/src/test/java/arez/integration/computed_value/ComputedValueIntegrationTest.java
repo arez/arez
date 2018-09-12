@@ -15,7 +15,7 @@ public class ComputedValueIntegrationTest
   extends AbstractArezIntegrationTest
 {
   /**
-   * Tests integration between autorun and actions and sequencing of operations.
+   * Tests integration between observed and actions and sequencing of operations.
    */
   @Test
   public void personScenario()
@@ -29,14 +29,14 @@ public class ComputedValueIntegrationTest
 
     context.observer( "FirstNamePrinter",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "firstName", person.getFirstName() );
-                     } );
+                        observeADependency();
+                        recorder.mark( "firstName", person.getFirstName() );
+                      } );
     context.observer( "FullNamePrinter",
                       () -> {
-                       observeADependency();
-                       recorder.mark( "fullname", person.getFullName() );
-                     } );
+                        observeADependency();
+                        recorder.mark( "fullname", person.getFullName() );
+                      } );
 
     context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
     context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );

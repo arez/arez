@@ -4,7 +4,7 @@ final class Constants
 {
   static final String ACTION_ANNOTATION_CLASSNAME = "arez.annotations.Action";
   static final String COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ArezComponent";
-  static final String AUTORUN_ANNOTATION_CLASSNAME = "arez.annotations.Autorun";
+  static final String OBSERVED_ANNOTATION_CLASSNAME = "arez.annotations.Observed";
   static final String CASCADE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.CascadeDispose";
   static final String DEPENDENCY_ANNOTATION_CLASSNAME = "arez.annotations.Dependency";
   static final String REFERENCE_ANNOTATION_CLASSNAME = "arez.annotations.Reference";
@@ -19,7 +19,7 @@ final class Constants
   static final String CONTEXT_REF_ANNOTATION_CLASSNAME = "arez.annotations.ContextRef";
   static final String MEMOIZE_ANNOTATION_CLASSNAME = "arez.annotations.Memoize";
   static final String OBSERVABLE_ANNOTATION_CLASSNAME = "arez.annotations.Observable";
-  static final String OBSERVABLE_REF_ANNOTATION_CLASSNAME = "arez.annotations.ObservableRef";
+  static final String OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME = "arez.annotations.ObservableValueRef";
   static final String OBSERVER_REF_ANNOTATION_CLASSNAME = "arez.annotations.ObserverRef";
   static final String ON_ACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnActivate";
   static final String ON_DEACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnDeactivate";
@@ -29,7 +29,6 @@ final class Constants
   static final String POST_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PostDispose";
   static final String PRE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PreDispose";
   static final String REPOSITORY_ANNOTATION_CLASSNAME = "arez.annotations.Repository";
-  static final String TRACK_ANNOTATION_CLASSNAME = "arez.annotations.Track";
   static final String DISPOSABLE_CLASSNAME = "arez.Disposable";
   static final String DISPOSE_TRACKABLE_CLASSNAME = "arez.component.DisposeTrackable";
   static final String EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";

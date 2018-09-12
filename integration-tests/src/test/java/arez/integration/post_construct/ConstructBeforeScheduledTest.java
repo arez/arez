@@ -1,7 +1,7 @@
 package arez.integration.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
@@ -14,8 +14,8 @@ public class ConstructBeforeScheduledTest
   public static abstract class TestComponent
   {
     boolean _postConstructCalled;
-    boolean _autorunCalledBeforePostConstructCalled;
-    boolean _autorunCalled;
+    boolean _observerCalledBeforePostConstructCalled;
+    boolean _observerCalled;
 
     @PostConstruct
     void postConstruct()
@@ -23,27 +23,27 @@ public class ConstructBeforeScheduledTest
       _postConstructCalled = true;
     }
 
-    @Autorun
-    void autorun()
+    @Observed
+    void observer()
     {
-      // Observe something so it is valid autorun
+      // Observe something so it is valid observed
       observeADependency();
 
-      _autorunCalled = true;
+      _observerCalled = true;
       if ( !_postConstructCalled )
       {
-        _autorunCalledBeforePostConstructCalled = true;
+        _observerCalledBeforePostConstructCalled = true;
       }
     }
   }
 
   @Test
-  public void autorunAndPostConstructSequencing()
+  public void observerAndPostConstructSequencing()
   {
     final TestComponent component = new ConstructBeforeScheduledTest_Arez_TestComponent();
 
-    assertTrue( component._autorunCalled );
+    assertTrue( component._observerCalled );
     assertTrue( component._postConstructCalled );
-    assertFalse( component._autorunCalledBeforePostConstructCalled );
+    assertFalse( component._observerCalledBeforePostConstructCalled );
   }
 }

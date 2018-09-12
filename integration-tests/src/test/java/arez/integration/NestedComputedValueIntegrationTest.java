@@ -289,7 +289,7 @@ public class NestedComputedValueIntegrationTest
     private final FilterContext _context;
     private final ArrayList<Node> _children = new ArrayList<>();
     private String _name;
-    // Cached result used in autorun tests
+    // Cached result used in observed tests
     private boolean _isVisibleResult;
 
     @Nonnull

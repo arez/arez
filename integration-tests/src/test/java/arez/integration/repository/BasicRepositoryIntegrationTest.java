@@ -68,9 +68,9 @@ public class BasicRepositoryIntegrationTest
 
     context.observer( "ComponentCount",
                       () -> {
-                       recorder.mark( "ComponentCount", repository.findAll().size() );
-                       callCount.incrementAndGet();
-                     } );
+                        recorder.mark( "ComponentCount", repository.findAll().size() );
+                        callCount.incrementAndGet();
+                      } );
 
     assertEquals( callCount.get(), 1 );
 
@@ -168,7 +168,7 @@ public class BasicRepositoryIntegrationTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    autorun( () -> {
+    observer( () -> {
       repository.findAll().forEach( ComponentObservable::observe );
       callCount.incrementAndGet();
     } );

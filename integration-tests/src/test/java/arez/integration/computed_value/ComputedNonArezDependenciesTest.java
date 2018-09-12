@@ -30,25 +30,25 @@ public class ComputedNonArezDependenciesTest
     final ComputedValue<String> computedValue =
       context.computed( "TestComputed", action, Flags.NON_AREZ_DEPENDENCIES | Flags.KEEPALIVE );
 
-    final AtomicInteger autorunCallCount = new AtomicInteger();
-    autorun( () -> {
-      autorunCallCount.incrementAndGet();
+    final AtomicInteger observerCallCount = new AtomicInteger();
+    observer( () -> {
+      observerCallCount.incrementAndGet();
       computedValue.get();
     } );
 
-    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
     assertEquals( calls.get(), 1 );
 
     context.action( () -> assertEquals( computedValue.get(), "" ) );
 
-    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
     assertEquals( calls.get(), 1 );
 
     context.action( computedValue::reportPossiblyChanged );
 
     context.action( () -> assertEquals( computedValue.get(), "" ) );
 
-    assertEquals( autorunCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
     assertEquals( calls.get(), 2 );
 
     result.set( "NewValue" );
@@ -57,7 +57,7 @@ public class ComputedNonArezDependenciesTest
 
     context.action( () -> assertEquals( computedValue.get(), "NewValue" ) );
 
-    assertEquals( autorunCallCount.get(), 2 );
+    assertEquals( observerCallCount.get(), 2 );
     assertEquals( calls.get(), 3 );
   }
 }

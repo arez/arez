@@ -49,7 +49,7 @@ import static arez.processor.ProcessorUtil.*;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
-  private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observable$" );
+  private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
   private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputedValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
@@ -137,12 +137,9 @@ final class ComponentDescriptor
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   private final Collection<MemoizeDescriptor> _roMemoizes =
     Collections.unmodifiableCollection( _memoizes.values() );
-  private final Map<String, AutorunDescriptor> _autoruns = new LinkedHashMap<>();
-  private final Collection<AutorunDescriptor> _roAutoruns =
-    Collections.unmodifiableCollection( _autoruns.values() );
-  private final Map<String, TrackedDescriptor> _trackeds = new LinkedHashMap<>();
-  private final Collection<TrackedDescriptor> _roTrackeds =
-    Collections.unmodifiableCollection( _trackeds.values() );
+  private final Map<String, ObservedDescriptor> _observeds = new LinkedHashMap<>();
+  private final Collection<ObservedDescriptor> _roObserveds =
+    Collections.unmodifiableCollection( _observeds.values() );
   private final Map<ExecutableElement, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
@@ -222,11 +219,9 @@ final class ComponentDescriptor
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roDependencies.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
-           _roAutoruns.stream().anyMatch( e -> isDeprecated( e.getAutorun() ) ) ||
-           _roMemoizes.stream().anyMatch( e -> isDeprecated( e.getMemoize() ) ) ||
-           _roTrackeds.stream().anyMatch( e -> ( e.hasTrackedMethod() && isDeprecated( e.getTrackedMethod() ) ) ||
-                                               ( e.hasOnDepsChangedMethod() &&
-                                                 isDeprecated( e.getOnDepsChangedMethod() ) ) );
+           _roObserveds.stream().anyMatch( e -> ( e.hasObserved() && isDeprecated( e.getObserved() ) ) ||
+                                                ( e.hasOnDepsChanged() && isDeprecated( e.getOnDepsChanged() ) ) ) ||
+           _roMemoizes.stream().anyMatch( e -> isDeprecated( e.getMemoize() ) );
 
   }
 
@@ -281,9 +276,9 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private TrackedDescriptor findOrCreateTracked( @Nonnull final String name )
+  private ObservedDescriptor findOrCreateObserved( @Nonnull final String name )
   {
-    return _trackeds.computeIfAbsent( name, n -> new TrackedDescriptor( this, n ) );
+    return _observeds.computeIfAbsent( name, n -> new ObservedDescriptor( this, n ) );
   }
 
   @Nonnull
@@ -418,21 +413,21 @@ final class ComponentDescriptor
     return observable;
   }
 
-  private void addObservableRef( @Nonnull final AnnotationMirror annotation,
-                                 @Nonnull final ExecutableElement method,
-                                 @Nonnull final ExecutableType methodType )
+  private void addObservableValueRef( @Nonnull final AnnotationMirror annotation,
+                                      @Nonnull final ExecutableElement method,
+                                      @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !toRawType( returnType ).toString().equals( "arez.ObservableValue" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ObservableRef must return an instance of " +
+      throw new ArezProcessorException( "Method annotated with @ObservableValueRef must return an instance of " +
                                         "arez.ObservableValue", method );
     }
 
@@ -443,8 +438,8 @@ final class ComponentDescriptor
       name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @ObservableRef should specify name or be " +
-                                          "named according to the convention get[Name]Observable", method );
+        throw new ArezProcessorException( "Method annotated with @ObservableValueRef should specify name or be " +
+                                          "named according to the convention get[Name]ObservableValue", method );
       }
     }
     else
@@ -452,12 +447,12 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ObservableRef target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ObservableRef target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
     }
@@ -466,8 +461,8 @@ final class ComponentDescriptor
 
     if ( observable.hasRefMethod() )
     {
-      throw new ArezProcessorException( "Method annotated with @ObservableRef defines duplicate ref accessor for " +
-                                        "observable named " + name, method );
+      throw new ArezProcessorException( "Method annotated with @ObservableValueRef defines duplicate ref " +
+                                        "accessor for observable named " + name, method );
     }
     observable.setRefMethod( method, methodType );
   }
@@ -536,39 +531,37 @@ final class ComponentDescriptor
     }
   }
 
-  private void addAutorun( @Nonnull final AnnotationMirror annotation,
-                           @Nonnull final ExecutableElement method,
-                           @Nonnull final ExecutableType methodType )
+  private void addObserved( @Nonnull final AnnotationMirror annotation,
+                            @Nonnull final ExecutableElement method,
+                            @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeWrappable( getElement(), Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotReturnAnyValue( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotBePublic( Constants.AUTORUN_ANNOTATION_CLASSNAME, method );
-
-    final String name = deriveAutorunName( method, annotation );
-    checkNameUnique( name, method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
+    final String name = deriveObservedName( method, annotation );
+    checkNameUnique( name, method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
-    final boolean canNestActions = getAnnotationParameter( annotation, "canNestActions" );
+    final boolean nestedActionsAllowed = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
-    final AutorunDescriptor autorun =
-      new AutorunDescriptor( this,
-                             name,
-                             mutation,
-                             priority.getSimpleName().toString(),
-                             observeLowerPriorityDependencies,
-                             canNestActions,
-                             method,
-                             methodType );
-    _autoruns.put( autorun.getName(), autorun );
+    final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
+    final VariableElement executor = getAnnotationParameter( annotation, "executor" );
+    final boolean arezOnlyDependencies = getAnnotationParameter( annotation, "arezOnlyDependencies" );
+
+    final ObservedDescriptor observed = findOrCreateObserved( name );
+    observed.setObservedMethod( mutation,
+                                priority.getSimpleName().toString(),
+                                executor.getSimpleName().toString().equals( "AREZ" ),
+                                reportParameters,
+                                arezOnlyDependencies,
+                                observeLowerPriorityDependencies,
+                                nestedActionsAllowed,
+                                method,
+                                methodType );
   }
 
   @Nonnull
-  private String deriveAutorunName( @Nonnull final ExecutableElement method,
-                                    @Nonnull final AnnotationMirror annotation )
+  private String deriveObservedName( @Nonnull final ExecutableElement method,
+                                     @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
@@ -580,12 +573,12 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Autorun target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Observed target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Autorun target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Observed target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
       return name;
@@ -597,59 +590,10 @@ final class ComponentDescriptor
   {
     final String name =
       deriveHookName( method,
-                      TrackedDescriptor.ON_DEPS_CHANGED_PATTERN,
+                      ObservedDescriptor.ON_DEPS_CHANGED_PATTERN,
                       "DepsChanged",
                       getAnnotationParameter( annotation, "name" ) );
-    findOrCreateTracked( name ).setOnDepsChangedMethod( method );
-  }
-
-  private void addTracked( @Nonnull final AnnotationMirror annotation,
-                           @Nonnull final ExecutableElement method,
-                           @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
-  {
-    final String name = deriveTrackedName( method, annotation );
-    checkNameUnique( name, method, Constants.TRACK_ANNOTATION_CLASSNAME );
-    final boolean mutation = getAnnotationParameter( annotation, "mutation" );
-    final boolean observeLowerPriorityDependencies =
-      getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
-    final boolean canNestActions = getAnnotationParameter( annotation, "canNestActions" );
-    final VariableElement priority = getAnnotationParameter( annotation, "priority" );
-    final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
-    final TrackedDescriptor tracked = findOrCreateTracked( name );
-    tracked.setTrackedMethod( mutation,
-                              priority.getSimpleName().toString(),
-                              reportParameters,
-                              observeLowerPriorityDependencies,
-                              canNestActions,
-                              method,
-                              methodType );
-  }
-
-  @Nonnull
-  private String deriveTrackedName( @Nonnull final ExecutableElement method,
-                                    @Nonnull final AnnotationMirror annotation )
-    throws ArezProcessorException
-  {
-    final String name = getAnnotationParameter( annotation, "name" );
-    if ( ProcessorUtil.isSentinelName( name ) )
-    {
-      return method.getSimpleName().toString();
-    }
-    else
-    {
-      if ( !SourceVersion.isIdentifier( name ) )
-      {
-        throw new ArezProcessorException( "@Track target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
-      }
-      else if ( SourceVersion.isKeyword( name ) )
-      {
-        throw new ArezProcessorException( "@Track target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
-      }
-      return name;
-    }
+    findOrCreateObserved( name ).setOnDepsChanged( method );
   }
 
   private void addObserverRef( @Nonnull final AnnotationMirror annotation,
@@ -1107,6 +1051,7 @@ final class ComponentDescriptor
   {
     _roObservables.forEach( ObservableDescriptor::validate );
     _roComputeds.forEach( ComputedDescriptor::validate );
+    _roObserveds.forEach( ObservedDescriptor::validate );
     _roDependencies.forEach( DependencyDescriptor::validate );
     _roReferences.forEach( ReferenceDescriptor::validate );
     _roInverses.forEach( InverseDescriptor::validate );
@@ -1116,37 +1061,36 @@ final class ComponentDescriptor
       _roActions.isEmpty() &&
       _roComputeds.isEmpty() &&
       _roMemoizes.isEmpty() &&
-      _roTrackeds.isEmpty() &&
       _roDependencies.isEmpty() &&
       _roCascadeDisposes.isEmpty() &&
       _roReferences.isEmpty() &&
       _roInverses.isEmpty() &&
-      _roAutoruns.isEmpty();
+      _roObserveds.isEmpty();
 
     if ( !_allowEmpty && hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @Dependency, @Track or @Autorun", _element );
+                                        "@Reference, @Dependency or @Observed", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
                                         "annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @Dependency, @Track or @Autorun", _element );
+                                        "@Reference, @Dependency or @Observed", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
-                                        "annotation parameter but has no methods annotated with @Autorun, " +
+                                        "annotation parameter but has no methods annotated with @Observed, " +
                                         "@Dependency or @Computed(keepAlive=true)", _element );
     }
   }
 
   private boolean requiresSchedule()
   {
-    return !_roAutoruns.isEmpty() ||
+    return !_roObserveds.isEmpty() ||
            !_roDependencies.isEmpty() ||
            _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive );
   }
@@ -1183,26 +1127,17 @@ final class ComponentDescriptor
                          Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                          memoize.getMemoize() );
     }
-    final AutorunDescriptor autorun = _autoruns.get( name );
-    if ( null != autorun )
+    // Observed have pairs so let the caller determine whether a duplicate occurs in that scenario
+    if ( !sourceAnnotationName.equals( Constants.OBSERVED_ANNOTATION_CLASSNAME ) )
     {
-      throw toException( name,
-                         sourceAnnotationName,
-                         sourceMethod,
-                         Constants.AUTORUN_ANNOTATION_CLASSNAME,
-                         autorun.getAutorun() );
-    }
-    // Track have pairs so let the caller determine whether a duplicate occurs in that scenario
-    if ( !sourceAnnotationName.equals( Constants.TRACK_ANNOTATION_CLASSNAME ) )
-    {
-      final TrackedDescriptor tracked = _trackeds.get( name );
-      if ( null != tracked )
+      final ObservedDescriptor observed = _observeds.get( name );
+      if ( null != observed )
       {
         throw toException( name,
                            sourceAnnotationName,
                            sourceMethod,
-                           Constants.TRACK_ANNOTATION_CLASSNAME,
-                           tracked.getTrackedMethod() );
+                           Constants.OBSERVED_ANNOTATION_CLASSNAME,
+                           observed.getObserved() );
       }
     }
     // Observables have pairs so let the caller determine whether a duplicate occurs in that scenario
@@ -1300,7 +1235,7 @@ final class ComponentDescriptor
           }
         }
         name =
-          ProcessorUtil.deriveName( method, TrackedDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          ProcessorUtil.deriveName( method, ObservedDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );
         if ( voidReturn && 0 == parameterCount && null != name )
         {
           onDepsChangeds.put( name, candidateMethod );
@@ -1316,7 +1251,7 @@ final class ComponentDescriptor
     }
 
     linkUnAnnotatedObservables( getters, setters );
-    linkUnAnnotatedTracked( trackeds, onDepsChangeds );
+    linkUnAnnotatedObserved( trackeds, onDepsChangeds );
     linkObserverRefs();
 
     linkDependencies( getters.values() );
@@ -2022,23 +1957,15 @@ final class ComponentDescriptor
     {
       final String key = entry.getKey();
       final CandidateMethod method = entry.getValue();
-      final AutorunDescriptor autorunDescriptor = _autoruns.get( key );
-      if ( null != autorunDescriptor )
+      final ObservedDescriptor observed = _observeds.get( key );
+      if ( null != observed )
       {
-        autorunDescriptor.setRefMethod( method.getMethod(), method.getMethodType() );
+        observed.setRefMethod( method.getMethod(), method.getMethodType() );
       }
       else
       {
-        final TrackedDescriptor trackedDescriptor = _trackeds.get( key );
-        if ( null != trackedDescriptor )
-        {
-          trackedDescriptor.setRefMethod( method.getMethod(), method.getMethodType() );
-        }
-        else
-        {
-          throw new ArezProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
-                                            "@Autorun or @Track method with that name exists", method.getMethod() );
-        }
+        throw new ArezProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
+                                          "@Observed method with that name exists", method.getMethod() );
       }
     }
   }
@@ -2051,8 +1978,8 @@ final class ComponentDescriptor
     {
       if ( !observable.hasSetter() && !observable.hasGetter() )
       {
-        throw new ArezProcessorException( "@ObservableRef target unable to be associated with an Observable property",
-                                          observable.getRefMethod() );
+        throw new ArezProcessorException( "@ObservableValueRef target unable to be associated with an " +
+                                          "Observable property", observable.getRefMethod() );
       }
       else if ( !observable.hasSetter() && observable.expectSetter() )
       {
@@ -2089,42 +2016,39 @@ final class ComponentDescriptor
     }
   }
 
-  private void linkUnAnnotatedTracked( @Nonnull final Map<String, CandidateMethod> trackeds,
-                                       @Nonnull final Map<String, CandidateMethod> onDepsChangeds )
+  private void linkUnAnnotatedObserved( @Nonnull final Map<String, CandidateMethod> observeds,
+                                        @Nonnull final Map<String, CandidateMethod> onDepsChangeds )
     throws ArezProcessorException
   {
-    for ( final TrackedDescriptor tracked : _roTrackeds )
+    for ( final ObservedDescriptor observed : _roObserveds )
     {
-      if ( !tracked.hasTrackedMethod() )
+      if ( !observed.hasObserved() )
       {
-        final CandidateMethod candidate = trackeds.remove( tracked.getName() );
+        final CandidateMethod candidate = observeds.remove( observed.getName() );
         if ( null != candidate )
         {
-          tracked.setTrackedMethod( false,
-                                    "NORMAL",
-                                    true,
-                                    false,
-                                    false,
-                                    candidate.getMethod(),
-                                    candidate.getMethodType() );
+          observed.setObservedMethod( false,
+                                      "NORMAL",
+                                      true,
+                                      true,
+                                      true,
+                                      false,
+                                      false,
+                                      candidate.getMethod(),
+                                      candidate.getMethodType() );
         }
         else
         {
-          throw new ArezProcessorException( "@OnDepsChanged target has no corresponding @Track that could " +
-                                            "be automatically determined", tracked.getOnDepsChangedMethod() );
+          throw new ArezProcessorException( "@OnDepsChanged target has no corresponding @Observed that could " +
+                                            "be automatically determined", observed.getOnDepsChanged() );
         }
       }
-      else if ( !tracked.hasOnDepsChangedMethod() )
+      else if ( !observed.hasOnDepsChanged() )
       {
-        final CandidateMethod candidate = onDepsChangeds.remove( tracked.getName() );
+        final CandidateMethod candidate = onDepsChangeds.remove( observed.getName() );
         if ( null != candidate )
         {
-          tracked.setOnDepsChangedMethod( candidate.getMethod() );
-        }
-        else
-        {
-          throw new ArezProcessorException( "@Track target has no corresponding @OnDepsChanged that could " +
-                                            "be automatically determined", tracked.getTrackedMethod() );
+          observed.setOnDepsChanged( candidate.getMethod() );
         }
       }
     }
@@ -2138,12 +2062,12 @@ final class ComponentDescriptor
 
     final AnnotationMirror action =
       ProcessorUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
-    final AnnotationMirror autorun =
-      ProcessorUtil.findAnnotationByType( method, Constants.AUTORUN_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observed =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
     final AnnotationMirror observable =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
-    final AnnotationMirror observableRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror observableValueRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror computed =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     final AnnotationMirror computedValueRef =
@@ -2172,8 +2096,6 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onStale =
       ProcessorUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
-    final AnnotationMirror track =
-      ProcessorUtil.findAnnotationByType( method, Constants.TRACK_ANNOTATION_CLASSNAME );
     final AnnotationMirror onDepsChanged =
       ProcessorUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME );
     final AnnotationMirror observerRef =
@@ -2202,9 +2124,9 @@ final class ComponentDescriptor
       }
       return true;
     }
-    else if ( null != observableRef )
+    else if ( null != observableValueRef )
     {
-      addObservableRef( observableRef, method, methodType );
+      addObservableValueRef( observableValueRef, method, methodType );
       return true;
     }
     else if ( null != action )
@@ -2212,14 +2134,9 @@ final class ComponentDescriptor
       addAction( action, method, methodType );
       return true;
     }
-    else if ( null != autorun )
+    else if ( null != observed )
     {
-      addAutorun( autorun, method, methodType );
-      return true;
-    }
-    else if ( null != track )
-    {
-      addTracked( track, method, methodType );
+      addObserved( observed, method, methodType );
       return true;
     }
     else if ( null != onDepsChanged )
@@ -2378,12 +2295,11 @@ final class ComponentDescriptor
   {
     final String[] annotationTypes =
       new String[]{ Constants.ACTION_ANNOTATION_CLASSNAME,
-                    Constants.AUTORUN_ANNOTATION_CLASSNAME,
-                    Constants.TRACK_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVED_ANNOTATION_CLASSNAME,
                     Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVABLE_REF_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.MEMOIZE_ANNOTATION_CLASSNAME,
@@ -2589,11 +2505,10 @@ final class ComponentDescriptor
     }
 
     _roObservables.forEach( e -> e.buildMethods( builder ) );
-    _roAutoruns.forEach( e -> e.buildMethods( builder ) );
+    _roObserveds.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
     _roMemoizes.forEach( e -> e.buildMethods( builder ) );
-    _roTrackeds.forEach( e -> e.buildMethods( builder ) );
     _roReferences.forEach( e -> e.buildMethods( builder ) );
     _roInverses.forEach( e -> e.buildMethods( builder ) );
 
@@ -3105,8 +3020,7 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     }
-    _roAutoruns.forEach( autorun -> autorun.buildDisposer( actionBlock ) );
-    _roTrackeds.forEach( tracked -> tracked.buildDisposer( actionBlock ) );
+    _roObserveds.forEach( observed -> observed.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
     _roMemoizes.forEach( computed -> computed.buildDisposer( actionBlock ) );
     _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
@@ -3350,8 +3264,7 @@ final class ComponentDescriptor
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
     _roMemoizes.forEach( e -> e.buildFields( builder ) );
-    _roAutoruns.forEach( autorun -> autorun.buildFields( builder ) );
-    _roTrackeds.forEach( tracked -> tracked.buildFields( builder ) );
+    _roObserveds.forEach( observed -> observed.buildFields( builder ) );
     _roReferences.forEach( r -> r.buildFields( builder ) );
     if ( _disposeOnDeactivate )
     {
@@ -3600,8 +3513,7 @@ final class ComponentDescriptor
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
     _roMemoizes.forEach( e -> e.buildInitializer( builder ) );
-    _roAutoruns.forEach( autorun -> autorun.buildInitializer( builder ) );
-    _roTrackeds.forEach( tracked -> tracked.buildInitializer( builder ) );
+    _roObserveds.forEach( observed -> observed.buildInitializer( builder ) );
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
 
     for ( final DependencyDescriptor dep : _roDependencies )

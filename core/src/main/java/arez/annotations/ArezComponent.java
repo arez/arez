@@ -9,8 +9,7 @@ import javax.annotation.Nonnull;
 /**
  * Annotation that marks classes to be processed by Arez annotation processor.
  * Classes with this annotation can contain {@link Observable} properties,
- * {@link Computed} properties, {@link Autorun} methods, {@link Track} methods
- * and {@link Action} methods.
+ * {@link Computed} properties, {@link Observed} methods and {@link Action} methods.
  *
  * <p>The annotation controls the way that contained actions and observables are
  * named (if names are enabled in the system.</p>
@@ -33,7 +32,7 @@ import javax.annotation.Nonnull;
  * <li>Must be concrete, not abstract</li>
  * <li>Must not be final</li>
  * <li>Must not be a non-static nested class</li>
- * <li>Must have at least one method annotated with {@link Action}, {@link Autorun}, {@link Track}, {@link Computed} or {@link Observable}</li>
+ * <li>Must have at least one method annotated with {@link Action}, {@link Observed}, {@link Computed} or {@link Observable}</li>
  * </ul>
  *
  * <p>The annotation processor that handles this annotation will analyze all super classes and super
@@ -65,7 +64,7 @@ public @interface ArezComponent
 
   /**
    * Return true if the component does not need to explicitly declare elements.
-   * Otherwise if no elements (i.e. {@link Observable}s, {@link Action}s, {@link Autorun}s etc) are defined
+   * Otherwise if no elements (i.e. {@link Observable}s, {@link Action}s, {@link Observed}s etc) are defined
    * on a component it will generate an error.
    *
    * @return true if the component does not need to explicitly declare elements, false otherwise.
@@ -139,11 +138,11 @@ public @interface ArezComponent
   Feature dagger() default Feature.AUTODETECT;
 
   /**
-   * Return true if an the generated component should NOT schedule autorun actions at the end of the
-   * constructor. This is useful if the component creator will trigger schedules manually at a later time.
-   * This MUST be false if there is no autorun methods annotated on the component.
+   * Return true if an the generated component should NOT trigger scheduler at the end of the constructor.
+   * This is useful if the component creator will trigger schedules manually at a later time.
+   * This MUST be false if there is no observed methods annotated on the component.
    *
-   * @return Return true if an the generated component should NOT schedule autorun actions at the end of the constructor.
+   * @return return true if an the generated component should NOT trigger scheduler at the end of the constructor.
    */
   boolean deferSchedule() default false;
 

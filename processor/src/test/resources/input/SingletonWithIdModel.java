@@ -1,10 +1,12 @@
+import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Autorun;
 import arez.annotations.Computed;
+import arez.annotations.Executor;
 import arez.annotations.Observable;
+import arez.annotations.Observed;
+import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
-import arez.annotations.Track;
 import javax.inject.Singleton;
 
 @SuppressWarnings( "DefaultAnnotationParam" )
@@ -34,8 +36,8 @@ public abstract class SingletonWithIdModel
     return 0;
   }
 
-  @Track
-  public void render()
+  @Observed
+  void render()
   {
   }
 
@@ -44,7 +46,20 @@ public abstract class SingletonWithIdModel
   {
   }
 
-  @Autorun
+  @ObserverRef
+  abstract Observer getRenderObserver();
+
+  @Observed( executor = Executor.APPLICATION )
+  public void render2( int i )
+  {
+  }
+
+  @OnDepsChanged
+  protected void onRender2DepsChanged()
+  {
+  }
+
+  @Observed
   protected void myAutorun()
   {
   }

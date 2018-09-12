@@ -1,12 +1,12 @@
 package com.example.package_access.other;
 
 import arez.Observer;
-import arez.annotations.Autorun;
+import arez.annotations.Observed;
 import arez.annotations.ObserverRef;
 
 public abstract class BaseObserverRefModel
 {
-  @Autorun
+  @Observed
   protected void doStuff()
   {
   }

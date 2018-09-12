@@ -12,8 +12,8 @@ import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
 import arez.SafeFunction;
-import arez.spy.SpyEventHandler;
 import arez.Zone;
+import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -505,21 +505,21 @@ public class ExternalApiTest
     final ObservableValue observableValue1 = context1.observable();
     final ObservableValue observableValue2 = context2.observable();
 
-    final AtomicInteger autorunCallCount1 = new AtomicInteger();
-    final AtomicInteger autorunCallCount2 = new AtomicInteger();
+    final AtomicInteger observerCallCount1 = new AtomicInteger();
+    final AtomicInteger observerCallCount2 = new AtomicInteger();
 
     context1.observer( () -> {
       observableValue1.reportObserved();
-      autorunCallCount1.incrementAndGet();
+      observerCallCount1.incrementAndGet();
     } );
 
     context2.observer( () -> {
       observableValue2.reportObserved();
-      autorunCallCount2.incrementAndGet();
+      observerCallCount2.incrementAndGet();
     } );
 
-    assertEquals( autorunCallCount1.get(), 1 );
-    assertEquals( autorunCallCount2.get(), 1 );
+    assertEquals( observerCallCount1.get(), 1 );
+    assertEquals( observerCallCount2.get(), 1 );
 
     assertNotInTransaction( context1, observableValue1 );
     assertNotInTransaction( context2, observableValue2 );
@@ -546,16 +546,16 @@ public class ExternalApiTest
             observableValue2.reportChanged();
           } );
 
-          assertEquals( autorunCallCount1.get(), 1 );
+          assertEquals( observerCallCount1.get(), 1 );
           context1.action( () -> assertInTransaction( context1, observableValue1 ) );
-          // Still no autorun reaction as it has transaction up the stack
-          assertEquals( autorunCallCount1.get(), 1 );
+          // Still no observer reaction as the top-level transaction has not yet completed
+          assertEquals( observerCallCount1.get(), 1 );
 
-          assertEquals( autorunCallCount2.get(), 1 );
+          assertEquals( observerCallCount2.get(), 1 );
         } );
 
         // Second context runs now as it got to it's top level transaction
-        assertEquals( autorunCallCount2.get(), 2 );
+        assertEquals( observerCallCount2.get(), 2 );
 
         assertInTransaction( context1, observableValue1 );
         assertNotInTransaction( context2, observableValue2 );
@@ -565,8 +565,8 @@ public class ExternalApiTest
       assertNotInTransaction( context2, observableValue2 );
     } );
 
-    assertEquals( autorunCallCount1.get(), 2 );
-    assertEquals( autorunCallCount2.get(), 2 );
+    assertEquals( observerCallCount1.get(), 2 );
+    assertEquals( observerCallCount2.get(), 2 );
 
     assertNotInTransaction( context1, observableValue1 );
     assertNotInTransaction( context2, observableValue2 );
@@ -671,7 +671,7 @@ public class ExternalApiTest
 
     context.observer( () -> {
       observable.reportObserved();
-      trace.add( "Autorun" );
+      trace.add( "Observer" );
     } );
 
     context.safeAction( () -> {
@@ -681,17 +681,17 @@ public class ExternalApiTest
 
     assertEquals( trace,
                   Arrays.asList( /*
-                                  * Initial autorun reaction as runImmediate parameter was true
+                                  * Initial observer reaction as runImmediate parameter was true
                                   */
-                                 "PreTrace", "Autorun", "PostTrace",
+                                 "PreTrace", "Observer", "PostTrace",
                                  /*
                                   * Explicit action!
                                   */
                                  "Action",
                                  /*
-                                  * Action triggers scheduler and autorun reacts to changes
+                                  * Action triggers scheduler and observer reacts to changes
                                   */
-                                 "PreTrace", "Autorun", "PostTrace" ) );
+                                 "PreTrace", "Observer", "PostTrace" ) );
   }
 
   /**

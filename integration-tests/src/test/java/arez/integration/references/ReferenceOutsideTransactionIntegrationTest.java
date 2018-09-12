@@ -53,7 +53,7 @@ public class ReferenceOutsideTransactionIntegrationTest
     assertEquals( findCallCount.get(), 1 );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
-    autorun( () -> {
+    observer( () -> {
       model1.getModel2();
       observerCallCount.incrementAndGet();
     } );

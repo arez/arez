@@ -39,7 +39,7 @@ public class DisposeManyInverseIntegrationTest
     assertEquals( locatorLookupCallCount.get(), 0 );
 
     final AtomicInteger inverseCallCount = new AtomicInteger();
-    final Observer inverseObserver = autorun( () -> {
+    final Observer inverseObserver = observer( () -> {
       car.getWheels();
       inverseCallCount.incrementAndGet();
     } );
@@ -51,7 +51,7 @@ public class DisposeManyInverseIntegrationTest
     assertEquals( inverseCallCount.get(), 2 );
 
     final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
-    final Observer wheel1GetCarObserver = autorun( () -> {
+    final Observer wheel1GetCarObserver = observer( () -> {
       wheel1.getCar();
       wheel1GetCarCallCount.incrementAndGet();
     } );

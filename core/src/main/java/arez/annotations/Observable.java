@@ -51,7 +51,7 @@ public @interface Observable
 
   /**
    * Set this to false if there is no setter method and the component is
-   * expected to use {@link ObservableRef} to indicate when value has changed.
+   * expected to use {@link ObservableValueRef} to indicate when value has changed.
    *
    * @return true if there is expected to be a setter, false if there should be no setter.
    */

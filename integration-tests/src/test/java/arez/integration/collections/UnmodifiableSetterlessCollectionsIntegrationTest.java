@@ -3,7 +3,7 @@ package arez.integration.collections;
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.ObservableRef;
+import arez.annotations.ObservableValueRef;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Arrays;
 import java.util.Collection;
@@ -100,12 +100,12 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
 
     void setValue( @Nonnull final HashSet<String> value )
     {
-      getValueObservable().preReportChanged();
+      getValueObservableValue().preReportChanged();
       _value = value;
-      getValueObservable().reportChanged();
+      getValueObservableValue().reportChanged();
     }
 
-    @ObservableRef
-    abstract ObservableValue getValueObservable();
+    @ObservableValueRef
+    abstract ObservableValue getValueObservableValue();
   }
 }
