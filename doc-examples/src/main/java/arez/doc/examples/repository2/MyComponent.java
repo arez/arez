@@ -1,12 +1,15 @@
-package arez.doc.examples.repository;
+package arez.doc.examples.repository2;
 
+import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
-public class MyComponent
+@ArezComponent
+@Repository( extensions = MyComponentRepositoryExtension.class )
+public abstract class MyComponent
 {
   private final int _id;
   @Nonnull

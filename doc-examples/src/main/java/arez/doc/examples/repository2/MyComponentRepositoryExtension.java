@@ -1,10 +1,10 @@
-package arez.doc.examples.repository;
+package arez.doc.examples.repository2;
 
 import arez.annotations.Computed;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 public interface MyComponentRepositoryExtension
-  extends MyComponentBaseRepositoryExtension
 {
   @Computed
   default boolean isEmpty()
@@ -17,4 +17,7 @@ public interface MyComponentRepositoryExtension
   {
     return self().findAllByQuery( MyComponent::isActive );
   }
+
+  @Nonnull
+  MyComponentRepository self();
 }
