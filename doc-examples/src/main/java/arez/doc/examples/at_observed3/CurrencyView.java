@@ -1,4 +1,4 @@
-package arez.doc.examples.at_track;
+package arez.doc.examples.at_observed3;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
@@ -21,7 +21,7 @@ public abstract class CurrencyView
   @OnDepsChanged
   void onRenderDepsChanged()
   {
-    // Schedule this compon
+    // Schedule this component
     scheduleRender();
   }
 
