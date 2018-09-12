@@ -16,7 +16,8 @@ the annotation processor.
 Typically when using Arez component in an application that uses dependency injection, the consuming
 code will use `@Inject` to get references to the base component (i.e. `com.example.MyComponent`) or
 the base repository (i.e. `com.example.MyComponentRepository`). The consumer code ends up looking
-something like one of the following examples depending on whether constructor based injection is used.
+something like one of the following examples depending on whether field or constructor based injection
+is used.
 
 {@file_content: file=arez/doc/examples/inject1/ExampleConsumer.java "start_line=public class"}
 
