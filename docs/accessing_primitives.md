@@ -29,7 +29,3 @@ The `@*Ref` annotations include the following:
 * {@api_url: annotations.ComponentRef}: This method exposes the native {@api_url: Component}
   associated with the component. This method should **NOT** be invoked unless native components are enabled. See
   the [Native Components](native_components.md) section of the documentation to understand how native components are enabled.
-
-It should be noted that the `@*Ref` annotations are all marked with the `@Unsupported` annotation. The primary
-reason is that it is possible that the way this feature is implemented may change in the future. Ideally use of
-the `@*Ref` annotations should be restricted to framework authors to make migration in the future easier.
