@@ -67,6 +67,9 @@ task 'site:link_check' do
     excludes << 'https://docs.oracle.com/javase/8/docs/api'
     excludes << 'https://buildr.apache.org'
     excludes << 'https://maven.apache.org'
+    # This next line is required if updating docs in branch and adding new
+    # pages then this url may not exist until it is merged to master
+    excludes << 'https://github.com/arez/arez/tree/master/docs'
     DOWNSTREAM_PROJECTS.each do |project_name|
       excludes << "#{base_url}/#{project_name.gsub(/^arez-/, '')}"
     end
