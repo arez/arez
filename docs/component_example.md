@@ -6,8 +6,8 @@ sidebar_label: Example
 If you are here it is assumed that you understand the [conceptual model](concepts.md) of Arez and are ready to
 start building reactive components. A reactive component is annotated with the {@api_url: annotations.ArezComponent}
 annotation. Depending on the role the reactive component has in the system it may have one or more methods annotated
-with {@api_url: annotations.Observable}, {@api_url: annotations.Computed}, {@api_url: annotations.Action},
-{@api_url: annotations.Autorun} or {@api_url: annotations.Track}.
+with {@api_url: annotations.Observable}, {@api_url: annotations.Computed}, {@api_url: annotations.Action} or
+{@api_url: annotations.Observed}.
 
 When the component is compiled by the java compiler, an annotation processor analyzes the component
 and verifies that the annotations make sense. The processor then generates a class that extends and
@@ -69,22 +69,22 @@ we could define it using a method such as:
 You will notice that this method implementation uses both the setter and getter when modifying the `remainingRides`
 observable property. If the code did not use the setter then downstream observers would not be notified of the
 change. If the code did not use the getter then no problem would arise within the context of this method.
-however it can be a problem in other contexts (i.e. an {@api_url: annotations.Autorun} methods) so for the sake of consistency and
+however it can be a problem in other contexts (i.e. an {@api_url: annotations.Observed} method) so for the sake of consistency and
 simplicity we recommend that you always use the getter and setter when interacting with observable properties.
 
-## Autorun reactions
+## Observers
 
 So far we have an entity with an observable property that we can read and write using an action. The application
 is not yet reactive. However let's imagine the application needs to notify the user when the value of the observable
-property `remainingRides` reaches `0`. We can do this using a method annotated with {@api_url: annotations.Autorun}
+property `remainingRides` reaches `0`. We can do this using a method annotated with {@api_url: annotations.Observed}
 such as
 
-{@file_content: file=arez/doc/examples/step4/TrainTicket.java start_line=@Autorun "end_line=^  \}" strip_block=true}
+{@file_content: file=arez/doc/examples/step4/TrainTicket.java start_line=@Observed "end_line=^  \}" strip_block=true}
 
 Any time that this method is executed, Arez will track which observable properties are accessed within the method.
-If the values of any of these observable properties changes, Arez will schedule this method to be re-run in the
-reactions phase. The very last step of constructing an arez component executes all the {@api_url: annotations.Autorun}
-annotated methods, ensuring that Arez knows which observable properties the {@api_url: annotations.Autorun} method is
+If the values of any of these observable properties changes, Arez will schedule this method to be re-run. The very
+last step of constructing an arez component executes all the {@api_url: annotations.Observed}
+annotated methods, ensuring that Arez knows which observable properties the {@api_url: annotations.Observed} method is
 dependent on.
 
 This means that that any time the `remainingRides` observable property is modified, Arez will execute this method.
@@ -98,33 +98,37 @@ would notice that it is called every time that the `remainingRides` observable p
 the `notifyUserWhenTicketExpires()` method would be invoked `10` times.
 
 For such a lightweight method this may not have a significant performance impact. If the method performed more
-expensive operations such as updating parts of the UI then you may want to optimize the {@api_url: annotations.Autorun}
-annotated method so that it is only invoked when there is actual work to do. The easiest way to do this is to use a
-{@api_url: annotations.Computed} property as illustrated below.
+expensive operations such as updating parts of the UI then you may want to optimize the method annotated with
+{@api_url: annotations.Observed} so that it is only invoked when there is actual work to do. The easiest way
+to do this is to use a {@api_url: annotations.Computed} property as illustrated below.
 
 {@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Computed "end_line=^\}" include_end_line=false strip_block=true}
 
-Extracting the test `0 == getRemainingRides()` as a `ticketExpired` computed property will mean that the {@api_url: annotations.Autorun}
+Extracting the test `0 == getRemainingRides()` as a `ticketExpired` computed property will mean that the {@api_url: annotations.Observed}
 method no longer has a direct dependency on the `remainingRides` observable property and instead has a dependency
 on the `ticketExpired` computed property property so `notifyUserWhenTicketExpires()` will only be invoked when the
 `ticketExpired` computed property changes value. In the above scenario this would mean that the
 `notifyUserWhenTicketExpires()` method would only be invoked `2` times. The `ticketExpired` computed property
-would be recalculated `10` times but it is assumed the that this is significantly less expensive than the {@api_url: annotations.Autorun}
+would be recalculated `10` times but it is assumed the that this is significantly less expensive than the {@api_url: annotations.Observed}
 method.
 
-## Track and OnDepsChanged
+## Observers and OnDepsChanged
 
-There are times at which it is not possible for Arez to directly schedule and execute a reaction. Existing
+There are times at which it is not possible for Arez to directly schedule and execute an observed method. Existing
 frameworks will have their own mechanisms for scheduling work and if you need to integrate Arez into these
 frameworks you need to decouple the scheduling and execution of reactions. Another scenario where more more
 explicit control over scheduling and execution is required is when you want to rate-limit or "debounce" the
-change notifications to limit the number of times a reaction executes.
+change notifications to limit the number of times an observed method executes.
 
-To achieve either of these goals, you need to use the {@api_url: annotations.Track} and {@api_url: annotations.OnDepsChanged} annotations. The {@api_url: annotations.Track} annotation wraps a method in a tracking transaction which allows the Arez framework to detect which observable and computed properties are accessed within the scope of the transaction. If any of these properties are modified then Arez will invoke the corresponding method annotated with {@api_url: annotations.OnDepsChanged} to indicate that the observed method needs to be rescheduled.
+To achieve either of these goals, you need to combine the {@api_url: annotations.OnDepsChanged} annotation with the
+{@api_url: annotations.Observed} annotation. The {@api_url: annotations.Observed} annotation wraps a method in a
+tracking transaction which allows the Arez framework to detect which observable and computed properties are accessed
+within the scope of the transaction. If any of these properties are modified then Arez will invoke the method annotated
+with {@api_url: annotations.OnDepsChanged} to indicate that the observed method needs to be rescheduled.
 
 An example is illustrated below:
 
-{@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Track end_line=@Computed include_end_line=false strip_block=false}
+{@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Observed end_line=@Computed include_end_line=false strip_block=false}
 
 # Summary
 
