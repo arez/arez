@@ -1359,8 +1359,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
+        reportActionStarted( name, parameters, observed );
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
@@ -1383,9 +1382,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         completed = true;
-        final long duration = System.currentTimeMillis() - startedAt;
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, true, result, null, duration ) );
+        reportActionCompleted( name, parameters, observed, null, startedAt, true, result );
       }
       return result;
     }
@@ -1400,9 +1397,7 @@ public final class ArezContext
       {
         if ( !completed )
         {
-          final long duration = System.currentTimeMillis() - startedAt;
-          assert null != name;
-          getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, true, null, t, duration ) );
+          reportActionCompleted( name, parameters, observed, t, startedAt, true, null );
         }
       }
       triggerScheduler();
@@ -1578,8 +1573,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
+        reportActionStarted( name, parameters, observed );
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
@@ -1602,9 +1596,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         completed = true;
-        final long duration = System.currentTimeMillis() - startedAt;
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, true, result, null, duration ) );
+        reportActionCompleted( name, parameters, observed, null, startedAt, true, result );
       }
       return result;
     }
@@ -1619,9 +1611,7 @@ public final class ArezContext
       {
         if ( !completed )
         {
-          final long duration = System.currentTimeMillis() - startedAt;
-          assert null != name;
-          getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, true, null, t, duration ) );
+          reportActionCompleted( name, parameters, observed, t, startedAt, true, null );
         }
       }
       triggerScheduler();
@@ -1802,8 +1792,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() && reportAction )
       {
         startedAt = System.currentTimeMillis();
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
+        reportActionStarted( name, parameters, observed );
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
@@ -1826,9 +1815,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() && reportAction )
       {
         completed = true;
-        final long duration = System.currentTimeMillis() - startedAt;
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, false, null, null, duration ) );
+        reportActionCompleted( name, parameters, observed, null, startedAt, false, null );
       }
     }
     catch ( final Throwable e )
@@ -1842,9 +1829,7 @@ public final class ArezContext
       {
         if ( !completed )
         {
-          final long duration = System.currentTimeMillis() - startedAt;
-          assert null != name;
-          getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, false, null, t, duration ) );
+          reportActionCompleted( name, parameters, observed, t, startedAt, false, null );
         }
       }
       triggerScheduler();
@@ -2005,8 +1990,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, parameters ) );
+        reportActionStarted( name, parameters, observed );
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( mutation, requireNewTransaction ) )
@@ -2029,9 +2013,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         completed = true;
-        final long duration = System.currentTimeMillis() - startedAt;
-        assert null != name;
-        getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, false, null, null, duration ) );
+        reportActionCompleted( name, parameters, observed, null, startedAt, false, null );
       }
     }
     catch ( final Throwable e )
@@ -2045,9 +2027,7 @@ public final class ArezContext
       {
         if ( !completed )
         {
-          final long duration = System.currentTimeMillis() - startedAt;
-          assert null != name;
-          getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, parameters, false, null, t, duration ) );
+          reportActionCompleted( name, parameters, observed, t, startedAt, false, null );
         }
       }
       triggerScheduler();
@@ -2473,6 +2453,29 @@ public final class ArezContext
   {
     assert null != _observerErrorHandlerSupport;
     return _observerErrorHandlerSupport;
+  }
+
+  private void reportActionStarted( @Nullable final String name,
+                                    @Nullable final Object[] parameters,
+                                    final boolean observed )
+  {
+    assert null != name;
+    final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
+    getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, params ) );
+  }
+
+  private void reportActionCompleted( @Nullable final String name,
+                                      @Nullable final Object[] parameters,
+                                      final boolean observed,
+                                      final Throwable t,
+                                      final long startedAt,
+                                      final boolean returnsResult,
+                                      final Object result )
+  {
+    final long duration = System.currentTimeMillis() - startedAt;
+    assert null != name;
+    final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
+    getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, params, returnsResult, result, t, duration ) );
   }
 
   int currentNextTransactionId()
