@@ -27,6 +27,8 @@ complete as there is too much un-said.
 
   We could use this explicit modelling to help generate error messages and documentation on website.
 
+* Integration tests for `reportPossiblyChanged()`
+
 * Consider removal of `noTxAction` methods and associated mechanisms for suspend/resuming transactions?
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
