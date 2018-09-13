@@ -268,6 +268,15 @@ public class FlagsTest
   }
 
   @Test
+  public void verifyActionRule()
+  {
+    assertEquals( Flags.verifyActionRule( Flags.VERIFY_ACTION_REQUIRED ), 0 );
+    assertEquals( Flags.verifyActionRule( Flags.NO_VERIFY_ACTION_REQUIRED ), 0 );
+    assertEquals( Flags.verifyActionRule( 0 ), Flags.VERIFY_ACTION_REQUIRED );
+    assertEquals( Flags.verifyActionRule( Flags.REQUIRE_NEW_TRANSACTION ), Flags.VERIFY_ACTION_REQUIRED );
+  }
+
+  @Test
   public void flagsAreUnique()
     throws Exception
   {
@@ -342,7 +351,7 @@ public class FlagsTest
     for ( final Map.Entry<String, Integer> entry : new ArrayList<>( extractFlags().entrySet() ) )
     {
       final int value = entry.getValue();
-      if ( ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK ) & value ) != value )
+      if ( ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK | Flags.ACTION_FLAGS_MASK ) & value ) != value )
       {
         fail( "Flag named " + entry.getKey() + " in class " + Flags.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );
