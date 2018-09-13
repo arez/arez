@@ -1374,7 +1374,7 @@ public final class ArezContext
         try
         {
           result = executable.call();
-          verifyActionRequired( transaction, name, verifyActionRequired );
+          verifyActionRequired( transaction, verifyActionRequired );
         }
         finally
         {
@@ -1594,7 +1594,7 @@ public final class ArezContext
         try
         {
           result = executable.call();
-          verifyActionRequired( transaction, name, verifyActionRequired );
+          verifyActionRequired( transaction, verifyActionRequired );
         }
         finally
         {
@@ -1819,7 +1819,7 @@ public final class ArezContext
         try
         {
           executable.call();
-          verifyActionRequired( transaction, name, verifyActionRequired );
+          verifyActionRequired( transaction, verifyActionRequired );
         }
         finally
         {
@@ -2023,7 +2023,7 @@ public final class ArezContext
         try
         {
           executable.call();
-          verifyActionRequired( transaction, name, verifyActionRequired );
+          verifyActionRequired( transaction, verifyActionRequired );
         }
         finally
         {
@@ -2319,18 +2319,16 @@ public final class ArezContext
    * action if the verifyActionRequired parameter is true.
    *
    * @param transaction          the associated transaction.
-   * @param name                 the action name.
    * @param verifyActionRequired if true then attempt validation.
    */
   private void verifyActionRequired( @Nonnull final Transaction transaction,
-                                     @Nullable final String name,
                                      final boolean verifyActionRequired )
   {
     if ( Arez.shouldCheckInvariants() && verifyActionRequired )
     {
       invariant( transaction::hasTransactionUseOccured,
-                 () -> "Arez-0185: Action named '" + name + "' completed but no reads, writes, schedules, " +
-                       "reportStales or reportPossiblyChanged occurred within the scope of the action." );
+                 () -> "Arez-0185: Action named '" + transaction.getName() + "' completed but no reads, writes, " +
+                       "schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
     }
   }
 
