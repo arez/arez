@@ -680,7 +680,7 @@ public final class Observer
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
-                         "completed observed funnction but is not observing any properties. As a result the observer " +
+                         "completed observed function but is not observing any properties. As a result the observer " +
                          "will never be rescheduled." );
       };
     }
