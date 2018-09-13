@@ -535,11 +535,8 @@ final class Transaction
     {
       _readOrWriteOccurred = true;
       invariant( observableValue::isNotDisposed,
-                 () -> "Arez-0142: Invoked observe on transaction named '" +
-                       getName() +
-                       "' for observableValue named '" +
-                       observableValue.getName() +
-                       "' where the observableValue is disposed." );
+                 () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observableValue " +
+                       "named '" + observableValue.getName() + "' where the observableValue is disposed." );
     }
     if ( null != _tracker )
     {
@@ -550,11 +547,9 @@ final class Transaction
       if ( Arez.shouldCheckInvariants() )
       {
         invariant( () -> !observableValue.isComputedValue() || _tracker != observableValue.getObserver(),
-                   () -> "Arez-0143: Invoked observe on transaction named '" +
-                         getName() +
-                         "' for observableValue named '" +
-                         observableValue.getName() +
-                         "' where the observableValue is owned by the tracker." );
+                   () -> "Arez-0143: Invoked observe on transaction named '" + getName() + "' for " +
+                         "observableValue named '" + observableValue.getName() + "' where the " +
+                         "observableValue is owned by the tracker." );
         observableValue.invariantOwner();
       }
       /*
