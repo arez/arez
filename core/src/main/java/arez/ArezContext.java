@@ -1369,8 +1369,7 @@ public final class ArezContext
       }
       else
       {
-        final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
+        final Transaction transaction = newTransaction( name, observer, mutation );
         try
         {
           result = executable.call();
@@ -1589,8 +1588,7 @@ public final class ArezContext
       }
       else
       {
-        final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
+        final Transaction transaction = newTransaction( name, observer, mutation );
         try
         {
           result = executable.call();
@@ -1814,8 +1812,7 @@ public final class ArezContext
       }
       else
       {
-        final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
+        final Transaction transaction = newTransaction( name, observer, mutation );
         try
         {
           executable.call();
@@ -2018,8 +2015,7 @@ public final class ArezContext
       }
       else
       {
-        final Transaction transaction =
-          Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
+        final Transaction transaction = newTransaction( name, observer, mutation );
         try
         {
           executable.call();
@@ -2074,6 +2070,14 @@ public final class ArezContext
                             "observer that does not allow nested actions." );
       }
     }
+  }
+
+  @Nonnull
+  private Transaction newTransaction( @Nullable final String name,
+                                      @Nullable final Observer observer,
+                                      final boolean mutation )
+  {
+    return Transaction.begin( this, generateNodeName( "Transaction", name ), mutation, observer );
   }
 
   /**
