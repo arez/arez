@@ -111,6 +111,8 @@ final class ComponentDescriptor
   @Nullable
   private ExecutableElement _componentId;
   @Nullable
+  private ExecutableElement _componentIdRef;
+  @Nullable
   private ExecutableType _componentIdMethodType;
   @Nullable
   private ExecutableElement _componentRef;
@@ -881,6 +883,30 @@ final class ComponentDescriptor
     }
   }
 
+  boolean hasComponentIdRefMethod()
+  {
+    return null != _componentIdRef;
+  }
+
+  private void setComponentIdRef( @Nonnull final ExecutableElement method )
+  {
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+
+    if ( null != _componentIdRef )
+    {
+      throw new ArezProcessorException( "@ComponentIdRef target duplicates existing method named " +
+                                        _componentIdRef.getSimpleName(), method );
+    }
+    else
+    {
+      _componentIdRef = Objects.requireNonNull( method );
+    }
+  }
+
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
@@ -1085,6 +1111,22 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
                                         "annotation parameter but has no methods annotated with @Observed, " +
                                         "@Dependency or @Computed(keepAlive=true)", _element );
+    }
+    if ( null != _componentIdRef &&
+         null != _componentId &&
+         !_typeUtils.isSameType( _componentId.getReturnType(), _componentIdRef.getReturnType() ) )
+    {
+      throw new ArezProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
+                                        " and a @ComponentId annotated method with a return type " +
+                                        _componentIdRef.getReturnType() + ". The types must match.", _element );
+    }
+    else if ( null != _componentIdRef &&
+              null == _componentId &&
+              !_typeUtils.isSameType( _typeUtils.getPrimitiveType( TypeKind.INT ), _componentIdRef.getReturnType() ) )
+    {
+      throw new ArezProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
+                                        " but no @ComponentId annotated method. The type is expected to be of " +
+                                        "type int.", _element );
     }
   }
 
@@ -2078,6 +2120,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentId =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_ID_ANNOTATION_CLASSNAME );
+    final AnnotationMirror componentIdRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentTypeName =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentName =
@@ -2167,6 +2211,11 @@ final class ComponentDescriptor
     else if ( null != memoize )
     {
       addMemoize( memoize, method, methodType );
+      return true;
+    }
+    else if ( null != componentIdRef )
+    {
+      setComponentIdRef( method );
       return true;
     }
     else if ( null != componentRef )
@@ -2462,6 +2511,10 @@ final class ComponentDescriptor
     if ( null != _componentRef )
     {
       builder.addMethod( buildComponentRefMethod() );
+    }
+    if ( null != _componentIdRef )
+    {
+      builder.addMethod( buildComponentIdRefMethod() );
     }
     if ( !_references.isEmpty() || !_inverses.isEmpty() )
     {
@@ -2798,6 +2851,24 @@ final class ComponentDescriptor
     method.addStatement( "return this.$N", GeneratorUtil.COMPONENT_FIELD_NAME );
     ProcessorUtil.copyWhitelistedAnnotations( _componentRef, method );
     ProcessorUtil.copyAccessModifiers( _componentRef, method );
+    return method.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildComponentIdRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _componentIdRef;
+
+    final String methodName = _componentIdRef.getSimpleName().toString();
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
+      addAnnotation( Override.class ).
+      addModifiers( Modifier.FINAL ).
+      returns( TypeName.get( _componentIdRef.getReturnType() ) );
+
+    method.addStatement( "return this.$N()", getIdMethodName() );
+    ProcessorUtil.copyWhitelistedAnnotations( _componentIdRef, method );
+    ProcessorUtil.copyAccessModifiers( _componentIdRef, method );
     return method.build();
   }
 
@@ -3404,22 +3475,19 @@ final class ComponentDescriptor
     // Synthesize Id if required
     if ( null == _componentId )
     {
-      if ( _nameIncludesId )
+      if ( _idRequired )
       {
-        if ( _idRequired )
-        {
-          builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
-        }
-        else
-        {
-          builder.addStatement(
-            "this.$N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0",
-            GeneratorUtil.ID_FIELD_NAME,
-            GeneratorUtil.AREZ_CLASSNAME,
-            GeneratorUtil.AREZ_CLASSNAME,
-            GeneratorUtil.AREZ_CLASSNAME,
-            GeneratorUtil.NEXT_ID_FIELD_NAME );
-        }
+        builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
+      }
+      else if ( _nameIncludesId )
+      {
+        builder.addStatement( "this.$N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || " +
+                              "$T.areNativeComponentsEnabled() ) ? $N++ : 0",
+                              GeneratorUtil.ID_FIELD_NAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.NEXT_ID_FIELD_NAME );
       }
       else
       {

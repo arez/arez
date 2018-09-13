@@ -416,17 +416,26 @@ public final class ArezProcessor
 
     final boolean idRequired = isIdRequired( descriptor, arezComponent );
     descriptor.setIdRequired( idRequired );
-    if ( !idRequired && descriptor.hasRepository() )
+    if ( !idRequired )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
-                                        "annotation parameter but is also annotated with @Repository that " +
-                                        "requires idRequired = ENABLE.", typeElement );
-    }
-    if ( !idRequired && descriptor.hasComponentIdMethod() )
-    {
-      throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
-                                        "annotation parameter but also has annotated a method with @ComponentId " +
-                                        "that requires idRequired = ENABLE.", typeElement );
+      if ( descriptor.hasRepository() )
+      {
+        throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                          "annotation parameter but is also annotated with @Repository that " +
+                                          "requires idRequired = ENABLE.", typeElement );
+      }
+      if ( descriptor.hasComponentIdMethod() )
+      {
+        throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                          "annotation parameter but also has annotated a method with @ComponentId " +
+                                          "that requires idRequired = ENABLE.", typeElement );
+      }
+      if ( descriptor.hasComponentIdRefMethod() )
+      {
+        throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                          "annotation parameter but also has annotated a method with @ComponentIdRef " +
+                                          "that requires idRequired = ENABLE.", typeElement );
+      }
     }
 
     return descriptor;
@@ -539,7 +548,7 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return descriptor.hasRepository() || descriptor.hasComponentIdMethod();
+        return descriptor.hasRepository() || descriptor.hasComponentIdMethod() || descriptor.hasComponentIdRefMethod();
     }
   }
 

@@ -90,6 +90,10 @@
   `observed` method rather than the `onDepsChanged` as expected. This bug has been fixed.
 * **\[core\]** Add support for the `arezOnlyDependencies` parameter to the `@Observed` that makes it possible to
   specify the flags `AREZ_DEPENDENCIES_ONLY` and `NON_AREZ_DEPENDENCIES` when using the component model.
+* **\[core\]** Introduce the `@ComponentIdRef` annotation that makes it possible to access the id of the component
+  without resorting to the `arez.component.Identifiable` interface which has some performance impact.
+* **\[core\]** Fixed a bug where a component annotated with `@ArezComponent(nameIncludesId=false)` that also had a
+  `@Repository` annotation would always have an id of `0` in production mode.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

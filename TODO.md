@@ -30,8 +30,6 @@ complete as there is too much un-said.
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
-* Add `@ComponentIdRef` annotation on abstract method that just returns the synthetic id.
-
 * Implement something similar to `getDependencyTree` from mobx
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
