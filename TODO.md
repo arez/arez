@@ -63,6 +63,8 @@ complete as there is too much un-said.
 
 * Should it be possible to suspend arbitrary observers?
 
+* Introduce an `assertInvariantFailure( () -> action, message )` into tests.
+
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
 
