@@ -629,7 +629,7 @@ public class ReactionSchedulerTest
                     Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES );
     observerReference.set( observer );
     context.pauseScheduler();
-    context.safeAction( null, true, false, observer::reportStale );
+    context.safeAction( observer::reportStale );
 
     assertEquals( observer.isScheduled(), true );
 
@@ -687,7 +687,7 @@ public class ReactionSchedulerTest
 
     observerReference.set( observer );
     context.pauseScheduler();
-    context.safeAction( null, true, false, observer::reportStale );
+    context.safeAction( observer::reportStale );
     assertEquals( observer.isScheduled(), true );
 
     final ReactionScheduler scheduler = context.getScheduler();

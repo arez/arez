@@ -587,7 +587,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().action( "X", false, true, (Procedure) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -598,7 +598,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().action( "X", (Procedure) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -627,7 +627,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().action( "X", false, true, (Function<String>) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -638,7 +638,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().action( "X", (Function<String>) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -667,7 +667,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().safeAction( "X", false, true, (SafeProcedure) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -678,7 +678,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().safeAction( "X", (SafeProcedure) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -708,7 +708,7 @@ public class ArezContextTest
                     () -> Arez.context()
                       .safeAction( "X", false, true, (SafeFunction<String>) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test
@@ -719,7 +719,7 @@ public class ArezContextTest
       expectThrows( IllegalStateException.class,
                     () -> Arez.context().safeAction( "X", (SafeFunction<String>) ValueUtil::randomString ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0185: Action named 'X' completed but no reads or writes occurred within the scope of the action." );
+                  "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
   @Test

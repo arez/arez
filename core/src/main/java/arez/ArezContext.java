@@ -2328,9 +2328,9 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckInvariants() && verifyActionRequired )
     {
-      invariant( transaction::hasReadOrWriteOccurred,
-                 () -> "Arez-0185: Action named '" + name + "' completed but no reads or writes " +
-                       "occurred within the scope of the action." );
+      invariant( transaction::hasTransactionUseOccured,
+                 () -> "Arez-0185: Action named '" + name + "' completed but no reads, writes, schedules, " +
+                       "reportStales or reportPossiblyChanged occurred within the scope of the action." );
     }
   }
 

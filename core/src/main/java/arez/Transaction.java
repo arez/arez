@@ -92,7 +92,7 @@ final class Transaction
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
    */
-  private boolean _readOrWriteOccurred;
+  private boolean _transactionUsed;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -456,9 +456,9 @@ final class Transaction
     }
   }
 
-  boolean hasReadOrWriteOccurred()
+  boolean hasTransactionUseOccured()
   {
-    return Arez.shouldCheckInvariants() && _readOrWriteOccurred;
+    return Arez.shouldCheckInvariants() && _transactionUsed;
   }
 
   int processPendingDeactivations()
@@ -533,7 +533,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       invariant( observableValue::isNotDisposed,
                  () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observableValue " +
                        "named '" + observableValue.getName() + "' where the observableValue is disposed." );
@@ -569,6 +569,14 @@ final class Transaction
   }
 
   /**
+   * Mark transaction as used.
+   */
+  void markTransactionAsUsed()
+  {
+    _transactionUsed = true;
+  }
+
+  /**
    * Called when disposing a arez node.
    * This will check transaction mode.
    *
@@ -596,7 +604,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       invariant( observableValue::isNotDisposed,
                  () -> "Arez-0144: Invoked reportChanged on transaction named '" + getName() +
                        "' for ObservableValue named '" + observableValue.getName() +
@@ -615,7 +623,7 @@ final class Transaction
     preReportChanged( observableValue );
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       observableValue.invariantLeastStaleObserverState();
     }
 
@@ -655,7 +663,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       invariant( observableValue::isNotDisposed,
                  () -> "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
                        "ObservableValue named '" + observableValue.getName() + "' where the ObservableValue" +

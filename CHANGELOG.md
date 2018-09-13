@@ -94,6 +94,11 @@
   without resorting to the `arez.component.Identifiable` interface which has some performance impact.
 * **\[core\]** Fixed a bug where a component annotated with `@ArezComponent(nameIncludesId=false)` that also had a
   `@Repository` annotation would always have an id of `0` in production mode.
+* **\[core\]** The `Observer.schedule()`, `Observer.reportStale()` and `ComputedValue.reportPossibleChanged()`
+  did not register as usages of the transaction and thus actions that did not set `verifyActionRequired`
+  parameter to `false` would generate an invariant failure if the action only invoked these methods without also
+  accessing or mutating other observable state. These methods now mark the transaction as used so it is no longer
+  necessary to set `verifyActionRequired` to `false`.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

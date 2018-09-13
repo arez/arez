@@ -410,6 +410,7 @@ public final class Observer
                     () -> "Arez-0201: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when the active transaction '" + getContext().getTransaction().getName() +
                           "' is READ_ONLY rather than READ_WRITE." );
+      getContext().getTransaction().markTransactionAsUsed();
     }
     setState( Flags.STATE_STALE );
   }
@@ -565,6 +566,10 @@ public final class Observer
       apiInvariant( this::supportsManualSchedule,
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule() returns false." );
+    }
+    if ( Arez.shouldEnforceTransactionType() && getContext().isTransactionActive() && Arez.shouldCheckInvariants() )
+    {
+      getContext().getTransaction().markTransactionAsUsed();
     }
     executeObservedNextIfPresent();
     scheduleReaction();

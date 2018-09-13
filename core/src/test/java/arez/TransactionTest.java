@@ -283,7 +283,7 @@ public class TransactionTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertNull( transaction.getObservableValues() );
     assertNotEquals( transaction.getId(), observableValue.getLastTrackerTransactionId() );
-    assertEquals( transaction.hasReadOrWriteOccurred(), false );
+    assertEquals( transaction.hasTransactionUseOccured(), false );
 
     transaction.observe( observableValue );
 
@@ -294,7 +294,7 @@ public class TransactionTest
 
     assertTrue( transaction.getObservableValues().contains( observableValue ) );
     assertEquals( transaction.getObservableValues().size(), 1 );
-    assertEquals( transaction.hasReadOrWriteOccurred(), true );
+    assertEquals( transaction.hasTransactionUseOccured(), true );
   }
 
   @Test
@@ -1399,12 +1399,12 @@ public class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( transaction.hasReadOrWriteOccurred(), false );
+    assertEquals( transaction.hasTransactionUseOccured(), false );
 
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( transaction.hasReadOrWriteOccurred(), true );
+    assertEquals( transaction.hasTransactionUseOccured(), true );
   }
 
   @Test
@@ -1425,14 +1425,14 @@ public class TransactionTest
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( transaction.hasReadOrWriteOccurred(), false );
+    assertEquals( transaction.hasTransactionUseOccured(), false );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_STALE );
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertEquals( transaction.hasReadOrWriteOccurred(), true );
+    assertEquals( transaction.hasTransactionUseOccured(), true );
   }
 
   @Test

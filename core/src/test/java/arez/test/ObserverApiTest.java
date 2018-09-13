@@ -78,7 +78,7 @@ public class ObserverApiTest
 
     assertEquals( callCount.get(), 1 );
 
-    context.safeAction( null, true, false, observer::reportStale );
+    context.safeAction( observer::reportStale );
 
     assertEquals( callCount.get(), 2 );
   }
@@ -100,7 +100,7 @@ public class ObserverApiTest
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsChangedCallCount.get(), 0 );
 
-    context.safeAction( null, true, false, observer::reportStale );
+    context.safeAction( observer::reportStale );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsChangedCallCount.get(), 1 );

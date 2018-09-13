@@ -55,7 +55,7 @@ public class ObservedManualScheduleTest
     assertEquals( component._depsChangedCallCount, 0 );
 
     // Scheduling should have no impact as not dirty
-    Arez.context().safeAction( null, true, false, () -> component.getRenderObserver().schedule() );
+    Arez.context().safeAction( () -> component.getRenderObserver().schedule() );
 
     assertEquals( component._renderCallCount, 1 );
     assertEquals( component._depsChangedCallCount, 0 );
@@ -73,7 +73,7 @@ public class ObservedManualScheduleTest
     assertEquals( component._depsChangedCallCount, 1 );
 
     // Scheduling should actually run render!
-    Arez.context().safeAction( null, true, false, () -> component.getRenderObserver().schedule() );
+    Arez.context().safeAction( () -> component.getRenderObserver().schedule() );
 
     assertEquals( component._renderCallCount, 2 );
     assertEquals( component._depsChangedCallCount, 1 );
