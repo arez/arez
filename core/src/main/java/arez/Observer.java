@@ -693,7 +693,6 @@ public final class Observer
                           false,
                           true,
                           action,
-                          null == _computedValue,
                           this );
   }
 

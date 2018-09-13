@@ -1745,7 +1745,6 @@ public final class ArezContext
              verifyActionRequired,
              requireNewTransaction,
              executable,
-             true,
              null,
              parameters );
   }
@@ -1776,7 +1775,6 @@ public final class ArezContext
              false,
              true,
              observed,
-             true,
              observer,
              parameters );
   }
@@ -1792,12 +1790,12 @@ public final class ArezContext
                 final boolean verifyActionRequired,
                 final boolean requireNewTransaction,
                 @Nonnull final Procedure executable,
-                final boolean reportAction,
                 @Nullable final Observer observer,
                 @Nonnull final Object... parameters )
     throws Throwable
   {
     final boolean observed = null != observer;
+    final boolean reportAction = null == observer || !observer.isComputedValue();
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
