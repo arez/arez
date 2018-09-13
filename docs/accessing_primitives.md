@@ -24,6 +24,7 @@ the pattern `get[Name]ObservableValue`. See the javadocs for the individual anno
 The `@*Ref` annotations include the following:
 
 * {@api_url: annotations.ComponentNameRef}: This method exposes the underlying name of the component.
+* {@api_url: annotations.ComponentIdRef}: This method exposes the underlying id of the component.
 * {@api_url: annotations.ComponentTypeNameRef}: This method exposes the underlying name of the component type.
 * {@api_url: annotations.ObservableValueRef}: This method exposes the underlying {@api_url: ObservableValue} for an {@api_url: annotations.Observable} property.
 * {@api_url: annotations.ComputedValueRef}: This method exposes the underlying {@api_url: ComputedValue} for a {@api_url: annotations.Computed} property.
