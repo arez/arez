@@ -8,6 +8,12 @@ complete as there is too much un-said.
 
 * Add Test to verify that actions object when passed bad flags.
 
+* Integration tests for `reportPossiblyChanged()`
+
+* Add "unit" tests for new observer methods not covered
+
+* Add test to cover `Observer.schedule()` where transaction is marked as used
+
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
@@ -26,8 +32,6 @@ complete as there is too much un-said.
   `"Observer.reportStale() invoked on observer named '%s' but arezOnlyDependencies = true."`
 
   We could use this explicit modelling to help generate error messages and documentation on website.
-
-* Integration tests for `reportPossiblyChanged()`
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
