@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Add Test to verify that actions object when passed bad flags.
+
 * Consider removal of `noTxAction` methods and associated mechanisms for suspend/resuming transactions?
 
 * Introduce an `assertInvariantFailure( () -> action, message )` into tests.
