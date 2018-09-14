@@ -8,6 +8,10 @@ complete as there is too much un-said.
 
 * Change actions API to start passing bit flags as well.
 
+* Consider removal of `noTxAction` methods and associated mechanisms for suspend/resuming transactions?
+
+* Introduce an `assertInvariantFailure( () -> action, message )` into tests.
+
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
@@ -28,8 +32,6 @@ complete as there is too much un-said.
   We could use this explicit modelling to help generate error messages and documentation on website.
 
 * Integration tests for `reportPossiblyChanged()`
-
-* Consider removal of `noTxAction` methods and associated mechanisms for suspend/resuming transactions?
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
@@ -64,8 +66,6 @@ complete as there is too much un-said.
   - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
 
 * Should it be possible to suspend arbitrary observers?
-
-* Introduce an `assertInvariantFailure( () -> action, message )` into tests.
 
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
