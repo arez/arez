@@ -519,7 +519,7 @@ public final class ArezContext
   {
     return new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
                                 component,
-                                generateNodeName( "ComputedValue", name ),
+                                generateName( "ComputedValue", name ),
                                 function,
                                 onActivate,
                                 onDeactivate,
@@ -537,7 +537,7 @@ public final class ArezContext
    * @return the name.
    */
   @Nullable
-  String generateNodeName( @Nonnull final String prefix, @Nullable final String name )
+  String generateName( @Nonnull final String prefix, @Nullable final String name )
   {
     return Arez.areNamesEnabled() ?
            null != name ? name : prefix + "@" + _nextNodeId++ :
@@ -736,7 +736,7 @@ public final class ArezContext
   {
     return new Observer( Arez.areZonesEnabled() ? this : null,
                          component,
-                         generateNodeName( "Observer", name ),
+                         generateName( "Observer", name ),
                          observed,
                          onDepsChanged,
                          flags );
@@ -933,7 +933,7 @@ public final class ArezContext
     final ObservableValue<T> observableValue =
       new ObservableValue<>( Arez.areZonesEnabled() ? this : null,
                              component,
-                             generateNodeName( "ObservableValue", name ),
+                             generateName( "ObservableValue", name ),
                              null,
                              accessor,
                              mutator );

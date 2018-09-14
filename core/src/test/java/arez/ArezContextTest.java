@@ -32,25 +32,25 @@ public class ArezContextTest
   extends AbstractArezTest
 {
   @Test
-  public void toName()
+  public void generateName()
   {
     final ArezContext context = Arez.context();
 
     // Use passed in name
-    assertEquals( context.generateNodeName( "ComputedValue", "MyName" ), "MyName" );
+    assertEquals( context.generateName( "ComputedValue", "MyName" ), "MyName" );
 
     //synthesize name
     context.setNextNodeId( 1 );
-    assertEquals( context.generateNodeName( "ComputedValue", null ), "ComputedValue@1" );
+    assertEquals( context.generateName( "ComputedValue", null ), "ComputedValue@1" );
     assertEquals( context.getNextNodeId(), 2 );
 
     ArezTestUtil.disableNames();
 
     //Ignore name
-    assertEquals( context.generateNodeName( "ComputedValue", "MyName" ), null );
+    assertEquals( context.generateName( "ComputedValue", "MyName" ), null );
 
     //Null name also fine
-    assertEquals( context.generateNodeName( "ComputedValue", null ), null );
+    assertEquals( context.generateName( "ComputedValue", null ), null );
   }
 
   @Test
