@@ -2,6 +2,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -133,7 +134,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_v1.dispose();
           this.$$arez$$_v2.dispose();
@@ -144,7 +145,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
           this.$$arez$$_v7.dispose();
           this.$$arez$$_v8.dispose();
           this.$$arez$$_v9.dispose();
-        } } );
+        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;

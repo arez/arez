@@ -7,6 +7,7 @@ import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -93,14 +94,14 @@ final class ActionDescriptor
     final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> parameterNames = new ArrayList<>();
+    final ArrayList<Object> params = new ArrayList<>();
 
     if ( !isProcedure )
     {
       statement.append( "return " );
     }
     statement.append( "$N()." );
-    parameterNames.add( _componentDescriptor.getContextMethodName() );
+    params.add( _componentDescriptor.getContextMethodName() );
 
     if ( isProcedure && isSafe )
     {
@@ -122,23 +123,13 @@ final class ActionDescriptor
     statement.append( "(" );
 
     statement.append( "$T.areNamesEnabled() ? $N() + $S : null" );
-    parameterNames.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameterNames.add( _componentDescriptor.getComponentNameMethodName() );
-    parameterNames.add( "." + getName() );
+    params.add( GeneratorUtil.AREZ_CLASSNAME );
+    params.add( _componentDescriptor.getComponentNameMethodName() );
+    params.add( "." + getName() );
 
-    statement.append( ", " );
-    statement.append( _mutation );
-    if ( !_verifyRequired || !_requireNewTransaction )
-    {
-      statement.append( ", false" );
-      if ( !_requireNewTransaction )
-      {
-        statement.append( ", false" );
-      }
-    }
     statement.append( ", () -> super." );
     statement.append( _action.getSimpleName() );
-    statement.append( "(" );
+    statement.append( "( " );
 
     boolean firstParam = true;
     final List<? extends VariableElement> parameters = _action.getParameters();
@@ -151,31 +142,82 @@ final class ActionDescriptor
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
       ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
-      parameterNames.add( element.getSimpleName().toString() );
+      params.add( element.getSimpleName().toString() );
       if ( !firstParam )
       {
-        statement.append( "," );
+        statement.append( ", " );
       }
       firstParam = false;
       statement.append( "$N" );
     }
 
-    statement.append( ")" );
-    if ( _reportParameters )
+    statement.append( " ), " );
+
+    appendFlags( statement, params );
+
+    statement.append( ", " );
+
+    if ( _reportParameters && !parameters.isEmpty() )
     {
+      statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( Object.class );
+      firstParam = true;
       for ( final VariableElement parameter : parameters )
       {
-        parameterNames.add( parameter.getSimpleName().toString() );
-        statement.append( ", $N" );
+        if ( !firstParam )
+        {
+          statement.append( ", " );
+        }
+        firstParam = false;
+        params.add( parameter.getSimpleName().toString() );
+        statement.append( "$N" );
       }
+      statement.append( " } : null" );
+    }
+    else
+    {
+      statement.append( "null" );
     }
     statement.append( " )" );
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
     GeneratorUtil.generateTryBlock( builder,
                                     thrownTypes,
-                                    b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
+                                    b -> b.addStatement( statement.toString(), params.toArray() ) );
 
     return builder.build();
+  }
+
+  private void appendFlags( @Nonnull final StringBuilder expression,@Nonnull final ArrayList<Object> parameters )
+  {
+    final ArrayList<String> flags = new ArrayList<>();
+
+    if ( _requireNewTransaction )
+    {
+      flags.add( "REQUIRE_NEW_TRANSACTION" );
+    }
+    if ( _mutation )
+    {
+      flags.add( "READ_WRITE" );
+    }
+    else
+    {
+      flags.add( "READ_ONLY" );
+    }
+    if ( _verifyRequired )
+    {
+      flags.add( "VERIFY_ACTION_REQUIRED" );
+    }
+    else
+    {
+      flags.add( "NO_VERIFY_ACTION_REQUIRED" );
+    }
+
+    expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
+    }
   }
 }

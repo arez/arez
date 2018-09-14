@@ -180,7 +180,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        getContext().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, true, false, () -> { {
+        getContext().safeAction( Arez.areNamesEnabled() ? getComponentName() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_myWatcher.dispose();
           this.$$arez$$_render.dispose();
@@ -188,7 +188,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
           this.$$arez$$_myValue.dispose();
           this.$$arez$$_elements.dispose();
           this.$$arez$$_parentGeneralisation.dispose();
-        } } );
+        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -311,7 +311,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'myAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     try {
-      getContext().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".myAction" : null, true, false, false, () -> super.myAction() );
+      getContext().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".myAction" : null, () -> super.myAction(  ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

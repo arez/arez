@@ -3073,7 +3073,7 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder actionBlock = CodeBlock.builder();
 
-    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + $S : null, true, false, () -> {",
+    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + $S : null, () -> {",
                                   getContextMethodName(),
                                   GeneratorUtil.AREZ_CLASSNAME,
                                   getComponentNameMethodName(),
@@ -3099,7 +3099,7 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "super.$N()", _postDispose.getSimpleName() );
     }
-    actionBlock.endControlFlow( "} )" );
+    actionBlock.endControlFlow( "}, $T.NO_VERIFY_ACTION_REQUIRED )", GeneratorUtil.FLAGS_CLASSNAME );
     nativeComponentBlock.add( actionBlock.build() );
     nativeComponentBlock.endControlFlow();
     codeBlock.add( nativeComponentBlock.build() );
