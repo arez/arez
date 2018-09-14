@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Change actions API to start passing bit flags as well.
-
 * Consider removal of `noTxAction` methods and associated mechanisms for suspend/resuming transactions?
 
 * Introduce an `assertInvariantFailure( () -> action, message )` into tests.
