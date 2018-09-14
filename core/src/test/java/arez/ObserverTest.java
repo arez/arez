@@ -510,7 +510,7 @@ public class ObserverTest
 
     observer.invariantComputedValueObserverState();
 
-    context.safeAction( null, false, false, () -> observer.setState( Flags.STATE_UP_TO_DATE ) );
+    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
@@ -552,7 +552,7 @@ public class ObserverTest
 
     assertEquals( originalDependencies.isEmpty(), true );
 
-    context.safeAction( null, false, false, () -> {
+    context.safeAction( () -> {
 
       final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
       newDependencies.add( observable );
@@ -563,7 +563,7 @@ public class ObserverTest
       assertEquals( observer.getDependencies().size(), 1 );
       assertTrue( observer.getDependencies() != originalDependencies );
       assertTrue( observer.getDependencies().contains( observable ) );
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -620,7 +620,7 @@ public class ObserverTest
     assertEquals( observableValue1.getObservers().size(), 1 );
     assertEquals( observableValue2.getObservers().size(), 1 );
 
-    context.safeAction( null, false, false, observer::clearDependencies );
+    context.safeAction( observer::clearDependencies, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     assertEquals( observer.getDependencies().size(), 0 );
     assertEquals( observableValue1.getObservers().size(), 0 );
@@ -960,7 +960,7 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
       observer.setState( Flags.STATE_INACTIVE );
       observer.setState( Flags.STATE_DISPOSED );
 
@@ -969,7 +969,7 @@ public class ObserverTest
       observer.scheduleReaction();
 
       assertEquals( observer.isScheduled(), false );
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -979,11 +979,11 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    context.safeAction( null, true, false, () -> observer.setState( Flags.STATE_INACTIVE ) );
+    context.safeAction( () -> observer.setState( Flags.STATE_INACTIVE ), Flags.NO_VERIFY_ACTION_REQUIRED );
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( null, true, false, observer::scheduleReaction ) );
+                    () -> context.safeAction( observer::scheduleReaction, Flags.NO_VERIFY_ACTION_REQUIRED ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
@@ -1521,10 +1521,10 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
       observer.setState( Flags.STATE_STALE );
       assertEquals( observer.shouldCompute(), true );
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -1719,7 +1719,7 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
       observer.reportStale();
 
       assertEquals( observer.isScheduled(), true );
@@ -1746,7 +1746,7 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
       final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
 
       assertEquals( exception.getMessage(),
@@ -1755,7 +1755,7 @@ public class ObserverTest
       assertEquals( observer.isScheduled(), false );
       assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
       assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -1794,11 +1794,12 @@ public class ObserverTest
 
     final Observer observer = context.observer( new CountingProcedure(), Flags.NON_AREZ_DEPENDENCIES );
 
-    context.safeAction( null, false, false, () -> observer.setState( Flags.STATE_UP_TO_DATE ) );
+    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
     assertEquals( observer.isScheduled(), false );
 
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeAction( "MyAction", false, observer::reportStale ) );
+      expectThrows( IllegalStateException.class,
+                    () -> context.safeAction( "MyAction", observer::reportStale, Flags.READ_ONLY ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0201: Observer.reportStale() invoked on observer named '" + observer.getName() +
@@ -1824,13 +1825,13 @@ public class ObserverTest
                                             onDepsChanged,
                                             Flags.RUN_LATER );
 
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
       observer.setState( Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
       observer.clearScheduledFlag();
       context.getScheduler().getPendingObservers().clear();
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     assertEquals( observer.isScheduled(), false );
     assertEquals( observed.getCallCount(), 0 );
@@ -1904,13 +1905,13 @@ public class ObserverTest
                                             observed,
                                             null,
                                             Flags.RUN_LATER );
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
       observer.setState( Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
       observer.clearScheduledFlag();
       context.getScheduler().getPendingObservers().clear();
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     assertEquals( observer.isScheduled(), false );
 

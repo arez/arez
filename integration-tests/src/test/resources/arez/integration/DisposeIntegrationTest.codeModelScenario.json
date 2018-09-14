@@ -508,18 +508,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.qualifiedName.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.qualifiedName.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "CodeModel.0.qualifiedName.dispose",
@@ -542,21 +530,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.qualifiedName.dispose"
-    },
-    {
         "observable": "CodeModel.0.qualifiedName",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
         "result": null,
@@ -575,18 +551,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.qualifiedName.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.qualifiedName.dispose"
     },
     {
         "result": null,
@@ -607,21 +571,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.name.dispose"
-    },
-    {
         "observable": "CodeModel.0.name",
         "type": "ObservableValueChanged",
         "value": "MyType2"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.name.dispose"
     },
     {
         "result": null,
@@ -646,21 +598,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.packageName.dispose"
-    },
-    {
         "observable": "CodeModel.0.packageName",
         "type": "ObservableValueChanged",
         "value": "com.example"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.packageName.dispose"
     },
     {
         "result": null,
@@ -685,21 +625,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "CodeModel.0.rawQualifiedName.dispose"
-    },
-    {
         "observable": "CodeModel.0.rawQualifiedName",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "CodeModel.0.rawQualifiedName.dispose"
     },
     {
         "result": null,

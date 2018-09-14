@@ -63,7 +63,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@3",
+        "action": "Action@3",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -73,7 +73,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@3"
+        "transaction": "Action@3"
     },
     {
         "observable": "MyComponent.0.time",
@@ -88,12 +88,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@3"
+        "transaction": "Action@3"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@3",
+        "action": "Action@3",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -144,7 +144,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@5",
+        "action": "Action@5",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -154,7 +154,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@5"
+        "transaction": "Action@5"
     },
     {
         "observable": "MyComponent.0.time",
@@ -169,12 +169,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@5"
+        "transaction": "Action@5"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@5",
+        "action": "Action@5",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,

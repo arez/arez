@@ -35,9 +35,9 @@ public class DisposeIntegrationTest
                           recorder.mark( "qualifiedName", codeModel.getQualifiedName() );
                         } );
 
-    context.action( "Specific Qualified Name", true, () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
-    context.action( "Reset Qualified Name to default", true, () -> codeModel.setQualifiedName( null ) );
-    context.action( "Change Local Name", true, () -> codeModel.setName( "MyType2" ) );
+    context.action( "Specific Qualified Name", () -> codeModel.setQualifiedName( "com.biz.Fred" ) );
+    context.action( "Reset Qualified Name to default", () -> codeModel.setQualifiedName( null ) );
+    context.action( "Change Local Name", () -> codeModel.setName( "MyType2" ) );
 
     observer.dispose();
     Disposable.dispose( codeModel );

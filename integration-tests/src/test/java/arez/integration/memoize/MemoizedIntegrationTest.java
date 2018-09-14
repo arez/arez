@@ -78,14 +78,14 @@ public class MemoizedIntegrationTest
       count.set( 0 );
     }
 
-    context.action( "Update 0", true, () -> person.setName( "Gill" ) );
-    context.action( "Update 1", true, () -> person.setName( "Fred" ) );
-    context.action( "Update 2", true, () -> person.setName( "Donald" ) );
+    context.action( "Update 0", () -> person.setName( "Gill" ) );
+    context.action( "Update 1", () -> person.setName( "Fred" ) );
+    context.action( "Update 2", () -> person.setName( "Donald" ) );
 
     observer3.dispose();
 
-    context.action( "Update 3", true, () -> person.setName( "Fred" ) );
-    context.action( "Update 3", true, () -> person.setName( "Bill" ) );
+    context.action( "Update 3", () -> person.setName( "Fred" ) );
+    context.action( "Update 3", () -> person.setName( "Bill" ) );
 
     assertEquals( searchCounts[ 0 ].get(), 4 );
     assertEquals( searchCounts[ 1 ].get(), 1 );
@@ -111,8 +111,8 @@ public class MemoizedIntegrationTest
 
     final PersonModel person = PersonModel.create( "Bill", 15 );
 
-    context.action( "Query 1", true, () -> person.doesSearchMatch( "ill" ) );
-    context.action( "Query 2", true, () -> person.doesSearchMatch( "red" ) );
+    context.action( "Query 1", () -> person.doesSearchMatch( "ill" ) );
+    context.action( "Query 2", () -> person.doesSearchMatch( "red" ) );
 
     assertMatchesFixture( recorder );
   }

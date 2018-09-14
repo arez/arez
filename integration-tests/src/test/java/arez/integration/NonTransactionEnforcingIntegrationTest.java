@@ -3,6 +3,7 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
+import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
@@ -46,17 +47,17 @@ public class NonTransactionEnforcingIntegrationTest
     // Note that the next two actions pass in mutation false but actually perform mutation
     // This is to verify that transactions are really not set
     context.action( "First Name Update",
-                    false,
                     () -> {
                       person.setFirstName( "Fred" );
                       action1ReadOnly.set( context.getSpy().getTransaction().isReadOnly() );
-                    } );
+                    },
+                    Flags.READ_ONLY );
     context.action( "Last Name Update",
-                    false,
                     () -> {
                       person.setLastName( "Donaldo" );
                       action2ReadOnly.set( context.getSpy().getTransaction().isReadOnly() );
-                    } );
+                    },
+                    Flags.READ_ONLY );
 
     // When transactions are not enforced, everything is effectively a write transaction!!!
     assertEquals( action1ReadOnly.get(), false );

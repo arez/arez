@@ -2,6 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
@@ -227,33 +228,33 @@ public class NestedComputedValueIntegrationTest
     final Node node2 = Node.create( filterContext, node1, "Person" );
     final Node node3 = Node.create( filterContext, node2, "Bob" );
 
-    assertTrue( context.action( false, node3::isVisible ) );
-    assertTrue( context.action( false, node2::isVisible ) );
-    assertTrue( context.action( false, node1::isVisible ) );
+    assertTrue( context.action( node3::isVisible ) );
+    assertTrue( context.action( node2::isVisible ) );
+    assertTrue( context.action( node1::isVisible ) );
 
     context.action( () -> filterContext.setFilter( "o" ) );
 
-    assertTrue( context.action( false, node3::isVisible ) );
-    assertTrue( context.action( false, node2::isVisible ) );
-    assertTrue( context.action( false, node1::isVisible ) );
+    assertTrue( context.action( node3::isVisible ) );
+    assertTrue( context.action( node2::isVisible ) );
+    assertTrue( context.action( node1::isVisible ) );
 
     context.action( () -> filterContext.setFilter( "ob" ) );
 
-    assertTrue( context.action( false, node3::isVisible ) );
-    assertTrue( context.action( false, node2::isVisible ) );
-    assertTrue( context.action( false, node1::isVisible ) );
+    assertTrue( context.action( node3::isVisible ) );
+    assertTrue( context.action( node2::isVisible ) );
+    assertTrue( context.action( node1::isVisible ) );
 
     context.action( () -> filterContext.setFilter( "obb" ) );
 
-    assertFalse( context.action( false, node3::isVisible ) );
-    assertFalse( context.action( false, node2::isVisible ) );
-    assertFalse( context.action( false, node1::isVisible ) );
+    assertFalse( context.action( node3::isVisible ) );
+    assertFalse( context.action( node2::isVisible ) );
+    assertFalse( context.action( node1::isVisible ) );
 
     context.action( () -> filterContext.setFilter( "ob" ) );
 
-    assertTrue( context.action( false, node3::isVisible ) );
-    assertTrue( context.action( false, node2::isVisible ) );
-    assertTrue( context.action( false, node1::isVisible ) );
+    assertTrue( context.action( node3::isVisible ) );
+    assertTrue( context.action( node2::isVisible ) );
+    assertTrue( context.action( node1::isVisible ) );
 
     assertMatchesFixture( recorder );
   }

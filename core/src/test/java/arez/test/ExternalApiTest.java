@@ -141,7 +141,7 @@ public class ExternalApiTest
     };
     final ComputedValue<String> computedValue = context.computed( name, function );
 
-    context.action( ValueUtil.randomString(), true, () -> {
+    context.action( () -> {
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
       assertEquals( context.isTransactionActive(), true );
@@ -280,7 +280,7 @@ public class ExternalApiTest
     assertEquals( reactionCount.get(), 1 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
-    context.safeAction( ValueUtil.randomString(), true, () -> {
+    context.safeAction( () -> {
       observableValue.reportChanged();
       assertEquals( context.isTransactionActive(), true );
       assertEquals( context.isReadWriteTransactionActive(), true );
@@ -311,7 +311,7 @@ public class ExternalApiTest
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // Run an "action"
-    context.action( ValueUtil.randomString(), true, observableValue::reportChanged );
+    context.action( observableValue::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
@@ -345,34 +345,30 @@ public class ExternalApiTest
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // Run an "action"
-    context.action( ValueUtil.randomString(), true, observableValue1::reportChanged );
+    context.action( observableValue1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // Update observer1+observer2 in transaction
-    context.action( ValueUtil.randomString(),
-                    true,
-                    () -> {
-                      observableValue1.reportChanged();
-                      observableValue2.reportChanged();
-                    } );
+    context.action( () -> {
+      observableValue1.reportChanged();
+      observableValue2.reportChanged();
+    } );
 
     assertEquals( reactionCount.get(), 3 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
-    context.action( ValueUtil.randomString(),
-                    true,
-                    () -> {
-                      observableValue3.reportChanged();
-                      observableValue4.reportChanged();
-                    } );
+    context.action( () -> {
+      observableValue3.reportChanged();
+      observableValue4.reportChanged();
+    } );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
 
     // observableValue4 should not cause a reaction as not observed
-    context.action( ValueUtil.randomString(), true, observableValue4::reportChanged );
+    context.action( observableValue4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
     assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
@@ -391,7 +387,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.action( ValueUtil.randomString(), false, () -> {
+      context.action( () -> {
         assertInTransaction( context, observableValue );
         return expectedValue;
       } );
@@ -414,7 +410,7 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.safeAction( ValueUtil.randomString(), false, () -> {
+      context.safeAction( () -> {
         assertInTransaction( context, observableValue );
         return expectedValue;
       } );
@@ -433,15 +429,15 @@ public class ExternalApiTest
 
     assertNotInTransaction( context, observableValue );
 
-    context.action( ValueUtil.randomString(), false, () -> {
+    context.action( () -> {
       assertInTransaction( context, observableValue );
 
       //First nested exception
-      context.action( ValueUtil.randomString(), false, () -> {
+      context.action( () -> {
         assertInTransaction( context, observableValue );
 
         //Second nested exception
-        context.action( ValueUtil.randomString(), false, () -> assertInTransaction( context, observableValue ) );
+        context.action( () -> assertInTransaction( context, observableValue ) );
 
         assertInTransaction( context, observableValue );
       } );
@@ -465,17 +461,17 @@ public class ExternalApiTest
     final String expectedValue = ValueUtil.randomString();
 
     final String v0 =
-      context.action( ValueUtil.randomString(), false, () -> {
+      context.action( () -> {
         assertInTransaction( context, observableValue );
 
         //First nested exception
         final String v1 =
-          context.action( ValueUtil.randomString(), false, () -> {
+          context.action( () -> {
             assertInTransaction( context, observableValue );
 
             //Second nested exception
             final String v2 =
-              context.action( ValueUtil.randomString(), false, () -> {
+              context.action( () -> {
                 assertInTransaction( context, observableValue );
                 return expectedValue;
               } );

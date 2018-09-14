@@ -476,7 +476,7 @@ public class ComputedValueTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.action( "X", false, (Procedure) observableValue::dispose ) );
+                    () -> context.action( "X", (Procedure) observableValue::dispose, Flags.READ_ONLY ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
@@ -754,13 +754,13 @@ public class ComputedValueTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( false, computedValue::reportPossiblyChanged ) );
+                    () -> context.safeAction( computedValue::reportPossiblyChanged, Flags.READ_ONLY ) );
 
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 1 );
 
     assertEquals( exception.getMessage(),
-                  "Arez-0152: Transaction named 'Transaction@4' attempted to change ObservableValue named '" +
+                  "Arez-0152: Transaction named 'Action@4' attempted to change ObservableValue named '" +
                   computedValue.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
@@ -780,7 +780,7 @@ public class ComputedValueTest
 
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( false, computedValue::reportPossiblyChanged ) );
+                    () -> context.safeAction( computedValue::reportPossiblyChanged ) );
 
     assertEquals( exception.getMessage(),
                   "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +

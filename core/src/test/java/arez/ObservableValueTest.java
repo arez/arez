@@ -403,11 +403,10 @@ public class ObservableValueTest
 
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( false,
-                                              () -> context.safeAction( name,
-                                                                        (SafeProcedure) observableValue::dispose ) ) );
+    @SuppressWarnings( "CodeBlock2Expr" )
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, () -> context.safeAction( () -> {
+      context.safeAction( name, (SafeProcedure) ValueUtil::randomString );
+    }, Flags.READ_ONLY ) );
 
     assertTrue( exception.getMessage().startsWith( "Arez-0119: Attempting to create READ_WRITE transaction named '" +
                                                    name + "' but it is nested in transaction named '" ) );
@@ -549,7 +548,7 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    context.safeAction( null, true, false, () -> {
+    context.safeAction( () -> {
 
       final IllegalStateException exception =
         expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
@@ -558,7 +557,7 @@ public class ObservableValueTest
                     "Arez-0203: Attempting to add observer named '" + observer.getName() + "' to " +
                     "ObservableValue named '" + observableValue.getName() + "' but the observer is not the " +
                     "tracker in transaction named '" + context.getTransaction().getName() + "'." );
-    } );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -1413,14 +1412,11 @@ public class ObservableValueTest
 
     // This action does not verify that reads occurred so should not
     // fail but will not actually observe
-    context.safeAction( null, false, false, observableValue::reportObservedIfTrackingTransactionActive );
+    context.safeAction( observableValue::reportObservedIfTrackingTransactionActive, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     // This action will raise an exception as no reads or writes occurred
     // within scope and we asked to verify that reads or writes occurred
-    assertThrows( () -> context.safeAction( null,
-                                            false,
-                                            true,
-                                            observableValue::reportObservedIfTrackingTransactionActive ) );
+    assertThrows( () -> context.safeAction( observableValue::reportObservedIfTrackingTransactionActive ) );
 
     // Now we use a tracking transaction
     final Observer observer = context.observer( observableValue::reportObservedIfTrackingTransactionActive );

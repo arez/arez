@@ -275,9 +275,8 @@ public final class Observer
     if ( !isDisposedOrDisposing() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
-                               true,
-                               false,
-                               this::performDispose );
+                               this::performDispose,
+                               Flags.NO_VERIFY_ACTION_REQUIRED );
       if ( !isComputedValue() )
       {
         if ( willPropagateSpyEvents() )
@@ -693,12 +692,7 @@ public final class Observer
     {
       action = _observed;
     }
-    getContext()._action( Arez.areNamesEnabled() ? getName() : null,
-                          Arez.shouldEnforceTransactionType() && isMutation(),
-                          false,
-                          true,
-                          action,
-                          this );
+    getContext().rawObserve( this, action, null );
   }
 
   /**

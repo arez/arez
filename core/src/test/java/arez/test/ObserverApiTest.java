@@ -27,7 +27,7 @@ public class ObserverApiTest
       observeADependency();
       callCount.incrementAndGet();
       assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isWriteTransactionActive(), false );
+      assertEquals( context.isReadWriteTransactionActive(), false );
       assertEquals( context.isTrackingTransactionActive(), true );
     } );
 

@@ -146,7 +146,7 @@ public final class Component
         final ComponentInfo info = getContext().getSpy().asComponentInfo( this );
         getContext().getSpy().reportSpyEvent( new ComponentDisposeStartedEvent( info ) );
       }
-      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, true, false, () -> {
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null, () -> {
         if ( null != _preDispose )
         {
           _preDispose.call();
@@ -165,7 +165,7 @@ public final class Component
         {
           _postDispose.call();
         }
-      } );
+      }, Flags.NO_VERIFY_ACTION_REQUIRED );
       if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
         final ComponentInfo info = getContext().getSpy().asComponentInfo( this );

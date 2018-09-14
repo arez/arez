@@ -57,7 +57,7 @@
         "type": "ReactionScheduled"
     },
     {
-        "action": "Transaction@2",
+        "action": "Action@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -67,7 +67,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@2"
+        "transaction": "Action@2"
     },
     {
         "observable": "ObservableValue@1",
@@ -78,12 +78,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@2"
+        "transaction": "Action@2"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@2",
+        "action": "Action@2",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,

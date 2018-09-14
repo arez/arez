@@ -81,7 +81,7 @@ public class ObservableValueRefTest
     assertEquals( ttCount.get(), 1 );
     assertEquals( rtCount.get(), 1 );
 
-    context.action( "ID Update", true, () -> component.setOtherID( 22 ) );
+    context.action( "ID Update", () -> component.setOtherID( 22 ) );
 
     assertMatchesFixture( recorder );
 

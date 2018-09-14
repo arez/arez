@@ -176,10 +176,10 @@ public final class MemoizeCache<T>
     if ( !_disposed )
     {
       _disposed = true;
-      getContext().safeAction( Arez.areNamesEnabled() ? _name : null, true, false, () -> {
+      getContext().safeAction( Arez.areNamesEnabled() ? _name : null, () -> {
         disposeMap( _cache, _argCount );
         _cache.clear();
-      } );
+      }, Flags.NO_VERIFY_ACTION_REQUIRED );
     }
   }
 

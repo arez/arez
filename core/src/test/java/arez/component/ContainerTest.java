@@ -4,6 +4,7 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
@@ -350,11 +351,11 @@ public class ContainerTest
     @Override
     public void dispose()
     {
-      Arez.context().safeAction( null, true, false, () -> {
+      Arez.context().safeAction( () -> {
         _disposed = true;
         _notifier.dispose();
         _observableValue.dispose();
-      } );
+      }, Flags.NO_VERIFY_ACTION_REQUIRED );
     }
 
     @Override

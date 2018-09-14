@@ -23,8 +23,8 @@ public class ComputedKeepAliveTest
 
     final PersonModel person = PersonModel.create( "Bill", "Smith" );
 
-    context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
-    context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );
+    context.action( "First Name Update", () -> person.setFirstName( "Fred" ) );
+    context.action( "Last Name Update", () -> person.setLastName( "Donaldo" ) );
 
     assertMatchesFixture( recorder );
   }
