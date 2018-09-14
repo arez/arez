@@ -123,11 +123,10 @@ public class ComputedValueTest
                      null );
 
     final String name = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.computed( component, name, () -> "" ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0048: ComputedValue named '" + name + "' has component specified but " +
-                  "Arez.areNativeComponentsEnabled() is false." );
+    assertInvariantFailure( () -> context.computed( component, name, () -> "" ),
+                            "Arez-0048: ComputedValue named '" + name + "' has component specified but " +
+                            "Arez.areNativeComponentsEnabled() is false." );
+
   }
 
   @Test
@@ -172,11 +171,8 @@ public class ComputedValueTest
     final Procedure action = () -> {
     };
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.computed( null, () -> "", action, null, null, Flags.KEEPALIVE ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
+    assertInvariantFailure( () -> context.computed( null, () -> "", action, null, null, Flags.KEEPALIVE ),
+                            "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
   }
 
   @Test
@@ -187,11 +183,8 @@ public class ComputedValueTest
 
     final Procedure action = () -> {
     };
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.computed( null, () -> "", null, action, null, Flags.KEEPALIVE ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
+    assertInvariantFailure( () -> context.computed( null, () -> "", null, action, null, Flags.KEEPALIVE ),
+                            "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
   }
 
   @Test
@@ -371,15 +364,12 @@ public class ComputedValueTest
     final ComputedValue<String> computedValue =
       context.computed( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.RUN_LATER );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Arez.context().safeAction( computedValue::get ) );
+    assertInvariantFailure( () -> Arez.context().safeAction( computedValue::get ),
+                            "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
                   "Observer: XYZ Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
-    assertEquals( exception.getMessage(),
-                  "Arez-0173: ComputedValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
   }
 
   @Test
@@ -474,12 +464,8 @@ public class ComputedValueTest
 
     final ObservableValue<Object> observableValue = context.observable( "Y" );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.action( "X", (Procedure) observableValue::dispose, Flags.READ_ONLY ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
+    assertInvariantFailure( () -> context.action( "X", (Procedure) observableValue::dispose, Flags.READ_ONLY ),
+                            "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
   }
 
   @Test
@@ -567,10 +553,9 @@ public class ComputedValueTest
     computedValue.setValue( "" );
     computedValue.setError( error );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::get );
-    assertEquals( exception.getMessage(),
-                  "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
-                  computedValue.getName() + "' but still has a non-null value." );
+    assertInvariantFailure( computedValue::get,
+                            "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
+                            computedValue.getName() + "' but still has a non-null value." );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
   }
@@ -613,12 +598,9 @@ public class ComputedValueTest
 
     observer.markAsDisposed();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, computedValue::get );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0050: ComputedValue named '" + computedValue.getName() + "' accessed after it " +
-                  "has been disposed." );
+    assertInvariantFailure( computedValue::get,
+                            "Arez-0050: ComputedValue named '" + computedValue.getName() + "' accessed after it " +
+                            "has been disposed." );
   }
 
   @Test
@@ -637,11 +619,10 @@ public class ComputedValueTest
 
     computedValue.setComputing( true );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, computedValue::get );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0049: Detected a cycle deriving ComputedValue named '" + computedValue.getName() + "'." );
+    assertInvariantFailure( computedValue::get,
+                            "Arez-0049: Detected a cycle deriving ComputedValue named '" +
+                            computedValue.getName() +
+                            "'." );
 
     computedValue.setComputing( false );
 
@@ -657,12 +638,9 @@ public class ComputedValueTest
 
     computedValue.setDisposed( true );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, computedValue::getObservableValue );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0084: Attempted to invoke getObservableValue on disposed ComputedValue named '" +
-                  computedValue.getName() + "'." );
+    assertInvariantFailure( computedValue::getObservableValue,
+                            "Arez-0084: Attempted to invoke getObservableValue on disposed ComputedValue named '" +
+                            computedValue.getName() + "'." );
 
     computedValue.setDisposed( false );
 
@@ -752,16 +730,12 @@ public class ComputedValueTest
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( computedValue::reportPossiblyChanged, Flags.READ_ONLY ) );
+    assertInvariantFailure( () -> context.safeAction( computedValue::reportPossiblyChanged, Flags.READ_ONLY ),
+                            "Arez-0152: Transaction named 'Action@4' attempted to change ObservableValue named '" +
+                            computedValue.getName() + "' but the transaction mode is READ_ONLY." );
 
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 1 );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0152: Transaction named 'Action@4' attempted to change ObservableValue named '" +
-                  computedValue.getName() + "' but the transaction mode is READ_ONLY." );
   }
 
   @Test
@@ -778,13 +752,9 @@ public class ComputedValueTest
     };
     final ComputedValue<String> computedValue = context.computed( function );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( computedValue::reportPossiblyChanged ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
-                  computedValue.getName() + "' but the computed value has arezOnlyDependencies = true." );
+    assertInvariantFailure( () -> context.safeAction( computedValue::reportPossiblyChanged ),
+                            "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
+                            computedValue.getName() + "' but the computed value has arezOnlyDependencies = true." );
   }
 
   @Test
@@ -856,8 +826,7 @@ public class ComputedValueTest
     };
     final ComputedValue<String> computedValue = context.computed( function );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::asInfo );
-    assertEquals( exception.getMessage(),
-                  "Arez-0195: ComputedValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    assertInvariantFailure( computedValue::asInfo,
+                            "Arez-0195: ComputedValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }

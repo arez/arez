@@ -104,18 +104,14 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        null,
-                                        null,
-                                        0 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
-                  "the observed parameter or the onDepsChanged parameter." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                null,
+                                                null,
+                                                0 ),
+                            "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
+                            "the observed parameter or the onDepsChanged parameter." );
   }
 
   @Test
@@ -124,16 +120,13 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        null,
-                                        Flags.PRIORITY_LOWEST + Flags.PRIORITY_HIGHEST ) );
-
-    assertEquals( exception.getMessage(), "Arez-0080: Observer named '" + name + "' has invalid priority 5." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountAndObserveProcedure(),
+                                                null,
+                                                Flags.PRIORITY_LOWEST + Flags.PRIORITY_HIGHEST ),
+                            "Arez-0080: Observer named '" + name + "' has invalid priority 5." );
   }
 
   @Test
@@ -142,19 +135,17 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountingProcedure(),
-                                        new CountingProcedure(),
-                                        Flags.PRIORITY_LOWEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0184: Observer named '" + name + "' has LOWEST priority but has passed " +
-                  "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
-                  "has no lower priority." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountingProcedure(),
+                                                new CountingProcedure(),
+                                                Flags.PRIORITY_LOWEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
+                            "Arez-0184: Observer named '" +
+                            name +
+                            "' has LOWEST priority but has passed " +
+                            "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
+                            "has no lower priority." );
   }
 
   @Test
@@ -163,18 +154,14 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        null,
-                                        Flags.READ_ONLY | Flags.READ_WRITE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0079: Observer named '" + name + "' incorrectly specified both " +
-                  "READ_ONLY and READ_WRITE transaction mode flags." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountAndObserveProcedure(),
+                                                null,
+                                                Flags.READ_ONLY | Flags.READ_WRITE ),
+                            "Arez-0079: Observer named '" + name + "' incorrectly specified both " +
+                            "READ_ONLY and READ_WRITE transaction mode flags." );
   }
 
   @Test
@@ -183,18 +170,14 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        null,
-                                        Flags.RUN_NOW | Flags.RUN_LATER ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0081: Observer named '" + name + "' incorrectly specified both " +
-                  "RUN_NOW and RUN_LATER flags." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountAndObserveProcedure(),
+                                                null,
+                                                Flags.RUN_NOW | Flags.RUN_LATER ),
+                            "Arez-0081: Observer named '" + name + "' incorrectly specified both " +
+                            "RUN_NOW and RUN_LATER flags." );
   }
 
   @Test
@@ -203,18 +186,14 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        null,
-                                        new CountingProcedure(),
-                                        Flags.RUN_NOW ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0206: Observer named '" + name + "' incorrectly specified RUN_NOW " +
-                  "flag but the observed function is null." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                null,
+                                                new CountingProcedure(),
+                                                Flags.RUN_NOW ),
+                            "Arez-0206: Observer named '" + name + "' incorrectly specified RUN_NOW " +
+                            "flag but the observed function is null." );
   }
 
   @Test
@@ -223,18 +202,14 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        new CountingProcedure(),
-                                        Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0210: Observer named '" + name + "' incorrectly specified multiple schedule " +
-                  "type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountAndObserveProcedure(),
+                                                new CountingProcedure(),
+                                                Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ),
+                            "Arez-0210: Observer named '" + name + "' incorrectly specified multiple schedule " +
+                            "type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
   }
 
   @Test
@@ -243,17 +218,13 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        new CountingProcedure(),
-                                        1 << 14 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0207: Observer named '" + name + "' specified illegal flags: " + ( 1 << 14 ) );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountAndObserveProcedure(),
+                                                new CountingProcedure(),
+                                                1 << 14 ),
+                            "Arez-0207: Observer named '" + name + "' specified illegal flags: " + ( 1 << 14 ) );
   }
 
   @Test
@@ -262,18 +233,14 @@ public class ObserverTest
   {
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountAndObserveProcedure(),
-                                        new CountingProcedure(),
-                                        Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0209: Observer named '" + name + "' incorrectly specified both the " +
-                  "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountAndObserveProcedure(),
+                                                new CountingProcedure(),
+                                                Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ),
+                            "Arez-0209: Observer named '" + name + "' incorrectly specified both the " +
+                            "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
   }
 
   @Test
@@ -284,12 +251,8 @@ public class ObserverTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( computedValue, Flags.RUN_NOW ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0208: ComputedValue named 'ComputedValue@1' incorrectly specified RUN_NOW flag but not the KEEPALIVE flag." );
+    assertInvariantFailure( () -> new Observer( computedValue, Flags.RUN_NOW ),
+                            "Arez-0208: ComputedValue named 'ComputedValue@1' incorrectly specified RUN_NOW flag but not the KEEPALIVE flag." );
   }
 
   @Test
@@ -300,18 +263,14 @@ public class ObserverTest
 
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        null,
-                                        name,
-                                        new CountingProcedure(),
-                                        new CountingProcedure(),
-                                        Flags.READ_ONLY ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0082: Observer named '" + name + "' specified transaction mode 'READ_ONLY' " +
-                  "when Arez.enforceTransactionType() is false." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                null,
+                                                name,
+                                                new CountingProcedure(),
+                                                new CountingProcedure(),
+                                                Flags.READ_ONLY ),
+                            "Arez-0082: Observer named '" + name + "' specified transaction mode 'READ_ONLY' " +
+                            "when Arez.enforceTransactionType() is false." );
   }
 
   @SuppressWarnings( "ResultOfMethodCallIgnored" )
@@ -348,17 +307,14 @@ public class ObserverTest
                      null );
 
     final String name = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Observer( Arez.context(),
-                                        component,
-                                        name,
-                                        new CountingProcedure(),
-                                        new CountingProcedure(),
-                                        0 ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0083: Observer named '" + name + "' has component specified but " +
-                  "Arez.areNativeComponentsEnabled() is false." );
+    assertInvariantFailure( () -> new Observer( Arez.context(),
+                                                component,
+                                                name,
+                                                new CountingProcedure(),
+                                                new CountingProcedure(),
+                                                0 ),
+                            "Arez-0083: Observer named '" + name + "' has component specified but " +
+                            "Arez.areNativeComponentsEnabled() is false." );
   }
 
   @Test
@@ -401,13 +357,14 @@ public class ObserverTest
     final ObservableValue<?> observableValue = Arez.context().observable();
     observer.getDependencies().add( observableValue );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesBackLink( "TEST1" ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0090: TEST1: Observer named '" + observer.getName() + "' has ObservableValue " +
-                  "dependency named '" + observableValue.getName() + "' which does not contain the observer in " +
-                  "the list of observers." );
+    assertInvariantFailure( () -> observer.invariantDependenciesBackLink( "TEST1" ),
+                            "Arez-0090: TEST1: Observer named '" +
+                            observer.getName() +
+                            "' has ObservableValue " +
+                            "dependency named '" +
+                            observableValue.getName() +
+                            "' which does not contain the observer in " +
+                            "the list of observers." );
 
     //Setup correct back link
     observableValue.addObserver( observer );
@@ -429,12 +386,12 @@ public class ObserverTest
 
     observableValue.setWorkState( ObservableValue.DISPOSED );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observer::invariantDependenciesNotDisposed );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0091: Observer named '" + observer.getName() + "' has ObservableValue dependency named '" +
-                  observableValue.getName() + "' which is disposed." );
+    assertInvariantFailure( observer::invariantDependenciesNotDisposed,
+                            "Arez-0091: Observer named '" +
+                            observer.getName() +
+                            "' has ObservableValue dependency named '" +
+                            observableValue.getName() +
+                            "' which is disposed." );
 
     observableValue.setWorkState( 0 );
 
@@ -454,12 +411,14 @@ public class ObserverTest
     // Add a duplicate
     observer.getDependencies().add( observable );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observer.invariantDependenciesUnique( "TEST2" ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0089: TEST2: The set of dependencies in observer named '" + observer.getName() +
-                  "' is not unique. Current list: '[" + observable.getName() + ", " + observable.getName() + "]'." );
+    assertInvariantFailure( () -> observer.invariantDependenciesUnique( "TEST2" ),
+                            "Arez-0089: TEST2: The set of dependencies in observer named '" +
+                            observer.getName() +
+                            "' is not unique. Current list: '[" +
+                            observable.getName() +
+                            ", " +
+                            observable.getName() +
+                            "]'." );
   }
 
   @Test
@@ -474,11 +433,9 @@ public class ObserverTest
 
     observer.getDependencies().add( observable );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::invariantState );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0092: Observer named '" + observer.getName() + "' is inactive " +
-                  "but still has dependencies: [" + observable.getName() + "]." );
+    assertInvariantFailure( observer::invariantState,
+                            "Arez-0092: Observer named '" + observer.getName() + "' is inactive " +
+                            "but still has dependencies: [" + observable.getName() + "]." );
   }
 
   @Test
@@ -492,12 +449,9 @@ public class ObserverTest
 
     setField( computedValue, "_observableValue", Arez.context().observable() );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observer::invariantState );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0093: Observer named '" + observer.getName() + "' is associated with an " +
-                  "ObservableValue that does not link back to observer." );
+    assertInvariantFailure( observer::invariantState,
+                            "Arez-0093: Observer named '" + observer.getName() + "' is associated with an " +
+                            "ObservableValue that does not link back to observer." );
   }
 
   @Test
@@ -512,13 +466,9 @@ public class ObserverTest
 
     context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( observer::invariantComputedValueObserverState ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0094: Observer named '" + observer.getName() + "' is a ComputedValue and " +
-                  "active but the associated ObservableValue has no observers." );
+    assertInvariantFailure( () -> context.safeAction( observer::invariantComputedValueObserverState ),
+                            "Arez-0094: Observer named '" + observer.getName() + "' is a ComputedValue and " +
+                            "active but the associated ObservableValue has no observers." );
 
     context.observer( () -> computedValue.getObservableValue().reportObserved() );
 
@@ -578,10 +528,8 @@ public class ObserverTest
     newDependencies.add( observable );
     newDependencies.add( observable );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observer.replaceDependencies( newDependencies ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0089: Post replaceDependencies: The set of dependencies in observer named 'Observer@2' is not unique. Current list: '[ObservableValue@1, ObservableValue@1]'." );
+    assertInvariantFailure( () -> observer.replaceDependencies( newDependencies ),
+                            "Arez-0089: Post replaceDependencies: The set of dependencies in observer named 'Observer@2' is not unique. Current list: '[ObservableValue@1, ObservableValue@1]'." );
   }
 
   @Test
@@ -597,10 +545,8 @@ public class ObserverTest
     newDependencies.add( observable );
     newDependencies.add( observable2 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observer.replaceDependencies( newDependencies ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0090: Post replaceDependencies: Observer named 'Observer@3' has ObservableValue dependency named 'ObservableValue@2' which does not contain the observer in the list of observers." );
+    assertInvariantFailure( () -> observer.replaceDependencies( newDependencies ),
+                            "Arez-0090: Post replaceDependencies: Observer named 'Observer@3' has ObservableValue dependency named 'ObservableValue@2' which does not contain the observer in the list of observers." );
   }
 
   @Test
@@ -905,11 +851,8 @@ public class ObserverTest
 
     observer.markAsDisposed();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observer.setState( Flags.STATE_UP_TO_DATE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0087: Attempted to activate disposed observer named '" + observer.getName() + "'." );
+    assertInvariantFailure( () -> observer.setState( Flags.STATE_UP_TO_DATE ),
+                            "Arez-0087: Attempted to activate disposed observer named '" + observer.getName() + "'." );
   }
 
   @Test
@@ -918,12 +861,11 @@ public class ObserverTest
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observer.setState( Flags.STATE_UP_TO_DATE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0086: Attempt to invoke setState on observer named '" + observer.getName() + "' when " +
-                  "there is no active transaction." );
+    assertInvariantFailure( () -> observer.setState( Flags.STATE_UP_TO_DATE ),
+                            "Arez-0086: Attempt to invoke setState on observer named '" +
+                            observer.getName() +
+                            "' when " +
+                            "there is no active transaction." );
   }
 
   @Test
@@ -981,13 +923,9 @@ public class ObserverTest
 
     context.safeAction( () -> observer.setState( Flags.STATE_INACTIVE ), Flags.NO_VERIFY_ACTION_REQUIRED );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( observer::scheduleReaction, Flags.NO_VERIFY_ACTION_REQUIRED ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
-                  "been made to schedule observer." );
+    assertInvariantFailure( () -> context.safeAction( observer::scheduleReaction, Flags.NO_VERIFY_ACTION_REQUIRED ),
+                            "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
+                            "been made to schedule observer." );
   }
 
   @Test
@@ -1195,11 +1133,9 @@ public class ObserverTest
 
     assertEquals( observer.isComputedValue(), false );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::getComputedValue );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0095: Attempted to invoke getComputedValue on observer named '" + observer.getName() +
-                  "' when is not a computed observer." );
+    assertInvariantFailure( observer::getComputedValue,
+                            "Arez-0095: Attempted to invoke getComputedValue on observer named '" + observer.getName() +
+                            "' when is not a computed observer." );
   }
 
   @Test
@@ -1485,9 +1421,8 @@ public class ObserverTest
 
     observer.setState( Flags.STATE_DISPOSING );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::shouldCompute );
-    assertEquals( exception.getMessage(),
-                  "Arez-0205: Observer.shouldCompute() invoked on observer named 'Observer@1' but observer is in state DISPOSING" );
+    assertInvariantFailure( observer::shouldCompute,
+                            "Arez-0205: Observer.shouldCompute() invoked on observer named 'Observer@1' but observer is in state DISPOSING" );
   }
 
   @Test
@@ -1697,9 +1632,8 @@ public class ObserverTest
 
     final Observer observer = Arez.context().tracker( ValueUtil::randomString );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::asInfo );
-    assertEquals( exception.getMessage(),
-                  "Arez-0197: Observer.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    assertInvariantFailure( observer::asInfo,
+                            "Arez-0197: Observer.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 
   @Test
@@ -1747,11 +1681,9 @@ public class ObserverTest
     assertEquals( observer.isScheduled(), false );
 
     context.safeAction( () -> {
-      final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
-
-      assertEquals( exception.getMessage(),
-                    "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
-                    "' but arezOnlyDependencies = true." );
+      assertInvariantFailure( observer::reportStale,
+                              "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                              "' but arezOnlyDependencies = true." );
       assertEquals( observer.isScheduled(), false );
       assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
       assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
@@ -1776,11 +1708,9 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.isScheduled(), false );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::reportStale );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0200: Observer.reportStale() invoked on observer named '" + observer.getName() +
-                  "' when there is no active transaction." );
+    assertInvariantFailure( observer::reportStale,
+                            "Arez-0200: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                            "' when there is no active transaction." );
     assertEquals( observer.isScheduled(), false );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
@@ -1797,14 +1727,10 @@ public class ObserverTest
     context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
     assertEquals( observer.isScheduled(), false );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( "MyAction", observer::reportStale, Flags.READ_ONLY ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0201: Observer.reportStale() invoked on observer named '" + observer.getName() +
-                  "' when the active transaction 'MyAction' is READ_ONLY rather " +
-                  "than READ_WRITE." );
+    assertInvariantFailure( () -> context.safeAction( "MyAction", observer::reportStale, Flags.READ_ONLY ),
+                            "Arez-0201: Observer.reportStale() invoked on observer named '" + observer.getName() +
+                            "' when the active transaction 'MyAction' is READ_ONLY rather " +
+                            "than READ_WRITE." );
     assertEquals( observer.isScheduled(), false );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
@@ -1917,11 +1843,9 @@ public class ObserverTest
 
     final Disposable schedulerLock = context.pauseScheduler();
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observer::schedule );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +
-                  "' but supportsManualSchedule() returns false." );
+    assertInvariantFailure( observer::schedule,
+                            "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +
+                            "' but supportsManualSchedule() returns false." );
     assertEquals( observer.isScheduled(), false );
     assertEquals( observer.getState(), Flags.STATE_STALE );
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );

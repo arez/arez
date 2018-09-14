@@ -61,9 +61,7 @@ public class DisposableTest
     assertEquals( Disposable.asDisposable( object ), object );
 
     final Object element = new Object();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Disposable.asDisposable( element ) );
-    assertEquals( exception.getMessage(),
-                  "Object passed to asDisposable does not implement Disposable. Object: " + element );
+    assertInvariantFailure( () -> Disposable.asDisposable( element ),
+                            "Object passed to asDisposable does not implement Disposable. Object: " + element );
   }
 }

@@ -32,12 +32,9 @@ public class TransactionInfoImplTest
     final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
     final TransactionInfo info = transaction.asInfo();
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, info::getTracker );
-
-    assertEquals( exception.getMessage(),
-                  "Invoked getTracker on TransactionInfo named '" +
-                  transaction.getName() +
-                  "' but no tracker exists." );
+    assertInvariantFailure( info::getTracker,
+                            "Invoked getTracker on TransactionInfo named '" + transaction.getName() +
+                            "' but no tracker exists." );
   }
 
   @Test

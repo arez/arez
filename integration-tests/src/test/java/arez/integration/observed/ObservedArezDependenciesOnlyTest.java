@@ -43,12 +43,8 @@ public class ObservedArezDependenciesOnlyTest
     assertEquals( component._renderCallCount, 1 );
 
     // reportStale should result in exception
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> safeAction( () -> component.getRenderObserver().reportStale() ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0199: Observer.reportStale() invoked on observer named 'TestComponent1.0.render' but arezOnlyDependencies = true." );
+    assertInvariantFailure( () -> safeAction( () -> component.getRenderObserver().reportStale() ),
+                            "Arez-0199: Observer.reportStale() invoked on observer named 'TestComponent1.0.render' but arezOnlyDependencies = true." );
 
     assertEquals( component._renderCallCount, 1 );
   }

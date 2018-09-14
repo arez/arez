@@ -90,6 +90,12 @@ public abstract class AbstractArezIntegrationTest
     return _observerErrors;
   }
 
+  protected static void assertInvariantFailure( @Nonnull final ThrowingRunnable throwingRunnable,
+                                                @Nonnull final String message )
+  {
+    assertEquals( expectThrows( IllegalStateException.class, throwingRunnable ).getMessage(), message );
+  }
+
   protected final void assertMatchesFixture( @Nonnull final SpyEventRecorder recorder )
     throws IOException, JSONException
   {

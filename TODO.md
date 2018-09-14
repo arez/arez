@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Add Test to verify that actions object when passed bad flags.
 
-* Introduce an `assertInvariantFailure( () -> action, message )` into tests.
-
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code

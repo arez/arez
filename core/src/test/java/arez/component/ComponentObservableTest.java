@@ -35,11 +35,9 @@ public class ComponentObservableTest
   public void observe_notComponentObservable()
   {
     final Object element = new Object();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> ComponentObservable.observe( element ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0179: Object passed to asComponentObservable does not implement " +
-                  "ComponentObservable. Object: " + element );
+    assertInvariantFailure( () -> ComponentObservable.observe( element ),
+                            "Arez-0179: Object passed to asComponentObservable does not implement " +
+                            "ComponentObservable. Object: " + element );
   }
 
   @Test
@@ -53,11 +51,9 @@ public class ComponentObservableTest
   public void notObserved_notComponentObservable()
   {
     final Object element = new Object();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> ComponentObservable.notObserved( element ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0179: Object passed to asComponentObservable does not implement " +
-                  "ComponentObservable. Object: " + element );
+    assertInvariantFailure( () -> ComponentObservable.notObserved( element ),
+                            "Arez-0179: Object passed to asComponentObservable does not implement " +
+                            "ComponentObservable. Object: " + element );
   }
 
   @Test
@@ -71,10 +67,8 @@ public class ComponentObservableTest
   public void asComponentObservable_nonObservable()
   {
     final Object element = new Object();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> ComponentObservable.asComponentObservable( element ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0179: Object passed to asComponentObservable does not implement " +
-                  "ComponentObservable. Object: " + element );
+    assertInvariantFailure( () -> ComponentObservable.asComponentObservable( element ),
+                            "Arez-0179: Object passed to asComponentObservable does not implement " +
+                            "ComponentObservable. Object: " + element );
   }
 }

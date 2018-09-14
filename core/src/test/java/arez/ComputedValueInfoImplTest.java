@@ -123,11 +123,9 @@ public class ComputedValueInfoImplTest
     final ComputedValueInfoImpl info = (ComputedValueInfoImpl) computedValue.asInfo();
     setupReadOnlyTransaction( context );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, info::getTransactionComputing );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as " +
-                  "computing but unable to locate transaction responsible for computing ComputedValue" );
+    assertInvariantFailure( info::getTransactionComputing,
+                            "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as " +
+                            "computing but unable to locate transaction responsible for computing ComputedValue" );
   }
 
   @Test
@@ -214,10 +212,8 @@ public class ComputedValueInfoImplTest
 
     final ComputedValue<Object> computedValue = context.computed( () -> "" );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> computedValue.asInfo().getComponent() );
-    assertEquals( exception.getMessage(),
-                  "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertInvariantFailure( () -> computedValue.asInfo().getComponent(),
+                            "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @Test
@@ -299,10 +295,8 @@ public class ComputedValueInfoImplTest
 
     final ComputedValue<Integer> computedValue1 = context.computed( () -> 42 );
 
-    final IllegalStateException exception2 =
-      expectThrows( IllegalStateException.class, () -> context.action( () -> computedValue1.asInfo().getValue() ) );
-    assertEquals( exception2.getMessage(),
-                  "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    assertInvariantFailure( () -> context.action( () -> computedValue1.asInfo().getValue() ),
+                            "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @SuppressWarnings( "EqualsWithItself" )

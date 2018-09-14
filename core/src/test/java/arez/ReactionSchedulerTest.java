@@ -37,11 +37,9 @@ public class ReactionSchedulerTest
     ArezTestUtil.disableZones();
     ArezTestUtil.resetState();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new ReactionScheduler( Arez.context() ) );
+    assertInvariantFailure( () -> new ReactionScheduler( Arez.context() ),
+                            "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
 
-    assertEquals( exception.getMessage(),
-                  "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
   }
 
   @Test
@@ -67,10 +65,8 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> scheduler.setMaxReactionRounds( -1 ) );
-
-    assertEquals( exception.getMessage(), "Arez-0098: Attempting to set maxReactionRounds to negative value -1." );
+    assertInvariantFailure( () -> scheduler.setMaxReactionRounds( -1 ),
+                            "Arez-0098: Attempting to set maxReactionRounds to negative value -1." );
   }
 
   @Test
@@ -85,13 +81,10 @@ public class ReactionSchedulerTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     scheduler.getPendingObservers().add( observer );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0101: Runaway reaction(s) detected. Observers still running after " +
-                  scheduler.getMaxReactionRounds() + " rounds. Current observers include: [" +
-                  observer.getName() + "]" );
+    assertInvariantFailure( scheduler::onRunawayReactionsDetected,
+                            "Arez-0101: Runaway reaction(s) detected. Observers still running after " +
+                            scheduler.getMaxReactionRounds() + " rounds. Current observers include: [" +
+                            observer.getName() + "]" );
 
     // Ensure observers purged
     assertEquals( scheduler.getPendingObservers().size(), 0 );
@@ -161,12 +154,9 @@ public class ReactionSchedulerTest
 
     scheduler.getPendingDisposes().add( observer );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> scheduler.scheduleDispose( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0165: Attempting to schedule disposable '" + observer.getName() +
-                  "' when disposable is already pending." );
+    assertInvariantFailure( () -> scheduler.scheduleDispose( observer ),
+                            "Arez-0165: Attempting to schedule disposable '" + observer.getName() +
+                            "' when disposable is already pending." );
   }
 
   @Test
@@ -204,12 +194,8 @@ public class ReactionSchedulerTest
 
     setCurrentTransaction( newReadWriteObserver( context ) );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, scheduler::runDispose );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0156: Invoked runDispose when transaction named '" +
-                  context.getTransaction().getName() + "' is active." );
+    assertInvariantFailure( scheduler::runDispose, "Arez-0156: Invoked runDispose when transaction named '" +
+                                                   context.getTransaction().getName() + "' is active." );
   }
 
   @Test
@@ -399,12 +385,9 @@ public class ReactionSchedulerTest
 
     scheduler.getPendingObservers().add( observer );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> scheduler.scheduleReaction( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0099: Attempting to schedule observer named '" + observer.getName() +
-                  "' when observer is already pending." );
+    assertInvariantFailure( () -> scheduler.scheduleReaction( observer ),
+                            "Arez-0099: Attempting to schedule observer named '" + observer.getName() +
+                            "' when observer is already pending." );
   }
 
   @Test
@@ -476,12 +459,8 @@ public class ReactionSchedulerTest
     assertEquals( scheduler.getCurrentReactionRound(), 0 );
     assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, scheduler::runObserver );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0100: Invoked runObserver when transaction named '" +
-                  context.getTransaction().getName() + "' is active." );
+    assertInvariantFailure( scheduler::runObserver, "Arez-0100: Invoked runObserver when transaction named '" +
+                                                    context.getTransaction().getName() + "' is active." );
   }
 
   @Test
@@ -639,16 +618,13 @@ public class ReactionSchedulerTest
     context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> {
-        while ( scheduler.runObserver() )
-        {
-          reactionCount.incrementAndGet();
-        }
-      } );
-    assertEquals( exception.getMessage(),
-                  "Arez-0101: Runaway reaction(s) detected. Observers still running after 20 rounds. " +
-                  "Current observers include: [" + observer.getName() + "]" );
+    assertInvariantFailure( () -> {
+      while ( scheduler.runObserver() )
+      {
+        reactionCount.incrementAndGet();
+      }
+    }, "Arez-0101: Runaway reaction(s) detected. Observers still running after 20 rounds. " +
+       "Current observers include: [" + observer.getName() + "]" );
 
     assertEquals( reactionCount.get(), 20 );
 

@@ -33,10 +33,7 @@ public class SchedulerLockTest
   {
     ArezTestUtil.disableZones();
     ArezTestUtil.resetState();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new SchedulerLock( Arez.context() ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0174: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
+    assertInvariantFailure( () -> new SchedulerLock( Arez.context() ),
+                            "Arez-0174: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
   }
 }

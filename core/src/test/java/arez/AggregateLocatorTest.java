@@ -113,11 +113,9 @@ public class AggregateLocatorTest
     final AggregateLocator locator = new AggregateLocator();
     locator.registerLocator( locator1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> locator.registerLocator( locator1 ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0189: Attempting to register locator " + locator1 +
-                  " when the Locator is already present." );
+    assertInvariantFailure( () -> locator.registerLocator( locator1 ),
+                            "Arez-0189: Attempting to register locator " + locator1 +
+                            " when the Locator is already present." );
   }
 
   @Test
@@ -130,11 +128,9 @@ public class AggregateLocatorTest
 
     locator.getLocators().clear();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, disposable::dispose );
-    assertEquals( exception.getMessage(),
-                  "Arez-0190: Attempting to de-register locator " + locator1 +
-                  " but the Locator is not present in list." );
+    assertInvariantFailure( disposable::dispose,
+                            "Arez-0190: Attempting to de-register locator " + locator1 +
+                            " but the Locator is not present in list." );
   }
 
   private static class A
