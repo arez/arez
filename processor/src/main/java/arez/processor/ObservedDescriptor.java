@@ -380,7 +380,7 @@ final class ObservedDescriptor
     final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> parameterNames = new ArrayList<>();
+    final ArrayList<Object> params = new ArrayList<>();
 
     GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
     if ( !isProcedure )
@@ -388,7 +388,7 @@ final class ObservedDescriptor
       statement.append( "return " );
     }
     statement.append( "$N()." );
-    parameterNames.add( _componentDescriptor.getContextMethodName() );
+    params.add( _componentDescriptor.getContextMethodName() );
 
     if ( isProcedure && isSafe )
     {
@@ -408,15 +408,20 @@ final class ObservedDescriptor
     }
 
     statement.append( "( this.$N, " );
-    parameterNames.add( getFieldName() );
+    params.add( getFieldName() );
 
     statement.append( "() -> super." );
     statement.append( _observed.getSimpleName() );
     statement.append( "(" );
 
-    boolean firstParam = true;
     final List<? extends VariableElement> parameters = _observed.getParameters();
     final int paramCount = parameters.size();
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
+
+    boolean firstParam = true;
     for ( int i = 0; i < paramCount; i++ )
     {
       final VariableElement element = parameters.get( i );
@@ -425,29 +430,47 @@ final class ObservedDescriptor
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
       ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
-      parameterNames.add( element.getSimpleName().toString() );
+      params.add( element.getSimpleName().toString() );
       if ( !firstParam )
       {
-        statement.append( "," );
+        statement.append( ", " );
       }
       firstParam = false;
       statement.append( "$N" );
     }
-
-    statement.append( ")" );
-    if ( _reportParameters )
+    if ( 0 != paramCount )
     {
+      statement.append( " " );
+    }
+
+    statement.append( "), " );
+    if ( _reportParameters && !parameters.isEmpty() )
+    {
+      statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( Object.class );
+      firstParam = true;
       for ( final VariableElement parameter : parameters )
       {
-        parameterNames.add( parameter.getSimpleName().toString() );
-        statement.append( ", $N" );
+        if ( !firstParam )
+        {
+          statement.append( ", " );
+        }
+        firstParam = false;
+        params.add( parameter.getSimpleName().toString() );
+        statement.append( "$N" );
       }
+      statement.append( " } : null" );
+    }
+    else
+    {
+      statement.append( "null" );
     }
     statement.append( " )" );
 
     GeneratorUtil.generateTryBlock( builder,
                                     thrownTypes,
-                                    b -> b.addStatement( statement.toString(), parameterNames.toArray() ) );
+                                    b -> b.addStatement( statement.toString(), params.toArray() ) );
 
     return builder.build();
   }
