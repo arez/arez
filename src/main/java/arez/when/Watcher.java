@@ -177,7 +177,14 @@ final class Watcher
   {
     if ( Disposable.isNotDisposed( _condition ) && _condition.get() )
     {
-      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null, _mutation, _verifyActionRequired, _effect );
+      getContext().safeAction( Arez.areNamesEnabled() ? getName() : null,
+                               _effect,
+                               Flags.REQUIRE_NEW_TRANSACTION |
+                               ( _mutation ? Flags.READ_WRITE : Flags.READ_ONLY ) |
+                               ( _verifyActionRequired ?
+                                 Flags.VERIFY_ACTION_REQUIRED :
+                                 Flags.NO_VERIFY_ACTION_REQUIRED )
+      );
       Disposable.dispose( _observer );
     }
   }
