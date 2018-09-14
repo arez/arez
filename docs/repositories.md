@@ -47,4 +47,3 @@ and these methods will be available on the repository.
 For example:
 
 {@file_content: file=arez/doc/examples/repository2/MyComponent.java "start_line=@ArezComponent" "end_line={" include_end_line=false}
-
