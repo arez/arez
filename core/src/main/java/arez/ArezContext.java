@@ -997,7 +997,7 @@ public final class ArezContext
    *
    * @return true if there is a read-write transaction in progress.
    */
-  public boolean isWriteTransactionActive()
+  public boolean isReadWriteTransactionActive()
   {
     return Transaction.isTransactionActive( this ) &&
            ( !Arez.shouldEnforceTransactionType() || Transaction.current().isMutation() );

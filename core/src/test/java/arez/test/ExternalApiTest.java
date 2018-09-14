@@ -145,7 +145,7 @@ public class ExternalApiTest
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
       assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isWriteTransactionActive(), true );
+      assertEquals( context.isReadWriteTransactionActive(), true );
       assertEquals( context.isTrackingTransactionActive(), false );
 
       computedValue.dispose();
@@ -183,7 +183,7 @@ public class ExternalApiTest
 
       assertEquals( context.isTransactionActive(), true );
       assertEquals( context.isReadOnlyTransactionActive(), true );
-      assertEquals( context.isWriteTransactionActive(), false );
+      assertEquals( context.isReadWriteTransactionActive(), false );
       assertEquals( context.isTrackingTransactionActive(), true );
     } );
 
@@ -273,7 +273,7 @@ public class ExternalApiTest
         observableValue.reportObserved();
         reactionCount.incrementAndGet();
         assertEquals( context.isTransactionActive(), true );
-        assertEquals( context.isWriteTransactionActive(), false );
+        assertEquals( context.isReadWriteTransactionActive(), false );
         assertEquals( context.isTrackingTransactionActive(), true );
       } );
 
@@ -283,7 +283,7 @@ public class ExternalApiTest
     context.safeAction( ValueUtil.randomString(), true, () -> {
       observableValue.reportChanged();
       assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isWriteTransactionActive(), true );
+      assertEquals( context.isReadWriteTransactionActive(), true );
       assertEquals( context.isTrackingTransactionActive(), false );
     } );
 
@@ -337,7 +337,7 @@ public class ExternalApiTest
         observableValue3.reportObserved();
         reactionCount.incrementAndGet();
         assertEquals( context.isTransactionActive(), true );
-        assertEquals( context.isWriteTransactionActive(), false );
+        assertEquals( context.isReadWriteTransactionActive(), false );
         assertEquals( context.isTrackingTransactionActive(), true );
       } );
 

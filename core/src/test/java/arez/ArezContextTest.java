@@ -194,21 +194,21 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
-    assertFalse( context.isWriteTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
 
-    context.action( true, () -> {
+    context.action( () -> {
       assertTrue( context.isTransactionActive() );
-      assertTrue( context.isWriteTransactionActive() );
+      assertTrue( context.isReadWriteTransactionActive() );
       observeADependency();
-      context.action( false, () -> {
+      context.action( () -> {
         assertTrue( context.isTransactionActive() );
-        assertFalse( context.isWriteTransactionActive() );
+        assertFalse( context.isReadWriteTransactionActive() );
         observeADependency();
-      } );
+      }, Flags.READ_ONLY );
     } );
 
     assertFalse( context.isTransactionActive() );
-    assertFalse( context.isWriteTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
   }
 
   @Test
@@ -219,13 +219,13 @@ public class ArezContextTest
 
     assertFalse( context.isTransactionActive() );
     assertFalse( context.isReadOnlyTransactionActive() );
-    assertFalse( context.isWriteTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
     assertFalse( context.isTrackingTransactionActive() );
 
-    context.action( true, () -> {
+    context.action( () -> {
       assertTrue( context.isTransactionActive() );
       assertFalse( context.isReadOnlyTransactionActive() );
-      assertTrue( context.isWriteTransactionActive() );
+      assertTrue( context.isReadWriteTransactionActive() );
       observeADependency();
     } );
 
@@ -234,13 +234,14 @@ public class ArezContextTest
     final Procedure action = () -> {
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isReadOnlyTransactionActive() );
+      assertFalse( context.isReadWriteTransactionActive() );
       assertTrue( context.isTrackingTransactionActive() );
     };
     context.observe( tracker, action );
 
     assertFalse( context.isTransactionActive() );
     assertFalse( context.isReadOnlyTransactionActive() );
-    assertFalse( context.isWriteTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
     assertFalse( context.isTrackingTransactionActive() );
   }
 
