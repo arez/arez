@@ -116,7 +116,7 @@ public final class Arez_MultiThrowAction extends MultiThrowAction implements Dis
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'myAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAction" : null, () -> super.myAction(  ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
+      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".myAction" : null, () -> super.myAction(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final ParseException | IOException | RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

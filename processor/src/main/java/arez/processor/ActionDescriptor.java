@@ -129,11 +129,16 @@ final class ActionDescriptor
 
     statement.append( ", () -> super." );
     statement.append( _action.getSimpleName() );
-    statement.append( "( " );
+    statement.append( "(" );
 
-    boolean firstParam = true;
     final List<? extends VariableElement> parameters = _action.getParameters();
     final int paramCount = parameters.size();
+
+    boolean firstParam = true;
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
     for ( int i = 0; i < paramCount; i++ )
     {
       final VariableElement element = parameters.get( i );
@@ -150,8 +155,12 @@ final class ActionDescriptor
       firstParam = false;
       statement.append( "$N" );
     }
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
 
-    statement.append( " ), " );
+    statement.append( "), " );
 
     appendFlags( statement, params );
 
@@ -189,7 +198,7 @@ final class ActionDescriptor
     return builder.build();
   }
 
-  private void appendFlags( @Nonnull final StringBuilder expression,@Nonnull final ArrayList<Object> parameters )
+  private void appendFlags( @Nonnull final StringBuilder expression, @Nonnull final ArrayList<Object> parameters )
   {
     final ArrayList<String> flags = new ArrayList<>();
 
