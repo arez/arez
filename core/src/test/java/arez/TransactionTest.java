@@ -2402,26 +2402,6 @@ public class TransactionTest
   }
 
   @Test
-  public void beginTransaction_nest_in_suspended_transaction()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    setCurrentTransaction( context.observer( new CountAndObserveProcedure() ) );
-    final Transaction transaction = context.getTransaction();
-    Transaction.markAsSuspended();
-
-    final String name = ValueUtil.randomString();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Transaction.begin( context, name, false, null ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0121: Attempted to create transaction named '" + name + "' while " +
-                  "nested in a suspended transaction named '" + transaction.getName() + "'." );
-  }
-
-  @Test
   public void beginTransaction_attemptToNest_READ_WRITE_in_READ_WRITE_OWNED()
     throws Exception
   {
@@ -2649,25 +2629,6 @@ public class TransactionTest
   }
 
   @Test
-  public void commitTransaction_transactionSuspended()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-    Transaction.markAsSuspended();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.commit( transaction ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0124: Attempting to commit transaction named '" +
-                  transaction.getName() +
-                  "' transaction is suspended." );
-  }
-
-  @Test
   public void commitTransaction_noTransactionActive()
     throws Exception
   {
@@ -2721,166 +2682,6 @@ public class TransactionTest
   }
 
   @Test
-  public void current_transactionSuspended()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-    Transaction.markAsSuspended();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, Transaction::current );
-    assertEquals( exception.getMessage(),
-                  "Arez-0118: Attempting to get current transaction but transaction is suspended." );
-  }
-
-  @Test
-  public void resume()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-    Transaction.markAsSuspended();
-
-    assertTrue( Transaction.isSuspended() );
-
-    Transaction.resume( transaction );
-
-    assertFalse( Transaction.isSuspended() );
-  }
-
-  @Test
-  public void resume_noActiveTransaction()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.resume( transaction ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0128: Attempting to resume transaction named '" + transaction.getName() +
-                  "' but no transaction is active." );
-  }
-
-  @Test
-  public void resume_transactionNotSuspended()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.resume( transaction ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0130: Attempting to resume transaction named '" + transaction.getName() +
-                  "' but transaction is not suspended." );
-  }
-
-  @Test
-  public void resume_transactionNotMatched()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-    Transaction.markAsSuspended();
-
-    final Transaction transaction2 = new Transaction( context, transaction, ValueUtil.randomString(), false, null );
-    transaction2.begin();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.resume( transaction2 ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0129: Attempting to resume transaction named '" + transaction2.getName() +
-                  "' but this does not match existing transaction named '" + transaction.getName() + "'." );
-  }
-
-  @Test
-  public void suspend()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-
-    assertFalse( Transaction.isSuspended() );
-
-    Transaction.suspend( transaction );
-
-    assertTrue( Transaction.isSuspended() );
-  }
-
-  @Test
-  public void suspend_transactionNotMatched()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-
-    final Transaction transaction2 = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction2.begin();
-    Transaction.setTransaction( transaction2 );
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.suspend( transaction ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0126: Attempting to suspend transaction named '" + transaction.getName() +
-                  "' but this does not match existing transaction named '" + transaction2.getName() + "'." );
-  }
-
-  @Test
-  public void suspend_transactionAlreadySuspended()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-    Transaction.setTransaction( transaction );
-    Transaction.markAsSuspended();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.suspend( transaction ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0127: Attempting to suspend transaction named '" + transaction.getName() +
-                  "' but transaction is already suspended." );
-  }
-
-  @Test
-  public void suspend_noActiveTransaction()
-    throws Exception
-  {
-    final ArezContext context = Arez.context();
-
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null );
-    transaction.begin();
-
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Transaction.suspend( transaction ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0125: Attempting to suspend transaction named '" + transaction.getName() +
-                  "' but no transaction is active." );
-  }
-
-  @Test
   public void isTransactionActive()
     throws Exception
   {
@@ -2894,10 +2695,6 @@ public class TransactionTest
     Transaction.setTransaction( transaction );
 
     assertTrue( Transaction.isTransactionActive( context ) );
-
-    Transaction.markAsSuspended();
-
-    assertFalse( Transaction.isTransactionActive( context ) );
   }
 
   static class MyDisposable

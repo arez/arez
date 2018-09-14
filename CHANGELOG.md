@@ -113,6 +113,10 @@
 * **\[core\]** Update the `ArezContext.observe(...)` and `ArezContext.safeObserve(...)` methods to change the last
   parameter from a non-null, var args parameter into a nullable array. Makes the code easier for the GWT compiler
   to optimize.
+* **\[core\]** Remove the `ArezContext.noTxAction(...)` and `ArezContext.safeNoTxAction(...)` methods and associated
+  infrastructure for suspending and resuming transactions. The API was error prone and no use-case existed for the
+  functionality so it has been removed until such a time where a use-case is determined. Removal also resulted in a
+  decrease in code size when compiled using GWT.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
