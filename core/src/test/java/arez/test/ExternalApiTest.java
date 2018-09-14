@@ -182,6 +182,7 @@ public class ExternalApiTest
       assertEquals( computedValue.get(), expected.get() );
 
       assertEquals( context.isTransactionActive(), true );
+      assertEquals( context.isReadOnlyTransactionActive(), true );
       assertEquals( context.isWriteTransactionActive(), false );
       assertEquals( context.isTrackingTransactionActive(), true );
     } );

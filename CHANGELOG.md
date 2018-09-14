@@ -99,6 +99,7 @@
   parameter to `false` would generate an invariant failure if the action only invoked these methods without also
   accessing or mutating other observable state. These methods now mark the transaction as used so it is no longer
   necessary to set `verifyActionRequired` to `false`.
+* **\[core\]** Added new helper method `ArezContext.isReadOnlyTransactionActive()`.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

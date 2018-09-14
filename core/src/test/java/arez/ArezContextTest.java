@@ -164,6 +164,30 @@ public class ArezContextTest
   }
 
   @Test
+  public void isReadOnlyTransactionActive()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
+
+    context.action( () -> {
+      assertTrue( context.isTransactionActive() );
+      assertFalse( context.isReadOnlyTransactionActive() );
+      observeADependency();
+      context.action( () -> {
+        assertTrue( context.isTransactionActive() );
+        assertTrue( context.isReadOnlyTransactionActive() );
+        observeADependency();
+      }, Flags.READ_ONLY );
+    } );
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
+  }
+
+  @Test
   public void isWriteTransactionActive()
     throws Throwable
   {
@@ -194,11 +218,13 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
     assertFalse( context.isWriteTransactionActive() );
     assertFalse( context.isTrackingTransactionActive() );
 
     context.action( true, () -> {
       assertTrue( context.isTransactionActive() );
+      assertFalse( context.isReadOnlyTransactionActive() );
       assertTrue( context.isWriteTransactionActive() );
       observeADependency();
     } );
@@ -207,11 +233,13 @@ public class ArezContextTest
 
     final Procedure action = () -> {
       assertTrue( context.isTransactionActive() );
+      assertTrue( context.isReadOnlyTransactionActive() );
       assertTrue( context.isTrackingTransactionActive() );
     };
     context.observe( tracker, action );
 
     assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
     assertFalse( context.isWriteTransactionActive() );
     assertFalse( context.isTrackingTransactionActive() );
   }

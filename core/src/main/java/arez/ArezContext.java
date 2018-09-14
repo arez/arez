@@ -1004,6 +1004,17 @@ public final class ArezContext
   }
 
   /**
+   * Return true if there is a read-only transaction in progress.
+   *
+   * @return true if there is a read-only transaction in progress.
+   */
+  public boolean isReadOnlyTransactionActive()
+  {
+    return Transaction.isTransactionActive( this ) &&
+           ( !Arez.shouldEnforceTransactionType() || !Transaction.current().isMutation() );
+  }
+
+  /**
    * Return the current transaction.
    * This method should not be invoked unless a transaction active and will throw an
    * exception if invariant checks are enabled.
