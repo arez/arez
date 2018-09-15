@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Integration tests for `reportPossiblyChanged()`
 
-* Add "unit" tests for new observer methods not covered
-
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
