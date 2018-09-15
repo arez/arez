@@ -1781,6 +1781,48 @@ public class ObserverTest
   }
 
   @Test
+  public void schedule_in_transactionMarksTransactionAsUsed()
+    throws Exception
+  {
+    final ArezContext context = Arez.context();
+
+    final CountAndObserveProcedure observed = new CountAndObserveProcedure();
+    final CountingProcedure onDepsChanged = new CountingProcedure();
+    final Observer observer = new Observer( context,
+                                            null,
+                                            ValueUtil.randomString(),
+                                            observed,
+                                            onDepsChanged,
+                                            Flags.NON_AREZ_DEPENDENCIES );
+
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observed.getCallCount(), 1 );
+    assertEquals( onDepsChanged.getCallCount(), 0 );
+
+    context.safeAction( observer::reportStale );
+
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observed.getCallCount(), 1 );
+    assertEquals( onDepsChanged.getCallCount(), 1 );
+
+    final Disposable schedulerLock = context.pauseScheduler();
+
+    // This does not cause exception - thus transaction must be marked as used
+    context.safeAction( observer::schedule );
+
+    assertEquals( observer.isScheduled(), true );
+
+    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getPendingObservers().contains( observer ), true );
+
+    schedulerLock.dispose();
+
+    assertEquals( observer.isScheduled(), false );
+    assertEquals( observed.getCallCount(), 2 );
+    assertEquals( onDepsChanged.getCallCount(), 1 );
+  }
+
+  @Test
   public void schedule_but_state_UP_TO_DATE()
     throws Exception
   {

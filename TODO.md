@@ -12,8 +12,6 @@ complete as there is too much un-said.
 
 * Add "unit" tests for new observer methods not covered
 
-* Add test to cover `Observer.schedule()` where transaction is marked as used
-
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
