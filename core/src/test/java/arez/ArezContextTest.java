@@ -365,6 +365,18 @@ public class ArezContextTest
   }
 
   @Test
+  public void verifyActionFlags()
+    throws Throwable
+  {
+    final Procedure executable = () -> {
+    };
+    assertInvariantFailure( () -> Arez.context().action( executable, Flags.DEACTIVATE_ON_UNOBSERVE ),
+                            "Arez-0212: Flags passed to action 'Action@1' include some " +
+                            "unexpected flags set: " + Flags.DEACTIVATE_ON_UNOBSERVE );
+
+  }
+
+  @Test
   public void action_function()
     throws Throwable
   {

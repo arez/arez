@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Add Test to verify that actions object when passed bad flags.
-
 * Integration tests for `reportPossiblyChanged()`
 
 * Add "unit" tests for new observer methods not covered
