@@ -143,6 +143,38 @@ public final class Flags
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK;
   /**
+   * The flag can be passed to actions to force the action to create a new transaction.
+   */
+  public static final int REQUIRE_NEW_TRANSACTION = 1 << 15;
+  /**
+   * The flag can be passed to actions to force the action to verify that an action performed an activity
+   * that required an action. These activities include:
+   * <ul>
+   * <li>read or write an observable property.</li>
+   * <li>read a computed property.</li>
+   * <li>schedule an observer.</li>
+   * <li>mark an observer as stale.</li>
+   * <li>report possible change in computed property.</li>
+   * </ul>
+   * <p>This flag must not be present if {@link #NO_VERIFY_ACTION_REQUIRED} is present. If neither
+   * VERIFY_ACTION_REQUIRED nor {@link #NO_VERIFY_ACTION_REQUIRED} is specified then VERIFY_ACTION_REQUIRED
+   * is assumed.</p>
+   */
+  public static final int VERIFY_ACTION_REQUIRED = 1 << 14;
+  /**
+   * This flag can be passed to skip verification that action was required.
+   * This flag must not be present if {@link #VERIFY_ACTION_REQUIRED} is present.
+   */
+  public static final int NO_VERIFY_ACTION_REQUIRED = 1 << 13;
+  /**
+   * Mask used to extract verify action bits.
+   */
+  private static final int VERIFY_ACTION_MASK = VERIFY_ACTION_REQUIRED | NO_VERIFY_ACTION_REQUIRED;
+  /**
+   * Mask containing flags that can be applied to an action.
+   */
+  static final int ACTION_FLAGS_MASK = TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK;
+  /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChanged}.
    */
   static final int EXECUTE_OBSERVED_NEXT = 1 << 10;
@@ -245,6 +277,13 @@ public final class Flags
   {
     return Arez.shouldCheckInvariants() ?
            defaultFlagUnlessSpecified( flags, NESTED_ACTIONS_MASK, NESTED_ACTIONS_DISALLOWED ) :
+           0;
+  }
+
+  static int verifyActionRule( final int flags )
+  {
+    return Arez.shouldCheckInvariants() ?
+           defaultFlagUnlessSpecified( flags, VERIFY_ACTION_MASK, VERIFY_ACTION_REQUIRED ) :
            0;
   }
 

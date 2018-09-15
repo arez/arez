@@ -22,13 +22,6 @@ final class Transaction
   @Nullable
   private static Transaction c_transaction;
   /**
-   * Flag indicating whether this transaction is currently suspended or not.
-   * Suspended transactions are transactions that will not collect dependencies and will not allow
-   * the current thread to access or mutate observable data. Suspended transactions can also not
-   * have other transactions begin until it has been resumed.
-   */
-  private static boolean c_suspended;
-  /**
    * Reference to the system to which this transaction belongs.
    */
   @Nullable
@@ -92,7 +85,7 @@ final class Transaction
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
    */
-  private boolean _readOrWriteOccurred;
+  private boolean _transactionUsed;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -108,7 +101,6 @@ final class Transaction
   static boolean isTransactionActive( @Nonnull final ArezContext context )
   {
     return null != c_transaction &&
-           !c_suspended &&
            ( !Arez.areZonesEnabled() || c_transaction.getContext() == context );
   }
 
@@ -126,8 +118,6 @@ final class Transaction
     {
       invariant( () -> null != c_transaction,
                  () -> "Arez-0117: Attempting to get current transaction but no transaction is active." );
-      invariant( () -> !c_suspended,
-                 () -> "Arez-0118: Attempting to get current transaction but transaction is suspended." );
     }
     assert null != c_transaction;
     return c_transaction;
@@ -177,9 +167,6 @@ final class Transaction
                          "nested in a transaction named '" + c_transaction.getName() + "' from a " +
                          "different context." );
       }
-      invariant( () -> !c_suspended,
-                 () -> "Arez-0121: Attempted to create transaction named '" + name + "' while " +
-                       "nested in a suspended transaction named '" + c_transaction.getName() + "'." );
     }
     c_transaction = new Transaction( Arez.areZonesEnabled() ? context : null, c_transaction, name, mutation, tracker );
     context.disableScheduler();
@@ -212,9 +199,6 @@ final class Transaction
       invariant( () -> c_transaction == transaction,
                  () -> "Arez-0123: Attempting to commit transaction named '" + transaction.getName() +
                        "' but this does not match existing transaction named '" + c_transaction.getName() + "'." );
-      invariant( () -> !c_suspended,
-                 () -> "Arez-0124: Attempting to commit transaction named '" + transaction.getName() +
-                       "' transaction is suspended." );
     }
     assert null != c_transaction;
     try
@@ -243,54 +227,6 @@ final class Transaction
       }
       c_transaction = c_transaction.getPrevious();
     }
-  }
-
-  /**
-   * Suspend specified transaction and stop it collecting dependencies.
-   * It should be the current transaction.
-   *
-   * @param transaction the transaction.
-   */
-  static void suspend( @Nonnull final Transaction transaction )
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> null != c_transaction,
-                 () -> "Arez-0125: Attempting to suspend transaction named '" + transaction.getName() +
-                       "' but no transaction is active." );
-      assert null != c_transaction;
-      invariant( () -> c_transaction == transaction,
-                 () -> "Arez-0126: Attempting to suspend transaction named '" + transaction.getName() +
-                       "' but this does not match existing transaction named '" + c_transaction.getName() + "'." );
-      invariant( () -> !c_suspended,
-                 () -> "Arez-0127: Attempting to suspend transaction named '" + transaction.getName() +
-                       "' but transaction is already suspended." );
-    }
-    c_suspended = true;
-  }
-
-  /**
-   * Resume specified transaction and start it collecting dependencies again.
-   * It should be the current transaction.
-   *
-   * @param transaction the transaction.
-   */
-  static void resume( @Nonnull final Transaction transaction )
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> null != c_transaction,
-                 () -> "Arez-0128: Attempting to resume transaction named '" + transaction.getName() +
-                       "' but no transaction is active." );
-      assert null != c_transaction;
-      invariant( () -> c_transaction == transaction,
-                 () -> "Arez-0129: Attempting to resume transaction named '" + transaction.getName() +
-                       "' but this does not match existing transaction named '" + c_transaction.getName() + "'." );
-      invariant( () -> c_suspended,
-                 () -> "Arez-0130: Attempting to resume transaction named '" + transaction.getName() +
-                       "' but transaction is not suspended." );
-    }
-    c_suspended = false;
   }
 
   Transaction( @Nullable final ArezContext context,
@@ -456,9 +392,9 @@ final class Transaction
     }
   }
 
-  boolean hasReadOrWriteOccurred()
+  boolean hasTransactionUseOccured()
   {
-    return Arez.shouldCheckInvariants() && _readOrWriteOccurred;
+    return Arez.shouldCheckInvariants() && _transactionUsed;
   }
 
   int processPendingDeactivations()
@@ -533,13 +469,10 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       invariant( observableValue::isNotDisposed,
-                 () -> "Arez-0142: Invoked observe on transaction named '" +
-                       getName() +
-                       "' for observableValue named '" +
-                       observableValue.getName() +
-                       "' where the observableValue is disposed." );
+                 () -> "Arez-0142: Invoked observe on transaction named '" + getName() + "' for observableValue " +
+                       "named '" + observableValue.getName() + "' where the observableValue is disposed." );
     }
     if ( null != _tracker )
     {
@@ -550,11 +483,9 @@ final class Transaction
       if ( Arez.shouldCheckInvariants() )
       {
         invariant( () -> !observableValue.isComputedValue() || _tracker != observableValue.getObserver(),
-                   () -> "Arez-0143: Invoked observe on transaction named '" +
-                         getName() +
-                         "' for observableValue named '" +
-                         observableValue.getName() +
-                         "' where the observableValue is owned by the tracker." );
+                   () -> "Arez-0143: Invoked observe on transaction named '" + getName() + "' for " +
+                         "observableValue named '" + observableValue.getName() + "' where the " +
+                         "observableValue is owned by the tracker." );
         observableValue.invariantOwner();
       }
       /*
@@ -571,6 +502,14 @@ final class Transaction
         safeGetObservables().add( observableValue );
       }
     }
+  }
+
+  /**
+   * Mark transaction as used.
+   */
+  void markTransactionAsUsed()
+  {
+    _transactionUsed = true;
   }
 
   /**
@@ -601,7 +540,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       invariant( observableValue::isNotDisposed,
                  () -> "Arez-0144: Invoked reportChanged on transaction named '" + getName() +
                        "' for ObservableValue named '" + observableValue.getName() +
@@ -620,7 +559,7 @@ final class Transaction
     preReportChanged( observableValue );
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       observableValue.invariantLeastStaleObserverState();
     }
 
@@ -660,7 +599,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      _readOrWriteOccurred = true;
+      markTransactionAsUsed();
       invariant( observableValue::isNotDisposed,
                  () -> "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
                        "ObservableValue named '" + observableValue.getName() + "' where the ObservableValue" +
@@ -1062,20 +1001,5 @@ final class Transaction
   static void setTransaction( @Nullable final Transaction transaction )
   {
     c_transaction = transaction;
-  }
-
-  static boolean isSuspended()
-  {
-    return c_suspended;
-  }
-
-  static void markAsSuspended()
-  {
-    c_suspended = true;
-  }
-
-  static void resetSuspendedFlag()
-  {
-    c_suspended = false;
   }
 }

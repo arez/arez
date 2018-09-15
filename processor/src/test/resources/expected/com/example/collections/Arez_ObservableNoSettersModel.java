@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -118,13 +119,13 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_collection.dispose();
           this.$$arez$$_set.dispose();
           this.$$arez$$_list.dispose();
           this.$$arez$$_map.dispose();
-        } } );
+        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;

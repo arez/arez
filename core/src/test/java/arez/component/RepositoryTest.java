@@ -4,6 +4,7 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import java.util.Comparator;
 import java.util.Set;
@@ -354,10 +355,10 @@ public class RepositoryTest
     @Override
     public void dispose()
     {
-      Arez.context().safeAction( null, true, false, () -> {
+      Arez.context().safeAction( () -> {
         _disposed = true;
         _notifier.dispose();
-      } );
+      }, Flags.NO_VERIFY_ACTION_REQUIRED );
     }
 
     @Override

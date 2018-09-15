@@ -329,7 +329,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@1",
+        "action": "Action@1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -339,7 +339,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@1"
+        "transaction": "Action@1"
     },
     {
         "observable": "TestComponent.0.value1",
@@ -366,12 +366,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@1"
+        "transaction": "Action@1"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@1",
+        "action": "Action@1",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -645,7 +645,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@2",
+        "action": "Action@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -655,7 +655,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@2"
+        "transaction": "Action@2"
     },
     {
         "observable": "TestComponent.0.value2",
@@ -674,12 +674,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@2"
+        "transaction": "Action@2"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@2",
+        "action": "Action@2",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -764,7 +764,7 @@
         "type": "ReactionCompleted"
     },
     {
-        "action": "Transaction@3",
+        "action": "Action@3",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -774,7 +774,7 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@3"
+        "transaction": "Action@3"
     },
     {
         "observable": "TestComponent.0.value3",
@@ -789,12 +789,12 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@3"
+        "transaction": "Action@3"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@3",
+        "action": "Action@3",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -865,18 +865,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.observer1a.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.observer1a.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "TestComponent.0.observer1a.dispose",
@@ -897,18 +885,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.observer1b.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.observer1b.dispose"
     },
     {
         "result": null,
@@ -933,18 +909,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.observer2a.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.observer2a.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "TestComponent.0.observer2a.dispose",
@@ -965,18 +929,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.observer2b.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.observer2b.dispose"
     },
     {
         "result": null,
@@ -1001,18 +953,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.observer3a.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.observer3a.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "TestComponent.0.observer3a.dispose",
@@ -1033,18 +973,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.observer3b.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.observer3b.dispose"
     },
     {
         "result": null,
@@ -1069,18 +997,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed1.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed1.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "TestComponent.0.computed1.dispose",
@@ -1103,21 +1019,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed1.dispose"
-    },
-    {
         "observable": "TestComponent.0.computed1",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed1.dispose"
     },
     {
         "result": null,
@@ -1136,18 +1040,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed1.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed1.dispose"
     },
     {
         "result": null,
@@ -1166,18 +1058,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed2.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed2.dispose"
     },
     {
         "result": null,
@@ -1202,21 +1082,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed2.dispose"
-    },
-    {
         "observable": "TestComponent.0.computed2",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed2.dispose"
     },
     {
         "result": null,
@@ -1235,18 +1103,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed2.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed2.dispose"
     },
     {
         "result": null,
@@ -1265,18 +1121,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed3.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed3.dispose"
     },
     {
         "result": null,
@@ -1301,21 +1145,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed3.dispose"
-    },
-    {
         "observable": "TestComponent.0.computed3",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed3.dispose"
     },
     {
         "result": null,
@@ -1334,18 +1166,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.computed3.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.computed3.dispose"
     },
     {
         "result": null,
@@ -1366,21 +1186,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.value1.dispose"
-    },
-    {
         "observable": "TestComponent.0.value1",
         "type": "ObservableValueChanged",
         "value": "1"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.value1.dispose"
     },
     {
         "result": null,
@@ -1405,21 +1213,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.value2.dispose"
-    },
-    {
         "observable": "TestComponent.0.value2",
         "type": "ObservableValueChanged",
         "value": "2"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.value2.dispose"
     },
     {
         "result": null,
@@ -1444,21 +1240,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.value3.dispose"
-    },
-    {
         "observable": "TestComponent.0.value3",
         "type": "ObservableValueChanged",
         "value": "3"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.value3.dispose"
     },
     {
         "result": null,

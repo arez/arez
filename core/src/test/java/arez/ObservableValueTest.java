@@ -105,12 +105,9 @@ public class ObservableValueTest
                      null );
 
     final String name = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new ObservableValue<>( context, component, name, null, null, null ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0054: ObservableValue named '" + name + "' has component specified but " +
-                  "Arez.areNativeComponentsEnabled() is false." );
+    assertInvariantFailure( () -> new ObservableValue<>( context, component, name, null, null, null ),
+                            "Arez-0054: ObservableValue named '" + name + "' has component specified but " +
+                            "Arez.areNativeComponentsEnabled() is false." );
   }
 
   @Test
@@ -146,13 +143,9 @@ public class ObservableValueTest
     ArezTestUtil.disablePropertyIntrospectors();
     final String name = ValueUtil.randomString();
     final PropertyAccessor<String> accessor = () -> "";
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new ObservableValue<>( Arez.context(), null, name, null, accessor, null ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0055: ObservableValue named '" + name +
-                  "' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false." );
+    assertInvariantFailure( () -> new ObservableValue<>( Arez.context(), null, name, null, accessor, null ),
+                            "Arez-0055: ObservableValue named '" + name +
+                            "' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false." );
   }
 
   @Test
@@ -163,13 +156,9 @@ public class ObservableValueTest
     final String name = ValueUtil.randomString();
     final PropertyMutator<String> mutator = value -> {
     };
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new ObservableValue<>( Arez.context(), null, name, null, null, mutator ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0056: ObservableValue named '" + name +
-                  "' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false." );
+    assertInvariantFailure( () -> new ObservableValue<>( Arez.context(), null, name, null, null, mutator ),
+                            "Arez-0056: ObservableValue named '" + name +
+                            "' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false." );
   }
 
   @Test
@@ -179,11 +168,10 @@ public class ObservableValueTest
     ArezTestUtil.disablePropertyIntrospectors();
     final ObservableValue<?> observableValue = Arez.context().observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::getAccessor );
-    assertEquals( exception.getMessage(),
-                  "Arez-0058: Attempt to invoke getAccessor() on ObservableValue named '" +
-                  observableValue.getName() + "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    assertInvariantFailure( observableValue::getAccessor,
+                            "Arez-0058: Attempt to invoke getAccessor() on ObservableValue named '" +
+                            observableValue.getName() +
+                            "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -193,11 +181,10 @@ public class ObservableValueTest
     ArezTestUtil.disablePropertyIntrospectors();
     final ObservableValue<?> observableValue = Arez.context().observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::getMutator );
-    assertEquals( exception.getMessage(),
-                  "Arez-0059: Attempt to invoke getMutator() on ObservableValue named '" +
-                  observableValue.getName() + "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
+    assertInvariantFailure( observableValue::getMutator,
+                            "Arez-0059: Attempt to invoke getMutator() on ObservableValue named '" +
+                            observableValue.getName() +
+                            "' when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
   @Test
@@ -403,11 +390,10 @@ public class ObservableValueTest
 
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> context.safeAction( false,
-                                              () -> context.safeAction( name,
-                                                                        (SafeProcedure) observableValue::dispose ) ) );
+    @SuppressWarnings( "CodeBlock2Expr" )
+    final IllegalStateException exception = expectThrows( IllegalStateException.class, () -> context.safeAction( () -> {
+      context.safeAction( name, (SafeProcedure) ValueUtil::randomString );
+    }, Flags.READ_ONLY ) );
 
     assertTrue( exception.getMessage().startsWith( "Arez-0119: Attempting to create READ_WRITE transaction named '" +
                                                    name + "' but it is nested in transaction named '" ) );
@@ -429,13 +415,9 @@ public class ObservableValueTest
     setupReadOnlyTransaction( context );
 
     final String name = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new ObservableValue<>( context, null, name, owner, null, null ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0057: ObservableValue named '" + name + "' has observer specified but " +
-                  "observer is not part of a ComputedValue." );
+    assertInvariantFailure( () -> new ObservableValue<>( context, null, name, owner, null, null ),
+                            "Arez-0057: ObservableValue named '" + name + "' has observer specified but " +
+                            "observer is not part of a ComputedValue." );
   }
 
   @Test
@@ -532,12 +514,13 @@ public class ObservableValueTest
 
     observableValue.setWorkState( ObservableValue.DISPOSED );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0067: Attempting to add observer named '" + observer.getName() + "' to " +
-                  "ObservableValue named '" + observableValue.getName() + "' when ObservableValue is disposed." );
+    assertInvariantFailure( () -> observableValue.addObserver( observer ),
+                            "Arez-0067: Attempting to add observer named '" +
+                            observer.getName() +
+                            "' to " +
+                            "ObservableValue named '" +
+                            observableValue.getName() +
+                            "' when ObservableValue is disposed." );
   }
 
   @Test
@@ -549,16 +532,13 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    context.safeAction( null, true, false, () -> {
-
-      final IllegalStateException exception =
-        expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
-
-      assertEquals( exception.getMessage(),
-                    "Arez-0203: Attempting to add observer named '" + observer.getName() + "' to " +
-                    "ObservableValue named '" + observableValue.getName() + "' but the observer is not the " +
-                    "tracker in transaction named '" + context.getTransaction().getName() + "'." );
-    } );
+    //noinspection CodeBlock2Expr
+    context.safeAction( () -> {
+      assertInvariantFailure( () -> observableValue.addObserver( observer ),
+                              "Arez-0203: Attempting to add observer named '" + observer.getName() + "' to " +
+                              "ObservableValue named '" + observableValue.getName() + "' but the observer is not the " +
+                              "tracker in transaction named '" + context.getTransaction().getName() + "'." );
+    }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -578,13 +558,14 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.computed( () -> "" ).getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to " +
-                  "ObservableValue named '" + observableValue.getName() + "' where the observer is scheduled at " +
-                  "a HIGH priority but the ObservableValue's owner is scheduled at a NORMAL priority." );
+    assertInvariantFailure( () -> observableValue.addObserver( observer ),
+                            "Arez-0183: Attempting to add observer named '" +
+                            observer.getName() +
+                            "' to " +
+                            "ObservableValue named '" +
+                            observableValue.getName() +
+                            "' where the observer is scheduled at " +
+                            "a HIGH priority but the ObservableValue's owner is scheduled at a NORMAL priority." );
   }
 
   @Test
@@ -622,12 +603,9 @@ public class ObservableValueTest
 
     observer.markAsDisposed();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to " +
-                  "ObservableValue named '" + observableValue.getName() + "' when observer is disposed." );
+    assertInvariantFailure( () -> observableValue.addObserver( observer ),
+                            "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to " +
+                            "ObservableValue named '" + observableValue.getName() + "' when observer is disposed." );
   }
 
   @Test
@@ -651,13 +629,10 @@ public class ObservableValueTest
     assertEquals( observableValue.hasObservers(), true );
     assertEquals( observableValue.hasObserver( observer ), true );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to " +
-                  "ObservableValue named '" + observableValue.getName() + "' when observer is already " +
-                  "observing ObservableValue." );
+    assertInvariantFailure( () -> observableValue.addObserver( observer ),
+                            "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to " +
+                            "ObservableValue named '" + observableValue.getName() + "' when observer is already " +
+                            "observing ObservableValue." );
 
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
@@ -675,12 +650,9 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.addObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0065: Attempt to invoke addObserver on ObservableValue named '" +
-                  observableValue.getName() + "' when there is no active transaction." );
+    assertInvariantFailure( () -> observableValue.addObserver( observer ),
+                            "Arez-0065: Attempt to invoke addObserver on ObservableValue named '" +
+                            observableValue.getName() + "' when there is no active transaction." );
 
     assertEquals( observableValue.getObservers().size(), 0 );
     assertEquals( observableValue.hasObservers(), false );
@@ -784,12 +756,9 @@ public class ObservableValueTest
 
     Transaction.setTransaction( null );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.removeObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0069: Attempt to invoke removeObserver on ObservableValue named '" +
-                  observableValue.getName() + "' when there is no active transaction." );
+    assertInvariantFailure( () -> observableValue.removeObserver( observer ),
+                            "Arez-0069: Attempt to invoke removeObserver on ObservableValue named '" +
+                            observableValue.getName() + "' when there is no active transaction." );
 
     assertEquals( observableValue.getObservers().size(), 1 );
     assertEquals( observableValue.hasObservers(), true );
@@ -811,13 +780,10 @@ public class ObservableValueTest
     assertEquals( observableValue.hasObservers(), false );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> observableValue.removeObserver( observer ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0070: Attempting to remove observer named '" + observer.getName() +
-                  "' from ObservableValue named '" + observableValue.getName() + "' when observer is not " +
-                  "observing ObservableValue." );
+    assertInvariantFailure( () -> observableValue.removeObserver( observer ),
+                            "Arez-0070: Attempting to remove observer named '" + observer.getName() +
+                            "' from ObservableValue named '" + observableValue.getName() + "' when observer is not " +
+                            "observing ObservableValue." );
   }
 
   @Test
@@ -845,13 +811,9 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0074: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
-                  observableValue.getName() + "' when there is no active transaction." );
+    assertInvariantFailure( () -> observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE ),
+                            "Arez-0074: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
+                            observableValue.getName() + "' when there is no active transaction." );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
@@ -868,13 +830,9 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> observableValue.setLeastStaleObserverState( Flags.STATE_INACTIVE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
-                  observableValue.getName() + "' with invalid value INACTIVE." );
+    assertInvariantFailure( () -> observableValue.setLeastStaleObserverState( Flags.STATE_INACTIVE ),
+                            "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
+                            observableValue.getName() + "' with invalid value INACTIVE." );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
@@ -889,13 +847,10 @@ public class ObservableValueTest
 
     observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::invariantLeastStaleObserverState );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
-                  observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
-                  "cached value 'STALE'." );
+    assertInvariantFailure( observableValue::invariantLeastStaleObserverState,
+                            "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
+                            observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
+                            "cached value 'STALE'." );
 
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
@@ -932,13 +887,10 @@ public class ObservableValueTest
 
     observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::invariantLeastStaleObserverState );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
-                  observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
-                  "cached value 'STALE'." );
+    assertInvariantFailure( observableValue::invariantLeastStaleObserverState,
+                            "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
+                            observableValue.getName() + "' is 'UP_TO_DATE' which is unexpectedly less than " +
+                            "cached value 'STALE'." );
 
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
@@ -958,12 +910,9 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue =
       new ObservableValue<>( context, null, observer.getName(), observer, null, null );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::invariantOwner );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0076: ObservableValue named '" + observableValue.getName() + "' has owner " +
-                  "specified but owner does not link to ObservableValue as derived value." );
+    assertInvariantFailure( observableValue::invariantOwner,
+                            "Arez-0076: ObservableValue named '" + observableValue.getName() + "' has owner " +
+                            "specified but owner does not link to ObservableValue as derived value." );
   }
 
   @Test
@@ -991,12 +940,12 @@ public class ObservableValueTest
 
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::invariantObserversLinked );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0077: ObservableValue named '" + observableValue.getName() + "' has observer named '" +
-                  observer3.getName() + "' which does not contain ObservableValue as dependency." );
+    assertInvariantFailure( observableValue::invariantObserversLinked,
+                            "Arez-0077: ObservableValue named '" +
+                            observableValue.getName() +
+                            "' has observer named '" +
+                            observer3.getName() +
+                            "' which does not contain ObservableValue as dependency." );
 
     observer3.getDependencies().add( observableValue );
 
@@ -1065,12 +1014,9 @@ public class ObservableValueTest
 
     Transaction.setTransaction( null );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::queueForDeactivation );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0071: Attempt to invoke queueForDeactivation on ObservableValue named '" +
-                  observableValue.getName() + "' when there is no active transaction." );
+    assertInvariantFailure( observableValue::queueForDeactivation,
+                            "Arez-0071: Attempt to invoke queueForDeactivation on ObservableValue named '" +
+                            observableValue.getName() + "' when there is no active transaction." );
   }
 
   @Test
@@ -1084,12 +1030,9 @@ public class ObservableValueTest
 
     assertEquals( observableValue.isPendingDeactivation(), false );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::queueForDeactivation );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
-                  observableValue.getName() + "' but ObservableValue is not able to be deactivated." );
+    assertInvariantFailure( observableValue::queueForDeactivation,
+                            "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
+                            observableValue.getName() + "' but ObservableValue is not able to be deactivated." );
   }
 
   @Test
@@ -1112,12 +1055,9 @@ public class ObservableValueTest
     observableValue.rawAddObserver( observer );
     observer.getDependencies().add( observableValue );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::queueForDeactivation );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0073: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
-                  observableValue.getName() + "' but ObservableValue has observers." );
+    assertInvariantFailure( observableValue::queueForDeactivation,
+                            "Arez-0073: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
+                            observableValue.getName() + "' but ObservableValue has observers." );
   }
 
   @Test
@@ -1206,12 +1146,9 @@ public class ObservableValueTest
 
     Transaction.setTransaction( null );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::deactivate );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0060: Attempt to invoke deactivate on ObservableValue named '" +
-                  observableValue.getName() + "' when there is no active transaction." );
+    assertInvariantFailure( observableValue::deactivate,
+                            "Arez-0060: Attempt to invoke deactivate on ObservableValue named '" +
+                            observableValue.getName() + "' when there is no active transaction." );
   }
 
   @Test
@@ -1239,13 +1176,10 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::deactivate );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0061: Invoked deactivate on ObservableValue named '" +
-                  observableValue.getName() + "' but ObservableValue can not be deactivated. Either owner is " +
-                  "null or the associated ComputedValue has keepAlive enabled." );
+    assertInvariantFailure( observableValue::deactivate, "Arez-0061: Invoked deactivate on ObservableValue named '" +
+                                                         observableValue.getName() +
+                                                         "' but ObservableValue can not be deactivated. Either owner is " +
+                                                         "null or the associated ComputedValue has keepAlive enabled." );
   }
 
   @Test
@@ -1261,13 +1195,11 @@ public class ObservableValueTest
       return "";
     }, Flags.KEEPALIVE ).getObservableValue();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> context.safeAction( observableValue::deactivate ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0061: Invoked deactivate on ObservableValue named '" +
-                  observableValue.getName() + "' but ObservableValue can not be deactivated. Either owner is " +
-                  "null or the associated ComputedValue has keepAlive enabled." );
+    assertInvariantFailure( () -> context.safeAction( observableValue::deactivate ),
+                            "Arez-0061: Invoked deactivate on ObservableValue named '" +
+                            observableValue.getName() +
+                            "' but ObservableValue can not be deactivated. Either owner is " +
+                            "null or the associated ComputedValue has keepAlive enabled." );
   }
 
   @Test
@@ -1335,12 +1267,9 @@ public class ObservableValueTest
 
     Transaction.setTransaction( null );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::activate );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0062: Attempt to invoke activate on ObservableValue named '" +
-                  observableValue.getName() + "' when there is no active transaction." );
+    assertInvariantFailure( observableValue::activate,
+                            "Arez-0062: Attempt to invoke activate on ObservableValue named '" +
+                            observableValue.getName() + "' when there is no active transaction." );
   }
 
   @Test
@@ -1356,12 +1285,9 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::activate );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0064: Invoked activate on ObservableValue named '" +
-                  observableValue.getName() + "' when ObservableValue is already active." );
+    assertInvariantFailure( observableValue::activate, "Arez-0064: Invoked activate on ObservableValue named '" +
+                                                       observableValue.getName() +
+                                                       "' when ObservableValue is already active." );
   }
 
   @Test
@@ -1373,12 +1299,9 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::activate );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0063: Invoked activate on ObservableValue named '" +
-                  observableValue.getName() + "' when owner is null." );
+    assertInvariantFailure( observableValue::activate,
+                            "Arez-0063: Invoked activate on ObservableValue named '" +
+                            observableValue.getName() + "' when owner is null." );
   }
 
   @Test
@@ -1413,14 +1336,11 @@ public class ObservableValueTest
 
     // This action does not verify that reads occurred so should not
     // fail but will not actually observe
-    context.safeAction( null, false, false, observableValue::reportObservedIfTrackingTransactionActive );
+    context.safeAction( observableValue::reportObservedIfTrackingTransactionActive, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     // This action will raise an exception as no reads or writes occurred
     // within scope and we asked to verify that reads or writes occurred
-    assertThrows( () -> context.safeAction( null,
-                                            false,
-                                            true,
-                                            observableValue::reportObservedIfTrackingTransactionActive ) );
+    assertThrows( () -> context.safeAction( observableValue::reportObservedIfTrackingTransactionActive ) );
 
     // Now we use a tracking transaction
     final Observer observer = context.observer( observableValue::reportObservedIfTrackingTransactionActive );
@@ -1450,11 +1370,10 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
     observableValue.setWorkState( ObservableValue.DISPOSED );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::preReportChanged );
-    assertEquals( exception.getMessage(), "Arez-0144: Invoked reportChanged on transaction named '" +
-                                          Transaction.current().getName() + "' for ObservableValue named '" +
-                                          observableValue.getName() + "' where the ObservableValue is disposed." );
+    assertInvariantFailure( observableValue::preReportChanged,
+                            "Arez-0144: Invoked reportChanged on transaction named '" +
+                            Transaction.current().getName() + "' for ObservableValue named '" +
+                            observableValue.getName() + "' where the ObservableValue is disposed." );
   }
 
   @Test
@@ -1466,11 +1385,10 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, observableValue::preReportChanged );
-    assertEquals( exception.getMessage(), "Arez-0152: Transaction named '" + Transaction.current().getName() +
-                                          "' attempted to change ObservableValue named '" + observableValue.getName() +
-                                          "' but the transaction mode is READ_ONLY." );
+    assertInvariantFailure( observableValue::preReportChanged,
+                            "Arez-0152: Transaction named '" + Transaction.current().getName() +
+                            "' attempted to change ObservableValue named '" + observableValue.getName() +
+                            "' but the transaction mode is READ_ONLY." );
   }
 
   @Test
@@ -1860,8 +1778,7 @@ public class ObservableValueTest
 
     final ObservableValue<String> observableValue = Arez.context().observable();
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, observableValue::asInfo );
-    assertEquals( exception.getMessage(),
-                  "Arez-0196: ObservableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    assertInvariantFailure( observableValue::asInfo,
+                            "Arez-0196: ObservableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }

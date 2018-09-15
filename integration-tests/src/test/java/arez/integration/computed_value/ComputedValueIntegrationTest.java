@@ -38,8 +38,8 @@ public class ComputedValueIntegrationTest
                         recorder.mark( "fullname", person.getFullName() );
                       } );
 
-    context.action( "First Name Update", true, () -> person.setFirstName( "Fred" ) );
-    context.action( "Last Name Update", true, () -> person.setLastName( "Donaldo" ) );
+    context.action( "First Name Update", () -> person.setFirstName( "Fred" ) );
+    context.action( "Last Name Update", () -> person.setLastName( "Donaldo" ) );
 
     assertMatchesFixture( recorder );
   }

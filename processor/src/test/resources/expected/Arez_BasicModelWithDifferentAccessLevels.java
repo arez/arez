@@ -2,6 +2,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
@@ -149,11 +150,11 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_time.dispose();
           this.$$arez$$_value.dispose();
-        } } );
+        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -211,7 +212,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction" : null, true, false, false, () -> super.doAction() );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction" : null, () -> super.doAction(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -225,7 +226,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doAction2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction2" : null, true, false, false, () -> super.doAction2() );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction2" : null, () -> super.doAction2(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -239,7 +240,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doAction3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction3" : null, true, false, false, () -> super.doAction3() );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doAction3" : null, () -> super.doAction3(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

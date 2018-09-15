@@ -237,11 +237,8 @@ public class MemoizeCacheTest
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 2 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> cache.disposeComputedValue( "a" ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0163: MemoizeCache.disposeComputedValue called with 1 argument(s) but expected 2 argument(s)." );
+    assertInvariantFailure( () -> cache.disposeComputedValue( "a" ),
+                            "Arez-0163: MemoizeCache.disposeComputedValue called with 1 argument(s) but expected 2 argument(s)." );
   }
 
   @Test
@@ -250,11 +247,8 @@ public class MemoizeCacheTest
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> cache.disposeComputedValue( "a" ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0193: MemoizeCache.disposeComputedValue called with args [a] but unable to locate corresponding ComputedValue." );
+    assertInvariantFailure( () -> cache.disposeComputedValue( "a" ),
+                            "Arez-0193: MemoizeCache.disposeComputedValue called with args [a] but unable to locate corresponding ComputedValue." );
   }
 
   @Test
@@ -263,11 +257,8 @@ public class MemoizeCacheTest
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 2 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> cache.get( "a" ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0162: MemoizeCache.getComputedValue called with 1 arguments but expected 2 arguments." );
+    assertInvariantFailure( () -> cache.get( "a" ),
+                            "Arez-0162: MemoizeCache.getComputedValue called with 1 arguments but expected 2 arguments." );
   }
 
   @Test
@@ -278,10 +269,8 @@ public class MemoizeCacheTest
 
     cache.dispose();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> cache.get( "a", "b" ) );
-
-    assertEquals( exception.getMessage(), "Arez-0161: MemoizeCache named 'X' had get() invoked when disposed." );
+    assertInvariantFailure( () -> cache.get( "a", "b" ),
+                            "Arez-0161: MemoizeCache named 'X' had get() invoked when disposed." );
   }
 
   @Test
@@ -289,23 +278,15 @@ public class MemoizeCacheTest
   {
     ArezTestUtil.disableNames();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0159: MemoizeCache passed a name 'X' but Arez.areNamesEnabled() is false" );
+    assertInvariantFailure( () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1 ),
+                            "Arez-0159: MemoizeCache passed a name 'X' but Arez.areNamesEnabled() is false" );
   }
 
   @Test
   public void constructorPassedBadArgCount()
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 0 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0160: MemoizeCache constructed with invalid argCount: 0. Expected positive value." );
+    assertInvariantFailure( () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 0 ),
+                            "Arez-0160: MemoizeCache constructed with invalid argCount: 0. Expected positive value." );
   }
 
   @Test
@@ -313,22 +294,14 @@ public class MemoizeCacheTest
   {
     ArezTestUtil.disableZones();
     ArezTestUtil.resetState();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( Arez.context(), null, null, args -> args[ 0 ], 1 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
+    assertInvariantFailure( () -> new MemoizeCache<>( Arez.context(), null, null, args -> args[ 0 ], 1 ),
+                            "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
   }
 
   @Test
   public void constructorPassedBadFlags()
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Flags.KEEPALIVE ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + Flags.KEEPALIVE );
+    assertInvariantFailure( () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Flags.KEEPALIVE ),
+                            "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + Flags.KEEPALIVE );
   }
 }

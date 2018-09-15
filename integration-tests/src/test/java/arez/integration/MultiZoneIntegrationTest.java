@@ -62,10 +62,10 @@ public class MultiZoneIntegrationTest
                          recorder.mark( "fullname2", person2.get().getFullName() );
                        } );
 
-    context1.action( "First Name Update1", true, () -> person.get().setFirstName( "Fred" ) );
-    context1.action( "Last Name Update1", true, () -> person.get().setLastName( "Donaldo" ) );
+    context1.action( "First Name Update1", () -> person.get().setFirstName( "Fred" ) );
+    context1.action( "Last Name Update1", () -> person.get().setLastName( "Donaldo" ) );
 
-    context2.action( "Last Name Update2", true, () -> person2.get().setLastName( "Donaldo" ) );
+    context2.action( "Last Name Update2", () -> person2.get().setLastName( "Donaldo" ) );
 
     assertMatchesFixture( recorder );
   }

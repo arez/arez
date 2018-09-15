@@ -45,7 +45,7 @@ public class ObservedNonArezDependenciesTest
     assertEquals( component._renderCallCount, 1 );
 
     // reportStale should result in re-render invocation
-    Arez.context().safeAction( null, true, false, () -> component.getRenderObserver().reportStale() );
+    Arez.context().safeAction( () -> component.getRenderObserver().reportStale() );
 
     assertEquals( component._renderCallCount, 2 );
 

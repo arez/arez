@@ -43,11 +43,9 @@ public class ObservedManualScheduleDisallowedTest
     assertEquals( component._renderCallCount, 1 );
 
     // Manual schedule should generate error
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> safeAction( () -> component.getRenderObserver().schedule() ) );
+    assertInvariantFailure( () -> safeAction( () -> component.getRenderObserver().schedule() ),
+                            "Arez-0202: Observer.schedule() invoked on observer named 'TestComponent1.0.render' but supportsManualSchedule() returns false." );
 
     assertEquals( component._renderCallCount, 1 );
-    assertEquals( exception.getMessage(),
-                  "Arez-0202: Observer.schedule() invoked on observer named 'TestComponent1.0.render' but supportsManualSchedule() returns false." );
   }
 }

@@ -19,7 +19,7 @@ Australian dollars as the value changes over time. Assuming the currency is obse
 This is enough to create a basic web application just using the Arez {@api_url: annotations.Observed}
 primitive.
 
-## Decoupling the execution and scheduling of the Observer 
+## Decoupling the execution and scheduling of the Observer
 
 Sometimes it is useful to decouple the execution of the {@api_url: annotations.Observed} method and the
 rescheduling of the method when a dependency change is detected. In Arez, this is possible when you pair
@@ -31,11 +31,11 @@ update.
 One scenario where this is commonly used is to limit the rate at which an observer reacts. For example
 there may not be a need to update the website every time the currency conversion rate changes if it is
 changing multiple times a second. It may be sufficient to update the value once every 2 seconds and this
-could be achieved with code such as: 
+could be achieved with code such as:
 
 {@file_content: file=arez/doc/examples/at_observed2/CurrencyView.java start_line=@ArezComponent}
 
-## Allowing the application to execute observed methods 
+## Allowing the application to execute observed methods
 
 The [observers](observers.md) documentation describes "tracker" observers as those where the application
 is responsible for executing the observed method. This is useful when you need to integrate with other

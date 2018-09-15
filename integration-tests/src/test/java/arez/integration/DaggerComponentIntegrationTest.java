@@ -1,6 +1,8 @@
 package arez.integration;
 
 import arez.Arez;
+import arez.Flags;
+import arez.Procedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
@@ -43,8 +45,10 @@ public class DaggerComponentIntegrationTest
     final TestDaggerComponent daggerComponent = DaggerDaggerComponentIntegrationTest_TestDaggerComponent.create();
     final TestComponent component = daggerComponent.component();
 
-    Arez.context().action( false, () -> assertEquals( component.getValue(), "" ) );
-    Arez.context().action( true, () -> component.setValue( "X" ) );
-    Arez.context().action( false, () -> assertEquals( component.getValue(), "X" ) );
+    final Procedure executable1 = () -> assertEquals( component.getValue(), "" );
+    Arez.context().action( executable1, Flags.READ_ONLY );
+    Arez.context().action( () -> component.setValue( "X" ) );
+    final Procedure executable = () -> assertEquals( component.getValue(), "X" );
+    Arez.context().action( executable, Flags.READ_ONLY );
   }
 }

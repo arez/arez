@@ -259,18 +259,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.disposeOnDeactivate.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.disposeOnDeactivate.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "Model2.0.disposeOnDeactivate.dispose",
@@ -293,21 +281,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.disposeOnDeactivate.dispose"
-    },
-    {
         "observable": "Model2.0.disposeOnDeactivate",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.disposeOnDeactivate.dispose"
     },
     {
         "result": null,
@@ -326,18 +302,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.disposeOnDeactivate.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.disposeOnDeactivate.dispose"
     },
     {
         "result": null,
@@ -356,18 +320,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.someValue.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.someValue.dispose"
     },
     {
         "result": null,
@@ -392,21 +344,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.someValue.dispose"
-    },
-    {
         "observable": "Model2.0.someValue",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.someValue.dispose"
     },
     {
         "result": null,
@@ -425,18 +365,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.someValue.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.someValue.dispose"
     },
     {
         "result": null,
@@ -457,21 +385,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.isDisposed.dispose"
-    },
-    {
         "observable": "Model2.0.isDisposed",
         "type": "ObservableValueChanged",
         "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.isDisposed.dispose"
     },
     {
         "result": null,

@@ -275,9 +275,8 @@ public final class Observer
     if ( !isDisposedOrDisposing() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
-                               true,
-                               false,
-                               this::performDispose );
+                               this::performDispose,
+                               Flags.NO_VERIFY_ACTION_REQUIRED );
       if ( !isComputedValue() )
       {
         if ( willPropagateSpyEvents() )
@@ -410,6 +409,7 @@ public final class Observer
                     () -> "Arez-0201: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when the active transaction '" + getContext().getTransaction().getName() +
                           "' is READ_ONLY rather than READ_WRITE." );
+      getContext().getTransaction().markTransactionAsUsed();
     }
     setState( Flags.STATE_STALE );
   }
@@ -566,6 +566,10 @@ public final class Observer
                     () -> "Arez-0202: Observer.schedule() invoked on observer named '" + getName() +
                           "' but supportsManualSchedule() returns false." );
     }
+    if ( Arez.shouldEnforceTransactionType() && getContext().isTransactionActive() && Arez.shouldCheckInvariants() )
+    {
+      getContext().getTransaction().markTransactionAsUsed();
+    }
     executeObservedNextIfPresent();
     scheduleReaction();
     getContext().triggerScheduler();
@@ -680,7 +684,7 @@ public final class Observer
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
-                         "completed observed funnction but is not observing any properties. As a result the observer " +
+                         "completed observed function but is not observing any properties. As a result the observer " +
                          "will never be rescheduled." );
       };
     }
@@ -688,13 +692,7 @@ public final class Observer
     {
       action = _observed;
     }
-    getContext()._action( Arez.areNamesEnabled() ? getName() : null,
-                          Arez.shouldEnforceTransactionType() && isMutation(),
-                          false,
-                          true,
-                          action,
-                          null == _computedValue,
-                          this );
+    getContext().rawObserve( this, action, null );
   }
 
   /**

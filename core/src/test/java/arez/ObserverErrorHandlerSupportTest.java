@@ -58,12 +58,9 @@ public class ObserverErrorHandlerSupportTest
     };
     support.addObserverErrorHandler( handler );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> support.addObserverErrorHandler( handler ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0096: Attempting to add handler " + handler + " that is already in " +
-                  "the list of error handlers." );
+    assertInvariantFailure( () -> support.addObserverErrorHandler( handler ),
+                            "Arez-0096: Attempting to add handler " + handler + " that is already in " +
+                            "the list of error handlers." );
   }
 
   @Test
@@ -75,12 +72,9 @@ public class ObserverErrorHandlerSupportTest
     final ObserverErrorHandler handler = ( observerArg, errorArg, throwableArg ) -> {
     };
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> support.removeObserverErrorHandler( handler ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0097: Attempting to remove handler " + handler + " that is not in " +
-                  "the list of error handlers." );
+    assertInvariantFailure( () -> support.removeObserverErrorHandler( handler ),
+                            "Arez-0097: Attempting to remove handler " + handler + " that is not in " +
+                            "the list of error handlers." );
   }
 
   @Test

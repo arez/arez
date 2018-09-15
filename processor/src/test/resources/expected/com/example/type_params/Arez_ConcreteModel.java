@@ -140,11 +140,11 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       if ( Arez.areNativeComponentsEnabled() ) {
         this.$$arezi$$_component.dispose();
       } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, true, false, () -> { {
+        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
           this.$$arez$$_compWriter.dispose();
           this.$$arez$$_compError.dispose();
-        } } );
+        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
         this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
@@ -158,7 +158,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'handleWriter' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".handleWriter" : null, true, false, false, () -> super.handleWriter(writer), writer );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".handleWriter" : null, () -> super.handleWriter( writer ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { writer } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -172,7 +172,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'handleError' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".handleError" : null, true, false, false, () -> super.handleError(error), error );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".handleError" : null, () -> super.handleError( error ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { error } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -186,7 +186,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'genWriter' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".genWriter" : null, true, false, false, () -> super.genWriter() );
+      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".genWriter" : null, () -> super.genWriter(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -200,7 +200,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'genError' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".genError" : null, true, false, false, () -> super.genError() );
+      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".genError" : null, () -> super.genError(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

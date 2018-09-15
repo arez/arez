@@ -86,11 +86,8 @@ public class DisposeZeroOrOneInverseIntegrationTest
 
     assertEquals( Disposable.isDisposed( car2 ), true );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> safeAction( wheel1::getCar ) );
-
-    assertEquals( exception.getMessage(),
-                  "Nonnull reference method named 'getCar' invoked on component named 'Wheel.0' but reference has not been resolved yet is not lazy. Id = 1" );
+    assertInvariantFailure( () -> safeAction( wheel1::getCar ),
+                            "Nonnull reference method named 'getCar' invoked on component named 'Wheel.0' but reference has not been resolved yet is not lazy. Id = 1" );
     assertEquals( locatorLookupCallCount.get(), 2 );
 
     // Stop observer so we don't get an exception

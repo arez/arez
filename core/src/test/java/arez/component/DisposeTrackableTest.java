@@ -42,9 +42,7 @@ public class DisposeTrackableTest
   @Test
   public void asDisposeTrackable_whenNotTrackable()
   {
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> DisposeTrackable.asDisposeTrackable( "XXXX" ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0178: Object passed to asDisposeTrackable does not implement DisposeTrackable. Object: XXXX" );
+    assertInvariantFailure( () -> DisposeTrackable.asDisposeTrackable( "XXXX" ),
+                            "Arez-0178: Object passed to asDisposeTrackable does not implement DisposeTrackable. Object: XXXX" );
   }
 }

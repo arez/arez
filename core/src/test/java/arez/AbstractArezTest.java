@@ -129,6 +129,12 @@ public abstract class AbstractArezTest
     _ignoreObserverErrors = ignoreObserverErrors;
   }
 
+  protected static void assertInvariantFailure( @Nonnull final ThrowingRunnable throwingRunnable,
+                                               @Nonnull final String message )
+  {
+    assertEquals( expectThrows( IllegalStateException.class, throwingRunnable ).getMessage(), message );
+  }
+
   protected static void observeADependency()
   {
     Arez.context().observable().reportObserved();

@@ -22,17 +22,13 @@ public class ComponentTest
     ArezTestUtil.disableZones();
     ArezTestUtil.resetState();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> new Component( Arez.context(),
-                                         ValueUtil.randomString(),
-                                         ValueUtil.randomString(),
-                                         ValueUtil.randomString(),
-                                         null,
-                                         null ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0175: Component passed a context but Arez.areZonesEnabled() is false" );
+    assertInvariantFailure( () -> new Component( Arez.context(),
+                                                 ValueUtil.randomString(),
+                                                 ValueUtil.randomString(),
+                                                 ValueUtil.randomString(),
+                                                 null,
+                                                 null ),
+                            "Arez-0175: Component passed a context but Arez.areZonesEnabled() is false" );
   }
 
   @Test
@@ -79,9 +75,8 @@ public class ComponentTest
 
     assertTrue( component.toString().startsWith( "arez.Component@" ) );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::getName );
-    assertEquals( exception.getMessage(),
-                  "Arez-0038: Component.getName() invoked when Arez.areNamesEnabled() is false" );
+    assertInvariantFailure( component::getName,
+                            "Arez-0038: Component.getName() invoked when Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -95,11 +90,8 @@ public class ComponentTest
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new Component( context, type, id, name, null, null ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0037: Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+    assertInvariantFailure( () -> new Component( context, type, id, name, null, null ),
+                            "Arez-0037: Component passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -204,11 +196,10 @@ public class ComponentTest
 
     assertEquals( component.getObservers().size(), 1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addObserver( observer1 ) );
-    assertEquals( exception.getMessage(), "Arez-0040: Component.addObserver invoked on component '" + name +
-                                          "' specifying observer named '" + observer1.getName() +
-                                          "' when observer already exists for component." );
+    assertInvariantFailure( () -> component.addObserver( observer1 ),
+                            "Arez-0040: Component.addObserver invoked on component '" + name +
+                            "' specifying observer named '" + observer1.getName() +
+                            "' when observer already exists for component." );
 
     assertEquals( component.getObservers().size(), 1 );
   }
@@ -249,11 +240,10 @@ public class ComponentTest
 
     final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.removeObserver( observer1 ) );
-    assertEquals( exception.getMessage(), "Arez-0041: Component.removeObserver invoked on component '" + name +
-                                          "' specifying observer named '" + observer1.getName() +
-                                          "' when observer does not exist for component." );
+    assertInvariantFailure( () -> component.removeObserver( observer1 ),
+                            "Arez-0041: Component.removeObserver invoked on component '" + name +
+                            "' specifying observer named '" + observer1.getName() +
+                            "' when observer does not exist for component." );
   }
 
   @Test
@@ -308,11 +298,10 @@ public class ComponentTest
 
     assertEquals( component.getObservableValues().size(), 1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addObservableValue( observableValue1 ) );
-    assertEquals( exception.getMessage(), "Arez-0043: Component.addObservableValue invoked on component '" + name +
-                                          "' specifying ObservableValue named '" + observableValue1.getName() +
-                                          "' when ObservableValue already exists for component." );
+    assertInvariantFailure( () -> component.addObservableValue( observableValue1 ),
+                            "Arez-0043: Component.addObservableValue invoked on component '" + name +
+                            "' specifying ObservableValue named '" + observableValue1.getName() +
+                            "' when ObservableValue already exists for component." );
 
     assertEquals( component.getObservableValues().size(), 1 );
   }
@@ -330,11 +319,10 @@ public class ComponentTest
 
     final ObservableValue observableValue1 = context.observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addObservableValue( observableValue1 ) );
-    assertEquals( exception.getMessage(), "Arez-0042: Component.addObservableValue invoked on component '" + name +
-                                          "' specifying ObservableValue named '" + observableValue1.getName() +
-                                          "' when component.complete() has already been called." );
+    assertInvariantFailure( () -> component.addObservableValue( observableValue1 ),
+                            "Arez-0042: Component.addObservableValue invoked on component '" + name +
+                            "' specifying ObservableValue named '" + observableValue1.getName() +
+                            "' when component.complete() has already been called." );
   }
 
   @Test
@@ -349,11 +337,10 @@ public class ComponentTest
 
     final ObservableValue observableValue1 = context.observable();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.removeObservableValue( observableValue1 ) );
-    assertEquals( exception.getMessage(), "Arez-0044: Component.removeObservableValue invoked on component '" + name +
-                                          "' specifying ObservableValue named '" + observableValue1.getName() +
-                                          "' when ObservableValue does not exist for component." );
+    assertInvariantFailure( () -> component.removeObservableValue( observableValue1 ),
+                            "Arez-0044: Component.removeObservableValue invoked on component '" + name +
+                            "' specifying ObservableValue named '" + observableValue1.getName() +
+                            "' when ObservableValue does not exist for component." );
   }
 
   @Test
@@ -408,11 +395,10 @@ public class ComponentTest
 
     assertEquals( component.getComputedValues().size(), 1 );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.addComputedValue( computedValue1 ) );
-    assertEquals( exception.getMessage(), "Arez-0046: Component.addComputedValue invoked on component '" + name +
-                                          "' specifying computedValue named '" + computedValue1.getName() +
-                                          "' when computedValue already exists for component." );
+    assertInvariantFailure( () -> component.addComputedValue( computedValue1 ),
+                            "Arez-0046: Component.addComputedValue invoked on component '" + name +
+                            "' specifying computedValue named '" + computedValue1.getName() +
+                            "' when computedValue already exists for component." );
 
     assertEquals( component.getComputedValues().size(), 1 );
   }
@@ -429,11 +415,10 @@ public class ComponentTest
 
     final ComputedValue computedValue1 = context.computed( () -> "" );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> component.removeComputedValue( computedValue1 ) );
-    assertEquals( exception.getMessage(), "Arez-0047: Component.removeComputedValue invoked on component '" + name +
-                                          "' specifying computedValue named '" + computedValue1.getName() +
-                                          "' when computedValue does not exist for component." );
+    assertInvariantFailure( () -> component.removeComputedValue( computedValue1 ),
+                            "Arez-0047: Component.removeComputedValue invoked on component '" + name +
+                            "' specifying computedValue named '" + computedValue1.getName() +
+                            "' when computedValue does not exist for component." );
   }
 
   @Test
@@ -582,8 +567,7 @@ public class ComponentTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, component::asInfo );
-    assertEquals( exception.getMessage(),
-                  "Arez-0194: Component.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    assertInvariantFailure( component::asInfo,
+                            "Arez-0194: Component.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
   }
 }

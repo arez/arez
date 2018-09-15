@@ -6,7 +6,13 @@ complete as there is too much un-said.
 
 ## Next Release
 
-* Change actions API to start passing bit flags as well.
+* Add Test to verify that actions object when passed bad flags.
+
+* Integration tests for `reportPossiblyChanged()`
+
+* Add "unit" tests for new observer methods not covered
+
+* Add test to cover `Observer.schedule()` where transaction is marked as used
 
 ## Enhancements
 

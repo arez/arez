@@ -73,7 +73,7 @@
         "type": "ComponentCreateCompleted"
     },
     {
-        "action": "Transaction@1",
+        "action": "Action@1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -83,13 +83,13 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@1"
+        "transaction": "Action@1"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@1"
+        "transaction": "Action@1"
     },
     {
         "component": "Model1.0",
@@ -121,21 +121,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.name.dispose"
-    },
-    {
         "observable": "Model1.0.name",
         "type": "ObservableValueChanged",
         "value": "Model1A1"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.name.dispose"
     },
     {
         "result": null,
@@ -174,7 +162,7 @@
         "type": "ComponentDisposeCompleted"
     },
     {
-        "action": "Transaction@2",
+        "action": "Action@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -184,18 +172,18 @@
         "mutation": true,
         "tracker": null,
         "type": "TransactionStarted",
-        "transaction": "Transaction@2"
+        "transaction": "Action@2"
     },
     {
         "mutation": true,
         "tracker": null,
         "type": "TransactionCompleted",
-        "transaction": "Transaction@2"
+        "transaction": "Action@2"
     },
     {
         "result": null,
         "errorMessage": null,
-        "action": "Transaction@2",
+        "action": "Action@2",
         "tracked": false,
         "returnsResult": true,
         "normalCompletion": true,
@@ -232,12 +220,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.dispose"
-    },
-    {
         "action": "Model2.0.reference1.dispose",
         "tracked": false,
         "type": "ActionStarted",
@@ -245,21 +227,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.reference1.dispose"
-    },
-    {
         "observable": "Model2.0.reference1",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.reference1.dispose"
     },
     {
         "result": null,
@@ -282,18 +252,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.reference2.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.reference2.dispose"
     },
     {
         "result": null,
@@ -318,18 +276,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.reference3.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.reference3.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "Model2.0.reference3.dispose",
@@ -352,18 +298,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model2.0.reference4.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.reference4.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "Model2.0.reference4.dispose",
@@ -377,12 +311,6 @@
     {
         "observable": "Model2.0.reference4",
         "type": "ObservableValueDisposed"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model2.0.dispose"
     },
     {
         "result": null,
@@ -407,21 +335,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.2.name.dispose"
-    },
-    {
         "observable": "Model1.2.name",
         "type": "ObservableValueChanged",
         "value": "Model1A3"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.2.name.dispose"
     },
     {
         "result": null,

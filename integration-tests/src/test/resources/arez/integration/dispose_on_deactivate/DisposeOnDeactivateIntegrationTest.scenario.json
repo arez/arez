@@ -150,18 +150,6 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.disposeOnDeactivate.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.disposeOnDeactivate.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "Model1.0.disposeOnDeactivate.dispose",
@@ -184,21 +172,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.disposeOnDeactivate.dispose"
-    },
-    {
         "observable": "Model1.0.disposeOnDeactivate",
         "type": "ObservableValueChanged",
         "value": null
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.disposeOnDeactivate.dispose"
     },
     {
         "result": null,
@@ -217,18 +193,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.disposeOnDeactivate.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.disposeOnDeactivate.dispose"
     },
     {
         "result": null,
@@ -249,21 +213,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.isDisposed.dispose"
-    },
-    {
         "observable": "Model1.0.isDisposed",
         "type": "ObservableValueChanged",
         "value": false
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.isDisposed.dispose"
     },
     {
         "result": null,

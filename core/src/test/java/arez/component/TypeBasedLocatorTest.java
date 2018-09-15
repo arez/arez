@@ -35,10 +35,9 @@ public class TypeBasedLocatorTest
 
     locator.registerLookup( A.class, i -> new A() );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> locator.registerLookup( A.class, i -> new A() ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0188: Attempting to register lookup function for type class arez.component.TypeBasedLocatorTest$A when a function for type already exists." );
+    assertInvariantFailure( () -> locator.registerLookup( A.class, i -> new A() ),
+                            "Arez-0188: Attempting to register lookup function for type class arez.component.TypeBasedLocatorTest$A when a function for type already exists." );
+
   }
 
   static class A

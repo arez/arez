@@ -4,6 +4,7 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
+import arez.Flags;
 import arez.ObservableValue;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
@@ -188,12 +189,9 @@ public class ContainerTest
     final MyEntity entity1 = new MyEntity( 301 );
     final MyContainer repository = MyContainer.create();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> repository.destroy( entity1 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
-                  entity1 );
+    assertInvariantFailure( () -> repository.destroy( entity1 ),
+                            "Arez-0157: Called detach() passing an entity that was not attached " +
+                            "to the container. Entity: " + entity1 );
   }
 
   @Test
@@ -204,12 +202,8 @@ public class ContainerTest
 
     entity1.dispose();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0168: Called attach() passing an entity that is disposed. Entity: " + entity1 );
+    assertInvariantFailure( () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ),
+                            "Arez-0168: Called attach() passing an entity that is disposed. Entity: " + entity1 );
   }
 
   @Test
@@ -220,13 +214,9 @@ public class ContainerTest
 
     Arez.context().safeAction( () -> repository.attach( entity1 ) );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0136: Called attach() passing an entity that is already attached to the container. Entity: " +
-                  entity1 );
+    assertInvariantFailure( () -> Arez.context().safeAction( () -> repository.attach( entity1 ) ),
+                            "Arez-0136: Called attach() passing an entity that is already attached " +
+                            "to the container. Entity: " + entity1 );
   }
 
   @Test
@@ -235,12 +225,9 @@ public class ContainerTest
     final MyEntity entity1 = new MyEntity( 301 );
     final MyContainer repository = MyContainer.create();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> repository.detach( entity1 ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
-                  entity1 );
+    assertInvariantFailure( () -> repository.detach( entity1 ),
+                            "Arez-0157: Called detach() passing an entity that was not attached " +
+                            "to the container. Entity: " + entity1 );
   }
 
   @Test
@@ -350,11 +337,11 @@ public class ContainerTest
     @Override
     public void dispose()
     {
-      Arez.context().safeAction( null, true, false, () -> {
+      Arez.context().safeAction( () -> {
         _disposed = true;
         _notifier.dispose();
         _observableValue.dispose();
-      } );
+      }, Flags.NO_VERIFY_ACTION_REQUIRED );
     }
 
     @Override

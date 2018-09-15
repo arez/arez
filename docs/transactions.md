@@ -47,14 +47,3 @@ The simplified rules are:
 It should be noted that these rules are in addition to the rule that a read-write transaction can not be nested
 within a read-only transaction. Actions default to read-write transactions but may be made read-only. Observers
 default to read-only transactions but may be made read-write. Computed values create read-only transactions.
-
-## Nesting Non-Transactional Actions
-
-It should be noted that Arez does offer the capability to perform an action nested within a transaction
-that is outside a transaction. i.e. A block of code can be run outside a transaction even if a read-only
-or read-write transaction is active. This is achieved by invoking the
-{@api_url: ArezContext.noTxAction(*)::ArezContext::noTxAction(arez.Procedure)} methods. This is rarely needed
-and `99.5%` of code should never use this facility. This is only needed if the code invoked behaves differently
-depending on whether it is nested in a transaction or not. It should be noted that the code block **must not**
-attempt to create another transaction as this will violate the invariants of Arez and may result in
-indeterminate behaviour.

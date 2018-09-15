@@ -29,23 +29,11 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.1.dispose"
-    },
-    {
         "action": "TestComponent.1.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.1.isDisposed.dispose"
     },
     {
         "observable": "TestComponent.1.isDisposed",
@@ -53,12 +41,6 @@
         "value": false
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.1.isDisposed.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "TestComponent.1.isDisposed.dispose",
@@ -81,21 +63,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.1.value.dispose"
-    },
-    {
         "observable": "TestComponent.1.value",
         "type": "ObservableValueChanged",
         "value": "S1"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.1.value.dispose"
     },
     {
         "result": null,
@@ -111,12 +81,6 @@
     {
         "observable": "TestComponent.1.value",
         "type": "ObservableValueDisposed"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.1.dispose"
     },
     {
         "result": null,
@@ -145,23 +109,11 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.2.dispose"
-    },
-    {
         "action": "TestComponent.2.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.2.isDisposed.dispose"
     },
     {
         "observable": "TestComponent.2.isDisposed",
@@ -169,12 +121,6 @@
         "value": false
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.2.isDisposed.dispose"
-    },
-    {
         "result": null,
         "errorMessage": null,
         "action": "TestComponent.2.isDisposed.dispose",
@@ -197,21 +143,9 @@
         ]
     },
     {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.2.value.dispose"
-    },
-    {
         "observable": "TestComponent.2.value",
         "type": "ObservableValueChanged",
         "value": "S2"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.2.value.dispose"
     },
     {
         "result": null,
@@ -227,12 +161,6 @@
     {
         "observable": "TestComponent.2.value",
         "type": "ObservableValueDisposed"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.2.dispose"
     },
     {
         "result": null,
@@ -255,18 +183,6 @@
         "type": "ActionStarted",
         "parameters": [
         ]
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities.dispose"
-    },
-    {
-        "mutation": true,
-        "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities.dispose"
     },
     {
         "result": null,

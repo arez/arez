@@ -32,9 +32,8 @@ public class IdentifiableTest
   {
     final Object element = new Object();
     assertNull( Identifiable.getArezId( element ) );
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> Identifiable.asIdentifiable( element ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0158: Object passed to asIdentifiable does not implement Identifiable. Object: " + element );
+    assertInvariantFailure( () -> Identifiable.asIdentifiable( element ),
+                            "Arez-0158: Object passed to asIdentifiable does not " +
+                            "implement Identifiable. Object: " + element );
   }
 }

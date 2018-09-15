@@ -2,6 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
@@ -58,9 +59,9 @@ public class DaggerRepositoryIntegrationTest
 
     final ArezContext context = Arez.context();
 
-    context.action( false, () -> assertEquals( repository.findAll().size(), 3 ) );
-    context.action( false, () -> assertEquals( repository.findAll().contains( component1 ), true ) );
-    context.action( false, () -> assertEquals( repository.findAll().contains( component2 ), true ) );
-    context.action( false, () -> assertEquals( repository.findAll().contains( component3 ), true ) );
+    context.action( () -> assertEquals( repository.findAll().size(), 3 ), Flags.READ_ONLY );
+    context.action( () -> assertEquals( repository.findAll().contains( component1 ), true ), Flags.READ_ONLY );
+    context.action( () -> assertEquals( repository.findAll().contains( component2 ), true ), Flags.READ_ONLY );
+    context.action( () -> assertEquals( repository.findAll().contains( component3 ), true ), Flags.READ_ONLY );
   }
 }

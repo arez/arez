@@ -54,8 +54,7 @@ public class NodeTest
     assertEquals( node.getContext(), context );
     assertTrue( node.toString().startsWith( node.getClass().getName() + "@" ), "node.toString() == " + node );
 
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, node::getName );
-    assertEquals( exception.getMessage(), "Arez-0053: Node.getName() invoked when Arez.areNamesEnabled() is false" );
+    assertInvariantFailure( node::getName, "Arez-0053: Node.getName() invoked when Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -67,11 +66,8 @@ public class NodeTest
     final ArezContext context = Arez.context();
 
     final String name = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new TestNode( context, name ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
+    assertInvariantFailure( () -> new TestNode( context, name ),
+                            "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
   }
 
   @Test
@@ -82,10 +78,7 @@ public class NodeTest
 
     final ArezContext context = Arez.context();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> new TestNode( context, ValueUtil.randomString() ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0180: Node passed a context but Arez.areZonesEnabled() is false" );
+    assertInvariantFailure( () -> new TestNode( context, ValueUtil.randomString() ),
+                            "Arez-0180: Node passed a context but Arez.areZonesEnabled() is false" );
   }
 }

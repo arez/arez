@@ -50,12 +50,8 @@ public class DisposeNotifierTest
     final String key = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> notifier.addOnDisposeListener( key, callCount::incrementAndGet ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0170: Attempting to remove add listener but listeners have already been notified." );
+    assertInvariantFailure( () -> notifier.addOnDisposeListener( key, callCount::incrementAndGet ),
+                            "Arez-0170: Attempting to remove add listener but listeners have already been notified." );
   }
 
   @Test
@@ -68,13 +64,9 @@ public class DisposeNotifierTest
 
     notifier.addOnDisposeListener( key, callCount::incrementAndGet );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class,
-                    () -> notifier.addOnDisposeListener( key, callCount::incrementAndGet ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0166: Attempting to add dispose listener with key '" + key +
-                  "' but a listener with that key already exists." );
+    assertInvariantFailure( () -> notifier.addOnDisposeListener( key, callCount::incrementAndGet ),
+                            "Arez-0166: Attempting to add dispose listener with key '" + key +
+                            "' but a listener with that key already exists." );
   }
 
   @Test
@@ -110,11 +102,8 @@ public class DisposeNotifierTest
 
     notifier.dispose();
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> notifier.removeOnDisposeListener( key ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0169: Attempting to remove dispose listener but listeners have already been notified." );
+    assertInvariantFailure( () -> notifier.removeOnDisposeListener( key ),
+                            "Arez-0169: Attempting to remove dispose listener but listeners have already been notified." );
   }
 
   @Test
@@ -123,12 +112,9 @@ public class DisposeNotifierTest
     final DisposeNotifier notifier = new DisposeNotifier();
 
     final String key = ValueUtil.randomString();
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> notifier.removeOnDisposeListener( key ) );
-
-    assertEquals( exception.getMessage(),
-                  "Arez-0167: Attempting to remove dispose listener with key '" + key +
-                  "' but no such listener exists." );
+    assertInvariantFailure( () -> notifier.removeOnDisposeListener( key ),
+                            "Arez-0167: Attempting to remove dispose listener with key '" + key +
+                            "' but no such listener exists." );
   }
 
   @Test

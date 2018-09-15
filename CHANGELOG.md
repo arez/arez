@@ -94,6 +94,29 @@
   without resorting to the `arez.component.Identifiable` interface which has some performance impact.
 * **\[core\]** Fixed a bug where a component annotated with `@ArezComponent(nameIncludesId=false)` that also had a
   `@Repository` annotation would always have an id of `0` in production mode.
+* **\[core\]** The `Observer.schedule()`, `Observer.reportStale()` and `ComputedValue.reportPossibleChanged()`
+  did not register as usages of the transaction and thus actions that did not set `verifyActionRequired`
+  parameter to `false` would generate an invariant failure if the action only invoked these methods without also
+  accessing or mutating other observable state. These methods now mark the transaction as used so it is no longer
+  necessary to set `verifyActionRequired` to `false`.
+* **\[core\]** Fixed bug where an action with `Flags.READ_ONLY` without the `Flags.REQUIRE_NEW_TRANSACTION` nested
+  in an action with the `Flags.READ_ONLY` flag would still create a new transaction. This has been fixed so that the
+  nested action no longer creates a new transaction.
+* **\[core\]** Added new helper method `ArezContext.isReadOnlyTransactionActive()`.
+* **\[core\]** Rename method `ArezContext.isWriteTransactionActive()` to `ArezContext.isReadWriteTransactionActive()`.
+* **\[core\]** Changed the core api for invoking actions. Previously actions were created by passing a number
+  of boolean flags such as `mutation`, `verifyActionRequired` and `requireNewTransaction`. These have been collapsed
+  into a flags parameter that was moved after the executable parameter. The `parameters` parameter was changed from
+  a non-null, var-args parameter into a nullable array. Update the annotation processor to pass null if there are no
+  parameters or `Arez.areSpiesEnabled()` returns `false`. This improves the ability of the GWT compiler to optimize
+  and eliminate unused code.
+* **\[core\]** Update the `ArezContext.observe(...)` and `ArezContext.safeObserve(...)` methods to change the last
+  parameter from a non-null, var args parameter into a nullable array. Makes the code easier for the GWT compiler
+  to optimize.
+* **\[core\]** Remove the `ArezContext.noTxAction(...)` and `ArezContext.safeNoTxAction(...)` methods and associated
+  infrastructure for suspending and resuming transactions. The API was error prone and no use-case existed for the
+  functionality so it has been removed until such a time where a use-case is determined. Removal also resulted in a
+  decrease in code size when compiled using GWT.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

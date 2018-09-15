@@ -208,10 +208,8 @@ public class ObserverInfoImplTest
 
     final Observer observer = context.observer( AbstractArezTest::observeADependency );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> spy.asObserverInfo( observer ).getComponent() );
-    assertEquals( exception.getMessage(),
-                  "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
+    assertInvariantFailure( () -> spy.asObserverInfo( observer ).getComponent(),
+                            "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
   @SuppressWarnings( "EqualsWithItself" )

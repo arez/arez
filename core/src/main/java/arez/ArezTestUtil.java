@@ -73,7 +73,6 @@ public final class ArezTestUtil
   {
     ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
     Transaction.setTransaction( null );
-    Transaction.resetSuspendedFlag();
     ArezZoneHolder.reset();
     ArezContextHolder.reset();
   }

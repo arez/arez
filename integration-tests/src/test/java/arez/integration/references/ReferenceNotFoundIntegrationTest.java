@@ -13,7 +13,6 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class ReferenceNotFoundIntegrationTest
   extends AbstractArezIntegrationTest
@@ -31,10 +30,7 @@ public class ReferenceNotFoundIntegrationTest
     final Model2 model2 = repository.create();
     final Object model2Id = Objects.requireNonNull( Identifiable.getArezId( model2 ) );
 
-    final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> safeAction( () -> Model1.create( model2Id ) ) );
-
-    assertEquals( exception.getMessage(),
+    assertInvariantFailure( () -> safeAction( () -> Model1.create( model2Id ) ),
                   "Reference named 'model2' on component named 'Model1.0' is unable to resolve entity of type arez.integration.references.ReferenceNotFoundIntegrationTest.Model2 and id = 0" );
   }
 
