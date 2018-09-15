@@ -4,16 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Next Release
-
-* Add Test to verify that actions object when passed bad flags.
-
-* Integration tests for `reportPossiblyChanged()`
-
-* Add "unit" tests for new observer methods not covered
-
-* Add test to cover `Observer.schedule()` where transaction is marked as used
-
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code

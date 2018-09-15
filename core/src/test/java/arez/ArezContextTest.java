@@ -4,6 +4,7 @@ import arez.component.TypeBasedLocator;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
+import arez.spy.ComponentInfo;
 import arez.spy.ComputedValueCreatedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserverCreatedEvent;
@@ -362,6 +363,18 @@ public class ArezContextTest
                                                         Flags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
     } );
+  }
+
+  @Test
+  public void verifyActionFlags()
+    throws Throwable
+  {
+    final Procedure executable = () -> {
+    };
+    assertInvariantFailure( () -> Arez.context().action( executable, Flags.DEACTIVATE_ON_UNOBSERVE ),
+                            "Arez-0212: Flags passed to action 'Action@1' include some " +
+                            "unexpected flags set: " + Flags.DEACTIVATE_ON_UNOBSERVE );
+
   }
 
   @Test
@@ -833,6 +846,56 @@ public class ArezContextTest
       assertEquals( parameters[ 0 ], param1 );
       assertEquals( parameters[ 1 ], param2 );
       assertEquals( parameters[ 2 ], param3 );
+    } );
+  }
+
+  @Test
+  public void observe_function_no_parameters()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer =
+      context.tracker( callCount::incrementAndGet, Flags.NON_AREZ_DEPENDENCIES | Flags.READ_WRITE );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final int result =
+      context.observe( observer, () -> {
+        final Transaction transaction = context.getTransaction();
+        assertEquals( transaction.getName(), observer.getName() );
+        return 23;
+      } );
+
+    assertEquals( result, 23 );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class, e -> {
+      assertEquals( e.isTracked(), true );
+      assertEquals( e.getParameters().length, 0 );
+    } );
+    handler.assertNextEvent( TransactionStartedEvent.class, e -> {
+      assertEquals( e.isMutation(), true );
+      final ObserverInfo info = e.getTracker();
+      assertNotNull( info );
+      assertEquals( info.getName(), observer.getName() );
+    } );
+    handler.assertNextEvent( TransactionCompletedEvent.class, e -> {
+      assertEquals( e.isMutation(), true );
+      final ObserverInfo info = e.getTracker();
+      assertNotNull( info );
+      assertEquals( info.getName(), observer.getName() );
+    } );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
+      assertEquals( e.getThrowable(), null );
+      assertEquals( e.returnsResult(), true );
+      assertEquals( e.getResult(), result );
+      assertEquals( e.isTracked(), true );
+      assertEquals( e.getParameters().length, 0 );
     } );
   }
 
@@ -1686,6 +1749,60 @@ public class ArezContextTest
     assertEquals( context.currentNextTransactionId(), 1 );
     assertEquals( context.nextTransactionId(), 1 );
     assertEquals( context.currentNextTransactionId(), 2 );
+  }
+
+  @Test
+  public void observer_with_onDepsUpdated()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = context.observable();
+    final AtomicInteger observedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+
+    final String name = ValueUtil.randomString();
+    context.observer( name, () -> {
+      observedCallCount.incrementAndGet();
+      observable.reportObserved();
+      assertEquals( context.getTransaction().getName(), name );
+    }, onDepsChangedCallCount::incrementAndGet );
+
+    assertEquals( onDepsChangedCallCount.get(), 0 );
+
+    context.safeAction( observable::reportChanged );
+
+    assertEquals( onDepsChangedCallCount.get(), 1 );
+  }
+
+  @Test
+  public void observer_withComponent_and_onDepsUpdated()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = context.observable();
+    final AtomicInteger observedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+
+    final Component component = context.component( ValueUtil.randomString(), 22 );
+
+    final String name = ValueUtil.randomString();
+    final Observer observer =
+      context.observer( component, name, () -> {
+        observedCallCount.incrementAndGet();
+        observable.reportObserved();
+        assertEquals( context.getTransaction().getName(), name );
+      }, onDepsChangedCallCount::incrementAndGet );
+
+    assertEquals( onDepsChangedCallCount.get(), 0 );
+    final ComponentInfo componentInfo = observer.asInfo().getComponent();
+    assertNotNull( componentInfo );
+    assertEquals( componentInfo.getName(), component.getName() );
+
+    context.safeAction( observable::reportChanged );
+
+    assertEquals( onDepsChangedCallCount.get(), 1 );
   }
 
   @Test
