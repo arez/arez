@@ -21,7 +21,9 @@ complete as there is too much un-said.
 
   `"Observer.reportStale() invoked on observer named '%s' but arezOnlyDependencies = true."`
 
-  We could use this explicit modelling to help generate error messages and documentation on website.
+  We could use this explicit modelling to help generate error messages and documentation on website. We could also use some trickery of reflection to extract
+  the source file and line number where the invariant is generated. This would allow cross-linking from the website to the source code (via javadocs source
+  inclusion).
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
