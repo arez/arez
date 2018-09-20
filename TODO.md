@@ -10,7 +10,7 @@ complete as there is too much un-said.
   computed is based off element that is disposed we still want to compute a static value that we are fine with
   it not changing.
 
-* Rename `SCHEDULED_EXTERNALLY` to `EXECUTE_EXTERNALLY`
+* Rename `SCHEDULED_EXTERNALLY` to `APPLICATION_EXECUTOR`
 
 * `AREZ_ONLY` == `VERIFY_ACTION_REQUIRED`
 * `AREZ_OR_NONE` == `NO_VERIFY_ACTION_REQUIRED`
