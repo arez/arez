@@ -98,11 +98,17 @@ public final class Flags
    * reaction round, this priority should be used when the observer may trigger many downstream
    * reactions.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#HIGH
+   * @see arez.spy.Priority#HIGH
    */
   public static final int PRIORITY_HIGH = 0b010 << 16;
   /**
    * Normal priority if no other priority otherwise specified.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#NORMAL
+   * @see arez.spy.Priority#NORMAL
    */
   public static final int PRIORITY_NORMAL = 0b011 << 16;
   /**
@@ -113,6 +119,9 @@ public final class Flags
    * to avoid recalculation of dependencies (i.e. {@link ComputedValue}s) triggering
    * this reaction multiple times within a single reaction round.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#LOW
+   * @see arez.spy.Priority#LOW
    */
   public static final int PRIORITY_LOW = 0b100 << 16;
   /**
@@ -121,6 +130,9 @@ public final class Flags
    * recomputing state that is likely to either be unobserved or recomputed as part of
    * another observers reaction.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#LOWEST
+   * @see arez.spy.Priority#LOWEST
    */
   public static final int PRIORITY_LOWEST = 0b101 << 16;
   /**
