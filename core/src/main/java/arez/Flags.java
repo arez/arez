@@ -174,7 +174,7 @@ public final class Flags
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
-  public static final int REQUIRE_NEW_TRANSACTION = 1 << 14;
+  public static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
   /**
    * The flag can be passed to actions to force the action to verify that an action performed an activity
    * that required an action. These activities include:
