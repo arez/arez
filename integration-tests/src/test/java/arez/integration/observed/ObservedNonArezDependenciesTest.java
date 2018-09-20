@@ -3,6 +3,7 @@ package arez.integration.observed;
 import arez.Arez;
 import arez.Observer;
 import arez.annotations.ArezComponent;
+import arez.annotations.DepType;
 import arez.annotations.Observable;
 import arez.annotations.Observed;
 import arez.annotations.ObserverRef;
@@ -19,7 +20,7 @@ public class ObservedNonArezDependenciesTest
   {
     int _renderCallCount;
 
-    @Observed( arezOnlyDependencies = false )
+    @Observed( depType = DepType.AREZ_OR_EXTERNAL )
     void render()
     {
       getValue();

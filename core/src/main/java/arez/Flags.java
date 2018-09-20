@@ -25,25 +25,39 @@ public final class Flags
    */
   private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
   /**
-   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
+   * indicate dependency has changed and the observer. If {@link #APPLICATION_EXECUTOR} is not set then the observer is expected
+   * to invoke {@link ObservableValue#reportObserved()} on at least one dependency.
+   *
+   * @see arez.annotations.DepType#AREZ
    */
-  public static final int NON_AREZ_DEPENDENCIES = 1 << 27;
+  public static final int AREZ_DEPENDENCIES = 1 << 27;
   /**
-   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate dependency has changed.
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
+   * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
+   *
+   * @see arez.annotations.DepType#AREZ_OR_NONE
    */
-  public static final int AREZ_DEPENDENCIES_ONLY = 1 << 26;
+  public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
+  /**
+   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   *
+   * @see arez.annotations.DepType#AREZ_OR_EXTERNAL
+   */
+  public static final int AREZ_OR_EXTERNAL_DEPENDENCIES = 1 << 25;
   /**
    * Mask used to extract dependency type bits.
    */
-  private static final int DEPENDENCIES_TYPE_MASK = NON_AREZ_DEPENDENCIES | AREZ_DEPENDENCIES_ONLY;
+  private static final int DEPENDENCIES_TYPE_MASK =
+    AREZ_DEPENDENCIES | AREZ_OR_NO_DEPENDENCIES | AREZ_OR_EXTERNAL_DEPENDENCIES;
   /**
    * The observer can only read arez state.
    */
-  public static final int READ_ONLY = 1 << 25;
+  public static final int READ_ONLY = 1 << 24;
   /**
    * The observer can read or write arez state.
    */
-  public static final int READ_WRITE = 1 << 24;
+  public static final int READ_WRITE = 1 << 23;
   /**
    * Mask used to extract transaction mode bits.
    */
@@ -54,14 +68,14 @@ public final class Flags
    * is no {@link Observer#_observed} function supplied. This should not be
    * specified if {@link #RUN_LATER} is specified.
    */
-  public static final int RUN_NOW = 1 << 23;
+  public static final int RUN_NOW = 1 << 22;
   /**
    * The scheduler will not be triggered when the observer is created. The observer either
    * has no {@link Observer#_observed} function or is responsible for ensuring that
    * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
    * specified if {@link #RUN_NOW} is specified.
    */
-  public static final int RUN_LATER = 1 << 22;
+  public static final int RUN_LATER = 1 << 21;
   /**
    * Mask used to extract run type bits.
    */
@@ -71,40 +85,49 @@ public final class Flags
    * observers that supply a observed function but may be explicitly supplied when creating {@link ComputedValue}
    * instances.
    */
-  public static final int KEEPALIVE = 1 << 21;
+  public static final int KEEPALIVE = 1 << 20;
   /**
    * The flag is valid on observers associated with computed values and will deactivate the observer if the
    * computed value has no observers.
    */
-  static final int DEACTIVATE_ON_UNOBSERVE = 1 << 20;
+  static final int DEACTIVATE_ON_UNOBSERVE = 1 << 19;
   /**
    * The flag is valid on observers where the observed function is invoked by the application.
    */
-  static final int SCHEDULED_EXTERNALLY = 1 << 19;
+  static final int APPLICATION_EXECUTOR = 1 << 18;
   /**
    * Mask used to extract react type bits.
    */
-  private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | SCHEDULED_EXTERNALLY;
+  private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | APPLICATION_EXECUTOR;
   /**
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
    * (and thus remove elements from being scheduled).
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#HIGHEST
+   * @see arez.spy.Priority#HIGHEST
    */
-  public static final int PRIORITY_HIGHEST = 0b001 << 16;
+  public static final int PRIORITY_HIGHEST = 0b001 << 15;
   /**
    * High priority.
    * To reduce the chance that downstream elements will react multiple times within a single
    * reaction round, this priority should be used when the observer may trigger many downstream
    * reactions.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#HIGH
+   * @see arez.spy.Priority#HIGH
    */
-  public static final int PRIORITY_HIGH = 0b010 << 16;
+  public static final int PRIORITY_HIGH = 0b010 << 15;
   /**
    * Normal priority if no other priority otherwise specified.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#NORMAL
+   * @see arez.spy.Priority#NORMAL
    */
-  public static final int PRIORITY_NORMAL = 0b011 << 16;
+  public static final int PRIORITY_NORMAL = 0b011 << 15;
   /**
    * Low priority.
    * Usually used to schedule observers that reflect state onto non-reactive
@@ -113,24 +136,30 @@ public final class Flags
    * to avoid recalculation of dependencies (i.e. {@link ComputedValue}s) triggering
    * this reaction multiple times within a single reaction round.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#LOW
+   * @see arez.spy.Priority#LOW
    */
-  public static final int PRIORITY_LOW = 0b100 << 16;
+  public static final int PRIORITY_LOW = 0b100 << 15;
   /**
    * Lowest priority. Use this priority if the observer is a {@link ComputedValue} that
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
    * recomputing state that is likely to either be unobserved or recomputed as part of
    * another observers reaction.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+   *
+   * @see arez.annotations.Priority#LOWEST
+   * @see arez.spy.Priority#LOWEST
    */
-  public static final int PRIORITY_LOWEST = 0b101 << 16;
+  public static final int PRIORITY_LOWEST = 0b101 << 15;
   /**
    * Mask used to extract priority bits.
    */
-  private static final int PRIORITY_MASK = 0b111 << 16;
+  private static final int PRIORITY_MASK = 0b111 << 15;
   /**
    * Shift used to extract priority after applying mask.
    */
-  private static final int PRIORITY_SHIFT = 16;
+  private static final int PRIORITY_SHIFT = 15;
   /**
    * Mask that identifies the bits associated with static configuration.
    */
@@ -145,7 +174,7 @@ public final class Flags
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
-  public static final int REQUIRE_NEW_TRANSACTION = 1 << 15;
+  public static final int REQUIRE_NEW_TRANSACTION = 1 << 14;
   /**
    * The flag can be passed to actions to force the action to verify that an action performed an activity
    * that required an action. These activities include:
@@ -160,12 +189,12 @@ public final class Flags
    * VERIFY_ACTION_REQUIRED nor {@link #NO_VERIFY_ACTION_REQUIRED} is specified then VERIFY_ACTION_REQUIRED
    * is assumed.</p>
    */
-  public static final int VERIFY_ACTION_REQUIRED = 1 << 14;
+  public static final int VERIFY_ACTION_REQUIRED = 1 << 13;
   /**
    * This flag can be passed to skip verification that action was required.
    * This flag must not be present if {@link #VERIFY_ACTION_REQUIRED} is present.
    */
-  public static final int NO_VERIFY_ACTION_REQUIRED = 1 << 13;
+  public static final int NO_VERIFY_ACTION_REQUIRED = 1 << 12;
   /**
    * Mask used to extract verify action bits.
    */
@@ -329,6 +358,19 @@ public final class Flags
   }
 
   /**
+   * Return the default dependency type flag if dependency type not specified.
+   *
+   * @param flags the flags.
+   * @return the default dependency type if dependency type unspecified else 0.
+   */
+  static int dependencyType( final int flags )
+  {
+    return Arez.shouldCheckInvariants() ?
+           defaultFlagUnlessSpecified( flags, DEPENDENCIES_TYPE_MASK, AREZ_DEPENDENCIES ) :
+           0;
+  }
+
+  /**
    * Return true if flags contains a valid react type.
    *
    * @param flags the flags.
@@ -396,7 +438,7 @@ public final class Flags
   {
     return KEEPALIVE == ( flags & KEEPALIVE ) ^
            DEACTIVATE_ON_UNOBSERVE == ( flags & DEACTIVATE_ON_UNOBSERVE ) ^
-           SCHEDULED_EXTERNALLY == ( flags & SCHEDULED_EXTERNALLY );
+           APPLICATION_EXECUTOR == ( flags & APPLICATION_EXECUTOR );
   }
 
   /**

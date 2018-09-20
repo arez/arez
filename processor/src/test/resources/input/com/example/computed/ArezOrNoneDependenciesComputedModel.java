@@ -5,11 +5,11 @@ import arez.annotations.Computed;
 import arez.annotations.DepType;
 
 @ArezComponent
-public abstract class MissingComputedValueRefModel
+public abstract class ArezOrNoneDependenciesComputedModel
 {
-  @Computed( depType = DepType.AREZ_OR_EXTERNAL )
-  public Integer getValue()
+  @Computed( depType = DepType.AREZ_OR_NONE )
+  public long getTime()
   {
-    return null;
+    return 0;
   }
 }

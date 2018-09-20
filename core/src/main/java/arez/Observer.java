@@ -86,6 +86,7 @@ public final class Observer
           Flags.runType( flags, Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? Flags.RUN_NOW : Flags.RUN_LATER ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
+          Flags.dependencyType( flags ) |
           Flags.priority( flags ) );
   }
 
@@ -103,10 +104,11 @@ public final class Observer
           observed,
           onDepsChanged,
           flags |
-          ( null == observed ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
+          ( null == observed ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
           Flags.runType( flags, null == observed ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.priority( flags ) |
           Flags.nestedActionRule( flags ) |
+          Flags.dependencyType( flags ) |
           Flags.transactionMode( flags ) );
   }
 
@@ -156,7 +158,7 @@ public final class Observer
                        "observed parameter or the onDepsChanged parameter." );
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observed;
-      assert Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == observed;
+      assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observed;
       invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
                           null != computedValue ),
@@ -167,7 +169,7 @@ public final class Observer
                        "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
       invariant( () -> Flags.isScheduleTypeValid( flags ),
                  () -> "Arez-0210: Observer named '" + getName() + "' incorrectly specified multiple " +
-                       "schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
+                       "schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, APPLICATION_EXECUTOR)." );
       invariant( () -> ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) == 0,
                  () -> "Arez-0207: Observer named '" + getName() + "' specified illegal flags: " +
                        ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) );
@@ -225,10 +227,16 @@ public final class Observer
     return Priority.values()[ getPriorityIndex() ];
   }
 
-  boolean arezOnlyDependencies()
+  boolean areArezDependenciesRequired()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 == ( _flags & Flags.NON_AREZ_DEPENDENCIES );
+    return Flags.AREZ_DEPENDENCIES == ( _flags & Flags.AREZ_DEPENDENCIES );
+  }
+
+  boolean areExternalDependenciesAllowed()
+  {
+    assert Arez.shouldCheckApiInvariants();
+    return Flags.AREZ_OR_EXTERNAL_DEPENDENCIES == ( _flags & Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
   }
 
   /**
@@ -399,9 +407,9 @@ public final class Observer
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !arezOnlyDependencies(),
+      apiInvariant( this::areExternalDependenciesAllowed,
                     () -> "Arez-0199: Observer.reportStale() invoked on observer named '" + getName() +
-                          "' but arezOnlyDependencies = true." );
+                          "' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
       apiInvariant( () -> getContext().isTransactionActive(),
                     () -> "Arez-0200: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when there is no active transaction." );
@@ -674,7 +682,7 @@ public final class Observer
   {
     assert null != _observed;
     final Procedure action;
-    if ( Arez.shouldCheckInvariants() && arezOnlyDependencies() )
+    if ( Arez.shouldCheckInvariants() && areArezDependenciesRequired() )
     {
       action = () -> {
         _observed.call();

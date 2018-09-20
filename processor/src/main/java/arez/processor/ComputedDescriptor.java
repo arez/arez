@@ -46,7 +46,7 @@ final class ComputedDescriptor
   private boolean _keepAlive;
   private String _priority;
   private boolean _observeLowerPriorityDependencies;
-  private boolean _arezOnlyDependencies;
+  private String _depType;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -121,7 +121,7 @@ final class ComputedDescriptor
                     final boolean keepAlive,
                     @Nonnull final String priority,
                     final boolean observeLowerPriorityDependencies,
-                    final boolean arezOnlyDependencies )
+                    @Nonnull final String depType )
     throws ArezProcessorException
   {
     //The caller already verified that no duplicate computed have been defined
@@ -138,7 +138,7 @@ final class ComputedDescriptor
     _keepAlive = keepAlive;
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
-    _arezOnlyDependencies = arezOnlyDependencies;
+    _depType = Objects.requireNonNull( depType );
 
     if ( isComputedReturnType( Stream.class ) )
     {
@@ -279,9 +279,9 @@ final class ComputedDescriptor
         }
       }
     }
-    else if ( !_arezOnlyDependencies )
+    else if ( _depType.equals( "AREZ_OR_EXTERNAL" ) )
     {
-      throw new ArezProcessorException( "@Computed target specified arezOnlyDependencies = false but " +
+      throw new ArezProcessorException( "@Computed target specified depType = AREZ_OR_EXTERNAL but " +
                                         "there is no associated @ComputedValueRef method.", _computed );
     }
   }
@@ -441,9 +441,17 @@ final class ComputedDescriptor
     {
       flags.add( "KEEPALIVE" );
     }
-    if ( !_arezOnlyDependencies )
+    switch ( _depType )
     {
-      flags.add( "NON_AREZ_DEPENDENCIES" );
+      case "AREZ":
+        flags.add( "AREZ_DEPENDENCIES" );
+        break;
+      case "AREZ_OR_NONE":
+        flags.add( "AREZ_OR_NO_DEPENDENCIES" );
+        break;
+      default:
+        flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
+        break;
     }
     if ( !"NORMAL".equals( _priority ) )
     {

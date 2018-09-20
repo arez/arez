@@ -106,14 +106,16 @@ public @interface Observed
   boolean reportParameters() default true;
 
   /**
-   * Flag indicating whether the Observer is solely dependent on arez elements.
-   * If set to true and {@link #executor()} is {@link Executor#AREZ} then Arez will verify that the
-   * function annotated by this accesses arez elements (i.e. instances of {@link arez.ObservableValue}
-   * or instances of {@link arez.ComputedValue}). If set to false then the component must define a
-   * {@link ObserverRef} method and should invoke {@link Observer#reportStale()} when the non-arez
-   * dependencies are changed.
+   * Enum indicating whether the Observer is derived from arez elements and/or external dependencies.
+   * If set to {@link DepType#AREZ} then the arez runtime will verify that the method annotated by this
+   * annotation accesses arez elements (i.e. instances of {@link arez.ObservableValue} or instances of
+   * {@link arez.ComputedValue}). If set to {@link DepType#AREZ_OR_NONE} then the runtime will allow
+   * observed to exist with no dependencies. If set to {@link DepType#AREZ_OR_EXTERNAL} then the component
+   * must define a {@link ObserverRef} method and should invoke {@link Observer#reportStale()} when the
+   * non-arez dependencies are changed.
    *
-   * @return true if the observer is solely dependent on arez elements.
+   * @return the type of dependencies allowed in the observed method.
    */
-  boolean arezOnlyDependencies() default true;
+  @Nonnull
+  DepType depType() default DepType.AREZ;
 }

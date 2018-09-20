@@ -380,7 +380,7 @@ public class ComputedValueTest
     final ArezContext context = Arez.context();
 
     final ComputedValue<String> computedValue =
-      context.computed( ValueUtil::randomString, Flags.NON_AREZ_DEPENDENCIES );
+      context.computed( ValueUtil::randomString, Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertNotNull( context.safeAction( computedValue::get ) );
   }
@@ -665,7 +665,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -717,7 +717,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -754,7 +754,8 @@ public class ComputedValueTest
 
     assertInvariantFailure( () -> context.safeAction( computedValue::reportPossiblyChanged ),
                             "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
-                            computedValue.getName() + "' but the computed value has arezOnlyDependencies = true." );
+                            computedValue.getName() + "' but the computed value has not specified the " +
+                            "AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
   }
 
   @Test
@@ -773,7 +774,7 @@ public class ComputedValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.NON_AREZ_DEPENDENCIES );
+    final ComputedValue<String> computedValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
