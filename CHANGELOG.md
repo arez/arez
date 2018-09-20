@@ -117,6 +117,10 @@
   infrastructure for suspending and resuming transactions. The API was error prone and no use-case existed for the
   functionality so it has been removed until such a time where a use-case is determined. Removal also resulted in a
   decrease in code size when compiled using GWT.
+* **\[core\]** Add a flag `Flags.AREZ_OR_NO_DEPENDENCIES` that makes it possible for observers that have not
+  specified the `Flags.SCHEDULED_EXTERNALLY` flag to have zero dependencies. An `Observer` or `ComputedValue`
+  that has zero dependencies will never be scheduled again but sometimes this is an expected scenario,
+  particularly as various elements of a reactive system are disposed.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

@@ -41,6 +41,17 @@ public class ObserverApiTest
   }
 
   @Test
+  public void autorun_noDependencies()
+    throws Exception
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+
+    Arez.context().observer( callCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
   public void schedule_autorun_doesNotExecuteIfNotStale()
     throws Exception
   {

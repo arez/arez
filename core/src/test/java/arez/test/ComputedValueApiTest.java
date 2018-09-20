@@ -57,4 +57,31 @@ public class ComputedValueApiTest
 
     context.safeAction( () -> assertEquals( computedValue.get(), (Integer) 21 ) );
   }
+
+  @Test
+  public void computedWithNoDependencies()
+    throws Exception
+  {
+    final AtomicInteger observerCallCount = new AtomicInteger();
+    final AtomicInteger computedCallCount = new AtomicInteger();
+
+    final ArezContext context = Arez.context();
+    final ComputedValue<Integer> computedValue = context.computed( () -> {
+      computedCallCount.incrementAndGet();
+      return 1;
+    }, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    assertEquals( computedCallCount.get(), 0 );
+    assertEquals( observerCallCount.get(), 0 );
+
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      computedValue.get();
+    } );
+
+    assertEquals( computedCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
+
+    context.safeAction( () -> assertEquals( computedValue.get(), (Integer) 1 ) );
+  }
 }

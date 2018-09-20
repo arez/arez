@@ -86,6 +86,7 @@ public final class Observer
           Flags.runType( flags, Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? Flags.RUN_NOW : Flags.RUN_LATER ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
+          Flags.dependencyType( flags ) |
           Flags.priority( flags ) );
   }
 
@@ -107,6 +108,7 @@ public final class Observer
           Flags.runType( flags, null == observed ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.priority( flags ) |
           Flags.nestedActionRule( flags ) |
+          Flags.dependencyType( flags ) |
           Flags.transactionMode( flags ) );
   }
 
@@ -228,7 +230,7 @@ public final class Observer
   boolean arezOnlyDependencies()
   {
     assert Arez.shouldCheckApiInvariants();
-    return 0 == ( _flags & Flags.NON_AREZ_DEPENDENCIES );
+    return Flags.AREZ_DEPENDENCIES_ONLY == ( _flags & Flags.AREZ_DEPENDENCIES_ONLY );
   }
 
   /**

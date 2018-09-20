@@ -278,6 +278,16 @@ public class FlagsTest
   }
 
   @Test
+  public void dependencyType()
+  {
+    assertEquals( Flags.dependencyType( Flags.AREZ_DEPENDENCIES_ONLY ), 0 );
+    assertEquals( Flags.dependencyType( Flags.AREZ_OR_NO_DEPENDENCIES ), 0 );
+    assertEquals( Flags.dependencyType( Flags.NON_AREZ_DEPENDENCIES ), 0 );
+    assertEquals( Flags.dependencyType( 0 ), Flags.AREZ_DEPENDENCIES_ONLY );
+    assertEquals( Flags.dependencyType( Flags.REQUIRE_NEW_TRANSACTION ), Flags.AREZ_DEPENDENCIES_ONLY );
+  }
+
+  @Test
   public void flagsAreUnique()
     throws Exception
   {

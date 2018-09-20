@@ -29,15 +29,21 @@ public final class Flags
    * indicate dependency has changed and the observer. If {@link #SCHEDULED_EXTERNALLY} is not set then the observer is expected
    * to invoke {@link ObservableValue#reportObserved()} on at least one dependency.
    */
-  public static final int NON_AREZ_DEPENDENCIES = 1 << 27;
+  public static final int AREZ_DEPENDENCIES_ONLY = 1 << 27;
   /**
-   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate dependency has changed.
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
+   * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
    */
-  public static final int AREZ_DEPENDENCIES_ONLY = 1 << 26;
+  public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
+  /**
+   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   */
+  public static final int NON_AREZ_DEPENDENCIES = 1 << 25;
   /**
    * Mask used to extract dependency type bits.
    */
-  private static final int DEPENDENCIES_TYPE_MASK = NON_AREZ_DEPENDENCIES | AREZ_DEPENDENCIES_ONLY;
+  private static final int DEPENDENCIES_TYPE_MASK =
+    AREZ_DEPENDENCIES_ONLY | AREZ_OR_NO_DEPENDENCIES | NON_AREZ_DEPENDENCIES;
   /**
    * The observer can only read arez state.
    */
@@ -343,6 +349,17 @@ public final class Flags
   static boolean isTransactionModeValid( final int flags )
   {
     return 0 != ( flags & READ_ONLY ) ^ 0 != ( flags & READ_WRITE );
+  }
+
+  /**
+   * Return the default dependency type flag if dependency type not specified.
+   *
+   * @param flags the flags.
+   * @return the default dependency type if dependency type unspecified else 0.
+   */
+  static int dependencyType( final int flags )
+  {
+    return defaultFlagUnlessSpecified( flags, DEPENDENCIES_TYPE_MASK, AREZ_DEPENDENCIES_ONLY );
   }
 
   /**
