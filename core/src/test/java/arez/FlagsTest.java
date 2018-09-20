@@ -117,7 +117,8 @@ public class FlagsTest
     assertEquals( Flags.getStateName( Flags.STATE_POSSIBLY_STALE ), "POSSIBLY_STALE" );
     assertEquals( Flags.getStateName( Flags.STATE_STALE ), "STALE" );
     // State value should have been passed in
-    assertEquals( Flags.getStateName( Flags.PRIORITY_NORMAL | Flags.STATE_STALE ), "UNKNOWN(196614)" );
+    assertEquals( Flags.getStateName( Flags.PRIORITY_NORMAL | Flags.STATE_STALE ),
+                  "UNKNOWN(" + ( Flags.PRIORITY_NORMAL | Flags.STATE_STALE ) + ")" );
   }
 
   @Test
