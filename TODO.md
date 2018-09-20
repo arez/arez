@@ -6,9 +6,6 @@ complete as there is too much un-said.
 
 ## Next-Release
 
-* `AREZ_ONLY` == `VERIFY_ACTION_REQUIRED`
-* `AREZ_OR_NONE` == `NO_VERIFY_ACTION_REQUIRED`
-
 * Add verification to `@Observed( executor = Executor.APPLICATION )` that verifies that an arez dependency was
   accessed.
 

@@ -291,22 +291,30 @@ public class FlagsTest
   public void flagsAreUnique()
     throws Exception
   {
+    final HashMap<String, String> exceptions = new HashMap<>();
+    exceptions.put( "VERIFY_ACTION_REQUIRED", "AREZ_DEPENDENCIES" );
+    exceptions.put( "NO_VERIFY_ACTION_REQUIRED", "AREZ_OR_NO_DEPENDENCIES" );
+
     final HashMap<String, Integer> flags = extractFlags();
     final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>( flags.entrySet() );
     final int size = entries.size();
     for ( int i = 0; i < size; i++ )
     {
       final Map.Entry<String, Integer> entry = entries.get( i );
+      final String name = entry.getKey();
       final int value = entry.getValue();
 
       for ( int j = i + 1; j < size; j++ )
       {
         final Map.Entry<String, Integer> innerEntry = entries.get( j );
+        final String innerName = innerEntry.getKey();
         final int innerValue = innerEntry.getValue();
-        if ( innerValue == value )
+        if ( !innerName.equals( exceptions.get( name ) ) &&
+             !name.equals( exceptions.get( innerName ) ) &&
+             innerValue == value )
         {
-          fail( "Flags in class " + Flags.class.getName() + " are not unique. Flag named " + entry.getKey() +
-                " and flag named " + innerEntry.getKey() + " have the same value: " + value );
+          fail( "Flags in class " + Flags.class.getName() + " are not unique. Flag named " + name +
+                " and flag named " + innerName + " have the same value: " + value );
         }
       }
     }
@@ -320,6 +328,8 @@ public class FlagsTest
     final HashMap<String, String> exceptions = new HashMap<>();
     exceptions.put( "KEEPALIVE", "APPLICATION_EXECUTOR" );
     exceptions.put( "DEACTIVATE_ON_UNOBSERVE", "APPLICATION_EXECUTOR" );
+    exceptions.put( "VERIFY_ACTION_REQUIRED", "AREZ_DEPENDENCIES" );
+    exceptions.put( "NO_VERIFY_ACTION_REQUIRED", "AREZ_OR_NO_DEPENDENCIES" );
 
     // Configs with these prefixes may overlap
     final ArrayList<String> exceptionPrefixes = new ArrayList<>();
