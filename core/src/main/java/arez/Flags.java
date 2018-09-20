@@ -25,7 +25,9 @@ public final class Flags
    */
   private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
   /**
-   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
+   * indicate dependency has changed and the observer. If {@link #SCHEDULED_EXTERNALLY} is not set then the observer is expected
+   * to invoke {@link ObservableValue#reportObserved()} on at least one dependency.
    */
   public static final int NON_AREZ_DEPENDENCIES = 1 << 27;
   /**
