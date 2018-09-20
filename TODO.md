@@ -6,10 +6,6 @@ complete as there is too much un-said.
 
 ## Next-Release
 
-* Add the ability the mark computed and/or memoized as allowing `noDependenciesAllowed` - sometimes when a
-  computed is based off element that is disposed we still want to compute a static value that we are fine with
-  it not changing.
-
 * `AREZ_ONLY` == `VERIFY_ACTION_REQUIRED`
 * `AREZ_OR_NONE` == `NO_VERIFY_ACTION_REQUIRED`
 
