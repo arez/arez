@@ -284,6 +284,10 @@ final class ObservedDescriptor
     {
       flags.add( "NESTED_ACTIONS_ALLOWED" );
     }
+    else
+    {
+      flags.add( "NESTED_ACTIONS_DISALLOWED" );
+    }
     if ( _arezOnlyDependencies )
     {
       flags.add( "AREZ_DEPENDENCIES_ONLY" );
