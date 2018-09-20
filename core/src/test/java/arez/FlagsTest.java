@@ -373,7 +373,8 @@ public class FlagsTest
     {
       final String name = entry.getKey();
       final int value = entry.getValue();
-      if ( ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK | Flags.ACTION_FLAGS_MASK ) & value ) != value )
+      if ( !name.startsWith( "UNUSED" ) &&
+           ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK | Flags.ACTION_FLAGS_MASK ) & value ) != value )
       {
         fail( "Flag named " + name + " in class " + Flags.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );

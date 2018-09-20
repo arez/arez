@@ -172,6 +172,21 @@ public final class Flags
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK;
   /**
+   * Flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  public static final int UNUSED1 = 1 << 14;
+  /**
+   * Flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  public static final int UNUSED2 = 1 << 13;
+  /**
+   * Flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  public static final int UNUSED3 = 1 << 12;
+  /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
   public static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
