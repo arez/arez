@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * or null the property referencing dependency. The dependency MUST implement the
  * {@link arez.component.DisposeTrackable} interface.
  *
- * <p>The method that is annotated with @Dependency must comply with the additional constraints:</p>
+ * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation except {@link Observable}</li>
  * <li>If not annotated with {@link Observable} then must be final</li>
