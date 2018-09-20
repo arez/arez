@@ -209,7 +209,7 @@ public class ObserverTest
                                                 new CountingProcedure(),
                                                 Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ),
                             "Arez-0210: Observer named '" + name + "' incorrectly specified multiple schedule " +
-                            "type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
+                            "type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, APPLICATION_EXECUTOR)." );
   }
 
   @Test

@@ -26,7 +26,7 @@ public final class Flags
   private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
   /**
    * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
-   * indicate dependency has changed and the observer. If {@link #SCHEDULED_EXTERNALLY} is not set then the observer is expected
+   * indicate dependency has changed and the observer. If {@link #APPLICATION_EXECUTOR} is not set then the observer is expected
    * to invoke {@link ObservableValue#reportObserved()} on at least one dependency.
    *
    * @see arez.annotations.DepType#AREZ
@@ -94,11 +94,11 @@ public final class Flags
   /**
    * The flag is valid on observers where the observed function is invoked by the application.
    */
-  static final int SCHEDULED_EXTERNALLY = 1 << 18;
+  static final int APPLICATION_EXECUTOR = 1 << 18;
   /**
    * Mask used to extract react type bits.
    */
-  private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | SCHEDULED_EXTERNALLY;
+  private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | APPLICATION_EXECUTOR;
   /**
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
@@ -438,7 +438,7 @@ public final class Flags
   {
     return KEEPALIVE == ( flags & KEEPALIVE ) ^
            DEACTIVATE_ON_UNOBSERVE == ( flags & DEACTIVATE_ON_UNOBSERVE ) ^
-           SCHEDULED_EXTERNALLY == ( flags & SCHEDULED_EXTERNALLY );
+           APPLICATION_EXECUTOR == ( flags & APPLICATION_EXECUTOR );
   }
 
   /**

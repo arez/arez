@@ -202,8 +202,8 @@ public class FlagsTest
     throws Exception
   {
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGHEST | Flags.KEEPALIVE ), Flags.KEEPALIVE );
-    assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGH | Flags.SCHEDULED_EXTERNALLY ),
-                  Flags.SCHEDULED_EXTERNALLY );
+    assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGH | Flags.APPLICATION_EXECUTOR ),
+                  Flags.APPLICATION_EXECUTOR );
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_NORMAL | Flags.DEACTIVATE_ON_UNOBSERVE ),
                   Flags.DEACTIVATE_ON_UNOBSERVE );
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_NORMAL ), 0 );
@@ -215,12 +215,12 @@ public class FlagsTest
   {
     assertTrue( Flags.isScheduleTypeValid( Flags.KEEPALIVE ) );
     assertTrue( Flags.isScheduleTypeValid( Flags.DEACTIVATE_ON_UNOBSERVE ) );
-    assertTrue( Flags.isScheduleTypeValid( Flags.SCHEDULED_EXTERNALLY ) );
+    assertTrue( Flags.isScheduleTypeValid( Flags.APPLICATION_EXECUTOR ) );
     assertFalse( Flags.isScheduleTypeValid( 0 ) );
     assertFalse( Flags.isScheduleTypeValid( Flags.PRIORITY_LOWEST ) );
     assertFalse( Flags.isScheduleTypeValid( Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ) );
-    assertFalse( Flags.isScheduleTypeValid( Flags.KEEPALIVE | Flags.SCHEDULED_EXTERNALLY ) );
-    assertFalse( Flags.isScheduleTypeValid( Flags.DEACTIVATE_ON_UNOBSERVE | Flags.SCHEDULED_EXTERNALLY ) );
+    assertFalse( Flags.isScheduleTypeValid( Flags.KEEPALIVE | Flags.APPLICATION_EXECUTOR ) );
+    assertFalse( Flags.isScheduleTypeValid( Flags.DEACTIVATE_ON_UNOBSERVE | Flags.APPLICATION_EXECUTOR ) );
   }
 
   @Test
@@ -318,8 +318,8 @@ public class FlagsTest
   {
     // Configs with these prefixes may overlap
     final HashMap<String, String> exceptions = new HashMap<>();
-    exceptions.put( "KEEPALIVE", "SCHEDULED_EXTERNALLY" );
-    exceptions.put( "DEACTIVATE_ON_UNOBSERVE", "SCHEDULED_EXTERNALLY" );
+    exceptions.put( "KEEPALIVE", "APPLICATION_EXECUTOR" );
+    exceptions.put( "DEACTIVATE_ON_UNOBSERVE", "APPLICATION_EXECUTOR" );
 
     // Configs with these prefixes may overlap
     final ArrayList<String> exceptionPrefixes = new ArrayList<>();

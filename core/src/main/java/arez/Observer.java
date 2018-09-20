@@ -104,7 +104,7 @@ public final class Observer
           observed,
           onDepsChanged,
           flags |
-          ( null == observed ? Flags.SCHEDULED_EXTERNALLY : Flags.KEEPALIVE ) |
+          ( null == observed ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
           Flags.runType( flags, null == observed ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.priority( flags ) |
           Flags.nestedActionRule( flags ) |
@@ -158,7 +158,7 @@ public final class Observer
                        "observed parameter or the onDepsChanged parameter." );
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observed;
-      assert Flags.SCHEDULED_EXTERNALLY != Flags.getScheduleType( flags ) || null == observed;
+      assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observed;
       invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
                           null != computedValue ),
@@ -169,7 +169,7 @@ public final class Observer
                        "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
       invariant( () -> Flags.isScheduleTypeValid( flags ),
                  () -> "Arez-0210: Observer named '" + getName() + "' incorrectly specified multiple " +
-                       "schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, SCHEDULED_EXTERNALLY)." );
+                       "schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, APPLICATION_EXECUTOR)." );
       invariant( () -> ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) == 0,
                  () -> "Arez-0207: Observer named '" + getName() + "' specified illegal flags: " +
                        ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) );
