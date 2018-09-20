@@ -44,7 +44,7 @@ public final class Arez_DeprecatedComputedModel2 extends DeprecatedComputedModel
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DeprecatedComputedModel2", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, this::onTimeStale, Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

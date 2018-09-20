@@ -3,12 +3,13 @@ package com.example.computed;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
+import arez.annotations.DepType;
 import javax.annotation.Nonnull;
 
 @ArezComponent
 public abstract class NonArezDependenciesComputedModel
 {
-  @Computed( arezOnlyDependencies = false )
+  @Computed( depType = DepType.AREZ_OR_EXTERNAL )
   public long getTime()
   {
     return 0;

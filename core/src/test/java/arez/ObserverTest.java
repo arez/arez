@@ -496,7 +496,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( new CountingProcedure(), Flags.NON_AREZ_DEPENDENCIES );
+    final Observer observer = context.observer( new CountingProcedure(), Flags.AREZ_OR_NO_DEPENDENCIES );
 
     final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
@@ -1647,7 +1647,7 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Flags.NON_AREZ_DEPENDENCIES );
+                                            Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
     context.triggerScheduler();
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
@@ -1683,7 +1683,7 @@ public class ObserverTest
     context.safeAction( () -> {
       assertInvariantFailure( observer::reportStale,
                               "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
-                              "' but arezOnlyDependencies = true." );
+                              "' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
       assertEquals( observer.isScheduled(), false );
       assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
       assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
@@ -1701,7 +1701,7 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Flags.NON_AREZ_DEPENDENCIES );
+                                            Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     context.triggerScheduler();
 
@@ -1722,7 +1722,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.observer( new CountingProcedure(), Flags.NON_AREZ_DEPENDENCIES );
+    final Observer observer = context.observer( new CountingProcedure(), Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
     assertEquals( observer.isScheduled(), false );
@@ -1793,7 +1793,7 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             observed,
                                             onDepsChanged,
-                                            Flags.NON_AREZ_DEPENDENCIES );
+                                            Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( observer.isScheduled(), false );
     assertEquals( observed.getCallCount(), 1 );

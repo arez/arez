@@ -85,7 +85,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, Flags.NON_AREZ_DEPENDENCIES );
+    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
 
@@ -106,7 +106,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsChangedCallCount::incrementAndGet, Flags.NON_AREZ_DEPENDENCIES );
+    }, onDepsChangedCallCount::incrementAndGet, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsChangedCallCount.get(), 0 );

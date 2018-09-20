@@ -290,11 +290,11 @@ final class ObservedDescriptor
     }
     if ( _arezOnlyDependencies )
     {
-      flags.add( "AREZ_DEPENDENCIES_ONLY" );
+      flags.add( "AREZ_DEPENDENCIES" );
     }
     else
     {
-      flags.add( "NON_AREZ_DEPENDENCIES" );
+      flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
     }
     if ( _mutation )
     {

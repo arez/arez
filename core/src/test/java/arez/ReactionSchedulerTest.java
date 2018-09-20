@@ -510,7 +510,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       observeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES );
+                      Flags.READ_WRITE | Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );
@@ -605,7 +605,7 @@ public class ReactionSchedulerTest
                     "MyObserver",
                     observed,
                     null,
-                    Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES );
+                    Flags.READ_WRITE | Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
     observerReference.set( observer );
     context.pauseScheduler();
     context.safeAction( observer::reportStale );
@@ -733,7 +733,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       observeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES | Flags.RUN_LATER );
+                      Flags.READ_WRITE | Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.RUN_LATER );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );
@@ -804,7 +804,7 @@ public class ReactionSchedulerTest
                       ValueUtil.randomString(),
                       observeds[ i ],
                       null,
-                      Flags.READ_WRITE | Flags.NON_AREZ_DEPENDENCIES | Flags.RUN_LATER );
+                      Flags.READ_WRITE | Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.RUN_LATER );
       observableValues[ i ] = context.observable();
 
       observers[ i ].setState( Flags.STATE_UP_TO_DATE );

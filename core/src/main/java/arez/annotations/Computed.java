@@ -71,13 +71,15 @@ public @interface Computed
   boolean observeLowerPriorityDependencies() default false;
 
   /**
-   * Flag indicating whether the value of the computed is solely dependent on arez elements.
-   * If set to true then Arez will verify that the function annotated by this accesses arez elements
-   * (i.e. instances of {@link arez.ObservableValue} or instances of {@link arez.ComputedValue}). If set
-   * to false then the component must define a {@link ComputedValueRef} method and should invoke
+   * Enum indicating whether the value of the computed is derived from arez elements and/or external dependencies.
+   * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
+   * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link arez.ComputedValue}). If set to
+   * {@link DepType#AREZ_OR_NONE} then the runtime will allow computed to exist with no dependencies. If set
+   * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputedValueRef} method and should invoke
    * {@link ComputedValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
    *
-   * @return true if the computed is solely dependent on arez elements.
+   * @return the types of dependencies allowed on the computed.
    */
-  boolean arezOnlyDependencies() default true;
+  @Nonnull
+  DepType depType() default DepType.AREZ;
 }

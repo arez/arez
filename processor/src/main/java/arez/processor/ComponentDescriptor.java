@@ -666,13 +666,13 @@ final class ComponentDescriptor
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
-    final boolean arezOnlyDependencies = getAnnotationParameter( annotation, "arezOnlyDependencies" );
+    final VariableElement depType = getAnnotationParameter( annotation, "depType" );
     findOrCreateComputed( name ).setComputed( method,
                                               computedType,
                                               keepAlive,
                                               priority.getSimpleName().toString(),
                                               observeLowerPriorityDependencies,
-                                              arezOnlyDependencies );
+                                              depType.getSimpleName().toString() );
   }
 
   private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,

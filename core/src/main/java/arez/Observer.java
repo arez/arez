@@ -227,10 +227,16 @@ public final class Observer
     return Priority.values()[ getPriorityIndex() ];
   }
 
-  boolean arezOnlyDependencies()
+  boolean areArezDependenciesRequired()
   {
     assert Arez.shouldCheckApiInvariants();
-    return Flags.AREZ_DEPENDENCIES_ONLY == ( _flags & Flags.AREZ_DEPENDENCIES_ONLY );
+    return Flags.AREZ_DEPENDENCIES == ( _flags & Flags.AREZ_DEPENDENCIES );
+  }
+
+  boolean areExternalDependenciesAllowed()
+  {
+    assert Arez.shouldCheckApiInvariants();
+    return Flags.AREZ_OR_EXTERNAL_DEPENDENCIES == ( _flags & Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
   }
 
   /**
@@ -401,9 +407,9 @@ public final class Observer
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !arezOnlyDependencies(),
+      apiInvariant( this::areExternalDependenciesAllowed,
                     () -> "Arez-0199: Observer.reportStale() invoked on observer named '" + getName() +
-                          "' but arezOnlyDependencies = true." );
+                          "' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
       apiInvariant( () -> getContext().isTransactionActive(),
                     () -> "Arez-0200: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when there is no active transaction." );
@@ -676,7 +682,7 @@ public final class Observer
   {
     assert null != _observed;
     final Procedure action;
-    if ( Arez.shouldCheckInvariants() && arezOnlyDependencies() )
+    if ( Arez.shouldCheckInvariants() && areArezDependenciesRequired() )
     {
       action = () -> {
         _observed.call();

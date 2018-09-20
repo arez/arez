@@ -42,7 +42,7 @@ public final class Arez_ObserveLowerPriorityTrackedModel extends ObserveLowerPri
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ObserveLowerPriorityTrackedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES_ONLY );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

@@ -190,9 +190,10 @@ public final class ComputedValue<T>
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !getObserver().arezOnlyDependencies(),
+      apiInvariant( () -> getObserver().areExternalDependenciesAllowed(),
                     () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
-                          getName() + "' but the computed value has arezOnlyDependencies = true." );
+                          getName() + "' but the computed value has not specified the " +
+                          "AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
     }
     Transaction.current().verifyWriteAllowed( getObservableValue() );
     if ( Flags.STATE_UP_TO_DATE == getObserver().getState() )
@@ -339,7 +340,7 @@ public final class ComputedValue<T>
       }
       if ( Arez.shouldCheckApiInvariants() )
       {
-        if ( getObserver().arezOnlyDependencies() )
+        if ( getObserver().areArezDependenciesRequired() )
         {
           final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
           apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),

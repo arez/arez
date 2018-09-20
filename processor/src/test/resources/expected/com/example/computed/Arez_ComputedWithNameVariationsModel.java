@@ -52,10 +52,10 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ComputedWithNameVariationsModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.RUN_LATER );
-    this.$$arez$$_ready = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".ready" : null, () -> super.isReady(), Flags.RUN_LATER );
-    this.$$arez$$_helper = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".helper" : null, () -> super.helper(), Flags.RUN_LATER );
-    this.$$arez$$_foo = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, () -> super.myFooHelperMethod(), Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_ready = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".ready" : null, () -> super.isReady(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_helper = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".helper" : null, () -> super.helper(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_foo = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, () -> super.myFooHelperMethod(), Flags.RUN_LATER | Flags.AREZ_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

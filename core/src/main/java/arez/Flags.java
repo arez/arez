@@ -28,22 +28,28 @@ public final class Flags
    * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
    * indicate dependency has changed and the observer. If {@link #SCHEDULED_EXTERNALLY} is not set then the observer is expected
    * to invoke {@link ObservableValue#reportObserved()} on at least one dependency.
+   *
+   * @see arez.annotations.DepType#AREZ
    */
-  public static final int AREZ_DEPENDENCIES_ONLY = 1 << 27;
+  public static final int AREZ_DEPENDENCIES = 1 << 27;
   /**
    * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
    * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
+   *
+   * @see arez.annotations.DepType#AREZ_OR_NONE
    */
   public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
   /**
    * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   *
+   * @see arez.annotations.DepType#AREZ_OR_EXTERNAL
    */
-  public static final int NON_AREZ_DEPENDENCIES = 1 << 25;
+  public static final int AREZ_OR_EXTERNAL_DEPENDENCIES = 1 << 25;
   /**
    * Mask used to extract dependency type bits.
    */
   private static final int DEPENDENCIES_TYPE_MASK =
-    AREZ_DEPENDENCIES_ONLY | AREZ_OR_NO_DEPENDENCIES | NON_AREZ_DEPENDENCIES;
+    AREZ_DEPENDENCIES | AREZ_OR_NO_DEPENDENCIES | AREZ_OR_EXTERNAL_DEPENDENCIES;
   /**
    * The observer can only read arez state.
    */
@@ -359,7 +365,9 @@ public final class Flags
    */
   static int dependencyType( final int flags )
   {
-    return defaultFlagUnlessSpecified( flags, DEPENDENCIES_TYPE_MASK, AREZ_DEPENDENCIES_ONLY );
+    return Arez.shouldCheckInvariants() ?
+           defaultFlagUnlessSpecified( flags, DEPENDENCIES_TYPE_MASK, AREZ_DEPENDENCIES ) :
+           0;
   }
 
   /**
