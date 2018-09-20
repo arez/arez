@@ -2382,7 +2382,7 @@ public class ArezContextTest
   }
 
   @Test
-  public void autorun_arezOnlyDependencies()
+  public void observer_areArezDependenciesRequired()
     throws Exception
   {
     final ArezContext context = Arez.context();

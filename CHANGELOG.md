@@ -121,11 +121,11 @@
   specified the `Flags.SCHEDULED_EXTERNALLY` flag to have zero dependencies. An `Observer` or `ComputedValue`
   that has zero dependencies will never be scheduled again but sometimes this is an expected scenario,
   particularly as various elements of a reactive system are disposed.
-* **\[core\]** Replace the `arezOnlyDependencies` on the `@Computed` annotation with an enumeration `DepType`
-  that supports three values: `AREZ` (which is equivalent to previous `arezOnlyDependencies=true` parameter),
-  `AREZ_OR_EXTERNAL` (which is equivalent to previous `arezOnlyDependencies=false` parameter) and `AREZ_OR_NONE`
-  which expects the computed value to be derived from arez dependencies *but* also allows the computed to have
-  zero dependencies after which the arez runtime will no longer derive the value.
+* **\[core\]** Replace the `arezOnlyDependencies` on the `@Computed` and `@Observed` annotations with an
+  enumeration `DepType` that supports three values: `AREZ` (which has equivalent behaviour as the previous
+  `arezOnlyDependencies=true` parameter), `AREZ_OR_EXTERNAL` (which is equivalent behaviour as the previous
+  `arezOnlyDependencies=false` parameter) and `AREZ_OR_NONE` which expects that the observer or computed value
+  to be derived from arez dependencies *but* also allows the observer or computed value to have zero dependencies.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

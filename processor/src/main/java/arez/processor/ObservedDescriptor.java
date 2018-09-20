@@ -35,7 +35,7 @@ final class ObservedDescriptor
   private String _priority;
   private boolean _arezExecutor;
   private boolean _reportParameters;
-  private boolean _arezOnlyDependencies;
+  private String _depType;
   private boolean _observeLowerPriorityDependencies;
   private boolean _nestedActionsAllowed;
   @Nullable
@@ -83,7 +83,7 @@ final class ObservedDescriptor
                           @Nonnull final String priority,
                           final boolean arezExecutor,
                           final boolean reportParameters,
-                          final boolean arezOnlyDependencies,
+                          @Nonnull final String depType,
                           final boolean observeLowerPriorityDependencies,
                           final boolean nestedActionsAllowed,
                           @Nonnull final ExecutableElement method,
@@ -127,7 +127,7 @@ final class ObservedDescriptor
       _priority = Objects.requireNonNull( priority );
       _arezExecutor = arezExecutor;
       _reportParameters = reportParameters;
-      _arezOnlyDependencies = arezOnlyDependencies;
+      _depType = Objects.requireNonNull( depType );
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _nestedActionsAllowed = nestedActionsAllowed;
       _observed = Objects.requireNonNull( method );
@@ -196,10 +196,10 @@ final class ObservedDescriptor
       throw new ArezProcessorException( "@Observed target defined parameter executor=APPLICATION but does not " +
                                         "specify an @OnDepsChanged method.", _observed );
     }
-    if ( !_arezOnlyDependencies && null == _refMethod )
+    if ( _depType.equals( "AREZ_OR_EXTERNAL" ) && null == _refMethod )
     {
       assert null != _observed;
-      throw new ArezProcessorException( "@Observed target with parameter arezOnlyDependencies=false has not " +
+      throw new ArezProcessorException( "@Observed target with parameter depType=AREZ_OR_EXTERNAL has not " +
                                         "defined an @ObserverRef method and thus can not invoke reportStale().",
                                         _observed );
     }
@@ -288,13 +288,17 @@ final class ObservedDescriptor
     {
       flags.add( "NESTED_ACTIONS_DISALLOWED" );
     }
-    if ( _arezOnlyDependencies )
+    switch ( _depType )
     {
-      flags.add( "AREZ_DEPENDENCIES" );
-    }
-    else
-    {
-      flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
+      case "AREZ":
+        flags.add( "AREZ_DEPENDENCIES" );
+        break;
+      case "AREZ_OR_NONE":
+        flags.add( "AREZ_OR_NO_DEPENDENCIES" );
+        break;
+      default:
+        flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
+        break;
     }
     if ( _mutation )
     {
