@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.04](https://github.com/arez/arez-when/tree/v0.04) (2018-09-21)
 [Full Changelog](https://github.com/arez/arez-when/compare/v0.03...v0.04)
 
