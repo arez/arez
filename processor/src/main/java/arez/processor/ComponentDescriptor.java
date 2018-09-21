@@ -1097,20 +1097,20 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @Dependency or @Observed", _element );
+                                        "@Reference, @ComponentDependency or @Observed", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
                                         "annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @Dependency or @Observed", _element );
+                                        "@Reference, @ComponentDependency or @Observed", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
                                         "annotation parameter but has no methods annotated with @Observed, " +
-                                        "@Dependency or @Computed(keepAlive=true)", _element );
+                                        "@ComponentDependency or @Computed(keepAlive=true)", _element );
     }
     if ( null != _componentIdRef &&
          null != _componentId &&
@@ -1395,7 +1395,7 @@ final class ComponentDescriptor
 
   private boolean hasDependencyAnnotation( @Nonnull final ExecutableElement method )
   {
-    return null != ProcessorUtil.findAnnotationByType( method, Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
+    return null != ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
   }
 
   private void addOrUpdateDependency( @Nonnull final ExecutableElement method,
@@ -1936,14 +1936,14 @@ final class ComponentDescriptor
   @Nonnull
   private DependencyDescriptor createDependencyDescriptor( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(), Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
     if ( TypeKind.DECLARED != method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( "@Dependency target must return a non-primitive value", method );
+      throw new ArezProcessorException( "@ComponentDependency target must return a non-primitive value", method );
     }
     final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
     assert null != disposeTrackable;
@@ -1954,7 +1954,7 @@ final class ComponentDescriptor
         ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
       {
-        throw new ArezProcessorException( "@Dependency target must return an instance compatible with " +
+        throw new ArezProcessorException( "@ComponentDependency target must return an instance compatible with " +
                                           Constants.DISPOSE_TRACKABLE_CLASSNAME + " or a type annotated " +
                                           "with @ArezComponent(disposeTrackable=ENABLE)", method );
       }
@@ -1969,7 +1969,7 @@ final class ComponentDescriptor
     final VariableElement injectParameter = (VariableElement)
       ProcessorUtil.getAnnotationValue( _elements,
                                         method,
-                                        Constants.DEPENDENCY_ANNOTATION_CLASSNAME,
+                                        Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
                                         "action" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
@@ -2147,7 +2147,7 @@ final class ComponentDescriptor
     final AnnotationMirror memoize =
       ProcessorUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     final AnnotationMirror dependency =
-      ProcessorUtil.findAnnotationByType( method, Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
     final AnnotationMirror reference =
       ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME );
     final AnnotationMirror referenceId =
@@ -2365,7 +2365,7 @@ final class ComponentDescriptor
                     Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                     Constants.ON_STALE_ANNOTATION_CLASSNAME,
-                    Constants.DEPENDENCY_ANNOTATION_CLASSNAME };
+                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME };
     for ( int i = 0; i < annotationTypes.length; i++ )
     {
       final String type1 = annotationTypes[ i ];
@@ -2377,7 +2377,7 @@ final class ComponentDescriptor
           final String type2 = annotationTypes[ j ];
           final boolean observableDependency =
             type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
-            type2.equals( Constants.DEPENDENCY_ANNOTATION_CLASSNAME );
+            type2.equals( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
           final boolean observableReferenceId =
             type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
             type2.equals( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );

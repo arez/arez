@@ -1,7 +1,7 @@
 package arez.doc.examples.at_dependency;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Dependency;
+import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,7 +24,7 @@ public abstract class PersonViewModel
   // to justify it's existence rather than just having view layer directly
   // accessing underlying entities
 
-  @Dependency
+  @ComponentDependency
   @Nonnull
   public final Person getPerson()
   {
@@ -41,7 +41,7 @@ public abstract class PersonViewModel
    * browser. In this scenario the current job is just removed from the
    * person view model.
    */
-  @Dependency( action = Dependency.Action.SET_NULL )
+  @ComponentDependency( action = ComponentDependency.Action.SET_NULL )
   @Observable
   @Nullable
   public abstract Job getCurrentJob();

@@ -126,6 +126,7 @@
   `arezOnlyDependencies=true` parameter), `AREZ_OR_EXTERNAL` (which is equivalent behaviour as the previous
   `arezOnlyDependencies=false` parameter) and `AREZ_OR_NONE` which expects that the observer or computed value
   to be derived from arez dependencies *but* also allows the observer or computed value to have zero dependencies.
+* **\[core\]** Rename the `@Dependency` annotation to `@ComponentDependency` to more accurately reflect intent.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)

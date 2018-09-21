@@ -1,0 +1,481 @@
+
+[
+    {
+        "component": "Model0.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model0.0.name",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "component": "Model0.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model0.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model0.1.name",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "component": "Model0.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model1.0.leaf",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "observable": "Model1.0.name",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model1.1.leaf",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model2.0.name",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "observable": "Model2.1.name",
+        "type": "ObservableValueCreated"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
+        "action": "Model2.0.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model2.0.name",
+        "type": "ObservableValueChanged",
+        "value": "Model2A"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model2.0.name",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "component": "Model0.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model0.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model0.0.dispose"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model1.0.leaf.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.leaf.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.0.leaf",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "action": "Model1.0.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.0.name",
+        "type": "ObservableValueChanged",
+        "value": "Model1A"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.0.name",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "action": "Model0.0.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model0.0.name",
+        "type": "ObservableValueChanged",
+        "value": "Model1A"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model0.0.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model0.0.name",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model0.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model0.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model0.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "component": "Model0.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model0.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model0.1.dispose"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model2.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "action": "Model2.1.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model2.1.name",
+        "type": "ObservableValueChanged",
+        "value": "Model2B"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.1.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model2.1.name",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "action": "Model1.1.leaf.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.leaf.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.leaf",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "action": "Model1.1.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableValueChanged",
+        "value": "Model1B"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model1.1.name",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "action": "Model0.1.name.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model0.1.name",
+        "type": "ObservableValueChanged",
+        "value": "Model1B"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model0.1.name.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "observable": "Model0.1.name",
+        "type": "ObservableValueDisposed"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model0.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model0.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model0.1",
+        "type": "ComponentDisposeCompleted"
+    }
+]
