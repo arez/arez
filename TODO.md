@@ -33,16 +33,6 @@ complete as there is too much un-said.
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
   `@OnChange` has been introduced.
 
-* Enhance autorun so that can schedule reaction for future time. i.e. The reaction could schedule
-  it via `requestAnimationFrame`
-
-* Enhance the track/autorun/computed with a `minimumDelay` parameter. The reaction will wait the `minimumDelay`
-  before triggering the tracked function. This is an effective mechanism to add de-bouncing to limit the number
-  of expensive calls (i.e. remote calls or accessing expensive local calls). Another variation is to add
-  `throttleTime` which will track when the track/autorun/computed was invoked and will avoid rescheduling
-  the function until at least that amount of time has passed. This is similar to `minimumDelay`, except that the
-  initial run of the function happens immediately.
-
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Profile with D8
@@ -53,19 +43,10 @@ complete as there is too much un-said.
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
 
-* Consider integration into a reactive streaming API ala rxjava-gwt. Has already been done in mobx.
-  - https://github.com/intendia-oss/rxjava-gwt
-  - https://github.com/mobxjs/mobx-utils/blob/master/src/from-resource.ts
-
 * Should it be possible to suspend arbitrary observers?
 
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
-
-* Consider writing a function that builds a computed. The initial value comes from a supplier function called
-  on `@OnObserve` which also triggers an async function. Subsequent values comes from the async function supplying
-  a value to a sink function. The user can force a refresh by explicitly invoking `refresh()`. This should cover
-  off the use case from of `LazyObservable` and `fromResource` from mobx.
 
 * Completed the `arez-devtools` project.
 
@@ -83,6 +64,19 @@ complete as there is too much un-said.
   implies `@ComponentDependency` and allow configuration of cascade action onto reference?
 
 * Add ArchUnit rules to codebase - https://github.com/TNG/ArchUnit
+
+## Reactive-Streaming integration
+
+* Experiment with controlling scheduling/executing of computed/observed methods at a later time. This
+  could be in different schedulers (i.e. `requestAnimationFrame`) or via parameters like 
+  - `minimumDelay`: Must wait a minimum time before re-executing
+  - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
+  - `throttleTime`: Track when executed and reschedule when at least `throttleTime` has passed. This is
+    similar to `minimumDelay`, except that the initial run of the function happens immediately.
+  This coul dprobably be done via a reactive streaming library.
+
+* Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into computed values. It would
+  manually trigger `ComputedValue.reportPossiblyChanged()` when a new value arrives.
 
 ## Process
 
