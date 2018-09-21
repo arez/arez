@@ -172,9 +172,24 @@ public final class Flags
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK;
   /**
+   * Flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  public static final int UNUSED1 = 1 << 14;
+  /**
+   * Flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  public static final int UNUSED2 = 1 << 13;
+  /**
+   * Flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  public static final int UNUSED3 = 1 << 12;
+  /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
-  public static final int REQUIRE_NEW_TRANSACTION = 1 << 14;
+  public static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
   /**
    * The flag can be passed to actions to force the action to verify that an action performed an activity
    * that required an action. These activities include:
@@ -189,12 +204,12 @@ public final class Flags
    * VERIFY_ACTION_REQUIRED nor {@link #NO_VERIFY_ACTION_REQUIRED} is specified then VERIFY_ACTION_REQUIRED
    * is assumed.</p>
    */
-  public static final int VERIFY_ACTION_REQUIRED = 1 << 13;
+  public static final int VERIFY_ACTION_REQUIRED = AREZ_DEPENDENCIES;
   /**
    * This flag can be passed to skip verification that action was required.
    * This flag must not be present if {@link #VERIFY_ACTION_REQUIRED} is present.
    */
-  public static final int NO_VERIFY_ACTION_REQUIRED = 1 << 12;
+  public static final int NO_VERIFY_ACTION_REQUIRED = AREZ_OR_NO_DEPENDENCIES;
   /**
    * Mask used to extract verify action bits.
    */
