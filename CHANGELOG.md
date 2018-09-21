@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.107](https://github.com/arez/arez/tree/v0.107) (2018-09-21)
+[Full Changelog](https://github.com/arez/arez/compare/v0.106...v0.107)
 
 * **\[processor\]** The invariant check generated to link references was being generated outside of the
   associated guard. This could result in dead-code not being eliminated in GWT2.x and triggered warnings
