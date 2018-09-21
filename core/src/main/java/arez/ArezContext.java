@@ -9,6 +9,7 @@ import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ReactionScheduledEvent;
 import arez.spy.Spy;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -1688,7 +1689,7 @@ public final class ArezContext
         try
         {
           executable.call();
-          verifyActionRequired( transaction, flags );
+          verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
         {
@@ -1755,7 +1756,7 @@ public final class ArezContext
         try
         {
           result = executable.call();
-          verifyActionRequired( transaction, flags );
+          verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
         {
@@ -1821,7 +1822,7 @@ public final class ArezContext
         try
         {
           executable.call();
-          verifyActionRequired( transaction, flags );
+          verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
         {
@@ -1889,7 +1890,7 @@ public final class ArezContext
         try
         {
           result = executable.call();
-          verifyActionRequired( transaction, flags );
+          verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
         {
@@ -1932,10 +1933,39 @@ public final class ArezContext
     }
   }
 
+  private void verifyActionDependencies( final String name,
+                                         final @Nullable Observer observer,
+                                         final int flags,
+                                         final Transaction transaction )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      if ( null == observer )
+      {
+        verifyActionRequired( transaction, flags );
+      }
+      else if ( Flags.AREZ_DEPENDENCIES == ( flags & Flags.AREZ_DEPENDENCIES ) )
+      {
+        final Transaction current = Transaction.current();
+
+        final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
+        invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
+                         ( null != observableValues && !observableValues.isEmpty() ),
+                   () -> "Arez-0118: Observer named '" + name + "' completed observed function (executed by " +
+                         "application) but is not observing any properties." );
+      }
+    }
+  }
+
   private void verifyActionRequired( @Nonnull final Transaction transaction, final int flags )
   {
-    final boolean verifyActionRequired = 0 == ( flags & Flags.NO_VERIFY_ACTION_REQUIRED );
-    verifyActionRequired( transaction, verifyActionRequired );
+    if ( Arez.shouldCheckInvariants() &&
+         Flags.NO_VERIFY_ACTION_REQUIRED != ( flags & Flags.NO_VERIFY_ACTION_REQUIRED ) )
+    {
+      invariant( transaction::hasTransactionUseOccured,
+                 () -> "Arez-0185: Action named '" + transaction.getName() + "' completed but no reads, writes, " +
+                       "schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
+    }
   }
 
   @Nonnull
@@ -2110,24 +2140,6 @@ public final class ArezContext
     return _spy;
   }
 
-  /**
-   * Verify the action reads or writes to observables occur within scope of
-   * action if the verifyActionRequired parameter is true.
-   *
-   * @param transaction          the associated transaction.
-   * @param verifyActionRequired if true then attempt validation.
-   */
-  private void verifyActionRequired( @Nonnull final Transaction transaction,
-                                     final boolean verifyActionRequired )
-  {
-    if ( Arez.shouldCheckInvariants() && verifyActionRequired )
-    {
-      invariant( transaction::hasTransactionUseOccured,
-                 () -> "Arez-0185: Action named '" + transaction.getName() + "' completed but no reads, writes, " +
-                       "schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
-    }
-  }
-
   void registerObservableValue( @Nonnull final ObservableValue observableValue )
   {
     final String name = observableValue.getName();
@@ -2277,6 +2289,9 @@ public final class ArezContext
   {
     return Flags.REQUIRE_NEW_TRANSACTION |
            ( Arez.shouldCheckInvariants() ? Flags.NO_VERIFY_ACTION_REQUIRED : 0 ) |
+           ( Arez.shouldCheckInvariants() ?
+             observer.areArezDependenciesRequired() ? Flags.AREZ_DEPENDENCIES : Flags.AREZ_OR_NO_DEPENDENCIES :
+             0 ) |
            ( Arez.shouldEnforceTransactionType() ? ( observer.isMutation() ? Flags.READ_WRITE : Flags.READ_ONLY ) : 0 );
   }
 

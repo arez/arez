@@ -19,6 +19,7 @@ public class TrackCanNotBeNestedInActionTest
     @Observed( executor = Executor.APPLICATION )
     void render()
     {
+      observeADependency();
       _renderCallCount++;
     }
 

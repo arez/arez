@@ -4,11 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Next-Release
-
-* Add verification to `@Observed( executor = Executor.APPLICATION )` that verifies that an arez dependency was
-  accessed.
-
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
