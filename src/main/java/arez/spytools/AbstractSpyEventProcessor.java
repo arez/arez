@@ -1,7 +1,7 @@
 package arez.spytools;
 
 import arez.Arez;
-import arez.SpyEventHandler;
+import arez.spy.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
