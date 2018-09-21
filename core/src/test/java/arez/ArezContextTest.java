@@ -234,6 +234,7 @@ public class ArezContextTest
     final Observer tracker = context.tracker( () -> assertFalse( context.isTrackingTransactionActive() ) );
 
     context.observe( tracker, () -> {
+      observeADependency();
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isReadOnlyTransactionActive() );
       assertFalse( context.isReadWriteTransactionActive() );
@@ -304,6 +305,7 @@ public class ArezContextTest
       context.tracker( updateCalled::incrementAndGet, Flags.READ_WRITE | Flags.NESTED_ACTIONS_ALLOWED );
 
     context.observe( tracker, () -> {
+      observeADependency();
       assertTrue( context.isTransactionActive() );
       final Transaction transaction = context.getTransaction();
 
@@ -340,7 +342,7 @@ public class ArezContextTest
       context.tracker( updateCalled::incrementAndGet, Flags.READ_WRITE | Flags.NESTED_ACTIONS_DISALLOWED );
 
     context.observe( tracker, () -> {
-
+      observeADependency();
       assertInvariantFailure( () -> context.action( "A1",
                                                     AbstractArezTest::observeADependency,
                                                     Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION ),

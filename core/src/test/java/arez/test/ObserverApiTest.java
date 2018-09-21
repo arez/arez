@@ -4,8 +4,10 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Flags;
+import arez.Function;
 import arez.ObservableValue;
 import arez.Observer;
+import arez.Procedure;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -120,5 +122,63 @@ public class ObserverApiTest
 
     assertEquals( callCount.get(), 2 );
     assertEquals( onDepsChangedCallCount.get(), 1 );
+  }
+
+  @Test
+  public void application_executed_observer_function_with_no_dependencies_but_AREZ_DEPENDENCIES()
+    throws Throwable
+  {
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+
+    final ArezContext context = Arez.context();
+    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
+
+    final Function<String> observed = ValueUtil::randomString;
+    assertInvariantFailure( () -> context.observe( observer, observed ),
+                            "Arez-0118: Observer named 'Observer@1' completed observed function (executed by application) but is not observing any properties." );
+  }
+
+  @Test
+  public void application_executed_observer_function_with_no_dependencies_and_AREZ_OR_NO_DEPENDENCIES()
+    throws Throwable
+  {
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+
+    final ArezContext context = Arez.context();
+    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    final Function<String> observed = ValueUtil::randomString;
+
+    // Should generate no exception
+    context.observe( observer, observed );
+  }
+
+  @Test
+  public void application_executed_observer_procedure_with_no_dependencies_but_AREZ_DEPENDENCIES()
+    throws Throwable
+  {
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+
+    final ArezContext context = Arez.context();
+    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
+
+    final Procedure observed = ValueUtil::randomString;
+    assertInvariantFailure( () -> context.observe( observer, observed ),
+                            "Arez-0118: Observer named 'Observer@1' completed observed function (executed by application) but is not observing any properties." );
+  }
+
+  @Test
+  public void application_executed_observer_procedure_with_no_dependencies_and_AREZ_OR_NO_DEPENDENCIES()
+    throws Throwable
+  {
+    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+
+    final ArezContext context = Arez.context();
+    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    final Procedure observed = ValueUtil::randomString;
+
+    // Should generate no exception
+    context.observe( observer, observed );
   }
 }

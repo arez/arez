@@ -297,6 +297,7 @@ public class ObserversMutationParameterIntegrationTest
     @Observed( executor = Executor.APPLICATION, mutation = true )
     public void myObserveReaction()
     {
+      observeADependency();
       setName( "Changed" );
       _observerRunCount += 1;
     }

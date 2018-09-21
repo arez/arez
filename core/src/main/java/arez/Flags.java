@@ -26,8 +26,7 @@ public final class Flags
   private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
   /**
    * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
-   * indicate dependency has changed and the observer. If {@link #APPLICATION_EXECUTOR} is not set then the observer is expected
-   * to invoke {@link ObservableValue#reportObserved()} on at least one dependency.
+   * indicate dependency has changed and the observer.
    *
    * @see arez.annotations.DepType#AREZ
    */

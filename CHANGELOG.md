@@ -126,6 +126,10 @@
   `arezOnlyDependencies=true` parameter), `AREZ_OR_EXTERNAL` (which is equivalent behaviour as the previous
   `arezOnlyDependencies=false` parameter) and `AREZ_OR_NONE` which expects that the observer or computed value
   to be derived from arez dependencies *but* also allows the observer or computed value to have zero dependencies.
+* **\[core\]** Start to enforce the constraint that application executed observed methods must complete having
+  accessed at least one dependency if the dependency type is `AREZ`. i.e. If a method annotated with
+  `@Observed( executor = Executor.APPLICATION, depType = DepType.AREZ )` does not access an observable an
+  invariant failure will be generated.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
