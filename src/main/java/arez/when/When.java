@@ -2,8 +2,8 @@ package arez.when;
 
 import arez.Arez;
 import arez.Component;
+import arez.Flags;
 import arez.Observer;
-import arez.Priority;
 import arez.SafeFunction;
 import arez.SafeProcedure;
 import javax.annotation.Nonnull;
@@ -56,7 +56,7 @@ public final class When
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, Priority, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, int, boolean)} for further details.
    *
    * @param name      the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation  true if the effect can mutate state, false otherwise.
@@ -74,7 +74,7 @@ public final class When
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, Priority, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, int, boolean)} for further details.
    *
    * @param name           the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation       true if the effect can mutate state, false otherwise.
@@ -89,18 +89,18 @@ public final class When
                                @Nonnull final SafeProcedure effect,
                                final boolean runImmediately )
   {
-    return when( name, mutation, condition, effect, Priority.NORMAL, runImmediately );
+    return when( name, mutation, condition, effect, Flags.PRIORITY_NORMAL, runImmediately );
   }
 
   /**
    * Wait until a condition is true, then run effect.
-   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, Priority, boolean)} for further details.
+   * See {@link #when(Component, String, boolean, SafeFunction, SafeProcedure, int, boolean)} for further details.
    *
    * @param name           the debug name (if any) used when naming the underlying Arez resources.
    * @param mutation       true if the effect can mutate state, false otherwise.
    * @param condition      The function that determines when the effect is run.
    * @param effect         The procedure that is executed when the condition is true.
-   * @param priority       the priority of the observer.
+   * @param priority       the priority of the observer. Must be one of the PRIORITY_* flags in {@link arez.Flags}.
    * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Observer representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -108,7 +108,7 @@ public final class When
                                final boolean mutation,
                                @Nonnull final SafeFunction<Boolean> condition,
                                @Nonnull final SafeProcedure effect,
-                               @Nonnull final Priority priority,
+                               final int priority,
                                final boolean runImmediately )
   {
     return when( null, name, mutation, condition, effect, priority, runImmediately );
@@ -125,7 +125,7 @@ public final class When
    * @param mutation       true if the effect can mutate state, false otherwise.
    * @param condition      The function that determines when the effect is run.
    * @param effect         The procedure that is executed when the condition is true.
-   * @param priority       the priority of the observer.
+   * @param priority       the priority of the observer. Must be one of the PRIORITY_* flags in {@link arez.Flags}.
    * @param runImmediately true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Observer representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -134,7 +134,7 @@ public final class When
                                final boolean mutation,
                                @Nonnull final SafeFunction<Boolean> condition,
                                @Nonnull final SafeProcedure effect,
-                               @Nonnull final Priority priority,
+                               final int priority,
                                final boolean runImmediately )
   {
     return when( component, name, mutation, true, condition, effect, priority, runImmediately );
@@ -153,7 +153,7 @@ public final class When
    *                             the scope of the effect.
    * @param condition            The function that determines when the effect is run.
    * @param effect               The procedure that is executed when the condition is true.
-   * @param priority             the priority of the observer.
+   * @param priority             the priority of the observer. Must be one of the PRIORITY_* flags in {@link arez.Flags}.
    * @param runImmediately       true to invoke condition immediately, false to schedule reaction for next reaction cycle.
    * @return the Observer representing the reactive component. The user can dispose the node if it is no longer required.
    */
@@ -163,7 +163,7 @@ public final class When
                                final boolean verifyActionRequired,
                                @Nonnull final SafeFunction<Boolean> condition,
                                @Nonnull final SafeProcedure effect,
-                               @Nonnull final Priority priority,
+                               final int priority,
                                final boolean runImmediately )
   {
     return new Watcher( Arez.areZonesEnabled() ? Arez.context() : null,
@@ -174,7 +174,7 @@ public final class When
                         condition,
                         effect,
                         priority,
-                        runImmediately ).getWatcher();
+                        runImmediately ).getObserver();
   }
 
   /**

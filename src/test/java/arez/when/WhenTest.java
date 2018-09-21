@@ -3,11 +3,12 @@ package arez.when;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
+import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
-import arez.Priority;
 import arez.SafeFunction;
 import arez.SafeProcedure;
+import arez.spy.Priority;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -33,7 +34,7 @@ public class WhenTest
     final SafeProcedure procedure = effectRun::incrementAndGet;
 
     final Component component = Arez.context().component( ValueUtil.randomString(), ValueUtil.randomString() );
-    final Observer node = When.when( component, name, true, condition, procedure, Priority.NORMAL, true );
+    final Observer node = When.when( component, name, true, condition, procedure, Flags.PRIORITY_NORMAL, true );
 
     assertEquals( node.getName(), name + ".watcher" );
     assertEquals( Arez.context().getSpy().asObserverInfo( node ).getPriority(), Priority.NORMAL );
@@ -59,7 +60,7 @@ public class WhenTest
                false,
                condition,
                effectRun::incrementAndGet,
-               Priority.NORMAL,
+               Flags.PRIORITY_NORMAL,
                true );
 
     assertEquals( effectRun.get(), 1 );
@@ -93,7 +94,7 @@ public class WhenTest
                true,
                condition,
                effectRun::incrementAndGet,
-               Priority.NORMAL,
+               Flags.PRIORITY_NORMAL,
                true );
     assertEquals( effectRun.get(), 1 );
     assertEquals( errorCount.get(), 1 );

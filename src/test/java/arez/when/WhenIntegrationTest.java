@@ -1,6 +1,6 @@
 package arez.when;
 
-import arez.Priority;
+import arez.Flags;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -31,7 +31,7 @@ public class WhenIntegrationTest
                  return 0 == time;
                },
                () -> marks.add( "timeReset" ),
-               Priority.NORMAL,
+               Flags.PRIORITY_NORMAL,
                true );
 
     timeModel.updateTime( 800L );
