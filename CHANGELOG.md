@@ -130,6 +130,7 @@
   accessed at least one dependency if the dependency type is `AREZ`. i.e. If a method annotated with
   `@Observed( executor = Executor.APPLICATION, depType = DepType.AREZ )` does not access an observable an
   invariant failure will be generated.
+* **\[core\]** Rename the `@Dependency` annotation to `@ComponentDependency` to more accurately reflect intent.
 
 ### [v0.106](https://github.com/arez/arez/tree/v0.106) (2018-08-31)
 [Full Changelog](https://github.com/arez/arez/compare/v0.105...v0.106)
