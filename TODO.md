@@ -77,8 +77,10 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Support `@Reference` and `@Dependency` on the same method? Alternatively we could assume that `@Reference`
-  implies `@Dependency` and allow configuration of cascade action onto reference?
+* It should be possible to add `@ComponentDependency` to fields.
+
+* Support `@Reference` and `@ComponentDependency` on the same method? Alternatively we could assume that `@Reference`
+  implies `@ComponentDependency` and allow configuration of cascade action onto reference?
 
 * Add ArchUnit rules to codebase - https://github.com/TNG/ArchUnit
 
