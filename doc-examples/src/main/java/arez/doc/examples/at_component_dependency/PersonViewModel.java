@@ -1,4 +1,4 @@
-package arez.doc.examples.at_dependency;
+package arez.doc.examples.at_component_dependency;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;

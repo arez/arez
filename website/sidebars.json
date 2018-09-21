@@ -28,7 +28,7 @@
       "at_memoize",
       "at_action",
       "at_observed",
-      "at_dependency",
+      "at_component_dependency",
       "at_cascade_dispose",
       "repositories",
       "generated_classes",
