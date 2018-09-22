@@ -29,6 +29,10 @@ complete as there is too much un-said.
   the source file and line number where the invariant is generated. This would allow cross-linking from the website to the source code (via javadocs source
   inclusion).
 
+  Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
+  to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
+  invariant failure and add documentation to the website.
+
   Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
   they are only called from within the appropriate guard. Not sure this is possible.
 
@@ -113,10 +117,6 @@ complete as there is too much un-said.
 * Add Disposable to doco - i.e. explain how can dispose both components and reactive elements
 
 * Add graph reflecting size of TodoMVC over time
-
-* Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
-  to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
-  invariant failure and add documentation to the website.
 
 ## Mobx State Tree
 
