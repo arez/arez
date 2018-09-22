@@ -1965,7 +1965,7 @@ final class ComponentDescriptor
     return new DependencyDescriptor( method, cascade );
   }
 
-  private boolean isActionCascade( @Nonnull final ExecutableElement method )
+  private boolean isActionCascade( @Nonnull final Element method )
   {
     final VariableElement injectParameter = (VariableElement)
       ProcessorUtil.getAnnotationValue( _elements,
