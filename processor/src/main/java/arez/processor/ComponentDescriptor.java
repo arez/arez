@@ -1941,15 +1941,16 @@ final class ComponentDescriptor
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
-    if ( TypeKind.DECLARED != method.getReturnType().getKind() )
+    final TypeMirror type = method.getReturnType();
+    if ( TypeKind.DECLARED != type.getKind() )
     {
       throw new ArezProcessorException( "@ComponentDependency target must return a non-primitive value", method );
     }
     final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
     assert null != disposeTrackable;
-    if ( !_typeUtils.isAssignable( method.getReturnType(), disposeTrackable.asType() ) )
+    if ( !_typeUtils.isAssignable( type, disposeTrackable.asType() ) )
     {
-      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( method.getReturnType() );
+      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
       final AnnotationMirror value =
         ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
