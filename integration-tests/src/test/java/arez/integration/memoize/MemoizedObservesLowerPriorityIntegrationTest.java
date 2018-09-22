@@ -21,7 +21,6 @@ public class MemoizedObservesLowerPriorityIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final String name = "MyName";
     final Model model = Model.create( name );

@@ -19,7 +19,6 @@ public class ComponentRefTest
 
   @Test
   public void componentRef()
-    throws Throwable
   {
     final TestComponent instance = new ComponentRefTest_Arez_TestComponent();
     final Component component = instance.getComponent();

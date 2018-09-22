@@ -5,7 +5,6 @@ final class NoopProcedure
 {
   @Override
   public void call()
-    throws Exception
   {
     AbstractArezTest.observeADependency();
   }

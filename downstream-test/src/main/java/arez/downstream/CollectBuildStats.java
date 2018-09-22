@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 public final class CollectBuildStats
 {
   public static void main( final String[] args )
-    throws Exception
   {
     try
     {

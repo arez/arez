@@ -29,7 +29,6 @@ public class SpyImplTest
 
   @Test
   public void basicOperation()
-    throws Exception
   {
     final SpyImpl spy = (SpyImpl) Arez.context().getSpy();
 
@@ -79,7 +78,6 @@ public class SpyImplTest
 
   @Test
   public void addSpyEventHandler_alreadyExists()
-    throws Exception
   {
     final Spy spy = Arez.context().getSpy();
 
@@ -94,7 +92,6 @@ public class SpyImplTest
 
   @Test
   public void removeSpyEventHandler_noExists()
-    throws Exception
   {
     final Spy spy = Arez.context().getSpy();
 
@@ -181,7 +178,6 @@ public class SpyImplTest
 
   @Test
   public void isTransactionActive()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -196,7 +192,6 @@ public class SpyImplTest
 
   @Test
   public void getTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -211,7 +206,6 @@ public class SpyImplTest
 
   @Test
   public void getTransaction_whenNoTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
@@ -394,7 +388,6 @@ public class SpyImplTest
 
   @Test
   public void observable_getValue_noAccessor()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();

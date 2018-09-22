@@ -47,7 +47,6 @@ public class ObservedNestedActionAllowedTest
 
   @Test
   public void scenario()
-    throws Exception
   {
     final TestComponent1 component = new ObservedNestedActionAllowedTest_Arez_TestComponent1();
 

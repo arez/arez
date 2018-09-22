@@ -29,7 +29,6 @@ public class ObserverTest
 {
   @Test
   public void initialState()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -68,7 +67,6 @@ public class ObserverTest
 
   @Test
   public void initialState_externalExecutor()
-    throws Exception
   {
     final CountingProcedure onDepsChanged = new CountingProcedure();
     final Observer observer = new Observer( Arez.context(), null, ValueUtil.randomString(), null, onDepsChanged, 0 );
@@ -83,7 +81,6 @@ public class ObserverTest
 
   @Test
   public void initialStateForComputedValueObserver()
-    throws Exception
   {
     final ComputedValue<String> computedValue = Arez.context().computed( () -> "" );
     final Observer observer = computedValue.getObserver();
@@ -100,7 +97,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_no_observed_and_no_onDepsChanged_parameter()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -116,7 +112,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_invalid_priority()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -131,7 +126,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_OBSERVE_LOWER_PRIORITY_DEPENDENCIES_and_PRIORITY_LOWEST()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -150,7 +144,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_READ_ONLY_and_READ_WRITE()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -166,7 +159,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_REACT_IMMEDIATELY_and_DEFER_REACT()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -182,7 +174,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_REACT_IMMEDIATELY_and_no_observed()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -198,7 +189,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_KEEPALIVE_and_DEACTIVATE_ON_UNOBSERVE()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -214,7 +204,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_IllegalFlags()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -229,7 +218,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_NESTED_ACTIONS_ALLOWED_and_NESTED_ACTIONS_DISALLOWED()
-    throws Exception
   {
     final String name = ValueUtil.randomString();
 
@@ -245,7 +233,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_computed_value_REACT_IMMEDIATELY_and_not_KEEPALIVE()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -257,7 +244,6 @@ public class ObserverTest
 
   @Test
   public void construct_with_mode_but_checking_Disabled()
-    throws Exception
   {
     ArezTestUtil.noEnforceTransactionType();
 
@@ -276,7 +262,6 @@ public class ObserverTest
   @SuppressWarnings( "ResultOfMethodCallIgnored" )
   @Test
   public void isMutation_noEnforceTransactionType()
-    throws Exception
   {
     ArezTestUtil.noEnforceTransactionType();
 
@@ -294,7 +279,6 @@ public class ObserverTest
 
   @Test
   public void constructWithComponentWhenNativeComponentsDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNativeComponents();
 
@@ -319,7 +303,6 @@ public class ObserverTest
 
   @Test
   public void basicLifecycle_withComponent()
-    throws Exception
   {
     final Component component =
       new Component( Arez.context(),
@@ -349,7 +332,6 @@ public class ObserverTest
 
   @Test
   public void invariantDependenciesBackLink()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -375,7 +357,6 @@ public class ObserverTest
 
   @Test
   public void invariantDependenciesNotDisposed()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -400,7 +381,6 @@ public class ObserverTest
 
   @Test
   public void invariantDependenciesUnique()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
@@ -423,7 +403,6 @@ public class ObserverTest
 
   @Test
   public void invariantState()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
@@ -456,7 +435,6 @@ public class ObserverTest
 
   @Test
   public void invariantDerivationState()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ComputedValue<String> computedValue = context.computed( () -> "" );
@@ -477,7 +455,6 @@ public class ObserverTest
 
   @Test
   public void invariantDerivationState_observerCanHaveNoDependenciesIfItIsTracker()
-    throws Exception
   {
     final Observer observer = Arez.context().computed( () -> "" ).getObserver();
 
@@ -492,7 +469,6 @@ public class ObserverTest
 
   @Test
   public void replaceDependencies()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
@@ -518,7 +494,6 @@ public class ObserverTest
 
   @Test
   public void replaceDependencies_duplicateDependency()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
@@ -534,7 +509,6 @@ public class ObserverTest
 
   @Test
   public void replaceDependencies_notBackLinkedDependency()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
@@ -551,7 +525,6 @@ public class ObserverTest
 
   @Test
   public void clearDependencies()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<?> observableValue1 = context.observable();
@@ -575,7 +548,6 @@ public class ObserverTest
 
   @Test
   public void runHook_nullHook()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -584,7 +556,6 @@ public class ObserverTest
 
   @Test
   public void runHook_normalHook()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -597,7 +568,6 @@ public class ObserverTest
 
   @Test
   public void runHook_hookThrowsException()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -629,7 +599,6 @@ public class ObserverTest
 
   @Test
   public void setState()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -690,7 +659,6 @@ public class ObserverTest
 
   @Test
   public void setState_scheduleFalse()
-    throws Exception
   {
     setupReadWriteTransaction();
 
@@ -753,7 +721,6 @@ public class ObserverTest
 
   @Test
   public void setState_onComputedValue()
-    throws Exception
   {
     final TestProcedure onActivate = new TestProcedure();
     final TestProcedure onDeactivate = new TestProcedure();
@@ -842,7 +809,6 @@ public class ObserverTest
 
   @Test
   public void setState_activateWhenDisposed()
-    throws Exception
   {
     final Observer observer = Arez.context().computed( () -> "" ).getObserver();
     setCurrentTransaction( observer );
@@ -857,7 +823,6 @@ public class ObserverTest
 
   @Test
   public void setState_noTransaction()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -870,7 +835,6 @@ public class ObserverTest
 
   @Test
   public void scheduleReaction()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -897,7 +861,6 @@ public class ObserverTest
 
   @Test
   public void scheduleReaction_when_Disposed()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
@@ -916,7 +879,6 @@ public class ObserverTest
 
   @Test
   public void scheduleReaction_whenInactive()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
@@ -930,7 +892,6 @@ public class ObserverTest
 
   @Test
   public void dispose()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -960,7 +921,6 @@ public class ObserverTest
 
   @Test
   public void dispose_onComputedValue()
-    throws Exception
   {
     final Observer observer = Arez.context().computed( () -> "" ).getObserver();
     setCurrentTransaction( observer );
@@ -998,7 +958,6 @@ public class ObserverTest
 
   @Test
   public void dispose_generates_spyEvent()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -1026,7 +985,6 @@ public class ObserverTest
 
   @Test
   public void dispose_does_not_generate_spyEvent_forDerivedValues()
-    throws Exception
   {
     final Observer observer = Arez.context().computed( () -> "" ).getObserver();
     final ComputedValue<?> computedValue = observer.getComputedValue();
@@ -1072,7 +1030,6 @@ public class ObserverTest
 
   @Test
   public void dispose_via_ComputedValue()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -1127,7 +1084,6 @@ public class ObserverTest
 
   @Test
   public void getComputedValue_throwsExceptionWhenNotDerived()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -1140,7 +1096,6 @@ public class ObserverTest
 
   @Test
   public void getComputedValue_whenDisposed()
-    throws Exception
   {
     final Observer observer = Arez.context().computed( () -> "" ).getObserver();
 
@@ -1183,7 +1138,6 @@ public class ObserverTest
 
   @Test
   public void invokeReaction()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -1205,7 +1159,6 @@ public class ObserverTest
 
   @Test
   public void invokeReaction_Observer_SpyEventHandlerPresent()
-    throws Exception
   {
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     final ArezContext context = Arez.context();
@@ -1256,7 +1209,6 @@ public class ObserverTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void invokeReaction_ComputedValue_SpyEventHandlerPresent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue = context.observable();
@@ -1290,7 +1242,6 @@ public class ObserverTest
 
   @Test
   public void invokeReaction_onDisposedObserver()
-    throws Exception
   {
     final CountingProcedure observed = new CountAndObserveProcedure();
     final Observer observer =
@@ -1314,7 +1265,6 @@ public class ObserverTest
 
   @Test
   public void invokeReaction_onUpToDateObserver()
-    throws Exception
   {
     final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final ArezContext context = Arez.context();
@@ -1340,7 +1290,6 @@ public class ObserverTest
 
   @Test
   public void invokeReaction_onUpToDateObserver_onDepsChanged_Present()
-    throws Exception
   {
     final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChanged = new CountingProcedure();
@@ -1373,7 +1322,6 @@ public class ObserverTest
 
   @Test
   public void invokeReaction_reactionGeneratesError()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -1414,7 +1362,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_DISPOSING()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -1427,7 +1374,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_UP_TO_DATE()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -1439,7 +1385,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_INACTIVE()
-    throws Exception
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
@@ -1451,7 +1396,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_STALE()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
@@ -1464,7 +1408,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_POSSIBLY_STALE()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final SafeFunction<String> function = () -> {
@@ -1497,7 +1440,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_POSSIBLY_STALE_ComputableThrowsException()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -1531,7 +1473,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_POSSIBLY_STALE_ComputableReThrowsException()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -1565,7 +1506,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_POSSIBLY_STALE_whereDependencyRecomputesButDoesNotChange()
-    throws Exception
   {
     final SafeFunction<String> function = () -> {
       observeADependency();
@@ -1594,7 +1534,6 @@ public class ObserverTest
 
   @Test
   public void shouldCompute_POSSIBLY_STALE_ignoresNonComputedDependencies()
-    throws Exception
   {
     final SafeFunction<String> function = () -> {
       observeADependency();
@@ -1638,7 +1577,6 @@ public class ObserverTest
 
   @Test
   public void reportStale()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1665,7 +1603,6 @@ public class ObserverTest
 
   @Test
   public void reportStale_arezOnlyDependencies()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1692,7 +1629,6 @@ public class ObserverTest
 
   @Test
   public void reportStale_noTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1718,7 +1654,6 @@ public class ObserverTest
 
   @Test
   public void reportStale_readOnlyTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1738,7 +1673,6 @@ public class ObserverTest
 
   @Test
   public void schedule()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1782,7 +1716,6 @@ public class ObserverTest
 
   @Test
   public void schedule_in_transactionMarksTransactionAsUsed()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1824,7 +1757,6 @@ public class ObserverTest
 
   @Test
   public void schedule_but_state_UP_TO_DATE()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1862,7 +1794,6 @@ public class ObserverTest
 
   @Test
   public void schedule_onNonManualScheduleObserver()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 

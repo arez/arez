@@ -17,7 +17,6 @@ public class AllowWriteInDisposeIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final String name = ValueUtil.randomString();
     final Model1 model1 = Model1.create( name );

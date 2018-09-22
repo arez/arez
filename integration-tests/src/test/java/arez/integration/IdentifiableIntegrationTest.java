@@ -12,7 +12,6 @@ public class IdentifiableIntegrationTest
 {
   @Test
   public void arezManagerdArezId()
-    throws Throwable
   {
     final Model1 model = new IdentifiableIntegrationTest_Arez_Model1();
 
@@ -23,7 +22,6 @@ public class IdentifiableIntegrationTest
 
   @Test
   public void componentManagerdArezId()
-    throws Throwable
   {
     final Model2 model = new IdentifiableIntegrationTest_Arez_Model2( 33 );
 

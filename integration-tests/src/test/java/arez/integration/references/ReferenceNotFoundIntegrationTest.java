@@ -19,7 +19,6 @@ public class ReferenceNotFoundIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final ReferenceNotFoundIntegrationTest_Model2Repository repository =
       ReferenceNotFoundIntegrationTest_Model2Repository.newRepository();

@@ -25,7 +25,6 @@ public class DisposeOneInverseIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 

@@ -24,7 +24,6 @@ public class OneMultiplicityLazyLoadInverseIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 

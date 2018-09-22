@@ -2085,7 +2085,6 @@ public class TransactionTest
 
   @Test
   public void invariantObserverIsTracker_notTracker()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2116,7 +2115,6 @@ public class TransactionTest
 
   @Test
   public void invariantObserverIsTracker_trackerOfSurroundingTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2134,7 +2132,6 @@ public class TransactionTest
 
   @Test
   public void invariantObserverIsTracker_trackerUpTransactionHierarchy()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2185,7 +2182,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2209,7 +2205,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_nested()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2232,7 +2227,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_nested_inDifferentContext()
-    throws Exception
   {
     final ArezContext context1 = new ArezContext();
     final ArezContext context2 = new ArezContext();
@@ -2258,7 +2252,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_triple_nested_alternating_contexts()
-    throws Exception
   {
     final ArezContext context1 = new ArezContext();
     final ArezContext context2 = new ArezContext();
@@ -2290,7 +2283,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_triple_nested_alternating_contexts_but_zones_disabled()
-    throws Exception
   {
     ArezTestUtil.disableZones();
     ArezTestUtil.resetState();
@@ -2318,7 +2310,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_generates_spyEvent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2338,7 +2329,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_attemptToNest_READ_WRITE_in_READ_ONLY()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2355,7 +2345,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_attemptToNest_READ_WRITE_in_READ_WRITE_OWNED()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2373,7 +2362,6 @@ public class TransactionTest
 
   @Test
   public void begin_attempt_to_nestAction_in_non_computed_tracker_transaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2396,7 +2384,6 @@ public class TransactionTest
 
   @Test
   public void beginTransaction_attemptToNest_READ_ONLY_in_READ_WRITE_OWNED()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2414,7 +2401,6 @@ public class TransactionTest
 
   @Test
   public void commitTransaction_matchingRootTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2430,7 +2416,6 @@ public class TransactionTest
 
   @Test
   public void commitTransaction_onlyRootEnablesScheduler()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2455,7 +2440,6 @@ public class TransactionTest
 
   @Test
   public void commitTransaction_enablesScheduler_forInterleavedContexts()
-    throws Exception
   {
     final ArezContext context1 = new ArezContext();
     final ArezContext context2 = new ArezContext();
@@ -2485,7 +2469,6 @@ public class TransactionTest
 
   @Test
   public void commitTransaction_enablesScheduler_forStripedContexts()
-    throws Exception
   {
     final ArezContext context1 = new ArezContext();
     final ArezContext context2 = new ArezContext();
@@ -2534,7 +2517,6 @@ public class TransactionTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void commitTransaction_generates_spyEvent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2559,7 +2541,6 @@ public class TransactionTest
 
   @Test
   public void commitTransaction_nonMatchingRootTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2577,7 +2558,6 @@ public class TransactionTest
 
   @Test
   public void commitTransaction_noTransactionActive()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2603,7 +2583,6 @@ public class TransactionTest
 
   @Test
   public void current()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2616,7 +2595,6 @@ public class TransactionTest
 
   @Test
   public void current_noTransaction()
-    throws Exception
   {
     assertInvariantFailure( Transaction::current,
                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
@@ -2624,7 +2602,6 @@ public class TransactionTest
 
   @Test
   public void isTransactionActive()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 

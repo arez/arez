@@ -54,7 +54,6 @@ public class TrackNoNestActionTest
 
   @Test
   public void scenario()
-    throws Exception
   {
     final TestComponent1 component = new TrackNoNestActionTest_Arez_TestComponent1();
 

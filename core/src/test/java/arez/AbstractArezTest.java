@@ -33,7 +33,6 @@ public abstract class AbstractArezTest
 
   @AfterMethod
   protected void afterTest()
-    throws Exception
   {
     BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
@@ -57,7 +56,6 @@ public abstract class AbstractArezTest
 
   @Nonnull
   private Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
-    throws NoSuchFieldException
   {
     Class clazz = type;
     while ( null != clazz && Object.class != clazz )

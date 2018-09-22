@@ -248,7 +248,6 @@ abstract class AbstractArezProcessorTest
 
   void assertFailedCompileResource( @Nonnull final List<JavaFileObject> inputs,
                                     @Nonnull final String errorMessageFragment )
-    throws Exception
   {
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( inputs ).

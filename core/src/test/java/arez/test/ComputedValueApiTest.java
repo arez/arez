@@ -16,7 +16,6 @@ public class ComputedValueApiTest
 {
   @Test
   public void reportPossiblyChanged()
-    throws Exception
   {
     final AtomicInteger observerCallCount = new AtomicInteger();
     final AtomicInteger computedCallCount = new AtomicInteger();
@@ -62,7 +61,6 @@ public class ComputedValueApiTest
 
   @Test
   public void computedWithNoDependencies()
-    throws Exception
   {
     final AtomicInteger observerCallCount = new AtomicInteger();
     final AtomicInteger computedCallCount = new AtomicInteger();

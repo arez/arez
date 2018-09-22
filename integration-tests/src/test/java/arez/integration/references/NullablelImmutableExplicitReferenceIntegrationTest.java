@@ -24,7 +24,6 @@ public class NullablelImmutableExplicitReferenceIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final NullablelImmutableExplicitReferenceIntegrationTest_Model2Repository repository =
       NullablelImmutableExplicitReferenceIntegrationTest_Model2Repository.newRepository();

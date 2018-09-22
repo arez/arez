@@ -14,7 +14,6 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 

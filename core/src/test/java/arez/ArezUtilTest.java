@@ -8,14 +8,12 @@ public class ArezUtilTest
 {
   @Test
   public void safeGetString()
-    throws Exception
   {
     assertEquals( ArezUtil.safeGetString( () -> "My String" ), "My String" );
   }
 
   @Test
   public void safeGetString_generatesError()
-    throws Exception
   {
     final String text = ArezUtil.safeGetString( () -> {
       throw new RuntimeException( "X" );
@@ -26,7 +24,6 @@ public class ArezUtilTest
 
   @Test
   public void throwableToString()
-    throws Exception
   {
     final String text = ArezUtil.throwableToString( new RuntimeException( "X" ) );
     assertTrue( text.startsWith( "java.lang.RuntimeException: X\n" ) );
@@ -34,7 +31,6 @@ public class ArezUtilTest
 
   @Test
   public void throwableToString_with_NestedThrowable()
-    throws Exception
   {
     final RuntimeException exception =
       new RuntimeException( "X", new IOException( "Y" ) );

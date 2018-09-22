@@ -26,7 +26,6 @@ public class UnmodifiableCollectionsIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final Model1 m1 = Model1.create();
 
@@ -109,7 +108,6 @@ public class UnmodifiableCollectionsIntegrationTest
 
   @Test
   public void scenario_when_CollectionPropertiesModifiable()
-    throws Throwable
   {
     ArezTestUtil.makeCollectionPropertiesModifiable();
 

@@ -23,7 +23,6 @@ public class OneMultiplicityInverseIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 

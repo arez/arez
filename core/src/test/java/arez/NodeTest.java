@@ -31,7 +31,6 @@ public class NodeTest
 
   @Test
   public void basicOperation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -44,7 +43,6 @@ public class NodeTest
 
   @Test
   public void noNameSuppliedWhenNamesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -59,7 +57,6 @@ public class NodeTest
 
   @Test
   public void nameSuppliedWhenNamesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -72,7 +69,6 @@ public class NodeTest
 
   @Test
   public void contextSuppliedWhenZonesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableZones();
 

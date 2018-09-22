@@ -38,7 +38,6 @@ public class ApplicationExecutorNoDepsAllowedTest
 
   @Test
   public void scenario()
-    throws Exception
   {
     final TestComponent1 component = new ApplicationExecutorNoDepsAllowedTest_Arez_TestComponent1();
 

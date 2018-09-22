@@ -49,7 +49,6 @@ public class TypeVisibilityTest
 
   @Test
   public void typeVisibilities()
-    throws Exception
   {
     assertFalse( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel.class.getModifiers() ) );
     assertTrue( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel2.class.getModifiers() ) );

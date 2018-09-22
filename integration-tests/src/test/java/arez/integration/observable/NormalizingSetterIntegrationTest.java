@@ -15,7 +15,6 @@ public class NormalizingSetterIntegrationTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void disallowNullInSetter()
-    throws Throwable
   {
     final Model model = Model.create( ValueUtil.randomString() );
 

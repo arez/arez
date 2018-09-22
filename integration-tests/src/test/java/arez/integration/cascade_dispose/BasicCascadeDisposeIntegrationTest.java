@@ -13,7 +13,6 @@ public class BasicCascadeDisposeIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final Model2 model2 = Model2.create();
     final Model1 model1 = Model1.create( model2 );

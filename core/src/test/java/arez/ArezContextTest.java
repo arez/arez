@@ -369,7 +369,6 @@ public class ArezContextTest
 
   @Test
   public void verifyActionFlags()
-    throws Throwable
   {
     final Procedure executable = () -> {
     };
@@ -472,7 +471,6 @@ public class ArezContextTest
 
   @Test
   public void action_function_throwsException()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -571,7 +569,6 @@ public class ArezContextTest
 
   @Test
   public void action_procedure_verifyActionRequired_true()
-    throws Throwable
   {
     final Procedure procedure = ValueUtil::randomString;
     assertInvariantFailure( () -> Arez.context().action( "X", procedure, Flags.VERIFY_ACTION_REQUIRED ),
@@ -580,7 +577,6 @@ public class ArezContextTest
 
   @Test
   public void action_procedure_verifyActionRequired_true_is_default()
-    throws Throwable
   {
     assertInvariantFailure( () -> Arez.context().action( "X", (Procedure) ValueUtil::randomString ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
@@ -606,7 +602,6 @@ public class ArezContextTest
 
   @Test
   public void action_function_verifyActionRequired_true()
-    throws Throwable
   {
     final Function<String> function = ValueUtil::randomString;
     assertInvariantFailure( () -> Arez.context().action( "X", function, Flags.VERIFY_ACTION_REQUIRED ),
@@ -615,7 +610,6 @@ public class ArezContextTest
 
   @Test
   public void action_function_verifyActionRequired_true_is_default()
-    throws Throwable
   {
     final Function<String> function = ValueUtil::randomString;
     assertInvariantFailure( () -> Arez.context().action( "X", function ),
@@ -624,7 +618,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_procedure_verifyActionRequired_false()
-    throws Throwable
   {
     final SafeProcedure procedure = ValueUtil::randomString;
     Arez.context().safeAction( ValueUtil.randomString(), procedure, Flags.NO_VERIFY_ACTION_REQUIRED );
@@ -633,7 +626,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_procedure_verifyActionRequired_true_butInvariantsDisabled()
-    throws Throwable
   {
     ArezTestUtil.noCheckInvariants();
 
@@ -644,7 +636,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_procedure_verifyActionRequired_true()
-    throws Throwable
   {
     final SafeProcedure procedure = ValueUtil::randomString;
     assertInvariantFailure( () -> Arez.context().safeAction( "X", procedure, Flags.VERIFY_ACTION_REQUIRED ),
@@ -653,7 +644,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_procedure_verifyActionRequired_true_is_default()
-    throws Throwable
   {
     assertInvariantFailure( () -> Arez.context().safeAction( "X", (SafeProcedure) ValueUtil::randomString ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
@@ -661,7 +651,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_function_verifyActionRequired_false()
-    throws Throwable
   {
     Arez.context().safeAction( (SafeFunction<String>) ValueUtil::randomString, Flags.NO_VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
@@ -669,7 +658,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_function_verifyActionRequired_true_butInvariantsDisabled()
-    throws Throwable
   {
     ArezTestUtil.noCheckInvariants();
 
@@ -679,7 +667,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_function_verifyActionRequired_true()
-    throws Throwable
   {
     final SafeFunction<String> function = ValueUtil::randomString;
     assertInvariantFailure( () -> Arez.context().safeAction( "X", function, Flags.VERIFY_ACTION_REQUIRED ),
@@ -688,7 +675,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_function_verifyActionRequired_true_is_default()
-    throws Throwable
   {
     assertInvariantFailure( () -> Arez.context().safeAction( "X", (SafeFunction<String>) ValueUtil::randomString ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
@@ -903,7 +889,6 @@ public class ArezContextTest
 
   @Test
   public void track_function_passingNonTracker()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -920,7 +905,6 @@ public class ArezContextTest
 
   @Test
   public void action_safeFunction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1011,7 +995,6 @@ public class ArezContextTest
 
   @Test
   public void action_safeFunction_throws_Exception()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1075,7 +1058,6 @@ public class ArezContextTest
 
   @Test
   public void action_safeFunction_minimalParameters()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1102,7 +1084,6 @@ public class ArezContextTest
 
   @Test
   public void action_safeFunction_NameButNoMutationVariant()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1176,7 +1157,6 @@ public class ArezContextTest
 
   @Test
   public void track_safeFunction_passingNonTracker()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1193,7 +1173,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_safeProcedure_minimalParameters()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1212,7 +1191,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_safeProcedure_NameButNoMutationVariant()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1226,7 +1204,6 @@ public class ArezContextTest
 
   @Test
   public void action_safeProcedure_throws_Exception()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1343,7 +1320,6 @@ public class ArezContextTest
 
   @Test
   public void track_safeProcedure_passingNonTracker()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1394,7 +1370,6 @@ public class ArezContextTest
 
   @Test
   public void track_procedure_passingNonTracker()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1464,7 +1439,6 @@ public class ArezContextTest
 
   @Test
   public void nonTrackingSafeProcedureObservingSingleObservable()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1631,7 +1605,6 @@ public class ArezContextTest
 
   @Test
   public void action_procedure_throwsException()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1744,7 +1717,6 @@ public class ArezContextTest
 
   @Test
   public void nextNodeId()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1755,7 +1727,6 @@ public class ArezContextTest
 
   @Test
   public void observer_with_onDepsUpdated()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1779,7 +1750,6 @@ public class ArezContextTest
 
   @Test
   public void observer_withComponent_and_onDepsUpdated()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1809,7 +1779,6 @@ public class ArezContextTest
 
   @Test
   public void observerErrorHandler()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     // Clear out handler added as part of test infrastructure
@@ -1851,7 +1820,6 @@ public class ArezContextTest
 
   @Test
   public void reportObserverError_when_spyEventHandler_present()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     // Clear out handler added as part of test infrastructure
@@ -1878,7 +1846,6 @@ public class ArezContextTest
 
   @Test
   public void addObserverErrorHandler_whenDisabled()
-    throws Exception
   {
     ArezTestUtil.disableObserverErrorHandlers();
 
@@ -1891,7 +1858,6 @@ public class ArezContextTest
 
   @Test
   public void removeObserverErrorHandler_whenDisabled()
-    throws Exception
   {
     ArezTestUtil.disableObserverErrorHandlers();
 
@@ -1906,7 +1872,6 @@ public class ArezContextTest
 
   @Test
   public void getSpy_whenSpiesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableSpies();
 
@@ -1917,7 +1882,6 @@ public class ArezContextTest
 
   @Test
   public void scheduleReaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1933,7 +1897,6 @@ public class ArezContextTest
 
   @Test
   public void scheduleReaction_shouldAbortInReadOnlyTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1951,7 +1914,6 @@ public class ArezContextTest
 
   @Test
   public void scheduleReaction_shouldAbortInReadWriteOwnedTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1969,7 +1931,6 @@ public class ArezContextTest
 
   @Test
   public void scheduleReaction_generates_spyEvent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -1990,7 +1951,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2026,7 +1986,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_withComponent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2043,7 +2002,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_canObserveLowerPriorityDependencies()
-    throws Exception
   {
     final ComputedValue<String> computedValue =
       Arez.context().computed( () -> "", Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
@@ -2053,7 +2011,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_mayNotAccessArezState()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     assertFalse( context.computed( () -> "", Flags.AREZ_OR_NO_DEPENDENCIES )
@@ -2066,7 +2023,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_withKeepAliveAndRunImmediately()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2085,7 +2041,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_withKeepAliveAndNoRunImmediately()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2107,7 +2062,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_pass_no_hooks()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2130,7 +2084,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_minimumParameters()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2155,7 +2108,6 @@ public class ArezContextTest
 
   @Test
   public void computedValue_generates_spyEvent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2176,7 +2128,6 @@ public class ArezContextTest
 
   @Test
   public void observer_noObservers()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -2197,7 +2148,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_noObservers_manualReportStaleAllowed()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
 
@@ -2213,7 +2163,6 @@ public class ArezContextTest
 
   @Test
   public void observer_minimumParameters()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2242,7 +2191,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_withComponent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2258,7 +2206,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_minimumParametersForMutation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2281,7 +2228,6 @@ public class ArezContextTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void autorun_runImmediately()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2313,7 +2259,6 @@ public class ArezContextTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void autorun_runImmediately_will_obeyNormalSchedulingPriorities()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2353,7 +2298,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_highPriority()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( AbstractArezTest::observeADependency, Flags.PRIORITY_HIGH );
@@ -2362,7 +2306,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_canObserveLowerPriorityDependencies()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer =
@@ -2372,7 +2315,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_nestedActionsAllowed()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer =
@@ -2383,7 +2325,6 @@ public class ArezContextTest
 
   @Test
   public void observer_areArezDependenciesRequired()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Procedure observed = AbstractArezTest::observeADependency;
@@ -2394,7 +2335,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_supportsManualSchedule()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( AbstractArezTest::observeADependency, ValueUtil::randomString );
@@ -2403,7 +2343,6 @@ public class ArezContextTest
 
   @Test
   public void autorun_notRunImmediately()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2434,7 +2373,6 @@ public class ArezContextTest
 
   @Test
   public void tracker()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2472,7 +2410,6 @@ public class ArezContextTest
 
   @Test
   public void tracker_withComponent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2491,7 +2428,6 @@ public class ArezContextTest
 
   @Test
   public void tracker_minimalParameters()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2522,7 +2458,6 @@ public class ArezContextTest
 
   @Test
   public void observer_generates_spyEvent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2543,7 +2478,6 @@ public class ArezContextTest
 
   @Test
   public void createObservable_no_parameters()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2558,7 +2492,6 @@ public class ArezContextTest
 
   @Test
   public void createObservable()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2572,7 +2505,6 @@ public class ArezContextTest
 
   @Test
   public void createObservable_withIntrospectors()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2589,7 +2521,6 @@ public class ArezContextTest
 
   @Test
   public void createObservable_withComponent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2606,7 +2537,6 @@ public class ArezContextTest
 
   @Test
   public void createObservable_spyEventHandlerPresent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2624,7 +2554,6 @@ public class ArezContextTest
 
   @Test
   public void createObservable_name_Null()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -2637,7 +2566,6 @@ public class ArezContextTest
 
   @Test
   public void pauseScheduler()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -2758,7 +2686,6 @@ public class ArezContextTest
 
   @Test
   public void createComponent_spyEventHandlerPresent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 

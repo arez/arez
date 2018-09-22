@@ -15,7 +15,6 @@ public class ObserversMutationParameterIntegrationTest
 {
   @Test
   public void readOnlyAutorunAttemptsMutationScenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 
@@ -32,7 +31,6 @@ public class ObserversMutationParameterIntegrationTest
 
   @Test
   public void readOnlyAutorunAttemptsQueryScenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 
@@ -49,7 +47,6 @@ public class ObserversMutationParameterIntegrationTest
 
   @Test
   public void readWriteAutorunAttemptsMutationScenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 
@@ -66,7 +63,6 @@ public class ObserversMutationParameterIntegrationTest
 
   @Test
   public void readOnlyTrackAttemptsMutationScenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 
@@ -83,7 +79,6 @@ public class ObserversMutationParameterIntegrationTest
 
   @Test
   public void readOnlyTrackAttemptsQueryScenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 
@@ -100,7 +95,6 @@ public class ObserversMutationParameterIntegrationTest
 
   @Test
   public void readWriteTrackAttemptsMutationScenario()
-    throws Throwable
   {
     setIgnoreObserverErrors( true );
 

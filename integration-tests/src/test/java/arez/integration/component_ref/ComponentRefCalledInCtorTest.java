@@ -23,7 +23,6 @@ public class ComponentRefCalledInCtorTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     assertInvariant( ComponentRefCalledInCtorTest_Arez_TestComponent::new,
                      "Method named 'getComponent' invoked on uninitialized component of type 'TestComponent'" );

@@ -20,7 +20,6 @@ public class ContextRefTest
 
   @Test
   public void contextRef()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 

@@ -14,7 +14,6 @@ public class NonnullObservableIntegrationTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void disallowNullInSetter()
-    throws Throwable
   {
     final Model model = Model.create( ValueUtil.randomString() );
     safeAction( () -> assertThrows( AssertionError.class, () -> model.setLastName( null ) ) );
@@ -23,7 +22,6 @@ public class NonnullObservableIntegrationTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void disallowNullInInitializer()
-    throws Throwable
   {
     assertThrows( NullPointerException.class, () -> Model.create( null ) );
   }

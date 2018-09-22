@@ -59,7 +59,6 @@ abstract class AbstractDownstreamTest
 
   @Nonnull
   private Path getStoriesPath( @Nonnull final Path archiveDir, @Nonnull final String build )
-    throws IOException
   {
     return archiveDir
       .resolve( build )

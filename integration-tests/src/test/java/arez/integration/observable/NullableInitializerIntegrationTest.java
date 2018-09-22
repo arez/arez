@@ -15,7 +15,6 @@ public class NullableInitializerIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     safeAction( () -> assertNull( Model.create( null ).getName() ) );
     safeAction( () -> assertEquals( Model.create( "XXX" ).getName(), "XXX" ) );

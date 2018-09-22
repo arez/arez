@@ -8,7 +8,6 @@ public class SchedulerLockTest
 {
   @Test
   public void basicOperation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     context.setSchedulerLockCount( 2 );

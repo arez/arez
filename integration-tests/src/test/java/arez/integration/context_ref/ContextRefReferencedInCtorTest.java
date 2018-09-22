@@ -23,7 +23,6 @@ public class ContextRefReferencedInCtorTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     assertInvariant( ContextRefReferencedInCtorTest_Arez_TestComponent::new,
                      "Method named 'getContext' invoked on uninitialized component of type 'TestComponent'" );

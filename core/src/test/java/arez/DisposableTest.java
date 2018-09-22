@@ -26,7 +26,6 @@ public class DisposableTest
 
   @Test
   public void randomObject()
-    throws Exception
   {
     //No exception but no action
     final Object object = new Object();
@@ -39,7 +38,6 @@ public class DisposableTest
 
   @Test
   public void disposable()
-    throws Exception
   {
     final TestDisposable object = new TestDisposable();
     assertFalse( object.isDisposed() );
@@ -55,7 +53,6 @@ public class DisposableTest
 
   @Test
   public void asDisposable()
-    throws Exception
   {
     final TestDisposable object = new TestDisposable();
     assertEquals( Disposable.asDisposable( object ), object );

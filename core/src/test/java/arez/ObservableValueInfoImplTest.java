@@ -15,7 +15,6 @@ public class ObservableValueInfoImplTest
 {
   @Test
   public void basicOperation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -93,7 +92,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void asComputedValue()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -112,7 +110,6 @@ public class ObservableValueInfoImplTest
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue1 = context.observable();
@@ -149,7 +146,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void isComputedValue()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -234,7 +230,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void observable_getValue_introspectorsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disablePropertyIntrospectors();
 
@@ -248,7 +243,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void observable_hasAccessor_introspectorsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disablePropertyIntrospectors();
 
@@ -262,7 +256,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void observable_hasMutator_introspectorsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disablePropertyIntrospectors();
 
@@ -276,7 +269,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void observable_setValue_introspectorsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disablePropertyIntrospectors();
 
@@ -290,7 +282,6 @@ public class ObservableValueInfoImplTest
 
   @Test
   public void observable_setValue_noMutator()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 

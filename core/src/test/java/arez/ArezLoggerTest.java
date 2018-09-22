@@ -10,7 +10,6 @@ public class ArezLoggerTest
 {
   @Test
   public void log()
-    throws Exception
   {
     final String message1 = ValueUtil.randomString();
     final String message2 = ValueUtil.randomString();

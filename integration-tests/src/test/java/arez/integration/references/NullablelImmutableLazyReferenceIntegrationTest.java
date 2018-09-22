@@ -23,7 +23,6 @@ public class NullablelImmutableLazyReferenceIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final NullablelImmutableLazyReferenceIntegrationTest_Model2Repository repository =
       NullablelImmutableLazyReferenceIntegrationTest_Model2Repository.newRepository();

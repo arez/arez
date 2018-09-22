@@ -22,7 +22,6 @@ public class NonnullImmutableEagerReferenceIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final NonnullImmutableEagerReferenceIntegrationTest_Model2Repository repository =
       NonnullImmutableEagerReferenceIntegrationTest_Model2Repository.newRepository();

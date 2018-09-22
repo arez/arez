@@ -6,7 +6,6 @@ import arez.Flags;
 public class ObserverExample2
 {
   public static void main( String[] args )
-    throws Throwable
   {
     Arez.context().observer( "MyObserver", () -> {
       // Interact with arez observable state (or computed values) here

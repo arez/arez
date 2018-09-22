@@ -19,7 +19,6 @@ public class ComponentIdRefTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final TestComponent component1 = new ComponentIdRefTest_Arez_TestComponent();
     final TestComponent component2 = new ComponentIdRefTest_Arez_TestComponent();
@@ -29,7 +28,6 @@ public class ComponentIdRefTest
 
   @Test
   public void scenarioIdForcedDespiteProductionMode()
-    throws Throwable
   {
     ArezTestUtil.disableNativeComponents();
     ArezTestUtil.disableRegistries();

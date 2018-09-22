@@ -24,7 +24,6 @@ public class NullableObservableEagerReferenceIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final NullableObservableEagerReferenceIntegrationTest_Model2Repository repository =
       NullableObservableEagerReferenceIntegrationTest_Model2Repository.newRepository();

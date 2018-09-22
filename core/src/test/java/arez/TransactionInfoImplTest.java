@@ -10,7 +10,6 @@ public class TransactionInfoImplTest
 {
   @Test
   public void nonTracking_READ_WRITE()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -25,7 +24,6 @@ public class TransactionInfoImplTest
 
   @Test
   public void getTracker_whenNoTracker()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -39,7 +37,6 @@ public class TransactionInfoImplTest
 
   @Test
   public void transaction_calculating_computedValue()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -57,7 +54,6 @@ public class TransactionInfoImplTest
 
   @Test
   public void nested()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 

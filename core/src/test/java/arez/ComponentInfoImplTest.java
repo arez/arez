@@ -12,7 +12,6 @@ public class ComponentInfoImplTest
 {
   @Test
   public void basicOperation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String type = ValueUtil.randomString();
@@ -54,7 +53,6 @@ public class ComponentInfoImplTest
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 

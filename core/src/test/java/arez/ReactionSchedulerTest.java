@@ -13,7 +13,6 @@ public class ReactionSchedulerTest
 {
   @Test
   public void construction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -32,7 +31,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void construction_Zones_Disabled()
-    throws Exception
   {
     ArezTestUtil.disableZones();
     ArezTestUtil.resetState();
@@ -44,7 +42,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void setMaxReactionRounds()
-    throws Exception
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
@@ -59,7 +56,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void setMaxReactionRounds_negativeValue()
-    throws Exception
   {
     final ReactionScheduler scheduler = Arez.context().getScheduler();
 
@@ -71,7 +67,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void onRunawayReactionsDetected()
-    throws Exception
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
 
@@ -92,7 +87,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void onRunawayReactionsDetected_noPurgeCOnfigured()
-    throws Exception
   {
     ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
 
@@ -110,7 +104,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void onRunawayReactionsDetected_invariantCheckingDisabled()
-    throws Exception
   {
     BrainCheckTestUtil.setCheckInvariants( false );
 
@@ -124,7 +117,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void scheduleDispose()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -141,7 +133,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void scheduleDispose_alreadyScheduled()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -161,7 +152,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runDispose()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -181,7 +171,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runDisposeInsideTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -200,7 +189,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void scheduleReaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -219,7 +207,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void scheduleReaction_highPriorityObserver()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -276,7 +263,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void scheduleReaction_multipleObserverPriorities()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -376,7 +362,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void scheduleReaction_observerAlreadyScheduled()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -392,7 +377,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runObserver_singlePendingObserver()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     context.markSchedulerAsActive();
@@ -439,7 +423,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runObserver_insideTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -465,7 +448,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runObserver_multiplePendingObservers()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     context.markSchedulerAsActive();
@@ -583,7 +565,6 @@ public class ReactionSchedulerTest
 
   @Test( timeOut = 5000L )
   public void runObserver_RunawayReactionsDetected()
-    throws Exception
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
     setIgnoreObserverErrors( true );
@@ -593,7 +574,6 @@ public class ReactionSchedulerTest
     {
       @Override
       public void call()
-        throws Throwable
       {
         observerReference.get().reportStale();
       }
@@ -636,7 +616,6 @@ public class ReactionSchedulerTest
 
   @Test( timeOut = 5000L )
   public void runObserver_RunawayReactionsDetected_invariantChecksDisabled()
-    throws Exception
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
     BrainCheckTestUtil.setCheckInvariants( false );
@@ -648,7 +627,6 @@ public class ReactionSchedulerTest
     {
       @Override
       public void call()
-        throws Throwable
       {
         observerReference.get().reportStale();
       }
@@ -687,7 +665,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runPendingTasks()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = Arez.context().getScheduler();
@@ -765,7 +742,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runPendingTasks_onlyReactions()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();
@@ -829,7 +805,6 @@ public class ReactionSchedulerTest
 
   @Test
   public void runPendingTasks_onlyDisposables()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ReactionScheduler scheduler = context.getScheduler();

@@ -52,7 +52,6 @@ public class ExternalApiTest
 
   @Test
   public void areNamesEnabled()
-    throws Exception
   {
     assertTrue( Arez.areNamesEnabled() );
     ArezTestUtil.disableNames();
@@ -156,7 +155,6 @@ public class ExternalApiTest
 
   @Test
   public void ComputedValue_reportPossiblyChanged()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -208,7 +206,6 @@ public class ExternalApiTest
 
   @Test
   public void observerErrorHandler()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
     final ArezContext context = Arez.context();
@@ -236,7 +233,6 @@ public class ExternalApiTest
 
   @Test
   public void spyEventHandler()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -260,7 +256,6 @@ public class ExternalApiTest
 
   @Test
   public void safeProcedure_interactionWithSingleObservable()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -399,7 +394,6 @@ public class ExternalApiTest
 
   @Test
   public void action_safeFunction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -571,7 +565,6 @@ public class ExternalApiTest
 
   @Test
   public void pauseScheduler()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 

@@ -16,7 +16,6 @@ public class DisposedNotEqualIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     /*
      * To get equal ids we have to disable a few features and then set requireEquals=ENABLED on component.

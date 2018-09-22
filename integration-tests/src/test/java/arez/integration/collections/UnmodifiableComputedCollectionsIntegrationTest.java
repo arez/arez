@@ -26,7 +26,6 @@ public class UnmodifiableComputedCollectionsIntegrationTest
   @SuppressWarnings( "ConstantConditions" )
   @Test
   public void scenario()
-    throws Throwable
   {
     final Model1 m1 = Model1.create();
 

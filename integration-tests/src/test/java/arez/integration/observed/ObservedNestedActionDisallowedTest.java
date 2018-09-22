@@ -47,7 +47,6 @@ public class ObservedNestedActionDisallowedTest
 
   @Test
   public void scenario()
-    throws Exception
   {
     setIgnoreObserverErrors( true );
     final TestComponent1 component = new ObservedNestedActionDisallowedTest_Arez_TestComponent1();

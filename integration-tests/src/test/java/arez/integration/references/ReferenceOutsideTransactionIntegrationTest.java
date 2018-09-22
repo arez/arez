@@ -22,7 +22,6 @@ public class ReferenceOutsideTransactionIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final ReferenceOutsideTransactionIntegrationTest_Model2Repository repository =
       ReferenceOutsideTransactionIntegrationTest_Model2Repository.newRepository();

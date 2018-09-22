@@ -50,7 +50,6 @@ public class ObserverErrorHandlerSupportTest
 
   @Test
   public void addObserverErrorHandler_alreadyExists()
-    throws Exception
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 
@@ -65,7 +64,6 @@ public class ObserverErrorHandlerSupportTest
 
   @Test
   public void removeObserverErrorHandler_noExists()
-    throws Exception
   {
     final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
 

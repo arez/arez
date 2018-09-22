@@ -14,7 +14,6 @@ public class FlagsTest
 {
   @Test
   public void isActive()
-    throws Exception
   {
     assertFalse( Flags.isActive( Flags.STATE_DISPOSED ) );
     assertFalse( Flags.isActive( Flags.STATE_DISPOSING ) );
@@ -26,7 +25,6 @@ public class FlagsTest
 
   @Test
   public void isNotActive()
-    throws Exception
   {
     assertTrue( Flags.isNotActive( Flags.STATE_DISPOSED ) );
     assertTrue( Flags.isNotActive( Flags.STATE_DISPOSING ) );
@@ -38,7 +36,6 @@ public class FlagsTest
 
   @Test
   public void getState()
-    throws Exception
   {
     assertEquals( Flags.getState( Flags.PRIORITY_NORMAL | Flags.STATE_DISPOSED ), Flags.STATE_DISPOSED );
     assertEquals( Flags.getState( Flags.PRIORITY_NORMAL | Flags.STATE_DISPOSING ), Flags.STATE_DISPOSING );
@@ -50,7 +47,6 @@ public class FlagsTest
 
   @Test
   public void setState()
-    throws Exception
   {
     assertEquals( Flags.setState( Flags.PRIORITY_NORMAL |
                                   Flags.READ_WRITE |
@@ -91,7 +87,6 @@ public class FlagsTest
 
   @Test
   public void getLeastStaleObserverState()
-    throws Exception
   {
     assertEquals( Flags.getLeastStaleObserverState( Flags.PRIORITY_NORMAL | Flags.STATE_DISPOSED ),
                   Flags.STATE_UP_TO_DATE );
@@ -108,7 +103,6 @@ public class FlagsTest
 
   @Test
   public void getStateName()
-    throws Exception
   {
     assertEquals( Flags.getStateName( Flags.STATE_DISPOSED ), "DISPOSED" );
     assertEquals( Flags.getStateName( Flags.STATE_DISPOSING ), "DISPOSING" );
@@ -123,7 +117,6 @@ public class FlagsTest
 
   @Test
   public void isPrioritySpecified()
-    throws Exception
   {
     assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_HIGHEST ) );
     assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_HIGH ) );
@@ -136,7 +129,6 @@ public class FlagsTest
 
   @Test
   public void getPriority()
-    throws Exception
   {
     assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST | Flags.STATE_INACTIVE ), 0 );
     assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_HIGH | Flags.STATE_INACTIVE ), 1 );
@@ -147,7 +139,6 @@ public class FlagsTest
 
   @Test
   public void isTransactionModeSpecified()
-    throws Exception
   {
     assertTrue( Flags.isTransactionModeSpecified( Flags.READ_ONLY ) );
     assertTrue( Flags.isTransactionModeSpecified( Flags.READ_WRITE ) );
@@ -157,7 +148,6 @@ public class FlagsTest
 
   @Test
   public void isTransactionModeValid()
-    throws Exception
   {
     assertTrue( Flags.isTransactionModeValid( Flags.READ_ONLY ) );
     assertTrue( Flags.isTransactionModeValid( Flags.READ_WRITE ) );
@@ -168,7 +158,6 @@ public class FlagsTest
 
   @Test
   public void getTransactionModeName()
-    throws Exception
   {
     assertEquals( Flags.getTransactionModeName( Flags.READ_ONLY ), "READ_ONLY" );
     assertEquals( Flags.getTransactionModeName( Flags.READ_WRITE ), "READ_WRITE" );
@@ -177,7 +166,6 @@ public class FlagsTest
 
   @Test
   public void isNestedActionsModeValid()
-    throws Exception
   {
     assertTrue( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_ALLOWED ) );
     assertTrue( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_DISALLOWED ) );
@@ -188,7 +176,6 @@ public class FlagsTest
 
   @Test
   public void isRunTypeValid()
-    throws Exception
   {
     assertTrue( Flags.isRunTypeValid( Flags.RUN_NOW ) );
     assertTrue( Flags.isRunTypeValid( Flags.RUN_LATER ) );
@@ -199,7 +186,6 @@ public class FlagsTest
 
   @Test
   public void getScheduleType()
-    throws Exception
   {
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGHEST | Flags.KEEPALIVE ), Flags.KEEPALIVE );
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGH | Flags.APPLICATION_EXECUTOR ),
@@ -211,7 +197,6 @@ public class FlagsTest
 
   @Test
   public void isScheduleTypeValid()
-    throws Exception
   {
     assertTrue( Flags.isScheduleTypeValid( Flags.KEEPALIVE ) );
     assertTrue( Flags.isScheduleTypeValid( Flags.DEACTIVATE_ON_UNOBSERVE ) );

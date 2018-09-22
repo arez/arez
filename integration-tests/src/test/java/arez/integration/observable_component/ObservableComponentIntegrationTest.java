@@ -16,7 +16,6 @@ public class ObservableComponentIntegrationTest
 {
   @Test
   public void disposeNotifiesComponentObservable()
-    throws Throwable
   {
     final Model model = Model.create();
     final AtomicInteger callCount = new AtomicInteger();

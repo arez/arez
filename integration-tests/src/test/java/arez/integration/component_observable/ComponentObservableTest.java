@@ -27,7 +27,6 @@ public class ComponentObservableTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
     final ComponentObservableTest_Arez_TestComponent component = new ComponentObservableTest_Arez_TestComponent();
@@ -40,7 +39,6 @@ public class ComponentObservableTest
 
   @Test
   public void outsideTransaction()
-    throws Throwable
   {
     final ComponentObservableTest_Arez_TestComponent2 component = new ComponentObservableTest_Arez_TestComponent2();
     assertInvariant( () -> ComponentObservable.observe( component ),

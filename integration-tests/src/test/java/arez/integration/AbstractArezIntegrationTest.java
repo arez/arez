@@ -36,7 +36,6 @@ public abstract class AbstractArezIntegrationTest
 
   @BeforeMethod
   public void handleTestMethodName( Method method )
-    throws Exception
   {
     _currentMethod = method.getName();
     BrainCheckTestUtil.resetConfig( false );
@@ -64,7 +63,6 @@ public abstract class AbstractArezIntegrationTest
 
   @AfterMethod
   protected void afterTest()
-    throws Exception
   {
     BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );

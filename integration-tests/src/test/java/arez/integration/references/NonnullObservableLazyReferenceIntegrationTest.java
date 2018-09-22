@@ -25,7 +25,6 @@ public class NonnullObservableLazyReferenceIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final NonnullObservableLazyReferenceIntegrationTest_Model2Repository repository =
       NonnullObservableLazyReferenceIntegrationTest_Model2Repository.newRepository();

@@ -18,7 +18,6 @@ public class ObserverApiTest
 {
   @Test
   public void autorun()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -44,7 +43,6 @@ public class ObserverApiTest
 
   @Test
   public void autorun_noDependencies()
-    throws Exception
   {
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -55,7 +53,6 @@ public class ObserverApiTest
 
   @Test
   public void schedule_autorun_doesNotExecuteIfNotStale()
-    throws Exception
   {
     final AtomicInteger callCount = new AtomicInteger();
     final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
@@ -78,7 +75,6 @@ public class ObserverApiTest
 
   @Test
   public void reportStale_schedules_autorun()
-    throws Exception
   {
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -98,7 +94,6 @@ public class ObserverApiTest
 
   @Test
   public void schedule_onManuallyScheduled_autorun()
-    throws Exception
   {
     final AtomicInteger callCount = new AtomicInteger();
     final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
@@ -126,7 +121,6 @@ public class ObserverApiTest
 
   @Test
   public void application_executed_observer_function_with_no_dependencies_but_AREZ_DEPENDENCIES()
-    throws Throwable
   {
     final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
 
@@ -155,7 +149,6 @@ public class ObserverApiTest
 
   @Test
   public void application_executed_observer_procedure_with_no_dependencies_but_AREZ_DEPENDENCIES()
-    throws Throwable
   {
     final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
 

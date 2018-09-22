@@ -21,7 +21,6 @@ public class ObserverInfoImplTest
 {
   @Test
   public void basicOperation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -54,7 +53,6 @@ public class ObserverInfoImplTest
 
   @Test
   public void isScheduled()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -73,7 +71,6 @@ public class ObserverInfoImplTest
 
   @Test
   public void isRunning()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -98,7 +95,6 @@ public class ObserverInfoImplTest
 
   @Test
   public void isReadOnly_on_READ_WRITE_observer()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue = context.observable();
@@ -109,7 +105,6 @@ public class ObserverInfoImplTest
 
   @Test
   public void getDependencies()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -127,7 +122,6 @@ public class ObserverInfoImplTest
 
   @Test
   public void Ovserver_getDependenciesWhileRunning()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -161,7 +155,6 @@ public class ObserverInfoImplTest
 
   @Test
   public void asComputedValue()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -215,7 +208,6 @@ public class ObserverInfoImplTest
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue = context.observable();

@@ -38,7 +38,6 @@ public class RequiresNewTransactionTest
 
   @Test
   public void topLevelAction()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -78,7 +77,6 @@ public class RequiresNewTransactionTest
 
   @Test
   public void nestedAction()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -122,7 +120,6 @@ public class RequiresNewTransactionTest
 
   @Test
   public void nestedAction_in_ReadOnlyAction()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 

@@ -69,7 +69,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void isComputing()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -84,7 +83,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void getTransactionComputing()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -112,7 +110,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void getTransactionComputing_missingTracker()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -130,7 +127,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void getDependencies()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -153,7 +149,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void getDependenciesDuringComputation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -218,7 +213,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void isActive()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -234,7 +228,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void getObservers()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -287,7 +280,6 @@ public class ComputedValueInfoImplTest
 
   @Test
   public void computedValue_getValue_introspectorsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disablePropertyIntrospectors();
 
@@ -302,7 +294,6 @@ public class ComputedValueInfoImplTest
   @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final ComputedValue<Object> computedValue1 = context.computed( () -> "1" );

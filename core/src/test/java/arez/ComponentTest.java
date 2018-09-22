@@ -33,7 +33,6 @@ public class ComponentTest
 
   @Test
   public void basicOperation()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String type = ValueUtil.randomString();
@@ -50,7 +49,6 @@ public class ComponentTest
 
   @Test
   public void basicOperationIntegerId()
-    throws Exception
   {
     final Integer id = ValueUtil.randomInt();
     final Component component =
@@ -60,7 +58,6 @@ public class ComponentTest
 
   @Test
   public void noNameSuppliedWhenNamesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -81,7 +78,6 @@ public class ComponentTest
 
   @Test
   public void nameSuppliedWhenNamesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -96,7 +92,6 @@ public class ComponentTest
 
   @Test
   public void complete()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -124,7 +119,6 @@ public class ComponentTest
 
   @Test
   public void complete_generates_spyEvent()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -146,7 +140,6 @@ public class ComponentTest
 
   @Test
   public void observers()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -182,7 +175,6 @@ public class ComponentTest
 
   @Test
   public void addObserver_duplicate()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -206,7 +198,6 @@ public class ComponentTest
 
   @Test
   public void addObserver_complete()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -230,7 +221,6 @@ public class ComponentTest
 
   @Test
   public void removeObserver_noExist()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -248,7 +238,6 @@ public class ComponentTest
 
   @Test
   public void observables()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -284,7 +273,6 @@ public class ComponentTest
 
   @Test
   public void addObservable_duplicate()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -308,7 +296,6 @@ public class ComponentTest
 
   @Test
   public void addObservable_complete()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -327,7 +314,6 @@ public class ComponentTest
 
   @Test
   public void removeObservable_noExist()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -345,7 +331,6 @@ public class ComponentTest
 
   @Test
   public void computedValues()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -381,7 +366,6 @@ public class ComponentTest
 
   @Test
   public void addComputedValue_duplicate()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -405,7 +389,6 @@ public class ComponentTest
 
   @Test
   public void removeComputedValue_noExist()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -423,7 +406,6 @@ public class ComponentTest
 
   @Test
   public void dispose()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -481,7 +463,6 @@ public class ComponentTest
 
   @Test
   public void dispose_pre_and_post_hooks()
-    throws Exception
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();

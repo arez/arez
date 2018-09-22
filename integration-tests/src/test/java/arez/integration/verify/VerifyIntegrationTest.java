@@ -19,7 +19,6 @@ public class VerifyIntegrationTest
 {
   @Test
   public void verifyOnDisposeCausesException()
-    throws Throwable
   {
     final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
 
@@ -69,7 +68,6 @@ public class VerifyIntegrationTest
 
   @Test
   public void unableToLocateOther()
-    throws Throwable
   {
     final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
 
@@ -95,7 +93,6 @@ public class VerifyIntegrationTest
 
   @Test
   public void unableToLocateSelf()
-    throws Throwable
   {
     final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
 

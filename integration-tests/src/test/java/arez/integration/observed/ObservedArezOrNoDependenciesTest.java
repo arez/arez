@@ -38,7 +38,6 @@ public class ObservedArezOrNoDependenciesTest
 
   @Test
   public void scenario()
-    throws Exception
   {
     final TestComponent1 component = new ObservedArezOrNoDependenciesTest_Arez_TestComponent1();
 

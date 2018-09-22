@@ -50,7 +50,6 @@ public class ComponentObservableRepositoryTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 

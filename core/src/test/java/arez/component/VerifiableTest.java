@@ -15,7 +15,6 @@ public class VerifiableTest
 
     @Override
     public void verify()
-      throws Exception
     {
       _verified = true;
     }

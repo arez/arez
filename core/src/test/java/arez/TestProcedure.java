@@ -14,7 +14,6 @@ final class TestProcedure
 
   @Override
   public void call()
-    throws Exception
   {
     _calls.incrementAndGet();
   }

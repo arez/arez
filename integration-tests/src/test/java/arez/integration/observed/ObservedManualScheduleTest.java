@@ -47,7 +47,6 @@ public class ObservedManualScheduleTest
 
   @Test
   public void scenario()
-    throws Exception
   {
     final TestComponent1 component = new ObservedManualScheduleTest_Arez_TestComponent1();
 

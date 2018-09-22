@@ -58,7 +58,6 @@ public class ZoneTest
 
   @Test
   public void zone_run_Function_throwsException()
-    throws Throwable
   {
     ArezTestUtil.enableZones();
     ArezTestUtil.resetState();
@@ -82,7 +81,6 @@ public class ZoneTest
 
   @Test
   public void zone_run_Procedure_throwsException()
-    throws Throwable
   {
     ArezTestUtil.enableZones();
     ArezTestUtil.resetState();

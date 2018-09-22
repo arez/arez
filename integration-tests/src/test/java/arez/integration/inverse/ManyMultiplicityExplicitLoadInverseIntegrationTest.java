@@ -27,7 +27,6 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
