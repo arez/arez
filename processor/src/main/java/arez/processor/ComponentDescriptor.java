@@ -2417,6 +2417,7 @@ final class ComponentDescriptor
                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
+                    Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
                     Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
                     Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                     Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,

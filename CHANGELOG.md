@@ -7,6 +7,8 @@
 * **\[core\]** Ensure that the `apiInvariant(...)` invocation in `arez.Disposable` is guarded by an
   `Arez.shouldCheckApiInvariants()` check. This improves dead code removal in the GWT2.x compiler.
 * **\[core\]** Enhance the `@ComponentDependency` so that it can be applied to final fields.
+* **\[processor\]** Generate a compile error if the `@CascadeDispose` and any other arez annotation
+  appears on the same method.
 
 ### [v0.107](https://github.com/arez/arez/tree/v0.107) (2018-09-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.106...v0.107)
