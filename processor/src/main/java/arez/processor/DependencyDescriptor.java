@@ -7,7 +7,7 @@ import javax.lang.model.element.ExecutableElement;
 
 /**
  * Declaration of a component's dependency.
- * This dependency can be an {@link arez.annotations.Observable} or just a vanilla getter method.
+ * This dependency can be an <code>@Observable</code> method, a un-annotated getter method or a field.
  */
 final class DependencyDescriptor
 {
