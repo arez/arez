@@ -30,11 +30,11 @@ public class DisposableTest
   {
     //No exception but no action
     final Object object = new Object();
-    assertEquals( Disposable.isDisposed( object ), false );
-    assertEquals( Disposable.isNotDisposed( object ), true );
+    assertFalse( Disposable.isDisposed( object ) );
+    assertTrue( Disposable.isNotDisposed( object ) );
     Disposable.dispose( object );
-    assertEquals( Disposable.isDisposed( object ), false );
-    assertEquals( Disposable.isNotDisposed( object ), true );
+    assertFalse( Disposable.isDisposed( object ) );
+    assertTrue( Disposable.isNotDisposed( object ) );
   }
 
   @Test
@@ -42,15 +42,15 @@ public class DisposableTest
     throws Exception
   {
     final TestDisposable object = new TestDisposable();
-    assertEquals( object.isDisposed(), false );
-    assertEquals( object.isNotDisposed(), true );
-    assertEquals( Disposable.isDisposed( object ), false );
-    assertEquals( Disposable.isNotDisposed( object ), true );
+    assertFalse( object.isDisposed() );
+    assertTrue( object.isNotDisposed() );
+    assertFalse( Disposable.isDisposed( object ) );
+    assertTrue( Disposable.isNotDisposed( object ) );
     Disposable.dispose( object );
-    assertEquals( object.isDisposed(), true );
-    assertEquals( object.isNotDisposed(), false );
-    assertEquals( Disposable.isDisposed( object ), true );
-    assertEquals( Disposable.isNotDisposed( object ), false );
+    assertTrue( object.isDisposed() );
+    assertFalse( object.isNotDisposed() );
+    assertTrue( Disposable.isDisposed( object ) );
+    assertFalse( Disposable.isNotDisposed( object ) );
   }
 
   @Test

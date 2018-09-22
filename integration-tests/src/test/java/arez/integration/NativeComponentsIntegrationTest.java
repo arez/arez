@@ -60,7 +60,7 @@ public class NativeComponentsIntegrationTest
     assertEquals( info.getComputedValues().get( 0 ).getName(), computedValue1.getName() );
 
     assertEquals( context.getSpy().findAllComponentTypes().size(), 1 );
-    assertEquals( context.getSpy().findAllComponentTypes().contains( type ), true );
+    assertTrue( context.getSpy().findAllComponentTypes().contains( type ) );
 
     assertEquals( context.getSpy().findAllComponentsByType( type ).size(), 1 );
     assertEquals( context.getSpy().findAllComponentsByType( type ).iterator().next().getName(), component.getName() );

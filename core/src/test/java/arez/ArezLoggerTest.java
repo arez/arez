@@ -22,7 +22,7 @@ public class ArezLoggerTest
     assertEquals( entries.size(), 2 );
     final TestLogger.LogEntry entry1 = entries.get( 0 );
     assertEquals( entry1.getMessage(), message1 );
-    assertEquals( entry1.getThrowable(), null );
+    assertNull( entry1.getThrowable() );
     final TestLogger.LogEntry entry2 = entries.get( 1 );
     assertEquals( entry2.getMessage(), message2 );
     assertEquals( entry2.getThrowable(), throwable );

@@ -28,7 +28,7 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
     assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
 
     final HashSet<String> value = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
 
@@ -41,7 +41,7 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
   }
 
   @Test
@@ -53,7 +53,7 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
     assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
 
     final HashSet<String> value = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
 
@@ -65,7 +65,7 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
+    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator )

@@ -66,19 +66,19 @@ public class ComponentInfoImplTest
     final ComponentInfo info2 = component2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
-    assertEquals( info1a.equals( "" ), false );
+    assertFalse( info1a.equals( "" ) );
 
-    assertEquals( info1a.equals( info1a ), true );
-    assertEquals( info1a.equals( info1b ), true );
-    assertEquals( info1a.equals( info2 ), false );
+    assertTrue( info1a.equals( info1a ) );
+    assertTrue( info1a.equals( info1b ) );
+    assertFalse( info1a.equals( info2 ) );
 
-    assertEquals( info1b.equals( info1a ), true );
-    assertEquals( info1b.equals( info1b ), true );
-    assertEquals( info1b.equals( info2 ), false );
+    assertTrue( info1b.equals( info1a ) );
+    assertTrue( info1b.equals( info1b ) );
+    assertFalse( info1b.equals( info2 ) );
 
-    assertEquals( info2.equals( info1a ), false );
-    assertEquals( info2.equals( info1b ), false );
-    assertEquals( info2.equals( info2 ), true );
+    assertFalse( info2.equals( info1a ) );
+    assertFalse( info2.equals( info1b ) );
+    assertTrue( info2.equals( info2 ) );
 
     assertEquals( info1a.hashCode(), component1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );

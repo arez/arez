@@ -39,12 +39,12 @@ public class ComputedValueInfoImplTest
 
     final ComputedValueInfo info = computedValue.asInfo();
 
-    assertEquals( info.getComponent(), null );
+    assertNull( info.getComponent() );
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
-    assertEquals( info.isActive(), true );
-    assertEquals( info.isComputing(), false );
+    assertTrue( info.isActive() );
+    assertFalse( info.isComputing() );
     assertEquals( info.getPriority(), Priority.NORMAL );
 
     assertEquals( info.getObservers().size(), 1 );
@@ -57,14 +57,14 @@ public class ComputedValueInfoImplTest
 
     assertEquals( info.getValue(), initialValue );
 
-    assertEquals( info.isDisposed(), false );
+    assertFalse( info.isDisposed() );
 
     // Dispose observer so it does not access computedValue after it is disposed
     observer.dispose();
 
     computedValue.dispose();
 
-    assertEquals( info.isDisposed(), true );
+    assertTrue( info.isDisposed() );
   }
 
   @Test
@@ -77,9 +77,9 @@ public class ComputedValueInfoImplTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
 
-    assertEquals( spy.asComputedValueInfo( computedValue ).isComputing(), false );
+    assertFalse( spy.asComputedValueInfo( computedValue ).isComputing() );
     computedValue.setComputing( true );
-    assertEquals( spy.asComputedValueInfo( computedValue ).isComputing(), true );
+    assertTrue( spy.asComputedValueInfo( computedValue ).isComputing() );
   }
 
   @Test
@@ -180,8 +180,8 @@ public class ComputedValueInfoImplTest
     final List<String> dependencies = info.getDependencies().stream().
       map( ElementInfo::getName ).collect( Collectors.toList() );
     assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observableValue2.getName() ), true );
-    assertEquals( dependencies.contains( observableValue3.getName() ), true );
+    assertTrue( dependencies.contains( observableValue2.getName() ) );
+    assertTrue( dependencies.contains( observableValue3.getName() ) );
 
     assertUnmodifiable( info.getDependencies() );
   }
@@ -200,7 +200,7 @@ public class ComputedValueInfoImplTest
     final ComponentInfo info = computedValue1.asInfo().getComponent();
     assertNotNull( info );
     assertEquals( info.getName(), component.getName() );
-    assertEquals( computedValue2.asInfo().getComponent(), null );
+    assertNull( computedValue2.asInfo().getComponent() );
   }
 
   @Test
@@ -226,10 +226,10 @@ public class ComputedValueInfoImplTest
 
     final ComputedValue<String> computedValue = context.computed( () -> "" );
 
-    assertEquals( spy.asComputedValueInfo( computedValue ).isActive(), false );
+    assertFalse( spy.asComputedValueInfo( computedValue ).isActive() );
     setupReadOnlyTransaction( context );
     computedValue.getObserver().setState( Flags.STATE_UP_TO_DATE );
-    assertEquals( spy.asComputedValueInfo( computedValue ).isActive(), true );
+    assertTrue( spy.asComputedValueInfo( computedValue ).isActive() );
   }
 
   @Test
@@ -266,7 +266,7 @@ public class ComputedValueInfoImplTest
       return "42";
     } );
 
-    assertEquals( computedValue1.asInfo().getValue(), null );
+    assertNull( computedValue1.asInfo().getValue() );
   }
 
   @Test
@@ -313,19 +313,19 @@ public class ComputedValueInfoImplTest
     final ComputedValueInfo info2 = computedValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
-    assertEquals( info1a.equals( "" ), false );
+    assertFalse( info1a.equals( "" ) );
 
-    assertEquals( info1a.equals( info1a ), true );
-    assertEquals( info1a.equals( info1b ), true );
-    assertEquals( info1a.equals( info2 ), false );
+    assertTrue( info1a.equals( info1a ) );
+    assertTrue( info1a.equals( info1b ) );
+    assertFalse( info1a.equals( info2 ) );
 
-    assertEquals( info1b.equals( info1a ), true );
-    assertEquals( info1b.equals( info1b ), true );
-    assertEquals( info1b.equals( info2 ), false );
+    assertTrue( info1b.equals( info1a ) );
+    assertTrue( info1b.equals( info1b ) );
+    assertFalse( info1b.equals( info2 ) );
 
-    assertEquals( info2.equals( info1a ), false );
-    assertEquals( info2.equals( info1b ), false );
-    assertEquals( info2.equals( info2 ), true );
+    assertFalse( info2.equals( info1a ) );
+    assertFalse( info2.equals( info1b ) );
+    assertTrue( info2.equals( info2 ) );
 
     assertEquals( info1a.hashCode(), computedValue1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );

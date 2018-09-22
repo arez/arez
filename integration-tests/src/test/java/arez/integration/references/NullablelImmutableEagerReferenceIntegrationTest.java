@@ -58,7 +58,7 @@ public class NullablelImmutableEagerReferenceIntegrationTest
     final Model1 model1b = Model1.create( null );
     assertEquals( findCallCount.get(), 0 );
 
-    assertEquals( model1b.getModel2(), null );
+    assertNull( model1b.getModel2() );
 
     assertEquals( findCallCount.get(), 0 );
   }

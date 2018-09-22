@@ -58,7 +58,7 @@ public class DisposeManyInverseIntegrationTest
 
     safeAction( () -> assertEquals( wheel1.getCar(), car ) );
     safeAction( () -> assertEquals( car.getWheels().size(), 1 ) );
-    safeAction( () -> assertEquals( car.getWheels().contains( wheel1 ), true ) );
+    safeAction( () -> assertTrue( car.getWheels().contains( wheel1 ) ) );
 
     assertEquals( wheel1GetCarCallCount.get(), 1 );
     assertEquals( locatorLookupCallCount.get(), 1 );
@@ -68,7 +68,7 @@ public class DisposeManyInverseIntegrationTest
 
     Disposable.dispose( car );
 
-    assertEquals( Disposable.isDisposed( car ), true );
+    assertTrue( Disposable.isDisposed( car ) );
 
     assertInvariantFailure( () -> safeAction( wheel1::getCar ),
                             "Nonnull reference method named 'getCar' invoked on component named 'Wheel.0' but reference has not been resolved yet is not lazy. Id = 0" );
@@ -79,7 +79,7 @@ public class DisposeManyInverseIntegrationTest
 
     Disposable.dispose( wheel1 );
 
-    assertEquals( Disposable.isDisposed( wheel1 ), true );
+    assertTrue( Disposable.isDisposed( wheel1 ) );
   }
 
   @Nonnull

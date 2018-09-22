@@ -26,9 +26,9 @@ public class VerifiableTest
     throws Exception
   {
     final TestElement element = new TestElement();
-    assertEquals( element._verified, false );
+    assertFalse( element._verified );
     Verifiable.verify( element );
-    assertEquals( element._verified, true );
+    assertTrue( element._verified );
   }
 
   @Test
@@ -37,9 +37,9 @@ public class VerifiableTest
   {
     ArezTestUtil.disableVerify();
     final TestElement element = new TestElement();
-    assertEquals( element._verified, false );
+    assertFalse( element._verified );
     Verifiable.verify( element );
-    assertEquals( element._verified, false );
+    assertFalse( element._verified );
   }
 
   @Test

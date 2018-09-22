@@ -61,7 +61,7 @@ public class DisposeZeroOrOneInverseIntegrationTest
 
     safeAction( () -> assertEquals( wheel1.getCar(), car ) );
     safeAction( () -> assertEquals( car.getWheel(), wheel1 ) );
-    safeAction( () -> assertEquals( car2.getWheel(), null ) );
+    safeAction( () -> assertNull( car2.getWheel() ) );
 
     assertEquals( wheel1GetCarCallCount.get(), 1 );
     assertEquals( locatorLookupCallCount.get(), 1 );
@@ -69,7 +69,7 @@ public class DisposeZeroOrOneInverseIntegrationTest
     safeAction( () -> wheel1.setCarId( car2Id ) );
 
     safeAction( () -> assertEquals( wheel1.getCar(), car2 ) );
-    safeAction( () -> assertEquals( car.getWheel(), null ) );
+    safeAction( () -> assertNull( car.getWheel() ) );
     safeAction( () -> assertEquals( car2.getWheel(), wheel1 ) );
 
     assertEquals( wheel1GetCarCallCount.get(), 2 );
@@ -80,11 +80,11 @@ public class DisposeZeroOrOneInverseIntegrationTest
 
     Disposable.dispose( car );
 
-    assertEquals( Disposable.isDisposed( car ), true );
+    assertTrue( Disposable.isDisposed( car ) );
 
     Disposable.dispose( car2 );
 
-    assertEquals( Disposable.isDisposed( car2 ), true );
+    assertTrue( Disposable.isDisposed( car2 ) );
 
     assertInvariantFailure( () -> safeAction( wheel1::getCar ),
                             "Nonnull reference method named 'getCar' invoked on component named 'Wheel.0' but reference has not been resolved yet is not lazy. Id = 1" );
@@ -95,7 +95,7 @@ public class DisposeZeroOrOneInverseIntegrationTest
 
     Disposable.dispose( wheel1 );
 
-    assertEquals( Disposable.isDisposed( wheel1 ), true );
+    assertTrue( Disposable.isDisposed( wheel1 ) );
   }
 
   @Nonnull

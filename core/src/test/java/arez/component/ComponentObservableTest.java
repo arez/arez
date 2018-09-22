@@ -27,8 +27,8 @@ public class ComponentObservableTest
   @Test
   public void observe()
   {
-    assertEquals( ComponentObservable.observe( new TestElement( true ) ), true );
-    assertEquals( ComponentObservable.observe( new TestElement( false ) ), false );
+    assertTrue( ComponentObservable.observe( new TestElement( true ) ) );
+    assertFalse( ComponentObservable.observe( new TestElement( false ) ) );
   }
 
   @Test
@@ -43,8 +43,8 @@ public class ComponentObservableTest
   @Test
   public void notObserved()
   {
-    assertEquals( ComponentObservable.notObserved( new TestElement( true ) ), false );
-    assertEquals( ComponentObservable.notObserved( new TestElement( false ) ), true );
+    assertFalse( ComponentObservable.notObserved( new TestElement( true ) ) );
+    assertTrue( ComponentObservable.notObserved( new TestElement( false ) ) );
   }
 
   @Test

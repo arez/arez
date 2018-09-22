@@ -15,16 +15,16 @@ public class SchedulerLockTest
 
     final SchedulerLock lock = new SchedulerLock( context );
 
-    assertEquals( lock.isDisposed(), false );
+    assertFalse( lock.isDisposed() );
 
     lock.dispose();
 
-    assertEquals( lock.isDisposed(), true );
+    assertTrue( lock.isDisposed() );
     assertEquals( context.getSchedulerLockCount(), 1 );
 
     lock.dispose();
 
-    assertEquals( lock.isDisposed(), true );
+    assertTrue( lock.isDisposed() );
     assertEquals( context.getSchedulerLockCount(), 1 );
   }
 

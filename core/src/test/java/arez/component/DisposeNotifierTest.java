@@ -15,7 +15,7 @@ public class DisposeNotifierTest
     final DisposeNotifier notifier = new DisposeNotifier();
 
     assertEquals( notifier.getListeners().size(), 0 );
-    assertEquals( notifier.isDisposed(), false );
+    assertFalse( notifier.isDisposed() );
   }
 
   @Test
@@ -171,9 +171,9 @@ public class DisposeNotifierTest
     assertEquals( callCount2.get(), 0 );
     assertEquals( callCount3.get(), 0 );
 
-    assertEquals( notifier.isDisposed(), false );
+    assertFalse( notifier.isDisposed() );
     notifier.dispose();
-    assertEquals( notifier.isDisposed(), true );
+    assertTrue( notifier.isDisposed() );
 
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount2.get(), 0 );

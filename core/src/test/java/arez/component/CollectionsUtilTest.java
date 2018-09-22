@@ -26,7 +26,7 @@ public class CollectionsUtilTest
     input.add( entity );
     final List<MyEntity> output = CollectionsUtil.wrap( input );
 
-    assertFalse( output == input );
+    assertNotSame( output, input );
 
     assertUnmodifiable( output, MyEntity::new );
 
@@ -79,7 +79,7 @@ public class CollectionsUtilTest
     ArezTestUtil.makeCollectionPropertiesModifiable();
     final Map<String, MyEntity> output = CollectionsUtil.wrap( input );
 
-    assertTrue( output == input );
+    assertSame( output, input );
 
     assertEquals( output.size(), 1 );
     assertEquals( output.values().iterator().next(), entity );
@@ -89,7 +89,7 @@ public class CollectionsUtilTest
                                                   @Nonnull final MyEntity entity,
                                                   @Nonnull final Collection<MyEntity> output )
   {
-    assertTrue( output == input );
+    assertSame( output, input );
 
     assertEquals( output.size(), 1 );
     assertEquals( output.iterator().next(), entity );

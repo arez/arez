@@ -49,7 +49,7 @@ public class SpyImplTest
     assertTrue( spy.willPropagateSpyEvents() );
 
     assertEquals( spy.getSpyEventHandlers().size(), 1 );
-    assertEquals( spy.getSpyEventHandlers().contains( handler ), true );
+    assertTrue( spy.getSpyEventHandlers().contains( handler ) );
 
     assertEquals( callCount.get(), 0 );
 
@@ -187,11 +187,11 @@ public class SpyImplTest
 
     final Spy spy = context.getSpy();
 
-    assertEquals( spy.isTransactionActive(), false );
+    assertFalse( spy.isTransactionActive() );
 
     setupReadOnlyTransaction( context );
 
-    assertEquals( spy.isTransactionActive(), true );
+    assertTrue( spy.isTransactionActive() );
   }
 
   @Test
@@ -235,18 +235,18 @@ public class SpyImplTest
     final Component component = context.component( type, id1, ValueUtil.randomString() );
 
     assertEquals( spy.findAllComponentTypes().size(), 1 );
-    assertEquals( spy.findAllComponentTypes().contains( type ), true );
+    assertTrue( spy.findAllComponentTypes().contains( type ) );
 
     assertEquals( spy.findAllComponentsByType( ValueUtil.randomString() ).size(), 0 );
 
     final Collection<ComponentInfo> componentsByType1 = spy.findAllComponentsByType( type );
     assertEquals( componentsByType1.size(), 1 );
-    assertEquals( componentsByType1.stream().anyMatch( c -> c.getName().equals( component.getName() ) ), true );
+    assertTrue( componentsByType1.stream().anyMatch( c -> c.getName().equals( component.getName() ) ) );
 
     final Component component2 = context.component( type, id2, ValueUtil.randomString() );
 
     assertEquals( spy.findAllComponentTypes().size(), 1 );
-    assertEquals( spy.findAllComponentTypes().contains( type ), true );
+    assertTrue( spy.findAllComponentTypes().contains( type ) );
     assertUnmodifiable( spy.findAllComponentTypes() );
 
     assertEquals( spy.findAllComponentsByType( ValueUtil.randomString() ).size(), 0 );
@@ -254,8 +254,8 @@ public class SpyImplTest
     final Collection<ComponentInfo> componentsByType2 = spy.findAllComponentsByType( type );
     assertUnmodifiable( componentsByType2 );
     assertEquals( componentsByType2.size(), 2 );
-    assertEquals( componentsByType2.stream().anyMatch( c -> c.getName().equals( component.getName() ) ), true );
-    assertEquals( componentsByType2.stream().anyMatch( c -> c.getName().equals( component2.getName() ) ), true );
+    assertTrue( componentsByType2.stream().anyMatch( c -> c.getName().equals( component.getName() ) ) );
+    assertTrue( componentsByType2.stream().anyMatch( c -> c.getName().equals( component2.getName() ) ) );
 
     final ComponentInfo info1 = spy.findComponent( type, id1 );
     final ComponentInfo info2 = spy.findComponent( type, id2 );
@@ -263,8 +263,8 @@ public class SpyImplTest
     assertNotNull( info2 );
     assertEquals( info1.getName(), component.getName() );
     assertEquals( info2.getName(), component2.getName() );
-    assertEquals( spy.findComponent( type, ValueUtil.randomString() ), null );
-    assertEquals( spy.findComponent( ValueUtil.randomString(), id2 ), null );
+    assertNull( spy.findComponent( type, ValueUtil.randomString() ) );
+    assertNull( spy.findComponent( ValueUtil.randomString(), id2 ) );
   }
 
   @Test

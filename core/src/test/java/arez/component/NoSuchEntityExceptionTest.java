@@ -14,7 +14,7 @@ public class NoSuchEntityExceptionTest
     final NoSuchEntityException exception = new NoSuchEntityException( 23 );
 
     assertEquals( exception.getId(), 23 );
-    assertEquals( exception.getMessage(), null );
+    assertNull( exception.getMessage() );
     assertEquals( exception.toString(), "NoSuchEntityException[id=23]" );
   }
 

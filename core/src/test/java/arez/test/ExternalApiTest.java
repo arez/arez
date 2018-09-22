@@ -144,9 +144,9 @@ public class ExternalApiTest
     context.action( () -> {
       assertEquals( computedValue.getName(), name );
       assertEquals( computedValue.get(), "" );
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isReadWriteTransactionActive(), true );
-      assertEquals( context.isTrackingTransactionActive(), false );
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isReadWriteTransactionActive() );
+      assertFalse( context.isTrackingTransactionActive() );
 
       computedValue.dispose();
 
@@ -181,10 +181,10 @@ public class ExternalApiTest
       autorunCallCount.incrementAndGet();
       assertEquals( computedValue.get(), expected.get() );
 
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isReadOnlyTransactionActive(), true );
-      assertEquals( context.isReadWriteTransactionActive(), false );
-      assertEquals( context.isTrackingTransactionActive(), true );
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isReadOnlyTransactionActive() );
+      assertFalse( context.isReadWriteTransactionActive() );
+      assertTrue( context.isTrackingTransactionActive() );
     } );
 
     assertEquals( autorunCallCount.get(), 1 );
@@ -272,23 +272,23 @@ public class ExternalApiTest
       context.observer( () -> {
         observableValue.reportObserved();
         reactionCount.incrementAndGet();
-        assertEquals( context.isTransactionActive(), true );
-        assertEquals( context.isReadWriteTransactionActive(), false );
-        assertEquals( context.isTrackingTransactionActive(), true );
+        assertTrue( context.isTransactionActive() );
+        assertFalse( context.isReadWriteTransactionActive() );
+        assertTrue( context.isTrackingTransactionActive() );
       } );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
 
     context.safeAction( () -> {
       observableValue.reportChanged();
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isReadWriteTransactionActive(), true );
-      assertEquals( context.isTrackingTransactionActive(), false );
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isReadWriteTransactionActive() );
+      assertFalse( context.isTrackingTransactionActive() );
     } );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
   }
 
   @Test
@@ -308,13 +308,13 @@ public class ExternalApiTest
       } );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
 
     // Run an "action"
     context.action( observableValue::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
   }
 
   @Test
@@ -336,19 +336,19 @@ public class ExternalApiTest
         observableValue2.reportObserved();
         observableValue3.reportObserved();
         reactionCount.incrementAndGet();
-        assertEquals( context.isTransactionActive(), true );
-        assertEquals( context.isReadWriteTransactionActive(), false );
-        assertEquals( context.isTrackingTransactionActive(), true );
+        assertTrue( context.isTransactionActive() );
+        assertFalse( context.isReadWriteTransactionActive() );
+        assertTrue( context.isTrackingTransactionActive() );
       } );
 
     assertEquals( reactionCount.get(), 1 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
 
     // Run an "action"
     context.action( observableValue1::reportChanged );
 
     assertEquals( reactionCount.get(), 2 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
 
     // Update observer1+observer2 in transaction
     context.action( () -> {
@@ -357,7 +357,7 @@ public class ExternalApiTest
     } );
 
     assertEquals( reactionCount.get(), 3 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
 
     context.action( () -> {
       observableValue3.reportChanged();
@@ -365,13 +365,13 @@ public class ExternalApiTest
     } );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
 
     // observableValue4 should not cause a reaction as not observed
     context.action( observableValue4::reportChanged );
 
     assertEquals( reactionCount.get(), 4 );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
   }
 
   @Test
@@ -576,7 +576,7 @@ public class ExternalApiTest
     final ArezContext context = Arez.context();
 
     final Disposable lock1 = context.pauseScheduler();
-    assertEquals( context.isSchedulerPaused(), true );
+    assertTrue( context.isSchedulerPaused() );
 
     final AtomicInteger callCount = new AtomicInteger();
 
@@ -593,7 +593,7 @@ public class ExternalApiTest
 
     lock2.dispose();
 
-    assertEquals( context.isSchedulerPaused(), true );
+    assertTrue( context.isSchedulerPaused() );
 
     // Already disposed so this is a noop
     lock2.dispose();
@@ -603,7 +603,7 @@ public class ExternalApiTest
     lock1.dispose();
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( context.isSchedulerPaused(), false );
+    assertFalse( context.isSchedulerPaused() );
   }
 
   @Test
@@ -651,7 +651,7 @@ public class ExternalApiTest
    */
   private void assertInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue observableValue )
   {
-    assertEquals( context.isTransactionActive(), true );
+    assertTrue( context.isTransactionActive() );
     observableValue.reportObserved();
   }
 
@@ -661,7 +661,7 @@ public class ExternalApiTest
   private void assertNotInTransaction( @Nonnull final ArezContext context,
                                        @Nonnull final ObservableValue observableValue )
   {
-    assertEquals( context.isTransactionActive(), false );
+    assertFalse( context.isTransactionActive() );
     assertThrows( observableValue::reportObserved );
   }
 }

@@ -69,7 +69,7 @@ public class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest
 
     safeAction( () -> assertEquals( certificate1.getPerson(), person ) );
     safeAction( () -> assertEquals( person.getCertificate(), certificate1 ) );
-    safeAction( () -> assertEquals( person2.getCertificate(), null ) );
+    safeAction( () -> assertNull( person2.getCertificate() ) );
 
     assertEquals( certificate1GetPersonCallCount.get(), 1 );
     assertEquals( locatorLookupCallCount.get(), 1 );
@@ -81,7 +81,7 @@ public class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest
     } );
 
     safeAction( () -> assertEquals( certificate1.getPerson(), person2 ) );
-    safeAction( () -> assertEquals( person.getCertificate(), null ) );
+    safeAction( () -> assertNull( person.getCertificate() ) );
     safeAction( () -> assertEquals( person2.getCertificate(), certificate1 ) );
 
     assertEquals( inverseCallCount.get(), 3 );
@@ -93,9 +93,9 @@ public class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest
 
     Disposable.dispose( certificate1 );
 
-    assertEquals( Disposable.isDisposed( certificate1 ), true );
-    safeAction( () -> assertEquals( person.getCertificate(), null ) );
-    safeAction( () -> assertEquals( person2.getCertificate(), null ) );
+    assertTrue( Disposable.isDisposed( certificate1 ) );
+    safeAction( () -> assertNull( person.getCertificate() ) );
+    safeAction( () -> assertNull( person2.getCertificate() ) );
 
     assertEquals( certificate1GetPersonCallCount.get(), 2 );
     assertEquals( locatorLookupCallCount.get(), 2 );

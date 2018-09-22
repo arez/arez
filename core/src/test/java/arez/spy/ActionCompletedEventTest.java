@@ -39,7 +39,7 @@ public class ActionCompletedEventTest
     assertEquals( data.get( "parameters" ), parameters );
     assertEquals( data.get( "duration" ), duration );
     assertEquals( data.get( "normalCompletion" ), true );
-    assertEquals( data.get( "errorMessage" ), null );
+    assertNull( data.get( "errorMessage" ) );
     assertEquals( data.get( "returnsResult" ), true );
     assertEquals( data.get( "result" ), result );
     assertEquals( data.size(), 9 );
@@ -77,7 +77,7 @@ public class ActionCompletedEventTest
     assertEquals( data.get( "normalCompletion" ), false );
     assertEquals( data.get( "errorMessage" ), "X" );
     assertEquals( data.get( "returnsResult" ), true );
-    assertEquals( data.get( "result" ), null );
+    assertNull( data.get( "result" ) );
     assertEquals( data.size(), 9 );
   }
 }

@@ -24,29 +24,29 @@ public class ComplexComponentDependencyIntegrationTest
     final Model1 model1a4 = Model1.create( "Model1A4" );
     final Model2 model2a = Model2.create( model1a1, model1a2, model1a3, model1a4 );
 
-    assertEquals( Disposable.isDisposed( model1a1 ), false );
-    assertEquals( Disposable.isDisposed( model1a2 ), false );
-    assertEquals( Disposable.isDisposed( model1a3 ), false );
-    assertEquals( Disposable.isDisposed( model1a4 ), false );
-    assertEquals( Disposable.isDisposed( model2a ), false );
+    assertFalse( Disposable.isDisposed( model1a1 ) );
+    assertFalse( Disposable.isDisposed( model1a2 ) );
+    assertFalse( Disposable.isDisposed( model1a3 ) );
+    assertFalse( Disposable.isDisposed( model1a4 ) );
+    assertFalse( Disposable.isDisposed( model2a ) );
 
     assertNotNull( safeAction( model2a::getReference1 ) );
     Disposable.dispose( model1a1 );
     assertNull( safeAction( model2a::getReference1 ) );
 
-    assertEquals( Disposable.isDisposed( model1a1 ), true );
-    assertEquals( Disposable.isDisposed( model1a2 ), false );
-    assertEquals( Disposable.isDisposed( model1a3 ), false );
-    assertEquals( Disposable.isDisposed( model1a4 ), false );
-    assertEquals( Disposable.isDisposed( model2a ), false );
+    assertTrue( Disposable.isDisposed( model1a1 ) );
+    assertFalse( Disposable.isDisposed( model1a2 ) );
+    assertFalse( Disposable.isDisposed( model1a3 ) );
+    assertFalse( Disposable.isDisposed( model1a4 ) );
+    assertFalse( Disposable.isDisposed( model2a ) );
 
     Disposable.dispose( model1a3 );
 
-    assertEquals( Disposable.isDisposed( model1a1 ), true );
-    assertEquals( Disposable.isDisposed( model1a2 ), false );
-    assertEquals( Disposable.isDisposed( model1a3 ), true );
-    assertEquals( Disposable.isDisposed( model1a4 ), false );
-    assertEquals( Disposable.isDisposed( model2a ), true );
+    assertTrue( Disposable.isDisposed( model1a1 ) );
+    assertFalse( Disposable.isDisposed( model1a2 ) );
+    assertTrue( Disposable.isDisposed( model1a3 ) );
+    assertFalse( Disposable.isDisposed( model1a4 ) );
+    assertTrue( Disposable.isDisposed( model2a ) );
 
     assertMatchesFixture( recorder );
   }

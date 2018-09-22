@@ -18,13 +18,13 @@ public class ZoneTest
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
-    assertEquals( zone1.isActive(), false );
+    assertFalse( zone1.isActive() );
 
     final String expected = ValueUtil.randomString();
     final String actual = zone1.safeRun( () -> {
       assertEquals( zone1.getContext(), Arez.context() );
       assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
-      assertEquals( zone1.isActive(), true );
+      assertTrue( zone1.isActive() );
       return expected;
     } );
 
@@ -44,12 +44,12 @@ public class ZoneTest
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
-    assertEquals( zone1.isActive(), false );
+    assertFalse( zone1.isActive() );
 
     zone1.safeRun( () -> {
       assertEquals( zone1.getContext(), Arez.context() );
       assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
-      assertEquals( zone1.isActive(), true );
+      assertTrue( zone1.isActive() );
     } );
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
@@ -67,12 +67,12 @@ public class ZoneTest
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
-    assertEquals( zone1.isActive(), false );
+    assertFalse( zone1.isActive() );
 
     assertThrows( ParseException.class, () -> zone1.run( () -> {
       assertEquals( zone1.getContext(), Arez.context() );
       assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
-      assertEquals( zone1.isActive(), true );
+      assertTrue( zone1.isActive() );
       throw new ParseException( "", 1 );
     } ) );
 
@@ -91,12 +91,12 @@ public class ZoneTest
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
-    assertEquals( zone1.isActive(), false );
+    assertFalse( zone1.isActive() );
 
     final Procedure procedure = () -> {
       assertEquals( zone1.getContext(), Arez.context() );
       assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
-      assertEquals( zone1.isActive(), true );
+      assertTrue( zone1.isActive() );
       throw new ParseException( "", 1 );
     };
     assertThrows( ParseException.class, () -> zone1.run( procedure ) );
@@ -116,12 +116,12 @@ public class ZoneTest
 
     assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
     assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
-    assertEquals( zone1.isActive(), false );
+    assertFalse( zone1.isActive() );
 
     final Procedure procedure = () -> {
       assertEquals( zone1.getContext(), Arez.context() );
       assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
-      assertEquals( zone1.isActive(), true );
+      assertTrue( zone1.isActive() );
     };
     zone1.run( procedure );
 

@@ -28,18 +28,18 @@ public class ObserverApiTest
     final Observer observer = context.observer( name, () -> {
       observeADependency();
       callCount.incrementAndGet();
-      assertEquals( context.isTransactionActive(), true );
-      assertEquals( context.isReadWriteTransactionActive(), false );
-      assertEquals( context.isTrackingTransactionActive(), true );
+      assertTrue( context.isTransactionActive() );
+      assertFalse( context.isReadWriteTransactionActive() );
+      assertTrue( context.isTrackingTransactionActive() );
     } );
 
     assertEquals( observer.getName(), name );
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), true );
+    assertTrue( context.getSpy().asObserverInfo( observer ).isActive() );
     assertEquals( callCount.get(), 1 );
 
     observer.dispose();
 
-    assertEquals( context.getSpy().asObserverInfo( observer ).isActive(), false );
+    assertFalse( context.getSpy().asObserverInfo( observer ).isActive() );
   }
 
   @Test

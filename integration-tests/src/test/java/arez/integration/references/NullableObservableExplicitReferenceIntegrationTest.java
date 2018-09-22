@@ -49,7 +49,7 @@ public class NullableObservableExplicitReferenceIntegrationTest
     final Model1 model1 = Model1.create( null );
     assertEquals( findCallCount.get(), 0 );
 
-    safeAction( () -> assertEquals( model1.getModel2(), null ) );
+    safeAction( () -> assertNull( model1.getModel2() ) );
 
     assertEquals( findCallCount.get(), 0 );
 
@@ -78,7 +78,7 @@ public class NullableObservableExplicitReferenceIntegrationTest
     assertEquals( observerCallCount.get(), 3 );
     assertEquals( findCallCount.get(), 1 );
 
-    safeAction( () -> assertEquals( model1.getModel2(), null ) );
+    safeAction( () -> assertNull( model1.getModel2() ) );
 
     // Dispose to avoid error
     observer.dispose();

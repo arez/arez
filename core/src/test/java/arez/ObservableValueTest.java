@@ -35,23 +35,23 @@ public class ObservableValueTest
     assertEquals( observableValue.getName(), name );
     assertEquals( observableValue.getContext(), context );
     assertEquals( observableValue.toString(), name );
-    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
-    assertEquals( observableValue.getComponent(), null );
+    assertFalse( observableValue.hasObservers() );
+    assertNull( observableValue.getComponent() );
 
     //All the same stuff
     assertEquals( observableValue.getLastTrackerTransactionId(), 0 );
     assertEquals( observableValue.getWorkState(), 0 );
-    assertEquals( observableValue.isInCurrentTracking(), false );
+    assertFalse( observableValue.isInCurrentTracking() );
 
     // Fields for calculated observables in this non-calculated variant
-    assertEquals( observableValue.isComputedValue(), false );
-    assertEquals( observableValue.canDeactivate(), false );
+    assertFalse( observableValue.isComputedValue() );
+    assertFalse( observableValue.canDeactivate() );
 
-    assertEquals( observableValue.isComputedValue(), false );
+    assertFalse( observableValue.isComputedValue() );
 
-    assertEquals( observableValue.isActive(), true );
+    assertTrue( observableValue.isActive() );
 
     assertEquals( observableValue.getAccessor(), accessor );
     assertEquals( observableValue.getMutator(), mutator );
@@ -74,12 +74,12 @@ public class ObservableValueTest
     observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observableValue.getObserver(), observer );
-    assertEquals( observableValue.getComponent(), null );
-    assertEquals( observableValue.canDeactivate(), true );
+    assertNull( observableValue.getComponent() );
+    assertTrue( observableValue.canDeactivate() );
 
-    assertEquals( observableValue.isComputedValue(), true );
+    assertTrue( observableValue.isComputedValue() );
 
-    assertEquals( observableValue.isActive(), true );
+    assertTrue( observableValue.isActive() );
 
     assertNotNull( observableValue.getAccessor() );
     assertNull( observableValue.getMutator() );
@@ -209,7 +209,7 @@ public class ObservableValueTest
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
-    assertEquals( observableValue.isDisposed(), false );
+    assertFalse( observableValue.isDisposed() );
 
     // Reset transaction before calling dispose
     Transaction.setTransaction( null );
@@ -223,7 +223,7 @@ public class ObservableValueTest
     // Multiple transactions created. 1 for dispose operation and one for reaction
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 2 );
 
-    assertEquals( observableValue.isDisposed(), true );
+    assertTrue( observableValue.isDisposed() );
     assertEquals( observableValue.getWorkState(), ObservableValue.DISPOSED );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
@@ -240,7 +240,7 @@ public class ObservableValueTest
 
     final Observer observer = context.observer( observableValue::reportObserved );
 
-    assertEquals( observableValue.isDisposed(), false );
+    assertFalse( observableValue.isDisposed() );
 
     // Need to pause schedule so that observer reaction does not pollute the spy events
     context.pauseScheduler();
@@ -250,7 +250,7 @@ public class ObservableValueTest
 
     observableValue.dispose();
 
-    assertEquals( observableValue.isDisposed(), true );
+    assertTrue( observableValue.isDisposed() );
 
     handler.assertEventCount( 7 );
 
@@ -288,7 +288,7 @@ public class ObservableValueTest
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
-    assertEquals( observableValue.isDisposed(), false );
+    assertFalse( observableValue.isDisposed() );
 
     Transaction.setTransaction( null );
 
@@ -300,7 +300,7 @@ public class ObservableValueTest
 
     observableValue.dispose();
 
-    assertEquals( observableValue.isDisposed(), true );
+    assertTrue( observableValue.isDisposed() );
 
     handler.assertEventCount( 15 );
 
@@ -346,7 +346,7 @@ public class ObservableValueTest
 
     Transaction.setTransaction( null );
 
-    assertEquals( observableValue.isDisposed(), false );
+    assertFalse( observableValue.isDisposed() );
 
     final int currentNextTransactionId = context.currentNextTransactionId();
 
@@ -358,7 +358,7 @@ public class ObservableValueTest
     // No transaction created so new id
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 1 );
 
-    assertEquals( observableValue.isDisposed(), true );
+    assertTrue( observableValue.isDisposed() );
     assertEquals( observableValue.getWorkState(), ObservableValue.DISPOSED );
 
     assertEquals( observer.getState(), Flags.STATE_STALE );
@@ -382,7 +382,7 @@ public class ObservableValueTest
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
-    assertEquals( observableValue.isDisposed(), false );
+    assertFalse( observableValue.isDisposed() );
 
     Transaction.setTransaction( null );
 
@@ -402,7 +402,7 @@ public class ObservableValueTest
     // No transaction created so new id
     assertEquals( context.currentNextTransactionId(), currentNextTransactionId + 1 );
 
-    assertEquals( observableValue.isDisposed(), false );
+    assertFalse( observableValue.isDisposed() );
   }
 
   @Test
@@ -428,17 +428,17 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getWorkState(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
-    assertEquals( observableValue.isInCurrentTracking(), false );
+    assertFalse( observableValue.isInCurrentTracking() );
 
     observableValue.putInCurrentTracking();
 
-    assertEquals( observableValue.isInCurrentTracking(), true );
+    assertTrue( observableValue.isInCurrentTracking() );
     assertEquals( observableValue.getWorkState(), ObservableValue.IN_CURRENT_TRACKING );
 
     observableValue.removeFromCurrentTracking();
 
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
-    assertEquals( observableValue.isInCurrentTracking(), false );
+    assertFalse( observableValue.isInCurrentTracking() );
   }
 
   @Test
@@ -467,15 +467,15 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     // Handle addition of observer in correct state
     observableValue.addObserver( observer );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.invariantLeastStaleObserverState();
@@ -587,7 +587,7 @@ public class ObservableValueTest
 
     observableValue.addObserver( observer );
 
-    assertEquals( observableValue.getObservers().contains( observer ), true );
+    assertTrue( observableValue.getObservers().contains( observer ) );
   }
 
   @Test
@@ -619,15 +619,15 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
 
     // Handle addition of observer in correct state
     observableValue.addObserver( observer );
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
 
     assertInvariantFailure( () -> observableValue.addObserver( observer ),
                             "Arez-0066: Attempting to add observer named '" + observer.getName() + "' to " +
@@ -635,8 +635,8 @@ public class ObservableValueTest
                             "observing ObservableValue." );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -655,7 +655,7 @@ public class ObservableValueTest
                             observableValue.getName() + "' when there is no active transaction." );
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -671,7 +671,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
@@ -679,15 +679,15 @@ public class ObservableValueTest
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.removeObserver( observer );
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
-    assertEquals( observableValue.hasObserver( observer ), false );
+    assertFalse( observableValue.hasObservers() );
+    assertFalse( observableValue.hasObserver( observer ) );
     // It should be updated that it is not removeObserver that updates LeastStaleObserverState
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
@@ -704,7 +704,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = computedValue.getObservableValue();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
@@ -712,23 +712,23 @@ public class ObservableValueTest
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     observableValue.removeObserver( observer );
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
-    assertEquals( observableValue.hasObserver( observer ), false );
+    assertFalse( observableValue.hasObservers() );
+    assertFalse( observableValue.hasObserver( observer ) );
     // It should be updated that it is not removeObserver that updates LeastStaleObserverState
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observableValue.isPendingDeactivation(), true );
+    assertTrue( observableValue.isPendingDeactivation() );
     final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertEquals( pendingDeactivations.size(), 1 );
-    assertEquals( pendingDeactivations.contains( observableValue ), true );
+    assertTrue( pendingDeactivations.contains( observableValue ) );
   }
 
   @Test
@@ -742,7 +742,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
@@ -750,8 +750,8 @@ public class ObservableValueTest
     observer.getDependencies().add( observableValue );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
@@ -761,8 +761,8 @@ public class ObservableValueTest
                             observableValue.getName() + "' when there is no active transaction." );
 
     assertEquals( observableValue.getObservers().size(), 1 );
-    assertEquals( observableValue.hasObservers(), true );
-    assertEquals( observableValue.hasObserver( observer ), true );
+    assertTrue( observableValue.hasObservers() );
+    assertTrue( observableValue.hasObserver( observer ) );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
   }
 
@@ -777,7 +777,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.hasObservers(), false );
+    assertFalse( observableValue.hasObservers() );
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
     assertInvariantFailure( () -> observableValue.removeObserver( observer ),
@@ -965,15 +965,15 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
 
     observableValue.queueForDeactivation();
 
-    assertEquals( observableValue.isPendingDeactivation(), true );
+    assertTrue( observableValue.isPendingDeactivation() );
     final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertEquals( pendingDeactivations.size(), 1 );
-    assertEquals( pendingDeactivations.contains( observableValue ), true );
+    assertTrue( pendingDeactivations.contains( observableValue ) );
   }
 
   @Test
@@ -1010,7 +1010,7 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
 
     Transaction.setTransaction( null );
 
@@ -1028,7 +1028,7 @@ public class ObservableValueTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
 
     assertInvariantFailure( observableValue::queueForDeactivation,
                             "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
@@ -1050,7 +1050,7 @@ public class ObservableValueTest
 
     derivation.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
 
     observableValue.rawAddObserver( observer );
     observer.getDependencies().add( observableValue );
@@ -1075,11 +1075,11 @@ public class ObservableValueTest
 
     observableValue.markAsPendingDeactivation();
 
-    assertEquals( observableValue.isPendingDeactivation(), true );
+    assertTrue( observableValue.isPendingDeactivation() );
 
     observableValue.resetPendingDeactivation();
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
   }
 
   @Test
@@ -1320,7 +1320,7 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 1 );
-    assertEquals( context.getTransaction().safeGetObservables().contains( observableValue ), true );
+    assertTrue( context.getTransaction().safeGetObservables().contains( observableValue ) );
   }
 
   @Test
@@ -1344,7 +1344,7 @@ public class ObservableValueTest
 
     // Now we use a tracking transaction
     final Observer observer = context.observer( observableValue::reportObservedIfTrackingTransactionActive );
-    assertEquals( observer.getDependencies().contains( observableValue ), true );
+    assertTrue( observer.getDependencies().contains( observableValue ) );
   }
 
   @Test
@@ -1445,7 +1445,7 @@ public class ObservableValueTest
 
     handler.assertNextEvent( ObservableValueChangedEvent.class, event -> {
       assertEquals( event.getObservableValue().getName(), observableValue.getName() );
-      assertEquals( event.getValue(), null );
+      assertNull( event.getValue() );
     } );
 
     handler.assertNextEvent( ReactionScheduledEvent.class );
@@ -1512,7 +1512,7 @@ public class ObservableValueTest
 
     handler.assertNextEvent( ObservableValueChangedEvent.class, event -> {
       assertEquals( event.getObservableValue().getName(), observableValue.getName() );
-      assertEquals( event.getValue(), null );
+      assertNull( event.getValue() );
     } );
     handler.assertNextEvent( ReactionScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
@@ -1649,7 +1649,7 @@ public class ObservableValueTest
 
     handler.assertNextEvent( ObservableValueChangedEvent.class, event -> {
       assertEquals( event.getObservableValue().getName(), observableValue.getName() );
-      assertEquals( event.getValue(), null );
+      assertNull( event.getValue() );
     } );
 
     handler.assertNextEvent( ReactionScheduledEvent.class,

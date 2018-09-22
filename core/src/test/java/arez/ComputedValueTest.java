@@ -34,11 +34,11 @@ public class ComputedValueTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.toString(), name );
-    assertEquals( computedValue.getObserver().isKeepAlive(), false );
-    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), false );
+    assertFalse( computedValue.getObserver().isKeepAlive() );
+    assertFalse( computedValue.getObserver().canObserveLowerPriorityDependencies() );
 
     // Value starts out as null
-    assertEquals( computedValue.getValue(), null );
+    assertNull( computedValue.getValue() );
 
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -46,12 +46,12 @@ public class ComputedValueTest
 
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObserver().isComputedValue(), true );
+    assertTrue( computedValue.getObserver().isComputedValue() );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), Flags.STATE_INACTIVE );
     assertEquals( computedValue.getObservableValue().getName(), name );
-    assertEquals( computedValue.getObservableValue().isComputedValue(), true );
+    assertTrue( computedValue.getObservableValue().isComputedValue() );
     assertEquals( computedValue.getObservableValue().getObserver(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
@@ -78,20 +78,20 @@ public class ComputedValueTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getContext(), context );
     assertEquals( computedValue.toString(), name );
-    assertEquals( computedValue.getObserver().isKeepAlive(), true );
-    assertEquals( computedValue.getObserver().canObserveLowerPriorityDependencies(), true );
+    assertTrue( computedValue.getObserver().isKeepAlive() );
+    assertTrue( computedValue.getObserver().canObserveLowerPriorityDependencies() );
 
     // Value is populated as keepAlive
     assertEquals( computedValue.getValue(), "" );
 
     // Verify the linking of all child elements
     assertEquals( computedValue.getObserver().getName(), name );
-    assertEquals( computedValue.getObserver().isComputedValue(), true );
+    assertTrue( computedValue.getObserver().isComputedValue() );
     assertEquals( computedValue.getObserver().getPriority(), Priority.NORMAL );
     assertEquals( computedValue.getObserver().getComputedValue(), computedValue );
     assertEquals( computedValue.getObserver().getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( computedValue.getObservableValue().getName(), name );
-    assertEquals( computedValue.getObservableValue().isComputedValue(), true );
+    assertTrue( computedValue.getObservableValue().isComputedValue() );
     assertEquals( computedValue.getObservableValue().getObserver(), computedValue.getObserver() );
 
     assertEquals( context.getTopLevelComputedValues().get( computedValue.getName() ), computedValue );
@@ -148,8 +148,8 @@ public class ComputedValueTest
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
 
-    assertEquals( computedValue.getObserver().getComponent(), null );
-    assertEquals( computedValue.getObservableValue().getComponent(), null );
+    assertNull( computedValue.getObserver().getComponent() );
+    assertNull( computedValue.getObservableValue().getComponent() );
 
     // Don't register the worker observables/observers just the computed values
     assertEquals( component.getObservableValues().size(), 0 );
@@ -243,7 +243,7 @@ public class ComputedValueTest
     computedValue.compute();
 
     assertEquals( computedValue.getValue(), value2 );
-    assertEquals( computedValue.getError(), null );
+    assertNull( computedValue.getError() );
     assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
@@ -280,7 +280,7 @@ public class ComputedValueTest
     computedValue.compute();
 
     assertEquals( computedValue.getValue(), value2 );
-    assertEquals( computedValue.getError(), null );
+    assertNull( computedValue.getError() );
     assertEquals( observer.getState(), Flags.STATE_STALE );
   }
 
@@ -349,7 +349,7 @@ public class ComputedValueTest
     final IllegalStateException exception = expectThrows( IllegalStateException.class, computedValue::compute );
     assertEquals( exception.getMessage(), message );
 
-    assertEquals( computedValue.getValue(), null );
+    assertNull( computedValue.getValue() );
     assertEquals( computedValue.getError(), exception );
     assertEquals( observer.getState(), Flags.STATE_STALE );
   }
@@ -397,13 +397,13 @@ public class ComputedValueTest
     setCurrentTransaction( observer );
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.isDisposed(), false );
+    assertFalse( observer.isDisposed() );
 
     Transaction.setTransaction( null );
 
     computedValue.dispose();
 
-    assertEquals( observer.isDisposed(), true );
+    assertTrue( observer.isDisposed() );
     assertEquals( observer.getState(), Flags.STATE_DISPOSED );
   }
 
@@ -419,7 +419,7 @@ public class ComputedValueTest
     setCurrentTransaction( observer );
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.isDisposed(), false );
+    assertFalse( observer.isDisposed() );
 
     Transaction.setTransaction( null );
 
@@ -428,7 +428,7 @@ public class ComputedValueTest
 
     computedValue.dispose();
 
-    assertEquals( observer.isDisposed(), true );
+    assertTrue( observer.isDisposed() );
     assertEquals( observer.getState(), Flags.STATE_DISPOSED );
 
     handler.assertEventCount( 14 );

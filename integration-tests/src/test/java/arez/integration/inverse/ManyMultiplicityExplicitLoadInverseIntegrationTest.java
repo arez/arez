@@ -69,7 +69,7 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
 
     safeAction( () -> assertEquals( wheel1.getCar(), car ) );
     safeAction( () -> assertEquals( car.getWheels().size(), 1 ) );
-    safeAction( () -> assertEquals( car.getWheels().contains( wheel1 ), true ) );
+    safeAction( () -> assertTrue( car.getWheels().contains( wheel1 ) ) );
     safeAction( () -> assertEquals( car2.getWheels().size(), 0 ) );
 
     assertEquals( wheel1GetCarCallCount.get(), 1 );
@@ -87,7 +87,7 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
     safeAction( () -> assertEquals( wheel1.getCar(), car2 ) );
     safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
     safeAction( () -> assertEquals( car2.getWheels().size(), 1 ) );
-    safeAction( () -> assertEquals( car2.getWheels().contains( wheel1 ), true ) );
+    safeAction( () -> assertTrue( car2.getWheels().contains( wheel1 ) ) );
 
     assertEquals( inverseCallCount.get(), 3 );
     assertEquals( wheel1GetCarCallCount.get(), 2 );
@@ -98,7 +98,7 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
 
     Disposable.dispose( wheel1 );
 
-    assertEquals( Disposable.isDisposed( wheel1 ), true );
+    assertTrue( Disposable.isDisposed( wheel1 ) );
     safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
     safeAction( () -> assertEquals( car2.getWheels().size(), 0 ) );
 

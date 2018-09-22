@@ -23,9 +23,9 @@ public class LinkableTest
   public void linkableElement()
   {
     final TestElement element = new TestElement();
-    assertEquals( element._linked, false );
+    assertFalse( element._linked );
     Linkable.link( element );
-    assertEquals( element._linked, true );
+    assertTrue( element._linked );
   }
 
   @Test

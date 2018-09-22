@@ -111,11 +111,11 @@ public class ComponentTest
     component.addComputedValue( computedValue1 );
     component.addObserver( observer1 );
 
-    assertEquals( component.isComplete(), false );
+    assertFalse( component.isComplete() );
 
     component.complete();
 
-    assertEquals( component.isComplete(), true );
+    assertTrue( component.isComplete() );
 
     assertEquals( component.getObservableValues().size(), 1 );
     assertEquals( component.getComputedValues().size(), 1 );
@@ -131,7 +131,7 @@ public class ComponentTest
 
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
-    assertEquals( component.isComplete(), false );
+    assertFalse( component.isComplete() );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -162,18 +162,18 @@ public class ComponentTest
     component.addObserver( observer1 );
 
     assertEquals( component.getObservers().size(), 1 );
-    assertEquals( component.getObservers().contains( observer1 ), true );
+    assertTrue( component.getObservers().contains( observer1 ) );
 
     component.addObserver( observer2 );
 
     assertEquals( component.getObservers().size(), 2 );
-    assertEquals( component.getObservers().contains( observer1 ), true );
-    assertEquals( component.getObservers().contains( observer2 ), true );
+    assertTrue( component.getObservers().contains( observer1 ) );
+    assertTrue( component.getObservers().contains( observer2 ) );
 
     component.removeObserver( observer1 );
 
     assertEquals( component.getObservers().size(), 1 );
-    assertEquals( component.getObservers().contains( observer2 ), true );
+    assertTrue( component.getObservers().contains( observer2 ) );
 
     component.removeObserver( observer2 );
 
@@ -225,7 +225,7 @@ public class ComponentTest
     component.addObserver( observer1 );
 
     assertEquals( component.getObservers().size(), 1 );
-    assertEquals( component.getObservers().contains( observer1 ), true );
+    assertTrue( component.getObservers().contains( observer1 ) );
   }
 
   @Test
@@ -264,18 +264,18 @@ public class ComponentTest
     component.addObservableValue( observableValue1 );
 
     assertEquals( component.getObservableValues().size(), 1 );
-    assertEquals( component.getObservableValues().contains( observableValue1 ), true );
+    assertTrue( component.getObservableValues().contains( observableValue1 ) );
 
     component.addObservableValue( observableValue2 );
 
     assertEquals( component.getObservableValues().size(), 2 );
-    assertEquals( component.getObservableValues().contains( observableValue1 ), true );
-    assertEquals( component.getObservableValues().contains( observableValue2 ), true );
+    assertTrue( component.getObservableValues().contains( observableValue1 ) );
+    assertTrue( component.getObservableValues().contains( observableValue2 ) );
 
     component.removeObservableValue( observableValue1 );
 
     assertEquals( component.getObservableValues().size(), 1 );
-    assertEquals( component.getObservableValues().contains( observableValue2 ), true );
+    assertTrue( component.getObservableValues().contains( observableValue2 ) );
 
     component.removeObservableValue( observableValue2 );
 
@@ -361,18 +361,18 @@ public class ComponentTest
     component.addComputedValue( computedValue1 );
 
     assertEquals( component.getComputedValues().size(), 1 );
-    assertEquals( component.getComputedValues().contains( computedValue1 ), true );
+    assertTrue( component.getComputedValues().contains( computedValue1 ) );
 
     component.addComputedValue( computedValue2 );
 
     assertEquals( component.getComputedValues().size(), 2 );
-    assertEquals( component.getComputedValues().contains( computedValue1 ), true );
-    assertEquals( component.getComputedValues().contains( computedValue2 ), true );
+    assertTrue( component.getComputedValues().contains( computedValue1 ) );
+    assertTrue( component.getComputedValues().contains( computedValue2 ) );
 
     component.removeComputedValue( computedValue1 );
 
     assertEquals( component.getComputedValues().size(), 1 );
-    assertEquals( component.getComputedValues().contains( computedValue2 ), true );
+    assertTrue( component.getComputedValues().contains( computedValue2 ) );
 
     component.removeComputedValue( computedValue2 );
 

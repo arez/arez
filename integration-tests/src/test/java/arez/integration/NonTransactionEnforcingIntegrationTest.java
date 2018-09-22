@@ -60,8 +60,8 @@ public class NonTransactionEnforcingIntegrationTest
                     Flags.READ_ONLY );
 
     // When transactions are not enforced, everything is effectively a write transaction!!!
-    assertEquals( action1ReadOnly.get(), false );
-    assertEquals( action2ReadOnly.get(), false );
+    assertFalse( action1ReadOnly.get() );
+    assertFalse( action2ReadOnly.get() );
 
     assertMatchesFixture( recorder );
 

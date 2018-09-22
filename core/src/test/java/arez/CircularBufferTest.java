@@ -11,53 +11,53 @@ public class CircularBufferTest
   {
     final CircularBuffer<String> buffer = new CircularBuffer<>( 3 );
     assertEquals( buffer.size(), 0 );
-    assertEquals( buffer.get( 0 ), null );
-    assertEquals( buffer.get( 1 ), null );
-    assertEquals( buffer.get( 2 ), null );
+    assertNull( buffer.get( 0 ) );
+    assertNull( buffer.get( 1 ) );
+    assertNull( buffer.get( 2 ) );
     // The following gets exceed the buffers capacity but should be gracefully handled
-    assertEquals( buffer.get( 3 ), null );
-    assertEquals( buffer.get( 4 ), null );
+    assertNull( buffer.get( 3 ) );
+    assertNull( buffer.get( 4 ) );
 
     buffer.add( "A" );
     assertEquals( buffer.size(), 1 );
     assertEquals( buffer.get( 0 ), "A" );
-    assertEquals( buffer.get( 1 ), null );
-    assertEquals( buffer.get( 2 ), null );
-    assertEquals( buffer.get( 3 ), null );
-    assertEquals( buffer.get( 4 ), null );
+    assertNull( buffer.get( 1 ) );
+    assertNull( buffer.get( 2 ) );
+    assertNull( buffer.get( 3 ) );
+    assertNull( buffer.get( 4 ) );
 
     buffer.add( "B" );
     assertEquals( buffer.size(), 2 );
     assertEquals( buffer.get( 0 ), "A" );
     assertEquals( buffer.get( 1 ), "B" );
-    assertEquals( buffer.get( 2 ), null );
-    assertEquals( buffer.get( 3 ), null );
-    assertEquals( buffer.get( 4 ), null );
+    assertNull( buffer.get( 2 ) );
+    assertNull( buffer.get( 3 ) );
+    assertNull( buffer.get( 4 ) );
 
     buffer.add( "C" );
     assertEquals( buffer.size(), 3 );
     assertEquals( buffer.get( 0 ), "A" );
     assertEquals( buffer.get( 1 ), "B" );
     assertEquals( buffer.get( 2 ), "C" );
-    assertEquals( buffer.get( 3 ), null );
-    assertEquals( buffer.get( 4 ), null );
+    assertNull( buffer.get( 3 ) );
+    assertNull( buffer.get( 4 ) );
 
     assertEquals( buffer.pop(), "A" );
 
     assertEquals( buffer.size(), 2 );
     assertEquals( buffer.get( 0 ), "B" );
     assertEquals( buffer.get( 1 ), "C" );
-    assertEquals( buffer.get( 2 ), null );
-    assertEquals( buffer.get( 3 ), null );
-    assertEquals( buffer.get( 4 ), null );
+    assertNull( buffer.get( 2 ) );
+    assertNull( buffer.get( 3 ) );
+    assertNull( buffer.get( 4 ) );
 
     buffer.add( "D" );
     assertEquals( buffer.size(), 3 );
     assertEquals( buffer.get( 0 ), "B" );
     assertEquals( buffer.get( 1 ), "C" );
     assertEquals( buffer.get( 2 ), "D" );
-    assertEquals( buffer.get( 3 ), null );
-    assertEquals( buffer.get( 4 ), null );
+    assertNull( buffer.get( 3 ) );
+    assertNull( buffer.get( 4 ) );
 
     buffer.add( "E" );
     buffer.add( "F" );
@@ -76,7 +76,7 @@ public class CircularBufferTest
     assertEquals( buffer.pop(), "E" );
     assertEquals( buffer.pop(), "F" );
     assertEquals( buffer.pop(), "G" );
-    assertEquals( buffer.pop(), null );
+    assertNull( buffer.pop() );
   }
 
   @Test
@@ -140,7 +140,7 @@ public class CircularBufferTest
 
     assertEquals( buffer.pop(), "C" );
     assertEquals( buffer.pop(), "D" );
-    assertEquals( buffer.pop(), null );
+    assertNull( buffer.pop() );
   }
 
   @Test

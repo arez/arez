@@ -129,9 +129,9 @@ public class RepositoryTest
     final Set<Integer> ids =
       context.safeAction( () -> repository.findAll().stream().map( e -> e.getArezId() ).collect( Collectors.toSet() ) );
     assertEquals( ids.size(), 3 );
-    assertEquals( ids.contains( 302 ), true );
-    assertEquals( ids.contains( 303 ), true );
-    assertEquals( ids.contains( 304 ), true );
+    assertTrue( ids.contains( 302 ) );
+    assertTrue( ids.contains( 303 ) );
+    assertTrue( ids.contains( 304 ) );
   }
 
   @Test
@@ -173,8 +173,8 @@ public class RepositoryTest
       context.safeAction( () -> repository.findAllByQuery( e -> e.getArezId() <= 303 )
         .stream().map( e -> e.getArezId() ).collect( Collectors.toSet() ) );
     assertEquals( ids.size(), 2 );
-    assertEquals( ids.contains( 302 ), true );
-    assertEquals( ids.contains( 303 ), true );
+    assertTrue( ids.contains( 302 ) );
+    assertTrue( ids.contains( 303 ) );
   }
 
   @Test

@@ -30,7 +30,7 @@ public class ObserverInfoImplTest
 
     final ObserverInfo info = observer.asInfo();
 
-    assertEquals( info.getComponent(), null );
+    assertNull( info.getComponent() );
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
@@ -38,18 +38,18 @@ public class ObserverInfoImplTest
     assertEquals( info.getDependencies().get( 0 ).getName(), observableValue.getName() );
     assertUnmodifiable( info.getDependencies() );
 
-    assertEquals( info.isActive(), true );
-    assertEquals( info.isComputedValue(), false );
-    assertEquals( info.isReadOnly(), true );
+    assertTrue( info.isActive() );
+    assertFalse( info.isComputedValue() );
+    assertTrue( info.isReadOnly() );
     assertEquals( info.getPriority(), Priority.NORMAL );
-    assertEquals( info.isRunning(), false );
-    assertEquals( info.isScheduled(), false );
-    assertEquals( info.isDisposed(), false );
+    assertFalse( info.isRunning() );
+    assertFalse( info.isScheduled() );
+    assertFalse( info.isDisposed() );
 
     observer.dispose();
 
-    assertEquals( info.isDisposed(), true );
-    assertEquals( info.isActive(), false );
+    assertTrue( info.isDisposed() );
+    assertFalse( info.isActive() );
   }
 
   @Test
@@ -64,11 +64,11 @@ public class ObserverInfoImplTest
 
     final ObserverInfo info = spy.asObserverInfo( observer );
 
-    assertEquals( info.isScheduled(), false );
+    assertFalse( info.isScheduled() );
 
     observer.setScheduledFlag();
 
-    assertEquals( info.isScheduled(), true );
+    assertTrue( info.isScheduled() );
   }
 
   @Test
@@ -81,14 +81,14 @@ public class ObserverInfoImplTest
     final AtomicReference<ObserverInfo> ref = new AtomicReference<>();
 
     final Observer observer = context.observer( () -> {
-      assertEquals( ref.get().isRunning(), true );
+      assertTrue( ref.get().isRunning() );
       callCount.incrementAndGet();
       observeADependency();
     }, Flags.RUN_LATER );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
     ref.set( info );
 
-    assertEquals( info.isRunning(), false );
+    assertFalse( info.isRunning() );
     assertEquals( callCount.get(), 0 );
 
     context.triggerScheduler();
@@ -104,7 +104,7 @@ public class ObserverInfoImplTest
     final ObservableValue<Object> observableValue = context.observable();
     final Observer observer = context.observer( observableValue::reportObserved, Flags.READ_WRITE );
 
-    assertEquals( observer.asInfo().isReadOnly(), false );
+    assertFalse( observer.asInfo().isReadOnly() );
   }
 
   @Test
@@ -153,8 +153,8 @@ public class ObserverInfoImplTest
     final List<String> dependencies = spy.asObserverInfo( observer ).getDependencies().stream().
       map( ElementInfo::getName ).collect( Collectors.toList() );
     assertEquals( dependencies.size(), 2 );
-    assertEquals( dependencies.contains( observableValue2.getName() ), true );
-    assertEquals( dependencies.contains( observableValue3.getName() ), true );
+    assertTrue( dependencies.contains( observableValue2.getName() ) );
+    assertTrue( dependencies.contains( observableValue3.getName() ) );
 
     assertUnmodifiable( spy.asObserverInfo( observer ).getDependencies() );
   }
@@ -173,11 +173,11 @@ public class ObserverInfoImplTest
 
     assertEquals( info.getName(), name );
 
-    assertEquals( info.isComputedValue(), true );
+    assertTrue( info.isComputedValue() );
     assertEquals( info.asComputedValue().getName(), computedValue.getName() );
 
     // Not yet observed
-    assertEquals( info.isActive(), false );
+    assertFalse( info.isActive() );
   }
 
   @Test
@@ -195,7 +195,7 @@ public class ObserverInfoImplTest
     final ComponentInfo info = spy.asObserverInfo( observer1 ).getComponent();
     assertNotNull( info );
     assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.asObserverInfo( observer2 ).getComponent(), null );
+    assertNull( spy.asObserverInfo( observer2 ).getComponent() );
   }
 
   @Test
@@ -227,19 +227,19 @@ public class ObserverInfoImplTest
     final ObserverInfo info2 = observer2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
-    assertEquals( info1a.equals( "" ), false );
+    assertFalse( info1a.equals( "" ) );
 
-    assertEquals( info1a.equals( info1a ), true );
-    assertEquals( info1a.equals( info1b ), true );
-    assertEquals( info1a.equals( info2 ), false );
+    assertTrue( info1a.equals( info1a ) );
+    assertTrue( info1a.equals( info1b ) );
+    assertFalse( info1a.equals( info2 ) );
 
-    assertEquals( info1b.equals( info1a ), true );
-    assertEquals( info1b.equals( info1b ), true );
-    assertEquals( info1b.equals( info2 ), false );
+    assertTrue( info1b.equals( info1a ) );
+    assertTrue( info1b.equals( info1b ) );
+    assertFalse( info1b.equals( info2 ) );
 
-    assertEquals( info2.equals( info1a ), false );
-    assertEquals( info2.equals( info1b ), false );
-    assertEquals( info2.equals( info2 ), true );
+    assertFalse( info2.equals( info1a ) );
+    assertFalse( info2.equals( info1b ) );
+    assertTrue( info2.equals( info2 ) );
 
     assertEquals( info1a.hashCode(), observer1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );

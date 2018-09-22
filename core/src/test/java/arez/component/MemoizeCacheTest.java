@@ -45,7 +45,7 @@ public class MemoizeCacheTest
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, name, function, 2, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
-    assertEquals( cache.isDisposed(), false );
+    assertFalse( cache.isDisposed() );
     assertEquals( cache.getNextIndex(), 0 );
 
     assertEquals( cache.getFlags(), Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
@@ -87,23 +87,23 @@ public class MemoizeCacheTest
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( computedValue1.isDisposed(), false );
-    assertEquals( computedValue2.isDisposed(), false );
+    assertFalse( computedValue1.isDisposed() );
+    assertFalse( computedValue2.isDisposed() );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
 
     observer2.dispose();
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( computedValue1.isDisposed(), true );
-    assertEquals( computedValue2.isDisposed(), false );
+    assertTrue( computedValue1.isDisposed() );
+    assertFalse( computedValue2.isDisposed() );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
 
     observer3.dispose();
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
-    assertEquals( computedValue1.isDisposed(), true );
-    assertEquals( computedValue2.isDisposed(), true );
+    assertTrue( computedValue1.isDisposed() );
+    assertTrue( computedValue2.isDisposed() );
     assertEquals( cache.getCache().size(), 0 );
   }
 
@@ -123,17 +123,17 @@ public class MemoizeCacheTest
     final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
     final ComputedValue<String> computedValue1b = cache.getComputedValue( "a", "b" );
 
-    assertEquals( computedValue1.isDisposed(), false );
+    assertFalse( computedValue1.isDisposed() );
     assertEquals( computedValue1, computedValue1b );
 
     computedValue1.dispose();
 
-    assertEquals( computedValue1.isDisposed(), true );
+    assertTrue( computedValue1.isDisposed() );
 
     final ComputedValue<String> computedValue2 = cache.getComputedValue( "a", "b" );
     final ComputedValue<String> computedValue2b = cache.getComputedValue( "a", "b" );
 
-    assertEquals( computedValue2.isDisposed(), false );
+    assertFalse( computedValue2.isDisposed() );
     assertNotEquals( computedValue2, computedValue1 );
     assertEquals( computedValue2, computedValue2b );
   }
@@ -155,7 +155,7 @@ public class MemoizeCacheTest
 
     final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
 
-    assertEquals( computedValue1.isDisposed(), false );
+    assertFalse( computedValue1.isDisposed() );
 
     final ComponentInfo componentInfo = context.getSpy().asComputedValueInfo( computedValue1 ).getComponent();
     assertNotNull( componentInfo );
@@ -163,7 +163,7 @@ public class MemoizeCacheTest
 
     component.dispose();
 
-    assertEquals( computedValue1.isDisposed(), true );
+    assertTrue( computedValue1.isDisposed() );
   }
 
   @Test
@@ -179,7 +179,7 @@ public class MemoizeCacheTest
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache = new MemoizeCache<>( null, null, name, function, 2 );
 
-    assertEquals( cache.isDisposed(), false );
+    assertFalse( cache.isDisposed() );
     assertEquals( cache.getNextIndex(), 0 );
 
     context.observer( () -> {
@@ -197,14 +197,14 @@ public class MemoizeCacheTest
       (ComputedValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
     assertNotNull( computedValue1 );
 
-    assertEquals( computedValue1.isDisposed(), false );
+    assertFalse( computedValue1.isDisposed() );
 
     cache.dispose();
 
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 0 );
-    assertEquals( computedValue1.isDisposed(), true );
+    assertTrue( computedValue1.isDisposed() );
   }
 
   @Test

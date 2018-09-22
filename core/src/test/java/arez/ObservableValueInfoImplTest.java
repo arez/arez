@@ -24,26 +24,26 @@ public class ObservableValueInfoImplTest
 
     final ObservableValueInfo info = observableValue.asInfo();
 
-    assertEquals( info.getComponent(), null );
+    assertNull( info.getComponent() );
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
-    assertEquals( info.hasAccessor(), false );
-    assertEquals( info.hasMutator(), false );
+    assertFalse( info.hasAccessor() );
+    assertFalse( info.hasMutator() );
 
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
-    assertEquals( info.isComputedValue(), false );
-    assertEquals( info.isDisposed(), false );
+    assertFalse( info.isComputedValue() );
+    assertFalse( info.isDisposed() );
 
     // Dispose observer to avoid accessing observableValue when it is disposed
     observer.dispose();
 
     observableValue.dispose();
 
-    assertEquals( info.isDisposed(), true );
+    assertTrue( info.isDisposed() );
   }
 
   @Test
@@ -67,12 +67,12 @@ public class ObservableValueInfoImplTest
     assertEquals( info.getName(), name );
     assertEquals( info.toString(), name );
 
-    assertEquals( info.hasAccessor(), true );
+    assertTrue( info.hasAccessor() );
     assertEquals( info.getValue(), initialValue );
 
     final String newValue = ValueUtil.randomString();
 
-    assertEquals( info.hasMutator(), true );
+    assertTrue( info.hasMutator() );
     info.setValue( newValue );
     assertEquals( info.getValue(), newValue );
 
@@ -80,15 +80,15 @@ public class ObservableValueInfoImplTest
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
-    assertEquals( info.isComputedValue(), false );
-    assertEquals( info.isDisposed(), false );
+    assertFalse( info.isComputedValue() );
+    assertFalse( info.isDisposed() );
 
     // Dispose observer to avoid accessing observableValue when it is disposed
     observer.dispose();
 
     observableValue.dispose();
 
-    assertEquals( info.isDisposed(), true );
+    assertTrue( info.isDisposed() );
   }
 
   @Test
@@ -105,7 +105,7 @@ public class ObservableValueInfoImplTest
 
     assertEquals( info.getName(), name );
 
-    assertEquals( info.isComputedValue(), true );
+    assertTrue( info.isComputedValue() );
     assertEquals( info.asComputedValue().getName(), computedValue.getName() );
   }
 
@@ -123,19 +123,19 @@ public class ObservableValueInfoImplTest
     final ObservableValueInfo info2 = observableValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
-    assertEquals( info1a.equals( "" ), false );
+    assertFalse( info1a.equals( "" ) );
 
-    assertEquals( info1a.equals( info1a ), true );
-    assertEquals( info1a.equals( info1b ), true );
-    assertEquals( info1a.equals( info2 ), false );
+    assertTrue( info1a.equals( info1a ) );
+    assertTrue( info1a.equals( info1b ) );
+    assertFalse( info1a.equals( info2 ) );
 
-    assertEquals( info1b.equals( info1a ), true );
-    assertEquals( info1b.equals( info1b ), true );
-    assertEquals( info1b.equals( info2 ), false );
+    assertTrue( info1b.equals( info1a ) );
+    assertTrue( info1b.equals( info1b ) );
+    assertFalse( info1b.equals( info2 ) );
 
-    assertEquals( info2.equals( info1a ), false );
-    assertEquals( info2.equals( info1b ), false );
-    assertEquals( info2.equals( info2 ), true );
+    assertFalse( info2.equals( info1a ) );
+    assertFalse( info2.equals( info1b ) );
+    assertTrue( info2.equals( info2 ) );
 
     assertEquals( info1a.hashCode(), observableValue1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );
@@ -155,9 +155,8 @@ public class ObservableValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    assertEquals( spy.asObservableValueInfo( context.computed( () -> "" ).getObservableValue() ).isComputedValue(),
-                  true );
-    assertEquals( spy.asObservableValueInfo( context.observable() ).isComputedValue(), false );
+    assertTrue( spy.asObservableValueInfo( context.computed( () -> "" ).getObservableValue() ).isComputedValue() );
+    assertFalse( spy.asObservableValueInfo( context.observable() ).isComputedValue() );
   }
 
   @Test
@@ -175,7 +174,7 @@ public class ObservableValueInfoImplTest
     final ComponentInfo info = spy.asObservableValueInfo( observableValue1 ).getComponent();
     assertNotNull( info );
     assertEquals( info.getName(), component.getName() );
-    assertEquals( spy.asObservableValueInfo( observableValue2 ).getComponent(), null );
+    assertNull( spy.asObservableValueInfo( observableValue2 ).getComponent() );
   }
 
   @Test

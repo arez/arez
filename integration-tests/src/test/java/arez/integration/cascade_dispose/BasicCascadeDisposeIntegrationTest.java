@@ -18,13 +18,13 @@ public class BasicCascadeDisposeIntegrationTest
     final Model2 model2 = Model2.create();
     final Model1 model1 = Model1.create( model2 );
 
-    assertEquals( Disposable.isDisposed( model1 ), false );
-    assertEquals( Disposable.isDisposed( model2 ), false );
+    assertFalse( Disposable.isDisposed( model1 ) );
+    assertFalse( Disposable.isDisposed( model2 ) );
 
     Disposable.dispose( model1 );
 
-    assertEquals( Disposable.isDisposed( model1 ), true );
-    assertEquals( Disposable.isDisposed( model2 ), true );
+    assertTrue( Disposable.isDisposed( model1 ) );
+    assertTrue( Disposable.isDisposed( model2 ) );
   }
 
   @ArezComponent

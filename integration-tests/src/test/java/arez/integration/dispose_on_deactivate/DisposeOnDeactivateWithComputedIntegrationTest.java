@@ -43,15 +43,15 @@ public class DisposeOnDeactivateWithComputedIntegrationTest
     assertEquals( model2._callCount.get(), 1 );
     assertEquals( model3._callCount.get(), 1 );
 
-    assertEquals( Disposable.isDisposed( model2 ), false );
-    assertEquals( Disposable.isDisposed( model3 ), false );
+    assertFalse( Disposable.isDisposed( model2 ) );
+    assertFalse( Disposable.isDisposed( model3 ) );
 
     context.safeAction( "MyAction", () -> model1.setName( "Hello" ) );
 
     assertEquals( model2._callCount.get(), 1 );
     assertEquals( model3._callCount.get(), 3 );
 
-    assertEquals( Disposable.isDisposed( model2 ), true );
+    assertTrue( Disposable.isDisposed( model2 ) );
 
     assertMatchesFixture( recorder );
   }

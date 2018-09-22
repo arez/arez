@@ -18,9 +18,9 @@ public class TransactionInfoImplTest
     final TransactionInfo info = transaction.asInfo();
 
     assertEquals( info.getName(), transaction.getName() );
-    assertEquals( info.getParent(), null );
-    assertEquals( info.isReadOnly(), false );
-    assertEquals( info.isTracking(), false );
+    assertNull( info.getParent() );
+    assertFalse( info.isReadOnly() );
+    assertFalse( info.isTracking() );
   }
 
   @Test
@@ -49,9 +49,9 @@ public class TransactionInfoImplTest
     final TransactionInfo info = transaction.asInfo();
 
     assertEquals( info.getName(), transaction.getName() );
-    assertEquals( info.getParent(), null );
-    assertEquals( info.isReadOnly(), true );
-    assertEquals( info.isTracking(), true );
+    assertNull( info.getParent() );
+    assertTrue( info.isReadOnly() );
+    assertTrue( info.isTracking() );
     assertEquals( info.getTracker().getName(), observer.getName() );
   }
 
@@ -74,6 +74,6 @@ public class TransactionInfoImplTest
     assertEquals( parent.getName(), transaction1.getName() );
 
     // Ensure the same instance is returned if parent is called multiple times
-    assertTrue( info.getParent() == parent );
+    assertSame( info.getParent(), parent );
   }
 }

@@ -24,11 +24,11 @@ public class TransactionTest
     assertEquals( transaction.toString(), name1 );
     assertEquals( transaction.getContext(), context );
     assertEquals( transaction.getId(), nextNodeId );
-    assertEquals( transaction.getPrevious(), null );
-    assertEquals( transaction.getTracker(), null );
-    assertEquals( transaction.getObservableValues(), null );
-    assertEquals( transaction.getPendingDeactivations(), null );
-    assertEquals( transaction.isMutation(), false );
+    assertNull( transaction.getPrevious() );
+    assertNull( transaction.getTracker() );
+    assertNull( transaction.getObservableValues() );
+    assertNull( transaction.getPendingDeactivations() );
+    assertFalse( transaction.isMutation() );
     assertNotEquals( transaction.getStartedAt(), 0 );
 
     assertEquals( context.currentNextTransactionId(), nextNodeId + 1 );
@@ -108,10 +108,10 @@ public class TransactionTest
     final Transaction transaction1 = new Transaction( context, null, ValueUtil.randomString(), false, null );
     final Transaction transaction2 = new Transaction( context, transaction1, ValueUtil.randomString(), false, null );
 
-    assertEquals( transaction1.isRootTransaction(), true );
+    assertTrue( transaction1.isRootTransaction() );
     assertEquals( transaction1.getRootTransaction(), transaction1 );
 
-    assertEquals( transaction2.isRootTransaction(), false );
+    assertFalse( transaction2.isRootTransaction() );
     assertEquals( transaction2.getRootTransaction(), transaction1 );
   }
 
@@ -123,10 +123,10 @@ public class TransactionTest
     final Transaction transaction1 = new Transaction( null, null, ValueUtil.randomString(), false, null );
     final Transaction transaction2 = new Transaction( null, transaction1, ValueUtil.randomString(), false, null );
 
-    assertEquals( transaction1.isRootTransaction(), true );
+    assertTrue( transaction1.isRootTransaction() );
     assertEquals( transaction1.getRootTransaction(), transaction1 );
 
-    assertEquals( transaction2.isRootTransaction(), false );
+    assertFalse( transaction2.isRootTransaction() );
     assertEquals( transaction2.getRootTransaction(), transaction1 );
   }
 
@@ -173,8 +173,8 @@ public class TransactionTest
 
     assertNotNull( transaction.getPendingDeactivations() );
     assertEquals( transaction.getPendingDeactivations().size(), 1 );
-    assertEquals( observableValue2.isActive(), true );
-    assertEquals( observableValue2.isPendingDeactivation(), true );
+    assertTrue( observableValue2.isActive() );
+    assertTrue( observableValue2.isPendingDeactivation() );
 
     transaction.safeGetObservables().add( observableValue1 );
     final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
@@ -183,14 +183,14 @@ public class TransactionTest
 
     // The next code block essentially verifies it calls completeTracking
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
-    assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
     // This section essentially verifies processPendingDeactivations() is called
-    assertEquals( observableValue2.isPendingDeactivation(), false );
-    assertEquals( observableValue2.isActive(), false );
+    assertFalse( observableValue2.isPendingDeactivation() );
+    assertFalse( observableValue2.isActive() );
     assertEquals( observableValue2.getObserver(), derivation );
     assertEquals( derivation.getState(), Flags.STATE_INACTIVE );
   }
@@ -204,7 +204,7 @@ public class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( transaction.getObservableValues(), null );
+    assertNull( transaction.getObservableValues() );
 
     //Transaction should perform no action during tracking if there is no associated tracker
     transaction.beginTracking();
@@ -212,7 +212,7 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( transaction.getObservableValues(), null );
+    assertNull( transaction.getObservableValues() );
   }
 
   @Test
@@ -270,7 +270,7 @@ public class TransactionTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertNull( transaction.getObservableValues() );
     assertNotEquals( transaction.getId(), observableValue.getLastTrackerTransactionId() );
-    assertEquals( transaction.hasTransactionUseOccured(), false );
+    assertFalse( transaction.hasTransactionUseOccured() );
 
     transaction.observe( observableValue );
 
@@ -281,7 +281,7 @@ public class TransactionTest
 
     assertTrue( transaction.getObservableValues().contains( observableValue ) );
     assertEquals( transaction.getObservableValues().size(), 1 );
-    assertEquals( transaction.hasTransactionUseOccured(), true );
+    assertTrue( transaction.hasTransactionUseOccured() );
   }
 
   @Test
@@ -414,14 +414,14 @@ public class TransactionTest
 
     ensureDerivationHasObserver( tracker );
 
-    assertEquals( transaction.getObservableValues(), null );
+    assertNull( transaction.getObservableValues() );
 
     final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() == dependencies );
+    assertSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
   }
 
@@ -497,7 +497,7 @@ public class TransactionTest
 
     assertEquals( tracker.getState(), Flags.STATE_DISPOSED );
     final ArrayList<ObservableValue<?>> dependencies1 = tracker.getDependencies();
-    assertTrue( dependencies1 != dependencies );
+    assertNotSame( dependencies1, dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue2.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -535,7 +535,7 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_STALE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue.getObservers().size(), 2 );
@@ -565,7 +565,7 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue1.getObservers().size(), 0 );
@@ -593,9 +593,9 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
-    assertEquals( tracker.getDependencies().contains( observableValue ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
   }
 
@@ -627,9 +627,9 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 4 );
-    assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue2.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue3.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -661,9 +661,9 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
-    assertEquals( tracker.getDependencies().contains( observableValue ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
   }
 
@@ -696,10 +696,10 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
-    assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
-    assertEquals( tracker.getDependencies().contains( observableValue2 ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue1 ) );
+    assertTrue( tracker.getDependencies().contains( observableValue2 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue2.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
   }
@@ -734,10 +734,10 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() == dependencies );
+    assertSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
-    assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
-    assertEquals( tracker.getDependencies().contains( observableValue2 ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue1 ) );
+    assertTrue( tracker.getDependencies().contains( observableValue2 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue2.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
   }
@@ -776,10 +776,10 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
-    assertEquals( tracker.getDependencies().contains( observableValue1 ), true );
-    assertEquals( tracker.getDependencies().contains( observableValue3 ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue1 ) );
+    assertTrue( tracker.getDependencies().contains( observableValue3 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue2.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue3.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -811,9 +811,9 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() == dependencies );
+    assertSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
-    assertEquals( tracker.getDependencies().contains( observableValue ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
   }
 
@@ -845,9 +845,9 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_STALE );
-    assertTrue( tracker.getDependencies() == dependencies );
+    assertSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
-    assertEquals( tracker.getDependencies().contains( observableValue ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
     // Make sure the derivation observer has state updated
@@ -889,7 +889,7 @@ public class TransactionTest
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( tracker.getDependencies().size(), 1 );
-    assertEquals( tracker.getDependencies().contains( observableValue ), true );
+    assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
     // Make sure the derivation observer has state updated
@@ -923,7 +923,7 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
@@ -959,7 +959,7 @@ public class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Flags.STATE_UP_TO_DATE );
-    assertTrue( tracker.getDependencies() != dependencies );
+    assertNotSame( tracker.getDependencies(), dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
@@ -990,7 +990,7 @@ public class TransactionTest
     assertNotNull( transaction.getPendingDeactivations() );
 
     assertEquals( transaction.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction.getPendingDeactivations().contains( observableValue ), true );
+    assertTrue( transaction.getPendingDeactivations().contains( observableValue ) );
   }
 
   @Test
@@ -1015,12 +1015,12 @@ public class TransactionTest
     assertNotNull( transaction2.getPendingDeactivations() );
 
     // Pending deactivations list in both transactions should be the same instance
-    assertTrue( transaction1.getPendingDeactivations() == transaction2.getPendingDeactivations() );
+    assertSame( transaction1.getPendingDeactivations(), transaction2.getPendingDeactivations() );
 
     assertEquals( transaction1.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction1.getPendingDeactivations().contains( observableValue ), true );
+    assertTrue( transaction1.getPendingDeactivations().contains( observableValue ) );
     assertEquals( transaction2.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction2.getPendingDeactivations().contains( observableValue ), true );
+    assertTrue( transaction2.getPendingDeactivations().contains( observableValue ) );
   }
 
   @Test
@@ -1080,15 +1080,15 @@ public class TransactionTest
 
     assertNotNull( transaction.getPendingDeactivations() );
     assertEquals( transaction.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction.getPendingDeactivations().contains( observableValue ), true );
-    assertEquals( observableValue.isActive(), true );
-    assertEquals( observableValue.isPendingDeactivation(), true );
+    assertTrue( transaction.getPendingDeactivations().contains( observableValue ) );
+    assertTrue( observableValue.isActive() );
+    assertTrue( observableValue.isPendingDeactivation() );
 
     final int deactivationCount = transaction.processPendingDeactivations();
     assertEquals( deactivationCount, 1 );
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
-    assertEquals( observableValue.isActive(), false );
+    assertFalse( observableValue.isPendingDeactivation() );
+    assertFalse( observableValue.isActive() );
     assertEquals( observableValue.getObserver(), derivation );
     assertEquals( derivation.getState(), Flags.STATE_INACTIVE );
   }
@@ -1130,15 +1130,15 @@ public class TransactionTest
 
     assertNotNull( transaction.getPendingDeactivations() );
     assertEquals( transaction.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction.getPendingDeactivations().contains( observableValue ), true );
-    assertEquals( observableValue.isActive(), true );
-    assertEquals( observableValue.isPendingDeactivation(), true );
+    assertTrue( transaction.getPendingDeactivations().contains( observableValue ) );
+    assertTrue( observableValue.isActive() );
+    assertTrue( observableValue.isPendingDeactivation() );
 
     final int deactivationCount = transaction.processPendingDeactivations();
     assertEquals( deactivationCount, 0 );
 
-    assertEquals( observableValue.isPendingDeactivation(), false );
-    assertEquals( observableValue.isActive(), true );
+    assertFalse( observableValue.isPendingDeactivation() );
+    assertTrue( observableValue.isActive() );
     assertEquals( derivation.getState(), Flags.STATE_UP_TO_DATE );
   }
 
@@ -1204,24 +1204,24 @@ public class TransactionTest
 
     assertNotNull( transaction.getPendingDeactivations() );
     assertEquals( transaction.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction.getPendingDeactivations().contains( observableValue3 ), true );
-    assertEquals( observableValue3.isActive(), true );
-    assertEquals( observableValue3.isPendingDeactivation(), true );
+    assertTrue( transaction.getPendingDeactivations().contains( observableValue3 ) );
+    assertTrue( observableValue3.isActive() );
+    assertTrue( observableValue3.isPendingDeactivation() );
 
     final int deactivationCount = transaction.processPendingDeactivations();
 
     //Chained calculated derivation is deactivated
     assertEquals( deactivationCount, 2 );
 
-    assertEquals( observableValue3.isPendingDeactivation(), false );
-    assertEquals( observableValue3.isActive(), false );
+    assertFalse( observableValue3.isPendingDeactivation() );
+    assertFalse( observableValue3.isActive() );
     assertEquals( observableValue3.getObserver(), derivation2 );
-    assertEquals( observableValue2.isPendingDeactivation(), false );
-    assertEquals( observableValue2.isActive(), false );
+    assertFalse( observableValue2.isPendingDeactivation() );
+    assertFalse( observableValue2.isActive() );
     assertEquals( observableValue2.getObserver(), derivation1 );
-    assertEquals( observableValue1.isPendingDeactivation(), false );
-    assertEquals( observableValue1.isActive(), true );
-    assertEquals( observableValue1.isComputedValue(), false );
+    assertFalse( observableValue1.isPendingDeactivation() );
+    assertTrue( observableValue1.isActive() );
+    assertFalse( observableValue1.isComputedValue() );
     assertEquals( derivation2.getState(), Flags.STATE_INACTIVE );
     assertEquals( derivation2.getDependencies().size(), 0 );
     assertEquals( observableValue2.getObservers().size(), 0 );
@@ -1252,17 +1252,17 @@ public class TransactionTest
 
     assertNotNull( transaction.getPendingDeactivations() );
     assertEquals( transaction.getPendingDeactivations().size(), 1 );
-    assertEquals( transaction.getPendingDeactivations().contains( derivedObservableValue ), true );
-    assertEquals( derivedObservableValue.isActive(), true );
-    assertEquals( derivedObservableValue.isPendingDeactivation(), true );
+    assertTrue( transaction.getPendingDeactivations().contains( derivedObservableValue ) );
+    assertTrue( derivedObservableValue.isActive() );
+    assertTrue( derivedObservableValue.isPendingDeactivation() );
 
     final int deactivationCount = transaction.processPendingDeactivations();
 
     //baseObservableValue is not active so it needs deactivation
     assertEquals( deactivationCount, 1 );
 
-    assertEquals( derivedObservableValue.isPendingDeactivation(), false );
-    assertEquals( derivedObservableValue.isActive(), false );
+    assertFalse( derivedObservableValue.isPendingDeactivation() );
+    assertFalse( derivedObservableValue.isActive() );
     assertEquals( derivedObservableValue.getObserver(), derivation );
     assertEquals( derivation.getState(), Flags.STATE_INACTIVE );
     assertEquals( derivation.getDependencies().size(), 0 );
@@ -1366,12 +1366,12 @@ public class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( transaction.hasTransactionUseOccured(), false );
+    assertFalse( transaction.hasTransactionUseOccured() );
 
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( transaction.hasTransactionUseOccured(), true );
+    assertTrue( transaction.hasTransactionUseOccured() );
   }
 
   @Test
@@ -1392,14 +1392,14 @@ public class TransactionTest
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( transaction.hasTransactionUseOccured(), false );
+    assertFalse( transaction.hasTransactionUseOccured() );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_STALE );
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertEquals( transaction.hasTransactionUseOccured(), true );
+    assertTrue( transaction.hasTransactionUseOccured() );
   }
 
   @Test
@@ -2200,11 +2200,11 @@ public class TransactionTest
     assertEquals( context.getTransaction(), transaction );
     assertEquals( transaction.getContext(), context );
     assertEquals( transaction.getName(), name );
-    assertEquals( transaction.isMutation(), false );
+    assertFalse( transaction.isMutation() );
     assertEquals( transaction.getTracker(), tracker );
-    assertEquals( transaction.getPrevious(), null );
-    assertEquals( transaction.getPreviousInSameContext(), null );
-    assertEquals( transaction.isMutation(), false );
+    assertNull( transaction.getPrevious() );
+    assertNull( transaction.getPreviousInSameContext() );
+    assertFalse( transaction.isMutation() );
   }
 
   @Test
@@ -2253,7 +2253,7 @@ public class TransactionTest
 
     assertEquals( context2.getTransaction(), transaction2 );
     assertEquals( transaction2.getPrevious(), transaction1 );
-    assertEquals( transaction2.getPreviousInSameContext(), null );
+    assertNull( transaction2.getPreviousInSameContext() );
   }
 
   @Test
@@ -2331,8 +2331,8 @@ public class TransactionTest
     handler.assertEventCount( 1 );
     handler.assertNextEvent( TransactionStartedEvent.class, event -> {
       assertEquals( event.getName(), name );
-      assertEquals( event.isMutation(), false );
-      assertEquals( event.getTracker(), null );
+      assertFalse( event.isMutation() );
+      assertNull( event.getTracker() );
     } );
   }
 
@@ -2424,8 +2424,8 @@ public class TransactionTest
 
     Transaction.commit( transaction );
 
-    assertEquals( context.isTransactionActive(), false );
-    assertEquals( context.isSchedulerEnabled(), true );
+    assertFalse( context.isTransactionActive() );
+    assertTrue( context.isSchedulerEnabled() );
   }
 
   @Test
@@ -2439,18 +2439,18 @@ public class TransactionTest
     final Transaction transaction2 =
       Transaction.begin( context, ValueUtil.randomString(), false, null );
 
-    assertEquals( context.isTransactionActive(), true );
-    assertEquals( context.isSchedulerEnabled(), false );
+    assertTrue( context.isTransactionActive() );
+    assertFalse( context.isSchedulerEnabled() );
 
     Transaction.commit( transaction2 );
 
-    assertEquals( context.isTransactionActive(), true );
-    assertEquals( context.isSchedulerEnabled(), false );
+    assertTrue( context.isTransactionActive() );
+    assertFalse( context.isSchedulerEnabled() );
 
     Transaction.commit( transaction1 );
 
-    assertEquals( context.isTransactionActive(), false );
-    assertEquals( context.isSchedulerEnabled(), true );
+    assertFalse( context.isTransactionActive() );
+    assertTrue( context.isSchedulerEnabled() );
   }
 
   @Test
@@ -2465,22 +2465,22 @@ public class TransactionTest
     final Transaction transaction2 =
       Transaction.begin( context2, ValueUtil.randomString(), false, null );
 
-    assertEquals( context1.isTransactionActive(), false );
-    assertEquals( context1.isSchedulerEnabled(), false );
-    assertEquals( context2.isTransactionActive(), true );
-    assertEquals( context2.isSchedulerEnabled(), false );
+    assertFalse( context1.isTransactionActive() );
+    assertFalse( context1.isSchedulerEnabled() );
+    assertTrue( context2.isTransactionActive() );
+    assertFalse( context2.isSchedulerEnabled() );
 
     Transaction.commit( transaction2 );
 
-    assertEquals( context1.isTransactionActive(), true );
-    assertEquals( context1.isSchedulerEnabled(), false );
-    assertEquals( context2.isTransactionActive(), false );
-    assertEquals( context2.isSchedulerEnabled(), true );
+    assertTrue( context1.isTransactionActive() );
+    assertFalse( context1.isSchedulerEnabled() );
+    assertFalse( context2.isTransactionActive() );
+    assertTrue( context2.isSchedulerEnabled() );
 
     Transaction.commit( transaction1 );
 
-    assertEquals( context1.isTransactionActive(), false );
-    assertEquals( context1.isSchedulerEnabled(), true );
+    assertFalse( context1.isTransactionActive() );
+    assertTrue( context1.isSchedulerEnabled() );
   }
 
   @Test
@@ -2499,36 +2499,36 @@ public class TransactionTest
     final Transaction transaction4 =
       Transaction.begin( context2, ValueUtil.randomString(), false, null );
 
-    assertEquals( context1.isTransactionActive(), false );
-    assertEquals( context1.isSchedulerEnabled(), false );
-    assertEquals( context2.isTransactionActive(), true );
-    assertEquals( context2.isSchedulerEnabled(), false );
+    assertFalse( context1.isTransactionActive() );
+    assertFalse( context1.isSchedulerEnabled() );
+    assertTrue( context2.isTransactionActive() );
+    assertFalse( context2.isSchedulerEnabled() );
 
     Transaction.commit( transaction4 );
 
-    assertEquals( context1.isTransactionActive(), true );
-    assertEquals( context1.isSchedulerEnabled(), false );
-    assertEquals( context2.isTransactionActive(), false );
-    assertEquals( context2.isSchedulerEnabled(), false );
+    assertTrue( context1.isTransactionActive() );
+    assertFalse( context1.isSchedulerEnabled() );
+    assertFalse( context2.isTransactionActive() );
+    assertFalse( context2.isSchedulerEnabled() );
 
     Transaction.commit( transaction3 );
 
-    assertEquals( context1.isTransactionActive(), false );
-    assertEquals( context1.isSchedulerEnabled(), false );
-    assertEquals( context2.isTransactionActive(), true );
-    assertEquals( context2.isSchedulerEnabled(), false );
+    assertFalse( context1.isTransactionActive() );
+    assertFalse( context1.isSchedulerEnabled() );
+    assertTrue( context2.isTransactionActive() );
+    assertFalse( context2.isSchedulerEnabled() );
 
     Transaction.commit( transaction2 );
 
-    assertEquals( context1.isTransactionActive(), true );
-    assertEquals( context1.isSchedulerEnabled(), false );
-    assertEquals( context2.isTransactionActive(), false );
-    assertEquals( context2.isSchedulerEnabled(), true );
+    assertTrue( context1.isTransactionActive() );
+    assertFalse( context1.isSchedulerEnabled() );
+    assertFalse( context2.isTransactionActive() );
+    assertTrue( context2.isSchedulerEnabled() );
 
     Transaction.commit( transaction1 );
 
-    assertEquals( context1.isTransactionActive(), false );
-    assertEquals( context1.isSchedulerEnabled(), true );
+    assertFalse( context1.isTransactionActive() );
+    assertTrue( context1.isSchedulerEnabled() );
   }
 
   @SuppressWarnings( "ConstantConditions" )
@@ -2551,8 +2551,8 @@ public class TransactionTest
     handler.assertEventCount( 1 );
     handler.assertNextEvent( TransactionCompletedEvent.class, event -> {
       assertEquals( event.getName(), name );
-      assertEquals( event.isMutation(), false );
-      assertEquals( event.getTracker(), null );
+      assertFalse( event.isMutation() );
+      assertNull( event.getTracker() );
       assertTrue( event.getDuration() >= 0 );
     } );
   }

@@ -27,7 +27,7 @@ public class DisposeTrackableTest
     final BasicDisposeTrackable trackable = new BasicDisposeTrackable();
 
     assertEquals( DisposeTrackable.getNotifier( trackable ), trackable.getNotifier() );
-    assertEquals( DisposeTrackable.getNotifier( new Object() ), null );
+    assertNull( DisposeTrackable.getNotifier( new Object() ) );
   }
 
   @Test
@@ -36,7 +36,7 @@ public class DisposeTrackableTest
     final BasicDisposeTrackable trackable = new BasicDisposeTrackable();
 
     assertEquals( DisposeTrackable.asDisposeTrackable( trackable ), trackable );
-    assertEquals( DisposeTrackable.getNotifier( new Object() ), null );
+    assertNull( DisposeTrackable.getNotifier( new Object() ) );
   }
 
   @Test

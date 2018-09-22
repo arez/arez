@@ -58,7 +58,7 @@ public class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest
     // Resolve lazy reference here
     safeAction( () -> assertEquals( certificate1.getPerson(), person ) );
     safeAction( () -> assertEquals( person.getCertificate(), certificate1 ) );
-    safeAction( () -> assertEquals( person2.getCertificate(), null ) );
+    safeAction( () -> assertNull( person2.getCertificate() ) );
 
     assertEquals( locatorLookupCallCount.get(), 1 );
     assertEquals( inverseCallCount.get(), 2 );
@@ -76,7 +76,7 @@ public class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest
       certificate1.setPersonId( person2Id );
       assertEquals( locatorLookupCallCount.get(), 1 );
       assertEquals( certificate1.getPerson(), person2 );
-      assertEquals( person.getCertificate(), null );
+      assertNull( person.getCertificate() );
       assertEquals( person2.getCertificate(), certificate1 );
       assertEquals( locatorLookupCallCount.get(), 2 );
     } );
@@ -89,9 +89,9 @@ public class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest
 
     Disposable.dispose( certificate1 );
 
-    assertEquals( Disposable.isDisposed( certificate1 ), true );
-    safeAction( () -> assertEquals( person.getCertificate(), null ) );
-    safeAction( () -> assertEquals( person2.getCertificate(), null ) );
+    assertTrue( Disposable.isDisposed( certificate1 ) );
+    safeAction( () -> assertNull( person.getCertificate() ) );
+    safeAction( () -> assertNull( person2.getCertificate() ) );
 
     assertEquals( certificate1GetPersonCallCount.get(), 2 );
     assertEquals( locatorLookupCallCount.get(), 2 );

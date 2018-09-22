@@ -24,31 +24,31 @@ public class CascadeOnDisposeIntegrationTest
     final Model2 model2a = Model2.create( model1a, "Model2A" );
     final Model2 model2b = Model2.create( model1b, "Model2B" );
 
-    assertEquals( Disposable.isDisposed( model1a ), false );
-    assertEquals( Disposable.isDisposed( model1b ), false );
-    assertEquals( Disposable.isDisposed( model2a ), false );
-    assertEquals( Disposable.isDisposed( model2b ), false );
+    assertFalse( Disposable.isDisposed( model1a ) );
+    assertFalse( Disposable.isDisposed( model1b ) );
+    assertFalse( Disposable.isDisposed( model2a ) );
+    assertFalse( Disposable.isDisposed( model2b ) );
 
     Disposable.dispose( model2a );
 
-    assertEquals( Disposable.isDisposed( model1a ), false );
-    assertEquals( Disposable.isDisposed( model1b ), false );
-    assertEquals( Disposable.isDisposed( model2a ), true );
-    assertEquals( Disposable.isDisposed( model2b ), false );
+    assertFalse( Disposable.isDisposed( model1a ) );
+    assertFalse( Disposable.isDisposed( model1b ) );
+    assertTrue( Disposable.isDisposed( model2a ) );
+    assertFalse( Disposable.isDisposed( model2b ) );
 
     Disposable.dispose( model1a );
 
-    assertEquals( Disposable.isDisposed( model1a ), true );
-    assertEquals( Disposable.isDisposed( model1b ), false );
-    assertEquals( Disposable.isDisposed( model2a ), true );
-    assertEquals( Disposable.isDisposed( model2b ), false );
+    assertTrue( Disposable.isDisposed( model1a ) );
+    assertFalse( Disposable.isDisposed( model1b ) );
+    assertTrue( Disposable.isDisposed( model2a ) );
+    assertFalse( Disposable.isDisposed( model2b ) );
 
     Disposable.dispose( model1b );
 
-    assertEquals( Disposable.isDisposed( model1a ), true );
-    assertEquals( Disposable.isDisposed( model1b ), true );
-    assertEquals( Disposable.isDisposed( model2a ), true );
-    assertEquals( Disposable.isDisposed( model2b ), true );
+    assertTrue( Disposable.isDisposed( model1a ) );
+    assertTrue( Disposable.isDisposed( model1b ) );
+    assertTrue( Disposable.isDisposed( model2a ) );
+    assertTrue( Disposable.isDisposed( model2b ) );
 
     assertMatchesFixture( recorder );
   }

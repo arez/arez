@@ -24,16 +24,16 @@ public class DisposeOnDeactivateIntegrationTest
 
     final Model1 model = Model1.create();
 
-    assertEquals( Disposable.isDisposed( model ), false );
+    assertFalse( Disposable.isDisposed( model ) );
 
     final Observer observer = observer( () -> ComponentObservable.observe( model ) );
 
-    assertEquals( Disposable.isDisposed( observer ), false );
+    assertFalse( Disposable.isDisposed( observer ) );
 
     Disposable.dispose( observer );
 
-    assertEquals( Disposable.isDisposed( model ), true );
-    assertEquals( Disposable.isDisposed( observer ), true );
+    assertTrue( Disposable.isDisposed( model ) );
+    assertTrue( Disposable.isDisposed( observer ) );
 
     assertMatchesFixture( recorder );
   }

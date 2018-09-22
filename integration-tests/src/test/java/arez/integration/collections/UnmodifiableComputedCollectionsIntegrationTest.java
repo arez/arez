@@ -42,15 +42,15 @@ public class UnmodifiableComputedCollectionsIntegrationTest
     safeAction( () -> assertNull( m1.calcMap2() ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertTrue( m1.calcCollection() == m1.calcCollection() ) );
-    safeAction( () -> assertTrue( m1.calcSet() == m1.calcSet() ) );
-    safeAction( () -> assertTrue( m1.calcList() == m1.calcList() ) );
-    safeAction( () -> assertTrue( m1.calcMap() == m1.calcMap() ) );
+    safeAction( () -> assertSame( m1.calcCollection(), m1.calcCollection() ) );
+    safeAction( () -> assertSame( m1.calcSet(), m1.calcSet() ) );
+    safeAction( () -> assertSame( m1.calcList(), m1.calcList() ) );
+    safeAction( () -> assertSame( m1.calcMap(), m1.calcMap() ) );
 
-    safeAction( () -> assertTrue( m1.calcCollection2() == m1.calcCollection2() ) );
-    safeAction( () -> assertTrue( m1.calcSet2() == m1.calcSet2() ) );
-    safeAction( () -> assertTrue( m1.calcList2() == m1.calcList2() ) );
-    safeAction( () -> assertTrue( m1.calcMap2() == m1.calcMap2() ) );
+    safeAction( () -> assertSame( m1.calcCollection2(), m1.calcCollection2() ) );
+    safeAction( () -> assertSame( m1.calcSet2(), m1.calcSet2() ) );
+    safeAction( () -> assertSame( m1.calcList2(), m1.calcList2() ) );
+    safeAction( () -> assertSame( m1.calcMap2(), m1.calcMap2() ) );
 
     final Collection<String> collection = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
     final Set<String> set = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
@@ -97,15 +97,15 @@ public class UnmodifiableComputedCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.calcMap2().containsKey( map2.keySet().iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertTrue( m1.calcCollection() == m1.calcCollection() ) );
-    safeAction( () -> assertTrue( m1.calcSet() == m1.calcSet() ) );
-    safeAction( () -> assertTrue( m1.calcList() == m1.calcList() ) );
-    safeAction( () -> assertTrue( m1.calcMap() == m1.calcMap() ) );
+    safeAction( () -> assertSame( m1.calcCollection(), m1.calcCollection() ) );
+    safeAction( () -> assertSame( m1.calcSet(), m1.calcSet() ) );
+    safeAction( () -> assertSame( m1.calcList(), m1.calcList() ) );
+    safeAction( () -> assertSame( m1.calcMap(), m1.calcMap() ) );
 
-    safeAction( () -> assertTrue( m1.calcCollection2() == m1.calcCollection2() ) );
-    safeAction( () -> assertTrue( m1.calcSet2() == m1.calcSet2() ) );
-    safeAction( () -> assertTrue( m1.calcList2() == m1.calcList2() ) );
-    safeAction( () -> assertTrue( m1.calcMap2() == m1.calcMap2() ) );
+    safeAction( () -> assertSame( m1.calcCollection2(), m1.calcCollection2() ) );
+    safeAction( () -> assertSame( m1.calcSet2(), m1.calcSet2() ) );
+    safeAction( () -> assertSame( m1.calcList2(), m1.calcList2() ) );
+    safeAction( () -> assertSame( m1.calcMap2(), m1.calcMap2() ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator )

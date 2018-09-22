@@ -17,13 +17,13 @@ public class AggregateLocatorTest
     final AggregateLocator locator = new AggregateLocator();
     final Disposable disposable = locator.registerLocator( locator1 );
 
-    assertEquals( locator.getLocators().contains( locator1 ), true );
-    assertEquals( disposable.isDisposed(), false );
+    assertTrue( locator.getLocators().contains( locator1 ) );
+    assertFalse( disposable.isDisposed() );
 
     disposable.dispose();
 
-    assertEquals( locator.getLocators().contains( locator1 ), false );
-    assertEquals( disposable.isDisposed(), true );
+    assertFalse( locator.getLocators().contains( locator1 ) );
+    assertTrue( disposable.isDisposed() );
 
     // Should be no-op
     disposable.dispose();
