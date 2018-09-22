@@ -71,7 +71,7 @@ complete as there is too much un-said.
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of computed/observed methods at a later time. This
-  could be in different schedulers (i.e. `requestAnimationFrame`) or via parameters like 
+  could be in different schedulers (i.e. `requestAnimationFrame`) or via parameters like
   - `minimumDelay`: Must wait a minimum time before re-executing
   - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
   - `throttleTime`: Track when executed and reschedule when at least `throttleTime` has passed. This is
