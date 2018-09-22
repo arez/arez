@@ -5,11 +5,8 @@ import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Interface that allows caller to release any resources associated with element.
- * It is safe to invoke {@link #dispose()} multiple times on a element. Dispose
- * is considered a state modifying action and must be called either within an
- * action where mutation is true or else it will start it's own transaction before
- * performing dispose. Once an element is disposed, no other methods should be invoked
- * on element.
+ * It is safe to invoke {@link #dispose()} multiple times on a element. Once an
+ * element is disposed, no methods should be invoked on element.
  */
 public interface Disposable
 {
@@ -20,9 +17,6 @@ public interface Disposable
 
   /**
    * Return true if dispose() has been called on object.
-   * This is very useful when the Disposable is a @Computed value representing
-   * the selected item in a UI component but the item can be disposed by other
-   * agents within the system. (i.e. The item was removed from the server).
    *
    * @return true if dispose has been called.
    */

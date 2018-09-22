@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[core\]** Improve the javadocs descriptions for `arez.Disposable` to bring them inline with latest
+  application architecture.
+
 ### [v0.107](https://github.com/arez/arez/tree/v0.107) (2018-09-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.106...v0.107)
 
