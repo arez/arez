@@ -77,8 +77,11 @@ public interface Disposable
   @Nonnull
   static Disposable asDisposable( @Nonnull final Object object )
   {
-    apiInvariant( () -> object instanceof Disposable,
-                  () -> "Object passed to asDisposable does not implement Disposable. Object: " + object );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> object instanceof Disposable,
+                    () -> "Object passed to asDisposable does not implement Disposable. Object: " + object );
+    }
     return (Disposable) object;
   }
 }

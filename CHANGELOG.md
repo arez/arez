@@ -4,6 +4,8 @@
 
 * **\[core\]** Improve the javadocs descriptions for `arez.Disposable` to bring them inline with latest
   application architecture.
+* **\[core\]** Ensure that the `apiInvariant(...)` invocation in `arez.Disposable` is guarded by an
+  `Arez.shouldCheckApiInvariants()` check. This improves dead code removal in the GWT2.x compiler.
 
 ### [v0.107](https://github.com/arez/arez/tree/v0.107) (2018-09-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.106...v0.107)
