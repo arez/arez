@@ -78,7 +78,7 @@ complete as there is too much un-said.
   - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
   - `throttleTime`: Track when executed and reschedule when at least `throttleTime` has passed. This is
     similar to `minimumDelay`, except that the initial run of the function happens immediately.
-  This coul dprobably be done via a reactive streaming library.
+  This could probably be done via a reactive streaming library.
 
 * Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into computed values. It would
   manually trigger `ComputedValue.reportPossiblyChanged()` when a new value arrives.
