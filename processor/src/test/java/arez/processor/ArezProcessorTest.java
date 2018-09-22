@@ -758,6 +758,8 @@ public class ArezProcessorTest
                       "@ComponentDependency target must return an instance compatible with arez.component.DisposeTrackable or a type annotated with @ArezComponent(disposeTrackable=ENABLE)" },
         new Object[]{ "com.example.component_dependency.BadTypeFieldDependency",
                       "@ComponentDependency target must be an instance compatible with arez.component.DisposeTrackable or a type annotated with @ArezComponent(disposeTrackable=ENABLE)" },
+        new Object[]{ "com.example.component_dependency.CascadeDisposeAndFieldDependency",
+                      "Method can not be annotated with both @ComponentDependency and @CascadeDispose" },
         new Object[]{ "com.example.component_dependency.ComputedDependency",
                       "Method can not be annotated with both @Computed and @ComponentDependency" },
         new Object[]{ "com.example.component_dependency.NonFinalDependency",

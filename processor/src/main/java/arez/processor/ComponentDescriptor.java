@@ -1324,10 +1324,11 @@ final class ComponentDescriptor
       .forEach( this::processComponentDependencyField );
   }
 
-  private void processComponentDependencyField( @Nonnull final VariableElement f )
+  private void processComponentDependencyField( @Nonnull final VariableElement field )
   {
-    MethodChecks.mustBeSubclassCallable( _element, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, f );
-    addDependency( f );
+    verifyNoDuplicateAnnotations( field );
+    MethodChecks.mustBeSubclassCallable( _element, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
+    addDependency( field );
   }
 
   private void processCascadeDisposeFields()
@@ -1338,11 +1339,12 @@ final class ComponentDescriptor
       .forEach( this::processCascadeDisposeField );
   }
 
-  private void processCascadeDisposeField( @Nonnull final VariableElement f )
+  private void processCascadeDisposeField( @Nonnull final VariableElement field )
   {
-    MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, f );
-    mustBeCascadeDisposeTypeCompatible( f );
-    _cascadeDisposes.put( f, new CascadeDisposableDescriptor( f ) );
+    verifyNoDuplicateAnnotations( field );
+    MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, field );
+    mustBeCascadeDisposeTypeCompatible( field );
+    _cascadeDisposes.put( field, new CascadeDisposableDescriptor( field ) );
   }
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement f )
@@ -2450,6 +2452,34 @@ final class ComponentDescriptor
                 " and @" + ProcessorUtil.toSimpleName( type2 );
               throw new ArezProcessorException( message, method );
             }
+          }
+        }
+      }
+    }
+  }
+
+  private void verifyNoDuplicateAnnotations( @Nonnull final VariableElement field )
+    throws ArezProcessorException
+  {
+    final String[] annotationTypes =
+      new String[]{ Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                    Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME };
+    for ( int i = 0; i < annotationTypes.length; i++ )
+    {
+      final String type1 = annotationTypes[ i ];
+      final Object annotation1 = ProcessorUtil.findAnnotationByType( field, type1 );
+      if ( null != annotation1 )
+      {
+        for ( int j = i + 1; j < annotationTypes.length; j++ )
+        {
+          final String type2 = annotationTypes[ j ];
+          final Object annotation2 = ProcessorUtil.findAnnotationByType( field, type2 );
+          if ( null != annotation2 )
+          {
+            final String message =
+              "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
+              " and @" + ProcessorUtil.toSimpleName( type2 );
+            throw new ArezProcessorException( message, field );
           }
         }
       }
