@@ -6,7 +6,6 @@ complete as there is too much un-said.
 
 ## Next Version
 
-* It should be possible to add `@ComponentDependency` to fields.
 * It should be possible to add `@CascadeDispose` to methods.
 
 ## Enhancements
