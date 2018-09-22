@@ -4,6 +4,11 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
+## Next Version
+
+* It should be possible to add `@ComponentDependency` to fields.
+* It should be possible to add `@CascadeDispose` to methods.
+
 ## Enhancements
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
@@ -57,8 +62,6 @@ complete as there is too much un-said.
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
-
-* It should be possible to add `@ComponentDependency` to fields.
 
 * Support `@Reference` and `@ComponentDependency` on the same method? Alternatively we could assume that `@Reference`
   implies `@ComponentDependency` and allow configuration of cascade action onto reference?
