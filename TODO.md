@@ -30,6 +30,9 @@ complete as there is too much un-said.
   the source file and line number where the invariant is generated. This would allow cross-linking from the website to the source code (via javadocs source
   inclusion).
 
+  Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
+  they are only called from within the appropriate guard. Not sure this is possible.
+
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
