@@ -1,0 +1,175 @@
+
+[
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentCreateStarted"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentCreateCompleted"
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model2.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model2.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.0.dispose"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.0.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.0.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.0",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionStarted",
+        "transaction": "Model1.1.dispose"
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentDisposeStarted"
+    },
+    {
+        "action": "Model2.1.dispose",
+        "tracked": false,
+        "type": "ActionStarted",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model2.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model2.1",
+        "type": "ComponentDisposeCompleted"
+    },
+    {
+        "mutation": true,
+        "tracker": null,
+        "type": "TransactionCompleted",
+        "transaction": "Model1.1.dispose"
+    },
+    {
+        "result": null,
+        "errorMessage": null,
+        "action": "Model1.1.dispose",
+        "tracked": false,
+        "returnsResult": false,
+        "normalCompletion": true,
+        "type": "ActionCompleted",
+        "parameters": [
+        ]
+    },
+    {
+        "component": "Model1.1",
+        "type": "ComponentDisposeCompleted"
+    }
+]

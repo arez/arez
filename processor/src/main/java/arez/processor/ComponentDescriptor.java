@@ -142,7 +142,7 @@ final class ComponentDescriptor
   private final Map<String, ObservedDescriptor> _observeds = new LinkedHashMap<>();
   private final Collection<ObservedDescriptor> _roObserveds =
     Collections.unmodifiableCollection( _observeds.values() );
-  private final Map<ExecutableElement, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
+  private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
   private final Map<VariableElement, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
@@ -219,7 +219,8 @@ final class ComponentDescriptor
                                                 isDeprecated( e.getOnDeactivate() ) ||
                                                 isDeprecated( e.getOnStale() ) ) ||
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
-           _roDependencies.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
+           _roDependencies.stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
+                                                   ( !e.isMethodDependency() && isDeprecated( e.getField() ) ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
            _roObserveds.stream().anyMatch( e -> ( e.hasObserved() && isDeprecated( e.getObserved() ) ) ||
                                                 ( e.hasOnDepsChanged() && isDeprecated( e.getOnDepsChanged() ) ) ) ||
@@ -242,7 +243,7 @@ final class ComponentDescriptor
     return _disposeTrackable;
   }
 
-  private boolean isDeprecated( @Nullable final ExecutableElement element )
+  private boolean isDeprecated( @Nullable final Element element )
   {
     return null != element && null != element.getAnnotation( Deprecated.class );
   }
@@ -1311,6 +1312,23 @@ final class ComponentDescriptor
     ensureNoAbstractMethods( onDepsChangeds.values() );
 
     processCascadeDisposeFields();
+    processComponentDependencyFields();
+  }
+
+  private void processComponentDependencyFields()
+  {
+    ProcessorUtil.getFieldElements( _element )
+      .stream()
+      .filter( f -> null !=
+                    ProcessorUtil.findAnnotationByType( f, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME ) )
+      .forEach( this::processComponentDependencyField );
+  }
+
+  private void processComponentDependencyField( @Nonnull final VariableElement field )
+  {
+    verifyNoDuplicateAnnotations( field );
+    MethodChecks.mustBeSubclassCallable( _element, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
+    addDependency( field );
   }
 
   private void processCascadeDisposeFields()
@@ -1321,14 +1339,15 @@ final class ComponentDescriptor
       .forEach( this::processCascadeDisposeField );
   }
 
-  private void processCascadeDisposeField( @Nonnull final VariableElement f )
+  private void processCascadeDisposeField( @Nonnull final VariableElement field )
   {
-    MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, f );
-    mustBeCascadeDisposeTypeCompatible( f );
-    _cascadeDisposes.put( f, new CascadeDisposableDescriptor( f ) );
+    verifyNoDuplicateAnnotations( field );
+    MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, field );
+    mustBeCascadeDisposeTypeCompatible( field );
+    _cascadeDisposes.put( field, new CascadeDisposableDescriptor( field ) );
   }
 
-  private void mustBeCascadeDisposeTypeCompatible( final @Nonnull VariableElement f )
+  private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement f )
   {
     final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
     assert null != disposable;
@@ -1402,7 +1421,7 @@ final class ComponentDescriptor
                                       @Nonnull final ObservableDescriptor observable )
   {
     final DependencyDescriptor dependencyDescriptor =
-      _dependencies.computeIfAbsent( method, this::createDependencyDescriptor );
+      _dependencies.computeIfAbsent( method, m -> createMethodDependencyDescriptor( method ) );
     dependencyDescriptor.setObservable( observable );
   }
 
@@ -1930,26 +1949,32 @@ final class ComponentDescriptor
 
   private void addDependency( @Nonnull final ExecutableElement method )
   {
-    _dependencies.put( method, createDependencyDescriptor( method ) );
+    _dependencies.put( method, createMethodDependencyDescriptor( method ) );
+  }
+
+  private void addDependency( @Nonnull final VariableElement field )
+  {
+    _dependencies.put( field, createFieldDependencyDescriptor( field ) );
   }
 
   @Nonnull
-  private DependencyDescriptor createDependencyDescriptor( @Nonnull final ExecutableElement method )
+  private DependencyDescriptor createMethodDependencyDescriptor( @Nonnull final ExecutableElement method )
   {
     MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeSubclassCallable( getElement(), Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
-    if ( TypeKind.DECLARED != method.getReturnType().getKind() )
+    final TypeMirror type = method.getReturnType();
+    if ( TypeKind.DECLARED != type.getKind() )
     {
       throw new ArezProcessorException( "@ComponentDependency target must return a non-primitive value", method );
     }
     final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
     assert null != disposeTrackable;
-    if ( !_typeUtils.isAssignable( method.getReturnType(), disposeTrackable.asType() ) )
+    if ( !_typeUtils.isAssignable( type, disposeTrackable.asType() ) )
     {
-      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( method.getReturnType() );
+      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
       final AnnotationMirror value =
         ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
@@ -1964,7 +1989,43 @@ final class ComponentDescriptor
     return new DependencyDescriptor( method, cascade );
   }
 
-  private boolean isActionCascade( @Nonnull final ExecutableElement method )
+  @Nonnull
+  private DependencyDescriptor createFieldDependencyDescriptor( @Nonnull final VariableElement field )
+  {
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
+    MethodChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
+
+    final TypeMirror type = field.asType();
+    if ( TypeKind.DECLARED != type.getKind() )
+    {
+      throw new ArezProcessorException( "@ComponentDependency target must be a non-primitive value", field );
+    }
+    final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
+    assert null != disposeTrackable;
+    if ( !_typeUtils.isAssignable( type, disposeTrackable.asType() ) )
+    {
+      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
+      final AnnotationMirror value =
+        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      {
+        throw new ArezProcessorException( "@ComponentDependency target must be an instance compatible with " +
+                                          Constants.DISPOSE_TRACKABLE_CLASSNAME + " or a type annotated " +
+                                          "with @ArezComponent(disposeTrackable=ENABLE)", field );
+      }
+    }
+
+    if ( !isActionCascade( field ) )
+    {
+      throw new ArezProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
+                                        "dependency is on a final field and can not be set to null.", field );
+
+    }
+
+    return new DependencyDescriptor( field );
+  }
+
+  private boolean isActionCascade( @Nonnull final Element method )
   {
     final VariableElement injectParameter = (VariableElement)
       ProcessorUtil.getAnnotationValue( _elements,
@@ -2356,6 +2417,7 @@ final class ComponentDescriptor
                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
+                    Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
                     Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
                     Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                     Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
@@ -2391,6 +2453,34 @@ final class ComponentDescriptor
                 " and @" + ProcessorUtil.toSimpleName( type2 );
               throw new ArezProcessorException( message, method );
             }
+          }
+        }
+      }
+    }
+  }
+
+  private void verifyNoDuplicateAnnotations( @Nonnull final VariableElement field )
+    throws ArezProcessorException
+  {
+    final String[] annotationTypes =
+      new String[]{ Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                    Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME };
+    for ( int i = 0; i < annotationTypes.length; i++ )
+    {
+      final String type1 = annotationTypes[ i ];
+      final Object annotation1 = ProcessorUtil.findAnnotationByType( field, type1 );
+      if ( null != annotation1 )
+      {
+        for ( int j = i + 1; j < annotationTypes.length; j++ )
+        {
+          final String type2 = annotationTypes[ j ];
+          final Object annotation2 = ProcessorUtil.findAnnotationByType( field, type2 );
+          if ( null != annotation2 )
+          {
+            final String message =
+              "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
+              " and @" + ProcessorUtil.toSimpleName( type2 );
+            throw new ArezProcessorException( message, field );
           }
         }
       }
@@ -3200,38 +3290,64 @@ final class ComponentDescriptor
       builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
       for ( final DependencyDescriptor dependency : _roDependencies )
       {
-        final ExecutableElement method = dependency.getMethod();
-        final String methodName = method.getSimpleName().toString();
+        final Element element = dependency.getElement();
         final boolean isNonnull =
-          null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
-        if ( isNonnull )
+          null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
+
+        if ( dependency.isMethodDependency() )
         {
-          builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
-                                GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-                                methodName );
-        }
-        else
-        {
-          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
-          final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
-          if ( abstractObservables )
+          final ExecutableElement method = dependency.getMethod();
+          final String methodName = method.getSimpleName().toString();
+          if ( isNonnull )
           {
-            builder.addStatement( "final $T $N = this.$N",
-                                  method.getReturnType(),
-                                  varName,
-                                  dependency.getObservable().getDataFieldName() );
+            builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
+                                  GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                  methodName );
           }
           else
           {
-            builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+            final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+            final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+            if ( abstractObservables )
+            {
+              builder.addStatement( "final $T $N = this.$N",
+                                    method.getReturnType(),
+                                    varName,
+                                    dependency.getObservable().getDataFieldName() );
+            }
+            else
+            {
+              builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+            }
+            final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+            listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+            listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        varName );
+            listenerBlock.endControlFlow();
+            builder.addCode( listenerBlock.build() );
           }
-          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                      GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-                                      varName );
-          listenerBlock.endControlFlow();
-          builder.addCode( listenerBlock.build() );
+        }
+        else
+        {
+          final VariableElement field = dependency.getField();
+          final String fieldName = field.getSimpleName().toString();
+          if ( isNonnull )
+          {
+            builder.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier().removeOnDisposeListener( this )",
+                                  GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                  fieldName );
+          }
+          else
+          {
+            final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+            listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
+            listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier().removeOnDisposeListener( this )",
+                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        fieldName );
+            listenerBlock.endControlFlow();
+            builder.addCode( listenerBlock.build() );
+          }
         }
       }
     }
@@ -3583,90 +3699,7 @@ final class ComponentDescriptor
     _roMemoizes.forEach( e -> e.buildInitializer( builder ) );
     _roObserveds.forEach( observed -> observed.buildInitializer( builder ) );
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
-
-    for ( final DependencyDescriptor dep : _roDependencies )
-    {
-      final ExecutableElement method = dep.getMethod();
-      final String methodName = method.getSimpleName().toString();
-      final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
-      final boolean isNonnull =
-        null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
-      if ( abstractObservables )
-      {
-        if ( isNonnull )
-        {
-          assert dep.shouldCascadeDispose();
-          builder.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-                                GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-                                dep.getObservable().getDataFieldName() );
-        }
-        else
-        {
-          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
-          builder.addStatement( "final $T $N = this.$N",
-                                dep.getMethod().getReturnType(),
-                                varName,
-                                dep.getObservable().getDataFieldName() );
-          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          if ( dep.shouldCascadeDispose() )
-          {
-            listenerBlock.addStatement(
-              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              dep.getObservable().getDataFieldName() );
-          }
-          else
-          {
-            listenerBlock.addStatement(
-              "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              dep.getObservable().getDataFieldName(),
-              dep.getObservable().getSetter().getSimpleName().toString() );
-          }
-          listenerBlock.endControlFlow();
-          builder.addCode( listenerBlock.build() );
-        }
-      }
-      else
-      {
-        if ( isNonnull )
-        {
-          assert dep.shouldCascadeDispose();
-          builder.addStatement(
-            "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
-            GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-            method.getSimpleName().toString() );
-        }
-        else
-        {
-          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
-          builder.addStatement( "final $T $N = super.$N()",
-                                dep.getMethod().getReturnType(),
-                                varName,
-                                method.getSimpleName().toString() );
-          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          if ( dep.shouldCascadeDispose() )
-          {
-            listenerBlock.addStatement(
-              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, this::dispose )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              method.getSimpleName() );
-          }
-          else
-          {
-            listenerBlock.addStatement(
-              "$T.asDisposeTrackable( super.$N() ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
-              method.getSimpleName(),
-              dep.getObservable().getSetter().getSimpleName().toString() );
-          }
-          listenerBlock.endControlFlow();
-          builder.addCode( listenerBlock.build() );
-        }
-      }
-    }
+    _roDependencies.forEach( e -> e.buildInitializer( builder ) );
 
     GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_CONSTRUCTED" );
 

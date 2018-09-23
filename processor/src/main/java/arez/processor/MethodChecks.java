@@ -76,16 +76,6 @@ final class MethodChecks
     mustNotThrowAnyExceptions( annotationName, method );
   }
 
-  static void mustNotBePublic( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
-  {
-    if ( element.getModifiers().contains( Modifier.PUBLIC ) )
-    {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must not be public", element );
-    }
-  }
-
   private static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ArezProcessorException
   {
@@ -129,10 +119,10 @@ final class MethodChecks
 
   private static void mustNotBePackageAccessInDifferentPackage( @Nonnull final TypeElement component,
                                                                 @Nonnull final String annotationName,
-                                                                @Nonnull final Element method )
+                                                                @Nonnull final Element element )
     throws ArezProcessorException
   {
-    final Set<Modifier> modifiers = method.getModifiers();
+    final Set<Modifier> modifiers = element.getModifiers();
     final boolean isPackageAccess =
       !modifiers.contains( Modifier.PRIVATE ) &&
       !modifiers.contains( Modifier.PROTECTED ) &&
@@ -141,14 +131,14 @@ final class MethodChecks
     if ( isPackageAccess )
     {
       final PackageElement packageElement = getPackageElement( component );
-      final PackageElement methodPackageElement = getPackageElement( (TypeElement) method.getEnclosingElement() );
+      final PackageElement methodPackageElement = getPackageElement( (TypeElement) element.getEnclosingElement() );
       final Name componentPackageName = packageElement.getQualifiedName();
       final Name methodPackageName = methodPackageElement.getQualifiedName();
       if ( !Objects.equals( componentPackageName, methodPackageName ) )
       {
         throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) + " target must " +
                                           "not be package access if the method is in a different package from " +
-                                          "the @ArezComponent", method );
+                                          "the @ArezComponent", element );
       }
     }
   }
@@ -195,8 +185,8 @@ final class MethodChecks
     }
   }
 
-  static void mustNotReturnAnyValue( @Nonnull final String annotationName,
-                                     @Nonnull final ExecutableElement method )
+  private static void mustNotReturnAnyValue( @Nonnull final String annotationName,
+                                             @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )

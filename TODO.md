@@ -6,7 +6,6 @@ complete as there is too much un-said.
 
 ## Next Version
 
-* It should be possible to add `@ComponentDependency` to fields.
 * It should be possible to add `@CascadeDispose` to methods.
 
 ## Enhancements
@@ -29,6 +28,10 @@ complete as there is too much un-said.
   We could use this explicit modelling to help generate error messages and documentation on website. We could also use some trickery of reflection to extract
   the source file and line number where the invariant is generated. This would allow cross-linking from the website to the source code (via javadocs source
   inclusion).
+
+  Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
+  to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
+  invariant failure and add documentation to the website.
 
   Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
   they are only called from within the appropriate guard. Not sure this is possible.
@@ -79,7 +82,7 @@ complete as there is too much un-said.
   - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
   - `throttleTime`: Track when executed and reschedule when at least `throttleTime` has passed. This is
     similar to `minimumDelay`, except that the initial run of the function happens immediately.
-  This coul dprobably be done via a reactive streaming library.
+  This could probably be done via a reactive streaming library.
 
 * Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into computed values. It would
   manually trigger `ComputedValue.reportPossiblyChanged()` when a new value arrives.
@@ -114,10 +117,6 @@ complete as there is too much un-said.
 * Add Disposable to doco - i.e. explain how can dispose both components and reactive elements
 
 * Add graph reflecting size of TodoMVC over time
-
-* Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
-  to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
-  invariant failure and add documentation to the website.
 
 ## Mobx State Tree
 

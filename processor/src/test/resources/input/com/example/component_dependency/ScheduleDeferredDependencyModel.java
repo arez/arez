@@ -12,4 +12,7 @@ abstract class ScheduleDeferredDependencyModel
   {
     return null;
   }
+
+  @ComponentDependency
+  final DisposeTrackable dependency2 = null;
 }
