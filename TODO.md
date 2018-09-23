@@ -72,8 +72,6 @@ complete as there is too much un-said.
 * Support `@Reference` and `@ComponentDependency` on the same method? Alternatively we could assume that `@Reference`
   implies `@ComponentDependency` and allow configuration of cascade action onto reference?
 
-* Add ArchUnit rules to codebase - https://github.com/TNG/ArchUnit
-
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of computed/observed methods at a later time. This
