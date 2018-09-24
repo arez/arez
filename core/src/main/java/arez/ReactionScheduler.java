@@ -298,12 +298,12 @@ final class ReactionScheduler
 
   boolean hasTasksToSchedule()
   {
-    return 0 != _pendingDisposes.size() ||
-           0 != _pendingObservers[ 0 ].size() ||
-           0 != _pendingObservers[ 1 ].size() ||
-           0 != _pendingObservers[ 2 ].size() ||
-           0 != _pendingObservers[ 3 ].size() ||
-           0 != _pendingObservers[ 4 ].size();
+    return !_pendingDisposes.isEmpty() ||
+           !_pendingObservers[ 0 ].isEmpty() ||
+           !_pendingObservers[ 1 ].isEmpty() ||
+           !_pendingObservers[ 2 ].isEmpty() ||
+           !_pendingObservers[ 3 ].isEmpty() ||
+           !_pendingObservers[ 4 ].isEmpty();
   }
 
   /**

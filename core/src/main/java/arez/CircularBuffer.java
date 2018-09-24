@@ -97,7 +97,7 @@ final class CircularBuffer<T>
   @Nullable
   T pop()
   {
-    if ( 0 == size() )
+    if ( isEmpty() )
     {
       return null;
     }
@@ -112,6 +112,11 @@ final class CircularBuffer<T>
     }
 
     return result;
+  }
+
+  boolean isEmpty()
+  {
+    return 0 == size();
   }
 
   void truncate( final int size )
