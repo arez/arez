@@ -3,8 +3,7 @@
 ### Unreleased
 
 * **\[core\]** Improve the javadocs descriptions for `arez.Disposable` to bring them inline with latest
-  application architeCleanup documentation for the `@OnDepsChanged` method to remove references to the
-  `@Track` annotation that has been removedcture.
+  application architecture.
 * **\[core\]** Ensure that the `apiInvariant(...)` invocation in `arez.Disposable` is guarded by an
   `Arez.shouldCheckApiInvariants()` check. This improves dead code removal in the GWT2.x compiler.
 * **\[core\]** Enhance the `@ComponentDependency` so that it can be applied to final fields.
