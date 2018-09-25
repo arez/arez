@@ -211,18 +211,12 @@ final class ReactionScheduler
   /**
    * Execute the next pending observer if any.
    * <ul>
-   * <li>
-   * If there is any reactions left in this round then run the next reaction and consume a token.
-   * </li>
-   * <li>
-   * If there are more rounds left in budget and more pending observers then start a new round,
+   * <li>If there is any reactions left in this round then run the next reaction and consume a token.</li>
+   * <li>If there are more rounds left in budget and more pending observers then start a new round,
    * allocating a number of tokens equal to the number of pending reactions, run the next reaction
-   * and consume a token.
-   * </li>
-   * <li>
-   * Otherwise runaway reactions detected, so act appropriately. (In development this means
-   * purging pending observers and failing an invariant check)
-   * </li>
+   * and consume a token.</li>
+   * <li>Otherwise runaway reactions detected, so act appropriately. (In development this means
+   * purging pending observers and failing an invariant check)</li>
    * </ul>
    *
    * @return true if an observer was ran, false otherwise.
