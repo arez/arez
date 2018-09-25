@@ -11,6 +11,7 @@
   appears on the same method.
 * **\[core\]** Cleanup documentation for the `@OnDepsChanged` method to remove references to the
   `@Track` annotation that has been removed.
+* **\[core\]** Enhance the `@CascadeDispose` annotation so that it can be applied to final methods.
 
 ### [v0.107](https://github.com/arez/arez/tree/v0.107) (2018-09-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.106...v0.107)

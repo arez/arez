@@ -44,7 +44,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.ScheduleAfterConstructedModel", false, false, false },
         new Object[]{ "com.example.observed.ScheduleDeferredModel", false, false, false },
         new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeMethodModel", false, false, false },
         new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeMethodModel", false, false, false },
         new Object[]{ "com.example.component.AnnotatedConcreteModel", false, false, false },
         new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false },
         new Object[]{ "com.example.collections.AbstractCollectionObservableModel", false, false, false },
@@ -596,14 +598,31 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.ReportParametersArezExecutorModel",
                       "@Observed target must not specify reportParameters parameter when executor=AREZ" },
 
+        new Object[]{ "com.example.cascade_dispose.AbstractMethodComponent",
+                      "@CascadeDispose target must not be abstract" },
         new Object[]{ "com.example.cascade_dispose.BadType1Component",
                       "@CascadeDispose target must be assignable to arez.Disposable or a type annotated with @ArezComponent" },
+        new Object[]{ "com.example.cascade_dispose.BadType1MethodComponent",
+                      "@CascadeDispose target must return a type assignable to arez.Disposable or a type annotated with @ArezComponent" },
         new Object[]{ "com.example.cascade_dispose.BadType2Component",
                       "@CascadeDispose target must be assignable to arez.Disposable or a type annotated with @ArezComponent" },
+        new Object[]{ "com.example.cascade_dispose.BadType2MethodComponent",
+                      "@CascadeDispose target must return a type assignable to arez.Disposable or a type annotated with @ArezComponent" },
         new Object[]{ "com.example.cascade_dispose.BadType3Component",
                       "@CascadeDispose target must be assignable to arez.Disposable or a type annotated with @ArezComponent" },
+        new Object[]{ "com.example.cascade_dispose.BadType3MethodComponent",
+                      "@CascadeDispose target must return a type assignable to arez.Disposable or a type annotated with @ArezComponent" },
+        new Object[]{ "com.example.cascade_dispose.NonFinalMethodComponent", "@CascadeDispose target must be final" },
+        new Object[]{ "com.example.cascade_dispose.ParametersMethodComponent",
+                      "@CascadeDispose target must not have any parameters" },
         new Object[]{ "com.example.cascade_dispose.PrivateComponent", "@CascadeDispose target must not be private" },
+        new Object[]{ "com.example.cascade_dispose.PrivateMethodComponent",
+                      "@CascadeDispose target must not be private" },
         new Object[]{ "com.example.cascade_dispose.StaticComponent", "@CascadeDispose target must not be static" },
+        new Object[]{ "com.example.cascade_dispose.StaticMethodComponent",
+                      "@CascadeDispose target must not be static" },
+        new Object[]{ "com.example.cascade_dispose.ThrowsMethodComponent",
+                      "@CascadeDispose target must not throw any exceptions" },
 
         new Object[]{ "com.example.component.ConcreteComponent",
                       "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
@@ -1244,35 +1263,37 @@ public class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "Action" },
-        new Object[]{ "Observed" },
-        new Object[]{ "CascadeDispose" },
-        new Object[]{ "ComponentId" },
-        new Object[]{ "ComponentNameRef" },
-        new Object[]{ "ComponentRef" },
-        new Object[]{ "Computed" },
-        new Object[]{ "OnActivate" },
-        new Object[]{ "OnDeactivate" },
-        new Object[]{ "OnStale" },
-        new Object[]{ "ComputedValueRef" },
-        new Object[]{ "ContextRef" },
-        new Object[]{ "ComponentDependency" },
-        new Object[]{ "Observable" },
-        new Object[]{ "ObservableValueRef" },
-        new Object[]{ "ObserverRef" },
-        new Object[]{ "PostConstruct" },
-        new Object[]{ "OnDepsChanged" }
+        new Object[]{ "Action", "Action" },
+        new Object[]{ "Observed", "Observed" },
+        new Object[]{ "CascadeDispose", "CascadeDispose" },
+        new Object[]{ "CascadeDispose", "CascadeDisposeMethod" },
+        new Object[]{ "ComponentId", "ComponentId" },
+        new Object[]{ "ComponentNameRef", "ComponentNameRef" },
+        new Object[]{ "ComponentRef", "ComponentRef" },
+        new Object[]{ "Computed", "Computed" },
+        new Object[]{ "OnActivate", "OnActivate" },
+        new Object[]{ "OnDeactivate", "OnDeactivate" },
+        new Object[]{ "OnStale", "OnStale" },
+        new Object[]{ "ComputedValueRef", "ComputedValueRef" },
+        new Object[]{ "ContextRef", "ContextRef" },
+        new Object[]{ "ComponentDependency", "ComponentDependency" },
+        new Object[]{ "Observable", "Observable" },
+        new Object[]{ "ObservableValueRef", "ObservableValueRef" },
+        new Object[]{ "ObserverRef", "ObserverRef" },
+        new Object[]{ "PostConstruct", "PostConstruct" },
+        new Object[]{ "OnDepsChanged", "OnDepsChanged" }
       };
   }
 
   @Test( dataProvider = "packageAccessElementInDifferentPackage" )
-  public void processFailedCompileInheritedPackageAccessInDifferentPackage( @Nonnull final String annotation )
+  public void processFailedCompileInheritedPackageAccessInDifferentPackage( @Nonnull final String annotation,
+                                                                            @Nonnull final String name )
     throws Exception
   {
     final JavaFileObject source1 =
-      fixture( "bad_input/com/example/package_access/other/Base" + annotation + "Model.java" );
+      fixture( "bad_input/com/example/package_access/other/Base" + name + "Model.java" );
     final JavaFileObject source2 =
-      fixture( "bad_input/com/example/package_access/" + annotation + "Model.java" );
+      fixture( "bad_input/com/example/package_access/" + name + "Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@" + annotation + " target must not be package access if " +
                                  "the method is in a different package from the @ArezComponent" );
