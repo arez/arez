@@ -145,7 +145,7 @@ final class ComponentDescriptor
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
-  private final Map<VariableElement, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
+  private final Map<Element, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
   private final Collection<CascadeDisposableDescriptor> _roCascadeDisposes =
     Collections.unmodifiableCollection( _cascadeDisposes.values() );
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
@@ -1347,11 +1347,11 @@ final class ComponentDescriptor
     _cascadeDisposes.put( field, new CascadeDisposableDescriptor( field ) );
   }
 
-  private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement f )
+  private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement field )
   {
     final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
     assert null != disposable;
-    final TypeMirror typeMirror = f.asType();
+    final TypeMirror typeMirror = field.asType();
     if ( !_typeUtils.isAssignable( typeMirror, disposable.asType() ) )
     {
       final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
@@ -1364,7 +1364,40 @@ final class ComponentDescriptor
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ArezProcessorException( "@CascadeDispose target must be assignable to " +
                                           Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
-                                          f );
+                                          field );
+      }
+    }
+  }
+
+  private void addCascadeDisposeMethod( @Nonnull final ExecutableElement method )
+  {
+    MethodChecks.mustNotBeAbstract( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    mustBeCascadeDisposeTypeCompatible( method );
+    _cascadeDisposes.put( method, new CascadeDisposableDescriptor( method ) );
+  }
+
+  private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
+  {
+    final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+    assert null != disposable;
+    final TypeMirror typeMirror = method.getReturnType();
+    if ( !_typeUtils.isAssignable( typeMirror, disposable.asType() ) )
+    {
+      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
+      final AnnotationMirror value =
+        null != typeElement ?
+        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
+        null;
+      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      {
+        //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
+        throw new ArezProcessorException( "@CascadeDispose target must return a type assignable to " +
+                                          Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
+                                          method );
       }
     }
   }
@@ -2215,6 +2248,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
     final AnnotationMirror inverse =
       ProcessorUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror cascadeDispose =
+      ProcessorUtil.findAnnotationByType( method, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
@@ -2272,6 +2307,11 @@ final class ComponentDescriptor
     else if ( null != memoize )
     {
       addMemoize( memoize, method, methodType );
+      return true;
+    }
+    else if ( null != cascadeDispose )
+    {
+      addCascadeDisposeMethod( method );
       return true;
     }
     else if ( null != componentIdRef )

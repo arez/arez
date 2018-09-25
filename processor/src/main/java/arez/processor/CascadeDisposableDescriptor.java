@@ -3,6 +3,8 @@ package arez.processor;
 import com.squareup.javapoet.MethodSpec;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
 /**
@@ -10,24 +12,49 @@ import javax.lang.model.element.VariableElement;
  */
 final class CascadeDisposableDescriptor
 {
-  @Nonnull
+  @Nullable
+  private final ExecutableElement _method;
+  @Nullable
   private final VariableElement _field;
 
   CascadeDisposableDescriptor( @Nonnull final VariableElement field )
   {
+    _method = null;
     _field = Objects.requireNonNull( field );
+  }
+
+  CascadeDisposableDescriptor( @Nonnull final ExecutableElement method )
+  {
+    _method = Objects.requireNonNull( method );
+    _field = null;
+  }
+
+  @Nonnull
+  ExecutableElement getMethod()
+  {
+    assert null != _method;
+    return _method;
   }
 
   @Nonnull
   VariableElement getField()
   {
+    assert null != _field;
     return _field;
   }
 
   void buildDisposer( @Nonnull final MethodSpec.Builder builder )
   {
-    builder.addStatement( "$T.dispose( $N )",
-                          GeneratorUtil.DISPOSABLE_CLASSNAME,
-                          getField().getSimpleName().toString() );
+    if ( null != _field )
+    {
+      builder.addStatement( "$T.dispose( $N )", GeneratorUtil.DISPOSABLE_CLASSNAME, _field.getSimpleName().toString() );
+    }
+    else
+    {
+      assert null != _method;
+      builder.addStatement( "$T.dispose( $N() )",
+                            GeneratorUtil.DISPOSABLE_CLASSNAME,
+                            _method.getSimpleName().toString() );
+    }
   }
 }
