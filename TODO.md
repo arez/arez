@@ -65,9 +65,6 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Support `@Reference` and `@ComponentDependency` on the same method? Alternatively we could assume that `@Reference`
-  implies `@ComponentDependency` and allow configuration of cascade action onto reference?
-
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of computed/observed methods at a later time. This
