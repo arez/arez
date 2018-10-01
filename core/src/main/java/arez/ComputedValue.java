@@ -142,6 +142,7 @@ public final class ComputedValue<T>
 
   /**
    * Return the computed value, calculating the value if it is not up to date.
+   * Before invoking this method, a transaction <b>MUST</b> be active but it may be read-only or read-write.
    *
    * @return the computed value.
    */
@@ -185,6 +186,7 @@ public final class ComputedValue<T>
    * the ComputedValue during the normal reaction cycle or when next accessed and will propagate
    * the change at that time if required. This method must be explicitly invoked by the
    * developer if the ComputedValue is derived from non-arez data and that data changes.
+   * Before invoking this method, a read-write transaction <b>MUST</b> be active.
    */
   public void reportPossiblyChanged()
   {
