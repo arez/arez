@@ -485,6 +485,7 @@ public final class ObservableValue<T>
 
   /**
    * Notify Arez that this observable has been "observed" in the current transaction.
+   * Before invoking this method, a transaction <b>MUST</b> be active but it may be read-only or read-write.
    */
   public void reportObserved()
   {
@@ -505,7 +506,7 @@ public final class ObservableValue<T>
   /**
    * Check that pre-conditions are satisfied before changing observable value.
    * In production mode this will typically be a no-op. This method should be invoked
-   * before state is modified.
+   * before state is modified. Before invoking this method, a read-write transaction <b>MUST</b> be active.
    */
   public void preReportChanged()
   {
@@ -518,6 +519,7 @@ public final class ObservableValue<T>
   /**
    * Notify Arez that this observable has changed.
    * This is called when the observable has definitely changed.
+   * Before invoking this method, a read-write transaction <b>MUST</b> be active.
    */
   public void reportChanged()
   {

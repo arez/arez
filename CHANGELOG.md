@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[core\]** Document the requirement for transactions on the methods: `ObservableValue.reportObserved()`,
+  `ObservableValue.preReportChanged()`, `ObservableValue.reportChanged()`, `ComputedValue.get()` and
+  `ComputedValue.reportPossiblyChanged()`.
+
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)
 
