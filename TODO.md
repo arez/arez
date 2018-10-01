@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Rename `@Memoize` to `@Memoized` to follow `@Computed` and `@Observed` conventions.
+
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
   We could also enhance the tests so that every invariant failure that is generated is written to a file
