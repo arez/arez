@@ -181,7 +181,7 @@ public class FlagsTest
     assertTrue( Flags.isRunTypeValid( Flags.RUN_LATER ) );
     assertFalse( Flags.isRunTypeValid( 0 ) );
     assertFalse( Flags.isRunTypeValid( Flags.PRIORITY_LOWEST ) );
-    assertFalse( Flags.isRunTypeValid( Flags.READ_ONLY | Flags.READ_WRITE ) );
+    assertFalse( Flags.isRunTypeValid( Flags.RUN_NOW | Flags.RUN_LATER ) );
   }
 
   @Test
