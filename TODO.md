@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
+  `KEEPALIVE`) and then make it "cold" again later.
+
 * Rename `@Memoize` to `@Memoized` to follow `@Computed` and `@Observed` conventions.
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
