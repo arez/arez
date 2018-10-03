@@ -212,8 +212,8 @@ public class ObserverTest
                                                 name,
                                                 new CountAndObserveProcedure(),
                                                 new CountingProcedure(),
-                                                1 << 14 ),
-                            "Arez-0207: Observer named '" + name + "' specified illegal flags: " + ( 1 << 14 ) );
+                                                Flags.UNUSED1 ),
+                            "Arez-0207: Observer named '" + name + "' specified illegal flags: " + Flags.UNUSED1 );
   }
 
   @Test
