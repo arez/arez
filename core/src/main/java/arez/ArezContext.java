@@ -102,6 +102,10 @@ public final class ArezContext
    * Flag indicating whether the scheduler is currently active.
    */
   private boolean _schedulerActive;
+  /**
+   * Flag indicating whether the scheduler is currently active.
+   */
+  private boolean _inEnvironmentContext;
 
   /**
    * Arez context should not be created directly but only accessed via Arez.
@@ -1156,7 +1160,7 @@ public final class ArezContext
             // feeds back into Arez.
             do
             {
-              _environment.run( _scheduler::runPendingTasks );
+              runInEnvironment( _scheduler::runPendingTasks );
             }
             while ( _scheduler.hasTasksToSchedule() );
           }
@@ -1169,6 +1173,31 @@ public final class ArezContext
         {
           _schedulerActive = false;
         }
+      }
+    }
+  }
+
+  /**
+   * Invoke the specified procedure in the environment if the environment is present and not already on the call stack.
+   *
+   * @param procedure the procedure to invoke.
+   */
+  void runInEnvironment( @Nonnull final SafeProcedure procedure )
+  {
+    if ( null == _environment || _inEnvironmentContext )
+    {
+      procedure.call();
+    }
+    else
+    {
+      try
+      {
+        _inEnvironmentContext = true;
+        _environment.run( procedure );
+      }
+      finally
+      {
+        _inEnvironmentContext = false;
       }
     }
   }

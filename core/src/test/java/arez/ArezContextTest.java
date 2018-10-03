@@ -2014,11 +2014,11 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     assertFalse( context.computed( () -> "", Flags.AREZ_OR_NO_DEPENDENCIES )
-                        .getObserver()
-                        .areArezDependenciesRequired() );
+                   .getObserver()
+                   .areArezDependenciesRequired() );
     assertFalse( context.computed( () -> "", Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
-                        .getObserver()
-                        .areArezDependenciesRequired() );
+                   .getObserver()
+                   .areArezDependenciesRequired() );
   }
 
   @Test
@@ -3049,5 +3049,101 @@ public class ArezContextTest
 
     assertInvariantFailure( () -> Arez.context().registerLocator( new TypeBasedLocator() ),
                             "Arez-0191: ArezContext.registerLocator invoked but Arez.areReferencesEnabled() returned false." );
+  }
+
+  @Test
+  public void runInEnvironment()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( action -> {
+      inEnvironmentCallCount.incrementAndGet();
+      action.call();
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger observerCallCount = new AtomicInteger();
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      observable.reportObserved();
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
+  }
+
+  @Test
+  public void runInEnvironment_nestedCallIgnored()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( action -> {
+      inEnvironmentCallCount.incrementAndGet();
+      action.call();
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger observer1CallCount = new AtomicInteger();
+    final AtomicInteger observer2CallCount = new AtomicInteger();
+    context.runInEnvironment( () -> {
+      context.observer( () -> {
+        observer1CallCount.incrementAndGet();
+        observable.reportObserved();
+      } );
+      context.observer( () -> {
+        observer2CallCount.incrementAndGet();
+        observable.reportObserved();
+      } );
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+    assertEquals( observer1CallCount.get(), 1 );
+    assertEquals( observer2CallCount.get(), 1 );
+  }
+
+  @Test
+  public void runInEnvironment_directNested()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( action -> {
+      inEnvironmentCallCount.incrementAndGet();
+      action.call();
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.runInEnvironment( () -> {
+      context.runInEnvironment( () -> {
+        context.runInEnvironment( () -> {
+          // Ignored
+        } );
+      } );
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void runInEnvironment_noEnvironment()
+  {
+    final ArezContext context = Arez.context();
+
+    context.runInEnvironment( () -> {
+      context.runInEnvironment( () -> {
+        context.runInEnvironment( () -> {
+          // Ignored
+        } );
+      } );
+    } );
   }
 }
