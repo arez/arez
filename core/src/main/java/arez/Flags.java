@@ -160,6 +160,24 @@ public final class Flags
    */
   private static final int PRIORITY_SHIFT = 15;
   /**
+   * The action or observer must be wrapped by the {@link ReactionEnvironment} if the environment is
+   * supplied to the {@link ArezContext}. This flag is incompatible with {@link #ENVIRONMENT_NOT_REQUIRED}
+   * and the javadocs for {@link #ENVIRONMENT_NOT_REQUIRED} documents how the default value is derived.
+   */
+  public static final int ENVIRONMENT_REQUIRED = 1 << 14;
+  /**
+   * The action or observer need not be wrapped by the {@link ReactionEnvironment} if the environment is supplied to the {@link ArezContext}.
+   * <p>This flag must not be present if {@link #ENVIRONMENT_REQUIRED} is present. If neither
+   * ENVIRONMENT_NOT_REQUIRED nor {@link #ENVIRONMENT_REQUIRED} is specified then ENVIRONMENT_REQUIRED is assumed for
+   * observers where the {@link #APPLICATION_EXECUTOR} is not present, while ENVIRONMENT_NOT_REQUIRED is assumed for
+   * actions and other observers.</p>
+   */
+  public static final int ENVIRONMENT_NOT_REQUIRED = 1 << 13;
+  /**
+   * Mask used to extract environment bits.
+   */
+  private static final int ENVIRONMENT_MASK = ENVIRONMENT_REQUIRED | ENVIRONMENT_NOT_REQUIRED;
+  /**
    * Mask that identifies the bits associated with static configuration.
    */
   static final int CONFIG_FLAGS_MASK =
@@ -169,22 +187,13 @@ public final class Flags
     TRANSACTION_MASK |
     RUN_TYPE_MASK |
     SCHEDULE_TYPE_MASK |
-    PRIORITY_MASK;
+    PRIORITY_MASK |
+    ENVIRONMENT_MASK;
   /**
    * Flag is currently unused.
    */
   @SuppressWarnings( "unused" )
-  public static final int UNUSED1 = 1 << 14;
-  /**
-   * Flag is currently unused.
-   */
-  @SuppressWarnings( "unused" )
-  public static final int UNUSED2 = 1 << 13;
-  /**
-   * Flag is currently unused.
-   */
-  @SuppressWarnings( "unused" )
-  public static final int UNUSED3 = 1 << 12;
+  public static final int UNUSED1 = 1 << 12;
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
@@ -216,7 +225,7 @@ public final class Flags
   /**
    * Mask containing flags that can be applied to an action.
    */
-  static final int ACTION_FLAGS_MASK = TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK;
+  static final int ACTION_FLAGS_MASK = TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChanged}.
    */
@@ -328,6 +337,23 @@ public final class Flags
     return Arez.shouldCheckInvariants() ?
            defaultFlagUnlessSpecified( flags, VERIFY_ACTION_MASK, VERIFY_ACTION_REQUIRED ) :
            0;
+  }
+
+  static int environmentFlag( final int flags )
+  {
+    return defaultFlagUnlessSpecified( flags, ENVIRONMENT_MASK, ENVIRONMENT_NOT_REQUIRED );
+  }
+
+  /**
+   * Return true if flags contains a valid environment flag.
+   *
+   * @param flags the flags.
+   * @return true if flags contains valid environment flag.
+   */
+  static boolean isEnvironmentValid( final int flags )
+  {
+    return ENVIRONMENT_REQUIRED == ( flags & ENVIRONMENT_MASK ) ^
+           ENVIRONMENT_NOT_REQUIRED == ( flags & ENVIRONMENT_MASK );
   }
 
   /**

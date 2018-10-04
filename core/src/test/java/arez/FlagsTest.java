@@ -185,6 +185,16 @@ public class FlagsTest
   }
 
   @Test
+  public void isEnvironmentValid()
+  {
+    assertTrue( Flags.isEnvironmentValid( Flags.ENVIRONMENT_REQUIRED ) );
+    assertTrue( Flags.isEnvironmentValid( Flags.ENVIRONMENT_NOT_REQUIRED ) );
+    assertFalse( Flags.isEnvironmentValid( 0 ) );
+    assertFalse( Flags.isEnvironmentValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isEnvironmentValid( Flags.ENVIRONMENT_REQUIRED | Flags.ENVIRONMENT_NOT_REQUIRED ) );
+  }
+
+  @Test
   public void getScheduleType()
   {
     assertEquals( Flags.getScheduleType( Flags.PRIORITY_HIGHEST | Flags.KEEPALIVE ), Flags.KEEPALIVE );
@@ -270,6 +280,15 @@ public class FlagsTest
     assertEquals( Flags.dependencyType( Flags.AREZ_OR_EXTERNAL_DEPENDENCIES ), 0 );
     assertEquals( Flags.dependencyType( 0 ), Flags.AREZ_DEPENDENCIES );
     assertEquals( Flags.dependencyType( Flags.REQUIRE_NEW_TRANSACTION ), Flags.AREZ_DEPENDENCIES );
+  }
+
+  @Test
+  public void environmentFlag()
+  {
+    assertEquals( Flags.environmentFlag( Flags.ENVIRONMENT_REQUIRED ), 0 );
+    assertEquals( Flags.environmentFlag( Flags.ENVIRONMENT_NOT_REQUIRED ), 0 );
+    assertEquals( Flags.environmentFlag( 0 ), Flags.ENVIRONMENT_NOT_REQUIRED );
+    assertEquals( Flags.environmentFlag( Flags.REQUIRE_NEW_TRANSACTION ), Flags.ENVIRONMENT_NOT_REQUIRED );
   }
 
   @Test
