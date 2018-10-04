@@ -37,6 +37,10 @@ complete as there is too much un-said.
   Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
   they are only called from within the appropriate guard. Not sure this is possible.
 
+  Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
+  failure or made so that they are only emitted the first time they are triggered based on compile time
+  settings.
+
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
 
