@@ -17,6 +17,10 @@ complete as there is too much un-said.
 
 * Rename `@Memoize` to `@Memoized` to follow `@Computed` and `@Observed` conventions.
 
+* Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
+  re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
+  are not useful.
+
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
   We could also enhance the tests so that every invariant failure that is generated is written to a file
