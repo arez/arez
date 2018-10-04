@@ -84,6 +84,7 @@ public final class Observer
           flags |
           ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? 0 : Flags.DEACTIVATE_ON_UNOBSERVE ) |
           Flags.runType( flags, Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? Flags.RUN_NOW : Flags.RUN_LATER ) |
+          Flags.environmentFlag( flags ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
           Flags.dependencyType( flags ) |
@@ -105,6 +106,7 @@ public final class Observer
           onDepsChanged,
           flags |
           ( null == observed ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
+          ( null != observed ? Flags.ENVIRONMENT_REQUIRED : Flags.environmentFlag( flags ) ) |
           Flags.runType( flags, null == observed ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.priority( flags ) |
           Flags.nestedActionRule( flags ) |
@@ -142,6 +144,9 @@ public final class Observer
       invariant( () -> Flags.isRunTypeValid( flags ),
                  () -> "Arez-0081: Observer named '" + getName() + "' incorrectly specified both " +
                        "RUN_NOW and RUN_LATER flags." );
+      invariant( () -> Flags.isEnvironmentValid( flags ),
+                 () -> "Arez-0121: Observer named '" + getName() + "' incorrectly specified both " +
+                       "the ENVIRONMENT_REQUIRED flag and the ENVIRONMENT_NOT_REQUIRED flag." );
       invariant( () -> 0 == ( flags & Flags.RUN_NOW ) || null != observed,
                  () -> "Arez-0206: Observer named '" + getName() + "' incorrectly specified " +
                        "RUN_NOW flag but the observed function is null." );
@@ -266,6 +271,11 @@ public final class Observer
   {
     assert Arez.shouldCheckApiInvariants();
     return 0 != ( _flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+  }
+
+  boolean isEnvironmentRequired()
+  {
+    return 0 != ( _flags & Flags.ENVIRONMENT_REQUIRED );
   }
 
   boolean isComputedValue()

@@ -43,6 +43,8 @@ public class ObserverTest
 
     assertTrue( observer.shouldExecuteObservedNext() );
 
+    assertTrue( observer.isEnvironmentRequired() );
+
     // Starts out inactive and inactive means no dependencies
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertFalse( observer.isActive() );
@@ -73,6 +75,8 @@ public class ObserverTest
 
     assertFalse( observer.shouldExecuteObservedNext() );
 
+    assertFalse( observer.isEnvironmentRequired() );
+
     assertNull( observer.getObserved() );
     assertEquals( observer.getOnDepsChanged(), onDepsChanged );
     assertFalse( observer.isComputedValue() );
@@ -87,6 +91,8 @@ public class ObserverTest
 
     assertTrue( observer.isComputedValue() );
     assertTrue( observer.shouldExecuteObservedNext() );
+
+    assertFalse( observer.isEnvironmentRequired() );
 
     assertEquals( computedValue.getObservableValue().getName(), observer.getName() );
     assertEquals( computedValue.getObservableValue().getObserver(), observer );
@@ -214,6 +220,20 @@ public class ObserverTest
                                                 new CountingProcedure(),
                                                 Flags.UNUSED1 ),
                             "Arez-0207: Observer named '" + name + "' specified illegal flags: " + Flags.UNUSED1 );
+  }
+
+  @Test
+  public void construct_with_duplicate_ENVIRONMENT_flags()
+  {
+    final String name = ValueUtil.randomString();
+
+    assertInvariantFailure( () -> Arez.context().observer( name,
+                                                           new CountAndObserveProcedure(),
+                                                           new CountingProcedure(),
+                                                           Flags.ENVIRONMENT_REQUIRED |
+                                                           Flags.ENVIRONMENT_NOT_REQUIRED ),
+                            "Arez-0121: Observer named '" + name + "' incorrectly specified both " +
+                            "the ENVIRONMENT_REQUIRED flag and the ENVIRONMENT_NOT_REQUIRED flag." );
   }
 
   @Test
