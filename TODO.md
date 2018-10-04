@@ -49,6 +49,12 @@ complete as there is too much un-said.
 
 * Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
   This flag will default to false.
+  - test @Track where no environment
+  - test @Computed where environment
+  - test @Action where environment
+  - test @Action where no environment
+  - test @Action where default environment
+  - Rename `ReactionEnvironment` to `Environment` or `EnvironmentWrapper` or `EnvironmentInterceptor` or ...
 
 * Implement something similar to `getDependencyTree` from mobx
 
