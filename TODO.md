@@ -47,9 +47,6 @@ complete as there is too much un-said.
   failure or made so that they are only emitted the first time they are triggered based on compile time
   settings.
 
-* Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
-  - test @Track where no environment
-
 * Implement something similar to `getDependencyTree` from mobx
 
 * Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
