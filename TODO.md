@@ -11,8 +11,6 @@ complete as there is too much un-said.
 
 * Make it possible for `@Observable` setters to auto create transactions if none exist.
 
-* Some invariant violations should just generate errors on console and some should fail. Possibly the warnings could convert to failures based on compile time settings.
-
 * Add compile time constant so environments can be compiled out.
 
 * Rename `@Memoize` to `@Memoized` to follow `@Computed` and `@Observed` conventions.
