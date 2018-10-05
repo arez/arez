@@ -51,9 +51,6 @@ complete as there is too much un-said.
   This flag will default to false.
   - test @Track where no environment
   - test @Computed where environment
-  - test @Action where environment
-  - test @Action where no environment
-  - test @Action where default environment
 
 * Implement something similar to `getDependencyTree` from mobx
 
