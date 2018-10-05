@@ -2,12 +2,12 @@ package com.example.observed;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 
 @ArezComponent
 public abstract class ArezOrNoneDependenciesModel
 {
-  @Observed( depType = DepType.AREZ_OR_NONE )
+  @Observe( depType = DepType.AREZ_OR_NONE )
   void render()
   {
   }

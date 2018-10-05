@@ -1,4 +1,4 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -6,14 +6,14 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObserverInfo;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservedArezOrNoDependenciesTest
+public class ObserveArezOrNoDependenciesTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -22,7 +22,7 @@ public class ObservedArezOrNoDependenciesTest
     ObservableValue<?> _observableValue = Arez.context().observable();
     int _renderCallCount;
 
-    @Observed( depType = DepType.AREZ_OR_NONE )
+    @Observe( depType = DepType.AREZ_OR_NONE )
     void render()
     {
       if ( 0 == _renderCallCount )
@@ -39,7 +39,7 @@ public class ObservedArezOrNoDependenciesTest
   @Test
   public void scenario()
   {
-    final TestComponent1 component = new ObservedArezOrNoDependenciesTest_Arez_TestComponent1();
+    final TestComponent1 component = new ObserveArezOrNoDependenciesTest_Arez_TestComponent1();
 
     final ArezContext context = Arez.context();
     final ObserverInfo info = context.getSpy().asObserverInfo( component.getRenderObserver() );

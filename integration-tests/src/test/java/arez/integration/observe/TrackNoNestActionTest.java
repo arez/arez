@@ -1,10 +1,10 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
@@ -20,7 +20,7 @@ public class TrackNoNestActionTest
     int _depsChangedCallCount;
     int _actionCallCount;
 
-    @Observed( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.APPLICATION )
     public void render()
     {
       getTime2();

@@ -1,12 +1,12 @@
 package com.example.observed;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 
 @ArezComponent
 public abstract class ObserveLowerPriorityObservedModel
 {
-  @Observed( observeLowerPriorityDependencies = true )
+  @Observe( observeLowerPriorityDependencies = true )
   protected void doStuff()
   {
   }

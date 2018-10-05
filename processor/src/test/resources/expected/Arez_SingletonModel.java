@@ -173,7 +173,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
   @Override
   protected void myAutorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'myAutorun' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'myAutorun' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.myAutorun();
   }

@@ -2,7 +2,7 @@ package arez.integration;
 
 import arez.Arez;
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -14,7 +14,7 @@ public class DeferredScheduledTest
   {
     int _observerCallCount;
 
-    @Observed
+    @Observe
     void observer()
     {
       // Observe something so it is valid observed

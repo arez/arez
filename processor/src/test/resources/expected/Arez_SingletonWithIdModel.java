@@ -152,7 +152,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
   @Override
   void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'render' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'render' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.render();
   }
@@ -182,7 +182,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
   @Override
   protected void myAutorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'myAutorun' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'myAutorun' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.myAutorun();
   }

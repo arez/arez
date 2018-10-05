@@ -121,7 +121,7 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
   @Override
   void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'render' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'render' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.render();
   }

@@ -1,7 +1,7 @@
 package arez.integration.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
@@ -23,7 +23,7 @@ public class ConstructBeforeScheduledTest
       _postConstructCalled = true;
     }
 
-    @Observed
+    @Observe
     void observer()
     {
       // Observe something so it is valid observed

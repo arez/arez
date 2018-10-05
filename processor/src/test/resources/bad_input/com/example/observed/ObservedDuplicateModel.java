@@ -1,17 +1,17 @@
 package com.example.observed;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 
 @ArezComponent
 public abstract class ObservedDuplicateModel
 {
-  @Observed( name = "doStuff" )
+  @Observe( name = "doStuff" )
   void foo()
   {
   }
 
-  @Observed
+  @Observe
   void doStuff()
   {
   }

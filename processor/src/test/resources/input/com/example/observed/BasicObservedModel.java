@@ -1,12 +1,12 @@
 package com.example.observed;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 
 @ArezComponent
 public abstract class BasicObservedModel
 {
-  @Observed
+  @Observe
   protected void doStuff()
   {
   }

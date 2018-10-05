@@ -17,7 +17,7 @@ import arez.annotations.Executor;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -39,7 +39,7 @@ public abstract class BaseCompleteModel
   {
   }
 
-  @Observed
+  @Observe
   protected void myWatcher()
   {
   }
@@ -97,7 +97,7 @@ public abstract class BaseCompleteModel
   @ObservableValueRef
   protected abstract ObservableValue<String> getMyValueObservableValue();
 
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public void render( final long time, float someOtherParameter )
   {
   }

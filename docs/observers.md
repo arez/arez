@@ -34,7 +34,7 @@ to this type of an observer as an "autorun" observer.
 
 There are several low-level {@api_url: ArezContext.observer(*)::ArezContext::observer(arez.Procedure)}
 methods that can be used to create observers, however most users will use more high-level APIs such as
-the [@Observed](at_observed.md) annotation.
+the [@Observe](at_observe.md) annotation.
 
 An example of a basic observer:
 

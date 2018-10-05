@@ -34,7 +34,7 @@ Sometimes you want to enhance the repository implementation to add other queries
 such as {@api_url: annotations.Computed} methods. The standard way to do this is to define an interface that
 has a method `self()` that returns the repository type and defines one or more `default` methods that define the
 extensions methods are needed. These `default` methods can be be annotated with Arez annotations (i.e.
-{@api_url: annotations.Observed}, {@api_url: annotations.Computed}, {@api_url: annotations.Action} etc) and access
+{@api_url: annotations.Observe}, {@api_url: annotations.Computed}, {@api_url: annotations.Action} etc) and access
 the underlying repository using the `self()` method.
 
 An extension may look something like:

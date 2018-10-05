@@ -1,9 +1,9 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Executor;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
@@ -17,7 +17,7 @@ public class ApplicationExecutorNoDepsDisallowedTest
   {
     int _renderCallCount;
 
-    @Observed( executor = Executor.APPLICATION, depType = DepType.AREZ )
+    @Observe( executor = Executor.APPLICATION, depType = DepType.AREZ )
     void render()
     {
       _renderCallCount++;
