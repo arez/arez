@@ -54,7 +54,6 @@ complete as there is too much un-said.
   - test @Action where environment
   - test @Action where no environment
   - test @Action where default environment
-  - Rename `ReactionEnvironment` to `Environment` or `EnvironmentWrapper` or `EnvironmentInterceptor` or ...
 
 * Implement something similar to `getDependencyTree` from mobx
 

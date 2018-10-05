@@ -98,7 +98,7 @@ public final class ArezContext
    * This is null unless {@link Arez#areEnvironmentsEnabled()} returns <code>true</code>.
    */
   @Nullable
-  private ReactionEnvironment _environment;
+  private Environment _environment;
   /**
    * Flag indicating whether the scheduler is currently active.
    */
@@ -1126,7 +1126,7 @@ public final class ArezContext
    *
    * @param environment the environment in which to execute reactions.
    */
-  public void setEnvironment( @Nullable final ReactionEnvironment environment )
+  public void setEnvironment( @Nullable final Environment environment )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -1141,7 +1141,7 @@ public final class ArezContext
    * triggered if there is no transaction active. This method is typically used after one or more Observers
    * have been created outside a transaction with the runImmediately flag set to false and the caller wants
    * to force the observers to react. Otherwise the Observers will not be schedule until the next top-level
-   * transaction completes. Pending reactions are run in the environment specified by {@link #setEnvironment(ReactionEnvironment)}
+   * transaction completes. Pending reactions are run in the environment specified by {@link #setEnvironment(Environment)}
    * if any has been specified.
    */
   public void triggerScheduler()

@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
  * Interface that used to intercept executions so that the environment can be setup when running.
  * Typically this is used to flag other runtimes to enable change batching etc.
  */
-public interface ReactionEnvironment
+public interface Environment
 {
   /**
    * Run the specified function.

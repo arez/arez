@@ -160,13 +160,13 @@ public final class Flags
    */
   private static final int PRIORITY_SHIFT = 15;
   /**
-   * The action or observer must be wrapped by the {@link ReactionEnvironment} if the environment is
+   * The action or observer must be wrapped by the {@link Environment} if the environment is
    * supplied to the {@link ArezContext}. This flag is incompatible with {@link #ENVIRONMENT_NOT_REQUIRED}
    * and the javadocs for {@link #ENVIRONMENT_NOT_REQUIRED} documents how the default value is derived.
    */
   public static final int ENVIRONMENT_REQUIRED = 1 << 14;
   /**
-   * The action or observer need not be wrapped by the {@link ReactionEnvironment} if the environment is supplied to the {@link ArezContext}.
+   * The action or observer need not be wrapped by the {@link Environment} if the environment is supplied to the {@link ArezContext}.
    * <p>This flag must not be present if {@link #ENVIRONMENT_REQUIRED} is present. If neither
    * ENVIRONMENT_NOT_REQUIRED nor {@link #ENVIRONMENT_REQUIRED} is specified then ENVIRONMENT_REQUIRED is assumed for
    * observers where the {@link #APPLICATION_EXECUTOR} is not present, while ENVIRONMENT_NOT_REQUIRED is assumed for

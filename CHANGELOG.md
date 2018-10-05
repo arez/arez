@@ -14,6 +14,7 @@
   interface but is preparation to enable actions to be optionally invoked inside an environment.
 * **\[core\]** Add a compile-time setting `arez.enable_environments` that will mean allows the removal of the
   `ReactionEnvironment` interface and related code if the feature is not needed.
+* **\[core\]** Rename the `ReactionEnvironment` interface to `Environment`
 
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)

@@ -3,12 +3,12 @@ package arez;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 
-class CountingReactionEnvironment
-  implements ReactionEnvironment
+class CountingEnvironment
+  implements Environment
 {
   private final AtomicInteger _inEnvironmentCallCount;
 
-  CountingReactionEnvironment( final AtomicInteger inEnvironmentCallCount )
+  CountingEnvironment( final AtomicInteger inEnvironmentCallCount )
   {
     _inEnvironmentCallCount = inEnvironmentCallCount;
   }

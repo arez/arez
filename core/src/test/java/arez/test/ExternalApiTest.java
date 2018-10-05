@@ -6,13 +6,13 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Environment;
 import arez.Flags;
 import arez.Function;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
-import arez.ReactionEnvironment;
 import arez.SafeFunction;
 import arez.Zone;
 import arez.spy.SpyEventHandler;
@@ -619,7 +619,7 @@ public class ExternalApiTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    context.setEnvironment( new ReactionEnvironment()
+    context.setEnvironment( new Environment()
     {
       @Override
       public <T> T run( @Nonnull final SafeFunction<T> function )

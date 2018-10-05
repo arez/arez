@@ -99,7 +99,7 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
     final AtomicReference<String> environment = new AtomicReference<>();
 
-    context.setEnvironment( new ReactionEnvironment()
+    context.setEnvironment( new Environment()
     {
       @Override
       public <T> T run( @Nonnull final SafeFunction<T> function )
@@ -155,7 +155,7 @@ public class ArezContextTest
 
     final AtomicInteger count = new AtomicInteger( 3 );
     final AtomicReference<Observer> observerReference = new AtomicReference<>();
-    context.setEnvironment( new ReactionEnvironment()
+    context.setEnvironment( new Environment()
     {
       @Override
       public <T> T run( @Nonnull final SafeFunction<T> function )
@@ -3108,7 +3108,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
-    context.setEnvironment( new CountingReactionEnvironment( inEnvironmentCallCount ) );
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
 
     assertEquals( inEnvironmentCallCount.get(), 0 );
 
@@ -3131,7 +3131,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
-    context.setEnvironment( new CountingReactionEnvironment( inEnvironmentCallCount ) );
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
 
     assertEquals( inEnvironmentCallCount.get(), 0 );
 
@@ -3163,7 +3163,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
-    context.setEnvironment( new CountingReactionEnvironment( inEnvironmentCallCount ) );
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
 
     assertEquals( inEnvironmentCallCount.get(), 0 );
 
@@ -3180,7 +3180,7 @@ public class ArezContextTest
 
     final ArezContext context = Arez.context();
 
-    assertInvariantFailure( () -> context.setEnvironment( new CountingReactionEnvironment( new AtomicInteger() ) ),
+    assertInvariantFailure( () -> context.setEnvironment( new CountingEnvironment( new AtomicInteger() ) ),
                             "Arez-0124: ArezContext.setEnvironment() invoked but Arez.areEnvironmentsEnabled() returned false." );
   }
 
@@ -3191,7 +3191,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
-    context.setEnvironment( new CountingReactionEnvironment( inEnvironmentCallCount ) );
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
 
     assertEquals( inEnvironmentCallCount.get(), 0 );
 
