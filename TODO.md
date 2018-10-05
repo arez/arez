@@ -11,6 +11,7 @@ complete as there is too much un-said.
 
 * Make it possible for `@Observable` setters to auto create transactions if none exist.
 
+* Rename `@Computed` to `@Compute` ?????
 
 * Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
