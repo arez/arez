@@ -79,9 +79,6 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.Transaction", "isSuspended" );
     index.assertNoMemberMatches( "arez\\.Transaction", "markAsSuspended" );
     index.assertNoMemberMatches( "arez\\.Transaction", "resetSuspendedFlag" );
-    index.assertNoMemberMatches( "arez\\.Watcher", "isMutation" );
-    index.assertNoMemberMatches( "arez\\.Watcher", "getCondition" );
-    index.assertNoMemberMatches( "arez\\.Watcher", "getEffect" );
     index.assertNoMemberMatches( "arez\\.component\\.MemoizeCache", "getCache" );
     index.assertNoMemberMatches( "arez\\.component\\.MemoizeCache", "getNextIndex" );
   }
