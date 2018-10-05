@@ -38,9 +38,9 @@ public final class Arez
   }
 
   /**
-   * Return true if {@link Verifiable} will veriyf components be used, false if not.
+   * Return true if {@link Verifiable} will verify components be used, false if not.
    *
-   * @return true if {@link Verifiable} will veriyf components be used, false if not.
+   * @return true if {@link Verifiable} will verify components be used, false if not.
    */
   public static boolean isVerifyEnabled()
   {
