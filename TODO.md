@@ -11,8 +11,6 @@ complete as there is too much un-said.
 
 * Make it possible for `@Observable` setters to auto create transactions if none exist.
 
-* Add compile time constant so environments can be compiled out.
-
 * Rename `@Memoize` to `@Memoized` to follow `@Computed` and `@Observed` conventions.
 
 * Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times

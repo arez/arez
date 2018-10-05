@@ -95,6 +95,7 @@ public final class ArezContext
   private int _schedulerLockCount;
   /**
    * Optional environment in which reactions are executed.
+   * This is null unless {@link Arez#areEnvironmentsEnabled()} returns <code>true</code>.
    */
   @Nullable
   private ReactionEnvironment _environment;
@@ -1121,11 +1122,17 @@ public final class ArezContext
 
   /**
    * Specify the environment in which reactions are invoked.
+   * This method should not be invoked unless {@link Arez#areEnvironmentsEnabled()} returns <code>true</code>.
    *
    * @param environment the environment in which to execute reactions.
    */
   public void setEnvironment( @Nullable final ReactionEnvironment environment )
   {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( Arez::areEnvironmentsEnabled,
+                    () -> "Arez-0124: ArezContext.setEnvironment() invoked but Arez.areEnvironmentsEnabled() returned false." );
+    }
     _environment = environment;
   }
 
@@ -1150,7 +1157,7 @@ public final class ArezContext
         _schedulerActive = true;
         try
         {
-          if ( null != _environment )
+          if ( Arez.areEnvironmentsEnabled() && null != _environment )
           {
             // The environment wrapper can perform actions that trigger the need for the Arez
             // scheduler to re-run so we keep checking until there is no more work to be done.
@@ -1230,9 +1237,16 @@ public final class ArezContext
     }
   }
 
+  /**
+   * Return true if no need to wrap invocation in environment.
+   * This would true if environment compile time setting disables environments, no environment
+   * has been supplied or already nested in environment invocation.
+   *
+   * @return true if no need to wrap invocation in environment.
+   */
   private boolean shouldSkipEnvironmentSetup()
   {
-    return null == _environment || _inEnvironmentContext;
+    return !Arez.areEnvironmentsEnabled() || null == _environment || _inEnvironmentContext;
   }
 
   /**

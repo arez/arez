@@ -3173,6 +3173,18 @@ public class ArezContextTest
   }
 
   @Test
+  public void setEnvironment_whenEnvironmentsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.disableEnvironments();
+
+    final ArezContext context = Arez.context();
+
+    assertInvariantFailure( () -> context.setEnvironment( new CountingReactionEnvironment( new AtomicInteger() ) ),
+                            "Arez-0124: ArezContext.setEnvironment() invoked but Arez.areEnvironmentsEnabled() returned false." );
+  }
+
+  @Test
   public void safeRunInEnvironment_directNested()
     throws Throwable
   {

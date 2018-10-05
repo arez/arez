@@ -105,6 +105,15 @@ public class ExternalApiTest
   }
 
   @Test
+  public void areEnvironmentsEnabled()
+  {
+    ArezTestUtil.disableEnvironments();
+    assertFalse( Arez.areEnvironmentsEnabled() );
+    ArezTestUtil.enableEnvironments();
+    assertTrue( Arez.areEnvironmentsEnabled() );
+  }
+
+  @Test
   public void isVerifyEnabled()
   {
     ArezTestUtil.disableVerify();
