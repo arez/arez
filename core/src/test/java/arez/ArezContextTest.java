@@ -2174,6 +2174,7 @@ public class ArezContextTest
     assertEquals( computedValue.getContext(), context );
     assertFalse( computedValue.getObserver().isKeepAlive() );
     assertTrue( computedValue.getObserver().areArezDependenciesRequired() );
+    assertFalse( computedValue.getObserver().isEnvironmentRequired() );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -2197,6 +2198,60 @@ public class ArezContextTest
 
     assertEquals( computedValue.getName(), name );
     assertEquals( computedValue.getComponent(), component );
+  }
+
+  @Test
+  public void computedValue_Environment_Required()
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.computed( function, Flags.ENVIRONMENT_REQUIRED );
+
+    assertTrue( computedValue.getObserver().isEnvironmentRequired() );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( computedValue::get );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void computedValue_Environment_NotRequired()
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.computed( function, Flags.ENVIRONMENT_NOT_REQUIRED );
+
+    assertFalse( computedValue.getObserver().isEnvironmentRequired() );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( computedValue::get );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
   }
 
   @Test
