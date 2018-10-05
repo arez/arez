@@ -7,10 +7,12 @@ import arez.ArezTestUtil;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Flags;
+import arez.Function;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
+import arez.ReactionEnvironment;
 import arez.SafeFunction;
 import arez.Zone;
 import arez.spy.SpyEventHandler;
@@ -608,10 +610,36 @@ public class ExternalApiTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    context.setEnvironment( a -> {
-      trace.add( "PreTrace" );
-      a.call();
-      trace.add( "PostTrace" );
+    context.setEnvironment( new ReactionEnvironment()
+    {
+      @Override
+      public <T> T run( @Nonnull final SafeFunction<T> function )
+      {
+        trace.add( "PreTrace" );
+        try
+        {
+          return function.call();
+        }
+        finally
+        {
+          trace.add( "PostTrace" );
+        }
+      }
+
+      @Override
+      public <T> T run( @Nonnull final Function<T> function )
+        throws Throwable
+      {
+        trace.add( "PreTrace" );
+        try
+        {
+          return function.call();
+        }
+        finally
+        {
+          trace.add( "PostTrace" );
+        }
+      }
     } );
 
     context.observer( () -> {

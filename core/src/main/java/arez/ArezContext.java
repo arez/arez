@@ -1160,7 +1160,7 @@ public final class ArezContext
             // feeds back into Arez.
             do
             {
-              runInEnvironment( _scheduler::runPendingTasks );
+              safeRunInEnvironment( safeProcedureToFunction( _scheduler::runPendingTasks ) );
             }
             while ( _scheduler.hasTasksToSchedule() );
           }
@@ -1178,28 +1178,61 @@ public final class ArezContext
   }
 
   /**
-   * Invoke the specified procedure in the environment if the environment is present and not already on the call stack.
+   * Invoke the specified executable in the environment if the environment is present and not already on the call stack.
    *
-   * @param procedure the procedure to invoke.
+   * @param executable executable to invoke.
    */
-  void runInEnvironment( @Nonnull final SafeProcedure procedure )
+  <T> T safeRunInEnvironment( @Nonnull final SafeFunction<T> executable )
   {
-    if ( null == _environment || _inEnvironmentContext )
+    if ( shouldSkipEnvironmentSetup() )
     {
-      procedure.call();
+      return executable.call();
     }
     else
     {
       try
       {
         _inEnvironmentContext = true;
-        _environment.run( procedure );
+        assert null != _environment;
+        return _environment.run( executable );
       }
       finally
       {
         _inEnvironmentContext = false;
       }
     }
+  }
+
+  /**
+   * Invoke the specified executable in the environment if the environment is present and not already on the call stack.
+   *
+   * @param executable executable to invoke.
+   */
+  <T> T runInEnvironment( @Nonnull final Function<T> executable )
+    throws Throwable
+  {
+    if ( shouldSkipEnvironmentSetup() )
+    {
+      return executable.call();
+    }
+    else
+    {
+      try
+      {
+        _inEnvironmentContext = true;
+        assert null != _environment;
+        return _environment.run( executable );
+      }
+      finally
+      {
+        _inEnvironmentContext = false;
+      }
+    }
+  }
+
+  private boolean shouldSkipEnvironmentSetup()
+  {
+    return null == _environment || _inEnvironmentContext;
   }
 
   /**
@@ -1300,7 +1333,7 @@ public final class ArezContext
                        @Nullable final Object[] parameters )
     throws Throwable
   {
-    return _action( name, executable, flags, null, parameters );
+    return _action( name, executable, flags, null, parameters, true );
   }
 
   /**
@@ -1343,7 +1376,12 @@ public final class ArezContext
                     () -> "Arez-0017: Attempted to invoke observe(..) on observer named '" + observer.getName() +
                           "' but observer is not configured to use an application executor." );
     }
-    return _action( observerToName( observer ), observed, trackerObservedFlags( observer ), observer, parameters );
+    return _action( observerToName( observer ),
+                    observed,
+                    trackerObservedFlags( observer ),
+                    observer,
+                    parameters,
+                    true );
   }
 
   /**
@@ -1421,7 +1459,7 @@ public final class ArezContext
                            final int flags,
                            @Nullable final Object[] parameters )
   {
-    return _safeAction( name, executable, flags, null, parameters );
+    return _safeAction( name, executable, flags, null, parameters, true );
   }
 
   /**
@@ -1460,7 +1498,12 @@ public final class ArezContext
                     () -> "Arez-0018: Attempted to invoke safeObserve(..) on observer named '" + observer.getName() +
                           "' but observer is not configured to use an application executor." );
     }
-    return _safeAction( observerToName( observer ), observed, trackerObservedFlags( observer ), observer, parameters );
+    return _safeAction( observerToName( observer ),
+                        observed,
+                        trackerObservedFlags( observer ),
+                        observer,
+                        parameters,
+                        true );
   }
 
   /**
@@ -1538,7 +1581,7 @@ public final class ArezContext
                       @Nullable final Object[] parameters )
     throws Throwable
   {
-    _action( name, executable, flags, null, parameters );
+    _action( name, procedureToFunction( executable ), flags, null, parameters, false );
   }
 
   /**
@@ -1586,10 +1629,43 @@ public final class ArezContext
     throws Throwable
   {
     _action( observerToName( observer ),
-             observed,
+             procedureToFunction( observed ),
              trackerObservedFlags( observer ),
              observer,
-             parameters );
+             parameters,
+             false );
+  }
+
+  /**
+   * Convert the specified procedure to a function.
+   * This is done purely to reduce the compiled code-size under js.
+   *
+   * @param procedure the procedure.
+   * @return the function.
+   */
+  @Nonnull
+  private SafeFunction<Object> safeProcedureToFunction( @Nonnull final SafeProcedure procedure )
+  {
+    return () -> {
+      procedure.call();
+      return null;
+    };
+  }
+
+  /**
+   * Convert the specified procedure to a function.
+   * This is done purely to reduce the compiled code-size under js.
+   *
+   * @param procedure the procedure.
+   * @return the function.
+   */
+  @Nonnull
+  private Function<Object> procedureToFunction( @Nonnull final Procedure procedure )
+  {
+    return () -> {
+      procedure.call();
+      return null;
+    };
   }
 
   /**
@@ -1649,7 +1725,7 @@ public final class ArezContext
                           final int flags,
                           @Nullable final Object[] parameters )
   {
-    _safeAction( name, executable, flags, null, parameters );
+    _safeAction( name, safeProcedureToFunction( executable ), flags, null, parameters, false );
   }
 
   /**
@@ -1684,79 +1760,20 @@ public final class ArezContext
                     () -> "Arez-0020: Attempted to invoke safeObserve(..) on observer named '" + observer.getName() +
                           "' but observer is not configured to use an application executor." );
     }
-    _safeAction( observerToName( observer ), observed, trackerObservedFlags( observer ), observer, parameters );
-  }
-
-  private void _safeAction( @Nullable final String specifiedName,
-                            @Nonnull final SafeProcedure executable,
-                            final int flags,
-                            @Nullable final Observer observer,
-                            @Nullable final Object[] parameters )
-  {
-    final String name = generateName( "Action", specifiedName );
-    verifyActionFlags( name, flags );
-
-    final boolean observed = null != observer;
-    Throwable t = null;
-    boolean completed = false;
-    long startedAt = 0L;
-    try
-    {
-      if ( willPropagateSpyEvents() )
-      {
-        startedAt = System.currentTimeMillis();
-        reportActionStarted( name, parameters, observed );
-      }
-      verifyActionNestingAllowed( name, observer );
-      if ( canImmediatelyInvokeAction( flags ) )
-      {
-        executable.call();
-      }
-      else
-      {
-        final Transaction transaction = newTransaction( name, flags, observer );
-        try
-        {
-          executable.call();
-          verifyActionDependencies( name, observer, flags, transaction );
-        }
-        finally
-        {
-          Transaction.commit( transaction );
-        }
-      }
-      if ( willPropagateSpyEvents() )
-      {
-        completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, false, null );
-      }
-    }
-    catch ( final Throwable e )
-    {
-      if ( willPropagateSpyEvents() )
-      {
-        t = e;
-      }
-      throw e;
-    }
-    finally
-    {
-      if ( willPropagateSpyEvents() )
-      {
-        if ( !completed )
-        {
-          reportActionCompleted( name, parameters, observed, t, startedAt, false, null );
-        }
-      }
-      triggerScheduler();
-    }
+    _safeAction( observerToName( observer ),
+                 safeProcedureToFunction( observed ),
+                 trackerObservedFlags( observer ),
+                 observer,
+                 parameters,
+                 false );
   }
 
   private <T> T _safeAction( @Nullable final String specifiedName,
                              @Nonnull final SafeFunction<T> executable,
                              final int flags,
                              @Nullable final Observer observer,
-                             @Nullable final Object[] parameters )
+                             @Nullable final Object[] parameters,
+                             final boolean expectResult )
   {
     final String name = generateName( "Action", specifiedName );
 
@@ -1777,14 +1794,14 @@ public final class ArezContext
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
       {
-        result = executable.call();
+        result = maybeRunInEnvironment( executable, flags );
       }
       else
       {
         final Transaction transaction = newTransaction( name, flags, observer );
         try
         {
-          result = executable.call();
+          result = maybeRunInEnvironment( executable, flags );
           verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
@@ -1795,7 +1812,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, true, result );
+        reportActionCompleted( name, parameters, observed, null, startedAt, expectResult, result );
       }
       return result;
     }
@@ -1810,75 +1827,7 @@ public final class ArezContext
       {
         if ( !completed )
         {
-          reportActionCompleted( name, parameters, observed, t, startedAt, true, null );
-        }
-      }
-      triggerScheduler();
-    }
-  }
-
-  private void _action( @Nullable final String specifiedName,
-                        @Nonnull final Procedure executable,
-                        final int flags,
-                        @Nullable final Observer observer,
-                        @Nullable final Object[] parameters )
-    throws Throwable
-  {
-    final String name = generateName( "Action", specifiedName );
-
-    verifyActionFlags( name, flags );
-
-    final boolean observed = null != observer;
-    final boolean emitSpyEvents = !observed || !observer.isComputedValue();
-    Throwable t = null;
-    boolean completed = false;
-    long startedAt = 0L;
-    try
-    {
-      if ( willPropagateSpyEvents() && emitSpyEvents )
-      {
-        startedAt = System.currentTimeMillis();
-        reportActionStarted( name, parameters, observed );
-      }
-      verifyActionNestingAllowed( name, observer );
-      if ( canImmediatelyInvokeAction( flags ) )
-      {
-        executable.call();
-      }
-      else
-      {
-        final Transaction transaction = newTransaction( name, flags, observer );
-        try
-        {
-          executable.call();
-          verifyActionDependencies( name, observer, flags, transaction );
-        }
-        finally
-        {
-          Transaction.commit( transaction );
-        }
-      }
-      if ( willPropagateSpyEvents() && emitSpyEvents )
-      {
-        completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, false, null );
-      }
-    }
-    catch ( final Throwable e )
-    {
-      if ( Arez.areSpiesEnabled() )
-      {
-        t = e;
-      }
-      throw e;
-    }
-    finally
-    {
-      if ( willPropagateSpyEvents() && emitSpyEvents )
-      {
-        if ( !completed )
-        {
-          reportActionCompleted( name, parameters, observed, t, startedAt, false, null );
+          reportActionCompleted( name, parameters, observed, t, startedAt, expectResult, null );
         }
       }
       triggerScheduler();
@@ -1889,21 +1838,22 @@ public final class ArezContext
                          @Nonnull final Function<T> executable,
                          final int flags,
                          @Nullable final Observer observer,
-                         @Nullable final Object[] parameters )
+                         @Nullable final Object[] parameters,
+                         final boolean expectResult )
     throws Throwable
   {
     final String name = generateName( "Action", specifiedName );
 
     verifyActionFlags( name, flags );
-
     final boolean observed = null != observer;
+    final boolean generateActionEvents = !observed || !observer.isComputedValue();
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
     T result;
     try
     {
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && generateActionEvents )
       {
         startedAt = System.currentTimeMillis();
         reportActionStarted( name, parameters, observed );
@@ -1911,14 +1861,14 @@ public final class ArezContext
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
       {
-        result = executable.call();
+        result = maybeRunInEnvironment( executable, flags );
       }
       else
       {
         final Transaction transaction = newTransaction( name, flags, observer );
         try
         {
-          result = executable.call();
+          result = maybeRunInEnvironment( executable, flags );
           verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
@@ -1926,10 +1876,10 @@ public final class ArezContext
           Transaction.commit( transaction );
         }
       }
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && generateActionEvents )
       {
         completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, true, result );
+        reportActionCompleted( name, parameters, observed, null, startedAt, expectResult, result );
       }
       return result;
     }
@@ -1940,14 +1890,39 @@ public final class ArezContext
     }
     finally
     {
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && generateActionEvents )
       {
         if ( !completed )
         {
-          reportActionCompleted( name, parameters, observed, t, startedAt, true, null );
+          reportActionCompleted( name, parameters, observed, t, startedAt, expectResult, null );
         }
       }
       triggerScheduler();
+    }
+  }
+
+  private <T> T maybeRunInEnvironment( @Nonnull final SafeFunction<T> executable, final int flags )
+  {
+    if ( Flags.ENVIRONMENT_REQUIRED == ( flags & Flags.ENVIRONMENT_REQUIRED ) )
+    {
+      return safeRunInEnvironment( executable );
+    }
+    else
+    {
+      return executable.call();
+    }
+  }
+
+  private <T> T maybeRunInEnvironment( @Nonnull final Function<T> executable, final int flags )
+    throws Throwable
+  {
+    if ( Flags.ENVIRONMENT_REQUIRED == ( flags & Flags.ENVIRONMENT_REQUIRED ) )
+    {
+      return runInEnvironment( executable );
+    }
+    else
+    {
+      return executable.call();
     }
   }
 
@@ -1959,6 +1934,7 @@ public final class ArezContext
       invariant( () -> 0 == nonActionFlags,
                  () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
                        "flags set: " + nonActionFlags );
+      //TODO: Verify the following are valid TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
     }
   }
 

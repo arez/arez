@@ -9,6 +9,9 @@
   the action can not be nested. If `ArezContext.runInEnvironment(action)` is invoked when an instance of the
   `ReactionEnvironment` functional interface is already on the call stack then the supplied procedure is directly
   invoked without invoking the `ReactionEnvironment` functional interface again.
+* **\[core\]** Modify the `ReactionEnvironment` interface so that it executes `Function` and `SafeFunction`
+  instances rather than instances of `Procedure`. This will stop `ReactionEnvironment` from being a functional
+  interface but is preparation to enable actions to be optionally invoked inside an environment.
 
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)
