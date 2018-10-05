@@ -1133,7 +1133,7 @@ public final class ArezContext
       apiInvariant( Arez::areEnvironmentsEnabled,
                     () -> "Arez-0124: ArezContext.setEnvironment() invoked but Arez.areEnvironmentsEnabled() returned false." );
     }
-    _environment = environment;
+    _environment = Arez.areEnvironmentsEnabled() ? environment : null;
   }
 
   /**
