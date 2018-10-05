@@ -15,7 +15,7 @@ complete as there is too much un-said.
 
 * Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
-  are not useful.
+  are not useful. We should also include the average amount of time it took to calculate the value?
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
