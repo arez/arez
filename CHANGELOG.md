@@ -5,6 +5,23 @@
 * **\[core\]** Document the requirement for transactions on the methods: `ObservableValue.reportObserved()`,
   `ObservableValue.preReportChanged()`, `ObservableValue.reportChanged()`, `ComputedValue.get()` and
   `ComputedValue.reportPossiblyChanged()`.
+* **\[core\]** Ensure that when the `ReactionEnvironment` functional interface is used to wrap actions that
+  the action can not be nested. If `ArezContext.runInEnvironment(action)` is invoked when an instance of the
+  `ReactionEnvironment` functional interface is already on the call stack then the supplied procedure is directly
+  invoked without invoking the `ReactionEnvironment` functional interface again.
+* **\[core\]** Modify the `ReactionEnvironment` interface so that it executes `Function` and `SafeFunction`
+  instances rather than instances of `Procedure`. This will stop `ReactionEnvironment` from being a functional
+  interface but is preparation to enable actions to be optionally invoked inside an environment.
+* **\[core\]** Add a compile-time setting `arez.enable_environments` that will mean allows the removal of the
+  `ReactionEnvironment` interface and related code if the feature is not needed.
+* **\[core\]** Rename the `ReactionEnvironment` interface to `Environment`
+* **\[core\]** Add the flags `Flags.ENVIRONMENT_REQUIRED` and `Flags.ENVIRONMENT_REQUIRED`. These flags can be
+  supplied
+    - when invoking actions via `ArezContext.action(...)` or `ArezContext.safeAction(...)`
+    - when creating `ComputedValue` instances.
+    - when creating `Observer` instances that also created with the `Flags.APPLICATION_EXECUTOR` flag.
+  If the `Flags.ENVIRONMENT_REQUIRED` is specified then the runtime will ensure that the relevant code is
+  invoked within the context of the `Environment`.
 
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)

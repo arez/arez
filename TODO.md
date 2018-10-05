@@ -6,7 +6,16 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
+  `KEEPALIVE`) and then make it "cold" again later.
+
+* Make it possible for `@Observable` setters to auto create transactions if none exist.
+
 * Rename `@Memoize` to `@Memoized` to follow `@Computed` and `@Observed` conventions.
+
+* Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
+  re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
+  are not useful. We should also include the average amount of time it took to calculate the value?
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
@@ -34,8 +43,9 @@ complete as there is too much un-said.
   Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
   they are only called from within the appropriate guard. Not sure this is possible.
 
-* Add flag in `@Action`, and `@Track` annotations that will run transaction in Arez `ReactionEnvironment`.
-  This flag will default to false.
+  Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
+  failure or made so that they are only emitted the first time they are triggered based on compile time
+  settings.
 
 * Implement something similar to `getDependencyTree` from mobx
 

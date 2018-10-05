@@ -79,9 +79,6 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.Transaction", "isSuspended" );
     index.assertNoMemberMatches( "arez\\.Transaction", "markAsSuspended" );
     index.assertNoMemberMatches( "arez\\.Transaction", "resetSuspendedFlag" );
-    index.assertNoMemberMatches( "arez\\.Watcher", "isMutation" );
-    index.assertNoMemberMatches( "arez\\.Watcher", "getCondition" );
-    index.assertNoMemberMatches( "arez\\.Watcher", "getEffect" );
     index.assertNoMemberMatches( "arez\\.component\\.MemoizeCache", "getCache" );
     index.assertNoMemberMatches( "arez\\.component\\.MemoizeCache", "getNextIndex" );
   }
@@ -201,6 +198,20 @@ public final class ArezBuildAsserts
   }
 
   /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_environments`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
+  public static void assertEnvironmentsOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.ReactionEnvironment", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_environment", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_inEnvironmentContext", enabled );
+  }
+
+  /**
    * This assertion verifies that the symbols that are conditional on the `arez.enable_native_components`
    * setting are present if enabled and not present if not enabled.
    *
@@ -252,6 +263,7 @@ public final class ArezBuildAsserts
    *
    * @param index                                the index that contains all symbols for output target.
    * @param areNamesEnabled                      the value of the `arez.enable_names` setting.
+   * @param areEnvironmentsEnabled               the value of the `arez.enable_environments` setting.
    * @param areSpiesEnabled                      the value of the `arez.enable_spies` setting.
    * @param areNativeComponentsEnabled           the value of the `arez.enable_native_components` setting.
    * @param areRegistriesEnabled                 the value of the `arez.enable_registries` setting.
@@ -262,6 +274,7 @@ public final class ArezBuildAsserts
    */
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
                                         final boolean areNamesEnabled,
+                                        final boolean areEnvironmentsEnabled,
                                         final boolean areSpiesEnabled,
                                         final boolean areNativeComponentsEnabled,
                                         final boolean areRegistriesEnabled,
@@ -279,5 +292,6 @@ public final class ArezBuildAsserts
     assertZoneOutputs( index, areZonesEnabled );
     assertShouldEnforceTransactionTypeOutputs( index, shouldEnforceTransactionType );
     assertCollectionPropertiesUnmodifiableOutputs( index, areCollectionsPropertiesUnmodifiable );
+    assertEnvironmentsOutputs( index, areEnvironmentsEnabled );
   }
 }

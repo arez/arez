@@ -38,13 +38,23 @@ public final class Arez
   }
 
   /**
-   * Return true if {@link Verifiable} will veriyf components be used, false if not.
+   * Return true if {@link Verifiable} will verify components be used, false if not.
    *
-   * @return true if {@link Verifiable} will veriyf components be used, false if not.
+   * @return true if {@link Verifiable} will verify components be used, false if not.
    */
   public static boolean isVerifyEnabled()
   {
     return ArezConfig.isVerifyEnabled();
+  }
+
+  /**
+   * Return true if environments are enabled.
+   *
+   * @return true if environments are enabled, false otherwise.
+   */
+  public static boolean areEnvironmentsEnabled()
+  {
+    return ArezConfig.areEnvironmentsEnabled();
   }
 
   /**

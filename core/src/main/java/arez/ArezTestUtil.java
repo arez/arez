@@ -59,6 +59,7 @@ public final class ArezTestUtil
     }
     enableObserverErrorHandlers();
     enableReferences();
+    enableEnvironments();
     purgeReactionsWhenRunawayDetected();
     disableZones();
 
@@ -153,6 +154,32 @@ public final class ArezTestUtil
   private static void setEnableVerify( final boolean value )
   {
     setConstant( "ENABLE_VERIFY", value );
+  }
+
+  /**
+   * Set `arez.enable_environments` setting to true.
+   */
+  public static void enableEnvironments()
+  {
+    setEnableEnvironments( true );
+  }
+
+  /**
+   * Set `arez.enable_environments` setting to false.
+   */
+  public static void disableEnvironments()
+  {
+    setEnableEnvironments( false );
+  }
+
+  /**
+   * Configure the `arez.enable_environments` setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableEnvironments( final boolean value )
+  {
+    setConstant( "ENABLE_ENVIRONMENTS", value );
   }
 
   /**

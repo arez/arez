@@ -6,7 +6,9 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputedValue;
 import arez.Disposable;
+import arez.Environment;
 import arez.Flags;
+import arez.Function;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
@@ -100,6 +102,15 @@ public class ExternalApiTest
     ArezTestUtil.enableReferences();
     ArezTestUtil.resetState();
     assertTrue( Arez.areReferencesEnabled() );
+  }
+
+  @Test
+  public void areEnvironmentsEnabled()
+  {
+    ArezTestUtil.disableEnvironments();
+    assertFalse( Arez.areEnvironmentsEnabled() );
+    ArezTestUtil.enableEnvironments();
+    assertTrue( Arez.areEnvironmentsEnabled() );
   }
 
   @Test
@@ -608,10 +619,36 @@ public class ExternalApiTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    context.setEnvironment( a -> {
-      trace.add( "PreTrace" );
-      a.call();
-      trace.add( "PostTrace" );
+    context.setEnvironment( new Environment()
+    {
+      @Override
+      public <T> T run( @Nonnull final SafeFunction<T> function )
+      {
+        trace.add( "PreTrace" );
+        try
+        {
+          return function.call();
+        }
+        finally
+        {
+          trace.add( "PostTrace" );
+        }
+      }
+
+      @Override
+      public <T> T run( @Nonnull final Function<T> function )
+        throws Throwable
+      {
+        trace.add( "PreTrace" );
+        try
+        {
+          return function.call();
+        }
+        finally
+        {
+          trace.add( "PostTrace" );
+        }
+      }
     } );
 
     context.observer( () -> {

@@ -99,10 +99,36 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
     final AtomicReference<String> environment = new AtomicReference<>();
 
-    context.setEnvironment( a -> {
-      environment.set( "RED" );
-      a.call();
-      environment.set( null );
+    context.setEnvironment( new Environment()
+    {
+      @Override
+      public <T> T run( @Nonnull final SafeFunction<T> function )
+      {
+        environment.set( "RED" );
+        try
+        {
+          return function.call();
+        }
+        finally
+        {
+          environment.set( null );
+        }
+      }
+
+      @Override
+      public <T> T run( @Nonnull final Function<T> function )
+        throws Throwable
+      {
+        environment.set( "RED" );
+        try
+        {
+          return function.call();
+        }
+        finally
+        {
+          environment.set( null );
+        }
+      }
     } );
 
     context.observer( () -> {
@@ -129,19 +155,44 @@ public class ArezContextTest
 
     final AtomicInteger count = new AtomicInteger( 3 );
     final AtomicReference<Observer> observerReference = new AtomicReference<>();
-    context.setEnvironment( a -> {
-      environment.set( "RED" );
-      a.call();
-      /*
-       * This simulates the scenario where something like react4j has only scheduler that will
-       * react to changes in arez and potentially re-schedule arez events.
-       */
-      if ( count.decrementAndGet() > 0 )
+    context.setEnvironment( new Environment()
+    {
+      @Override
+      public <T> T run( @Nonnull final SafeFunction<T> function )
       {
-        context.safeAction( () -> observerReference.get().setState( Flags.STATE_STALE ),
-                            Flags.NO_VERIFY_ACTION_REQUIRED );
+        environment.set( "RED" );
+        T result = function.call();
+        /*
+         * This simulates the scenario where something like react4j has only scheduler that will
+         * react to changes in arez and potentially re-schedule arez events.
+         */
+        if ( count.decrementAndGet() > 0 )
+        {
+          context.safeAction( () -> observerReference.get().setState( Flags.STATE_STALE ),
+                              Flags.NO_VERIFY_ACTION_REQUIRED );
+        }
+        environment.set( null );
+        return result;
       }
-      environment.set( null );
+
+      @Override
+      public <T> T run( @Nonnull final Function<T> function )
+        throws Throwable
+      {
+        environment.set( "RED" );
+        T result = function.call();
+        /*
+         * This simulates the scenario where something like react4j has only scheduler that will
+         * react to changes in arez and potentially re-schedule arez events.
+         */
+        if ( count.decrementAndGet() > 0 )
+        {
+          context.safeAction( () -> observerReference.get().setState( Flags.STATE_STALE ),
+                              Flags.NO_VERIFY_ACTION_REQUIRED );
+        }
+        environment.set( null );
+        return result;
+      }
     } );
 
     final Observer observer =
@@ -533,6 +584,120 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_Environment_Required()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.action( AbstractArezTest::observeADependency, Flags.ENVIRONMENT_REQUIRED );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void action_Environment_Not_Required()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.action( AbstractArezTest::observeADependency, Flags.ENVIRONMENT_NOT_REQUIRED );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+  }
+
+  @Test
+  public void action_Environment_Default()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.action( AbstractArezTest::observeADependency );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+  }
+
+  @Test
+  public void safeAction_Environment_Required()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( AbstractArezTest::observeADependency, Flags.ENVIRONMENT_REQUIRED );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void safeAction_Environment_Not_Required()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( AbstractArezTest::observeADependency, Flags.ENVIRONMENT_NOT_REQUIRED );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+  }
+
+  @Test
+  public void safeAction_Environment_Default()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( AbstractArezTest::observeADependency );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+  }
+
+  @Test
   public void action_function_NameButNoMutationVariant()
     throws Throwable
   {
@@ -843,7 +1008,15 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
     final AtomicInteger callCount = new AtomicInteger();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
 
     final Observer observer =
       context.tracker( callCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES | Flags.READ_WRITE );
@@ -857,6 +1030,8 @@ public class ArezContextTest
         assertEquals( transaction.getName(), observer.getName() );
         return 23;
       } );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
 
     assertEquals( result, 23 );
 
@@ -885,6 +1060,30 @@ public class ArezContextTest
       assertTrue( e.isTracked() );
       assertEquals( e.getParameters().length, 0 );
     } );
+  }
+
+  @Test
+  public void observe_environment_Required()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    final Observer observer =
+      context.tracker( callCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
+
+    context.observe( observer, () -> 23 );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
   }
 
   @Test
@@ -1975,6 +2174,7 @@ public class ArezContextTest
     assertEquals( computedValue.getContext(), context );
     assertFalse( computedValue.getObserver().isKeepAlive() );
     assertTrue( computedValue.getObserver().areArezDependenciesRequired() );
+    assertFalse( computedValue.getObserver().isEnvironmentRequired() );
     assertEquals( computedValue.getObservableValue().getName(), name );
     assertEquals( computedValue.getOnActivate(), onActivate );
     assertEquals( computedValue.getOnDeactivate(), onDeactivate );
@@ -2001,6 +2201,60 @@ public class ArezContextTest
   }
 
   @Test
+  public void computedValue_Environment_Required()
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.computed( function, Flags.ENVIRONMENT_REQUIRED );
+
+    assertTrue( computedValue.getObserver().isEnvironmentRequired() );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( computedValue::get );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void computedValue_Environment_NotRequired()
+  {
+    final ArezContext context = Arez.context();
+
+    // Scheduler paused otherwise reactions will run in environment and upset our environment call count
+    context.pauseScheduler();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.computed( function, Flags.ENVIRONMENT_NOT_REQUIRED );
+
+    assertFalse( computedValue.getObserver().isEnvironmentRequired() );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeAction( computedValue::get );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+  }
+
+  @Test
   public void computedValue_canObserveLowerPriorityDependencies()
   {
     final ComputedValue<String> computedValue =
@@ -2014,11 +2268,11 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     assertFalse( context.computed( () -> "", Flags.AREZ_OR_NO_DEPENDENCIES )
-                        .getObserver()
-                        .areArezDependenciesRequired() );
+                   .getObserver()
+                   .areArezDependenciesRequired() );
     assertFalse( context.computed( () -> "", Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
-                        .getObserver()
-                        .areArezDependenciesRequired() );
+                   .getObserver()
+                   .areArezDependenciesRequired() );
   }
 
   @Test
@@ -3049,5 +3303,121 @@ public class ArezContextTest
 
     assertInvariantFailure( () -> Arez.context().registerLocator( new TypeBasedLocator() ),
                             "Arez-0191: ArezContext.registerLocator invoked but Arez.areReferencesEnabled() returned false." );
+  }
+
+  @Test
+  public void runInEnvironment()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger observerCallCount = new AtomicInteger();
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      observable.reportObserved();
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+    assertEquals( observerCallCount.get(), 1 );
+  }
+
+  @Test
+  public void runInEnvironment_nestedCallIgnored()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger observer1CallCount = new AtomicInteger();
+    final AtomicInteger observer2CallCount = new AtomicInteger();
+    context.runInEnvironment( () -> {
+      context.observer( () -> {
+        observer1CallCount.incrementAndGet();
+        observable.reportObserved();
+      } );
+      context.observer( () -> {
+        observer2CallCount.incrementAndGet();
+        observable.reportObserved();
+      } );
+      return null;
+    } );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+    assertEquals( observer1CallCount.get(), 1 );
+    assertEquals( observer2CallCount.get(), 1 );
+  }
+
+  @Test
+  public void runInEnvironment_directNested()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.runInEnvironment( () -> context.runInEnvironment( () -> context.runInEnvironment( () -> "" ) ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void setEnvironment_whenEnvironmentsDisabled()
+    throws Throwable
+  {
+    ArezTestUtil.disableEnvironments();
+
+    final ArezContext context = Arez.context();
+
+    assertInvariantFailure( () -> context.setEnvironment( new CountingEnvironment( new AtomicInteger() ) ),
+                            "Arez-0124: ArezContext.setEnvironment() invoked but Arez.areEnvironmentsEnabled() returned false." );
+  }
+
+  @Test
+  public void safeRunInEnvironment_directNested()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
+    context.setEnvironment( new CountingEnvironment( inEnvironmentCallCount ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 0 );
+
+    context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> "" ) ) );
+
+    assertEquals( inEnvironmentCallCount.get(), 1 );
+  }
+
+  @Test
+  public void runInEnvironment_noEnvironment()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    context.runInEnvironment( () -> context.runInEnvironment( () -> context.runInEnvironment( () -> "" ) ) );
+  }
+
+  @Test
+  public void safeRunInEnvironment_noEnvironment()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> "" ) ) );
   }
 }
