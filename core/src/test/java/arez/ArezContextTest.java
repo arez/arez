@@ -426,7 +426,36 @@ public class ArezContextTest
     assertInvariantFailure( () -> Arez.context().action( executable, Flags.DEACTIVATE_ON_UNOBSERVE ),
                             "Arez-0212: Flags passed to action 'Action@1' include some " +
                             "unexpected flags set: " + Flags.DEACTIVATE_ON_UNOBSERVE );
+  }
 
+  @Test
+  public void verifyActionFlags_badEnvironmentFlags()
+  {
+    final Procedure executable = () -> {
+    };
+    assertInvariantFailure( () -> Arez.context()
+                              .action( executable, Flags.ENVIRONMENT_REQUIRED | Flags.ENVIRONMENT_NOT_REQUIRED ),
+                            "Arez-0125: Flags passed to action 'Action@1' include both ENVIRONMENT_REQUIRED and ENVIRONMENT_NOT_REQUIRED." );
+  }
+
+  @Test
+  public void verifyActionFlags_badTransactionFlags()
+  {
+    final Procedure executable = () -> {
+    };
+    assertInvariantFailure( () -> Arez.context()
+                              .action( executable, Flags.READ_ONLY | Flags.READ_WRITE ),
+                            "Arez-0126: Flags passed to action 'Action@1' include both READ_ONLY and READ_WRITE." );
+  }
+
+  @Test
+  public void verifyActionFlags_badVerifyAction()
+  {
+    final Procedure executable = () -> {
+    };
+    assertInvariantFailure( () -> Arez.context()
+                              .action( executable, Flags.VERIFY_ACTION_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED ),
+                            "Arez-0127: Flags passed to action 'Action@1' include both VERIFY_ACTION_REQUIRED and NO_VERIFY_ACTION_REQUIRED." );
   }
 
   @Test

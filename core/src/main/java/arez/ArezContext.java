@@ -1948,7 +1948,14 @@ public final class ArezContext
       apiInvariant( () -> 0 == nonActionFlags,
                     () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
                           "flags set: " + nonActionFlags );
-      //TODO: Verify the following are valid TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
+      apiInvariant( () -> Flags.isEnvironmentValid( flags | Flags.environmentFlag( flags ) ),
+                    () -> "Arez-0125: Flags passed to action '" + name + "' include both ENVIRONMENT_REQUIRED " +
+                          "and ENVIRONMENT_NOT_REQUIRED." );
+      apiInvariant( () -> !Arez.shouldEnforceTransactionType() || Flags.isTransactionModeValid( flags | Flags.transactionMode( flags ) ),
+                    () -> "Arez-0126: Flags passed to action '" + name + "' include both READ_ONLY and READ_WRITE." );
+      apiInvariant( () -> Flags.isVerifyActionRuleValid( flags | Flags.verifyActionRule( flags ) ),
+                    () -> "Arez-0127: Flags passed to action '" + name + "' include both VERIFY_ACTION_REQUIRED " +
+                          "and NO_VERIFY_ACTION_REQUIRED." );
     }
   }
 
@@ -2307,7 +2314,6 @@ public final class ArezContext
   private int trackerObservedFlags( @Nonnull final Observer observer )
   {
     return Flags.REQUIRE_NEW_TRANSACTION |
-           ( Arez.shouldCheckInvariants() ? Flags.NO_VERIFY_ACTION_REQUIRED : 0 ) |
            ( Arez.shouldCheckInvariants() ?
              observer.areArezDependenciesRequired() ? Flags.AREZ_DEPENDENCIES : Flags.AREZ_OR_NO_DEPENDENCIES :
              0 ) |
