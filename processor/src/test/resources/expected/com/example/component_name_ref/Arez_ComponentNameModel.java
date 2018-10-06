@@ -114,7 +114,7 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

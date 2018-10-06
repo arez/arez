@@ -114,7 +114,7 @@ public final class Arez_GenericsModel extends GenericsModel implements Disposabl
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'foo' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, () -> super.foo( v ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { v } : null );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".foo" : null, () -> super.foo( v ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { v } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

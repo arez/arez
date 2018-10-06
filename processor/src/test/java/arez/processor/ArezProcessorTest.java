@@ -28,6 +28,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.UnsafeProcedureActionModel", false, false, false },
         new Object[]{ "com.example.action.NoVerifyActionModel", false, false, false },
         new Object[]{ "com.example.action.ReadOnlyActionModel", false, false, false },
+        new Object[]{ "com.example.action.RequireEnvironmentActionModel", false, false, false },
         new Object[]{ "com.example.action.RequiresNewTxTypeActionModel", false, false, false },
         new Object[]{ "com.example.action.RequiresTxTypeActionModel", false, false, false },
         new Object[]{ "com.example.action.BasicFunctionActionModel", false, false, false },

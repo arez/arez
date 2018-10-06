@@ -25,6 +25,8 @@
 * **\[core\]** Rename the `@Observed` annotation to `@Observe`.
 * **\[core\]** Verify the flags passed to the `ArezContext.action(...)` and `ArezContext.safeAction(...)`
   have no incompatible flag combinations.
+* **\[core\]** Add the `requireEnvironment` parameter to the `@Action` annotation to control whether the
+  `Flags.ENVIRONMENT_REQUIRED` flag is added when invoking the action.
 
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)

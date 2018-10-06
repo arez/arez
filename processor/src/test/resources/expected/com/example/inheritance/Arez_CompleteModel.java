@@ -311,7 +311,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'myAction' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     try {
-      getContext().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".myAction" : null, () -> super.myAction(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, null );
+      getContext().safeAction(Arez.areNamesEnabled() ? getComponentName() + ".myAction" : null, () -> super.myAction(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_RequireEnvironmentActionModel extends RequireEnvironmentActionModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -29,14 +29,14 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
-  public Arez_NoVerifyActionModel() {
+  public Arez_RequireEnvironmentActionModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "NoVerifyActionModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RequireEnvironmentActionModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
@@ -51,7 +51,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'NoVerifyActionModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RequireEnvironmentActionModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -71,9 +71,9 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'NoVerifyActionModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RequireEnvironmentActionModel'" );
     }
-    return "NoVerifyActionModel." + $$arezi$$_id();
+    return "RequireEnvironmentActionModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -109,54 +109,16 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
   }
 
   @Override
-  public void doStuff1() {
+  public void doStuff(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff1' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff1" : null, () -> super.doStuff1(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED, null );
+      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.ENVIRONMENT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
       throw new IllegalStateException( $$arez_exception$$ );
-    }
-  }
-
-  @Override
-  public void doStuff2() throws Throwable {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff2' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff2" : null, () -> super.doStuff2(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED, null );
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    }
-  }
-
-  @Override
-  public int doStuff3() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff3" : null, () -> super.doStuff3(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED, null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
-  }
-
-  @Override
-  public int doStuff4() throws Throwable {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff4' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    try {
-      return $$arezi$$_context().action(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff4" : null, () -> super.doStuff4(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED, null );
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw $$arez_exception$$;
     }
   }
 
@@ -174,10 +136,10 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_NoVerifyActionModel) ) {
+      } else if ( null == o || !(o instanceof Arez_RequireEnvironmentActionModel) ) {
         return false;
       } else {
-        final Arez_NoVerifyActionModel that = (Arez_NoVerifyActionModel) o;
+        final Arez_RequireEnvironmentActionModel that = (Arez_RequireEnvironmentActionModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

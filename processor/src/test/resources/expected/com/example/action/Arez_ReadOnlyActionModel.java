@@ -114,7 +114,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'queryStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".queryStuff" : null, () -> super.queryStuff( time ), Flags.READ_ONLY | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time } : null );
+      return $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".queryStuff" : null, () -> super.queryStuff( time ), Flags.READ_ONLY | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

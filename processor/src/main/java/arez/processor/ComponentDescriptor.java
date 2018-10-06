@@ -495,12 +495,14 @@ final class ComponentDescriptor
     checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean requireNewTransaction = getAnnotationParameter( annotation, "requireNewTransaction" );
+    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
       new ActionDescriptor( this,
                             name,
                             requireNewTransaction,
+                            requireEnvironment,
                             mutation,
                             verifyRequired,
                             reportParameters,
