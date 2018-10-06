@@ -1945,9 +1945,9 @@ public final class ArezContext
     if ( Arez.shouldCheckApiInvariants() )
     {
       final int nonActionFlags = flags & ~Flags.ACTION_FLAGS_MASK;
-      invariant( () -> 0 == nonActionFlags,
-                 () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
-                       "flags set: " + nonActionFlags );
+      apiInvariant( () -> 0 == nonActionFlags,
+                    () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
+                          "flags set: " + nonActionFlags );
       //TODO: Verify the following are valid TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
     }
   }
