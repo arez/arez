@@ -67,6 +67,7 @@ public final class Flags
    * is no {@link Observer#_observed} function supplied. This should not be
    * specified if {@link #RUN_LATER} is specified.
    */
+  @SuppressWarnings( "WeakerAccess" )
   public static final int RUN_NOW = 1 << 22;
   /**
    * The scheduler will not be triggered when the observer is created. The observer either
@@ -192,7 +193,7 @@ public final class Flags
   /**
    * Flag is currently unused.
    */
-  @SuppressWarnings( "unused" )
+  @SuppressWarnings( { "unused", "WeakerAccess" } )
   public static final int UNUSED1 = 1 << 12;
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
