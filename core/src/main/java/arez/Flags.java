@@ -225,7 +225,8 @@ public final class Flags
   /**
    * Mask containing flags that can be applied to an action.
    */
-  static final int ACTION_FLAGS_MASK = TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
+  static final int ACTION_FLAGS_MASK =
+    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChanged}.
    */
