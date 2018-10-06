@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 import javax.inject.Singleton;
@@ -36,7 +36,7 @@ public abstract class SingletonWithIdModel
     return 0;
   }
 
-  @Observed
+  @Observe
   void render()
   {
   }
@@ -49,7 +49,7 @@ public abstract class SingletonWithIdModel
   @ObserverRef
   abstract Observer getRenderObserver();
 
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public void render2( int i )
   {
   }
@@ -59,7 +59,7 @@ public abstract class SingletonWithIdModel
   {
   }
 
-  @Observed
+  @Observe
   protected void myAutorun()
   {
   }

@@ -160,7 +160,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   protected void zapZap() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'zapZap' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'zapZap' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.zapZap();
   }

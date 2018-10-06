@@ -1,13 +1,13 @@
 package com.example.deprecated;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 
 @ArezComponent
 public abstract class DeprecatedObservedModel
 {
   @Deprecated
-  @Observed
+  @Observe
   protected void doStuff()
   {
   }

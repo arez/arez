@@ -3,7 +3,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent( nameIncludesId = false )
@@ -31,7 +31,7 @@ public abstract class SingletonModel
     return 0;
   }
 
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public void render()
   {
   }
@@ -41,7 +41,7 @@ public abstract class SingletonModel
   {
   }
 
-  @Observed
+  @Observe
   protected void myAutorun()
   {
   }

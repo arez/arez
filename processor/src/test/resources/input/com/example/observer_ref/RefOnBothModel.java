@@ -3,14 +3,14 @@ package com.example.observer_ref;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent
 public abstract class RefOnBothModel
 {
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public void render( final long time, float someOtherParameter )
   {
   }
@@ -23,7 +23,7 @@ public abstract class RefOnBothModel
   @ObserverRef
   abstract Observer getRenderObserver();
 
-  @Observed
+  @Observe
   protected void doStuff()
   {
   }

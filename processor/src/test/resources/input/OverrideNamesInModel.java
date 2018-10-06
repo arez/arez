@@ -3,7 +3,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 import java.text.ParseException;
 
@@ -26,7 +26,7 @@ public abstract class OverrideNamesInModel
   {
   }
 
-  @Observed( name = "zzzzzz" )
+  @Observe( name = "zzzzzz" )
   protected void zapZap()
   {
   }
@@ -37,7 +37,7 @@ public abstract class OverrideNamesInModel
     return 0;
   }
 
-  @Observed( executor = Executor.APPLICATION,name = "XX" )
+  @Observe( executor = Executor.APPLICATION,name = "XX" )
   public void render()
     throws ParseException
   {

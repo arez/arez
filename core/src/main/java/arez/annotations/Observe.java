@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.METHOD )
-public @interface Observed
+public @interface Observe
 {
   /**
    * Return the name of the Observer relative to the component.

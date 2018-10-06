@@ -4,7 +4,7 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -57,21 +57,21 @@ public class PrioritizedSchedulerTest
       return getValue3();
     }
 
-    @Observed( priority = Priority.HIGH )
+    @Observe( priority = Priority.HIGH )
     void observer1a()
     {
       _calls.add( "observer1a" );
       getValue1();
     }
 
-    @Observed( priority = Priority.HIGH )
+    @Observe( priority = Priority.HIGH )
     void observer1b()
     {
       _calls.add( "observer1b" );
       computed1();
     }
 
-    @Observed( priority = Priority.NORMAL )
+    @Observe( priority = Priority.NORMAL )
     void observer2a()
     {
       _calls.add( "observer2a" );
@@ -79,14 +79,14 @@ public class PrioritizedSchedulerTest
       getValue2();
     }
 
-    @Observed( priority = Priority.NORMAL )
+    @Observe( priority = Priority.NORMAL )
     void observer2b()
     {
       _calls.add( "observer2b" );
       computed1();
     }
 
-    @Observed( priority = Priority.LOW )
+    @Observe( priority = Priority.LOW )
     void observer3a()
     {
       _calls.add( "observer3a" );
@@ -95,7 +95,7 @@ public class PrioritizedSchedulerTest
       getValue3();
     }
 
-    @Observed( priority = Priority.LOW )
+    @Observe( priority = Priority.LOW )
     void observer3b()
     {
       _calls.add( "observer3b" );

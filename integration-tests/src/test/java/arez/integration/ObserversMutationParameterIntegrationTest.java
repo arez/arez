@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -121,7 +121,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model1();
     }
 
-    @Observed
+    @Observe
     void myObserveReaction()
     {
       observeADependency();
@@ -154,7 +154,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Observed
+    @Observe
     void myObserveReaction()
     {
       getName();
@@ -185,7 +185,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model3();
     }
 
-    @Observed( mutation = true )
+    @Observe( mutation = true )
     void myObserveReaction()
     {
       observeADependency();
@@ -217,7 +217,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model4();
     }
 
-    @Observed( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.APPLICATION )
     public void myObserveReaction()
     {
       setName( "Changed" );
@@ -253,7 +253,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Observed( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.APPLICATION )
     public void myObserveReaction()
     {
       getName();
@@ -288,7 +288,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model6();
     }
 
-    @Observed( executor = Executor.APPLICATION, mutation = true )
+    @Observe( executor = Executor.APPLICATION, mutation = true )
     public void myObserveReaction()
     {
       observeADependency();

@@ -122,7 +122,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
   @Override
   protected void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observed method named 'doStuff' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
     super.doStuff();
   }

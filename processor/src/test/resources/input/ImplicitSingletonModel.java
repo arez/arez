@@ -3,7 +3,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 import javax.inject.Singleton;
 
@@ -33,7 +33,7 @@ public abstract class ImplicitSingletonModel
     return 0;
   }
 
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public void render()
   {
   }
@@ -43,7 +43,7 @@ public abstract class ImplicitSingletonModel
   {
   }
 
-  @Observed
+  @Observe
   protected void myAutorun()
   {
   }

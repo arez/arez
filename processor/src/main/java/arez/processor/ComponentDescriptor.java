@@ -139,8 +139,8 @@ final class ComponentDescriptor
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   private final Collection<MemoizeDescriptor> _roMemoizes =
     Collections.unmodifiableCollection( _memoizes.values() );
-  private final Map<String, ObservedDescriptor> _observeds = new LinkedHashMap<>();
-  private final Collection<ObservedDescriptor> _roObserveds =
+  private final Map<String, ObserveDescriptor> _observeds = new LinkedHashMap<>();
+  private final Collection<ObserveDescriptor> _roObserveds =
     Collections.unmodifiableCollection( _observeds.values() );
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
@@ -279,9 +279,9 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private ObservedDescriptor findOrCreateObserved( @Nonnull final String name )
+  private ObserveDescriptor findOrCreateObserved( @Nonnull final String name )
   {
-    return _observeds.computeIfAbsent( name, n -> new ObservedDescriptor( this, n ) );
+    return _observeds.computeIfAbsent( name, n -> new ObserveDescriptor( this, n ) );
   }
 
   @Nonnull
@@ -550,7 +550,7 @@ final class ComponentDescriptor
     final VariableElement executor = getAnnotationParameter( annotation, "executor" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
 
-    final ObservedDescriptor observed = findOrCreateObserved( name );
+    final ObserveDescriptor observed = findOrCreateObserved( name );
     observed.setObservedMethod( mutation,
                                 priority.getSimpleName().toString(),
                                 executor.getSimpleName().toString().equals( "AREZ" ),
@@ -576,12 +576,12 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Observed target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Observe target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Observed target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Observe target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
       return name;
@@ -593,7 +593,7 @@ final class ComponentDescriptor
   {
     final String name =
       deriveHookName( method,
-                      ObservedDescriptor.ON_DEPS_CHANGED_PATTERN,
+                      ObserveDescriptor.ON_DEPS_CHANGED_PATTERN,
                       "DepsChanged",
                       getAnnotationParameter( annotation, "name" ) );
     findOrCreateObserved( name ).setOnDepsChanged( method );
@@ -1078,7 +1078,7 @@ final class ComponentDescriptor
   {
     _roObservables.forEach( ObservableDescriptor::validate );
     _roComputeds.forEach( ComputedDescriptor::validate );
-    _roObserveds.forEach( ObservedDescriptor::validate );
+    _roObserveds.forEach( ObserveDescriptor::validate );
     _roDependencies.forEach( DependencyDescriptor::validate );
     _roReferences.forEach( ReferenceDescriptor::validate );
     _roInverses.forEach( InverseDescriptor::validate );
@@ -1098,19 +1098,19 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                         "@CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @ComponentDependency or @Observed", _element );
+                                        "@Reference, @ComponentDependency or @Observe", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
                                         "annotated with @Action, @CascadeDispose, @Computed, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @ComponentDependency or @Observed", _element );
+                                        "@Reference, @ComponentDependency or @Observe", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
-                                        "annotation parameter but has no methods annotated with @Observed, " +
+                                        "annotation parameter but has no methods annotated with @Observe, " +
                                         "@ComponentDependency or @Computed(keepAlive=true)", _element );
     }
     if ( null != _componentIdRef &&
@@ -1173,7 +1173,7 @@ final class ComponentDescriptor
     // Observed have pairs so let the caller determine whether a duplicate occurs in that scenario
     if ( !sourceAnnotationName.equals( Constants.OBSERVED_ANNOTATION_CLASSNAME ) )
     {
-      final ObservedDescriptor observed = _observeds.get( name );
+      final ObserveDescriptor observed = _observeds.get( name );
       if ( null != observed )
       {
         throw toException( name,
@@ -1278,7 +1278,7 @@ final class ComponentDescriptor
           }
         }
         name =
-          ProcessorUtil.deriveName( method, ObservedDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );
         if ( voidReturn && 0 == parameterCount && null != name )
         {
           onDepsChangeds.put( name, candidateMethod );
@@ -2093,7 +2093,7 @@ final class ComponentDescriptor
     {
       final String key = entry.getKey();
       final CandidateMethod method = entry.getValue();
-      final ObservedDescriptor observed = _observeds.get( key );
+      final ObserveDescriptor observed = _observeds.get( key );
       if ( null != observed )
       {
         observed.setRefMethod( method.getMethod(), method.getMethodType() );
@@ -2101,7 +2101,7 @@ final class ComponentDescriptor
       else
       {
         throw new ArezProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
-                                          "@Observed method with that name exists", method.getMethod() );
+                                          "@Observe method with that name exists", method.getMethod() );
       }
     }
   }
@@ -2156,7 +2156,7 @@ final class ComponentDescriptor
                                         @Nonnull final Map<String, CandidateMethod> onDepsChangeds )
     throws ArezProcessorException
   {
-    for ( final ObservedDescriptor observed : _roObserveds )
+    for ( final ObserveDescriptor observed : _roObserveds )
     {
       if ( !observed.hasObserved() )
       {
@@ -2175,7 +2175,7 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@OnDepsChanged target has no corresponding @Observed that could " +
+          throw new ArezProcessorException( "@OnDepsChanged target has no corresponding @Observe that could " +
                                             "be automatically determined", observed.getOnDepsChanged() );
         }
       }

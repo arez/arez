@@ -6,7 +6,7 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.Priority;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
@@ -113,7 +113,7 @@ public class DisposeOnDeactivateWithComputedIntegrationTest
       _model2 = model2;
     }
 
-    @Observed( mutation = true, priority = Priority.HIGH )
+    @Observe( mutation = true, priority = Priority.HIGH )
     void myAutorun()
     {
       _callCount.incrementAndGet();

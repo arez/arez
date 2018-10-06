@@ -1,18 +1,18 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.Arez;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservedNonArezDependenciesTest
+public class ObserveNonArezDependenciesTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -20,7 +20,7 @@ public class ObservedNonArezDependenciesTest
   {
     int _renderCallCount;
 
-    @Observed( depType = DepType.AREZ_OR_EXTERNAL )
+    @Observe( depType = DepType.AREZ_OR_EXTERNAL )
     void render()
     {
       getValue();
@@ -40,7 +40,7 @@ public class ObservedNonArezDependenciesTest
   @Test
   public void scenario()
   {
-    final TestComponent1 component = new ObservedNonArezDependenciesTest_Arez_TestComponent1();
+    final TestComponent1 component = new ObserveNonArezDependenciesTest_Arez_TestComponent1();
 
     assertEquals( component._renderCallCount, 1 );
 

@@ -1,12 +1,12 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservedNoInvokeTest
+public class ObserveNoInvokeTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -14,7 +14,7 @@ public class ObservedNoInvokeTest
   {
     int _observerCallCount;
 
-    @Observed
+    @Observe
     void observer()
     {
       // Observe something so it is valid observed
@@ -26,12 +26,12 @@ public class ObservedNoInvokeTest
   @Test
   public void deferScheduleWillDelayObserver()
   {
-    final TestComponent component = new ObservedNoInvokeTest_Arez_TestComponent();
+    final TestComponent component = new ObserveNoInvokeTest_Arez_TestComponent();
 
     assertEquals( component._observerCallCount, 1 );
 
     assertInvariant( component::observer,
-                     "Observed method named 'observer' invoked but @Observed(executor=AREZ) annotated methods should only be invoked by the runtime." );
+                     "Observe method named 'observer' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     assertEquals( component._observerCallCount, 1 );
   }
 }

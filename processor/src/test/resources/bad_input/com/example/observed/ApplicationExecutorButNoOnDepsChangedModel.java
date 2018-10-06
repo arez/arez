@@ -3,13 +3,13 @@ package com.example.observed;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
 public abstract class ApplicationExecutorButNoOnDepsChangedModel
 {
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   void doStuff()
   {
   }

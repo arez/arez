@@ -1,7 +1,7 @@
 package arez.component;
 
 import arez.ObservableValue;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import javax.annotation.Nonnull;
 
 /**
@@ -34,7 +34,7 @@ public final class ComponentState
    */
   public final static byte COMPONENT_COMPLETE = 3;
   /**
-   * The scheduler has been triggered and any {@link Observed} methods have been invoked if runtime managed.
+   * The scheduler has been triggered and any {@link Observe} methods have been invoked if runtime managed.
    */
   public final static byte COMPONENT_READY = 4;
   /**

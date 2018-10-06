@@ -1,17 +1,17 @@
 package com.example.package_access.other;
 
 import arez.annotations.Executor;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 
-public abstract class BaseObservedModel
+public abstract class BaseObserveModel
 {
-  @Observed
+  @Observe
   void somePackageAccessAction()
   {
   }
 
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   void render( final long time, float someOtherParameter )
   {
   }

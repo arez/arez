@@ -6,7 +6,7 @@ import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent
@@ -28,7 +28,7 @@ public abstract class TrainTicket
     setRemainingRides( getRemainingRides() - 1 );
   }
 
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public String render()
   {
     return "<table class='ticket'>" +
@@ -51,7 +51,7 @@ public abstract class TrainTicket
     return 0 == getRemainingRides();
   }
 
-  @Observed
+  @Observe
   void notifyUserWhenTicketExpires()
   {
     if ( isTicketExpired() )

@@ -1,11 +1,10 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.Arez;
-import arez.Flags;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 import arez.integration.AbstractArezIntegrationTest;
@@ -13,7 +12,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservedManualScheduleTest
+public class ObserveManualScheduleTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -22,7 +21,7 @@ public class ObservedManualScheduleTest
     int _renderCallCount;
     int _depsChangedCallCount;
 
-    @Observed
+    @Observe
     void render()
     {
       getValue();
@@ -48,7 +47,7 @@ public class ObservedManualScheduleTest
   @Test
   public void scenario()
   {
-    final TestComponent1 component = new ObservedManualScheduleTest_Arez_TestComponent1();
+    final TestComponent1 component = new ObserveManualScheduleTest_Arez_TestComponent1();
 
     assertEquals( component._renderCallCount, 1 );
     assertEquals( component._depsChangedCallCount, 0 );

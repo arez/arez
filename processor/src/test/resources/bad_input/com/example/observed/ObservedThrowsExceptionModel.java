@@ -1,13 +1,13 @@
 package com.example.observed;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import java.text.ParseException;
 
 @ArezComponent
 public abstract class ObservedThrowsExceptionModel
 {
-  @Observed
+  @Observe
   void doStuff()
     throws ParseException
   {

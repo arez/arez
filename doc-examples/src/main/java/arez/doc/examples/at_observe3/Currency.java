@@ -1,4 +1,4 @@
-package arez.doc.examples.at_observed2;
+package arez.doc.examples.at_observe3;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;

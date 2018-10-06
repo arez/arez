@@ -3,14 +3,14 @@ package com.example.observer_ref;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent
 public abstract class CustomNameRefOnObservedModel2
 {
-  @Observed( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.APPLICATION )
   public void render()
   {
   }

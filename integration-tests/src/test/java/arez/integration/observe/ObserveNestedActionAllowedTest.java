@@ -1,15 +1,15 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.integration.AbstractArezIntegrationTest;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservedNestedActionDisallowedTest
+public class ObserveNestedActionAllowedTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -18,7 +18,7 @@ public class ObservedNestedActionDisallowedTest
     int _renderCallCount;
     int _actionCallCount;
 
-    @Observed
+    @Observe( nestedActionsAllowed = true )
     void render()
     {
       getTime2();
@@ -48,27 +48,20 @@ public class ObservedNestedActionDisallowedTest
   @Test
   public void scenario()
   {
-    setIgnoreObserverErrors( true );
-    final TestComponent1 component = new ObservedNestedActionDisallowedTest_Arez_TestComponent1();
+    final TestComponent1 component = new ObserveNestedActionAllowedTest_Arez_TestComponent1();
 
     assertEquals( component._renderCallCount, 1 );
-    assertEquals( component._actionCallCount, 0 );
-
-    assertEquals( getObserverErrors().size(), 1 );
-    assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: TestComponent1.0.render Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0187: Attempting to nest action named 'TestComponent1.0.myAction' inside transaction named 'TestComponent1.0.render' created by an observer that does not allow nested actions." );
+    assertEquals( component._actionCallCount, 1 );
 
     // This should not trigger render because render not observing as action eliminates dependency
     safeAction( () -> component.setTime( ValueUtil.randomLong() ) );
 
     assertEquals( component._renderCallCount, 1 );
-    assertEquals( component._actionCallCount, 0 );
+    assertEquals( component._actionCallCount, 1 );
 
     safeAction( () -> component.setTime2( ValueUtil.randomLong() ) );
 
     assertEquals( component._renderCallCount, 2 );
-    assertEquals( component._actionCallCount, 0 );
-
-    assertEquals( getObserverErrors().size(), 2 );
+    assertEquals( component._actionCallCount, 2 );
   }
 }

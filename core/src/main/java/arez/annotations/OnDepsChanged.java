@@ -6,7 +6,7 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Identifies method that will be invoked when the dependencies of the paired {@link Observed} annotated method are changed.
+ * Identifies method that will be invoked when the dependencies of the paired {@link Observe} annotated method are changed.
  *
  * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
@@ -26,10 +26,10 @@ public @interface OnDepsChanged
   /**
    * Return the name of the paired Tracked relative to the component.
    * The value must conform to the requirements of a java identifier.
-   * The name need not be specified. If the {@link Observed} annotated method is
+   * The name need not be specified. If the {@link Observe} annotated method is
    * named "render" then this will default to being named "onRenderDepsChanged".
    *
-   * @return the name of the paired {@link Observed} annotated method relative to the component.
+   * @return the name of the paired {@link Observe} annotated method relative to the component.
    */
   @Nonnull
   String name() default "<default>";

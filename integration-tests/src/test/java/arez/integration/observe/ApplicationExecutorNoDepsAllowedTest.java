@@ -1,11 +1,11 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.Arez;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Executor;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 import arez.integration.AbstractArezIntegrationTest;
@@ -21,7 +21,7 @@ public class ApplicationExecutorNoDepsAllowedTest
   {
     int _renderCallCount;
 
-    @Observed( executor = Executor.APPLICATION, depType = DepType.AREZ_OR_NONE )
+    @Observe( executor = Executor.APPLICATION, depType = DepType.AREZ_OR_NONE )
     void render()
     {
       _renderCallCount++;

@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Marks a template method that returns the {@link arez.Observer} instance for
- * the associated {@link Observed} annotated method.
+ * the associated {@link Observe} annotated method.
  *
  * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>

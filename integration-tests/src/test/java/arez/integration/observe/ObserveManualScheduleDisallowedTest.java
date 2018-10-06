@@ -1,15 +1,15 @@
-package arez.integration.observed;
+package arez.integration.observe;
 
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservedManualScheduleDisallowedTest
+public class ObserveManualScheduleDisallowedTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -17,7 +17,7 @@ public class ObservedManualScheduleDisallowedTest
   {
     int _renderCallCount;
 
-    @Observed
+    @Observe
     void render()
     {
       getValue();
@@ -37,7 +37,7 @@ public class ObservedManualScheduleDisallowedTest
   @Test
   public void scenario()
   {
-    final TestComponent1 component = new ObservedManualScheduleDisallowedTest_Arez_TestComponent1();
+    final TestComponent1 component = new ObserveManualScheduleDisallowedTest_Arez_TestComponent1();
 
     assertEquals( component._renderCallCount, 1 );
 

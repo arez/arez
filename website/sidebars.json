@@ -27,7 +27,7 @@
       "at_computed",
       "at_memoize",
       "at_action",
-      "at_observed",
+      "at_observe",
       "at_component_dependency",
       "at_cascade_dispose",
       "repositories",

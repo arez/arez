@@ -22,6 +22,7 @@
     - when creating `Observer` instances that also created with the `Flags.APPLICATION_EXECUTOR` flag.
   If the `Flags.ENVIRONMENT_REQUIRED` is specified then the runtime will ensure that the relevant code is
   invoked within the context of the `Environment`.
+* **\[core\]** Rename the `@Observed` annotation to `@Observe`.
 
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)

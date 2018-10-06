@@ -1,12 +1,12 @@
 package com.example.observed;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Observed;
+import arez.annotations.Observe;
 
 @ArezComponent( deferSchedule = true )
 public abstract class ScheduleDeferredModel
 {
-  @Observed
+  @Observe
   protected void doStuff()
   {
   }
