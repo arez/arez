@@ -1,4 +1,4 @@
-package com.example.collections;
+package com.example.computed;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -6,12 +6,10 @@ import arez.Component;
 import arez.ComputedValue;
 import arez.Disposable;
 import arez.Flags;
-import arez.component.CollectionsUtil;
 import arez.component.ComponentState;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
-import java.util.Set;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,7 +17,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_ComputedSetModel extends ComputedSetModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_RequireEnvironmentComputedModel extends RequireEnvironmentComputedModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -34,22 +32,18 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Set<String>> $$arez$$_myValue;
+  private final ComputedValue<Long> $$arez$$_time;
 
-  private Set<String> $$arezd$$_$$cache$$_myValue;
-
-  private boolean $$arezd$$_$$cache_active$$_myValue;
-
-  public Arez_ComputedSetModel() {
+  public Arez_RequireEnvironmentComputedModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ComputedSetModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RequireEnvironmentComputedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, () -> super.getMyValue(), this::$$arezi$$_onActivate_myValue, this::$$arezi$$_onDeactivate_myValue, this::$$arezi$$_onStale_myValue, Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES ) : $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myValue" : null, () -> super.getMyValue(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time = $$arezi$$_context().computed( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.RUN_LATER | Flags.ENVIRONMENT_REQUIRED | Flags.AREZ_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -63,7 +57,7 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'ComputedSetModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RequireEnvironmentComputedModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -83,9 +77,9 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'ComputedSetModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RequireEnvironmentComputedModel'" );
     }
-    return "ComputedSetModel." + $$arezi$$_id();
+    return "RequireEnvironmentComputedModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -112,7 +106,7 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_myValue.dispose();
+          this.$$arez$$_time.dispose();
         } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -122,39 +116,11 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
   }
 
   @Override
-  public Set<String> getMyValue() {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Set<String> $$ar$$_result = (Set<String>) this.$$arez$$_myValue.get();
-      if ( null == this.$$arezd$$_$$cache$$_myValue && null != $$ar$$_result ) {
-        this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
-      }
-      return $$arezd$$_$$cache$$_myValue;
-    } else {
-      return (Set<String>) this.$$arez$$_myValue.get();
-    }
-  }
-
-  private void $$arezi$$_onActivate_myValue() {
-    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      this.$$arezd$$_$$cache_active$$_myValue = true;
-      this.$$arezd$$_$$cache$$_myValue = null;
-    }
-  }
-
-  private void $$arezi$$_onDeactivate_myValue() {
-    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      this.$$arezd$$_$$cache_active$$_myValue = false;
-      this.$$arezd$$_$$cache$$_myValue = null;
-    }
-  }
-
-  private void $$arezi$$_onStale_myValue() {
-    if ( Arez.areCollectionsPropertiesUnmodifiable() && this.$$arezd$$_$$cache_active$$_myValue ) {
-      this.$$arezd$$_$$cache$$_myValue = null;
-    }
+    return this.$$arez$$_time.get();
   }
 
   @Override
@@ -171,10 +137,10 @@ public final class Arez_ComputedSetModel extends ComputedSetModel implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_ComputedSetModel) ) {
+      } else if ( null == o || !(o instanceof Arez_RequireEnvironmentComputedModel) ) {
         return false;
       } else {
-        final Arez_ComputedSetModel that = (Arez_ComputedSetModel) o;
+        final Arez_RequireEnvironmentComputedModel that = (Arez_RequireEnvironmentComputedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

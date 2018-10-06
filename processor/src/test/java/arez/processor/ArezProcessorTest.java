@@ -122,6 +122,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.BasicComputedModel", false, false, false },
         new Object[]{ "com.example.computed.KeepAliveComputedModel", false, false, false },
         new Object[]{ "com.example.computed.ObserveLowerPriorityComputedModel", false, false, false },
+        new Object[]{ "com.example.computed.RequireEnvironmentComputedModel", false, false, false },
         new Object[]{ "com.example.computed.ScheduleDeferredKeepAliveComputedModel", false, false, false },
         new Object[]{ "com.example.computed.TypeParametersModel", false, false, false },
         new Object[]{ "com.example.computed_value_ref.DefaultRefNameModel", false, false, false },

@@ -44,6 +44,7 @@ final class ComputedDescriptor
   @Nullable
   private ExecutableType _computedType;
   private boolean _keepAlive;
+  private boolean _requireEnvironment;
   private String _priority;
   private boolean _observeLowerPriorityDependencies;
   private String _depType;
@@ -119,6 +120,7 @@ final class ComputedDescriptor
   void setComputed( @Nonnull final ExecutableElement computed,
                     @Nonnull final ExecutableType computedType,
                     final boolean keepAlive,
+                    final boolean requireEnvironment,
                     @Nonnull final String priority,
                     final boolean observeLowerPriorityDependencies,
                     @Nonnull final String depType )
@@ -136,6 +138,7 @@ final class ComputedDescriptor
     _computed = Objects.requireNonNull( computed );
     _computedType = Objects.requireNonNull( computedType );
     _keepAlive = keepAlive;
+    _requireEnvironment = requireEnvironment;
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _depType = Objects.requireNonNull( depType );
@@ -440,6 +443,14 @@ final class ComputedDescriptor
     if ( _keepAlive )
     {
       flags.add( "KEEPALIVE" );
+    }
+    if ( _requireEnvironment )
+    {
+      flags.add( "ENVIRONMENT_REQUIRED" );
+    }
+    else
+    {
+      flags.add( "ENVIRONMENT_NOT_REQUIRED" );
     }
     switch ( _depType )
     {

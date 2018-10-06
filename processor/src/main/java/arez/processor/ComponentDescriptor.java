@@ -670,9 +670,11 @@ final class ComponentDescriptor
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
+    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     findOrCreateComputed( name ).setComputed( method,
                                               computedType,
                                               keepAlive,
+                                              requireEnvironment,
                                               priority.getSimpleName().toString(),
                                               observeLowerPriorityDependencies,
                                               depType.getSimpleName().toString() );

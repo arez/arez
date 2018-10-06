@@ -82,4 +82,11 @@ public @interface Computed
    */
   @Nonnull
   DepType depType() default DepType.AREZ;
+
+  /**
+   * True if invocations of the computable must be executed in an {@link arez.Environment}.
+   *
+   * @return true if invocations of the computable must be executed in an {@link arez.Environment}, false otherwise.
+   */
+  boolean requireEnvironment() default false;
 }
