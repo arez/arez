@@ -341,6 +341,18 @@ public final class Flags
            0;
   }
 
+  /**
+   * Return true if flags contains a valid verify action rule.
+   *
+   * @param flags the flags.
+   * @return true if flags contains verify action rule.
+   */
+  static boolean isVerifyActionRuleValid( final int flags )
+  {
+    return VERIFY_ACTION_REQUIRED == ( flags & VERIFY_ACTION_MASK ) ||
+           NO_VERIFY_ACTION_REQUIRED == ( flags & VERIFY_ACTION_MASK );
+  }
+
   static int environmentFlag( final int flags )
   {
     return defaultFlagUnlessSpecified( flags, ENVIRONMENT_MASK, ENVIRONMENT_NOT_REQUIRED );

@@ -219,6 +219,16 @@ public class FlagsTest
   }
 
   @Test
+  public void isVerifyActionRuleValid()
+  {
+    assertTrue( Flags.isVerifyActionRuleValid( Flags.VERIFY_ACTION_REQUIRED ) );
+    assertTrue( Flags.isVerifyActionRuleValid( Flags.NO_VERIFY_ACTION_REQUIRED ) );
+    assertFalse( Flags.isVerifyActionRuleValid( 0 ) );
+    assertFalse( Flags.isVerifyActionRuleValid( Flags.PRIORITY_LOWEST ) );
+    assertFalse( Flags.isVerifyActionRuleValid( Flags.VERIFY_ACTION_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED ) );
+  }
+
+  @Test
   public void defaultPriorityUnlessSpecified()
   {
     assertEquals( Flags.priority( Flags.PRIORITY_HIGHEST ), 0 );
