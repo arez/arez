@@ -199,7 +199,7 @@ final class ObserveDescriptor
       throw new ArezProcessorException( "@Observe target defined parameter executor=APPLICATION but does not " +
                                         "specify an @OnDepsChanged method.", _observed );
     }
-    if ( _depType.equals( "AREZ_OR_EXTERNAL" ) && null == _refMethod )
+    if ( "AREZ_OR_EXTERNAL".equals( _depType ) && null == _refMethod )
     {
       assert null != _observed;
       throw new ArezProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
