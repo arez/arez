@@ -269,6 +269,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.DeriveFinalOnDepsChangedModel", false, false, false },
         new Object[]{ "com.example.observed.DeriveOnDepsChangedModel", false, false, false },
         new Object[]{ "com.example.observed.DeriveTrackedModel", false, false, false },
+        new Object[]{ "com.example.observed.EnvironmentRequiredTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.HighestPriorityTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.HighPriorityTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.NormalPriorityTrackedModel", false, false, false },

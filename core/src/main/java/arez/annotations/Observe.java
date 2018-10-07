@@ -118,4 +118,15 @@ public @interface Observe
    */
   @Nonnull
   DepType depType() default DepType.AREZ;
+
+  /**
+   * True if invocations of the observed method must be executed in an {@link arez.Environment}.
+   * If the {@link #executor()} is set to {@link Executor#AREZ} then this setting is effectively ignored as all
+   * reaction executed by the arez runtime will run inside an environment (if environments are enabled and configured).
+   * If the {@link #executor()} is set to {@link Executor#APPLICATION} then this setting determine whether
+   * the execution of the observed method will be wrapped in an environment.
+   *
+   * @return true if invocations of the observed method must be executed in an {@link arez.Environment}, false otherwise.
+   */
+  boolean requireEnvironment() default false;
 }

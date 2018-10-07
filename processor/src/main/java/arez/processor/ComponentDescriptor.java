@@ -551,6 +551,7 @@ final class ComponentDescriptor
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final VariableElement executor = getAnnotationParameter( annotation, "executor" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
+    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
 
     final ObserveDescriptor observed = findOrCreateObserved( name );
     observed.setObservedMethod( mutation,
@@ -560,6 +561,7 @@ final class ComponentDescriptor
                                 depType.getSimpleName().toString(),
                                 observeLowerPriorityDependencies,
                                 nestedActionsAllowed,
+                                requireEnvironment,
                                 method,
                                 methodType );
   }
@@ -2172,6 +2174,7 @@ final class ComponentDescriptor
                                       true,
                                       true,
                                       "AREZ",
+                                      false,
                                       false,
                                       false,
                                       candidate.getMethod(),
