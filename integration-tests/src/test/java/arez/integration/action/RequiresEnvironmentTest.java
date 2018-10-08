@@ -10,7 +10,6 @@ import arez.annotations.ArezComponent;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -51,7 +50,6 @@ public class RequiresEnvironmentTest
     context.pauseScheduler();
 
     final ArrayList<String> steps = new ArrayList<>();
-    final AtomicInteger inEnvironmentCallCount = new AtomicInteger();
     context.setEnvironment( new Environment()
     {
       @Override
