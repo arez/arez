@@ -131,4 +131,32 @@ public class ComputedValueApiTest
     assertEquals( observerCallCount.get(), 2 );
     assertEquals( calls.get(), 3 );
   }
+
+  @Test
+  public void keepAlive()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> action = () -> {
+      observeADependency();
+      calls.incrementAndGet();
+      return "";
+    };
+    final ComputedValue<String> computedValue =
+      context.computed( "TestComputed", action, Flags.KEEPALIVE );
+
+    assertEquals( calls.get(), 1 );
+
+    context.action( "Get 1", computedValue::get );
+
+    assertEquals( calls.get(), 1 );
+
+    context.action( "Get 2", computedValue::get );
+
+    assertEquals( calls.get(), 1 );
+
+    computedValue.dispose();
+  }
 }
