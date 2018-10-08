@@ -765,12 +765,14 @@ final class ComponentDescriptor
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priorityElement = getAnnotationParameter( annotation, "priority" );
     final String priority = priorityElement.getSimpleName().toString();
+    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     _memoizes.put( name,
                    new MemoizeDescriptor( this,
                                           name,
                                           priority,
                                           observeLowerPriorityDependencies,
+                                          requireEnvironment,
                                           method,
                                           methodType ) );
   }

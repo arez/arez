@@ -31,6 +31,8 @@
   `Flags.ENVIRONMENT_REQUIRED` flag is added when computing the value.
 * **\[core\]** Add the `requireEnvironment` parameter to the `@Observe` annotation to control whether the
   `Flags.ENVIRONMENT_REQUIRED` flag is added when observing a method that has an `APPLICATION` executor.
+* **\[core\]** Add the `requireEnvironment` parameter to the `@Memoize` annotation to control whether the
+  `Flags.ENVIRONMENT_REQUIRED` flag is added when computing the value.
 
 ### [v0.108](https://github.com/arez/arez/tree/v0.108) (2018-09-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.107...v0.108)

@@ -12,6 +12,7 @@ import com.squareup.javapoet.WildcardTypeName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
@@ -33,6 +34,7 @@ final class MemoizeDescriptor
   @Nonnull
   private final String _priority;
   private final boolean _observeLowerPriorityDependencies;
+  private final boolean _requireEnvironment;
   @Nullable
   private final ExecutableElement _memoize;
   @Nullable
@@ -42,6 +44,7 @@ final class MemoizeDescriptor
                      @Nonnull final String name,
                      @Nonnull final String priority,
                      final boolean observeLowerPriorityDependencies,
+                     final boolean requireEnvironment,
                      @Nonnull final ExecutableElement memoize,
                      @Nonnull final ExecutableType memoizeType )
   {
@@ -49,6 +52,7 @@ final class MemoizeDescriptor
     _name = Objects.requireNonNull( name );
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
+    _requireEnvironment = requireEnvironment;
     //The caller already verified that no duplicate computed have been defined
 
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
@@ -124,25 +128,28 @@ final class MemoizeDescriptor
 
     sb.append( "), " );
     sb.append( _memoize.getParameters().size() );
-    final boolean nonNormalPriority = !"NORMAL".equals( _priority );
-    if ( _observeLowerPriorityDependencies || nonNormalPriority )
+    sb.append( ", " );
+
+    final ArrayList<String> flags = new ArrayList<>();
+    flags.add( "PRIORITY_" + _priority );
+
+    if ( _observeLowerPriorityDependencies )
     {
-      sb.append( ", " );
-      if ( _observeLowerPriorityDependencies )
-      {
-        sb.append( "$T.OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
-        parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
-      }
-      if ( nonNormalPriority )
-      {
-        if ( _observeLowerPriorityDependencies )
-        {
-          sb.append( " | " );
-        }
-        sb.append( "$T.PRIORITY_" );
-        sb.append( _priority );
-        parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
-      }
+      flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( _requireEnvironment )
+    {
+      flags.add( "ENVIRONMENT_REQUIRED" );
+    }
+    else
+    {
+      flags.add( "ENVIRONMENT_NOT_REQUIRED" );
+    }
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
     }
 
     sb.append( " )" );

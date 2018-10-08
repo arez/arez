@@ -64,4 +64,11 @@ public @interface Memoize
    * @return false if observing lower priority dependencies should result in invariant failure in development mode.
    */
   boolean observeLowerPriorityDependencies() default false;
+
+  /**
+   * True if invocations of the underlying computable must be executed in an {@link arez.Environment}.
+   *
+   * @return true if invocations of the underlying computable must be executed in an {@link arez.Environment}, false otherwise.
+   */
+  boolean requireEnvironment() default false;
 }
