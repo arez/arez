@@ -6,7 +6,7 @@ title: Frequently Asked Questions
 <!-- toc -->
 
 - [Application Development](#application-development)
-  * [Why are @Observe methods not being re-run when observable properties change?](#why-are-observed-methods-not-being-re-run-when-observable-properties-change)
+  * [Why are @Observe methods not being re-run when observable properties change?](#why-are-observe-methods-not-being-re-run-when-observable-properties-change)
 - [Library Design](#library-design)
   * [Why do the change events/notifications not include a description of the change?](#why-do-the-change-eventsnotifications-not-include-a-description-of-the-change)
 - [Component Model](#component-model)
