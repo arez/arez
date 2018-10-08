@@ -133,6 +133,8 @@ public final class MemoizeCache<T>
                        Flags.PRIORITY_NORMAL |
                        Flags.PRIORITY_LOW |
                        Flags.PRIORITY_LOWEST |
+                       Flags.ENVIRONMENT_REQUIRED |
+                       Flags.ENVIRONMENT_NOT_REQUIRED |
                        Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES;
       apiInvariant( () -> ( ~mask & flags ) == 0,
                     () -> "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + ( ~mask & flags ) );
