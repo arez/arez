@@ -103,5 +103,4 @@ public class ComputedInEnvironmentTest
 
     assertEquals( steps, Arrays.asList( "EnvironmentStart", "computed1", "EnvironmentEnd", "computed2" ) );
   }
-
 }
