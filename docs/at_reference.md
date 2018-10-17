@@ -18,7 +18,7 @@ References are primarily used:
   when the component is constructed.
 
 The arez runtime looks up the referenced object using a {@api_url: Locator} instance that is registered with the
-{@api_url: ArezContext} using the {@api_url: ArezContext::registerLocator(arez.Locator)} method. The
+{@api_url: ArezContext} using the {@api_url: ArezContext.registerLocator(arez.Locator)::ArezContext::registerLocator(arez.Locator)} method. The
 {@api_url: Locator} instance can be used to lookup any arbitrary object and this makes it possible for arez objects
 to lookup non-arez objects using a {@api_url: annotations.Reference} annotated method.
 
