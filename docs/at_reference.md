@@ -51,3 +51,39 @@ The other value that the `load` parameter can be set to is {@api_url: EXPLICIT::
 This means that the references are resolved explicitly by the application. The application must invoke the method
 {@api_url: Linkable.link()::component.Linkable::link()} before an attempt is made to access the reference. The
 `EXPLICIT` value is usually used when changes are applied in batches, across a network in non-deterministic order. 
+
+## `@Inverse`
+
+The {@api_url: annotations.Inverse} annotation is used to create a link back from the target component to the
+component the declared the method annotated with the {@api_url: annotations.Reference} annotation. If a
+{@api_url: annotations.Reference} is paired with an {@api_url: annotations.Inverse} then it must explicitly declare
+that it has an inverse either by setting the `inverse=ENABLED` parameter or one of the `inverseName` or
+`inverseMultiplicity` parameters on the {@api_url: annotations.Reference} annotation.
+
+It should be noted that Arez deliberately requires that the inverse be annotated on both sides of the relationship
+so that during incremental compiles, the annotation processor is able to inspect and validate both sides of the
+relationship even if only one side has code changes. If a invalid change is made to either side then either the
+annotation processor or the javac compiler will detect the problem.
+
+The multiplicity of a relationship is defined by the type returned by the method annotated by the
+{@api_url: annotations.Inverse} annotation and by the value of the `multiplicity` parameter on the
+{@api_url: annotations.Reference} annotation. Possible values and their implications include:
+
+* {@api_url: MANY::annotations.Multiplicity::MANY}: The inverse is related to many references. The type of the
+  inverse must be one of `java.util.Collection`, `java.util.List` or `java.util.Set` with a type parameter
+  compatible with the class containing the method annotated with the {@api_url: annotations.Reference} annotation.
+* {@api_url: ONE::annotations.Multiplicity::ONE}: The inverse is related to exactly one reference. The type of
+  the inverse must be compatible with the class containing the method annotated with the {@api_url: annotations.Reference}
+  annotation. The inverse MUST be annotated with `javax.annotation.Nonnull`
+* {@api_url: ZERO_OR_ONE::annotations.Multiplicity::ZERO_OR_ONE}: The inverse is related to one or no reference.
+  The type of the inverse must be compatible with the class containing the method annotated with the
+  {@api_url: annotations.Reference} annotation. The inverse MUST be annotated with `javax.annotation.Nullable`.
+
+So if we were to add an inverse relationship between the `Group` and `Permission` class illustrated earlier
+we would need to modify both sides of the relationship. The `Permission` class would look like: 
+
+{@file_content: file=arez/doc/examples/reference2/Permission.java "start_line=@ArezComponent"}
+
+While the `Group` class would look like
+
+{@file_content: file=arez/doc/examples/reference2/Group.java "start_line=@ArezComponent"}
