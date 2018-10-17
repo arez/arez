@@ -3,6 +3,8 @@
 ### Unreleased
 
 * **\[docs\]** Add some minimal user documentation about `@Reference` and `@Inverse` annotations.
+* **\[core\]** Add `<inherits name='arez.Arez'/>` to the `Component.gwt.xml` GWT module so no need
+  to explicitly inherit module in downstream applications.
 
 ### [v0.109](https://github.com/arez/arez/tree/v0.109) (2018-10-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.108...v0.109)
