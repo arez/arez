@@ -4,14 +4,26 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
+## Next Release
+
+* Add ability for `@Memoize` to declare `depType` parameter.
+
+* Make it possible for `@Observable` setters to auto create transactions if none exist.
+
+* Remove `Annotations.gwt.xml` and let normal module include files
+
+* Update BrowserLocation to use different DepType to remove need for fake @Observable
+
 ## Enhancements
 
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later.
 
-* Make it possible for `@Observable` setters to auto create transactions if none exist.
+* Investigate simplifying types via
+  `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
-* Rename `@Computed` to `@Computable`, `ComputedValue` to `ComputableValue` and `ArezContext.computed(...)` to `ArezContext.computable(...)` ?????
+* Rename `@Computed` to `@Computable`, `ComputedValue` to `ComputableValue` and
+  `ArezContext.computed(...)` to `ArezContext.computable(...)` ????? or perhaps `@Compute` instead.
 
 * Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
@@ -104,11 +116,6 @@ complete as there is too much un-said.
 ## Documentation
 
 * The Overview page is terrible - improve it so people would want to use the product.
-
-* Document `@Reference`, `@ReferenceId`, `@Inverse`
-
-* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
-  if change so that glue code is correctly regenerated without forcing rebuild from tool.
 
 * Document lifecycle of component. i.e. The order of operations
 
