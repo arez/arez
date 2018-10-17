@@ -117,11 +117,6 @@ complete as there is too much un-said.
 
 * The Overview page is terrible - improve it so people would want to use the product.
 
-* Document `@Reference`, `@ReferenceId`, `@Inverse`
-
-* Document why `@Inverse` and `@Reference` duplicate information in FAQ - means both sides have to be updated
-  if change so that glue code is correctly regenerated without forcing rebuild from tool.
-
 * Document lifecycle of component. i.e. The order of operations
 
 * Performance testing and writeup?
