@@ -157,6 +157,10 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
 
   @Override
   void setObservableManyReferenceModelId(final int id) {
+    this.$$arezi$$_setObservableManyReferenceModelId( id );
+  }
+
+  private void $$arezi$$_setObservableManyReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setObservableManyReferenceModelId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

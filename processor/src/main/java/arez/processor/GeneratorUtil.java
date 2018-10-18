@@ -61,7 +61,7 @@ final class GeneratorUtil
    */
   private static final String INVERSE_REFERENCE_METHOD_PREFIX = "$$arezir$$_";
   /**
-   * For fields/elements used internally for component to manage lifecycle.
+   * For methods/fields used internally for the component to manage lifecycle or implement support functionality.
    */
   static final String FRAMEWORK_PREFIX = "$$arezi$$_";
   /**
@@ -297,5 +297,52 @@ final class GeneratorUtil
     }
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
+  }
+
+  static void generateTryBlock( @Nonnull final CodeBlock.Builder builder,
+                                @Nonnull final List<? extends TypeMirror> expectedThrowTypes,
+                                @Nonnull final Consumer<CodeBlock.Builder> action )
+  {
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "try" );
+
+    action.accept( codeBlock );
+
+    final boolean catchThrowable =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Throwable" ) );
+    final boolean catchException =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Exception" ) );
+    final boolean catchRuntimeException =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
+    int thrownCount = expectedThrowTypes.size();
+    final ArrayList<Object> args = new ArrayList<>();
+    args.addAll( expectedThrowTypes );
+    if ( !catchThrowable && !catchRuntimeException && !catchException )
+    {
+      thrownCount++;
+      args.add( TypeName.get( RuntimeException.class ) );
+    }
+    if ( !catchThrowable )
+    {
+      thrownCount++;
+      args.add( TypeName.get( Error.class ) );
+    }
+
+    args.add( CAUGHT_THROWABLE_NAME );
+
+    final String code =
+      "catch( final " +
+      IntStream.range( 0, thrownCount ).mapToObj( t -> "$T" ).collect( Collectors.joining( " | " ) ) +
+      " $N )";
+    codeBlock.nextControlFlow( code, args.toArray() );
+    codeBlock.addStatement( "throw $N", CAUGHT_THROWABLE_NAME );
+
+    if ( !catchThrowable )
+    {
+      codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, CAUGHT_THROWABLE_NAME );
+      codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, CAUGHT_THROWABLE_NAME );
+    }
+    codeBlock.endControlFlow();
+    builder.add( codeBlock.build() );
   }
 }

@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Add ability for `@Memoize` to declare `depType` parameter.
 
-* Make it possible for `@Observable` setters to auto create transactions if none exist.
-
 ## Enhancements
 
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily

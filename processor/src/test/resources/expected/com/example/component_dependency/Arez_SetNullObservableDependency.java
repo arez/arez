@@ -140,6 +140,10 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
 
   @Override
   void setValue(final DisposeTrackable value) {
+    this.$$arezi$$_setValue( value );
+  }
+
+  private void $$arezi$$_setValue(final DisposeTrackable value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

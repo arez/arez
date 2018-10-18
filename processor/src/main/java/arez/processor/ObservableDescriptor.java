@@ -37,6 +37,7 @@ final class ObservableDescriptor
   private final String _name;
   private boolean _expectSetter;
   private boolean _readOutsideTransaction;
+  private boolean _writeOutsideTransaction;
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
   @Nullable
@@ -65,6 +66,7 @@ final class ObservableDescriptor
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
     setReadOutsideTransaction( false );
+    setWriteOutsideTransaction( false );
     setSetterAlwaysMutates( true );
   }
 
@@ -104,6 +106,16 @@ final class ObservableDescriptor
   boolean canReadOutsideTransaction()
   {
     return _readOutsideTransaction;
+  }
+
+  private boolean canWriteOutsideTransaction()
+  {
+    return _writeOutsideTransaction;
+  }
+
+  void setWriteOutsideTransaction( final boolean writeOutsideTransaction )
+  {
+    _writeOutsideTransaction = writeOutsideTransaction;
   }
 
   void setExpectSetter( final boolean expectSetter )
@@ -338,6 +350,7 @@ final class ObservableDescriptor
     if ( expectSetter() )
     {
       builder.addMethod( buildObservableSetter() );
+      builder.addMethod( buildObservableInternalSetter() );
     }
     if ( hasRefMethod() )
     {
@@ -370,9 +383,6 @@ final class ObservableDescriptor
     return builder.build();
   }
 
-  /**
-   * Generate the setter that reports that ensures that the access is reported as ObservableValue.
-   */
   @Nonnull
   private MethodSpec buildObservableSetter()
     throws ArezProcessorException
@@ -380,7 +390,7 @@ final class ObservableDescriptor
     assert null != _setter;
     assert null != _setterType;
     assert null != _getter;
-    final String methodName = _setter.getSimpleName().toString();
+    final String methodName = "" + _setter.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _setter, builder );
     ProcessorUtil.copyExceptions( _setterType, builder );
@@ -388,6 +398,71 @@ final class ObservableDescriptor
     ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
 
     builder.addAnnotation( Override.class );
+
+    final VariableElement element = _setter.getParameters().get( 0 );
+    final String paramName = element.getSimpleName().toString();
+    final ParameterSpec.Builder param =
+      ParameterSpec.builder( TypeName.get( _setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
+    ProcessorUtil.copyWhitelistedAnnotations( element, param );
+    builder.addParameter( param.build() );
+    if ( canWriteOutsideTransaction() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $N().isTransactionActive() )", _componentDescriptor.getContextMethodName() );
+      block.addStatement( "this.$N( $N )", GeneratorUtil.FRAMEWORK_PREFIX + methodName, paramName );
+      block.nextControlFlow( "else" );
+
+      if ( _setterType.getThrownTypes().isEmpty() )
+      {
+        block.addStatement( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
+                            _componentDescriptor.getContextMethodName(),
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            _componentDescriptor.getComponentNameMethodName(),
+                            methodName,
+                            GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+                            paramName );
+      }
+      else
+      {
+        //noinspection CodeBlock2Expr
+        GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
+          b.addStatement( "this.$N.action( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
+                          _componentDescriptor.getContextMethodName(),
+                          GeneratorUtil.AREZ_CLASSNAME,
+                          _componentDescriptor.getComponentNameMethodName(),
+                          methodName,
+                          GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+                          paramName );
+        } );
+      }
+
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+    else
+    {
+      builder.addStatement( "this.$N( $N )", GeneratorUtil.FRAMEWORK_PREFIX + methodName, paramName );
+    }
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the internal setter.
+   */
+  @Nonnull
+  private MethodSpec buildObservableInternalSetter()
+    throws ArezProcessorException
+  {
+    assert null != _setter;
+    assert null != _setterType;
+    assert null != _getter;
+    final String methodName = "" + _setter.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( GeneratorUtil.FRAMEWORK_PREFIX + methodName );
+    builder.addModifiers( Modifier.PRIVATE );
+    ProcessorUtil.copyExceptions( _setterType, builder );
+    ProcessorUtil.copyTypeParameters( _setterType, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
 
     // If the getter is deprecated but the setter is not
     // then we need to suppress deprecation warnings on setter

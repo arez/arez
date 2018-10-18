@@ -123,6 +123,10 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
 
   @Override
   public void time(final long time) {
+    this.$$arezi$$_time( time );
+  }
+
+  private void $$arezi$$_time(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'time' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

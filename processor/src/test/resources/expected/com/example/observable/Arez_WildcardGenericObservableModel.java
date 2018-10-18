@@ -126,6 +126,10 @@ public final class Arez_WildcardGenericObservableModel<T> extends WildcardGeneri
 
   @Override
   public void setMyValue(final WildcardGenericObservableModel.MyValue<T> time) {
+    this.$$arezi$$_setMyValue( time );
+  }
+
+  private void $$arezi$$_setMyValue(final WildcardGenericObservableModel.MyValue<T> time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

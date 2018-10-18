@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[core\]** Add the parameter `writeOutsideTransaction` to the `@Observable` annotation that makes it
+  possible to define observable properties that will create an action if they are not already wrapped in
+  a transaction. This simplifies scenario where actions are only being created to modify a single
+  observable value.
 * **\[docs\]** Add some minimal user documentation about `@Reference` and `@Inverse` annotations.
 * **\[core\]** Add `<inherits name='arez.Arez'/>` to the `Component.gwt.xml` GWT module so no need
   to explicitly inherit module in downstream applications.
