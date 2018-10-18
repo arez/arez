@@ -130,6 +130,10 @@ public final class Arez_DefaultMethodsModel extends DefaultMethodsModel implemen
 
   @Override
   public void setTime(final long time) {
+    this.$$arezi$$_setTime( time );
+  }
+
+  private void $$arezi$$_setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

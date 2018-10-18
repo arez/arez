@@ -134,6 +134,10 @@ final class Arez_RepositoryWithExplicitNonStandardId extends RepositoryWithExpli
 
   @Override
   public void setName(@Nonnull final String name) {
+    this.$$arezi$$_setName( name );
+  }
+
+  private void $$arezi$$_setName(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setName' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

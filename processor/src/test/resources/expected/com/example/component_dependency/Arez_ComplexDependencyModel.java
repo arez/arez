@@ -146,6 +146,10 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
 
   @Override
   void setValue3(final DisposeTrackable value) {
+    this.$$arezi$$_setValue3( value );
+  }
+
+  private void $$arezi$$_setValue3(final DisposeTrackable value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue3' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

@@ -143,6 +143,10 @@ final class Arez_RepositoryWithInitializerNameCollisionModel extends RepositoryW
 
   @Override
   public void setTime(final long value) {
+    this.$$arezi$$_setTime( value );
+  }
+
+  private void $$arezi$$_setTime(final long value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

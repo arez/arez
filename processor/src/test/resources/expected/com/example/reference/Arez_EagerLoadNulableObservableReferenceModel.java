@@ -160,6 +160,10 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
 
   @Override
   void setMyEntityId(@Nullable final String id) {
+    this.$$arezi$$_setMyEntityId( id );
+  }
+
+  private void $$arezi$$_setMyEntityId(@Nullable final String id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyEntityId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

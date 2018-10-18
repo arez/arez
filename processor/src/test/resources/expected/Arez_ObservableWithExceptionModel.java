@@ -123,6 +123,10 @@ public final class Arez_ObservableWithExceptionModel extends ObservableWithExcep
 
   @Override
   public void setTime(final long time) throws Exception {
+    this.$$arezi$$_setTime( time );
+  }
+
+  private void $$arezi$$_setTime(final long time) throws Exception {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

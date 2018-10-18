@@ -1,3 +1,5 @@
+package com.example.observable;
+
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -14,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_BasicObservableModel extends BasicObservableModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_WriteOutsideTransactionThrowingObservablesModel extends WriteOutsideTransactionThrowingObservablesModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -31,14 +33,14 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_BasicObservableModel() {
+  public Arez_WriteOutsideTransactionThrowingObservablesModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "BasicObservableModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "WriteOutsideTransactionThrowingObservablesModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_time = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -54,7 +56,7 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'BasicObservableModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'WriteOutsideTransactionThrowingObservablesModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -74,9 +76,9 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'BasicObservableModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'WriteOutsideTransactionThrowingObservablesModel'" );
     }
-    return "BasicObservableModel." + $$arezi$$_id();
+    return "WriteOutsideTransactionThrowingObservablesModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -122,18 +124,28 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
   }
 
   @Override
-  public void setTime(final long time) {
-    this.$$arezi$$_setTime( time );
+  public void setTime(final long value) throws Exception {
+    if ( $$arezi$$_context().isTransactionActive() ) {
+      this.$$arezi$$_setTime( value );
+    } else {
+      try {
+        this.$$arezi$$_context().action( Arez.areNamesEnabled() ? $$arezi$$_name() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
+      } catch( final Exception | Error $$arez_exception$$ ) {
+        throw $$arez_exception$$;
+      } catch( final Throwable $$arez_exception$$ ) {
+        throw new IllegalStateException( $$arez_exception$$ );
+      }
+    }
   }
 
-  private void $$arezi$$_setTime(final long time) {
+  private void $$arezi$$_setTime(final long value) throws Exception {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     this.$$arez$$_time.preReportChanged();
     final long $$arezv$$_currentValue = super.getTime();
-    if ( time != $$arezv$$_currentValue ) {
-      super.setTime( time );
+    if ( value != $$arezv$$_currentValue ) {
+      super.setTime( value );
       this.$$arez$$_time.reportChanged();
     }
   }
@@ -152,10 +164,10 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_BasicObservableModel) ) {
+      } else if ( null == o || !(o instanceof Arez_WriteOutsideTransactionThrowingObservablesModel) ) {
         return false;
       } else {
-        final Arez_BasicObservableModel that = (Arez_BasicObservableModel) o;
+        final Arez_WriteOutsideTransactionThrowingObservablesModel that = (Arez_WriteOutsideTransactionThrowingObservablesModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

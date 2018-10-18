@@ -85,6 +85,13 @@ public @interface Observable
   boolean readOutsideTransaction() default false;
 
   /**
+   * Return true if the observable will create an action if the write occurs outside a transaction.
+   *
+   * @return true to allow writes to create an action if needed, false to require a transaction to write observable.
+   */
+  boolean writeOutsideTransaction() default false;
+
+  /**
    * Return false if the setter should verify observable value has changed before propagating change.
    * In some scenarios, the setter method will modify the value before updating the observable or may
    * decide to abort the update. This setting will force the generated code to check the value of the

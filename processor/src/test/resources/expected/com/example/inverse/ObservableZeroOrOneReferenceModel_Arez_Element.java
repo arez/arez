@@ -157,6 +157,10 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element extends ObservableZer
 
   @Override
   void setObservableZeroOrOneReferenceModelId(final int id) {
+    this.$$arezi$$_setObservableZeroOrOneReferenceModelId( id );
+  }
+
+  private void $$arezi$$_setObservableZeroOrOneReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setObservableZeroOrOneReferenceModelId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

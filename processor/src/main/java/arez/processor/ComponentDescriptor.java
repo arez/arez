@@ -295,6 +295,7 @@ final class ComponentDescriptor
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final boolean expectSetter = getAnnotationParameter( annotation, "expectSetter" );
     final boolean readOutsideTransaction = getAnnotationParameter( annotation, "readOutsideTransaction" );
+    final boolean writeOutsideTransaction = getAnnotationParameter( annotation, "writeOutsideTransaction" );
     final boolean setterAlwaysMutates = getAnnotationParameter( annotation, "setterAlwaysMutates" );
     final Boolean requireInitializer = isInitializerRequired( method );
 
@@ -354,6 +355,10 @@ final class ComponentDescriptor
     if ( readOutsideTransaction )
     {
       observable.setReadOutsideTransaction( true );
+    }
+    if ( writeOutsideTransaction )
+    {
+      observable.setWriteOutsideTransaction( true );
     }
     if ( !setterAlwaysMutates )
     {

@@ -156,6 +156,10 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
 
   @Override
   void setMyEntityId(final int id) {
+    this.$$arezi$$_setMyEntityId( id );
+  }
+
+  private void $$arezi$$_setMyEntityId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyEntityId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

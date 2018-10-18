@@ -157,6 +157,10 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
 
   @Override
   void setObservableOneReferenceModelId(final int id) {
+    this.$$arezi$$_setObservableOneReferenceModelId( id );
+  }
+
+  private void $$arezi$$_setObservableOneReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setObservableOneReferenceModelId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
