@@ -13,7 +13,7 @@ locate the referenced object by id and will return the referenced object when th
 References are primarily used:
 
 * when the links between components are bi-directional or can form cycles.
-* when the data comes from database systems that model links using foreign keys. 
+* when the data comes from database systems that model links using foreign keys.
 * when the lookup of the referenced object should be cached but the referenced object may not be available
   when the component is constructed.
 
@@ -50,7 +50,7 @@ annotated by {@api_url: annotations.ReferenceId} changes.
 The other value that the `load` parameter can be set to is {@api_url: EXPLICIT::annotations.LinkType::EXPLICIT}.
 This means that the references are resolved explicitly by the application. The application must invoke the method
 {@api_url: Linkable.link()::component.Linkable::link()} before an attempt is made to access the reference. The
-`EXPLICIT` value is usually used when changes are applied in batches, across a network in non-deterministic order. 
+`EXPLICIT` value is usually used when changes are applied in batches, across a network in non-deterministic order.
 
 ## `@Inverse`
 
@@ -80,7 +80,7 @@ The multiplicity of a relationship is defined by the type returned by the method
   {@api_url: annotations.Reference} annotation. The inverse MUST be annotated with `javax.annotation.Nullable`.
 
 So if we were to add an inverse relationship between the `Group` and `Permission` class illustrated earlier
-we would need to modify both sides of the relationship. The `Permission` class would look like: 
+we would need to modify both sides of the relationship. The `Permission` class would look like:
 
 {@file_content: file=arez/doc/examples/reference2/Permission.java "start_line=@ArezComponent"}
 
