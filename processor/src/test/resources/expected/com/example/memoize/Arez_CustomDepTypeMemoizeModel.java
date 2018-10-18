@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoizeModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_CustomDepTypeMemoizeModel extends CustomDepTypeMemoizeModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -31,18 +31,18 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final MemoizeCache<?> $$arez$$_count;
+  private final MemoizeCache<Long> $$arez$$_count;
 
-  public Arez_LocalTypeParamMemoizeModel() {
+  public Arez_CustomDepTypeMemoizeModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "LocalTypeParamMemoizeModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CustomDepTypeMemoizeModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezi$$_context() : null, Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".count" : null, args -> super.count((String) args[ 0 ]), 1, Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezi$$_context() : null, Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_OR_NO_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -56,7 +56,7 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'LocalTypeParamMemoizeModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'CustomDepTypeMemoizeModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -76,9 +76,9 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'LocalTypeParamMemoizeModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'CustomDepTypeMemoizeModel'" );
     }
-    return "LocalTypeParamMemoizeModel." + $$arezi$$_id();
+    return "CustomDepTypeMemoizeModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -115,12 +115,11 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
   }
 
   @Override
-  @SuppressWarnings("unchecked")
-  public <T> T count(final String param) {
+  public long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'count' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    return (T) this.$$arez$$_count.get( param );
+    return this.$$arez$$_count.get( time, someOtherParameter );
   }
 
   @Override
@@ -137,10 +136,10 @@ public final class Arez_LocalTypeParamMemoizeModel extends LocalTypeParamMemoize
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_LocalTypeParamMemoizeModel) ) {
+      } else if ( null == o || !(o instanceof Arez_CustomDepTypeMemoizeModel) ) {
         return false;
       } else {
-        final Arez_LocalTypeParamMemoizeModel that = (Arez_LocalTypeParamMemoizeModel) o;
+        final Arez_CustomDepTypeMemoizeModel that = (Arez_CustomDepTypeMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

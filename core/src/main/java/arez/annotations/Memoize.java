@@ -71,4 +71,14 @@ public @interface Memoize
    * @return true if invocations of the underlying computable must be executed in an {@link arez.Environment}, false otherwise.
    */
   boolean requireEnvironment() default false;
+
+  /**
+   * Enum indicating whether the value of the underlying computed is derived from arez elements and/or
+   * external dependencies. The current implementation does not support setting this to {@link DepType#AREZ_OR_EXTERNAL}.
+   *
+   * @return the types of dependencies allowed on the underlying computed.
+   * @see Computed#depType()
+   */
+  @Nonnull
+  DepType depType() default DepType.AREZ;
 }

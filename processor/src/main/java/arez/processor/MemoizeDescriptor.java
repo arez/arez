@@ -35,6 +35,7 @@ final class MemoizeDescriptor
   private final String _priority;
   private final boolean _observeLowerPriorityDependencies;
   private final boolean _requireEnvironment;
+  private final String _depType;
   @Nullable
   private final ExecutableElement _memoize;
   @Nullable
@@ -45,6 +46,7 @@ final class MemoizeDescriptor
                      @Nonnull final String priority,
                      final boolean observeLowerPriorityDependencies,
                      final boolean requireEnvironment,
+                     @Nonnull final String depType,
                      @Nonnull final ExecutableElement memoize,
                      @Nonnull final ExecutableType memoizeType )
   {
@@ -53,6 +55,7 @@ final class MemoizeDescriptor
     _priority = Objects.requireNonNull( priority );
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _requireEnvironment = requireEnvironment;
+    _depType = Objects.requireNonNull( depType );
     //The caller already verified that no duplicate computed have been defined
 
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
@@ -144,6 +147,15 @@ final class MemoizeDescriptor
     else
     {
       flags.add( "ENVIRONMENT_NOT_REQUIRED" );
+    }
+    if ( "AREZ".equals( _depType ) )
+    {
+      flags.add( "AREZ_DEPENDENCIES" );
+    }
+    else
+    {
+      assert _depType.equals( "AREZ_OR_NONE" );
+      flags.add( "AREZ_OR_NO_DEPENDENCIES" );
     }
 
     sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );

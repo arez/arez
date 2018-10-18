@@ -11,6 +11,7 @@
   to explicitly inherit module in downstream applications.
 * **\[processor\]** Generate a compile error if an `@Observable` annotated method is abstract and throws
   an exception.
+* **\[processor\]** Add the `depType` parameter to the `@Memoize` annotation.
 
 ### [v0.109](https://github.com/arez/arez/tree/v0.109) (2018-10-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.108...v0.109)
