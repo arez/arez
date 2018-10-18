@@ -414,7 +414,7 @@ final class ObservableDescriptor
 
       if ( _setterType.getThrownTypes().isEmpty() )
       {
-        block.addStatement( "this.$N.safeAction( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
+        block.addStatement( "this.$N().safeAction( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
                             _componentDescriptor.getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,
                             _componentDescriptor.getComponentNameMethodName(),
@@ -426,7 +426,7 @@ final class ObservableDescriptor
       {
         //noinspection CodeBlock2Expr
         GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
-          b.addStatement( "this.$N.action( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
+          b.addStatement( "this.$N().action( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
                           _componentDescriptor.getContextMethodName(),
                           GeneratorUtil.AREZ_CLASSNAME,
                           _componentDescriptor.getComponentNameMethodName(),

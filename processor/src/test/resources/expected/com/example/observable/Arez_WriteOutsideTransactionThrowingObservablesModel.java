@@ -129,7 +129,7 @@ public final class Arez_WriteOutsideTransactionThrowingObservablesModel extends 
       this.$$arezi$$_setTime( value );
     } else {
       try {
-        this.$$arezi$$_context.action( Arez.areNamesEnabled() ? $$arezi$$_name() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
+        this.$$arezi$$_context().action( Arez.areNamesEnabled() ? $$arezi$$_name() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
       } catch( final Exception | Error $$arez_exception$$ ) {
         throw $$arez_exception$$;
       } catch( final Throwable $$arez_exception$$ ) {

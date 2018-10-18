@@ -130,7 +130,7 @@ public final class Arez_WriteOutsideTransactionObservablesModel extends WriteOut
     if ( $$arezi$$_context().isTransactionActive() ) {
       this.$$arezi$$_setTime( value );
     } else {
-      this.$$arezi$$_context.safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
+      this.$$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
     }
   }
 
