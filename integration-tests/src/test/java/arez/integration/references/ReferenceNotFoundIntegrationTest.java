@@ -29,8 +29,8 @@ public class ReferenceNotFoundIntegrationTest
     final Model2 model2 = repository.create();
     final Object model2Id = Objects.requireNonNull( Identifiable.getArezId( model2 ) );
 
-    assertInvariantFailure( () -> safeAction( () -> Model1.create( model2Id ) ),
-                  "Reference named 'model2' on component named 'Model1.0' is unable to resolve entity of type arez.integration.references.ReferenceNotFoundIntegrationTest.Model2 and id = 0" );
+    assertInvariant( () -> safeAction( () -> Model1.create( model2Id ) ),
+                     "Reference named 'model2' on component named 'Model1.0' is unable to resolve entity of type arez.integration.references.ReferenceNotFoundIntegrationTest.Model2 and id = 0" );
   }
 
   @ArezComponent

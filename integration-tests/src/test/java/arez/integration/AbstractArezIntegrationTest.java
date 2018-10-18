@@ -88,12 +88,6 @@ public abstract class AbstractArezIntegrationTest
     return _observerErrors;
   }
 
-  protected static void assertInvariantFailure( @Nonnull final ThrowingRunnable throwingRunnable,
-                                                @Nonnull final String message )
-  {
-    assertEquals( expectThrows( IllegalStateException.class, throwingRunnable ).getMessage(), message );
-  }
-
   protected final void assertMatchesFixture( @Nonnull final SpyEventRecorder recorder )
     throws IOException, JSONException
   {
@@ -126,14 +120,15 @@ public abstract class AbstractArezIntegrationTest
     return System.getProperty( "arez.output_fixture_data", "false" ).equals( "true" );
   }
 
-  protected final void assertInvariant( @Nonnull final ThrowingRunnable runnable, @Nonnull final String message )
+  protected static void assertInvariant( @Nonnull final ThrowingRunnable throwingRunnable,
+                                         @Nonnull final String message )
   {
-    assertThrowsWithMessage( IllegalStateException.class, runnable, message );
+    assertThrowsWithMessage( IllegalStateException.class, throwingRunnable, message );
   }
 
-  private <T extends Throwable> void assertThrowsWithMessage( @Nonnull final Class<T> exceptionType,
-                                                              @Nonnull final ThrowingRunnable runnable,
-                                                              @Nonnull final String message )
+  private static <T extends Throwable> void assertThrowsWithMessage( @Nonnull final Class<T> exceptionType,
+                                                                     @Nonnull final ThrowingRunnable runnable,
+                                                                     @Nonnull final String message )
   {
     assertEquals( expectThrows( exceptionType, runnable ).getMessage(), message );
   }

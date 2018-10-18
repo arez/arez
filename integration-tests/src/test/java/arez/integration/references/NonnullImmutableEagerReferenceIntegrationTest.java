@@ -50,7 +50,8 @@ public class NonnullImmutableEagerReferenceIntegrationTest
 
     Disposable.dispose( model1 );
 
-    assertInvariant( model1::getModel2, "Method named 'getModel2' invoked on disposed component named 'Model1.0'" );
+    assertInvariant( model1::getModel2,
+                     "Method named 'getModel2' invoked on disposed component named 'Model1.0'" );
   }
 
   @ArezComponent
