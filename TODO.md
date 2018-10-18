@@ -10,10 +10,6 @@ complete as there is too much un-said.
 
 * Make it possible for `@Observable` setters to auto create transactions if none exist.
 
-* Remove `Annotations.gwt.xml` and let normal module include files
-
-* Update BrowserLocation to use different DepType to remove need for fake @Observable
-
 ## Enhancements
 
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
