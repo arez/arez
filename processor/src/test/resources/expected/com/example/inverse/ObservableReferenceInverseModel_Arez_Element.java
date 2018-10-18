@@ -157,10 +157,6 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
 
   @Override
   void setObservableReferenceInverseModelId(final int id) {
-    this.$$arezi$$_setObservableReferenceInverseModelId( id );
-  }
-
-  private void $$arezi$$_setObservableReferenceInverseModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setObservableReferenceInverseModelId' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

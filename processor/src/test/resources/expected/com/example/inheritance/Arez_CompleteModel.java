@@ -228,10 +228,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   public void setMyValue(final String value) {
-    this.$$arezi$$_setMyValue( value );
-  }
-
-  private void $$arezi$$_setMyValue(final String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }

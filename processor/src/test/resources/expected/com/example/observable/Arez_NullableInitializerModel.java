@@ -131,10 +131,6 @@ public final class Arez_NullableInitializerModel extends NullableInitializerMode
 
   @Override
   public void setTime(final Date value) {
-    this.$$arezi$$_setTime( value );
-  }
-
-  private void $$arezi$$_setTime(final Date value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

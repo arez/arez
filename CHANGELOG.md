@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[processor\]** Remove the synthetic setter created for `@Observable` methods introduced in `0.110`
+  as it is easier for the optimizing compilers to optimize the scenario where it is not present.
+
 ### [v0.110](https://github.com/arez/arez/tree/v0.110) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.109...v0.110)
 

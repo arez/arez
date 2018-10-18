@@ -140,10 +140,6 @@ public final class Arez_AbstractListObservableModel extends AbstractListObservab
 
   @Override
   public void setMyValue(final List<String> value) {
-    this.$$arezi$$_setMyValue( value );
-  }
-
-  private void $$arezi$$_setMyValue(final List<String> value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

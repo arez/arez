@@ -138,10 +138,6 @@ public final class Arez_ObservableNonnullCollectionModel extends ObservableNonnu
 
   @Override
   public void setMyValue(final Collection<String> value) {
-    this.$$arezi$$_setMyValue( value );
-  }
-
-  private void $$arezi$$_setMyValue(final Collection<String> value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setMyValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

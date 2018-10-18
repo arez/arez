@@ -125,10 +125,6 @@ public final class Arez_SetterAlwaysMutatesFalsePrimitiveValue extends SetterAlw
 
   @Override
   public void setField(final int field) {
-    this.$$arezi$$_setField( field );
-  }
-
-  private void $$arezi$$_setField(final int field) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setField' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

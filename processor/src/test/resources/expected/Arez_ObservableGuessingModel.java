@@ -134,10 +134,6 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public void setTime(final long time) {
-    this.$$arezi$$_setTime( time );
-  }
-
-  private void $$arezi$$_setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -160,10 +156,6 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public void setFoo(final boolean x) {
-    this.$$arezi$$_setFoo( x );
-  }
-
-  private void $$arezi$$_setFoo(final boolean x) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setFoo' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -186,10 +178,6 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
 
   @Override
   public void setString(final String v) {
-    this.$$arezi$$_setString( v );
-  }
-
-  private void $$arezi$$_setString(final String v) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setString' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

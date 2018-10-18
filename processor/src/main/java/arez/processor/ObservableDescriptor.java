@@ -350,7 +350,10 @@ final class ObservableDescriptor
     if ( expectSetter() )
     {
       builder.addMethod( buildObservableSetter() );
-      builder.addMethod( buildObservableInternalSetter() );
+      if ( canWriteOutsideTransaction() )
+      {
+        builder.addMethod( buildObservableInternalSetter() );
+      }
     }
     if ( hasRefMethod() )
     {
@@ -399,14 +402,15 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
 
-    final VariableElement element = _setter.getParameters().get( 0 );
-    final String paramName = element.getSimpleName().toString();
-    final ParameterSpec.Builder param =
-      ParameterSpec.builder( TypeName.get( _setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
-    ProcessorUtil.copyWhitelistedAnnotations( element, param );
-    builder.addParameter( param.build() );
     if ( canWriteOutsideTransaction() )
     {
+      final VariableElement element = _setter.getParameters().get( 0 );
+      final String paramName = element.getSimpleName().toString();
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( _setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
+      ProcessorUtil.copyWhitelistedAnnotations( element, param );
+      builder.addParameter( param.build() );
+
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $N().isTransactionActive() )", _componentDescriptor.getContextMethodName() );
       block.addStatement( "this.$N( $N )", GeneratorUtil.FRAMEWORK_PREFIX + methodName, paramName );
@@ -441,7 +445,8 @@ final class ObservableDescriptor
     }
     else
     {
-      builder.addStatement( "this.$N( $N )", GeneratorUtil.FRAMEWORK_PREFIX + methodName, paramName );
+      addDeprecationIfRequired( builder );
+      buildSetterImpl( builder );
     }
 
     return builder.build();
@@ -457,24 +462,25 @@ final class ObservableDescriptor
     assert null != _setter;
     assert null != _setterType;
     assert null != _getter;
-    final String methodName = "" + _setter.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( GeneratorUtil.FRAMEWORK_PREFIX + methodName );
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.FRAMEWORK_PREFIX + _setter.getSimpleName().toString() );
     builder.addModifiers( Modifier.PRIVATE );
     ProcessorUtil.copyExceptions( _setterType, builder );
     ProcessorUtil.copyTypeParameters( _setterType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
+    addDeprecationIfRequired( builder );
 
-    // If the getter is deprecated but the setter is not
-    // then we need to suppress deprecation warnings on setter
-    // as we invoked getter from within it to verify value is
-    // actually changed
-    if ( null == _setter.getAnnotation( Deprecated.class ) &&
-         null != _getter.getAnnotation( Deprecated.class ) )
-    {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
-                               .addMember( "value", "$S", "deprecation" )
-                               .build() );
-    }
+    buildSetterImpl( builder );
+
+    return builder.build();
+  }
+
+  private void buildSetterImpl( @Nonnull final MethodSpec.Builder builder )
+  {
+    assert null != _setter;
+    assert null != _setterType;
+    assert null != _getter;
+    final String methodName = _setter.getSimpleName().toString();
 
     final TypeMirror parameterType = _setterType.getParameterTypes().get( 0 );
     final VariableElement element = _setter.getParameters().get( 0 );
@@ -679,8 +685,23 @@ final class ObservableDescriptor
 
     codeBlock.endControlFlow();
     builder.addCode( codeBlock.build() );
+  }
 
-    return builder.build();
+  private void addDeprecationIfRequired( final MethodSpec.Builder builder )
+  {
+    assert null != _setter;
+    assert null != _getter;
+    // If the getter is deprecated but the setter is not
+    // then we need to suppress deprecation warnings on setter
+    // as we invoked getter from within it to verify value is
+    // actually changed
+    if ( null == _setter.getAnnotation( Deprecated.class ) &&
+         null != _getter.getAnnotation( Deprecated.class ) )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "deprecation" )
+                               .build() );
+    }
   }
 
   /**

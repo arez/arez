@@ -126,10 +126,6 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Iden
 
   @Override
   public void setValue(final Integer value) {
-    this.$$arezi$$_setValue( value );
-  }
-
-  private void $$arezi$$_setValue(final Integer value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

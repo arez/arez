@@ -132,10 +132,6 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
 
   @Override
   public void setTime(@Nonnull final String time) {
-    this.$$arezi$$_setTime( time );
-  }
-
-  private void $$arezi$$_setTime(@Nonnull final String time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setTime' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

@@ -136,10 +136,6 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
 
   @Override
   void setValue(@Nonnull final DisposeTrackable value) {
-    this.$$arezi$$_setValue( value );
-  }
-
-  private void $$arezi$$_setValue(@Nonnull final DisposeTrackable value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'setValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
