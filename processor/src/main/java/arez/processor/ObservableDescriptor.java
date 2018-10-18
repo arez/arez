@@ -915,6 +915,11 @@ final class ObservableDescriptor
     }
     if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {
+      if ( !getGetter().getThrownTypes().isEmpty() )
+      {
+        throw new ArezProcessorException( "@Observable property is abstract but the getter declares an exception.",
+                                          getSetter() );
+      }
       if ( !hasSetter() )
       {
         if ( null == _inverseDescriptor )
@@ -932,6 +937,12 @@ final class ObservableDescriptor
           throw new ArezProcessorException( "@Observable property defines an abstract getter but a concrete setter. " +
                                             "Both getter and setter must be concrete or both must be abstract.",
                                             getGetter() );
+        }
+
+        if ( !setter.getThrownTypes().isEmpty() )
+        {
+          throw new ArezProcessorException( "@Observable property is abstract but the setter declares an exception.",
+                                            getSetter() );
         }
       }
       if ( !_setterAlwaysMutates )

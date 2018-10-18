@@ -1200,6 +1200,10 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.observable.AbstractGetterNoSetterModel",
                       "@Observable target defines expectSetter = false but is abstract. This is not compatible as there is no opportunity for the processor to generate the setter." },
+        new Object[]{ "com.example.observable.AbstractGetterThrowsExceptionModel",
+                      "@Observable property is abstract but the getter declares an exception." },
+        new Object[]{ "com.example.observable.AbstractSetterThrowsExceptionModel",
+                      "@Observable property is abstract but the setter declares an exception." },
         new Object[]{ "com.example.observable.NonAbstractGetterModel",
                       "@Observable property defines an abstract setter but a concrete getter. Both getter and setter must be concrete or both must be abstract." },
         new Object[]{ "com.example.observable.NonAbstractSetterModel",
