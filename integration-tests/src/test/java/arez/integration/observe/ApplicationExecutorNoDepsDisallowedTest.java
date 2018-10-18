@@ -36,8 +36,8 @@ public class ApplicationExecutorNoDepsDisallowedTest
 
     assertEquals( component._renderCallCount, 0 );
 
-    assertInvariantFailure( component::render,
-                            "Arez-0118: Observer named 'TestComponent1.0.render' completed observed function (executed by application) but is not observing any properties." );
+    assertInvariant( component::render,
+                     "Arez-0118: Observer named 'TestComponent1.0.render' completed observed function (executed by application) but is not observing any properties." );
 
     assertEquals( component._renderCallCount, 1 );
   }

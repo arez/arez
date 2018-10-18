@@ -68,8 +68,8 @@ public class DisposeOneInverseIntegrationTest
 
     assertTrue( Disposable.isDisposed( car ) );
 
-    assertInvariantFailure( () -> safeAction( wheel1::getCar ),
-                            "Nonnull reference method named 'getCar' invoked on component named 'Wheel.0' but reference has not been resolved yet is not lazy. Id = 0" );
+    assertInvariant( () -> safeAction( wheel1::getCar ),
+                     "Nonnull reference method named 'getCar' invoked on component named 'Wheel.0' but reference has not been resolved yet is not lazy. Id = 0" );
     assertEquals( locatorLookupCallCount.get(), 1 );
 
     // Stop observer so we don't get an exception

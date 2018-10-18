@@ -42,8 +42,8 @@ public class TrackCanNotBeNestedInActionTest
     assertEquals( component._renderCallCount, 1 );
 
     // Call observe inside action. This should generate an exception
-    assertInvariantFailure( () -> safeAction( component::render ),
-                            "Arez-0171: Attempting to create a tracking transaction named 'TestComponent1.0.render' for the observer named 'TestComponent1.0.render' but the transaction is not a top-level transaction when this is required. This may be a result of nesting a observe() call inside an action or another observer function." );
+    assertInvariant( () -> safeAction( component::render ),
+                     "Arez-0171: Attempting to create a tracking transaction named 'TestComponent1.0.render' for the observer named 'TestComponent1.0.render' but the transaction is not a top-level transaction when this is required. This may be a result of nesting a observe() call inside an action or another observer function." );
 
     assertEquals( component._renderCallCount, 1 );
   }

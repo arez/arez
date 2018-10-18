@@ -771,6 +771,12 @@ final class ComponentDescriptor
     final VariableElement priorityElement = getAnnotationParameter( annotation, "priority" );
     final String priority = priorityElement.getSimpleName().toString();
     final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
+    final VariableElement depType = getAnnotationParameter( annotation, "depType" );
+    final String depTypeAsString = depType.getSimpleName().toString();
+    if ( "AREZ_OR_EXTERNAL".equals( depTypeAsString ) )
+    {
+      throw new ArezProcessorException( "@Memoize target specified an invalid depType od AREZ_OR_EXTERNAL.", method );
+    }
     checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     _memoizes.put( name,
                    new MemoizeDescriptor( this,
@@ -778,6 +784,7 @@ final class ComponentDescriptor
                                           priority,
                                           observeLowerPriorityDependencies,
                                           requireEnvironment,
+                                          depTypeAsString,
                                           method,
                                           methodType ) );
   }

@@ -194,6 +194,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inverse.OneMultiplicityInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel", false, false, false },
         new Object[]{ "com.example.memoize.BasicMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.CustomDepTypeMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.CustomPriorityMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.LocalTypeParamMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.TypeParamMemoizeModel", false, false, false },
@@ -737,6 +738,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.VoidComputedModel", "@Computed target must return a value" },
 
         new Object[]{ "com.example.memoized.AbstractMemoizeModel", "@Memoize target must not be abstract" },
+        new Object[]{ "com.example.memoized.BadDepTypeMemoizeModel",
+                      "@Memoize target specified an invalid depType od AREZ_OR_EXTERNAL." },
         new Object[]{ "com.example.memoized.BadName2MemoizeModel",
                       "@Memoize target specified an invalid name 'protected'. The name must not be a java keyword." },
         new Object[]{ "com.example.memoized.BadNameMemoizeModel",
