@@ -98,7 +98,7 @@ public class SpyEventProcessorTest
       new TransactionCompletedEvent( ValueUtil.randomString(),
                                      ValueUtil.randomBoolean(),
                                      null,
-                                     Math.min( 1, Math.abs( ValueUtil.randomLong() ) ) );
+                                     Math.min( 1, Math.abs( ValueUtil.randomInt() ) ) );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
     final BiConsumer<SpyUtil.NestingDelta, TransactionCompletedEvent> handler =
