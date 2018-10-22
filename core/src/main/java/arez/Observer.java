@@ -677,11 +677,11 @@ public final class Observer
         final long duration = System.currentTimeMillis() - start;
         if ( isComputedValue() )
         {
-          reportSpyEvent( new ComputeCompletedEvent( getComputedValue().asInfo(), duration ) );
+          reportSpyEvent( new ComputeCompletedEvent( getComputedValue().asInfo(), (int) duration ) );
         }
         else
         {
-          reportSpyEvent( new ReactionCompletedEvent( asInfo(), duration ) );
+          reportSpyEvent( new ReactionCompletedEvent( asInfo(), (int) duration ) );
         }
       }
     }

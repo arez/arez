@@ -12,9 +12,9 @@ public final class ComputeCompletedEvent
 {
   @Nonnull
   private final ComputedValueInfo _computedValue;
-  private final long _duration;
+  private final int _duration;
 
-  public ComputeCompletedEvent( @Nonnull final ComputedValueInfo computedValue, final long duration )
+  public ComputeCompletedEvent( @Nonnull final ComputedValueInfo computedValue, final int duration )
   {
     assert duration >= 0;
     _computedValue = Objects.requireNonNull( computedValue );
@@ -27,7 +27,7 @@ public final class ComputeCompletedEvent
     return _computedValue;
   }
 
-  public long getDuration()
+  public int getDuration()
   {
     return _duration;
   }

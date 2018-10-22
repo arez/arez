@@ -16,12 +16,12 @@ public final class TransactionCompletedEvent
   private final boolean _mutation;
   @Nullable
   private final ObserverInfo _tracker;
-  private final long _duration;
+  private final int _duration;
 
   public TransactionCompletedEvent( @Nonnull final String name,
                                     final boolean mutation,
                                     @Nullable final ObserverInfo tracker,
-                                    final long duration )
+                                    final int duration )
   {
     assert duration >= 0;
     _name = Objects.requireNonNull( name );
@@ -47,7 +47,7 @@ public final class TransactionCompletedEvent
     return _tracker;
   }
 
-  public long getDuration()
+  public int getDuration()
   {
     return _duration;
   }

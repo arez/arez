@@ -19,7 +19,7 @@ public class ReactionCompletedEventTest
     final String name = "Foo@1";
     final Observer observer = context.tracker( name, ValueUtil::randomString );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
-    final long duration = 23L;
+    final int duration = 23;
     final ReactionCompletedEvent event = new ReactionCompletedEvent( info, duration );
 
     assertEquals( event.getObserver(), info );

@@ -27,7 +27,7 @@ public final class ActionCompletedEvent
   private final Object _result;
   @Nullable
   private final Throwable _throwable;
-  private final long _duration;
+  private final int _duration;
 
   public ActionCompletedEvent( @Nonnull final String name,
                                final boolean tracked,
@@ -35,7 +35,7 @@ public final class ActionCompletedEvent
                                final boolean returnsResult,
                                @Nullable final Object result,
                                @Nullable final Throwable throwable,
-                               final long duration )
+                               final int duration )
   {
     assert duration >= 0;
     assert null == throwable || null == result;
@@ -82,7 +82,7 @@ public final class ActionCompletedEvent
     return _throwable;
   }
 
-  public long getDuration()
+  public int getDuration()
   {
     return _duration;
   }

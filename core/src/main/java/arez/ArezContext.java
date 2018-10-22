@@ -2342,7 +2342,13 @@ public final class ArezContext
     final long duration = System.currentTimeMillis() - startedAt;
     assert null != name;
     final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
-    getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, params, returnsResult, result, t, duration ) );
+    getSpy().reportSpyEvent( new ActionCompletedEvent( name,
+                                                       observed,
+                                                       params,
+                                                       returnsResult,
+                                                       result,
+                                                       t,
+                                                       (int) duration ) );
   }
 
   int currentNextTransactionId()

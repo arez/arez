@@ -18,7 +18,7 @@ public class ComputeCompletedEventTest
     final ArezContext context = Arez.context();
     final ComputedValue<?> computedValue = context.computed( "Foo@1", ValueUtil::randomString );
     final ComputedValueInfo info = context.getSpy().asComputedValueInfo( computedValue );
-    final long duration = 44L;
+    final int duration = 44;
     final ComputeCompletedEvent event = new ComputeCompletedEvent( info, duration );
 
     assertEquals( event.getComputedValue(), info );
