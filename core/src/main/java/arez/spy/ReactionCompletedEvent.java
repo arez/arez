@@ -12,9 +12,9 @@ public final class ReactionCompletedEvent
 {
   @Nonnull
   private final ObserverInfo _observer;
-  private final long _duration;
+  private final int _duration;
 
-  public ReactionCompletedEvent( @Nonnull final ObserverInfo observer, final long duration )
+  public ReactionCompletedEvent( @Nonnull final ObserverInfo observer, final int duration )
   {
     assert duration >= 0;
     _observer = Objects.requireNonNull( observer );
@@ -27,7 +27,7 @@ public final class ReactionCompletedEvent
     return _observer;
   }
 
-  public long getDuration()
+  public int getDuration()
   {
     return _duration;
   }

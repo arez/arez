@@ -14,7 +14,7 @@ public class TransactionCompletedEventTest
     final String name = "Foo@1";
     final boolean mutation = true;
     final ObserverInfo tracker = null;
-    final long duration = 23L;
+    final int duration = 23;
     final TransactionCompletedEvent event = new TransactionCompletedEvent( name, mutation, tracker, duration );
 
     assertEquals( event.getName(), name );

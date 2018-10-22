@@ -18,7 +18,7 @@ public class ActionCompletedEventTest
     final boolean returnsResult = true;
     final Object result = new Object();
     final Throwable throwable = null;
-    final long duration = 33;
+    final int duration = 33;
     final ActionCompletedEvent event =
       new ActionCompletedEvent( name, tracked, parameters, returnsResult, result, throwable, duration );
 
@@ -54,7 +54,7 @@ public class ActionCompletedEventTest
     final boolean returnsResult = true;
     final Object result = null;
     final Throwable throwable = new Exception( "X" );
-    final long duration = 33;
+    final int duration = 33;
     final ActionCompletedEvent event =
       new ActionCompletedEvent( name, tracked, parameters, returnsResult, result, throwable, duration );
 

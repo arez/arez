@@ -1951,7 +1951,8 @@ public final class ArezContext
       apiInvariant( () -> Flags.isEnvironmentValid( flags | Flags.environmentFlag( flags ) ),
                     () -> "Arez-0125: Flags passed to action '" + name + "' include both ENVIRONMENT_REQUIRED " +
                           "and ENVIRONMENT_NOT_REQUIRED." );
-      apiInvariant( () -> !Arez.shouldEnforceTransactionType() || Flags.isTransactionModeValid( flags | Flags.transactionMode( flags ) ),
+      apiInvariant( () -> !Arez.shouldEnforceTransactionType() ||
+                          Flags.isTransactionModeValid( flags | Flags.transactionMode( flags ) ),
                     () -> "Arez-0126: Flags passed to action '" + name + "' include both READ_ONLY and READ_WRITE." );
       apiInvariant( () -> Flags.isVerifyActionRuleValid( flags | Flags.verifyActionRule( flags ) ),
                     () -> "Arez-0127: Flags passed to action '" + name + "' include both VERIFY_ACTION_REQUIRED " +
@@ -2341,7 +2342,13 @@ public final class ArezContext
     final long duration = System.currentTimeMillis() - startedAt;
     assert null != name;
     final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
-    getSpy().reportSpyEvent( new ActionCompletedEvent( name, observed, params, returnsResult, result, t, duration ) );
+    getSpy().reportSpyEvent( new ActionCompletedEvent( name,
+                                                       observed,
+                                                       params,
+                                                       returnsResult,
+                                                       result,
+                                                       t,
+                                                       (int) duration ) );
   }
 
   int currentNextTransactionId()
