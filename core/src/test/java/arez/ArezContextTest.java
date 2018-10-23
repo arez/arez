@@ -671,7 +671,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_Environment_Required()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -690,7 +689,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_Environment_Not_Required()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -709,7 +707,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_Environment_Default()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -3406,7 +3403,6 @@ public class ArezContextTest
 
   @Test
   public void setEnvironment_whenEnvironmentsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disableEnvironments();
 
@@ -3418,7 +3414,6 @@ public class ArezContextTest
 
   @Test
   public void safeRunInEnvironment_directNested()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -3443,7 +3438,6 @@ public class ArezContextTest
 
   @Test
   public void safeRunInEnvironment_noEnvironment()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
