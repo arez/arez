@@ -31,6 +31,6 @@ public final class ComponentDisposeStartedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComponentDisposeStarted" );
-    map.put( "component", getComponentInfo().getName() );
+    map.put( "name", getComponentInfo().getName() );
   }
 }

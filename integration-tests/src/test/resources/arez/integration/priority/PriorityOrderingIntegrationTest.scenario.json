@@ -1,63 +1,63 @@
 
 [
     {
-        "observer": "AR1",
+        "name": "AR1",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR1",
+        "name": "AR1",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "AR2",
+        "name": "AR2",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR2",
+        "name": "AR2",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "AR3",
+        "name": "AR3",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR3",
+        "name": "AR3",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "AR4",
+        "name": "AR4",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR4",
+        "name": "AR4",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "AR5",
+        "name": "AR5",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR5",
+        "name": "AR5",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "AR6",
+        "name": "AR6",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR6",
+        "name": "AR6",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "AR7",
+        "name": "AR7",
         "type": "ObserverCreated"
     },
     {
-        "observer": "AR7",
+        "name": "AR7",
         "type": "ReactionScheduled"
     },
     {
-        "action": "Action@2",
+        "name": "Action@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -65,25 +65,25 @@
     },
     {
         "mutation": true,
+        "name": "Action@2",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Action@2"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@1",
+        "name": "ObservableValue@1",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
         "mutation": true,
+        "name": "Action@2",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Action@2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Action@2",
         "errorMessage": null,
-        "action": "Action@2",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -92,11 +92,11 @@
         ]
     },
     {
-        "observer": "AR6",
+        "name": "AR6",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR6",
+        "name": "AR6",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -104,20 +104,20 @@
     },
     {
         "mutation": false,
+        "name": "AR6",
         "tracker": "AR6",
-        "type": "TransactionStarted",
-        "transaction": "AR6"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR6",
         "tracker": "AR6",
-        "type": "TransactionCompleted",
-        "transaction": "AR6"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR6",
         "errorMessage": null,
-        "action": "AR6",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -126,15 +126,15 @@
         ]
     },
     {
-        "observer": "AR6",
+        "name": "AR6",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "AR2",
+        "name": "AR2",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR2",
+        "name": "AR2",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -142,20 +142,20 @@
     },
     {
         "mutation": false,
+        "name": "AR2",
         "tracker": "AR2",
-        "type": "TransactionStarted",
-        "transaction": "AR2"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR2",
         "tracker": "AR2",
-        "type": "TransactionCompleted",
-        "transaction": "AR2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR2",
         "errorMessage": null,
-        "action": "AR2",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -164,15 +164,15 @@
         ]
     },
     {
-        "observer": "AR2",
+        "name": "AR2",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "AR7",
+        "name": "AR7",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR7",
+        "name": "AR7",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -180,20 +180,20 @@
     },
     {
         "mutation": false,
+        "name": "AR7",
         "tracker": "AR7",
-        "type": "TransactionStarted",
-        "transaction": "AR7"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR7",
         "tracker": "AR7",
-        "type": "TransactionCompleted",
-        "transaction": "AR7"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR7",
         "errorMessage": null,
-        "action": "AR7",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -202,15 +202,15 @@
         ]
     },
     {
-        "observer": "AR7",
+        "name": "AR7",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "AR4",
+        "name": "AR4",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR4",
+        "name": "AR4",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -218,20 +218,20 @@
     },
     {
         "mutation": false,
+        "name": "AR4",
         "tracker": "AR4",
-        "type": "TransactionStarted",
-        "transaction": "AR4"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR4",
         "tracker": "AR4",
-        "type": "TransactionCompleted",
-        "transaction": "AR4"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR4",
         "errorMessage": null,
-        "action": "AR4",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -240,15 +240,15 @@
         ]
     },
     {
-        "observer": "AR4",
+        "name": "AR4",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "AR5",
+        "name": "AR5",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR5",
+        "name": "AR5",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -256,20 +256,20 @@
     },
     {
         "mutation": false,
+        "name": "AR5",
         "tracker": "AR5",
-        "type": "TransactionStarted",
-        "transaction": "AR5"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR5",
         "tracker": "AR5",
-        "type": "TransactionCompleted",
-        "transaction": "AR5"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR5",
         "errorMessage": null,
-        "action": "AR5",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -278,15 +278,15 @@
         ]
     },
     {
-        "observer": "AR5",
+        "name": "AR5",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "AR3",
+        "name": "AR3",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR3",
+        "name": "AR3",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -294,20 +294,20 @@
     },
     {
         "mutation": false,
+        "name": "AR3",
         "tracker": "AR3",
-        "type": "TransactionStarted",
-        "transaction": "AR3"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR3",
         "tracker": "AR3",
-        "type": "TransactionCompleted",
-        "transaction": "AR3"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR3",
         "errorMessage": null,
-        "action": "AR3",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -316,15 +316,15 @@
         ]
     },
     {
-        "observer": "AR3",
+        "name": "AR3",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "AR1",
+        "name": "AR1",
         "type": "ReactionStarted"
     },
     {
-        "action": "AR1",
+        "name": "AR1",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -332,20 +332,20 @@
     },
     {
         "mutation": false,
+        "name": "AR1",
         "tracker": "AR1",
-        "type": "TransactionStarted",
-        "transaction": "AR1"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "AR1",
         "tracker": "AR1",
-        "type": "TransactionCompleted",
-        "transaction": "AR1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "AR1",
         "errorMessage": null,
-        "action": "AR1",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -354,7 +354,7 @@
         ]
     },
     {
-        "observer": "AR1",
+        "name": "AR1",
         "type": "ReactionCompleted"
     }
 ]

@@ -25,7 +25,7 @@ public class ObservableValueDisposedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ObservableValueDisposed" );
-    assertEquals( data.get( "observable" ), "Foo@1" );
+    assertEquals( data.get( "name" ), "Foo@1" );
     assertEquals( data.size(), 2 );
   }
 }

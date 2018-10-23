@@ -26,7 +26,7 @@ public class ComputeStartedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ComputeStarted" );
-    assertEquals( data.get( "computed" ), "Foo@1" );
+    assertEquals( data.get( "name" ), "Foo@1" );
     assertEquals( data.size(), 2 );
   }
 }

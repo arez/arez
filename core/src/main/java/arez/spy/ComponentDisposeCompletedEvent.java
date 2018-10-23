@@ -31,6 +31,6 @@ public final class ComponentDisposeCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComponentDisposeCompleted" );
-    map.put( "component", getComponentInfo().getName() );
+    map.put( "name", getComponentInfo().getName() );
   }
 }

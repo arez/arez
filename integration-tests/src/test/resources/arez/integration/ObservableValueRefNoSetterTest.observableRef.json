@@ -1,19 +1,19 @@
 
 [
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ObserverCreated"
     },
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ReactionStarted"
     },
     {
-        "action": "TransportType",
+        "name": "TransportType",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -21,12 +21,12 @@
     },
     {
         "mutation": false,
+        "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionStarted",
-        "transaction": "TransportType"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@1",
+        "name": "ObservableValue@1",
         "type": "ObservableValueCreated"
     },
     {
@@ -35,14 +35,14 @@
     },
     {
         "mutation": false,
+        "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionCompleted",
-        "transaction": "TransportType"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "TransportType",
         "errorMessage": null,
-        "action": "TransportType",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -51,23 +51,23 @@
         ]
     },
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ObserverCreated"
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ReactionStarted"
     },
     {
-        "action": "ResolvedType",
+        "name": "ResolvedType",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -75,12 +75,12 @@
     },
     {
         "mutation": false,
+        "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionStarted",
-        "transaction": "ResolvedType"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@2",
+        "name": "ObservableValue@2",
         "type": "ObservableValueCreated"
     },
     {
@@ -89,14 +89,14 @@
     },
     {
         "mutation": false,
+        "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionCompleted",
-        "transaction": "ResolvedType"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "ResolvedType",
         "errorMessage": null,
-        "action": "ResolvedType",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -105,11 +105,11 @@
         ]
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ReactionCompleted"
     },
     {
-        "action": "TestComponent.0.setOtherID",
+        "name": "TestComponent.0.setOtherID",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -118,33 +118,33 @@
     },
     {
         "mutation": true,
+        "name": "TestComponent.0.setOtherID",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent.0.setOtherID"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "TestComponent.0.otherID",
+        "name": "TestComponent.0.otherID",
         "type": "ObservableValueChanged",
         "value": 22
     },
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
+        "name": "TestComponent.0.setOtherID",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent.0.setOtherID"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "TestComponent.0.setOtherID",
         "errorMessage": null,
-        "action": "TestComponent.0.setOtherID",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -154,11 +154,11 @@
         ]
     },
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ReactionStarted"
     },
     {
-        "action": "TransportType",
+        "name": "TransportType",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -166,12 +166,12 @@
     },
     {
         "mutation": false,
+        "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionStarted",
-        "transaction": "TransportType"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@3",
+        "name": "ObservableValue@3",
         "type": "ObservableValueCreated"
     },
     {
@@ -180,14 +180,14 @@
     },
     {
         "mutation": false,
+        "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionCompleted",
-        "transaction": "TransportType"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "TransportType",
         "errorMessage": null,
-        "action": "TransportType",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -196,15 +196,15 @@
         ]
     },
     {
-        "observer": "TransportType",
+        "name": "TransportType",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ReactionStarted"
     },
     {
-        "action": "ResolvedType",
+        "name": "ResolvedType",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -212,12 +212,12 @@
     },
     {
         "mutation": false,
+        "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionStarted",
-        "transaction": "ResolvedType"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@4",
+        "name": "ObservableValue@4",
         "type": "ObservableValueCreated"
     },
     {
@@ -226,14 +226,14 @@
     },
     {
         "mutation": false,
+        "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionCompleted",
-        "transaction": "ResolvedType"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "ResolvedType",
         "errorMessage": null,
-        "action": "ResolvedType",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -242,7 +242,7 @@
         ]
     },
     {
-        "observer": "ResolvedType",
+        "name": "ResolvedType",
         "type": "ReactionCompleted"
     }
 ]

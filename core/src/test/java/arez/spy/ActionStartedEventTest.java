@@ -25,7 +25,7 @@ public class ActionStartedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ActionStarted" );
-    assertEquals( data.get( "action" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "tracked" ), tracked );
     assertEquals( data.get( "parameters" ), parameters );
     assertEquals( data.size(), 4 );

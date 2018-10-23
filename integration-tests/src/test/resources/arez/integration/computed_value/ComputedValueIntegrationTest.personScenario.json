@@ -1,39 +1,39 @@
 
 [
     {
-        "component": "PersonModel.0",
+        "name": "PersonModel.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "name": "PersonModel.0.firstName",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "name": "PersonModel.0.lastName",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputedValueCreated"
     },
     {
-        "component": "PersonModel.0",
+        "name": "PersonModel.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ObserverCreated"
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ReactionStarted"
     },
     {
-        "action": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -41,12 +41,12 @@
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter",
         "tracker": "FirstNamePrinter",
-        "type": "TransactionStarted",
-        "transaction": "FirstNamePrinter"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@1",
+        "name": "ObservableValue@1",
         "type": "ObservableValueCreated"
     },
     {
@@ -55,14 +55,14 @@
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter",
         "tracker": "FirstNamePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "FirstNamePrinter"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FirstNamePrinter",
         "errorMessage": null,
-        "action": "FirstNamePrinter",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -71,23 +71,23 @@
         ]
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ObserverCreated"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionStarted"
     },
     {
-        "action": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -95,37 +95,37 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter",
         "tracker": "FullNamePrinter",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@2",
+        "name": "ObservableValue@2",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ObservableValueChanged",
         "value": "Bill Smith"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
@@ -134,14 +134,14 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter",
         "tracker": "FullNamePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FullNamePrinter",
         "errorMessage": null,
-        "action": "FullNamePrinter",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -150,11 +150,11 @@
         ]
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionCompleted"
     },
     {
-        "action": "First Name Update",
+        "name": "First Name Update",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -162,33 +162,33 @@
     },
     {
         "mutation": true,
+        "name": "First Name Update",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "First Name Update"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "name": "PersonModel.0.firstName",
         "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
+        "name": "First Name Update",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "First Name Update"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "First Name Update",
         "errorMessage": null,
-        "action": "First Name Update",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -197,11 +197,11 @@
         ]
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ReactionStarted"
     },
     {
-        "action": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -209,12 +209,12 @@
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter",
         "tracker": "FirstNamePrinter",
-        "type": "TransactionStarted",
-        "transaction": "FirstNamePrinter"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@3",
+        "name": "ObservableValue@3",
         "type": "ObservableValueCreated"
     },
     {
@@ -223,14 +223,14 @@
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter",
         "tracker": "FirstNamePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "FirstNamePrinter"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FirstNamePrinter",
         "errorMessage": null,
-        "action": "FirstNamePrinter",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -239,44 +239,44 @@
         ]
     },
     {
-        "observer": "FirstNamePrinter",
+        "name": "FirstNamePrinter",
         "type": "ReactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ObservableValueChanged",
         "value": "Fred Smith"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionStarted"
     },
     {
-        "action": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -284,12 +284,12 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter",
         "tracker": "FullNamePrinter",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@4",
+        "name": "ObservableValue@4",
         "type": "ObservableValueCreated"
     },
     {
@@ -298,14 +298,14 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter",
         "tracker": "FullNamePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FullNamePrinter",
         "errorMessage": null,
-        "action": "FullNamePrinter",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -314,11 +314,11 @@
         ]
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionCompleted"
     },
     {
-        "action": "Last Name Update",
+        "name": "Last Name Update",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -326,29 +326,29 @@
     },
     {
         "mutation": true,
+        "name": "Last Name Update",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Last Name Update"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "name": "PersonModel.0.lastName",
         "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {
-        "observer": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
+        "name": "Last Name Update",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Last Name Update"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Last Name Update",
         "errorMessage": null,
-        "action": "Last Name Update",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -357,40 +357,40 @@
         ]
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ObservableValueChanged",
         "value": "Fred Donaldo"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionScheduled"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionStarted"
     },
     {
-        "action": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -398,12 +398,12 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter",
         "tracker": "FullNamePrinter",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@5",
+        "name": "ObservableValue@5",
         "type": "ObservableValueCreated"
     },
     {
@@ -412,14 +412,14 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter",
         "tracker": "FullNamePrinter",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FullNamePrinter",
         "errorMessage": null,
-        "action": "FullNamePrinter",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -428,7 +428,7 @@
         ]
     },
     {
-        "observer": "FullNamePrinter",
+        "name": "FullNamePrinter",
         "type": "ReactionCompleted"
     }
 ]

@@ -31,6 +31,6 @@ public final class ReactionStartedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ReactionStarted" );
-    map.put( "observer", getObserver().getName() );
+    map.put( "name", getObserver().getName() );
   }
 }

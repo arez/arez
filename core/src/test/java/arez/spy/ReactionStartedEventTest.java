@@ -27,7 +27,7 @@ public class ReactionStartedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ReactionStarted" );
-    assertEquals( data.get( "observer" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.size(), 2 );
   }
 }

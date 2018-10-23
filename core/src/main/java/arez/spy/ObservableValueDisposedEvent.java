@@ -31,6 +31,6 @@ public final class ObservableValueDisposedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ObservableValueDisposed" );
-    map.put( "observable", getObservableValue().getName() );
+    map.put( "name", getObservableValue().getName() );
   }
 }

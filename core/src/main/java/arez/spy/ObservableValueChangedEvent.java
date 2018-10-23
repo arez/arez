@@ -42,7 +42,7 @@ public final class ObservableValueChangedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ObservableValueChanged" );
-    map.put( "observable", getObservableValue().getName() );
+    map.put( "name", getObservableValue().getName() );
     if ( Arez.arePropertyIntrospectorsEnabled() )
     {
       map.put( "value", getValue() );

@@ -31,6 +31,6 @@ public final class ObservableValueCreatedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ObservableValueCreated" );
-    map.put( "observable", getObservableValue().getName() );
+    map.put( "name", getObservableValue().getName() );
   }
 }

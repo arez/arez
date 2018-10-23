@@ -50,7 +50,7 @@ public final class ActionStartedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ActionStarted" );
-    map.put( "action", getName() );
+    map.put( "name", getName() );
     map.put( "tracked", isTracked() );
     map.put( "parameters", getParameters() );
   }

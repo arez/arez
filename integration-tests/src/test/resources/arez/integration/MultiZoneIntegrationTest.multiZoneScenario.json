@@ -1,59 +1,59 @@
 
 [
     {
-        "component": "PersonModel.0",
+        "name": "PersonModel.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "name": "PersonModel.0.firstName",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "name": "PersonModel.0.lastName",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputedValueCreated"
     },
     {
-        "component": "PersonModel.0",
+        "name": "PersonModel.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "component": "PersonModel.1",
+        "name": "PersonModel.1",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "PersonModel.1.firstName",
+        "name": "PersonModel.1.firstName",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "PersonModel.1.lastName",
+        "name": "PersonModel.1.lastName",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "PersonModel.1.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ComputedValueCreated"
     },
     {
-        "component": "PersonModel.1",
+        "name": "PersonModel.1",
         "type": "ComponentCreateCompleted"
     },
     {
-        "observer": "FirstNamePrinter1",
+        "name": "FirstNamePrinter1",
         "type": "ObserverCreated"
     },
     {
-        "observer": "FirstNamePrinter1",
+        "name": "FirstNamePrinter1",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "FirstNamePrinter1",
+        "name": "FirstNamePrinter1",
         "type": "ReactionStarted"
     },
     {
-        "action": "FirstNamePrinter1",
+        "name": "FirstNamePrinter1",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -61,20 +61,20 @@
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter1",
         "tracker": "FirstNamePrinter1",
-        "type": "TransactionStarted",
-        "transaction": "FirstNamePrinter1"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter1",
         "tracker": "FirstNamePrinter1",
-        "type": "TransactionCompleted",
-        "transaction": "FirstNamePrinter1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FirstNamePrinter1",
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
-        "action": "FirstNamePrinter1",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": false,
@@ -83,29 +83,29 @@
         ]
     },
     {
-        "observer": "FirstNamePrinter1",
         "errorType": "REACTION_ERROR",
+        "name": "FirstNamePrinter1",
         "type": "ObserverError",
         "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
-        "observer": "FirstNamePrinter1",
+        "name": "FirstNamePrinter1",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "FirstNamePrinter2",
+        "name": "FirstNamePrinter2",
         "type": "ObserverCreated"
     },
     {
-        "observer": "FirstNamePrinter2",
+        "name": "FirstNamePrinter2",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "FirstNamePrinter2",
+        "name": "FirstNamePrinter2",
         "type": "ReactionStarted"
     },
     {
-        "action": "FirstNamePrinter2",
+        "name": "FirstNamePrinter2",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -113,20 +113,20 @@
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter2",
         "tracker": "FirstNamePrinter2",
-        "type": "TransactionStarted",
-        "transaction": "FirstNamePrinter2"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "FirstNamePrinter2",
         "tracker": "FirstNamePrinter2",
-        "type": "TransactionCompleted",
-        "transaction": "FirstNamePrinter2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FirstNamePrinter2",
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
-        "action": "FirstNamePrinter2",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": false,
@@ -135,29 +135,29 @@
         ]
     },
     {
-        "observer": "FirstNamePrinter2",
         "errorType": "REACTION_ERROR",
+        "name": "FirstNamePrinter2",
         "type": "ObserverError",
         "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
-        "observer": "FirstNamePrinter2",
+        "name": "FirstNamePrinter2",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "FullNamePrinter1",
+        "name": "FullNamePrinter1",
         "type": "ObserverCreated"
     },
     {
-        "observer": "FullNamePrinter1",
+        "name": "FullNamePrinter1",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "FullNamePrinter1",
+        "name": "FullNamePrinter1",
         "type": "ReactionStarted"
     },
     {
-        "action": "FullNamePrinter1",
+        "name": "FullNamePrinter1",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -165,20 +165,20 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter1",
         "tracker": "FullNamePrinter1",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter1"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter1",
         "tracker": "FullNamePrinter1",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FullNamePrinter1",
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
-        "action": "FullNamePrinter1",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": false,
@@ -187,29 +187,29 @@
         ]
     },
     {
-        "observer": "FullNamePrinter1",
         "errorType": "REACTION_ERROR",
+        "name": "FullNamePrinter1",
         "type": "ObserverError",
         "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
-        "observer": "FullNamePrinter1",
+        "name": "FullNamePrinter1",
         "type": "ReactionCompleted"
     },
     {
-        "observer": "FullNamePrinter2",
+        "name": "FullNamePrinter2",
         "type": "ObserverCreated"
     },
     {
-        "observer": "FullNamePrinter2",
+        "name": "FullNamePrinter2",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "FullNamePrinter2",
+        "name": "FullNamePrinter2",
         "type": "ReactionStarted"
     },
     {
-        "action": "FullNamePrinter2",
+        "name": "FullNamePrinter2",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -217,20 +217,20 @@
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter2",
         "tracker": "FullNamePrinter2",
-        "type": "TransactionStarted",
-        "transaction": "FullNamePrinter2"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "FullNamePrinter2",
         "tracker": "FullNamePrinter2",
-        "type": "TransactionCompleted",
-        "transaction": "FullNamePrinter2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "FullNamePrinter2",
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
-        "action": "FullNamePrinter2",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": false,
@@ -239,17 +239,17 @@
         ]
     },
     {
-        "observer": "FullNamePrinter2",
         "errorType": "REACTION_ERROR",
+        "name": "FullNamePrinter2",
         "type": "ObserverError",
         "message": "Arez-0015: Attempting to get current transaction but current transaction is for different context."
     },
     {
-        "observer": "FullNamePrinter2",
+        "name": "FullNamePrinter2",
         "type": "ReactionCompleted"
     },
     {
-        "action": "First Name Update1",
+        "name": "First Name Update1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -257,25 +257,25 @@
     },
     {
         "mutation": true,
+        "name": "First Name Update1",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "First Name Update1"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "name": "PersonModel.0.firstName",
         "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
         "mutation": true,
+        "name": "First Name Update1",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "First Name Update1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "First Name Update1",
         "errorMessage": null,
-        "action": "First Name Update1",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -284,7 +284,7 @@
         ]
     },
     {
-        "action": "Last Name Update1",
+        "name": "Last Name Update1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -292,25 +292,25 @@
     },
     {
         "mutation": true,
+        "name": "Last Name Update1",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Last Name Update1"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "name": "PersonModel.0.lastName",
         "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {
         "mutation": true,
+        "name": "Last Name Update1",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Last Name Update1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Last Name Update1",
         "errorMessage": null,
-        "action": "Last Name Update1",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -319,7 +319,7 @@
         ]
     },
     {
-        "action": "Last Name Update2",
+        "name": "Last Name Update2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -327,25 +327,25 @@
     },
     {
         "mutation": true,
+        "name": "Last Name Update2",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Last Name Update2"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.1.lastName",
+        "name": "PersonModel.1.lastName",
         "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {
         "mutation": true,
+        "name": "Last Name Update2",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Last Name Update2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Last Name Update2",
         "errorMessage": null,
-        "action": "Last Name Update2",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,

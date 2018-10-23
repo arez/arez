@@ -1,79 +1,79 @@
 
 [
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model1.0.name",
+        "name": "Model1.0.name",
         "type": "ObservableValueCreated"
     },
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "component": "Model1.1",
+        "name": "Model1.1",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model1.1.name",
+        "name": "Model1.1.name",
         "type": "ObservableValueCreated"
     },
     {
-        "component": "Model1.1",
+        "name": "Model1.1",
         "type": "ComponentCreateCompleted"
     },
     {
-        "component": "Model1.2",
+        "name": "Model1.2",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model1.2.name",
+        "name": "Model1.2.name",
         "type": "ObservableValueCreated"
     },
     {
-        "component": "Model1.2",
+        "name": "Model1.2",
         "type": "ComponentCreateCompleted"
     },
     {
-        "component": "Model1.3",
+        "name": "Model1.3",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model1.3.name",
+        "name": "Model1.3.name",
         "type": "ObservableValueCreated"
     },
     {
-        "component": "Model1.3",
+        "name": "Model1.3",
         "type": "ComponentCreateCompleted"
     },
     {
-        "component": "Model2.0",
+        "name": "Model2.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model2.0.reference1",
+        "name": "Model2.0.reference1",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "Model2.0.reference2",
+        "name": "Model2.0.reference2",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "Model2.0.reference3",
+        "name": "Model2.0.reference3",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "Model2.0.reference4",
+        "name": "Model2.0.reference4",
         "type": "ObservableValueCreated"
     },
     {
-        "component": "Model2.0",
+        "name": "Model2.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "action": "Action@1",
+        "name": "Action@1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -81,22 +81,22 @@
     },
     {
         "mutation": true,
+        "name": "Action@1",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Action@1"
+        "type": "TransactionStarted"
     },
     {
         "mutation": true,
+        "name": "Action@1",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Action@1"
+        "type": "TransactionCompleted"
     },
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentDisposeStarted"
     },
     {
-        "action": "Model1.0.dispose",
+        "name": "Model1.0.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -104,31 +104,31 @@
     },
     {
         "mutation": true,
+        "name": "Model1.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.dispose"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "Model2.0.reference1",
+        "name": "Model2.0.reference1",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
-        "action": "Model1.0.name.dispose",
+        "name": "Model1.0.name.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Model1.0.name",
+        "name": "Model1.0.name",
         "type": "ObservableValueChanged",
         "value": "Model1A1"
     },
     {
         "result": null,
+        "name": "Model1.0.name.dispose",
         "errorMessage": null,
-        "action": "Model1.0.name.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -137,19 +137,19 @@
         ]
     },
     {
-        "observable": "Model1.0.name",
+        "name": "Model1.0.name",
         "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
+        "name": "Model1.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.dispose"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Model1.0.dispose",
         "errorMessage": null,
-        "action": "Model1.0.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -158,11 +158,11 @@
         ]
     },
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentDisposeCompleted"
     },
     {
-        "action": "Action@2",
+        "name": "Action@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -170,20 +170,20 @@
     },
     {
         "mutation": true,
+        "name": "Action@2",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Action@2"
+        "type": "TransactionStarted"
     },
     {
         "mutation": true,
+        "name": "Action@2",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Action@2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Action@2",
         "errorMessage": null,
-        "action": "Action@2",
         "tracked": false,
         "returnsResult": true,
         "normalCompletion": true,
@@ -192,11 +192,11 @@
         ]
     },
     {
-        "component": "Model1.2",
+        "name": "Model1.2",
         "type": "ComponentDisposeStarted"
     },
     {
-        "action": "Model1.2.dispose",
+        "name": "Model1.2.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -204,37 +204,37 @@
     },
     {
         "mutation": true,
+        "name": "Model1.2.dispose",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.2.dispose"
+        "type": "TransactionStarted"
     },
     {
-        "component": "Model2.0",
+        "name": "Model2.0",
         "type": "ComponentDisposeStarted"
     },
     {
-        "action": "Model2.0.dispose",
+        "name": "Model2.0.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "action": "Model2.0.reference1.dispose",
+        "name": "Model2.0.reference1.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Model2.0.reference1",
+        "name": "Model2.0.reference1",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
         "result": null,
+        "name": "Model2.0.reference1.dispose",
         "errorMessage": null,
-        "action": "Model2.0.reference1.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -243,11 +243,11 @@
         ]
     },
     {
-        "observable": "Model2.0.reference1",
+        "name": "Model2.0.reference1",
         "type": "ObservableValueDisposed"
     },
     {
-        "action": "Model2.0.reference2.dispose",
+        "name": "Model2.0.reference2.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -255,8 +255,8 @@
     },
     {
         "result": null,
+        "name": "Model2.0.reference2.dispose",
         "errorMessage": null,
-        "action": "Model2.0.reference2.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -265,11 +265,11 @@
         ]
     },
     {
-        "observable": "Model2.0.reference2",
+        "name": "Model2.0.reference2",
         "type": "ObservableValueDisposed"
     },
     {
-        "action": "Model2.0.reference3.dispose",
+        "name": "Model2.0.reference3.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -277,8 +277,8 @@
     },
     {
         "result": null,
+        "name": "Model2.0.reference3.dispose",
         "errorMessage": null,
-        "action": "Model2.0.reference3.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -287,11 +287,11 @@
         ]
     },
     {
-        "observable": "Model2.0.reference3",
+        "name": "Model2.0.reference3",
         "type": "ObservableValueDisposed"
     },
     {
-        "action": "Model2.0.reference4.dispose",
+        "name": "Model2.0.reference4.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -299,8 +299,8 @@
     },
     {
         "result": null,
+        "name": "Model2.0.reference4.dispose",
         "errorMessage": null,
-        "action": "Model2.0.reference4.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -309,13 +309,13 @@
         ]
     },
     {
-        "observable": "Model2.0.reference4",
+        "name": "Model2.0.reference4",
         "type": "ObservableValueDisposed"
     },
     {
         "result": null,
+        "name": "Model2.0.dispose",
         "errorMessage": null,
-        "action": "Model2.0.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -324,25 +324,25 @@
         ]
     },
     {
-        "component": "Model2.0",
+        "name": "Model2.0",
         "type": "ComponentDisposeCompleted"
     },
     {
-        "action": "Model1.2.name.dispose",
+        "name": "Model1.2.name.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Model1.2.name",
+        "name": "Model1.2.name",
         "type": "ObservableValueChanged",
         "value": "Model1A3"
     },
     {
         "result": null,
+        "name": "Model1.2.name.dispose",
         "errorMessage": null,
-        "action": "Model1.2.name.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -351,19 +351,19 @@
         ]
     },
     {
-        "observable": "Model1.2.name",
+        "name": "Model1.2.name",
         "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
+        "name": "Model1.2.dispose",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.2.dispose"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Model1.2.dispose",
         "errorMessage": null,
-        "action": "Model1.2.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -372,7 +372,7 @@
         ]
     },
     {
-        "component": "Model1.2",
+        "name": "Model1.2",
         "type": "ComponentDisposeCompleted"
     }
 ]

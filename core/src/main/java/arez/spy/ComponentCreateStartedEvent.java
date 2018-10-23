@@ -31,6 +31,6 @@ public final class ComponentCreateStartedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComponentCreateStarted" );
-    map.put( "component", getComponentInfo().getName() );
+    map.put( "name", getComponentInfo().getName() );
   }
 }

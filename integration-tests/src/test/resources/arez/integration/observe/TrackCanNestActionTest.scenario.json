@@ -1,27 +1,27 @@
 
 [
     {
-        "component": "TestComponent1.0",
+        "name": "TestComponent1.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "TestComponent1.0.time",
+        "name": "TestComponent1.0.time",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "TestComponent1.0.time2",
+        "name": "TestComponent1.0.time2",
         "type": "ObservableValueCreated"
     },
     {
-        "observer": "TestComponent1.0.render",
+        "name": "TestComponent1.0.render",
         "type": "ObserverCreated"
     },
     {
-        "component": "TestComponent1.0",
+        "name": "TestComponent1.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "action": "TestComponent1.0.render",
+        "name": "TestComponent1.0.render",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -29,12 +29,12 @@
     },
     {
         "mutation": false,
+        "name": "TestComponent1.0.render",
         "tracker": "TestComponent1.0.render",
-        "type": "TransactionStarted",
-        "transaction": "TestComponent1.0.render"
+        "type": "TransactionStarted"
     },
     {
-        "action": "TestComponent1.0.myAction",
+        "name": "TestComponent1.0.myAction",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -42,20 +42,20 @@
     },
     {
         "mutation": false,
+        "name": "TestComponent1.0.myAction",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "TestComponent1.0.myAction"
+        "type": "TransactionStarted"
     },
     {
         "mutation": false,
+        "name": "TestComponent1.0.myAction",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent1.0.myAction"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "TestComponent1.0.myAction",
         "errorMessage": null,
-        "action": "TestComponent1.0.myAction",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -65,14 +65,14 @@
     },
     {
         "mutation": false,
+        "name": "TestComponent1.0.render",
         "tracker": "TestComponent1.0.render",
-        "type": "TransactionCompleted",
-        "transaction": "TestComponent1.0.render"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "TestComponent1.0.render",
         "errorMessage": null,
-        "action": "TestComponent1.0.render",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -81,7 +81,7 @@
         ]
     },
     {
-        "action": "Action@1",
+        "name": "Action@1",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -89,25 +89,25 @@
     },
     {
         "mutation": true,
+        "name": "Action@1",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Action@1"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "TestComponent1.0.time",
+        "name": "TestComponent1.0.time",
         "type": "ObservableValueChanged",
         "value": 33
     },
     {
         "mutation": true,
+        "name": "Action@1",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Action@1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Action@1",
         "errorMessage": null,
-        "action": "Action@1",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -116,7 +116,7 @@
         ]
     },
     {
-        "action": "Action@2",
+        "name": "Action@2",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -124,29 +124,29 @@
     },
     {
         "mutation": true,
+        "name": "Action@2",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Action@2"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "TestComponent1.0.time2",
+        "name": "TestComponent1.0.time2",
         "type": "ObservableValueChanged",
         "value": 33
     },
     {
-        "observer": "TestComponent1.0.render",
+        "name": "TestComponent1.0.render",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
+        "name": "Action@2",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Action@2"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Action@2",
         "errorMessage": null,
-        "action": "Action@2",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -155,11 +155,11 @@
         ]
     },
     {
-        "observer": "TestComponent1.0.render",
+        "name": "TestComponent1.0.render",
         "type": "ReactionStarted"
     },
     {
-        "observer": "TestComponent1.0.render",
+        "name": "TestComponent1.0.render",
         "type": "ReactionCompleted"
     }
 ]

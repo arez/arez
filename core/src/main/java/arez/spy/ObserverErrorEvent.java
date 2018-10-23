@@ -53,7 +53,7 @@ public final class ObserverErrorEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ObserverError" );
-    map.put( "observer", getObserver().getName() );
+    map.put( "name", getObserver().getName() );
     map.put( "errorType", getError().name() );
     final Throwable throwable = getThrowable();
     final String message =

@@ -27,7 +27,7 @@ public class ObserverCreatedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ObserverCreated" );
-    assertEquals( data.get( "observer" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.size(), 2 );
   }
 }
