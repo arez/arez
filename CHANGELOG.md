@@ -9,6 +9,8 @@
 * **\[core\]** Add flag `Flags.NO_REPORT_RESULT` that can be passed to `ArezContext.action(...)` and
   `ArezContext.safeAction(...)` methods that will result in the return value from the action (if any) not
   being specified in the `ActionCompletedEvent` spy event.
+* **\[core\]** Add the `reportResult` parameter to the `@Action` annotation so that the underlying actions
+  can be passed the `Flags.NO_REPORT_RESULT` flag.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

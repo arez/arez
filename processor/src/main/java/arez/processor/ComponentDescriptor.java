@@ -502,6 +502,7 @@ final class ComponentDescriptor
     final boolean requireNewTransaction = getAnnotationParameter( annotation, "requireNewTransaction" );
     final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
+    final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
       new ActionDescriptor( this,
@@ -511,6 +512,7 @@ final class ComponentDescriptor
                             mutation,
                             verifyRequired,
                             reportParameters,
+                            reportResult,
                             method,
                             methodType );
     _actions.put( action.getName(), action );

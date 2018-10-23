@@ -49,6 +49,14 @@ public @interface Action
   boolean reportParameters() default true;
 
   /**
+   * Return true if the return tvalue of the action (if any) should be reported to the Arez spy subsystem.
+   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
+   *
+   * @return true to report the parameters, false otherwise.
+   */
+  boolean reportResult() default true;
+
+  /**
    * True if the action should always start a new transaction. A false value indicates that the action will
    * use the invoking transaction if present, otherwise will create a new transaction to invoke action.
    *
