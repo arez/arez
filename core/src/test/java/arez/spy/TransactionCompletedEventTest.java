@@ -26,7 +26,7 @@ public class TransactionCompletedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "TransactionCompleted" );
-    assertEquals( data.get( "transaction" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "mutation" ), mutation );
     assertEquals( data.get( "tracker" ), tracker );
     assertEquals( data.get( "duration" ), duration );

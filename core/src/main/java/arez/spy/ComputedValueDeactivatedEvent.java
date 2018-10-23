@@ -31,6 +31,6 @@ public final class ComputedValueDeactivatedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComputedValueDeactivated" );
-    map.put( "computed", getComputedValue().getName() );
+    map.put( "name", getComputedValue().getName() );
   }
 }

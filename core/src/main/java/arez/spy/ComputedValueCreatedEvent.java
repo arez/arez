@@ -31,6 +31,6 @@ public final class ComputedValueCreatedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComputedValueCreated" );
-    map.put( "computed", getComputedValue().getName() );
+    map.put( "name", getComputedValue().getName() );
   }
 }

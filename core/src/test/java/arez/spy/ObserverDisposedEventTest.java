@@ -27,7 +27,7 @@ public class ObserverDisposedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ObserverDisposed" );
-    assertEquals( data.get( "observer" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.size(), 2 );
   }
 }

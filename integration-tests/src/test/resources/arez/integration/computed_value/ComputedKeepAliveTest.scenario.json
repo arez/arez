@@ -1,56 +1,56 @@
 
 [
     {
-        "component": "PersonModel.0",
+        "name": "PersonModel.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "name": "PersonModel.0.firstName",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "name": "PersonModel.0.lastName",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ReactionScheduled"
     },
     {
-        "component": "PersonModel.0",
+        "name": "PersonModel.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ObservableValueChanged",
         "value": "Bill Smith"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
-        "action": "First Name Update",
+        "name": "First Name Update",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -58,29 +58,29 @@
     },
     {
         "mutation": true,
+        "name": "First Name Update",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "First Name Update"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.firstName",
+        "name": "PersonModel.0.firstName",
         "type": "ObservableValueChanged",
         "value": "Fred"
     },
     {
-        "observer": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
+        "name": "First Name Update",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "First Name Update"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "First Name Update",
         "errorMessage": null,
-        "action": "First Name Update",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -89,32 +89,32 @@
         ]
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ObservableValueChanged",
         "value": "Fred Smith"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     },
     {
-        "action": "Last Name Update",
+        "name": "Last Name Update",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -122,29 +122,29 @@
     },
     {
         "mutation": true,
+        "name": "Last Name Update",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Last Name Update"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.lastName",
+        "name": "PersonModel.0.lastName",
         "type": "ObservableValueChanged",
         "value": "Donaldo"
     },
     {
-        "observer": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ReactionScheduled"
     },
     {
         "mutation": true,
+        "name": "Last Name Update",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Last Name Update"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Last Name Update",
         "errorMessage": null,
-        "action": "Last Name Update",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -153,28 +153,28 @@
         ]
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionStarted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ObservableValueChanged",
         "value": "Fred Donaldo"
     },
     {
         "mutation": false,
+        "name": "PersonModel.0.fullName",
         "tracker": "PersonModel.0.fullName",
-        "type": "TransactionCompleted",
-        "transaction": "PersonModel.0.fullName"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "PersonModel.0.fullName",
+        "name": "PersonModel.0.fullName",
         "type": "ComputeCompleted"
     }
 ]

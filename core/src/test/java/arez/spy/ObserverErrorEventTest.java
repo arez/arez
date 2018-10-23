@@ -32,7 +32,7 @@ public class ObserverErrorEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ObserverError" );
-    assertEquals( data.get( "observer" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "errorType" ), "REACTION_ERROR" );
     assertEquals( data.get( "message" ), "Blah" );
     assertEquals( data.size(), 4 );

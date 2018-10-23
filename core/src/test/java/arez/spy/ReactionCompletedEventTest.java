@@ -29,7 +29,7 @@ public class ReactionCompletedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ReactionCompleted" );
-    assertEquals( data.get( "observer" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "duration" ), duration );
     assertEquals( data.size(), 3 );
   }

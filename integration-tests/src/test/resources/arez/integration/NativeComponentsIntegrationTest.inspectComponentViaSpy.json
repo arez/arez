@@ -1,35 +1,35 @@
 
 [
     {
-        "component": "MyType@1",
+        "name": "MyType@1",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Attr1",
+        "name": "Attr1",
         "type": "ObservableValueCreated"
     },
     {
-        "observable": "Attr2",
+        "name": "Attr2",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "Attr3",
+        "name": "Attr3",
         "type": "ComputedValueCreated"
     },
     {
-        "observer": "Render",
+        "name": "Render",
         "type": "ObserverCreated"
     },
     {
-        "component": "MyType@1",
+        "name": "MyType@1",
         "type": "ComponentCreateCompleted"
     },
     {
-        "component": "MyType@1",
+        "name": "MyType@1",
         "type": "ComponentDisposeStarted"
     },
     {
-        "action": "MyType@1.dispose",
+        "name": "MyType@1.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -37,12 +37,12 @@
     },
     {
         "mutation": true,
+        "name": "MyType@1.dispose",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "MyType@1.dispose"
+        "type": "TransactionStarted"
     },
     {
-        "action": "Render.dispose",
+        "name": "Render.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -50,8 +50,8 @@
     },
     {
         "result": null,
+        "name": "Render.dispose",
         "errorMessage": null,
-        "action": "Render.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -60,11 +60,11 @@
         ]
     },
     {
-        "observer": "Render",
+        "name": "Render",
         "type": "ObserverDisposed"
     },
     {
-        "action": "Attr3.dispose",
+        "name": "Attr3.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -72,8 +72,8 @@
     },
     {
         "result": null,
+        "name": "Attr3.dispose",
         "errorMessage": null,
-        "action": "Attr3.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -82,25 +82,25 @@
         ]
     },
     {
-        "computed": "Attr3",
+        "name": "Attr3",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "Attr3.dispose",
+        "name": "Attr3.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Attr3",
+        "name": "Attr3",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
         "result": null,
+        "name": "Attr3.dispose",
         "errorMessage": null,
-        "action": "Attr3.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -109,7 +109,7 @@
         ]
     },
     {
-        "action": "Attr3.dispose",
+        "name": "Attr3.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -117,8 +117,8 @@
     },
     {
         "result": null,
+        "name": "Attr3.dispose",
         "errorMessage": null,
-        "action": "Attr3.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -127,21 +127,21 @@
         ]
     },
     {
-        "action": "Attr1.dispose",
+        "name": "Attr1.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Attr1",
+        "name": "Attr1",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
         "result": null,
+        "name": "Attr1.dispose",
         "errorMessage": null,
-        "action": "Attr1.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -150,25 +150,25 @@
         ]
     },
     {
-        "observable": "Attr1",
+        "name": "Attr1",
         "type": "ObservableValueDisposed"
     },
     {
-        "action": "Attr2.dispose",
+        "name": "Attr2.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Attr2",
+        "name": "Attr2",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
         "result": null,
+        "name": "Attr2.dispose",
         "errorMessage": null,
-        "action": "Attr2.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -177,19 +177,19 @@
         ]
     },
     {
-        "observable": "Attr2",
+        "name": "Attr2",
         "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
+        "name": "MyType@1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "MyType@1.dispose"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "MyType@1.dispose",
         "errorMessage": null,
-        "action": "MyType@1.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -198,7 +198,7 @@
         ]
     },
     {
-        "component": "MyType@1",
+        "name": "MyType@1",
         "type": "ComponentDisposeCompleted"
     }
 ]

@@ -1,35 +1,35 @@
 
 [
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentCreateStarted"
     },
     {
-        "observable": "Model1.0.isDisposed",
+        "name": "Model1.0.isDisposed",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ComputedValueCreated"
     },
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentCreateCompleted"
     },
     {
-        "observer": "Observer@1",
+        "name": "Observer@1",
         "type": "ObserverCreated"
     },
     {
-        "observer": "Observer@1",
+        "name": "Observer@1",
         "type": "ReactionScheduled"
     },
     {
-        "observer": "Observer@1",
+        "name": "Observer@1",
         "type": "ReactionStarted"
     },
     {
-        "action": "Observer@1",
+        "name": "Observer@1",
         "tracked": true,
         "type": "ActionStarted",
         "parameters": [
@@ -37,49 +37,49 @@
     },
     {
         "mutation": false,
+        "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionStarted",
-        "transaction": "Observer@1"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "ObservableValue@2",
+        "name": "ObservableValue@2",
         "type": "ObservableValueCreated"
     },
     {
-        "computed": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
+        "name": "Model1.0.disposeOnDeactivate",
         "tracker": "Model1.0.disposeOnDeactivate",
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.disposeOnDeactivate"
+        "type": "TransactionStarted"
     },
     {
-        "observable": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ObservableValueChanged",
         "value": true
     },
     {
         "mutation": false,
+        "name": "Model1.0.disposeOnDeactivate",
         "tracker": "Model1.0.disposeOnDeactivate",
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.disposeOnDeactivate"
+        "type": "TransactionCompleted"
     },
     {
-        "computed": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ComputeCompleted"
     },
     {
         "mutation": false,
+        "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionCompleted",
-        "transaction": "Observer@1"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Observer@1",
         "errorMessage": null,
-        "action": "Observer@1",
         "tracked": true,
         "returnsResult": false,
         "normalCompletion": true,
@@ -88,11 +88,11 @@
         ]
     },
     {
-        "observer": "Observer@1",
+        "name": "Observer@1",
         "type": "ReactionCompleted"
     },
     {
-        "action": "Observer@1.dispose",
+        "name": "Observer@1.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -100,24 +100,24 @@
     },
     {
         "mutation": true,
+        "name": "Observer@1.dispose",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Observer@1.dispose"
+        "type": "TransactionStarted"
     },
     {
-        "computed": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ComputedValueDeactivated"
     },
     {
         "mutation": true,
+        "name": "Observer@1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Observer@1.dispose"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Observer@1.dispose",
         "errorMessage": null,
-        "action": "Observer@1.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -126,11 +126,11 @@
         ]
     },
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentDisposeStarted"
     },
     {
-        "action": "Model1.0.dispose",
+        "name": "Model1.0.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -138,12 +138,12 @@
     },
     {
         "mutation": true,
+        "name": "Model1.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted",
-        "transaction": "Model1.0.dispose"
+        "type": "TransactionStarted"
     },
     {
-        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "name": "Model1.0.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -151,8 +151,8 @@
     },
     {
         "result": null,
+        "name": "Model1.0.disposeOnDeactivate.dispose",
         "errorMessage": null,
-        "action": "Model1.0.disposeOnDeactivate.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -161,25 +161,25 @@
         ]
     },
     {
-        "computed": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ComputedValueDisposed"
     },
     {
-        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "name": "Model1.0.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Model1.0.disposeOnDeactivate",
+        "name": "Model1.0.disposeOnDeactivate",
         "type": "ObservableValueChanged",
         "value": null
     },
     {
         "result": null,
+        "name": "Model1.0.disposeOnDeactivate.dispose",
         "errorMessage": null,
-        "action": "Model1.0.disposeOnDeactivate.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -188,7 +188,7 @@
         ]
     },
     {
-        "action": "Model1.0.disposeOnDeactivate.dispose",
+        "name": "Model1.0.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
@@ -196,8 +196,8 @@
     },
     {
         "result": null,
+        "name": "Model1.0.disposeOnDeactivate.dispose",
         "errorMessage": null,
-        "action": "Model1.0.disposeOnDeactivate.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -206,21 +206,21 @@
         ]
     },
     {
-        "action": "Model1.0.isDisposed.dispose",
+        "name": "Model1.0.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStarted",
         "parameters": [
         ]
     },
     {
-        "observable": "Model1.0.isDisposed",
+        "name": "Model1.0.isDisposed",
         "type": "ObservableValueChanged",
         "value": false
     },
     {
         "result": null,
+        "name": "Model1.0.isDisposed.dispose",
         "errorMessage": null,
-        "action": "Model1.0.isDisposed.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -229,19 +229,19 @@
         ]
     },
     {
-        "observable": "Model1.0.isDisposed",
+        "name": "Model1.0.isDisposed",
         "type": "ObservableValueDisposed"
     },
     {
         "mutation": true,
+        "name": "Model1.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted",
-        "transaction": "Model1.0.dispose"
+        "type": "TransactionCompleted"
     },
     {
         "result": null,
+        "name": "Model1.0.dispose",
         "errorMessage": null,
-        "action": "Model1.0.dispose",
         "tracked": false,
         "returnsResult": false,
         "normalCompletion": true,
@@ -250,11 +250,11 @@
         ]
     },
     {
-        "component": "Model1.0",
+        "name": "Model1.0",
         "type": "ComponentDisposeCompleted"
     },
     {
-        "observer": "Observer@1",
+        "name": "Observer@1",
         "type": "ObserverDisposed"
     }
 ]

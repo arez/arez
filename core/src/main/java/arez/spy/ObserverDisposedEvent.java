@@ -31,6 +31,6 @@ public final class ObserverDisposedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ObserverDisposed" );
-    map.put( "observer", getObserver().getName() );
+    map.put( "name", getObserver().getName() );
   }
 }

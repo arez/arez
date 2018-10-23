@@ -34,7 +34,7 @@ public class ActionCompletedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ActionCompleted" );
-    assertEquals( data.get( "action" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "tracked" ), tracked );
     assertEquals( data.get( "parameters" ), parameters );
     assertEquals( data.get( "duration" ), duration );
@@ -70,7 +70,7 @@ public class ActionCompletedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ActionCompleted" );
-    assertEquals( data.get( "action" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "tracked" ), tracked );
     assertEquals( data.get( "parameters" ), parameters );
     assertEquals( data.get( "duration" ), duration );

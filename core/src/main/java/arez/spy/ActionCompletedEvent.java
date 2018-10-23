@@ -94,7 +94,7 @@ public final class ActionCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ActionCompleted" );
-    map.put( "action", getName() );
+    map.put( "name", getName() );
     map.put( "tracked", isTracked() );
     map.put( "duration", getDuration() );
     final Throwable throwable = getThrowable();

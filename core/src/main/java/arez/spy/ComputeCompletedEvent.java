@@ -39,7 +39,7 @@ public final class ComputeCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComputeCompleted" );
-    map.put( "computed", getComputedValue().getName() );
+    map.put( "name", getComputedValue().getName() );
     map.put( "duration", getDuration() );
   }
 }

@@ -31,6 +31,6 @@ public final class ComputeStartedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComputeStarted" );
-    map.put( "computed", getComputedValue().getName() );
+    map.put( "name", getComputedValue().getName() );
   }
 }

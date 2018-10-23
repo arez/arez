@@ -24,7 +24,7 @@ public class TransactionStartedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "TransactionStarted" );
-    assertEquals( data.get( "transaction" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "mutation" ), mutation );
     assertEquals( data.get( "tracker" ), tracker );
     assertEquals( data.size(), 4 );

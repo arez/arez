@@ -25,7 +25,7 @@ public class ObservableValueCreatedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ObservableValueCreated" );
-    assertEquals( data.get( "observable" ), "Foo@1" );
+    assertEquals( data.get( "name" ), "Foo@1" );
     assertEquals( data.size(), 2 );
   }
 }

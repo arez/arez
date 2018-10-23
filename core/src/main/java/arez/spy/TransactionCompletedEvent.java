@@ -59,7 +59,7 @@ public final class TransactionCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "TransactionCompleted" );
-    map.put( "transaction", getName() );
+    map.put( "name", getName() );
     map.put( "mutation", isMutation() );
     final ObserverInfo tracker = getTracker();
     map.put( "tracker", null == tracker ? null : tracker.getName() );

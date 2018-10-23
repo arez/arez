@@ -25,7 +25,7 @@ public class ComponentCreateStartedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ComponentCreateStarted" );
-    assertEquals( data.get( "component" ), "Foo@1" );
+    assertEquals( data.get( "name" ), "Foo@1" );
     assertEquals( data.size(), 2 );
   }
 }

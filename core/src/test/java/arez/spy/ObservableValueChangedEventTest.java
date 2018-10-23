@@ -28,7 +28,7 @@ public class ObservableValueChangedEventTest
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "ObservableValueChanged" );
-    assertEquals( data.get( "observable" ), name );
+    assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "value" ), value );
     assertEquals( data.size(), 3 );
   }

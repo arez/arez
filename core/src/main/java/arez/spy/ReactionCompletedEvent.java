@@ -39,7 +39,7 @@ public final class ReactionCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ReactionCompleted" );
-    map.put( "observer", getObserver().getName() );
+    map.put( "name", getObserver().getName() );
     map.put( "duration", getDuration() );
   }
 }

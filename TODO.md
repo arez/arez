@@ -6,8 +6,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Use `name` in spy messages rather than collection of different keys
-
 * Add ability for `@Action` annotated methods and `@Observe` annotated methods to NOT report their result value.
 
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
