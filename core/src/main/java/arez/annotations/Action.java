@@ -41,7 +41,7 @@ public @interface Action
   boolean mutation() default true;
 
   /**
-   * Return true if the parameters should be reported to the core Arez runtime.
+   * Return true if the parameters should be reported to the Arez spy subsystem.
    * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
    *
    * @return true to report the parameters, false otherwise.
