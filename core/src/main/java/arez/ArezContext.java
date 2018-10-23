@@ -1826,7 +1826,14 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, expectResult, result );
+        final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
+        reportActionCompleted( name,
+                               parameters,
+                               observed,
+                               null,
+                               startedAt,
+                               expectResult,
+                               noReportResults ? null : result );
       }
       return result;
     }
@@ -1893,7 +1900,14 @@ public final class ArezContext
       if ( willPropagateSpyEvents() && generateActionEvents )
       {
         completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, expectResult, result );
+        final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
+        reportActionCompleted( name,
+                               parameters,
+                               observed,
+                               null,
+                               startedAt,
+                               expectResult,
+                               noReportResults ? null : result );
       }
       return result;
     }

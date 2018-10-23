@@ -179,6 +179,10 @@ public final class Flags
    */
   private static final int ENVIRONMENT_MASK = ENVIRONMENT_REQUIRED | ENVIRONMENT_NOT_REQUIRED;
   /**
+   * The flag can be passed to actions or observers to force the action to not report result to spy infrastructure.
+   */
+  public static final int NO_REPORT_RESULT = 1 << 12;
+  /**
    * Mask that identifies the bits associated with static configuration.
    */
   static final int CONFIG_FLAGS_MASK =
@@ -190,11 +194,6 @@ public final class Flags
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK |
     ENVIRONMENT_MASK;
-  /**
-   * Flag is currently unused.
-   */
-  @SuppressWarnings( { "unused", "WeakerAccess" } )
-  public static final int UNUSED1 = 1 << 12;
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
@@ -227,7 +226,7 @@ public final class Flags
    * Mask containing flags that can be applied to an action.
    */
   static final int ACTION_FLAGS_MASK =
-    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK;
+    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK | NO_REPORT_RESULT;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChanged}.
    */

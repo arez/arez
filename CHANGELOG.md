@@ -6,6 +6,9 @@
   exceed the size of an integer.
 * **\[core\]** In spy events, change the key used to identify the source of the event from source specific
   string (i.e. `computed`, `observable`, `observer`, etc.) to use a generic key `name`.
+* **\[core\]** Add flag `Flags.NO_REPORT_RESULT` that can be passed to `ArezContext.action(...)` and
+  `ArezContext.safeAction(...)` methods that will result in the return value from the action (if any) not
+  being specified in the `ActionCompletedEvent` spy event.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

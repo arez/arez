@@ -550,6 +550,55 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_NO_REPORT_RESULT()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<?> observableValue = context.observable();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.action( () -> {
+      observableValue.reportObserved();
+
+      return ValueUtil.randomString();
+    }, Flags.NO_REPORT_RESULT );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertNull( e.getResult() ) );
+  }
+
+  @Test
+  public void safeAction_NO_REPORT_RESULT()
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<?> observableValue = context.observable();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.safeAction( () -> {
+      observableValue.reportObserved();
+
+      return ValueUtil.randomString();
+    }, Flags.NO_REPORT_RESULT );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertNull( e.getResult() ) );
+  }
+
+  @Test
   public void action_function_throwsException()
   {
     final ArezContext context = Arez.context();
