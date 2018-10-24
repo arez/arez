@@ -2333,6 +2333,7 @@ public final class ArezContext
              observer.areArezDependenciesRequired() ? Flags.AREZ_DEPENDENCIES : Flags.AREZ_OR_NO_DEPENDENCIES :
              0 ) |
            ( observer.isEnvironmentRequired() ? Flags.ENVIRONMENT_REQUIRED : Flags.ENVIRONMENT_NOT_REQUIRED ) |
+           ( Arez.areSpiesEnabled() && observer.noReportResults() ? Flags.NO_REPORT_RESULT : 0 ) |
            ( Arez.shouldEnforceTransactionType() ? ( observer.isMutation() ? Flags.READ_WRITE : Flags.READ_ONLY ) : 0 );
   }
 

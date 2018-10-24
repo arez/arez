@@ -193,7 +193,8 @@ public final class Flags
     RUN_TYPE_MASK |
     SCHEDULE_TYPE_MASK |
     PRIORITY_MASK |
-    ENVIRONMENT_MASK;
+    ENVIRONMENT_MASK |
+    NO_REPORT_RESULT;
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */

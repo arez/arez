@@ -1138,6 +1138,37 @@ public class ArezContextTest
   }
 
   @Test
+  public void observe_NO_REPORT_RESULT()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer =
+      context.tracker( callCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES | Flags.NO_REPORT_RESULT );
+
+    assertTrue( observer.noReportResults() );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final int result = context.observe( observer, () -> 23 );
+
+    assertEquals( result, 23 );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
+      assertTrue( e.returnsResult() );
+      assertNull( e.getResult() );
+    } );
+  }
+
+  @Test
   public void observe_environment_Required()
     throws Throwable
   {
