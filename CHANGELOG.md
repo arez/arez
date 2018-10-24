@@ -11,6 +11,8 @@
   (if any) from the action or observed function, not being specified in the `ActionCompletedEvent` spy event.
 * **\[core\]** Add the `reportResult` parameter to the `@Action` annotation so that the underlying actions
   can be passed the `Flags.NO_REPORT_RESULT` flag.
+* **\[core\]** Add the `reportResult` parameter to the `@Observe` annotation so that the underlying observers
+  can be passed the `Flags.NO_REPORT_RESULT` flag.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

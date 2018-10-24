@@ -280,6 +280,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.LowestPriorityTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.LowPriorityTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.NoReportParametersModel", false, false, false },
+        new Object[]{ "com.example.observed.NoReportResultModel", false, false, false },
         new Object[]{ "com.example.observed.ObserveLowerPriorityTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.ProtectedAccessTrackedModel", false, false, false },
         new Object[]{ "com.example.observed.TrackedAllTypesModel", false, false, false },
@@ -602,6 +603,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observed.ObservedStaticModel", "@Observe target must not be static" },
         new Object[]{ "com.example.observed.ObservedThrowsExceptionModel",
                       "@Observe target must not throw any exceptions" },
+        new Object[]{ "com.example.observed.ReportResultArezExecutorModel",
+                      "@Observe target must not specify reportResult parameter when executor=AREZ" },
         new Object[]{ "com.example.observed.ReportParametersArezExecutorModel",
                       "@Observe target must not specify reportParameters parameter when executor=AREZ" },
 
