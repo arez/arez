@@ -1826,7 +1826,14 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, expectResult, result );
+        final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
+        reportActionCompleted( name,
+                               parameters,
+                               observed,
+                               null,
+                               startedAt,
+                               expectResult,
+                               noReportResults ? null : result );
       }
       return result;
     }
@@ -1893,7 +1900,14 @@ public final class ArezContext
       if ( willPropagateSpyEvents() && generateActionEvents )
       {
         completed = true;
-        reportActionCompleted( name, parameters, observed, null, startedAt, expectResult, result );
+        final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
+        reportActionCompleted( name,
+                               parameters,
+                               observed,
+                               null,
+                               startedAt,
+                               expectResult,
+                               noReportResults ? null : result );
       }
       return result;
     }
@@ -2319,6 +2333,7 @@ public final class ArezContext
              observer.areArezDependenciesRequired() ? Flags.AREZ_DEPENDENCIES : Flags.AREZ_OR_NO_DEPENDENCIES :
              0 ) |
            ( observer.isEnvironmentRequired() ? Flags.ENVIRONMENT_REQUIRED : Flags.ENVIRONMENT_NOT_REQUIRED ) |
+           ( Arez.areSpiesEnabled() && observer.noReportResults() ? Flags.NO_REPORT_RESULT : 0 ) |
            ( Arez.shouldEnforceTransactionType() ? ( observer.isMutation() ? Flags.READ_WRITE : Flags.READ_ONLY ) : 0 );
   }
 

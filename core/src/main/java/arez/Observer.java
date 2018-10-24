@@ -278,6 +278,12 @@ public final class Observer
     return 0 != ( _flags & Flags.ENVIRONMENT_REQUIRED );
   }
 
+  boolean noReportResults()
+  {
+    assert Arez.areSpiesEnabled();
+    return 0 != ( _flags & Flags.NO_REPORT_RESULT );
+  }
+
   boolean isComputedValue()
   {
     return null != _computedValue;

@@ -550,6 +550,55 @@ public class ArezContextTest
   }
 
   @Test
+  public void action_NO_REPORT_RESULT()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<?> observableValue = context.observable();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.action( () -> {
+      observableValue.reportObserved();
+
+      return ValueUtil.randomString();
+    }, Flags.NO_REPORT_RESULT );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertNull( e.getResult() ) );
+  }
+
+  @Test
+  public void safeAction_NO_REPORT_RESULT()
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<?> observableValue = context.observable();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.safeAction( () -> {
+      observableValue.reportObserved();
+
+      return ValueUtil.randomString();
+    }, Flags.NO_REPORT_RESULT );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertNull( e.getResult() ) );
+  }
+
+  @Test
   public void action_function_throwsException()
   {
     final ArezContext context = Arez.context();
@@ -671,7 +720,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_Environment_Required()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -690,7 +738,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_Environment_Not_Required()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -709,7 +756,6 @@ public class ArezContextTest
 
   @Test
   public void safeAction_Environment_Default()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -1088,6 +1134,37 @@ public class ArezContextTest
       assertEquals( e.getResult(), result );
       assertTrue( e.isTracked() );
       assertEquals( e.getParameters().length, 0 );
+    } );
+  }
+
+  @Test
+  public void observe_NO_REPORT_RESULT()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final Observer observer =
+      context.tracker( callCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES | Flags.NO_REPORT_RESULT );
+
+    assertTrue( observer.noReportResults() );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final int result = context.observe( observer, () -> 23 );
+
+    assertEquals( result, 23 );
+
+    handler.assertEventCount( 4 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class, e -> {
+      assertTrue( e.returnsResult() );
+      assertNull( e.getResult() );
     } );
   }
 
@@ -3406,7 +3483,6 @@ public class ArezContextTest
 
   @Test
   public void setEnvironment_whenEnvironmentsDisabled()
-    throws Throwable
   {
     ArezTestUtil.disableEnvironments();
 
@@ -3418,7 +3494,6 @@ public class ArezContextTest
 
   @Test
   public void safeRunInEnvironment_directNested()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -3443,7 +3518,6 @@ public class ArezContextTest
 
   @Test
   public void safeRunInEnvironment_noEnvironment()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 

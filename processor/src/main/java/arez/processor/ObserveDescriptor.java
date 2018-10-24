@@ -35,6 +35,7 @@ final class ObserveDescriptor
   private String _priority;
   private boolean _arezExecutor;
   private boolean _reportParameters;
+  private boolean _reportResult;
   private String _depType;
   private boolean _observeLowerPriorityDependencies;
   private boolean _nestedActionsAllowed;
@@ -84,6 +85,7 @@ final class ObserveDescriptor
                           @Nonnull final String priority,
                           final boolean arezExecutor,
                           final boolean reportParameters,
+                          final boolean reportResult,
                           @Nonnull final String depType,
                           final boolean observeLowerPriorityDependencies,
                           final boolean nestedActionsAllowed,
@@ -116,6 +118,11 @@ final class ObserveDescriptor
         throw new ArezProcessorException( "@Observe target must not specify reportParameters parameter " +
                                           "when executor=AREZ", method );
       }
+      if ( !reportResult )
+      {
+        throw new ArezProcessorException( "@Observe target must not specify reportResult parameter " +
+                                          "when executor=AREZ", method );
+      }
     }
 
     if ( null != _observed )
@@ -129,6 +136,7 @@ final class ObserveDescriptor
       _priority = Objects.requireNonNull( priority );
       _arezExecutor = arezExecutor;
       _reportParameters = reportParameters;
+      _reportResult = reportResult;
       _depType = Objects.requireNonNull( depType );
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _nestedActionsAllowed = nestedActionsAllowed;
@@ -286,6 +294,10 @@ final class ObserveDescriptor
     if ( _observeLowerPriorityDependencies )
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( !_reportResult )
+    {
+      flags.add( "NO_REPORT_RESULT" );
     }
     if ( _nestedActionsAllowed )
     {

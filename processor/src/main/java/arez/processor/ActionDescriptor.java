@@ -31,6 +31,7 @@ final class ActionDescriptor
   private final boolean _mutation;
   private final boolean _verifyRequired;
   private final boolean _reportParameters;
+  private final boolean _reportResult;
   @Nonnull
   private final ExecutableElement _action;
   @Nonnull
@@ -43,6 +44,7 @@ final class ActionDescriptor
                     final boolean mutation,
                     final boolean verifyRequired,
                     final boolean reportParameters,
+                    final boolean reportResult,
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
@@ -53,6 +55,7 @@ final class ActionDescriptor
     _mutation = mutation;
     _verifyRequired = verifyRequired;
     _reportParameters = reportParameters;
+    _reportResult = reportResult;
     _action = Objects.requireNonNull( action );
     _actionType = Objects.requireNonNull( actionType );
   }
@@ -232,6 +235,10 @@ final class ActionDescriptor
     else
     {
       flags.add( "NO_VERIFY_ACTION_REQUIRED" );
+    }
+    if ( !_reportResult )
+    {
+      flags.add( "NO_REPORT_RESULT" );
     }
 
     expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );

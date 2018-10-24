@@ -502,6 +502,7 @@ final class ComponentDescriptor
     final boolean requireNewTransaction = getAnnotationParameter( annotation, "requireNewTransaction" );
     final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
+    final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
       new ActionDescriptor( this,
@@ -511,6 +512,7 @@ final class ComponentDescriptor
                             mutation,
                             verifyRequired,
                             reportParameters,
+                            reportResult,
                             method,
                             methodType );
     _actions.put( action.getName(), action );
@@ -554,6 +556,7 @@ final class ComponentDescriptor
     final boolean nestedActionsAllowed = getAnnotationParameter( annotation, "nestedActionsAllowed" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
+    final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final VariableElement executor = getAnnotationParameter( annotation, "executor" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
     final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
@@ -563,6 +566,7 @@ final class ComponentDescriptor
                                 priority.getSimpleName().toString(),
                                 executor.getSimpleName().toString().equals( "AREZ" ),
                                 reportParameters,
+                                reportResult,
                                 depType.getSimpleName().toString(),
                                 observeLowerPriorityDependencies,
                                 nestedActionsAllowed,
@@ -2185,6 +2189,7 @@ final class ComponentDescriptor
         {
           observed.setObservedMethod( false,
                                       "NORMAL",
+                                      true,
                                       true,
                                       true,
                                       "AREZ",

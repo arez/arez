@@ -106,6 +106,16 @@ public @interface Observe
   boolean reportParameters() default true;
 
   /**
+   * Return true if the return value of the observed function (if any) should be reported to the Arez spy subsystem.
+   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
+   * This is only useful if the value of {@link #executor()} is set to {@link Executor#APPLICATION} as otherwise the
+   * result is not reported anyway.
+   *
+   * @return true to report the parameters, false otherwise.
+   */
+  boolean reportResult() default true;
+
+  /**
    * Enum indicating whether the Observer is derived from arez elements and/or external dependencies.
    * If set to {@link DepType#AREZ} then the arez runtime will verify that the method annotated by this
    * annotation accesses arez elements (i.e. instances of {@link arez.ObservableValue} or instances of

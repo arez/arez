@@ -211,15 +211,14 @@ public class ObserverTest
   @Test
   public void construct_with_IllegalFlags()
   {
-    final String name = ValueUtil.randomString();
-
     assertInvariantFailure( () -> new Observer( Arez.context(),
                                                 null,
-                                                name,
+                                                "MyObserver",
                                                 new CountAndObserveProcedure(),
                                                 new CountingProcedure(),
-                                                Flags.UNUSED1 ),
-                            "Arez-0207: Observer named '" + name + "' specified illegal flags: " + Flags.UNUSED1 );
+                                                Flags.REQUIRE_NEW_TRANSACTION ),
+                            "Arez-0207: Observer named 'MyObserver' specified illegal flags: " +
+                            Flags.REQUIRE_NEW_TRANSACTION );
   }
 
   @Test
