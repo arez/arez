@@ -11,6 +11,12 @@ complete as there is too much un-said.
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later.
 
+* Rename `Reaction*Event` spy events to be `Observer*Event` or something similar.
+
+* Consider removing `normalCOmpletion` from `ActionCompletedEvent`
+
+* Consider adding additional details to `ReactionCompletedEvent` much like is in `ActionCompletedEvent`
+
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
