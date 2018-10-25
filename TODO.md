@@ -15,6 +15,8 @@ complete as there is too much un-said.
 
 * Consider adding additional details to `ReactionCompletedEvent` much like is in `ActionCompletedEvent`
 
+* Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ReactionCompletedEvent`
+
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
