@@ -1,4 +1,4 @@
-package com.example.observer_ref;
+package com.example.deprecated;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_RefOnObservedModel2 extends RefOnObservedModel2 implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_DeprecatedObserveModel2 extends DeprecatedObserveModel2 implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -33,14 +33,15 @@ public final class Arez_RefOnObservedModel2 extends RefOnObservedModel2 implemen
   @Nonnull
   private final Observer $$arez$$_render;
 
-  public Arez_RefOnObservedModel2() {
+  @SuppressWarnings("deprecation")
+  public Arez_DeprecatedObserveModel2() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RefOnObservedModel2", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DeprecatedObserveModel2", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_NOT_REQUIRED );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -60,7 +61,7 @@ public final class Arez_RefOnObservedModel2 extends RefOnObservedModel2 implemen
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RefOnObservedModel2'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'DeprecatedObserveModel2'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -80,9 +81,9 @@ public final class Arez_RefOnObservedModel2 extends RefOnObservedModel2 implemen
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RefOnObservedModel2'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'DeprecatedObserveModel2'" );
     }
-    return "RefOnObservedModel2." + $$arezi$$_id();
+    return "DeprecatedObserveModel2." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -119,25 +120,17 @@ public final class Arez_RefOnObservedModel2 extends RefOnObservedModel2 implemen
   }
 
   @Override
-  public void render(final long time, final float someOtherParameter) {
+  void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     try {
-      $$arezi$$_context().safeObserve( this.$$arez$$_render, () -> super.render( time, someOtherParameter ), Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+      $$arezi$$_context().safeObserve( this.$$arez$$_render, () -> super.render(), null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
       throw new IllegalStateException( $$arez_exception$$ );
     }
-  }
-
-  @Override
-  Observer getRenderObserver() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getRenderObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
-    }
-    return $$arez$$_render;
   }
 
   @Override
@@ -154,10 +147,10 @@ public final class Arez_RefOnObservedModel2 extends RefOnObservedModel2 implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_RefOnObservedModel2) ) {
+      } else if ( null == o || !(o instanceof Arez_DeprecatedObserveModel2) ) {
         return false;
       } else {
-        final Arez_RefOnObservedModel2 that = (Arez_RefOnObservedModel2) o;
+        final Arez_DeprecatedObserveModel2 that = (Arez_DeprecatedObserveModel2) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

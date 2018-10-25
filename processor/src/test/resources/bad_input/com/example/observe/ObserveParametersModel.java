@@ -4,10 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ObservedBadNameModel2
+public abstract class ObserveParametersModel
 {
-  @Observe( name = "float" )
-  void foo()
+  @Observe
+  void doStuff( int i )
   {
   }
 }

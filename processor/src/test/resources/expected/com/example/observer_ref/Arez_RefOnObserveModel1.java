@@ -1,4 +1,4 @@
-package com.example.deprecated;
+package com.example.observer_ref;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel1 implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_RefOnObserveModel1 extends RefOnObserveModel1 implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -31,19 +31,18 @@ public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observer $$arez$$_render;
+  private final Observer $$arez$$_doStuff;
 
-  @SuppressWarnings("deprecation")
-  public Arez_DeprecatedObservedModel1() {
+  public Arez_RefOnObserveModel1() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DeprecatedObservedModel1", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RefOnObserveModel1", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_NOT_REQUIRED );
+    this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -61,7 +60,7 @@ public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'DeprecatedObservedModel1'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RefOnObserveModel1'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -81,9 +80,9 @@ public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'DeprecatedObservedModel1'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RefOnObserveModel1'" );
     }
-    return "DeprecatedObservedModel1." + $$arezi$$_id();
+    return "RefOnObserveModel1." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -110,7 +109,7 @@ public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_render.dispose();
+          this.$$arez$$_doStuff.dispose();
         } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -119,19 +118,20 @@ public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel
     }
   }
 
-  @Deprecated
   @Override
-  void render() {
+  protected void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
     }
-    try {
-      $$arezi$$_context().safeObserve( this.$$arez$$_render, () -> super.render(), null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
+    super.doStuff();
+  }
+
+  @Override
+  Observer getDoStuffObserver() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getDoStuffObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
+    return $$arez$$_doStuff;
   }
 
   @Override
@@ -148,10 +148,10 @@ public final class Arez_DeprecatedObservedModel1 extends DeprecatedObservedModel
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_DeprecatedObservedModel1) ) {
+      } else if ( null == o || !(o instanceof Arez_RefOnObserveModel1) ) {
         return false;
       } else {
-        final Arez_DeprecatedObservedModel1 that = (Arez_DeprecatedObservedModel1) o;
+        final Arez_RefOnObserveModel1 that = (Arez_RefOnObserveModel1) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

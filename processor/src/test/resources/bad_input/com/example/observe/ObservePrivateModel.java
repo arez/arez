@@ -4,8 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ObservedAbstractModel
+public abstract class ObservePrivateModel
 {
   @Observe
-  abstract void doStuff();
+  private void doStuff()
+  {
+  }
 }

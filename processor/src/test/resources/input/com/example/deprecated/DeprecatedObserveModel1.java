@@ -5,7 +5,7 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class DeprecatedObservedModel1
+public abstract class DeprecatedObserveModel1
 {
   @Observe( executor = Executor.APPLICATION )
   @Deprecated

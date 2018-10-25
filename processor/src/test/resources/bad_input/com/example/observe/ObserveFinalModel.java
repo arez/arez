@@ -4,10 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ObservedBadNameModel
+public abstract class ObserveFinalModel
 {
-  @Observe( name = "-ace" )
-  void foo()
+  @Observe
+  final void doStuff()
   {
   }
 }

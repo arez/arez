@@ -6,13 +6,13 @@ import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChanged;
 
 @ArezComponent
-public abstract class DeprecatedObservedModel3
+public abstract class DeprecatedObserveModel4
 {
-  @Deprecated
   void render()
   {
   }
 
+  @Deprecated
   @OnDepsChanged
   public void onRenderDepsChanged()
   {

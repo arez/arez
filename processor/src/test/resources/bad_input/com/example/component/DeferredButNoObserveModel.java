@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent( deferSchedule = true )
-abstract class DeferredButNoObservedModel
+abstract class DeferredButNoObserveModel
 {
   @Observable
   abstract long getField();

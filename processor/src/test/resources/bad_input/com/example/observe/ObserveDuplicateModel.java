@@ -4,10 +4,15 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ObservedPrivateModel
+public abstract class ObserveDuplicateModel
 {
+  @Observe( name = "doStuff" )
+  void foo()
+  {
+  }
+
   @Observe
-  private void doStuff()
+  void doStuff()
   {
   }
 }

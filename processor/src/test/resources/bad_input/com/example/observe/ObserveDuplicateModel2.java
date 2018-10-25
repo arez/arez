@@ -1,15 +1,19 @@
 package com.example.observe;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Computed;
 import arez.annotations.Observe;
-import java.text.ParseException;
 
 @ArezComponent
-public abstract class ObservedThrowsExceptionModel
+public abstract class ObserveDuplicateModel2
 {
-  @Observe
+  @Observe( name = "doStuff" )
+  void foo()
+  {
+  }
+
+  @Computed
   void doStuff()
-    throws ParseException
   {
   }
 }

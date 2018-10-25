@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_RefOnObserveModel2 extends RefOnObserveModel2 implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -31,18 +31,18 @@ public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implemen
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final Observer $$arez$$_doStuff;
+  private final Observer $$arez$$_render;
 
-  public Arez_RefOnObservedModel1() {
+  public Arez_RefOnObserveModel2() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RefOnObservedModel1", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RefOnObserveModel2", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
+    this.$$arez$$_render = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".render" : null, () -> super.onRenderDepsChanged(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_NOT_REQUIRED );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -60,7 +60,7 @@ public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implemen
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RefOnObservedModel1'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RefOnObserveModel2'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -80,9 +80,9 @@ public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implemen
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RefOnObservedModel1'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RefOnObserveModel2'" );
     }
-    return "RefOnObservedModel1." + $$arezi$$_id();
+    return "RefOnObserveModel2." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -109,7 +109,7 @@ public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implemen
       } else {
         $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
           this.$$arezi$$_preDispose();
-          this.$$arez$$_doStuff.dispose();
+          this.$$arez$$_render.dispose();
         } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() ) {
@@ -119,19 +119,25 @@ public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implemen
   }
 
   @Override
-  protected void doStuff() {
+  public void render(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'render' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    super.doStuff();
+    try {
+      $$arezi$$_context().safeObserve( this.$$arez$$_render, () -> super.render( time, someOtherParameter ), Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+    } catch( final RuntimeException | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
+    }
   }
 
   @Override
-  Observer getDoStuffObserver() {
+  Observer getRenderObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getDoStuffObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getRenderObserver' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    return $$arez$$_doStuff;
+    return $$arez$$_render;
   }
 
   @Override
@@ -148,10 +154,10 @@ public final class Arez_RefOnObservedModel1 extends RefOnObservedModel1 implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_RefOnObservedModel1) ) {
+      } else if ( null == o || !(o instanceof Arez_RefOnObserveModel2) ) {
         return false;
       } else {
-        final Arez_RefOnObservedModel1 that = (Arez_RefOnObservedModel1) o;
+        final Arez_RefOnObserveModel2 that = (Arez_RefOnObserveModel2) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

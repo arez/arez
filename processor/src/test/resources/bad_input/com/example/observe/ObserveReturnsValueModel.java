@@ -4,10 +4,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ObservedStaticModel
+public abstract class ObserveReturnsValueModel
 {
   @Observe
-  static void doStuff()
+  int doStuff()
   {
+    return 0;
   }
 }
