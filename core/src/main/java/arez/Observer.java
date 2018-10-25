@@ -2,12 +2,12 @@ package arez;
 
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
+import arez.spy.ObserveCompletedEvent;
+import arez.spy.ObserveStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
-import arez.spy.ObserveCompletedEvent;
-import arez.spy.ObserveStartedEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
