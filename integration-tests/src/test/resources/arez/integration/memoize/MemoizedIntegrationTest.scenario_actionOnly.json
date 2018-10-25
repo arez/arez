@@ -55,7 +55,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.1.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -213,7 +215,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.1.doesSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

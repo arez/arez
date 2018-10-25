@@ -124,7 +124,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "Bill Smith",
         "name": "PersonModel.0.fullName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -264,7 +266,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "Fred Smith",
         "name": "PersonModel.0.fullName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -376,7 +380,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "Fred Donaldo",
         "name": "PersonModel.0.fullName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

@@ -67,7 +67,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "Model1.0.disposeOnDeactivate",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

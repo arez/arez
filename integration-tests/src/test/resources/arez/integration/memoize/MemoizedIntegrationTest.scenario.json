@@ -71,7 +71,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -153,7 +155,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.0.doesSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -235,7 +239,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -317,7 +323,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -411,7 +419,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -431,7 +441,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.0.doesSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -451,7 +463,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -471,7 +485,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -550,7 +566,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.0.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -579,7 +597,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -599,7 +619,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -628,7 +650,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.0.doesFullSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -842,7 +866,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -862,7 +888,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -882,7 +910,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -911,7 +941,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -1209,7 +1241,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.0.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -1229,7 +1263,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -1258,7 +1294,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "PersonModel.0.doesFullSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -1423,7 +1461,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -1443,7 +1483,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -1472,7 +1514,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

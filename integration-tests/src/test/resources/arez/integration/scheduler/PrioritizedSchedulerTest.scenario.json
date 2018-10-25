@@ -151,7 +151,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": null,
         "name": "TestComponent.0.computed1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -443,7 +445,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "1",
         "name": "TestComponent.0.computed1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
