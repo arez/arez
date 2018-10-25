@@ -38,11 +38,10 @@ public class ActionCompletedEventTest
     assertEquals( data.get( "tracked" ), tracked );
     assertEquals( data.get( "parameters" ), parameters );
     assertEquals( data.get( "duration" ), duration );
-    assertEquals( data.get( "normalCompletion" ), true );
     assertNull( data.get( "errorMessage" ) );
     assertEquals( data.get( "returnsResult" ), true );
     assertEquals( data.get( "result" ), result );
-    assertEquals( data.size(), 9 );
+    assertEquals( data.size(), 8 );
   }
 
   @Test
@@ -74,10 +73,9 @@ public class ActionCompletedEventTest
     assertEquals( data.get( "tracked" ), tracked );
     assertEquals( data.get( "parameters" ), parameters );
     assertEquals( data.get( "duration" ), duration );
-    assertEquals( data.get( "normalCompletion" ), false );
     assertEquals( data.get( "errorMessage" ), "X" );
     assertEquals( data.get( "returnsResult" ), true );
     assertNull( data.get( "result" ) );
-    assertEquals( data.size(), 9 );
+    assertEquals( data.size(), 8 );
   }
 }

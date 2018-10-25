@@ -98,7 +98,6 @@ public final class ActionCompletedEvent
     map.put( "tracked", isTracked() );
     map.put( "duration", getDuration() );
     final Throwable throwable = getThrowable();
-    map.put( "normalCompletion", null == throwable );
     final String message =
       null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
     map.put( "errorMessage", message );
