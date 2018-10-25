@@ -9,8 +9,6 @@ complete as there is too much un-said.
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later.
 
-* Rename `Reaction*Event` spy events to be `Observer*Event` or something similar.
-
 * Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
 
 * Consider adding additional details to `ComputeCompletedEvent` much like is in `ActionCompletedEvent`. Also
