@@ -6,7 +6,7 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public abstract class CustomNameRefOnObservedModel1
+public abstract class CustomNameRefOnObserveModel1
 {
   @Observe
   protected void doStuff()

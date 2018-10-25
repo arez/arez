@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_CustomNameRefOnObservedModel1 extends CustomNameRefOnObservedModel1 implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_CustomNameRefOnObserveModel1 extends CustomNameRefOnObserveModel1 implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -33,14 +33,14 @@ public final class Arez_CustomNameRefOnObservedModel1 extends CustomNameRefOnObs
   @Nonnull
   private final Observer $$arez$$_doStuff;
 
-  public Arez_CustomNameRefOnObservedModel1() {
+  public Arez_CustomNameRefOnObserveModel1() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CustomNameRefOnObservedModel1", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "CustomNameRefOnObserveModel1", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -60,7 +60,7 @@ public final class Arez_CustomNameRefOnObservedModel1 extends CustomNameRefOnObs
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'CustomNameRefOnObservedModel1'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'CustomNameRefOnObserveModel1'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -80,9 +80,9 @@ public final class Arez_CustomNameRefOnObservedModel1 extends CustomNameRefOnObs
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'CustomNameRefOnObservedModel1'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'CustomNameRefOnObserveModel1'" );
     }
-    return "CustomNameRefOnObservedModel1." + $$arezi$$_id();
+    return "CustomNameRefOnObserveModel1." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -148,10 +148,10 @@ public final class Arez_CustomNameRefOnObservedModel1 extends CustomNameRefOnObs
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_CustomNameRefOnObservedModel1) ) {
+      } else if ( null == o || !(o instanceof Arez_CustomNameRefOnObserveModel1) ) {
         return false;
       } else {
-        final Arez_CustomNameRefOnObservedModel1 that = (Arez_CustomNameRefOnObservedModel1) o;
+        final Arez_CustomNameRefOnObserveModel1 that = (Arez_CustomNameRefOnObserveModel1) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

@@ -6,7 +6,7 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ComputedAndObservedMethodModel
+public abstract class ComputedAndObserveMethodModel
 {
   @Computed
   @Observe( executor = Executor.APPLICATION )
