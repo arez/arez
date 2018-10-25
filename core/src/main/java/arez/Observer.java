@@ -683,7 +683,11 @@ public final class Observer
         final long duration = System.currentTimeMillis() - start;
         if ( isComputedValue() )
         {
-          reportSpyEvent( new ComputeCompletedEvent( getComputedValue().asInfo(), (int) duration ) );
+          final ComputedValue<?> computedValue = getComputedValue();
+          reportSpyEvent( new ComputeCompletedEvent( computedValue.asInfo(),
+                                                     computedValue.getValue(),
+                                                     computedValue.getError(),
+                                                     (int) duration ) );
         }
         else
         {

@@ -58,7 +58,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": 21,
         "name": "Model2.0.someValue",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -116,7 +118,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": true,
         "name": "Model2.0.disposeOnDeactivate",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

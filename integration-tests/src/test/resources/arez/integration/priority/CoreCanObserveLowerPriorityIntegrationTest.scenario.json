@@ -67,7 +67,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": 42,
         "name": "ComputedValue@1",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -157,7 +159,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": 84,
         "name": "ComputedValue@2",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -172,7 +176,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": 126,
         "name": "ComputedValue@3",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -187,7 +193,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": 168,
         "name": "ComputedValue@4",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

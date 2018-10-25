@@ -63,7 +63,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": false,
         "name": "PersonModel.2.doesFullSearchMatch.0",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {

@@ -1241,22 +1241,28 @@ public class ObserverTest
 
     context.getSpy().addSpyEventHandler( handler );
 
-    computedValue.getObserver().invokeReaction();
+    Arez.context().safeAction( () -> computedValue.getObserver().invokeReaction(), Flags.NO_VERIFY_ACTION_REQUIRED );
 
-    handler.assertEventCount( 6 );
+    handler.assertEventCount( 10 );
 
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
     handler.assertNextEvent( ComputeStartedEvent.class,
                              e -> assertEquals( e.getComputedValue().getName(), computedValue.getName() ) );
     handler.assertNextEvent( TransactionStartedEvent.class );
     handler.assertNextEvent( ObservableValueChangedEvent.class,
                              e -> assertEquals( e.getObservableValue().getName(),
                                                 computedValue.getObservableValue().getName() ) );
-    handler.assertNextEvent( ComputedValueDeactivatedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ComputeCompletedEvent.class, event -> {
       assertEquals( event.getComputedValue().getName(), computedValue.getName() );
+      assertEquals( event.getResult(), 1 );
+      assertNull( event.getThrowable() );
       assertTrue( event.getDuration() >= 0 );
     } );
+    handler.assertNextEvent( ComputedValueDeactivatedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
   }
 
   @Test

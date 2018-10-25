@@ -75,7 +75,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "com.example.MyType",
         "name": "CodeModel.0.qualifiedName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -166,7 +168,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "com.biz.Fred",
         "name": "CodeModel.0.qualifiedName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -278,7 +282,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "com.example.MyType",
         "name": "CodeModel.0.qualifiedName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
@@ -390,7 +396,9 @@
         "type": "TransactionCompleted"
     },
     {
+        "result": "com.example.MyType2",
         "name": "CodeModel.0.qualifiedName",
+        "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
