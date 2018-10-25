@@ -21,6 +21,9 @@ complete as there is too much un-said.
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
+* Consider `@Computed` == `@Memoize` but with no parameters. Would need to make `@ComputedValueRef` annotated
+  methods take parameters if paired with memoized method that accepts parameters.
+
 * Rename `@Computed` to `@Computable`, `ComputedValue` to `ComputableValue` and
   `ArezContext.computed(...)` to `ArezContext.computable(...)` ????? or perhaps `@Compute` instead.
 
