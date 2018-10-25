@@ -17,8 +17,6 @@ complete as there is too much un-said.
 
 * Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ReactionCompletedEvent`
 
-* Rename the `observed` packages and classes in processor tests to `observe`
-
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
