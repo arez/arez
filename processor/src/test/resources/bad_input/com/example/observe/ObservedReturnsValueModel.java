@@ -1,13 +1,14 @@
-package com.example.observed;
+package com.example.observe;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class ObservedPublicModel
+public abstract class ObservedReturnsValueModel
 {
   @Observe
-  public void doStuff()
+  int doStuff()
   {
+    return 0;
   }
 }

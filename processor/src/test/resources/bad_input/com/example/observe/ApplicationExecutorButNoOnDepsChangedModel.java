@@ -1,4 +1,4 @@
-package com.example.observed;
+package com.example.observe;
 
 import arez.Observer;
 import arez.annotations.ArezComponent;
