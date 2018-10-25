@@ -13,6 +13,12 @@ complete as there is too much un-said.
 
 * Consider adding additional details to `ReactionCompletedEvent` much like is in `ActionCompletedEvent`
 
+* Consider adding additional details to `ComputeCompletedEvent` much like is in `ActionCompletedEvent`. Also
+  add the ability to elide the results in spy events to avoid clogging up spy events.
+
+* Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
+  channel and when not.
+
 * Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ReactionCompletedEvent`
 
 * Investigate simplifying types via
