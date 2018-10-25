@@ -1,4 +1,4 @@
-package arez.doc.examples.observed;
+package arez.doc.examples.observe;
 
 import arez.Arez;
 import arez.Flags;

@@ -38,11 +38,11 @@ the [@Observe](at_observe.md) annotation.
 
 An example of a basic observer:
 
-{@file_content: file=arez/doc/examples/observed/ObserverExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observe/ObserverExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an observer that is explicitly named and uses a read-write transaction:
 
-{@file_content: file=arez/doc/examples/observed/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observe/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
 A "tracker" observer is created with a `onDepsChanged` hook function but no `observed` function. i.e. A
 tracker observer uses an application executor. Using a tracker observer is a little more complex within Arez.
