@@ -11,8 +11,6 @@ complete as there is too much un-said.
 
 * Rename `Reaction*Event` spy events to be `Observer*Event` or something similar.
 
-* Consider removing `normalCOmpletion` from `ActionCompletedEvent`
-
 * Consider adding additional details to `ReactionCompletedEvent` much like is in `ActionCompletedEvent`
 
 * Investigate simplifying types via

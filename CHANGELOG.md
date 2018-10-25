@@ -13,6 +13,8 @@
   can be passed the `Flags.NO_REPORT_RESULT` flag.
 * **\[core\]** Add the `reportResult` parameter to the `@Observe` annotation so that the underlying observers
   can be passed the `Flags.NO_REPORT_RESULT` flag.
+* **\[core\]** Remove the `normalCompletion` parameter when serializing the `ActionCompleted` spy event
+  as it is completely derivable based on the presence of the `errorMessage` parameter.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

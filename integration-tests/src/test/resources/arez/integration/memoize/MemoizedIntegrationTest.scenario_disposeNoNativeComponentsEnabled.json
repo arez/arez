@@ -82,7 +82,6 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -117,7 +116,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -142,7 +140,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -173,7 +170,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -191,7 +187,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -202,7 +197,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -225,7 +219,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -252,7 +245,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -273,7 +265,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -311,7 +302,6 @@
         "errorMessage": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.2'",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]

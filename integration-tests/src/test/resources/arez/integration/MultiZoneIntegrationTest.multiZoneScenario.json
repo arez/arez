@@ -77,7 +77,6 @@
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -129,7 +128,6 @@
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -181,7 +179,6 @@
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -233,7 +230,6 @@
         "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "tracked": true,
         "returnsResult": false,
-        "normalCompletion": false,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -278,7 +274,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -313,7 +308,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
@@ -348,7 +342,6 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "normalCompletion": true,
         "type": "ActionCompleted",
         "parameters": [
         ]
