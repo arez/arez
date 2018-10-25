@@ -11,7 +11,6 @@ public class SpyUtilTest
 {
   @Test
   public void getNestingDelta()
-    throws Throwable
   {
     assertEquals( SpyUtil.getNestingDelta( Object.class ), SpyUtil.NestingDelta.UNKNOWN );
     assertEquals( SpyUtil.getNestingDelta( TransactionStartedEvent.class ), SpyUtil.NestingDelta.INCREASE );

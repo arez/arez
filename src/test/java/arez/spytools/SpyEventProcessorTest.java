@@ -48,7 +48,6 @@ public class SpyEventProcessorTest
 
   @Test
   public void handleUnhandledEvent()
-    throws Throwable
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
     final TransactionStartedEvent event =
@@ -61,7 +60,6 @@ public class SpyEventProcessorTest
 
   @Test
   public void increaseNesting()
-    throws Throwable
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
     final TransactionStartedEvent event =
@@ -91,7 +89,6 @@ public class SpyEventProcessorTest
 
   @Test
   public void decreaseNesting()
-    throws Throwable
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
     final TransactionCompletedEvent event =
@@ -124,7 +121,6 @@ public class SpyEventProcessorTest
 
   @Test
   public void maintainNesting()
-    throws Throwable
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
 
@@ -158,7 +154,6 @@ public class SpyEventProcessorTest
 
   @Test
   public void onFailsOnDuplicates()
-    throws Throwable
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
 
