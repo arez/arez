@@ -15,12 +15,12 @@ import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObservableValueDisposedEvent;
+import arez.spy.ObserveCompletedEvent;
+import arez.spy.ObserveScheduledEvent;
+import arez.spy.ObserveStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverErrorEvent;
-import arez.spy.ReactionCompletedEvent;
-import arez.spy.ReactionScheduledEvent;
-import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import javax.annotation.Nonnull;
@@ -61,7 +61,7 @@ public final class SpyUtil
   {
     if ( ComponentCreateStartedEvent.class == type ||
          ComponentDisposeStartedEvent.class == type ||
-         ReactionStartedEvent.class == type ||
+         ObserveStartedEvent.class == type ||
          TransactionStartedEvent.class == type ||
          ComputeStartedEvent.class == type ||
          ActionStartedEvent.class == type )
@@ -70,7 +70,7 @@ public final class SpyUtil
     }
     else if ( ComponentCreateCompletedEvent.class == type ||
               ComponentDisposeCompletedEvent.class == type ||
-              ReactionCompletedEvent.class == type ||
+              ObserveCompletedEvent.class == type ||
               TransactionCompletedEvent.class == type ||
               ComputeCompletedEvent.class == type ||
               ActionCompletedEvent.class == type )
@@ -87,7 +87,7 @@ public final class SpyUtil
               ComputedValueDeactivatedEvent.class == type ||
               ComputedValueCreatedEvent.class == type ||
               ComputedValueDisposedEvent.class == type ||
-              ReactionScheduledEvent.class == type )
+              ObserveScheduledEvent.class == type )
     {
       return NestingDelta.NONE;
     }

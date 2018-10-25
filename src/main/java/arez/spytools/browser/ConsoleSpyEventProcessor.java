@@ -16,12 +16,12 @@ import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObservableValueDisposedEvent;
+import arez.spy.ObserveCompletedEvent;
+import arez.spy.ObserveScheduledEvent;
+import arez.spy.ObserveStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverErrorEvent;
-import arez.spy.ReactionCompletedEvent;
-import arez.spy.ReactionScheduledEvent;
-import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import arez.spytools.AbstractSpyEventProcessor;
@@ -89,9 +89,9 @@ public class ConsoleSpyEventProcessor
     on( ComputedValueDeactivatedEvent.class, this::onComputedValueDeactivated );
     on( ComputedValueDisposedEvent.class, this::onComputedValueDisposed );
 
-    on( ReactionScheduledEvent.class, this::onReactionScheduled );
-    on( ReactionStartedEvent.class, this::onReactionStarted );
-    on( ReactionCompletedEvent.class, this::onReactionCompleted );
+    on( ObserveScheduledEvent.class, this::onObserveScheduled );
+    on( ObserveStartedEvent.class, this::onObserveStarted );
+    on( ObserveCompletedEvent.class, this::onObserveCompleted );
 
     on( TransactionStartedEvent.class, this::TransactionStarted );
     on( TransactionCompletedEvent.class, this::onTransactionCompleted );
@@ -294,37 +294,37 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the ReactionScheduledEvent.
+   * Handle the ObserveScheduledEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onReactionScheduled( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ReactionScheduledEvent e )
+  protected void onObserveScheduled( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveScheduledEvent e )
   {
-    log( d, "%cReaction Scheduled " + e.getObserver().getName(), REACTION_SCHEDULED_COLOR );
+    log( d, "%cObserve Scheduled " + e.getObserver().getName(), REACTION_SCHEDULED_COLOR );
   }
 
   /**
-   * Handle the ReactionStartedEvent.
+   * Handle the ObserveStartedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onReactionStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ReactionStartedEvent e )
+  protected void onObserveStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveStartedEvent e )
   {
-    log( d, "%cReaction Started " + e.getObserver().getName(), REACTION_COLOR );
+    log( d, "%cObserve Started " + e.getObserver().getName(), REACTION_COLOR );
   }
 
   /**
-   * Handle the ReactionCompletedEvent.
+   * Handle the ObserveCompletedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onReactionCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ReactionCompletedEvent e )
+  protected void onObserveCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveCompletedEvent e )
   {
     log( d,
-         "%cReaction Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]",
+         "%cObserve Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]",
          REACTION_COLOR );
   }
 
