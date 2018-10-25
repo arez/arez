@@ -22,11 +22,11 @@
     },
     {
         "name": "AR1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "AR1",
@@ -88,7 +88,7 @@
     },
     {
         "name": "AR1",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "AR4",
@@ -96,11 +96,11 @@
     },
     {
         "name": "AR4",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR4",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "AR4",
@@ -208,7 +208,7 @@
     },
     {
         "name": "AR4",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "AR3",
@@ -216,11 +216,11 @@
     },
     {
         "name": "AR3",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR3",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "AR3",
@@ -253,6 +253,6 @@
     },
     {
         "name": "AR3",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

@@ -6,11 +6,11 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TransportType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TransportType",
@@ -51,7 +51,7 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "ResolvedType",
@@ -59,11 +59,11 @@
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ResolvedType",
@@ -104,7 +104,7 @@
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.setOtherID",
@@ -127,11 +127,11 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -152,7 +152,7 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TransportType",
@@ -193,11 +193,11 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ResolvedType",
@@ -238,6 +238,6 @@
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

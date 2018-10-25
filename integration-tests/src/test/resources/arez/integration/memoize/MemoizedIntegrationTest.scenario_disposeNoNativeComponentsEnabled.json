@@ -14,11 +14,11 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -88,7 +88,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.2.dispose",
@@ -162,7 +162,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "result": null,
@@ -271,7 +271,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -314,6 +314,6 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

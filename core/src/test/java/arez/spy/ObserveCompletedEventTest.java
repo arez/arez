@@ -9,7 +9,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ReactionCompletedEventTest
+public class ObserveCompletedEventTest
   extends AbstractArezTest
 {
   @Test
@@ -20,7 +20,7 @@ public class ReactionCompletedEventTest
     final Observer observer = context.tracker( name, ValueUtil::randomString );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
     final int duration = 23;
-    final ReactionCompletedEvent event = new ReactionCompletedEvent( info, duration );
+    final ObserveCompletedEvent event = new ObserveCompletedEvent( info, duration );
 
     assertEquals( event.getObserver(), info );
     assertEquals( event.getDuration(), duration );
@@ -28,7 +28,7 @@ public class ReactionCompletedEventTest
     final HashMap<String, Object> data = new HashMap<>();
     event.toMap( data );
 
-    assertEquals( data.get( "type" ), "ReactionCompleted" );
+    assertEquals( data.get( "type" ), "ObserveCompleted" );
     assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "duration" ), duration );
     assertEquals( data.size(), 3 );

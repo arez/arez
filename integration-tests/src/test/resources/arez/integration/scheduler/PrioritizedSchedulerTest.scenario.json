@@ -34,7 +34,7 @@
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer1b",
@@ -42,7 +42,7 @@
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer2a",
@@ -50,7 +50,7 @@
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer2b",
@@ -58,7 +58,7 @@
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer3a",
@@ -66,7 +66,7 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer3b",
@@ -74,7 +74,7 @@
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0",
@@ -82,7 +82,7 @@
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer1a",
@@ -115,11 +115,11 @@
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer1b",
@@ -172,11 +172,11 @@
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer2a",
@@ -209,11 +209,11 @@
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer2b",
@@ -246,11 +246,11 @@
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer3a",
@@ -283,11 +283,11 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer3b",
@@ -320,7 +320,7 @@
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@1",
@@ -342,19 +342,19 @@
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -374,7 +374,7 @@
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer1a",
@@ -407,7 +407,7 @@
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.computed1",
@@ -426,15 +426,15 @@
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -448,7 +448,7 @@
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer1b",
@@ -481,11 +481,11 @@
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer2a",
@@ -518,11 +518,11 @@
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer2b",
@@ -555,11 +555,11 @@
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer3a",
@@ -592,11 +592,11 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer3b",
@@ -629,7 +629,7 @@
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@2",
@@ -651,11 +651,11 @@
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -675,7 +675,7 @@
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer2a",
@@ -708,11 +708,11 @@
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer3a",
@@ -745,7 +745,7 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@3",
@@ -767,7 +767,7 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -787,7 +787,7 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent.0.observer3a",
@@ -820,7 +820,7 @@
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "TestComponent.0",

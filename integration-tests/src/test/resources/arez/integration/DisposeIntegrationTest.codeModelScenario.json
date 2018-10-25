@@ -30,11 +30,11 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -100,7 +100,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Specific Qualified Name",
@@ -122,7 +122,7 @@
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -157,7 +157,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -171,7 +171,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -212,7 +212,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Reset Qualified Name to default",
@@ -234,7 +234,7 @@
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -269,7 +269,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -283,7 +283,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -324,7 +324,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Change Local Name",
@@ -346,7 +346,7 @@
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -381,7 +381,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -395,7 +395,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -436,7 +436,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Printer.dispose",

@@ -26,11 +26,11 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FirstNamePrinter",
@@ -71,7 +71,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "FullNamePrinter",
@@ -79,11 +79,11 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter",
@@ -149,7 +149,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "First Name Update",
@@ -171,11 +171,11 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.fullName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -195,7 +195,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FirstNamePrinter",
@@ -236,7 +236,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.fullName",
@@ -255,7 +255,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -269,7 +269,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter",
@@ -310,7 +310,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Last Name Update",
@@ -332,7 +332,7 @@
     },
     {
         "name": "PersonModel.fullName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -367,7 +367,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -381,7 +381,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter",
@@ -422,6 +422,6 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

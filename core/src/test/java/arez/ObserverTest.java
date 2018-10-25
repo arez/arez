@@ -7,13 +7,13 @@ import arez.spy.ComputeStartedEvent;
 import arez.spy.ComputedValueDeactivatedEvent;
 import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObserveCompletedEvent;
+import arez.spy.ObserveScheduledEvent;
+import arez.spy.ObserveStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
-import arez.spy.ReactionCompletedEvent;
-import arez.spy.ReactionScheduledEvent;
-import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
@@ -1211,15 +1211,15 @@ public class ObserverTest
 
     handler.assertNextEvent( ObserverCreatedEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
-    handler.assertNextEvent( ReactionStartedEvent.class,
+    handler.assertNextEvent( ObserveStartedEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
     handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
     handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
     handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
-    handler.assertNextEvent( ReactionCompletedEvent.class, e -> {
+    handler.assertNextEvent( ObserveCompletedEvent.class, e -> {
       assertEquals( e.getObserver().getName(), observer.getName() );
       assertTrue( e.getDuration() > 0 );
     } );

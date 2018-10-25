@@ -9,11 +9,15 @@ complete as there is too much un-said.
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later.
 
-* Rename `Reaction*Event` spy events to be `Observer*Event` or something similar.
+* Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
 
-* Consider adding additional details to `ReactionCompletedEvent` much like is in `ActionCompletedEvent`
+* Consider adding additional details to `ComputeCompletedEvent` much like is in `ActionCompletedEvent`. Also
+  add the ability to elide the results in spy events to avoid clogging up spy events.
 
-* Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ReactionCompletedEvent`
+* Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
+  channel and when not.
+
+* Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ObserveCompletedEvent`
 
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`

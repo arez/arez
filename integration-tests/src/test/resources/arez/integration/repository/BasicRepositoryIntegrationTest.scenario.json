@@ -6,11 +6,11 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ComponentCount",
@@ -47,7 +47,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value",
@@ -82,7 +82,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -92,7 +92,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ComponentCount",
@@ -129,7 +129,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Value Update",
@@ -257,7 +257,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -277,7 +277,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ComponentCount",
@@ -314,7 +314,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy",
@@ -408,7 +408,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -428,7 +428,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ComponentCount",
@@ -465,6 +465,6 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

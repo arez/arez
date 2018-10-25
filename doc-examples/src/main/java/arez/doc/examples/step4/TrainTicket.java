@@ -2,9 +2,9 @@ package arez.doc.examples.step4;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Observe;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
+import arez.annotations.Observe;
 
 @ArezComponent
 public abstract class TrainTicket

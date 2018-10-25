@@ -22,11 +22,11 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -96,7 +96,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - ill",
@@ -104,11 +104,11 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - ill",
@@ -178,7 +178,7 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -186,11 +186,11 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -260,7 +260,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -268,11 +268,11 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -342,7 +342,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Update 0",
@@ -364,19 +364,19 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -494,19 +494,19 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -541,7 +541,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -570,7 +570,7 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -619,7 +619,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -633,7 +633,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -674,11 +674,11 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - ill",
@@ -719,11 +719,11 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -764,7 +764,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Update 2",
@@ -786,19 +786,19 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -833,7 +833,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -902,7 +902,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -916,7 +916,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -957,11 +957,11 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1002,7 +1002,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - ill.dispose",
@@ -1157,15 +1157,15 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -1200,7 +1200,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -1249,7 +1249,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -1263,7 +1263,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -1304,11 +1304,11 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1349,7 +1349,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Update 3",
@@ -1371,15 +1371,15 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -1414,7 +1414,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -1463,7 +1463,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -1477,7 +1477,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -1518,11 +1518,11 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1563,7 +1563,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.0",
@@ -1617,7 +1617,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "result": null,
@@ -1681,7 +1681,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "result": null,
@@ -1745,7 +1745,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "result": null,
@@ -1844,7 +1844,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -1881,11 +1881,11 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -1922,11 +1922,11 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1963,7 +1963,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.0",

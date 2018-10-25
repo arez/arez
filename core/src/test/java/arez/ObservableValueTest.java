@@ -8,9 +8,9 @@ import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.ObservableValueInfo;
+import arez.spy.ObserveScheduledEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
-import arez.spy.ReactionScheduledEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.util.ArrayList;
@@ -250,7 +250,7 @@ public class ObservableValueTest
                              event -> assertEquals( event.getName(), observableValue.getName() + ".dispose" ) );
     handler.assertNextEvent( ObservableValueChangedEvent.class,
                              event -> assertEquals( event.getObservableValue().getName(), observableValue.getName() ) );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( TransactionCompletedEvent.class,
                              event -> assertEquals( event.getName(), observableValue.getName() + ".dispose" ) );
@@ -297,7 +297,7 @@ public class ObservableValueTest
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
     handler.assertNextEvent( ObservableValueChangedEvent.class );
-    handler.assertNextEvent( ReactionScheduledEvent.class );
+    handler.assertNextEvent( ObserveScheduledEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
 
@@ -1388,7 +1388,7 @@ public class ObservableValueTest
       assertNull( event.getValue() );
     } );
 
-    handler.assertNextEvent( ReactionScheduledEvent.class );
+    handler.assertNextEvent( ObserveScheduledEvent.class );
   }
 
   @Test
@@ -1452,7 +1452,7 @@ public class ObservableValueTest
       assertEquals( event.getObservableValue().getName(), observableValue.getName() );
       assertNull( event.getValue() );
     } );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
@@ -1488,7 +1488,7 @@ public class ObservableValueTest
     handler.assertNextEvent( ObservableValueChangedEvent.class,
                              e -> assertEquals( e.getObservableValue().getName(), observableValue.getName() ) );
 
-    handler.assertNextEvent( ReactionScheduledEvent.class );
+    handler.assertNextEvent( ObserveScheduledEvent.class );
     handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( ObservableValueChangedEvent.class );
   }
@@ -1586,7 +1586,7 @@ public class ObservableValueTest
       assertNull( event.getValue() );
     } );
 
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
@@ -1628,7 +1628,7 @@ public class ObservableValueTest
       assertEquals( event.getValue(), expectedValue );
     } );
 
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
@@ -1667,7 +1667,7 @@ public class ObservableValueTest
     handler.assertEventCount( 4 );
     handler.assertNextEvent( ObservableValueChangedEvent.class,
                              e -> assertEquals( e.getObservableValue().getName(), observableValue.getName() ) );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ObservableValueChangedEvent.class,
                              e -> assertEquals( e.getObservableValue().getName(), observableValue.getName() ) );
