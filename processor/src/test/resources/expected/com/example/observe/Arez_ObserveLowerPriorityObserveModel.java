@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NormalPriorityObservedModel extends NormalPriorityObservedModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityObserveModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -33,16 +33,16 @@ public final class Arez_NormalPriorityObservedModel extends NormalPriorityObserv
   @Nonnull
   private final Observer $$arez$$_doStuff;
 
-  public Arez_NormalPriorityObservedModel() {
+  public Arez_ObserveLowerPriorityObserveModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "NormalPriorityObservedModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ObserveLowerPriorityObserveModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
+    this.$$arez$$_doStuff = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff(), Flags.RUN_LATER | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -60,7 +60,7 @@ public final class Arez_NormalPriorityObservedModel extends NormalPriorityObserv
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'NormalPriorityObservedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'ObserveLowerPriorityObserveModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -80,9 +80,9 @@ public final class Arez_NormalPriorityObservedModel extends NormalPriorityObserv
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'NormalPriorityObservedModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'ObserveLowerPriorityObserveModel'" );
     }
-    return "NormalPriorityObservedModel." + $$arezi$$_id();
+    return "ObserveLowerPriorityObserveModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -140,10 +140,10 @@ public final class Arez_NormalPriorityObservedModel extends NormalPriorityObserv
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_NormalPriorityObservedModel) ) {
+      } else if ( null == o || !(o instanceof Arez_ObserveLowerPriorityObserveModel) ) {
         return false;
       } else {
-        final Arez_NormalPriorityObservedModel that = (Arez_NormalPriorityObservedModel) o;
+        final Arez_ObserveLowerPriorityObserveModel that = (Arez_ObserveLowerPriorityObserveModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

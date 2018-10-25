@@ -5,9 +5,9 @@ import arez.annotations.Observe;
 import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class HighestPriorityObservedModel
+public abstract class HighPriorityObserveModel
 {
-  @Observe( priority = Priority.HIGHEST )
+  @Observe( priority = Priority.HIGH )
   protected void doStuff()
   {
   }

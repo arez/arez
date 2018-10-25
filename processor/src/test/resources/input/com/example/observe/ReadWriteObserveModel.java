@@ -2,12 +2,11 @@ package com.example.observe;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
-import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class LowestPriorityObservedModel
+public abstract class ReadWriteObserveModel
 {
-  @Observe( priority = Priority.LOWEST )
+  @Observe( mutation = true )
   protected void doStuff()
   {
   }
