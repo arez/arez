@@ -11,7 +11,7 @@ import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
-import arez.spy.ReactionCompletedEvent;
+import arez.spy.ObserveCompletedEvent;
 import arez.spy.ReactionScheduledEvent;
 import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
@@ -1219,7 +1219,7 @@ public class ObserverTest
     handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
     handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
     handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
-    handler.assertNextEvent( ReactionCompletedEvent.class, e -> {
+    handler.assertNextEvent( ObserveCompletedEvent.class, e -> {
       assertEquals( e.getObserver().getName(), observer.getName() );
       assertTrue( e.getDuration() > 0 );
     } );

@@ -13,7 +13,7 @@ import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
-import arez.spy.ReactionCompletedEvent;
+import arez.spy.ObserveCompletedEvent;
 import arez.spy.ReactionScheduledEvent;
 import arez.spy.ReactionStartedEvent;
 import arez.spy.TransactionCompletedEvent;
@@ -2653,7 +2653,7 @@ public class ArezContextTest
     handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), name ) );
     handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), name ) );
     handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), name ) );
-    handler.assertNextEvent( ReactionCompletedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
+    handler.assertNextEvent( ObserveCompletedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
   }
 
   @Test

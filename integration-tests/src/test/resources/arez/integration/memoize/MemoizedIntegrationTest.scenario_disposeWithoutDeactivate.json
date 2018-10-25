@@ -96,7 +96,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.3",
@@ -292,7 +292,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.3",

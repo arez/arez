@@ -6,7 +6,7 @@ import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
-import arez.spy.ReactionCompletedEvent;
+import arez.spy.ObserveCompletedEvent;
 import arez.spy.ReactionStartedEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -687,7 +687,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ReactionCompletedEvent( asInfo(), (int) duration ) );
+          reportSpyEvent( new ObserveCompletedEvent( asInfo(), (int) duration ) );
         }
       }
     }

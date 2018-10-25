@@ -88,7 +88,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.2.dispose",
@@ -314,6 +314,6 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

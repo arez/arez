@@ -47,7 +47,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "BasicRepositoryIntegrationTest_TestComponentRepository.create_id_value",
@@ -129,7 +129,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Value Update",
@@ -314,7 +314,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "BasicRepositoryIntegrationTest_TestComponentRepository.destroy",
@@ -465,6 +465,6 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

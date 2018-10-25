@@ -454,7 +454,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@3",
@@ -503,7 +503,7 @@
     },
     {
         "name": "Observer@3",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@5",
@@ -552,7 +552,7 @@
     },
     {
         "name": "Observer@5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@7",
@@ -626,7 +626,7 @@
     },
     {
         "name": "Observer@7",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@9",
@@ -700,7 +700,7 @@
     },
     {
         "name": "Observer@9",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@11",
@@ -774,7 +774,7 @@
     },
     {
         "name": "Observer@11",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@13",
@@ -923,7 +923,7 @@
     },
     {
         "name": "Observer@13",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@15",
@@ -972,7 +972,7 @@
     },
     {
         "name": "Observer@15",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@17",
@@ -1021,7 +1021,7 @@
     },
     {
         "name": "Observer@17",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@19",
@@ -1070,7 +1070,7 @@
     },
     {
         "name": "Observer@19",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@21",
@@ -1144,7 +1144,7 @@
     },
     {
         "name": "Observer@21",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@23",
@@ -1218,7 +1218,7 @@
     },
     {
         "name": "Observer@23",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@25",
@@ -1342,7 +1342,7 @@
     },
     {
         "name": "Observer@25",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@27",
@@ -1391,7 +1391,7 @@
     },
     {
         "name": "Observer@27",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@29",
@@ -1440,7 +1440,7 @@
     },
     {
         "name": "Observer@29",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@31",
@@ -1514,7 +1514,7 @@
     },
     {
         "name": "Observer@31",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@33",
@@ -1588,7 +1588,7 @@
     },
     {
         "name": "Observer@33",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@35",
@@ -1687,7 +1687,7 @@
     },
     {
         "name": "Observer@35",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@37",
@@ -1736,7 +1736,7 @@
     },
     {
         "name": "Observer@37",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@39",
@@ -1810,7 +1810,7 @@
     },
     {
         "name": "Observer@39",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@41",
@@ -2527,7 +2527,7 @@
     },
     {
         "name": "Observer@7",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@9",
@@ -2568,7 +2568,7 @@
     },
     {
         "name": "Observer@9",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@11",
@@ -2609,7 +2609,7 @@
     },
     {
         "name": "Observer@11",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@19",
@@ -2650,7 +2650,7 @@
     },
     {
         "name": "Observer@19",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@21",
@@ -2691,7 +2691,7 @@
     },
     {
         "name": "Observer@21",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@23",
@@ -2732,7 +2732,7 @@
     },
     {
         "name": "Observer@23",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@17",
@@ -2773,7 +2773,7 @@
     },
     {
         "name": "Observer@17",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@37",
@@ -2814,7 +2814,7 @@
     },
     {
         "name": "Observer@37",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@39",
@@ -2855,7 +2855,7 @@
     },
     {
         "name": "Observer@39",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@35",
@@ -2896,7 +2896,7 @@
     },
     {
         "name": "Observer@35",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@52",
@@ -3610,7 +3610,7 @@
     },
     {
         "name": "Observer@29",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@31",
@@ -3651,7 +3651,7 @@
     },
     {
         "name": "Observer@31",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@33",
@@ -3692,7 +3692,7 @@
     },
     {
         "name": "Observer@33",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@27",
@@ -3733,7 +3733,7 @@
     },
     {
         "name": "Observer@27",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@25",
@@ -3774,7 +3774,7 @@
     },
     {
         "name": "Observer@25",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@15",
@@ -3815,7 +3815,7 @@
     },
     {
         "name": "Observer@15",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@13",
@@ -3856,7 +3856,7 @@
     },
     {
         "name": "Observer@13",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@60",
@@ -4542,7 +4542,7 @@
     },
     {
         "name": "Observer@5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@3",
@@ -4583,7 +4583,7 @@
     },
     {
         "name": "Observer@3",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@1",
@@ -4624,7 +4624,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@64",
@@ -5286,7 +5286,7 @@
     },
     {
         "name": "Observer@5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@3",
@@ -5327,7 +5327,7 @@
     },
     {
         "name": "Observer@3",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Observer@1",
@@ -5368,6 +5368,6 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

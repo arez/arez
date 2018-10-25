@@ -100,7 +100,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Specific Qualified Name",
@@ -212,7 +212,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Reset Qualified Name to default",
@@ -324,7 +324,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Change Local Name",
@@ -436,7 +436,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Printer.dispose",

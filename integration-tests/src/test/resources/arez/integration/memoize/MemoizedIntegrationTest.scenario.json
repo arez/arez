@@ -96,7 +96,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - ill",
@@ -178,7 +178,7 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -260,7 +260,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -342,7 +342,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Update 0",
@@ -674,7 +674,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - ill",
@@ -719,7 +719,7 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -764,7 +764,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Update 2",
@@ -957,7 +957,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1002,7 +1002,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - ill.dispose",
@@ -1304,7 +1304,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1349,7 +1349,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Update 3",
@@ -1518,7 +1518,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1563,7 +1563,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.0",
@@ -1881,7 +1881,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -1922,7 +1922,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1963,7 +1963,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.0",

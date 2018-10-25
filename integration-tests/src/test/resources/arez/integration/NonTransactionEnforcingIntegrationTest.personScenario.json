@@ -71,7 +71,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "FullNamePrinter",
@@ -149,7 +149,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "First Name Update",
@@ -236,7 +236,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "PersonModel.0.fullName",
@@ -310,7 +310,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Last Name Update",
@@ -422,6 +422,6 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

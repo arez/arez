@@ -137,7 +137,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "MyAction",
@@ -229,7 +229,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model2.0",
@@ -449,6 +449,6 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

@@ -88,7 +88,7 @@
     },
     {
         "name": "AR1",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "AR4",
@@ -208,7 +208,7 @@
     },
     {
         "name": "AR4",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "AR3",
@@ -253,6 +253,6 @@
     },
     {
         "name": "AR3",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

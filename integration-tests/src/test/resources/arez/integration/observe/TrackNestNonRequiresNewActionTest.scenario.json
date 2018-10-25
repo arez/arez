@@ -110,6 +110,6 @@
     },
     {
         "name": "TestComponent1.0.render",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

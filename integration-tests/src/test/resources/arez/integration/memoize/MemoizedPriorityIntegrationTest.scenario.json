@@ -134,7 +134,7 @@
     },
     {
         "name": "search2(b)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search2.1",
@@ -240,7 +240,7 @@
     },
     {
         "name": "search3(b)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search3.1",
@@ -346,7 +346,7 @@
     },
     {
         "name": "search1(b)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search1.1",
@@ -792,7 +792,7 @@
     },
     {
         "name": "search2(blue)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search2.2",
@@ -898,7 +898,7 @@
     },
     {
         "name": "search3(blue)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search3.2",
@@ -1004,7 +1004,7 @@
     },
     {
         "name": "search1(blue)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search1.2",
@@ -1200,7 +1200,7 @@
     },
     {
         "name": "search2(r)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search3.0",
@@ -1306,7 +1306,7 @@
     },
     {
         "name": "search3(r)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search1.0",
@@ -1412,7 +1412,7 @@
     },
     {
         "name": "search1(r)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Action@5",
@@ -1548,7 +1548,7 @@
     },
     {
         "name": "search2(b)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search2.1",
@@ -1614,7 +1614,7 @@
     },
     {
         "name": "search2(blue)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search2.2",
@@ -1680,7 +1680,7 @@
     },
     {
         "name": "search2(r)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search3.0",
@@ -1746,7 +1746,7 @@
     },
     {
         "name": "search3(b)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search3.1",
@@ -1812,7 +1812,7 @@
     },
     {
         "name": "search3(blue)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search3.2",
@@ -1878,7 +1878,7 @@
     },
     {
         "name": "search3(r)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search1.0",
@@ -1944,7 +1944,7 @@
     },
     {
         "name": "search1(b)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search1.1",
@@ -2010,7 +2010,7 @@
     },
     {
         "name": "search1(blue)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     },
     {
         "name": "Model.0.search1.2",
@@ -2076,6 +2076,6 @@
     },
     {
         "name": "search1(r)",
-        "type": "ReactionCompleted"
+        "type": "ObserveCompleted"
     }
 ]

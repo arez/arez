@@ -15,6 +15,7 @@
   can be passed the `Flags.NO_REPORT_RESULT` flag.
 * **\[core\]** Remove the `normalCompletion` parameter when serializing the `ActionCompleted` spy event
   as it is completely derivable based on the presence of the `errorMessage` parameter.
+* **\[core\]** Rename the spy event from `ReactionCompletedEvent` to `ObserveCompletedEvent`.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)
