@@ -18,7 +18,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Observer@1",
@@ -81,7 +81,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -160,7 +160,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,

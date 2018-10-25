@@ -26,7 +26,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FirstNamePrinter",
@@ -79,7 +79,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FullNamePrinter",
@@ -171,11 +171,11 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "PersonModel.fullName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -255,7 +255,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,
@@ -332,7 +332,7 @@
     },
     {
         "name": "PersonModel.fullName",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -367,7 +367,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": false,

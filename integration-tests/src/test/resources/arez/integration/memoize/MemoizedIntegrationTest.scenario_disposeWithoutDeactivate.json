@@ -22,7 +22,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "SearchResult - red - 20",
@@ -150,7 +150,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "result": null,

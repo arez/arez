@@ -6,7 +6,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "ComponentCount",
@@ -82,7 +82,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -257,7 +257,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -408,7 +408,7 @@
     },
     {
         "name": "ComponentCount",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,

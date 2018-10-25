@@ -7,7 +7,7 @@ import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
-import arez.spy.ReactionScheduledEvent;
+import arez.spy.ObserveScheduledEvent;
 import arez.spy.Spy;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -960,7 +960,7 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ReactionScheduledEvent( observer.asInfo() ) );
+      getSpy().reportSpyEvent( new ObserveScheduledEvent( observer.asInfo() ) );
     }
     if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {

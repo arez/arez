@@ -46,7 +46,7 @@
     },
     {
         "name": "FirstNamePrinter1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FirstNamePrinter1",
@@ -97,7 +97,7 @@
     },
     {
         "name": "FirstNamePrinter2",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FirstNamePrinter2",
@@ -148,7 +148,7 @@
     },
     {
         "name": "FullNamePrinter1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FullNamePrinter1",
@@ -199,7 +199,7 @@
     },
     {
         "name": "FullNamePrinter2",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "FullNamePrinter2",

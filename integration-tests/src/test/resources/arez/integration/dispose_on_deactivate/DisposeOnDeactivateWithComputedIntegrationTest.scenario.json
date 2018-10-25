@@ -30,7 +30,7 @@
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Model2.0",
@@ -71,7 +71,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Model3.0",
@@ -159,11 +159,11 @@
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,
@@ -205,7 +205,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Model2.0.disposeOnDeactivate",

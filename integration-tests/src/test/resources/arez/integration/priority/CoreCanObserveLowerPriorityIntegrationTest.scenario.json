@@ -22,7 +22,7 @@
     },
     {
         "name": "AR1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR1",
@@ -96,7 +96,7 @@
     },
     {
         "name": "AR4",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR4",
@@ -216,7 +216,7 @@
     },
     {
         "name": "AR3",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR3",

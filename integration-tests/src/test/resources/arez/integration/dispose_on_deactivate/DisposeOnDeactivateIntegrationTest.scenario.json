@@ -22,7 +22,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Observer@1",

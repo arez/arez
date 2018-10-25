@@ -5,15 +5,15 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * Notification when reaction scheduled.
+ * Notification when on observe is scheduled.
  */
-public final class ReactionScheduledEvent
+public final class ObserveScheduledEvent
   implements SerializableEvent
 {
   @Nonnull
   private final ObserverInfo _observer;
 
-  public ReactionScheduledEvent( @Nonnull final ObserverInfo observer )
+  public ObserveScheduledEvent( @Nonnull final ObserverInfo observer )
   {
     _observer = Objects.requireNonNull( observer );
   }
@@ -30,7 +30,7 @@ public final class ReactionScheduledEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", "ReactionScheduled" );
+    map.put( "type", "ObserveScheduled" );
     map.put( "name", getObserver().getName() );
   }
 }

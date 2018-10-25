@@ -6,7 +6,7 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "TransportType",
@@ -59,7 +59,7 @@
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "ResolvedType",
@@ -127,11 +127,11 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "mutation": true,

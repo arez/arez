@@ -14,7 +14,7 @@ import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ObserveCompletedEvent;
-import arez.spy.ReactionScheduledEvent;
+import arez.spy.ObserveScheduledEvent;
 import arez.spy.ObserveStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
@@ -2250,7 +2250,7 @@ public class ArezContextTest
     assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
 
     handler.assertEventCount( 1 );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              event -> assertEquals( event.getObserver().getName(), observer.getName() ) );
   }
 
@@ -2612,7 +2612,7 @@ public class ArezContextTest
     handler.assertEventCount( 8 );
 
     handler.assertNextEvent( ObserverCreatedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
-    handler.assertNextEvent( ReactionScheduledEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
+    handler.assertNextEvent( ObserveScheduledEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
     assertObserverReaction( handler, name );
   }
 
@@ -2727,7 +2727,7 @@ public class ArezContextTest
     handler.assertEventCount( 2 );
     handler.assertNextEvent( ObserverCreatedEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 
@@ -2832,7 +2832,7 @@ public class ArezContextTest
 
     handler.assertNextEvent( ObserverCreatedEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
-    handler.assertNextEvent( ReactionScheduledEvent.class,
+    handler.assertNextEvent( ObserveScheduledEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
   }
 

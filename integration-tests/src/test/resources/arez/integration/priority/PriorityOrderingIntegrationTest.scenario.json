@@ -6,7 +6,7 @@
     },
     {
         "name": "AR1",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR2",
@@ -14,7 +14,7 @@
     },
     {
         "name": "AR2",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR3",
@@ -22,7 +22,7 @@
     },
     {
         "name": "AR3",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR4",
@@ -30,7 +30,7 @@
     },
     {
         "name": "AR4",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR5",
@@ -38,7 +38,7 @@
     },
     {
         "name": "AR5",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR6",
@@ -46,7 +46,7 @@
     },
     {
         "name": "AR6",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "AR7",
@@ -54,7 +54,7 @@
     },
     {
         "name": "AR7",
-        "type": "ReactionScheduled"
+        "type": "ObserveScheduled"
     },
     {
         "name": "Action@2",

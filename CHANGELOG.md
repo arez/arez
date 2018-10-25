@@ -17,6 +17,7 @@
   as it is completely derivable based on the presence of the `errorMessage` parameter.
 * **\[core\]** Rename the spy event from `ReactionStartedEvent` to `ObserveStartedEvent`.
 * **\[core\]** Rename the spy event from `ReactionCompletedEvent` to `ObserveCompletedEvent`.
+* **\[core\]** Rename the spy event from `ReactionObserveScheduled` to `ObserveScheduledEvent`.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)
