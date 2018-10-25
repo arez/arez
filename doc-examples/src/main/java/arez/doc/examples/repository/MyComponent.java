@@ -2,7 +2,6 @@ package arez.doc.examples.repository;
 
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
-import arez.annotations.Repository;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
