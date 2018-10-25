@@ -15,7 +15,7 @@ import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.ObserveCompletedEvent;
 import arez.spy.ReactionScheduledEvent;
-import arez.spy.ReactionStartedEvent;
+import arez.spy.ObserveStartedEvent;
 import arez.spy.TransactionCompletedEvent;
 import arez.spy.TransactionStartedEvent;
 import java.io.IOException;
@@ -2648,7 +2648,7 @@ public class ArezContextTest
 
   private void assertObserverReaction( @Nonnull final TestSpyEventHandler handler, @Nonnull final String name )
   {
-    handler.assertNextEvent( ReactionStartedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
+    handler.assertNextEvent( ObserveStartedEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
     handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), name ) );
     handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), name ) );
     handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), name ) );

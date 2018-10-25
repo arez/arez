@@ -101,7 +101,7 @@
     },
     {
         "name": "search2(b)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search2(b)",
@@ -207,7 +207,7 @@
     },
     {
         "name": "search3(b)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search3(b)",
@@ -313,7 +313,7 @@
     },
     {
         "name": "search1(b)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search1(b)",
@@ -759,7 +759,7 @@
     },
     {
         "name": "search2(blue)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search2(blue)",
@@ -865,7 +865,7 @@
     },
     {
         "name": "search3(blue)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search3(blue)",
@@ -971,7 +971,7 @@
     },
     {
         "name": "search1(blue)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search1(blue)",
@@ -1167,7 +1167,7 @@
     },
     {
         "name": "search2(r)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search2(r)",
@@ -1273,7 +1273,7 @@
     },
     {
         "name": "search3(r)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search3(r)",
@@ -1379,7 +1379,7 @@
     },
     {
         "name": "search1(r)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search1(r)",
@@ -1515,7 +1515,7 @@
     },
     {
         "name": "search2(b)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search2(b)",
@@ -1581,7 +1581,7 @@
     },
     {
         "name": "search2(blue)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search2(blue)",
@@ -1647,7 +1647,7 @@
     },
     {
         "name": "search2(r)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search2(r)",
@@ -1713,7 +1713,7 @@
     },
     {
         "name": "search3(b)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search3(b)",
@@ -1779,7 +1779,7 @@
     },
     {
         "name": "search3(blue)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search3(blue)",
@@ -1845,7 +1845,7 @@
     },
     {
         "name": "search3(r)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search3(r)",
@@ -1911,7 +1911,7 @@
     },
     {
         "name": "search1(b)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search1(b)",
@@ -1977,7 +1977,7 @@
     },
     {
         "name": "search1(blue)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search1(blue)",
@@ -2043,7 +2043,7 @@
     },
     {
         "name": "search1(r)",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "search1(r)",

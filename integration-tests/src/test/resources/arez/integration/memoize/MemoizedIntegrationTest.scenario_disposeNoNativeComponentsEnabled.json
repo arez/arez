@@ -18,7 +18,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -271,7 +271,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",

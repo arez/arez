@@ -22,7 +22,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Observer@1",
@@ -101,7 +101,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Observer@1",
@@ -180,7 +180,7 @@
     },
     {
         "name": "Observer@1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Observer@1",

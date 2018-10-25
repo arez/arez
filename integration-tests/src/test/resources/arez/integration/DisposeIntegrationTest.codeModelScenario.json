@@ -34,7 +34,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -171,7 +171,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -283,7 +283,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",
@@ -395,7 +395,7 @@
     },
     {
         "name": "Printer",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Printer",

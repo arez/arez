@@ -79,7 +79,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Model3.0.myAutorun",
@@ -183,7 +183,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Model3.0.myAutorun",
@@ -416,7 +416,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "Model3.0.myAutorun",

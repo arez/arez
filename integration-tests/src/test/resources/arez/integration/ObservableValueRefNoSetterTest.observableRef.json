@@ -10,7 +10,7 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TransportType",
@@ -63,7 +63,7 @@
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ResolvedType",
@@ -152,7 +152,7 @@
     },
     {
         "name": "TransportType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TransportType",
@@ -197,7 +197,7 @@
     },
     {
         "name": "ResolvedType",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "ResolvedType",

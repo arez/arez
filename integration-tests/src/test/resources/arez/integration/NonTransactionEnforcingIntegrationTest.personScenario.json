@@ -30,7 +30,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FirstNamePrinter",
@@ -83,7 +83,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter",
@@ -195,7 +195,7 @@
     },
     {
         "name": "FirstNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FirstNamePrinter",
@@ -269,7 +269,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter",
@@ -381,7 +381,7 @@
     },
     {
         "name": "FullNamePrinter",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter",

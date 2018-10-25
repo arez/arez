@@ -152,7 +152,7 @@
     },
     {
         "name": "TestComponent1.0.render",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "TestComponent1.0.render",

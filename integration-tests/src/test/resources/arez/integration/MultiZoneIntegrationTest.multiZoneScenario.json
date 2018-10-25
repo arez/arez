@@ -50,7 +50,7 @@
     },
     {
         "name": "FirstNamePrinter1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FirstNamePrinter1",
@@ -101,7 +101,7 @@
     },
     {
         "name": "FirstNamePrinter2",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FirstNamePrinter2",
@@ -152,7 +152,7 @@
     },
     {
         "name": "FullNamePrinter1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter1",
@@ -203,7 +203,7 @@
     },
     {
         "name": "FullNamePrinter2",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "FullNamePrinter2",

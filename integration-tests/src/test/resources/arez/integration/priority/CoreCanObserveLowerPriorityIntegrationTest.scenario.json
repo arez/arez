@@ -26,7 +26,7 @@
     },
     {
         "name": "AR1",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "AR1",
@@ -100,7 +100,7 @@
     },
     {
         "name": "AR4",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "AR4",
@@ -220,7 +220,7 @@
     },
     {
         "name": "AR3",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "AR3",

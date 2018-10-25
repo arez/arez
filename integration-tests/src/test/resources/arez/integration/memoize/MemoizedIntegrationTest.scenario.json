@@ -26,7 +26,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -108,7 +108,7 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - ill",
@@ -190,7 +190,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -272,7 +272,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -633,7 +633,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -678,7 +678,7 @@
     },
     {
         "name": "SearchResult - ill",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - ill",
@@ -723,7 +723,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -916,7 +916,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -961,7 +961,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1263,7 +1263,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -1308,7 +1308,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1477,7 +1477,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -1522,7 +1522,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
@@ -1844,7 +1844,7 @@
     },
     {
         "name": "SearchResult - red",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red",
@@ -1885,7 +1885,7 @@
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 20",
@@ -1926,7 +1926,7 @@
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ReactionStarted"
+        "type": "ObserveStarted"
     },
     {
         "name": "SearchResult - red - 5",
