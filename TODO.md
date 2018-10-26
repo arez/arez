@@ -7,7 +7,8 @@ complete as there is too much un-said.
 ## Enhancements
 
 * `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
-  `KEEPALIVE`) and then make it "cold" again later.
+  `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
+  backed by counter and only deactivates if counter is 0 and no listeners.
 
 * Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
 
