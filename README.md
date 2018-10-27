@@ -39,8 +39,10 @@ public class MediaQueryExample
   @Override
   public void onModuleLoad()
   {
-    final MediaQuery mediaQuery = MediaQuery.create();
-    // TODO
+    final MediaQuery mediaQuery = MediaQuery.create( "(max-width: 600px)" );
+    Arez.context().observer( () ->
+                               DomGlobal.document.querySelector( "#status" ).textContent =
+                                 "Screen size Status: " + ( mediaQuery.matches() ? "Narrow" : "Wide" ) );
   }
 }
  ```
