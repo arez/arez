@@ -19,7 +19,6 @@ public abstract class AbstractTest
 
   @BeforeMethod
   protected void beforeTest()
-    throws Exception
   {
     BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
@@ -32,7 +31,6 @@ public abstract class AbstractTest
 
   @AfterMethod
   protected void afterTest()
-    throws Exception
   {
     BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
