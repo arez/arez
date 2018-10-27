@@ -15,7 +15,6 @@ public class WhenIntegrationTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final ArrayList<String> marks = new ArrayList<>();
 

@@ -106,7 +106,6 @@ public class WatcherTest
 
   @Test
   public void basicOperation_noRunImmediately()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -145,7 +144,6 @@ public class WatcherTest
 
   @Test
   public void basicOperation_highPriorityEnabled()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
@@ -231,7 +229,6 @@ public class WatcherTest
 
   @Test
   public void noNameSuppliedWhenNamesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -260,7 +257,6 @@ public class WatcherTest
 
   @Test
   public void nameSuppliedWhenNamesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableNames();
 
@@ -290,7 +286,6 @@ public class WatcherTest
 
   @Test
   public void contextSuppliedWhenZonesDisabled()
-    throws Exception
   {
     ArezTestUtil.disableZones();
 
@@ -344,14 +339,14 @@ public class WatcherTest
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( Disposable.isDisposed( watcher ), false );
-    assertEquals( Disposable.isDisposed( watcher.getObserver() ), false );
+    assertFalse( Disposable.isDisposed( watcher ) );
+    assertFalse( Disposable.isDisposed( watcher.getObserver() ) );
 
     result.set( true );
     Disposable.dispose( watcher );
 
-    assertEquals( Disposable.isDisposed( watcher ), true );
-    assertEquals( Disposable.isDisposed( watcher.getObserver() ), true );
+    assertTrue( Disposable.isDisposed( watcher ) );
+    assertTrue( Disposable.isDisposed( watcher.getObserver() ) );
 
     context.action( observable::reportChanged );
 
@@ -385,13 +380,13 @@ public class WatcherTest
 
     assertEquals( conditionRun.get(), 1 );
     assertEquals( effectRun.get(), 0 );
-    assertEquals( Disposable.isDisposed( watcher ), false );
+    assertFalse( Disposable.isDisposed( watcher ) );
 
     result.set( true );
     Disposable.dispose( watcher.getObserver() );
 
-    assertEquals( Disposable.isDisposed( watcher ), true );
-    assertEquals( Disposable.isDisposed( watcher.getObserver() ), true );
+    assertTrue( Disposable.isDisposed( watcher ) );
+    assertTrue( Disposable.isDisposed( watcher.getObserver() ) );
 
     context.action( observable::reportChanged );
 
@@ -441,9 +436,9 @@ public class WatcherTest
     assertEquals( errorCount.get(), 2 );
 
     //First error is the computed
-    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputableValue(), true );
+    assertTrue( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputableValue() );
     //Second error was the autorun that called the computed
-    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 1 ) ).isComputableValue(), false );
+    assertFalse( context.getSpy().asObserverInfo( observersErrored.get( 1 ) ).isComputableValue() );
 
     result.set( true );
 
@@ -455,12 +450,11 @@ public class WatcherTest
     assertEquals( errorCount.get(), 3 );
 
     //Next error is the computed again
-    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputableValue(), true );
+    assertTrue( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputableValue() );
   }
 
   @Test
   public void verifyEffectWhenReadOnlyTransaction()
-    throws Exception
   {
     ignoreObserverErrors();
 
@@ -493,7 +487,6 @@ public class WatcherTest
 
   @Test
   public void verifyEffectWhenReadWriteTransaction()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -524,7 +517,6 @@ public class WatcherTest
 
   @Test
   public void verifyEffectWhenNoReadWriteOccursAndAllowed()
-    throws Exception
   {
     final ArezContext context = Arez.context();
 
@@ -548,7 +540,6 @@ public class WatcherTest
 
   @Test
   public void verifyEffectWhenNoReadWriteOccursAndDisallowed()
-    throws Exception
   {
     ignoreObserverErrors();
 

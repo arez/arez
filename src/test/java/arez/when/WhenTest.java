@@ -20,7 +20,6 @@ public class WhenTest
 {
   @Test
   public void when()
-    throws Throwable
   {
     final AtomicInteger conditionRun = new AtomicInteger();
     final AtomicInteger effectRun = new AtomicInteger();
@@ -44,7 +43,6 @@ public class WhenTest
 
   @Test
   public void when_effectNoVerifyAction()
-    throws Throwable
   {
     final AtomicInteger effectRun = new AtomicInteger();
 
@@ -68,7 +66,6 @@ public class WhenTest
 
   @Test
   public void when_effectVerifyActionButNoReadsOrWrites()
-    throws Throwable
   {
     ignoreObserverErrors();
 
@@ -102,7 +99,6 @@ public class WhenTest
 
   @Test
   public void when_minimalParameters()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
     final ObservableValue observable = context.observable();
