@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.112'
+
 ### [v0.08](https://github.com/arez/arez-when/tree/v0.08) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez-when/compare/v0.07...v0.08)
 

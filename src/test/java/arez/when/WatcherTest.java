@@ -77,7 +77,7 @@ public class WatcherTest
     assertEquals( observerInfo.getPriority(), Priority.NORMAL );
 
     final ComponentInfo conditionComponentInfo =
-      context.getSpy().asComputedValueInfo( watcher.getCondition() ).getComponent();
+      context.getSpy().asComputableValueInfo( watcher.getCondition() ).getComponent();
     assertNotNull( conditionComponentInfo );
     assertEquals( conditionComponentInfo.getId(), component.getId() );
 
@@ -441,9 +441,9 @@ public class WatcherTest
     assertEquals( errorCount.get(), 2 );
 
     //First error is the computed
-    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputedValue(), true );
+    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputableValue(), true );
     //Second error was the autorun that called the computed
-    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 1 ) ).isComputedValue(), false );
+    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 1 ) ).isComputableValue(), false );
 
     result.set( true );
 
@@ -455,7 +455,7 @@ public class WatcherTest
     assertEquals( errorCount.get(), 3 );
 
     //Next error is the computed again
-    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputedValue(), true );
+    assertEquals( context.getSpy().asObserverInfo( observersErrored.get( 0 ) ).isComputableValue(), true );
   }
 
   @Test

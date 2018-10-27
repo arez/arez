@@ -3,7 +3,7 @@ package arez.when;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.Observer;
@@ -47,7 +47,7 @@ final class Watcher
    * The condition to test.
    */
   @Nonnull
-  private final ComputedValue<Boolean> _condition;
+  private final ComputableValue<Boolean> _condition;
   /**
    * The effect/action to run when condition is true.
    */
@@ -213,7 +213,7 @@ final class Watcher
   }
 
   @Nonnull
-  ComputedValue<Boolean> getCondition()
+  ComputableValue<Boolean> getCondition()
   {
     return _condition;
   }
