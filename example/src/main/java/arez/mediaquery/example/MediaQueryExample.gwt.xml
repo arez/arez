@@ -1,0 +1,9 @@
+<module>
+  <inherits name='elemental2.dom.Dom'/>
+  <inherits name='arez.ArezDebug'/>
+  <inherits name='arez.mediaquery.MediaQuery'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.mediaquery.example.MediaQueryExample'/>
+</module>
