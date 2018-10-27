@@ -30,10 +30,10 @@ public final class Observer
   @Nullable
   private final Component _component;
   /**
-   * The reference to the ComputedValue if this observer is a derivation.
+   * The reference to the ComputableValue if this observer is a derivation.
    */
   @Nullable
-  private final ComputedValue<?> _computedValue;
+  private final ComputableValue<?> _computableValue;
   /**
    * The observables that this observer receives notifications from.
    * These are the dependencies within the dependency graph and will
@@ -73,13 +73,13 @@ public final class Observer
    */
   private int _flags;
 
-  Observer( @Nonnull final ComputedValue<?> computedValue, final int flags )
+  Observer( @Nonnull final ComputableValue<?> computableValue, final int flags )
   {
-    this( Arez.areZonesEnabled() ? computedValue.getContext() : null,
+    this( Arez.areZonesEnabled() ? computableValue.getContext() : null,
           null,
-          Arez.areNamesEnabled() ? computedValue.getName() : null,
-          computedValue,
-          computedValue::compute,
+          Arez.areNamesEnabled() ? computableValue.getName() : null,
+          computableValue,
+          computableValue::compute,
           null,
           flags |
           ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? 0 : Flags.DEACTIVATE_ON_UNOBSERVE ) |
@@ -117,7 +117,7 @@ public final class Observer
   private Observer( @Nullable final ArezContext context,
                     @Nullable final Component component,
                     @Nullable final String name,
-                    @Nullable final ComputedValue<?> computedValue,
+                    @Nullable final ComputableValue<?> computableValue,
                     @Nullable final Procedure observed,
                     @Nullable final Procedure onDepsChanged,
                     final int flags )
@@ -166,8 +166,8 @@ public final class Observer
       assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observed;
       invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
-                          null != computedValue ),
-                 () -> "Arez-0208: ComputedValue named '" + getName() + "' incorrectly specified " +
+                          null != computableValue ),
+                 () -> "Arez-0208: ComputableValue named '" + getName() + "' incorrectly specified " +
                        "RUN_NOW flag but not the KEEPALIVE flag." );
       invariant( () -> Flags.isNestedActionsModeValid( flags ),
                  () -> "Arez-0209: Observer named '" + getName() + "' incorrectly specified both the " +
@@ -179,15 +179,15 @@ public final class Observer
                  () -> "Arez-0207: Observer named '" + getName() + "' specified illegal flags: " +
                        ( ~( Flags.RUNTIME_FLAGS_MASK | Flags.CONFIG_FLAGS_MASK ) & flags ) );
     }
-    assert null == computedValue || !Arez.areNamesEnabled() || computedValue.getName().equals( name );
+    assert null == computableValue || !Arez.areNamesEnabled() || computableValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
-    _computedValue = computedValue;
+    _computableValue = computableValue;
     _observed = observed;
     _onDepsChanged = onDepsChanged;
 
     executeObservedNextIfPresent();
 
-    if ( null == _computedValue )
+    if ( null == _computableValue )
     {
       if ( null != _component )
       {
@@ -198,7 +198,7 @@ public final class Observer
         getContext().registerObserver( this );
       }
     }
-    if ( null == _computedValue )
+    if ( null == _computableValue )
     {
       if ( willPropagateSpyEvents() )
       {
@@ -284,9 +284,9 @@ public final class Observer
     return 0 != ( _flags & Flags.NO_REPORT_RESULT );
   }
 
-  boolean isComputedValue()
+  boolean isComputableValue()
   {
-    return null != _computedValue;
+    return null != _computableValue;
   }
 
   /**
@@ -301,7 +301,7 @@ public final class Observer
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                this::performDispose,
                                Flags.NO_VERIFY_ACTION_REQUIRED );
-      if ( !isComputedValue() )
+      if ( !isComputableValue() )
       {
         if ( willPropagateSpyEvents() )
         {
@@ -316,9 +316,9 @@ public final class Observer
           getContext().deregisterObserver( this );
         }
       }
-      if ( null != _computedValue )
+      if ( null != _computableValue )
       {
-        _computedValue.dispose();
+        _computableValue.dispose();
       }
       markAsDisposed();
     }
@@ -474,19 +474,19 @@ public final class Observer
       {
         fail( () -> "Arez-0087: Attempted to activate disposed observer named '" + getName() + "'." );
       }
-      else if ( null == _computedValue && Flags.STATE_STALE == state )
+      else if ( null == _computableValue && Flags.STATE_STALE == state )
       {
         if ( schedule )
         {
           scheduleReaction();
         }
       }
-      else if ( null != _computedValue &&
+      else if ( null != _computableValue &&
                 Flags.STATE_UP_TO_DATE == originalState &&
                 ( Flags.STATE_STALE == state || Flags.STATE_POSSIBLY_STALE == state ) )
       {
-        _computedValue.getObservableValue().reportPossiblyChanged();
-        runHook( _computedValue.getOnStale(), ObserverError.ON_STALE_ERROR );
+        _computableValue.getObservableValue().reportPossiblyChanged();
+        runHook( _computableValue.getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
           scheduleReaction();
@@ -495,19 +495,19 @@ public final class Observer
       else if ( Flags.STATE_INACTIVE == state ||
                 ( Flags.STATE_INACTIVE != originalState && Flags.STATE_DISPOSING == state ) )
       {
-        if ( isComputedValue() )
+        if ( isComputableValue() )
         {
-          final ComputedValue<?> computedValue = getComputedValue();
-          runHook( computedValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
-          computedValue.setValue( null );
+          final ComputableValue<?> computableValue = getComputableValue();
+          runHook( computableValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
+          computableValue.setValue( null );
         }
         clearDependencies();
       }
       else if ( Flags.STATE_INACTIVE == originalState )
       {
-        if ( isComputedValue() )
+        if ( isComputableValue() )
         {
-          runHook( getComputedValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
+          runHook( getComputableValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
         }
       }
       if ( Arez.shouldCheckInvariants() )
@@ -632,9 +632,9 @@ public final class Observer
       if ( willPropagateSpyEvents() )
       {
         start = System.currentTimeMillis();
-        if ( isComputedValue() )
+        if ( isComputableValue() )
         {
-          reportSpyEvent( new ComputeStartedEvent( getComputedValue().asInfo() ) );
+          reportSpyEvent( new ComputeStartedEvent( getComputableValue().asInfo() ) );
         }
         else
         {
@@ -647,7 +647,7 @@ public final class Observer
       }
       try
       {
-        // ComputedValues may have calculated their values and thus be up to date so no need to recalculate.
+        // ComputableValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( Flags.STATE_UP_TO_DATE != getState() )
         {
           if ( shouldExecuteObservedNext() )
@@ -681,12 +681,12 @@ public final class Observer
       if ( willPropagateSpyEvents() )
       {
         final long duration = System.currentTimeMillis() - start;
-        if ( isComputedValue() )
+        if ( isComputableValue() )
         {
-          final ComputedValue<?> computedValue = getComputedValue();
-          reportSpyEvent( new ComputeCompletedEvent( computedValue.asInfo(),
-                                                     computedValue.getValue(),
-                                                     computedValue.getError(),
+          final ComputableValue<?> computableValue = getComputableValue();
+          reportSpyEvent( new ComputeCompletedEvent( computableValue.asInfo(),
+                                                     computableValue.getValue(),
+                                                     computableValue.getError(),
                                                      (int) duration ) );
         }
         else
@@ -737,12 +737,12 @@ public final class Observer
 
   /**
    * Determine if any dependency of the Observer has actually changed.
-   * If the state is POSSIBLY_STALE then recalculate any ComputedValue dependencies.
-   * If any ComputedValue dependencies actually changed then the STALE state will
+   * If the state is POSSIBLY_STALE then recalculate any ComputableValue dependencies.
+   * If any ComputableValue dependencies actually changed then the STALE state will
    * be propagated.
    *
    * <p>By iterating over the dependencies in the same order that they were reported and
-   * stopping on the first change, all the recalculations are only called for ComputedValues
+   * stopping on the first change, all the recalculations are only called for ComputableValues
    * that will be tracked by derivation. That is because we assume that if the first N
    * dependencies of the derivation doesn't change then the derivation should run the same way
    * up until accessing N-th dependency.</p>
@@ -763,18 +763,18 @@ public final class Observer
       {
         for ( final ObservableValue observableValue : getDependencies() )
         {
-          if ( observableValue.isComputedValue() )
+          if ( observableValue.isComputableValue() )
           {
             final Observer owner = observableValue.getObserver();
-            final ComputedValue computedValue = owner.getComputedValue();
+            final ComputableValue computableValue = owner.getComputableValue();
             try
             {
-              computedValue.get();
+              computableValue.get();
             }
             catch ( final Throwable ignored )
             {
             }
-            // Call to get() will update this state if ComputedValue changed
+            // Call to get() will update this state if ComputableValue changed
             if ( Flags.STATE_STALE == getState() )
             {
               return true;
@@ -862,7 +862,7 @@ public final class Observer
                                                     "' has ObservableValue dependency named '" + observable.getName() +
                                                     "' which does not contain the observer in the list of " +
                                                     "observers." ) );
-      invariantComputedValueObserverState();
+      invariantComputableValueObserverState();
     }
   }
 
@@ -878,7 +878,7 @@ public final class Observer
                                               () -> "Arez-0091: Observer named '" + getName() + "' has " +
                                                     "ObservableValue dependency named '" + observable.getName() +
                                                     "' which is disposed." ) );
-      invariantComputedValueObserverState();
+      invariantComputableValueObserverState();
     }
   }
 
@@ -895,48 +895,48 @@ public final class Observer
                    () -> "Arez-0092: Observer named '" + getName() + "' is inactive but still has dependencies: " +
                          getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "." );
       }
-      if ( null != _computedValue && _computedValue.isNotDisposed() )
+      if ( null != _computableValue && _computableValue.isNotDisposed() )
       {
-        final ObservableValue<?> observable = _computedValue.getObservableValue();
-        invariant( () -> Objects.equals( observable.isComputedValue() ? observable.getObserver() : null, this ),
+        final ObservableValue<?> observable = _computableValue.getObservableValue();
+        invariant( () -> Objects.equals( observable.isComputableValue() ? observable.getObserver() : null, this ),
                    () -> "Arez-0093: Observer named '" + getName() + "' is associated with an ObservableValue that " +
                          "does not link back to observer." );
       }
     }
   }
 
-  void invariantComputedValueObserverState()
+  void invariantComputableValueObserverState()
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      if ( isComputedValue() && isActive() && isNotDisposed() )
+      if ( isComputableValue() && isActive() && isNotDisposed() )
       {
-        invariant( () -> !getComputedValue().getObservableValue().getObservers().isEmpty() ||
+        invariant( () -> !getComputableValue().getObservableValue().getObservers().isEmpty() ||
                          Objects.equals( getContext().getTransaction().getTracker(), this ),
-                   () -> "Arez-0094: Observer named '" + getName() + "' is a ComputedValue and active but the " +
+                   () -> "Arez-0094: Observer named '" + getName() + "' is a ComputableValue and active but the " +
                          "associated ObservableValue has no observers." );
       }
     }
   }
 
   /**
-   * Return the ComputedValue for Observer.
-   * This should not be called if observer is not a derivation and will generate an invariant failure
+   * Return the ComputableValue for Observer.
+   * This should not be called if observer is not part of a ComputableValue and will generate an invariant failure
    * if invariants are enabled.
    *
-   * @return the associated ComputedValue.
+   * @return the associated ComputableValue.
    */
   @Nonnull
-  ComputedValue<?> getComputedValue()
+  ComputableValue<?> getComputableValue()
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( this::isComputedValue,
-                 () -> "Arez-0095: Attempted to invoke getComputedValue on observer named '" + getName() + "' when " +
+      invariant( this::isComputableValue,
+                 () -> "Arez-0095: Attempted to invoke getComputableValue on observer named '" + getName() + "' when " +
                        "is not a computed observer." );
     }
-    assert null != _computedValue;
-    return _computedValue;
+    assert null != _computableValue;
+    return _computableValue;
   }
 
   @Nullable

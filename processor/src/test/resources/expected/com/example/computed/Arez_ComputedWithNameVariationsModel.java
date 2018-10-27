@@ -3,7 +3,7 @@ package com.example.computed;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.ComponentState;
@@ -32,16 +32,16 @@ public final class Arez_ComputedWithNameVariationsModel extends ComputedWithName
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Long> $$arez$$_time;
+  private final ComputableValue<Long> $$arez$$_time;
 
   @Nonnull
-  private final ComputedValue<Boolean> $$arez$$_ready;
+  private final ComputableValue<Boolean> $$arez$$_ready;
 
   @Nonnull
-  private final ComputedValue<String> $$arez$$_helper;
+  private final ComputableValue<String> $$arez$$_helper;
 
   @Nonnull
-  private final ComputedValue<String> $$arez$$_foo;
+  private final ComputableValue<String> $$arez$$_foo;
 
   public Arez_ComputedWithNameVariationsModel() {
     super();

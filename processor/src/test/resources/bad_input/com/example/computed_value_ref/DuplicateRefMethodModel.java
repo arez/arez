@@ -1,5 +1,6 @@
 package com.example.computed_value_ref;
 
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
@@ -16,8 +17,8 @@ public abstract class DuplicateRefMethodModel
 
   @Nonnull
   @ComputedValueRef
-  public abstract arez.ComputedValue getTimeComputedValue();
+  public abstract ComputableValue getTimeComputableValue();
 
   @ComputedValueRef( name = "time" )
-  public abstract arez.ComputedValue getTimeComputedValue2();
+  public abstract ComputableValue getTimeComputedValue2();
 }

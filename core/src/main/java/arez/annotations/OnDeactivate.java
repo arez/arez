@@ -6,7 +6,7 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Identifies method that is called when the ComputedValue changes to the INACTIVE state from any other state.
+ * Identifies method that is called when the ComputableValue changes to the INACTIVE state from any other state.
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
@@ -25,11 +25,11 @@ import javax.annotation.Nonnull;
 public @interface OnDeactivate
 {
   /**
-   * Return the name of the ComputedValue that this method is associated with.
+   * Return the name of the ComputableValue that this method is associated with.
    * This value will be derived if the method name matches the pattern "on[Name]Deactivate",
    * otherwise it must be specified.
    *
-   * @return the name of the ComputedValue.
+   * @return the name of the ComputableValue.
    */
   @Nonnull
   String name() default "<default>";

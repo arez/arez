@@ -36,7 +36,7 @@ public class TransactionInfoImplTest
   }
 
   @Test
-  public void transaction_calculating_computedValue()
+  public void transaction_calculating_computableValue()
   {
     final ArezContext context = Arez.context();
 

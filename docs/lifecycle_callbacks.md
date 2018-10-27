@@ -6,7 +6,7 @@ The lifecycle callbacks are used to allow the user to run custom code when the c
 or disposed. The {@api_url: annotations.PreDispose} and {@api_url: annotations.PostDispose} API documentation
 describes the behaviour and requirements in detail. Methods annotated with {@api_url: annotations.PostConstruct}
 are invoked after the arez components constructor has been invoked and after all the reactive elements (i.e. the
-{@api_url: ObservableValue}, {@api_url: Observer} and {@api_url: ComputedValue} instances) have been created and
+{@api_url: ObservableValue}, {@api_url: Observer} and {@api_url: ComputableValue} instances) have been created and
 any [@Observe](at_observe.md) have been scheduled **but** before any the scheduler has been triggered and thus
 before any observers have been executed for the first time.
 

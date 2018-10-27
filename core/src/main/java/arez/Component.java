@@ -13,7 +13,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * The component is an abstraction representation of a reactive component within Arez.
  * Each component is made up of one or more of the core Arez reactive elements: {@link ObservableValue}s,
- * {@link Observer}s or {@link ComputedValue}s.
+ * {@link Observer}s or {@link ComputableValue}s.
  */
 public final class Component
   implements Disposable
@@ -42,7 +42,7 @@ public final class Component
   private final String _name;
   private final ArrayList<ObservableValue<?>> _observableValues = new ArrayList<>();
   private final ArrayList<Observer> _observers = new ArrayList<>();
-  private final ArrayList<ComputedValue<?>> _computedValues = new ArrayList<>();
+  private final ArrayList<ComputableValue<?>> _computableValues = new ArrayList<>();
   /**
    * Hook action called just before the Component is disposed.
    * Occurs inside the dispose transaction.
@@ -159,7 +159,7 @@ public final class Component
          * the next steps.
          */
         new ArrayList<>( _observers ).forEach( o -> Disposable.dispose( o ) );
-        new ArrayList<>( _computedValues ).forEach( v -> Disposable.dispose( v ) );
+        new ArrayList<>( _computableValues ).forEach( v -> Disposable.dispose( v ) );
         new ArrayList<>( _observableValues ).forEach( o -> Disposable.dispose( o ) );
         if ( null != _postDispose )
         {
@@ -213,7 +213,7 @@ public final class Component
   /**
    * The toolkit user should call this method when the component is complete.
    * After this method has been invoked the user should not attempt to define any more {@link ObservableValue}s,
-   * {@link Observer}s or {@link ComputedValue}s on the component.
+   * {@link Observer}s or {@link ComputableValue}s on the component.
    */
   public void complete()
   {
@@ -358,50 +358,50 @@ public final class Component
   }
 
   /**
-   * Return the computedValues associated with the component.
+   * Return the {@link ComputableValue} instances associated with the component.
    *
-   * @return the computedValues associated with the component.
+   * @return the {@link ComputableValue} instances associated with the component.
    */
   @Nonnull
-  ArrayList<ComputedValue<?>> getComputedValues()
+  ArrayList<ComputableValue<?>> getComputableValues()
   {
-    return _computedValues;
+    return _computableValues;
   }
 
   /**
-   * Add computedValue to component.
-   * ComputedValue should not be part of component.
+   * Add computableValue to component.
+   * ComputableValue should not be part of component.
    *
-   * @param computedValue the computedValue.
+   * @param computableValue the computableValue.
    */
-  void addComputedValue( @Nonnull final ComputedValue computedValue )
+  void addComputableValue( @Nonnull final ComputableValue computableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !_computedValues.contains( computedValue ),
-                    () -> "Arez-0046: Component.addComputedValue invoked on component '" + getName() + "' " +
-                          "specifying computedValue named '" + computedValue.getName() + "' when computedValue " +
-                          "already exists for component." );
+      apiInvariant( () -> !_computableValues.contains( computableValue ),
+                    () -> "Arez-0046: Component.addComputableValue invoked on component '" + getName() + "' " +
+                          "specifying ComputableValue named '" + computableValue.getName() + "' when " +
+                          "ComputableValue already exists for component." );
     }
-    _computedValues.add( computedValue );
+    _computableValues.add( computableValue );
   }
 
   /**
-   * Remove computedValue from the component.
-   * ComputedValue should be part of component.
+   * Remove computableValue from the component.
+   * ComputableValue should be part of component.
    *
-   * @param computedValue the computedValue.
+   * @param computableValue the computableValue.
    */
-  void removeComputedValue( @Nonnull final ComputedValue computedValue )
+  void removeComputableValue( @Nonnull final ComputableValue computableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> _computedValues.contains( computedValue ),
-                    () -> "Arez-0047: Component.removeComputedValue invoked on component '" + getName() + "' " +
-                          "specifying computedValue named '" + computedValue.getName() + "' when computedValue " +
-                          "does not exist for component." );
+      apiInvariant( () -> _computableValues.contains( computableValue ),
+                    () -> "Arez-0047: Component.removeComputableValue invoked on component '" + getName() + "' " +
+                          "specifying ComputableValue named '" + computableValue.getName() + "' when " +
+                          "ComputableValue does not exist for component." );
     }
-    _computedValues.remove( computedValue );
+    _computableValues.remove( computableValue );
   }
 
   @Nullable

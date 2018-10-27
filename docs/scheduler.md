@@ -8,7 +8,7 @@ Arez contains a scheduler that is responsible for:
   observer has been scheduled.
 * executing the observer's `onDepsChanged` hook function when any dependencies of the `observed` function
   are changed.
-* recomputing the computed value when any dependencies of the computed value are changed.
+* recomputing the computable value when any dependencies of the computable value are changed.
 
 The Arez runtime schedules a task when dependency changes are detected or when application code
 explicitly invokes {@api_url: Observer.schedule()::Observer::schedule()}.
@@ -25,8 +25,8 @@ any dependency of the observer is changed (i.e. the {@api_url: ObservableValue.r
 is invoked on the dependency). The observer will not be rescheduled while the observer is in the pending
 observers list.
 
-Recalculation of computed values can be scheduled but before the transaction has completed the transaction may try
-to read the computed value in which case the computed value will be re-calculated immediately. The computed value
+Recalculation of computable values can be scheduled but before the transaction has completed the transaction may try
+to read the computable value in which case the computable value will be re-calculated immediately. The computable value
 will still appear in the pending observers list but the task will be skipped by the scheduler.
 
 The API allows applications to create observers that will not run immediately by passing the
@@ -39,7 +39,7 @@ will start the scheduler if there are pending tasks and the scheduler is not cur
 
 It is also possible to pause and resume the scheduler when needed. This is rarely needed and somewhat dangerous to
 use as it is the only mechanism where it is possible to create an inconsistent state in Arez. (i.e. Observables have
-updated but not all the observers and computed values have reacted and are consistent with the new state.)
+updated but not all the observers and computable values have reacted and are consistent with the new state.)
 
 However it is sometimes needed by Arez-based frameworks with complex concurrency needs that can ensure that no code
 interacts with Arez components while the scheduler is paused. A simple example of how pausing works is as follows:

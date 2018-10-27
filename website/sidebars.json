@@ -10,7 +10,7 @@
       "concepts",
       "transactions",
       "observable_values",
-      "computed_values",
+      "computable_values",
       "observers",
       "actions",
       "scheduler",

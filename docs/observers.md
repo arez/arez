@@ -4,7 +4,7 @@ title: Observers
 
 Observers are the elements within an Arez application that react to changes. Observers are typically about
 initiating effects. Each observer is associated with an `observed` function. When the function executes, Arez
-tracks which [observable values](observable_values.md) and [computed values](computed_values.md) are accessed
+tracks which [observable values](observable_values.md) and [computable values](computable_values.md) are accessed
 within the scope of the function and these elements are recorded as dependencies of the observer. Any
 time a dependency is changed, Arez will invoke a hook function that will ultimately result in scheduling
 the observer to re-execute the observed function. The {@api_url: Observer} class represents the observer within

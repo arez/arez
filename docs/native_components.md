@@ -3,7 +3,7 @@ title: Native Components
 ---
 
 The core elements of Arez are [observables](observable_values.md), [observers](observers.md) and
-[computed values](computed_values.md) and these are all that is needed at runtime for Arez to build complex
+[computable values](computable_values.md) and these are all that is needed at runtime for Arez to build complex
 applications. The first Arez applications were constructed using just these primitives.
 
 Constructing primitives in this manner was tedious at best. Humans tend to want to use higher level abstractions
@@ -22,7 +22,7 @@ This was usually sufficient for a human who was inspecting the event logs to get
 the different reactive elements but it made building a DevTool that introspected the components difficult. This lead
 to the creation of native components.
 
-Native components explicitly represent the component and the observables, observers and computed values that it
+Native components explicitly represent the component and the observables, observers and computable values that it
 contains. Native components are exposed via the "spy" subsystem, allowing tools to introspect components and determine
 which reactive components are contained within each component. Unfortunately native components add some overhead and
 are only enabled if the system property `"arez.enable_native_components"` is true. Typically this is only enabled

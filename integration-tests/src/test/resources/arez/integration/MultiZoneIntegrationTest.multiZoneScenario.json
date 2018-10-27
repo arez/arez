@@ -14,7 +14,7 @@
     },
     {
         "name": "PersonModel.0.fullName",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.0",
@@ -34,7 +34,7 @@
     },
     {
         "name": "PersonModel.1.fullName",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.1",

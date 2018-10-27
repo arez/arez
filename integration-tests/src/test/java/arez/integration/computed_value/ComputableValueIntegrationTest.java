@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 @SuppressWarnings( "Duplicates" )
-public class ComputedValueIntegrationTest
+public class ComputableValueIntegrationTest
   extends AbstractArezIntegrationTest
 {
   /**
@@ -56,7 +56,7 @@ public class ComputedValueIntegrationTest
     @Nonnull
     public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
     {
-      return new ComputedValueIntegrationTest_Arez_PersonModel( firstName, lastName );
+      return new ComputableValueIntegrationTest_Arez_PersonModel( firstName, lastName );
     }
 
     PersonModel( @Nonnull final String firstName, @Nonnull final String lastName )

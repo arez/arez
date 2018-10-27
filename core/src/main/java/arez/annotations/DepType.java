@@ -1,7 +1,9 @@
 package arez.annotations;
 
+import arez.ComputableValue;
+
 /**
- * Enumeration that describes the types of dependencies supported by an {@link arez.Observer} or a {@link arez.ComputedValue}.
+ * Enumeration that describes the types of dependencies supported by an {@link arez.Observer} or a {@link ComputableValue}.
  */
 public enum DepType
 {
@@ -23,7 +25,7 @@ public enum DepType
   /**
    * The reactive element may have zero or more dependencies on {@link arez.ObservableValue} instances and/or
    * may have dependencies on non-arez elements. The application can invoke {@link arez.Observer#reportStale()}
-   * or {@link arez.ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   * or {@link ComputableValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
    */
   AREZ_OR_EXTERNAL
 }

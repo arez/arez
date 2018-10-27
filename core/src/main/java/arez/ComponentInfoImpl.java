@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import java.util.Collections;
@@ -17,13 +17,13 @@ final class ComponentInfoImpl
 {
   private final Component _component;
   private final List<ObservableValue<?>> _observableValues;
-  private final List<ComputedValue<?>> _computedValues;
+  private final List<ComputableValue<?>> _computableValues;
 
   ComponentInfoImpl( @Nonnull final Component component )
   {
     _component = Objects.requireNonNull( component );
     _observableValues = Collections.unmodifiableList( _component.getObservableValues() );
-    _computedValues = Collections.unmodifiableList( _component.getComputedValues() );
+    _computableValues = Collections.unmodifiableList( _component.getComputableValues() );
   }
 
   /**
@@ -78,9 +78,9 @@ final class ComponentInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public List<ComputedValueInfo> getComputedValues()
+  public List<ComputableValueInfo> getComputableValues()
   {
-    return ComputedValueInfoImpl.asUnmodifiableInfos( _computedValues );
+    return ComputableValueInfoImpl.asUnmodifiableInfos( _computableValues );
   }
 
   /**

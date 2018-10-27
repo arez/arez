@@ -6,7 +6,7 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Identifies method that is called when the ComputedValue changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
+ * Identifies method that is called when the ComputableValue changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
@@ -24,11 +24,11 @@ import javax.annotation.Nonnull;
 public @interface OnStale
 {
   /**
-   * Return the name of the ComputedValue that this method is associated with.
+   * Return the name of the ComputableValue that this method is associated with.
    * This value will be derived if the method name matches the pattern "on[Name]Stale",
    * otherwise it must be specified.
    *
-   * @return the name of the ComputedValue.
+   * @return the name of the ComputableValue.
    */
   @Nonnull
   String name() default "<default>";

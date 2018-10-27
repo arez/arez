@@ -13,19 +13,19 @@ public interface ObservableValueInfo
   extends ElementInfo
 {
   /**
-   * Return true if the Observable is a ComputedValue.
+   * Return true if the Observable is a ComputableValue.
    *
-   * @return true if the Observable is a ComputedValue.
+   * @return true if the Observable is a ComputableValue.
    */
-  boolean isComputedValue();
+  boolean isComputableValue();
 
   /**
-   * Convert the Observable to a ComputedValue.
-   * This method should only be called if {@link #isComputedValue()} returns true.
+   * Convert the Observable to a ComputableValue.
+   * This method should only be called if {@link #isComputableValue()} returns true.
    *
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
-  ComputedValueInfo asComputedValue();
+  ComputableValueInfo asComputableValue();
 
   /**
    * Return the list of observers for the Observable.

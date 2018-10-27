@@ -5,15 +5,15 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * Notification when Computation starts.
+ * ComputableValue has activated.
  */
-public final class ComputeStartedEvent
+public final class ComputableValueActivatedEvent
   implements SerializableEvent
 {
   @Nonnull
   private final ComputableValueInfo _computableValue;
 
-  public ComputeStartedEvent( @Nonnull final ComputableValueInfo computableValue )
+  public ComputableValueActivatedEvent( @Nonnull final ComputableValueInfo computableValue )
   {
     _computableValue = Objects.requireNonNull( computableValue );
   }
@@ -30,7 +30,7 @@ public final class ComputeStartedEvent
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
-    map.put( "type", "ComputeStarted" );
+    map.put( "type", "ComputableValueActivated" );
     map.put( "name", getComputableValue().getName() );
   }
 }

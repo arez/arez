@@ -12,30 +12,30 @@ public final class ComputeCompletedEvent
   implements SerializableEvent
 {
   @Nonnull
-  private final ComputedValueInfo _computedValue;
+  private final ComputableValueInfo _computableValue;
   @Nullable
   private final Object _result;
   @Nullable
   private final Throwable _throwable;
   private final int _duration;
 
-  public ComputeCompletedEvent( @Nonnull final ComputedValueInfo computedValue,
+  public ComputeCompletedEvent( @Nonnull final ComputableValueInfo computableValue,
                                 @Nullable final Object result,
                                 @Nullable final Throwable throwable,
                                 final int duration )
   {
     assert duration >= 0;
     assert null == throwable || null == result;
-    _computedValue = Objects.requireNonNull( computedValue );
+    _computableValue = Objects.requireNonNull( computableValue );
     _result = result;
     _throwable = throwable;
     _duration = duration;
   }
 
   @Nonnull
-  public ComputedValueInfo getComputedValue()
+  public ComputableValueInfo getComputableValue()
   {
-    return _computedValue;
+    return _computableValue;
   }
 
   public int getDuration()
@@ -62,7 +62,7 @@ public final class ComputeCompletedEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "ComputeCompleted" );
-    map.put( "name", getComputedValue().getName() );
+    map.put( "name", getComputableValue().getName() );
     map.put( "duration", getDuration() );
     final Throwable throwable = getThrowable();
     final String message =

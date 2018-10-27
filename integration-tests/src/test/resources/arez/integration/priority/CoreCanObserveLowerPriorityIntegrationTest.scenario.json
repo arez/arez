@@ -1,20 +1,20 @@
 
 [
     {
-        "name": "ComputedValue@1",
-        "type": "ComputedValueCreated"
+        "name": "ComputableValue@1",
+        "type": "ComputableValueCreated"
     },
     {
-        "name": "ComputedValue@2",
-        "type": "ComputedValueCreated"
+        "name": "ComputableValue@2",
+        "type": "ComputableValueCreated"
     },
     {
-        "name": "ComputedValue@3",
-        "type": "ComputedValueCreated"
+        "name": "ComputableValue@3",
+        "type": "ComputableValueCreated"
     },
     {
-        "name": "ComputedValue@4",
-        "type": "ComputedValueCreated"
+        "name": "ComputableValue@4",
+        "type": "ComputableValueCreated"
     },
     {
         "name": "AR1",
@@ -42,13 +42,13 @@
         "type": "TransactionStarted"
     },
     {
-        "name": "ComputedValue@1",
+        "name": "ComputableValue@1",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "name": "ComputedValue@1",
-        "tracker": "ComputedValue@1",
+        "name": "ComputableValue@1",
+        "tracker": "ComputableValue@1",
         "type": "TransactionStarted"
     },
     {
@@ -56,19 +56,19 @@
         "type": "ObservableValueCreated"
     },
     {
-        "name": "ComputedValue@1",
+        "name": "ComputableValue@1",
         "type": "ObservableValueChanged",
         "value": 42
     },
     {
         "mutation": false,
-        "name": "ComputedValue@1",
-        "tracker": "ComputedValue@1",
+        "name": "ComputableValue@1",
+        "tracker": "ComputableValue@1",
         "type": "TransactionCompleted"
     },
     {
         "result": 42,
-        "name": "ComputedValue@1",
+        "name": "ComputableValue@1",
         "errorMessage": null,
         "type": "ComputeCompleted"
     },
@@ -118,83 +118,83 @@
         "type": "TransactionStarted"
     },
     {
-        "name": "ComputedValue@4",
+        "name": "ComputableValue@4",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "name": "ComputedValue@4",
-        "tracker": "ComputedValue@4",
+        "name": "ComputableValue@4",
+        "tracker": "ComputableValue@4",
         "type": "TransactionStarted"
     },
     {
-        "name": "ComputedValue@3",
+        "name": "ComputableValue@3",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "name": "ComputedValue@3",
-        "tracker": "ComputedValue@3",
+        "name": "ComputableValue@3",
+        "tracker": "ComputableValue@3",
         "type": "TransactionStarted"
     },
     {
-        "name": "ComputedValue@2",
+        "name": "ComputableValue@2",
         "type": "ComputeStarted"
     },
     {
         "mutation": false,
-        "name": "ComputedValue@2",
-        "tracker": "ComputedValue@2",
+        "name": "ComputableValue@2",
+        "tracker": "ComputableValue@2",
         "type": "TransactionStarted"
     },
     {
-        "name": "ComputedValue@2",
+        "name": "ComputableValue@2",
         "type": "ObservableValueChanged",
         "value": 84
     },
     {
         "mutation": false,
-        "name": "ComputedValue@2",
-        "tracker": "ComputedValue@2",
+        "name": "ComputableValue@2",
+        "tracker": "ComputableValue@2",
         "type": "TransactionCompleted"
     },
     {
         "result": 84,
-        "name": "ComputedValue@2",
+        "name": "ComputableValue@2",
         "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
-        "name": "ComputedValue@3",
+        "name": "ComputableValue@3",
         "type": "ObservableValueChanged",
         "value": 126
     },
     {
         "mutation": false,
-        "name": "ComputedValue@3",
-        "tracker": "ComputedValue@3",
+        "name": "ComputableValue@3",
+        "tracker": "ComputableValue@3",
         "type": "TransactionCompleted"
     },
     {
         "result": 126,
-        "name": "ComputedValue@3",
+        "name": "ComputableValue@3",
         "errorMessage": null,
         "type": "ComputeCompleted"
     },
     {
-        "name": "ComputedValue@4",
+        "name": "ComputableValue@4",
         "type": "ObservableValueChanged",
         "value": 168
     },
     {
         "mutation": false,
-        "name": "ComputedValue@4",
-        "tracker": "ComputedValue@4",
+        "name": "ComputableValue@4",
+        "tracker": "ComputableValue@4",
         "type": "TransactionCompleted"
     },
     {
         "result": 168,
-        "name": "ComputedValue@4",
+        "name": "ComputableValue@4",
         "errorMessage": null,
         "type": "ComputeCompleted"
     },

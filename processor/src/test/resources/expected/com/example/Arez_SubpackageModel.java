@@ -3,7 +3,7 @@ package com.example;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
@@ -36,7 +36,7 @@ public final class Arez_SubpackageModel extends SubpackageModel implements Dispo
   private final ObservableValue<Long> $$arez$$_time;
 
   @Nonnull
-  private final ComputedValue<Integer> $$arez$$_someValue;
+  private final ComputableValue<Integer> $$arez$$_someValue;
 
   public Arez_SubpackageModel() {
     super();

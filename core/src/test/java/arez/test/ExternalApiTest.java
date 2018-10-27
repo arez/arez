@@ -4,7 +4,7 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Environment;
 import arez.Flags;
@@ -139,7 +139,7 @@ public class ExternalApiTest
   }
 
   @Test
-  public void createComputedValue()
+  public void createComputableValue()
     throws Throwable
   {
     final ArezContext context = Arez.context();
@@ -149,23 +149,23 @@ public class ExternalApiTest
       observeADependency();
       return "";
     };
-    final ComputedValue<String> computedValue = context.computed( name, function );
+    final ComputableValue<String> computableValue = context.computed( name, function );
 
     context.action( () -> {
-      assertEquals( computedValue.getName(), name );
-      assertEquals( computedValue.get(), "" );
+      assertEquals( computableValue.getName(), name );
+      assertEquals( computableValue.get(), "" );
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isReadWriteTransactionActive() );
       assertFalse( context.isTrackingTransactionActive() );
 
-      computedValue.dispose();
+      computableValue.dispose();
 
-      assertThrows( computedValue::get );
+      assertThrows( computableValue::get );
     } );
   }
 
   @Test
-  public void ComputedValue_reportPossiblyChanged()
+  public void ComputableValue_reportPossiblyChanged()
   {
     final ArezContext context = Arez.context();
 
@@ -179,7 +179,7 @@ public class ExternalApiTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputedValue<String> computedValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -188,7 +188,7 @@ public class ExternalApiTest
 
     context.observer( () -> {
       autorunCallCount.incrementAndGet();
-      assertEquals( computedValue.get(), expected.get() );
+      assertEquals( computableValue.get(), expected.get() );
 
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isReadOnlyTransactionActive() );
@@ -199,7 +199,7 @@ public class ExternalApiTest
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 1 );
 
-    context.safeAction( computedValue::reportPossiblyChanged );
+    context.safeAction( computableValue::reportPossiblyChanged );
 
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 2 );
@@ -209,7 +209,7 @@ public class ExternalApiTest
 
     assertEquals( computedCallCount.get(), 2 );
 
-    context.safeAction( computedValue::reportPossiblyChanged );
+    context.safeAction( computableValue::reportPossiblyChanged );
 
     assertEquals( autorunCallCount.get(), 2 );
     assertEquals( computedCallCount.get(), 3 );

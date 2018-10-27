@@ -141,17 +141,17 @@ final class Transaction
     {
       if ( null != c_transaction )
       {
-        final boolean inComputedTransaction = null != tracker && tracker.isComputedValue();
-        apiInvariant( () -> !c_transaction.isComputedValueTracker() || inComputedTransaction,
+        final boolean inComputableTransaction = null != tracker && tracker.isComputableValue();
+        apiInvariant( () -> !c_transaction.isComputableValueTracker() || inComputableTransaction,
                       () -> "Arez-0186: Attempting to create transaction named '" + name + "' " +
-                            "nested in ComputedValue transaction named '" + c_transaction.getName() + "'. " +
-                            "ComputedValues must not invoke actions or observe methods as " +
+                            "nested in ComputableValue transaction named '" + c_transaction.getName() + "'. " +
+                            "ComputableValues must not invoke actions or observe methods as " +
                             "they should derive values from other computeds and observables." );
         apiInvariant( () -> !mutation || c_transaction.isMutation(),
                       () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is " +
                             "nested in transaction named '" + c_transaction.getName() + "' with mode " +
                             "READ_ONLY which is not equal to READ_WRITE." );
-        apiInvariant( () -> c_transaction.getContext() != context || inComputedTransaction || null == tracker,
+        apiInvariant( () -> c_transaction.getContext() != context || inComputableTransaction || null == tracker,
                       () -> "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for " +
                             "the observer named '" + Objects.requireNonNull( tracker ).getName() + "' but the " +
                             "transaction is not a top-level transaction when this is required. This may be a result " +
@@ -253,9 +253,9 @@ final class Transaction
 
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !( isComputedValueTracker() && _mutation ),
+      invariant( () -> !( isComputableValueTracker() && _mutation ),
                  () -> "Arez-0132: Attempted to create transaction named '" + getName() +
-                       "' with mode READ_WRITE when ComputedValue tracker specified." );
+                       "' with mode READ_WRITE when ComputableValue tracker specified." );
     }
   }
 
@@ -482,7 +482,7 @@ final class Transaction
        */
       if ( Arez.shouldCheckInvariants() )
       {
-        invariant( () -> !observableValue.isComputedValue() || _tracker != observableValue.getObserver(),
+        invariant( () -> !observableValue.isComputableValue() || _tracker != observableValue.getObserver(),
                    () -> "Arez-0143: Invoked observe on transaction named '" + getName() + "' for " +
                          "observableValue named '" + observableValue.getName() + "' where the " +
                          "observableValue is owned by the tracker." );
@@ -604,11 +604,11 @@ final class Transaction
                  () -> "Arez-0146: Invoked reportPossiblyChanged on transaction named '" + getName() + "' for " +
                        "ObservableValue named '" + observableValue.getName() + "' where the ObservableValue" +
                        " is disposed." );
-      invariant( observableValue::isComputedValue,
+      invariant( observableValue::isComputableValue,
                  () -> "Arez-0147: Transaction named '" + getName() + "' has attempted to mark " +
                        "ObservableValue named '" + observableValue.getName() + "' as potentially changed but " +
                        "ObservableValue is not a derived value." );
-      invariant( () -> !Arez.shouldEnforceTransactionType() || isMutation() || isComputedValueTracker(),
+      invariant( () -> !Arez.shouldEnforceTransactionType() || isMutation() || isComputableValueTracker(),
                  () -> "Arez-0148: Transaction named '" + getName() + "' attempted to call reportPossiblyChanged in " +
                        "read-only transaction." );
       observableValue.invariantLeastStaleObserverState();
@@ -649,7 +649,7 @@ final class Transaction
                  () -> "Arez-0149: Invoked reportChangeConfirmed on transaction named '" +
                        getName() + "' for ObservableValue named '" +
                        observableValue.getName() + "' where the ObservableValue is disposed." );
-      invariant( observableValue::isComputedValue,
+      invariant( observableValue::isComputableValue,
                  () -> "Arez-0150: Transaction named '" + getName() + "' has attempted to mark " +
                        "ObservableValue named '" + observableValue.getName() + "' as potentially changed " +
                        "but ObservableValue is not a derived value." );
@@ -670,7 +670,7 @@ final class Transaction
         {
           /*
            * This happens when the observer is reacting to the change and this
-           * has a ComputedValue dependency has recalculated as part of the reaction.
+           * has a ComputableValue dependency has recalculated as part of the reaction.
            * So make sure we keep _leastStaleObserverState up to date.
            */
           if ( Arez.shouldCheckInvariants() )
@@ -724,11 +724,11 @@ final class Transaction
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
-      if ( isComputedValueTracker() )
+      if ( isComputableValueTracker() )
       {
         if ( Arez.shouldCheckInvariants() )
         {
-          invariant( () -> observableValue.isComputedValue() && observableValue.getObserver() == _tracker,
+          invariant( () -> observableValue.isComputableValue() && observableValue.getObserver() == _tracker,
                      () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
                            " ObservableValue named '" + observableValue.getName() + "' and the transaction mode is " +
                            "READ_WRITE_OWNED but the ObservableValue has not been created by the transaction." );
@@ -799,7 +799,7 @@ final class Transaction
           }
           currentIndex++;
 
-          if ( observableValue.isComputedValue() )
+          if ( observableValue.isComputableValue() )
           {
             final Observer owner = observableValue.getObserver();
             final int dependenciesState = owner.getState();
@@ -888,11 +888,11 @@ final class Transaction
       }
     }
 
-    if ( Disposable.isNotDisposed( _tracker ) && _tracker.isComputedValue() )
+    if ( Disposable.isNotDisposed( _tracker ) && _tracker.isComputableValue() )
     {
-      final ComputedValue<?> computedValue = _tracker.getComputedValue();
-      final ObservableValue<?> observableValue = computedValue.getObservableValue();
-      if ( !observableValue.hasObservers() && !computedValue.getObserver().isKeepAlive() )
+      final ComputableValue<?> computableValue = _tracker.getComputableValue();
+      final ObservableValue<?> observableValue = computableValue.getObservableValue();
+      if ( !observableValue.hasObservers() && !computableValue.getObserver().isKeepAlive() )
       {
         queueForDeactivation( observableValue );
       }
@@ -966,9 +966,9 @@ final class Transaction
     return _tracker;
   }
 
-  boolean isComputedValueTracker()
+  boolean isComputableValueTracker()
   {
-    return null != _tracker && _tracker.isComputedValue();
+    return null != _tracker && _tracker.isComputableValue();
   }
 
   @Nullable

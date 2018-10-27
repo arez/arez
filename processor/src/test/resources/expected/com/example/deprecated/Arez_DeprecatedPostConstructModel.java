@@ -3,7 +3,7 @@ package com.example.deprecated;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.ComponentState;
@@ -32,7 +32,7 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Integer> $$arez$$_someValue;
+  private final ComputableValue<Integer> $$arez$$_someValue;
 
   @SuppressWarnings("deprecation")
   public Arez_DeprecatedPostConstructModel() {

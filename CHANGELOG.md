@@ -20,6 +20,10 @@
 * **\[core\]** Rename the spy event from `ReactionObserveScheduled` to `ObserveScheduledEvent`.
 * **\[core\]** Enhance the `ComputeCompletedEvent` spy event to include the error message (if present) or
   result computed.
+* **\[core\]** Rename the class `arez.ComputedValue` to `arez.ComputableValue` with the intent of using a
+  consistent terminology and tense within the API surface. This also involved renaming several support classes
+  such as `arez.ComputedValueInfo` to `arez.ComputableValueInfo` and `arez.spy.ComputedValue*Event` to
+  `arez.spy.ComputableValue*Event`.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

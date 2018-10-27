@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 public final class Flags
 {
   /**
-   * Flag indicating that the Observer is allowed to observe {@link ComputedValue} instances with a lower priority.
+   * Flag indicating that the Observer is allowed to observe {@link ComputableValue} instances with a lower priority.
    */
   public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 1 << 30;
   /**
@@ -25,21 +25,21 @@ public final class Flags
    */
   private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
   /**
-   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to
    * indicate dependency has changed and the observer.
    *
    * @see arez.annotations.DepType#AREZ
    */
   public static final int AREZ_DEPENDENCIES = 1 << 27;
   /**
-   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to
+   * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to
    * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
    *
    * @see arez.annotations.DepType#AREZ_OR_NONE
    */
   public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
   /**
-   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputedValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+   * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
    *
    * @see arez.annotations.DepType#AREZ_OR_EXTERNAL
    */
@@ -82,7 +82,7 @@ public final class Flags
   private static final int RUN_TYPE_MASK = RUN_NOW | RUN_LATER;
   /**
    * The runtime will keep the observer reacting to dependencies until disposed. This is the default value for
-   * observers that supply a observed function but may be explicitly supplied when creating {@link ComputedValue}
+   * observers that supply a observed function but may be explicitly supplied when creating {@link ComputableValue}
    * instances.
    */
   public static final int KEEPALIVE = 1 << 20;
@@ -133,7 +133,7 @@ public final class Flags
    * Usually used to schedule observers that reflect state onto non-reactive
    * application components. i.e. Observers that are used to build html views,
    * perform network operations etc. These reactions are often at low priority
-   * to avoid recalculation of dependencies (i.e. {@link ComputedValue}s) triggering
+   * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
    * this reaction multiple times within a single reaction round.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
    *
@@ -142,7 +142,7 @@ public final class Flags
    */
   public static final int PRIORITY_LOW = 0b100 << 15;
   /**
-   * Lowest priority. Use this priority if the observer is a {@link ComputedValue} that
+   * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
    * recomputing state that is likely to either be unobserved or recomputed as part of
    * another observers reaction.
@@ -252,7 +252,7 @@ public final class Flags
   static final int STATE_DISPOSING = 0b010;
   /**
    * The observer is not active and is not holding any data about it's dependencies.
-   * Typically mean this tracker observer has not been run or if it is a ComputedValue that
+   * Typically mean this tracker observer has not been run or if it is a ComputableValue that
    * there is no observer observing the associated ObservableValue.
    */
   static final int STATE_INACTIVE = 0b011;

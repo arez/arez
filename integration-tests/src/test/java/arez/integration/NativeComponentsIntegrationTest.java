@@ -3,7 +3,7 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
@@ -35,7 +35,7 @@ public class NativeComponentsIntegrationTest
     final ObservableValue<String> observableValue1 = context.observable( component, "Attr1", null, null );
     final ObservableValue<String> observableValue2 = context.observable( component, "Attr2", null, null );
 
-    final ComputedValue<String> computedValue1 =
+    final ComputableValue<String> computableValue1 =
       context.computed( component, "Attr3", () -> "", null, null, null );
 
     final Observer observer1 = context.tracker( component, "Render", () -> {
@@ -56,8 +56,8 @@ public class NativeComponentsIntegrationTest
     assertEquals( info.getObservableValues().get( 1 ).getName(), observableValue2.getName() );
     assertEquals( info.getObservers().size(), 1 );
     assertEquals( info.getObservers().iterator().next().getName(), observer1.getName() );
-    assertEquals( info.getComputedValues().size(), 1 );
-    assertEquals( info.getComputedValues().get( 0 ).getName(), computedValue1.getName() );
+    assertEquals( info.getComputableValues().size(), 1 );
+    assertEquals( info.getComputableValues().get( 0 ).getName(), computableValue1.getName() );
 
     assertEquals( context.getSpy().findAllComponentTypes().size(), 1 );
     assertTrue( context.getSpy().findAllComponentTypes().contains( type ) );
@@ -70,7 +70,7 @@ public class NativeComponentsIntegrationTest
     assertTrue( Disposable.isDisposed( component ) );
     assertTrue( Disposable.isDisposed( observableValue1 ) );
     assertTrue( Disposable.isDisposed( observableValue2 ) );
-    assertTrue( Disposable.isDisposed( computedValue1 ) );
+    assertTrue( Disposable.isDisposed( computableValue1 ) );
     assertTrue( Disposable.isDisposed( observer1 ) );
 
     assertNull( context.getSpy().findComponent( type, id ) );

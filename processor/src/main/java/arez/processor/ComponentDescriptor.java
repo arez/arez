@@ -50,7 +50,7 @@ import static arez.processor.ProcessorUtil.*;
 final class ComponentDescriptor
 {
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
-  private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputedValue$" );
+  private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
@@ -703,10 +703,10 @@ final class ComponentDescriptor
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
-         !toRawType( returnType ).toString().equals( "arez.ComputedValue" ) )
+         !toRawType( returnType ).toString().equals( "arez.ComputableValue" ) )
     {
       throw new ArezProcessorException( "Method annotated with @ComputedValueRef must return an instance of " +
-                                        "arez.ComputedValue", method );
+                                        "arez.ComputableValue", method );
     }
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
@@ -717,7 +717,7 @@ final class ComponentDescriptor
       if ( null == name )
       {
         throw new ArezProcessorException( "Method annotated with @ComputedValueRef should specify name or be " +
-                                          "named according to the convention get[Name]ComputedValue", method );
+                                          "named according to the convention get[Name]ComputableValue", method );
       }
     }
     else
@@ -3444,7 +3444,7 @@ final class ComponentDescriptor
    * <ul>
    * <li>the context field if there is any @Action methods.</li>
    * <li>the observable object for every @Observable.</li>
-   * <li>the ComputedValue object for every @Computed method.</li>
+   * <li>the ComputableValue object for every @Computed method.</li>
    * </ul>
    */
   private void buildFields( @Nonnull final TypeSpec.Builder builder )

@@ -1,12 +1,12 @@
 package arez.annotations;
 
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 
 /**
  * Enum to control scheduling priority of observers/reactions.
  * Observers with higher priorities will react first. If observers have equal priorities then observers
- * scheduled first will react first. Observers must not depend upon ComputedValue instances with
+ * scheduled first will react first. Observers must not depend upon ComputableValue instances with
  * a lower priority otherwise priority is ignored.
  *
  * <p>A user should be very careful when specifying a {@link #HIGH} priority as it is possible that
@@ -37,14 +37,14 @@ public enum Priority
    * Usually used to schedule observers that reflect state onto non-reactive
    * application components. i.e. Observers that are used to build html views,
    * perform network operations etc. These reactions are often at low priority
-   * to avoid recalculation of dependencies (i.e. {@link ComputedValue}s) triggering
+   * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
    * this reaction multiple times within a single reaction round.
    */
   LOW,
   /**
    * Lowest priority.
    * This is low-priority reactions that reflect onto non-reactive applications. It is
-   * also used for (i.e. {@link ComputedValue}s) that may be unobserved when a {@link #LOW}
+   * also used for (i.e. {@link ComputableValue}s) that may be unobserved when a {@link #LOW}
    * priority reaction runs.
    */
   LOWEST

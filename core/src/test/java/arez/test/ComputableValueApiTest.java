@@ -3,7 +3,7 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Flags;
 import arez.SafeFunction;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComputedValueApiTest
+public class ComputableValueApiTest
   extends AbstractArezTest
 {
   @Test
@@ -24,7 +24,7 @@ public class ComputedValueApiTest
     result.set( 42 );
 
     final ArezContext context = Arez.context();
-    final ComputedValue<Integer> computedValue = context.computed( () -> {
+    final ComputableValue<Integer> computableValue = context.computed( () -> {
       computedCallCount.incrementAndGet();
       return result.get();
     }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
@@ -34,29 +34,29 @@ public class ComputedValueApiTest
 
     context.observer( () -> {
       observerCallCount.incrementAndGet();
-      computedValue.get();
+      computableValue.get();
     } );
 
     assertEquals( computedCallCount.get(), 1 );
     assertEquals( observerCallCount.get(), 1 );
 
-    context.safeAction( () -> assertEquals( computedValue.get(), (Integer) 42 ) );
+    context.safeAction( () -> assertEquals( computableValue.get(), (Integer) 42 ) );
 
-    context.safeAction( computedValue::reportPossiblyChanged );
+    context.safeAction( computableValue::reportPossiblyChanged );
 
     assertEquals( computedCallCount.get(), 2 );
     assertEquals( observerCallCount.get(), 1 );
 
-    context.safeAction( () -> assertEquals( computedValue.get(), (Integer) 42 ) );
+    context.safeAction( () -> assertEquals( computableValue.get(), (Integer) 42 ) );
 
     result.set( 21 );
 
-    context.safeAction( computedValue::reportPossiblyChanged );
+    context.safeAction( computableValue::reportPossiblyChanged );
 
     assertEquals( computedCallCount.get(), 3 );
     assertEquals( observerCallCount.get(), 2 );
 
-    context.safeAction( () -> assertEquals( computedValue.get(), (Integer) 21 ) );
+    context.safeAction( () -> assertEquals( computableValue.get(), (Integer) 21 ) );
   }
 
   @Test
@@ -66,7 +66,7 @@ public class ComputedValueApiTest
     final AtomicInteger computedCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final ComputedValue<Integer> computedValue = context.computed( () -> {
+    final ComputableValue<Integer> computableValue = context.computed( () -> {
       computedCallCount.incrementAndGet();
       return 1;
     }, Flags.AREZ_OR_NO_DEPENDENCIES );
@@ -76,13 +76,13 @@ public class ComputedValueApiTest
 
     context.observer( () -> {
       observerCallCount.incrementAndGet();
-      computedValue.get();
+      computableValue.get();
     } );
 
     assertEquals( computedCallCount.get(), 1 );
     assertEquals( observerCallCount.get(), 1 );
 
-    context.safeAction( () -> assertEquals( computedValue.get(), (Integer) 1 ) );
+    context.safeAction( () -> assertEquals( computableValue.get(), (Integer) 1 ) );
   }
 
   @Test
@@ -98,35 +98,35 @@ public class ComputedValueApiTest
       calls.incrementAndGet();
       return result.get();
     };
-    final ComputedValue<String> computedValue =
-      context.computed( "TestComputed", action, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.KEEPALIVE );
+    final ComputableValue<String> computableValue =
+      context.computed( "TestComputableValue", action, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.KEEPALIVE );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
     context.observer( () -> {
       observerCallCount.incrementAndGet();
-      computedValue.get();
+      computableValue.get();
     } );
 
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( calls.get(), 1 );
 
-    context.action( () -> assertEquals( computedValue.get(), "" ) );
+    context.action( () -> assertEquals( computableValue.get(), "" ) );
 
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( calls.get(), 1 );
 
-    context.action( computedValue::reportPossiblyChanged );
+    context.action( computableValue::reportPossiblyChanged );
 
-    context.action( () -> assertEquals( computedValue.get(), "" ) );
+    context.action( () -> assertEquals( computableValue.get(), "" ) );
 
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( calls.get(), 2 );
 
     result.set( "NewValue" );
 
-    context.action( computedValue::reportPossiblyChanged );
+    context.action( computableValue::reportPossiblyChanged );
 
-    context.action( () -> assertEquals( computedValue.get(), "NewValue" ) );
+    context.action( () -> assertEquals( computableValue.get(), "NewValue" ) );
 
     assertEquals( observerCallCount.get(), 2 );
     assertEquals( calls.get(), 3 );
@@ -144,19 +144,19 @@ public class ComputedValueApiTest
       calls.incrementAndGet();
       return "";
     };
-    final ComputedValue<String> computedValue =
-      context.computed( "TestComputed", action, Flags.KEEPALIVE );
+    final ComputableValue<String> computableValue =
+      context.computed( "TestComputableValue", action, Flags.KEEPALIVE );
 
     assertEquals( calls.get(), 1 );
 
-    context.action( "Get 1", computedValue::get );
+    context.action( "Get 1", computableValue::get );
 
     assertEquals( calls.get(), 1 );
 
-    context.action( "Get 2", computedValue::get );
+    context.action( "Get 2", computableValue::get );
 
     assertEquals( calls.get(), 1 );
 
-    computedValue.dispose();
+    computableValue.dispose();
   }
 }

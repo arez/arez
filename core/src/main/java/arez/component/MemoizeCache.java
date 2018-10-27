@@ -3,7 +3,7 @@ package arez.component;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.Procedure;
@@ -63,7 +63,7 @@ public final class MemoizeCache<T>
   @Nonnull
   private final Function<T> _function;
   /**
-   * The cache of all the ComputedValues created for each unique combination of parameters.
+   * The cache of all the ComputableValue created for each unique combination of parameters.
    */
   private final Map<Object, Object> _cache = new HashMap<>();
   /**
@@ -71,12 +71,12 @@ public final class MemoizeCache<T>
    */
   private final int _argCount;
   /**
-   * The flags passed to the created ComputedValues.
+   * The flags passed to the created ComputableValues.
    */
   private final int _flags;
   /**
-   * The index of the next ComputedValue created.
-   * This is only used when creating unique names for ComputedValues.
+   * The index of the next ComputableValue created.
+   * This is only used when creating unique names for ComputableValues.
    */
   private int _nextIndex;
   /**
@@ -87,7 +87,7 @@ public final class MemoizeCache<T>
   /**
    * Create the Memoize method cache.
    *
-   * @param context   the context in which to create ComputedValue instances.
+   * @param context   the context in which to create ComputableValue instances.
    * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name      a human consumable prefix for computed values.
    * @param function  the memoized function.
@@ -105,12 +105,12 @@ public final class MemoizeCache<T>
   /**
    * Create the Memoize method cache.
    *
-   * @param context   the context in which to create ComputedValue instances.
+   * @param context   the context in which to create ComputableValue instances.
    * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name      a human consumable prefix for computed values.
    * @param function  the memoized function.
    * @param argCount  the number of arguments expected to be passed to memoized function.
-   * @param flags     the flags that are used when creating ComputedValue instances. The only flags supported are the PRIORITY_* flags and {@link Flags#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
+   * @param flags     the flags that are used when creating ComputableValue instances. The only flags supported are the PRIORITY_* flags and {@link Flags#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
    */
   public MemoizeCache( @Nullable final ArezContext context,
                        @Nullable final Component component,
@@ -163,7 +163,7 @@ public final class MemoizeCache<T>
       apiInvariant( this::isNotDisposed,
                     () -> "Arez-0161: MemoizeCache named '" + _name + "' had get() invoked when disposed." );
     }
-    return getComputedValue( args ).get();
+    return getComputableValue( args ).get();
   }
 
   /**
@@ -195,7 +195,7 @@ public final class MemoizeCache<T>
   }
 
   /**
-   * Traverse to leaf map elements and dispose all contained ComputedValue instances.
+   * Traverse to leaf map elements and dispose all contained ComputableValue instances.
    */
   @SuppressWarnings( "unchecked" )
   private void disposeMap( @Nonnull final Map<Object, Object> map, final int depth )
@@ -204,8 +204,8 @@ public final class MemoizeCache<T>
     {
       for ( final Map.Entry<Object, Object> entry : map.entrySet() )
       {
-        final ComputedValue<?> computedValue = (ComputedValue<?>) entry.getValue();
-        computedValue.dispose();
+        final ComputableValue<?> computableValue = (ComputableValue<?>) entry.getValue();
+        computableValue.dispose();
       }
     }
     else
@@ -223,12 +223,12 @@ public final class MemoizeCache<T>
    * @param args the arguments passed to the memoized function.
    */
   @SuppressWarnings( "unchecked" )
-  ComputedValue<T> getComputedValue( @Nonnull final Object... args )
+  ComputableValue<T> getComputableValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> args.length == _argCount,
-                    () -> "Arez-0162: MemoizeCache.getComputedValue called with " + args.length +
+                    () -> "Arez-0162: MemoizeCache.getComputableValue called with " + args.length +
                           " arguments but expected " + _argCount + " arguments." );
     }
     Map<Object, Object> map = _cache;
@@ -237,14 +237,14 @@ public final class MemoizeCache<T>
     {
       map = (Map<Object, Object>) map.computeIfAbsent( args[ i ], v -> new HashMap<>() );
     }
-    ComputedValue<T> computedValue =
-      (ComputedValue<T>) map.computeIfAbsent( args[ size ], v -> createComputedValue( args ) );
-    if ( Disposable.isDisposed( computedValue ) )
+    ComputableValue<T> computableValue =
+      (ComputableValue<T>) map.computeIfAbsent( args[ size ], v -> createComputableValue( args ) );
+    if ( Disposable.isDisposed( computableValue ) )
     {
-      computedValue = createComputedValue( args );
-      map.put( args[ size ], computedValue );
+      computableValue = createComputableValue( args );
+      map.put( args[ size ], computableValue );
     }
-    return computedValue;
+    return computableValue;
   }
 
   /**
@@ -252,11 +252,11 @@ public final class MemoizeCache<T>
    *
    * @param args the arguments passed to the memoized function.
    */
-  private ComputedValue<T> createComputedValue( @Nonnull final Object... args )
+  private ComputableValue<T> createComputableValue( @Nonnull final Object... args )
   {
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
-    final Procedure onDeactivate = () -> disposeComputedValue( args );
+    final Procedure onDeactivate = () -> disposeComputableValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
     return getContext().computed( component, name, function, null, onDeactivate, null, _flags );
   }
@@ -269,12 +269,12 @@ public final class MemoizeCache<T>
    * @param args the arguments originally passed to the memoized function.
    */
   @SuppressWarnings( "unchecked" )
-  void disposeComputedValue( @Nonnull final Object... args )
+  void disposeComputableValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> args.length == _argCount,
-                 () -> "Arez-0163: MemoizeCache.disposeComputedValue called with " + args.length +
+                 () -> "Arez-0163: MemoizeCache.disposeComputableValue called with " + args.length +
                        " argument(s) but expected " + _argCount + " argument(s)." );
     }
     if ( _disposed )
@@ -288,15 +288,15 @@ public final class MemoizeCache<T>
     {
       stack.push( (Map) stack.peek().get( args[ i ] ) );
     }
-    final ComputedValue<T> computedValue = (ComputedValue<T>) stack.peek().remove( args[ size ] );
+    final ComputableValue<T> computableValue = (ComputableValue<T>) stack.peek().remove( args[ size ] );
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> null != computedValue,
-                 () -> "Arez-0193: MemoizeCache.disposeComputedValue called with args " + Arrays.asList( args ) +
-                       " but unable to locate corresponding ComputedValue." );
+      invariant( () -> null != computableValue,
+                 () -> "Arez-0193: MemoizeCache.disposeComputableValue called with args " + Arrays.asList( args ) +
+                       " but unable to locate corresponding ComputableValue." );
     }
-    assert null != computedValue;
-    getContext().scheduleDispose( computedValue );
+    assert null != computableValue;
+    getContext().scheduleDispose( computableValue );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();

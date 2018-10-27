@@ -3,7 +3,7 @@ package com.example.computed;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.ComponentState;
@@ -32,7 +32,7 @@ public final class Arez_TypeParametersModel extends TypeParametersModel implemen
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<?> $$arez$$_time;
+  private final ComputableValue<?> $$arez$$_time;
 
   public Arez_TypeParametersModel() {
     super();

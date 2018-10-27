@@ -65,13 +65,14 @@ public final class ArezContext
    * These are all the Observables instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, ObservableValue<?>> _observables = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  private final HashMap<String, ObservableValue<?>> _observableValues =
+    Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level computed values.
-   * These are all the ComputedValue instances not contained within a component.
+   * These are all the ComputableValue instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, ComputedValue<?>> _computedValues =
+  private final HashMap<String, ComputableValue<?>> _computableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level observers.
@@ -341,196 +342,196 @@ public final class ArezContext
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>      the type of the computed value.
    * @param function the function that computes the value.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nonnull final SafeFunction<T> function )
+  public <T> ComputableValue<T> computed( @Nonnull final SafeFunction<T> function )
   {
     return computed( function, 0 );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>      the type of the computed value.
    * @param function the function that computes the value.
    * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nonnull final SafeFunction<T> function, final int flags )
+  public <T> ComputableValue<T> computed( @Nonnull final SafeFunction<T> function, final int flags )
   {
     return computed( null, function, flags );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>      the type of the computed value.
-   * @param name     the name of the ComputedValue.
+   * @param name     the name of the ComputableValue.
    * @param function the function that computes the value.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final String name, @Nonnull final SafeFunction<T> function )
+  public <T> ComputableValue<T> computed( @Nullable final String name, @Nonnull final SafeFunction<T> function )
   {
     return computed( name, function, 0 );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>      the type of the computed value.
-   * @param name     the name of the ComputedValue.
+   * @param name     the name of the ComputableValue.
    * @param function the function that computes the value.
    * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        final int flags )
+  public <T> ComputableValue<T> computed( @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function,
+                                          final int flags )
   {
     return computed( null, name, function, flags );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>       the type of the computed value.
-   * @param component the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name      the name of the ComputedValue.
+   * @param component the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      the name of the ComputableValue.
    * @param function  the function that computes the value.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function )
+  public <T> ComputableValue<T> computed( @Nullable final Component component,
+                                          @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function )
   {
     return computed( component, name, function, 0 );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>       the type of the computed value.
-   * @param component the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name      the name of the ComputedValue.
+   * @param component the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name      the name of the ComputableValue.
    * @param function  the function that computes the value.
    * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        final int flags )
+  public <T> ComputableValue<T> computed( @Nullable final Component component,
+                                          @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function,
+                                          final int flags )
   {
     return computed( component, name, function, null, null, null, flags );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>          the type of the computed value.
-   * @param component    the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputedValue.
+   * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @return the ComputedValue instance.
+   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale )
+  public <T> ComputableValue<T> computed( @Nullable final Component component,
+                                          @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function,
+                                          @Nullable final Procedure onActivate,
+                                          @Nullable final Procedure onDeactivate,
+                                          @Nullable final Procedure onStale )
   {
     return computed( component, name, function, onActivate, onDeactivate, onStale, 0 );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>          the type of the computed value.
-   * @param name         the name of the ComputedValue.
+   * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @return the ComputedValue instance.
+   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale )
+  public <T> ComputableValue<T> computed( @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function,
+                                          @Nullable final Procedure onActivate,
+                                          @Nullable final Procedure onDeactivate,
+                                          @Nullable final Procedure onStale )
   {
     return computed( name, function, onActivate, onDeactivate, onStale, 0 );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>          the type of the computed value.
-   * @param name         the name of the ComputedValue.
+   * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        final int flags )
+  public <T> ComputableValue<T> computed( @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function,
+                                          @Nullable final Procedure onActivate,
+                                          @Nullable final Procedure onDeactivate,
+                                          @Nullable final Procedure onStale,
+                                          final int flags )
   {
     return computed( null, name, function, onActivate, onDeactivate, onStale, flags );
   }
 
   /**
-   * Create a ComputedValue with specified parameters.
+   * Create a ComputableValue with specified parameters.
    *
    * @param <T>          the type of the computed value.
-   * @param component    the component that contains the ComputedValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputedValue.
+   * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputedValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputedValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputedValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputedValue<T> computed( @Nullable final Component component,
-                                        @Nullable final String name,
-                                        @Nonnull final SafeFunction<T> function,
-                                        @Nullable final Procedure onActivate,
-                                        @Nullable final Procedure onDeactivate,
-                                        @Nullable final Procedure onStale,
-                                        final int flags )
+  public <T> ComputableValue<T> computed( @Nullable final Component component,
+                                          @Nullable final String name,
+                                          @Nonnull final SafeFunction<T> function,
+                                          @Nullable final Procedure onActivate,
+                                          @Nullable final Procedure onDeactivate,
+                                          @Nullable final Procedure onStale,
+                                          final int flags )
   {
-    return new ComputedValue<>( Arez.areZonesEnabled() ? this : null,
-                                component,
-                                generateName( "ComputedValue", name ),
-                                function,
-                                onActivate,
-                                onDeactivate,
-                                onStale,
-                                flags );
+    return new ComputableValue<>( Arez.areZonesEnabled() ? this : null,
+                                  component,
+                                  generateName( "ComputableValue", name ),
+                                  function,
+                                  onActivate,
+                                  onDeactivate,
+                                  onStale,
+                                  flags );
   }
 
   /**
@@ -964,13 +965,13 @@ public final class ArezContext
     }
     if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {
-      invariant( () -> getTransaction().isMutation() || getTransaction().isComputedValueTracker(),
+      invariant( () -> getTransaction().isMutation() || getTransaction().isComputableValueTracker(),
                  () -> "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled during " +
                        "read-only transaction." );
       invariant( () -> getTransaction().getTracker() != observer ||
                        getTransaction().isMutation(),
                  () -> "Arez-0014: Observer named '" + observer.getName() + "' attempted to schedule itself during " +
-                       "read-only tracking transaction. Observers that are supporting ComputedValue instances " +
+                       "read-only tracking transaction. Observers that are supporting ComputableValue instances " +
                        "must not schedule self." );
     }
     _scheduler.scheduleReaction( observer );
@@ -1867,7 +1868,7 @@ public final class ArezContext
 
     verifyActionFlags( name, flags );
     final boolean observed = null != observer;
-    final boolean generateActionEvents = !observed || !observer.isComputedValue();
+    final boolean generateActionEvents = !observed || !observer.isComputableValue();
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
@@ -2038,7 +2039,7 @@ public final class ArezContext
         final Observer parent = parentTransaction.getTracker();
         apiInvariant( () -> null == parent ||
                             parent.nestedActionsAllowed() ||
-                            ( null != observer && observer.isComputedValue() ),
+                            ( null != observer && observer.isComputableValue() ),
                       () -> "Arez-0187: Attempting to nest action named '" + name + "' " +
                             "inside transaction named '" + parentTransaction.getName() + "' created by an " +
                             "observer that does not allow nested actions." );
@@ -2188,13 +2189,13 @@ public final class ArezContext
     {
       invariant( Arez::areRegistriesEnabled,
                  () -> "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
-      assert null != _observables;
-      invariant( () -> !_observables.containsKey( name ),
+      assert null != _observableValues;
+      invariant( () -> !_observableValues.containsKey( name ),
                  () -> "Arez-0023: ArezContext.registerObservableValue invoked with observableValue named '" + name +
                        "' but an existing observableValue with that name is already registered." );
     }
-    assert null != _observables;
-    _observables.put( name, observableValue );
+    assert null != _observableValues;
+    _observableValues.put( name, observableValue );
   }
 
   void deregisterObservableValue( @Nonnull final ObservableValue observableValue )
@@ -2204,13 +2205,13 @@ public final class ArezContext
     {
       invariant( Arez::areRegistriesEnabled,
                  () -> "Arez-0024: ArezContext.deregisterObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
-      assert null != _observables;
-      invariant( () -> _observables.containsKey( name ),
+      assert null != _observableValues;
+      invariant( () -> _observableValues.containsKey( name ),
                  () -> "Arez-0025: ArezContext.deregisterObservableValue invoked with observableValue named '" + name +
                        "' but no observableValue with that name is registered." );
     }
-    assert null != _observables;
-    _observables.remove( name );
+    assert null != _observableValues;
+    _observableValues.remove( name );
   }
 
   @Nonnull
@@ -2221,8 +2222,8 @@ public final class ArezContext
       invariant( Arez::areRegistriesEnabled,
                  () -> "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
     }
-    assert null != _observables;
-    return _observables;
+    assert null != _observableValues;
+    return _observableValues;
   }
 
   void registerObserver( @Nonnull final Observer observer )
@@ -2269,48 +2270,48 @@ public final class ArezContext
     return _observers;
   }
 
-  void registerComputedValue( @Nonnull final ComputedValue computedValue )
+  void registerComputableValue( @Nonnull final ComputableValue computableValue )
   {
-    final String name = computedValue.getName();
+    final String name = computableValue.getName();
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areRegistriesEnabled,
-                 () -> "Arez-0032: ArezContext.registerComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
-      assert null != _computedValues;
-      invariant( () -> !_computedValues.containsKey( name ),
-                 () -> "Arez-0033: ArezContext.registerComputedValue invoked with computed value named '" + name +
-                       "' but an existing computed value with that name is already registered." );
+                 () -> "Arez-0032: ArezContext.registerComputableValue invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _computableValues;
+      invariant( () -> !_computableValues.containsKey( name ),
+                 () -> "Arez-0033: ArezContext.registerComputableValue invoked with ComputableValue named '" + name +
+                       "' but an existing ComputableValue with that name is already registered." );
     }
-    assert null != _computedValues;
-    _computedValues.put( name, computedValue );
+    assert null != _computableValues;
+    _computableValues.put( name, computableValue );
   }
 
-  void deregisterComputedValue( @Nonnull final ComputedValue computedValue )
+  void deregisterComputableValue( @Nonnull final ComputableValue computableValue )
   {
-    final String name = computedValue.getName();
+    final String name = computableValue.getName();
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areRegistriesEnabled,
-                 () -> "Arez-0034: ArezContext.deregisterComputedValue invoked when Arez.areRegistriesEnabled() returns false." );
-      assert null != _computedValues;
-      invariant( () -> _computedValues.containsKey( name ),
-                 () -> "Arez-0035: ArezContext.deregisterComputedValue invoked with computed value named '" + name +
-                       "' but no computed value with that name is registered." );
+                 () -> "Arez-0034: ArezContext.deregisterComputableValue invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _computableValues;
+      invariant( () -> _computableValues.containsKey( name ),
+                 () -> "Arez-0035: ArezContext.deregisterComputableValue invoked with ComputableValue named '" + name +
+                       "' but no ComputableValue with that name is registered." );
     }
-    assert null != _computedValues;
-    _computedValues.remove( name );
+    assert null != _computableValues;
+    _computableValues.remove( name );
   }
 
   @Nonnull
-  HashMap<String, ComputedValue<?>> getTopLevelComputedValues()
+  HashMap<String, ComputableValue<?>> getTopLevelComputableValues()
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areRegistriesEnabled,
-                 () -> "Arez-0036: ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+                 () -> "Arez-0036: ArezContext.getTopLevelComputableValues() invoked when Arez.areRegistriesEnabled() returns false." );
     }
-    assert null != _computedValues;
-    return _computedValues;
+    assert null != _computableValues;
+    return _computableValues;
   }
 
   @Nonnull

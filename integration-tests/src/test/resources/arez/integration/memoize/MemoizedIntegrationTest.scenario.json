@@ -47,7 +47,7 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
@@ -131,7 +131,7 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
@@ -215,7 +215,7 @@
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
@@ -299,7 +299,7 @@
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
@@ -1051,7 +1051,7 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1100,7 +1100,7 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
@@ -1645,7 +1645,7 @@
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0.dispose",
@@ -1709,7 +1709,7 @@
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0.dispose",
@@ -1773,7 +1773,7 @@
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1.dispose",

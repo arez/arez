@@ -1,8 +1,8 @@
 package arez;
 
-import arez.spy.ComputedValueCreatedEvent;
-import arez.spy.ComputedValueDisposedEvent;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueCreatedEvent;
+import arez.spy.ComputableValueDisposedEvent;
+import arez.spy.ComputableValueInfo;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -10,21 +10,21 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * The ComputedValue represents an ObservableValue derived from other ObservableValues within
- * the Arez system. The value is calculated lazily. i.e. The ComputedValue will only
- * be calculated if there is current observers on the calculated value.
+ * The ComputableValue represents an ObservableValue derived from other ObservableValues within
+ * the Arez system. The value is calculated lazily. i.e. The ComputableValue will only
+ * be calculated if the ComputableValue has observers.
  *
- * <p>It should be noted that the ComputedValue is backed by both an ObservableValue and
+ * <p>It should be noted that the ComputableValue is backed by both an ObservableValue and
  * an Observer. The id's of each of these nodes differ but they share the name and
  * thus while debugging appear to be a single element.</p>
  */
-public final class ComputedValue<T>
+public final class ComputableValue<T>
   extends Node
 {
   /**
-   * The component that this ComputedValue is contained within.
+   * The component that this ComputableValue is contained within.
    * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
-   * the ComputedValue is a "top-level" ComputedValue.
+   * the ComputableValue is a "top-level" ComputableValue.
    */
   @Nullable
   private final Component _component;
@@ -46,7 +46,7 @@ public final class ComputedValue<T>
    */
   private T _value;
   /**
-   * The error that was thrown the last time that this ComputedValue was derived.
+   * The error that was thrown the last time that this ComputableValue was derived.
    * If this value is non-null then {@link #_value} should be null. This exception
    * is rethrown every time {@link #get()} is called until the computed value is
    * recalculated.
@@ -54,8 +54,8 @@ public final class ComputedValue<T>
   private Throwable _error;
   /**
    * A flag indicating whether computation is active. Used when checking
-   * invariants to detect when the derivation of the ComputedValue ultimately
-   * causes a recalculation of the ComputedValue.
+   * invariants to detect when the derivation of the ComputableValue ultimately
+   * causes a recalculation of the ComputableValue.
    */
   private boolean _computing;
   /**
@@ -63,17 +63,17 @@ public final class ComputedValue<T>
    */
   private boolean _disposed;
   /**
-   * Hook action called when the ComputedValue moves to observed state.
+   * Hook action called when the ComputableValue moves to observed state.
    */
   @Nullable
   private final Procedure _onActivate;
   /**
-   * Hook action called when the ComputedValue moves to un-observed state from any other state.
+   * Hook action called when the ComputableValue moves to un-observed state from any other state.
    */
   @Nullable
   private final Procedure _onDeactivate;
   /**
-   * Hook action called when the ComputedValue moves from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
+   * Hook action called when the ComputableValue moves from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
    */
   @Nullable
   private final Procedure _onStale;
@@ -82,22 +82,22 @@ public final class ComputedValue<T>
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
   @Nullable
-  private ComputedValueInfo _info;
+  private ComputableValueInfo _info;
 
-  ComputedValue( @Nullable final ArezContext context,
-                 @Nullable final Component component,
-                 @Nullable final String name,
-                 @Nonnull final SafeFunction<T> function,
-                 @Nullable final Procedure onActivate,
-                 @Nullable final Procedure onDeactivate,
-                 @Nullable final Procedure onStale,
-                 final int flags )
+  ComputableValue( @Nullable final ArezContext context,
+                   @Nullable final Component component,
+                   @Nullable final String name,
+                   @Nonnull final SafeFunction<T> function,
+                   @Nullable final Procedure onActivate,
+                   @Nullable final Procedure onDeactivate,
+                   @Nullable final Procedure onStale,
+                   final int flags )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
-                 () -> "Arez-0048: ComputedValue named '" + getName() + "' has component specified but " +
+                 () -> "Arez-0048: ComputableValue named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
     }
     if ( Arez.shouldCheckApiInvariants() )
@@ -124,15 +124,15 @@ public final class ComputedValue<T>
                              null );
     if ( null != _component )
     {
-      _component.addComputedValue( this );
+      _component.addComputableValue( this );
     }
     else if ( Arez.areRegistriesEnabled() )
     {
-      getContext().registerComputedValue( this );
+      getContext().registerComputableValue( this );
     }
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComputedValueCreatedEvent( asInfo() ) );
+      getSpy().reportSpyEvent( new ComputableValueCreatedEvent( asInfo() ) );
     }
     if ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) )
     {
@@ -151,9 +151,9 @@ public final class ComputedValue<T>
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !_computing,
-                    () -> "Arez-0049: Detected a cycle deriving ComputedValue named '" + getName() + "'." );
+                    () -> "Arez-0049: Detected a cycle deriving ComputableValue named '" + getName() + "'." );
       apiInvariant( _observer::isNotDisposed,
-                    () -> "Arez-0050: ComputedValue named '" + getName() + "' accessed after it has been disposed." );
+                    () -> "Arez-0050: ComputableValue named '" + getName() + "' accessed after it has been disposed." );
     }
     getObservableValue().reportObserved();
     if ( _observer.shouldCompute() )
@@ -165,7 +165,7 @@ public final class ComputedValue<T>
       if ( Arez.shouldCheckInvariants() )
       {
         invariant( () -> null == _value,
-                   () -> "Arez-0051: ComputedValue generated a value during computation for ComputedValue named '" +
+                   () -> "Arez-0051: ComputableValue generated a value during computation for ComputableValue named '" +
                          getName() + "' but still has a non-null value." );
       }
       if ( _error instanceof RuntimeException )
@@ -181,11 +181,11 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Invoked when a non-arez dependency of the ComputedValue has changed. The ComputedValue
+   * Invoked when a non-arez dependency of the ComputableValue has changed. The ComputableValue
    * may or may not change as a result of the dependency change but Arez will recalculate
-   * the ComputedValue during the normal reaction cycle or when next accessed and will propagate
+   * the ComputableValue during the normal reaction cycle or when next accessed and will propagate
    * the change at that time if required. This method must be explicitly invoked by the
-   * developer if the ComputedValue is derived from non-arez data and that data changes.
+   * developer if the ComputableValue is derived from non-arez data and that data changes.
    * Before invoking this method, a read-write transaction <b>MUST</b> be active.
    */
   public void reportPossiblyChanged()
@@ -193,7 +193,7 @@ public final class ComputedValue<T>
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> getObserver().areExternalDependenciesAllowed(),
-                    () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputedValue named '" +
+                    () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputableValue named '" +
                           getName() + "' but the computed value has not specified the " +
                           "AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
     }
@@ -205,7 +205,7 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Dispose the ComputedValue so that it can no longer be used.
+   * Dispose the ComputableValue so that it can no longer be used.
    */
   @Override
   public void dispose()
@@ -225,15 +225,15 @@ public final class ComputedValue<T>
       _error = null;
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputedValueDisposedEvent( asInfo() ) );
+        reportSpyEvent( new ComputableValueDisposedEvent( asInfo() ) );
       }
       if ( null != _component )
       {
-        _component.removeComputedValue( this );
+        _component.removeComputableValue( this );
       }
       else if ( Arez.areRegistriesEnabled() )
       {
-        getContext().deregisterComputedValue( this );
+        getContext().deregisterComputableValue( this );
       }
       _observableValue.dispose();
       if ( !_observer.isDisposing() )
@@ -253,9 +253,9 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Return true if the ComputedValue is currently being computed.
+   * Return true if the ComputableValue is currently being computed.
    *
-   * @return true if the ComputedValue is currently being computed.
+   * @return true if the ComputableValue is currently being computed.
    */
   boolean isComputing()
   {
@@ -263,9 +263,9 @@ public final class ComputedValue<T>
   }
 
   /**
-   * Return the Observer created to represent the ComputedValue.
+   * Return the Observer created to represent the ComputableValue.
    *
-   * @return the Observer created to represent the ComputedValue.
+   * @return the Observer created to represent the ComputableValue.
    */
   @Nonnull
   Observer getObserver()
@@ -285,7 +285,7 @@ public final class ComputedValue<T>
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( this::isNotDisposed,
-                 () -> "Arez-0084: Attempted to invoke getObservableValue on disposed ComputedValue " +
+                 () -> "Arez-0084: Attempted to invoke getObservableValue on disposed ComputableValue " +
                        "named '" + getName() + "'." );
     }
     return _observableValue;
@@ -346,9 +346,9 @@ public final class ComputedValue<T>
         {
           final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
           apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),
-                        () -> "Arez-0173: ComputedValue named '" + getName() + "' completed compute but is not " +
+                        () -> "Arez-0173: ComputableValue named '" + getName() + "' completed compute but is not " +
                               "observing any properties. As a result compute will never be rescheduled. " +
-                              "This is not a ComputedValue candidate." );
+                              "This is not a ComputableValue candidate." );
         }
       }
     }
@@ -399,16 +399,16 @@ public final class ComputedValue<T>
    */
   @SuppressWarnings( "ConstantConditions" )
   @Nonnull
-  ComputedValueInfo asInfo()
+  ComputableValueInfo asInfo()
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( Arez::areSpiesEnabled,
-                 () -> "Arez-0195: ComputedValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+                 () -> "Arez-0195: ComputableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
     }
     if ( Arez.areSpiesEnabled() && null == _info )
     {
-      _info = new ComputedValueInfoImpl( this );
+      _info = new ComputableValueInfoImpl( this );
     }
     return Arez.areSpiesEnabled() ? _info : null;
   }

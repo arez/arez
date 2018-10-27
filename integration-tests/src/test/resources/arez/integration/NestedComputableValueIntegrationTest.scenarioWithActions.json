@@ -22,7 +22,7 @@
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Node.20",
@@ -38,7 +38,7 @@
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Node.21",
@@ -54,7 +54,7 @@
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Node.22",
@@ -102,7 +102,7 @@
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -189,11 +189,11 @@
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -307,15 +307,15 @@
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -409,7 +409,7 @@
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -496,11 +496,11 @@
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -614,15 +614,15 @@
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -716,7 +716,7 @@
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -803,11 +803,11 @@
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -921,15 +921,15 @@
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1023,7 +1023,7 @@
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1110,11 +1110,11 @@
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1228,15 +1228,15 @@
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1330,7 +1330,7 @@
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1417,11 +1417,11 @@
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -1535,15 +1535,15 @@
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,

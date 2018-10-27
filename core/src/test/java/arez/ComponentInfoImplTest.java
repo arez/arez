@@ -19,12 +19,12 @@ public class ComponentInfoImplTest
     final String name = ValueUtil.randomString();
     final Observer observer = context.observer( AbstractArezTest::observeADependency );
     final ObservableValue observableValue = context.observable();
-    final ComputedValue computedValue = context.computed( () -> "" );
+    final ComputableValue computableValue = context.computed( () -> "" );
 
     final Component component = context.component( type, id, name );
     component.addObserver( observer );
     component.addObservableValue( observableValue );
-    component.addComputedValue( computedValue );
+    component.addComputableValue( computableValue );
 
     final ComponentInfo info = component.asInfo();
 
@@ -41,9 +41,9 @@ public class ComponentInfoImplTest
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
-    assertEquals( info.getComputedValues().size(), 1 );
-    assertEquals( info.getComputedValues().get( 0 ).getName(), computedValue.getName() );
-    assertUnmodifiable( info.getComputedValues() );
+    assertEquals( info.getComputableValues().size(), 1 );
+    assertEquals( info.getComputableValues().get( 0 ).getName(), computableValue.getName() );
+    assertUnmodifiable( info.getComputableValues() );
 
     assertFalse( info.isDisposed() );
     component.dispose();

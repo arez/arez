@@ -5,7 +5,7 @@ title: Observable Values
 The observable value represents state that can be observed within Arez. Anytime you want an Arez reaction
 to track changes in a property and react to changes in the property this property should be made into
 an observable property. The only exception is when that property is derived from other observable properties
-in which case it should be modelled as a [computed value](computed_values.md).
+in which case it should be modelled as a [computable value](computable_values.md).
 
 Within the Arez system an observable is represented by an instance of the {@api_url: ObservableValue} class. The
 {@api_url: ObservableValue} class does not contain the state that is observed but provides methods that can be

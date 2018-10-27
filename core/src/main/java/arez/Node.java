@@ -12,7 +12,7 @@ import static org.realityforge.braincheck.Guards.*;
  * dependency graph.
  *
  * <p>The Node class can be extended by classes outside the Arez core package. Typically this is
- * done when a collection of primitive types (i.e. Observables, Observers, ComputedValues etc) are
+ * done when a collection of primitive types (i.e. Observables, Observers, ComputableValues etc) are
  * aggregated to form a single abstraction within the reactive system.</p>
  */
 public abstract class Node

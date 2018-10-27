@@ -3,7 +3,7 @@ package com.example.inheritance;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.ComponentState;
@@ -32,7 +32,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Integer> $$arez$$_myComputed;
+  private final ComputableValue<Integer> $$arez$$_myComputed;
 
   Arez_MyModel() {
     super();

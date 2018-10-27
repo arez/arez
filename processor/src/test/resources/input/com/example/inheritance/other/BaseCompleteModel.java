@@ -2,6 +2,7 @@ package com.example.inheritance.other;
 
 import arez.ArezContext;
 import arez.Component;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
@@ -68,7 +69,7 @@ public abstract class BaseCompleteModel
 
   @Nonnull
   @ComputedValueRef
-  protected abstract arez.ComputedValue<Long> getTimeComputedValue();
+  protected abstract ComputableValue<Long> getTimeComputableValue();
 
   @OnActivate
   protected final void onTimeActivate()

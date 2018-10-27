@@ -3,7 +3,7 @@ package com.example.repository;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
@@ -42,7 +42,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   private final ObservableValue<String> $$arez$$_rawQualifiedName;
 
   @Nonnull
-  private final ComputedValue<String> $$arez$$_qualifiedName;
+  private final ComputableValue<String> $$arez$$_qualifiedName;
 
   Arez_PackageAccessRepositoryExample(@Nonnull final String packageName,
       @Nonnull final String name) {

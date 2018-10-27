@@ -1,5 +1,6 @@
 package com.example.computed;
 
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
@@ -17,5 +18,5 @@ public abstract class NonArezDependenciesComputedModel
 
   @Nonnull
   @ComputedValueRef
-  abstract arez.ComputedValue<Long> getTimeComputedValue();
+  abstract ComputableValue<Long> getTimeComputableValue();
 }

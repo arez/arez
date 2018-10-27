@@ -14,7 +14,7 @@
     },
     {
         "name": "Attr3",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Render",
@@ -81,7 +81,7 @@
     },
     {
         "name": "Attr3",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "Attr3.dispose",

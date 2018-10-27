@@ -153,8 +153,8 @@ public final class ArezBuildAsserts
   public static void assertAreRegistriesEnabled( @Nonnull final SymbolEntryIndex index,
                                                  final boolean enabled )
   {
-    index.assertSymbol( "arez\\.ArezContext", "_observables", enabled );
-    index.assertSymbol( "arez\\.ArezContext", "_computedValues", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_observableValues", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_computableValues", enabled );
     index.assertSymbol( "arez\\.ArezContext", "_observers", enabled );
   }
 

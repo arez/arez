@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ElementInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.Priority;
@@ -15,7 +15,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComputedValueInfoImplTest
+public class ComputableValueInfoImplTest
   extends AbstractArezTest
 {
   @Test
@@ -30,14 +30,14 @@ public class ComputedValueInfoImplTest
     final String initialValue = ValueUtil.randomString();
     value.set( initialValue );
 
-    final ComputedValue<Object> computedValue =
+    final ComputableValue<Object> computableValue =
       context.computed( name, () -> {
         observableValue.reportObserved();
         return value.get();
       } );
-    final Observer observer = context.observer( computedValue::get );
+    final Observer observer = context.observer( computableValue::get );
 
-    final ComputedValueInfo info = computedValue.asInfo();
+    final ComputableValueInfo info = computableValue.asInfo();
 
     assertNull( info.getComponent() );
     assertEquals( info.getName(), name );
@@ -59,10 +59,10 @@ public class ComputedValueInfoImplTest
 
     assertFalse( info.isDisposed() );
 
-    // Dispose observer so it does not access computedValue after it is disposed
+    // Dispose observer so it does not access computableValue after it is disposed
     observer.dispose();
 
-    computedValue.dispose();
+    computableValue.dispose();
 
     assertTrue( info.isDisposed() );
   }
@@ -74,11 +74,11 @@ public class ComputedValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
-    assertFalse( spy.asComputedValueInfo( computedValue ).isComputing() );
-    computedValue.setComputing( true );
-    assertTrue( spy.asComputedValueInfo( computedValue ).isComputing() );
+    assertFalse( spy.asComputableValueInfo( computableValue ).isComputing() );
+    computableValue.setComputing( true );
+    assertTrue( spy.asComputableValueInfo( computableValue ).isComputing() );
   }
 
   @Test
@@ -86,12 +86,12 @@ public class ComputedValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    final Observer observer = computedValue.getObserver();
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final Observer observer = computableValue.getObserver();
     final Observer observer2 = context.observer( new CountAndObserveProcedure() );
 
-    computedValue.setComputing( true );
-    final ComputedValueInfoImpl info = (ComputedValueInfoImpl) computedValue.asInfo();
+    computableValue.setComputing( true );
+    final ComputableValueInfoImpl info = (ComputableValueInfoImpl) computableValue.asInfo();
 
     final Transaction transaction =
       new Transaction( context, null, observer.getName(), observer.isMutation(), observer );
@@ -113,16 +113,16 @@ public class ComputedValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
-    computedValue.setComputing( true );
+    computableValue.setComputing( true );
 
-    final ComputedValueInfoImpl info = (ComputedValueInfoImpl) computedValue.asInfo();
+    final ComputableValueInfoImpl info = (ComputableValueInfoImpl) computableValue.asInfo();
     setupReadOnlyTransaction( context );
 
     assertInvariantFailure( info::getTransactionComputing,
-                            "Arez-0106: ComputedValue named '" + computedValue.getName() + "' is marked as " +
-                            "computing but unable to locate transaction responsible for computing ComputedValue" );
+                            "Arez-0106: ComputableValue named '" + computableValue.getName() + "' is marked as " +
+                            "computing but unable to locate transaction responsible for computing ComputableValue" );
   }
 
   @Test
@@ -130,15 +130,15 @@ public class ComputedValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
-    final ComputedValueInfo info = computedValue.asInfo();
+    final ComputableValueInfo info = computableValue.asInfo();
 
     assertEquals( info.getDependencies().size(), 0 );
 
     final ObservableValue<?> observableValue = context.observable();
-    observableValue.getObservers().add( computedValue.getObserver() );
-    computedValue.getObserver().getDependencies().add( observableValue );
+    observableValue.getObservers().add( computableValue.getObserver() );
+    computableValue.getObserver().getDependencies().add( observableValue );
 
     final List<ObservableValueInfo> dependencies = info.getDependencies();
     assertEquals( dependencies.size(), 1 );
@@ -152,19 +152,19 @@ public class ComputedValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
     final ObservableValue<?> observableValue = context.observable();
     final ObservableValue<?> observableValue2 = context.observable();
     final ObservableValue<?> observableValue3 = context.observable();
 
-    observableValue.getObservers().add( computedValue.getObserver() );
-    computedValue.getObserver().getDependencies().add( observableValue );
+    observableValue.getObservers().add( computableValue.getObserver() );
+    computableValue.getObserver().getDependencies().add( observableValue );
 
-    computedValue.setComputing( true );
-    final ComputedValueInfo info = computedValue.asInfo();
+    computableValue.setComputing( true );
+    final ComputableValueInfo info = computableValue.asInfo();
 
-    setCurrentTransaction( computedValue.getObserver() );
+    setCurrentTransaction( computableValue.getObserver() );
 
     assertEquals( info.getDependencies().size(), 0 );
 
@@ -182,32 +182,32 @@ public class ComputedValueInfoImplTest
   }
 
   @Test
-  public void getComponent_ComputedValue()
+  public void getComponent_ComputableValue()
   {
     final ArezContext context = Arez.context();
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
-    final ComputedValue<Object> computedValue1 =
+    final ComputableValue<Object> computableValue1 =
       context.computed( component, ValueUtil.randomString(), ValueUtil::randomString );
-    final ComputedValue<Object> computedValue2 = context.computed( ValueUtil::randomString );
+    final ComputableValue<Object> computableValue2 = context.computed( ValueUtil::randomString );
 
-    final ComponentInfo info = computedValue1.asInfo().getComponent();
+    final ComponentInfo info = computableValue1.asInfo().getComponent();
     assertNotNull( info );
     assertEquals( info.getName(), component.getName() );
-    assertNull( computedValue2.asInfo().getComponent() );
+    assertNull( computableValue2.asInfo().getComponent() );
   }
 
   @Test
-  public void getComponent_ComputedValue_nativeComponentsDisabled()
+  public void getComponent_ComputableValue_nativeComponentsDisabled()
   {
     ArezTestUtil.disableNativeComponents();
 
     final ArezContext context = Arez.context();
 
-    final ComputedValue<Object> computedValue = context.computed( () -> "" );
+    final ComputableValue<Object> computableValue = context.computed( () -> "" );
 
-    assertInvariantFailure( () -> computedValue.asInfo().getComponent(),
+    assertInvariantFailure( () -> computableValue.asInfo().getComponent(),
                             "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
   }
 
@@ -218,12 +218,12 @@ public class ComputedValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
-    assertFalse( spy.asComputedValueInfo( computedValue ).isActive() );
+    assertFalse( spy.asComputableValueInfo( computableValue ).isActive() );
     setupReadOnlyTransaction( context );
-    computedValue.getObserver().setState( Flags.STATE_UP_TO_DATE );
-    assertTrue( spy.asComputedValueInfo( computedValue ).isActive() );
+    computableValue.getObserver().setState( Flags.STATE_UP_TO_DATE );
+    assertTrue( spy.asComputableValueInfo( computableValue ).isActive() );
   }
 
   @Test
@@ -233,37 +233,37 @@ public class ComputedValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    final ComputedValue<?> computedValue = context.computed( () -> "" );
+    final ComputableValue<?> computableValue = context.computed( () -> "" );
 
-    assertEquals( spy.asComputedValueInfo( computedValue ).getObservers().size(), 0 );
+    assertEquals( spy.asComputableValueInfo( computableValue ).getObservers().size(), 0 );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
-    observer.getDependencies().add( computedValue.getObservableValue() );
-    computedValue.getObservableValue().getObservers().add( observer );
+    observer.getDependencies().add( computableValue.getObservableValue() );
+    computableValue.getObservableValue().getObservers().add( observer );
 
-    assertEquals( spy.asComputedValueInfo( computedValue ).getObservers().size(), 1 );
+    assertEquals( spy.asComputableValueInfo( computableValue ).getObservers().size(), 1 );
     // Ensure the underlying list has the Observer in places
-    assertEquals( computedValue.getObservableValue().getObservers().size(), 1 );
+    assertEquals( computableValue.getObservableValue().getObservers().size(), 1 );
 
-    assertUnmodifiable( spy.asComputedValueInfo( computedValue ).getObservers() );
+    assertUnmodifiable( spy.asComputableValueInfo( computableValue ).getObservers() );
   }
 
   @Test
-  public void computedValue_introspection_noObservers()
+  public void computableValue_introspection_noObservers()
     throws Throwable
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue1 = context.computed( () -> {
+    final ComputableValue<String> computableValue1 = context.computed( () -> {
       observeADependency();
       return "42";
     } );
 
-    assertNull( computedValue1.asInfo().getValue() );
+    assertNull( computableValue1.asInfo().getValue() );
   }
 
   @Test
-  public void computedValue_introspection()
+  public void computableValue_introspection()
     throws Throwable
   {
     final ArezContext context = Arez.context();
@@ -272,22 +272,22 @@ public class ComputedValueInfoImplTest
       observeADependency();
       return "42";
     };
-    final ComputedValue<String> computedValue1 = context.computed( function );
-    context.observer( computedValue1::get );
+    final ComputableValue<String> computableValue1 = context.computed( function );
+    context.observer( computableValue1::get );
 
-    assertEquals( computedValue1.asInfo().getValue(), "42" );
+    assertEquals( computableValue1.asInfo().getValue(), "42" );
   }
 
   @Test
-  public void computedValue_getValue_introspectorsDisabled()
+  public void computableValue_getValue_introspectorsDisabled()
   {
     ArezTestUtil.disablePropertyIntrospectors();
 
     final ArezContext context = Arez.context();
 
-    final ComputedValue<Integer> computedValue1 = context.computed( () -> 42 );
+    final ComputableValue<Integer> computableValue1 = context.computed( () -> 42 );
 
-    assertInvariantFailure( () -> context.action( () -> computedValue1.asInfo().getValue() ),
+    assertInvariantFailure( () -> context.action( () -> computableValue1.asInfo().getValue() ),
                             "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
@@ -296,12 +296,12 @@ public class ComputedValueInfoImplTest
   public void equalsAndHashCode()
   {
     final ArezContext context = Arez.context();
-    final ComputedValue<Object> computedValue1 = context.computed( () -> "1" );
-    final ComputedValue<Object> computedValue2 = context.computed( () -> "2" );
+    final ComputableValue<Object> computableValue1 = context.computed( () -> "1" );
+    final ComputableValue<Object> computableValue2 = context.computed( () -> "2" );
 
-    final ComputedValueInfo info1a = computedValue1.asInfo();
-    final ComputedValueInfo info1b = new ComputedValueInfoImpl( computedValue1 );
-    final ComputedValueInfo info2 = computedValue2.asInfo();
+    final ComputableValueInfo info1a = computableValue1.asInfo();
+    final ComputableValueInfo info1b = new ComputableValueInfoImpl( computableValue1 );
+    final ComputableValueInfo info2 = computableValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
     assertFalse( info1a.equals( "" ) );
@@ -318,9 +318,9 @@ public class ComputedValueInfoImplTest
     assertFalse( info2.equals( info1b ) );
     assertTrue( info2.equals( info2 ) );
 
-    assertEquals( info1a.hashCode(), computedValue1.hashCode() );
+    assertEquals( info1a.hashCode(), computableValue1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );
-    assertEquals( info2.hashCode(), computedValue2.hashCode() );
+    assertEquals( info2.hashCode(), computableValue2.hashCode() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection )

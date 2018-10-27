@@ -2,14 +2,14 @@ package arez.integration;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComputedValueRefTest
+public class ComputableValueRefTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
@@ -18,11 +18,11 @@ public class ComputedValueRefTest
     private int _otherID;
 
     @ComputedValueRef
-    abstract ComputedValue<Integer> getOtherIDComputedValue();
+    abstract ComputableValue<Integer> getOtherIDComputableValue();
 
     String getOther()
     {
-      return String.valueOf( getOtherIDComputedValue().get() );
+      return String.valueOf( getOtherIDComputableValue().get() );
     }
 
     @Computed
@@ -44,7 +44,7 @@ public class ComputedValueRefTest
   {
     final ArezContext context = Arez.context();
 
-    final TestComponent component = new ComputedValueRefTest_Arez_TestComponent();
+    final TestComponent component = new ComputableValueRefTest_Arez_TestComponent();
     component.setOtherID( 1 );
 
     final Integer valueAsInt = context.action( component::getOtherID );
