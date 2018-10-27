@@ -65,7 +65,8 @@ public final class ArezContext
    * These are all the Observables instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, ObservableValue<?>> _observables = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  private final HashMap<String, ObservableValue<?>> _observableValues =
+    Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level computed values.
    * These are all the ComputableValue instances not contained within a component.
@@ -2188,13 +2189,13 @@ public final class ArezContext
     {
       invariant( Arez::areRegistriesEnabled,
                  () -> "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
-      assert null != _observables;
-      invariant( () -> !_observables.containsKey( name ),
+      assert null != _observableValues;
+      invariant( () -> !_observableValues.containsKey( name ),
                  () -> "Arez-0023: ArezContext.registerObservableValue invoked with observableValue named '" + name +
                        "' but an existing observableValue with that name is already registered." );
     }
-    assert null != _observables;
-    _observables.put( name, observableValue );
+    assert null != _observableValues;
+    _observableValues.put( name, observableValue );
   }
 
   void deregisterObservableValue( @Nonnull final ObservableValue observableValue )
@@ -2204,13 +2205,13 @@ public final class ArezContext
     {
       invariant( Arez::areRegistriesEnabled,
                  () -> "Arez-0024: ArezContext.deregisterObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
-      assert null != _observables;
-      invariant( () -> _observables.containsKey( name ),
+      assert null != _observableValues;
+      invariant( () -> _observableValues.containsKey( name ),
                  () -> "Arez-0025: ArezContext.deregisterObservableValue invoked with observableValue named '" + name +
                        "' but no observableValue with that name is registered." );
     }
-    assert null != _observables;
-    _observables.remove( name );
+    assert null != _observableValues;
+    _observableValues.remove( name );
   }
 
   @Nonnull
@@ -2221,8 +2222,8 @@ public final class ArezContext
       invariant( Arez::areRegistriesEnabled,
                  () -> "Arez-0026: ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false." );
     }
-    assert null != _observables;
-    return _observables;
+    assert null != _observableValues;
+    return _observableValues;
   }
 
   void registerObserver( @Nonnull final Observer observer )
