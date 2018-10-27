@@ -5,7 +5,6 @@ import arez.ArezTestUtil;
 import arez.Observer;
 import arez.ObserverError;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
@@ -39,7 +38,7 @@ public abstract class AbstractTest
     ArezTestUtil.resetConfig( true );
     if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
     {
-      fail( "Unexpected Observer Errors: " + _observerErrors.stream().collect( Collectors.joining( "\n" ) ) );
+      fail( "Unexpected Observer Errors: " + String.join( "\n", _observerErrors ) );
     }
   }
 
