@@ -4,7 +4,7 @@ require 'buildr/gwt'
 
 GWT_EXAMPLES=%w(arez.mediaquery.example.MediaQueryExample)
 
-desc 'Arez-MediaQuery: Arez Browser component that tracks when the user is online'
+desc 'Arez-MediaQuery: Arez browser component that exposes when a CSS media query is matched'
 define 'arez-mediaquery' do
   project.group = 'org.realityforge.arez.mediaquery'
   compile.options.source = '1.8'
