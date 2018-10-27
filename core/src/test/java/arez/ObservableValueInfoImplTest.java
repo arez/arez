@@ -34,7 +34,7 @@ public class ObservableValueInfoImplTest
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
-    assertFalse( info.isComputedValue() );
+    assertFalse( info.isComputableValue() );
     assertFalse( info.isDisposed() );
 
     // Dispose observer to avoid accessing observableValue when it is disposed
@@ -79,7 +79,7 @@ public class ObservableValueInfoImplTest
     assertEquals( info.getObservers().get( 0 ).getName(), observer.getName() );
     assertUnmodifiable( info.getObservers() );
 
-    assertFalse( info.isComputedValue() );
+    assertFalse( info.isComputableValue() );
     assertFalse( info.isDisposed() );
 
     // Dispose observer to avoid accessing observableValue when it is disposed
@@ -91,20 +91,20 @@ public class ObservableValueInfoImplTest
   }
 
   @Test
-  public void asComputedValue()
+  public void asComputableValue()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.computed( name, () -> "" );
+    final ComputableValue<String> computableValue = context.computed( name, () -> "" );
 
-    final ObservableValue<String> observableValue = computedValue.getObservableValue();
+    final ObservableValue<String> observableValue = computableValue.getObservableValue();
 
     final ObservableValueInfo info = observableValue.asInfo();
 
     assertEquals( info.getName(), name );
 
-    assertTrue( info.isComputedValue() );
-    assertEquals( info.asComputedValue().getName(), computedValue.getName() );
+    assertTrue( info.isComputableValue() );
+    assertEquals( info.asComputableValue().getName(), computableValue.getName() );
   }
 
   @SuppressWarnings( "EqualsWithItself" )
@@ -145,14 +145,14 @@ public class ObservableValueInfoImplTest
   }
 
   @Test
-  public void isComputedValue()
+  public void isComputableValue()
   {
     final ArezContext context = Arez.context();
 
     final Spy spy = context.getSpy();
 
-    assertTrue( spy.asObservableValueInfo( context.computed( () -> "" ).getObservableValue() ).isComputedValue() );
-    assertFalse( spy.asObservableValueInfo( context.observable() ).isComputedValue() );
+    assertTrue( spy.asObservableValueInfo( context.computed( () -> "" ).getObservableValue() ).isComputableValue() );
+    assertFalse( spy.asObservableValueInfo( context.observable() ).isComputableValue() );
   }
 
   @Test
@@ -235,9 +235,9 @@ public class ObservableValueInfoImplTest
 
     final ArezContext context = Arez.context();
 
-    final ObservableValue<Integer> computedValue1 = context.observable();
+    final ObservableValue<Integer> computableValue1 = context.observable();
 
-    assertInvariantFailure( () -> context.action( () -> computedValue1.asInfo().getValue() ),
+    assertInvariantFailure( () -> context.action( () -> computableValue1.asInfo().getValue() ),
                             "Arez-0111: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 

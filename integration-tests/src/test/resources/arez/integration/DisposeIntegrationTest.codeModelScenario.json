@@ -18,7 +18,7 @@
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "CodeModel.0",
@@ -461,7 +461,7 @@
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -519,7 +519,7 @@
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "CodeModel.0.qualifiedName.dispose",

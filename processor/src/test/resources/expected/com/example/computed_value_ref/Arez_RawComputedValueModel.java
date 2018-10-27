@@ -3,7 +3,7 @@ package com.example.computed_value_ref;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.ComponentState;
@@ -32,7 +32,7 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Long> $$arez$$_time;
+  private final ComputableValue<Long> $$arez$$_time;
 
   public Arez_RawComputedValueModel() {
     super();
@@ -124,9 +124,9 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
   }
 
   @Override
-  ComputedValue getTimeComputedValue() {
+  ComputableValue getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeComputedValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeComputableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return $$arez$$_time;
   }

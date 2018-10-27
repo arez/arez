@@ -8,13 +8,13 @@ import javax.annotation.Nonnull;
 /**
  * Methods marked with this annotation are <a href="https://en.wikipedia.org/wiki/Memoization">memoized</a> while there is an observer.
  *
- * <p>The return value should be derived from the parameters and any other Observables or ComputedValues
+ * <p>The return value should be derived from the parameters and any other Observables or {@link arez.ComputableValue}s
  * within the Arez system. The value returned by the method should not change unless the parameters or the
  * state of the other {@link Observable}s change. The method is wrapped in a READ_ONLY transaction and
  * thus can not modify other state in the system.</p>
  *
- * <p>This is implemented by creating a separate ComputedValue instance for each unique combination of
- * parameters. When the ComputedValue is deactivated, a hook triggers that removes the ComputedValue
+ * <p>This is implemented by creating a separate ComputableValue instance for each unique combination of
+ * parameters. When the ComputableValue is deactivated, a hook triggers that removes the ComputableValue
  * from the local cache.</p>
  *
  * <p>The method that is annotated with @Memoize must comply with the additional constraints:</p>
@@ -36,7 +36,7 @@ public @interface Memoize
   /**
    * Return the root name of the Memoized value relative to the component. This
    * will be used in combination with a sequence when naming the synthesized
-   * ComputedValue instances. The value must conform to the requirements of a
+   * ComputableValue instances. The value must conform to the requirements of a
    * java identifier. The name must also be unique across {@link Observable}s,
    * {@link Computed}s and {@link Action}s within the scope of the
    * {@link ArezComponent} annotated element.
@@ -47,14 +47,14 @@ public @interface Memoize
   String name() default "<default>";
 
   /**
-   * The priority of the underlying ComputedValue observer
+   * The priority of the underlying ComputableValue observer
    *
-   * @return the priority of the ComputedValue observer.
+   * @return the priority of the ComputableValue observer.
    */
   Priority priority() default Priority.NORMAL;
 
   /**
-   * Flag controlling whether the underlying observer can observe ComputedValue instances with lower priorities.
+   * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.
    * The default value of false will result in an invariant failure (in development mode) if a lower priority
    * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
    * priority observer is dependent upon a lower priority computed value. If the value is true then the no

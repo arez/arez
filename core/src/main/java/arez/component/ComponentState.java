@@ -1,5 +1,6 @@
 package arez.component;
 
+import arez.ComputableValue;
 import arez.ObservableValue;
 import arez.annotations.Observe;
 import javax.annotation.Nonnull;
@@ -22,7 +23,7 @@ public final class ComponentState
   public final static byte COMPONENT_INITIALIZED = 1;
   /**
    * The reactive elements have been created (i.e. the {@link ObservableValue}, {@link arez.Observer},
-   * {@link arez.ComputedValue} etc.). The {@link arez.annotations.PostConstruct} has NOT been invoked nor
+   * {@link ComputableValue} etc.). The {@link arez.annotations.PostConstruct} has NOT been invoked nor
    * has the {@link arez.Component} been instantiated. This means the component is ready to be interacted with
    * in a {@link arez.annotations.PostConstruct} method but has not been fully constructed.
    */

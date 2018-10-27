@@ -18,15 +18,15 @@
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "TestComponent.0.computed2",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "TestComponent.0.computed3",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "TestComponent.0.observer1a",
@@ -988,7 +988,7 @@
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "TestComponent.0.computed1.dispose",
@@ -1048,7 +1048,7 @@
     },
     {
         "name": "TestComponent.0.computed2",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "TestComponent.0.computed2.dispose",
@@ -1108,7 +1108,7 @@
     },
     {
         "name": "TestComponent.0.computed3",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "TestComponent.0.computed3.dispose",

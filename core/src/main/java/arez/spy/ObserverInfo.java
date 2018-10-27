@@ -1,6 +1,7 @@
 package arez.spy;
 
 import arez.Arez;
+import arez.ComputableValue;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,9 +14,9 @@ public interface ObserverInfo
 {
   /**
    * Return true if the Observer is active.
-   * A normal observer is considered active if it is not disposed. An observer where {@link #isComputedValue()}
-   * returns true if the observer is not disposed and either the {@link arez.ComputedValue} is being observed
-   * or has been configured as a <code>keepAlive</code> {@link arez.ComputedValue}.
+   * A normal observer is considered active if it is not disposed. An observer where {@link #isComputableValue()}
+   * returns true if the observer is not disposed and either the {@link ComputableValue} is being observed
+   * or has been configured as a <code>keepAlive</code> {@link ComputableValue}.
    *
    * @return true if the Observer is active.
    */
@@ -36,11 +37,11 @@ public interface ObserverInfo
   boolean isScheduled();
 
   /**
-   * Return true if the Observer is a ComputedValue.
+   * Return true if the Observer is a ComputableValue.
    *
-   * @return true if the Observer is a ComputedValue.
+   * @return true if the Observer is a ComputableValue.
    */
-  boolean isComputedValue();
+  boolean isComputableValue();
 
   /**
    * Return true if the Observer will use a read-only transaction.
@@ -58,12 +59,12 @@ public interface ObserverInfo
   Priority getPriority();
 
   /**
-   * Convert the Observer to a ComputedValue.
-   * This method should only be called if {@link #isComputedValue()} returns true.
+   * Convert the Observer to a ComputableValue.
+   * This method should only be called if {@link #isComputableValue()} returns true.
    *
-   * @return the ComputedValue instance.
+   * @return the ComputableValue instance.
    */
-  ComputedValueInfo asComputedValue();
+  ComputableValueInfo asComputableValue();
 
   /**
    * Return the list of dependencies of the Observer.

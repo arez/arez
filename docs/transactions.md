@@ -3,7 +3,7 @@ title: Transactions
 ---
 
 Transactions are a core component of an Arez application they are not directly exposed by the Arez API.
-Transactions are created when [actions](actions.md) are invoked, when [computed values](computed_values.md)
+Transactions are created when [actions](actions.md) are invoked, when [computable values](computable_values.md)
 are computed and when [observers](observers.md) are executed.
 
 ## Transaction Mode
@@ -25,8 +25,8 @@ that use [react4j](https://react4j.github.io). The restriction makes it easy to 
 ## Tracking Transactions
 
 Transaction can also be `tracking` or `non-tracking`. A `tracking` transaction detects accesses of
-[observables](observable_values.md) and [computed values](computed_values.md) within the scope of a transaction.
-The observables and computed values are recorded as dependencies of the running transaction. This makes it
+[observables](observable_values.md) and [computable values](computable_values.md) within the scope of a transaction.
+The observables and computable values are recorded as dependencies of the running transaction. This makes it
 possible for Arez to monitor the dependencies and re-scheduled the observer that created the `tracking`
 transaction when the dependencies change.
 
@@ -38,12 +38,12 @@ contain.
 
 The simplified rules are:
 
-* An [action](actions.md) can invoke another action and access computed values but can never invoke an
+* An [action](actions.md) can invoke another action and access computable values but can never invoke an
   observer directly.
-* A [computed value](computed_values.md) can never invoke actions or observers but can access other computed values.
-* An [observer](observers.md) can access computed values and may be able to invoke actions depending on the
+* A [computable value](computable_values.md) can never invoke actions or observers but can access other computable values.
+* An [observer](observers.md) can access computable values and may be able to invoke actions depending on the
   configuration of the observer.
 
 It should be noted that these rules are in addition to the rule that a read-write transaction can not be nested
 within a read-only transaction. Actions default to read-write transactions but may be made read-only. Observers
-default to read-only transactions but may be made read-write. Computed values create read-only transactions.
+default to read-only transactions but may be made read-write. Computable values create read-only transactions.

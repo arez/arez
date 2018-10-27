@@ -2,7 +2,7 @@ package arez.spy;
 
 import arez.Arez;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.ObservableValue;
 import arez.Observer;
 import java.util.Collection;
@@ -119,7 +119,7 @@ public interface Spy
    * @return the collection of computed values not contained by a native component.
    */
   @Nonnull
-  Collection<ComputedValueInfo> findAllTopLevelComputedValues();
+  Collection<ComputableValueInfo> findAllTopLevelComputableValues();
 
   /**
    * Convert the specified component into an ComponentInfo.
@@ -150,12 +150,12 @@ public interface Spy
   <T> ObservableValueInfo asObservableValueInfo( @Nonnull ObservableValue<T> observableValue );
 
   /**
-   * Convert the specified computedValue into an ComputedValueInfo.
+   * Convert the specified ComputableValue into an ComputableValueInfo.
    *
-   * @param <T>           The type of the value that is computed.
-   * @param computedValue the ComputedValue.
-   * @return the ComputedValueInfo wrapping the computedValue.
+   * @param <T>             The type of the value that is computed.
+   * @param computableValue the ComputableValue.
+   * @return the ComputableValueInfo wrapping the ComputableValue.
    */
   @Nonnull
-  <T> ComputedValueInfo asComputedValueInfo( @Nonnull ComputedValue<T> computedValue );
+  <T> ComputableValueInfo asComputableValueInfo( @Nonnull ComputableValue<T> computableValue );
 }

@@ -16,5 +16,5 @@ public abstract class BadReturnTypeModel
 
   @Nonnull
   @ComputedValueRef
-  abstract String getTimeComputedValue();
+  abstract String getTimeComputableValue();
 }

@@ -154,7 +154,7 @@ public final class ArezBuildAsserts
                                                  final boolean enabled )
   {
     index.assertSymbol( "arez\\.ArezContext", "_observables", enabled );
-    index.assertSymbol( "arez\\.ArezContext", "_computedValues", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_computableValues", enabled );
     index.assertSymbol( "arez\\.ArezContext", "_observers", enabled );
   }
 

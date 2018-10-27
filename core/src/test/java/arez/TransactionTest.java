@@ -85,19 +85,19 @@ public class TransactionTest
   }
 
   @Test
-  public void construction_with_READ_WRITE_and_computedValue()
+  public void construction_with_READ_WRITE_and_computableValue()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
     assertInvariantFailure( () -> new Transaction( context,
                                                    null,
                                                    name,
                                                    true,
-                                                   computedValue.getObserver() ),
+                                                   computableValue.getObserver() ),
                             "Arez-0132: Attempted to create transaction named '" + name +
-                            "' with mode READ_WRITE when ComputedValue tracker specified." );
+                            "' with mode READ_WRITE when ComputableValue tracker specified." );
   }
 
   @Test
@@ -150,8 +150,8 @@ public class TransactionTest
   public void commit()
   {
     final ArezContext context = Arez.context();
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    final Observer tracker = computedValue.getObserver();
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final Observer tracker = computableValue.getObserver();
 
     ensureDerivationHasObserver( tracker );
 
@@ -163,7 +163,7 @@ public class TransactionTest
     final ObservableValue<?> observableValue1 = context.observable();
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );
-    final ObservableValue<?> observableValue2 = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue2 = derivation.getComputableValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue2 );
     observableValue2.getObservers().add( tracker );
@@ -318,7 +318,7 @@ public class TransactionTest
 
     transaction.beginTracking();
 
-    final ObservableValue<?> observableValue = tracker.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = tracker.getComputableValue().getObservableValue();
 
     assertInvariantFailure( () -> transaction.observe( observableValue ),
                             "Arez-0143: Invoked observe on transaction named '" +
@@ -800,7 +800,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
@@ -832,7 +832,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_STALE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
@@ -870,7 +870,7 @@ public class TransactionTest
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     Transaction.setTransaction( null );
@@ -911,7 +911,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_STALE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
@@ -929,7 +929,7 @@ public class TransactionTest
 
     final ArrayList<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
     assertNotNull( pendingDeactivations );
-    assertTrue( pendingDeactivations.contains( tracker.getComputedValue().getObservableValue() ) );
+    assertTrue( pendingDeactivations.contains( tracker.getComputableValue().getObservableValue() ) );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -947,7 +947,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_STALE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
@@ -965,7 +965,7 @@ public class TransactionTest
 
     final ArrayList<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
     assertNotNull( pendingDeactivations );
-    assertFalse( pendingDeactivations.contains( tracker.getComputedValue().getObservableValue() ) );
+    assertFalse( pendingDeactivations.contains( tracker.getComputableValue().getObservableValue() ) );
 
     observableValue.invariantLeastStaleObserverState();
   }
@@ -1073,7 +1073,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
@@ -1121,7 +1121,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
@@ -1155,7 +1155,7 @@ public class TransactionTest
 
     final Observer derivation = context.computed( () -> "" ).getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );
-    final ObservableValue<?> observableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
     observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
@@ -1189,7 +1189,7 @@ public class TransactionTest
     derivation1.getDependencies().add( observableValue1 );
     observableValue1.getObservers().add( derivation1 );
 
-    final ObservableValue<?> observableValue2 = derivation1.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue2 = derivation1.getComputableValue().getObservableValue();
 
     final Observer derivation2 = context.computed( () -> "" ).getObserver();
     derivation2.setState( Flags.STATE_UP_TO_DATE );
@@ -1197,7 +1197,7 @@ public class TransactionTest
     derivation2.getDependencies().add( observableValue2 );
     observableValue2.getObservers().add( derivation2 );
 
-    final ObservableValue<?> observableValue3 = derivation2.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue3 = derivation2.getComputableValue().getObservableValue();
 
     observableValue3.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue3 );
@@ -1221,7 +1221,7 @@ public class TransactionTest
     assertEquals( observableValue2.getObserver(), derivation1 );
     assertFalse( observableValue1.isPendingDeactivation() );
     assertTrue( observableValue1.isActive() );
-    assertFalse( observableValue1.isComputedValue() );
+    assertFalse( observableValue1.isComputableValue() );
     assertEquals( derivation2.getState(), Flags.STATE_INACTIVE );
     assertEquals( derivation2.getDependencies().size(), 0 );
     assertEquals( observableValue2.getObservers().size(), 0 );
@@ -1245,7 +1245,7 @@ public class TransactionTest
     derivation.getDependencies().add( baseObservableValue );
     baseObservableValue.getObservers().add( derivation );
 
-    final ObservableValue derivedObservableValue = derivation.getComputedValue().getObservableValue();
+    final ObservableValue derivedObservableValue = derivation.getComputableValue().getObservableValue();
 
     derivedObservableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( derivedObservableValue );
@@ -1336,7 +1336,7 @@ public class TransactionTest
     final Observer tracker = context.computed( () -> "" ).getObserver();
     final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker );
 
-    final ObservableValue<?> observableValue1 = tracker.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue1 = tracker.getComputableValue().getObservableValue();
     final ObservableValue<?> observableValue2 = context.observable();
 
     tracker.getDependencies().add( observableValue2 );
@@ -1573,7 +1573,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
@@ -1602,7 +1602,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
@@ -1634,7 +1634,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
@@ -1655,7 +1655,7 @@ public class TransactionTest
 
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
@@ -1668,7 +1668,7 @@ public class TransactionTest
                             "Arez-0014: Observer named '" +
                             calculator.getName() +
                             "' attempted to schedule itself " +
-                            "during read-only tracking transaction. Observers that are supporting ComputedValue instances must" +
+                            "during read-only tracking transaction. Observers that are supporting ComputableValue instances must" +
                             " not schedule self." );
   }
 
@@ -1687,7 +1687,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
@@ -1714,7 +1714,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
@@ -1772,7 +1772,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final Observer observer1 = context.computed( () -> "" ).getObserver();
@@ -1814,7 +1814,7 @@ public class TransactionTest
 
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
@@ -1837,7 +1837,7 @@ public class TransactionTest
 
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     calculator.getDependencies().add( observableValue );
@@ -1864,7 +1864,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
 
@@ -1884,7 +1884,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
@@ -1910,7 +1910,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
@@ -1937,7 +1937,7 @@ public class TransactionTest
 
     calculator.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     calculator.getDependencies().add( observableValue );
@@ -1965,7 +1965,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
 
     calculator.getDependencies().add( observableValue );
@@ -1993,7 +1993,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final Observer observer = context.computed( () -> "" ).getObserver();
@@ -2051,7 +2051,7 @@ public class TransactionTest
     final Observer calculator = context.computed( () -> "" ).getObserver();
     calculator.setState( Flags.STATE_UP_TO_DATE );
 
-    final ObservableValue<?> observableValue = calculator.getComputedValue().getObservableValue();
+    final ObservableValue<?> observableValue = calculator.getComputableValue().getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     final Observer observer1 = context.computed( () -> "" ).getObserver();
@@ -2355,8 +2355,8 @@ public class TransactionTest
 
     assertInvariantFailure( () -> Transaction.begin( context, name, true, null ),
                             "Arez-0186: Attempting to create transaction named '" + name +
-                            "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
-                            "ComputedValues must not invoke actions or observe methods as they should derive " +
+                            "' nested in ComputableValue transaction named '" + transaction.getName() + "'. " +
+                            "ComputableValues must not invoke actions or observe methods as they should derive " +
                             "values from other computeds and observables." );
   }
 
@@ -2394,8 +2394,8 @@ public class TransactionTest
 
     assertInvariantFailure( () -> Transaction.begin( context, name, false, null ),
                             "Arez-0186: Attempting to create transaction named '" + name +
-                            "' nested in ComputedValue transaction named '" + transaction.getName() + "'. " +
-                            "ComputedValues must not invoke actions or observe methods as they should derive " +
+                            "' nested in ComputableValue transaction named '" + transaction.getName() + "'. " +
+                            "ComputableValues must not invoke actions or observe methods as they should derive " +
                             "values from other computeds and observables." );
   }
 
@@ -2669,8 +2669,8 @@ public class TransactionTest
     final Observer randomObserver = observer.getContext().observer( new CountAndObserveProcedure() );
     setupReadWriteTransaction();
     randomObserver.setState( Flags.STATE_UP_TO_DATE );
-    final ComputedValue<?> computedValue = observer.getComputedValue();
-    final ObservableValue<?> observableValue = computedValue.getObservableValue();
+    final ComputableValue<?> computableValue = observer.getComputableValue();
+    final ObservableValue<?> observableValue = computableValue.getObservableValue();
     observableValue.rawAddObserver( randomObserver );
     randomObserver.getDependencies().add( observableValue );
     return randomObserver;

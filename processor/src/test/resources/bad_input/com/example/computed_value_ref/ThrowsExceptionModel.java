@@ -1,5 +1,6 @@
 package com.example.computed_value_ref;
 
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
@@ -15,6 +16,6 @@ public abstract class ThrowsExceptionModel
   }
 
   @ComputedValueRef
-  abstract arez.ComputedValue getTimeComputedValue()
+  abstract ComputableValue getTimeComputableValue()
     throws ParseException;
 }

@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
@@ -17,31 +17,31 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * A implementation of {@link ComputedValueInfo} that proxies to a {@link ComputedValue}.
+ * A implementation of {@link ComputableValueInfo} that proxies to a {@link ComputableValue}.
  */
-final class ComputedValueInfoImpl
-  implements ComputedValueInfo
+final class ComputableValueInfoImpl
+  implements ComputableValueInfo
 {
-  private final ComputedValue<?> _computedValue;
+  private final ComputableValue<?> _computableValue;
 
-  ComputedValueInfoImpl( @Nonnull final ComputedValue<?> computedValue )
+  ComputableValueInfoImpl( @Nonnull final ComputableValue<?> computableValue )
   {
-    _computedValue = Objects.requireNonNull( computedValue );
+    _computableValue = Objects.requireNonNull( computableValue );
   }
 
   @Nonnull
-  private static List<ComputedValueInfo> asInfos( @Nonnull final Collection<ComputedValue<?>> computedValues )
+  private static List<ComputableValueInfo> asInfos( @Nonnull final Collection<ComputableValue<?>> computableValues )
   {
-    return computedValues
+    return computableValues
       .stream()
-      .map( ComputedValue::asInfo )
+      .map( ComputableValue::asInfo )
       .collect( Collectors.toList() );
   }
 
   @Nonnull
-  static List<ComputedValueInfo> asUnmodifiableInfos( @Nonnull final Collection<ComputedValue<?>> computedValues )
+  static List<ComputableValueInfo> asUnmodifiableInfos( @Nonnull final Collection<ComputableValue<?>> computableValues )
   {
-    return Collections.unmodifiableList( asInfos( computedValues ) );
+    return Collections.unmodifiableList( asInfos( computableValues ) );
   }
 
   /**
@@ -51,7 +51,7 @@ final class ComputedValueInfoImpl
   @Override
   public String getName()
   {
-    return _computedValue.getName();
+    return _computableValue.getName();
   }
 
   /**
@@ -60,7 +60,7 @@ final class ComputedValueInfoImpl
   @Override
   public boolean isComputing()
   {
-    return _computedValue.isComputing();
+    return _computableValue.isComputing();
   }
 
   /**
@@ -70,7 +70,7 @@ final class ComputedValueInfoImpl
   @Override
   public Priority getPriority()
   {
-    return _computedValue.getObserver().getPriority();
+    return _computableValue.getObserver().getPriority();
   }
 
   /**
@@ -79,14 +79,14 @@ final class ComputedValueInfoImpl
   @Override
   public boolean isActive()
   {
-    return _computedValue.getObserver().isActive();
+    return _computableValue.getObserver().isActive();
   }
 
   @Nonnull
   @Override
   public List<ObservableValueInfo> getDependencies()
   {
-    if ( _computedValue.isComputing() )
+    if ( _computableValue.isComputing() )
     {
       final Transaction transaction = getTransactionComputing();
       final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
@@ -103,7 +103,7 @@ final class ComputedValueInfoImpl
     }
     else
     {
-      return ObservableValueInfoImpl.asUnmodifiableInfos( _computedValue.getObserver().getDependencies() );
+      return ObservableValueInfoImpl.asUnmodifiableInfos( _computableValue.getObserver().getDependencies() );
     }
   }
 
@@ -114,7 +114,7 @@ final class ComputedValueInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( _computedValue.getObservableValue().getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( _computableValue.getObservableValue().getObservers() );
   }
 
   /**
@@ -129,7 +129,7 @@ final class ComputedValueInfoImpl
       invariant( Arez::areNativeComponentsEnabled,
                  () -> "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
-    final Component component = _computedValue.getComponent();
+    final Component component = _computableValue.getComponent();
     return null == component ? null : component.asInfo();
   }
 
@@ -146,7 +146,7 @@ final class ComputedValueInfoImpl
       invariant( Arez::arePropertyIntrospectorsEnabled,
                  () -> "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
     }
-    final PropertyAccessor<?> accessor = _computedValue.getObservableValue().getAccessor();
+    final PropertyAccessor<?> accessor = _computableValue.getObservableValue().getAccessor();
     assert null != accessor;
     return accessor.get();
   }
@@ -157,7 +157,7 @@ final class ComputedValueInfoImpl
   @Override
   public boolean isDisposed()
   {
-    return _computedValue.isDisposed();
+    return _computableValue.isDisposed();
   }
 
   /**
@@ -166,7 +166,7 @@ final class ComputedValueInfoImpl
   @Override
   public String toString()
   {
-    return _computedValue.toString();
+    return _computableValue.toString();
   }
 
   @Override
@@ -182,30 +182,30 @@ final class ComputedValueInfoImpl
     }
     else
     {
-      final ComputedValueInfoImpl that = (ComputedValueInfoImpl) o;
-      return _computedValue.equals( that._computedValue );
+      final ComputableValueInfoImpl that = (ComputableValueInfoImpl) o;
+      return _computableValue.equals( that._computableValue );
     }
   }
 
   @Override
   public int hashCode()
   {
-    return _computedValue.hashCode();
+    return _computableValue.hashCode();
   }
 
   /**
-   * Return the transaction that is computing specified ComputedValue.
+   * Return the transaction that is computing specified ComputableValue.
    */
   @Nonnull
   Transaction getTransactionComputing()
   {
-    assert _computedValue.isComputing();
-    final Transaction transaction = getTrackerTransaction( _computedValue.getObserver() );
+    assert _computableValue.isComputing();
+    final Transaction transaction = getTrackerTransaction( _computableValue.getObserver() );
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> transaction != null,
-                 () -> "Arez-0106: ComputedValue named '" + _computedValue.getName() + "' is marked as computing but " +
-                       "unable to locate transaction responsible for computing ComputedValue" );
+                 () -> "Arez-0106: ComputableValue named '" + _computableValue.getName() + "' is marked as computing but " +
+                       "unable to locate transaction responsible for computing ComputableValue" );
     }
     assert null != transaction;
     return transaction;
@@ -217,7 +217,7 @@ final class ComputedValueInfoImpl
   @Nullable
   private Transaction getTrackerTransaction( @Nonnull final Observer observer )
   {
-    Transaction t = _computedValue.getContext().getTransaction();
+    Transaction t = _computableValue.getContext().getTransaction();
     while ( null != t && t.getTracker() != observer )
     {
       t = t.getPrevious();

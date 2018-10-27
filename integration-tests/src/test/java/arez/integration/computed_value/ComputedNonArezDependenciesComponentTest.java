@@ -2,7 +2,7 @@ package arez.integration.computed_value;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
@@ -38,7 +38,7 @@ public class ComputedNonArezDependenciesComponentTest
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( element._callCount, 1 );
 
-    context.action( () -> element.getComputedComputedValue().reportPossiblyChanged() );
+    context.action( () -> element.getComputedComputableValue().reportPossiblyChanged() );
 
     context.action( () -> assertEquals( element.getComputed(), "" ) );
 
@@ -47,7 +47,7 @@ public class ComputedNonArezDependenciesComponentTest
 
     element._result = "NewValue";
 
-    context.action( () -> element.getComputedComputedValue().reportPossiblyChanged() );
+    context.action( () -> element.getComputedComputableValue().reportPossiblyChanged() );
 
     context.action( () -> assertEquals( element.getComputed(), "NewValue" ) );
 
@@ -81,6 +81,6 @@ public class ComputedNonArezDependenciesComponentTest
     }
 
     @ComputedValueRef
-    abstract ComputedValue getComputedComputedValue();
+    abstract ComputableValue getComputedComputableValue();
   }
 }

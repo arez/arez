@@ -99,11 +99,11 @@ public class ComponentTest
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final ObservableValue observableValue1 = context.observable();
-    final ComputedValue computedValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computed( () -> "" );
     final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
 
     component.addObservableValue( observableValue1 );
-    component.addComputedValue( computedValue1 );
+    component.addComputableValue( computableValue1 );
     component.addObserver( observer1 );
 
     assertFalse( component.isComplete() );
@@ -113,7 +113,7 @@ public class ComponentTest
     assertTrue( component.isComplete() );
 
     assertEquals( component.getObservableValues().size(), 1 );
-    assertEquals( component.getComputedValues().size(), 1 );
+    assertEquals( component.getComputableValues().size(), 1 );
     assertEquals( component.getObservers().size(), 1 );
   }
 
@@ -330,7 +330,7 @@ public class ComponentTest
   }
 
   @Test
-  public void computedValues()
+  public void computableValues()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -338,34 +338,34 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputedValue computedValue1 = context.computed( () -> "" );
-    final ComputedValue computedValue2 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue2 = context.computed( () -> "" );
 
-    assertEquals( component.getComputedValues().size(), 0 );
+    assertEquals( component.getComputableValues().size(), 0 );
 
-    component.addComputedValue( computedValue1 );
+    component.addComputableValue( computableValue1 );
 
-    assertEquals( component.getComputedValues().size(), 1 );
-    assertTrue( component.getComputedValues().contains( computedValue1 ) );
+    assertEquals( component.getComputableValues().size(), 1 );
+    assertTrue( component.getComputableValues().contains( computableValue1 ) );
 
-    component.addComputedValue( computedValue2 );
+    component.addComputableValue( computableValue2 );
 
-    assertEquals( component.getComputedValues().size(), 2 );
-    assertTrue( component.getComputedValues().contains( computedValue1 ) );
-    assertTrue( component.getComputedValues().contains( computedValue2 ) );
+    assertEquals( component.getComputableValues().size(), 2 );
+    assertTrue( component.getComputableValues().contains( computableValue1 ) );
+    assertTrue( component.getComputableValues().contains( computableValue2 ) );
 
-    component.removeComputedValue( computedValue1 );
+    component.removeComputableValue( computableValue1 );
 
-    assertEquals( component.getComputedValues().size(), 1 );
-    assertTrue( component.getComputedValues().contains( computedValue2 ) );
+    assertEquals( component.getComputableValues().size(), 1 );
+    assertTrue( component.getComputableValues().contains( computableValue2 ) );
 
-    component.removeComputedValue( computedValue2 );
+    component.removeComputableValue( computableValue2 );
 
-    assertEquals( component.getComputedValues().size(), 0 );
+    assertEquals( component.getComputableValues().size(), 0 );
   }
 
   @Test
-  public void addComputedValue_duplicate()
+  public void addComputableValue_duplicate()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -373,22 +373,22 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputedValue computedValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computed( () -> "" );
 
-    component.addComputedValue( computedValue1 );
+    component.addComputableValue( computableValue1 );
 
-    assertEquals( component.getComputedValues().size(), 1 );
+    assertEquals( component.getComputableValues().size(), 1 );
 
-    assertInvariantFailure( () -> component.addComputedValue( computedValue1 ),
-                            "Arez-0046: Component.addComputedValue invoked on component '" + name +
-                            "' specifying computedValue named '" + computedValue1.getName() +
-                            "' when computedValue already exists for component." );
+    assertInvariantFailure( () -> component.addComputableValue( computableValue1 ),
+                            "Arez-0046: Component.addComputableValue invoked on component '" + name +
+                            "' specifying ComputableValue named '" + computableValue1.getName() +
+                            "' when ComputableValue already exists for component." );
 
-    assertEquals( component.getComputedValues().size(), 1 );
+    assertEquals( component.getComputableValues().size(), 1 );
   }
 
   @Test
-  public void removeComputedValue_noExist()
+  public void removeComputableValue_noExist()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
@@ -396,12 +396,12 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputedValue computedValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computed( () -> "" );
 
-    assertInvariantFailure( () -> component.removeComputedValue( computedValue1 ),
-                            "Arez-0047: Component.removeComputedValue invoked on component '" + name +
-                            "' specifying computedValue named '" + computedValue1.getName() +
-                            "' when computedValue does not exist for component." );
+    assertInvariantFailure( () -> component.removeComputableValue( computableValue1 ),
+                            "Arez-0047: Component.removeComputableValue invoked on component '" + name +
+                            "' specifying ComputableValue named '" + computableValue1.getName() +
+                            "' when ComputableValue does not exist for component." );
   }
 
   @Test
@@ -414,24 +414,24 @@ public class ComponentTest
 
     final ObservableValue observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
     final ObservableValue observableValue2 = context.observable( component, ValueUtil.randomString(), null, null );
-    final ComputedValue computedValue1 = context.computed( component,
-                                                           ValueUtil.randomString(),
-                                                           () -> "",
-                                                           null,
-                                                           null,
-                                                           null );
-    final ComputedValue computedValue2 = context.computed( component,
-                                                           ValueUtil.randomString(),
-                                                           () -> "",
-                                                           null,
-                                                           null,
-                                                           null );
+    final ComputableValue computableValue1 = context.computed( component,
+                                                               ValueUtil.randomString(),
+                                                               () -> "",
+                                                               null,
+                                                               null,
+                                                               null );
+    final ComputableValue computableValue2 = context.computed( component,
+                                                               ValueUtil.randomString(),
+                                                               () -> "",
+                                                               null,
+                                                               null,
+                                                               null );
     final Procedure action = AbstractArezTest::observeADependency;
     final Observer observer1 = context.observer( component, null, action, Flags.RUN_LATER );
     final Observer observer2 = context.observer( component, null, action, Flags.RUN_LATER );
 
     assertEquals( component.getObservableValues().size(), 2 );
-    assertEquals( component.getComputedValues().size(), 2 );
+    assertEquals( component.getComputableValues().size(), 2 );
     assertEquals( component.getObservers().size(), 2 );
 
     assertFalse( Disposable.isDisposed( component ) );
@@ -439,8 +439,8 @@ public class ComponentTest
     assertFalse( Disposable.isDisposed( observableValue2 ) );
     assertFalse( Disposable.isDisposed( observer1 ) );
     assertFalse( Disposable.isDisposed( observer2 ) );
-    assertFalse( Disposable.isDisposed( computedValue1 ) );
-    assertFalse( Disposable.isDisposed( computedValue2 ) );
+    assertFalse( Disposable.isDisposed( computableValue1 ) );
+    assertFalse( Disposable.isDisposed( computableValue2 ) );
 
     assertTrue( context.isComponentPresent( component.getType(), component.getId() ) );
 
@@ -449,7 +449,7 @@ public class ComponentTest
     assertFalse( context.isComponentPresent( component.getType(), component.getId() ) );
 
     assertEquals( component.getObservableValues().size(), 0 );
-    assertEquals( component.getComputedValues().size(), 0 );
+    assertEquals( component.getComputableValues().size(), 0 );
     assertEquals( component.getObservers().size(), 0 );
 
     assertTrue( Disposable.isDisposed( component ) );
@@ -457,8 +457,8 @@ public class ComponentTest
     assertTrue( Disposable.isDisposed( observableValue2 ) );
     assertTrue( Disposable.isDisposed( observer1 ) );
     assertTrue( Disposable.isDisposed( observer2 ) );
-    assertTrue( Disposable.isDisposed( computedValue1 ) );
-    assertTrue( Disposable.isDisposed( computedValue2 ) );
+    assertTrue( Disposable.isDisposed( computableValue1 ) );
+    assertTrue( Disposable.isDisposed( computableValue2 ) );
   }
 
   @Test

@@ -1,13 +1,13 @@
 package arez.annotations;
 
-import arez.ComputedValue;
+import arez.ComputableValue;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Methods marked with this annotation are ComputedValues within Arez.
+ * Methods marked with this annotation are {@link ComputableValue} instances within Arez.
  *
  * <p>The return value should be derived from other Observables within the Arez system
  * and the value returned by the method should not change unless the state of the other
@@ -31,13 +31,13 @@ import javax.annotation.Nonnull;
 public @interface Computed
 {
   /**
-   * Return the name of the ComputedValue relative to the component.
+   * Return the name of the ComputableValue relative to the component.
    * The value must conform to the requirements of a java identifier.
    * The name must also be unique across {@link Observable}s,
    * {@link Computed}s and {@link Action}s within the scope of the
    * {@link ArezComponent} annotated element.
    *
-   * @return the name of the ComputedValue relative to the component.
+   * @return the name of the ComputableValue relative to the component.
    */
   @Nonnull
   String name() default "<default>";
@@ -52,14 +52,14 @@ public @interface Computed
   boolean keepAlive() default false;
 
   /**
-   * The priority of the underlying ComputedValue observer
+   * The priority of the underlying ComputableValue observer
    *
-   * @return the priority of the ComputedValue observer.
+   * @return the priority of the ComputableValue observer.
    */
   Priority priority() default Priority.NORMAL;
 
   /**
-   * Flag controlling whether the underlying observer can observe ComputedValue instances with lower priorities.
+   * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.
    * The default value of false will result in an invariant failure (in development mode) if a lower priority
    * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
    * priority observer is dependent upon a lower priority computed value. If the value is true then the no
@@ -73,10 +73,10 @@ public @interface Computed
   /**
    * Enum indicating whether the value of the computed is derived from arez elements and/or external dependencies.
    * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
-   * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link arez.ComputedValue}). If set to
+   * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link ComputableValue}). If set to
    * {@link DepType#AREZ_OR_NONE} then the runtime will allow computed to exist with no dependencies. If set
    * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputedValueRef} method and should invoke
-   * {@link ComputedValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
+   * {@link ComputableValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
    *
    * @return the types of dependencies allowed on the computed.
    */

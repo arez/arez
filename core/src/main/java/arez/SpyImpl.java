@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Spy;
@@ -200,9 +200,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public Collection<ComputedValueInfo> findAllTopLevelComputedValues()
+  public Collection<ComputableValueInfo> findAllTopLevelComputableValues()
   {
-    return ComputedValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelComputedValues().values() );
+    return ComputableValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelComputableValues().values() );
   }
 
   /**
@@ -240,9 +240,9 @@ final class SpyImpl
    */
   @Nonnull
   @Override
-  public <T> ComputedValueInfo asComputedValueInfo( @Nonnull final ComputedValue<T> computedValue )
+  public <T> ComputableValueInfo asComputableValueInfo( @Nonnull final ComputableValue<T> computableValue )
   {
-    return computedValue.asInfo();
+    return computableValue.asInfo();
   }
 
   @Nonnull

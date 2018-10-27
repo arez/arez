@@ -39,7 +39,7 @@
     },
     {
         "name": "PersonModel.2.doesFullSearchMatch.0",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "PersonModel.2.doesFullSearchMatch.0",
@@ -148,7 +148,7 @@
     },
     {
         "name": "PersonModel.2.doesFullSearchMatch.0",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "PersonModel.2.doesFullSearchMatch.0.dispose",

@@ -3,7 +3,7 @@ package com.example.collections;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.CollectionsUtil;
@@ -34,7 +34,7 @@ public final class Arez_ComputedNonnullMapModel extends ComputedNonnullMapModel 
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Map<String, String>> $$arez$$_myValue;
+  private final ComputableValue<Map<String, String>> $$arez$$_myValue;
 
   private Map<String, String> $$arezd$$_$$cache$$_myValue;
 

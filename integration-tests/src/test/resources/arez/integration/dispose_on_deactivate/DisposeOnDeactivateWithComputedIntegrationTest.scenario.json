@@ -22,11 +22,11 @@
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Model2.0.someValue",
@@ -213,7 +213,7 @@
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -271,7 +271,7 @@
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "Model2.0.disposeOnDeactivate.dispose",
@@ -331,7 +331,7 @@
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "Model2.0.someValue.dispose",

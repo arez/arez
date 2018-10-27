@@ -1,7 +1,7 @@
 package arez;
 
-import arez.spy.ComputedValueActivatedEvent;
-import arez.spy.ComputedValueDeactivatedEvent;
+import arez.spy.ComputableValueActivatedEvent;
+import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueDisposedEvent;
 import arez.spy.ObservableValueInfo;
@@ -126,13 +126,13 @@ public final class ObservableValue<T>
       // check in this scenario.
       if ( Arez.shouldCheckInvariants() )
       {
-        invariant( () -> !Arez.shouldEnforceTransactionType() || _observer.isComputedValue(),
+        invariant( () -> !Arez.shouldEnforceTransactionType() || _observer.isComputableValue(),
                    () -> "Arez-0057: ObservableValue named '" + getName() + "' has observer specified but " +
-                         "observer is not part of a ComputedValue." );
+                         "observer is not part of a ComputableValue." );
       }
       assert !Arez.areNamesEnabled() || _observer.getName().equals( name );
     }
-    if ( !isComputedValue() )
+    if ( !isComputableValue() )
     {
       if ( null != _component )
       {
@@ -158,9 +158,9 @@ public final class ObservableValue<T>
       // The ObservableValue has been marked as changed, forcing all observers to re-evaluate and
       // ultimately this will result in their removal of this ObservableValue as a dependency as
       // it is an error to invoke reportObserved(). Once all dependencies are removed then
-      // this ObservableValue will be deactivated if it is a ComputedValue. Thus no need to call
+      // this ObservableValue will be deactivated if it is a ComputableValue. Thus no need to call
       // queueForDeactivation() here.
-      if ( isComputedValue() )
+      if ( isComputableValue() )
       {
         /*
          * Dispose the owner first so that it is removed as a dependency and thus will not have a reaction
@@ -283,13 +283,13 @@ public final class ObservableValue<T>
    */
   boolean canDeactivate()
   {
-    return isComputedValue() && !getObserver().isKeepAlive();
+    return isComputableValue() && !getObserver().isKeepAlive();
   }
 
   /**
    * Return true if this observable is derived from an observer.
    */
-  boolean isComputedValue()
+  boolean isComputableValue()
   {
     return null != _observer;
   }
@@ -318,7 +318,7 @@ public final class ObservableValue<T>
       invariant( this::canDeactivate,
                  () -> "Arez-0061: Invoked deactivate on ObservableValue named '" + getName() + "' but " +
                        "ObservableValue can not be deactivated. Either owner is null or the associated " +
-                       "ComputedValue has keepAlive enabled." );
+                       "ComputableValue has keepAlive enabled." );
     }
     assert null != _observer;
     if ( _observer.isActive() )
@@ -330,7 +330,7 @@ public final class ObservableValue<T>
       _observer.setState( Flags.STATE_INACTIVE );
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputedValueDeactivatedEvent( _observer.getComputedValue().asInfo() ) );
+        reportSpyEvent( new ComputableValueDeactivatedEvent( _observer.getComputableValue().asInfo() ) );
       }
     }
   }
@@ -357,7 +357,7 @@ public final class ObservableValue<T>
     _observer.setState( Flags.STATE_UP_TO_DATE );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ComputedValueActivatedEvent( _observer.getComputedValue().asInfo() ) );
+      reportSpyEvent( new ComputableValueActivatedEvent( _observer.getComputableValue().asInfo() ) );
     }
   }
 
@@ -394,7 +394,7 @@ public final class ObservableValue<T>
       invariant( observer::isNotDisposed,
                  () -> "Arez-0068: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
                        "named '" + getName() + "' when observer is disposed." );
-      invariant( () -> !isComputedValue() ||
+      invariant( () -> !isComputableValue() ||
                        observer.canObserveLowerPriorityDependencies() ||
                        observer.getPriority().ordinal() >= getObserver().getPriority().ordinal(),
                  () -> "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
@@ -588,7 +588,7 @@ public final class ObservableValue<T>
   {
     if ( Arez.shouldCheckInvariants() && null != _observer )
     {
-      invariant( () -> Objects.equals( _observer.getComputedValue().getObservableValue(), this ),
+      invariant( () -> Objects.equals( _observer.getComputableValue().getObservableValue(), this ),
                  () -> "Arez-0076: ObservableValue named '" + getName() + "' has owner specified but owner does " +
                        "not link to ObservableValue as derived value." );
     }

@@ -1,7 +1,7 @@
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
@@ -35,7 +35,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   private final ObservableValue<String> $$arez$$_time;
 
   @Nonnull
-  private final ComputedValue<Integer> $$arez$$_someValue;
+  private final ComputableValue<Integer> $$arez$$_someValue;
 
   public Arez_AnnotationsOnModel() {
     super();

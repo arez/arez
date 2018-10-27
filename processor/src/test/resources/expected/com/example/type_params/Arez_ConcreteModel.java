@@ -3,7 +3,7 @@ package com.example.type_params;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.component.ComponentState;
@@ -30,10 +30,10 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<W> $$arez$$_compWriter;
+  private final ComputableValue<W> $$arez$$_compWriter;
 
   @Nonnull
-  private final ComputedValue<IOException> $$arez$$_compError;
+  private final ComputableValue<IOException> $$arez$$_compError;
 
   public Arez_ConcreteModel(final W writer) {
     super(writer);

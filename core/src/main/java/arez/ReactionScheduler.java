@@ -34,8 +34,8 @@ final class ReactionScheduler
   /**
    * Elements that should be disposed prior to next reaction being invoked.
    * Disposes are often scheduled when they can not happen immediately as the transaction is not READ_WRITE.
-   * i.e. A disposeOnDeactivate component may no longer have any observers when a ComputedValue no longer
-   * references it but can not dispose from within the ComputedValue's transaction as it is in a READ_WRITE_OWNED
+   * i.e. A disposeOnDeactivate component may no longer have any observers when a ComputableValue no longer
+   * references it but can not dispose from within the ComputableValue's transaction as it is in a READ_WRITE_OWNED
    * transactions.
    */
   @Nonnull

@@ -10,7 +10,7 @@
     },
     {
         "name": "Model1.0.disposeOnDeactivate",
-        "type": "ComputedValueCreated"
+        "type": "ComputableValueCreated"
     },
     {
         "name": "Model1.0",
@@ -107,7 +107,7 @@
     },
     {
         "name": "Model1.0.disposeOnDeactivate",
-        "type": "ComputedValueDeactivated"
+        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,
@@ -161,7 +161,7 @@
     },
     {
         "name": "Model1.0.disposeOnDeactivate",
-        "type": "ComputedValueDisposed"
+        "type": "ComputableValueDisposed"
     },
     {
         "name": "Model1.0.disposeOnDeactivate.dispose",

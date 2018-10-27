@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Spy;
@@ -330,17 +330,17 @@ public class SpyImplTest
   }
 
   @Test
-  public void findAllTopLevelComputedValues()
+  public void findAllTopLevelComputableValues()
   {
     final ArezContext context = Arez.context();
 
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
 
     final Spy spy = context.getSpy();
 
-    final Collection<ComputedValueInfo> values = spy.findAllTopLevelComputedValues();
+    final Collection<ComputableValueInfo> values = spy.findAllTopLevelComputableValues();
     assertEquals( values.size(), 1 );
-    assertEquals( values.iterator().next().getName(), computedValue.getName() );
+    assertEquals( values.iterator().next().getName(), computableValue.getName() );
     assertUnmodifiable( values );
 
     assertEquals( spy.findAllTopLevelObservers().size(), 0 );
@@ -348,15 +348,15 @@ public class SpyImplTest
   }
 
   @Test
-  public void findAllTopLevelComputedValues_registriesDisabled()
+  public void findAllTopLevelComputableValues_registriesDisabled()
   {
     ArezTestUtil.disableRegistries();
 
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    assertInvariantFailure( spy::findAllTopLevelComputedValues,
-                            "Arez-0036: ArezContext.getTopLevelComputedValues() invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( spy::findAllTopLevelComputableValues,
+                            "Arez-0036: ArezContext.getTopLevelComputableValues() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -430,13 +430,13 @@ public class SpyImplTest
   }
 
   @Test
-  public void asComputedValueInfo()
+  public void asComputableValueInfo()
   {
     final ArezContext context = Arez.context();
-    final ComputedValue<String> computedValue = context.computed( () -> "" );
-    final ComputedValueInfo info = context.getSpy().asComputedValueInfo( computedValue );
+    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValueInfo info = context.getSpy().asComputableValueInfo( computableValue );
 
-    assertEquals( info.getName(), computedValue.getName() );
+    assertEquals( info.getName(), computableValue.getName() );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> list )

@@ -3,7 +3,7 @@ package com.example.component;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
@@ -35,7 +35,7 @@ public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateMode
   private final DisposeNotifier $$arezi$$_disposeNotifier;
 
   @Nonnull
-  private final ComputedValue<Boolean> $$arezi$$_disposeOnDeactivate;
+  private final ComputableValue<Boolean> $$arezi$$_disposeOnDeactivate;
 
   public Arez_DisposeOnDeactivateModel() {
     super();

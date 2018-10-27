@@ -5,7 +5,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.Observer;
@@ -58,10 +58,10 @@ public class MemoizeCacheTest
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
-    final ComputedValue<String> computedValue1 =
-      (ComputedValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
-    assertNotNull( computedValue1 );
-    assertEquals( context.safeAction( computedValue1::get ), "a.b" );
+    final ComputableValue<String> computableValue1 =
+      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
+    assertNotNull( computableValue1 );
+    assertEquals( context.safeAction( computableValue1::get ), "a.b" );
     final Observer observer2 = context.observer( () -> {
       observeADependency();
       assertEquals( cache.get( "a", "b" ), "a.b" );
@@ -78,37 +78,37 @@ public class MemoizeCacheTest
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
-    final ComputedValue<String> computedValue2 =
-      (ComputedValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "c" );
-    assertNotNull( computedValue2 );
-    assertEquals( context.safeAction( computedValue2::get ), "a.c" );
+    final ComputableValue<String> computableValue2 =
+      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "c" );
+    assertNotNull( computableValue2 );
+    assertEquals( context.safeAction( computableValue2::get ), "a.c" );
 
     observer1.dispose();
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
-    assertFalse( computedValue1.isDisposed() );
-    assertFalse( computedValue2.isDisposed() );
+    assertFalse( computableValue1.isDisposed() );
+    assertFalse( computableValue2.isDisposed() );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
 
     observer2.dispose();
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
-    assertTrue( computedValue1.isDisposed() );
-    assertFalse( computedValue2.isDisposed() );
+    assertTrue( computableValue1.isDisposed() );
+    assertFalse( computableValue2.isDisposed() );
     assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
 
     observer3.dispose();
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
-    assertTrue( computedValue1.isDisposed() );
-    assertTrue( computedValue2.isDisposed() );
+    assertTrue( computableValue1.isDisposed() );
+    assertTrue( computableValue2.isDisposed() );
     assertEquals( cache.getCache().size(), 0 );
   }
 
   @Test
-  public void getComputedValue_recreatesDisposedElements()
+  public void getComputableValue_recreatesDisposedElements()
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
@@ -120,22 +120,22 @@ public class MemoizeCacheTest
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, name, function, 2 );
 
-    final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
-    final ComputedValue<String> computedValue1b = cache.getComputedValue( "a", "b" );
+    final ComputableValue<String> computableValue1 = cache.getComputableValue( "a", "b" );
+    final ComputableValue<String> computableValue1b = cache.getComputableValue( "a", "b" );
 
-    assertFalse( computedValue1.isDisposed() );
-    assertEquals( computedValue1, computedValue1b );
+    assertFalse( computableValue1.isDisposed() );
+    assertEquals( computableValue1, computableValue1b );
 
-    computedValue1.dispose();
+    computableValue1.dispose();
 
-    assertTrue( computedValue1.isDisposed() );
+    assertTrue( computableValue1.isDisposed() );
 
-    final ComputedValue<String> computedValue2 = cache.getComputedValue( "a", "b" );
-    final ComputedValue<String> computedValue2b = cache.getComputedValue( "a", "b" );
+    final ComputableValue<String> computableValue2 = cache.getComputableValue( "a", "b" );
+    final ComputableValue<String> computableValue2b = cache.getComputableValue( "a", "b" );
 
-    assertFalse( computedValue2.isDisposed() );
-    assertNotEquals( computedValue2, computedValue1 );
-    assertEquals( computedValue2, computedValue2b );
+    assertFalse( computableValue2.isDisposed() );
+    assertNotEquals( computableValue2, computableValue1 );
+    assertEquals( computableValue2, computableValue2b );
   }
 
   @Test
@@ -153,21 +153,21 @@ public class MemoizeCacheTest
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache = new MemoizeCache<>( null, component, name, function, 2 );
 
-    final ComputedValue<String> computedValue1 = cache.getComputedValue( "a", "b" );
+    final ComputableValue<String> computableValue1 = cache.getComputableValue( "a", "b" );
 
-    assertFalse( computedValue1.isDisposed() );
+    assertFalse( computableValue1.isDisposed() );
 
-    final ComponentInfo componentInfo = context.getSpy().asComputedValueInfo( computedValue1 ).getComponent();
+    final ComponentInfo componentInfo = context.getSpy().asComputableValueInfo( computableValue1 ).getComponent();
     assertNotNull( componentInfo );
     assertEquals( componentInfo.getName(), component.getName() );
 
     component.dispose();
 
-    assertTrue( computedValue1.isDisposed() );
+    assertTrue( computableValue1.isDisposed() );
   }
 
   @Test
-  public void disposingCacheClearsOutComputedValues()
+  public void disposingCacheClearsOutComputableValues()
   {
     final AtomicInteger callCount = new AtomicInteger();
     final MemoizeCache.Function<String> function = args -> {
@@ -193,18 +193,18 @@ public class MemoizeCacheTest
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
 
-    final ComputedValue<String> computedValue1 =
-      (ComputedValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
-    assertNotNull( computedValue1 );
+    final ComputableValue<String> computableValue1 =
+      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
+    assertNotNull( computableValue1 );
 
-    assertFalse( computedValue1.isDisposed() );
+    assertFalse( computableValue1.isDisposed() );
 
     cache.dispose();
 
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 0 );
-    assertTrue( computedValue1.isDisposed() );
+    assertTrue( computableValue1.isDisposed() );
   }
 
   @Test
@@ -232,23 +232,23 @@ public class MemoizeCacheTest
   }
 
   @Test
-  public void disposeComputedValue_passedBadArgCounts()
+  public void disposeComputableValue_passedBadArgCounts()
   {
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 2 );
 
-    assertInvariantFailure( () -> cache.disposeComputedValue( "a" ),
-                            "Arez-0163: MemoizeCache.disposeComputedValue called with 1 argument(s) but expected 2 argument(s)." );
+    assertInvariantFailure( () -> cache.disposeComputableValue( "a" ),
+                            "Arez-0163: MemoizeCache.disposeComputableValue called with 1 argument(s) but expected 2 argument(s)." );
   }
 
   @Test
-  public void disposeComputedValue_noComputedValueCachedForArgs()
+  public void disposeComputableValue_noComputableValueCachedForArgs()
   {
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 1 );
 
-    assertInvariantFailure( () -> cache.disposeComputedValue( "a" ),
-                            "Arez-0193: MemoizeCache.disposeComputedValue called with args [a] but unable to locate corresponding ComputedValue." );
+    assertInvariantFailure( () -> cache.disposeComputableValue( "a" ),
+                            "Arez-0193: MemoizeCache.disposeComputableValue called with args [a] but unable to locate corresponding ComputableValue." );
   }
 
   @Test
@@ -258,7 +258,7 @@ public class MemoizeCacheTest
       new MemoizeCache<>( null, null, ValueUtil.randomString(), args -> args[ 0 ] + "." + args[ 1 ], 2 );
 
     assertInvariantFailure( () -> cache.get( "a" ),
-                            "Arez-0162: MemoizeCache.getComputedValue called with 1 arguments but expected 2 arguments." );
+                            "Arez-0162: MemoizeCache.getComputableValue called with 1 arguments but expected 2 arguments." );
   }
 
   @Test

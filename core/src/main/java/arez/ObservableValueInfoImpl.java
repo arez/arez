@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.ComponentInfo;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.PropertyAccessor;
@@ -60,18 +60,18 @@ final class ObservableValueInfoImpl
    * {@inheritDoc}
    */
   @Override
-  public boolean isComputedValue()
+  public boolean isComputableValue()
   {
-    return _observableValue.isComputedValue();
+    return _observableValue.isComputableValue();
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public ComputedValueInfo asComputedValue()
+  public ComputableValueInfo asComputableValue()
   {
-    return _observableValue.getObserver().getComputedValue().asInfo();
+    return _observableValue.getObserver().getComputableValue().asInfo();
   }
 
   /**

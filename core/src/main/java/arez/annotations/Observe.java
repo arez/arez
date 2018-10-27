@@ -1,5 +1,6 @@
 package arez.annotations;
 
+import arez.ComputableValue;
 import arez.Observer;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,7 +9,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Annotation that marks a method as observed.
- * Any {@link arez.ObservableValue} instances or {@link arez.ComputedValue} instances accessed within the
+ * Any {@link arez.ObservableValue} instances or {@link ComputableValue} instances accessed within the
  * scope of the method will be added as a dependency of the observer. If any of these dependencies are changed
  * then the runtime will invoke the associated {@link OnDepsChanged} method if present or re-schedule the observed
  * method for execution if there is no {@link OnDepsChanged} method present. Note that Arez will attempt to detect
@@ -72,7 +73,7 @@ public @interface Observe
   Executor executor() default Executor.AREZ;
 
   /**
-   * Flag controlling whether the observer can observe ComputedValue instances with lower priorities.
+   * Flag controlling whether the observer can observe ComputableValue instances with lower priorities.
    * The default value of false will result in an invariant failure (in development mode) if a lower priority
    * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
    * priority observer that is dependent upon a lower priority computed value. If the value is true then the no
@@ -119,7 +120,7 @@ public @interface Observe
    * Enum indicating whether the Observer is derived from arez elements and/or external dependencies.
    * If set to {@link DepType#AREZ} then the arez runtime will verify that the method annotated by this
    * annotation accesses arez elements (i.e. instances of {@link arez.ObservableValue} or instances of
-   * {@link arez.ComputedValue}). If set to {@link DepType#AREZ_OR_NONE} then the runtime will allow
+   * {@link ComputableValue}). If set to {@link DepType#AREZ_OR_NONE} then the runtime will allow
    * observed to exist with no dependencies. If set to {@link DepType#AREZ_OR_EXTERNAL} then the component
    * must define a {@link ObserverRef} method and should invoke {@link Observer#reportStale()} when the
    * non-arez dependencies are changed.

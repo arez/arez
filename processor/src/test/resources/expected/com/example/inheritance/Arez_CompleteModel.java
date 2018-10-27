@@ -3,7 +3,7 @@ package com.example.inheritance;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
-import arez.ComputedValue;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.Locator;
@@ -56,7 +56,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   private Element $$arezd$$_parentGeneralisation;
 
   @Nonnull
-  private final ComputedValue<Long> $$arez$$_time;
+  private final ComputableValue<Long> $$arez$$_time;
 
   @Nonnull
   private final Observer $$arez$$_myWatcher;
@@ -329,9 +329,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Nonnull
   @Override
-  protected ComputedValue<Long> getTimeComputedValue() {
+  protected ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeComputedValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeComputableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + getComponentName() + "'" );
     }
     return $$arez$$_time;
   }

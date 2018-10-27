@@ -44,7 +44,7 @@ public class MemoizeDepTypeTest
     final Model model = Model.create();
 
     assertInvariant( () -> safeAction( () -> model.search1( ValueUtil.randomString() ) ),
-                     "Arez-0173: ComputedValue named 'Model.0.search1.0' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputedValue candidate." );
+                     "Arez-0173: ComputableValue named 'Model.0.search1.0' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
 
     safeAction( () -> model.search2( ValueUtil.randomString() ) );
 

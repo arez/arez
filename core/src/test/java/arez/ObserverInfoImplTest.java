@@ -38,7 +38,7 @@ public class ObserverInfoImplTest
     assertUnmodifiable( info.getDependencies() );
 
     assertTrue( info.isActive() );
-    assertFalse( info.isComputedValue() );
+    assertFalse( info.isComputableValue() );
     assertTrue( info.isReadOnly() );
     assertEquals( info.getPriority(), Priority.NORMAL );
     assertFalse( info.isRunning() );
@@ -154,20 +154,20 @@ public class ObserverInfoImplTest
   }
 
   @Test
-  public void asComputedValue()
+  public void asComputableValue()
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final ComputedValue<String> computedValue = context.computed( name, () -> "" );
+    final ComputableValue<String> computableValue = context.computed( name, () -> "" );
 
-    final Observer observer = computedValue.getObserver();
+    final Observer observer = computableValue.getObserver();
 
     final ObserverInfo info = observer.asInfo();
 
     assertEquals( info.getName(), name );
 
-    assertTrue( info.isComputedValue() );
-    assertEquals( info.asComputedValue().getName(), computedValue.getName() );
+    assertTrue( info.isComputableValue() );
+    assertEquals( info.asComputableValue().getName(), computableValue.getName() );
 
     // Not yet observed
     assertFalse( info.isActive() );

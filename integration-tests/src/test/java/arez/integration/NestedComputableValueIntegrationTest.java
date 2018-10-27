@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "Duplicates" )
-public class NestedComputedValueIntegrationTest
+public class NestedComputableValueIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test
@@ -267,7 +267,7 @@ public class NestedComputedValueIntegrationTest
     @Nonnull
     public static FilterContext create()
     {
-      return new NestedComputedValueIntegrationTest_Arez_FilterContext();
+      return new NestedComputableValueIntegrationTest_Arez_FilterContext();
     }
 
     @Observable
@@ -297,7 +297,7 @@ public class NestedComputedValueIntegrationTest
                                @Nullable final Node parent,
                                @Nonnull final String name )
     {
-      return new NestedComputedValueIntegrationTest_Arez_Node( context, parent, name );
+      return new NestedComputableValueIntegrationTest_Arez_Node( context, parent, name );
     }
 
     Node( @Nonnull final FilterContext context, @Nullable final Node parent, @Nonnull final String name )

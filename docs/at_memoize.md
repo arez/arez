@@ -9,9 +9,9 @@ be re-calculated any time a dependency is updated as long as there is at least o
 
 In Arez you can annotate a method that returns a value with the {@api_url: annotations.Memoize} annotation in an
 {@api_url: annotations.ArezComponent} annotated classes. Under the covers the code will create a
-{@api_url: ComputedValue} instance for each unique combination of parameters to the method. Each time the memoized
-method is invoked, it will return the value cached by the {@api_url: ComputedValue} instance unless the
-{@api_url: ComputedValue} instance is stale (i.e. a dependency has changed) or the value of the parameters have
+{@api_url: ComputableValue} instance for each unique combination of parameters to the method. Each time the memoized
+method is invoked, it will return the value cached by the {@api_url: ComputableValue} instance unless the
+{@api_url: ComputableValue} instance is stale (i.e. a dependency has changed) or the value of the parameters have
 changed. If the memoized method is invoked from within an observer, the observer will be rescheduled any time the
 memoized value changes.
 

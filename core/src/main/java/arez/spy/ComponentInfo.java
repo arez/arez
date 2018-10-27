@@ -1,5 +1,6 @@
 package arez.spy;
 
+import arez.ComputableValue;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -29,7 +30,7 @@ public interface ComponentInfo
 
   /**
    * Return the Observables associated with the component.
-   * This does NOT include observables that are associated with a {@link arez.ComputedValue}.
+   * This does NOT include observables that are associated with a {@link ComputableValue}.
    * This collection returned is unmodifiable.
    *
    * @return the associated observables.
@@ -38,7 +39,7 @@ public interface ComponentInfo
 
   /**
    * Return the Observers associated with the component.
-   * This does NOT include observers that are associated with a {@link arez.ComputedValue}.
+   * This does NOT include observers that are associated with a {@link ComputableValue}.
    * This collection returned is unmodifiable. This operation recreates the list and is
    * a relatively expensive operation.
    *
@@ -47,10 +48,10 @@ public interface ComponentInfo
   List<ObserverInfo> getObservers();
 
   /**
-   * Return the ComputedValues associated with the component.
+   * Return the ComputableValues associated with the component.
    * This collection returned is unmodifiable.
    *
    * @return the associated computed values.
    */
-  List<ComputedValueInfo> getComputedValues();
+  List<ComputableValueInfo> getComputableValues();
 }
