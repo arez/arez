@@ -7,12 +7,12 @@ import arez.spy.ComponentCreateCompletedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComponentDisposeCompletedEvent;
 import arez.spy.ComponentDisposeStartedEvent;
+import arez.spy.ComputableValueActivatedEvent;
+import arez.spy.ComputableValueCreatedEvent;
+import arez.spy.ComputableValueDeactivatedEvent;
+import arez.spy.ComputableValueDisposedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
-import arez.spy.ComputedValueActivatedEvent;
-import arez.spy.ComputedValueCreatedEvent;
-import arez.spy.ComputedValueDeactivatedEvent;
-import arez.spy.ComputedValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObservableValueDisposedEvent;
@@ -82,12 +82,12 @@ public class ConsoleSpyEventProcessor
     on( ObservableValueDisposedEvent.class, this::onObservableValueDisposed );
     on( ObservableValueChangedEvent.class, this::onObservableValueChanged );
 
-    on( ComputedValueCreatedEvent.class, this::onComputedValueCreated );
-    on( ComputedValueActivatedEvent.class, this::onComputedValueActivated );
+    on( ComputableValueCreatedEvent.class, this::onComputableValueCreated );
+    on( ComputableValueActivatedEvent.class, this::onComputableValueActivated );
     on( ComputeStartedEvent.class, this::onComputeStarted );
     on( ComputeCompletedEvent.class, this::onComputeCompleted );
-    on( ComputedValueDeactivatedEvent.class, this::onComputedValueDeactivated );
-    on( ComputedValueDisposedEvent.class, this::onComputedValueDisposed );
+    on( ComputableValueDeactivatedEvent.class, this::onComputableValueDeactivated );
+    on( ComputableValueDisposedEvent.class, this::onComputableValueDisposed );
 
     on( ObserveScheduledEvent.class, this::onObserveScheduled );
     on( ObserveStartedEvent.class, this::onObserveStarted );
@@ -224,27 +224,27 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the ComputedValueCreatedEvent.
+   * Handle the ComputableValueCreatedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputedValueCreated( @Nonnull final SpyUtil.NestingDelta d,
-                                         @Nonnull final ComputedValueCreatedEvent e )
+  protected void onComputableValueCreated( @Nonnull final SpyUtil.NestingDelta d,
+                                         @Nonnull final ComputableValueCreatedEvent e )
   {
-    log( d, "%cComputed Value Created " + e.getComputedValue().getName(), COMPUTED_COLOR );
+    log( d, "%cComputed Value Created " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputedValueActivatedEvent.
+   * Handle the ComputableValueActivatedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputedValueActivated( @Nonnull final SpyUtil.NestingDelta d,
-                                           @Nonnull final ComputedValueActivatedEvent e )
+  protected void onComputableValueActivated( @Nonnull final SpyUtil.NestingDelta d,
+                                           @Nonnull final ComputableValueActivatedEvent e )
   {
-    log( d, "%cComputed Value Activate " + e.getComputedValue().getName(), COMPUTED_COLOR );
+    log( d, "%cComputed Value Activate " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
@@ -255,7 +255,7 @@ public class ConsoleSpyEventProcessor
    */
   protected void onComputeStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeStartedEvent e )
   {
-    log( d, "%cCompute Started " + e.getComputedValue().getName(), COMPUTED_COLOR );
+    log( d, "%cCompute Started " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
@@ -266,31 +266,31 @@ public class ConsoleSpyEventProcessor
    */
   protected void onComputeCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeCompletedEvent e )
   {
-    log( d, "%cCompute Completed " + e.getComputedValue().getName() + " [" + e.getDuration() + "]", COMPUTED_COLOR );
+    log( d, "%cCompute Completed " + e.getComputableValue().getName() + " [" + e.getDuration() + "]", COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputedValueDeactivatedEvent.
+   * Handle the ComputableValueDeactivatedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputedValueDeactivated( @Nonnull final SpyUtil.NestingDelta d,
-                                             @Nonnull final ComputedValueDeactivatedEvent e )
+  protected void onComputableValueDeactivated( @Nonnull final SpyUtil.NestingDelta d,
+                                             @Nonnull final ComputableValueDeactivatedEvent e )
   {
-    log( d, "%cComputed Value Deactivate " + e.getComputedValue().getName(), COMPUTED_COLOR );
+    log( d, "%cComputed Value Deactivate " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputedValueDisposedEvent.
+   * Handle the ComputableValueDisposedEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputedValueDisposed( @Nonnull final SpyUtil.NestingDelta d,
-                                          @Nonnull final ComputedValueDisposedEvent e )
+  protected void onComputableValueDisposed( @Nonnull final SpyUtil.NestingDelta d,
+                                          @Nonnull final ComputableValueDisposedEvent e )
   {
-    log( d, "%cComputed Value Disposed " + e.getComputedValue().getName(), COMPUTED_COLOR );
+    log( d, "%cComputed Value Disposed " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**

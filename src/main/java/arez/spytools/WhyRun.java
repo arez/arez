@@ -1,10 +1,10 @@
 package arez.spytools;
 
 import arez.Arez;
-import arez.spy.Spy;
-import arez.spy.ComputedValueInfo;
+import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import arez.spy.Spy;
 import arez.spy.TransactionInfo;
 import elemental2.dom.DomGlobal;
 import java.util.List;
@@ -67,9 +67,9 @@ public final class WhyRun
   @Nonnull
   public static String whyRun( @Nonnull final Spy spy, @Nonnull final ObserverInfo observer )
   {
-    if ( observer.isComputedValue() )
+    if ( observer.isComputableValue() )
     {
-      return whyComputedValueRun( spy, observer.asComputedValue() );
+      return whyComputableValueRun( spy, observer.asComputableValue() );
     }
     else
     {
@@ -100,28 +100,29 @@ public final class WhyRun
   }
 
   @Nonnull
-  private static String whyComputedValueRun( @Nonnull final Spy spy, @Nonnull final ComputedValueInfo computedValue )
+  private static String whyComputableValueRun( @Nonnull final Spy spy,
+                                               @Nonnull final ComputableValueInfo computableValue )
   {
     final StringBuilder sb = new StringBuilder();
-    sb.append( "ComputedValue '" );
-    sb.append( computedValue.getName() );
+    sb.append( "ComputableValue '" );
+    sb.append( computableValue.getName() );
     sb.append( "':\n" );
     sb.append( "  * Status: " );
-    sb.append( describeComputedValueStatus( computedValue ) );
+    sb.append( describeComputableValueStatus( computableValue ) );
     sb.append( "\n" );
-    if ( computedValue.isActive() )
+    if ( computableValue.isActive() )
     {
-      sb.append( "  * If the ComputedValue changes the following observers will react:\n" );
-      for ( final ObserverInfo observer : computedValue.getObservers() )
+      sb.append( "  * If the ComputableValue changes the following observers will react:\n" );
+      for ( final ObserverInfo observer : computableValue.getObservers() )
       {
         sb.append( "    - " );
         describeObserver( sb, observer );
         sb.append( "\n" );
       }
 
-      sb.append( "  * The ComputedValue will recalculate if any of the following observables change\n" );
-      describeDependencies( sb, computedValue.getDependencies() );
-      if ( spy.isTransactionActive() && computedValue.isComputing() )
+      sb.append( "  * The ComputableValue will recalculate if any of the following observables change\n" );
+      describeDependencies( sb, computableValue.getDependencies() );
+      if ( spy.isTransactionActive() && computableValue.isComputing() )
       {
         sb.append( "    -  (... or any other observable is accessed the remainder of the transaction computing value)\n" );
       }
@@ -166,18 +167,18 @@ public final class WhyRun
   }
 
   /**
-   * Return the status of specified ComputedValue as human readable string.
+   * Return the status of specified ComputableValue as human readable string.
    *
-   * @param computedValue the ComputedValue.
+   * @param computableValue the ComputableValue.
    * @return the status description.
    */
-  private static String describeComputedValueStatus( @Nonnull final ComputedValueInfo computedValue )
+  private static String describeComputableValueStatus( @Nonnull final ComputableValueInfo computableValue )
   {
-    if ( computedValue.isActive() )
+    if ( computableValue.isActive() )
     {
-      return "Active (The value is used by " + computedValue.getObservers().size() + " observers)";
+      return "Active (The value is used by " + computableValue.getObservers().size() + " observers)";
     }
-    else if ( computedValue.isDisposed() )
+    else if ( computableValue.isDisposed() )
     {
       return "Disposed (The value has been disposed)";
     }
@@ -198,9 +199,10 @@ public final class WhyRun
     }
   }
 
-  private static void describeObservable( @Nonnull final StringBuilder sb, @Nonnull final ObservableValueInfo observable )
+  private static void describeObservable( @Nonnull final StringBuilder sb,
+                                          @Nonnull final ObservableValueInfo observable )
   {
-    sb.append( observable.isComputedValue() ? "ComputedValue" : "Observable" );
+    sb.append( observable.isComputableValue() ? "ComputableValue" : "Observable" );
     sb.append( " '" );
     sb.append( observable.getName() );
     sb.append( "'" );
@@ -208,7 +210,7 @@ public final class WhyRun
 
   private static void describeObserver( @Nonnull final StringBuilder sb, @Nonnull final ObserverInfo observer )
   {
-    sb.append( observer.isComputedValue() ? "ComputedValue" : "Observer" );
+    sb.append( observer.isComputableValue() ? "ComputableValue" : "Observer" );
     sb.append( " '" );
     sb.append( observer.getName() );
     sb.append( "'" );

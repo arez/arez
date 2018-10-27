@@ -8,10 +8,10 @@ import arez.spy.ComponentDisposeCompletedEvent;
 import arez.spy.ComponentDisposeStartedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
-import arez.spy.ComputedValueActivatedEvent;
-import arez.spy.ComputedValueCreatedEvent;
-import arez.spy.ComputedValueDeactivatedEvent;
-import arez.spy.ComputedValueDisposedEvent;
+import arez.spy.ComputableValueActivatedEvent;
+import arez.spy.ComputableValueCreatedEvent;
+import arez.spy.ComputableValueDeactivatedEvent;
+import arez.spy.ComputableValueDisposedEvent;
 import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObservableValueDisposedEvent;
@@ -83,10 +83,10 @@ public final class SpyUtil
               ObservableValueCreatedEvent.class == type ||
               ObservableValueDisposedEvent.class == type ||
               ObservableValueChangedEvent.class == type ||
-              ComputedValueActivatedEvent.class == type ||
-              ComputedValueDeactivatedEvent.class == type ||
-              ComputedValueCreatedEvent.class == type ||
-              ComputedValueDisposedEvent.class == type ||
+              ComputableValueActivatedEvent.class == type ||
+              ComputableValueDeactivatedEvent.class == type ||
+              ComputableValueCreatedEvent.class == type ||
+              ComputableValueDisposedEvent.class == type ||
               ObserveScheduledEvent.class == type )
     {
       return NestingDelta.NONE;
