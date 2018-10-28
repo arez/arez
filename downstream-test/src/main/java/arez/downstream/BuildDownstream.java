@@ -55,6 +55,7 @@ public final class BuildDownstream
       }
       Stream.of( "arez-browserlocation",
                  "arez-promise",
+                 "arez-mediaquery",
                  "arez-networkstatus",
                  "arez-idlestatus",
                  "arez-spytools",

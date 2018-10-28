@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* **\[core\]** Add reference to external `arez-mediaquery` component.
 * **\[core\]** In the spy events, convert the `duration` parameter into integers as no duration should
   exceed the size of an integer.
 * **\[core\]** In spy events, change the key used to identify the source of the event from source specific
