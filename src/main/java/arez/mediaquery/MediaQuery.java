@@ -7,6 +7,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
 import arez.annotations.ComputedValueRef;
 import arez.annotations.DepType;
+import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import elemental2.dom.DomGlobal;
@@ -56,19 +57,28 @@ public abstract class MediaQuery
   @Nonnull
   private final Window _window;
   @Nonnull
-  private final MediaQueryList _mediaQueryList;
+  private MediaQueryList _mediaQueryList;
+  private boolean _active;
 
   /**
    * Create an instance of MediaQuery.
    *
+   * @param query the CSS media query to match.
    * @return the MediaQuery instance.
    */
   @Nonnull
-  public static MediaQuery create( @Nonnull final String mediaQuery )
+  public static MediaQuery create( @Nonnull final String query )
   {
-    return create( DomGlobal.window, mediaQuery );
+    return create( DomGlobal.window, query );
   }
 
+  /**
+   * Create an instance of MediaQuery.
+   *
+   * @param window the window to test.
+   * @param query  the CSS media query to match.
+   * @return the MediaQuery instance.
+   */
   @Nonnull
   public static MediaQuery create( @Nonnull final Window window, @Nonnull final String query )
   {
@@ -78,20 +88,51 @@ public abstract class MediaQuery
   MediaQuery( @Nonnull final Window window, @Nonnull final String query )
   {
     _window = Objects.requireNonNull( window );
-    _mediaQueryList = _window.matchMedia( query );
+    _mediaQueryList = _window.matchMedia( Objects.requireNonNull( query ) );
     _listener = e -> notifyOnMatchChange();
   }
 
+  /**
+   * Return the window against which the MediaQuery will run.
+   *
+   * @return the window to test.
+   */
   @Nonnull
   public final Window getWindow()
   {
     return _window;
   }
 
+  /**
+   * Return the media query to test against window.
+   *
+   * @return the associated media query.
+   */
   @Nonnull
-  public final String getQuery()
+  @Observable
+  public String getQuery()
   {
     return _mediaQueryList.media;
+  }
+
+  /**
+   * Change the media query to test against.
+   * If the component is active then invoking this will ensure that the listener is updated to listen
+   * to new query.
+   *
+   * @param query the CSS media query.
+   */
+  public void setQuery( @Nonnull final String query )
+  {
+    if ( _active )
+    {
+      unbindListener();
+    }
+    _mediaQueryList = _window.matchMedia( Objects.requireNonNull( query ) );
+    if ( _active )
+    {
+      bindListener();
+    }
   }
 
   /**
@@ -102,6 +143,8 @@ public abstract class MediaQuery
   @Computed( depType = DepType.AREZ_OR_EXTERNAL )
   public boolean matches()
   {
+    // Observe query so that this is re-calculated if query changes
+    getQuery();
     return _mediaQueryList.matches;
   }
 
@@ -111,13 +154,15 @@ public abstract class MediaQuery
   @OnActivate
   final void onMatchesActivate()
   {
-    _mediaQueryList.addListener( _listener );
+    _active = true;
+    bindListener();
   }
 
   @OnDeactivate
   final void onMatchesDeactivate()
   {
-    _mediaQueryList.removeListener( _listener );
+    _active = false;
+    unbindListener();
   }
 
   @Action
@@ -131,5 +176,15 @@ public abstract class MediaQuery
     {
       getMatchesComputableValue().reportPossiblyChanged();
     }
+  }
+
+  private void bindListener()
+  {
+    _mediaQueryList.addListener( _listener );
+  }
+
+  private void unbindListener()
+  {
+    _mediaQueryList.removeListener( _listener );
   }
 }
