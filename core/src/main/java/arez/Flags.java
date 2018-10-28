@@ -336,7 +336,7 @@ public final class Flags
 
   static int verifyActionRule( final int flags )
   {
-    return Arez.shouldCheckInvariants() ?
+    return Arez.shouldCheckApiInvariants() ?
            defaultFlagUnlessSpecified( flags, VERIFY_ACTION_MASK, VERIFY_ACTION_REQUIRED ) :
            0;
   }
