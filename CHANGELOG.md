@@ -24,6 +24,8 @@
   consistent terminology and tense within the API surface. This also involved renaming several support classes
   such as `arez.ComputedValueInfo` to `arez.ComputableValueInfo` and `arez.spy.ComputedValue*Event` to
   `arez.spy.ComputableValue*Event`.
+* **\[core\]** Fix invalid invariant failure triggered when invoking an action when compile time setting
+  `arez.check_invariants` is set to `false` but `arez.check_api_invariants` is set to `true`.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)
