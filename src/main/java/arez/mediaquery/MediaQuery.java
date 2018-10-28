@@ -18,34 +18,25 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * An observable model that declares state that tracks when the user is "online".
- * The online state is essentially a reflection of the browsers "navigator.onLine"
- * value. If an observer is observing the model, the model listens for changes from
- * the browser and updates the online state as appropriate. However if there is no
- * observer for the state, the model will not listen to to the browser events so as
- * not to have any significant performance impact.
+ * An observable model that indicates whether a window matches a CSS media query.
  *
  * <h1>A very simple example</h1>
  * <pre>{@code
+ * import arez.Arez;
+ * import arez.mediaquery.MediaQuery;
  * import com.google.gwt.core.client.EntryPoint;
  * import elemental2.dom.DomGlobal;
- * import arez.Arez;
- * import arez.networkstatus.MediaQuery;
  *
- * public class NetworkStatusExample
+ * public class MediaQueryExample
  *   implements EntryPoint
  * {
+ *   @Override
  *   public void onModuleLoad()
  *   {
- *     final MediaQuery networkStatus = MediaQuery.create();
- *     Arez.context().autorun( () -> {
- *       final String message = "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" );
- *       DomGlobal.console.log( message );
- *       if ( !networkStatus.isOnLine() )
- *       {
- *         DomGlobal.console.log( "Offline since: " + networkStatus.getLastChangedAt() );
- *       }
- *     } );
+ *     final MediaQuery mediaQuery = MediaQuery.create( "(max-width: 600px)" );
+ *     Arez.context().observer( () ->
+ *                                DomGlobal.document.querySelector( "#status" ).textContent =
+ *                                  "Screen size Status: " + ( mediaQuery.matches() ? "Narrow" : "Wide" ) );
  *   }
  * }
  * }</pre>
