@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
  * public class MediaQueryExample
  *   implements EntryPoint
  * {
- *   @Override
  *   public void onModuleLoad()
  *   {
  *     final MediaQuery mediaQuery = MediaQuery.create( "(max-width: 600px)" );
