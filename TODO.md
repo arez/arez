@@ -8,7 +8,7 @@ complete as there is too much un-said.
 
 * Consider removing -ed from event names? Some signal before the underlying action and some after.
 
-* Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools) 
+* Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
 * `ComputableValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
