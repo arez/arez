@@ -323,6 +323,9 @@ public final class ObservableValue<T>
     assert null != _observer;
     if ( _observer.isActive() )
     {
+      // We do not need to send deactivate even if the computable value was accessed from within an action
+      // and has no associated observers. There has been no associated "Activate" event so there need not
+      // be a deactivate event.
       final boolean shouldPropagateDeactivateEvent = willPropagateSpyEvents() && !getObservers().isEmpty();
 
       /*
