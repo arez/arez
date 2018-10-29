@@ -131,6 +131,10 @@ complete as there is too much un-said.
 
 * Add graph reflecting size of TodoMVC over time
 
+* Change the documentation for the peer projects so that the `README.md` is converted into a package summary
+  page in javadocs. Thus the README == the project documentation. We would need to link from README to the specific
+  deployed page. Could do this by using qualified url in README and gsubing when converting to html.
+
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
