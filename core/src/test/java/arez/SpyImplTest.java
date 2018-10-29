@@ -334,7 +334,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     final Spy spy = context.getSpy();
 
@@ -433,7 +433,7 @@ public class SpyImplTest
   public void asComputableValueInfo()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final ComputableValueInfo info = context.getSpy().asComputableValueInfo( computableValue );
 
     assertEquals( info.getName(), computableValue.getName() );

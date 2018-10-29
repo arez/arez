@@ -46,7 +46,7 @@ public final class MemoizeCache<T>
   @Nullable
   private final ArezContext _context;
   /**
-   * A human consumable prefix for computed values. It should be non-null if {@link Arez#areNamesEnabled()} returns
+   * A human consumable prefix for computable values. It should be non-null if {@link Arez#areNamesEnabled()} returns
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
@@ -89,7 +89,7 @@ public final class MemoizeCache<T>
    *
    * @param context   the context in which to create ComputableValue instances.
    * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name      a human consumable prefix for computed values.
+   * @param name      a human consumable prefix for computable values.
    * @param function  the memoized function.
    * @param argCount  the number of arguments expected to be passed to memoized function.
    */
@@ -107,7 +107,7 @@ public final class MemoizeCache<T>
    *
    * @param context   the context in which to create ComputableValue instances.
    * @param component the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name      a human consumable prefix for computed values.
+   * @param name      a human consumable prefix for computable values.
    * @param function  the memoized function.
    * @param argCount  the number of arguments expected to be passed to memoized function.
    * @param flags     the flags that are used when creating ComputableValue instances. The only flags supported are the PRIORITY_* flags and {@link Flags#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
@@ -218,7 +218,7 @@ public final class MemoizeCache<T>
   }
 
   /**
-   * Retrieve the computed value for specified parameters, creating it if necessary.
+   * Retrieve the computable value for specified parameters, creating it if necessary.
    *
    * @param args the arguments passed to the memoized function.
    */
@@ -248,7 +248,7 @@ public final class MemoizeCache<T>
   }
 
   /**
-   * Create computed value for specified parameters.
+   * Create computable value for specified parameters.
    *
    * @param args the arguments passed to the memoized function.
    */
@@ -258,7 +258,7 @@ public final class MemoizeCache<T>
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final Procedure onDeactivate = () -> disposeComputableValue( args );
     final SafeFunction<T> function = () -> _function.call( args );
-    return getContext().computed( component, name, function, null, onDeactivate, null, _flags );
+    return getContext().computable( component, name, function, null, onDeactivate, null, _flags );
   }
 
   /**

@@ -48,7 +48,7 @@ public final class ComputableValue<T>
   /**
    * The error that was thrown the last time that this ComputableValue was derived.
    * If this value is non-null then {@link #_value} should be null. This exception
-   * is rethrown every time {@link #get()} is called until the computed value is
+   * is rethrown every time {@link #get()} is called until the computable value is
    * recalculated.
    */
   private Throwable _error;
@@ -103,9 +103,9 @@ public final class ComputableValue<T>
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null == onActivate,
-                    () -> "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
+                    () -> "Arez-0039: ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate." );
       apiInvariant( () -> Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null == onDeactivate,
-                    () -> "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
+                    () -> "Arez-0045: ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate." );
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
@@ -141,10 +141,10 @@ public final class ComputableValue<T>
   }
 
   /**
-   * Return the computed value, calculating the value if it is not up to date.
+   * Return the computable value, calculating the value if it is not up to date.
    * Before invoking this method, a transaction <b>MUST</b> be active but it may be read-only or read-write.
    *
-   * @return the computed value.
+   * @return the computable value.
    */
   public T get()
   {
@@ -194,7 +194,7 @@ public final class ComputableValue<T>
     {
       apiInvariant( () -> getObserver().areExternalDependenciesAllowed(),
                     () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputableValue named '" +
-                          getName() + "' but the computed value has not specified the " +
+                          getName() + "' but the computable value has not specified the " +
                           "AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
     }
     Transaction.current().verifyWriteAllowed( getObservableValue() );
@@ -253,9 +253,9 @@ public final class ComputableValue<T>
   }
 
   /**
-   * Return true if the ComputableValue is currently being computed.
+   * Return true if the ComputableValue is currently being computable.
    *
-   * @return true if the ComputableValue is currently being computed.
+   * @return true if the ComputableValue is currently being computable.
    */
   boolean isComputing()
   {
@@ -274,7 +274,7 @@ public final class ComputableValue<T>
   }
 
   /**
-   * Return the observable for computed value.
+   * Return the observable for computable value.
    *
    * @return the observable for the derived value.
    */
@@ -357,8 +357,8 @@ public final class ComputableValue<T>
       if ( null == _error )
       {
         /*
-         * This handles the scenario where the computed generates an exception. The observers should still be
-         * marked as STALE. When they react to this the computed will throw the exception that was caught.
+         * This handles the scenario where the computable generates an exception. The observers should still be
+         * marked as STALE. When they react to this the computable will throw the exception that was caught.
          */
         _value = null;
         _error = e;
@@ -371,7 +371,7 @@ public final class ComputableValue<T>
   /**
    * Actually invoke the function that calculates the value.
    *
-   * @return the computed value.
+   * @return the computable value.
    */
   T computeValue()
   {

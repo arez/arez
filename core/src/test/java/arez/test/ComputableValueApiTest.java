@@ -24,7 +24,7 @@ public class ComputableValueApiTest
     result.set( 42 );
 
     final ArezContext context = Arez.context();
-    final ComputableValue<Integer> computableValue = context.computed( () -> {
+    final ComputableValue<Integer> computableValue = context.computable( () -> {
       computedCallCount.incrementAndGet();
       return result.get();
     }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
@@ -66,7 +66,7 @@ public class ComputableValueApiTest
     final AtomicInteger computedCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final ComputableValue<Integer> computableValue = context.computed( () -> {
+    final ComputableValue<Integer> computableValue = context.computable( () -> {
       computedCallCount.incrementAndGet();
       return 1;
     }, Flags.AREZ_OR_NO_DEPENDENCIES );
@@ -99,7 +99,7 @@ public class ComputableValueApiTest
       return result.get();
     };
     final ComputableValue<String> computableValue =
-      context.computed( "TestComputableValue", action, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.KEEPALIVE );
+      context.computable( "TestComputableValue", action, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.KEEPALIVE );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
     context.observer( () -> {
@@ -145,7 +145,7 @@ public class ComputableValueApiTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computed( "TestComputableValue", action, Flags.KEEPALIVE );
+      context.computable( "TestComputableValue", action, Flags.KEEPALIVE );
 
     assertEquals( calls.get(), 1 );
 

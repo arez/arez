@@ -25,18 +25,18 @@ public class CoreCanObserveLowerPriorityIntegrationTest
       observeADependency();
       return 42;
     };
-    final ComputableValue<Integer> computableValue1 = context.computed( f1, Flags.PRIORITY_LOWEST );
+    final ComputableValue<Integer> computableValue1 = context.computable( f1, Flags.PRIORITY_LOWEST );
     // f3 observes lower priority
     final SafeFunction<Integer> f2 = () -> computableValue1.get() + 42;
-    final ComputableValue<Integer> computableValue2 = context.computed( f2, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    final ComputableValue<Integer> computableValue2 = context.computable( f2, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     // f3 observes same priority
     final SafeFunction<Integer> f3 = () -> computableValue2.get() + 42;
-    final ComputableValue<Integer> computableValue3 = context.computed( f3, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    final ComputableValue<Integer> computableValue3 = context.computable( f3, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     // f4 observes higher priority
     final SafeFunction<Integer> f4 = () -> computableValue3.get() + 42;
-    final ComputableValue<Integer> computableValue4 = context.computed( f4, Flags.PRIORITY_LOWEST );
+    final ComputableValue<Integer> computableValue4 = context.computable( f4, Flags.PRIORITY_LOWEST );
 
     // Observes same priority
     context.observer( "AR1", computableValue1::get, Flags.PRIORITY_LOWEST );

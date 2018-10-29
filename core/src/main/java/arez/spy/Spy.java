@@ -112,11 +112,11 @@ public interface Spy
   Collection<ObserverInfo> findAllTopLevelObservers();
 
   /**
-   * Find all the collection of computed values not contained by a native component.
+   * Find all the collection of computable values not contained by a native component.
    * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
    * This collection returned is unmodifiable.
    *
-   * @return the collection of computed values not contained by a native component.
+   * @return the collection of computable values not contained by a native component.
    */
   @Nonnull
   Collection<ComputableValueInfo> findAllTopLevelComputableValues();
@@ -152,7 +152,7 @@ public interface Spy
   /**
    * Convert the specified ComputableValue into an ComputableValueInfo.
    *
-   * @param <T>             The type of the value that is computed.
+   * @param <T>             The type of the value that is computable.
    * @param computableValue the ComputableValue.
    * @return the ComputableValueInfo wrapping the ComputableValue.
    */

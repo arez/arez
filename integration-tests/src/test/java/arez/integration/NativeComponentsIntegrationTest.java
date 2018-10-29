@@ -36,7 +36,7 @@ public class NativeComponentsIntegrationTest
     final ObservableValue<String> observableValue2 = context.observable( component, "Attr2", null, null );
 
     final ComputableValue<String> computableValue1 =
-      context.computed( component, "Attr3", () -> "", null, null, null );
+      context.computable( component, "Attr3", () -> "", null, null, null );
 
     final Observer observer1 = context.tracker( component, "Render", () -> {
     } );

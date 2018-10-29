@@ -126,7 +126,7 @@ final class ComputedDescriptor
                     @Nonnull final String depType )
     throws ArezProcessorException
   {
-    //The caller already verified that no duplicate computed have been defined
+    //The caller already verified that no duplicate computable have been defined
     assert null == _computed;
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
                                   Constants.COMPUTED_ANNOTATION_CLASSNAME,
@@ -147,7 +147,7 @@ final class ComputedDescriptor
     {
       throw new ArezProcessorException( "@Computed target must not return a value of type java.util.stream.Stream " +
                                         "as the type is single use and thus does not make sense to cache as a " +
-                                        "computed value", computed );
+                                        "computable value", computed );
     }
   }
 
@@ -328,7 +328,7 @@ final class ComputedDescriptor
     if ( isCollectionType() && !hasHooks() )
     {
       sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
-                 "$N().computed( " +
+                 "$N().computable( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
                  "() -> super.$N(), " );
@@ -344,7 +344,7 @@ final class ComputedDescriptor
       appendInitializerSuffix( parameters, sb, true );
 
       // Else part of ternary
-      sb.append( " : $N().computed( " +
+      sb.append( " : $N().computable( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
                  "() -> super.$N(), " );
@@ -359,7 +359,7 @@ final class ComputedDescriptor
     }
     else // hasHooks()
     {
-      sb.append( "this.$N = $N().computed( " +
+      sb.append( "this.$N = $N().computable( " +
                  "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                  "$T.areNamesEnabled() ? $N() + $S : null, " +
                  "() -> super.$N(), " );
@@ -624,7 +624,7 @@ final class ComputedDescriptor
                             returnType.box(),
                             getFieldName() );
         guard.nextControlFlow( "else" );
-        guard.add( "// Make sure that we are observing computed\n" );
+        guard.add( "// Make sure that we are observing computable value\n" );
         guard.addStatement( "this.$N.get()", getFieldName() );
         guard.endControlFlow();
         block.add( guard.build() );

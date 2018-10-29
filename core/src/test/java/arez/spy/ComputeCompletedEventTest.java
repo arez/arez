@@ -16,7 +16,7 @@ public class ComputeCompletedEventTest
   public void basicOperation()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue<?> computableValue = context.computed( "Foo@1", ValueUtil::randomString );
+    final ComputableValue<?> computableValue = context.computable( "Foo@1", ValueUtil::randomString );
     final ComputableValueInfo info = context.getSpy().asComputableValueInfo( computableValue );
     final Object result = new Object();
     final int duration = 44;
@@ -40,7 +40,7 @@ public class ComputeCompletedEventTest
   public void basicOperation_withError()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue<?> computableValue = context.computed( "Foo@1", ValueUtil::randomString );
+    final ComputableValue<?> computableValue = context.computable( "Foo@1", ValueUtil::randomString );
     final ComputableValueInfo info = context.getSpy().asComputableValueInfo( computableValue );
     final int duration = 44;
     final ComputeCompletedEvent event = new ComputeCompletedEvent( info, null, new Error( "I am an error" ), duration );

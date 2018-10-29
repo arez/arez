@@ -43,11 +43,11 @@ public @interface Computed
   String name() default "<default>";
 
   /**
-   * A flag indicating whether the computed should be "kept alive". A computed that is kept alive
-   * is activated on creation and never deactivates. This is useful if the computed property is only
+   * A flag indicating whether the computable should be "kept alive". A computable that is kept alive
+   * is activated on creation and never deactivates. This is useful if the computable property is only
    * accessed from within actions but should be kept up to date and not recomputed on each access.
    *
-   * @return true to keep computed alive.
+   * @return true to keep computable alive.
    */
   boolean keepAlive() default false;
 
@@ -62,7 +62,7 @@ public @interface Computed
    * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.
    * The default value of false will result in an invariant failure (in development mode) if a lower priority
    * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
-   * priority observer is dependent upon a lower priority computed value. If the value is true then the no
+   * priority observer is dependent upon a lower priority computable value. If the value is true then the no
    * invariant failure is triggered and the component relies on the component author to handle possible priority
    * inversion.
    *
@@ -71,14 +71,14 @@ public @interface Computed
   boolean observeLowerPriorityDependencies() default false;
 
   /**
-   * Enum indicating whether the value of the computed is derived from arez elements and/or external dependencies.
+   * Enum indicating whether the value of the computable is derived from arez elements and/or external dependencies.
    * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
    * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link ComputableValue}). If set to
-   * {@link DepType#AREZ_OR_NONE} then the runtime will allow computed to exist with no dependencies. If set
+   * {@link DepType#AREZ_OR_NONE} then the runtime will allow computable to exist with no dependencies. If set
    * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputedValueRef} method and should invoke
    * {@link ComputableValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
    *
-   * @return the types of dependencies allowed on the computed.
+   * @return the types of dependencies allowed on the computable.
    */
   @Nonnull
   DepType depType() default DepType.AREZ;

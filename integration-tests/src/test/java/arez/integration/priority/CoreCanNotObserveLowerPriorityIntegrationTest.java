@@ -23,9 +23,9 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
       observeADependency();
       return 42;
     };
-    final ComputableValue<Integer> computableValue1 = context.computed( f1, Flags.PRIORITY_LOWEST );
+    final ComputableValue<Integer> computableValue1 = context.computable( f1, Flags.PRIORITY_LOWEST );
     // Attempts to observe lower priority
-    final ComputableValue<Integer> computableValue2 = context.computed( () -> computableValue1.get() + 42 );
+    final ComputableValue<Integer> computableValue2 = context.computable( () -> computableValue1.get() + 42 );
 
     observer( computableValue2::get );
 

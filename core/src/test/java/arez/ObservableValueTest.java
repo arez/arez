@@ -65,7 +65,7 @@ public class ObservableValueTest
   {
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -265,7 +265,7 @@ public class ObservableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
@@ -534,7 +534,7 @@ public class ObservableValueTest
                     Flags.PRIORITY_HIGH );
     setCurrentTransaction( observer );
 
-    final ObservableValue<?> observableValue = context.computed( () -> "" ).getObservableValue();
+    final ObservableValue<?> observableValue = context.computable( () -> "" ).getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     assertInvariantFailure( () -> observableValue.addObserver( observer ),
@@ -560,7 +560,7 @@ public class ObservableValueTest
                     Flags.PRIORITY_HIGH | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     setCurrentTransaction( observer );
 
-    final ObservableValue<?> observableValue = context.computed( () -> "" ).getObservableValue();
+    final ObservableValue<?> observableValue = context.computable( () -> "" ).getObservableValue();
     observableValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
 
     observableValue.addObserver( observer );
@@ -673,7 +673,7 @@ public class ObservableValueTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
     assertEquals( observableValue.getObservers().size(), 0 );
@@ -830,7 +830,7 @@ public class ObservableValueTest
     final Observer observer1 = Arez.context().observer( new CountAndObserveProcedure() );
     final Observer observer2 = Arez.context().observer( new CountAndObserveProcedure() );
     final Observer observer3 = Arez.context().observer( new CountAndObserveProcedure() );
-    final Observer observer4 = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer4 = Arez.context().computable( () -> "" ).getObserver();
 
     setupReadWriteTransaction();
 
@@ -870,7 +870,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final Observer observer = context.computed( () -> "" ).getObserver();
+    final Observer observer = context.computable( () -> "" ).getObserver();
 
     final ObservableValue<?> observableValue =
       new ObservableValue<>( context, null, observer.getName(), observer, null, null );
@@ -922,7 +922,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -945,7 +945,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -965,7 +965,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1003,7 +1003,7 @@ public class ObservableValueTest
 
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer derivation = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1025,7 +1025,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1046,7 +1046,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     observer.setState( Flags.STATE_UP_TO_DATE );
 
@@ -1065,7 +1065,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
     observer.setState( Flags.STATE_UP_TO_DATE );
@@ -1091,7 +1091,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     observer.setState( Flags.STATE_UP_TO_DATE );
 
@@ -1112,7 +1112,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1142,7 +1142,7 @@ public class ObservableValueTest
 
     final ObservableValue<Object> observable = context.observable();
 
-    final ObservableValue<?> observableValue = context.computed( () -> {
+    final ObservableValue<?> observableValue = context.computable( () -> {
       observable.reportObserved();
       return "";
     }, Flags.KEEPALIVE ).getObservableValue();
@@ -1160,7 +1160,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     observer.setState( Flags.STATE_INACTIVE );
 
@@ -1179,7 +1179,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     observer.setState( Flags.STATE_INACTIVE );
 
@@ -1206,7 +1206,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     observer.setState( Flags.STATE_INACTIVE );
 
@@ -1227,7 +1227,7 @@ public class ObservableValueTest
     final ArezContext context = Arez.context();
     setupReadOnlyTransaction( context );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     observer.setState( Flags.STATE_UP_TO_DATE );
 
@@ -1502,7 +1502,7 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer derivation = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1530,7 +1530,7 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer derivation = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1558,7 +1558,7 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer derivation = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
@@ -1600,7 +1600,7 @@ public class ObservableValueTest
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     final String expectedValue = ValueUtil.randomString();
-    final ComputableValue<String> computableValue = context.computed( () -> expectedValue );
+    final ComputableValue<String> computableValue = context.computable( () -> expectedValue );
     computableValue.setValue( expectedValue );
     final Observer derivation = computableValue.getObserver();
     derivation.setState( Flags.STATE_UP_TO_DATE );
@@ -1641,7 +1641,7 @@ public class ObservableValueTest
 
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer derivation = computableValue.getObserver();
     final ObservableValue<?> observableValue = computableValue.getObservableValue();
 
