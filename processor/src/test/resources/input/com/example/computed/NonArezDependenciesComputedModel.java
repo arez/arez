@@ -2,8 +2,8 @@ package com.example.computed;
 
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComputableValueRef;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
 import arez.annotations.DepType;
 import javax.annotation.Nonnull;
 
@@ -17,6 +17,6 @@ public abstract class NonArezDependenciesComputedModel
   }
 
   @Nonnull
-  @ComputedValueRef
+  @ComputableValueRef
   abstract ComputableValue<Long> getTimeComputableValue();
 }

@@ -5,7 +5,7 @@ import arez.annotations.Computed;
 import arez.annotations.DepType;
 
 @ArezComponent
-public abstract class MissingComputedValueRefModel
+public abstract class MissingComputableValueRefModel
 {
   @Computed( depType = DepType.AREZ_OR_EXTERNAL )
   public Integer getValue()

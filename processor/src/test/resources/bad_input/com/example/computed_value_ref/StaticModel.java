@@ -3,7 +3,7 @@ package com.example.computed_value_ref;
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
+import arez.annotations.ComputableValueRef;
 
 @ArezComponent
 public abstract class StaticModel
@@ -14,7 +14,7 @@ public abstract class StaticModel
     return 0;
   }
 
-  @ComputedValueRef
+  @ComputableValueRef
   static ComputableValue getTimeComputableValue()
   {
     throw new IllegalStateException();

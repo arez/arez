@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.METHOD )
-public @interface ComputedValueRef
+public @interface ComputableValueRef
 {
   /**
    * Return the name of the associated Computed property that this ref relates to.

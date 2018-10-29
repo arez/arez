@@ -75,7 +75,7 @@ public @interface Computed
    * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
    * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link ComputableValue}). If set to
    * {@link DepType#AREZ_OR_NONE} then the runtime will allow computable to exist with no dependencies. If set
-   * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputedValueRef} method and should invoke
+   * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputableValueRef} method and should invoke
    * {@link ComputableValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
    *
    * @return the types of dependencies allowed on the computable.

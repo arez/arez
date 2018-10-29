@@ -691,21 +691,21 @@ final class ComponentDescriptor
                                               depType.getSimpleName().toString() );
   }
 
-  private void addComputedValueRef( @Nonnull final AnnotationMirror annotation,
-                                    @Nonnull final ExecutableElement method,
-                                    @Nonnull final ExecutableType methodType )
+  private void addComputableValueRef( @Nonnull final AnnotationMirror annotation,
+                                      @Nonnull final ExecutableElement method,
+                                      @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(), Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !toRawType( returnType ).toString().equals( "arez.ComputableValue" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ComputedValueRef must return an instance of " +
+      throw new ArezProcessorException( "Method annotated with @ComputableValueRef must return an instance of " +
                                         "arez.ComputableValue", method );
     }
 
@@ -716,7 +716,7 @@ final class ComponentDescriptor
       name = ProcessorUtil.deriveName( method, COMPUTED_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @ComputedValueRef should specify name or be " +
+        throw new ArezProcessorException( "Method annotated with @ComputableValueRef should specify name or be " +
                                           "named according to the convention get[Name]ComputableValue", method );
       }
     }
@@ -725,12 +725,12 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ComputedValueRef target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@ComputableValueRef target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ComputedValueRef target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@ComputableValueRef target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
     }
@@ -2232,8 +2232,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror computed =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
-    final AnnotationMirror computedValueRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror computableValueRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror contextRef =
       ProcessorUtil.findAnnotationByType( method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentRef =
@@ -2325,9 +2325,9 @@ final class ComponentDescriptor
       addComputed( computed, method, methodType );
       return true;
     }
-    else if ( null != computedValueRef )
+    else if ( null != computableValueRef )
     {
-      addComputedValueRef( computedValueRef, method, methodType );
+      addComputableValueRef( computableValueRef, method, methodType );
       return true;
     }
     else if ( null != memoize )
@@ -2477,7 +2477,7 @@ final class ComponentDescriptor
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPUTED_ANNOTATION_CLASSNAME,
-                    Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
+                    Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
