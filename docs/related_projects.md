@@ -13,6 +13,9 @@ to this page.
   when the user is idle. A user is considered idle if they have not interacted with the browser for a
   specified amount of time.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/idlestatus) · [GitHub Project](https://github.com/arez/arez-idlestatus)**</span>
+* [arez-mediaquery](https://github.com/arez/arez-mediaquery) A browser-based Arez component that exposes a flag
+  indicating whether the browser matches a particular CSS media query.
+  <span style="font-size: smaller">**[API Docs](https://arez.github.io/mediaquery) · [GitHub Project](https://github.com/arez/arez-mediaquery)**</span>
 * [arez-networkstatus](https://github.com/arez/arez-networkstatus) A browser-based Arez component that
   tracks when the user is "online". The online state is essentially a reflection of the browsers
   "navigator.onLine" value.
