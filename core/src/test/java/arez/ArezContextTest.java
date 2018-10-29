@@ -2299,8 +2299,9 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
+    final ObservableValue<Object> observable = Arez.context().observable();
     final SafeFunction<String> function = () -> {
-      observeADependency();
+      observable.reportObserved();
       return "";
     };
     final ComputableValue<String> computableValue = context.computable( function, Flags.NO_REPORT_RESULT );
@@ -2312,7 +2313,7 @@ public class ArezContextTest
 
     context.safeAction( computableValue::get );
 
-    handler.assertEventCount( 11 );
+    handler.assertEventCount( 10 );
 
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
@@ -2320,7 +2321,6 @@ public class ArezContextTest
     handler.assertNextEvent( ComputeStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
 
-    handler.assertNextEvent( ObservableValueCreatedEvent.class );
     handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ComputeCompletedEvent.class, e -> assertNull( e.getResult() ) );
