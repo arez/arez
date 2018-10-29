@@ -8,13 +8,13 @@ complete as there is too much un-said.
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools) 
 
-* `ComputedValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
+* `ComputableValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
   backed by counter and only deactivates if counter is 0 and no listeners.
 
 * Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
 
-* Add the ability for `ComputedValue` to not report results to spy system via `ComputeCompletedEvent`.
+* Add the ability for `ComputableValue` to not report results to spy system via `ComputeCompletedEvent`.
 
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
@@ -105,7 +105,7 @@ complete as there is too much un-said.
   This could probably be done via a reactive streaming library.
 
 * Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into computed values. It would
-  manually trigger `ComputedValue.reportPossiblyChanged()` when a new value arrives.
+  manually trigger `ComputableValue.reportPossiblyChanged()` when a new value arrives.
 
 ## Process
 
@@ -168,7 +168,7 @@ complete as there is too much un-said.
 * It suggests that Arez should support some intelligent propagation of changes from Observables. Translating
   the concepts into Arez there seems to be two strategies for doing this. Allowing the observer to receive
   change messages that include the old state and the new state and writing the observer so that it can
-  incrementally apply changes. It may also mean adding hooks to `Observable` and `ComputedValue` instances
+  incrementally apply changes. It may also mean adding hooks to `Observable` and `ComputableValue` instances
   such that they can determine which dependencies that they will update on changes.
 
 * https://github.com/janestreet/incremental
