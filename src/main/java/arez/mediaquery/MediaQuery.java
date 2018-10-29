@@ -1,6 +1,6 @@
 package arez.mediaquery;
 
-import arez.ComputableValue;
+import arez.ComputedValue;
 import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -139,7 +139,7 @@ public abstract class MediaQuery
   }
 
   @ComputedValueRef
-  abstract ComputableValue getMatchesComputableValue();
+  abstract ComputedValue getMatchesComputedValue();
 
   @OnActivate
   final void onMatchesActivate()
@@ -164,7 +164,7 @@ public abstract class MediaQuery
     // deactivated and component is disposed.
     if ( !Disposable.isDisposed( this ) )
     {
-      getMatchesComputableValue().reportPossiblyChanged();
+      getMatchesComputedValue().reportPossiblyChanged();
     }
   }
 
