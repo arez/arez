@@ -12,7 +12,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
+import arez.annotations.ComputableValueRef;
 import arez.annotations.ContextRef;
 import arez.annotations.Executor;
 import arez.annotations.Inverse;
@@ -68,7 +68,7 @@ public abstract class BaseCompleteModel
   }
 
   @Nonnull
-  @ComputedValueRef
+  @ComputableValueRef
   protected abstract ComputableValue<Long> getTimeComputableValue();
 
   @OnActivate

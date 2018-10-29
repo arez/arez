@@ -1,4 +1,4 @@
-package com.example.computed_value_ref;
+package com.example.computable_value_ref;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -17,7 +17,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_NonStandardNameModel extends NonStandardNameModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -34,14 +34,14 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  public Arez_NonStandardNameModel() {
+  public Arez_DefaultRefNameModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "NonStandardNameModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DefaultRefNameModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_time = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -57,7 +57,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'NonStandardNameModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'DefaultRefNameModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -77,9 +77,9 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'NonStandardNameModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'DefaultRefNameModel'" );
     }
-    return "NonStandardNameModel." + $$arezi$$_id();
+    return "DefaultRefNameModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -123,10 +123,11 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
     return this.$$arez$$_time.get();
   }
 
+  @Nonnull
   @Override
-  ComputableValue timeComputableValue() {
+  ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'timeComputableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getTimeComputableValue' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
     return $$arez$$_time;
   }
@@ -145,10 +146,10 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_NonStandardNameModel) ) {
+      } else if ( null == o || !(o instanceof Arez_DefaultRefNameModel) ) {
         return false;
       } else {
-        final Arez_NonStandardNameModel that = (Arez_NonStandardNameModel) o;
+        final Arez_DefaultRefNameModel that = (Arez_DefaultRefNameModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

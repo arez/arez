@@ -155,14 +155,14 @@ final class ComputedDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
-                                         Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME,
+                                         Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     if ( null != _refMethod )
     {
-      throw new ArezProcessorException( "@ComputedValueRef target duplicates existing method named " +
+      throw new ArezProcessorException( "@ComputableValueRef target duplicates existing method named " +
                                         _refMethod.getSimpleName(), method );
     }
     else
@@ -243,7 +243,7 @@ final class ComputedDescriptor
       }
       else if ( null != _refMethod )
       {
-        throw new ArezProcessorException( "@ComputedValueRef exists but there is no corresponding @Computed",
+        throw new ArezProcessorException( "@ComputableValueRef exists but there is no corresponding @Computed",
                                           _refMethod );
       }
       else
@@ -277,7 +277,7 @@ final class ComputedDescriptor
         final TypeName actual = TypeName.get( _computed.getReturnType() );
         if ( !actual.box().toString().equals( expectedType.toString() ) )
         {
-          throw new ArezProcessorException( "@ComputedValueRef target has a type parameter of " + expectedType +
+          throw new ArezProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
                                             " but @Computed method returns type of " + actual, _refMethod );
         }
       }
@@ -285,7 +285,7 @@ final class ComputedDescriptor
     else if ( _depType.equals( "AREZ_OR_EXTERNAL" ) )
     {
       throw new ArezProcessorException( "@Computed target specified depType = AREZ_OR_EXTERNAL but " +
-                                        "there is no associated @ComputedValueRef method.", _computed );
+                                        "there is no associated @ComputableValueRef method.", _computed );
     }
   }
 

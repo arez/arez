@@ -3,7 +3,7 @@ package com.example.computed_value_ref;
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
+import arez.annotations.ComputableValueRef;
 import java.text.ParseException;
 
 @ArezComponent
@@ -15,7 +15,7 @@ public abstract class ThrowsExceptionModel
     return 0;
   }
 
-  @ComputedValueRef
+  @ComputableValueRef
   abstract ComputableValue getTimeComputableValue()
     throws ParseException;
 }

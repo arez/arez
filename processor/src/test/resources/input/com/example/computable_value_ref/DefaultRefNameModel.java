@@ -1,11 +1,13 @@
-package com.example.package_access.other;
+package com.example.computable_value_ref;
 
 import arez.ComputableValue;
+import arez.annotations.ArezComponent;
+import arez.annotations.ComputableValueRef;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
 import javax.annotation.Nonnull;
 
-public abstract class BaseComputedValueRefModel
+@ArezComponent
+public abstract class DefaultRefNameModel
 {
   @Computed
   public long getTime()
@@ -14,6 +16,6 @@ public abstract class BaseComputedValueRefModel
   }
 
   @Nonnull
-  @ComputedValueRef
+  @ComputableValueRef
   abstract ComputableValue<Long> getTimeComputableValue();
 }

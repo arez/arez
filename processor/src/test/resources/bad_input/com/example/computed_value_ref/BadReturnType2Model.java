@@ -3,7 +3,7 @@ package com.example.computed_value_ref;
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
+import arez.annotations.ComputableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
@@ -16,6 +16,6 @@ public abstract class BadReturnType2Model
   }
 
   @Nonnull
-  @ComputedValueRef
+  @ComputableValueRef
   public abstract ComputableValue<?> getTimeComputableValue();
 }

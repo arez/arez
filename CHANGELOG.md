@@ -26,6 +26,7 @@
   such as `arez.ComputedValueInfo` to `arez.ComputableValueInfo` and `arez.spy.ComputedValue*Event` to
   `arez.spy.ComputableValue*Event`.
 * **\[core\]** Rename the `arez.ArezContext.computed(...)` methods to `arez.ArezContext.computable(...)`.
+* **\[core\]** Rename the annotation `@ComputedValueRef` to `@ComputableValueRef`.
 * **\[core\]** Fix invalid invariant failure triggered when invoking an action when compile time setting
   `arez.check_invariants` is set to `false` but `arez.check_api_invariants` is set to `true`.
 

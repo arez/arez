@@ -1,4 +1,4 @@
-package com.example.computed_value_ref;
+package com.example.computable_value_ref;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -17,7 +17,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_RawComputedValueModel extends RawComputedValueModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_RawComputableValueModel extends RawComputableValueModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final int $$arezi$$_id;
@@ -34,14 +34,14 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  public Arez_RawComputedValueModel() {
+  public Arez_RawComputableValueModel() {
     super();
     this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
     this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
     }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RawComputedValueModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "RawComputableValueModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_time = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".time" : null, () -> super.getTime(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -57,7 +57,7 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
 
   final ArezContext $$arezi$$_context() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RawComputedValueModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'RawComputableValueModel'" );
     }
     return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
   }
@@ -77,9 +77,9 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
 
   String $$arezi$$_name() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RawComputedValueModel'" );
+      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'RawComputableValueModel'" );
     }
-    return "RawComputedValueModel." + $$arezi$$_id();
+    return "RawComputableValueModel." + $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
@@ -145,10 +145,10 @@ public final class Arez_RawComputedValueModel extends RawComputedValueModel impl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( this == o ) {
         return true;
-      } else if ( null == o || !(o instanceof Arez_RawComputedValueModel) ) {
+      } else if ( null == o || !(o instanceof Arez_RawComputableValueModel) ) {
         return false;
       } else {
-        final Arez_RawComputedValueModel that = (Arez_RawComputedValueModel) o;
+        final Arez_RawComputableValueModel that = (Arez_RawComputableValueModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       }
     } else {

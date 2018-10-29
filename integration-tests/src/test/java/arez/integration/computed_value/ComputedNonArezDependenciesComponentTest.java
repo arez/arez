@@ -4,8 +4,8 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComputableValueRef;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
 import arez.annotations.DepType;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -80,7 +80,7 @@ public class ComputedNonArezDependenciesComponentTest
       return _result;
     }
 
-    @ComputedValueRef
+    @ComputableValueRef
     abstract ComputableValue getComputedComputableValue();
   }
 }
