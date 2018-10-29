@@ -685,7 +685,7 @@ public final class Observer
         {
           final ComputableValue<?> computableValue = getComputableValue();
           reportSpyEvent( new ComputeCompletedEvent( computableValue.asInfo(),
-                                                     computableValue.getValue(),
+                                                     noReportResults() ? null : computableValue.getValue(),
                                                      computableValue.getError(),
                                                      (int) duration ) );
         }

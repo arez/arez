@@ -6,6 +6,10 @@ import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComponentInfo;
 import arez.spy.ComputableValueCreatedEvent;
+import arez.spy.ComputableValueDeactivatedEvent;
+import arez.spy.ComputeCompletedEvent;
+import arez.spy.ComputeStartedEvent;
+import arez.spy.ObservableValueChangedEvent;
 import arez.spy.ObservableValueCreatedEvent;
 import arez.spy.ObserveCompletedEvent;
 import arez.spy.ObserveScheduledEvent;
@@ -2288,6 +2292,42 @@ public class ArezContextTest
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObserver().getPriority(), Priority.HIGH );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
+  }
+
+  @Test
+  public void computable_with_NO_REPORT_RESULT()
+  {
+    final ArezContext context = Arez.context();
+
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function, Flags.NO_REPORT_RESULT );
+
+    assertTrue( computableValue.getObserver().noReportResults() );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.safeAction( computableValue::get );
+
+    handler.assertEventCount( 11 );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+
+    handler.assertNextEvent( ComputeStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+
+    handler.assertNextEvent( ObservableValueCreatedEvent.class );
+    handler.assertNextEvent( ObservableValueChangedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ComputeCompletedEvent.class, e -> assertNull( e.getResult() ) );
+    handler.assertNextEvent( ComputableValueDeactivatedEvent.class );
+
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
   }
 
   @Test
