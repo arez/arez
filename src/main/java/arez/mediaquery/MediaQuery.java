@@ -4,8 +4,8 @@ import arez.ComputableValue;
 import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComputableValueRef;
 import arez.annotations.Computed;
-import arez.annotations.ComputedValueRef;
 import arez.annotations.DepType;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
@@ -138,7 +138,7 @@ public abstract class MediaQuery
     return _mediaQueryList.matches;
   }
 
-  @ComputedValueRef
+  @ComputableValueRef
   abstract ComputableValue getMatchesComputableValue();
 
   @OnActivate
