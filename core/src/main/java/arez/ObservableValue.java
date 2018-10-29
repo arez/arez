@@ -323,12 +323,14 @@ public final class ObservableValue<T>
     assert null != _observer;
     if ( _observer.isActive() )
     {
+      final boolean shouldPropagateDeactivateEvent = willPropagateSpyEvents() && !getObservers().isEmpty();
+
       /*
        * It is possible for the owner to already be deactivated if dispose() is explicitly
        * called within the transaction.
        */
       _observer.setState( Flags.STATE_INACTIVE );
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && shouldPropagateDeactivateEvent )
       {
         reportSpyEvent( new ComputableValueDeactivatedEvent( _observer.getComputableValue().asInfo() ) );
       }

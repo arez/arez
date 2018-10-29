@@ -33,6 +33,9 @@
   to stop the result of computable calculation being reported in the `ComputeCompletedEvent` spy event.
 * **\[core\]** Add the `reportResult` parameter to the `@Computed` annotation so that the underlying `ComputedValue`
   instances can be passed the `Flags.NO_REPORT_RESULT` flag.
+* **\[core\]** If a `ComputedValue` was read from within an action and the element is not observed from an `Observer`
+  then the spy event `ComputableValueDeactivatedEvent` would be generated after the compute completed despite
+  there being no corresponding `ComputableValueActivatedEvent` spy event. This even is no longer generated.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

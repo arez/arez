@@ -9,6 +9,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
+import arez.spy.ComputableValueActivatedEvent;
 import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
@@ -35,7 +36,7 @@ public class ComputedNoReportResultTest
 
     safeAction( element::getComputed );
 
-    recorder.assertEventCount( 10 );
+    recorder.assertEventCount( 9 );
     recorder.assertNextEvent( ActionStartedEvent.class );
     recorder.assertNextEvent( TransactionStartedEvent.class );
 
@@ -46,7 +47,6 @@ public class ComputedNoReportResultTest
 
     recorder.assertNextEvent( TransactionCompletedEvent.class );
     recorder.assertNextEvent( ComputeCompletedEvent.class, a -> assertNull( a.getResult() ) );
-    recorder.assertNextEvent( ComputableValueDeactivatedEvent.class );
 
     recorder.assertNextEvent( TransactionCompletedEvent.class );
     recorder.assertNextEvent( ActionCompletedEvent.class );

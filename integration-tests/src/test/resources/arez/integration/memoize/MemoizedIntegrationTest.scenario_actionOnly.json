@@ -61,10 +61,6 @@
         "type": "ComputeCompleted"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "type": "ComputableValueDeactivated"
-    },
-    {
         "mutation": true,
         "name": "Query 1",
         "tracker": null,
@@ -219,10 +215,6 @@
         "name": "PersonModel.1.doesSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeCompleted"
-    },
-    {
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "type": "ComputableValueDeactivated"
     },
     {
         "mutation": true,

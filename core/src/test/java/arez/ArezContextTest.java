@@ -5,6 +5,7 @@ import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComponentInfo;
+import arez.spy.ComputableValueActivatedEvent;
 import arez.spy.ComputableValueCreatedEvent;
 import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ComputeCompletedEvent;
@@ -2313,7 +2314,7 @@ public class ArezContextTest
 
     context.safeAction( computableValue::get );
 
-    handler.assertEventCount( 10 );
+    handler.assertEventCount( 9 );
 
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
@@ -2324,7 +2325,6 @@ public class ArezContextTest
     handler.assertNextEvent( ObservableValueChangedEvent.class );
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ComputeCompletedEvent.class, e -> assertNull( e.getResult() ) );
-    handler.assertNextEvent( ComputableValueDeactivatedEvent.class );
 
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );

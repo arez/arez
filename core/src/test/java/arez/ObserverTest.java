@@ -2,6 +2,7 @@ package arez;
 
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
+import arez.spy.ComputableValueActivatedEvent;
 import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ComputableValueDisposedEvent;
 import arez.spy.ComputeCompletedEvent;
@@ -1109,7 +1110,8 @@ public class ObserverTest
     assertFalse( observer.isComputableValue() );
 
     assertInvariantFailure( observer::getComputableValue,
-                            "Arez-0095: Attempted to invoke getComputableValue on observer named '" + observer.getName() +
+                            "Arez-0095: Attempted to invoke getComputableValue on observer named '" +
+                            observer.getName() +
                             "' when is not a computable observer." );
   }
 
@@ -1243,10 +1245,11 @@ public class ObserverTest
 
     Arez.context().safeAction( () -> computableValue.getObserver().invokeReaction(), Flags.NO_VERIFY_ACTION_REQUIRED );
 
-    handler.assertEventCount( 10 );
+    handler.assertEventCount( 9 );
 
     handler.assertNextEvent( ActionStartedEvent.class );
     handler.assertNextEvent( TransactionStartedEvent.class );
+
     handler.assertNextEvent( ComputeStartedEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computableValue.getName() ) );
     handler.assertNextEvent( TransactionStartedEvent.class );
@@ -1260,7 +1263,7 @@ public class ObserverTest
       assertNull( event.getThrowable() );
       assertTrue( event.getDuration() >= 0 );
     } );
-    handler.assertNextEvent( ComputableValueDeactivatedEvent.class );
+
     handler.assertNextEvent( TransactionCompletedEvent.class );
     handler.assertNextEvent( ActionCompletedEvent.class );
   }
