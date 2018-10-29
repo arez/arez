@@ -16,6 +16,8 @@ complete as there is too much un-said.
 
 * Add the ability for `ComputableValue` to not report results to spy system via `ComputeCompletedEvent`.
 
+* Consider renaming `@OnDepsChanged` to `@OnDepsChange`
+
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
