@@ -52,7 +52,7 @@ public @interface Action
    * Return true if the return value of the action (if any) should be reported to the Arez spy subsystem.
    * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
    *
-   * @return true to report the parameters, false otherwise.
+   * @return true to report the return value, false otherwise.
    */
   boolean reportResult() default true;
 

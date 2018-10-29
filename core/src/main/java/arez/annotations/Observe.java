@@ -112,7 +112,7 @@ public @interface Observe
    * This is only useful if the value of {@link #executor()} is set to {@link Executor#APPLICATION} as otherwise the
    * result is not reported anyway.
    *
-   * @return true to report the parameters, false otherwise.
+   * @return true to report the return value, false otherwise.
    */
   boolean reportResult() default true;
 
