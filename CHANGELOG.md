@@ -31,6 +31,8 @@
   `arez.check_invariants` is set to `false` but `arez.check_api_invariants` is set to `true`.
 * **\[core\]** Support the flag `Flags.NO_REPORT_RESULT` being passed to the `ArezContext.computable(...)` method
   to stop the result of computable calculation being reported in the `ComputeCompletedEvent` spy event.
+* **\[core\]** Add the `reportResult` parameter to the `@Computed` annotation so that the underlying `ComputedValue`
+  instances can be passed the `Flags.NO_REPORT_RESULT` flag.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

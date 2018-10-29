@@ -46,6 +46,7 @@ final class ComputedDescriptor
   private boolean _keepAlive;
   private boolean _requireEnvironment;
   private String _priority;
+  private boolean _reportResult;
   private boolean _observeLowerPriorityDependencies;
   private String _depType;
   @Nullable
@@ -122,6 +123,7 @@ final class ComputedDescriptor
                     final boolean keepAlive,
                     final boolean requireEnvironment,
                     @Nonnull final String priority,
+                    final boolean reportResult,
                     final boolean observeLowerPriorityDependencies,
                     @Nonnull final String depType )
     throws ArezProcessorException
@@ -140,6 +142,7 @@ final class ComputedDescriptor
     _keepAlive = keepAlive;
     _requireEnvironment = requireEnvironment;
     _priority = Objects.requireNonNull( priority );
+    _reportResult = reportResult;
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _depType = Objects.requireNonNull( depType );
 
@@ -436,6 +439,10 @@ final class ComputedDescriptor
     final ArrayList<String> flags = new ArrayList<>();
     flags.add( "RUN_LATER" );
 
+    if ( !_reportResult )
+    {
+      flags.add( "NO_REPORT_RESULT" );
+    }
     if ( _observeLowerPriorityDependencies )
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
