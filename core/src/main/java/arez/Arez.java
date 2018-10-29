@@ -81,9 +81,9 @@ public final class Arez
   }
 
   /**
-   * Return true if observable properties, computed properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
+   * Return true if observable properties, computable properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
    *
-   * @return true if observable properties, computed properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
+   * @return true if observable properties, computable properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
    */
   public static boolean areCollectionsPropertiesUnmodifiable()
   {

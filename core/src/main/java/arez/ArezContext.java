@@ -68,7 +68,7 @@ public final class ArezContext
   private final HashMap<String, ObservableValue<?>> _observableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
-   * Registry of top level computed values.
+   * Registry of top level computable values.
    * These are all the ComputableValue instances not contained within a component.
    */
   @Nullable
@@ -344,82 +344,82 @@ public final class ArezContext
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>      the type of the computed value.
+   * @param <T>      the type of the computable value.
    * @param function the function that computes the value.
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nonnull final SafeFunction<T> function )
+  public <T> ComputableValue<T> computable( @Nonnull final SafeFunction<T> function )
   {
-    return computed( function, 0 );
+    return computable( function, 0 );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>      the type of the computed value.
-   * @param function the function that computes the value.
-   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computed( @Nonnull final SafeFunction<T> function, final int flags )
-  {
-    return computed( null, function, flags );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>      the type of the computed value.
-   * @param name     the name of the ComputableValue.
-   * @param function the function that computes the value.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final String name, @Nonnull final SafeFunction<T> function )
-  {
-    return computed( name, function, 0 );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>      the type of the computed value.
-   * @param name     the name of the ComputableValue.
+   * @param <T>      the type of the computable value.
    * @param function the function that computes the value.
    * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function,
-                                          final int flags )
+  public <T> ComputableValue<T> computable( @Nonnull final SafeFunction<T> function, final int flags )
   {
-    return computed( null, name, function, flags );
+    return computable( null, function, flags );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>       the type of the computed value.
+   * @param <T>      the type of the computable value.
+   * @param name     the name of the ComputableValue.
+   * @param function the function that computes the value.
+   * @return the ComputableValue instance.
+   */
+  @Nonnull
+  public <T> ComputableValue<T> computable( @Nullable final String name, @Nonnull final SafeFunction<T> function )
+  {
+    return computable( name, function, 0 );
+  }
+
+  /**
+   * Create a ComputableValue with specified parameters.
+   *
+   * @param <T>      the type of the computable value.
+   * @param name     the name of the ComputableValue.
+   * @param function the function that computes the value.
+   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @return the ComputableValue instance.
+   */
+  @Nonnull
+  public <T> ComputableValue<T> computable( @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function,
+                                            final int flags )
+  {
+    return computable( null, name, function, flags );
+  }
+
+  /**
+   * Create a ComputableValue with specified parameters.
+   *
+   * @param <T>       the type of the computable value.
    * @param component the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name      the name of the ComputableValue.
    * @param function  the function that computes the value.
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final Component component,
-                                          @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function )
+  public <T> ComputableValue<T> computable( @Nullable final Component component,
+                                            @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function )
   {
-    return computed( component, name, function, 0 );
+    return computable( component, name, function, 0 );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>       the type of the computed value.
+   * @param <T>       the type of the computable value.
    * @param component the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name      the name of the ComputableValue.
    * @param function  the function that computes the value.
@@ -427,18 +427,18 @@ public final class ArezContext
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final Component component,
-                                          @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function,
-                                          final int flags )
+  public <T> ComputableValue<T> computable( @Nullable final Component component,
+                                            @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function,
+                                            final int flags )
   {
-    return computed( component, name, function, null, null, null, flags );
+    return computable( component, name, function, null, null, null, flags );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computed value.
+   * @param <T>          the type of the computable value.
    * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
@@ -448,20 +448,20 @@ public final class ArezContext
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final Component component,
-                                          @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function,
-                                          @Nullable final Procedure onActivate,
-                                          @Nullable final Procedure onDeactivate,
-                                          @Nullable final Procedure onStale )
+  public <T> ComputableValue<T> computable( @Nullable final Component component,
+                                            @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function,
+                                            @Nullable final Procedure onActivate,
+                                            @Nullable final Procedure onDeactivate,
+                                            @Nullable final Procedure onStale )
   {
-    return computed( component, name, function, onActivate, onDeactivate, onStale, 0 );
+    return computable( component, name, function, onActivate, onDeactivate, onStale, 0 );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computed value.
+   * @param <T>          the type of the computable value.
    * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
@@ -470,19 +470,19 @@ public final class ArezContext
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function,
-                                          @Nullable final Procedure onActivate,
-                                          @Nullable final Procedure onDeactivate,
-                                          @Nullable final Procedure onStale )
+  public <T> ComputableValue<T> computable( @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function,
+                                            @Nullable final Procedure onActivate,
+                                            @Nullable final Procedure onDeactivate,
+                                            @Nullable final Procedure onStale )
   {
-    return computed( name, function, onActivate, onDeactivate, onStale, 0 );
+    return computable( name, function, onActivate, onDeactivate, onStale, 0 );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computed value.
+   * @param <T>          the type of the computable value.
    * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
@@ -492,20 +492,20 @@ public final class ArezContext
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function,
-                                          @Nullable final Procedure onActivate,
-                                          @Nullable final Procedure onDeactivate,
-                                          @Nullable final Procedure onStale,
-                                          final int flags )
+  public <T> ComputableValue<T> computable( @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function,
+                                            @Nullable final Procedure onActivate,
+                                            @Nullable final Procedure onDeactivate,
+                                            @Nullable final Procedure onStale,
+                                            final int flags )
   {
-    return computed( null, name, function, onActivate, onDeactivate, onStale, flags );
+    return computable( null, name, function, onActivate, onDeactivate, onStale, flags );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computed value.
+   * @param <T>          the type of the computable value.
    * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name         the name of the ComputableValue.
    * @param function     the function that computes the value.
@@ -516,13 +516,13 @@ public final class ArezContext
    * @return the ComputableValue instance.
    */
   @Nonnull
-  public <T> ComputableValue<T> computed( @Nullable final Component component,
-                                          @Nullable final String name,
-                                          @Nonnull final SafeFunction<T> function,
-                                          @Nullable final Procedure onActivate,
-                                          @Nullable final Procedure onDeactivate,
-                                          @Nullable final Procedure onStale,
-                                          final int flags )
+  public <T> ComputableValue<T> computable( @Nullable final Component component,
+                                            @Nullable final String name,
+                                            @Nonnull final SafeFunction<T> function,
+                                            @Nullable final Procedure onActivate,
+                                            @Nullable final Procedure onDeactivate,
+                                            @Nullable final Procedure onStale,
+                                            final int flags )
   {
     return new ComputableValue<>( Arez.areZonesEnabled() ? this : null,
                                   component,

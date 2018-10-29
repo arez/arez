@@ -8,7 +8,7 @@ public class ActionExample
     throws Throwable
   {
     Arez.context().action( () -> {
-      // Interact with arez observable state (or computed values) here
+      // Interact with arez observable state (or computable values) here
       //DOC ELIDE START
       //DOC ELIDE END
     } );

@@ -16,7 +16,7 @@ public class ComputeStartedEventTest
   public void basicOperation()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue<?> computableValue = context.computed( "Foo@1", ValueUtil::randomString );
+    final ComputableValue<?> computableValue = context.computable( "Foo@1", ValueUtil::randomString );
     final ComputableValueInfo info = context.getSpy().asComputableValueInfo( computableValue );
     final ComputeStartedEvent event = new ComputeStartedEvent( info );
 

@@ -933,7 +933,7 @@ public final class Observer
     {
       invariant( this::isComputableValue,
                  () -> "Arez-0095: Attempted to invoke getComputableValue on observer named '" + getName() + "' when " +
-                       "is not a computed observer." );
+                       "is not a computable observer." );
     }
     assert null != _computableValue;
     return _computableValue;

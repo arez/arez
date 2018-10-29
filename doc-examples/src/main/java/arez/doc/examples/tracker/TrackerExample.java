@@ -10,7 +10,7 @@ public class TrackerExample
     throws Throwable
   {
     final Procedure observedFunction = () -> {
-      // Interact with arez observable state (or computed values) here
+      // Interact with arez observable state (or computable values) here
       // and any time these changed the rescheduleRender function will
       // be run which will somehow reschedule this function.
       //DOC ELIDE START

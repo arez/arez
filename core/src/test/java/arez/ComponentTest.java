@@ -99,7 +99,7 @@ public class ComponentTest
     final Component component = context.component( ValueUtil.randomString(), ValueUtil.randomString(), name );
 
     final ObservableValue observableValue1 = context.observable();
-    final ComputableValue computableValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computable( () -> "" );
     final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
 
     component.addObservableValue( observableValue1 );
@@ -338,8 +338,8 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputableValue computableValue1 = context.computed( () -> "" );
-    final ComputableValue computableValue2 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computable( () -> "" );
+    final ComputableValue computableValue2 = context.computable( () -> "" );
 
     assertEquals( component.getComputableValues().size(), 0 );
 
@@ -373,7 +373,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputableValue computableValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computable( () -> "" );
 
     component.addComputableValue( computableValue1 );
 
@@ -396,7 +396,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final ComputableValue computableValue1 = context.computed( () -> "" );
+    final ComputableValue computableValue1 = context.computable( () -> "" );
 
     assertInvariantFailure( () -> component.removeComputableValue( computableValue1 ),
                             "Arez-0047: Component.removeComputableValue invoked on component '" + name +
@@ -414,18 +414,18 @@ public class ComponentTest
 
     final ObservableValue observableValue1 = context.observable( component, ValueUtil.randomString(), null, null );
     final ObservableValue observableValue2 = context.observable( component, ValueUtil.randomString(), null, null );
-    final ComputableValue computableValue1 = context.computed( component,
-                                                               ValueUtil.randomString(),
-                                                               () -> "",
-                                                               null,
-                                                               null,
-                                                               null );
-    final ComputableValue computableValue2 = context.computed( component,
-                                                               ValueUtil.randomString(),
-                                                               () -> "",
-                                                               null,
-                                                               null,
-                                                               null );
+    final ComputableValue computableValue1 = context.computable( component,
+                                                                 ValueUtil.randomString(),
+                                                                 () -> "",
+                                                                 null,
+                                                                 null,
+                                                                 null );
+    final ComputableValue computableValue2 = context.computable( component,
+                                                                 ValueUtil.randomString(),
+                                                                 () -> "",
+                                                                 null,
+                                                                 null,
+                                                                 null );
     final Procedure action = AbstractArezTest::observeADependency;
     final Observer observer1 = context.observer( component, null, action, Flags.RUN_LATER );
     final Observer observer2 = context.observer( component, null, action, Flags.RUN_LATER );

@@ -76,7 +76,7 @@ public @interface Observe
    * Flag controlling whether the observer can observe ComputableValue instances with lower priorities.
    * The default value of false will result in an invariant failure (in development mode) if a lower priority
    * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
-   * priority observer that is dependent upon a lower priority computed value. If the value is true then the no
+   * priority observer that is dependent upon a lower priority computable value. If the value is true then the no
    * invariant failure is triggered and the component relies on the component author to handle possible priority
    * inversion.
    *

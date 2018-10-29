@@ -51,7 +51,7 @@ public interface ComponentInfo
    * Return the ComputableValues associated with the component.
    * This collection returned is unmodifiable.
    *
-   * @return the associated computed values.
+   * @return the associated computable values.
    */
   List<ComputableValueInfo> getComputableValues();
 }

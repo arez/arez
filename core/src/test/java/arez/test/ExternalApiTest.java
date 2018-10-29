@@ -149,7 +149,7 @@ public class ExternalApiTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( name, function );
+    final ComputableValue<String> computableValue = context.computable( name, function );
 
     context.action( () -> {
       assertEquals( computableValue.getName(), name );
@@ -179,7 +179,7 @@ public class ExternalApiTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputableValue<String> computableValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );

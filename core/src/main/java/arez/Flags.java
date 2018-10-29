@@ -87,8 +87,8 @@ public final class Flags
    */
   public static final int KEEPALIVE = 1 << 20;
   /**
-   * The flag is valid on observers associated with computed values and will deactivate the observer if the
-   * computed value has no observers.
+   * The flag is valid on observers associated with computable values and will deactivate the observer if the
+   * computable value has no observers.
    */
   static final int DEACTIVATE_ON_UNOBSERVE = 1 << 19;
   /**
@@ -204,10 +204,10 @@ public final class Flags
    * that required an action. These activities include:
    * <ul>
    * <li>read or write an observable property.</li>
-   * <li>read a computed property.</li>
+   * <li>read a computable property.</li>
    * <li>schedule an observer.</li>
    * <li>mark an observer as stale.</li>
-   * <li>report possible change in computed property.</li>
+   * <li>report possible change in computable property.</li>
    * </ul>
    * <p>This flag must not be present if {@link #NO_VERIFY_ACTION_REQUIRED} is present. If neither
    * VERIFY_ACTION_REQUIRED nor {@link #NO_VERIFY_ACTION_REQUIRED} is specified then VERIFY_ACTION_REQUIRED

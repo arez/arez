@@ -16,7 +16,7 @@ public class DisposeIntegrationTest
   extends AbstractArezIntegrationTest
 {
   /**
-   * Another example that incorporates actions, computed and disposes.
+   * Another example that incorporates actions, computable and disposes.
    */
   @Test
   public void codeModelScenario()

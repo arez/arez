@@ -2222,7 +2222,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer derivation = context.computed( () -> "" ).getObserver();
+    final Observer derivation = context.computable( () -> "" ).getObserver();
 
     assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
 
@@ -2268,13 +2268,13 @@ public class ArezContextTest
     final Procedure onDeactivate = ValueUtil::randomString;
     final Procedure onStale = ValueUtil::randomString;
     final ComputableValue<String> computableValue =
-      context.computed( null,
-                        name,
-                        function,
-                        onActivate,
-                        onDeactivate,
-                        onStale,
-                        Flags.PRIORITY_HIGH );
+      context.computable( null,
+                          name,
+                          function,
+                          onActivate,
+                          onDeactivate,
+                          onStale,
+                          Flags.PRIORITY_HIGH );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
@@ -2300,7 +2300,7 @@ public class ArezContextTest
 
     final String name = ValueUtil.randomString();
     final ComputableValue<String> computableValue =
-      context.computed( component, name, () -> "", null, null, null );
+      context.computable( component, name, () -> "", null, null, null );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getComponent(), component );
@@ -2322,7 +2322,7 @@ public class ArezContextTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computed( function, Flags.ENVIRONMENT_REQUIRED );
+      context.computable( function, Flags.ENVIRONMENT_REQUIRED );
 
     assertTrue( computableValue.getObserver().isEnvironmentRequired() );
 
@@ -2349,7 +2349,7 @@ public class ArezContextTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computed( function, Flags.ENVIRONMENT_NOT_REQUIRED );
+      context.computable( function, Flags.ENVIRONMENT_NOT_REQUIRED );
 
     assertFalse( computableValue.getObserver().isEnvironmentRequired() );
 
@@ -2364,7 +2364,7 @@ public class ArezContextTest
   public void computableValue_canObserveLowerPriorityDependencies()
   {
     final ComputableValue<String> computableValue =
-      Arez.context().computed( () -> "", Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      Arez.context().computable( () -> "", Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     assertTrue( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }
@@ -2373,10 +2373,10 @@ public class ArezContextTest
   public void computableValue_mayNotAccessArezState()
   {
     final ArezContext context = Arez.context();
-    assertFalse( context.computed( () -> "", Flags.AREZ_OR_NO_DEPENDENCIES )
+    assertFalse( context.computable( () -> "", Flags.AREZ_OR_NO_DEPENDENCIES )
                    .getObserver()
                    .areArezDependenciesRequired() );
-    assertFalse( context.computed( () -> "", Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
+    assertFalse( context.computable( () -> "", Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
                    .getObserver()
                    .areArezDependenciesRequired() );
   }
@@ -2393,7 +2393,7 @@ public class ArezContextTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computed( action, Flags.KEEPALIVE | Flags.RUN_NOW );
+      context.computable( action, Flags.KEEPALIVE | Flags.RUN_NOW );
 
     assertTrue( computableValue.getObserver().isKeepAlive() );
     assertEquals( calls.get(), 1 );
@@ -2410,7 +2410,7 @@ public class ArezContextTest
       calls.incrementAndGet();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( action, Flags.KEEPALIVE | Flags.RUN_LATER );
+    final ComputableValue<String> computableValue = context.computable( action, Flags.KEEPALIVE | Flags.RUN_LATER );
 
     assertTrue( computableValue.getObserver().isKeepAlive() );
     assertEquals( calls.get(), 0 );
@@ -2430,7 +2430,7 @@ public class ArezContextTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( name, function );
+    final ComputableValue<String> computableValue = context.computable( name, function );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
@@ -2452,7 +2452,7 @@ public class ArezContextTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final String name = "ComputableValue@22";
     assertEquals( computableValue.getName(), name );
@@ -2475,7 +2475,7 @@ public class ArezContextTest
     context.getSpy().addSpyEventHandler( handler );
 
     final ComputableValue<String> computableValue =
-      context.computed( ValueUtil.randomString(), () -> {
+      context.computable( ValueUtil.randomString(), () -> {
         observeADependency();
         return "";
       } );
@@ -3256,7 +3256,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final ObservableValue<Object> observableValue = context.observable();
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = context.observer( AbstractArezTest::observeADependency );
 
     assertInvariantFailure( () -> context.registerObservableValue( observableValue ),
@@ -3332,7 +3332,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue computableValue = context.computed( () -> "" );
+    final ComputableValue computableValue = context.computable( () -> "" );
 
     assertEquals( context.getTopLevelComputableValues().size(), 1 );
     assertEquals( context.getTopLevelComputableValues().get( computableValue.getName() ), computableValue );

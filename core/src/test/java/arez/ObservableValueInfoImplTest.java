@@ -95,7 +95,7 @@ public class ObservableValueInfoImplTest
   {
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
-    final ComputableValue<String> computableValue = context.computed( name, () -> "" );
+    final ComputableValue<String> computableValue = context.computable( name, () -> "" );
 
     final ObservableValue<String> observableValue = computableValue.getObservableValue();
 
@@ -151,7 +151,7 @@ public class ObservableValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    assertTrue( spy.asObservableValueInfo( context.computed( () -> "" ).getObservableValue() ).isComputableValue() );
+    assertTrue( spy.asObservableValueInfo( context.computable( () -> "" ).getObservableValue() ).isComputableValue() );
     assertFalse( spy.asObservableValueInfo( context.observable() ).isComputableValue() );
   }
 

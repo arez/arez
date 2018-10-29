@@ -57,7 +57,7 @@ public @interface Memoize
    * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.
    * The default value of false will result in an invariant failure (in development mode) if a lower priority
    * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
-   * priority observer is dependent upon a lower priority computed value. If the value is true then the no
+   * priority observer is dependent upon a lower priority computable value. If the value is true then the no
    * invariant failure is triggered and the component relies on the component author to handle possible priority
    * inversion.
    *
@@ -73,10 +73,10 @@ public @interface Memoize
   boolean requireEnvironment() default false;
 
   /**
-   * Enum indicating whether the value of the underlying computed is derived from arez elements and/or
+   * Enum indicating whether the value of the underlying computable is derived from arez elements and/or
    * external dependencies. The current implementation does not support setting this to {@link DepType#AREZ_OR_EXTERNAL}.
    *
-   * @return the types of dependencies allowed on the underlying computed.
+   * @return the types of dependencies allowed on the underlying computable.
    * @see Computed#depType()
    */
   @Nonnull

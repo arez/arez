@@ -28,7 +28,7 @@ public class ComputableValueTest
     final Procedure onDeactivate = new NoopProcedure();
     final Procedure onStale = new NoopProcedure();
 
-    final ComputableValue<String> computableValue = context.computed( name, function, onActivate, onDeactivate, onStale );
+    final ComputableValue<String> computableValue = context.computable( name, function, onActivate, onDeactivate, onStale );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
@@ -69,7 +69,7 @@ public class ComputableValueTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computed( name, function, Flags.KEEPALIVE | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      context.computable( name, function, Flags.KEEPALIVE | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     computableValue.getObserver().invokeReaction();
 
@@ -100,7 +100,7 @@ public class ComputableValueTest
   @Test
   public void highPriorityComputableValue()
   {
-    final ComputableValue<String> computableValue = Arez.context().computed( () -> "", Flags.PRIORITY_HIGH );
+    final ComputableValue<String> computableValue = Arez.context().computable( () -> "", Flags.PRIORITY_HIGH );
     assertEquals( computableValue.getObserver().getPriority(), Priority.HIGH );
   }
 
@@ -119,7 +119,7 @@ public class ComputableValueTest
                      null );
 
     final String name = ValueUtil.randomString();
-    assertInvariantFailure( () -> context.computed( component, name, () -> "" ),
+    assertInvariantFailure( () -> context.computable( component, name, () -> "" ),
                             "Arez-0048: ComputableValue named '" + name + "' has component specified but " +
                             "Arez.areNativeComponentsEnabled() is false." );
 
@@ -138,7 +138,7 @@ public class ComputableValueTest
                      null );
 
     final String name = ValueUtil.randomString();
-    final ComputableValue<String> computableValue = context.computed( component, name, () -> "" );
+    final ComputableValue<String> computableValue = context.computable( component, name, () -> "" );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getComponent(), component );
@@ -146,7 +146,7 @@ public class ComputableValueTest
     assertNull( computableValue.getObserver().getComponent() );
     assertNull( computableValue.getObservableValue().getComponent() );
 
-    // Don't register the worker observables/observers just the computed values
+    // Don't register the worker observables/observers just the computable values
     assertEquals( component.getObservableValues().size(), 0 );
     assertEquals( component.getObservers().size(), 0 );
 
@@ -165,8 +165,8 @@ public class ComputableValueTest
     final Procedure action = () -> {
     };
 
-    assertInvariantFailure( () -> context.computed( null, () -> "", action, null, null, Flags.KEEPALIVE ),
-                            "Arez-0039: ArezContext.computed() specified keepAlive = true and did not pass a null for onActivate." );
+    assertInvariantFailure( () -> context.computable( null, () -> "", action, null, null, Flags.KEEPALIVE ),
+                            "Arez-0039: ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate." );
   }
 
   @Test
@@ -176,8 +176,8 @@ public class ComputableValueTest
 
     final Procedure action = () -> {
     };
-    assertInvariantFailure( () -> context.computed( null, () -> "", null, action, null, Flags.KEEPALIVE ),
-                            "Arez-0045: ArezContext.computed() specified keepAlive = true and did not pass a null for onDeactivate." );
+    assertInvariantFailure( () -> context.computable( null, () -> "", null, action, null, Flags.KEEPALIVE ),
+                            "Arez-0045: ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate." );
   }
 
   @Test
@@ -192,7 +192,7 @@ public class ComputableValueTest
       assertTrue( ref.get().isComputing() );
       return value.get();
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
     ref.set( computableValue );
     setCurrentTransaction( computableValue.getObserver() );
 
@@ -215,7 +215,7 @@ public class ComputableValueTest
       observeADependency();
       return value.get();
     };
-    final ComputableValue<String> computableValue = context.computed( name, function );
+    final ComputableValue<String> computableValue = context.computable( name, function );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( computableValue.getObserver() );
@@ -248,7 +248,7 @@ public class ComputableValueTest
       observeADependency();
       return value.get();
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
@@ -284,7 +284,7 @@ public class ComputableValueTest
       observeADependency();
       return value.get();
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
@@ -318,7 +318,7 @@ public class ComputableValueTest
       observeADependency();
       throw new IllegalStateException( message );
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
@@ -349,7 +349,7 @@ public class ComputableValueTest
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =
-      context.computed( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.RUN_LATER );
+      context.computable( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.RUN_LATER );
 
     assertInvariantFailure( () -> Arez.context().safeAction( computableValue::get ),
                             "Arez-0173: ComputableValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
@@ -366,7 +366,7 @@ public class ComputableValueTest
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =
-      context.computed( ValueUtil::randomString, Flags.AREZ_OR_NO_DEPENDENCIES );
+      context.computable( ValueUtil::randomString, Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertNotNull( context.safeAction( computableValue::get ) );
   }
@@ -376,7 +376,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setCurrentTransaction( observer );
@@ -397,7 +397,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setCurrentTransaction( observer );
@@ -456,7 +456,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -473,7 +473,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -497,7 +497,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -521,7 +521,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -548,7 +548,7 @@ public class ComputableValueTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
     final Observer observer = computableValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -565,7 +565,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setCurrentTransaction( observer );
@@ -585,7 +585,7 @@ public class ComputableValueTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     setupReadOnlyTransaction( context );
@@ -609,7 +609,7 @@ public class ComputableValueTest
   @Test
   public void getObservable_onDisposedObserver()
   {
-    final ComputableValue<String> computableValue = Arez.context().computed( () -> "" );
+    final ComputableValue<String> computableValue = Arez.context().computable( () -> "" );
 
     computableValue.setDisposed( true );
 
@@ -639,7 +639,7 @@ public class ComputableValueTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputableValue<String> computableValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -690,7 +690,7 @@ public class ComputableValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -722,11 +722,11 @@ public class ComputableValueTest
       observableValue.reportObserved();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     assertInvariantFailure( () -> context.safeAction( computableValue::reportPossiblyChanged ),
                             "Arez-0085: The method reportPossiblyChanged() was invoked on ComputableValue named '" +
-                            computableValue.getName() + "' but the computed value has not specified the " +
+                            computableValue.getName() + "' but the computable value has not specified the " +
                             "AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
   }
 
@@ -745,7 +745,7 @@ public class ComputableValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -778,7 +778,7 @@ public class ComputableValueTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final ComputableValueInfo info = computableValue.asInfo();
     assertEquals( info.getName(), computableValue.getName() );
@@ -796,7 +796,7 @@ public class ComputableValueTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     assertInvariantFailure( computableValue::asInfo,
                             "Arez-0195: ComputableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );

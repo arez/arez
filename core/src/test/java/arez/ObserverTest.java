@@ -86,7 +86,7 @@ public class ObserverTest
   @Test
   public void initialStateForComputableValueObserver()
   {
-    final ComputableValue<String> computableValue = Arez.context().computed( () -> "" );
+    final ComputableValue<String> computableValue = Arez.context().computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     assertTrue( observer.isComputableValue() );
@@ -255,7 +255,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     assertInvariantFailure( () -> new Observer( computableValue, Flags.RUN_NOW ),
                             "Arez-0208: ComputableValue named 'ComputableValue@1' incorrectly specified RUN_NOW flag but not the KEEPALIVE flag." );
@@ -440,7 +440,7 @@ public class ObserverTest
   public void invariantState_derivedNotLinkBack()
     throws Exception
   {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     final ComputableValue<?> computableValue = observer.getComputableValue();
 
     observer.invariantState();
@@ -456,7 +456,7 @@ public class ObserverTest
   public void invariantDerivationState()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
 
     observer.invariantComputableValueObserverState();
@@ -475,7 +475,7 @@ public class ObserverTest
   @Test
   public void invariantDerivationState_observerCanHaveNoDependenciesIfItIsTracker()
   {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
 
     observer.invariantComputableValueObserverState();
 
@@ -681,7 +681,7 @@ public class ObserverTest
   {
     setupReadWriteTransaction();
 
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
 
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
 
@@ -746,7 +746,7 @@ public class ObserverTest
     final TestProcedure onStale = new TestProcedure();
 
     final ComputableValue<String> computableValue =
-      Arez.context().computed( null, null, () -> "", onActivate, onDeactivate, onStale );
+      Arez.context().computable( null, null, () -> "", onActivate, onDeactivate, onStale );
     final ObservableValue<String> derivedValue = computableValue.getObservableValue();
     final Observer observer = computableValue.getObserver();
 
@@ -829,7 +829,7 @@ public class ObserverTest
   @Test
   public void setState_activateWhenDisposed()
   {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     setCurrentTransaction( observer );
 
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
@@ -941,7 +941,7 @@ public class ObserverTest
   @Test
   public void dispose_onComputableValue()
   {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     setCurrentTransaction( observer );
     observer.setState( Flags.STATE_STALE );
 
@@ -1005,7 +1005,7 @@ public class ObserverTest
   @Test
   public void dispose_does_not_generate_spyEvent_forDerivedValues()
   {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     final ComputableValue<?> computableValue = observer.getComputableValue();
     final ObservableValue<?> derivedValue = computableValue.getObservableValue();
     setCurrentTransaction( observer );
@@ -1058,7 +1058,7 @@ public class ObserverTest
       hasErrorOccurred.set( true );
       fail();
     } );
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     final ComputableValue<?> computableValue = observer.getComputableValue();
     setCurrentTransaction( observer );
     observer.setState( Flags.STATE_UP_TO_DATE );
@@ -1110,13 +1110,13 @@ public class ObserverTest
 
     assertInvariantFailure( observer::getComputableValue,
                             "Arez-0095: Attempted to invoke getComputableValue on observer named '" + observer.getName() +
-                            "' when is not a computed observer." );
+                            "' when is not a computable observer." );
   }
 
   @Test
   public void getComputableValue_whenDisposed()
   {
-    final Observer observer = Arez.context().computed( () -> "" ).getObserver();
+    final Observer observer = Arez.context().computable( () -> "" ).getObserver();
 
     observer.markAsDisposed();
 
@@ -1237,7 +1237,7 @@ public class ObserverTest
       observableValue.reportObserved();
       return 1;
     };
-    final ComputableValue<Integer> computableValue = context.computed( function );
+    final ComputableValue<Integer> computableValue = context.computable( function );
 
     context.getSpy().addSpyEventHandler( handler );
 
@@ -1439,7 +1439,7 @@ public class ObserverTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
@@ -1450,7 +1450,7 @@ public class ObserverTest
       observeADependency();
       return "";
     };
-    final ComputableValue<String> computableValue2 = context.computed( function2 );
+    final ComputableValue<String> computableValue2 = context.computable( function2 );
 
     observer.getDependencies().add( computableValue2.getObservableValue() );
     computableValue2.getObservableValue().addObserver( observer );
@@ -1473,7 +1473,7 @@ public class ObserverTest
       observeADependency();
       return ValueUtil.randomString();
     };
-    final ComputableValue<String> computableValue = context.computed( function1 );
+    final ComputableValue<String> computableValue = context.computable( function1 );
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
@@ -1483,7 +1483,7 @@ public class ObserverTest
       observeADependency();
       throw new IllegalStateException();
     };
-    final ComputableValue<String> computableValue2 = context.computed( function );
+    final ComputableValue<String> computableValue2 = context.computable( function );
 
     observer.getDependencies().add( computableValue2.getObservableValue() );
     computableValue2.getObservableValue().addObserver( observer );
@@ -1506,7 +1506,7 @@ public class ObserverTest
       return ValueUtil.randomString();
     };
     final ArezContext context = Arez.context();
-    final ComputableValue<String> computableValue = context.computed( function1 );
+    final ComputableValue<String> computableValue = context.computable( function1 );
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
@@ -1516,7 +1516,7 @@ public class ObserverTest
       observeADependency();
       throw new IllegalStateException();
     };
-    final ComputableValue<String> computableValue2 = context.computed( function );
+    final ComputableValue<String> computableValue2 = context.computable( function );
 
     observer.getDependencies().add( computableValue2.getObservableValue() );
     computableValue2.getObservableValue().addObserver( observer );
@@ -1537,14 +1537,14 @@ public class ObserverTest
       return "";
     };
     final ArezContext context = Arez.context();
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
-    final ComputableValue<String> computableValue2 = context.computed( function );
+    final ComputableValue<String> computableValue2 = context.computable( function );
 
     observer.getDependencies().add( computableValue2.getObservableValue() );
     computableValue2.getObservableValue().addObserver( observer );
@@ -1565,7 +1565,7 @@ public class ObserverTest
       return "";
     };
     final ArezContext context = Arez.context();
-    final ComputableValue<String> computableValue = context.computed( function );
+    final ComputableValue<String> computableValue = context.computable( function );
 
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );

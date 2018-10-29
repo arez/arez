@@ -31,7 +31,7 @@ public class ComputableValueInfoImplTest
     value.set( initialValue );
 
     final ComputableValue<Object> computableValue =
-      context.computed( name, () -> {
+      context.computable( name, () -> {
         observableValue.reportObserved();
         return value.get();
       } );
@@ -74,7 +74,7 @@ public class ComputableValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     assertFalse( spy.asComputableValueInfo( computableValue ).isComputing() );
     computableValue.setComputing( true );
@@ -86,7 +86,7 @@ public class ComputableValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
     final Observer observer2 = context.observer( new CountAndObserveProcedure() );
 
@@ -113,7 +113,7 @@ public class ComputableValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     computableValue.setComputing( true );
 
@@ -130,7 +130,7 @@ public class ComputableValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     final ComputableValueInfo info = computableValue.asInfo();
 
@@ -152,7 +152,7 @@ public class ComputableValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     final ObservableValue<?> observableValue = context.observable();
     final ObservableValue<?> observableValue2 = context.observable();
@@ -189,8 +189,8 @@ public class ComputableValueInfoImplTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final ComputableValue<Object> computableValue1 =
-      context.computed( component, ValueUtil.randomString(), ValueUtil::randomString );
-    final ComputableValue<Object> computableValue2 = context.computed( ValueUtil::randomString );
+      context.computable( component, ValueUtil.randomString(), ValueUtil::randomString );
+    final ComputableValue<Object> computableValue2 = context.computable( ValueUtil::randomString );
 
     final ComponentInfo info = computableValue1.asInfo().getComponent();
     assertNotNull( info );
@@ -205,7 +205,7 @@ public class ComputableValueInfoImplTest
 
     final ArezContext context = Arez.context();
 
-    final ComputableValue<Object> computableValue = context.computed( () -> "" );
+    final ComputableValue<Object> computableValue = context.computable( () -> "" );
 
     assertInvariantFailure( () -> computableValue.asInfo().getComponent(),
                             "Arez-0109: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );
@@ -218,7 +218,7 @@ public class ComputableValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    final ComputableValue<String> computableValue = context.computed( () -> "" );
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
 
     assertFalse( spy.asComputableValueInfo( computableValue ).isActive() );
     setupReadOnlyTransaction( context );
@@ -233,7 +233,7 @@ public class ComputableValueInfoImplTest
 
     final Spy spy = context.getSpy();
 
-    final ComputableValue<?> computableValue = context.computed( () -> "" );
+    final ComputableValue<?> computableValue = context.computable( () -> "" );
 
     assertEquals( spy.asComputableValueInfo( computableValue ).getObservers().size(), 0 );
 
@@ -254,7 +254,7 @@ public class ComputableValueInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue<String> computableValue1 = context.computed( () -> {
+    final ComputableValue<String> computableValue1 = context.computable( () -> {
       observeADependency();
       return "42";
     } );
@@ -272,7 +272,7 @@ public class ComputableValueInfoImplTest
       observeADependency();
       return "42";
     };
-    final ComputableValue<String> computableValue1 = context.computed( function );
+    final ComputableValue<String> computableValue1 = context.computable( function );
     context.observer( computableValue1::get );
 
     assertEquals( computableValue1.asInfo().getValue(), "42" );
@@ -285,7 +285,7 @@ public class ComputableValueInfoImplTest
 
     final ArezContext context = Arez.context();
 
-    final ComputableValue<Integer> computableValue1 = context.computed( () -> 42 );
+    final ComputableValue<Integer> computableValue1 = context.computable( () -> 42 );
 
     assertInvariantFailure( () -> context.action( () -> computableValue1.asInfo().getValue() ),
                             "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
@@ -296,8 +296,8 @@ public class ComputableValueInfoImplTest
   public void equalsAndHashCode()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue<Object> computableValue1 = context.computed( () -> "1" );
-    final ComputableValue<Object> computableValue2 = context.computed( () -> "2" );
+    final ComputableValue<Object> computableValue1 = context.computable( () -> "1" );
+    final ComputableValue<Object> computableValue2 = context.computable( () -> "2" );
 
     final ComputableValueInfo info1a = computableValue1.asInfo();
     final ComputableValueInfo info1b = new ComputableValueInfoImpl( computableValue1 );
