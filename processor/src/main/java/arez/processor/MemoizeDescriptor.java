@@ -56,7 +56,7 @@ final class MemoizeDescriptor
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _requireEnvironment = requireEnvironment;
     _depType = Objects.requireNonNull( depType );
-    //The caller already verified that no duplicate computed have been defined
+    //The caller already verified that no duplicate memoize has been defined
 
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
     MethodChecks.mustHaveParameters( Constants.MEMOIZE_ANNOTATION_CLASSNAME, memoize );
