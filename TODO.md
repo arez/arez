@@ -87,7 +87,7 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
-* Support `@OnChanged` for `@Observable` and `@Computed` properties. This hook is called immediately after the
+* Support `@OnChange` for `@Observable` and `@Computed` properties. This hook is called immediately after the
   change and includes the old value and the new value. The nullability annotations on the hook method should
   match expectations.
 
