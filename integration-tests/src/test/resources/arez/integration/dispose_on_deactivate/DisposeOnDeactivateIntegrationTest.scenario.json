@@ -106,10 +106,6 @@
         "type": "TransactionStarted"
     },
     {
-        "name": "Model1.0.disposeOnDeactivate",
-        "type": "ComputableValueDeactivated"
-    },
-    {
         "mutation": true,
         "name": "Observer@1.dispose",
         "tracker": null,

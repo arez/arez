@@ -212,10 +212,6 @@
         "type": "ObserveScheduled"
     },
     {
-        "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputableValueDeactivated"
-    },
-    {
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",

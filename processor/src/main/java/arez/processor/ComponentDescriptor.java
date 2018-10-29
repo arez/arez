@@ -677,6 +677,7 @@ final class ComponentDescriptor
     final String name = deriveComputedName( method, annotation );
     checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
     final boolean keepAlive = getAnnotationParameter( annotation, "keepAlive" );
+    final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
@@ -687,6 +688,7 @@ final class ComponentDescriptor
                                               keepAlive,
                                               requireEnvironment,
                                               priority.getSimpleName().toString(),
+                                              reportResult,
                                               observeLowerPriorityDependencies,
                                               depType.getSimpleName().toString() );
   }

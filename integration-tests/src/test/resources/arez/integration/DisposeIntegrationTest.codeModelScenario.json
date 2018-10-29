@@ -460,10 +460,6 @@
         "type": "TransactionStarted"
     },
     {
-        "name": "CodeModel.0.qualifiedName",
-        "type": "ComputableValueDeactivated"
-    },
-    {
         "mutation": true,
         "name": "Printer.dispose",
         "tracker": null,

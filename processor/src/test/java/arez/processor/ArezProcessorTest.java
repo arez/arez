@@ -108,6 +108,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computed.LowestPriorityComputedModel", false, false, false },
         new Object[]{ "com.example.computed.LowPriorityComputedModel", false, false, false },
         new Object[]{ "com.example.computed.NonArezDependenciesComputedModel", false, false, false },
+        new Object[]{ "com.example.computed.NoReportResultComputedModel", false, false, false },
         new Object[]{ "com.example.computed.ComputedWithHooksModel", false, false, false },
         new Object[]{ "com.example.computed.BasicComputedModel", false, false, false },
         new Object[]{ "com.example.computed.KeepAliveComputedModel", false, false, false },

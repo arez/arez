@@ -1050,10 +1050,6 @@
         "type": "TransactionStarted"
     },
     {
-        "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputableValueDeactivated"
-    },
-    {
         "mutation": true,
         "name": "SearchResult - ill.dispose",
         "tracker": null,

@@ -6,7 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools) 
+* Consider removing -ed from event names? Some signal before the underlying action and some after.
+
+* Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
 * `ComputableValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
   `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
@@ -14,7 +16,7 @@ complete as there is too much un-said.
 
 * Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
 
-* Add the ability for `ComputableValue` to not report results to spy system via `ComputeCompletedEvent`.
+* Consider renaming `@OnDepsChanged` to `@OnDepsChange`. Also need to update the pattern for identifying such methods.
 
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
@@ -85,7 +87,7 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
-* Support `@OnChanged` for `@Observable` and `@Computed` properties. This hook is called immediately after the
+* Support `@OnChange` for `@Observable` and `@Computed` properties. This hook is called immediately after the
   change and includes the old value and the new value. The nullability annotations on the hook method should
   match expectations.
 
@@ -95,7 +97,7 @@ complete as there is too much un-said.
 
 ## Reactive-Streaming integration
 
-* Experiment with controlling scheduling/executing of computed/observed methods at a later time. This
+* Experiment with controlling scheduling/executing of `@Computable`/`@Observe` methods at a later time. This
   could be in different schedulers (i.e. `requestAnimationFrame`) or via parameters like
   - `minimumDelay`: Must wait a minimum time before re-executing
   - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
@@ -103,7 +105,7 @@ complete as there is too much un-said.
     similar to `minimumDelay`, except that the initial run of the function happens immediately.
   This could probably be done via a reactive streaming library.
 
-* Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into computed values. It would
+* Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into `ComputableValue` instances. It would
   manually trigger `ComputableValue.reportPossiblyChanged()` when a new value arrives.
 
 ## Process
@@ -129,6 +131,10 @@ complete as there is too much un-said.
 
 * Add graph reflecting size of TodoMVC over time
 
+* Change the documentation for the peer projects so that the `README.md` is converted into a package summary
+  page in javadocs. Thus the README == the project documentation. We would need to link from README to the specific
+  deployed page. Could do this by using qualified url in README and gsubing when converting to html.
+
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
@@ -144,8 +150,8 @@ complete as there is too much un-said.
 
 ## Incremental
 
-* An Ocaml framework that is very similar conceptually to Arez's core (Observable = variable,
-  incremental = computed, observer = observer). They manually trigger scheduling (via stabilize call)
+* An Ocaml framework that is very similar conceptually to Arez's core (ObservableValue = variable,
+  ComputableValue = incremental, Observer = observer). They manually trigger scheduling (via stabilize call)
   and assume a DAG rather than a graph that will eventually stabilize.
 
 * http://www.umut-acar.org/self-adjusting-computation
@@ -155,8 +161,8 @@ complete as there is too much un-said.
   feels very similar to the `CachedRelationship` from Rose.
 
 * It also allows better control over which dependencies fire. i.e. Imagine you have a flag that indicates
-  UI component that is selected. Each time it changes, all UI components need to refire to calculate boolean
-  (probably `@Computed`) variable `"isSelected"`. Incremental can control dependencies that will fire and
+  UI component that is selected. Each time it changes, all UI components need to re-fire to calculate boolean
+  (probably `@Computable`) variable `"isSelected"`. Incremental can control dependencies that will fire and
   will only fire the two that need changing (i.e. the one going from selected to not selected and the one
   going from non selected to selected). It seems they do this by getting before and after values and and
   potentially dependency list and then writing custom change code. This approach is common when interacting

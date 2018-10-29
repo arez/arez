@@ -1063,7 +1063,9 @@ public class ObservableValueTest
   public void deactivate_when_spyEventHandler_present()
   {
     final ArezContext context = Arez.context();
-    setupReadOnlyTransaction( context );
+
+    final Observer randomObserver = context.observer( new CountAndObserveProcedure() );
+    setCurrentTransaction( randomObserver );
 
     final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = computableValue.getObserver();
@@ -1071,6 +1073,8 @@ public class ObservableValueTest
     observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+
+    observableValue.addObserver( randomObserver );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
