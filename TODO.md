@@ -25,9 +25,9 @@ complete as there is too much un-said.
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
 * Merge `@Computed` into `@Memoize`. This changes the validation significantly and how code is generated. The
-  first step is to ensure that the `@ComputedValueRef`, `@OnActivated`, `@OnDeactivated` and `@OnStale` annotated
+  first step is to ensure that the `@ComputableValueRef`, `@OnActivated`, `@OnDeactivated` and `@OnStale` annotated
   methods are only valid when the `@Memoize` method takes no parameters. The next step is to restructure
-  `@ComputedValueRef` so that it accepts parameters that are memoized and potentially the other hook methods.
+  `@ComputableValueRef` so that it accepts parameters that are memoized and potentially the other hook methods.
 
 * Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
