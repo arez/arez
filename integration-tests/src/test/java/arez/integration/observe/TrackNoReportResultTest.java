@@ -6,7 +6,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
 import arez.spy.ActionCompletedEvent;
@@ -29,8 +29,8 @@ public class TrackNoReportResultTest
       return 23;
     }
 
-    @OnDepsChanged
-    final void onRenderDepsChanged()
+    @OnDepsChange
+    final void onRenderDepsChange()
     {
     }
 

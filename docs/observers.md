@@ -18,7 +18,7 @@ and the external framework pulls change notifications during their own update ph
 [React4j](https://react4j.github.io) library uses an external executor so that Arez can be integrated into
 reacts scheduler.
 
-An application can provide an `onDepsChanged` hook function when creating the observer and Arez will invoke
+An application can provide an `onDepsChange` hook function when creating the observer and Arez will invoke
 the hook method when Arez detects that a dependency has changed. If the observer needs to support application
 executor then the hook function **must** be provided. If the hook function is provided but the observed function
 is not expected to be invoked by the application, then the application code must invoke the
@@ -26,8 +26,8 @@ is not expected to be invoked by the application, then the application code must
 This will schedule the {@api_url: Observer} so that the observed function is invoked by the Arez runtime
 next time that the Arez scheduler is triggered.
 
-If an observer is created without a `onDepsChanged` hook function then Arez will automatically defines an
-`onDepsChanged` function that immediately reschedules the observer. Other reactive frameworks often refer
+If an observer is created without a `onDepsChange` hook function then Arez will automatically defines an
+`onDepsChange` function that immediately reschedules the observer. Other reactive frameworks often refer
 to this type of an observer as an "autorun" observer.
 
 ## API
@@ -44,7 +44,7 @@ An example of an observer that is explicitly named and uses a read-write transac
 
 {@file_content: file=arez/doc/examples/observe/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
 
-A "tracker" observer is created with a `onDepsChanged` hook function but no `observed` function. i.e. A
+A "tracker" observer is created with a `onDepsChange` hook function but no `observed` function. i.e. A
 tracker observer uses an application executor. Using a tracker observer is a little more complex within Arez.
 The developer must explicitly create the observer via {@api_url: ArezContext.tracker(*)::ArezContext::tracker(arez.Procedure)}
 invocation and then explicitly observe the observed function via {@api_url: ArezContext.observe(*)::ArezContext::observe(arez.Observer,arez.Procedure)}.
@@ -57,7 +57,7 @@ A very simple example of a tracker observer:
 
 If an observer's `observed` function is executed by the Arez runtime and throws an exception, then that exception
 is caught by the Arez scheduler and passed to an error handler. The same occurs if an exception is thrown invoking
-an observers `onDepsChanged` function. This is to make sure that an exception in one observer does not
+an observers `onDepsChange` function. This is to make sure that an exception in one observer does not
 prevent the scheduled execution of other observers. This also allows observers to recover from exceptions; throwing
 an exception does not break the tracking done by Arez, so a subsequent scheduling of an observer will complete
 normally again if the cause for the exception is removed.

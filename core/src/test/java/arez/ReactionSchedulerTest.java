@@ -386,8 +386,8 @@ public class ReactionSchedulerTest
     final CountingProcedure observed = (CountingProcedure) observer.getObserved();
     assertNotNull( observed );
 
-    final CountingProcedure onDepsChanged = (CountingProcedure) observer.getOnDepsChanged();
-    assertNull( onDepsChanged );
+    final CountingProcedure onDepsChange = (CountingProcedure) observer.getOnDepsChange();
+    assertNull( onDepsChange );
 
     setCurrentTransaction( observer );
 

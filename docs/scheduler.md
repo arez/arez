@@ -6,7 +6,7 @@ Arez contains a scheduler that is responsible for:
 
 * executing the observer's `observed` function if the observer uses the Arez internal executor and the
   observer has been scheduled.
-* executing the observer's `onDepsChanged` hook function when any dependencies of the `observed` function
+* executing the observer's `onDepsChange` hook function when any dependencies of the `observe` function
   are changed.
 * recomputing the computable value when any dependencies of the computable value are changed.
 

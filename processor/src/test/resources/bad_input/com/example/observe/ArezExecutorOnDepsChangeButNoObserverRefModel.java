@@ -2,18 +2,18 @@ package com.example.observe;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
-public abstract class ArezExecutorOnDepsChangedButNoObserverRefModel
+public abstract class ArezExecutorOnDepsChangeButNoObserverRefModel
 {
   @Observe
   void doStuff()
   {
   }
 
-  @OnDepsChanged
-  public void onDoStuffDepsChanged()
+  @OnDepsChange
+  public void onDoStuffDepsChange()
   {
   }
 }

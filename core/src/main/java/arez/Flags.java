@@ -229,7 +229,7 @@ public final class Flags
   static final int ACTION_FLAGS_MASK =
     TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK | NO_REPORT_RESULT;
   /**
-   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChanged}.
+   * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChange}.
    */
   static final int EXECUTE_OBSERVED_NEXT = 1 << 10;
   /**

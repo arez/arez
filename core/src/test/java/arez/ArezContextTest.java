@@ -5,9 +5,7 @@ import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
 import arez.spy.ComponentCreateStartedEvent;
 import arez.spy.ComponentInfo;
-import arez.spy.ComputableValueActivatedEvent;
 import arez.spy.ComputableValueCreatedEvent;
-import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
 import arez.spy.ObservableValueChangedEvent;
@@ -2042,20 +2040,20 @@ public class ArezContextTest
 
     final ObservableValue<Object> observable = context.observable();
     final AtomicInteger observedCallCount = new AtomicInteger();
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
     context.observer( name, () -> {
       observedCallCount.incrementAndGet();
       observable.reportObserved();
       assertEquals( context.getTransaction().getName(), name );
-    }, onDepsChangedCallCount::incrementAndGet );
+    }, onDepsChangeCallCount::incrementAndGet );
 
-    assertEquals( onDepsChangedCallCount.get(), 0 );
+    assertEquals( onDepsChangeCallCount.get(), 0 );
 
     context.safeAction( observable::reportChanged );
 
-    assertEquals( onDepsChangedCallCount.get(), 1 );
+    assertEquals( onDepsChangeCallCount.get(), 1 );
   }
 
   @Test
@@ -2065,7 +2063,7 @@ public class ArezContextTest
 
     final ObservableValue<Object> observable = context.observable();
     final AtomicInteger observedCallCount = new AtomicInteger();
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final Component component = context.component( ValueUtil.randomString(), 22 );
 
@@ -2075,16 +2073,16 @@ public class ArezContextTest
         observedCallCount.incrementAndGet();
         observable.reportObserved();
         assertEquals( context.getTransaction().getName(), name );
-      }, onDepsChangedCallCount::incrementAndGet );
+      }, onDepsChangeCallCount::incrementAndGet );
 
-    assertEquals( onDepsChangedCallCount.get(), 0 );
+    assertEquals( onDepsChangeCallCount.get(), 0 );
     final ComponentInfo componentInfo = observer.asInfo().getComponent();
     assertNotNull( componentInfo );
     assertEquals( componentInfo.getName(), component.getName() );
 
     context.safeAction( observable::reportChanged );
 
-    assertEquals( onDepsChangedCallCount.get(), 1 );
+    assertEquals( onDepsChangeCallCount.get(), 1 );
   }
 
   @Test
@@ -2583,7 +2581,7 @@ public class ArezContextTest
     assertFalse( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isKeepAlive() );
     assertFalse( observer.nestedActionsAllowed() );
-    assertNull( observer.getOnDepsChanged() );
+    assertNull( observer.getOnDepsChange() );
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( observer.getObserved(), observed );
     assertEquals( callCount.get(), 1 );

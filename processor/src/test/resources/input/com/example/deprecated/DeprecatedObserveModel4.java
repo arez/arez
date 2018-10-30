@@ -3,7 +3,7 @@ package com.example.deprecated;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
 public abstract class DeprecatedObserveModel4
@@ -13,8 +13,8 @@ public abstract class DeprecatedObserveModel4
   }
 
   @Deprecated
-  @OnDepsChanged
-  public void onRenderDepsChanged()
+  @OnDepsChange
+  public void onRenderDepsChange()
   {
   }
 

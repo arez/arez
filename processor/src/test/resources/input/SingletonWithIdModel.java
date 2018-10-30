@@ -6,7 +6,7 @@ import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import javax.inject.Singleton;
 
 @SuppressWarnings( "DefaultAnnotationParam" )
@@ -41,8 +41,8 @@ public abstract class SingletonWithIdModel
   {
   }
 
-  @OnDepsChanged
-  public void onRenderDepsChanged()
+  @OnDepsChange
+  public void onRenderDepsChange()
   {
   }
 
@@ -54,8 +54,8 @@ public abstract class SingletonWithIdModel
   {
   }
 
-  @OnDepsChanged
-  protected void onRender2DepsChanged()
+  @OnDepsChange
+  protected void onRender2DepsChange()
   {
   }
 

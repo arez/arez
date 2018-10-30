@@ -2,7 +2,7 @@ package com.example.observe.other;
 
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 public class BaseModelProtectedAccess
 {
@@ -11,8 +11,8 @@ public class BaseModelProtectedAccess
   {
   }
 
-  @OnDepsChanged
-  protected final void onRenderDepsChanged()
+  @OnDepsChange
+  protected final void onRenderDepsChange()
   {
   }
 }

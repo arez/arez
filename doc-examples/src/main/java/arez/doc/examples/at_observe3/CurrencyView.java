@@ -3,7 +3,7 @@ package arez.doc.examples.at_observe3;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
 public abstract class CurrencyView
@@ -18,8 +18,8 @@ public abstract class CurrencyView
     //DOC ELIDE END
   }
 
-  @OnDepsChanged
-  void onRenderDepsChanged()
+  @OnDepsChange
+  void onRenderDepsChange()
   {
     // Schedule this component
     scheduleRender();

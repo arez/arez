@@ -224,7 +224,7 @@ public class ObserversMutationParameterIntegrationTest
       _observerRunCount += 1;
     }
 
-    void onMyObserveReactionDepsChanged()
+    void onMyObserveReactionDepsChange()
     {
     }
 
@@ -260,7 +260,7 @@ public class ObserversMutationParameterIntegrationTest
       _observerRunCount += 1;
     }
 
-    void onMyObserveReactionDepsChanged()
+    void onMyObserveReactionDepsChange()
     {
     }
 
@@ -296,7 +296,7 @@ public class ObserversMutationParameterIntegrationTest
       _observerRunCount += 1;
     }
 
-    void onMyObserveReactionDepsChanged()
+    void onMyObserveReactionDepsChange()
     {
     }
 

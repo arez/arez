@@ -4,7 +4,7 @@ import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import javax.inject.Singleton;
 
 @Singleton
@@ -38,8 +38,8 @@ public abstract class ImplicitSingletonModel
   {
   }
 
-  @OnDepsChanged
-  public void onRenderDepsChanged()
+  @OnDepsChange
+  public void onRenderDepsChange()
   {
   }
 

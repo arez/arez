@@ -3,7 +3,7 @@ package com.example.observe;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import java.text.ParseException;
 
 @ArezComponent
@@ -33,23 +33,23 @@ public abstract class TrackedAllTypesModel
     return 0;
   }
 
-  @OnDepsChanged
-  public void onRender1DepsChanged()
+  @OnDepsChange
+  public void onRender1DepsChange()
   {
   }
 
-  @OnDepsChanged
-  void onRender2DepsChanged()
+  @OnDepsChange
+  void onRender2DepsChange()
   {
   }
 
-  @OnDepsChanged
-  protected void onRender3DepsChanged()
+  @OnDepsChange
+  protected void onRender3DepsChange()
   {
   }
 
-  @OnDepsChanged
-  public void onRender4DepsChanged()
+  @OnDepsChange
+  public void onRender4DepsChange()
   {
   }
 }

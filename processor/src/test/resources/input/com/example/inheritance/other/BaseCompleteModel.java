@@ -11,8 +11,8 @@ import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
-import arez.annotations.Computed;
 import arez.annotations.ComputableValueRef;
+import arez.annotations.Computed;
 import arez.annotations.ContextRef;
 import arez.annotations.Executor;
 import arez.annotations.Inverse;
@@ -22,7 +22,7 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
 import arez.annotations.Reference;
@@ -103,8 +103,8 @@ public abstract class BaseCompleteModel
   {
   }
 
-  @OnDepsChanged
-  protected void onRenderDepsChanged()
+  @OnDepsChange
+  protected void onRenderDepsChange()
   {
   }
 

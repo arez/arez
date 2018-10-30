@@ -112,7 +112,7 @@ on the `ticketExpired` computed property property so `notifyUserWhenTicketExpire
 would be recalculated `10` times but it is assumed the that this is significantly less expensive than the {@api_url: annotations.Observe}
 method.
 
-## Observers and OnDepsChanged
+## Observers and OnDepsChange
 
 There are times at which it is not possible for Arez to directly schedule and execute an observed method. Existing
 frameworks will have their own mechanisms for scheduling work and if you need to integrate Arez into these
@@ -120,11 +120,11 @@ frameworks you need to decouple the scheduling and execution of reactions. Anoth
 explicit control over scheduling and execution is required is when you want to rate-limit or "debounce" the
 change notifications to limit the number of times an observed method executes.
 
-To achieve either of these goals, you need to combine the {@api_url: annotations.OnDepsChanged} annotation with the
+To achieve either of these goals, you need to combine the {@api_url: annotations.OnDepsChange} annotation with the
 {@api_url: annotations.Observe} annotation. The {@api_url: annotations.Observe} annotation wraps a method in a
 tracking transaction which allows the Arez framework to detect which observable and computed properties are accessed
 within the scope of the transaction. If any of these properties are modified then Arez will invoke the method annotated
-with {@api_url: annotations.OnDepsChanged} to indicate that the observed method needs to be rescheduled.
+with {@api_url: annotations.OnDepsChange} to indicate that the observed method needs to be rescheduled.
 
 An example is illustrated below:
 

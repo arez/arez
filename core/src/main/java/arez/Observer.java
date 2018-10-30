@@ -48,7 +48,7 @@ public final class Observer
    * Observed function to invoke if any.
    * This may be null if external executor is responsible for executing the observed function via
    * methods such as {@link ArezContext#observe(Observer, Function, Object...)}. If this is null then
-   * {@link #_onDepsChanged} must not be null.
+   * {@link #_onDepsChange} must not be null.
    */
   @Nullable
   private final Procedure _observed;
@@ -58,7 +58,7 @@ public final class Observer
    * but in that case {@link #_observed} must not be null.
    */
   @Nullable
-  private final Procedure _onDepsChanged;
+  private final Procedure _onDepsChange;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
@@ -95,7 +95,7 @@ public final class Observer
             @Nullable final Component component,
             @Nullable final String name,
             @Nullable final Procedure observed,
-            @Nullable final Procedure onDepsChanged,
+            @Nullable final Procedure onDepsChange,
             final int flags )
   {
     this( context,
@@ -103,7 +103,7 @@ public final class Observer
           name,
           null,
           observed,
-          onDepsChanged,
+          onDepsChange,
           flags |
           ( null == observed ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
           ( null != observed ? Flags.ENVIRONMENT_REQUIRED : Flags.environmentFlag( flags ) ) |
@@ -119,7 +119,7 @@ public final class Observer
                     @Nullable final String name,
                     @Nullable final ComputableValue<?> computableValue,
                     @Nullable final Procedure observed,
-                    @Nullable final Procedure onDepsChanged,
+                    @Nullable final Procedure onDepsChange,
                     final int flags )
   {
     super( context, name );
@@ -158,9 +158,9 @@ public final class Observer
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
                        "has no lower priority." );
-      invariant( () -> null != observed || null != onDepsChanged,
+      invariant( () -> null != observed || null != onDepsChange,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
-                       "observed parameter or the onDepsChanged parameter." );
+                       "observed parameter or the onDepsChange parameter." );
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observed;
       assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observed;
@@ -183,7 +183,7 @@ public final class Observer
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computableValue = computableValue;
     _observed = observed;
-    _onDepsChanged = onDepsChanged;
+    _onDepsChange = onDepsChange;
 
     executeObservedNextIfPresent();
 
@@ -246,13 +246,13 @@ public final class Observer
 
   /**
    * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
-   * This is true if both a {@link #_observed} and {@link #_onDepsChanged} parameters
+   * This is true if both a {@link #_observed} and {@link #_onDepsChange} parameters
    * are provided at construction.
    */
   boolean supportsManualSchedule()
   {
     assert Arez.shouldCheckApiInvariants();
-    return null != _observed && null != _onDepsChanged;
+    return null != _observed && null != _onDepsChange;
   }
 
   boolean isApplicationExecutor()
@@ -652,26 +652,26 @@ public final class Observer
         {
           if ( shouldExecuteObservedNext() )
           {
-            executeOnDepsChangedNextIfPresent();
+            executeOnDepsChangeNextIfPresent();
             runObservedFunction();
           }
           else
           {
-            assert null != _onDepsChanged;
-            _onDepsChanged.call();
+            assert null != _onDepsChange;
+            _onDepsChange.call();
           }
         }
         else if ( shouldExecuteObservedNext() )
         {
           /*
-           * The observer should invoke onDepsChanged next if the following conditions hold.
+           * The observer should invoke onDepsChange next if the following conditions hold.
            *  - a manual schedule() invocation
            *  - the observer is not stale, and
-           *  - there is an onDepsChanged hook present
+           *  - there is an onDepsChange hook present
            *
            *  This block ensures this is the case.
            */
-          executeOnDepsChangedNextIfPresent();
+          executeOnDepsChangeNextIfPresent();
         }
       }
       catch ( final Throwable t )
@@ -973,9 +973,9 @@ public final class Observer
   }
 
   @Nullable
-  Procedure getOnDepsChanged()
+  Procedure getOnDepsChange()
   {
-    return _onDepsChanged;
+    return _onDepsChange;
   }
 
   boolean isKeepAlive()
@@ -996,9 +996,9 @@ public final class Observer
     }
   }
 
-  private void executeOnDepsChangedNextIfPresent()
+  private void executeOnDepsChangeNextIfPresent()
   {
-    if ( null != _onDepsChanged )
+    if ( null != _onDepsChange )
     {
       _flags &= ~Flags.EXECUTE_OBSERVED_NEXT;
     }

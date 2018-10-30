@@ -2,8 +2,8 @@ package com.example.computed_value_ref;
 
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
 import arez.annotations.ComputableValueRef;
+import arez.annotations.Computed;
 
 @ArezComponent
 public abstract class PrivateModel

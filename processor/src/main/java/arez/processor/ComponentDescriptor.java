@@ -139,9 +139,9 @@ final class ComponentDescriptor
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   private final Collection<MemoizeDescriptor> _roMemoizes =
     Collections.unmodifiableCollection( _memoizes.values() );
-  private final Map<String, ObserveDescriptor> _observeds = new LinkedHashMap<>();
-  private final Collection<ObserveDescriptor> _roObserveds =
-    Collections.unmodifiableCollection( _observeds.values() );
+  private final Map<String, ObserveDescriptor> _observes = new LinkedHashMap<>();
+  private final Collection<ObserveDescriptor> _roObserves =
+    Collections.unmodifiableCollection( _observes.values() );
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
@@ -222,8 +222,8 @@ final class ComponentDescriptor
            _roDependencies.stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
                                                    ( !e.isMethodDependency() && isDeprecated( e.getField() ) ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
-           _roObserveds.stream().anyMatch( e -> ( e.hasObserved() && isDeprecated( e.getObserved() ) ) ||
-                                                ( e.hasOnDepsChanged() && isDeprecated( e.getOnDepsChanged() ) ) ) ||
+           _roObserves.stream().anyMatch( e -> ( e.hasObserved() && isDeprecated( e.getObserved() ) ) ||
+                                               ( e.hasOnDepsChange() && isDeprecated( e.getOnDepsChange() ) ) ) ||
            _roMemoizes.stream().anyMatch( e -> isDeprecated( e.getMemoize() ) );
 
   }
@@ -281,7 +281,7 @@ final class ComponentDescriptor
   @Nonnull
   private ObserveDescriptor findOrCreateObserved( @Nonnull final String name )
   {
-    return _observeds.computeIfAbsent( name, n -> new ObserveDescriptor( this, n ) );
+    return _observes.computeIfAbsent( name, n -> new ObserveDescriptor( this, n ) );
   }
 
   @Nonnull
@@ -601,15 +601,15 @@ final class ComponentDescriptor
     }
   }
 
-  private void addOnDepsChanged( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
+  private void addOnDepsChange( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     final String name =
       deriveHookName( method,
-                      ObserveDescriptor.ON_DEPS_CHANGED_PATTERN,
-                      "DepsChanged",
+                      ObserveDescriptor.ON_DEPS_CHANGE_PATTERN,
+                      "DepsChange",
                       getAnnotationParameter( annotation, "name" ) );
-    findOrCreateObserved( name ).setOnDepsChanged( method );
+    findOrCreateObserved( name ).setOnDepsChange( method );
   }
 
   private void addObserverRef( @Nonnull final AnnotationMirror annotation,
@@ -1104,7 +1104,7 @@ final class ComponentDescriptor
   {
     _roObservables.forEach( ObservableDescriptor::validate );
     _roComputeds.forEach( ComputedDescriptor::validate );
-    _roObserveds.forEach( ObserveDescriptor::validate );
+    _roObserves.forEach( ObserveDescriptor::validate );
     _roDependencies.forEach( DependencyDescriptor::validate );
     _roReferences.forEach( ReferenceDescriptor::validate );
     _roInverses.forEach( InverseDescriptor::validate );
@@ -1118,7 +1118,7 @@ final class ComponentDescriptor
       _roCascadeDisposes.isEmpty() &&
       _roReferences.isEmpty() &&
       _roInverses.isEmpty() &&
-      _roObserveds.isEmpty();
+      _roObserves.isEmpty();
 
     if ( !_allowEmpty && hasReactiveElements )
     {
@@ -1159,7 +1159,7 @@ final class ComponentDescriptor
 
   private boolean requiresSchedule()
   {
-    return !_roObserveds.isEmpty() ||
+    return !_roObserves.isEmpty() ||
            !_roDependencies.isEmpty() ||
            _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive );
   }
@@ -1199,7 +1199,7 @@ final class ComponentDescriptor
     // Observed have pairs so let the caller determine whether a duplicate occurs in that scenario
     if ( !sourceAnnotationName.equals( Constants.OBSERVED_ANNOTATION_CLASSNAME ) )
     {
-      final ObserveDescriptor observed = _observeds.get( name );
+      final ObserveDescriptor observed = _observes.get( name );
       if ( null != observed )
       {
         throw toException( name,
@@ -1260,8 +1260,8 @@ final class ComponentDescriptor
     }
     final Map<String, CandidateMethod> getters = new HashMap<>();
     final Map<String, CandidateMethod> setters = new HashMap<>();
-    final Map<String, CandidateMethod> trackeds = new HashMap<>();
-    final Map<String, CandidateMethod> onDepsChangeds = new HashMap<>();
+    final Map<String, CandidateMethod> observes = new HashMap<>();
+    final Map<String, CandidateMethod> onDepsChanges = new HashMap<>();
     for ( final ExecutableElement method : methods )
     {
       final ExecutableType methodType =
@@ -1304,23 +1304,23 @@ final class ComponentDescriptor
           }
         }
         name =
-          ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGED_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGE_PATTERN, ProcessorUtil.SENTINEL_NAME );
         if ( voidReturn && 0 == parameterCount && null != name )
         {
-          onDepsChangeds.put( name, candidateMethod );
+          onDepsChanges.put( name, candidateMethod );
           continue;
         }
 
         final String methodName = method.getSimpleName().toString();
         if ( !OBJECT_METHODS.contains( methodName ) )
         {
-          trackeds.put( methodName, candidateMethod );
+          observes.put( methodName, candidateMethod );
         }
       }
     }
 
     linkUnAnnotatedObservables( getters, setters );
-    linkUnAnnotatedObserved( trackeds, onDepsChangeds );
+    linkUnAnnotatedObserves( observes, onDepsChanges );
     linkObserverRefs();
 
     linkDependencies( getters.values() );
@@ -1334,8 +1334,8 @@ final class ComponentDescriptor
 
     ensureNoAbstractMethods( getters.values() );
     ensureNoAbstractMethods( setters.values() );
-    ensureNoAbstractMethods( trackeds.values() );
-    ensureNoAbstractMethods( onDepsChangeds.values() );
+    ensureNoAbstractMethods( observes.values() );
+    ensureNoAbstractMethods( onDepsChanges.values() );
 
     processCascadeDisposeFields();
     processComponentDependencyFields();
@@ -2119,7 +2119,7 @@ final class ComponentDescriptor
     {
       final String key = entry.getKey();
       final CandidateMethod method = entry.getValue();
-      final ObserveDescriptor observed = _observeds.get( key );
+      final ObserveDescriptor observed = _observes.get( key );
       if ( null != observed )
       {
         observed.setRefMethod( method.getMethod(), method.getMethodType() );
@@ -2178,18 +2178,18 @@ final class ComponentDescriptor
     }
   }
 
-  private void linkUnAnnotatedObserved( @Nonnull final Map<String, CandidateMethod> observeds,
-                                        @Nonnull final Map<String, CandidateMethod> onDepsChangeds )
+  private void linkUnAnnotatedObserves( @Nonnull final Map<String, CandidateMethod> observes,
+                                        @Nonnull final Map<String, CandidateMethod> onDepsChanges )
     throws ArezProcessorException
   {
-    for ( final ObserveDescriptor observed : _roObserveds )
+    for ( final ObserveDescriptor observe : _roObserves )
     {
-      if ( !observed.hasObserved() )
+      if ( !observe.hasObserved() )
       {
-        final CandidateMethod candidate = observeds.remove( observed.getName() );
+        final CandidateMethod candidate = observes.remove( observe.getName() );
         if ( null != candidate )
         {
-          observed.setObservedMethod( false,
+          observe.setObservedMethod( false,
                                       "NORMAL",
                                       true,
                                       true,
@@ -2203,16 +2203,16 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@OnDepsChanged target has no corresponding @Observe that could " +
-                                            "be automatically determined", observed.getOnDepsChanged() );
+          throw new ArezProcessorException( "@OnDepsChange target has no corresponding @Observe that could " +
+                                            "be automatically determined", observe.getOnDepsChange() );
         }
       }
-      else if ( !observed.hasOnDepsChanged() )
+      else if ( !observe.hasOnDepsChange() )
       {
-        final CandidateMethod candidate = onDepsChangeds.remove( observed.getName() );
+        final CandidateMethod candidate = onDepsChanges.remove( observe.getName() );
         if ( null != candidate )
         {
-          observed.setOnDepsChanged( candidate.getMethod() );
+          observe.setOnDepsChange( candidate.getMethod() );
         }
       }
     }
@@ -2262,8 +2262,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onStale =
       ProcessorUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
-    final AnnotationMirror onDepsChanged =
-      ProcessorUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME );
+    final AnnotationMirror onDepsChange =
+      ProcessorUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observerRef =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror memoize =
@@ -2307,9 +2307,9 @@ final class ComponentDescriptor
       addObserved( observed, method, methodType );
       return true;
     }
-    else if ( null != onDepsChanged )
+    else if ( null != onDepsChange )
     {
-      addOnDepsChanged( onDepsChanged, method );
+      addOnDepsChange( onDepsChange, method );
       return true;
     }
     else if ( null != observerRef )
@@ -2474,7 +2474,7 @@ final class ComponentDescriptor
     final String[] annotationTypes =
       new String[]{ Constants.ACTION_ANNOTATION_CLASSNAME,
                     Constants.OBSERVED_ANNOTATION_CLASSNAME,
-                    Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
+                    Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
@@ -2716,7 +2716,7 @@ final class ComponentDescriptor
     }
 
     _roObservables.forEach( e -> e.buildMethods( builder ) );
-    _roObserveds.forEach( e -> e.buildMethods( builder ) );
+    _roObserves.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
     _roComputeds.forEach( e -> e.buildMethods( builder ) );
     _roMemoizes.forEach( e -> e.buildMethods( builder ) );
@@ -3249,7 +3249,7 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     }
-    _roObserveds.forEach( observed -> observed.buildDisposer( actionBlock ) );
+    _roObserves.forEach( observed -> observed.buildDisposer( actionBlock ) );
     _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
     _roMemoizes.forEach( computed -> computed.buildDisposer( actionBlock ) );
     _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
@@ -3519,7 +3519,7 @@ final class ComponentDescriptor
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roComputeds.forEach( computed -> computed.buildFields( builder ) );
     _roMemoizes.forEach( e -> e.buildFields( builder ) );
-    _roObserveds.forEach( observed -> observed.buildFields( builder ) );
+    _roObserves.forEach( observed -> observed.buildFields( builder ) );
     _roReferences.forEach( r -> r.buildFields( builder ) );
     if ( _disposeOnDeactivate )
     {
@@ -3765,7 +3765,7 @@ final class ComponentDescriptor
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
     _roMemoizes.forEach( e -> e.buildInitializer( builder ) );
-    _roObserveds.forEach( observed -> observed.buildInitializer( builder ) );
+    _roObserves.forEach( observed -> observed.buildInitializer( builder ) );
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
     _roDependencies.forEach( e -> e.buildInitializer( builder ) );
 

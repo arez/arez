@@ -9,8 +9,6 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
-import arez.spy.ComputableValueActivatedEvent;
-import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
 import arez.spy.ObservableValueChangedEvent;
