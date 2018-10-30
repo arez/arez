@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -23,8 +23,8 @@ public class ApplicationExecutorNoDepsDisallowedTest
       _renderCallCount++;
     }
 
-    @OnDepsChanged
-    final void onRenderDepsChanged()
+    @OnDepsChange
+    final void onRenderDepsChange()
     {
     }
   }

@@ -2,7 +2,7 @@ package com.example.package_access.other;
 
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 public abstract class BaseObserveModel
 {
@@ -16,8 +16,8 @@ public abstract class BaseObserveModel
   {
   }
 
-  @OnDepsChanged
-  public void onRenderDepsChanged()
+  @OnDepsChange
+  public void onRenderDepsChange()
   {
   }
 }

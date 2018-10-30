@@ -26,7 +26,7 @@ import javax.lang.model.type.TypeMirror;
 @SuppressWarnings( "Duplicates" )
 final class ObserveDescriptor
 {
-  static final Pattern ON_DEPS_CHANGED_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChanged" );
+  static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChange" );
   @Nonnull
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
@@ -45,7 +45,7 @@ final class ObserveDescriptor
   @Nullable
   private ExecutableType _observedType;
   @Nullable
-  private ExecutableElement _onDepsChanged;
+  private ExecutableElement _onDepsChange;
   @Nullable
   private ExecutableElement _refMethod;
   @Nullable
@@ -147,31 +147,31 @@ final class ObserveDescriptor
   }
 
   @Nonnull
-  ExecutableElement getOnDepsChanged()
+  ExecutableElement getOnDepsChange()
   {
-    assert null != _onDepsChanged;
-    return _onDepsChanged;
+    assert null != _onDepsChange;
+    return _onDepsChange;
   }
 
-  boolean hasOnDepsChanged()
+  boolean hasOnDepsChange()
   {
-    return null != _onDepsChanged;
+    return null != _onDepsChange;
   }
 
-  void setOnDepsChanged( @Nonnull final ExecutableElement method )
+  void setOnDepsChange( @Nonnull final ExecutableElement method )
   {
     MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
-                                      Constants.ON_DEPS_CHANGED_ANNOTATION_CLASSNAME,
+                                      Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
                                       method );
-    if ( null != _onDepsChanged )
+    if ( null != _onDepsChange )
     {
-      throw new ArezProcessorException( "@OnDepsChanged target duplicates existing method named " +
-                                        _onDepsChanged.getSimpleName(), method );
+      throw new ArezProcessorException( "@OnDepsChange target duplicates existing method named " +
+                                        _onDepsChange.getSimpleName(), method );
 
     }
     else
     {
-      _onDepsChanged = Objects.requireNonNull( method );
+      _onDepsChange = Objects.requireNonNull( method );
     }
   }
 
@@ -194,18 +194,18 @@ final class ObserveDescriptor
 
   void validate()
   {
-    if ( _arezExecutor && null != _onDepsChanged && null == _refMethod )
+    if ( _arezExecutor && null != _onDepsChange && null == _refMethod )
     {
       assert null != _observed;
-      throw new ArezProcessorException( "@Observe target with parameter executor=AREZ defined an @OnDepsChanged " +
+      throw new ArezProcessorException( "@Observe target with parameter executor=AREZ defined an @OnDepsChange " +
                                         "method but has not defined an @ObserverRef method and thus can never" +
                                         "schedule observer.", _observed );
     }
-    if ( !_arezExecutor && null == _onDepsChanged )
+    if ( !_arezExecutor && null == _onDepsChange )
     {
       assert null != _observed;
       throw new ArezProcessorException( "@Observe target defined parameter executor=APPLICATION but does not " +
-                                        "specify an @OnDepsChanged method.", _observed );
+                                        "specify an @OnDepsChange method.", _observed );
     }
     if ( "AREZ_OR_EXTERNAL".equals( _depType ) && null == _refMethod )
     {
@@ -249,10 +249,10 @@ final class ObserveDescriptor
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
     parameters.add( getObserved().getSimpleName().toString() );
-    if ( null != _onDepsChanged )
+    if ( null != _onDepsChange )
     {
       sb.append( "() -> super.$N(), " );
-      parameters.add( _onDepsChanged.getSimpleName().toString() );
+      parameters.add( _onDepsChange.getSimpleName().toString() );
     }
 
     appendFlags( parameters, sb );
@@ -264,7 +264,7 @@ final class ObserveDescriptor
 
   private void buildTrackerInitializer( @Nonnull final MethodSpec.Builder builder )
   {
-    assert null != _onDepsChanged;
+    assert null != _onDepsChange;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = $N().tracker( " +
@@ -277,7 +277,7 @@ final class ObserveDescriptor
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( _componentDescriptor.getComponentNameMethodName() );
     parameters.add( "." + getName() );
-    parameters.add( _onDepsChanged.getSimpleName().toString() );
+    parameters.add( _onDepsChange.getSimpleName().toString() );
 
     appendFlags( parameters, sb );
 

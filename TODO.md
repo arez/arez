@@ -16,8 +16,6 @@ complete as there is too much un-said.
 
 * Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
 
-* Consider renaming `@OnDepsChanged` to `@OnDepsChange`. Also need to update the pattern for identifying such methods.
-
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 

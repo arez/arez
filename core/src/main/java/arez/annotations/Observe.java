@@ -11,9 +11,9 @@ import javax.annotation.Nonnull;
  * Annotation that marks a method as observed.
  * Any {@link arez.ObservableValue} instances or {@link ComputableValue} instances accessed within the
  * scope of the method will be added as a dependency of the observer. If any of these dependencies are changed
- * then the runtime will invoke the associated {@link OnDepsChanged} method if present or re-schedule the observed
- * method for execution if there is no {@link OnDepsChanged} method present. Note that Arez will attempt to detect
- * the {@link OnDepsChanged} method using naming conventions even if there is no method explicitly annotated.
+ * then the runtime will invoke the associated {@link OnDepsChange} method if present or re-schedule the observed
+ * method for execution if there is no {@link OnDepsChange} method present. Note that Arez will attempt to detect
+ * the {@link OnDepsChange} method using naming conventions even if there is no method explicitly annotated.
  *
  * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>

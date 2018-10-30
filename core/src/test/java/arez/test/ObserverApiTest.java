@@ -55,22 +55,22 @@ public class ObserverApiTest
   public void schedule_autorun_doesNotExecuteIfNotStale()
   {
     final AtomicInteger callCount = new AtomicInteger();
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsChangedCallCount::incrementAndGet );
+    }, onDepsChangeCallCount::incrementAndGet );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsChangedCallCount.get(), 0 );
+    assertEquals( onDepsChangeCallCount.get(), 0 );
 
     observer.schedule();
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsChangedCallCount.get(), 0 );
+    assertEquals( onDepsChangeCallCount.get(), 0 );
   }
 
   @Test
@@ -96,36 +96,36 @@ public class ObserverApiTest
   public void schedule_onManuallyScheduled_autorun()
   {
     final AtomicInteger callCount = new AtomicInteger();
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsChangedCallCount::incrementAndGet, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    }, onDepsChangeCallCount::incrementAndGet, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsChangedCallCount.get(), 0 );
+    assertEquals( onDepsChangeCallCount.get(), 0 );
 
     context.safeAction( observer::reportStale );
 
     assertEquals( callCount.get(), 1 );
-    assertEquals( onDepsChangedCallCount.get(), 1 );
+    assertEquals( onDepsChangeCallCount.get(), 1 );
 
     observer.schedule();
 
     assertEquals( callCount.get(), 2 );
-    assertEquals( onDepsChangedCallCount.get(), 1 );
+    assertEquals( onDepsChangeCallCount.get(), 1 );
   }
 
   @Test
   public void application_executed_observer_function_with_no_dependencies_but_AREZ_DEPENDENCIES()
   {
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
 
     final Function<String> observed = ValueUtil::randomString;
     assertInvariantFailure( () -> context.observe( observer, observed ),
@@ -136,10 +136,10 @@ public class ObserverApiTest
   public void application_executed_observer_function_with_no_dependencies_and_AREZ_OR_NO_DEPENDENCIES()
     throws Throwable
   {
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
 
     final Function<String> observed = ValueUtil::randomString;
 
@@ -150,10 +150,10 @@ public class ObserverApiTest
   @Test
   public void application_executed_observer_procedure_with_no_dependencies_but_AREZ_DEPENDENCIES()
   {
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
 
     final Procedure observed = ValueUtil::randomString;
     assertInvariantFailure( () -> context.observe( observer, observed ),
@@ -164,10 +164,10 @@ public class ObserverApiTest
   public void application_executed_observer_procedure_with_no_dependencies_and_AREZ_OR_NO_DEPENDENCIES()
     throws Throwable
   {
-    final AtomicInteger onDepsChangedCallCount = new AtomicInteger();
+    final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangedCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
 
     final Procedure observed = ValueUtil::randomString;
 

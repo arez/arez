@@ -6,7 +6,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -28,8 +28,8 @@ public class ObserveManualScheduleTest
       _renderCallCount++;
     }
 
-    @OnDepsChanged
-    final void onRenderDepsChanged()
+    @OnDepsChange
+    final void onRenderDepsChange()
     {
       _depsChangedCallCount++;
     }
@@ -64,7 +64,7 @@ public class ObserveManualScheduleTest
     assertEquals( component._renderCallCount, 1 );
     assertEquals( component._depsChangedCallCount, 1 );
 
-    // Trigger a dependency change - but should not invoke onRenderDepsChanged as still dirty
+    // Trigger a dependency change - but should not invoke onRenderDepsChange as still dirty
     safeAction( () -> component.setValue( ValueUtil.randomLong() ) );
 
     assertEquals( component._renderCallCount, 1 );

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -28,8 +28,8 @@ public class TrackNoNestActionTest
       myAction();
     }
 
-    @OnDepsChanged
-    final void onRenderDepsChanged()
+    @OnDepsChange
+    final void onRenderDepsChange()
     {
       _depsChangedCallCount++;
     }

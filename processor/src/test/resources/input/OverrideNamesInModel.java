@@ -4,7 +4,7 @@ import arez.annotations.Computed;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import java.text.ParseException;
 
 @ArezComponent( name = "MyContainer" )
@@ -43,8 +43,8 @@ public abstract class OverrideNamesInModel
   {
   }
 
-  @OnDepsChanged( name = "XX" )
-  public void onRenderDepsChanged()
+  @OnDepsChange( name = "XX" )
+  public void onRenderDepsChange()
   {
   }
 }

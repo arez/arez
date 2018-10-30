@@ -6,7 +6,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import javax.annotation.Nonnull;
@@ -23,8 +23,8 @@ public abstract class CurrencyView
     element.innerHTML = "1 BTC = $" + bitcoin.getAmount() + "AUD";
   }
 
-  @OnDepsChanged
-  void onRenderDepsChanged()
+  @OnDepsChange
+  void onRenderDepsChange()
   {
     debounce( this::scheduleRender, 2000 );
   }

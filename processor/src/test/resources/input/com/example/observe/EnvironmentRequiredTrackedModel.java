@@ -12,7 +12,7 @@ public abstract class EnvironmentRequiredTrackedModel
   {
   }
 
-  public void onRenderDepsChanged()
+  public void onRenderDepsChange()
   {
   }
 }

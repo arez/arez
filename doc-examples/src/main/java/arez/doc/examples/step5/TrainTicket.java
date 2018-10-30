@@ -7,7 +7,7 @@ import arez.annotations.Executor;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
 public abstract class TrainTicket
@@ -39,8 +39,8 @@ public abstract class TrainTicket
            "</table>";
   }
 
-  @OnDepsChanged
-  void onRenderDepsChanged()
+  @OnDepsChange
+  void onRenderDepsChange()
   {
     Renderer.scheduleRender( this );
   }

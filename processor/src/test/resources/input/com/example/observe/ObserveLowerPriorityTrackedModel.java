@@ -3,7 +3,7 @@ package com.example.observe;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
 public abstract class ObserveLowerPriorityTrackedModel
@@ -13,8 +13,8 @@ public abstract class ObserveLowerPriorityTrackedModel
   {
   }
 
-  @OnDepsChanged
-  public void onRenderDepsChanged()
+  @OnDepsChange
+  public void onRenderDepsChange()
   {
   }
 }

@@ -13,7 +13,7 @@ public abstract class DeprecatedObserveModel1
   {
   }
 
-  public void onRenderDepsChanged()
+  public void onRenderDepsChange()
   {
   }
 }

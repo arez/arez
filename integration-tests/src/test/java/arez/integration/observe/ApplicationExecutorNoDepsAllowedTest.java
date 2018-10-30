@@ -7,7 +7,7 @@ import arez.annotations.DepType;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObserverInfo;
 import org.testng.annotations.Test;
@@ -27,8 +27,8 @@ public class ApplicationExecutorNoDepsAllowedTest
       _renderCallCount++;
     }
 
-    @OnDepsChanged
-    final void onRenderDepsChanged()
+    @OnDepsChange
+    final void onRenderDepsChange()
     {
     }
 

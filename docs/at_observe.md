@@ -23,8 +23,8 @@ primitive.
 
 Sometimes it is useful to decouple the execution of the {@api_url: annotations.Observe} method and the
 rescheduling of the method when a dependency change is detected. In Arez, this is possible when you pair
-the {@api_url: annotations.Observe} method with an {@api_url: annotations.OnDepsChanged} method. The
-{@api_url: annotations.OnDepsChanged} is invoked by the Arez runtime when it detects a change has occurred.
+the {@api_url: annotations.Observe} method with an {@api_url: annotations.OnDepsChange} method. The
+{@api_url: annotations.OnDepsChange} is invoked by the Arez runtime when it detects a change has occurred.
 It is up to application to invoke {@api_url: Observer.schedule()::Observer::schedule()} to schedule an
 update.
 
@@ -42,7 +42,7 @@ is responsible for executing the observed method. This is useful when you need t
 frameworks that already contain their own scheduler.
 
 This is modelled with a pair of methods; one annotated with {@api_url: annotations.Observe} and one
-annotated with {@api_url: annotations.OnDepsChanged}. In addition it is necessary that the
+annotated with {@api_url: annotations.OnDepsChange}. In addition it is necessary that the
 {@api_url: executor::annotations.Observe::executor()} parameter on the {@api_url: annotations.Observe}
 annotation is set to {@api_url: Executor.APPLICATION::annotations.Executor::APPLICATION}.
 

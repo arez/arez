@@ -5,14 +5,14 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class DeriveOnDepsChangedModel
+public abstract class DeriveFinalOnDepsChangeModel
 {
   @Observe( executor = Executor.APPLICATION )
   public void render( final long time, float someOtherParameter )
   {
   }
 
-  public void onRenderDepsChanged()
+  final void onRenderDepsChange()
   {
   }
 }

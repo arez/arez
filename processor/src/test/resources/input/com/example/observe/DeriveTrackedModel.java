@@ -3,7 +3,7 @@ package com.example.observe;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
 public abstract class DeriveTrackedModel
@@ -12,8 +12,8 @@ public abstract class DeriveTrackedModel
   {
   }
 
-  @OnDepsChanged
-  public void onRenderDepsChanged()
+  @OnDepsChange
+  public void onRenderDepsChange()
   {
   }
 

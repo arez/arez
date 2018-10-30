@@ -1,17 +1,17 @@
 package com.example.package_access.other;
 
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
-public abstract class BaseOnDepsChangedModel
+public abstract class BaseOnDepsChangeModel
 {
   @Observe
   protected void render()
   {
   }
 
-  @OnDepsChanged
-  void onRenderDepsChanged()
+  @OnDepsChange
+  void onRenderDepsChange()
   {
   }
 }

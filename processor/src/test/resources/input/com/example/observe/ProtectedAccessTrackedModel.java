@@ -3,7 +3,7 @@ package com.example.observe;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 
 @ArezComponent
 public abstract class ProtectedAccessTrackedModel
@@ -13,8 +13,8 @@ public abstract class ProtectedAccessTrackedModel
   {
   }
 
-  @OnDepsChanged
-  protected final void onRenderDepsChanged()
+  @OnDepsChange
+  protected final void onRenderDepsChange()
   {
   }
 }

@@ -8,7 +8,7 @@ import arez.SafeFunction;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChanged;
+import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +36,8 @@ public class TrackInEnvironmentTest
       observeADependency();
     }
 
-    @OnDepsChanged
-    final void onRenderDepsChanged()
+    @OnDepsChange
+    final void onRenderDepsChange()
     {
     }
 
@@ -48,8 +48,8 @@ public class TrackInEnvironmentTest
       observeADependency();
     }
 
-    @OnDepsChanged
-    final void onRender2DepsChanged()
+    @OnDepsChange
+    final void onRender2DepsChange()
     {
     }
   }
