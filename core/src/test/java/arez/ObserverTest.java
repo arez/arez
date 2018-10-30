@@ -2,8 +2,6 @@ package arez;
 
 import arez.spy.ActionCompletedEvent;
 import arez.spy.ActionStartedEvent;
-import arez.spy.ComputableValueActivatedEvent;
-import arez.spy.ComputableValueDeactivatedEvent;
 import arez.spy.ComputableValueDisposedEvent;
 import arez.spy.ComputeCompletedEvent;
 import arez.spy.ComputeStartedEvent;
