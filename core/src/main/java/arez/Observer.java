@@ -296,7 +296,7 @@ public final class Observer
   @Override
   public void dispose()
   {
-    if ( !isDisposedOrDisposing() )
+    if ( isNotDisposedOrDisposing() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                this::performDispose,
@@ -345,9 +345,9 @@ public final class Observer
     return Flags.STATE_DISPOSED == getState();
   }
 
-  boolean isDisposedOrDisposing()
+  boolean isNotDisposedOrDisposing()
   {
-    return Flags.STATE_DISPOSING >= getState();
+    return Flags.STATE_DISPOSING < getState();
   }
 
   /**
