@@ -36,6 +36,9 @@
 * **\[core\]** If a `ComputedValue` was read from within an action and the element is not observed from an `Observer`
   then the spy event `ComputableValueDeactivatedEvent` would be generated after the compute completed despite
   there being no corresponding `ComputableValueActivatedEvent` spy event. This even is no longer generated.
+* **\[core\]** Improve invariant failure messages when attempting to add or remove `OnDispose` listeners
+  to the `DisposeNotifier`. This is typically exhibited when using the annotation processor to process a class
+  that has a `@ComponentDependency` that is passed to the constructor and the dependency is already disposed. 
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

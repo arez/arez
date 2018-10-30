@@ -51,7 +51,7 @@ public class DisposeNotifierTest
     final AtomicInteger callCount = new AtomicInteger();
 
     assertInvariantFailure( () -> notifier.addOnDisposeListener( key, callCount::incrementAndGet ),
-                            "Arez-0170: Attempting to remove add listener but listeners have already been notified." );
+                            "Arez-0170: Attempting to add OnDispose listener but DisposeNotifier has been disposed." );
   }
 
   @Test
@@ -103,7 +103,7 @@ public class DisposeNotifierTest
     notifier.dispose();
 
     assertInvariantFailure( () -> notifier.removeOnDisposeListener( key ),
-                            "Arez-0169: Attempting to remove dispose listener but listeners have already been notified." );
+                            "Arez-0169: Attempting to remove OnDispose listener but DisposeNotifier has been disposed." );
   }
 
   @Test

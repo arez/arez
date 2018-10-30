@@ -60,7 +60,7 @@ public final class DisposeNotifier
     if ( Arez.shouldCheckApiInvariants() )
     {
       invariant( this::isNotDisposed,
-                 () -> "Arez-0170: Attempting to remove add listener but listeners have already been notified." );
+                 () -> "Arez-0170: Attempting to add OnDispose listener but DisposeNotifier has been disposed." );
       invariant( () -> !_listeners.containsKey( key ),
                  () -> "Arez-0166: Attempting to add dispose listener with key '" + key +
                        "' but a listener with that key already exists." );
@@ -82,7 +82,7 @@ public final class DisposeNotifier
     if ( Arez.shouldCheckApiInvariants() )
     {
       invariant( this::isNotDisposed,
-                 () -> "Arez-0169: Attempting to remove dispose listener but listeners have already been notified." );
+                 () -> "Arez-0169: Attempting to remove OnDispose listener but DisposeNotifier has been disposed." );
     }
     final SafeProcedure removed = _listeners.remove( key );
     if ( Arez.shouldCheckApiInvariants() )
