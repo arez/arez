@@ -8,7 +8,7 @@ import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
-import arez.annotations.Memoize;
+import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -208,13 +208,13 @@ public class MemoizedIntegrationTest
       _age = age;
     }
 
-    @Memoize
+    @Computed
     public boolean doesSearchMatch( @Nonnull final String value )
     {
       return getName().contains( value );
     }
 
-    @Memoize
+    @Computed
     public boolean doesFullSearchMatch( @Nonnull final String value, final int minAge )
     {
       return getName().contains( value ) && getAge() >= minAge;

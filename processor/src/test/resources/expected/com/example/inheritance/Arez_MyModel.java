@@ -43,7 +43,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "MyModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_myComputed = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.myComputed(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_myComputed = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.myComputed(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

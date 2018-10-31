@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Computed;
-import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
@@ -64,7 +63,7 @@ public class MemoizedObservesLowerPriorityIntegrationTest
       return getName().isEmpty();
     }
 
-    @Memoize( observeLowerPriorityDependencies = true )
+    @Computed( observeLowerPriorityDependencies = true )
     boolean search1( @Nonnull final String value )
     {
       return isNameEmpty() || getName().contains( value );

@@ -1,13 +1,13 @@
-package com.example.memoized;
+package com.example.computed;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
-import arez.annotations.Memoize;
+import arez.annotations.Computed;
 
 @ArezComponent
 public abstract class BadDepTypeMemoizeModel
 {
-  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
+  @Computed( depType = DepType.AREZ_OR_EXTERNAL )
   int getField( int key )
   {
     return 0;

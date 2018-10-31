@@ -43,7 +43,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "PostConstructModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_someValue = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_someValue = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".someValue" : null, () -> super.someValue(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }

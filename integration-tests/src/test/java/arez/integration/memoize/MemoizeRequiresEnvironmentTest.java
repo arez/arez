@@ -6,7 +6,7 @@ import arez.Environment;
 import arez.Function;
 import arez.SafeFunction;
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
+import arez.annotations.Computed;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
@@ -42,8 +42,26 @@ public class MemoizeRequiresEnvironmentTest
 
     abstract void setName( @Nonnull String name );
 
+    @Computed( requireEnvironment = true )
+    @Nonnull
+    String getComputed1()
+    {
+      _steps.add( "computed1" );
+      getName();
+      return "";
+    }
+
+    @Computed( requireEnvironment = false )
+    @Nonnull
+    String getComputed2()
+    {
+      _steps.add( "computed2" );
+      getName();
+      return "";
+    }
+
     @SuppressWarnings( "SameParameterValue" )
-    @Memoize( requireEnvironment = true )
+    @Computed( requireEnvironment = true )
     boolean search1( @Nonnull final String value )
     {
       _steps.add( "search1" );
@@ -51,7 +69,7 @@ public class MemoizeRequiresEnvironmentTest
     }
 
     @SuppressWarnings( "SameParameterValue" )
-    @Memoize( requireEnvironment = false )
+    @Computed( requireEnvironment = false )
     boolean search2( @Nonnull final String value )
     {
       _steps.add( "search2" );
@@ -109,5 +127,29 @@ public class MemoizeRequiresEnvironmentTest
     safeAction( () -> model.search2( ValueUtil.randomString() ) );
 
     assertEquals( steps, Arrays.asList( "EnvironmentStart", "search1", "EnvironmentEnd", "search2" ) );
+
+    safeAction( model::getComputed1 );
+
+    assertEquals( steps,
+                  Arrays.asList( "EnvironmentStart",
+                                 "search1",
+                                 "EnvironmentEnd",
+                                 "search2",
+                                 "EnvironmentStart",
+                                 "computed1",
+                                 "EnvironmentEnd" ) );
+
+    safeAction( model::getComputed2 );
+
+    assertEquals( steps,
+                  Arrays.asList( "EnvironmentStart",
+                                 "search1",
+                                 "EnvironmentEnd",
+                                 "search2",
+                                 "EnvironmentStart",
+                                 "computed1",
+                                 "EnvironmentEnd",
+                                 "computed2" ) );
+
   }
 }

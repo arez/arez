@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@SuppressWarnings("unchecked")
 public final class Arez_CustomDepTypeMemoizeModel extends CustomDepTypeMemoizeModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 

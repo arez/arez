@@ -1,12 +1,12 @@
 package com.example.memoize;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
+import arez.annotations.Computed;
 
 @ArezComponent
 public abstract class TypeParamMemoizeModel<T>
 {
-  @Memoize
+  @Computed
   public T count( final String param )
   {
     return null;

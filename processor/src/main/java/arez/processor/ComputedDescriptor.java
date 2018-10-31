@@ -1,8 +1,10 @@
 package arez.processor;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -21,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
@@ -133,7 +136,6 @@ final class ComputedDescriptor
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
                                   Constants.COMPUTED_ANNOTATION_CLASSNAME,
                                   computed );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustReturnAValue( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTED_ANNOTATION_CLASSNAME, computed );
 
@@ -295,6 +297,19 @@ final class ComputedDescriptor
   void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
     assert null != _computed;
+    if ( _computed.getParameters().isEmpty() )
+    {
+      buildFieldsForNoParamVariant( builder );
+    }
+    else
+    {
+      buildFieldsForParamVariant( builder );
+    }
+  }
+
+  private void buildFieldsForNoParamVariant( @Nonnull final TypeSpec.Builder builder )
+  {
+    assert null != _computed;
     assert null != _computedType;
     final TypeName parameterType =
       _computed.getTypeParameters().isEmpty() ? TypeName.get( _computedType.getReturnType() ).box() :
@@ -316,6 +331,24 @@ final class ComputedDescriptor
     }
   }
 
+  private void buildFieldsForParamVariant( @Nonnull final TypeSpec.Builder builder )
+  {
+    assert null != _computed;
+    assert null != _computedType;
+    final TypeName parameterType =
+      _computed.getTypeParameters().isEmpty() ? TypeName.get( _computedType.getReturnType() ).box() :
+      WildcardTypeName.subtypeOf( TypeName.OBJECT );
+    final ParameterizedTypeName typeName =
+      ParameterizedTypeName.get( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME, parameterType );
+    final FieldSpec.Builder field =
+      FieldSpec.builder( typeName,
+                         getFieldName(),
+                         Modifier.FINAL,
+                         Modifier.PRIVATE ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+  }
+
   @Nonnull
   private String getFieldName()
   {
@@ -323,6 +356,19 @@ final class ComputedDescriptor
   }
 
   void buildInitializer( @Nonnull MethodSpec.Builder builder )
+  {
+    assert null != _computed;
+    if ( _computed.getParameters().isEmpty() )
+    {
+      buildInitializerForNoParamVariant( builder );
+    }
+    else
+    {
+      buildInitializerForParamVariant( builder );
+    }
+  }
+
+  private void buildInitializerForNoParamVariant( @Nonnull final MethodSpec.Builder builder )
   {
     assert null != _computed;
     final ArrayList<Object> parameters = new ArrayList<>();
@@ -376,6 +422,54 @@ final class ComputedDescriptor
       parameters.add( _computed.getSimpleName().toString() );
       appendInitializerSuffix( parameters, sb, true );
     }
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private void buildInitializerForParamVariant( @Nonnull final MethodSpec.Builder builder )
+  {
+    assert null != _computed;
+    assert null != _computedType;
+    final ArrayList<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append(
+      "this.$N = new $T<>( $T.areZonesEnabled() ? $N() : null, $T.areNativeComponentsEnabled() ? this.$N : null, " +
+      "$T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
+    parameters.add( getFieldName() );
+    parameters.add( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+    parameters.add( _componentDescriptor.getContextMethodName() );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( "." + getName() );
+    parameters.add( _computed.getSimpleName().toString() );
+
+    int index = 0;
+    for ( final TypeMirror arg : _computedType.getParameterTypes() )
+    {
+      if ( 0 != index )
+      {
+        sb.append( ", " );
+      }
+      sb.append( "($T) args[ " ).append( index ).append( " ]" );
+      parameters.add( arg );
+      index++;
+    }
+
+    sb.append( "), " );
+    sb.append( _computed.getParameters().size() );
+    sb.append( ", " );
+
+    final ArrayList<String> flags = generateFlags();
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
+    }
+
+    sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
 
@@ -436,8 +530,27 @@ final class ComputedDescriptor
       sb.append( ", " );
     }
 
-    final ArrayList<String> flags = new ArrayList<>();
+    final ArrayList<String> flags = generateFlags();
     flags.add( "RUN_LATER" );
+    if ( _keepAlive )
+    {
+      flags.add( "KEEPALIVE" );
+    }
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
+    }
+
+    sb.append( " )" );
+  }
+
+  @Nonnull
+  private ArrayList<String> generateFlags()
+  {
+    final ArrayList<String> flags = new ArrayList<>();
+    flags.add( "PRIORITY_" + _priority );
 
     if ( !_reportResult )
     {
@@ -446,10 +559,6 @@ final class ComputedDescriptor
     if ( _observeLowerPriorityDependencies )
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
-    }
-    if ( _keepAlive )
-    {
-      flags.add( "KEEPALIVE" );
     }
     if ( _requireEnvironment )
     {
@@ -471,18 +580,7 @@ final class ComputedDescriptor
         flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
         break;
     }
-    if ( !"NORMAL".equals( _priority ) )
-    {
-      flags.add( "PRIORITY_" + _priority );
-    }
-
-    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
-    for ( int i = 0; i < flags.size(); i++ )
-    {
-      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
-    }
-
-    sb.append( " )" );
+    return flags;
   }
 
   @Nonnull
@@ -516,16 +614,24 @@ final class ComputedDescriptor
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
     throws ArezProcessorException
   {
-    builder.addMethod( buildComputed() );
-    if ( isCollectionType() )
+    assert null != _computed;
+    if ( _computed.getParameters().isEmpty() )
     {
-      builder.addMethod( buildOnActivateHook() );
-      builder.addMethod( buildOnDeactivateHook() );
-      builder.addMethod( buildOnStaleHook() );
+      builder.addMethod( buildComputed() );
+      if ( isCollectionType() )
+      {
+        builder.addMethod( buildOnActivateHook() );
+        builder.addMethod( buildOnDeactivateHook() );
+        builder.addMethod( buildOnStaleHook() );
+      }
+      if ( null != _refMethod )
+      {
+        builder.addMethod( buildRefMethod() );
+      }
     }
-    if ( null != _refMethod )
+    else
     {
-      builder.addMethod( buildRefMethod() );
+      builder.addMethod( buildMemoize() );
     }
   }
 
@@ -734,5 +840,74 @@ final class ComputedDescriptor
       final TypeElement element = (TypeElement) declaredType.asElement();
       return element.getQualifiedName().toString().equals( type.getName() );
     }
+  }
+
+  @Nonnull
+  private MethodSpec buildMemoize()
+    throws ArezProcessorException
+  {
+    assert null != _computed;
+    assert null != _computedType;
+    final String methodName = _computed.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    ProcessorUtil.copyAccessModifiers( _computed, builder );
+    ProcessorUtil.copyExceptions( _computedType, builder );
+    ProcessorUtil.copyTypeParameters( _computedType, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _computed, builder );
+    builder.addAnnotation( Override.class );
+    final TypeName returnType = TypeName.get( _computedType.getReturnType() );
+    builder.returns( returnType );
+
+    final boolean hasTypeParameters = !_computed.getTypeParameters().isEmpty();
+    if ( hasTypeParameters )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "unchecked" )
+                               .build() );
+    }
+
+    {
+      final List<? extends VariableElement> parameters = _computed.getParameters();
+      final int paramCount = parameters.size();
+      for ( int i = 0; i < paramCount; i++ )
+      {
+        final VariableElement element = parameters.get( i );
+        final TypeName parameterType = TypeName.get( _computedType.getParameterTypes().get( i ) );
+        final ParameterSpec.Builder param =
+          ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+        ProcessorUtil.copyWhitelistedAnnotations( element, param );
+        builder.addParameter( param.build() );
+      }
+    }
+
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> parameters = new ArrayList<>();
+    sb.append( "return " );
+    if ( hasTypeParameters )
+    {
+      sb.append( "($T) " );
+      parameters.add( returnType.box() );
+    }
+    sb.append( "this.$N.get( " );
+    parameters.add( getFieldName() );
+
+    boolean first = true;
+    for ( final VariableElement element : _computed.getParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N" );
+      parameters.add( element.getSimpleName().toString() );
+    }
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), parameters.toArray() );
+
+    return builder.build();
   }
 }

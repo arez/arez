@@ -1,7 +1,7 @@
 package arez.doc.examples.memoize;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
+import arez.annotations.Computed;
 import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 
@@ -32,7 +32,7 @@ public abstract class PersonModel
     _name = name;
   }
 
-  @Memoize
+  @Computed
   public boolean doesSearchMatch( @Nonnull final String value )
   {
     return getName().contains( value );

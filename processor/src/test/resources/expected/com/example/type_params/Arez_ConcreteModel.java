@@ -43,8 +43,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ConcreteModel", getComponentId(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_compWriter = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, () -> super.compWriter(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_compError = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, () -> super.compError(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_compWriter = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, () -> super.compWriter(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
+    this.$$arez$$_compError = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, () -> super.compError(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -64,8 +64,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ConcreteModel", getComponentId(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_compWriter = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, () -> super.compWriter(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_compError = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, () -> super.compError(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_compWriter = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, () -> super.compWriter(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
+    this.$$arez$$_compError = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, () -> super.compError(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
@@ -85,8 +85,8 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     }
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "ConcreteModel", getComponentId(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    this.$$arez$$_compWriter = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, () -> super.compWriter(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_compError = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, () -> super.compError(), Flags.RUN_LATER | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_compWriter = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compWriter" : null, () -> super.compWriter(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
+    this.$$arez$$_compError = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".compError" : null, () -> super.compError(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     if ( Arez.shouldCheckApiInvariants() ) {
       this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
     }
