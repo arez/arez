@@ -1,7 +1,7 @@
 package arez;
 
-import arez.spy.ComputableValueCreatedEvent;
-import arez.spy.ComputableValueDisposedEvent;
+import arez.spy.ComputableValueCreateEvent;
+import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -132,7 +132,7 @@ public final class ComputableValue<T>
     }
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComputableValueCreatedEvent( asInfo() ) );
+      getSpy().reportSpyEvent( new ComputableValueCreateEvent( asInfo() ) );
     }
     if ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) )
     {
@@ -225,7 +225,7 @@ public final class ComputableValue<T>
       _error = null;
       if ( willPropagateSpyEvents() )
       {
-        reportSpyEvent( new ComputableValueDisposedEvent( asInfo() ) );
+        reportSpyEvent( new ComputableValueDisposeEvent( asInfo() ) );
       }
       if ( null != _component )
       {

@@ -2,12 +2,12 @@
 [
     {
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -15,29 +15,29 @@
         "mutation": true,
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.1",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "TestComponent.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.1.isDisposed.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.1.isDisposed",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
@@ -46,24 +46,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.1.isDisposed",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "TestComponent.1.value.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.1.value",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "S1"
     },
     {
@@ -72,13 +72,13 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.1.value",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "result": null,
@@ -86,35 +86,35 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.1",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     },
     {
         "name": "TestComponent.2",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "TestComponent.2.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.2.isDisposed.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.2.isDisposed",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
@@ -123,24 +123,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.2.isDisposed",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "TestComponent.2.value.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.2.value",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "S2"
     },
     {
@@ -149,13 +149,13 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.2.value",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "result": null,
@@ -163,18 +163,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.2",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     },
     {
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -184,19 +184,19 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -204,12 +204,12 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "DisposeRepositoryIntegrationTest_TestComponentRepository",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     }
 ]

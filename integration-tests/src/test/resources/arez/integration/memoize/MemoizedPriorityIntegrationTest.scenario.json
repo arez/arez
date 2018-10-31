@@ -3,7 +3,7 @@
     {
         "name": "Action@1",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -11,54 +11,54 @@
         "mutation": true,
         "name": "Action@1",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "bl"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@1",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -66,49 +66,49 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search2(b)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search2(b)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search2(b)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -116,13 +116,13 @@
         "mutation": false,
         "name": "search2(b)",
         "tracker": "search2(b)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search2(b)",
         "tracker": "search2(b)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -130,98 +130,98 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search2(b)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search2.2",
-        "tracker": "Model.0.search2.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search2.2",
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search3(b)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search3(b)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search3(b)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -229,13 +229,13 @@
         "mutation": false,
         "name": "search3(b)",
         "tracker": "search3(b)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search3(b)",
         "tracker": "search3(b)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -243,98 +243,98 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search3(b)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.2",
-        "tracker": "Model.0.search3.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.2",
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search1(b)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search1(b)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search1(b)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -342,13 +342,13 @@
         "mutation": false,
         "name": "search1(b)",
         "tracker": "search1(b)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search1(b)",
         "tracker": "search1(b)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -356,63 +356,63 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search1(b)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search1.2",
-        "tracker": "Model.0.search1.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search1.2",
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Action@2",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -420,54 +420,54 @@
         "mutation": true,
         "name": "Action@2",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "blu"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@2",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -475,212 +475,212 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search2.1",
-        "tracker": "Model.0.search2.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search2.1",
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search2.2",
-        "tracker": "Model.0.search2.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search2.2",
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.0",
-        "tracker": "Model.0.search3.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.0",
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.1",
-        "tracker": "Model.0.search3.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.1",
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.2",
-        "tracker": "Model.0.search3.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.2",
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search1.0",
-        "tracker": "Model.0.search1.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search1.0",
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search1.2",
-        "tracker": "Model.0.search1.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search1.2",
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Action@3",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -688,54 +688,54 @@
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "blue and"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -743,71 +743,71 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search2(blue)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search2(blue)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search2(blue)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -815,13 +815,13 @@
         "mutation": false,
         "name": "search2(blue)",
         "tracker": "search2(blue)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search2(blue)",
         "tracker": "search2(blue)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -829,98 +829,98 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search2(blue)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search2.2",
-        "tracker": "Model.0.search2.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search2.2",
+        "tracker": "Model.0.search2.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.0",
-        "tracker": "Model.0.search3.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.0",
+        "tracker": "Model.0.search3.0",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search3(blue)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search3(blue)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search3(blue)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -928,13 +928,13 @@
         "mutation": false,
         "name": "search3(blue)",
         "tracker": "search3(blue)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search3(blue)",
         "tracker": "search3(blue)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -942,98 +942,98 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search3(blue)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.2",
-        "tracker": "Model.0.search3.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.2",
+        "tracker": "Model.0.search3.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search1.0",
-        "tracker": "Model.0.search1.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search1.0",
+        "tracker": "Model.0.search1.0",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search1(blue)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search1(blue)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search1(blue)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1041,13 +1041,13 @@
         "mutation": false,
         "name": "search1(blue)",
         "tracker": "search1(blue)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search1(blue)",
         "tracker": "search1(blue)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1055,41 +1055,41 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search1(blue)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search1.2",
-        "tracker": "Model.0.search1.2",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search1.2",
+        "tracker": "Model.0.search1.2",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Action@4",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1097,54 +1097,54 @@
         "mutation": true,
         "name": "Action@4",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "blue and red"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@4",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1152,93 +1152,93 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search2.1",
-        "tracker": "Model.0.search2.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search2.1",
+        "tracker": "Model.0.search2.1",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search2(r)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search2.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search2(r)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search2(r)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1246,13 +1246,13 @@
         "mutation": false,
         "name": "search2(r)",
         "tracker": "search2(r)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search2(r)",
         "tracker": "search2(r)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1260,98 +1260,98 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search2(r)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search3.1",
-        "tracker": "Model.0.search3.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search3.1",
+        "tracker": "Model.0.search3.1",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search3(r)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search3.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search3(r)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search3(r)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1359,13 +1359,13 @@
         "mutation": false,
         "name": "search3(r)",
         "tracker": "search3(r)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search3(r)",
         "tracker": "search3(r)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1373,98 +1373,98 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search3(r)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "Model.0.search1.1",
-        "tracker": "Model.0.search1.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model.0.search1.1",
+        "tracker": "Model.0.search1.1",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "search1(r)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model.0.search1.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search1(r)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search1(r)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1472,13 +1472,13 @@
         "mutation": false,
         "name": "search1(r)",
         "tracker": "search1(r)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search1(r)",
         "tracker": "search1(r)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1486,19 +1486,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search1(r)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Action@5",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1506,54 +1506,54 @@
         "mutation": true,
         "name": "Action@5",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "XXXXX"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@5",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1561,49 +1561,49 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search2.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search2(b)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.0",
         "tracker": "Model.0.search2.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search2(b)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search2(b)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1611,13 +1611,13 @@
         "mutation": false,
         "name": "search2(b)",
         "tracker": "search2(b)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search2(b)",
         "tracker": "search2(b)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1625,54 +1625,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search2(b)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search2.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search2(blue)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.1",
         "tracker": "Model.0.search2.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search2(blue)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search2(blue)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1680,13 +1680,13 @@
         "mutation": false,
         "name": "search2(blue)",
         "tracker": "search2(blue)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search2(blue)",
         "tracker": "search2(blue)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1694,54 +1694,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search2(blue)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search2.2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search2(r)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search2.2",
         "tracker": "Model.0.search2.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search2.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search2(r)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search2(r)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1749,13 +1749,13 @@
         "mutation": false,
         "name": "search2(r)",
         "tracker": "search2(r)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search2(r)",
         "tracker": "search2(r)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1763,54 +1763,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search2(r)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search3.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search3(b)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.0",
         "tracker": "Model.0.search3.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search3(b)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search3(b)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1818,13 +1818,13 @@
         "mutation": false,
         "name": "search3(b)",
         "tracker": "search3(b)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search3(b)",
         "tracker": "search3(b)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1832,54 +1832,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search3(b)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search3.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search3(blue)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.1",
         "tracker": "Model.0.search3.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search3(blue)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search3(blue)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1887,13 +1887,13 @@
         "mutation": false,
         "name": "search3(blue)",
         "tracker": "search3(blue)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search3(blue)",
         "tracker": "search3(blue)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1901,54 +1901,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search3(blue)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search3.2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search3(r)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search3.2",
         "tracker": "Model.0.search3.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search3.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search3(r)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search3(r)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1956,13 +1956,13 @@
         "mutation": false,
         "name": "search3(r)",
         "tracker": "search3(r)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search3(r)",
         "tracker": "search3(r)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1970,54 +1970,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search3(r)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search1.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search1(b)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.0",
         "tracker": "Model.0.search1.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search1(b)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search1(b)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -2025,13 +2025,13 @@
         "mutation": false,
         "name": "search1(b)",
         "tracker": "search1(b)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search1(b)",
         "tracker": "search1(b)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -2039,54 +2039,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search1(b)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search1.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search1(blue)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.1",
         "tracker": "Model.0.search1.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search1(blue)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search1(blue)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -2094,13 +2094,13 @@
         "mutation": false,
         "name": "search1(blue)",
         "tracker": "search1(blue)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search1(blue)",
         "tracker": "search1(blue)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -2108,54 +2108,54 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search1(blue)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model.0.search1.2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "search1(r)",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "Model.0.search1.2",
         "tracker": "Model.0.search1.2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Model.0.search1.2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "search1(r)",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "search1(r)",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -2163,13 +2163,13 @@
         "mutation": false,
         "name": "search1(r)",
         "tracker": "search1(r)",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "search1(r)",
         "tracker": "search1(r)",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -2177,13 +2177,13 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "search1(r)",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     }
 ]

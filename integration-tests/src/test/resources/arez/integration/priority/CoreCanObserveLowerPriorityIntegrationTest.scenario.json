@@ -2,36 +2,36 @@
 [
     {
         "name": "ComputableValue@1",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "ComputableValue@2",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "ComputableValue@3",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "ComputableValue@4",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "AR1",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "AR1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "AR1",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "AR1",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -39,44 +39,44 @@
         "mutation": false,
         "name": "AR1",
         "tracker": "AR1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ComputableValue@1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "ComputableValue@1",
         "tracker": "ComputableValue@1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@5",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "ComputableValue@1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 42
     },
     {
         "mutation": false,
         "name": "ComputableValue@1",
         "tracker": "ComputableValue@1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": 42,
         "name": "ComputableValue@1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": false,
         "name": "AR1",
         "tracker": "AR1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -84,31 +84,31 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "AR1",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "AR4",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "AR4",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "AR4",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "AR4",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -116,94 +116,94 @@
         "mutation": false,
         "name": "AR4",
         "tracker": "AR4",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ComputableValue@4",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "ComputableValue@4",
         "tracker": "ComputableValue@4",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ComputableValue@3",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "ComputableValue@3",
         "tracker": "ComputableValue@3",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ComputableValue@2",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "ComputableValue@2",
         "tracker": "ComputableValue@2",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ComputableValue@2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 84
     },
     {
         "mutation": false,
         "name": "ComputableValue@2",
         "tracker": "ComputableValue@2",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": 84,
         "name": "ComputableValue@2",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "ComputableValue@3",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 126
     },
     {
         "mutation": false,
         "name": "ComputableValue@3",
         "tracker": "ComputableValue@3",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": 126,
         "name": "ComputableValue@3",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "ComputableValue@4",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 168
     },
     {
         "mutation": false,
         "name": "ComputableValue@4",
         "tracker": "ComputableValue@4",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": 168,
         "name": "ComputableValue@4",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": false,
         "name": "AR4",
         "tracker": "AR4",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -211,31 +211,31 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "AR4",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "AR3",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "AR3",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "AR3",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "AR3",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -243,13 +243,13 @@
         "mutation": false,
         "name": "AR3",
         "tracker": "AR3",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "AR3",
         "tracker": "AR3",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -257,13 +257,13 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "AR3",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     }
 ]

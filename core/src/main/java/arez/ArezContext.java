@@ -1,10 +1,10 @@
 package arez;
 
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComponentCreateStartedEvent;
-import arez.spy.ObservableValueCreatedEvent;
-import arez.spy.ObserveScheduledEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComponentCreateStartEvent;
+import arez.spy.ObservableValueCreateEvent;
+import arez.spy.ObserveScheduleEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
@@ -238,7 +238,7 @@ public final class ArezContext
     map.put( id, component );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ComponentCreateStartedEvent( getSpy().asComponentInfo( component ) ) );
+      getSpy().reportSpyEvent( new ComponentCreateStartEvent( getSpy().asComponentInfo( component ) ) );
     }
     return component;
   }
@@ -946,7 +946,7 @@ public final class ArezContext
                              mutator );
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObservableValueCreatedEvent( observableValue.asInfo() ) );
+      getSpy().reportSpyEvent( new ObservableValueCreateEvent( observableValue.asInfo() ) );
     }
     return observableValue;
   }
@@ -961,7 +961,7 @@ public final class ArezContext
   {
     if ( willPropagateSpyEvents() )
     {
-      getSpy().reportSpyEvent( new ObserveScheduledEvent( observer.asInfo() ) );
+      getSpy().reportSpyEvent( new ObserveScheduleEvent( observer.asInfo() ) );
     }
     if ( Arez.shouldEnforceTransactionType() && isTransactionActive() && Arez.shouldCheckInvariants() )
     {
@@ -2344,7 +2344,7 @@ public final class ArezContext
   {
     assert null != name;
     final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
-    getSpy().reportSpyEvent( new ActionStartedEvent( name, observed, params ) );
+    getSpy().reportSpyEvent( new ActionStartEvent( name, observed, params ) );
   }
 
   private void reportActionCompleted( @Nullable final String name,
@@ -2358,13 +2358,13 @@ public final class ArezContext
     final long duration = System.currentTimeMillis() - startedAt;
     assert null != name;
     final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
-    getSpy().reportSpyEvent( new ActionCompletedEvent( name,
-                                                       observed,
-                                                       params,
-                                                       returnsResult,
-                                                       result,
-                                                       t,
-                                                       (int) duration ) );
+    getSpy().reportSpyEvent( new ActionCompleteEvent( name,
+                                                      observed,
+                                                      params,
+                                                      returnsResult,
+                                                      result,
+                                                      t,
+                                                      (int) duration ) );
   }
 
   int currentNextTransactionId()

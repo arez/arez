@@ -2,92 +2,92 @@
 [
     {
         "name": "TestComponent.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "TestComponent.0.value1",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "TestComponent.0.value2",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "TestComponent.0.value3",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "TestComponent.0.computed2",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "TestComponent.0.computed3",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer1a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -95,13 +95,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer1a",
         "tracker": "TestComponent.0.observer1a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer1a",
         "tracker": "TestComponent.0.observer1a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -109,23 +109,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer1b",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -133,35 +133,35 @@
         "mutation": false,
         "name": "TestComponent.0.observer1b",
         "tracker": "TestComponent.0.observer1b",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "TestComponent.0.computed1",
-        "tracker": "TestComponent.0.computed1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.computed1",
         "tracker": "TestComponent.0.computed1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "TestComponent.0.computed1",
+        "tracker": "TestComponent.0.computed1",
+        "type": "TransactionComplete"
     },
     {
         "result": null,
         "name": "TestComponent.0.computed1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer1b",
         "tracker": "TestComponent.0.observer1b",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -169,23 +169,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1b",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer2a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -193,13 +193,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer2a",
         "tracker": "TestComponent.0.observer2a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer2a",
         "tracker": "TestComponent.0.observer2a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -207,23 +207,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer2b",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -231,13 +231,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer2b",
         "tracker": "TestComponent.0.observer2b",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer2b",
         "tracker": "TestComponent.0.observer2b",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -245,23 +245,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2b",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer3a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -269,13 +269,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -283,23 +283,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer3b",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -307,13 +307,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer3b",
         "tracker": "TestComponent.0.observer3b",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer3b",
         "tracker": "TestComponent.0.observer3b",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -321,19 +321,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3b",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Action@1",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -341,34 +341,34 @@
         "mutation": true,
         "name": "Action@1",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.value1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "1"
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@1",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -376,18 +376,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer1a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -395,13 +395,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer1a",
         "tracker": "TestComponent.0.observer1a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer1a",
         "tracker": "TestComponent.0.observer1a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -409,62 +409,62 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.computed1",
         "tracker": "TestComponent.0.computed1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "1"
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.computed1",
         "tracker": "TestComponent.0.computed1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": "1",
         "name": "TestComponent.0.computed1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer1b",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -472,13 +472,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer1b",
         "tracker": "TestComponent.0.observer1b",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer1b",
         "tracker": "TestComponent.0.observer1b",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -486,23 +486,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1b",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer2a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -510,13 +510,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer2a",
         "tracker": "TestComponent.0.observer2a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer2a",
         "tracker": "TestComponent.0.observer2a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -524,23 +524,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer2b",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -548,13 +548,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer2b",
         "tracker": "TestComponent.0.observer2b",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer2b",
         "tracker": "TestComponent.0.observer2b",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -562,23 +562,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2b",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer3a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -586,13 +586,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -600,23 +600,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer3b",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -624,13 +624,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer3b",
         "tracker": "TestComponent.0.observer3b",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer3b",
         "tracker": "TestComponent.0.observer3b",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -638,19 +638,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3b",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Action@2",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -658,26 +658,26 @@
         "mutation": true,
         "name": "Action@2",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.value2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "2"
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@2",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -685,18 +685,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer2a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -704,13 +704,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer2a",
         "tracker": "TestComponent.0.observer2a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer2a",
         "tracker": "TestComponent.0.observer2a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -718,23 +718,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer3a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -742,13 +742,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -756,19 +756,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Action@3",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -776,22 +776,22 @@
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.value3",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "3"
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -799,18 +799,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TestComponent.0.observer3a",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -818,13 +818,13 @@
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "TestComponent.0.observer3a",
         "tracker": "TestComponent.0.observer3a",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -832,23 +832,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3a",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "TestComponent.0",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "TestComponent.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -856,12 +856,12 @@
         "mutation": true,
         "name": "TestComponent.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.observer1a.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -871,18 +871,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1a",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "TestComponent.0.observer1b.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -892,18 +892,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer1b",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "TestComponent.0.observer2a.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -913,18 +913,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2a",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "TestComponent.0.observer2b.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -934,18 +934,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer2b",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "TestComponent.0.observer3a.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -955,18 +955,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3a",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "TestComponent.0.observer3b.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -976,18 +976,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.observer3b",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "TestComponent.0.computed1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -997,24 +997,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "TestComponent.0.computed1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -1023,14 +1023,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1040,14 +1040,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed2.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1057,24 +1057,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed2",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "TestComponent.0.computed2.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -1083,14 +1083,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed2.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1100,14 +1100,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed3.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1117,24 +1117,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed3",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "TestComponent.0.computed3.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed3",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -1143,14 +1143,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.computed3.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1160,20 +1160,20 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "1"
     },
     {
@@ -1182,24 +1182,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value1",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "TestComponent.0.value2.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value2",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "2"
     },
     {
@@ -1208,24 +1208,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value2",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "TestComponent.0.value3.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value3",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "3"
     },
     {
@@ -1234,19 +1234,19 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0.value3",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
         "name": "TestComponent.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1254,12 +1254,12 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TestComponent.0",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     }
 ]

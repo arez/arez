@@ -1,9 +1,9 @@
 package arez;
 
 import arez.spy.ObserverInfo;
-import arez.spy.TransactionCompletedEvent;
+import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionInfo;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -175,7 +175,7 @@ final class Transaction
     {
       assert null != name;
       final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
-      context.getSpy().reportSpyEvent( new TransactionStartedEvent( name, c_transaction.isMutation(), trackerInfo ) );
+      context.getSpy().reportSpyEvent( new TransactionStartEvent( name, c_transaction.isMutation(), trackerInfo ) );
     }
     return c_transaction;
   }
@@ -212,7 +212,7 @@ final class Transaction
         final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
         final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
         c_transaction.getContext().getSpy().
-          reportSpyEvent( new TransactionCompletedEvent( name, mutation, trackerInfo, (int) duration ) );
+          reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, (int) duration ) );
       }
     }
     finally

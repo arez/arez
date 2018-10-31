@@ -1,9 +1,9 @@
 package arez;
 
-import arez.spy.ComputableValueActivatedEvent;
-import arez.spy.ComputableValueDeactivatedEvent;
-import arez.spy.ObservableValueChangedEvent;
-import arez.spy.ObservableValueDisposedEvent;
+import arez.spy.ComputableValueActivateEvent;
+import arez.spy.ComputableValueDeactivateEvent;
+import arez.spy.ObservableValueChangeEvent;
+import arez.spy.ObservableValueDisposeEvent;
 import arez.spy.ObservableValueInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
@@ -172,7 +172,7 @@ public final class ObservableValue<T>
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObservableValueDisposedEvent( asInfo() ) );
+          reportSpyEvent( new ObservableValueDisposeEvent( asInfo() ) );
         }
         if ( null != _component )
         {
@@ -335,7 +335,7 @@ public final class ObservableValue<T>
       _observer.setState( Flags.STATE_INACTIVE );
       if ( willPropagateSpyEvents() && shouldPropagateDeactivateEvent )
       {
-        reportSpyEvent( new ComputableValueDeactivatedEvent( _observer.getComputableValue().asInfo() ) );
+        reportSpyEvent( new ComputableValueDeactivateEvent( _observer.getComputableValue().asInfo() ) );
       }
     }
   }
@@ -362,7 +362,7 @@ public final class ObservableValue<T>
     _observer.setState( Flags.STATE_UP_TO_DATE );
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ComputableValueActivatedEvent( _observer.getComputableValue().asInfo() ) );
+      reportSpyEvent( new ComputableValueActivateEvent( _observer.getComputableValue().asInfo() ) );
     }
   }
 
@@ -530,7 +530,7 @@ public final class ObservableValue<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableValueChangedEvent( asInfo(), getObservableValue() ) );
+      reportSpyEvent( new ObservableValueChangeEvent( asInfo(), getObservableValue() ) );
     }
     getContext().getTransaction().reportChanged( this );
   }
@@ -539,7 +539,7 @@ public final class ObservableValue<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableValueChangedEvent( asInfo(), getObservableValue() ) );
+      reportSpyEvent( new ObservableValueChangeEvent( asInfo(), getObservableValue() ) );
     }
     getContext().getTransaction().reportChangeConfirmed( this );
   }

@@ -1,13 +1,13 @@
 package arez;
 
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComponentCreateCompletedEvent;
-import arez.spy.ComponentDisposeCompletedEvent;
-import arez.spy.ComponentDisposeStartedEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComponentCreateCompleteEvent;
+import arez.spy.ComponentDisposeCompleteEvent;
+import arez.spy.ComponentDisposeStartEvent;
 import arez.spy.ComponentInfo;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -134,7 +134,7 @@ public class ComponentTest
 
     handler.assertEventCount( 1 );
 
-    handler.assertNextEvent( ComponentCreateCompletedEvent.class,
+    handler.assertNextEvent( ComponentCreateCompleteEvent.class,
                              event -> assertEquals( event.getComponentInfo().getName(), component.getName() ) );
   }
 
@@ -511,15 +511,15 @@ public class ComponentTest
     component.dispose();
 
     handler.assertEventCount( 6 );
-    handler.assertNextEvent( ComponentDisposeStartedEvent.class,
+    handler.assertNextEvent( ComponentDisposeStartEvent.class,
                              e -> assertEquals( e.getComponentInfo().getName(), component.getName() ) );
 
     final String actionName = component.getName() + ".dispose";
-    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), actionName ) );
-    handler.assertNextEvent( TransactionStartedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class );
-    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), actionName ) );
-    handler.assertNextEvent( ComponentDisposeCompletedEvent.class,
+    handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), actionName ) );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), actionName ) );
+    handler.assertNextEvent( ComponentDisposeCompleteEvent.class,
                              e -> assertEquals( e.getComponentInfo().getName(), component.getName() ) );
   }
 

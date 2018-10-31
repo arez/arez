@@ -2,68 +2,68 @@
 [
     {
         "name": "FilterContext.1",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "FilterContext.1.filter",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "FilterContext.1",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Node.20",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "Node.20.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "Node.20",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Node.21",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "Node.21.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "Node.21",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Node.22",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "Node.22.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "Node.22",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Action@1",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -71,40 +71,40 @@
         "mutation": true,
         "name": "Action@1",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@1",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -112,14 +112,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@2",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -127,67 +127,67 @@
         "mutation": true,
         "name": "Action@2",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@2",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -195,14 +195,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@3",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -210,94 +210,94 @@
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.20.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.20.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -305,14 +305,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@4",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -320,18 +320,18 @@
         "mutation": true,
         "name": "Action@4",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "FilterContext.1.filter",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "o"
     },
     {
         "mutation": true,
         "name": "Action@4",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -339,14 +339,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@5",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -354,40 +354,40 @@
         "mutation": true,
         "name": "Action@5",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@5",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -395,14 +395,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@6",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -410,67 +410,67 @@
         "mutation": true,
         "name": "Action@6",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@6",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -478,14 +478,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@7",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -493,94 +493,94 @@
         "mutation": true,
         "name": "Action@7",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.20.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.20.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@7",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -588,14 +588,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@8",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -603,18 +603,18 @@
         "mutation": true,
         "name": "Action@8",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "FilterContext.1.filter",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "ob"
     },
     {
         "mutation": true,
         "name": "Action@8",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -622,14 +622,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@9",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -637,40 +637,40 @@
         "mutation": true,
         "name": "Action@9",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@9",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -678,14 +678,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@10",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -693,67 +693,67 @@
         "mutation": true,
         "name": "Action@10",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@10",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -761,14 +761,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@11",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -776,94 +776,94 @@
         "mutation": true,
         "name": "Action@11",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.20.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.20.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@11",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -871,14 +871,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@12",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -886,18 +886,18 @@
         "mutation": true,
         "name": "Action@12",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "FilterContext.1.filter",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "obb"
     },
     {
         "mutation": true,
         "name": "Action@12",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -905,14 +905,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@13",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -920,40 +920,40 @@
         "mutation": true,
         "name": "Action@13",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@13",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
@@ -961,14 +961,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@14",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -976,67 +976,67 @@
         "mutation": true,
         "name": "Action@14",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@14",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
@@ -1044,14 +1044,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@15",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1059,94 +1059,94 @@
         "mutation": true,
         "name": "Action@15",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.20.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "Node.20.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@15",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
@@ -1154,14 +1154,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@16",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1169,18 +1169,18 @@
         "mutation": true,
         "name": "Action@16",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "FilterContext.1.filter",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "ob"
     },
     {
         "mutation": true,
         "name": "Action@16",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1188,14 +1188,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@17",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1203,40 +1203,40 @@
         "mutation": true,
         "name": "Action@17",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@17",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -1244,14 +1244,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@18",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1259,67 +1259,67 @@
         "mutation": true,
         "name": "Action@18",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@18",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -1327,14 +1327,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Action@19",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1342,94 +1342,94 @@
         "mutation": true,
         "name": "Action@19",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.20.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.21.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Node.22.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.22.visible",
         "tracker": "Node.22.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.22.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.21.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.21.visible",
         "tracker": "Node.21.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.21.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Node.20.visible",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Node.20.visible",
         "tracker": "Node.20.visible",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Node.20.visible",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Action@19",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -1437,7 +1437,7 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     }

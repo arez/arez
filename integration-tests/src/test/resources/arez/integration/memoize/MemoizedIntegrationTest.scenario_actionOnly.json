@@ -2,24 +2,24 @@
 [
     {
         "name": "PersonModel.1",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "PersonModel.1.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.1.age",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.1",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Query 1",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -27,44 +27,44 @@
         "mutation": true,
         "name": "Query 1",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.1.doesSearchMatch.0",
         "tracker": "PersonModel.1.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "PersonModel.1.doesSearchMatch.0",
         "tracker": "PersonModel.1.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Query 1",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
@@ -72,14 +72,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -87,13 +87,13 @@
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -101,18 +101,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -120,18 +120,18 @@
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -139,14 +139,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -154,13 +154,13 @@
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -168,14 +168,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Query 2",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -183,44 +183,44 @@
         "mutation": true,
         "name": "Query 2",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.1.doesSearchMatch.1",
         "tracker": "PersonModel.1.doesSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "PersonModel.1.doesSearchMatch.1",
         "tracker": "PersonModel.1.doesSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.1.doesSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Query 2",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
@@ -228,14 +228,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": true,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -243,13 +243,13 @@
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -257,18 +257,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -276,18 +276,18 @@
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -295,14 +295,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -310,13 +310,13 @@
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -324,7 +324,7 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     }
