@@ -17,7 +17,7 @@ complete as there is too much un-said.
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
-* Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ObserveCompletedEvent`
+* Rename `ObserverError.REACTION_ERROR` to `ObserverError.OBSERVE_ERROR`
 
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
