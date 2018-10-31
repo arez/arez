@@ -6,7 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 @SuppressWarnings( "Duplicates" )
-public abstract class AbstractArezExtrasTest
+public abstract class AbstractSpyToolsTest
 {
   @BeforeMethod
   protected void beforeTest()

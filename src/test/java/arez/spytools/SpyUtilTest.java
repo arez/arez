@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class SpyUtilTest
-  extends AbstractArezExtrasTest
+  extends AbstractSpyToolsTest
 {
   @Test
   public void getNestingDelta()

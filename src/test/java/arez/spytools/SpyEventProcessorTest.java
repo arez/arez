@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class SpyEventProcessorTest
-  extends AbstractArezExtrasTest
+  extends AbstractSpyToolsTest
 {
   private class TestSpyEventProcessor
     extends AbstractSpyEventProcessor
