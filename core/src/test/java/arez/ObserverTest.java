@@ -11,6 +11,7 @@ import arez.spy.ObserveScheduledEvent;
 import arez.spy.ObserveStartedEvent;
 import arez.spy.ObserverCreatedEvent;
 import arez.spy.ObserverDisposedEvent;
+import arez.spy.ObserverErrorEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.TransactionCompletedEvent;
@@ -1221,6 +1222,7 @@ public class ObserverTest
     handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
     handler.assertNextEvent( ObserveCompletedEvent.class, e -> {
       assertEquals( e.getObserver().getName(), observer.getName() );
+      assertNull( e.getThrowable() );
       assertTrue( e.getDuration() > 0 );
     } );
   }
@@ -1355,7 +1357,9 @@ public class ObserverTest
 
     final RuntimeException exception = new RuntimeException( "X" );
 
-    Arez.context().addObserverErrorHandler( ( observer, error, throwable ) -> {
+    final ArezContext context = Arez.context();
+
+    context.addObserverErrorHandler( ( observer, error, throwable ) -> {
       errorCount.incrementAndGet();
       assertEquals( error, ObserverError.REACTION_ERROR );
       assertEquals( throwable, exception );
@@ -1372,18 +1376,37 @@ public class ObserverTest
       }
     };
 
-    final Observer observer =
-      new Observer( Arez.context(),
-                    null,
-                    ValueUtil.randomString(),
-                    observed,
-                    null,
-                    0 );
+    final Observer observer = context.observer( observed, Flags.RUN_LATER );
 
-    observer.invokeReaction();
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.triggerScheduler();
 
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( errorCount.get(), 1 );
+
+    handler.assertEventCount( 7 );
+
+    handler.assertNextEvent( ObserveStartedEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
+
+    handler.assertNextEvent( ActionStartedEvent.class );
+    handler.assertNextEvent( TransactionStartedEvent.class );
+    handler.assertNextEvent( TransactionCompletedEvent.class );
+    handler.assertNextEvent( ActionCompletedEvent.class );
+
+    handler.assertNextEvent( ObserverErrorEvent.class, e -> {
+      assertEquals( e.getObserver().getName(), observer.getName() );
+      assertEquals( e.getError(), ObserverError.REACTION_ERROR );
+      assertEquals( e.getThrowable(), exception );
+    } );
+
+    handler.assertNextEvent( ObserveCompletedEvent.class, e -> {
+      assertEquals( e.getObserver().getName(), observer.getName() );
+      assertEquals( e.getThrowable(), exception );
+      assertTrue( e.getDuration() >= 0 );
+    } );
   }
 
   @Test

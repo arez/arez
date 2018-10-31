@@ -89,6 +89,7 @@
     },
     {
         "name": "FirstNamePrinter1",
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "type": "ObserveCompleted"
     },
     {
@@ -140,6 +141,7 @@
     },
     {
         "name": "FirstNamePrinter2",
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "type": "ObserveCompleted"
     },
     {
@@ -191,6 +193,7 @@
     },
     {
         "name": "FullNamePrinter1",
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "type": "ObserveCompleted"
     },
     {
@@ -242,6 +245,7 @@
     },
     {
         "name": "FullNamePrinter2",
+        "errorMessage": "Arez-0015: Attempting to get current transaction but current transaction is for different context.",
         "type": "ObserveCompleted"
     },
     {

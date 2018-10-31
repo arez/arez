@@ -47,6 +47,7 @@
     },
     {
         "name": "ComponentCount",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -129,6 +130,7 @@
     },
     {
         "name": "ComponentCount",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -314,6 +316,7 @@
     },
     {
         "name": "ComponentCount",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -465,6 +468,7 @@
     },
     {
         "name": "ComponentCount",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]

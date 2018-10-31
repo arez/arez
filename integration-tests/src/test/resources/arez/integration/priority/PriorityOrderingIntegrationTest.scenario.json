@@ -125,6 +125,7 @@
     },
     {
         "name": "AR6",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -162,6 +163,7 @@
     },
     {
         "name": "AR2",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -199,6 +201,7 @@
     },
     {
         "name": "AR7",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -236,6 +239,7 @@
     },
     {
         "name": "AR4",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -273,6 +277,7 @@
     },
     {
         "name": "AR5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -310,6 +315,7 @@
     },
     {
         "name": "AR3",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -347,6 +353,7 @@
     },
     {
         "name": "AR1",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]

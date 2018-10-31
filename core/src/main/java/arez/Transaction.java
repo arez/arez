@@ -834,7 +834,7 @@ final class Transaction
     // tracking operation but they have had no chance to propagate staleness to this
     // observer so rectify this. This should NOT reschedule tracker.
     // NOTE: This must occur before subsequent observable.addObserver() calls
-    if ( !_tracker.isDisposedOrDisposing() && Flags.STATE_UP_TO_DATE != newDerivationState )
+    if ( _tracker.isNotDisposedOrDisposing() && Flags.STATE_UP_TO_DATE != newDerivationState )
     {
       if ( _tracker.getState() < newDerivationState )
       {

@@ -156,6 +156,7 @@
     },
     {
         "name": "TestComponent1.0.render",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]

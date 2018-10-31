@@ -296,7 +296,7 @@ public final class Observer
   @Override
   public void dispose()
   {
-    if ( !isDisposedOrDisposing() )
+    if ( isNotDisposedOrDisposing() )
     {
       getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                this::performDispose,
@@ -345,9 +345,9 @@ public final class Observer
     return Flags.STATE_DISPOSED == getState();
   }
 
-  boolean isDisposedOrDisposing()
+  boolean isNotDisposedOrDisposing()
   {
-    return Flags.STATE_DISPOSING >= getState();
+    return Flags.STATE_DISPOSING < getState();
   }
 
   /**
@@ -645,6 +645,7 @@ public final class Observer
       {
         start = 0;
       }
+      Throwable error = null;
       try
       {
         // ComputableValues may have calculated their values and thus be up to date so no need to recalculate.
@@ -676,6 +677,7 @@ public final class Observer
       }
       catch ( final Throwable t )
       {
+        error = t;
         getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
       }
       if ( willPropagateSpyEvents() )
@@ -691,7 +693,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ObserveCompletedEvent( asInfo(), (int) duration ) );
+          reportSpyEvent( new ObserveCompletedEvent( asInfo(), error, (int) duration ) );
         }
       }
     }

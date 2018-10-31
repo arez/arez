@@ -14,12 +14,12 @@ complete as there is too much un-said.
   `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
   backed by counter and only deactivates if counter is 0 and no listeners.
 
-* Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
-
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
-* Should `ObserverErrorEvent(ObserverError=REACTION_ERROR)` be merged into `ObserveCompletedEvent`
+* Rename `ObserverError.REACTION_ERROR` to `ObserverError.OBSERVE_ERROR`
+
+* Rename `Observer._observed` to `Observer._observerFunction` or similar
 
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`

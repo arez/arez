@@ -3,6 +3,7 @@ package arez.spy;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Notification when Observer completes method being observed.
@@ -12,12 +13,17 @@ public final class ObserveCompletedEvent
 {
   @Nonnull
   private final ObserverInfo _observer;
+  @Nullable
+  private final Throwable _throwable;
   private final int _duration;
 
-  public ObserveCompletedEvent( @Nonnull final ObserverInfo observer, final int duration )
+  public ObserveCompletedEvent( @Nonnull final ObserverInfo observer,
+                                @Nullable final Throwable throwable,
+                                final int duration )
   {
     assert duration >= 0;
     _observer = Objects.requireNonNull( observer );
+    _throwable = throwable;
     _duration = duration;
   }
 
@@ -25,6 +31,12 @@ public final class ObserveCompletedEvent
   public ObserverInfo getObserver()
   {
     return _observer;
+  }
+
+  @Nullable
+  public Throwable getThrowable()
+  {
+    return _throwable;
   }
 
   public int getDuration()
@@ -41,5 +53,9 @@ public final class ObserveCompletedEvent
     map.put( "type", "ObserveCompleted" );
     map.put( "name", getObserver().getName() );
     map.put( "duration", getDuration() );
+    final Throwable throwable = getThrowable();
+    final String message =
+      null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
+    map.put( "errorMessage", message );
   }
 }

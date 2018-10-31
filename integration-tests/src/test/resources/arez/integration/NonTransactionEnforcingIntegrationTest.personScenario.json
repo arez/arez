@@ -71,6 +71,7 @@
     },
     {
         "name": "FirstNamePrinter",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -151,6 +152,7 @@
     },
     {
         "name": "FullNamePrinter",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -238,6 +240,7 @@
     },
     {
         "name": "FirstNamePrinter",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -314,6 +317,7 @@
     },
     {
         "name": "FullNamePrinter",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -428,6 +432,7 @@
     },
     {
         "name": "FullNamePrinter",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]
