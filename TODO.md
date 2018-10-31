@@ -19,6 +19,8 @@ complete as there is too much un-said.
 
 * Rename `ObserverError.REACTION_ERROR` to `ObserverError.OBSERVE_ERROR`
 
+* Rename `Observer._observed` to `Observer._observerFunction` or similar
+
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
