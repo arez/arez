@@ -17,8 +17,6 @@ complete as there is too much un-said.
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
-* Rename `ObserverError.REACTION_ERROR` to `ObserverError.OBSERVE_ERROR`
-
 * Rename `Observer._observed` to `Observer._observerFunction` or similar
 
 * Investigate simplifying types via
