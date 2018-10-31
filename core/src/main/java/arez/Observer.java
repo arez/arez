@@ -45,17 +45,17 @@ public final class Observer
   @Nonnull
   private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
-   * Observed function to invoke if any.
-   * This may be null if external executor is responsible for executing the observed function via
+   * Observe function to invoke if any.
+   * This may be null if external executor is responsible for executing the observe function via
    * methods such as {@link ArezContext#observe(Observer, Function, Object...)}. If this is null then
    * {@link #_onDepsChange} must not be null.
    */
   @Nullable
-  private final Procedure _observed;
+  private final Procedure _observe;
   /**
    * Callback invoked when dependencies are updated.
-   * This may be null when the observer re-executes the observed function when dependencies change
-   * but in that case {@link #_observed} must not be null.
+   * This may be null when the observer re-executes the observe function when dependencies change
+   * but in that case {@link #_observe} must not be null.
    */
   @Nullable
   private final Procedure _onDepsChange;
@@ -94,7 +94,7 @@ public final class Observer
   Observer( @Nullable final ArezContext context,
             @Nullable final Component component,
             @Nullable final String name,
-            @Nullable final Procedure observed,
+            @Nullable final Procedure observe,
             @Nullable final Procedure onDepsChange,
             final int flags )
   {
@@ -102,12 +102,12 @@ public final class Observer
           component,
           name,
           null,
-          observed,
+          observe,
           onDepsChange,
           flags |
-          ( null == observed ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
-          ( null != observed ? Flags.ENVIRONMENT_REQUIRED : Flags.environmentFlag( flags ) ) |
-          Flags.runType( flags, null == observed ? Flags.RUN_LATER : Flags.RUN_NOW ) |
+          ( null == observe ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
+          ( null != observe ? Flags.ENVIRONMENT_REQUIRED : Flags.environmentFlag( flags ) ) |
+          Flags.runType( flags, null == observe ? Flags.RUN_LATER : Flags.RUN_NOW ) |
           Flags.priority( flags ) |
           Flags.nestedActionRule( flags ) |
           Flags.dependencyType( flags ) |
@@ -118,7 +118,7 @@ public final class Observer
                     @Nullable final Component component,
                     @Nullable final String name,
                     @Nullable final ComputableValue<?> computableValue,
-                    @Nullable final Procedure observed,
+                    @Nullable final Procedure observe,
                     @Nullable final Procedure onDepsChange,
                     final int flags )
   {
@@ -147,9 +147,9 @@ public final class Observer
       invariant( () -> Flags.isEnvironmentValid( flags ),
                  () -> "Arez-0121: Observer named '" + getName() + "' incorrectly specified both " +
                        "the ENVIRONMENT_REQUIRED flag and the ENVIRONMENT_NOT_REQUIRED flag." );
-      invariant( () -> 0 == ( flags & Flags.RUN_NOW ) || null != observed,
+      invariant( () -> 0 == ( flags & Flags.RUN_NOW ) || null != observe,
                  () -> "Arez-0206: Observer named '" + getName() + "' incorrectly specified " +
-                       "RUN_NOW flag but the observed function is null." );
+                       "RUN_NOW flag but the observe function is null." );
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
@@ -158,12 +158,12 @@ public final class Observer
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
                        "has no lower priority." );
-      invariant( () -> null != observed || null != onDepsChange,
+      invariant( () -> null != observe || null != onDepsChange,
                  () -> "Arez-0204: Observer named '" + getName() + "' has not supplied a value for either the " +
-                       "observed parameter or the onDepsChange parameter." );
+                       "observe parameter or the onDepsChange parameter." );
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
-      assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observed;
-      assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observed;
+      assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observe;
+      assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observe;
       invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
                           Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
                           null != computableValue ),
@@ -182,10 +182,10 @@ public final class Observer
     assert null == computableValue || !Arez.areNamesEnabled() || computableValue.getName().equals( name );
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _computableValue = computableValue;
-    _observed = observed;
+    _observe = observe;
     _onDepsChange = onDepsChange;
 
-    executeObservedNextIfPresent();
+    executeObserveNextIfPresent();
 
     if ( null == _computableValue )
     {
@@ -204,7 +204,7 @@ public final class Observer
       {
         getSpy().reportSpyEvent( new ObserverCreateEvent( asInfo() ) );
       }
-      if ( null != _observed )
+      if ( null != _observe )
       {
         initialSchedule();
       }
@@ -246,19 +246,19 @@ public final class Observer
 
   /**
    * Return true if the Observer supports invocations of {@link #schedule()} from non-arez code.
-   * This is true if both a {@link #_observed} and {@link #_onDepsChange} parameters
+   * This is true if both a {@link #_observe} and {@link #_onDepsChange} parameters
    * are provided at construction.
    */
   boolean supportsManualSchedule()
   {
     assert Arez.shouldCheckApiInvariants();
-    return null != _observed && null != _onDepsChange;
+    return null != _observe && null != _onDepsChange;
   }
 
   boolean isApplicationExecutor()
   {
     assert Arez.shouldCheckApiInvariants();
-    return null == _observed;
+    return null == _observe;
   }
 
   boolean nestedActionsAllowed()
@@ -594,7 +594,7 @@ public final class Observer
     {
       getContext().getTransaction().markTransactionAsUsed();
     }
-    executeObservedNextIfPresent();
+    executeObserveNextIfPresent();
     scheduleReaction();
     getContext().triggerScheduler();
   }
@@ -651,10 +651,10 @@ public final class Observer
         // ComputableValues may have calculated their values and thus be up to date so no need to recalculate.
         if ( Flags.STATE_UP_TO_DATE != getState() )
         {
-          if ( shouldExecuteObservedNext() )
+          if ( shouldExecuteObserveNext() )
           {
             executeOnDepsChangeNextIfPresent();
-            runObservedFunction();
+            runObserveFunction();
           }
           else
           {
@@ -662,7 +662,7 @@ public final class Observer
             _onDepsChange.call();
           }
         }
-        else if ( shouldExecuteObservedNext() )
+        else if ( shouldExecuteObserveNext() )
         {
           /*
            * The observer should invoke onDepsChange next if the following conditions hold.
@@ -699,28 +699,28 @@ public final class Observer
     }
   }
 
-  private void runObservedFunction()
+  private void runObserveFunction()
     throws Throwable
   {
-    assert null != _observed;
+    assert null != _observe;
     final Procedure action;
     if ( Arez.shouldCheckInvariants() && areArezDependenciesRequired() )
     {
       action = () -> {
-        _observed.call();
+        _observe.call();
         final Transaction current = Transaction.current();
 
         final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
-                         "completed observed function but is not observing any properties. As a result the observer " +
+                         "completed observe function but is not observing any properties. As a result the observer " +
                          "will never be rescheduled." );
       };
     }
     else
     {
-      action = _observed;
+      action = _observe;
     }
     getContext().rawObserve( this, action, null );
   }
@@ -969,9 +969,9 @@ public final class Observer
   }
 
   @Nullable
-  Procedure getObserved()
+  Procedure getObserve()
   {
-    return _observed;
+    return _observe;
   }
 
   @Nullable
@@ -985,16 +985,16 @@ public final class Observer
     return Flags.KEEPALIVE == Flags.getScheduleType( _flags );
   }
 
-  boolean shouldExecuteObservedNext()
+  boolean shouldExecuteObserveNext()
   {
-    return 0 != ( _flags & Flags.EXECUTE_OBSERVED_NEXT );
+    return 0 != ( _flags & Flags.EXECUTE_OBSERVE_NEXT );
   }
 
-  void executeObservedNextIfPresent()
+  void executeObserveNextIfPresent()
   {
-    if ( null != _observed )
+    if ( null != _observe )
     {
-      _flags |= Flags.EXECUTE_OBSERVED_NEXT;
+      _flags |= Flags.EXECUTE_OBSERVE_NEXT;
     }
   }
 
@@ -1002,7 +1002,7 @@ public final class Observer
   {
     if ( null != _onDepsChange )
     {
-      _flags &= ~Flags.EXECUTE_OBSERVED_NEXT;
+      _flags &= ~Flags.EXECUTE_OBSERVE_NEXT;
     }
   }
 }

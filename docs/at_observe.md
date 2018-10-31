@@ -2,9 +2,9 @@
 title: @Observe
 ---
 
-The {@api_url: annotations.Observe} annotation is used to define an observed method for an
+The {@api_url: annotations.Observe} annotation is used to define an observe method for an
 [observer](observers.md). Observers are typically used for querying arez state and reflecting
-that state as side-effects. As such the observed method defaults to being run in a read-only
+that state as side-effects. As such the observe method defaults to being run in a read-only
 [transaction](transactions.md) but this can be modified by setting the
 {@api_url: mutation::annotations.Observe::mutation()} parameter to `true` which will change the
 transaction mode to read-write.
@@ -35,10 +35,10 @@ could be achieved with code such as:
 
 {@file_content: file=arez/doc/examples/at_observe2/CurrencyView.java start_line=@ArezComponent}
 
-## Allowing the application to execute observed methods
+## Allowing the application to execute observe methods
 
 The [observers](observers.md) documentation describes "tracker" observers as those where the application
-is responsible for executing the observed method. This is useful when you need to integrate with other
+is responsible for executing the observe method. This is useful when you need to integrate with other
 frameworks that already contain their own scheduler.
 
 This is modelled with a pair of methods; one annotated with {@api_url: annotations.Observe} and one
