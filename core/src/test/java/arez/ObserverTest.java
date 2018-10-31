@@ -41,7 +41,7 @@ public class ObserverTest
     assertEquals( observer.getName(), name );
     assertEquals( observer.toString(), name );
 
-    assertTrue( observer.shouldExecuteObservedNext() );
+    assertTrue( observer.shouldExecuteObserveNext() );
 
     assertTrue( observer.isEnvironmentRequired() );
 
@@ -53,7 +53,7 @@ public class ObserverTest
 
     // Reaction attributes
     assertFalse( observer.isMutation() );
-    assertEquals( observer.getObserved(), observed );
+    assertEquals( observer.getObserve(), observed );
     assertEquals( observer.getOnDepsChange(), onDepsChange );
     assertTrue( observer.isScheduled() );
 
@@ -73,11 +73,11 @@ public class ObserverTest
     final CountingProcedure onDepsChange = new CountingProcedure();
     final Observer observer = new Observer( Arez.context(), null, ValueUtil.randomString(), null, onDepsChange, 0 );
 
-    assertFalse( observer.shouldExecuteObservedNext() );
+    assertFalse( observer.shouldExecuteObserveNext() );
 
     assertFalse( observer.isEnvironmentRequired() );
 
-    assertNull( observer.getObserved() );
+    assertNull( observer.getObserve() );
     assertEquals( observer.getOnDepsChange(), onDepsChange );
     assertFalse( observer.isComputableValue() );
     assertTrue( observer.isApplicationExecutor() );
@@ -90,7 +90,7 @@ public class ObserverTest
     final Observer observer = computableValue.getObserver();
 
     assertTrue( observer.isComputableValue() );
-    assertTrue( observer.shouldExecuteObservedNext() );
+    assertTrue( observer.shouldExecuteObserveNext() );
 
     assertFalse( observer.isEnvironmentRequired() );
 
@@ -113,7 +113,7 @@ public class ObserverTest
                                                 null,
                                                 0 ),
                             "Arez-0204: Observer named '" + name + "' has not supplied a value for either " +
-                            "the observed parameter or the onDepsChange parameter." );
+                            "the observe parameter or the onDepsChange parameter." );
   }
 
   @Test
@@ -190,7 +190,7 @@ public class ObserverTest
                                                 new CountingProcedure(),
                                                 Flags.RUN_NOW ),
                             "Arez-0206: Observer named '" + name + "' incorrectly specified RUN_NOW " +
-                            "flag but the observed function is null." );
+                            "flag but the observe function is null." );
   }
 
   @Test
@@ -1336,14 +1336,14 @@ public class ObserverTest
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
 
-    observer.executeObservedNextIfPresent();
+    observer.executeObserveNextIfPresent();
 
-    assertTrue( observer.shouldExecuteObservedNext() );
+    assertTrue( observer.shouldExecuteObserveNext() );
 
     //Invoke reaction - observer is uptodate
     observer.invokeReaction();
 
-    assertFalse( observer.shouldExecuteObservedNext() );
+    assertFalse( observer.shouldExecuteObserveNext() );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 0 );
   }

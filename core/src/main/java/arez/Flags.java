@@ -231,7 +231,7 @@ public final class Flags
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observed} or {@link Observer#_onDepsChange}.
    */
-  static final int EXECUTE_OBSERVED_NEXT = 1 << 10;
+  static final int EXECUTE_OBSERVE_NEXT = 1 << 10;
   /**
    * The observer has been scheduled.
    */
@@ -273,7 +273,7 @@ public final class Flags
   /**
    * Mask that identifies the bits associated with runtime configuration.
    */
-  static final int RUNTIME_FLAGS_MASK = EXECUTE_OBSERVED_NEXT | SCHEDULED | STATE_MASK;
+  static final int RUNTIME_FLAGS_MASK = EXECUTE_OBSERVE_NEXT | SCHEDULED | STATE_MASK;
 
   /**
    * Return true if flags contains priority.

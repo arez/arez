@@ -2541,7 +2541,7 @@ public class ArezContextTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Observer named 'Observer@22' that does not use an external executor completed observed function but is not observing any properties. As a result the observer will never be rescheduled." );
+                  "Observer: Observer@22 Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0172: Observer named 'Observer@22' that does not use an external executor completed observe function but is not observing any properties. As a result the observer will never be rescheduled." );
   }
 
   @Test
@@ -2583,7 +2583,7 @@ public class ArezContextTest
     assertFalse( observer.nestedActionsAllowed() );
     assertNull( observer.getOnDepsChange() );
     assertFalse( observer.isApplicationExecutor() );
-    assertEquals( observer.getObserved(), observed );
+    assertEquals( observer.getObserve(), observed );
     assertEquals( callCount.get(), 1 );
   }
 

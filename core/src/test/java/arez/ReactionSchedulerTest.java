@@ -383,7 +383,7 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = newReadWriteObserver( context );
-    final CountingProcedure observed = (CountingProcedure) observer.getObserved();
+    final CountingProcedure observed = (CountingProcedure) observer.getObserve();
     assertNotNull( observed );
 
     final CountingProcedure onDepsChange = (CountingProcedure) observer.getOnDepsChange();
@@ -428,7 +428,7 @@ public class ReactionSchedulerTest
     final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = newReadWriteObserver( context );
-    final CountingProcedure observed = (CountingProcedure) observer.getObserved();
+    final CountingProcedure observed = (CountingProcedure) observer.getObserve();
     assertNotNull( observed );
 
     setCurrentTransaction( observer );
