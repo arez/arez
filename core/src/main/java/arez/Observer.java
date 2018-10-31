@@ -1,11 +1,11 @@
 package arez;
 
-import arez.spy.ComputeCompletedEvent;
-import arez.spy.ComputeStartedEvent;
-import arez.spy.ObserveCompletedEvent;
-import arez.spy.ObserveStartedEvent;
-import arez.spy.ObserverCreatedEvent;
-import arez.spy.ObserverDisposedEvent;
+import arez.spy.ComputeCompleteEvent;
+import arez.spy.ComputeStartEvent;
+import arez.spy.ObserveCompleteEvent;
+import arez.spy.ObserveStartEvent;
+import arez.spy.ObserverCreateEvent;
+import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import java.util.ArrayList;
@@ -202,7 +202,7 @@ public final class Observer
     {
       if ( willPropagateSpyEvents() )
       {
-        getSpy().reportSpyEvent( new ObserverCreatedEvent( asInfo() ) );
+        getSpy().reportSpyEvent( new ObserverCreateEvent( asInfo() ) );
       }
       if ( null != _observed )
       {
@@ -305,7 +305,7 @@ public final class Observer
       {
         if ( willPropagateSpyEvents() )
         {
-          reportSpyEvent( new ObserverDisposedEvent( asInfo() ) );
+          reportSpyEvent( new ObserverDisposeEvent( asInfo() ) );
         }
         if ( null != _component )
         {
@@ -634,11 +634,11 @@ public final class Observer
         start = System.currentTimeMillis();
         if ( isComputableValue() )
         {
-          reportSpyEvent( new ComputeStartedEvent( getComputableValue().asInfo() ) );
+          reportSpyEvent( new ComputeStartEvent( getComputableValue().asInfo() ) );
         }
         else
         {
-          reportSpyEvent( new ObserveStartedEvent( asInfo() ) );
+          reportSpyEvent( new ObserveStartEvent( asInfo() ) );
         }
       }
       else
@@ -686,14 +686,14 @@ public final class Observer
         if ( isComputableValue() )
         {
           final ComputableValue<?> computableValue = getComputableValue();
-          reportSpyEvent( new ComputeCompletedEvent( computableValue.asInfo(),
+          reportSpyEvent( new ComputeCompleteEvent( computableValue.asInfo(),
                                                      noReportResults() ? null : computableValue.getValue(),
-                                                     computableValue.getError(),
-                                                     (int) duration ) );
+                                                    computableValue.getError(),
+                                                    (int) duration ) );
         }
         else
         {
-          reportSpyEvent( new ObserveCompletedEvent( asInfo(), error, (int) duration ) );
+          reportSpyEvent( new ObserveCompleteEvent( asInfo(), error, (int) duration ) );
         }
       }
     }

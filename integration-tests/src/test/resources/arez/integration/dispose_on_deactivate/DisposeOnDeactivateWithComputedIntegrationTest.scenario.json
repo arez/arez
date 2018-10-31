@@ -2,91 +2,91 @@
 [
     {
         "name": "Model1.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "Model1.0.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "Model1.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Model2.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "Model2.0.isDisposed",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model2.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model2.0.someValue",
         "tracker": "Model2.0.someValue",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 21
     },
     {
         "mutation": false,
         "name": "Model2.0.someValue",
         "tracker": "Model2.0.someValue",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": 21,
         "name": "Model2.0.someValue",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Model3.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model3.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Model3.0.myAutorun",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -94,40 +94,40 @@
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "Model2.0.disposeOnDeactivate",
         "tracker": "Model2.0.disposeOnDeactivate",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "Model2.0.disposeOnDeactivate",
         "tracker": "Model2.0.disposeOnDeactivate",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "Model2.0.disposeOnDeactivate",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -135,19 +135,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model3.0.myAutorun",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "MyAction",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -155,26 +155,26 @@
         "mutation": true,
         "name": "MyAction",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model1.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Hello"
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "MyAction",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -182,18 +182,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Model3.0.myAutorun",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -201,22 +201,22 @@
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model1.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Blah"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -224,23 +224,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model3.0.myAutorun",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Model2.0",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "Model2.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -248,12 +248,12 @@
         "mutation": true,
         "name": "Model2.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "Model2.0.disposeOnDeactivate.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -263,24 +263,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "Model2.0.disposeOnDeactivate.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.disposeOnDeactivate",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -289,14 +289,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.disposeOnDeactivate.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -306,14 +306,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.someValue.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -323,24 +323,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "Model2.0.someValue.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.someValue",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -349,14 +349,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.someValue.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -366,20 +366,20 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.isDisposed.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.isDisposed",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
@@ -388,19 +388,19 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0.isDisposed",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
         "name": "Model2.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -408,22 +408,22 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model2.0",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     },
     {
         "name": "Model3.0.myAutorun",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Model3.0.myAutorun",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -431,13 +431,13 @@
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "Model3.0.myAutorun",
         "tracker": "Model3.0.myAutorun",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -445,13 +445,13 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Model3.0.myAutorun",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     }
 ]

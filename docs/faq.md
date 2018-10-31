@@ -85,7 +85,7 @@ difference is how the state is mutated within `rideTrain()` method.
 
 In many state management frameworks, notifications of change are accompanied by a description
 of change but not so in Arez. For example in Arez the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()}
-method accepts no change description, the {@api_url: spy.ObservableValueChangedEvent} class
+method accepts no change description, the {@api_url: spy.ObservableValueChangeEvent} class
 has no description of a change and there is no way for an {@api_url: Observer} to receive changes.
 
 The reason is that change descriptions seem to be used as an optimization strategy needed in very specific

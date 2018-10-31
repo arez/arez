@@ -2,36 +2,36 @@
 [
     {
         "name": "PersonModel.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.0.age",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -39,42 +39,42 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@1",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "type": "usermark",
@@ -84,7 +84,7 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -92,31 +92,31 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - ill",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "SearchResult - ill",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "SearchResult - ill",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - ill",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -124,42 +124,42 @@
         "mutation": false,
         "name": "SearchResult - ill",
         "tracker": "SearchResult - ill",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@2",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.0.doesSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "type": "usermark",
@@ -169,7 +169,7 @@
         "mutation": false,
         "name": "SearchResult - ill",
         "tracker": "SearchResult - ill",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -177,31 +177,31 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - ill",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 20",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -209,42 +209,42 @@
         "mutation": false,
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@3",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "type": "usermark",
@@ -254,7 +254,7 @@
         "mutation": false,
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -262,31 +262,31 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 20",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 5",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -294,42 +294,42 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@4",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "type": "usermark",
@@ -339,7 +339,7 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -347,19 +347,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 5",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Update 0",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -367,34 +367,34 @@
         "mutation": true,
         "name": "Update 0",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Gill"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Update 0",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -402,102 +402,102 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "PersonModel.0.doesSearchMatch.1",
-        "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "PersonModel.0.doesSearchMatch.1",
+        "tracker": "PersonModel.0.doesSearchMatch.1",
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.0.doesSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "PersonModel.0.doesFullSearchMatch.1",
-        "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "PersonModel.0.doesFullSearchMatch.1",
+        "tracker": "PersonModel.0.doesFullSearchMatch.1",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Update 1",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -505,34 +505,34 @@
         "mutation": true,
         "name": "Update 1",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Fred"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Update 1",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -540,133 +540,133 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.0.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "SearchResult - ill",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "PersonModel.0.doesFullSearchMatch.0",
-        "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "PersonModel.0.doesFullSearchMatch.0",
+        "tracker": "PersonModel.0.doesFullSearchMatch.0",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -674,11 +674,11 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@5",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -688,7 +688,7 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -696,23 +696,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - ill",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - ill",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -720,11 +720,11 @@
         "mutation": false,
         "name": "SearchResult - ill",
         "tracker": "SearchResult - ill",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@6",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -734,7 +734,7 @@
         "mutation": false,
         "name": "SearchResult - ill",
         "tracker": "SearchResult - ill",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -742,23 +742,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - ill",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 5",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -766,11 +766,11 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@7",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -780,7 +780,7 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -788,19 +788,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 5",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Update 2",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -808,34 +808,34 @@
         "mutation": true,
         "name": "Update 2",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Donald"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Update 2",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -843,124 +843,124 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "tracker": "PersonModel.0.doesSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "PersonModel.0.doesFullSearchMatch.0",
-        "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "PersonModel.0.doesFullSearchMatch.0",
+        "tracker": "PersonModel.0.doesFullSearchMatch.0",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -968,11 +968,11 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@8",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -982,7 +982,7 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -990,23 +990,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 5",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1014,11 +1014,11 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@9",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -1028,7 +1028,7 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1036,19 +1036,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 5",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - ill.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1056,13 +1056,13 @@
         "mutation": true,
         "name": "SearchResult - ill.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "SearchResult - ill.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1070,14 +1070,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1085,13 +1085,13 @@
         "mutation": true,
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1099,18 +1099,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1118,18 +1118,18 @@
         "mutation": true,
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "mutation": true,
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1137,14 +1137,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1152,13 +1152,13 @@
         "mutation": true,
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "PersonModel.0.doesSearchMatch.1.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1166,18 +1166,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - ill",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "Update 3",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1185,30 +1185,30 @@
         "mutation": true,
         "name": "Update 3",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Fred"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Update 3",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1216,102 +1216,102 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.0.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "PersonModel.0.doesFullSearchMatch.0",
-        "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "PersonModel.0.doesFullSearchMatch.0",
+        "tracker": "PersonModel.0.doesFullSearchMatch.0",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": true
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": true,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1319,11 +1319,11 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@10",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -1333,7 +1333,7 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1341,23 +1341,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 5",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1365,11 +1365,11 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@11",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -1379,7 +1379,7 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1387,19 +1387,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 5",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Update 3",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1407,30 +1407,30 @@
         "mutation": true,
         "name": "Update 3",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Bill"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Update 3",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1438,102 +1438,102 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "tracker": "PersonModel.0.doesSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputeStarted"
-    },
-    {
-        "mutation": false,
-        "name": "PersonModel.0.doesFullSearchMatch.0",
-        "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "tracker": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "TransactionCompleted"
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "PersonModel.0.doesFullSearchMatch.0",
+        "tracker": "PersonModel.0.doesFullSearchMatch.0",
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.0",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": false
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "tracker": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": false,
         "name": "PersonModel.0.doesFullSearchMatch.1",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1541,11 +1541,11 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@12",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -1555,7 +1555,7 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1563,23 +1563,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 5",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1587,11 +1587,11 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@13",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -1601,7 +1601,7 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1609,23 +1609,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 5",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "PersonModel.0",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "PersonModel.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1633,12 +1633,12 @@
         "mutation": true,
         "name": "PersonModel.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1648,29 +1648,29 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "result": null,
@@ -1678,14 +1678,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1695,14 +1695,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1712,29 +1712,29 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "result": null,
@@ -1742,14 +1742,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1759,14 +1759,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1776,29 +1776,29 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "result": null,
@@ -1806,14 +1806,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.doesFullSearchMatch.1.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1823,20 +1823,20 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.name.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "Bill"
     },
     {
@@ -1845,24 +1845,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.name",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "PersonModel.0.age.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.age",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 15
     },
     {
@@ -1871,19 +1871,19 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "PersonModel.0.age",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
         "name": "PersonModel.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1891,18 +1891,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1910,17 +1910,17 @@
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@14",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "mutation": false,
         "name": "SearchResult - red",
         "tracker": "SearchResult - red",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1928,23 +1928,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 20",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 20",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1952,17 +1952,17 @@
         "mutation": false,
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@15",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "mutation": false,
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -1970,23 +1970,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 20",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "SearchResult - red - 5",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "SearchResult - red - 5",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -1994,17 +1994,17 @@
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@16",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "mutation": false,
         "name": "SearchResult - red - 5",
         "tracker": "SearchResult - red - 5",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -2012,17 +2012,17 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "SearchResult - red - 5",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "PersonModel.0",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     }
 ]

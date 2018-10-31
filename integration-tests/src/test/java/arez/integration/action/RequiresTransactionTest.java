@@ -8,11 +8,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ObservableValueChangedEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ObservableValueChangeEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -49,14 +49,14 @@ public class RequiresTransactionTest
     component.myAction();
 
     recorder.assertEventCount( 5 );
-    recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
-    recorder.assertNextEvent( TransactionStartedEvent.class,
+    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
+    recorder.assertNextEvent( TransactionStartEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
-    recorder.assertNextEvent( ObservableValueChangedEvent.class,
+    recorder.assertNextEvent( ObservableValueChangeEvent.class,
                               a -> assertEquals( a.getObservableValue().getName(), "MyComponent.0.time" ) );
-    recorder.assertNextEvent( TransactionCompletedEvent.class,
+    recorder.assertNextEvent( TransactionCompleteEvent.class,
                               a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
-    recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
+    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyComponent.0.myAction" ) );
   }
 
   @ArezComponent
@@ -88,14 +88,14 @@ public class RequiresTransactionTest
     context.safeAction( "MyWrapperAction", component::myAction, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     recorder.assertEventCount( 7 );
-    recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( TransactionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
-    recorder.assertNextEvent( ObservableValueChangedEvent.class,
+    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( TransactionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
+    recorder.assertNextEvent( ObservableValueChangeEvent.class,
                               a -> assertEquals( a.getObservableValue().getName(), "MyComponent2.0.time" ) );
-    recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
-    recorder.assertNextEvent( TransactionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyComponent2.0.myAction" ) );
+    recorder.assertNextEvent( TransactionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
   }
 
   @ArezComponent
@@ -128,11 +128,11 @@ public class RequiresTransactionTest
                      "Arez-0119: Attempting to create READ_WRITE transaction named 'MyComponent3.0.myAction' but it is nested in transaction named 'MyWrapperAction' with mode READ_ONLY which is not equal to READ_WRITE." );
 
     recorder.assertEventCount( 6 );
-    recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( TransactionStartedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionStartedEvent.class, a -> assertEquals( a.getName(), "MyComponent3.0.myAction" ) );
-    recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyComponent3.0.myAction" ) );
-    recorder.assertNextEvent( TransactionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionCompletedEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( TransactionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyComponent3.0.myAction" ) );
+    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyComponent3.0.myAction" ) );
+    recorder.assertNextEvent( TransactionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
+    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
   }
 }

@@ -1,7 +1,7 @@
 package arez;
 
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -2320,7 +2320,7 @@ public class TransactionTest
     Transaction.begin( context, name, false, null );
 
     handler.assertEventCount( 1 );
-    handler.assertNextEvent( TransactionStartedEvent.class, event -> {
+    handler.assertNextEvent( TransactionStartEvent.class, event -> {
       assertEquals( event.getName(), name );
       assertFalse( event.isMutation() );
       assertNull( event.getTracker() );
@@ -2531,7 +2531,7 @@ public class TransactionTest
     Transaction.commit( transaction );
 
     handler.assertEventCount( 1 );
-    handler.assertNextEvent( TransactionCompletedEvent.class, event -> {
+    handler.assertNextEvent( TransactionCompleteEvent.class, event -> {
       assertEquals( event.getName(), name );
       assertFalse( event.isMutation() );
       assertNull( event.getTracker() );

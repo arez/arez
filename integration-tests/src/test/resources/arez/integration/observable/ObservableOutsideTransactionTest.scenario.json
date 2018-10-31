@@ -2,32 +2,32 @@
 [
     {
         "name": "MyComponent.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "MyComponent.0.time",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "MyComponent.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Observer@1",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "Observer@1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Observer@1",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Observer@1",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -35,17 +35,17 @@
         "mutation": false,
         "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@2",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "mutation": false,
         "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -53,19 +53,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Observer@1",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Action@3",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -73,22 +73,22 @@
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "MyComponent.0.time",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 37
     },
     {
         "name": "Observer@1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@3",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -96,18 +96,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Observer@1",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Observer@1",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -115,17 +115,17 @@
         "mutation": false,
         "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@4",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "mutation": false,
         "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -133,19 +133,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Observer@1",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Action@5",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -153,22 +153,22 @@
         "mutation": true,
         "name": "Action@5",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "MyComponent.0.time",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 42
     },
     {
         "name": "Observer@1",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Action@5",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -176,18 +176,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Observer@1",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Observer@1",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -195,17 +195,17 @@
         "mutation": false,
         "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@6",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "mutation": false,
         "name": "Observer@1",
         "tracker": "Observer@1",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -213,13 +213,13 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Observer@1",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     }
 ]

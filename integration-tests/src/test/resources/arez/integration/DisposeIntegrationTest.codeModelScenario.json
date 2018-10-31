@@ -2,44 +2,44 @@
 [
     {
         "name": "CodeModel.0",
-        "type": "ComponentCreateStarted"
+        "type": "ComponentCreateStart"
     },
     {
         "name": "CodeModel.0.name",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "CodeModel.0.packageName",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputableValueCreated"
+        "type": "ComputableValueCreate"
     },
     {
         "name": "CodeModel.0",
-        "type": "ComponentCreateCompleted"
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Printer",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "Printer",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "Printer",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Printer",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -47,38 +47,38 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@1",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "com.example.MyType"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": "com.example.MyType",
         "name": "CodeModel.0.qualifiedName",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "type": "usermark",
@@ -88,7 +88,7 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -96,19 +96,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Printer",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Specific Qualified Name",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -116,22 +116,22 @@
         "mutation": true,
         "name": "Specific Qualified Name",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "com.biz.Fred"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Specific Qualified Name",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -139,49 +139,49 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "com.biz.Fred"
     },
     {
         "name": "Printer",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": "com.biz.Fred",
         "name": "CodeModel.0.qualifiedName",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Printer",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Printer",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -189,11 +189,11 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@2",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -203,7 +203,7 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -211,19 +211,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Printer",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Reset Qualified Name to default",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -231,22 +231,22 @@
         "mutation": true,
         "name": "Reset Qualified Name to default",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Reset Qualified Name to default",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -254,49 +254,49 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "com.example.MyType"
     },
     {
         "name": "Printer",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": "com.example.MyType",
         "name": "CodeModel.0.qualifiedName",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Printer",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Printer",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -304,11 +304,11 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@3",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -318,7 +318,7 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -326,19 +326,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Printer",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Change Local Name",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -346,22 +346,22 @@
         "mutation": true,
         "name": "Change Local Name",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "MyType2"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "Change Local Name",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -369,49 +369,49 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputeStarted"
+        "type": "ComputeStart"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "com.example.MyType2"
     },
     {
         "name": "Printer",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": false,
         "name": "CodeModel.0.qualifiedName",
         "tracker": "CodeModel.0.qualifiedName",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": "com.example.MyType2",
         "name": "CodeModel.0.qualifiedName",
         "errorMessage": null,
-        "type": "ComputeCompleted"
+        "type": "ComputeComplete"
     },
     {
         "name": "Printer",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "Printer",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -419,11 +419,11 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@4",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -433,7 +433,7 @@
         "mutation": false,
         "name": "Printer",
         "tracker": "Printer",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -441,19 +441,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Printer",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "Printer.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -461,13 +461,13 @@
         "mutation": true,
         "name": "Printer.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "mutation": true,
         "name": "Printer.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -475,22 +475,22 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "Printer",
-        "type": "ObserverDisposed"
+        "type": "ObserverDispose"
     },
     {
         "name": "CodeModel.0",
-        "type": "ComponentDisposeStarted"
+        "type": "ComponentDisposeStart"
     },
     {
         "name": "CodeModel.0.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -498,12 +498,12 @@
         "mutation": true,
         "name": "CodeModel.0.dispose",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "CodeModel.0.qualifiedName.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -513,24 +513,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ComputableValueDisposed"
+        "type": "ComputableValueDispose"
     },
     {
         "name": "CodeModel.0.qualifiedName.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.qualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -539,14 +539,14 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.qualifiedName.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -556,20 +556,20 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.name.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.name",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "MyType2"
     },
     {
@@ -578,24 +578,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.name",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "CodeModel.0.packageName.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.packageName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": "com.example"
     },
     {
@@ -604,24 +604,24 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.packageName",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "name": "CodeModel.0.rawQualifiedName.dispose",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": null
     },
     {
@@ -630,19 +630,19 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0.rawQualifiedName",
-        "type": "ObservableValueDisposed"
+        "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
         "name": "CodeModel.0.dispose",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -650,12 +650,12 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "CodeModel.0",
-        "type": "ComponentDisposeCompleted"
+        "type": "ComponentDisposeComplete"
     }
 ]

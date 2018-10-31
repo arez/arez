@@ -1,13 +1,13 @@
 package arez;
 
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComputableValueDisposedEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
-import arez.spy.ObservableValueChangedEvent;
+import arez.spy.ObservableValueChangeEvent;
 import arez.spy.Priority;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -419,25 +419,25 @@ public class ComputableValueTest
 
     // This is the part that disposes the associated ComputableValue
     final String disposeAction = computableValue.getName() + ".dispose";
-    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ComputableValueDisposedEvent.class,
+    handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ComputableValueDisposeEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computableValue.getName() ) );
 
     // This is the part that disposes the associated ObservableValue
-    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ObservableValueChangedEvent.class );
-    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
 
     // This is the part that disposes the Observer
-    handler.assertNextEvent( ActionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionStartedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( TransactionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
-    handler.assertNextEvent( ActionCompletedEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
+    handler.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), disposeAction ) );
   }
 
   @Test

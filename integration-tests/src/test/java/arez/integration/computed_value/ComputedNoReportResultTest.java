@@ -7,13 +7,13 @@ import arez.annotations.Computed;
 import arez.annotations.DepType;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComputeCompletedEvent;
-import arez.spy.ComputeStartedEvent;
-import arez.spy.ObservableValueChangedEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComputeCompleteEvent;
+import arez.spy.ComputeStartEvent;
+import arez.spy.ObservableValueChangeEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -35,19 +35,19 @@ public class ComputedNoReportResultTest
     safeAction( element::getComputed );
 
     recorder.assertEventCount( 9 );
-    recorder.assertNextEvent( ActionStartedEvent.class );
-    recorder.assertNextEvent( TransactionStartedEvent.class );
+    recorder.assertNextEvent( ActionStartEvent.class );
+    recorder.assertNextEvent( TransactionStartEvent.class );
 
-    recorder.assertNextEvent( ComputeStartedEvent.class );
-    recorder.assertNextEvent( TransactionStartedEvent.class );
+    recorder.assertNextEvent( ComputeStartEvent.class );
+    recorder.assertNextEvent( TransactionStartEvent.class );
 
-    recorder.assertNextEvent( ObservableValueChangedEvent.class );
+    recorder.assertNextEvent( ObservableValueChangeEvent.class );
 
-    recorder.assertNextEvent( TransactionCompletedEvent.class );
-    recorder.assertNextEvent( ComputeCompletedEvent.class, a -> assertNull( a.getResult() ) );
+    recorder.assertNextEvent( TransactionCompleteEvent.class );
+    recorder.assertNextEvent( ComputeCompleteEvent.class, a -> assertNull( a.getResult() ) );
 
-    recorder.assertNextEvent( TransactionCompletedEvent.class );
-    recorder.assertNextEvent( ActionCompletedEvent.class );
+    recorder.assertNextEvent( TransactionCompleteEvent.class );
+    recorder.assertNextEvent( ActionCompleteEvent.class );
   }
 
   @ArezComponent

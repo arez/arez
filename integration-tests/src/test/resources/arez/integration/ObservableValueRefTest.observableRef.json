@@ -2,20 +2,20 @@
 [
     {
         "name": "TransportType",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "TransportType",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "TransportType",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TransportType",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -23,11 +23,11 @@
         "mutation": false,
         "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@2",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -37,7 +37,7 @@
         "mutation": false,
         "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -45,31 +45,31 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TransportType",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "ResolvedType",
-        "type": "ObserverCreated"
+        "type": "ObserverCreate"
     },
     {
         "name": "ResolvedType",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "ResolvedType",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "ResolvedType",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -77,11 +77,11 @@
         "mutation": false,
         "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@3",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -91,7 +91,7 @@
         "mutation": false,
         "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -99,19 +99,19 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "ResolvedType",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "ID Update",
         "tracked": false,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -119,26 +119,26 @@
         "mutation": true,
         "name": "ID Update",
         "tracker": null,
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "TestComponent.0.otherID",
-        "type": "ObservableValueChanged",
+        "type": "ObservableValueChange",
         "value": 22
     },
     {
         "name": "TransportType",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "name": "ResolvedType",
-        "type": "ObserveScheduled"
+        "type": "ObserveSchedule"
     },
     {
         "mutation": true,
         "name": "ID Update",
         "tracker": null,
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -146,18 +146,18 @@
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TransportType",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "TransportType",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -165,11 +165,11 @@
         "mutation": false,
         "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@4",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -179,7 +179,7 @@
         "mutation": false,
         "name": "TransportType",
         "tracker": "TransportType",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -187,23 +187,23 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "TransportType",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     },
     {
         "name": "ResolvedType",
-        "type": "ObserveStarted"
+        "type": "ObserveStart"
     },
     {
         "name": "ResolvedType",
         "tracked": true,
-        "type": "ActionStarted",
+        "type": "ActionStart",
         "parameters": [
         ]
     },
@@ -211,11 +211,11 @@
         "mutation": false,
         "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionStarted"
+        "type": "TransactionStart"
     },
     {
         "name": "ObservableValue@5",
-        "type": "ObservableValueCreated"
+        "type": "ObservableValueCreate"
     },
     {
         "type": "usermark",
@@ -225,7 +225,7 @@
         "mutation": false,
         "name": "ResolvedType",
         "tracker": "ResolvedType",
-        "type": "TransactionCompleted"
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -233,13 +233,13 @@
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
-        "type": "ActionCompleted",
+        "type": "ActionComplete",
         "parameters": [
         ]
     },
     {
         "name": "ResolvedType",
         "errorMessage": null,
-        "type": "ObserveCompleted"
+        "type": "ObserveComplete"
     }
 ]
