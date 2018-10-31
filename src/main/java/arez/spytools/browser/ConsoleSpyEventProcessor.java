@@ -1,29 +1,29 @@
 package arez.spytools.browser;
 
 import arez.Arez;
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComponentCreateCompletedEvent;
-import arez.spy.ComponentCreateStartedEvent;
-import arez.spy.ComponentDisposeCompletedEvent;
-import arez.spy.ComponentDisposeStartedEvent;
-import arez.spy.ComputableValueActivatedEvent;
-import arez.spy.ComputableValueCreatedEvent;
-import arez.spy.ComputableValueDeactivatedEvent;
-import arez.spy.ComputableValueDisposedEvent;
-import arez.spy.ComputeCompletedEvent;
-import arez.spy.ComputeStartedEvent;
-import arez.spy.ObservableValueChangedEvent;
-import arez.spy.ObservableValueCreatedEvent;
-import arez.spy.ObservableValueDisposedEvent;
-import arez.spy.ObserveCompletedEvent;
-import arez.spy.ObserveScheduledEvent;
-import arez.spy.ObserveStartedEvent;
-import arez.spy.ObserverCreatedEvent;
-import arez.spy.ObserverDisposedEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComponentCreateCompleteEvent;
+import arez.spy.ComponentCreateStartEvent;
+import arez.spy.ComponentDisposeCompleteEvent;
+import arez.spy.ComponentDisposeStartEvent;
+import arez.spy.ComputableValueActivateEvent;
+import arez.spy.ComputableValueCreateEvent;
+import arez.spy.ComputableValueDeactivateEvent;
+import arez.spy.ComputableValueDisposeEvent;
+import arez.spy.ComputeCompleteEvent;
+import arez.spy.ComputeStartEvent;
+import arez.spy.ObservableValueChangeEvent;
+import arez.spy.ObservableValueCreateEvent;
+import arez.spy.ObservableValueDisposeEvent;
+import arez.spy.ObserveCompleteEvent;
+import arez.spy.ObserveScheduleEvent;
+import arez.spy.ObserveStartEvent;
+import arez.spy.ObserverCreateEvent;
+import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
 import elemental2.core.Global;
@@ -69,105 +69,105 @@ public class ConsoleSpyEventProcessor
    */
   public ConsoleSpyEventProcessor()
   {
-    on( ComponentCreateStartedEvent.class, this::onComponentCreateStarted );
-    on( ComponentCreateCompletedEvent.class, this::onComponentCreateCompletedEvent );
-    on( ComponentDisposeStartedEvent.class, this::onComponentDisposeStarted );
-    on( ComponentDisposeCompletedEvent.class, this::onComponentDisposeCompleted );
+    on( ComponentCreateStartEvent.class, this::onComponentCreateStart );
+    on( ComponentCreateCompleteEvent.class, this::onComponentCreateCompleteEvent );
+    on( ComponentDisposeStartEvent.class, this::onComponentDisposeStart );
+    on( ComponentDisposeCompleteEvent.class, this::onComponentDisposeComplete );
 
-    on( ObserverCreatedEvent.class, this::onObserverCreated );
-    on( ObserverDisposedEvent.class, this::onObserverDisposed );
+    on( ObserverCreateEvent.class, this::onObserverCreate );
+    on( ObserverDisposeEvent.class, this::onObserverDispose );
     on( ObserverErrorEvent.class, this::onObserverError );
 
-    on( ObservableValueCreatedEvent.class, this::onObservableValueCreated );
-    on( ObservableValueDisposedEvent.class, this::onObservableValueDisposed );
-    on( ObservableValueChangedEvent.class, this::onObservableValueChanged );
+    on( ObservableValueCreateEvent.class, this::onObservableValueCreate );
+    on( ObservableValueDisposeEvent.class, this::onObservableValueDispose );
+    on( ObservableValueChangeEvent.class, this::onObservableValueChange );
 
-    on( ComputableValueCreatedEvent.class, this::onComputableValueCreated );
-    on( ComputableValueActivatedEvent.class, this::onComputableValueActivated );
-    on( ComputeStartedEvent.class, this::onComputeStarted );
-    on( ComputeCompletedEvent.class, this::onComputeCompleted );
-    on( ComputableValueDeactivatedEvent.class, this::onComputableValueDeactivated );
-    on( ComputableValueDisposedEvent.class, this::onComputableValueDisposed );
+    on( ComputableValueCreateEvent.class, this::onComputableValueCreate );
+    on( ComputableValueActivateEvent.class, this::onComputableValueActivate );
+    on( ComputeStartEvent.class, this::onComputeStart );
+    on( ComputeCompleteEvent.class, this::onComputeComplete );
+    on( ComputableValueDeactivateEvent.class, this::onComputableValueDeactivate );
+    on( ComputableValueDisposeEvent.class, this::onComputableValueDispose );
 
-    on( ObserveScheduledEvent.class, this::onObserveScheduled );
-    on( ObserveStartedEvent.class, this::onObserveStarted );
-    on( ObserveCompletedEvent.class, this::onObserveCompleted );
+    on( ObserveScheduleEvent.class, this::onObserveSchedule );
+    on( ObserveStartEvent.class, this::onObserveStart );
+    on( ObserveCompleteEvent.class, this::onObserveComplete );
 
-    on( TransactionStartedEvent.class, this::TransactionStarted );
-    on( TransactionCompletedEvent.class, this::onTransactionCompleted );
+    on( TransactionStartEvent.class, this::TransactionStart );
+    on( TransactionCompleteEvent.class, this::onTransactionComplete );
 
-    on( ActionStartedEvent.class, this::onActionStarted );
-    on( ActionCompletedEvent.class, this::onActionCompleted );
+    on( ActionStartEvent.class, this::onActionStart );
+    on( ActionCompleteEvent.class, this::onActionComplete );
   }
 
   /**
-   * Handle the ComponentCreateStartedEvent.
+   * Handle the ComponentCreateStartEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComponentCreateStarted( @Nonnull final SpyUtil.NestingDelta d,
-                                           @Nonnull final ComponentCreateStartedEvent e )
+  protected void onComponentCreateStart( @Nonnull final SpyUtil.NestingDelta d,
+                                         @Nonnull final ComponentCreateStartEvent e )
   {
-    log( d, "%cComponent Create Started " + e.getComponentInfo().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Create Start " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
-   * Handle the ComponentCreateCompletedEvent.
+   * Handle the ComponentCreateCompleteEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComponentCreateCompletedEvent( @Nonnull final SpyUtil.NestingDelta d,
-                                                  @Nonnull final ComponentCreateCompletedEvent e )
+  protected void onComponentCreateCompleteEvent( @Nonnull final SpyUtil.NestingDelta d,
+                                                 @Nonnull final ComponentCreateCompleteEvent e )
   {
-    log( d, "%cComponent Create Completed " + e.getComponentInfo().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Create Complete " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
-   * Handle the ComponentDisposeStartedEvent.
+   * Handle the ComponentDisposeStartEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComponentDisposeStarted( @Nonnull final SpyUtil.NestingDelta d,
-                                            @Nonnull final ComponentDisposeStartedEvent e )
+  protected void onComponentDisposeStart( @Nonnull final SpyUtil.NestingDelta d,
+                                          @Nonnull final ComponentDisposeStartEvent e )
   {
-    log( d, "%cComponent Dispose Started " + e.getComponentInfo().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Dispose Start " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
-   * Handle the ComponentDisposeCompletedEvent.
+   * Handle the ComponentDisposeCompleteEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComponentDisposeCompleted( @Nonnull final SpyUtil.NestingDelta d,
-                                              @Nonnull final ComponentDisposeCompletedEvent e )
+  protected void onComponentDisposeComplete( @Nonnull final SpyUtil.NestingDelta d,
+                                             @Nonnull final ComponentDisposeCompleteEvent e )
   {
-    log( d, "%cComponent Dispose Completed " + e.getComponentInfo().getName(), COMPONENT_COLOR );
+    log( d, "%cComponent Dispose Complete " + e.getComponentInfo().getName(), COMPONENT_COLOR );
   }
 
   /**
-   * Handle the ObserverCreatedEvent.
+   * Handle the ObserverCreateEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObserverCreated( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverCreatedEvent e )
+  protected void onObserverCreate( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverCreateEvent e )
   {
-    log( d, "%cObserver Created " + e.getObserver().getName(), OBSERVER_COLOR );
+    log( d, "%cObserver Create " + e.getObserver().getName(), OBSERVER_COLOR );
   }
 
   /**
-   * Handle the ObserverDisposedEvent.
+   * Handle the ObserverDisposeEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObserverDisposed( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverDisposedEvent e )
+  protected void onObserverDispose( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverDisposeEvent e )
   {
-    log( d, "%cObserver Disposed " + e.getObserver().getName(), OBSERVER_COLOR );
+    log( d, "%cObserver Dispose " + e.getObserver().getName(), OBSERVER_COLOR );
   }
 
   /**
@@ -184,27 +184,27 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the ObservableCreatedEvent.
+   * Handle the ObservableCreateEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObservableValueCreated( @Nonnull final SpyUtil.NestingDelta d,
-                                           @Nonnull final ObservableValueCreatedEvent e )
+  protected void onObservableValueCreate( @Nonnull final SpyUtil.NestingDelta d,
+                                          @Nonnull final ObservableValueCreateEvent e )
   {
-    log( d, "%cObservable Created " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
+    log( d, "%cObservable Create " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
   }
 
   /**
-   * Handle the ObservableDisposedEvent.
+   * Handle the ObservableDisposeEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObservableValueDisposed( @Nonnull final SpyUtil.NestingDelta d,
-                                            @Nonnull final ObservableValueDisposedEvent e )
+  protected void onObservableValueDispose( @Nonnull final SpyUtil.NestingDelta d,
+                                           @Nonnull final ObservableValueDisposeEvent e )
   {
-    log( d, "%cObservable Disposed " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
+    log( d, "%cObservable Dispose " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
   }
 
   /**
@@ -213,8 +213,8 @@ public class ConsoleSpyEventProcessor
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObservableValueChanged( @Nonnull final SpyUtil.NestingDelta d,
-                                           @Nonnull final ObservableValueChangedEvent e )
+  protected void onObservableValueChange( @Nonnull final SpyUtil.NestingDelta d,
+                                          @Nonnull final ObservableValueChangeEvent e )
   {
     DomGlobal.console.log( "%cObservable Changed " +
                            e.getObservableValue().getName() +
@@ -224,119 +224,119 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the ComputableValueCreatedEvent.
+   * Handle the ComputableValueCreateEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputableValueCreated( @Nonnull final SpyUtil.NestingDelta d,
-                                         @Nonnull final ComputableValueCreatedEvent e )
+  protected void onComputableValueCreate( @Nonnull final SpyUtil.NestingDelta d,
+                                          @Nonnull final ComputableValueCreateEvent e )
   {
-    log( d, "%cComputed Value Created " + e.getComputableValue().getName(), COMPUTED_COLOR );
+    log( d, "%cComputed Value Create " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputableValueActivatedEvent.
+   * Handle the ComputableValueActivateEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputableValueActivated( @Nonnull final SpyUtil.NestingDelta d,
-                                           @Nonnull final ComputableValueActivatedEvent e )
+  protected void onComputableValueActivate( @Nonnull final SpyUtil.NestingDelta d,
+                                            @Nonnull final ComputableValueActivateEvent e )
   {
     log( d, "%cComputed Value Activate " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputeStartedEvent.
+   * Handle the ComputeStartEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputeStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeStartedEvent e )
+  protected void onComputeStart( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeStartEvent e )
   {
-    log( d, "%cCompute Started " + e.getComputableValue().getName(), COMPUTED_COLOR );
+    log( d, "%cCompute Start " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputeCompletedEvent.
+   * Handle the ComputeCompleteEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputeCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeCompletedEvent e )
+  protected void onComputeComplete( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeCompleteEvent e )
   {
-    log( d, "%cCompute Completed " + e.getComputableValue().getName() + " [" + e.getDuration() + "]", COMPUTED_COLOR );
+    log( d, "%cCompute Complete " + e.getComputableValue().getName() + " [" + e.getDuration() + "]", COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputableValueDeactivatedEvent.
+   * Handle the ComputableValueDeactivateEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputableValueDeactivated( @Nonnull final SpyUtil.NestingDelta d,
-                                             @Nonnull final ComputableValueDeactivatedEvent e )
+  protected void onComputableValueDeactivate( @Nonnull final SpyUtil.NestingDelta d,
+                                              @Nonnull final ComputableValueDeactivateEvent e )
   {
     log( d, "%cComputed Value Deactivate " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ComputableValueDisposedEvent.
+   * Handle the ComputableValueDisposeEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onComputableValueDisposed( @Nonnull final SpyUtil.NestingDelta d,
-                                          @Nonnull final ComputableValueDisposedEvent e )
+  protected void onComputableValueDispose( @Nonnull final SpyUtil.NestingDelta d,
+                                           @Nonnull final ComputableValueDisposeEvent e )
   {
-    log( d, "%cComputed Value Disposed " + e.getComputableValue().getName(), COMPUTED_COLOR );
+    log( d, "%cComputed Value Dispose " + e.getComputableValue().getName(), COMPUTED_COLOR );
   }
 
   /**
-   * Handle the ObserveScheduledEvent.
+   * Handle the ObserveScheduleEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObserveScheduled( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveScheduledEvent e )
+  protected void onObserveSchedule( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveScheduleEvent e )
   {
     log( d, "%cObserve Scheduled " + e.getObserver().getName(), REACTION_SCHEDULED_COLOR );
   }
 
   /**
-   * Handle the ObserveStartedEvent.
+   * Handle the ObserveStartEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObserveStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveStartedEvent e )
+  protected void onObserveStart( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveStartEvent e )
   {
-    log( d, "%cObserve Started " + e.getObserver().getName(), REACTION_COLOR );
+    log( d, "%cObserve Start " + e.getObserver().getName(), REACTION_COLOR );
   }
 
   /**
-   * Handle the ObserveCompletedEvent.
+   * Handle the ObserveCompleteEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onObserveCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveCompletedEvent e )
+  protected void onObserveComplete( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveCompleteEvent e )
   {
     log( d,
-         "%cObserve Completed " + e.getObserver().getName() + " [" + e.getDuration() + "]",
+         "%cObserve Complete " + e.getObserver().getName() + " [" + e.getDuration() + "]",
          REACTION_COLOR );
   }
 
   /**
-   * Handle the TransactionStartedEvent.
+   * Handle the TransactionStartEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void TransactionStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final TransactionStartedEvent e )
+  protected void TransactionStart( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final TransactionStartEvent e )
   {
-    log( d, "%cTransaction Started " +
+    log( d, "%cTransaction Start " +
             e.getName() +
             " Mutation=" +
             e.isMutation() +
@@ -346,15 +346,15 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the TransactionCompletedEvent.
+   * Handle the TransactionCompleteEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onTransactionCompleted( @Nonnull final SpyUtil.NestingDelta d,
-                                         @Nonnull final TransactionCompletedEvent e )
+  protected void onTransactionComplete( @Nonnull final SpyUtil.NestingDelta d,
+                                        @Nonnull final TransactionCompleteEvent e )
   {
-    log( d, "%cTransaction Completed " +
+    log( d, "%cTransaction Complete " +
             e.getName() +
             " Mutation=" +
             e.isMutation() +
@@ -367,29 +367,29 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Handle the ActionStartedEvent.
+   * Handle the ActionStartEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onActionStarted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionStartedEvent e )
+  protected void onActionStart( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionStartEvent e )
   {
     final String message =
-      ( e.isTracked() ? "Tracked " : "" ) + "Action Started " + e.getName() +
+      ( e.isTracked() ? "Tracked " : "" ) + "Action Start " + e.getName() +
       parametersToString( e.getParameters() );
     log( d, "%c" + message, ACTION_COLOR );
   }
 
   /**
-   * Handle the ActionCompletedEvent.
+   * Handle the ActionCompleteEvent.
    *
    * @param d the change in nesting level.
    * @param e the event.
    */
-  protected void onActionCompleted( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionCompletedEvent e )
+  protected void onActionComplete( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionCompleteEvent e )
   {
     final String message = ( e.isTracked() ? "Tracked " : "" ) +
-                           "Action Completed " +
+                           "Action Complete " +
                            e.getName() +
                            parametersToString( e.getParameters() ) +
                            ( e.returnsResult() && null == e.getThrowable() ? " = " + e.getResult() : "" ) +

@@ -1,8 +1,8 @@
 package arez.spytools;
 
-import arez.spy.ObserverCreatedEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.ObserverCreateEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -13,8 +13,8 @@ public class SpyUtilTest
   public void getNestingDelta()
   {
     assertEquals( SpyUtil.getNestingDelta( Object.class ), SpyUtil.NestingDelta.UNKNOWN );
-    assertEquals( SpyUtil.getNestingDelta( TransactionStartedEvent.class ), SpyUtil.NestingDelta.INCREASE );
-    assertEquals( SpyUtil.getNestingDelta( TransactionCompletedEvent.class ), SpyUtil.NestingDelta.DECREASE );
-    assertEquals( SpyUtil.getNestingDelta( ObserverCreatedEvent.class ), SpyUtil.NestingDelta.NONE );
+    assertEquals( SpyUtil.getNestingDelta( TransactionStartEvent.class ), SpyUtil.NestingDelta.INCREASE );
+    assertEquals( SpyUtil.getNestingDelta( TransactionCompleteEvent.class ), SpyUtil.NestingDelta.DECREASE );
+    assertEquals( SpyUtil.getNestingDelta( ObserverCreateEvent.class ), SpyUtil.NestingDelta.NONE );
   }
 }

@@ -1,28 +1,28 @@
 package arez.spytools;
 
-import arez.spy.ActionCompletedEvent;
-import arez.spy.ActionStartedEvent;
-import arez.spy.ComponentCreateCompletedEvent;
-import arez.spy.ComponentCreateStartedEvent;
-import arez.spy.ComponentDisposeCompletedEvent;
-import arez.spy.ComponentDisposeStartedEvent;
-import arez.spy.ComputeCompletedEvent;
-import arez.spy.ComputeStartedEvent;
-import arez.spy.ComputableValueActivatedEvent;
-import arez.spy.ComputableValueCreatedEvent;
-import arez.spy.ComputableValueDeactivatedEvent;
-import arez.spy.ComputableValueDisposedEvent;
-import arez.spy.ObservableValueChangedEvent;
-import arez.spy.ObservableValueCreatedEvent;
-import arez.spy.ObservableValueDisposedEvent;
-import arez.spy.ObserveCompletedEvent;
-import arez.spy.ObserveScheduledEvent;
-import arez.spy.ObserveStartedEvent;
-import arez.spy.ObserverCreatedEvent;
-import arez.spy.ObserverDisposedEvent;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComponentCreateCompleteEvent;
+import arez.spy.ComponentCreateStartEvent;
+import arez.spy.ComponentDisposeCompleteEvent;
+import arez.spy.ComponentDisposeStartEvent;
+import arez.spy.ComputableValueActivateEvent;
+import arez.spy.ComputableValueCreateEvent;
+import arez.spy.ComputableValueDeactivateEvent;
+import arez.spy.ComputableValueDisposeEvent;
+import arez.spy.ComputeCompleteEvent;
+import arez.spy.ComputeStartEvent;
+import arez.spy.ObservableValueChangeEvent;
+import arez.spy.ObservableValueCreateEvent;
+import arez.spy.ObservableValueDisposeEvent;
+import arez.spy.ObserveCompleteEvent;
+import arez.spy.ObserveScheduleEvent;
+import arez.spy.ObserveStartEvent;
+import arez.spy.ObserverCreateEvent;
+import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import javax.annotation.Nonnull;
 
 /**
@@ -59,35 +59,35 @@ public final class SpyUtil
   @Nonnull
   public static NestingDelta getNestingDelta( @Nonnull final Class<?> type )
   {
-    if ( ComponentCreateStartedEvent.class == type ||
-         ComponentDisposeStartedEvent.class == type ||
-         ObserveStartedEvent.class == type ||
-         TransactionStartedEvent.class == type ||
-         ComputeStartedEvent.class == type ||
-         ActionStartedEvent.class == type )
+    if ( ComponentCreateStartEvent.class == type ||
+         ComponentDisposeStartEvent.class == type ||
+         ObserveStartEvent.class == type ||
+         TransactionStartEvent.class == type ||
+         ComputeStartEvent.class == type ||
+         ActionStartEvent.class == type )
     {
       return NestingDelta.INCREASE;
     }
-    else if ( ComponentCreateCompletedEvent.class == type ||
-              ComponentDisposeCompletedEvent.class == type ||
-              ObserveCompletedEvent.class == type ||
-              TransactionCompletedEvent.class == type ||
-              ComputeCompletedEvent.class == type ||
-              ActionCompletedEvent.class == type )
+    else if ( ComponentCreateCompleteEvent.class == type ||
+              ComponentDisposeCompleteEvent.class == type ||
+              ObserveCompleteEvent.class == type ||
+              TransactionCompleteEvent.class == type ||
+              ComputeCompleteEvent.class == type ||
+              ActionCompleteEvent.class == type )
     {
       return NestingDelta.DECREASE;
     }
-    else if ( ObserverCreatedEvent.class == type ||
-              ObserverDisposedEvent.class == type ||
+    else if ( ObserverCreateEvent.class == type ||
+              ObserverDisposeEvent.class == type ||
               ObserverErrorEvent.class == type ||
-              ObservableValueCreatedEvent.class == type ||
-              ObservableValueDisposedEvent.class == type ||
-              ObservableValueChangedEvent.class == type ||
-              ComputableValueActivatedEvent.class == type ||
-              ComputableValueDeactivatedEvent.class == type ||
-              ComputableValueCreatedEvent.class == type ||
-              ComputableValueDisposedEvent.class == type ||
-              ObserveScheduledEvent.class == type )
+              ObservableValueCreateEvent.class == type ||
+              ObservableValueDisposeEvent.class == type ||
+              ObservableValueChangeEvent.class == type ||
+              ComputableValueActivateEvent.class == type ||
+              ComputableValueDeactivateEvent.class == type ||
+              ComputableValueCreateEvent.class == type ||
+              ComputableValueDisposeEvent.class == type ||
+              ObserveScheduleEvent.class == type )
     {
       return NestingDelta.NONE;
     }

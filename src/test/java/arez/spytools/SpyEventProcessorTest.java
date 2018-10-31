@@ -4,9 +4,9 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ObservableValue;
 import arez.Observer;
-import arez.spy.ObserverCreatedEvent;
-import arez.spy.TransactionCompletedEvent;
-import arez.spy.TransactionStartedEvent;
+import arez.spy.ObserverCreateEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
@@ -50,8 +50,8 @@ public class SpyEventProcessorTest
   public void handleUnhandledEvent()
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-    final TransactionStartedEvent event =
-      new TransactionStartedEvent( ValueUtil.randomString(), ValueUtil.randomBoolean(), null );
+    final TransactionStartEvent event =
+      new TransactionStartEvent( ValueUtil.randomString(), ValueUtil.randomBoolean(), null );
 
     processor.onSpyEvent( event );
 
@@ -62,17 +62,17 @@ public class SpyEventProcessorTest
   public void increaseNesting()
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-    final TransactionStartedEvent event =
-      new TransactionStartedEvent( ValueUtil.randomString(), ValueUtil.randomBoolean(), null );
+    final TransactionStartEvent event =
+      new TransactionStartEvent( ValueUtil.randomString(), ValueUtil.randomBoolean(), null );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
-    final BiConsumer<SpyUtil.NestingDelta, TransactionStartedEvent> handler =
+    final BiConsumer<SpyUtil.NestingDelta, TransactionStartEvent> handler =
       ( delta, e ) -> {
         handleCallCount.incrementAndGet();
         assertEquals( delta, SpyUtil.NestingDelta.INCREASE );
         assertEquals( e, event );
       };
-    processor.on( TransactionStartedEvent.class, handler );
+    processor.on( TransactionStartEvent.class, handler );
 
     assertEquals( processor.getNestingDelta( event ), SpyUtil.NestingDelta.INCREASE );
 
@@ -91,20 +91,20 @@ public class SpyEventProcessorTest
   public void decreaseNesting()
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-    final TransactionCompletedEvent event =
-      new TransactionCompletedEvent( ValueUtil.randomString(),
-                                     ValueUtil.randomBoolean(),
-                                     null,
-                                     Math.min( 1, Math.abs( ValueUtil.randomInt() ) ) );
+    final TransactionCompleteEvent event =
+      new TransactionCompleteEvent( ValueUtil.randomString(),
+                                    ValueUtil.randomBoolean(),
+                                    null,
+                                    Math.min( 1, Math.abs( ValueUtil.randomInt() ) ) );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
-    final BiConsumer<SpyUtil.NestingDelta, TransactionCompletedEvent> handler =
+    final BiConsumer<SpyUtil.NestingDelta, TransactionCompleteEvent> handler =
       ( delta, e ) -> {
         handleCallCount.incrementAndGet();
         assertEquals( delta, SpyUtil.NestingDelta.DECREASE );
         assertEquals( e, event );
       };
-    processor.on( TransactionCompletedEvent.class, handler );
+    processor.on( TransactionCompleteEvent.class, handler );
 
     assertEquals( processor.getNestingDelta( event ), SpyUtil.NestingDelta.DECREASE );
 
@@ -128,16 +128,16 @@ public class SpyEventProcessorTest
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( observable::reportObserved );
 
-    final ObserverCreatedEvent event = new ObserverCreatedEvent( context.getSpy().asObserverInfo( observer ) );
+    final ObserverCreateEvent event = new ObserverCreateEvent( context.getSpy().asObserverInfo( observer ) );
 
     final AtomicInteger handleCallCount = new AtomicInteger();
-    final BiConsumer<SpyUtil.NestingDelta, ObserverCreatedEvent> handler =
+    final BiConsumer<SpyUtil.NestingDelta, ObserverCreateEvent> handler =
       ( delta, e ) -> {
         handleCallCount.incrementAndGet();
         assertEquals( delta, SpyUtil.NestingDelta.NONE );
         assertEquals( e, event );
       };
-    processor.on( ObserverCreatedEvent.class, handler );
+    processor.on( ObserverCreateEvent.class, handler );
 
     assertEquals( processor.getNestingDelta( event ), SpyUtil.NestingDelta.NONE );
 
@@ -157,13 +157,13 @@ public class SpyEventProcessorTest
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
 
-    final BiConsumer<SpyUtil.NestingDelta, ObserverCreatedEvent> handler =
+    final BiConsumer<SpyUtil.NestingDelta, ObserverCreateEvent> handler =
       ( delta, e ) -> {
       };
-    processor.on( ObserverCreatedEvent.class, handler );
+    processor.on( ObserverCreateEvent.class, handler );
     final IllegalStateException exception =
-      expectThrows( IllegalStateException.class, () -> processor.on( ObserverCreatedEvent.class, handler ) );
+      expectThrows( IllegalStateException.class, () -> processor.on( ObserverCreateEvent.class, handler ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0157: Attempting to call AbstractSpyEventProcessor.on() to register a processor for type class arez.spy.ObserverCreatedEvent but an existing processor already exists for type" );
+                  "Arez-0157: Attempting to call AbstractSpyEventProcessor.on() to register a processor for type class arez.spy.ObserverCreateEvent but an existing processor already exists for type" );
   }
 }

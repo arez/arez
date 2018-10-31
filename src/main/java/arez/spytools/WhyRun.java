@@ -154,7 +154,7 @@ public final class WhyRun
     }
     else if ( observer.isDisposed() )
     {
-      return "Disposed";
+      return "Dispose";
     }
     else if ( observer.isScheduled() )
     {
@@ -180,7 +180,7 @@ public final class WhyRun
     }
     else if ( computableValue.isDisposed() )
     {
-      return "Disposed (The value has been disposed)";
+      return "Dispose (The value has been disposed)";
     }
     else
     {
