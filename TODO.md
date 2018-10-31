@@ -14,8 +14,6 @@ complete as there is too much un-said.
   `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
   backed by counter and only deactivates if counter is 0 and no listeners.
 
-* Consider adding additional details to `ObserveCompletedEvent` much like is in `ActionCompletedEvent`
-
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 

@@ -645,6 +645,7 @@ public final class Observer
       {
         start = 0;
       }
+      Throwable error = null;
       try
       {
         // ComputableValues may have calculated their values and thus be up to date so no need to recalculate.
@@ -676,6 +677,7 @@ public final class Observer
       }
       catch ( final Throwable t )
       {
+        error = t;
         getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
       }
       if ( willPropagateSpyEvents() )
@@ -691,7 +693,7 @@ public final class Observer
         }
         else
         {
-          reportSpyEvent( new ObserveCompletedEvent( asInfo(), (int) duration ) );
+          reportSpyEvent( new ObserveCompletedEvent( asInfo(), error, (int) duration ) );
         }
       }
     }

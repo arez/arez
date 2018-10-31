@@ -41,6 +41,7 @@
   that has a `@ComponentDependency` that is passed to the constructor and the dependency is already disposed. 
 * **\[core\]** Rename the annotation `@OnDepsChanged` to `@OnDepsChange` to keep consistent tense in
   annotation naming convention.
+* **\[core\]** Add the `throwable` parameter to the `ObserveCompletedEvent` spy event.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

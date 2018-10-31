@@ -20,7 +20,7 @@ public class ObserveCompletedEventTest
     final Observer observer = context.tracker( name, ValueUtil::randomString );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
     final int duration = 23;
-    final ObserveCompletedEvent event = new ObserveCompletedEvent( info, duration );
+    final ObserveCompletedEvent event = new ObserveCompletedEvent( info, null, duration );
 
     assertEquals( event.getObserver(), info );
     assertEquals( event.getDuration(), duration );
@@ -31,6 +31,31 @@ public class ObserveCompletedEventTest
     assertEquals( data.get( "type" ), "ObserveCompleted" );
     assertEquals( data.get( "name" ), name );
     assertEquals( data.get( "duration" ), duration );
-    assertEquals( data.size(), 3 );
+    assertNull( data.get( "errorMessage" ) );
+    assertEquals( data.size(), 4 );
+  }
+
+  @Test
+  public void basicOperation_withError()
+  {
+    final ArezContext context = Arez.context();
+    final String name = "Foo@1";
+    final Observer observer = context.tracker( name, ValueUtil::randomString );
+    final ObserverInfo info = context.getSpy().asObserverInfo( observer );
+    final int duration = 42;
+    final Throwable throwable = new Throwable( "Boo!" );
+    final ObserveCompletedEvent event = new ObserveCompletedEvent( info, throwable, duration );
+
+    assertEquals( event.getObserver(), info );
+    assertEquals( event.getDuration(), duration );
+
+    final HashMap<String, Object> data = new HashMap<>();
+    event.toMap( data );
+
+    assertEquals( data.get( "type" ), "ObserveCompleted" );
+    assertEquals( data.get( "name" ), name );
+    assertEquals( data.get( "duration" ), duration );
+    assertEquals( data.get( "errorMessage" ), "Boo!" );
+    assertEquals( data.size(), 4 );
   }
 }
