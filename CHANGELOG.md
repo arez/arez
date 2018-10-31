@@ -44,6 +44,8 @@
 * **\[core\]** Add the `throwable` parameter to the `ObserveCompletedEvent` spy event.
 * **\[core\]** Rename all the spy events from past tense to present tense to avoid the implication that the event
   has occurred as many of the spy events are emitted prior to the actual event occurring.
+* **\[core\]** Rename the parameters to several methods in `ArezContext` from `observed` to `observe` to be more
+  consistent with the rest of the API.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

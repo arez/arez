@@ -554,53 +554,53 @@ public final class ArezContext
   /**
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
-   * @param observed the executable observed by the observer.
+   * @param observe the executable observed by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nonnull final Procedure observed )
+  public Observer observer( @Nonnull final Procedure observe )
   {
-    return observer( observed, 0 );
+    return observer( observe, 0 );
   }
 
   /**
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
-   * @param observed the executable observed by the observer.
-   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param observe the executable observed by the observer.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nonnull final Procedure observed, final int flags )
+  public Observer observer( @Nonnull final Procedure observe, final int flags )
   {
-    return observer( (String) null, observed, flags );
+    return observer( (String) null, observe, flags );
   }
 
   /**
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
-   * @param name     the name of the observer.
-   * @param observed the executable observed by the observer.
+   * @param name    the name of the observer.
+   * @param observe the executable observed by the observer.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nullable final String name, @Nonnull final Procedure observed )
+  public Observer observer( @Nullable final String name, @Nonnull final Procedure observe )
   {
-    return observer( name, observed, 0 );
+    return observer( name, observe, 0 );
   }
 
   /**
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
-   * @param name     the name of the observer.
-   * @param observed the executable observed by the observer.
-   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param name    the name of the observer.
+   * @param observe the executable observed by the observer.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nullable final String name, @Nonnull final Procedure observed, final int flags )
+  public Observer observer( @Nullable final String name, @Nonnull final Procedure observe, final int flags )
   {
-    return observer( null, name, observed, flags );
+    return observer( null, name, observe, flags );
   }
 
   /**
@@ -608,15 +608,15 @@ public final class ArezContext
    *
    * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
-   * @param observed  the executable observed by the observer.
+   * @param observe   the executable observed by the observer.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final Component component,
                             @Nullable final String name,
-                            @Nonnull final Procedure observed )
+                            @Nonnull final Procedure observe )
   {
-    return observer( component, name, observed, 0 );
+    return observer( component, name, observe, 0 );
   }
 
   /**
@@ -624,112 +624,112 @@ public final class ArezContext
    *
    * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
-   * @param observed  the executable observed by the observer.
+   * @param observe   the executable observed by the observer.
    * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final Component component,
                             @Nullable final String name,
-                            @Nonnull final Procedure observed,
+                            @Nonnull final Procedure observe,
                             final int flags )
   {
-    return observer( component, name, Objects.requireNonNull( observed ), null, flags );
+    return observer( component, name, Objects.requireNonNull( observe ), null, flags );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>observed</code> or <code>onDepsChange</code> parameter.
+   * The user must pass either the <code>observe</code> or <code>onDepsChange</code> parameter.
    *
    * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
-   * @param observed     the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final Component component,
                             @Nullable final String name,
-                            @Nullable final Procedure observed,
+                            @Nullable final Procedure observe,
                             @Nullable final Procedure onDepsChange )
   {
-    return observer( component, name, observed, onDepsChange, 0 );
+    return observer( component, name, observe, onDepsChange, 0 );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>observed</code> or <code>onDepsChange</code> or both parameters.
+   * The user must pass either the <code>observe</code> or <code>onDepsChange</code> or both parameters.
    *
-   * @param observed     the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nullable final Procedure observed, @Nullable final Procedure onDepsChange )
+  public Observer observer( @Nullable final Procedure observe, @Nullable final Procedure onDepsChange )
   {
-    return observer( observed, onDepsChange, 0 );
+    return observer( observe, onDepsChange, 0 );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>observed</code> or <code>onDepsChange</code> or both parameters.
+   * The user must pass either the <code>observe</code> or <code>onDepsChange</code> or both parameters.
    *
-   * @param observed     the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
-  public Observer observer( @Nullable final Procedure observed,
+  public Observer observer( @Nullable final Procedure observe,
                             @Nullable final Procedure onDepsChange,
                             final int flags )
   {
-    return observer( null, observed, onDepsChange, flags );
+    return observer( null, observe, onDepsChange, flags );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>observed</code> or <code>onDepsChange</code> or both parameters.
+   * The user must pass either the <code>observe</code> or <code>onDepsChange</code> or both parameters.
    *
    * @param name         the name of the observer.
-   * @param observed     the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final String name,
-                            @Nullable final Procedure observed,
+                            @Nullable final Procedure observe,
                             @Nullable final Procedure onDepsChange )
   {
-    return observer( name, observed, onDepsChange, 0 );
+    return observer( name, observe, onDepsChange, 0 );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>observed</code> or <code>onDepsChange</code> or both parameters.
+   * The user must pass either the <code>observe</code> or <code>onDepsChange</code> or both parameters.
    *
    * @param name         the name of the observer.
-   * @param observed     the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
    */
   @Nonnull
   public Observer observer( @Nullable final String name,
-                            @Nullable final Procedure observed,
+                            @Nullable final Procedure observe,
                             @Nullable final Procedure onDepsChange,
                             final int flags )
   {
-    return observer( null, name, observed, onDepsChange, flags );
+    return observer( null, name, observe, onDepsChange, flags );
   }
 
   /**
    * Create an observer.
-   * The user must pass either the <code>observed</code> or <code>onDepsChange</code> or both parameters.
+   * The user must pass either the <code>observe</code> or <code>onDepsChange</code> or both parameters.
    *
    * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
-   * @param observed     the executable observed by the observer. May be null if observer is externally scheduled.
+   * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
    * @return the new Observer.
@@ -737,22 +737,22 @@ public final class ArezContext
   @Nonnull
   public Observer observer( @Nullable final Component component,
                             @Nullable final String name,
-                            @Nullable final Procedure observed,
+                            @Nullable final Procedure observe,
                             @Nullable final Procedure onDepsChange,
                             final int flags )
   {
     return new Observer( Arez.areZonesEnabled() ? this : null,
                          component,
                          generateName( "Observer", name ),
-                         observed,
+                         observe,
                          onDepsChange,
                          flags );
   }
 
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChange hook function when
-   * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a observe method such as {@link #observe(Observer, Function)}.
+   * dependencies in the observe function are updated. Application code is responsible for executing the
+   * observe function by invoking a observe method such as {@link #observe(Observer, Function)}.
    *
    * @param onDepsChange the hook invoked when dependencies changed.
    * @return the new Observer.
@@ -765,8 +765,8 @@ public final class ArezContext
 
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChange hook function when
-   * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a observe method such as {@link #observe(Observer, Function)}.
+   * dependencies in the observe function are updated. Application code is responsible for executing the
+   * observe function by invoking a observe method such as {@link #observe(Observer, Function)}.
    *
    * @param onDepsChange the hook invoked when dependencies changed.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
@@ -780,8 +780,8 @@ public final class ArezContext
 
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChange hook function when
-   * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a observe method such as {@link #observe(Observer, Function)}.
+   * dependencies in the observe function are updated. Application code is responsible for executing the
+   * observe function by invoking a observe method such as {@link #observe(Observer, Function)}.
    *
    * @param name         the name of the observer.
    * @param onDepsChange the hook invoked when dependencies changed.
@@ -795,8 +795,8 @@ public final class ArezContext
 
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChange hook function when
-   * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a observe method such as {@link #observe(Observer, Function)}.
+   * dependencies in the observe function are updated. Application code is responsible for executing the
+   * observe function by invoking a observe method such as {@link #observe(Observer, Function)}.
    *
    * @param name         the name of the observer.
    * @param onDepsChange the hook invoked when dependencies changed.
@@ -811,8 +811,8 @@ public final class ArezContext
 
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChange hook function when
-   * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a observe method such as {@link #observe(Observer, Function)}.
+   * dependencies in the observe function are updated. Application code is responsible for executing the
+   * observe function by invoking a observe method such as {@link #observe(Observer, Function)}.
    *
    * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
@@ -829,8 +829,8 @@ public final class ArezContext
 
   /**
    * Create a tracking observer. The tracking observer triggers the onDepsChange hook function when
-   * dependencies in the observed function are updated. Application code is responsible for executing the
-   * observed function by invoking a observe method such as {@link #observe(Observer, Procedure)}.
+   * dependencies in the observe function are updated. Application code is responsible for executing the
+   * observe function by invoking a observe method such as {@link #observe(Observer, Procedure)}.
    *
    * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
@@ -1352,36 +1352,36 @@ public final class ArezContext
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function may throw an exception.
+   * The observe function may throw an exception.
    *
    * @param <T>      the type of return value.
    * @param observer the Observer.
-   * @param observed the observed function.
-   * @return the value returned from the observed function.
-   * @throws Exception if the observed function throws an an exception.
+   * @param observe  the observe function.
+   * @return the value returned from the observe function.
+   * @throws Exception if the observe function throws an an exception.
    */
-  public <T> T observe( @Nonnull final Observer observer, @Nonnull final Function<T> observed )
+  public <T> T observe( @Nonnull final Observer observer, @Nonnull final Function<T> observe )
     throws Throwable
   {
-    return observe( observer, observed, null );
+    return observe( observer, observe, null );
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function may throw an exception.
+   * The observe function may throw an exception.
    *
    * @param <T>        the type of return value.
    * @param observer   the Observer.
-   * @param observed   the observed function.
+   * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the observed function.
-   * @throws Exception if the observed function throws an an exception.
+   * @return the value returned from the observe function.
+   * @throws Exception if the observe function throws an an exception.
    */
   public <T> T observe( @Nonnull final Observer observer,
-                        @Nonnull final Function<T> observed,
+                        @Nonnull final Function<T> observe,
                         @Nullable final Object[] parameters )
     throws Throwable
   {
@@ -1392,8 +1392,8 @@ public final class ArezContext
                           "' but observer is not configured to use an application executor." );
     }
     return _action( observerToName( observer ),
-                    observed,
-                    trackerObservedFlags( observer ),
+                    observe,
+                    trackerObserveFlags( observer ),
                     observer,
                     parameters,
                     true );
@@ -1478,33 +1478,33 @@ public final class ArezContext
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function should not throw an exception.
+   * The observe function should not throw an exception.
    *
    * @param <T>      the type of return value.
    * @param observer the Observer.
-   * @param observed the observed function.
-   * @return the value returned from the observed function.
+   * @param observe  the observe function.
+   * @return the value returned from the observe function.
    */
-  public <T> T safeObserve( @Nonnull final Observer observer, @Nonnull final SafeFunction<T> observed )
+  public <T> T safeObserve( @Nonnull final Observer observer, @Nonnull final SafeFunction<T> observe )
   {
-    return safeObserve( observer, observed, null );
+    return safeObserve( observer, observe, null );
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function should not throw an exception.
+   * The observe function should not throw an exception.
    *
    * @param <T>        the type of return value.
    * @param observer   the Observer.
-   * @param observed   the observed function.
+   * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @return the value returned from the observed function.
+   * @return the value returned from the observe function.
    */
   public <T> T safeObserve( @Nonnull final Observer observer,
-                            @Nonnull final SafeFunction<T> observed,
+                            @Nonnull final SafeFunction<T> observe,
                             @Nullable final Object[] parameters )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -1514,8 +1514,8 @@ public final class ArezContext
                           "' but observer is not configured to use an application executor." );
     }
     return _safeAction( observerToName( observer ),
-                        observed,
-                        trackerObservedFlags( observer ),
+                        observe,
+                        trackerObserveFlags( observer ),
                         observer,
                         parameters,
                         true );
@@ -1600,32 +1600,32 @@ public final class ArezContext
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function may throw an exception.
+   * The observe function may throw an exception.
    *
    * @param observer the Observer.
-   * @param observed the observed function.
-   * @throws Exception if the observed function throws an an exception.
+   * @param observe  the observe function.
+   * @throws Exception if the observe function throws an an exception.
    */
-  public void observe( @Nonnull final Observer observer, @Nonnull final Procedure observed )
+  public void observe( @Nonnull final Observer observer, @Nonnull final Procedure observe )
     throws Throwable
   {
-    observe( observer, observed, null );
+    observe( observer, observe, null );
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function may throw an exception.
+   * The observe function may throw an exception.
    *
    * @param observer   the Observer.
-   * @param observed   the observed function.
+   * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @throws Exception if the observed function throws an an exception.
+   * @throws Exception if the observe function throws an an exception.
    */
   public void observe( @Nonnull final Observer observer,
-                       @Nonnull final Procedure observed,
+                       @Nonnull final Procedure observe,
                        @Nullable final Object[] parameters )
     throws Throwable
   {
@@ -1635,17 +1635,17 @@ public final class ArezContext
                     () -> "Arez-0019: Attempted to invoke observe(..) on observer named '" + observer.getName() +
                           "' but observer is not configured to use an application executor." );
     }
-    rawObserve( observer, observed, parameters );
+    rawObserve( observer, observe, parameters );
   }
 
   void rawObserve( @Nonnull final Observer observer,
-                   @Nonnull final Procedure observed,
+                   @Nonnull final Procedure observe,
                    @Nullable final Object[] parameters )
     throws Throwable
   {
     _action( observerToName( observer ),
-             procedureToFunction( observed ),
-             trackerObservedFlags( observer ),
+             procedureToFunction( observe ),
+             trackerObserveFlags( observer ),
              observer,
              parameters,
              false );
@@ -1744,29 +1744,29 @@ public final class ArezContext
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function should not throw an exception.
+   * The observe function should not throw an exception.
    *
    * @param observer the Observer.
-   * @param observed the observed function.
+   * @param observe  the observe function.
    */
-  public void safeObserve( @Nonnull final Observer observer, @Nonnull final SafeProcedure observed )
+  public void safeObserve( @Nonnull final Observer observer, @Nonnull final SafeProcedure observe )
   {
-    safeObserve( observer, observed, null );
+    safeObserve( observer, observe, null );
   }
 
   /**
-   * Execute the observed function with the specified Observer.
+   * Execute the observe function with the specified Observer.
    * The Observer must be created by the {@link #tracker(Procedure)} methods.
-   * The observed function should not throw an exception.
+   * The observe function should not throw an exception.
    *
    * @param observer   the Observer.
-   * @param observed   the observed function.
+   * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeObserve( @Nonnull final Observer observer,
-                           @Nonnull final SafeProcedure observed,
+                           @Nonnull final SafeProcedure observe,
                            @Nullable final Object[] parameters )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -1776,8 +1776,8 @@ public final class ArezContext
                           "' but observer is not configured to use an application executor." );
     }
     _safeAction( observerToName( observer ),
-                 safeProcedureToFunction( observed ),
-                 trackerObservedFlags( observer ),
+                 safeProcedureToFunction( observe ),
+                 trackerObserveFlags( observer ),
                  observer,
                  parameters,
                  false );
@@ -1794,7 +1794,7 @@ public final class ArezContext
 
     verifyActionFlags( name, flags );
 
-    final boolean observed = null != observer;
+    final boolean observe = null != observer;
     Throwable t = null;
     boolean completed = false;
     long startedAt = 0L;
@@ -1804,7 +1804,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() )
       {
         startedAt = System.currentTimeMillis();
-        reportActionStarted( name, parameters, observed );
+        reportActionStarted( name, parameters, observe );
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
@@ -1830,7 +1830,7 @@ public final class ArezContext
         final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
         reportActionCompleted( name,
                                parameters,
-                               observed,
+                               observe,
                                null,
                                startedAt,
                                expectResult,
@@ -1849,7 +1849,7 @@ public final class ArezContext
       {
         if ( !completed )
         {
-          reportActionCompleted( name, parameters, observed, t, startedAt, expectResult, null );
+          reportActionCompleted( name, parameters, observe, t, startedAt, expectResult, null );
         }
       }
       triggerScheduler();
@@ -2327,7 +2327,7 @@ public final class ArezContext
     return Arez.areNamesEnabled() ? observer.getName() : null;
   }
 
-  private int trackerObservedFlags( @Nonnull final Observer observer )
+  private int trackerObserveFlags( @Nonnull final Observer observer )
   {
     return Flags.REQUIRE_NEW_TRANSACTION |
            ( Arez.shouldCheckInvariants() ?
