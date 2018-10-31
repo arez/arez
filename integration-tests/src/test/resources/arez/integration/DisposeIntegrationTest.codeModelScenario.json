@@ -102,6 +102,7 @@
     },
     {
         "name": "Printer",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -216,6 +217,7 @@
     },
     {
         "name": "Printer",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -330,6 +332,7 @@
     },
     {
         "name": "Printer",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -444,6 +447,7 @@
     },
     {
         "name": "Printer",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {

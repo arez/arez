@@ -98,6 +98,7 @@
     },
     {
         "name": "SearchResult - red",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -182,6 +183,7 @@
     },
     {
         "name": "SearchResult - ill",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -266,6 +268,7 @@
     },
     {
         "name": "SearchResult - red - 20",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -350,6 +353,7 @@
     },
     {
         "name": "SearchResult - red - 5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -698,6 +702,7 @@
     },
     {
         "name": "SearchResult - red",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -743,6 +748,7 @@
     },
     {
         "name": "SearchResult - ill",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -788,6 +794,7 @@
     },
     {
         "name": "SearchResult - red - 5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -989,6 +996,7 @@
     },
     {
         "name": "SearchResult - red",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1034,6 +1042,7 @@
     },
     {
         "name": "SearchResult - red - 5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1338,6 +1347,7 @@
     },
     {
         "name": "SearchResult - red",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1383,6 +1393,7 @@
     },
     {
         "name": "SearchResult - red - 5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1558,6 +1569,7 @@
     },
     {
         "name": "SearchResult - red",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1603,6 +1615,7 @@
     },
     {
         "name": "SearchResult - red - 5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1921,6 +1934,7 @@
     },
     {
         "name": "SearchResult - red",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1962,6 +1976,7 @@
     },
     {
         "name": "SearchResult - red - 20",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -2003,6 +2018,7 @@
     },
     {
         "name": "SearchResult - red - 5",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {

@@ -59,6 +59,7 @@
     },
     {
         "name": "Observer@1",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -138,6 +139,7 @@
     },
     {
         "name": "Observer@1",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -217,6 +219,7 @@
     },
     {
         "name": "Observer@1",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]

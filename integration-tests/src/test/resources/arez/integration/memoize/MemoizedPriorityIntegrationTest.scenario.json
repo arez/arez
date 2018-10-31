@@ -136,6 +136,7 @@
     },
     {
         "name": "search2(b)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -248,6 +249,7 @@
     },
     {
         "name": "search3(b)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -360,6 +362,7 @@
     },
     {
         "name": "search1(b)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -832,6 +835,7 @@
     },
     {
         "name": "search2(blue)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -944,6 +948,7 @@
     },
     {
         "name": "search3(blue)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1056,6 +1061,7 @@
     },
     {
         "name": "search1(blue)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1260,6 +1266,7 @@
     },
     {
         "name": "search2(r)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1372,6 +1379,7 @@
     },
     {
         "name": "search3(r)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1484,6 +1492,7 @@
     },
     {
         "name": "search1(r)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1622,6 +1631,7 @@
     },
     {
         "name": "search2(b)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1690,6 +1700,7 @@
     },
     {
         "name": "search2(blue)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1758,6 +1769,7 @@
     },
     {
         "name": "search2(r)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1826,6 +1838,7 @@
     },
     {
         "name": "search3(b)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1894,6 +1907,7 @@
     },
     {
         "name": "search3(blue)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -1962,6 +1976,7 @@
     },
     {
         "name": "search3(r)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -2030,6 +2045,7 @@
     },
     {
         "name": "search1(b)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -2098,6 +2114,7 @@
     },
     {
         "name": "search1(blue)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -2166,6 +2183,7 @@
     },
     {
         "name": "search1(r)",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]

@@ -90,6 +90,7 @@
     },
     {
         "name": "Observer@1",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {

@@ -90,6 +90,7 @@
     },
     {
         "name": "SearchResult - red - 20",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -316,6 +317,7 @@
     },
     {
         "name": "SearchResult - red - 20",
+        "errorMessage": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.2'",
         "type": "ObserveCompleted"
     }
 ]

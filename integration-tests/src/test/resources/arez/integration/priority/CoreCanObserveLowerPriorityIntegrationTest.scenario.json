@@ -90,6 +90,7 @@
     },
     {
         "name": "AR1",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -216,6 +217,7 @@
     },
     {
         "name": "AR4",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -261,6 +263,7 @@
     },
     {
         "name": "AR3",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]

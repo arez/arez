@@ -141,6 +141,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -229,6 +230,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     },
     {
@@ -449,6 +451,7 @@
     },
     {
         "name": "Model3.0.myAutorun",
+        "errorMessage": null,
         "type": "ObserveCompleted"
     }
 ]
