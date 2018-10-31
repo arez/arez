@@ -7,17 +7,28 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Methods marked with this annotation are {@link ComputableValue} instances within Arez.
+ * Methods marked with this annotation are <a href="https://en.wikipedia.org/wiki/Memoization">memoized</a> while
+ * activated which typically means they have an observer. These methods are typically backed with one or more
+ * {@link ComputableValue} instances.
  *
- * <p>The return value should be derived from other Observables within the Arez system
- * and the value returned by the method should not change unless the state of the other
- * {@link Observable}s change. The method is wrapped in a READ_ONLY transaction and
- * thus can not modify other state in the system.</p>
+ * <p>The return value should be derived from the method parameters and any other {@link Observable} properties
+ * or {@link Computed} properties accessed within the scope of the method. The he value returned by the method
+ * should not change unless the state of the {@link Observable} properties or {@link Computed} properties change.
+ * If the return value can change outside of the above scenarios it is important to set the {@link #depType()}
+ * to {@link DepType#AREZ_OR_EXTERNAL} and explicitly report possible changes to the derived value by invoking
+ * the {@link ComputableValue#reportPossiblyChanged()} on the {@link ComputableValue} returned from a method
+ * annotated by the {@link ComputableValueRef} that is linked to the method marked with this annotation.</p>
  *
- * <p>The method that is annotated with @Computed must comply with the additional constraints:</p>
+ * <p>The method is wrapped in a READ_ONLY transaction and thus can not modify other state in the system.</p>
+ *
+ * <p>The enhanced method is implemented by creating a separate {@link ComputableValue} instance for each unique
+ * combination of parameters that are passed to the method. When the {@link ComputableValue} is deactivated, a hook
+ * triggers that removes the {@link ComputableValue} from the local cache. If the method has zero parameter then
+ * the method is backed by a single {@link ComputableValue} instance.</p>
+ *
+ * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
- * <li>Must have 0 parameters</li>
  * <li>Must return a value</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
