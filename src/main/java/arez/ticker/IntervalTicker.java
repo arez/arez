@@ -3,7 +3,7 @@ package arez.ticker;
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -111,7 +111,7 @@ public abstract class IntervalTicker
    *
    * @return the time that the ticker last ticked.
    */
-  @Computed
+  @Memoize
   public long getTickTime()
   {
     final long rawTime = getLastTickTime();
