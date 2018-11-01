@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.03](https://github.com/arez/arez-mediaquery/tree/v0.03) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez-mediaquery/compare/v0.02...v0.03)
 
