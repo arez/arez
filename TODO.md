@@ -23,6 +23,12 @@ complete as there is too much un-said.
   methods are only valid when the `@Memoize` method takes no parameters. The next step is to restructure
   `@ComputableValueRef` so that it accepts parameters that are memoized and potentially the other hook methods.
 
+* Support `@ComputableValueRef` for `@Memoize` methods that accept parameters.
+
+* Support `@OnActivate`, `@OnDeactivate` and `@OnStale` for `@Memoize` methods that accept parameters.
+
+* Support `DepType.AREZ_OR_EXTERNAL` for `@Memoize` methods that accept parameters.
+
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
   are not useful. We should also include the average amount of time it took to calculate the value?
