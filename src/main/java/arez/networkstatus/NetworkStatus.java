@@ -2,7 +2,7 @@ package arez.networkstatus;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -76,7 +76,7 @@ public abstract class NetworkStatus
    *
    * @return true if the browser is online, false otherwise.
    */
-  @Computed
+  @Memoize
   public boolean isOnLine()
   {
     return isRawOnLine();
