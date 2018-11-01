@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.37](https://github.com/arez/arez-spytools/tree/v0.37) (2018-11-02)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.36...v0.37)
 
 * Fuse some steps in `ReactArezConsoleSpyEventProcessor` to reduce overhead of code.
 * Update the 'org.realityforge.arez' dependencies to version '0.112'
