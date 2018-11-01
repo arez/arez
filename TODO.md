@@ -23,7 +23,6 @@ complete as there is too much un-said.
   methods are only valid when the `@Memoize` method takes no parameters. The next step is to restructure
   `@ComputableValueRef` so that it accepts parameters that are memoized and potentially the other hook methods.
   keepAlive should not be allowed on Memoize
-  - cleanup `@Computed` vs `@Memoize` docs
 
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances

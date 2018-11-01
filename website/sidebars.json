@@ -24,7 +24,6 @@
       "at_component_id",
       "lifecycle_callbacks",
       "at_observable",
-      "at_computed",
       "at_memoize",
       "at_action",
       "at_observe",

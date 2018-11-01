@@ -1,4 +1,4 @@
-package arez.doc.examples.at_computed;
+package arez.doc.examples.at_memoize;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
@@ -28,16 +28,15 @@ public abstract class CurrencyCollection
     //DOC ELIDE END
   }
 
-  // Memoize value that only changes when a currency is
-  // added or removed
+  // Memoized method that only changes when a currency is added or removed
   @Memoize
   public int getCurrencyCount()
   {
     return getCurrencies().size();
   }
 
-  // Memoize value that changes when a currency is added
-  // or removed, or the filter changes
+  // Memoized method that changes when a currency is added or removed,
+  // or the filter changes
   @Memoize
   public List<Currency> filteredCurrencies()
   {

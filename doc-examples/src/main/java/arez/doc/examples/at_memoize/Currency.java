@@ -1,4 +1,4 @@
-package arez.doc.examples.at_computed;
+package arez.doc.examples.at_memoize;
 
 public class Currency
 {

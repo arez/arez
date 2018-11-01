@@ -8,7 +8,7 @@ applications. The first Arez applications were constructed using just these prim
 
 Constructing primitives in this manner was tedious at best. Humans tend to want to use higher level abstractions
 and so was born the annotation driven [Component Model](components.md). Arez users could
-define "components" that consisted of [@Observable](at_observable.md) properties, [@Memoize](at_computed.md)
+define "components" that consisted of [@Observable](at_observable.md) properties, [@Memoize](at_memoize.md)
 properties and [@Observe](at_observe.md) methods or observers.
 
 The component model made authoring the reactive elements of Arez applications relatively easy. However the annotation

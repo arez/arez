@@ -51,6 +51,8 @@
   for implementing the scenario where the method had no parameters and the scenario where the method had parameters
   were significantly different. This change unifies the two scenarios in favour of improving the developer
   experience.
+* **\[core\]** Add some minimal documentation describing how to explicitly force a `@Memoize` annotated method
+  to re-evaluate when a non-arez dependency has been updated.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)
