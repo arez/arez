@@ -5,8 +5,8 @@ import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
-import arez.annotations.Computed;
 import arez.annotations.DepType;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -130,7 +130,7 @@ public abstract class MediaQuery
    *
    * @return true if the media query matches, false otherwise.
    */
-  @Computed( depType = DepType.AREZ_OR_EXTERNAL )
+  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public boolean matches()
   {
     // Observe query so that this is re-calculated if query changes
