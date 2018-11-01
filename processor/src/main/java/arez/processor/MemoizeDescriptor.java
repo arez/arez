@@ -260,7 +260,12 @@ final class MemoizeDescriptor
     }
     if ( _keepAlive )
     {
-      if ( null != _onActivate )
+      if ( !_method.getParameters().isEmpty() )
+      {
+        throw new ArezProcessorException( "@Memoize target specified parameter keepAlive as true but has parameters.",
+                                          _method );
+      }
+      else if ( null != _onActivate )
       {
         throw new ArezProcessorException( "@OnActivate exists for @Memoize property that specified parameter " +
                                           "keepAlive as true.", _onActivate );
