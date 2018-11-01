@@ -41,7 +41,7 @@ public @interface Observable
    * will default to the name of the property by convention as described above.
    * The value must conform to the requirements of a java identifier.
    * The name must also be unique across {@link Observable}s,
-   * {@link Computed}s and {@link Action}s within the scope of the
+   * {@link Memoize}s and {@link Action}s within the scope of the
    * {@link ArezComponent} annotated element.
    *
    * @return the name of the ObservableValue relative to the component.

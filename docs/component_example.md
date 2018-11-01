@@ -6,7 +6,7 @@ sidebar_label: Example
 If you are here it is assumed that you understand the [conceptual model](concepts.md) of Arez and are ready to
 start building reactive components. A reactive component is annotated with the {@api_url: annotations.ArezComponent}
 annotation. Depending on the role the reactive component has in the system it may have one or more methods annotated
-with {@api_url: annotations.Observable}, {@api_url: annotations.Computed}, {@api_url: annotations.Action} or
+with {@api_url: annotations.Observable}, {@api_url: annotations.Memoize}, {@api_url: annotations.Action} or
 {@api_url: annotations.Observe}.
 
 When the component is compiled by the java compiler, an annotation processor analyzes the component
@@ -90,7 +90,7 @@ dependent on.
 This means that that any time the `remainingRides` observable property is modified, Arez will execute this method.
 If `remainingRides` is zero then the user will be notified that the ticket has expired.
 
-## Computed properties
+## Memoized methods
 
 If you were to put a `System.out.println(...)` call at the top of the `notifyUserWhenTicketExpires()` method you
 would notice that it is called every time that the `remainingRides` observable property is updated. So if
@@ -100,9 +100,9 @@ the `notifyUserWhenTicketExpires()` method would be invoked `10` times.
 For such a lightweight method this may not have a significant performance impact. If the method performed more
 expensive operations such as updating parts of the UI then you may want to optimize the method annotated with
 {@api_url: annotations.Observe} so that it is only invoked when there is actual work to do. The easiest way
-to do this is to use a {@api_url: annotations.Computed} property as illustrated below.
+to do this is to use the {@api_url: annotations.Memoize} annotation as illustrated below.
 
-{@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Computed "end_line=^\}" include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Memoize "end_line=^\}" include_end_line=false strip_block=true}
 
 Extracting the test `0 == getRemainingRides()` as a `ticketExpired` computed property will mean that the {@api_url: annotations.Observe}
 method no longer has a direct dependency on the `remainingRides` observable property and instead has a dependency
@@ -128,7 +128,7 @@ with {@api_url: annotations.OnDepsChange} to indicate that the observed method n
 
 An example is illustrated below:
 
-{@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Observe end_line=@Computed include_end_line=false strip_block=false}
+{@file_content: file=arez/doc/examples/step5/TrainTicket.java start_line=@Observe end_line=@Memoize include_end_line=false strip_block=false}
 
 # Summary
 

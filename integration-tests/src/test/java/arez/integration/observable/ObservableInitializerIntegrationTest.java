@@ -3,7 +3,7 @@ package arez.integration.observable;
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -63,7 +63,7 @@ public class ObservableInitializerIntegrationTest
 
     abstract void setLastName( @Nonnull String lastName );
 
-    @Computed
+    @Memoize
     @Nonnull
     String getFullName()
     {

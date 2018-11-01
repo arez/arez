@@ -2,7 +2,7 @@ package arez.doc.examples.step5;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Executor;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
@@ -45,7 +45,7 @@ public abstract class TrainTicket
     Renderer.scheduleRender( this );
   }
 
-  @Computed
+  @Memoize
   public boolean isTicketExpired()
   {
     return 0 == getRemainingRides();

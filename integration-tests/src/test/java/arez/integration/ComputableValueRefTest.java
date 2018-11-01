@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -25,7 +25,7 @@ public class ComputableValueRefTest
       return String.valueOf( getOtherIDComputableValue().get() );
     }
 
-    @Computed
+    @Memoize
     int getOtherID()
     {
       observeADependency();

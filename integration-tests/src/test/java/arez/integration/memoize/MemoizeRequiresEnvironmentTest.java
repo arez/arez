@@ -6,7 +6,7 @@ import arez.Environment;
 import arez.Function;
 import arez.SafeFunction;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import static org.testng.Assert.*;
 public class MemoizeRequiresEnvironmentTest
   extends AbstractArezIntegrationTest
 {
+  @SuppressWarnings( "DefaultAnnotationParam" )
   @ArezComponent
   public static abstract class Model
   {
@@ -42,26 +43,26 @@ public class MemoizeRequiresEnvironmentTest
 
     abstract void setName( @Nonnull String name );
 
-    @Computed( requireEnvironment = true )
+    @Memoize( requireEnvironment = true )
     @Nonnull
-    String getComputed1()
+    String getMemoized1()
     {
-      _steps.add( "computed1" );
+      _steps.add( "memoized1" );
       getName();
       return "";
     }
 
-    @Computed( requireEnvironment = false )
+    @Memoize( requireEnvironment = false )
     @Nonnull
-    String getComputed2()
+    String getMemoized2()
     {
-      _steps.add( "computed2" );
+      _steps.add( "memoized2" );
       getName();
       return "";
     }
 
     @SuppressWarnings( "SameParameterValue" )
-    @Computed( requireEnvironment = true )
+    @Memoize( requireEnvironment = true )
     boolean search1( @Nonnull final String value )
     {
       _steps.add( "search1" );
@@ -69,7 +70,7 @@ public class MemoizeRequiresEnvironmentTest
     }
 
     @SuppressWarnings( "SameParameterValue" )
-    @Computed( requireEnvironment = false )
+    @Memoize( requireEnvironment = false )
     boolean search2( @Nonnull final String value )
     {
       _steps.add( "search2" );
@@ -128,7 +129,7 @@ public class MemoizeRequiresEnvironmentTest
 
     assertEquals( steps, Arrays.asList( "EnvironmentStart", "search1", "EnvironmentEnd", "search2" ) );
 
-    safeAction( model::getComputed1 );
+    safeAction( model::getMemoized1 );
 
     assertEquals( steps,
                   Arrays.asList( "EnvironmentStart",
@@ -136,10 +137,10 @@ public class MemoizeRequiresEnvironmentTest
                                  "EnvironmentEnd",
                                  "search2",
                                  "EnvironmentStart",
-                                 "computed1",
+                                 "memoized1",
                                  "EnvironmentEnd" ) );
 
-    safeAction( model::getComputed2 );
+    safeAction( model::getMemoized2 );
 
     assertEquals( steps,
                   Arrays.asList( "EnvironmentStart",
@@ -147,9 +148,9 @@ public class MemoizeRequiresEnvironmentTest
                                  "EnvironmentEnd",
                                  "search2",
                                  "EnvironmentStart",
-                                 "computed1",
+                                 "memoized1",
                                  "EnvironmentEnd",
-                                 "computed2" ) );
+                                 "memoized2" ) );
 
   }
 }

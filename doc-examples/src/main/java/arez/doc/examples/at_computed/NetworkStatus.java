@@ -2,7 +2,7 @@ package arez.doc.examples.at_computed;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -21,7 +21,7 @@ public abstract class NetworkStatus
     _rawOnLine = DomGlobal.navigator.onLine;
   }
 
-  @Computed
+  @Memoize
   public boolean isOnLine()
   {
     return isRawOnLine();
@@ -55,7 +55,7 @@ public abstract class NetworkStatus
   @Action
   void updateOnlineStatus()
   {
-    //Updating the observable will force @Computed method to recalculate
+    //Updating the observable will force @Memoize method to recalculate
     setRawOnLine( DomGlobal.navigator.onLine );
   }
 }

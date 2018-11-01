@@ -36,7 +36,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   private final ObservableValue<Long> $$arez$$_myField;
 
   @Nonnull
-  private final ComputableValue<Integer> $$arez$$_myComputed;
+  private final ComputableValue<Integer> $$arez$$_myMemoized;
 
   @Nonnull
   private final Observer $$arez$$_zzzzzz;
@@ -54,7 +54,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "MyContainer", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
     this.$$arezi$$_disposeNotifier = new DisposeNotifier();
     this.$$arez$$_myField = $$arezi$$_context().observable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myField" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
-    this.$$arez$$_myComputed = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myComputed" : null, () -> super.compute(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
+    this.$$arez$$_myMemoized = $$arezi$$_context().computable( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".myMemoized" : null, () -> super.compute(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     this.$$arez$$_zzzzzz = $$arezi$$_context().observer( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".zzzzzz" : null, () -> super.zapZap(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
     this.$$arez$$_XX = $$arezi$$_context().tracker( Arez.areNativeComponentsEnabled() ? this.$$arezi$$_component : null, Arez.areNamesEnabled() ? $$arezi$$_name() + ".XX" : null, () -> super.onRenderDepsChange(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_NOT_REQUIRED );
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -125,7 +125,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
           this.$$arezi$$_preDispose();
           this.$$arez$$_zzzzzz.dispose();
           this.$$arez$$_XX.dispose();
-          this.$$arez$$_myComputed.dispose();
+          this.$$arez$$_myMemoized.dispose();
           this.$$arez$$_myField.dispose();
         } }, Flags.NO_VERIFY_ACTION_REQUIRED );
       }
@@ -198,7 +198,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'compute' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
-    return this.$$arez$$_myComputed.get();
+    return this.$$arez$$_myMemoized.get();
   }
 
   @Override

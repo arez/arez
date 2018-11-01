@@ -97,7 +97,7 @@ systems you could just listen for an event such as `EntityAdded(Employee)`, calc
 specific instance and insert them into the allowance candidates if appropriate. In that scenario the event
 listen approach can be better optimized.
 
-However building this in Arez with judicious use of {@api_url: annotations.Computed} annotated
+However building this in Arez with judicious use of {@api_url: annotations.Memoize} annotated
 methods can achieve acceptable performance, at least in our tests of up to ~8000 entities in the original `Employee`
 set. It is possible that in the future, change messages will be added back into Arez but will only occur when
 it is determined that the implementation and performance costs for other scenarios is worth the tradeoff.

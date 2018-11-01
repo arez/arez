@@ -2,7 +2,7 @@ package arez.integration.memoize;
 
 import arez.Disposable;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.DepType;
 import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
@@ -23,25 +23,25 @@ public class MemoizeDepTypeTest
       return new MemoizeDepTypeTest_Arez_Model();
     }
 
-    @Computed( depType = DepType.AREZ )
+    @Memoize( depType = DepType.AREZ )
     boolean derive1()
     {
       return false;
     }
 
-    @Computed( depType = DepType.AREZ_OR_NONE )
+    @Memoize( depType = DepType.AREZ_OR_NONE )
     boolean derive2()
     {
       return false;
     }
 
-    @Computed( depType = DepType.AREZ )
+    @Memoize( depType = DepType.AREZ )
     boolean search1( @Nonnull final String value )
     {
       return false;
     }
 
-    @Computed( depType = DepType.AREZ_OR_NONE )
+    @Memoize( depType = DepType.AREZ_OR_NONE )
     boolean search2( @Nonnull final String value )
     {
       return false;

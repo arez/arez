@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Marks a template method that returns the {@link ComputableValue} instance for
- * the {@link Computed} annotated property. Each property marked with the {@link Computed} annotation is backed
+ * the {@link Memoize} annotated property. Each property marked with the {@link Memoize} annotation is backed
  * by an {@link ComputableValue} instance and some frameworks make use of this value to implement
  * advanced functionality.
  *
@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 public @interface ComputableValueRef
 {
   /**
-   * Return the name of the associated Computed property that this ref relates to.
+   * Return the name of the associated Memoize property that this ref relates to.
    * This value will be derived if the method name matches the pattern "get[Name]ComputableValue",
    * otherwise it must be specified.
    *

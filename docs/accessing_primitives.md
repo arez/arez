@@ -6,7 +6,7 @@ Most Arez users will make use of annotations to define the reactive components r
 For most applications, most of the time, this is sufficient. Very occasionally it is useful to get access to the
 underlying primitives. This could mean getting access to the {@api_url: ObservableValue} instance for
 an {@api_url: annotations.Observable} property, getting access to the {@api_url: ComputableValue} instance for a
-{@api_url: annotations.Computed} property etc. It could also be accessing information about the component such
+{@api_url: annotations.Memoize} property etc. It could also be accessing information about the component such
 as the component name or the components type name. Access to the underlying primitives is needed for some reactive
 features (i.e. explicit calls to {@api_url: Observer.schedule()::Observer::schedule()} to manually schedule
 observers or {@api_url: Observer.reportStale()::Observer::reportStale()}/{@api_url: ComputableValue.reportPossiblyChanged()::ComputableValue::reportPossiblyChanged()}
@@ -27,7 +27,7 @@ The `@*Ref` annotations include the following:
 * {@api_url: annotations.ComponentIdRef}: This method exposes the underlying id of the component.
 * {@api_url: annotations.ComponentTypeNameRef}: This method exposes the underlying name of the component type.
 * {@api_url: annotations.ObservableValueRef}: This method exposes the underlying {@api_url: ObservableValue} for an {@api_url: annotations.Observable} property.
-* {@api_url: annotations.ComputableValueRef}: This method exposes the underlying {@api_url: ComputableValue} for a {@api_url: annotations.Computed} property.
+* {@api_url: annotations.ComputableValueRef}: This method exposes the underlying {@api_url: ComputableValue} for a {@api_url: annotations.Memoize} property.
 * {@api_url: annotations.ObserverRef}: This method exposes the underlying {@api_url: Observer} for the {@api_url: annotations.Observe} annotated method.
 * {@api_url: annotations.ContextRef}: This method exposes the {@api_url: ArezContext} that the component is contained within.
 * {@api_url: annotations.ComponentRef}: This method exposes the native {@api_url: Component}

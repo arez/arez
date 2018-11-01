@@ -1,5 +1,5 @@
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
 
@@ -16,7 +16,7 @@ public abstract class DisposingModel
   {
   }
 
-  @Computed
+  @Memoize
   public int someValue()
   {
     return 0;

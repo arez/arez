@@ -3,7 +3,7 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
@@ -310,7 +310,7 @@ public class NestedComputableValueIntegrationTest
       }
     }
 
-    @Computed
+    @Memoize
     public boolean isVisible()
     {
       return getChildren().isEmpty() ?

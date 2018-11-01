@@ -1,11 +1,11 @@
 ---
-title: @Computed
+title: @Memoize
 ---
 
-The {@api_url: annotations.Computed} annotation is used to define [computable values](computable_values.md) within
+The {@api_url: annotations.Memoize} annotation is used to define [computable values](computable_values.md) within
 the component model. The core idea is that you define a method that accepts no parameters and returns a value.
 This method is observable and the observer that calls the computable value will be re-scheduled any time that the
-computable value changes. Typically methods annotated with the {@api_url: annotations.Computed} annotation are
+computable value changes. Typically methods annotated with the {@api_url: annotations.Memoize} annotation are
 expected to derive the return value from other [`@Observable`](at_observable.md) and `@Computed` annotated methods.
 
 A basic example:

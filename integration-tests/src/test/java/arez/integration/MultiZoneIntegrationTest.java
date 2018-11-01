@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Zone;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicReference;
@@ -160,7 +160,7 @@ public class MultiZoneIntegrationTest
       _lastName = lastName;
     }
 
-    @Computed
+    @Memoize
     @Nonnull
     public String getFullName()
     {

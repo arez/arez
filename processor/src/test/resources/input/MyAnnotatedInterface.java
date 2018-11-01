@@ -1,5 +1,5 @@
 import arez.annotations.Action;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 
 interface MyAnnotatedInterface
@@ -20,7 +20,7 @@ interface MyAnnotatedInterface
   {
   }
 
-  @Computed
+  @Memoize
   default int someValue()
   {
     return 0;

@@ -1,7 +1,7 @@
 package arez.doc.examples.at_computed;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +28,17 @@ public abstract class CurrencyCollection
     //DOC ELIDE END
   }
 
-  // Computed value that only changes when a currency is
+  // Memoize value that only changes when a currency is
   // added or removed
-  @Computed
+  @Memoize
   public int getCurrencyCount()
   {
     return getCurrencies().size();
   }
 
-  // Computed value that changes when a currency is added
+  // Memoize value that changes when a currency is added
   // or removed, or the filter changes
-  @Computed
+  @Memoize
   public List<Currency> filteredCurrencies()
   {
     return getCurrencies()

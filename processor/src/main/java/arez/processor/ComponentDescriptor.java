@@ -50,7 +50,7 @@ import static arez.processor.ProcessorUtil.*;
 final class ComponentDescriptor
 {
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
-  private static final Pattern COMPUTED_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
+  private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
@@ -133,9 +133,9 @@ final class ComponentDescriptor
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
   private final Collection<ActionDescriptor> _roActions =
     Collections.unmodifiableCollection( _actions.values() );
-  private final Map<String, ComputedDescriptor> _computeds = new LinkedHashMap<>();
-  private final Collection<ComputedDescriptor> _roComputeds =
-    Collections.unmodifiableCollection( _computeds.values() );
+  private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
+  private final Collection<MemoizeDescriptor> _roMemoizes =
+    Collections.unmodifiableCollection( _memoizes.values() );
   private final Map<String, ObserveDescriptor> _observes = new LinkedHashMap<>();
   private final Collection<ObserveDescriptor> _roObserves =
     Collections.unmodifiableCollection( _observes.values() );
@@ -211,10 +211,10 @@ final class ComponentDescriptor
            isDeprecated( _postDispose ) ||
            _roObservables.stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
                                                   ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
-           _roComputeds.stream().anyMatch( e -> ( e.hasComputed() && isDeprecated( e.getComputed() ) ) ||
-                                                isDeprecated( e.getOnActivate() ) ||
-                                                isDeprecated( e.getOnDeactivate() ) ||
-                                                isDeprecated( e.getOnStale() ) ) ||
+           _roMemoizes.stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
+                                               isDeprecated( e.getOnActivate() ) ||
+                                               isDeprecated( e.getOnDeactivate() ) ||
+                                               isDeprecated( e.getOnStale() ) ) ||
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roDependencies.stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
                                                    ( !e.isMethodDependency() && isDeprecated( e.getField() ) ) ) ||
@@ -660,18 +660,18 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private ComputedDescriptor findOrCreateComputed( @Nonnull final String name )
+  private MemoizeDescriptor findOrCreateMemoize( @Nonnull final String name )
   {
-    return _computeds.computeIfAbsent( name, n -> new ComputedDescriptor( this, n ) );
+    return _memoizes.computeIfAbsent( name, n -> new MemoizeDescriptor( this, n ) );
   }
 
-  private void addComputed( @Nonnull final AnnotationMirror annotation,
-                            @Nonnull final ExecutableElement method,
-                            @Nonnull final ExecutableType computedType )
+  private void addMemoize( @Nonnull final AnnotationMirror annotation,
+                           @Nonnull final ExecutableElement method,
+                           @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    final String name = deriveComputedName( method, annotation );
-    checkNameUnique( name, method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
+    final String name = deriveMemoizeName( method, annotation );
+    checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     final boolean keepAlive = getAnnotationParameter( annotation, "keepAlive" );
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean observeLowerPriorityDependencies =
@@ -682,16 +682,16 @@ final class ComponentDescriptor
     final String depTypeAsString = depType.getSimpleName().toString();
     if ( "AREZ_OR_EXTERNAL".equals( depTypeAsString ) && !method.getParameters().isEmpty() )
     {
-      throw new ArezProcessorException( "@Computed target specified an invalid depType od AREZ_OR_EXTERNAL.", method );
+      throw new ArezProcessorException( "@Memoize target specified an invalid depType od AREZ_OR_EXTERNAL.", method );
     }
-    findOrCreateComputed( name ).setComputed( method,
-                                              computedType,
-                                              keepAlive,
-                                              requireEnvironment,
-                                              priority.getSimpleName().toString(),
-                                              reportResult,
-                                              observeLowerPriorityDependencies,
-                                              depTypeAsString );
+    findOrCreateMemoize( name ).setMemoize( method,
+                                            methodType,
+                                            keepAlive,
+                                            requireEnvironment,
+                                            priority.getSimpleName().toString(),
+                                            reportResult,
+                                            observeLowerPriorityDependencies,
+                                            depTypeAsString );
   }
 
   private void addComputableValueRef( @Nonnull final AnnotationMirror annotation,
@@ -716,7 +716,7 @@ final class ComponentDescriptor
     final String name;
     if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, COMPUTED_VALUE_REF_PATTERN, declaredName );
+      name = ProcessorUtil.deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ArezProcessorException( "Method annotated with @ComputableValueRef should specify name or be " +
@@ -738,12 +738,12 @@ final class ComponentDescriptor
       }
     }
 
-    findOrCreateComputed( name ).setRefMethod( method, methodType );
+    findOrCreateMemoize( name ).setRefMethod( method, methodType );
   }
 
   @Nonnull
-  private String deriveComputedName( @Nonnull final ExecutableElement method,
-                                     @Nonnull final AnnotationMirror annotation )
+  private String deriveMemoizeName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
@@ -755,12 +755,12 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Computed target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
                                           "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Computed target specified an invalid name '" + name + "'. The " +
+        throw new ArezProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
                                           "name must not be a java keyword.", method );
       }
       return name;
@@ -771,10 +771,10 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final String name = deriveHookName( method,
-                                        ComputedDescriptor.ON_ACTIVATE_PATTERN,
+                                        MemoizeDescriptor.ON_ACTIVATE_PATTERN,
                                         "Activate",
                                         getAnnotationParameter( annotation, "name" ) );
-    findOrCreateComputed( name ).setOnActivate( method );
+    findOrCreateMemoize( name ).setOnActivate( method );
   }
 
   private void addOnDeactivate( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
@@ -782,10 +782,10 @@ final class ComponentDescriptor
   {
     final String name =
       deriveHookName( method,
-                      ComputedDescriptor.ON_DEACTIVATE_PATTERN,
+                      MemoizeDescriptor.ON_DEACTIVATE_PATTERN,
                       "Deactivate",
                       getAnnotationParameter( annotation, "name" ) );
-    findOrCreateComputed( name ).setOnDeactivate( method );
+    findOrCreateMemoize( name ).setOnDeactivate( method );
   }
 
   private void addOnStale( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
@@ -793,10 +793,10 @@ final class ComponentDescriptor
   {
     final String name =
       deriveHookName( method,
-                      ComputedDescriptor.ON_STALE_PATTERN,
+                      MemoizeDescriptor.ON_STALE_PATTERN,
                       "Stale",
                       getAnnotationParameter( annotation, "name" ) );
-    findOrCreateComputed( name ).setOnStale( method );
+    findOrCreateMemoize( name ).setOnStale( method );
   }
 
   @Nonnull
@@ -1049,7 +1049,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     _roObservables.forEach( ObservableDescriptor::validate );
-    _roComputeds.forEach( ComputedDescriptor::validate );
+    _roMemoizes.forEach( MemoizeDescriptor::validate );
     _roObserves.forEach( ObserveDescriptor::validate );
     _roDependencies.forEach( DependencyDescriptor::validate );
     _roReferences.forEach( ReferenceDescriptor::validate );
@@ -1058,7 +1058,7 @@ final class ComponentDescriptor
     final boolean hasReactiveElements =
       _roObservables.isEmpty() &&
       _roActions.isEmpty() &&
-      _roComputeds.isEmpty() &&
+      _roMemoizes.isEmpty() &&
       _roDependencies.isEmpty() &&
       _roCascadeDisposes.isEmpty() &&
       _roReferences.isEmpty() &&
@@ -1068,13 +1068,13 @@ final class ComponentDescriptor
     if ( !_allowEmpty && hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@CascadeDispose, @Computed, @Observable, @Inverse, " +
+                                        "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
                                         "@Reference, @ComponentDependency or @Observe", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
-                                        "annotated with @Action, @CascadeDispose, @Computed, @Observable, @Inverse, " +
+                                        "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
                                         "@Reference, @ComponentDependency or @Observe", _element );
     }
 
@@ -1082,7 +1082,7 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
                                         "annotation parameter but has no methods annotated with @Observe, " +
-                                        "@ComponentDependency or @Computed(keepAlive=true)", _element );
+                                        "@ComponentDependency or @Memoize(keepAlive=true)", _element );
     }
     if ( null != _componentIdRef &&
          null != _componentId &&
@@ -1106,7 +1106,7 @@ final class ComponentDescriptor
   {
     return !_roObserves.isEmpty() ||
            !_roDependencies.isEmpty() ||
-           _computeds.values().stream().anyMatch( ComputedDescriptor::isKeepAlive );
+           _memoizes.values().stream().anyMatch( MemoizeDescriptor::isKeepAlive );
   }
 
   private void checkNameUnique( @Nonnull final String name,
@@ -1123,14 +1123,14 @@ final class ComponentDescriptor
                          Constants.ACTION_ANNOTATION_CLASSNAME,
                          action.getAction() );
     }
-    final ComputedDescriptor computed = _computeds.get( name );
-    if ( null != computed && computed.hasComputed() )
+    final MemoizeDescriptor memoize = _memoizes.get( name );
+    if ( null != memoize && memoize.hasMemoize() )
     {
       throw toException( name,
                          sourceAnnotationName,
                          sourceMethod,
-                         Constants.COMPUTED_ANNOTATION_CLASSNAME,
-                         computed.getComputed() );
+                         Constants.MEMOIZE_ANNOTATION_CLASSNAME,
+                         memoize.getMethod() );
     }
     // Observed have pairs so let the caller determine whether a duplicate occurs in that scenario
     if ( !sourceAnnotationName.equals( Constants.OBSERVED_ANNOTATION_CLASSNAME ) )
@@ -1393,10 +1393,10 @@ final class ComponentDescriptor
       .filter( o -> hasDependencyAnnotation( o.getGetter() ) )
       .forEach( o -> addOrUpdateDependency( o.getGetter(), o ) );
 
-    _roComputeds
+    _roMemoizes
       .stream()
-      .filter( ComputedDescriptor::hasComputed )
-      .map( ComputedDescriptor::getComputed )
+      .filter( MemoizeDescriptor::hasMemoize )
+      .map( MemoizeDescriptor::getMethod )
       .filter( this::hasDependencyAnnotation )
       .forEach( this::addDependency );
 
@@ -2168,8 +2168,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observableValueRef =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME );
-    final AnnotationMirror computed =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPUTED_ANNOTATION_CLASSNAME );
+    final AnnotationMirror memoize =
+      ProcessorUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     final AnnotationMirror computableValueRef =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror contextRef =
@@ -2256,9 +2256,9 @@ final class ComponentDescriptor
       setContextRef( method );
       return true;
     }
-    else if ( null != computed )
+    else if ( null != memoize )
     {
-      addComputed( computed, method, methodType );
+      addMemoize( memoize, method, methodType );
       return true;
     }
     else if ( null != computableValueRef )
@@ -2407,7 +2407,7 @@ final class ComponentDescriptor
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
-                    Constants.COMPUTED_ANNOTATION_CLASSNAME,
+                    Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                     Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
@@ -2530,7 +2530,7 @@ final class ComponentDescriptor
     addOriginatingTypes( getElement(), builder );
 
     addGeneratedAnnotation( builder );
-    if ( !_roComputeds.isEmpty() )
+    if ( !_roMemoizes.isEmpty() )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "unchecked" ).
@@ -2646,7 +2646,7 @@ final class ComponentDescriptor
     _roObservables.forEach( e -> e.buildMethods( builder ) );
     _roObserves.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
-    _roComputeds.forEach( e -> e.buildMethods( builder ) );
+    _roMemoizes.forEach( e -> e.buildMethods( builder ) );
     _roReferences.forEach( e -> e.buildMethods( builder ) );
     _roInverses.forEach( e -> e.buildMethods( builder ) );
 
@@ -3176,8 +3176,8 @@ final class ComponentDescriptor
     {
       actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
     }
-    _roObserves.forEach( observed -> observed.buildDisposer( actionBlock ) );
-    _roComputeds.forEach( computed -> computed.buildDisposer( actionBlock ) );
+    _roObserves.forEach( observe -> observe.buildDisposer( actionBlock ) );
+    _roMemoizes.forEach( memoize -> memoize.buildDisposer( actionBlock ) );
     _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
     if ( null != _postDispose )
     {
@@ -3372,7 +3372,7 @@ final class ComponentDescriptor
    * <ul>
    * <li>the context field if there is any @Action methods.</li>
    * <li>the observable object for every @Observable.</li>
-   * <li>the ComputableValue object for every @Computed method.</li>
+   * <li>the ComputableValue object for every @Memoize method.</li>
    * </ul>
    */
   private void buildFields( @Nonnull final TypeSpec.Builder builder )
@@ -3443,13 +3443,13 @@ final class ComponentDescriptor
       builder.addField( field.build() );
     }
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
-    _roComputeds.forEach( computed -> computed.buildFields( builder ) );
-    _roObserves.forEach( observed -> observed.buildFields( builder ) );
+    _roMemoizes.forEach( memoize -> memoize.buildFields( builder ) );
+    _roObserves.forEach( observe -> observe.buildFields( builder ) );
     _roReferences.forEach( r -> r.buildFields( builder ) );
     if ( _disposeOnDeactivate )
     {
       final FieldSpec.Builder field =
-        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTED_VALUE_CLASSNAME, TypeName.BOOLEAN.box() ),
+        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTABLE_VALUE_CLASSNAME, TypeName.BOOLEAN.box() ),
                            GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                            Modifier.FINAL,
                            Modifier.PRIVATE ).
@@ -3688,8 +3688,8 @@ final class ComponentDescriptor
     }
 
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
-    _roComputeds.forEach( computed -> computed.buildInitializer( builder ) );
-    _roObserves.forEach( observed -> observed.buildInitializer( builder ) );
+    _roMemoizes.forEach( memoize -> memoize.buildInitializer( builder ) );
+    _roObserves.forEach( observe -> observe.buildInitializer( builder ) );
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
     _roDependencies.forEach( e -> e.buildInitializer( builder ) );
 

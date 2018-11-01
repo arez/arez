@@ -28,7 +28,7 @@ final class GeneratorUtil
   static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
   static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "ObservableValue" );
   static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );
-  static final ClassName COMPUTED_VALUE_CLASSNAME = ClassName.get( "arez", "ComputableValue" );
+  static final ClassName COMPUTABLE_VALUE_CLASSNAME = ClassName.get( "arez", "ComputableValue" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "arez", "Disposable" );
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
   static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );

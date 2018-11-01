@@ -12,7 +12,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
 import arez.annotations.ComputableValueRef;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.ContextRef;
 import arez.annotations.Executor;
 import arez.annotations.Inverse;
@@ -61,7 +61,7 @@ public abstract class BaseCompleteModel
   @ComponentRef
   protected abstract Component getComponent();
 
-  @Computed
+  @Memoize
   protected long getTime()
   {
     return 0;

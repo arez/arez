@@ -2,12 +2,12 @@ package com.example.package_access.other;
 
 import arez.ComputableValue;
 import arez.annotations.ComputableValueRef;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import javax.annotation.Nonnull;
 
 public abstract class BaseComputableValueRefModel
 {
-  @Computed
+  @Memoize
   public long getTime()
   {
     return 0;

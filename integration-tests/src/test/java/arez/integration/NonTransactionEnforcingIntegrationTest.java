@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Flags;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -112,7 +112,7 @@ public class NonTransactionEnforcingIntegrationTest
       _lastName = lastName;
     }
 
-    @Computed
+    @Memoize
     @Nonnull
     public String getFullName()
     {

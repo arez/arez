@@ -1,7 +1,7 @@
 package com.example.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
@@ -12,7 +12,7 @@ public abstract class PostConstructNotStaticModel
   {
   }
 
-  @Computed
+  @Memoize
   public int someValue()
   {
     return 0;

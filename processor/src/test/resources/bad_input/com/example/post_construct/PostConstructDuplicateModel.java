@@ -1,13 +1,13 @@
 package com.example.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
 public abstract class PostConstructDuplicateModel
 {
-  @Computed
+  @Memoize
   public int getMyValue()
   {
     return 0;

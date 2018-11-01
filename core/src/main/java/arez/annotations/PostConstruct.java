@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * At most 1 method should be annotated with this annotation.
  * The PostConstruct method is invoked after the component classes constructor has been invoked and after all
  * the Arez elements have been constructed and observers (if any) scheduled but before the scheduler has been
- * triggered which would result in the first execution of observers or {@link Computed#keepAlive()} computable
+ * triggered which would result in the first execution of observers or {@link Memoize#keepAlive()} computable
  * values.
  *
  * <p>The method that is annotated with @PostDispose must comply with the additional constraints:</p>
