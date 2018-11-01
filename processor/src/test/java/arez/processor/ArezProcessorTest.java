@@ -940,6 +940,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computable_value_ref.DuplicateRefMethodModel",
                       "@ComputableValueRef target duplicates existing method named getTimeComputableValue" },
         new Object[]{ "com.example.computable_value_ref.FinalModel", "@ComputableValueRef target must not be final" },
+        new Object[]{ "com.example.computable_value_ref.MemoizeHasParametersModel",
+                      "@ComputableValueRef target specified when the associated @Memoize method has parameters." },
         new Object[]{ "com.example.computable_value_ref.NoMemoizeModel",
                       "@ComputableValueRef exists but there is no corresponding @Memoize" },
         new Object[]{ "com.example.computable_value_ref.NonAlignedNameModel",

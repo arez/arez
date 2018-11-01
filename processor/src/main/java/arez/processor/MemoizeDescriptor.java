@@ -279,6 +279,11 @@ final class MemoizeDescriptor
 
     if ( null != _refMethod )
     {
+      if ( !_method.getParameters().isEmpty() )
+      {
+        throw new ArezProcessorException( "@ComputableValueRef target specified when the associated @Memoize " +
+                                          "method has parameters.", _method );
+      }
       final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
       if ( typeName instanceof ParameterizedTypeName )
       {
