@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * annotation should be on a method that accepts no parameters and returns
  * a String.</p>
  *
- * <p>The method that is annotated with @ComponentNameRef must comply with the additional constraints:</p>
+ * <p>The method that is annotated with the annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>
