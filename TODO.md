@@ -18,11 +18,12 @@ complete as there is too much un-said.
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
-* Merge `@Computed` into `@Memoize`. This changes the validation significantly and how code is generated. The
-  first step is to ensure that the `@ComputableValueRef`, `@OnActivate`, `@OnDeactivate` and `@OnStale` annotated
-  methods are only valid when the `@Memoize` method takes no parameters. The next step is to restructure
-  `@ComputableValueRef` so that it accepts parameters that are memoized and potentially the other hook methods.
-  keepAlive should not be allowed on Memoize
+* Support `@ComputableValueRef` for `@Memoize` methods that accept parameters.
+
+* Support `@OnActivate`, `@OnDeactivate` and `@OnStale` for `@Memoize` methods that accept parameters.
+
+* Support `DepType.AREZ_OR_EXTERNAL` for `@Memoize` methods that accept parameters. This needs to have
+  `@ComputableValueRef` supported on these methods as a precursor.
 
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
@@ -100,6 +101,11 @@ complete as there is too much un-said.
 
 * Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into `ComputableValue` instances. It would
   manually trigger `ComputableValue.reportPossiblyChanged()` when a new value arrives.
+
+* One useful addition may be the ability to push changes from `ObservableValue` instance and `ComputableValue`
+  instances into streams. These changes could either be pushed inline within the `READ_WRITE` transaction or could
+  be pushed as a task passed to scheduler. This would support several alternative approaches when architecting
+  applications.
 
 ## Process
 

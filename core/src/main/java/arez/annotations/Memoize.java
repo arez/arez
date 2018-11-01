@@ -57,6 +57,8 @@ public @interface Memoize
    * A flag indicating whether the computable should be "kept alive". A computable that is kept alive
    * is activated on creation and never deactivates. This is useful if the computable property is only
    * accessed from within actions but should be kept up to date and not recomputed on each access.
+   * This MUST not be set if the target method has any parameters as can not keep computed value active
+   * if parameter values are unknown.
    *
    * @return true to keep computable alive.
    */
