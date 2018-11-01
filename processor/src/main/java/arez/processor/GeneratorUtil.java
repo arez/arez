@@ -268,8 +268,7 @@ final class GeneratorUtil
     final boolean catchRuntimeException =
       expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
     int thrownCount = expectedThrowTypes.size();
-    final ArrayList<Object> args = new ArrayList<>();
-    args.addAll( expectedThrowTypes );
+    final ArrayList<Object> args = new ArrayList<>( expectedThrowTypes );
     if ( !catchThrowable && !catchRuntimeException && !catchException )
     {
       thrownCount++;
@@ -315,8 +314,7 @@ final class GeneratorUtil
     final boolean catchRuntimeException =
       expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
     int thrownCount = expectedThrowTypes.size();
-    final ArrayList<Object> args = new ArrayList<>();
-    args.addAll( expectedThrowTypes );
+    final ArrayList<Object> args = new ArrayList<>( expectedThrowTypes );
     if ( !catchThrowable && !catchRuntimeException && !catchException )
     {
       thrownCount++;
