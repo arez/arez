@@ -276,6 +276,24 @@ final class MemoizeDescriptor
                                           "keepAlive as true.", _onDeactivate );
       }
     }
+    if ( !_method.getParameters().isEmpty() )
+    {
+      if ( null != _onActivate )
+      {
+        throw new ArezProcessorException( "@OnActivate target associated with @Memoize method that has parameters.",
+                                          _onActivate );
+      }
+      else if ( null != _onDeactivate )
+      {
+        throw new ArezProcessorException( "@OnDeactivate target associated with @Memoize method that has parameters.",
+                                          _onDeactivate );
+      }
+      else if ( null != _onStale )
+      {
+        throw new ArezProcessorException( "@OnStale target associated with @Memoize method that has parameters.",
+                                          _onStale );
+      }
+    }
 
     if ( null != _refMethod )
     {
