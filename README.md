@@ -44,7 +44,7 @@ Arez is licensed under [Apache License, Version 2.0](LICENSE).
   where the Mobx heritage is clear. Credit goes to Michel Weststrate and the Mobx team for their clean conceptual
   model and some inspirational talks. Later in the life of Arez, parts of the Mobx documentation acted as
   inspiration or were directly copied and modified (i.e. MobX's [(@)computed](https://mobx.js.org/refguide/computed-decorator.html))
-  docs were used to seed `docs/computed_values.md`).
+  docs were used to seed `docs/computable_values.md`).
 
 * Other frameworks that influenced the development of Arez include;
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
