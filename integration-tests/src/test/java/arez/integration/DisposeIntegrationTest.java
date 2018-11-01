@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
@@ -92,7 +92,7 @@ public class DisposeIntegrationTest
       _packageName = packageName;
     }
 
-    @Computed
+    @Memoize
     @Nonnull
     public String getQualifiedName()
     {

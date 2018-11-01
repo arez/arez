@@ -29,20 +29,6 @@ final class CascadeDisposableDescriptor
     _field = null;
   }
 
-  @Nonnull
-  ExecutableElement getMethod()
-  {
-    assert null != _method;
-    return _method;
-  }
-
-  @Nonnull
-  VariableElement getField()
-  {
-    assert null != _field;
-    return _field;
-  }
-
   void buildDisposer( @Nonnull final MethodSpec.Builder builder )
   {
     if ( null != _field )

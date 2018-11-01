@@ -1,7 +1,7 @@
 package com.example.deprecated;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
@@ -13,7 +13,7 @@ public abstract class DeprecatedPostConstructModel
   {
   }
 
-  @Computed
+  @Memoize
   public int someValue()
   {
     return 0;

@@ -2,7 +2,7 @@ package com.example.repository;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import javax.annotation.Nonnull;
@@ -57,7 +57,7 @@ abstract class PackageAccessRepositoryExample
     _packageName = packageName;
   }
 
-  @Computed
+  @Memoize
   @Nonnull
   public String getQualifiedName()
   {

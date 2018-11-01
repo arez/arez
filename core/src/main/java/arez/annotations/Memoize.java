@@ -1,26 +1,34 @@
 package arez.annotations;
 
+import arez.ComputableValue;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Methods marked with this annotation are <a href="https://en.wikipedia.org/wiki/Memoization">memoized</a> while there is an observer.
+ * Methods marked with this annotation are <a href="https://en.wikipedia.org/wiki/Memoization">memoized</a> while
+ * activated which typically means they have an observer. These methods are typically backed with one or more
+ * {@link ComputableValue} instances.
  *
- * <p>The return value should be derived from the parameters and any other Observables or {@link arez.ComputableValue}s
- * within the Arez system. The value returned by the method should not change unless the parameters or the
- * state of the other {@link Observable}s change. The method is wrapped in a READ_ONLY transaction and
- * thus can not modify other state in the system.</p>
+ * <p>The return value should be derived from the method parameters and any other {@link Observable} properties
+ * or {@link Memoize} properties accessed within the scope of the method. The he value returned by the method
+ * should not change unless the state of the {@link Observable} properties or {@link Memoize} properties change.
+ * If the return value can change outside of the above scenarios it is important to set the {@link #depType()}
+ * to {@link DepType#AREZ_OR_EXTERNAL} and explicitly report possible changes to the derived value by invoking
+ * the {@link ComputableValue#reportPossiblyChanged()} on the {@link ComputableValue} returned from a method
+ * annotated by the {@link ComputableValueRef} that is linked to the method marked with this annotation.</p>
  *
- * <p>This is implemented by creating a separate ComputableValue instance for each unique combination of
- * parameters. When the ComputableValue is deactivated, a hook triggers that removes the ComputableValue
- * from the local cache.</p>
+ * <p>The method is wrapped in a READ_ONLY transaction and thus can not modify other state in the system.</p>
  *
- * <p>The method that is annotated with @Memoize must comply with the additional constraints:</p>
+ * <p>The enhanced method is implemented by creating a separate {@link ComputableValue} instance for each unique
+ * combination of parameters that are passed to the method. When the {@link ComputableValue} is deactivated, a hook
+ * triggers that removes the {@link ComputableValue} from the local cache. If the method has zero parameter then
+ * the method is backed by a single {@link ComputableValue} instance.</p>
+ *
+ * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
- * <li>Must have 1 or more parameters</li>
  * <li>Must return a value</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
@@ -34,17 +42,25 @@ import javax.annotation.Nonnull;
 public @interface Memoize
 {
   /**
-   * Return the root name of the Memoized value relative to the component. This
-   * will be used in combination with a sequence when naming the synthesized
-   * ComputableValue instances. The value must conform to the requirements of a
-   * java identifier. The name must also be unique across {@link Observable}s,
-   * {@link Computed}s and {@link Action}s within the scope of the
-   * {@link ArezComponent} annotated element.
+   * Return the root name of the element value relative to the component.
+   * If the method has parameters then the name will be used in combination with a sequence
+   * when naming the synthesized {@link ComputableValue} instances. The value must conform to
+   * the requirements of a java identifier. The name must also be unique across {@link Observable}s,
+   * {@link Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
    *
-   * @return the root name of the Memoized value relative to the component.
+   * @return the root name of the element relative to the component.
    */
   @Nonnull
   String name() default "<default>";
+
+  /**
+   * A flag indicating whether the computable should be "kept alive". A computable that is kept alive
+   * is activated on creation and never deactivates. This is useful if the computable property is only
+   * accessed from within actions but should be kept up to date and not recomputed on each access.
+   *
+   * @return true to keep computable alive.
+   */
+  boolean keepAlive() default false;
 
   /**
    * The priority of the underlying ComputableValue observer
@@ -66,19 +82,30 @@ public @interface Memoize
   boolean observeLowerPriorityDependencies() default false;
 
   /**
-   * True if invocations of the underlying computable must be executed in an {@link arez.Environment}.
+   * Enum indicating whether the value of the computable is derived from arez elements and/or external dependencies.
+   * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
+   * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link ComputableValue}). If set to
+   * {@link DepType#AREZ_OR_NONE} then the runtime will allow computable to exist with no dependencies. If set
+   * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputableValueRef} method and should invoke
+   * {@link ComputableValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
    *
-   * @return true if invocations of the underlying computable must be executed in an {@link arez.Environment}, false otherwise.
+   * @return the types of dependencies allowed on the computable.
+   */
+  @Nonnull
+  DepType depType() default DepType.AREZ;
+
+  /**
+   * True if invocations of the computable must be executed in an {@link arez.Environment}.
+   *
+   * @return true if invocations of the computable must be executed in an {@link arez.Environment}, false otherwise.
    */
   boolean requireEnvironment() default false;
 
   /**
-   * Enum indicating whether the value of the underlying computable is derived from arez elements and/or
-   * external dependencies. The current implementation does not support setting this to {@link DepType#AREZ_OR_EXTERNAL}.
+   * Return true if the return value of the comptable value should be reported to the Arez spy subsystem.
+   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
    *
-   * @return the types of dependencies allowed on the underlying computable.
-   * @see Computed#depType()
+   * @return true to report the return value, false otherwise.
    */
-  @Nonnull
-  DepType depType() default DepType.AREZ;
+  boolean reportResult() default true;
 }

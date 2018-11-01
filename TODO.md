@@ -22,9 +22,10 @@ complete as there is too much un-said.
   first step is to ensure that the `@ComputableValueRef`, `@OnActivate`, `@OnDeactivate` and `@OnStale` annotated
   methods are only valid when the `@Memoize` method takes no parameters. The next step is to restructure
   `@ComputableValueRef` so that it accepts parameters that are memoized and potentially the other hook methods.
+  keepAlive should not be allowed on Memoize
 
-* Add hit-ratios for `@Computed` that could be compiled out. The hit ratio indicates the number of times
-  re-calculated versus number of actual changes. This will help us determine which `@Computed` instances
+* Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
+  re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
   are not useful. We should also include the average amount of time it took to calculate the value?
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
@@ -79,7 +80,7 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
-* Support `@OnChange` for `@Observable` and `@Computed` properties. This hook is called immediately after the
+* Support `@OnChange` for `@Observable` and `@Memoize` methods. This hook is called immediately after the
   change and includes the old value and the new value. The nullability annotations on the hook method should
   match expectations.
 

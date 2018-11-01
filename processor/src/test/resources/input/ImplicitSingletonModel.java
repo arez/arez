@@ -1,6 +1,6 @@
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
@@ -27,7 +27,7 @@ public abstract class ImplicitSingletonModel
   {
   }
 
-  @Computed
+  @Memoize
   public int someValue()
   {
     return 0;

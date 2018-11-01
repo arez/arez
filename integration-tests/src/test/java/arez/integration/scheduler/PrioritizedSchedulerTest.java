@@ -2,7 +2,7 @@ package arez.integration.scheduler;
 
 import arez.Disposable;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.Priority;
@@ -36,21 +36,21 @@ public class PrioritizedSchedulerTest
 
     abstract void setValue3( String value );
 
-    @Computed( priority = Priority.HIGH )
+    @Memoize( priority = Priority.HIGH )
     String computed1()
     {
       _calls.add( "computed1" );
       return getValue1();
     }
 
-    @Computed( priority = Priority.NORMAL )
+    @Memoize( priority = Priority.NORMAL )
     String computed2()
     {
       _calls.add( "computed2" );
       return getValue2();
     }
 
-    @Computed( priority = Priority.LOW )
+    @Memoize( priority = Priority.LOW )
     String computed3()
     {
       _calls.add( "computed3" );

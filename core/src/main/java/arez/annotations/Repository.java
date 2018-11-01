@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
  *
  * <p>Annotating a class with this annotation will result in a class named "[MyComponent]Repository"</p>
  *
- * <p>The way to add custom queries or {@link Computed} queries is to define an interface that
+ * <p>The way to add custom queries or {@link Memoize} queries is to define an interface that
  * defines an abstract <code>self()</code> that returns the underlying repository. Using this
  * combined with default methods, you can define as many new queries and mutations as is desired.
  * The extension class then needs to be registered by setting the appropriate parameter on this
@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
  *     return self().findByQuery( issue -> issue.getTitle().equals( title ) );
  *   }
  *
- *   \@Computed
+ *   \@Memoize
  *   default List<Issue> findAllCompleted()
  *   {
  *     return self().findAllByQuery( Issue::isCompleted );

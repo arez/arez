@@ -4,7 +4,6 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Flags;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Priority;
@@ -58,7 +57,7 @@ public class MemoizedObservesLowerPriorityIntegrationTest
 
     abstract void setName( @Nonnull String name );
 
-    @Computed( priority = Priority.LOWEST )
+    @Memoize( priority = Priority.LOWEST )
     boolean isNameEmpty()
     {
       return getName().isEmpty();

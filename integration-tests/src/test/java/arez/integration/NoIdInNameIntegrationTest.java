@@ -3,7 +3,7 @@ package arez.integration;
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
@@ -89,7 +89,7 @@ public class NoIdInNameIntegrationTest
       _lastName = lastName;
     }
 
-    @Computed
+    @Memoize
     @Nonnull
     public String getFullName()
     {

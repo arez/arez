@@ -1,14 +1,14 @@
 package com.example.on_deactivate;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.OnDeactivate;
 import java.text.ParseException;
 
 @ArezComponent
 public abstract class OnDeactivateThrowsExceptionModel
 {
-  @Computed
+  @Memoize
   public int getMyValue()
   {
     return 0;

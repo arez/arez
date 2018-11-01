@@ -2,7 +2,7 @@ package com.example.type_params;
 
 import arez.annotations.Action;
 import arez.annotations.ComponentId;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import java.io.Writer;
 
 public abstract class AbstractModel<T extends Throwable, W extends Writer>
@@ -41,13 +41,13 @@ public abstract class AbstractModel<T extends Throwable, W extends Writer>
     return null;
   }
 
-  @Computed
+  @Memoize
   public W compWriter()
   {
     return null;
   }
 
-  @Computed
+  @Memoize
   public T compError()
   {
     return null;

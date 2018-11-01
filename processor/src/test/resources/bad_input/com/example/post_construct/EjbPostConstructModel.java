@@ -1,12 +1,12 @@
 package com.example.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 
 @ArezComponent
 public abstract class EjbPostConstructModel
 {
-  @Computed
+  @Memoize
   public int getMyValue()
   {
     return 0;

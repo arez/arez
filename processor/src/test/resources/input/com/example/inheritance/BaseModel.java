@@ -1,12 +1,12 @@
 package com.example.inheritance;
 
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 
 class BaseModel
   implements MyInterface1
 {
-  @Computed
-  protected int myComputed()
+  @Memoize
+  protected int myMemoize()
   {
     return 0;
   }

@@ -20,6 +20,7 @@ import static org.testng.Assert.*;
 public class MemoizeRequiresEnvironmentTest
   extends AbstractArezIntegrationTest
 {
+  @SuppressWarnings( "DefaultAnnotationParam" )
   @ArezComponent
   public static abstract class Model
   {
@@ -41,6 +42,24 @@ public class MemoizeRequiresEnvironmentTest
     abstract String getName();
 
     abstract void setName( @Nonnull String name );
+
+    @Memoize( requireEnvironment = true )
+    @Nonnull
+    String getMemoized1()
+    {
+      _steps.add( "memoized1" );
+      getName();
+      return "";
+    }
+
+    @Memoize( requireEnvironment = false )
+    @Nonnull
+    String getMemoized2()
+    {
+      _steps.add( "memoized2" );
+      getName();
+      return "";
+    }
 
     @SuppressWarnings( "SameParameterValue" )
     @Memoize( requireEnvironment = true )
@@ -109,5 +128,29 @@ public class MemoizeRequiresEnvironmentTest
     safeAction( () -> model.search2( ValueUtil.randomString() ) );
 
     assertEquals( steps, Arrays.asList( "EnvironmentStart", "search1", "EnvironmentEnd", "search2" ) );
+
+    safeAction( model::getMemoized1 );
+
+    assertEquals( steps,
+                  Arrays.asList( "EnvironmentStart",
+                                 "search1",
+                                 "EnvironmentEnd",
+                                 "search2",
+                                 "EnvironmentStart",
+                                 "memoized1",
+                                 "EnvironmentEnd" ) );
+
+    safeAction( model::getMemoized2 );
+
+    assertEquals( steps,
+                  Arrays.asList( "EnvironmentStart",
+                                 "search1",
+                                 "EnvironmentEnd",
+                                 "search2",
+                                 "EnvironmentStart",
+                                 "memoized1",
+                                 "EnvironmentEnd",
+                                 "memoized2" ) );
+
   }
 }

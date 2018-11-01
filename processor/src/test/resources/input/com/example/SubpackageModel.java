@@ -2,7 +2,7 @@ package com.example;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 
 @ArezComponent
@@ -24,7 +24,7 @@ public abstract class SubpackageModel
   {
   }
 
-  @Computed
+  @Memoize
   public int someValue()
   {
     return 0;

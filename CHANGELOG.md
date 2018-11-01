@@ -46,6 +46,13 @@
   has occurred as many of the spy events are emitted prior to the actual event occurring.
 * **\[core\]** Rename the parameters to several methods in `ArezContext` from `observed` to `observe` to be more
   consistent with the rest of the API.
+* **\[core\]** Merge the `@Computed` annotation into the `@Memoize` annotation. The two annotations both made the
+  return value of a method observable in different contexts. Initially the annotations were separate as the mechanisms
+  for implementing the scenario where the method had no parameters and the scenario where the method had parameters
+  were significantly different. This change unifies the two scenarios in favour of improving the developer
+  experience.
+* **\[core\]** Add some minimal documentation describing how to explicitly force a `@Memoize` annotated method
+  to re-evaluate when a non-arez dependency has been updated.
 
 ### [v0.111](https://github.com/arez/arez/tree/v0.111) (2018-10-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.110...v0.111)

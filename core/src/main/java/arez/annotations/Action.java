@@ -25,7 +25,7 @@ public @interface Action
    * Return the name of the Action relative to the component.
    * The value must conform to the requirements of a java identifier.
    * The name must also be unique across {@link Observable}s,
-   * {@link Computed}s and {@link Action}s within the scope of the
+   * {@link Memoize}s and {@link Action}s within the scope of the
    * {@link ArezComponent} annotated element.
    *
    * @return the name of the Action relative to the component.

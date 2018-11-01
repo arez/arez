@@ -1,6 +1,6 @@
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 
@@ -27,7 +27,7 @@ public abstract class AnnotationsOnModel
   {
   }
 
-  @Computed
+  @Memoize
   @Nonnull
   @SuppressWarnings( "ThisANnotationShouldNotBeCopied" )
   public Integer someValue()

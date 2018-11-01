@@ -31,7 +31,7 @@ logic required to determine staleness and notify dependencies. Internally it use
 and {@api_url: Observer} to achieve this goal.
 
 The {@api_url: ComputableValue} class is a relatively low-level primitive and users typically use higher level
-constructs such as the [@Computed](at_computed.md) annotation.
+constructs such as the [@Memoize](at_memoize.md) annotation.
 
 ## Callbacks
 

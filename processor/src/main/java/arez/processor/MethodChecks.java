@@ -12,6 +12,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import static arez.processor.ProcessorUtil.*;
 
+@SuppressWarnings( "SameParameterValue" )
 final class MethodChecks
 {
   private MethodChecks()
@@ -171,17 +172,6 @@ final class MethodChecks
     {
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
                                         " target must not have any parameters", method );
-    }
-  }
-
-  static void mustHaveParameters( @Nonnull final String annotationName,
-                                  @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
-  {
-    if ( method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
-                                        " target must have parameters", method );
     }
   }
 
