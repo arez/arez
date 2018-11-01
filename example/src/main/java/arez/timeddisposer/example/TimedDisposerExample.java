@@ -7,7 +7,7 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -76,7 +76,7 @@ public class TimedDisposerExample
       }
     }
 
-    @Computed
+    @Memoize
     long getTickTime()
     {
       return getLastTickTime();
