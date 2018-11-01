@@ -102,6 +102,11 @@ complete as there is too much un-said.
 * Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into `ComputableValue` instances. It would
   manually trigger `ComputableValue.reportPossiblyChanged()` when a new value arrives.
 
+* One useful addition may be the ability to push changes from `ObservableValue` instance and `ComputableValue`
+  instances into streams. These changes could either be pushed inline within the `READ_WRITE` transaction or could
+  be pushed as a task passed to scheduler. This would support several alternative approaches when architecting
+  applications.
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
