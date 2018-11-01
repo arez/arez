@@ -2,7 +2,7 @@ package arez.idlestatus;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Computed;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -115,7 +115,7 @@ public abstract class IdleStatus
    *
    * @return true if the user is idle, false otherwise.
    */
-  @Computed
+  @Memoize
   public boolean isIdle()
   {
     if ( isRawIdle() )
