@@ -62,10 +62,10 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.ArezZoneHolder", "reset" );
     index.assertNoMemberMatches( "arez\\.Component", "getPreDispose" );
     index.assertNoMemberMatches( "arez\\.Component", "getPostDispose" );
-    index.assertNoMemberMatches( "arez\\.ComputedValue", "setValue" );
-    index.assertNoMemberMatches( "arez\\.ComputedValue", "getError" );
-    index.assertNoMemberMatches( "arez\\.ComputedValue", "setError" );
-    index.assertNoMemberMatches( "arez\\.ComputedValue", "setComputing" );
+    index.assertNoMemberMatches( "arez\\.ComputableValue", "setValue" );
+    index.assertNoMemberMatches( "arez\\.ComputableValue", "getError" );
+    index.assertNoMemberMatches( "arez\\.ComputableValue", "setError" );
+    index.assertNoMemberMatches( "arez\\.ComputableValue", "setComputing" );
     index.assertNoMemberMatches( "arez\\.ObservableValue", "getWorkState" );
     index.assertNoMemberMatches( "arez\\.Observer", "markAsScheduled" );
     index.assertNoMemberMatches( "arez\\.ObserverErrorHandlerSupport", "getObserverErrorHandlers" );
@@ -170,7 +170,7 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.spy\\..*", enabled );
     index.assertSymbol( "arez\\..*InfoImpl", enabled );
     index.assertSymbol( "arez\\.ObservableValue", "_info", enabled );
-    index.assertSymbol( "arez\\.ComputedValue", "_info", enabled );
+    index.assertSymbol( "arez\\.ComputableValue", "_info", enabled );
     index.assertSymbol( "arez\\.Observer", "_info", enabled );
     index.assertSymbol( "arez\\.Transaction", "_info", enabled );
     index.assertSymbol( "arez\\.Component", "_info", enabled );
