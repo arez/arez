@@ -11,7 +11,6 @@ import arez.annotations.PreDispose;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -206,22 +205,20 @@ public abstract class IdleStatus
   public void setEvents( @Nonnull final Set<String> events )
   {
     final Set<String> oldEvents = _events;
-    final HashSet<String> newEvents = new HashSet<>();
-    newEvents.addAll( events );
-    _events = Collections.unmodifiableSet( newEvents );
-    updateListeners( oldEvents, events );
+    _events = new HashSet<>( events );
+    updateListeners( oldEvents );
   }
 
   /**
    * Synchronize listeners against the dom based on new events.
    */
-  private void updateListeners( @Nonnull final Set<String> oldEvents, @Nonnull final Set<String> events )
+  private void updateListeners( @Nonnull final Set<String> oldEvents )
   {
     if ( _active )
     {
       //Remove any old events
       oldEvents.stream().
-        filter( e -> !events.contains( e ) ).
+        filter( e -> !_events.contains( e ) ).
         forEach( e -> DomGlobal.window.removeEventListener( e, _listener ) );
       // Add any new events
       _events.stream().
