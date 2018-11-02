@@ -207,13 +207,11 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ObservableReferenceModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ObservableReferenceModel ) {
         final Arez_ObservableReferenceModel that = (Arez_ObservableReferenceModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

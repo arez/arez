@@ -201,13 +201,11 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ObservableGuessingModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ObservableGuessingModel ) {
         final Arez_ObservableGuessingModel that = (Arez_ObservableGuessingModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

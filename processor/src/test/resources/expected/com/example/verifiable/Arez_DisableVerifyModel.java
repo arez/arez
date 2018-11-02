@@ -189,13 +189,11 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_DisableVerifyModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_DisableVerifyModel ) {
         final Arez_DisableVerifyModel that = (Arez_DisableVerifyModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

@@ -209,13 +209,11 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_LazyObservableReadOutsideTransactionReferenceModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_LazyObservableReadOutsideTransactionReferenceModel ) {
         final Arez_LazyObservableReadOutsideTransactionReferenceModel that = (Arez_LazyObservableReadOutsideTransactionReferenceModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

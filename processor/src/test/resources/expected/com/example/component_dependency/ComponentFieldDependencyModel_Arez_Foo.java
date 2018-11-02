@@ -120,13 +120,11 @@ final class ComponentFieldDependencyModel_Arez_Foo extends ComponentFieldDepende
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof ComponentFieldDependencyModel_Arez_Foo) ) {
-        return false;
-      } else {
+      if ( o instanceof ComponentFieldDependencyModel_Arez_Foo ) {
         final ComponentFieldDependencyModel_Arez_Foo that = (ComponentFieldDependencyModel_Arez_Foo) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

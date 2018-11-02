@@ -135,13 +135,11 @@ public final class Arez_CustomDepTypeModel extends CustomDepTypeModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_CustomDepTypeModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_CustomDepTypeModel ) {
         final Arez_CustomDepTypeModel that = (Arez_CustomDepTypeModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

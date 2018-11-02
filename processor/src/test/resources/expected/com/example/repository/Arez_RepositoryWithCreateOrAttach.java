@@ -161,13 +161,11 @@ final class Arez_RepositoryWithCreateOrAttach extends RepositoryWithCreateOrAtta
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithCreateOrAttach) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryWithCreateOrAttach ) {
       final Arez_RepositoryWithCreateOrAttach that = (Arez_RepositoryWithCreateOrAttach) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

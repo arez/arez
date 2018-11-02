@@ -164,13 +164,11 @@ public final class Arez_ObservableSetModel extends ObservableSetModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ObservableSetModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ObservableSetModel ) {
         final Arez_ObservableSetModel that = (Arez_ObservableSetModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

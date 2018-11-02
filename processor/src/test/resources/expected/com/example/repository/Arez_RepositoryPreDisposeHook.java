@@ -163,13 +163,11 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryPreDisposeHook) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryPreDisposeHook ) {
       final Arez_RepositoryPreDisposeHook that = (Arez_RepositoryPreDisposeHook) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

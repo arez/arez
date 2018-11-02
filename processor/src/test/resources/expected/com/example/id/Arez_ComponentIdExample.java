@@ -108,15 +108,11 @@ final class Arez_ComponentIdExample extends ComponentIdExample implements Dispos
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ComponentIdExample) ) {
-        return false;
-      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ComponentIdExample ) {
         final Arez_ComponentIdExample that = (Arez_ComponentIdExample) o;
-        return getId() == that.getId();
+        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

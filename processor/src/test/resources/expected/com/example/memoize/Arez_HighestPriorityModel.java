@@ -135,13 +135,11 @@ public final class Arez_HighestPriorityModel extends HighestPriorityModel implem
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_HighestPriorityModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_HighestPriorityModel ) {
         final Arez_HighestPriorityModel that = (Arez_HighestPriorityModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

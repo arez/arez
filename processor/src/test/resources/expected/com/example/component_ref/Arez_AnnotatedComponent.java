@@ -140,13 +140,11 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_AnnotatedComponent) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_AnnotatedComponent ) {
         final Arez_AnnotatedComponent that = (Arez_AnnotatedComponent) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

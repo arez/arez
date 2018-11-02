@@ -149,13 +149,11 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Iden
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ResolvedModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ResolvedModel ) {
         final Arez_ResolvedModel that = (Arez_ResolvedModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

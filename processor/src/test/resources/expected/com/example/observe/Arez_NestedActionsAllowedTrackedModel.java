@@ -144,13 +144,11 @@ public final class Arez_NestedActionsAllowedTrackedModel extends NestedActionsAl
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_NestedActionsAllowedTrackedModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_NestedActionsAllowedTrackedModel ) {
         final Arez_NestedActionsAllowedTrackedModel that = (Arez_NestedActionsAllowedTrackedModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

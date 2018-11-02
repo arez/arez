@@ -161,13 +161,11 @@ final class Arez_RepositoryWithCreateOnly extends RepositoryWithCreateOnly imple
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithCreateOnly) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryWithCreateOnly ) {
       final Arez_RepositoryWithCreateOnly that = (Arez_RepositoryWithCreateOnly) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

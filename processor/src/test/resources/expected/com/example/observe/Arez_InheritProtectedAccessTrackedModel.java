@@ -144,13 +144,11 @@ public final class Arez_InheritProtectedAccessTrackedModel extends InheritProtec
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_InheritProtectedAccessTrackedModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_InheritProtectedAccessTrackedModel ) {
         final Arez_InheritProtectedAccessTrackedModel that = (Arez_InheritProtectedAccessTrackedModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

@@ -147,13 +147,11 @@ public final class Arez_DeprecatedObserveModel4 extends DeprecatedObserveModel4 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_DeprecatedObserveModel4) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_DeprecatedObserveModel4 ) {
         final Arez_DeprecatedObserveModel4 that = (Arez_DeprecatedObserveModel4) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

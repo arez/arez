@@ -134,13 +134,11 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ComponentNameOnSingletonModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ComponentNameOnSingletonModel ) {
         final Arez_ComponentNameOnSingletonModel that = (Arez_ComponentNameOnSingletonModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

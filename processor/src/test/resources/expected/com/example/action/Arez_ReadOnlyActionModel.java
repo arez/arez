@@ -134,13 +134,11 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ReadOnlyActionModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ReadOnlyActionModel ) {
         final Arez_ReadOnlyActionModel that = (Arez_ReadOnlyActionModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

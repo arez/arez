@@ -134,13 +134,11 @@ public final class Arez_NoInjectModel extends NoInjectModel implements Disposabl
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_NoInjectModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_NoInjectModel ) {
         final Arez_NoInjectModel that = (Arez_NoInjectModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

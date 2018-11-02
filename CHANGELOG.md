@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* **\[processor\]** Simplify the code in the generated `equals()` method to reduce the code size.
+
 ### [v0.113](https://github.com/arez/arez/tree/v0.113) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.112...v0.113)
 

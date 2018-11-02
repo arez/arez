@@ -180,13 +180,11 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof ObservableListInverseModel_Arez_Element) ) {
-        return false;
-      } else {
+      if ( o instanceof ObservableListInverseModel_Arez_Element ) {
         final ObservableListInverseModel_Arez_Element that = (ObservableListInverseModel_Arez_Element) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

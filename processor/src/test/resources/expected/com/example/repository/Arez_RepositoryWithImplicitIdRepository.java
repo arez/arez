@@ -165,13 +165,11 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_RepositoryWithImplicitIdRepository) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_RepositoryWithImplicitIdRepository ) {
         final Arez_RepositoryWithImplicitIdRepository that = (Arez_RepositoryWithImplicitIdRepository) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

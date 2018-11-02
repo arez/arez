@@ -173,13 +173,11 @@ public final class Arez_MemoizeKeepAliveListModel extends MemoizeKeepAliveListMo
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_MemoizeKeepAliveListModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_MemoizeKeepAliveListModel ) {
         final Arez_MemoizeKeepAliveListModel that = (Arez_MemoizeKeepAliveListModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

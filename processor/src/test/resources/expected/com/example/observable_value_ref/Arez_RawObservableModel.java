@@ -157,13 +157,11 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_RawObservableModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_RawObservableModel ) {
         final Arez_RawObservableModel that = (Arez_RawObservableModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

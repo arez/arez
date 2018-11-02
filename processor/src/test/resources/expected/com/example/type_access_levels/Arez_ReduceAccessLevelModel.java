@@ -148,13 +148,11 @@ final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel implement
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ReduceAccessLevelModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ReduceAccessLevelModel ) {
         final Arez_ReduceAccessLevelModel that = (Arez_ReduceAccessLevelModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

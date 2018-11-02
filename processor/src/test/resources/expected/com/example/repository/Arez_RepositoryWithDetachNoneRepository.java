@@ -150,13 +150,11 @@ final class Arez_RepositoryWithDetachNoneRepository extends RepositoryWithDetach
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_RepositoryWithDetachNoneRepository) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_RepositoryWithDetachNoneRepository ) {
         final Arez_RepositoryWithDetachNoneRepository that = (Arez_RepositoryWithDetachNoneRepository) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

@@ -130,13 +130,11 @@ public final class Arez_BasicFieldDependencyModel extends BasicFieldDependencyMo
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_BasicFieldDependencyModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_BasicFieldDependencyModel ) {
         final Arez_BasicFieldDependencyModel that = (Arez_BasicFieldDependencyModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

@@ -213,13 +213,11 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_OverrideNamesInModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_OverrideNamesInModel ) {
         final Arez_OverrideNamesInModel that = (Arez_OverrideNamesInModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

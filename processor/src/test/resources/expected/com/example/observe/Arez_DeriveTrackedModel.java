@@ -146,13 +146,11 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_DeriveTrackedModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_DeriveTrackedModel ) {
         final Arez_DeriveTrackedModel that = (Arez_DeriveTrackedModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

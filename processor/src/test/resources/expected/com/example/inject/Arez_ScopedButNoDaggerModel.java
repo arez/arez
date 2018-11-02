@@ -122,13 +122,11 @@ public final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel im
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ScopedButNoDaggerModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ScopedButNoDaggerModel ) {
         final Arez_ScopedButNoDaggerModel that = (Arez_ScopedButNoDaggerModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

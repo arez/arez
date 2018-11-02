@@ -166,13 +166,11 @@ public final class Arez_AbstractNonnullSetObservableModel extends AbstractNonnul
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_AbstractNonnullSetObservableModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_AbstractNonnullSetObservableModel ) {
         final Arez_AbstractNonnullSetObservableModel that = (Arez_AbstractNonnullSetObservableModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

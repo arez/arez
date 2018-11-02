@@ -150,13 +150,11 @@ public final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableM
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_DeprecatedObservableModel2) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_DeprecatedObservableModel2 ) {
         final Arez_DeprecatedObservableModel2 that = (Arez_DeprecatedObservableModel2) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

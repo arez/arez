@@ -108,15 +108,11 @@ public final class Arez_DoubleComponentId extends DoubleComponentId implements D
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_DoubleComponentId) ) {
-        return false;
-      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_DoubleComponentId ) {
         final Arez_DoubleComponentId that = (Arez_DoubleComponentId) o;
-        return getId() == that.getId();
+        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

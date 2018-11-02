@@ -172,13 +172,11 @@ public final class Arez_MemoizeNonnullListModel extends MemoizeNonnullListModel 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_MemoizeNonnullListModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_MemoizeNonnullListModel ) {
         final Arez_MemoizeNonnullListModel that = (Arez_MemoizeNonnullListModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

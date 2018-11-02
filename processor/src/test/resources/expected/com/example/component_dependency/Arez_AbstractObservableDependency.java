@@ -169,13 +169,11 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_AbstractObservableDependency) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_AbstractObservableDependency ) {
         final Arez_AbstractObservableDependency that = (Arez_AbstractObservableDependency) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

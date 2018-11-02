@@ -121,13 +121,11 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ProtectedAccessComponent) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ProtectedAccessComponent ) {
         final Arez_ProtectedAccessComponent that = (Arez_ProtectedAccessComponent) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

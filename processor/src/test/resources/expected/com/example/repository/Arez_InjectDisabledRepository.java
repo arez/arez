@@ -161,13 +161,11 @@ final class Arez_InjectDisabledRepository extends InjectDisabledRepository imple
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_InjectDisabledRepository) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_InjectDisabledRepository ) {
       final Arez_InjectDisabledRepository that = (Arez_InjectDisabledRepository) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

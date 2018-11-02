@@ -221,13 +221,11 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_SingletonWithIdModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_SingletonWithIdModel ) {
         final Arez_SingletonWithIdModel that = (Arez_SingletonWithIdModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

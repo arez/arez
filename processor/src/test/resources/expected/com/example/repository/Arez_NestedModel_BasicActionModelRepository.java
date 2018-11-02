@@ -164,13 +164,11 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_NestedModel_BasicActionModelRepository) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_NestedModel_BasicActionModelRepository ) {
         final Arez_NestedModel_BasicActionModelRepository that = (Arez_NestedModel_BasicActionModelRepository) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

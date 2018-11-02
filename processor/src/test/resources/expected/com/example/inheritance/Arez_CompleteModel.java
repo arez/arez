@@ -424,15 +424,11 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_CompleteModel) ) {
-        return false;
-      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_CompleteModel ) {
         final Arez_CompleteModel that = (Arez_CompleteModel) o;
-        return getId() == that.getId();
+        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

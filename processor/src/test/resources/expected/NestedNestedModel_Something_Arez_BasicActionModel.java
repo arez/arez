@@ -132,13 +132,11 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof NestedNestedModel_Something_Arez_BasicActionModel) ) {
-        return false;
-      } else {
+      if ( o instanceof NestedNestedModel_Something_Arez_BasicActionModel ) {
         final NestedNestedModel_Something_Arez_BasicActionModel that = (NestedNestedModel_Something_Arez_BasicActionModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

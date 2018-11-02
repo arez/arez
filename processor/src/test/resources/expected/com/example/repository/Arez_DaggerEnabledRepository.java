@@ -161,13 +161,11 @@ final class Arez_DaggerEnabledRepository extends DaggerEnabledRepository impleme
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_DaggerEnabledRepository) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_DaggerEnabledRepository ) {
       final Arez_DaggerEnabledRepository that = (Arez_DaggerEnabledRepository) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

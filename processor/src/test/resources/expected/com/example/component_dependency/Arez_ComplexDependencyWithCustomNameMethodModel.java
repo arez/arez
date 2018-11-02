@@ -176,13 +176,11 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ComplexDependencyWithCustomNameMethodModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ComplexDependencyWithCustomNameMethodModel ) {
         final Arez_ComplexDependencyWithCustomNameMethodModel that = (Arez_ComplexDependencyWithCustomNameMethodModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

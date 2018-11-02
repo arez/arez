@@ -174,13 +174,11 @@ public final class Arez_NameVariationsModel extends NameVariationsModel implemen
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_NameVariationsModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_NameVariationsModel ) {
         final Arez_NameVariationsModel that = (Arez_NameVariationsModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

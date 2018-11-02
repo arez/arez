@@ -131,13 +131,11 @@ final class Arez_RepositoryExample extends RepositoryExample implements Disposab
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryExample) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryExample ) {
       final Arez_RepositoryExample that = (Arez_RepositoryExample) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

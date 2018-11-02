@@ -183,13 +183,11 @@ final class Arez_ObservableZeroOrOneReferenceModel extends ObservableZeroOrOneRe
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ObservableZeroOrOneReferenceModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ObservableZeroOrOneReferenceModel ) {
         final Arez_ObservableZeroOrOneReferenceModel that = (Arez_ObservableZeroOrOneReferenceModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

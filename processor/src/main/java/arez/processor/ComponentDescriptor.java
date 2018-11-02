@@ -2704,28 +2704,32 @@ final class ComponentDescriptor
     final ClassName generatedClass = ClassName.get( getPackageName(), getArezClassName() );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    codeBlock.beginControlFlow( "if ( this == o )" );
-    codeBlock.addStatement( "return true" );
-    codeBlock.nextControlFlow( "else if ( null == o || !(o instanceof $T) )", generatedClass );
-    codeBlock.addStatement( "return false" );
-    if ( null != _componentId )
-    {
-      codeBlock.nextControlFlow( "else if ( $T.isDisposed( this ) != $T.isDisposed( o ) )",
-                                 GeneratorUtil.DISPOSABLE_CLASSNAME,
-                                 GeneratorUtil.DISPOSABLE_CLASSNAME );
-      codeBlock.addStatement( "return false" );
-    }
-    codeBlock.nextControlFlow( "else" );
+    codeBlock.beginControlFlow( "if ( o instanceof $T )", generatedClass );
     codeBlock.addStatement( "final $T that = ($T) o", generatedClass, generatedClass );
+    /*
+     * If componentId is null then it is using synthetic id which is monotonically increasing and
+     * thus if the id matches then the instance match. As a result no need to check isDisposed as
+     * they will always match. Whereas if componentId is not null then the application controls the
+     * id and there maybe be multiple entities with the same id where one has been disposed. They
+     * should not match.
+     */
+    final String prefix = null != _componentId ? "isDisposed() == that.isDisposed() && " : "";
     final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : GeneratorUtil.DEFAULT_ID_KIND;
     if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
     {
-      codeBlock.addStatement( "return null != $N() && $N().equals( that.$N() )", idMethod, idMethod, idMethod );
+      codeBlock.addStatement( "return " + prefix + "null != $N() && $N().equals( that.$N() )",
+                              idMethod,
+                              idMethod,
+                              idMethod );
     }
     else
     {
-      codeBlock.addStatement( "return $N() == that.$N()", idMethod, idMethod );
+      codeBlock.addStatement( "return " + prefix + "$N() == that.$N()",
+                              idMethod,
+                              idMethod );
     }
+    codeBlock.nextControlFlow( "else" );
+    codeBlock.addStatement( "return false" );
     codeBlock.endControlFlow();
 
     if ( _requireEquals )
@@ -3449,7 +3453,8 @@ final class ComponentDescriptor
     if ( _disposeOnDeactivate )
     {
       final FieldSpec.Builder field =
-        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTABLE_VALUE_CLASSNAME, TypeName.BOOLEAN.box() ),
+        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTABLE_VALUE_CLASSNAME,
+                                                      TypeName.BOOLEAN.box() ),
                            GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                            Modifier.FINAL,
                            Modifier.PRIVATE ).

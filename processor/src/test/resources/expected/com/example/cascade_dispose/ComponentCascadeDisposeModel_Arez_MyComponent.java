@@ -120,13 +120,11 @@ final class ComponentCascadeDisposeModel_Arez_MyComponent extends ComponentCasca
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof ComponentCascadeDisposeModel_Arez_MyComponent) ) {
-        return false;
-      } else {
+      if ( o instanceof ComponentCascadeDisposeModel_Arez_MyComponent ) {
         final ComponentCascadeDisposeModel_Arez_MyComponent that = (ComponentCascadeDisposeModel_Arez_MyComponent) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

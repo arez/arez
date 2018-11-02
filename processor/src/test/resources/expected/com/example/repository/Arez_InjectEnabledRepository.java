@@ -161,13 +161,11 @@ final class Arez_InjectEnabledRepository extends InjectEnabledRepository impleme
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_InjectEnabledRepository) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_InjectEnabledRepository ) {
       final Arez_InjectEnabledRepository that = (Arez_InjectEnabledRepository) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

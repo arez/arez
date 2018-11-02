@@ -162,13 +162,11 @@ public final class Arez_WriteOutsideTransactionThrowingObservablesModel extends 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_WriteOutsideTransactionThrowingObservablesModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_WriteOutsideTransactionThrowingObservablesModel ) {
         final Arez_WriteOutsideTransactionThrowingObservablesModel that = (Arez_WriteOutsideTransactionThrowingObservablesModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

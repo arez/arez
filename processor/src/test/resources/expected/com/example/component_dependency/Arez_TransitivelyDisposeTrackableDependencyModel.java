@@ -132,13 +132,11 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_TransitivelyDisposeTrackableDependencyModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_TransitivelyDisposeTrackableDependencyModel ) {
         final Arez_TransitivelyDisposeTrackableDependencyModel that = (Arez_TransitivelyDisposeTrackableDependencyModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

@@ -205,13 +205,11 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithMultipleCtors) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryWithMultipleCtors ) {
       final Arez_RepositoryWithMultipleCtors that = (Arez_RepositoryWithMultipleCtors) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

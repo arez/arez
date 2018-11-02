@@ -164,13 +164,11 @@ public final class Arez_ObservableCollectionModel extends ObservableCollectionMo
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ObservableCollectionModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ObservableCollectionModel ) {
         final Arez_ObservableCollectionModel that = (Arez_ObservableCollectionModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

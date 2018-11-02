@@ -113,15 +113,11 @@ public final class Arez_CombinedWithComponentIdModel extends CombinedWithCompone
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_CombinedWithComponentIdModel) ) {
-        return false;
-      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_CombinedWithComponentIdModel ) {
         final Arez_CombinedWithComponentIdModel that = (Arez_CombinedWithComponentIdModel) o;
-        return id() == that.id();
+        return this.isDisposed() == that.isDisposed() && this.id() == that.id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

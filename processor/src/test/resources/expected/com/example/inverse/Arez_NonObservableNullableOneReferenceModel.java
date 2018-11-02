@@ -185,13 +185,11 @@ final class Arez_NonObservableNullableOneReferenceModel extends NonObservableNul
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_NonObservableNullableOneReferenceModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_NonObservableNullableOneReferenceModel ) {
         final Arez_NonObservableNullableOneReferenceModel that = (Arez_NonObservableNullableOneReferenceModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

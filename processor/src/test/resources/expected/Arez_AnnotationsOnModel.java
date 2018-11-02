@@ -179,13 +179,11 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_AnnotationsOnModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_AnnotationsOnModel ) {
         final Arez_AnnotationsOnModel that = (Arez_AnnotationsOnModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

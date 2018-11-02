@@ -161,13 +161,11 @@ final class Arez_RepositoryWithAttachOnly extends RepositoryWithAttachOnly imple
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithAttachOnly) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryWithAttachOnly ) {
       final Arez_RepositoryWithAttachOnly that = (Arez_RepositoryWithAttachOnly) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+      return this.$$arezi$$_id() == that.$$arezi$$_id();
+    } else {
+      return false;
     }
   }
 

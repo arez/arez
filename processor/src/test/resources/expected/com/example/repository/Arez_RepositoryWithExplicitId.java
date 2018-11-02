@@ -152,15 +152,11 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithExplicitId) ) {
-      return false;
-    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryWithExplicitId ) {
       final Arez_RepositoryWithExplicitId that = (Arez_RepositoryWithExplicitId) o;
-      return getId() == that.getId();
+      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+    } else {
+      return false;
     }
   }
 

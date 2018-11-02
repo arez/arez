@@ -153,15 +153,11 @@ final class Arez_RepositoryWithExplicitNonStandardId extends RepositoryWithExpli
 
   @Override
   public final boolean equals(final Object o) {
-    if ( this == o ) {
-      return true;
-    } else if ( null == o || !(o instanceof Arez_RepositoryWithExplicitNonStandardId) ) {
-      return false;
-    } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-      return false;
-    } else {
+    if ( o instanceof Arez_RepositoryWithExplicitNonStandardId ) {
       final Arez_RepositoryWithExplicitNonStandardId that = (Arez_RepositoryWithExplicitNonStandardId) o;
-      return object_id() == that.object_id();
+      return this.isDisposed() == that.isDisposed() && this.object_id() == that.object_id();
+    } else {
+      return false;
     }
   }
 

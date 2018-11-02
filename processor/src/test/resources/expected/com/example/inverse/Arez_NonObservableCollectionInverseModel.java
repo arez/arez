@@ -211,13 +211,11 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_NonObservableCollectionInverseModel) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_NonObservableCollectionInverseModel ) {
         final Arez_NonObservableCollectionInverseModel that = (Arez_NonObservableCollectionInverseModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

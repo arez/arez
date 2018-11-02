@@ -236,15 +236,11 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof Arez_ConcreteModel) ) {
-        return false;
-      } else if ( Disposable.isDisposed( this ) != Disposable.isDisposed( o ) ) {
-        return false;
-      } else {
+      if ( o instanceof Arez_ConcreteModel ) {
         final Arez_ConcreteModel that = (Arez_ConcreteModel) o;
-        return null != getComponentId() && getComponentId().equals( that.getComponentId() );
+        return this.isDisposed() == that.isDisposed() && null != this.getComponentId() && this.getComponentId().equals( that.getComponentId() );
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );

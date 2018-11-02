@@ -180,13 +180,11 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( this == o ) {
-        return true;
-      } else if ( null == o || !(o instanceof NonObservableCollectionInverseModel_Arez_Element) ) {
-        return false;
-      } else {
+      if ( o instanceof NonObservableCollectionInverseModel_Arez_Element ) {
         final NonObservableCollectionInverseModel_Arez_Element that = (NonObservableCollectionInverseModel_Arez_Element) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+        return this.$$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
       }
     } else {
       return super.equals( o );
