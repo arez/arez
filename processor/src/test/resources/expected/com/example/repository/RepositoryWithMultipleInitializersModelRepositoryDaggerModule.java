@@ -1,18 +1,14 @@
 package com.example.repository;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import javax.annotation.Generated;
-import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
 public interface RepositoryWithMultipleInitializersModelRepositoryDaggerModule {
-  @Nonnull
-  @Provides
+  @Binds
   @Singleton
-  static RepositoryWithMultipleInitializersModelRepository provideComponent(final Arez_RepositoryWithMultipleInitializersModelRepository component) {
-    return component;
-  }
+  RepositoryWithMultipleInitializersModelRepository bindComponent(Arez_RepositoryWithMultipleInitializersModelRepository component);
 }

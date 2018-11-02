@@ -3762,12 +3762,10 @@ final class ComponentDescriptor
     builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
     builder.addModifiers( Modifier.PUBLIC );
 
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( "provideComponent" ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME ).
-      addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
-      addParameter( ClassName.get( getPackageName(), getArezClassName() ), "component", Modifier.FINAL ).
-      addStatement( "return component" ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "bindComponent" ).
+      addAnnotation( GeneratorUtil.DAGGER_BINDS_CLASSNAME ).
+      addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+      addParameter( ClassName.get( getPackageName(), getArezClassName() ), "component" ).
       returns( ClassName.get( getElement() ) );
     if ( null != _scopeAnnotation )
     {

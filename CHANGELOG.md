@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[processor\]** Change the way the Dagger2 factory is defined by switching from a static method using a
+  `@Provide` annotation to using an abstract method using a `@Binds` annotation. This results in more optimized
+  code being output by the dagger compiler.
+
 ### [v0.112](https://github.com/arez/arez/tree/v0.112) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.111...v0.112)
 
