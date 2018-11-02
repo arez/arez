@@ -61,9 +61,6 @@ complete as there is too much un-said.
 
 * Implement something similar to `getDependencyTree` from mobx
 
-* Remove `OnStale` as not very useful. However still needed to clear out cached immutable collections unless
-  `@OnChange` has been introduced.
-
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Profile with D8
