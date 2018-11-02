@@ -6,6 +6,7 @@
   `@Provide` annotation to using an abstract method using a `@Binds` annotation. This results in more optimized
   code being output by the dagger compiler.
 * Upgrade the version of javapoet to `1.11.1`.
+* Upgrade the Dagger2 support to version `2.19`.
 
 ### [v0.112](https://github.com/arez/arez/tree/v0.112) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.111...v0.112)
