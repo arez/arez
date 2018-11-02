@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.113'
+
 ### [v0.38](https://github.com/arez/arez-browserlocation/tree/v0.38) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez-browserlocation/compare/v0.37...v0.38)
 
