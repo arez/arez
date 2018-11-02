@@ -146,7 +146,7 @@ public final class Arez_EnvironmentRequiredTrackedModel extends EnvironmentRequi
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_EnvironmentRequiredTrackedModel ) {
         final Arez_EnvironmentRequiredTrackedModel that = (Arez_EnvironmentRequiredTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

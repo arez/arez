@@ -214,7 +214,7 @@ public final class Arez_SingletonModel extends SingletonModel implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_SingletonModel ) {
         final Arez_SingletonModel that = (Arez_SingletonModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

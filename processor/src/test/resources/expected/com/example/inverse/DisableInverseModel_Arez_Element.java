@@ -177,7 +177,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof DisableInverseModel_Arez_Element ) {
         final DisableInverseModel_Arez_Element that = (DisableInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

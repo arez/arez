@@ -166,7 +166,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NestedModel_BasicActionModelRepository ) {
         final Arez_NestedModel_BasicActionModelRepository that = (Arez_NestedModel_BasicActionModelRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

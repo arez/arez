@@ -174,7 +174,7 @@ public final class Arez_MemoizeNonnullMapModel extends MemoizeNonnullMapModel im
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeNonnullMapModel ) {
         final Arez_MemoizeNonnullMapModel that = (Arez_MemoizeNonnullMapModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

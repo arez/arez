@@ -187,7 +187,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ExplicitLoadReferenceModel ) {
         final Arez_ExplicitLoadReferenceModel that = (Arez_ExplicitLoadReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

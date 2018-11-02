@@ -166,7 +166,7 @@ final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledReposito
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DaggerEnabledRepositoryRepository ) {
         final Arez_DaggerEnabledRepositoryRepository that = (Arez_DaggerEnabledRepositoryRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

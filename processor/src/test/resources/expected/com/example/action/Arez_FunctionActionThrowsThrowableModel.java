@@ -134,7 +134,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_FunctionActionThrowsThrowableModel ) {
         final Arez_FunctionActionThrowsThrowableModel that = (Arez_FunctionActionThrowsThrowableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

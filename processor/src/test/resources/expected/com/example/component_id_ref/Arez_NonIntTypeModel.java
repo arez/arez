@@ -115,7 +115,7 @@ public final class Arez_NonIntTypeModel extends NonIntTypeModel implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonIntTypeModel ) {
         final Arez_NonIntTypeModel that = (Arez_NonIntTypeModel) o;
-        return this.isDisposed() == that.isDisposed() && null != this.id() && this.id().equals( that.id() );
+        return isDisposed() == that.isDisposed() && null != id() && id().equals( that.id() );
       } else {
         return false;
       }

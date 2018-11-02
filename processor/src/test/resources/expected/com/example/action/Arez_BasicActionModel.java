@@ -136,7 +136,7 @@ public final class Arez_BasicActionModel extends BasicActionModel implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicActionModel ) {
         final Arez_BasicActionModel that = (Arez_BasicActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

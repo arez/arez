@@ -149,7 +149,7 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableTypeParametersModel ) {
         final Arez_ObservableTypeParametersModel that = (Arez_ObservableTypeParametersModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

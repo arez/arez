@@ -136,7 +136,7 @@ public final class Arez_FunctionActionThrowsRuntimeExceptionModel extends Functi
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_FunctionActionThrowsRuntimeExceptionModel ) {
         final Arez_FunctionActionThrowsRuntimeExceptionModel that = (Arez_FunctionActionThrowsRuntimeExceptionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

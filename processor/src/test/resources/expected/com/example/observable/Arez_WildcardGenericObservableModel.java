@@ -151,7 +151,7 @@ public final class Arez_WildcardGenericObservableModel<T> extends WildcardGeneri
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_WildcardGenericObservableModel ) {
         final Arez_WildcardGenericObservableModel that = (Arez_WildcardGenericObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

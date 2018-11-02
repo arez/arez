@@ -182,7 +182,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof ZeroOrOneMultiplicityInverseModel_Arez_Element ) {
         final ZeroOrOneMultiplicityInverseModel_Arez_Element that = (ZeroOrOneMultiplicityInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

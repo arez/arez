@@ -137,7 +137,7 @@ public final class Arez_LowPriorityModel extends LowPriorityModel implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LowPriorityModel ) {
         final Arez_LowPriorityModel that = (Arez_LowPriorityModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

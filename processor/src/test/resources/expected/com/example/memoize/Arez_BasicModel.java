@@ -151,7 +151,7 @@ public final class Arez_BasicModel extends BasicModel implements Disposable, Ide
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicModel ) {
         final Arez_BasicModel that = (Arez_BasicModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -123,7 +123,7 @@ public final class Arez_ComponentCascadeDisposeMethodModel extends ComponentCasc
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentCascadeDisposeMethodModel ) {
         final Arez_ComponentCascadeDisposeMethodModel that = (Arez_ComponentCascadeDisposeMethodModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

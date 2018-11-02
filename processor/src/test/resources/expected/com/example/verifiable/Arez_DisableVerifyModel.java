@@ -191,7 +191,7 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DisableVerifyModel ) {
         final Arez_DisableVerifyModel that = (Arez_DisableVerifyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

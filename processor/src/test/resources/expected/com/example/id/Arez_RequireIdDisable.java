@@ -122,7 +122,7 @@ final class Arez_RequireIdDisable extends RequireIdDisable implements Disposable
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RequireIdDisable ) {
         final Arez_RequireIdDisable that = (Arez_RequireIdDisable) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

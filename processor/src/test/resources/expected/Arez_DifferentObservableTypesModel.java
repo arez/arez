@@ -365,7 +365,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DifferentObservableTypesModel ) {
         final Arez_DifferentObservableTypesModel that = (Arez_DifferentObservableTypesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

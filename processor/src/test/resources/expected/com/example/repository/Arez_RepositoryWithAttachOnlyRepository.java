@@ -165,7 +165,7 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithAttachOnlyRepository ) {
         final Arez_RepositoryWithAttachOnlyRepository that = (Arez_RepositoryWithAttachOnlyRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

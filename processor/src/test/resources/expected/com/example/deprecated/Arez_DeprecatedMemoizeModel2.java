@@ -138,7 +138,7 @@ public final class Arez_DeprecatedMemoizeModel2 extends DeprecatedMemoizeModel2 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeprecatedMemoizeModel2 ) {
         final Arez_DeprecatedMemoizeModel2 that = (Arez_DeprecatedMemoizeModel2) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

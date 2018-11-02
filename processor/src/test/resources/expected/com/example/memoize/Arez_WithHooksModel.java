@@ -137,7 +137,7 @@ public final class Arez_WithHooksModel extends WithHooksModel implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_WithHooksModel ) {
         final Arez_WithHooksModel that = (Arez_WithHooksModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

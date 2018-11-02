@@ -160,7 +160,7 @@ public final class Arez_GenericObservableRefModel extends GenericObservableRefMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_GenericObservableRefModel ) {
         final Arez_GenericObservableRefModel that = (Arez_GenericObservableRefModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

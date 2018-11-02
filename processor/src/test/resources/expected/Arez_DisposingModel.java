@@ -137,7 +137,7 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DisposingModel ) {
         final Arez_DisposingModel that = (Arez_DisposingModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

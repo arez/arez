@@ -105,7 +105,7 @@ public final class Arez_LongComponentIdRequireEquals extends LongComponentIdRequ
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_LongComponentIdRequireEquals ) {
       final Arez_LongComponentIdRequireEquals that = (Arez_LongComponentIdRequireEquals) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

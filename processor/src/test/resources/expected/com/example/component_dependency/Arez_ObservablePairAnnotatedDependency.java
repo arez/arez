@@ -171,7 +171,7 @@ public final class Arez_ObservablePairAnnotatedDependency extends ObservablePair
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservablePairAnnotatedDependency ) {
         final Arez_ObservablePairAnnotatedDependency that = (Arez_ObservablePairAnnotatedDependency) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

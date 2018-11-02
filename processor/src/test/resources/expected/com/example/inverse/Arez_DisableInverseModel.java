@@ -122,7 +122,7 @@ final class Arez_DisableInverseModel extends DisableInverseModel implements Disp
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DisableInverseModel ) {
         final Arez_DisableInverseModel that = (Arez_DisableInverseModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

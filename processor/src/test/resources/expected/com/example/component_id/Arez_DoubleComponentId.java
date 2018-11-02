@@ -110,7 +110,7 @@ public final class Arez_DoubleComponentId extends DoubleComponentId implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DoubleComponentId ) {
         final Arez_DoubleComponentId that = (Arez_DoubleComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

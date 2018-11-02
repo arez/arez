@@ -166,7 +166,7 @@ final class Arez_RepositoryWithCreateOnlyRepository extends RepositoryWithCreate
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithCreateOnlyRepository ) {
         final Arez_RepositoryWithCreateOnlyRepository that = (Arez_RepositoryWithCreateOnlyRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -110,7 +110,7 @@ final class Arez_ComponentIdExample extends ComponentIdExample implements Dispos
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentIdExample ) {
         final Arez_ComponentIdExample that = (Arez_ComponentIdExample) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

@@ -161,7 +161,7 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonnullObservableDependency ) {
         final Arez_NonnullObservableDependency that = (Arez_NonnullObservableDependency) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

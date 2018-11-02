@@ -167,7 +167,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithInitializerNameCollisionModelRepository ) {
         final Arez_RepositoryWithInitializerNameCollisionModelRepository that = (Arez_RepositoryWithInitializerNameCollisionModelRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

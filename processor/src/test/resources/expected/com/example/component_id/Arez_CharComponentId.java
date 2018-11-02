@@ -110,7 +110,7 @@ public final class Arez_CharComponentId extends CharComponentId implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CharComponentId ) {
         final Arez_CharComponentId that = (Arez_CharComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

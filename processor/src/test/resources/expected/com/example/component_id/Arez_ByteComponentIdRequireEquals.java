@@ -105,7 +105,7 @@ public final class Arez_ByteComponentIdRequireEquals extends ByteComponentIdRequ
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_ByteComponentIdRequireEquals ) {
       final Arez_ByteComponentIdRequireEquals that = (Arez_ByteComponentIdRequireEquals) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

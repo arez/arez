@@ -122,7 +122,7 @@ public final class Arez_LeafModel extends LeafModel implements Disposable, Ident
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LeafModel ) {
         final Arez_LeafModel that = (Arez_LeafModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

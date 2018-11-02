@@ -138,7 +138,7 @@ public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSinglet
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentIdOnSingletonModel ) {
         final Arez_ComponentIdOnSingletonModel that = (Arez_ComponentIdOnSingletonModel) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

@@ -180,7 +180,7 @@ final class Arez_RepositoryWithDestroyAndDetachRepository extends RepositoryWith
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithDestroyAndDetachRepository ) {
         final Arez_RepositoryWithDestroyAndDetachRepository that = (Arez_RepositoryWithDestroyAndDetachRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

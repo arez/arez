@@ -138,7 +138,7 @@ public final class Arez_MultipleArgsModel extends MultipleArgsModel implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MultipleArgsModel ) {
         final Arez_MultipleArgsModel that = (Arez_MultipleArgsModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

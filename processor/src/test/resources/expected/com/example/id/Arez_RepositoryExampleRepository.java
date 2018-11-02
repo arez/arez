@@ -166,7 +166,7 @@ final class Arez_RepositoryExampleRepository extends RepositoryExampleRepository
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryExampleRepository ) {
         final Arez_RepositoryExampleRepository that = (Arez_RepositoryExampleRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

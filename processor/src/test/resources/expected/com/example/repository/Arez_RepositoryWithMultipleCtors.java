@@ -207,7 +207,7 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithMultipleCtors ) {
       final Arez_RepositoryWithMultipleCtors that = (Arez_RepositoryWithMultipleCtors) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

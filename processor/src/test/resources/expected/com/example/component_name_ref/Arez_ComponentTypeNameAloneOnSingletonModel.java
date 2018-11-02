@@ -141,7 +141,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentTypeNameAloneOnSingletonModel ) {
         final Arez_ComponentTypeNameAloneOnSingletonModel that = (Arez_ComponentTypeNameAloneOnSingletonModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -166,7 +166,7 @@ public final class Arez_ObservableMapModel extends ObservableMapModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableMapModel ) {
         final Arez_ObservableMapModel that = (Arez_ObservableMapModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

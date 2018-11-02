@@ -166,7 +166,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryPreDisposeHookRepository ) {
         final Arez_RepositoryPreDisposeHookRepository that = (Arez_RepositoryPreDisposeHookRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -136,7 +136,7 @@ public final class Arez_DisposeTrackableModel extends DisposeTrackableModel impl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DisposeTrackableModel ) {
         final Arez_DisposeTrackableModel that = (Arez_DisposeTrackableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -136,7 +136,7 @@ public final class Arez_GenericsModel extends GenericsModel implements Disposabl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_GenericsModel ) {
         final Arez_GenericsModel that = (Arez_GenericsModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

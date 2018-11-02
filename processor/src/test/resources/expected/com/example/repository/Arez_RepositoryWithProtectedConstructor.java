@@ -163,7 +163,7 @@ final class Arez_RepositoryWithProtectedConstructor extends RepositoryWithProtec
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithProtectedConstructor ) {
       final Arez_RepositoryWithProtectedConstructor that = (Arez_RepositoryWithProtectedConstructor) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

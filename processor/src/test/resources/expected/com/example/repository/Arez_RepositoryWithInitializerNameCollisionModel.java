@@ -163,7 +163,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModel extends RepositoryW
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithInitializerNameCollisionModel ) {
       final Arez_RepositoryWithInitializerNameCollisionModel that = (Arez_RepositoryWithInitializerNameCollisionModel) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

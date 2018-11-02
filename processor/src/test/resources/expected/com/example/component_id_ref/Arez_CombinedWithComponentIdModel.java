@@ -115,7 +115,7 @@ public final class Arez_CombinedWithComponentIdModel extends CombinedWithCompone
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CombinedWithComponentIdModel ) {
         final Arez_CombinedWithComponentIdModel that = (Arez_CombinedWithComponentIdModel) o;
-        return this.isDisposed() == that.isDisposed() && this.id() == that.id();
+        return isDisposed() == that.isDisposed() && id() == that.id();
       } else {
         return false;
       }

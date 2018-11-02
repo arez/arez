@@ -138,7 +138,7 @@ public final class Arez_PostConstructModel extends PostConstructModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_PostConstructModel ) {
         final Arez_PostConstructModel that = (Arez_PostConstructModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

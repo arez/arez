@@ -134,7 +134,7 @@ public final class Arez_ComponentDependencyModel extends ComponentDependencyMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentDependencyModel ) {
         final Arez_ComponentDependencyModel that = (Arez_ComponentDependencyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

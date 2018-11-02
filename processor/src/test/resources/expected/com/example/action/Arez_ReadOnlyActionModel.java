@@ -136,7 +136,7 @@ public final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ReadOnlyActionModel ) {
         final Arez_ReadOnlyActionModel that = (Arez_ReadOnlyActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -178,7 +178,7 @@ final class Arez_InjectDisabledRepositoryRepository extends InjectDisabledReposi
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_InjectDisabledRepositoryRepository ) {
         final Arez_InjectDisabledRepositoryRepository that = (Arez_InjectDisabledRepositoryRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

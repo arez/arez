@@ -212,7 +212,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel implements 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonGetterInverseModel ) {
         final Arez_NonGetterInverseModel that = (Arez_NonGetterInverseModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

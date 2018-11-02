@@ -146,7 +146,7 @@ public final class Arez_NonArezDependenciesModel extends NonArezDependenciesMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonArezDependenciesModel ) {
         final Arez_NonArezDependenciesModel that = (Arez_NonArezDependenciesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

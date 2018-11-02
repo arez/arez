@@ -213,7 +213,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_PackageAccessWithDifferentPackageInverseModel ) {
         final Arez_PackageAccessWithDifferentPackageInverseModel that = (Arez_PackageAccessWithDifferentPackageInverseModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

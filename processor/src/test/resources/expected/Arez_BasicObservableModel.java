@@ -148,7 +148,7 @@ public final class Arez_BasicObservableModel extends BasicObservableModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicObservableModel ) {
         final Arez_BasicObservableModel that = (Arez_BasicObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

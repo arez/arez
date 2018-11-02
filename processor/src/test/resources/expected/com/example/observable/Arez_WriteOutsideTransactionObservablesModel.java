@@ -160,7 +160,7 @@ public final class Arez_WriteOutsideTransactionObservablesModel extends WriteOut
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_WriteOutsideTransactionObservablesModel ) {
         final Arez_WriteOutsideTransactionObservablesModel that = (Arez_WriteOutsideTransactionObservablesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

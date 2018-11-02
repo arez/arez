@@ -165,7 +165,7 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryPreDisposeHook ) {
       final Arez_RepositoryPreDisposeHook that = (Arez_RepositoryPreDisposeHook) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

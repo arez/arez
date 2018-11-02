@@ -122,7 +122,7 @@ public final class Arez_ToStringPresent extends ToStringPresent implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ToStringPresent ) {
         final Arez_ToStringPresent that = (Arez_ToStringPresent) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

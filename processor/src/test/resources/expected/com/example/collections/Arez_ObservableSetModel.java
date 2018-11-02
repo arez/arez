@@ -166,7 +166,7 @@ public final class Arez_ObservableSetModel extends ObservableSetModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableSetModel ) {
         final Arez_ObservableSetModel that = (Arez_ObservableSetModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

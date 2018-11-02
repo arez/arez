@@ -203,7 +203,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableGuessingModel ) {
         final Arez_ObservableGuessingModel that = (Arez_ObservableGuessingModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

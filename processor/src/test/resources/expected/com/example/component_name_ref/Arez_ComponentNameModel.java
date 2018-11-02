@@ -136,7 +136,7 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentNameModel ) {
         final Arez_ComponentNameModel that = (Arez_ComponentNameModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

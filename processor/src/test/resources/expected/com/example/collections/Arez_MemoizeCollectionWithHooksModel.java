@@ -174,7 +174,7 @@ public final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectio
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeCollectionWithHooksModel ) {
         final Arez_MemoizeCollectionWithHooksModel that = (Arez_MemoizeCollectionWithHooksModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

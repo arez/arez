@@ -137,7 +137,7 @@ public final class Arez_CustomPriorityModel extends CustomPriorityModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CustomPriorityModel ) {
         final Arez_CustomPriorityModel that = (Arez_CustomPriorityModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

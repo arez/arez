@@ -141,7 +141,7 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_SimpleComponent ) {
         final Arez_SimpleComponent that = (Arez_SimpleComponent) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

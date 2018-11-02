@@ -180,7 +180,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NullableLazyLoadReferenceModel ) {
         final Arez_NullableLazyLoadReferenceModel that = (Arez_NullableLazyLoadReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

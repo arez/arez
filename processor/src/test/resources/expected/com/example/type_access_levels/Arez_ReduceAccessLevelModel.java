@@ -150,7 +150,7 @@ final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel implement
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ReduceAccessLevelModel ) {
         final Arez_ReduceAccessLevelModel that = (Arez_ReduceAccessLevelModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

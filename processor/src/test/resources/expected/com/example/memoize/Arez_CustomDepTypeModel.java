@@ -137,7 +137,7 @@ public final class Arez_CustomDepTypeModel extends CustomDepTypeModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CustomDepTypeModel ) {
         final Arez_CustomDepTypeModel that = (Arez_CustomDepTypeModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

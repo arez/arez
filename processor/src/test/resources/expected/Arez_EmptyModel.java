@@ -120,7 +120,7 @@ public final class Arez_EmptyModel extends EmptyModel implements Disposable, Ide
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_EmptyModel ) {
         final Arez_EmptyModel that = (Arez_EmptyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -160,7 +160,7 @@ public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DisposeOnDeactivateModel ) {
         final Arez_DisposeOnDeactivateModel that = (Arez_DisposeOnDeactivateModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

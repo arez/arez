@@ -219,7 +219,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ExplicitLoadObservableReferenceModel ) {
         final Arez_ExplicitLoadObservableReferenceModel that = (Arez_ExplicitLoadObservableReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

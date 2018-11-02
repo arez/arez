@@ -217,7 +217,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_EagerLoadNulableObservableReferenceModel ) {
         final Arez_EagerLoadNulableObservableReferenceModel that = (Arez_EagerLoadNulableObservableReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

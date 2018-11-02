@@ -148,7 +148,7 @@ public final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeriveTrackedModel ) {
         final Arez_DeriveTrackedModel that = (Arez_DeriveTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

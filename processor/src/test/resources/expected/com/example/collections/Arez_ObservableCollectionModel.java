@@ -166,7 +166,7 @@ public final class Arez_ObservableCollectionModel extends ObservableCollectionMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableCollectionModel ) {
         final Arez_ObservableCollectionModel that = (Arez_ObservableCollectionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -171,7 +171,7 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractObservableDependency ) {
         final Arez_AbstractObservableDependency that = (Arez_AbstractObservableDependency) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

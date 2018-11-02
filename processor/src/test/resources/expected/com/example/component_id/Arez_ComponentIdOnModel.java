@@ -138,7 +138,7 @@ public final class Arez_ComponentIdOnModel extends ComponentIdOnModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComponentIdOnModel ) {
         final Arez_ComponentIdOnModel that = (Arez_ComponentIdOnModel) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

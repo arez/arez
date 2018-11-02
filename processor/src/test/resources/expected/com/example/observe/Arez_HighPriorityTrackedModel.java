@@ -146,7 +146,7 @@ public final class Arez_HighPriorityTrackedModel extends HighPriorityTrackedMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_HighPriorityTrackedModel ) {
         final Arez_HighPriorityTrackedModel that = (Arez_HighPriorityTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

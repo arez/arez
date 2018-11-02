@@ -137,7 +137,7 @@ public final class Arez_NormalPriorityModel extends NormalPriorityModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NormalPriorityModel ) {
         final Arez_NormalPriorityModel that = (Arez_NormalPriorityModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -147,7 +147,7 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicTrackedWithExceptionsModel ) {
         final Arez_BasicTrackedWithExceptionsModel that = (Arez_BasicTrackedWithExceptionsModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

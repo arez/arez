@@ -178,7 +178,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ComplexDependencyWithCustomNameMethodModel ) {
         final Arez_ComplexDependencyWithCustomNameMethodModel that = (Arez_ComplexDependencyWithCustomNameMethodModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

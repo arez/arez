@@ -163,7 +163,7 @@ final class Arez_RepositoryWithDetachOnly extends RepositoryWithDetachOnly imple
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithDetachOnly ) {
       final Arez_RepositoryWithDetachOnly that = (Arez_RepositoryWithDetachOnly) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

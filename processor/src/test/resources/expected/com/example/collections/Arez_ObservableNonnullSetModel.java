@@ -166,7 +166,7 @@ public final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableNonnullSetModel ) {
         final Arez_ObservableNonnullSetModel that = (Arez_ObservableNonnullSetModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

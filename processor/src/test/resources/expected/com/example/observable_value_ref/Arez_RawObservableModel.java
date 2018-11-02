@@ -159,7 +159,7 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RawObservableModel ) {
         final Arez_RawObservableModel that = (Arez_RawObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -167,7 +167,7 @@ final class Arez_RepositoryWithExplicitNonStandardIdRepository extends Repositor
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithExplicitNonStandardIdRepository ) {
         final Arez_RepositoryWithExplicitNonStandardIdRepository that = (Arez_RepositoryWithExplicitNonStandardIdRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

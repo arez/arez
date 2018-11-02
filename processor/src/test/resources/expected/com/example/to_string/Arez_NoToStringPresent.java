@@ -122,7 +122,7 @@ public final class Arez_NoToStringPresent extends NoToStringPresent implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoToStringPresent ) {
         final Arez_NoToStringPresent that = (Arez_NoToStringPresent) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -169,7 +169,7 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableDependency ) {
         final Arez_ObservableDependency that = (Arez_ObservableDependency) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

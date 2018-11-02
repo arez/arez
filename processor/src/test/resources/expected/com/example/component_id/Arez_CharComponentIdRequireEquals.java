@@ -105,7 +105,7 @@ public final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequ
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_CharComponentIdRequireEquals ) {
       final Arez_CharComponentIdRequireEquals that = (Arez_CharComponentIdRequireEquals) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

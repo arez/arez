@@ -145,7 +145,7 @@ public final class Arez_NonStandardNameModel extends NonStandardNameModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonStandardNameModel ) {
         final Arez_NonStandardNameModel that = (Arez_NonStandardNameModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

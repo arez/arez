@@ -175,7 +175,7 @@ public final class Arez_MemoizeKeepAliveListModel extends MemoizeKeepAliveListMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeKeepAliveListModel ) {
         final Arez_MemoizeKeepAliveListModel that = (Arez_MemoizeKeepAliveListModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

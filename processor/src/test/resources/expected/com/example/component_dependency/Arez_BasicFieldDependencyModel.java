@@ -132,7 +132,7 @@ public final class Arez_BasicFieldDependencyModel extends BasicFieldDependencyMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicFieldDependencyModel ) {
         final Arez_BasicFieldDependencyModel that = (Arez_BasicFieldDependencyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

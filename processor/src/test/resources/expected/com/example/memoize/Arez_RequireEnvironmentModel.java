@@ -137,7 +137,7 @@ public final class Arez_RequireEnvironmentModel extends RequireEnvironmentModel 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RequireEnvironmentModel ) {
         final Arez_RequireEnvironmentModel that = (Arez_RequireEnvironmentModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

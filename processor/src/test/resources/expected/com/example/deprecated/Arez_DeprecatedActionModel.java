@@ -138,7 +138,7 @@ public final class Arez_DeprecatedActionModel extends DeprecatedActionModel impl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeprecatedActionModel ) {
         final Arez_DeprecatedActionModel that = (Arez_DeprecatedActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

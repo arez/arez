@@ -105,7 +105,7 @@ public final class Arez_DoubleComponentIdRequireEquals extends DoubleComponentId
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_DoubleComponentIdRequireEquals ) {
       final Arez_DoubleComponentIdRequireEquals that = (Arez_DoubleComponentIdRequireEquals) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

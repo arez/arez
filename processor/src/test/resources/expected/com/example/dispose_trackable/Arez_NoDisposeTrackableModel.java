@@ -120,7 +120,7 @@ public final class Arez_NoDisposeTrackableModel extends NoDisposeTrackableModel 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoDisposeTrackableModel ) {
         final Arez_NoDisposeTrackableModel that = (Arez_NoDisposeTrackableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

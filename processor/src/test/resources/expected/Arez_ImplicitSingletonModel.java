@@ -202,7 +202,7 @@ public final class Arez_ImplicitSingletonModel extends ImplicitSingletonModel im
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ImplicitSingletonModel ) {
         final Arez_ImplicitSingletonModel that = (Arez_ImplicitSingletonModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

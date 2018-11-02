@@ -110,7 +110,7 @@ public final class Arez_LongComponentId extends LongComponentId implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LongComponentId ) {
         final Arez_LongComponentId that = (Arez_LongComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

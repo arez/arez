@@ -119,7 +119,7 @@ final class Arez_RequireIdEnable extends RequireIdEnable implements Disposable, 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RequireIdEnable ) {
         final Arez_RequireIdEnable that = (Arez_RequireIdEnable) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

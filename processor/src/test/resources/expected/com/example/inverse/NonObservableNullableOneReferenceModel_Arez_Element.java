@@ -189,7 +189,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof NonObservableNullableOneReferenceModel_Arez_Element ) {
         final NonObservableNullableOneReferenceModel_Arez_Element that = (NonObservableNullableOneReferenceModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

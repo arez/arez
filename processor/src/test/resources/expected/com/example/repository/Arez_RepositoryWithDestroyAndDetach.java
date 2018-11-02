@@ -163,7 +163,7 @@ final class Arez_RepositoryWithDestroyAndDetach extends RepositoryWithDestroyAnd
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithDestroyAndDetach ) {
       final Arez_RepositoryWithDestroyAndDetach that = (Arez_RepositoryWithDestroyAndDetach) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

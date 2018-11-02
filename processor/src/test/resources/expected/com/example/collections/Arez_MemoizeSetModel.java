@@ -171,7 +171,7 @@ public final class Arez_MemoizeSetModel extends MemoizeSetModel implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeSetModel ) {
         final Arez_MemoizeSetModel that = (Arez_MemoizeSetModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

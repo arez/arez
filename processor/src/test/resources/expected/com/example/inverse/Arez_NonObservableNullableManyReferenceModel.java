@@ -213,7 +213,7 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonObservableNullableManyReferenceModel ) {
         final Arez_NonObservableNullableManyReferenceModel that = (Arez_NonObservableNullableManyReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

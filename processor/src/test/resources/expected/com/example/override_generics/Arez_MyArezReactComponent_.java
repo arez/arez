@@ -122,7 +122,7 @@ public final class Arez_MyArezReactComponent_ extends MyArezReactComponent_ impl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MyArezReactComponent_ ) {
         final Arez_MyArezReactComponent_ that = (Arez_MyArezReactComponent_) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

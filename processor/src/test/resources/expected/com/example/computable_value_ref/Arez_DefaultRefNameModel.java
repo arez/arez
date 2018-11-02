@@ -146,7 +146,7 @@ public final class Arez_DefaultRefNameModel extends DefaultRefNameModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DefaultRefNameModel ) {
         final Arez_DefaultRefNameModel that = (Arez_DefaultRefNameModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

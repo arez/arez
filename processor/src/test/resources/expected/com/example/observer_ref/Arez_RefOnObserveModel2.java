@@ -154,7 +154,7 @@ public final class Arez_RefOnObserveModel2 extends RefOnObserveModel2 implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RefOnObserveModel2 ) {
         final Arez_RefOnObserveModel2 that = (Arez_RefOnObserveModel2) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

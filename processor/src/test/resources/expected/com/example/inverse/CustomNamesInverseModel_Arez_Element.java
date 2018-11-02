@@ -182,7 +182,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof CustomNamesInverseModel_Arez_Element ) {
         final CustomNamesInverseModel_Arez_Element that = (CustomNamesInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

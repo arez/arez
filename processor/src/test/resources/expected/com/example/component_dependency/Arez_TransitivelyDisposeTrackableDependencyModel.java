@@ -134,7 +134,7 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_TransitivelyDisposeTrackableDependencyModel ) {
         final Arez_TransitivelyDisposeTrackableDependencyModel that = (Arez_TransitivelyDisposeTrackableDependencyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

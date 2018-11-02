@@ -148,7 +148,7 @@ public final class Arez_DeprecatedObserveModel1 extends DeprecatedObserveModel1 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeprecatedObserveModel1 ) {
         final Arez_DeprecatedObserveModel1 that = (Arez_DeprecatedObserveModel1) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

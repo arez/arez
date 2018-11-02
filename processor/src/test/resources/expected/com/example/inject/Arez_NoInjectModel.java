@@ -136,7 +136,7 @@ public final class Arez_NoInjectModel extends NoInjectModel implements Disposabl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoInjectModel ) {
         final Arez_NoInjectModel that = (Arez_NoInjectModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

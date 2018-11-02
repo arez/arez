@@ -163,7 +163,7 @@ final class Arez_InjectDisabledRepository extends InjectDisabledRepository imple
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_InjectDisabledRepository ) {
       final Arez_InjectDisabledRepository that = (Arez_InjectDisabledRepository) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

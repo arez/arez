@@ -182,7 +182,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof OneMultiplicityInverseModel_Arez_Element ) {
         final OneMultiplicityInverseModel_Arez_Element that = (OneMultiplicityInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

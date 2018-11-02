@@ -136,7 +136,7 @@ public final class Arez_NoReportParametersModel extends NoReportParametersModel 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoReportParametersModel ) {
         final Arez_NoReportParametersModel that = (Arez_NoReportParametersModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

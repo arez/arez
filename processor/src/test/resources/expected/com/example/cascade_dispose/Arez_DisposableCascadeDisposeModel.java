@@ -123,7 +123,7 @@ public final class Arez_DisposableCascadeDisposeModel extends DisposableCascadeD
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DisposableCascadeDisposeModel ) {
         final Arez_DisposableCascadeDisposeModel that = (Arez_DisposableCascadeDisposeModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -204,7 +204,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_TrackedAllTypesModel ) {
         final Arez_TrackedAllTypesModel that = (Arez_TrackedAllTypesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

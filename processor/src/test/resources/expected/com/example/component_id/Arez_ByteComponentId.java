@@ -110,7 +110,7 @@ public final class Arez_ByteComponentId extends ByteComponentId implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ByteComponentId ) {
         final Arez_ByteComponentId that = (Arez_ByteComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

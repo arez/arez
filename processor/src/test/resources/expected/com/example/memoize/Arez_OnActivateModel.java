@@ -137,7 +137,7 @@ public final class Arez_OnActivateModel extends OnActivateModel implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_OnActivateModel ) {
         final Arez_OnActivateModel that = (Arez_OnActivateModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

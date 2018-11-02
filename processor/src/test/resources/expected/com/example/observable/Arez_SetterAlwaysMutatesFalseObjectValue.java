@@ -153,7 +153,7 @@ public final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlways
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_SetterAlwaysMutatesFalseObjectValue ) {
         final Arez_SetterAlwaysMutatesFalseObjectValue that = (Arez_SetterAlwaysMutatesFalseObjectValue) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

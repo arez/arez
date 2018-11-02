@@ -215,7 +215,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof ObservableManyReferenceModel_Arez_Element ) {
         final ObservableManyReferenceModel_Arez_Element that = (ObservableManyReferenceModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

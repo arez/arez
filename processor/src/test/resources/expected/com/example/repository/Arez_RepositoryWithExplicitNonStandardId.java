@@ -155,7 +155,7 @@ final class Arez_RepositoryWithExplicitNonStandardId extends RepositoryWithExpli
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithExplicitNonStandardId ) {
       final Arez_RepositoryWithExplicitNonStandardId that = (Arez_RepositoryWithExplicitNonStandardId) o;
-      return this.isDisposed() == that.isDisposed() && this.object_id() == that.object_id();
+      return isDisposed() == that.isDisposed() && object_id() == that.object_id();
     } else {
       return false;
     }

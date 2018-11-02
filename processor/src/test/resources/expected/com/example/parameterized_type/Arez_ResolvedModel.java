@@ -151,7 +151,7 @@ final class Arez_ResolvedModel extends ResolvedModel implements Disposable, Iden
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ResolvedModel ) {
         final Arez_ResolvedModel that = (Arez_ResolvedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

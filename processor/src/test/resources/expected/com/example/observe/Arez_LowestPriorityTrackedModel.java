@@ -146,7 +146,7 @@ public final class Arez_LowestPriorityTrackedModel extends LowestPriorityTracked
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LowestPriorityTrackedModel ) {
         final Arez_LowestPriorityTrackedModel that = (Arez_LowestPriorityTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

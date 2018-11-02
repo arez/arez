@@ -228,7 +228,7 @@ final class Arez_PackageAccessRepositoryExample extends PackageAccessRepositoryE
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_PackageAccessRepositoryExample ) {
       final Arez_PackageAccessRepositoryExample that = (Arez_PackageAccessRepositoryExample) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

@@ -146,7 +146,7 @@ public final class Arez_BasicTrackedModel extends BasicTrackedModel implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicTrackedModel ) {
         final Arez_BasicTrackedModel that = (Arez_BasicTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

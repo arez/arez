@@ -148,7 +148,7 @@ public final class Arez_CustomNameRefOnObserveModel1 extends CustomNameRefOnObse
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CustomNameRefOnObserveModel1 ) {
         final Arez_CustomNameRefOnObserveModel1 that = (Arez_CustomNameRefOnObserveModel1) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

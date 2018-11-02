@@ -223,7 +223,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_SingletonWithIdModel ) {
         final Arez_SingletonWithIdModel that = (Arez_SingletonWithIdModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

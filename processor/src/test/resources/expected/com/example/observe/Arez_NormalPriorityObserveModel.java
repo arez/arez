@@ -140,7 +140,7 @@ public final class Arez_NormalPriorityObserveModel extends NormalPriorityObserve
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NormalPriorityObserveModel ) {
         final Arez_NormalPriorityObserveModel that = (Arez_NormalPriorityObserveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

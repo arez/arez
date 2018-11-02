@@ -168,7 +168,7 @@ public final class Arez_AbstractMapObservableModel extends AbstractMapObservable
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractMapObservableModel ) {
         final Arez_AbstractMapObservableModel that = (Arez_AbstractMapObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

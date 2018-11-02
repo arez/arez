@@ -136,7 +136,7 @@ final class Arez_PublicCtorNonPublicModel extends PublicCtorNonPublicModel imple
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_PublicCtorNonPublicModel ) {
         final Arez_PublicCtorNonPublicModel that = (Arez_PublicCtorNonPublicModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

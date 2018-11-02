@@ -163,7 +163,7 @@ final class Arez_RepositoryWithSingleton extends RepositoryWithSingleton impleme
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithSingleton ) {
       final Arez_RepositoryWithSingleton that = (Arez_RepositoryWithSingleton) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

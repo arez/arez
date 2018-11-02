@@ -152,7 +152,7 @@ public final class Arez_AbstractObservablesModel extends AbstractObservablesMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractObservablesModel ) {
         final Arez_AbstractObservablesModel that = (Arez_AbstractObservablesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -233,7 +233,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_Element ) {
         final Arez_Element that = (Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -165,7 +165,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MyModel ) {
         final Arez_MyModel that = (Arez_MyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -193,7 +193,7 @@ public final class Arez_RepositoryWithMultipleInitializersModel extends Reposito
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithMultipleInitializersModel ) {
       final Arez_RepositoryWithMultipleInitializersModel that = (Arez_RepositoryWithMultipleInitializersModel) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

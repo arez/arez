@@ -140,7 +140,7 @@ public final class Arez_LowestPriorityObserveModel extends LowestPriorityObserve
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LowestPriorityObserveModel ) {
         final Arez_LowestPriorityObserveModel that = (Arez_LowestPriorityObserveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

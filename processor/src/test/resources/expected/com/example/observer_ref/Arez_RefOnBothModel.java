@@ -175,7 +175,7 @@ public final class Arez_RefOnBothModel extends RefOnBothModel implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RefOnBothModel ) {
         final Arez_RefOnBothModel that = (Arez_RefOnBothModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

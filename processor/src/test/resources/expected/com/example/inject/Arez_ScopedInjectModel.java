@@ -124,7 +124,7 @@ public final class Arez_ScopedInjectModel extends ScopedInjectModel implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ScopedInjectModel ) {
         final Arez_ScopedInjectModel that = (Arez_ScopedInjectModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

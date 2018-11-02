@@ -235,7 +235,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation ) {
         final MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

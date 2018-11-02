@@ -136,7 +136,7 @@ public final class Arez_UnsafeProcedureActionModel extends UnsafeProcedureAction
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_UnsafeProcedureActionModel ) {
         final Arez_UnsafeProcedureActionModel that = (Arez_UnsafeProcedureActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

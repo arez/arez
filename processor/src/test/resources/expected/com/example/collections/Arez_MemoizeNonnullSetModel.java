@@ -174,7 +174,7 @@ public final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel im
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeNonnullSetModel ) {
         final Arez_MemoizeNonnullSetModel that = (Arez_MemoizeNonnullSetModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

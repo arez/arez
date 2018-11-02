@@ -148,7 +148,7 @@ public final class Arez_ObservableWithExceptionModel extends ObservableWithExcep
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableWithExceptionModel ) {
         final Arez_ObservableWithExceptionModel that = (Arez_ObservableWithExceptionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

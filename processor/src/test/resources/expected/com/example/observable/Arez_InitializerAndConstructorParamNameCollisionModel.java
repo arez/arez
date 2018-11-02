@@ -154,7 +154,7 @@ final class Arez_InitializerAndConstructorParamNameCollisionModel extends Initia
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_InitializerAndConstructorParamNameCollisionModel ) {
         final Arez_InitializerAndConstructorParamNameCollisionModel that = (Arez_InitializerAndConstructorParamNameCollisionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

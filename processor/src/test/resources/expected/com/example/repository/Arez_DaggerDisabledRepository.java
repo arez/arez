@@ -163,7 +163,7 @@ final class Arez_DaggerDisabledRepository extends DaggerDisabledRepository imple
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_DaggerDisabledRepository ) {
       final Arez_DaggerDisabledRepository that = (Arez_DaggerDisabledRepository) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

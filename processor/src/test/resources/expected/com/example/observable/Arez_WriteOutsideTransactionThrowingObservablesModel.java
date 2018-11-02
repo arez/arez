@@ -164,7 +164,7 @@ public final class Arez_WriteOutsideTransactionThrowingObservablesModel extends 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_WriteOutsideTransactionThrowingObservablesModel ) {
         final Arez_WriteOutsideTransactionThrowingObservablesModel that = (Arez_WriteOutsideTransactionThrowingObservablesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

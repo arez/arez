@@ -141,7 +141,7 @@ public final class Arez_ScheduleAfterConstructedModel extends ScheduleAfterConst
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ScheduleAfterConstructedModel ) {
         final Arez_ScheduleAfterConstructedModel that = (Arez_ScheduleAfterConstructedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

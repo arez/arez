@@ -140,7 +140,7 @@ public final class Arez_NestedActionsAllowedObserveModel extends NestedActionsAl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NestedActionsAllowedObserveModel ) {
         final Arez_NestedActionsAllowedObserveModel that = (Arez_NestedActionsAllowedObserveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

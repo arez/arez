@@ -137,7 +137,7 @@ public final class Arez_ScheduleDeferredKeepAliveModel extends ScheduleDeferredK
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ScheduleDeferredKeepAliveModel ) {
         final Arez_ScheduleDeferredKeepAliveModel that = (Arez_ScheduleDeferredKeepAliveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

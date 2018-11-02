@@ -209,7 +209,7 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_EagerObservableReadOutsideTransactionReferenceModel ) {
         final Arez_EagerObservableReadOutsideTransactionReferenceModel that = (Arez_EagerObservableReadOutsideTransactionReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -136,7 +136,7 @@ public final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionMo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_UnsafeFunctionActionModel ) {
         final Arez_UnsafeFunctionActionModel that = (Arez_UnsafeFunctionActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

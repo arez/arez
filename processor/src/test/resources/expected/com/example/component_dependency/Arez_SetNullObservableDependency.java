@@ -171,7 +171,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_SetNullObservableDependency ) {
         final Arez_SetNullObservableDependency that = (Arez_SetNullObservableDependency) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

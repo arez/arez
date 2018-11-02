@@ -168,7 +168,7 @@ public final class Arez_AbstractNonnullMapObservableModel extends AbstractNonnul
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractNonnullMapObservableModel ) {
         final Arez_AbstractNonnullMapObservableModel that = (Arez_AbstractNonnullMapObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

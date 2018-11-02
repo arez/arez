@@ -145,7 +145,7 @@ public final class Arez_RawComputableValueModel extends RawComputableValueModel 
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RawComputableValueModel ) {
         final Arez_RawComputableValueModel that = (Arez_RawComputableValueModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

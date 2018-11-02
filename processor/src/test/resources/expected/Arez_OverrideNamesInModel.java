@@ -215,7 +215,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_OverrideNamesInModel ) {
         final Arez_OverrideNamesInModel that = (Arez_OverrideNamesInModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

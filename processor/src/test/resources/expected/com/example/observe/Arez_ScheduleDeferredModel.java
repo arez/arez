@@ -136,7 +136,7 @@ public final class Arez_ScheduleDeferredModel extends ScheduleDeferredModel impl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ScheduleDeferredModel ) {
         final Arez_ScheduleDeferredModel that = (Arez_ScheduleDeferredModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

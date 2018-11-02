@@ -146,7 +146,7 @@ public final class Arez_ProtectedAccessTrackedModel extends ProtectedAccessTrack
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ProtectedAccessTrackedModel ) {
         final Arez_ProtectedAccessTrackedModel that = (Arez_ProtectedAccessTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

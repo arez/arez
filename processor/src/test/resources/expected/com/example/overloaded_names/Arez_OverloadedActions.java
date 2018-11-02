@@ -164,7 +164,7 @@ public final class Arez_OverloadedActions extends OverloadedActions implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_OverloadedActions ) {
         final Arez_OverloadedActions that = (Arez_OverloadedActions) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

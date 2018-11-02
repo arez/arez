@@ -166,7 +166,7 @@ public final class Arez_ObservableNonnullCollectionModel extends ObservableNonnu
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableNonnullCollectionModel ) {
         final Arez_ObservableNonnullCollectionModel that = (Arez_ObservableNonnullCollectionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

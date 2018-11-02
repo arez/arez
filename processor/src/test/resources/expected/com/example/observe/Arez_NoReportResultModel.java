@@ -146,7 +146,7 @@ public final class Arez_NoReportResultModel extends NoReportResultModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoReportResultModel ) {
         final Arez_NoReportResultModel that = (Arez_NoReportResultModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

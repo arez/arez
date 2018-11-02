@@ -110,7 +110,7 @@ public final class Arez_ShortComponentId extends ShortComponentId implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ShortComponentId ) {
         final Arez_ShortComponentId that = (Arez_ShortComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

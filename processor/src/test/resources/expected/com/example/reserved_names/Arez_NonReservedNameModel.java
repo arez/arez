@@ -122,7 +122,7 @@ public final class Arez_NonReservedNameModel extends NonReservedNameModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonReservedNameModel ) {
         final Arez_NonReservedNameModel that = (Arez_NonReservedNameModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

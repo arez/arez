@@ -168,7 +168,7 @@ public final class Arez_AbstractListObservableModel extends AbstractListObservab
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractListObservableModel ) {
         final Arez_AbstractListObservableModel that = (Arez_AbstractListObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

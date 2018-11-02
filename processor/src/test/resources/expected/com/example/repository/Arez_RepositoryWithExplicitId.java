@@ -154,7 +154,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithExplicitId ) {
       final Arez_RepositoryWithExplicitId that = (Arez_RepositoryWithExplicitId) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

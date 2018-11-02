@@ -259,7 +259,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof MultipleReferenceWithInverseWithSameTarget_Arez_RoleType ) {
         final MultipleReferenceWithInverseWithSameTarget_Arez_RoleType that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -213,7 +213,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonObservableCollectionInverseModel ) {
         final Arez_NonObservableCollectionInverseModel that = (Arez_NonObservableCollectionInverseModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

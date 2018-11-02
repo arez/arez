@@ -146,7 +146,7 @@ public final class Arez_NestedActionsAllowedTrackedModel extends NestedActionsAl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NestedActionsAllowedTrackedModel ) {
         final Arez_NestedActionsAllowedTrackedModel that = (Arez_NestedActionsAllowedTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

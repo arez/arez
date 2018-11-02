@@ -182,7 +182,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof ObservableSetInverseModel_Arez_Element ) {
         final ObservableSetInverseModel_Arez_Element that = (ObservableSetInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

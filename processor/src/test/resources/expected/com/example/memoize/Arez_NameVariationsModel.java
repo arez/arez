@@ -176,7 +176,7 @@ public final class Arez_NameVariationsModel extends NameVariationsModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NameVariationsModel ) {
         final Arez_NameVariationsModel that = (Arez_NameVariationsModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -166,7 +166,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithDetachOnlyRepository ) {
         final Arez_RepositoryWithDetachOnlyRepository that = (Arez_RepositoryWithDetachOnlyRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -167,7 +167,7 @@ final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWithExplic
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithExplicitIdRepository ) {
         final Arez_RepositoryWithExplicitIdRepository that = (Arez_RepositoryWithExplicitIdRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

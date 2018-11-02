@@ -146,7 +146,7 @@ public final class Arez_NormalPriorityTrackedModel extends NormalPriorityTracked
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NormalPriorityTrackedModel ) {
         final Arez_NormalPriorityTrackedModel that = (Arez_NormalPriorityTrackedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

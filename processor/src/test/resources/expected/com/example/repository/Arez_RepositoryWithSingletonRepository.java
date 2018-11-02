@@ -166,7 +166,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithSingletonRepository ) {
         final Arez_RepositoryWithSingletonRepository that = (Arez_RepositoryWithSingletonRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

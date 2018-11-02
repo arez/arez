@@ -142,7 +142,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AnnotatedComponent ) {
         final Arez_AnnotatedComponent that = (Arez_AnnotatedComponent) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

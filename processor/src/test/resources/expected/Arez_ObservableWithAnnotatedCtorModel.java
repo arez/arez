@@ -149,7 +149,7 @@ public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithA
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableWithAnnotatedCtorModel ) {
         final Arez_ObservableWithAnnotatedCtorModel that = (Arez_ObservableWithAnnotatedCtorModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

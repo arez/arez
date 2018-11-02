@@ -138,7 +138,7 @@ public final class Arez_BasicInjectModel extends BasicInjectModel implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicInjectModel ) {
         final Arez_BasicInjectModel that = (Arez_BasicInjectModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

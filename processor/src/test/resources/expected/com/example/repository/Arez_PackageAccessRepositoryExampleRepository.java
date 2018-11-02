@@ -167,7 +167,7 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_PackageAccessRepositoryExampleRepository ) {
         final Arez_PackageAccessRepositoryExampleRepository that = (Arez_PackageAccessRepositoryExampleRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

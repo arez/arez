@@ -154,7 +154,7 @@ public final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNon
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractNonPrimitiveObservablesModel ) {
         final Arez_AbstractNonPrimitiveObservablesModel that = (Arez_AbstractNonPrimitiveObservablesModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

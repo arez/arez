@@ -147,7 +147,7 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
   public final boolean equals(final Object o) {
     if ( o instanceof NestedModel_Arez_BasicActionModel ) {
       final NestedModel_Arez_BasicActionModel that = (NestedModel_Arez_BasicActionModel) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

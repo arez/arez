@@ -110,7 +110,7 @@ public final class Arez_FloatComponentId extends FloatComponentId implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_FloatComponentId ) {
         final Arez_FloatComponentId that = (Arez_FloatComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

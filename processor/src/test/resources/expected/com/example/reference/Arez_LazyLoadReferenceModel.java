@@ -176,7 +176,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LazyLoadReferenceModel ) {
         final Arez_LazyLoadReferenceModel that = (Arez_LazyLoadReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -148,7 +148,7 @@ public final class Arez_ObservableModelWithUnconventionalNames extends Observabl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableModelWithUnconventionalNames ) {
         final Arez_ObservableModelWithUnconventionalNames that = (Arez_ObservableModelWithUnconventionalNames) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

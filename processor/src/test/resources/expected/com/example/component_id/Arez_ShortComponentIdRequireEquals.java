@@ -105,7 +105,7 @@ public final class Arez_ShortComponentIdRequireEquals extends ShortComponentIdRe
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_ShortComponentIdRequireEquals ) {
       final Arez_ShortComponentIdRequireEquals that = (Arez_ShortComponentIdRequireEquals) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

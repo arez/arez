@@ -171,7 +171,7 @@ public final class Arez_MemoizeMapModel extends MemoizeMapModel implements Dispo
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeMapModel ) {
         final Arez_MemoizeMapModel that = (Arez_MemoizeMapModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

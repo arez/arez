@@ -140,7 +140,7 @@ public final class Arez_BasicObserveModel extends BasicObserveModel implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicObserveModel ) {
         final Arez_BasicObserveModel that = (Arez_BasicObserveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -212,7 +212,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DefaultMultiplicityInverseModel ) {
         final Arez_DefaultMultiplicityInverseModel that = (Arez_DefaultMultiplicityInverseModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

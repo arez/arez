@@ -177,7 +177,7 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonObservableReferenceModel ) {
         final Arez_NonObservableReferenceModel that = (Arez_NonObservableReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

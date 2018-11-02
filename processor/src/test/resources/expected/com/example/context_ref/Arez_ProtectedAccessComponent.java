@@ -123,7 +123,7 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ProtectedAccessComponent ) {
         final Arez_ProtectedAccessComponent that = (Arez_ProtectedAccessComponent) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

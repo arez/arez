@@ -134,7 +134,7 @@ public final class Arez_TypeParametersOnModel<T extends Integer> extends TypePar
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_TypeParametersOnModel ) {
         final Arez_TypeParametersOnModel that = (Arez_TypeParametersOnModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

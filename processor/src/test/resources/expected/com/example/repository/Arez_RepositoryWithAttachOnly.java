@@ -163,7 +163,7 @@ final class Arez_RepositoryWithAttachOnly extends RepositoryWithAttachOnly imple
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithAttachOnly ) {
       final Arez_RepositoryWithAttachOnly that = (Arez_RepositoryWithAttachOnly) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

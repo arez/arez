@@ -153,7 +153,7 @@ public final class Arez_AbstractPrimitiveObservablesWithInitializerModel extends
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AbstractPrimitiveObservablesWithInitializerModel ) {
         final Arez_AbstractPrimitiveObservablesWithInitializerModel that = (Arez_AbstractPrimitiveObservablesWithInitializerModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

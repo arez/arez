@@ -138,7 +138,7 @@ public final class Arez_DefaultCtorModel extends DefaultCtorModel implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DefaultCtorModel ) {
         final Arez_DefaultCtorModel that = (Arez_DefaultCtorModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

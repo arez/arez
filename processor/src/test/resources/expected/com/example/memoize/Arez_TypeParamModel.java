@@ -137,7 +137,7 @@ public final class Arez_TypeParamModel<T> extends TypeParamModel<T> implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_TypeParamModel ) {
         final Arez_TypeParamModel that = (Arez_TypeParamModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

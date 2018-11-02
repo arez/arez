@@ -140,7 +140,7 @@ public final class Arez_HighestPriorityObserveModel extends HighestPriorityObser
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_HighestPriorityObserveModel ) {
         final Arez_HighestPriorityObserveModel that = (Arez_HighestPriorityObserveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

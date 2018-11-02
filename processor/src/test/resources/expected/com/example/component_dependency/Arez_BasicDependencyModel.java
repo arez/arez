@@ -134,7 +134,7 @@ public final class Arez_BasicDependencyModel extends BasicDependencyModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicDependencyModel ) {
         final Arez_BasicDependencyModel that = (Arez_BasicDependencyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

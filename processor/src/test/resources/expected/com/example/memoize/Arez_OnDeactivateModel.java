@@ -137,7 +137,7 @@ public final class Arez_OnDeactivateModel extends OnDeactivateModel implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_OnDeactivateModel ) {
         final Arez_OnDeactivateModel that = (Arez_OnDeactivateModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

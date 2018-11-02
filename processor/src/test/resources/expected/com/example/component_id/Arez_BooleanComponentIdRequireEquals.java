@@ -105,7 +105,7 @@ public final class Arez_BooleanComponentIdRequireEquals extends BooleanComponent
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_BooleanComponentIdRequireEquals ) {
       final Arez_BooleanComponentIdRequireEquals that = (Arez_BooleanComponentIdRequireEquals) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

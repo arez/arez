@@ -185,7 +185,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableOneReferenceModel ) {
         final Arez_ObservableOneReferenceModel that = (Arez_ObservableOneReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

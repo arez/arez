@@ -136,7 +136,7 @@ public final class Arez_NoRequireEqualsModel extends NoRequireEqualsModel implem
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoRequireEqualsModel ) {
         final Arez_NoRequireEqualsModel that = (Arez_NoRequireEqualsModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

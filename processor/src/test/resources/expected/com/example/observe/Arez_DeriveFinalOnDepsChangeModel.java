@@ -146,7 +146,7 @@ public final class Arez_DeriveFinalOnDepsChangeModel extends DeriveFinalOnDepsCh
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeriveFinalOnDepsChangeModel ) {
         final Arez_DeriveFinalOnDepsChangeModel that = (Arez_DeriveFinalOnDepsChangeModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -426,7 +426,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CompleteModel ) {
         final Arez_CompleteModel that = (Arez_CompleteModel) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

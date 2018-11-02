@@ -110,7 +110,7 @@ public final class Arez_ObjectComponentId extends ObjectComponentId implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObjectComponentId ) {
         final Arez_ObjectComponentId that = (Arez_ObjectComponentId) o;
-        return this.isDisposed() == that.isDisposed() && null != this.getId() && this.getId().equals( that.getId() );
+        return isDisposed() == that.isDisposed() && null != getId() && getId().equals( that.getId() );
       } else {
         return false;
       }

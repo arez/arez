@@ -171,7 +171,7 @@ public final class Arez_MemoizeListModel extends MemoizeListModel implements Dis
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_MemoizeListModel ) {
         final Arez_MemoizeListModel that = (Arez_MemoizeListModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

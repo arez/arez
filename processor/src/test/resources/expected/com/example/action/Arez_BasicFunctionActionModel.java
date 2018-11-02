@@ -136,7 +136,7 @@ public final class Arez_BasicFunctionActionModel extends BasicFunctionActionMode
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_BasicFunctionActionModel ) {
         final Arez_BasicFunctionActionModel that = (Arez_BasicFunctionActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

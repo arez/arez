@@ -151,7 +151,7 @@ final class Arez_UnresolvedModel<X extends Number> extends UnresolvedModel<X> im
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_UnresolvedModel ) {
         final Arez_UnresolvedModel that = (Arez_UnresolvedModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

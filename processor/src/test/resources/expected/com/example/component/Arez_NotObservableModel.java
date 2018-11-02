@@ -136,7 +136,7 @@ public final class Arez_NotObservableModel extends NotObservableModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NotObservableModel ) {
         final Arez_NotObservableModel that = (Arez_NotObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

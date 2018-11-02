@@ -166,7 +166,7 @@ final class Arez_RepositoryWithMultipleInitializersModelRepository extends Repos
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithMultipleInitializersModelRepository ) {
         final Arez_RepositoryWithMultipleInitializersModelRepository that = (Arez_RepositoryWithMultipleInitializersModelRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

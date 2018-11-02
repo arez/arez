@@ -180,7 +180,7 @@ final class Arez_RepositoryWithCreateOrAttachRepository extends RepositoryWithCr
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithCreateOrAttachRepository ) {
         final Arez_RepositoryWithCreateOrAttachRepository that = (Arez_RepositoryWithCreateOrAttachRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

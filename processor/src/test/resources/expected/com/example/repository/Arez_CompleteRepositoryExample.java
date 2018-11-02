@@ -227,7 +227,7 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_CompleteRepositoryExample ) {
       final Arez_CompleteRepositoryExample that = (Arez_CompleteRepositoryExample) o;
-      return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+      return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
     }

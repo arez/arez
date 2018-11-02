@@ -139,7 +139,7 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeprecatedPostConstructModel ) {
         final Arez_DeprecatedPostConstructModel that = (Arez_DeprecatedPostConstructModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

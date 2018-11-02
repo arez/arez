@@ -163,7 +163,7 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithInitializerModel ) {
       final Arez_RepositoryWithInitializerModel that = (Arez_RepositoryWithInitializerModel) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

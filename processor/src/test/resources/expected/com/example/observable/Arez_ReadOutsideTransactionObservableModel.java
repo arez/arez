@@ -157,7 +157,7 @@ public final class Arez_ReadOutsideTransactionObservableModel extends ReadOutsid
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ReadOutsideTransactionObservableModel ) {
         final Arez_ReadOutsideTransactionObservableModel that = (Arez_ReadOutsideTransactionObservableModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

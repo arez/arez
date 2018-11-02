@@ -132,7 +132,7 @@ public final class Arez_CascadeFieldDependencyModel extends CascadeFieldDependen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CascadeFieldDependencyModel ) {
         final Arez_CascadeFieldDependencyModel that = (Arez_CascadeFieldDependencyModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

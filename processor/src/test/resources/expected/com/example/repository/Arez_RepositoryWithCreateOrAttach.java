@@ -163,7 +163,7 @@ final class Arez_RepositoryWithCreateOrAttach extends RepositoryWithCreateOrAtta
   public final boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithCreateOrAttach ) {
       final Arez_RepositoryWithCreateOrAttach that = (Arez_RepositoryWithCreateOrAttach) o;
-      return this.$$arezi$$_id() == that.$$arezi$$_id();
+      return $$arezi$$_id() == that.$$arezi$$_id();
     } else {
       return false;
     }

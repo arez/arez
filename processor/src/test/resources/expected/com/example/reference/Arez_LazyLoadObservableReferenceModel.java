@@ -211,7 +211,7 @@ final class Arez_LazyLoadObservableReferenceModel extends LazyLoadObservableRefe
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LazyLoadObservableReferenceModel ) {
         final Arez_LazyLoadObservableReferenceModel that = (Arez_LazyLoadObservableReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

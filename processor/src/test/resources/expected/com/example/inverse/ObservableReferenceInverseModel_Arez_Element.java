@@ -215,7 +215,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof ObservableReferenceInverseModel_Arez_Element ) {
         final ObservableReferenceInverseModel_Arez_Element that = (ObservableReferenceInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

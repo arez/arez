@@ -141,7 +141,7 @@ public final class Arez_KeepAliveModel extends KeepAliveModel implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_KeepAliveModel ) {
         final Arez_KeepAliveModel that = (Arez_KeepAliveModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

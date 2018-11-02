@@ -174,7 +174,7 @@ public final class Arez_NoVerifyActionModel extends NoVerifyActionModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NoVerifyActionModel ) {
         final Arez_NoVerifyActionModel that = (Arez_NoVerifyActionModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -138,7 +138,7 @@ public final class Arez_LocalTypeParamModel extends LocalTypeParamModel implemen
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LocalTypeParamModel ) {
         final Arez_LocalTypeParamModel that = (Arez_LocalTypeParamModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

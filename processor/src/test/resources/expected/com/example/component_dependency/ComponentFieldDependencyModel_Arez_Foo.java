@@ -122,7 +122,7 @@ final class ComponentFieldDependencyModel_Arez_Foo extends ComponentFieldDepende
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof ComponentFieldDependencyModel_Arez_Foo ) {
         final ComponentFieldDependencyModel_Arez_Foo that = (ComponentFieldDependencyModel_Arez_Foo) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -166,7 +166,7 @@ final class Arez_RepositoryWithInitializerModelRepository extends RepositoryWith
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithInitializerModelRepository ) {
         final Arez_RepositoryWithInitializerModelRepository that = (Arez_RepositoryWithInitializerModelRepository) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

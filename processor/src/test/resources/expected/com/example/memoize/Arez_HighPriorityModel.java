@@ -137,7 +137,7 @@ public final class Arez_HighPriorityModel extends HighPriorityModel implements D
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_HighPriorityModel ) {
         final Arez_HighPriorityModel that = (Arez_HighPriorityModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

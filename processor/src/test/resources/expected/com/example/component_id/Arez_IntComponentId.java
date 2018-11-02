@@ -110,7 +110,7 @@ public final class Arez_IntComponentId extends IntComponentId implements Disposa
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_IntComponentId ) {
         final Arez_IntComponentId that = (Arez_IntComponentId) o;
-        return this.isDisposed() == that.isDisposed() && this.getId() == that.getId();
+        return isDisposed() == that.isDisposed() && getId() == that.getId();
       } else {
         return false;
       }

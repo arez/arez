@@ -181,7 +181,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_AnnotationsOnModel ) {
         final Arez_AnnotationsOnModel that = (Arez_AnnotationsOnModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

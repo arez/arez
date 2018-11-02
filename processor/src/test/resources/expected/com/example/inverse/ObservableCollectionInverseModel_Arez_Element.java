@@ -182,7 +182,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof ObservableCollectionInverseModel_Arez_Element ) {
         final ObservableCollectionInverseModel_Arez_Element that = (ObservableCollectionInverseModel_Arez_Element) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

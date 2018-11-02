@@ -211,7 +211,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_LazyObservableReadOutsideTransactionReferenceModel ) {
         final Arez_LazyObservableReadOutsideTransactionReferenceModel that = (Arez_LazyObservableReadOutsideTransactionReferenceModel) o;
-        return this.$$arezi$$_id() == that.$$arezi$$_id();
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }
