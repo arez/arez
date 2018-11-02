@@ -10,5 +10,6 @@ import javax.inject.Singleton;
 public interface RepositoryPreDisposeHookRepositoryDaggerModule {
   @Binds
   @Singleton
-  RepositoryPreDisposeHookRepository bindComponent(Arez_RepositoryPreDisposeHookRepository component);
+  RepositoryPreDisposeHookRepository bindComponent(
+      Arez_RepositoryPreDisposeHookRepository component);
 }

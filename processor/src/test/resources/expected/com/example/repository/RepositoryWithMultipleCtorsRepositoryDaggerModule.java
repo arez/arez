@@ -10,5 +10,6 @@ import javax.inject.Singleton;
 public interface RepositoryWithMultipleCtorsRepositoryDaggerModule {
   @Binds
   @Singleton
-  RepositoryWithMultipleCtorsRepository bindComponent(Arez_RepositoryWithMultipleCtorsRepository component);
+  RepositoryWithMultipleCtorsRepository bindComponent(
+      Arez_RepositoryWithMultipleCtorsRepository component);
 }

@@ -10,5 +10,6 @@ import javax.inject.Singleton;
 public interface RepositoryWithDetachNoneRepositoryDaggerModule {
   @Binds
   @Singleton
-  RepositoryWithDetachNoneRepository bindComponent(Arez_RepositoryWithDetachNoneRepository component);
+  RepositoryWithDetachNoneRepository bindComponent(
+      Arez_RepositoryWithDetachNoneRepository component);
 }

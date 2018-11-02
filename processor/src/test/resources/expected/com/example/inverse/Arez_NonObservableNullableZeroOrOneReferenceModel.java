@@ -151,7 +151,8 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
     return this.$$arezd$$_element;
   }
 
-  void $$arezir$$_element_zset(@Nullable final NonObservableNullableZeroOrOneReferenceModel.Element element) {
+  void $$arezir$$_element_zset(
+      @Nullable final NonObservableNullableZeroOrOneReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_zset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -160,7 +161,8 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
     this.$$arez$$_element.reportChanged();
   }
 
-  void $$arezir$$_element_zunset(@Nonnull final NonObservableNullableZeroOrOneReferenceModel.Element element) {
+  void $$arezir$$_element_zunset(
+      @Nonnull final NonObservableNullableZeroOrOneReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_zunset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

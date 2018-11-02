@@ -141,7 +141,8 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   }
 
   @Override
-  protected PackageAccessWithDifferentPackageInverseModel getPackageAccessWithDifferentPackageInverseModel() {
+  protected PackageAccessWithDifferentPackageInverseModel getPackageAccessWithDifferentPackageInverseModel(
+      ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getPackageAccessWithDifferentPackageInverseModel' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

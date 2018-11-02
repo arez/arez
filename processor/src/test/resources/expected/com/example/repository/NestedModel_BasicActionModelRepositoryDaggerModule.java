@@ -10,5 +10,6 @@ import javax.inject.Singleton;
 public interface NestedModel_BasicActionModelRepositoryDaggerModule {
   @Binds
   @Singleton
-  NestedModel_BasicActionModelRepository bindComponent(Arez_NestedModel_BasicActionModelRepository component);
+  NestedModel_BasicActionModelRepository bindComponent(
+      Arez_NestedModel_BasicActionModelRepository component);
 }

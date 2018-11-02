@@ -10,5 +10,6 @@ import javax.inject.Singleton;
 public interface RepositoryWithInitializerNameCollisionModelRepositoryDaggerModule {
   @Binds
   @Singleton
-  RepositoryWithInitializerNameCollisionModelRepository bindComponent(Arez_RepositoryWithInitializerNameCollisionModelRepository component);
+  RepositoryWithInitializerNameCollisionModelRepository bindComponent(
+      Arez_RepositoryWithInitializerNameCollisionModelRepository component);
 }

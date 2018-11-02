@@ -167,7 +167,8 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
     }
   }
 
-  void $$arezir$$_elements_add(@Nonnull final NonObservableNullableManyReferenceModel.Element element) {
+  void $$arezir$$_elements_add(
+      @Nonnull final NonObservableNullableManyReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_elements_add' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -182,7 +183,8 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
     this.$$arez$$_elements.reportChanged();
   }
 
-  void $$arezir$$_elements_remove(@Nonnull final NonObservableNullableManyReferenceModel.Element element) {
+  void $$arezir$$_elements_remove(
+      @Nonnull final NonObservableNullableManyReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_elements_remove' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

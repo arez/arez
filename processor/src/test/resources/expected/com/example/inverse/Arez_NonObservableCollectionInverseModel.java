@@ -183,7 +183,8 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
     this.$$arez$$_elements.reportChanged();
   }
 
-  void $$arezir$$_elements_remove(@Nonnull final NonObservableCollectionInverseModel.Element element) {
+  void $$arezir$$_elements_remove(
+      @Nonnull final NonObservableCollectionInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_elements_remove' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }

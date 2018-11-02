@@ -10,5 +10,6 @@ import javax.inject.Singleton;
 public interface RepositoryWithCreateOnlyRepositoryDaggerModule {
   @Binds
   @Singleton
-  RepositoryWithCreateOnlyRepository bindComponent(Arez_RepositoryWithCreateOnlyRepository component);
+  RepositoryWithCreateOnlyRepository bindComponent(
+      Arez_RepositoryWithCreateOnlyRepository component);
 }

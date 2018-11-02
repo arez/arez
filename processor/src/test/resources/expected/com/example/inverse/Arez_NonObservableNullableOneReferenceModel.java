@@ -151,7 +151,8 @@ final class Arez_NonObservableNullableOneReferenceModel extends NonObservableNul
     return this.$$arezd$$_element;
   }
 
-  void $$arezir$$_element_set(@Nonnull final NonObservableNullableOneReferenceModel.Element element) {
+  void $$arezir$$_element_set(
+      @Nonnull final NonObservableNullableOneReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_set' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
@@ -160,7 +161,8 @@ final class Arez_NonObservableNullableOneReferenceModel extends NonObservableNul
     this.$$arez$$_element.reportChanged();
   }
 
-  void $$arezir$$_element_unset(@Nonnull final NonObservableNullableOneReferenceModel.Element element) {
+  void $$arezir$$_element_unset(
+      @Nonnull final NonObservableNullableOneReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezir$$_element_unset' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
     }
