@@ -32,7 +32,7 @@ DAGGER_DEPS =
     :errorprone
   ]
 
-DOC_EXAMPLES=%w().collect {|c| "arez.doc.examples.#{c}"}
+DOC_EXAMPLES = %w().collect {|c| "arez.doc.examples.#{c}"}
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
