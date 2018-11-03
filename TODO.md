@@ -115,6 +115,9 @@ complete as there is too much un-said.
 * Setup tool that does comparisons between different versions of the API via a tool such as:
   - https://github.com/siom79/japicmp
 
+* Consider a tool that creates branches in downstream branches if it does not exist and the build fails. This would
+  make it easy to come along and update the branch as required.
+
 ## Documentation
 
 * The Overview page is terrible - improve it so people would want to use the product.
