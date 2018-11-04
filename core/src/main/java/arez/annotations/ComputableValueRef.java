@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
+ * <li>Must have the exact same parameter types as the associated {@link Memoize} annotated method</li>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>

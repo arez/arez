@@ -6,14 +6,14 @@ import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public abstract class ParametersModel
+public abstract class MemoizeHasDifferentParameters1Model
 {
   @Memoize
-  public long getTime()
+  public long getTime( int i )
   {
     return 0;
   }
 
   @ComputableValueRef
-  abstract ComputableValue getTimeComputableValue( int i );
+  abstract ComputableValue getTimeComputableValue();
 }

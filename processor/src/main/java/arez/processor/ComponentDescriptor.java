@@ -680,10 +680,6 @@ final class ComponentDescriptor
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
     final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     final String depTypeAsString = depType.getSimpleName().toString();
-    if ( "AREZ_OR_EXTERNAL".equals( depTypeAsString ) && !method.getParameters().isEmpty() )
-    {
-      throw new ArezProcessorException( "@Memoize target specified an invalid depType od AREZ_OR_EXTERNAL.", method );
-    }
     findOrCreateMemoize( name ).setMemoize( method,
                                             methodType,
                                             keepAlive,
@@ -701,7 +697,6 @@ final class ComponentDescriptor
   {
     MethodChecks.mustBeOverridable( getElement(), Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeAbstract( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
