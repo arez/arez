@@ -162,7 +162,6 @@ final class MemoizeDescriptor
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
                                          Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     if ( null != _refMethod )
@@ -297,11 +296,6 @@ final class MemoizeDescriptor
 
     if ( null != _refMethod )
     {
-      if ( !_method.getParameters().isEmpty() )
-      {
-        throw new ArezProcessorException( "@ComputableValueRef target specified when the associated @Memoize " +
-                                          "method has parameters.", _method );
-      }
       final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
       if ( typeName instanceof ParameterizedTypeName )
       {
@@ -313,6 +307,32 @@ final class MemoizeDescriptor
           throw new ArezProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
                                             " but @Memoize method returns type of " + actual, _refMethod );
         }
+      }
+
+      assert null != _methodType;
+      assert null != _refMethodType;
+      final List<? extends TypeMirror> parameterTypes = _methodType.getParameterTypes();
+      final List<? extends TypeMirror> refParameterTypes = _refMethodType.getParameterTypes();
+
+      final boolean sizeMatch = parameterTypes.size() == refParameterTypes.size();
+      boolean typesMatch = true;
+      if ( sizeMatch )
+      {
+        for ( int i = 0; i < parameterTypes.size(); i++ )
+        {
+          final TypeMirror typeMirror = parameterTypes.get( i );
+          final TypeMirror typeMirror2 = refParameterTypes.get( i );
+          if ( !_componentDescriptor.getTypeUtils().isSameType( typeMirror, typeMirror2 ) )
+          {
+            typesMatch = false;
+            break;
+          }
+        }
+      }
+      if ( !sizeMatch || !typesMatch )
+      {
+        throw new ArezProcessorException( "@ComputableValueRef target and the associated @Memoize " +
+                                          "target do not have the same parameters.", _method );
       }
     }
     else if ( _depType.equals( "AREZ_OR_EXTERNAL" ) )
@@ -660,6 +680,10 @@ final class MemoizeDescriptor
     else
     {
       builder.addMethod( buildParamsMemoize() );
+      if ( null != _refMethod )
+      {
+        builder.addMethod( buildParamsRefMethod() );
+      }
     }
   }
 
@@ -813,6 +837,59 @@ final class MemoizeDescriptor
     {
       builder.addStatement( "return ($T) this.$N.get()", returnType.box(), getFieldName() );
     }
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildParamsRefMethod()
+    throws ArezProcessorException
+  {
+    assert null != _refMethod;
+    assert null != _refMethodType;
+    final String methodName = _refMethod.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
+    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
+
+    builder.addAnnotation( Override.class );
+    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
+
+    {
+      final List<? extends VariableElement> parameters = _refMethod.getParameters();
+      final int paramCount = parameters.size();
+      for ( int i = 0; i < paramCount; i++ )
+      {
+        final VariableElement element = parameters.get( i );
+        final TypeName parameterType = TypeName.get( _refMethodType.getParameterTypes().get( i ) );
+        final ParameterSpec.Builder param =
+          ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+        ProcessorUtil.copyWhitelistedAnnotations( element, param );
+        builder.addParameter( param.build() );
+      }
+    }
+
+    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> parameters = new ArrayList<>();
+    sb.append( "return this.$N.getComputableValue( " );
+    parameters.add( getFieldName() );
+
+    boolean first = true;
+    for ( final VariableElement element : _refMethod.getParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N" );
+      parameters.add( element.getSimpleName().toString() );
+    }
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), parameters.toArray() );
     return builder.build();
   }
 

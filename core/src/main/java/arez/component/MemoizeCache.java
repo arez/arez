@@ -223,7 +223,7 @@ public final class MemoizeCache<T>
    * @param args the arguments passed to the memoized function.
    */
   @SuppressWarnings( "unchecked" )
-  ComputableValue<T> getComputableValue( @Nonnull final Object... args )
+  public ComputableValue<T> getComputableValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {

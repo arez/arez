@@ -18,12 +18,7 @@ complete as there is too much un-said.
 * Investigate simplifying types via
   `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
-* Support `@ComputableValueRef` for `@Memoize` methods that accept parameters.
-
 * Support `@OnActivate`, `@OnDeactivate` and `@OnStale` for `@Memoize` methods that accept parameters.
-
-* Support `DepType.AREZ_OR_EXTERNAL` for `@Memoize` methods that accept parameters. This needs to have
-  `@ComputableValueRef` supported on these methods as a precursor.
 
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances

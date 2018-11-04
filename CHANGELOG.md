@@ -3,6 +3,15 @@
 ### Unreleased
 
 * **\[processor\]** Simplify the code in the generated `equals()` method to reduce the code size.
+* **\[core\]** Make the method `MemoizeCache.getComputableValue(...)` public so that applications can get
+  access to the underlying `ComputableValue` instance when using class.
+* **\[core\]** Update the `@ComputeableValueRef` annotation handling so that it can be paired with
+  `@Memoize` annotated methods with parameters as long as the `@ComputeableValueRef` annotated method
+  has exactly the same parameters.
+* **\[processor\]** Allow `@Memoize` methods with parameters to have a `depType` parameter set to
+  `DepType.AREZ_OR_EXTERNAL` as it is now possible to access the associated `ComputableValue` and thus can
+  invoke the `reportPossiblyChanged()` method on the underlying `ComputableValue` and thus schedule the
+  computation externally.
 
 ### [v0.113](https://github.com/arez/arez/tree/v0.113) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.112...v0.113)

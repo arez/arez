@@ -91,6 +91,8 @@ define 'arez' do
     test.with :compile_testing,
               Java.tools_jar,
               :truth,
+              :junit,
+              :hamcrest_core,
               DAGGER_DEPS,
               project('core').package(:jar),
               project('core').compile.dependencies
