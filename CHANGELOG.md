@@ -12,6 +12,8 @@
   `DepType.AREZ_OR_EXTERNAL` as it is now possible to access the associated `ComputableValue` and thus can
   invoke the `reportPossiblyChanged()` method on the underlying `ComputableValue` and thus schedule the
   computation externally.
+* **\[core\]** Update the javadocs so that it is clear that the `@OnActivate`, `@OnDeactivate` and `@OnStale`
+  annotations can only be associated with an `@Memoize` annotated method with 0 parameters.
 
 ### [v0.113](https://github.com/arez/arez/tree/v0.113) (2018-11-02)
 [Full Changelog](https://github.com/arez/arez/compare/v0.112...v0.113)

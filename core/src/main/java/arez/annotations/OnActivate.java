@@ -8,6 +8,10 @@ import javax.annotation.Nonnull;
 /**
  * Identifies method that is called when the ComputableValue changes from the INACTIVE state to any other state.
  *
+ * <p>This method can only be associated with a {@link Memoize} annotated method that has 0 parameters.
+ * This limitation is in place to limit implementation complexity and because no use case for this
+ * functionality has been found.</p>
+ *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
