@@ -6,7 +6,8 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Identifies method that is called when the ComputableValue changes to the INACTIVE state from any other state.
+ * Identifies method that is called when the {@link arez.ComputableValue} changes to the INACTIVE state from
+ * any other state.
  *
  * <p>This method can only be associated with a {@link Memoize} annotated method that has 0 parameters.
  * This limitation is in place to limit implementation complexity and because no use case for this
@@ -21,7 +22,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>
  * <li>Must not throw exceptions</li>
- * <li>Must not be for a computable property that has keepAlive parameter set to true</li>
+ * <li>Must not be for a {@link Memoize} method that has the {@link Memoize#keepAlive} parameter set to true</li>
  * </ul>
  */
 @Documented
