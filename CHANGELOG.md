@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
+[Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
 
 * **\[processor\]** Simplify the code in the generated `equals()` method to reduce the code size.
 * **\[core\]** Make the method `MemoizeCache.getComputableValue(...)` public so that applications can get
