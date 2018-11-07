@@ -6,6 +6,10 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Profile with D8
+  - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
+  - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
+
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
 * `ComputableValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
@@ -55,10 +59,6 @@ complete as there is too much un-said.
 * Implement something similar to `getDependencyTree` from mobx
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
-
-* Profile with D8
-  - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
-  - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
