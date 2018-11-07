@@ -19,7 +19,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.mediaquery</groupId>
    <artifactId>arez-mediaquery</artifactId>
-   <version>0.04</version>
+   <version>0.05</version>
 </dependency>
 ```
 
