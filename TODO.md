@@ -10,6 +10,12 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
+* Consider reworking scheduler to pull in work from streak. Initial work would split scheduler into
+  `TaskQueue` interface, and a `MultiPriorityTaskQueue` implementation. Then import and test
+  `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
+  dispose queue into regular task queue. Long term we could consider moving this and a time based
+  scheduler into another package so could be used in other contexts.
+
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
 * `ComputableValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
