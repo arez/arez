@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.39](https://github.com/arez/arez-spytools/tree/v0.39) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.38...v0.39)
 
