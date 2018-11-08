@@ -10,6 +10,13 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
+* Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
+  `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
+  The generated components then just delegate methods to it. The goal is to reduce the per-component
+  code size.
+
+* For components with synthetic ids - the id should be in a separate class to avoid creation of `<clinit>`
+
 * Consider reworking scheduler to pull in work from streak. Initial work would split scheduler into
   `TaskQueue` interface, and a `MultiPriorityTaskQueue` implementation. Then import and test
   `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
