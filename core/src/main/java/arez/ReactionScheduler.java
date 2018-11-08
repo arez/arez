@@ -3,7 +3,6 @@ package arez;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckConfig;
@@ -12,7 +11,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * The scheduler is responsible for scheduling observer reactions.
  *
- * <p>When state has changed or potentially changed, observers are en-queued onto {@link #_pendingObservers}.
+ * <p>When state has changed or potentially changed, observers are en-queued onto {@link #_taskQueue}.
  * Observers are processed in rounds. Each round involves processing the number of observers that are
  * pending at the start of the round. Processing observers can schedule more observers and thus another
  * round is scheduled if more observers are scheduled during the round.</p>
@@ -27,10 +26,10 @@ final class ReactionScheduler
   @Nullable
   private final ArezContext _context;
   /**
-   * Observers that have been scheduled but are not yet running.
+   * Scheduled tasks yet to be run.
    */
   @Nonnull
-  private final CircularBuffer<Observer>[] _pendingObservers;
+  private final MultiPriorityTaskQueue _taskQueue;
   /**
    * Elements that should be disposed prior to next reaction being invoked.
    * Disposes are often scheduled when they can not happen immediately as the transaction is not READ_WRITE.
@@ -67,12 +66,18 @@ final class ReactionScheduler
                     () -> "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
-    _pendingObservers = (CircularBuffer<Observer>[]) new CircularBuffer[ 5 ];
-    _pendingObservers[ 0 ] = new CircularBuffer<>( 100 );
-    _pendingObservers[ 1 ] = new CircularBuffer<>( 100 );
-    _pendingObservers[ 2 ] = new CircularBuffer<>( 100 );
-    _pendingObservers[ 3 ] = new CircularBuffer<>( 100 );
-    _pendingObservers[ 4 ] = new CircularBuffer<>( 100 );
+    _taskQueue = new MultiPriorityTaskQueue( Observer::getPriorityIndex );
+  }
+
+  /**
+   * Return the task queue associated with the scheduler.
+   *
+   * @return the task queue associated with the scheduler.
+   */
+  @Nonnull
+  MultiPriorityTaskQueue getTaskQueue()
+  {
+    return _taskQueue;
   }
 
   /**
@@ -99,29 +104,6 @@ final class ReactionScheduler
                        "value " + maxReactionRounds + "." );
     }
     _maxReactionRounds = maxReactionRounds;
-  }
-
-  /**
-   * Add the specified observer to the list of pending observers.
-   * The observer must have a reaction and must not already be in
-   * the list of pending observers.
-   *
-   * @param observer the observer.
-   */
-  void scheduleReaction( @Nonnull final Observer observer )
-  {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> !_pendingObservers[ 0 ].contains( observer ) &&
-                       !_pendingObservers[ 1 ].contains( observer ) &&
-                       !_pendingObservers[ 2 ].contains( observer ) &&
-                       !_pendingObservers[ 3 ].contains( observer ) &&
-                       !_pendingObservers[ 4 ].contains( observer ),
-                 () -> "Arez-0099: Attempting to schedule observer named '" + observer.getName() +
-                       "' when observer is already pending." );
-    }
-    observer.setScheduledFlag();
-    _pendingObservers[ observer.getPriorityIndex() ].add( Objects.requireNonNull( observer ) );
   }
 
   /**
@@ -233,13 +215,7 @@ final class ReactionScheduler
                  () -> "Arez-0100: Invoked runObserver when transaction named '" +
                        getContext().getTransaction().getName() + "' is active." );
     }
-    final int highestPriorityCount = _pendingObservers[ 0 ].size();
-    final int highPriorityCount = _pendingObservers[ 1 ].size();
-    final int normalPriorityCount = _pendingObservers[ 2 ].size();
-    final int lowPriorityCount = _pendingObservers[ 3 ].size();
-    final int lowestPriorityCount = _pendingObservers[ 4 ].size();
-    final int pendingObserverCount =
-      highestPriorityCount + highPriorityCount + normalPriorityCount + lowPriorityCount + lowestPriorityCount;
+    final int pendingObserverCount = getTaskQueue().getQueueSize();
     // If we have reached the last observer in this round then
     // determine if we need any more rounds and if we do ensure
     if ( 0 == _remainingReactionsInCurrentRound )
@@ -273,17 +249,7 @@ final class ReactionScheduler
      */
     _remainingReactionsInCurrentRound--;
 
-    /*
-     * Get the highest priority buffer that has observers in it.
-     */
-    final CircularBuffer<Observer> buffer =
-      highestPriorityCount > 0 ? _pendingObservers[ 0 ] :
-      highPriorityCount > 0 ? _pendingObservers[ 1 ] :
-      normalPriorityCount > 0 ? _pendingObservers[ 2 ] :
-      lowPriorityCount > 0 ? _pendingObservers[ 3 ] :
-      _pendingObservers[ 4 ];
-
-    final Observer observer = buffer.pop();
+    final Observer observer = _taskQueue.dequeueTask();
     assert null != observer;
     observer.clearScheduledFlag();
     observer.invokeReaction();
@@ -292,12 +258,7 @@ final class ReactionScheduler
 
   boolean hasTasksToSchedule()
   {
-    return !_pendingDisposes.isEmpty() ||
-           !_pendingObservers[ 0 ].isEmpty() ||
-           !_pendingObservers[ 1 ].isEmpty() ||
-           !_pendingObservers[ 2 ].isEmpty() ||
-           !_pendingObservers[ 3 ].isEmpty() ||
-           !_pendingObservers[ 4 ].isEmpty();
+    return !_pendingDisposes.isEmpty() || _taskQueue.hasTasks();
   }
 
   /**
@@ -309,22 +270,14 @@ final class ReactionScheduler
   {
     final List<String> observerNames =
       Arez.shouldCheckInvariants() && BrainCheckConfig.verboseErrorMessages() ?
-      Stream.concat(
-        Stream.concat(
-          Stream.concat( _pendingObservers[ 0 ].stream(), _pendingObservers[ 1 ].stream() ),
-          Stream.concat( _pendingObservers[ 2 ].stream(), _pendingObservers[ 3 ].stream() ) ),
-        _pendingObservers[ 4 ].stream() )
+      _taskQueue.getOrderedTasks()
         .map( Node::getName )
         .collect( Collectors.toList() ) :
       null;
 
     if ( ArezConfig.purgeReactionsWhenRunawayDetected() )
     {
-      _pendingObservers[ 0 ].clear();
-      _pendingObservers[ 1 ].clear();
-      _pendingObservers[ 2 ].clear();
-      _pendingObservers[ 3 ].clear();
-      _pendingObservers[ 4 ].clear();
+      _taskQueue.clear();
     }
 
     if ( Arez.shouldCheckInvariants() )
@@ -338,18 +291,6 @@ final class ReactionScheduler
   ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
-  }
-
-  @Nonnull
-  CircularBuffer<Observer> getPendingObservers()
-  {
-    return getPendingObservers( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) );
-  }
-
-  @Nonnull
-  CircularBuffer<Observer> getPendingObservers( final int priority )
-  {
-    return _pendingObservers[ priority ];
   }
 
   @Nonnull

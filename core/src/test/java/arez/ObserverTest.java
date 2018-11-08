@@ -639,7 +639,7 @@ public class ObserverTest
     assertFalse( observer.isScheduled() );
 
     observer.clearScheduledFlag();
-    Arez.context().getScheduler().getPendingObservers().truncate( 0 );
+    Arez.context().getScheduler().getTaskQueue().clear();
     assertFalse( observer.isScheduled() );
 
     observer.setState( Flags.STATE_STALE );
@@ -701,7 +701,7 @@ public class ObserverTest
     assertFalse( observer.isScheduled() );
 
     observer.clearScheduledFlag();
-    Arez.context().getScheduler().getPendingObservers().truncate( 0 );
+    Arez.context().getScheduler().getTaskQueue().clear();
     assertFalse( observer.isScheduled() );
 
     observer.setState( Flags.STATE_STALE, false );
@@ -792,7 +792,7 @@ public class ObserverTest
     assertNotNull( computableValue.getValue() );
 
     observer.clearScheduledFlag();
-    Arez.context().getScheduler().getPendingObservers().truncate( 0 );
+    Arez.context().getScheduler().getTaskQueue().clear();
     assertFalse( observer.isScheduled() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
@@ -867,15 +867,15 @@ public class ObserverTest
     final ArezContext context = Arez.context();
 
     assertTrue( observer.isScheduled() );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
 
     //Duplicate schedule should not result in it being added again
     observer.scheduleReaction();
 
     assertTrue( observer.isScheduled() );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
   }
 
   @Test
@@ -1645,8 +1645,8 @@ public class ObserverTest
 
       assertTrue( observer.isScheduled() );
       assertEquals( observer.getState(), Flags.STATE_STALE );
-      assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-      assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+      assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+      assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
     } );
   }
 
@@ -1672,7 +1672,7 @@ public class ObserverTest
                               "' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
       assertFalse( observer.isScheduled() );
       assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-      assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+      assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
@@ -1698,7 +1698,7 @@ public class ObserverTest
                             "' when there is no active transaction." );
     assertFalse( observer.isScheduled() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
   }
 
   @Test
@@ -1717,7 +1717,7 @@ public class ObserverTest
                             "than READ_WRITE." );
     assertFalse( observer.isScheduled() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
   }
 
   @Test
@@ -1739,7 +1739,7 @@ public class ObserverTest
 
       // reset the scheduling that occurred due to setState
       observer.clearScheduledFlag();
-      context.getScheduler().getPendingObservers().clear();
+      context.getScheduler().getTaskQueue().clear();
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     assertFalse( observer.isScheduled() );
@@ -1752,8 +1752,8 @@ public class ObserverTest
 
     assertTrue( observer.isScheduled() );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
 
     schedulerLock.dispose();
 
@@ -1794,8 +1794,8 @@ public class ObserverTest
 
     assertTrue( observer.isScheduled() );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch(  o -> o == observer ) );
 
     schedulerLock.dispose();
 
@@ -1831,8 +1831,8 @@ public class ObserverTest
 
     assertTrue( observer.isScheduled() );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch(  o -> o == observer ) );
 
     schedulerLock.dispose();
 
@@ -1858,7 +1858,9 @@ public class ObserverTest
 
       // reset the scheduling that occurred due to setState
       observer.clearScheduledFlag();
-      context.getScheduler().getPendingObservers().clear();
+      context.getScheduler()
+        .getTaskQueue()
+        .clear();
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
     assertFalse( observer.isScheduled() );
@@ -1870,7 +1872,7 @@ public class ObserverTest
                             "' but supportsManualSchedule() returns false." );
     assertFalse( observer.isScheduled() );
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     schedulerLock.dispose();
 

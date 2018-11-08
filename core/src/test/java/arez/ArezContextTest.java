@@ -2195,12 +2195,12 @@ public class ArezContextTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     context.scheduleReaction( observer );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
-    assertTrue( context.getScheduler().getPendingObservers().contains( observer ) );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
   }
 
   @Test
@@ -2210,7 +2210,7 @@ public class ArezContextTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     assertInvariantFailure( () -> {
                               final Procedure executable = () -> context.scheduleReaction( observer );
@@ -2227,7 +2227,7 @@ public class ArezContextTest
 
     final Observer derivation = context.computable( () -> "" ).getObserver();
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     setCurrentTransaction( derivation );
 
@@ -2244,13 +2244,13 @@ public class ArezContextTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
     context.scheduleReaction( observer );
 
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
 
     handler.assertEventCount( 1 );
     handler.assertNextEvent( ObserveScheduleEvent.class,
@@ -2760,7 +2760,7 @@ public class ArezContextTest
     assertEquals( observer.getPriority(), Priority.NORMAL );
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( callCount.get(), 0 );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 1 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
 
     handler.assertEventCount( 2 );
     handler.assertNextEvent( ObserverCreateEvent.class,
@@ -2798,7 +2798,7 @@ public class ArezContextTest
     assertFalse( observer.areArezDependenciesRequired() );
     assertFalse( observer.supportsManualSchedule() );
     assertEquals( callCount.get(), 0 );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     handler.assertEventCount( 1 );
 
@@ -2846,7 +2846,7 @@ public class ArezContextTest
     assertTrue( observer.areArezDependenciesRequired() );
     assertFalse( observer.supportsManualSchedule() );
     assertEquals( callCount.get(), 0 );
-    assertEquals( context.getScheduler().getPendingObservers().size(), 0 );
+    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
 
     handler.assertEventCount( 1 );
 
@@ -3398,7 +3398,7 @@ public class ArezContextTest
 
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
-    assertEquals( scheduler.getPendingObservers().size(), 0 );
+    assertEquals( scheduler.getTaskQueue().getOrderedTasks().count(), 0L );
 
     context.scheduleDispose( observer );
 
