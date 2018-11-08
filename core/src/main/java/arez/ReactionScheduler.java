@@ -251,7 +251,7 @@ final class ReactionScheduler
 
     final Observer observer = _taskQueue.dequeueTask();
     assert null != observer;
-    observer.clearScheduledFlag();
+    observer.markAsExecuted();
     observer.invokeReaction();
     return true;
   }

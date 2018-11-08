@@ -565,7 +565,7 @@ public final class Observer
   /**
    * Clear the scheduled flag. This is called when the observer's reaction is executed so it can be scheduled again.
    */
-  void clearScheduledFlag()
+  void markAsExecuted()
   {
     _flags &= ~Flags.SCHEDULED;
   }

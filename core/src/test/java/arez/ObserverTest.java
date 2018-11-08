@@ -638,7 +638,7 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
     assertFalse( observer.isScheduled() );
 
-    observer.clearScheduledFlag();
+    observer.markAsExecuted();
     Arez.context().getScheduler().getTaskQueue().clear();
     assertFalse( observer.isScheduled() );
 
@@ -700,7 +700,7 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
     assertFalse( observer.isScheduled() );
 
-    observer.clearScheduledFlag();
+    observer.markAsExecuted();
     Arez.context().getScheduler().getTaskQueue().clear();
     assertFalse( observer.isScheduled() );
 
@@ -791,7 +791,7 @@ public class ObserverTest
     assertEquals( derivedValue.getLeastStaleObserverState(), Flags.STATE_POSSIBLY_STALE );
     assertNotNull( computableValue.getValue() );
 
-    observer.clearScheduledFlag();
+    observer.markAsExecuted();
     Arez.context().getScheduler().getTaskQueue().clear();
     assertFalse( observer.isScheduled() );
 
@@ -1738,7 +1738,7 @@ public class ObserverTest
       observer.setState( Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
-      observer.clearScheduledFlag();
+      observer.markAsExecuted();
       context.getScheduler().getTaskQueue().clear();
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
@@ -1857,7 +1857,7 @@ public class ObserverTest
       observer.setState( Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
-      observer.clearScheduledFlag();
+      observer.markAsExecuted();
       context.getScheduler()
         .getTaskQueue()
         .clear();
