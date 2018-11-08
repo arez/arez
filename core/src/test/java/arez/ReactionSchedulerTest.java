@@ -23,11 +23,11 @@ public class ReactionSchedulerTest
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
     assertEquals( scheduler.getPendingDisposes().size(), 0 );
 
-    assertFalse( scheduler.isReactionsRunning() );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertFalse( scheduler.areDisposesRunning() );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getMaxRounds(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
   }
 
   @Test
@@ -42,31 +42,6 @@ public class ReactionSchedulerTest
   }
 
   @Test
-  public void setMaxReactionRounds()
-  {
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
-
-    assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
-
-    scheduler.setMaxReactionRounds( 0 );
-    assertEquals( scheduler.getMaxReactionRounds(), 0 );
-
-    scheduler.setMaxReactionRounds( 1234 );
-    assertEquals( scheduler.getMaxReactionRounds(), 1234 );
-  }
-
-  @Test
-  public void setMaxReactionRounds_negativeValue()
-  {
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
-
-    assertEquals( scheduler.getMaxReactionRounds(), ReactionScheduler.DEFAULT_MAX_REACTION_ROUNDS );
-
-    assertInvariantFailure( () -> scheduler.setMaxReactionRounds( -1 ),
-                            "Arez-0098: Attempting to set maxReactionRounds to negative value -1." );
-  }
-
-  @Test
   public void onRunawayReactionsDetected()
   {
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
@@ -77,9 +52,9 @@ public class ReactionSchedulerTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
 
-    assertInvariantFailure( scheduler::onRunawayReactionsDetected,
-                            "Arez-0101: Runaway reaction(s) detected. Observers still running after " +
-                            scheduler.getMaxReactionRounds() + " rounds. Current observers include: [" +
+    assertInvariantFailure( () -> scheduler.getExecutor().onRunawayTasksDetected(),
+                            "Arez-0101: Runaway task(s) detected. Tasks still running after " +
+                            scheduler.getExecutor().getMaxRounds() + " rounds. Current tasks include: [" +
                             observer.getName() + "]" );
 
     // Ensure observers purged
@@ -97,7 +72,7 @@ public class ReactionSchedulerTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
 
-    assertThrows( IllegalStateException.class, scheduler::onRunawayReactionsDetected );
+    assertThrows( IllegalStateException.class, () -> scheduler.getExecutor().onRunawayTasksDetected() );
 
     // Ensure observers not purged
     assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
@@ -113,7 +88,7 @@ public class ReactionSchedulerTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
 
-    scheduler.onRunawayReactionsDetected();
+    scheduler.getExecutor().onRunawayTasksDetected();
   }
 
   @Test
@@ -418,25 +393,25 @@ public class ReactionSchedulerTest
 
     assertTrue( observer.isScheduled() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
 
-    final boolean ran = scheduler.runObserver();
+    final boolean ran = scheduler.getExecutor().runNextTask();
 
     assertTrue( ran );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 1 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 1 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
     assertFalse( observer.isScheduled() );
 
-    final boolean ran2 = scheduler.runObserver();
+    final boolean ran2 = scheduler.getExecutor().runNextTask();
 
     assertFalse( ran2 );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
     assertFalse( observer.isScheduled() );
   }
 
@@ -458,11 +433,12 @@ public class ReactionSchedulerTest
 
     assertTrue( observer.isScheduled() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
 
-    assertInvariantFailure( scheduler::runObserver, "Arez-0100: Invoked runObserver when transaction named '" +
-                                                    context.getTransaction().getName() + "' is active." );
+    assertInvariantFailure( scheduler::runPendingTasks,
+                            "Arez-0100: Invoked runPendingTasks() when transaction named '" +
+                            context.getTransaction().getName() + "' is active." );
   }
 
   @Test
@@ -526,48 +502,48 @@ public class ReactionSchedulerTest
     Transaction.setTransaction( null );
 
     assertEquals( getNormalPriorityTaskCount( scheduler ), observers.length );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
 
     // Start from last observer and go down to first
     for ( int i = 0; i < round1Size; i++ )
     {
-      assertTrue( scheduler.runObserver() );
-      assertEquals( scheduler.getCurrentReactionRound(), 1 );
+      assertTrue( scheduler.getExecutor().runNextTask() );
+      assertEquals( scheduler.getExecutor().getCurrentRound(), 1 );
     }
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 1 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 1 );
     assertEquals( getNormalPriorityTaskCount( scheduler ), round2Size );
-    assertTrue( scheduler.isReactionsRunning() );
+    assertTrue( scheduler.getExecutor().areTasksExecuting() );
 
     for ( int i = 0; i < round2Size; i++ )
     {
-      assertTrue( scheduler.runObserver() );
-      assertEquals( scheduler.getCurrentReactionRound(), 2 );
+      assertTrue( scheduler.getExecutor().runNextTask() );
+      assertEquals( scheduler.getExecutor().getCurrentRound(), 2 );
     }
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 2 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 2 );
     assertEquals( getNormalPriorityTaskCount( scheduler ), round3Size );
-    assertTrue( scheduler.isReactionsRunning() );
+    assertTrue( scheduler.getExecutor().areTasksExecuting() );
 
     for ( int i = 0; i < round3Size; i++ )
     {
-      assertTrue( scheduler.runObserver() );
-      assertEquals( scheduler.getCurrentReactionRound(), 3 );
+      assertTrue( scheduler.getExecutor().runNextTask() );
+      assertEquals( scheduler.getExecutor().getCurrentRound(), 3 );
     }
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 3 );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 3 );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
-    assertTrue( scheduler.isReactionsRunning() );
+    assertTrue( scheduler.getExecutor().areTasksExecuting() );
 
-    assertFalse( scheduler.runObserver() );
+    assertFalse( scheduler.getExecutor().runNextTask() );
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertFalse( scheduler.isReactionsRunning() );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
 
     assertEquals( observeds[ 0 ].getCallCount(), 1 );
@@ -612,24 +588,22 @@ public class ReactionSchedulerTest
     assertTrue( observer.isScheduled() );
 
     final ReactionScheduler scheduler = context.getScheduler();
-    scheduler.setMaxReactionRounds( 20 );
 
     context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
     assertInvariantFailure( () -> {
-      while ( scheduler.runObserver() )
+      while ( scheduler.getExecutor().runNextTask() )
       {
         reactionCount.incrementAndGet();
       }
-    }, "Arez-0101: Runaway reaction(s) detected. Observers still running after 20 rounds. " +
-       "Current observers include: [" + observer.getName() + "]" );
+    }, "Arez-0101: Runaway task(s) detected. Tasks still running after 100 rounds. Current tasks include: [MyObserver]" );
 
-    assertEquals( reactionCount.get(), 20 );
+    assertEquals( reactionCount.get(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertFalse( scheduler.isReactionsRunning() );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
   }
 
@@ -664,21 +638,18 @@ public class ReactionSchedulerTest
     assertTrue( observer.isScheduled() );
 
     final ReactionScheduler scheduler = context.getScheduler();
-    scheduler.setMaxReactionRounds( 20 );
 
     context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
-    while ( scheduler.runObserver() )
+    while ( scheduler.getExecutor().runNextTask() )
     {
       reactionCount.incrementAndGet();
     }
 
-    assertEquals( reactionCount.get(), 20 );
-
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertFalse( scheduler.isReactionsRunning() );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
   }
 
@@ -747,9 +718,9 @@ public class ReactionSchedulerTest
 
     scheduler.runPendingTasks();
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertFalse( scheduler.isReactionsRunning() );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
     assertEquals( scheduler.getPendingDisposes().size(), 0 );
 
@@ -821,9 +792,9 @@ public class ReactionSchedulerTest
 
     scheduler.runPendingTasks();
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertFalse( scheduler.isReactionsRunning() );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
   }
 
@@ -844,9 +815,9 @@ public class ReactionSchedulerTest
 
     scheduler.runPendingTasks();
 
-    assertEquals( scheduler.getRemainingReactionsInCurrentRound(), 0 );
-    assertEquals( scheduler.getCurrentReactionRound(), 0 );
-    assertFalse( scheduler.isReactionsRunning() );
+    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
+    assertFalse( scheduler.getExecutor().areTasksExecuting() );
     assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
 
     for ( final Disposable disposable : disposables )
