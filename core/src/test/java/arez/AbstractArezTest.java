@@ -77,7 +77,7 @@ public abstract class AbstractArezTest
 
   @SuppressWarnings( "SameParameterValue" )
   final void setField( @Nonnull final Object object, @Nonnull final String fieldName, @Nullable final Object value )
-    throws NoSuchFieldException, IllegalAccessException
+    throws IllegalAccessException
   {
     getField( object.getClass(), fieldName ).set( object, value );
   }
