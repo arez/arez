@@ -200,7 +200,7 @@ public class ReactionSchedulerTest
     assertFalse( scheduler.hasTasksToSchedule() );
 
     scheduler.getTaskQueue().queueTask( observer );
-    observer.setScheduledFlag();
+    observer.markAsScheduled();
 
     assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
     assertTrue( scheduler.getTaskQueue()
@@ -242,15 +242,15 @@ public class ReactionSchedulerTest
     assertFalse( scheduler.hasTasksToSchedule() );
 
     scheduler.getTaskQueue().queueTask( observer0 );
-    observer0.setScheduledFlag();
+    observer0.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer1 );
-    observer1.setScheduledFlag();
+    observer1.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer2 );
-    observer2.setScheduledFlag();
+    observer2.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer3 );
-    observer3.setScheduledFlag();
+    observer3.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer4 );
-    observer4.setScheduledFlag();
+    observer4.markAsScheduled();
 
     assertTrue( scheduler.hasTasksToSchedule() );
 
@@ -337,23 +337,23 @@ public class ReactionSchedulerTest
     assertFalse( scheduler.hasTasksToSchedule() );
 
     scheduler.getTaskQueue().queueTask( observer0 );
-    observer0.setScheduledFlag();
+    observer0.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer1 );
-    observer1.setScheduledFlag();
+    observer1.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer2 );
-    observer2.setScheduledFlag();
+    observer2.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer3 );
-    observer3.setScheduledFlag();
+    observer3.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer4 );
-    observer4.setScheduledFlag();
+    observer4.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer5 );
-    observer5.setScheduledFlag();
+    observer5.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer6 );
-    observer6.setScheduledFlag();
+    observer6.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer7 );
-    observer7.setScheduledFlag();
+    observer7.markAsScheduled();
     scheduler.getTaskQueue().queueTask( observer8 );
-    observer8.setScheduledFlag();
+    observer8.markAsScheduled();
 
     assertTrue( scheduler.hasTasksToSchedule() );
     assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGHEST ).size(), 1 );

@@ -573,7 +573,7 @@ public final class Observer
   /**
    * Set the scheduled flag. This is called when the observer is schedule so it can not be scheduled again until it has run.
    */
-  void setScheduledFlag()
+  void markAsScheduled()
   {
     _flags |= Flags.SCHEDULED;
   }

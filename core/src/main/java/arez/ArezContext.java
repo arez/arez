@@ -975,7 +975,7 @@ public final class ArezContext
                        "must not schedule self." );
     }
     _scheduler.getTaskQueue().queueTask( observer );
-    observer.setScheduledFlag();
+    observer.markAsScheduled();
   }
 
   /**
