@@ -139,6 +139,15 @@ public class ExternalApiTest
   }
 
   @Test
+  public void purgeTasksWhenRunawayDetected()
+  {
+    ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
+    assertFalse( Arez.purgeTasksWhenRunawayDetected() );
+    ArezTestUtil.purgeReactionsWhenRunawayDetected();
+    assertTrue( Arez.purgeTasksWhenRunawayDetected() );
+  }
+
+  @Test
   public void createComputableValue()
     throws Throwable
   {
