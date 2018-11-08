@@ -662,18 +662,19 @@ public class ExternalApiTest
     } );
 
     assertEquals( trace,
-                  Arrays.asList( /*
-                                  * Initial observer reaction as runImmediate parameter was true
-                                  */
-                                 "PreTrace", "Observer", "PostTrace",
-                                 /*
-                                  * Explicit action!
-                                  */
-                                 "Action",
-                                 /*
-                                  * Action triggers scheduler and observer reacts to changes
-                                  */
-                                 "PreTrace", "Observer", "PostTrace" ) );
+                  Arrays.asList(
+                    /*
+                     * Initial observer reaction as runImmediate parameter was true
+                     */
+                    "PreTrace", "Observer", "PostTrace",
+                    /*
+                     * Explicit action!
+                     */
+                    "Action",
+                    /*
+                     * Action triggers scheduler and observer reacts to changes
+                     */
+                    "PreTrace", "Observer", "PostTrace" ) );
   }
 
   /**
