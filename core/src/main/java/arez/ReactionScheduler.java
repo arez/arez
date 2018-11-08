@@ -277,7 +277,10 @@ final class ReactionScheduler
 
     if ( ArezConfig.purgeReactionsWhenRunawayDetected() )
     {
-      _taskQueue.clear();
+      for ( final Observer task : _taskQueue.clear() )
+      {
+        task.markAsExecuted();
+      }
     }
 
     if ( Arez.shouldCheckInvariants() )
