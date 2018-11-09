@@ -62,6 +62,23 @@ final class Task
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public final String toString()
+  {
+    if ( Arez.areNamesEnabled() )
+    {
+      return getName();
+    }
+    else
+    {
+      return super.toString();
+    }
+  }
+
+  /**
    * Return the task.
    *
    * @return the task.
