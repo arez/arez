@@ -101,15 +101,10 @@ final class Task
     {
       markAsExecuted();
 
-      try
-      {
-        getWork().run();
-      }
-      catch ( final Throwable t )
-      {
-        //TODO: Send error to per-task or global error handler?
-        //Observers currently catch error and handle internally .... is this correct?
-      }
+      // Observers currently catch error and handle internally. Thus no need to catch
+      // errors here. is this correct behaviour? We could instead handle it here by
+      // per-task handler or a global error handler.
+      _work.run();
     }
   }
 
