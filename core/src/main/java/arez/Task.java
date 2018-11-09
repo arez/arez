@@ -8,7 +8,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * A task represents an executable element that can be ran by a task executor.
  */
-public final class Task
+final class Task
   implements Disposable
 {
   /**
@@ -50,7 +50,7 @@ public final class Task
    * @return the name of the task.
    */
   @Nonnull
-  public final String getName()
+  final String getName()
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -67,7 +67,7 @@ public final class Task
    * @return the task.
    */
   @Nonnull
-  public Runnable getWork()
+  Runnable getWork()
   {
     return _work;
   }
@@ -75,7 +75,7 @@ public final class Task
   /**
    * Execute the work associated with the task.
    */
-  public void executeTask()
+  void executeTask()
   {
     // It is possible that the task was executed outside the executor and
     // may no longer need to be executed. This particularly true when executing tasks
