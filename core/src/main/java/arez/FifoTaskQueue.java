@@ -15,19 +15,10 @@ final class FifoTaskQueue
   implements TaskQueue
 {
   /**
-   * The default number of slots in queue.
-   */
-  private static final int DEFAULT_QUEUE_SIZE = 100;
-  /**
    * A buffer per priority containing tasks that have been scheduled but are not executing.
    */
   @Nonnull
   private final CircularBuffer<Task> _taskQueue;
-
-  FifoTaskQueue()
-  {
-    this( DEFAULT_QUEUE_SIZE );
-  }
 
   FifoTaskQueue( final int queueSize )
   {
