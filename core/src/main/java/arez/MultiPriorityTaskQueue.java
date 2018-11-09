@@ -16,26 +16,10 @@ final class MultiPriorityTaskQueue
   implements TaskQueue
 {
   /**
-   * The default number of priorities.
-   */
-  static final int DEFAULT_PRIORITY_COUNT = 5;
-  /**
-   * The default of slots in each priority buffer.
-   */
-  static final int DEFAULT_BUFFER_SIZE = 100;
-  /**
    * A buffer per priority containing tasks that have been scheduled but are not executing.
    */
   @Nonnull
   private final CircularBuffer<Task>[] _taskQueues;
-
-  /**
-   * Construct the queue with priority count specified by {@link #DEFAULT_PRIORITY_COUNT} where each priority is backed by a buffer with default size specified by {@link #DEFAULT_BUFFER_SIZE}.
-   */
-  MultiPriorityTaskQueue()
-  {
-    this( DEFAULT_PRIORITY_COUNT, DEFAULT_BUFFER_SIZE );
-  }
 
   /**
    * Construct queue with specified priority count where each priority is backed by a buffer with specified size.

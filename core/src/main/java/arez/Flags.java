@@ -161,6 +161,10 @@ public final class Flags
    */
   private static final int PRIORITY_SHIFT = 15;
   /**
+   * The number of priority levels.
+   */
+  static final int PRIORITY_COUNT = 5;
+  /**
    * The action or observer must be wrapped by the {@link Environment} if the environment is
    * supplied to the {@link ArezContext}. This flag is incompatible with {@link #ENVIRONMENT_NOT_REQUIRED}
    * and the javadocs for {@link #ENVIRONMENT_NOT_REQUIRED} documents how the default value is derived.

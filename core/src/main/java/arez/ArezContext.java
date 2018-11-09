@@ -47,7 +47,7 @@ public final class ArezContext
    * Tasks scheduled but  yet to be run.
    */
   @Nonnull
-  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue();
+  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Flags.PRIORITY_COUNT, 100 );
   /**
    * Executor responsible for executing tasks.
    */
