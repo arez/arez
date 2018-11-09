@@ -123,7 +123,6 @@ final class Task
     {
       _disposed = true;
       _scheduled = false;
-      //TODO:_scheduler.cancelTask( this );
     }
   }
 
