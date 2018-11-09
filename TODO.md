@@ -13,7 +13,6 @@ complete as there is too much un-said.
 * Expose `TaskQueue` stats to spy subsystem
 * `Task.Work` should a `@JsFunction`
 * Add tests
-  - `Task`
   - `FifoTaskQueue`
   - `RoundBasedTaskExecutor`
 
