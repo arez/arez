@@ -9,7 +9,7 @@ complete as there is too much un-said.
 * Ensure name of task is stripped in production in `BuildOutputAsserts`
 * Remove Streak comments
 * Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
-* Move disposeQueue into just being a list of high priority tasks.
+* Move disposeQueue into just being a list of high priority tasks and remove `ReactionScheduler`.
 * Expose `TaskQueue` stats to spy subsystem
 * `Task.Work` should a `@JsFunction`
 
