@@ -38,16 +38,6 @@ final class MultiPriorityTaskQueue
   }
 
   /**
-   * Construct queue with specified priority count where each priority is backed by a buffer with default size specified by {@link #DEFAULT_BUFFER_SIZE}.
-   *
-   * @param priorityCount the number of priorities supported.
-   */
-  MultiPriorityTaskQueue( final int priorityCount )
-  {
-    this( priorityCount, DEFAULT_BUFFER_SIZE );
-  }
-
-  /**
    * Construct queue with specified priority count where each priority is backed by a buffer with specified size.
    *
    * @param priorityCount the number of priorities supported.
