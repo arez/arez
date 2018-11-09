@@ -60,8 +60,8 @@ final class FifoTaskQueue
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> !_taskQueue.contains( task ),
-                 () -> "Arez-0098: Attempting to schedule task named '" + task.getName() +
-                       "' when task is already in queue." );
+                 () -> "Arez-0098: Attempting to queue task named '" + task.getName() +
+                       "' when task is already queued." );
     }
     _taskQueue.add( Objects.requireNonNull( task ) );
   }
