@@ -11,6 +11,7 @@ complete as there is too much un-said.
 * Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
 * Move disposeQueue into just being a list of high priority tasks.
 * Expose `TaskQueue` stats to spy subsystem
+* `Task.Work` should a `@JsFunction`
 
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
