@@ -18,11 +18,11 @@ final class MultiPriorityTaskQueue
   /**
    * The default number of priorities.
    */
-  private static final int DEFAULT_PRIORITY_COUNT = 5;
+  static final int DEFAULT_PRIORITY_COUNT = 5;
   /**
    * The default of slots in each priority buffer.
    */
-  private static final int DEFAULT_BUFFER_SIZE = 100;
+  static final int DEFAULT_BUFFER_SIZE = 100;
   /**
    * A buffer per priority containing tasks that have been scheduled but are not executing.
    */
