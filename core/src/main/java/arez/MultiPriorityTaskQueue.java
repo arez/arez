@@ -66,6 +66,16 @@ final class MultiPriorityTaskQueue
   }
 
   /**
+   * Return the number of priorities handled by the queue.
+   *
+   * @return the number of priorities handled by the queue.
+   */
+  int getPriorityCount()
+  {
+    return _taskQueues.length;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
