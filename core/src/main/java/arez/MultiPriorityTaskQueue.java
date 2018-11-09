@@ -104,7 +104,7 @@ final class MultiPriorityTaskQueue
    * @param priority the task priority.
    * @param task     the task.
    */
-  public void queueTask( final int priority, @Nonnull final Task task )
+  void queueTask( final int priority, @Nonnull final Task task )
   {
     if ( Arez.shouldCheckInvariants() )
     {
