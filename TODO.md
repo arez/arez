@@ -6,7 +6,11 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Ensure name of task is stripped in production in `BuildOutputAsserts`
+* Remove Streak comments
 * Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
+* Move disposeQueue into just being a list of high priority tasks.
+* Expose `TaskQueue` stats to spy subsystem
 
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
