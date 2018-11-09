@@ -12,10 +12,16 @@ complete as there is too much un-said.
 * Move disposeQueue into just being a list of high priority tasks and remove `ReactionScheduler`.
 * Expose `TaskQueue` stats to spy subsystem
 * `Task.Work` should a `@JsFunction`
+* Add tests
+  - `Task`
+  - `FifoTaskQueue`
+  - `RoundBasedTaskExecutor`
 
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
+
+* Add assertions to verify all the `_context` fields in `Transaction`, `SpyImpl`, `ScheduleLock`, `MemoizeCache`, `ReactionScheduler` is not present if zones enabled.
 
 * Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
   `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
