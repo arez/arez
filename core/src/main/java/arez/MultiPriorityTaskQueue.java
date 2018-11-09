@@ -42,7 +42,7 @@ final class MultiPriorityTaskQueue
    *
    * @param priorityCount the number of priorities supported.
    */
-  private MultiPriorityTaskQueue( final int priorityCount )
+  MultiPriorityTaskQueue( final int priorityCount )
   {
     this( priorityCount, DEFAULT_BUFFER_SIZE );
   }
@@ -54,7 +54,7 @@ final class MultiPriorityTaskQueue
    * @param bufferSize    the initial size of buffer for each priority.
    */
   @SuppressWarnings( "unchecked" )
-  private MultiPriorityTaskQueue( final int priorityCount, final int bufferSize )
+  MultiPriorityTaskQueue( final int priorityCount, final int bufferSize )
   {
     assert priorityCount > 0;
     assert bufferSize > 0;
