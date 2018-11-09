@@ -52,7 +52,7 @@ public final class ArezContext
    * Executor responsible for executing tasks.
    */
   @Nonnull
-  private final RoundBasedTaskExecutor _executor = new RoundBasedTaskExecutor( _taskQueue );
+  private final RoundBasedTaskExecutor _executor = new RoundBasedTaskExecutor( _taskQueue, 100 );
   /**
    * Support infrastructure for propagating observer errors.
    */

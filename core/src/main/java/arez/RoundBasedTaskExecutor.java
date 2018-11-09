@@ -17,10 +17,6 @@ import static org.realityforge.braincheck.Guards.*;
 final class RoundBasedTaskExecutor
 {
   /**
-   * The default value for maximum number of rounds.
-   */
-  static final int DEFAULT_MAX_ROUNDS = 100;
-  /**
    * The task queue.
    */
   @Nonnull
@@ -39,12 +35,7 @@ final class RoundBasedTaskExecutor
    */
   private int _remainingTasksInCurrentRound;
 
-  RoundBasedTaskExecutor( @Nonnull final TaskQueue taskQueue )
-  {
-    this( taskQueue, DEFAULT_MAX_ROUNDS );
-  }
-
-  private RoundBasedTaskExecutor( @Nonnull final TaskQueue taskQueue, final int maxRounds )
+  RoundBasedTaskExecutor( @Nonnull final TaskQueue taskQueue, final int maxRounds )
   {
     assert maxRounds > 0;
     _taskQueue = Objects.requireNonNull( taskQueue );

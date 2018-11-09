@@ -26,7 +26,7 @@ public class ReactionSchedulerTest
     assertFalse( context.getExecutor().areTasksExecuting() );
     assertEquals( context.getExecutor().getCurrentRound(), 0 );
     assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( context.getExecutor().getMaxRounds(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
+    assertEquals( context.getExecutor().getMaxRounds(), 100 );
   }
 
   @Test
@@ -591,7 +591,7 @@ public class ReactionSchedulerTest
                             },
                             "Arez-0101: Runaway task(s) detected. Tasks still running after 100 rounds. Current tasks include: [MyObserver]" );
 
-    assertEquals( reactionCount.get(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
+    assertEquals( reactionCount.get(), 100 );
 
     assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
     assertEquals( context.getExecutor().getCurrentRound(), 0 );
