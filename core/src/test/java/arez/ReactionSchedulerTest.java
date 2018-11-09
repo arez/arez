@@ -360,8 +360,8 @@ public class ReactionSchedulerTest
       .add( observer.getTask() );
 
     assertInvariantFailure( () -> queueTask( context, observer ),
-                            "Arez-0099: Attempting to schedule task named '" + observer.getName() +
-                            "' when task is already in queues." );
+                            "Arez-0099: Attempting to queue task named '" + observer.getName() +
+                            "' when task is already queued." );
   }
 
   @Test
