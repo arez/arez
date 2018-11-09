@@ -22,7 +22,7 @@ final class FifoTaskQueue
    * A buffer per priority containing tasks that have been scheduled but are not executing.
    */
   @Nonnull
-  private final CircularBuffer<Observer> _taskQueue;
+  private final CircularBuffer<Task> _taskQueue;
 
   FifoTaskQueue()
   {
@@ -50,15 +50,17 @@ final class FifoTaskQueue
   }
 
   /**
-   * {@inheritDoc}
+   * Add the specified task to the queue.
+   * The task must not already be in the queue.
+   *
+   * @param task the task.
    */
-  @Override
-  public void queueTask( @Nonnull final Observer task )
+  public void queueTask( @Nonnull final Task task )
   {
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> !_taskQueue.contains( task ),
-                 () -> "Arez-0089: Attempting to schedule task named '" + task.getName() +
+                 () -> "Arez-0098: Attempting to schedule task named '" + task.getName() +
                        "' when task is already in queue." );
     }
     _taskQueue.add( Objects.requireNonNull( task ) );
@@ -69,7 +71,7 @@ final class FifoTaskQueue
    */
   @Nullable
   @Override
-  public Observer dequeueTask()
+  public Task dequeueTask()
   {
     return _taskQueue.pop();
   }
@@ -78,9 +80,9 @@ final class FifoTaskQueue
    * {@inheritDoc}
    */
   @Override
-  public Collection<Observer> clear()
+  public Collection<Task> clear()
   {
-    final ArrayList<Observer> tasks = new ArrayList<>();
+    final ArrayList<Task> tasks = new ArrayList<>();
     _taskQueue.stream().forEach( tasks::add );
     _taskQueue.clear();
     return tasks;
@@ -91,7 +93,7 @@ final class FifoTaskQueue
    */
   @Nonnull
   @Override
-  public Stream<Observer> getOrderedTasks()
+  public Stream<Task> getOrderedTasks()
   {
     return _taskQueue.stream();
   }

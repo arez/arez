@@ -55,7 +55,7 @@ public class ObserverTest
     assertFalse( observer.isMutation() );
     assertEquals( observer.getObserve(), observed );
     assertEquals( observer.getOnDepsChange(), onDepsChange );
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
 
     assertFalse( observer.isComputableValue() );
 
@@ -626,25 +626,16 @@ public class ObserverTest
     observer.setState( Flags.STATE_INACTIVE );
 
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
-
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
-
-    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
-    assertFalse( observer.isScheduled() );
-
-    observer.markAsExecuted();
-    Arez.context().getScheduler().getTaskQueue().clear();
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_STALE );
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
@@ -653,7 +644,7 @@ public class ObserverTest
     observer.setState( Flags.STATE_STALE );
 
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
 
     final ObservableValue<?> observableValue1 = Arez.context().observable();
     final ObservableValue<?> observableValue2 = Arez.context().observable();
@@ -688,25 +679,21 @@ public class ObserverTest
     observer.setState( Flags.STATE_INACTIVE, false );
 
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_UP_TO_DATE, false );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_POSSIBLY_STALE, false );
 
     assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
-    assertFalse( observer.isScheduled() );
-
-    observer.markAsExecuted();
-    Arez.context().getScheduler().getTaskQueue().clear();
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_STALE, false );
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_UP_TO_DATE, false );
 
@@ -715,7 +702,7 @@ public class ObserverTest
     observer.setState( Flags.STATE_STALE, false );
 
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     final ObservableValue<?> observableValue1 = Arez.context().observable();
     final ObservableValue<?> observableValue2 = Arez.context().observable();
@@ -765,7 +752,7 @@ public class ObserverTest
     observer.setState( Flags.STATE_INACTIVE );
 
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 0 );
@@ -774,7 +761,7 @@ public class ObserverTest
     observer.setState( Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 0 );
@@ -783,7 +770,7 @@ public class ObserverTest
     observer.setState( Flags.STATE_POSSIBLY_STALE );
 
     assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
@@ -791,9 +778,9 @@ public class ObserverTest
     assertEquals( derivedValue.getLeastStaleObserverState(), Flags.STATE_POSSIBLY_STALE );
     assertNotNull( computableValue.getValue() );
 
-    observer.markAsExecuted();
-    Arez.context().getScheduler().getTaskQueue().clear();
-    assertFalse( observer.isScheduled() );
+    observer.getTask().markAsExecuted();
+    Arez.context().getTaskQueue().clear();
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.setState( Flags.STATE_UP_TO_DATE );
 
@@ -809,7 +796,7 @@ public class ObserverTest
     observer.setState( Flags.STATE_STALE );
 
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 2 );
@@ -860,22 +847,22 @@ public class ObserverTest
     setupReadWriteTransaction();
     observer.setState( Flags.STATE_UP_TO_DATE );
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     observer.scheduleReaction();
 
     final ArezContext context = Arez.context();
 
-    assertTrue( observer.isScheduled() );
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
-    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
+    assertTrue( observer.getTask().isScheduled() );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
 
     //Duplicate schedule should not result in it being added again
     observer.scheduleReaction();
 
-    assertTrue( observer.isScheduled() );
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
-    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
+    assertTrue( observer.getTask().isScheduled() );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
   }
 
   @Test
@@ -888,11 +875,11 @@ public class ObserverTest
       observer.setState( Flags.STATE_INACTIVE );
       observer.setState( Flags.STATE_DISPOSED );
 
-      assertFalse( observer.isScheduled() );
+      assertFalse( observer.getTask().isScheduled() );
 
       observer.scheduleReaction();
 
-      assertFalse( observer.isScheduled() );
+      assertFalse( observer.getTask().isScheduled() );
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
@@ -921,12 +908,14 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertTrue( observer.isNotDisposed() );
     assertFalse( observer.isDisposed() );
+    assertFalse( observer.getTask().isDisposed() );
 
     observer.dispose();
 
     assertEquals( observer.getState(), Flags.STATE_DISPOSED );
     assertFalse( observer.isNotDisposed() );
     assertTrue( observer.isDisposed() );
+    assertTrue( observer.getTask().isDisposed() );
 
     final ArezContext context = Arez.context();
 
@@ -1638,15 +1627,15 @@ public class ObserverTest
     context.triggerScheduler();
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     context.safeAction( () -> {
       observer.reportStale();
 
-      assertTrue( observer.isScheduled() );
+      assertTrue( observer.getTask().isScheduled() );
       assertEquals( observer.getState(), Flags.STATE_STALE );
-      assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
-      assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
+      assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
+      assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
     } );
   }
 
@@ -1664,15 +1653,15 @@ public class ObserverTest
     context.triggerScheduler();
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     context.safeAction( () -> {
       assertInvariantFailure( observer::reportStale,
                               "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
                               "' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
-      assertFalse( observer.isScheduled() );
+      assertFalse( observer.getTask().isScheduled() );
       assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-      assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
+      assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
   }
 
@@ -1691,14 +1680,14 @@ public class ObserverTest
     context.triggerScheduler();
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     assertInvariantFailure( observer::reportStale,
                             "Arez-0200: Observer.reportStale() invoked on observer named '" + observer.getName() +
                             "' when there is no active transaction." );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
   }
 
   @Test
@@ -1709,15 +1698,15 @@ public class ObserverTest
     final Observer observer = context.observer( new CountingProcedure(), Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     assertInvariantFailure( () -> context.safeAction( "MyAction", observer::reportStale, Flags.READ_ONLY ),
                             "Arez-0201: Observer.reportStale() invoked on observer named '" + observer.getName() +
                             "' when the active transaction 'MyAction' is READ_ONLY rather " +
                             "than READ_WRITE." );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
   }
 
   @Test
@@ -1738,11 +1727,11 @@ public class ObserverTest
       observer.setState( Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
-      observer.markAsExecuted();
-      context.getScheduler().getTaskQueue().clear();
+      observer.getTask().markAsExecuted();
+      context.getTaskQueue().clear();
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observed.getCallCount(), 0 );
     assertEquals( onDepsChange.getCallCount(), 0 );
 
@@ -1750,15 +1739,15 @@ public class ObserverTest
 
     observer.schedule();
 
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
 
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
-    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer ) );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
 
     schedulerLock.dispose();
 
     // reaction not executed as state was still UP_TO_DATE
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 0 );
   }
@@ -1777,13 +1766,13 @@ public class ObserverTest
                                             onDepsChange,
                                             Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 0 );
 
     context.safeAction( observer::reportStale );
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 1 );
 
@@ -1792,14 +1781,14 @@ public class ObserverTest
     // This does not cause exception - thus transaction must be marked as used
     context.safeAction( observer::schedule );
 
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
 
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
-    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch(  o -> o == observer ) );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
 
     schedulerLock.dispose();
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observed.getCallCount(), 2 );
     assertEquals( onDepsChange.getCallCount(), 1 );
   }
@@ -1823,20 +1812,20 @@ public class ObserverTest
     assertEquals( onDepsChange.getCallCount(), 0 );
 
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     final Disposable schedulerLock = context.pauseScheduler();
 
     observer.schedule();
 
-    assertTrue( observer.isScheduled() );
+    assertTrue( observer.getTask().isScheduled() );
 
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 1L );
-    assertTrue( context.getScheduler().getTaskQueue().getOrderedTasks().anyMatch(  o -> o == observer ) );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
+    assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
 
     schedulerLock.dispose();
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 0 );
   }
@@ -1857,22 +1846,20 @@ public class ObserverTest
       observer.setState( Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
-      observer.markAsExecuted();
-      context.getScheduler()
-        .getTaskQueue()
-        .clear();
+      observer.getTask().markAsExecuted();
+      context.getTaskQueue().clear();
     }, Flags.NO_VERIFY_ACTION_REQUIRED );
 
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
 
     final Disposable schedulerLock = context.pauseScheduler();
 
     assertInvariantFailure( observer::schedule,
                             "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +
                             "' but supportsManualSchedule() returns false." );
-    assertFalse( observer.isScheduled() );
+    assertFalse( observer.getTask().isScheduled() );
     assertEquals( observer.getState(), Flags.STATE_STALE );
-    assertEquals( context.getScheduler().getTaskQueue().getOrderedTasks().count(), 0L );
+    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
 
     schedulerLock.dispose();
 

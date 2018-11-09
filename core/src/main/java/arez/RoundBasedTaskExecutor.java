@@ -1,7 +1,7 @@
 package arez;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.BrainCheckConfig;
@@ -15,12 +15,16 @@ import static org.realityforge.braincheck.Guards.*;
  * will stop running tasks and optionally emptying the task queue.
  */
 final class RoundBasedTaskExecutor
-  extends AbstractTaskExecutor
 {
   /**
    * The default value for maximum number of rounds.
    */
   static final int DEFAULT_MAX_ROUNDS = 100;
+  /**
+   * The task queue.
+   */
+  @Nonnull
+  private final TaskQueue _taskQueue;
   /**
    * The maximum number of iterations that can be triggered in sequence without triggering an error. Set this
    * to 0 to disable check, otherwise trigger
@@ -42,8 +46,8 @@ final class RoundBasedTaskExecutor
 
   private RoundBasedTaskExecutor( @Nonnull final TaskQueue taskQueue, final int maxRounds )
   {
-    super( taskQueue );
     assert maxRounds > 0;
+    _taskQueue = Objects.requireNonNull( taskQueue );
     _maxRounds = maxRounds;
   }
 
@@ -99,7 +103,7 @@ final class RoundBasedTaskExecutor
     // determine if we need any more rounds and if we do ensure
     if ( 0 == _remainingTasksInCurrentRound )
     {
-      final int pendingTasksCount = getTaskQueue().getQueueSize();
+      final int pendingTasksCount = _taskQueue.getQueueSize();
       if ( 0 == pendingTasksCount )
       {
         _currentRound = 0;
@@ -128,9 +132,9 @@ final class RoundBasedTaskExecutor
      */
     _remainingTasksInCurrentRound--;
 
-    final Observer task = getTaskQueue().dequeueTask();
+    final Task task = _taskQueue.dequeueTask();
     assert null != task;
-    executeTask( task );
+    task.executeTask();
     return true;
   }
 
@@ -143,15 +147,12 @@ final class RoundBasedTaskExecutor
   {
     final List<String> taskNames =
       Arez.shouldCheckInvariants() && BrainCheckConfig.verboseErrorMessages() ?
-      getTaskQueue().getOrderedTasks()
-        .map( Observer::getName )
-        .collect( Collectors.toList() ) :
+      _taskQueue.getOrderedTasks().map( Task::getName ).collect( Collectors.toList() ) :
       null;
 
     if ( Arez.purgeTasksWhenRunawayDetected() )
     {
-      final Collection<Observer> tasks = getTaskQueue().clear();
-      for ( final Observer task : tasks )
+      for ( final Task task : _taskQueue.clear() )
       {
         task.markAsExecuted();
       }

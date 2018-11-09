@@ -20,14 +20,13 @@ public class ReactionSchedulerTest
 
     assertEquals( scheduler.getContext(), context );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertEquals( scheduler.getPendingDisposes().size(), 0 );
 
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertFalse( scheduler.areDisposesRunning() );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getMaxRounds(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getMaxRounds(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
   }
 
   @Test
@@ -47,18 +46,20 @@ public class ReactionSchedulerTest
     ArezTestUtil.purgeReactionsWhenRunawayDetected();
 
     final ArezContext context = Arez.context();
-    final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
-    scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
+    context.getTaskQueue()
+      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .add( observer.getTask() );
+    observer.getTask().markAsScheduled();
 
-    assertInvariantFailure( () -> scheduler.getExecutor().onRunawayTasksDetected(),
+    assertInvariantFailure( () -> context.getExecutor().onRunawayTasksDetected(),
                             "Arez-0101: Runaway task(s) detected. Tasks still running after " +
-                            scheduler.getExecutor().getMaxRounds() + " rounds. Current tasks include: [" +
+                            context.getExecutor().getMaxRounds() + " rounds. Current tasks include: [" +
                             observer.getName() + "]" );
 
     // Ensure observers purged
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
   }
 
   @Test
@@ -67,15 +68,16 @@ public class ReactionSchedulerTest
     ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
 
     final ArezContext context = Arez.context();
-    final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
-    scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
+    context.getTaskQueue()
+      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .add( observer.getTask() );
 
-    assertThrows( IllegalStateException.class, () -> scheduler.getExecutor().onRunawayTasksDetected() );
+    assertThrows( IllegalStateException.class, () -> context.getExecutor().onRunawayTasksDetected() );
 
     // Ensure observers not purged
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
+    assertEquals( getNormalPriorityTaskCount( context ), 1 );
   }
 
   @Test
@@ -83,12 +85,14 @@ public class ReactionSchedulerTest
   {
     BrainCheckTestUtil.setCheckInvariants( false );
 
-    final ReactionScheduler scheduler = Arez.context().getScheduler();
+    final ArezContext context = Arez.context();
 
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
-    scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
+    context.getTaskQueue()
+      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .add( observer.getTask() );
 
-    scheduler.getExecutor().onRunawayTasksDetected();
+    context.getExecutor().onRunawayTasksDetected();
   }
 
   @Test
@@ -99,7 +103,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
 
     scheduler.scheduleDispose( observer );
 
@@ -115,7 +119,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
 
     scheduler.scheduleDispose( observer );
 
@@ -171,17 +175,21 @@ public class ReactionSchedulerTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertFalse( scheduler.hasTasksToSchedule() );
 
-    scheduler.getTaskQueue().queueTask( observer );
-    observer.markAsScheduled();
+    queueTask( context, observer );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
-    assertTrue( scheduler.getTaskQueue()
+    assertEquals( getNormalPriorityTaskCount( context ), 1 );
+    assertTrue( context.getTaskQueue()
                   .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
-                  .contains( observer ) );
+                  .contains( observer.getTask() ) );
     assertTrue( scheduler.hasTasksToSchedule() );
+  }
+
+  private void queueTask( @Nonnull final ArezContext context, @Nonnull final Observer observer )
+  {
+    context.getTaskQueue().queueTask( observer.getPriorityIndex(), observer.getTask() );
   }
 
   @Test
@@ -213,36 +221,29 @@ public class ReactionSchedulerTest
 
     context.triggerScheduler();
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertFalse( scheduler.hasTasksToSchedule() );
 
-    scheduler.getTaskQueue().queueTask( observer0 );
-    observer0.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer1 );
-    observer1.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer2 );
-    observer2.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer3 );
-    observer3.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer4 );
-    observer4.markAsScheduled();
+    queueTask( context, observer0 );
+    queueTask( context, observer1 );
+    queueTask( context, observer2 );
+    queueTask( context, observer3 );
+    queueTask( context, observer4 );
 
     assertTrue( scheduler.hasTasksToSchedule() );
 
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGHEST ).size(), 1 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGH ).size(), 2 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_NORMAL ).size(), 2 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOW ).size(), 0 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOWEST ).size(), 0 );
+    final CircularBuffer<Task> tasksByPriority = getTasksByPriority( context, Flags.PRIORITY_HIGHEST );
+    assertEquals( tasksByPriority.size(), 1 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGH ).size(), 2 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_NORMAL ).size(), 2 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOW ).size(), 0 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOWEST ).size(), 0 );
 
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGHEST ).get( 0 ),
-                  observer0 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGH ).get( 0 ), observer2 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGH ).get( 1 ), observer4 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_NORMAL ).get( 0 ),
-                  observer1 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_NORMAL ).get( 1 ),
-                  observer3 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGHEST ).get( 0 ), observer0.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGH ).get( 0 ), observer2.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGH ).get( 1 ), observer4.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_NORMAL ).get( 0 ), observer1.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_NORMAL ).get( 1 ), observer3.getTask() );
   }
 
   @Test
@@ -308,63 +309,57 @@ public class ReactionSchedulerTest
 
     context.triggerScheduler();
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertFalse( scheduler.hasTasksToSchedule() );
 
-    scheduler.getTaskQueue().queueTask( observer0 );
-    observer0.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer1 );
-    observer1.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer2 );
-    observer2.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer3 );
-    observer3.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer4 );
-    observer4.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer5 );
-    observer5.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer6 );
-    observer6.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer7 );
-    observer7.markAsScheduled();
-    scheduler.getTaskQueue().queueTask( observer8 );
-    observer8.markAsScheduled();
+    queueTask( context, observer0 );
+    queueTask( context, observer1 );
+    queueTask( context, observer2 );
+    queueTask( context, observer3 );
+    queueTask( context, observer4 );
+    queueTask( context, observer5 );
+    queueTask( context, observer6 );
+    queueTask( context, observer7 );
+    queueTask( context, observer8 );
 
     assertTrue( scheduler.hasTasksToSchedule() );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGHEST ).size(), 1 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGH ).size(), 2 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_NORMAL ).size(), 2 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOW ).size(), 2 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOWEST ).size(), 2 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGHEST ).size(), 1 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGH ).size(), 2 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_NORMAL ).size(), 2 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOW ).size(), 2 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOWEST ).size(), 2 );
 
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGHEST ).get( 0 ), observer0 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGH ).get( 1 ), observer6 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_HIGH ).get( 1 ), observer6 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_NORMAL ).get( 0 ), observer3 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_NORMAL ).get( 1 ), observer7 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOW ).get( 0 ), observer4 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOW ).get( 1 ), observer8 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOWEST ).get( 0 ), observer1 );
-    assertEquals( getTasksByPriority( scheduler, Flags.PRIORITY_LOWEST ).get( 1 ), observer5 );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGHEST ).get( 0 ), observer0.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGH ).get( 1 ), observer6.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_HIGH ).get( 1 ), observer6.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_NORMAL ).get( 0 ), observer3.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_NORMAL ).get( 1 ), observer7.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOW ).get( 0 ), observer4.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOW ).get( 1 ), observer8.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOWEST ).get( 0 ), observer1.getTask() );
+    assertEquals( getTasksByPriority( context, Flags.PRIORITY_LOWEST ).get( 1 ), observer5.getTask() );
   }
 
   @Nonnull
-  private CircularBuffer<Observer> getTasksByPriority( @Nonnull final ReactionScheduler scheduler, final int priority )
+  private CircularBuffer<Task> getTasksByPriority( @Nonnull final ArezContext context, final int priority )
   {
-    return scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( priority ) );
+    final int priorityIndex = Flags.getPriorityIndex( priority );
+    return context.getTaskQueue().getTasksByPriority( priorityIndex );
   }
 
   @Test
   public void scheduleReaction_observerAlreadyScheduled()
   {
     final ArezContext context = Arez.context();
-    final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).add( observer );
+    context
+      .getTaskQueue()
+      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .add( observer.getTask() );
 
-    assertInvariantFailure( () -> scheduler.getTaskQueue().queueTask( observer ),
+    assertInvariantFailure( () -> queueTask( context, observer ),
                             "Arez-0099: Attempting to schedule task named '" + observer.getName() +
                             "' when task is already in queues." );
   }
@@ -374,7 +369,6 @@ public class ReactionSchedulerTest
   {
     final ArezContext context = Arez.context();
     context.markSchedulerAsActive();
-    final ReactionScheduler scheduler = context.getScheduler();
 
     final Observer observer = newReadWriteObserver( context );
     final CountingProcedure observed = (CountingProcedure) observer.getObserve();
@@ -391,28 +385,28 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
-    assertTrue( observer.isScheduled() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertTrue( observer.getTask().isScheduled() );
+    assertEquals( getNormalPriorityTaskCount( context ), 1 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
 
-    final boolean ran = scheduler.getExecutor().runNextTask();
+    final boolean ran = context.getExecutor().runNextTask();
 
     assertTrue( ran );
     assertEquals( observed.getCallCount(), 1 );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 1 );
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertFalse( observer.isScheduled() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 1 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertFalse( observer.getTask().isScheduled() );
 
-    final boolean ran2 = scheduler.getExecutor().runNextTask();
+    final boolean ran2 = context.getExecutor().runNextTask();
 
     assertFalse( ran2 );
     assertEquals( observed.getCallCount(), 1 );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertFalse( observer.isScheduled() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertFalse( observer.getTask().isScheduled() );
   }
 
   @Test
@@ -431,10 +425,10 @@ public class ReactionSchedulerTest
     //observer has observed so setStale should result in reschedule
     observer.setState( Flags.STATE_STALE );
 
-    assertTrue( observer.isScheduled() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 1 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertTrue( observer.getTask().isScheduled() );
+    assertEquals( getNormalPriorityTaskCount( context ), 1 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
 
     assertInvariantFailure( scheduler::runPendingTasks,
                             "Arez-0100: Invoked runPendingTasks() when transaction named '" +
@@ -446,11 +440,10 @@ public class ReactionSchedulerTest
   {
     final ArezContext context = Arez.context();
     context.markSchedulerAsActive();
-    final ReactionScheduler scheduler = context.getScheduler();
 
     setupReadWriteTransaction();
     // Purge the observer that was scheduled
-    scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).clear();
+    context.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).clear();
 
     final int round1Size = 10;
     final int round2Size = 4;
@@ -496,55 +489,55 @@ public class ReactionSchedulerTest
 
       //observer has observed so setStale should result in reschedule
       observers[ i ].setState( Flags.STATE_STALE );
-      assertTrue( observers[ i ].isScheduled() );
+      assertTrue( observers[ i ].getTask().isScheduled() );
     }
 
     Transaction.setTransaction( null );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), observers.length );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( getNormalPriorityTaskCount( context ), observers.length );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
 
     // Start from last observer and go down to first
     for ( int i = 0; i < round1Size; i++ )
     {
-      assertTrue( scheduler.getExecutor().runNextTask() );
-      assertEquals( scheduler.getExecutor().getCurrentRound(), 1 );
+      assertTrue( context.getExecutor().runNextTask() );
+      assertEquals( context.getExecutor().getCurrentRound(), 1 );
     }
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 1 );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), round2Size );
-    assertTrue( scheduler.getExecutor().areTasksExecuting() );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 1 );
+    assertEquals( getNormalPriorityTaskCount( context ), round2Size );
+    assertTrue( context.getExecutor().areTasksExecuting() );
 
     for ( int i = 0; i < round2Size; i++ )
     {
-      assertTrue( scheduler.getExecutor().runNextTask() );
-      assertEquals( scheduler.getExecutor().getCurrentRound(), 2 );
+      assertTrue( context.getExecutor().runNextTask() );
+      assertEquals( context.getExecutor().getCurrentRound(), 2 );
     }
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 2 );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), round3Size );
-    assertTrue( scheduler.getExecutor().areTasksExecuting() );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 2 );
+    assertEquals( getNormalPriorityTaskCount( context ), round3Size );
+    assertTrue( context.getExecutor().areTasksExecuting() );
 
     for ( int i = 0; i < round3Size; i++ )
     {
-      assertTrue( scheduler.getExecutor().runNextTask() );
-      assertEquals( scheduler.getExecutor().getCurrentRound(), 3 );
+      assertTrue( context.getExecutor().runNextTask() );
+      assertEquals( context.getExecutor().getCurrentRound(), 3 );
     }
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 3 );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
-    assertTrue( scheduler.getExecutor().areTasksExecuting() );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 3 );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
+    assertTrue( context.getExecutor().areTasksExecuting() );
 
-    assertFalse( scheduler.getExecutor().runNextTask() );
+    assertFalse( context.getExecutor().runNextTask() );
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
 
     assertEquals( observeds[ 0 ].getCallCount(), 1 );
     assertEquals( observeds[ 1 ].getCallCount(), 1 );
@@ -585,26 +578,25 @@ public class ReactionSchedulerTest
     context.pauseScheduler();
     context.safeAction( observer::reportStale );
 
-    assertTrue( observer.isScheduled() );
-
-    final ReactionScheduler scheduler = context.getScheduler();
+    assertTrue( observer.getTask().isScheduled() );
 
     context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
     assertInvariantFailure( () -> {
-      while ( scheduler.getExecutor().runNextTask() )
-      {
-        reactionCount.incrementAndGet();
-      }
-    }, "Arez-0101: Runaway task(s) detected. Tasks still running after 100 rounds. Current tasks include: [MyObserver]" );
+                              while ( context.getExecutor().runNextTask() )
+                              {
+                                reactionCount.incrementAndGet();
+                              }
+                            },
+                            "Arez-0101: Runaway task(s) detected. Tasks still running after 100 rounds. Current tasks include: [MyObserver]" );
 
     assertEquals( reactionCount.get(), RoundBasedTaskExecutor.DEFAULT_MAX_ROUNDS );
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
   }
 
   @Test( timeOut = 5000L )
@@ -635,22 +627,20 @@ public class ReactionSchedulerTest
     observerReference.set( observer );
     context.pauseScheduler();
     context.safeAction( observer::reportStale );
-    assertTrue( observer.isScheduled() );
-
-    final ReactionScheduler scheduler = context.getScheduler();
+    assertTrue( observer.getTask().isScheduled() );
 
     context.markSchedulerAsActive();
 
     final AtomicInteger reactionCount = new AtomicInteger();
-    while ( scheduler.getExecutor().runNextTask() )
+    while ( context.getExecutor().runNextTask() )
     {
       reactionCount.incrementAndGet();
     }
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
   }
 
   @Test
@@ -713,15 +703,15 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), observers.length );
+    assertEquals( getNormalPriorityTaskCount( context ), observers.length );
     assertEquals( scheduler.getPendingDisposes().size(), disposables.length );
 
     scheduler.runPendingTasks();
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertEquals( scheduler.getPendingDisposes().size(), 0 );
 
     for ( final Disposable disposable : disposables )
@@ -730,9 +720,9 @@ public class ReactionSchedulerTest
     }
   }
 
-  protected int getNormalPriorityTaskCount( final ReactionScheduler scheduler )
+  private int getNormalPriorityTaskCount( final ArezContext context )
   {
-    return scheduler.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).size();
+    return context.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).size();
   }
 
   @Test
@@ -788,14 +778,14 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
-    assertEquals( getNormalPriorityTaskCount( scheduler ), observers.length );
+    assertEquals( getNormalPriorityTaskCount( context ), observers.length );
 
     scheduler.runPendingTasks();
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
   }
 
   @Test
@@ -815,10 +805,10 @@ public class ReactionSchedulerTest
 
     scheduler.runPendingTasks();
 
-    assertEquals( scheduler.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertEquals( scheduler.getExecutor().getCurrentRound(), 0 );
-    assertFalse( scheduler.getExecutor().areTasksExecuting() );
-    assertEquals( getNormalPriorityTaskCount( scheduler ), 0 );
+    assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
+    assertEquals( context.getExecutor().getCurrentRound(), 0 );
+    assertFalse( context.getExecutor().areTasksExecuting() );
+    assertEquals( getNormalPriorityTaskCount( context ), 0 );
 
     for ( final Disposable disposable : disposables )
     {

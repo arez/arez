@@ -72,6 +72,8 @@ public final class Observer
    * for acceptable values.
    */
   private int _flags;
+  @Nonnull
+  private final Task _task;
 
   Observer( @Nonnull final ComputableValue<?> computableValue, final int flags )
   {
@@ -123,6 +125,7 @@ public final class Observer
                     final int flags )
   {
     super( context, name );
+    _task = new Task( name, this::invokeReaction );
     _flags = flags | Flags.STATE_INACTIVE;
     if ( Arez.shouldCheckInvariants() )
     {
@@ -320,6 +323,7 @@ public final class Observer
       {
         _computableValue.dispose();
       }
+      _task.dispose();
       markAsDisposed();
     }
   }
@@ -553,29 +557,15 @@ public final class Observer
   }
 
   /**
-   * Return true if this observer has a pending reaction.
+   * Return the task associated with the observer.
+   * The task is used during scheduling.
    *
-   * @return true if this observer has a pending reaction.
+   * @return the task associated with the observer.
    */
-  boolean isScheduled()
+  @Nonnull
+  Task getTask()
   {
-    return 0 != ( _flags & Flags.SCHEDULED );
-  }
-
-  /**
-   * Clear the scheduled flag. This is called when the observer's reaction is executed so it can be scheduled again.
-   */
-  void markAsExecuted()
-  {
-    _flags &= ~Flags.SCHEDULED;
-  }
-
-  /**
-   * Set the scheduled flag. This is called when the observer is schedule so it can not be scheduled again until it has run.
-   */
-  void markAsScheduled()
-  {
-    _flags |= Flags.SCHEDULED;
+    return _task;
   }
 
   /**
@@ -612,7 +602,7 @@ public final class Observer
                    () -> "Arez-0088: Observer named '" + getName() + "' is not active but an attempt has been made " +
                          "to schedule observer." );
       }
-      if ( !isScheduled() )
+      if ( !getTask().isScheduled() )
       {
         getContext().scheduleReaction( this );
       }
@@ -687,7 +677,7 @@ public final class Observer
         {
           final ComputableValue<?> computableValue = getComputableValue();
           reportSpyEvent( new ComputeCompleteEvent( computableValue.asInfo(),
-                                                     noReportResults() ? null : computableValue.getValue(),
+                                                    noReportResults() ? null : computableValue.getValue(),
                                                     computableValue.getError(),
                                                     (int) duration ) );
         }

@@ -25,28 +25,20 @@ interface TaskQueue
   boolean hasTasks();
 
   /**
-   * Add the specified task to the queue.
-   * The task must not already be in the queue.
-   *
-   * @param task the task.
-   */
-  void queueTask( @Nonnull Observer task );
-
-  /**
    * Remove and return the next task in queue.
    * This may return null if there is no tasks in the quue.
    *
    * @return the next task in queue.
    */
   @Nullable
-  Observer dequeueTask();
+  Task dequeueTask();
 
   /**
    * Clear all tasks from queue and return any tasks removed.
    *
    * @return tasks removed from the queue.
    */
-  Collection<Observer> clear();
+  Collection<Task> clear();
 
   /**
    * Return a stream containing tasks ordered as they would be executed.
@@ -56,5 +48,5 @@ interface TaskQueue
    * @return a stream containing tasks ordered as they would be executed.
    */
   @Nonnull
-  Stream<Observer> getOrderedTasks();
+  Stream<Task> getOrderedTasks();
 }

@@ -13,16 +13,6 @@ final class ReactionScheduler
   @Nullable
   private final ArezContext _context;
   /**
-   * Scheduled tasks yet to be run.
-   */
-  @Nonnull
-  private final MultiPriorityTaskQueue _taskQueue;
-  /**
-   * Executor responsible for executing tasks.
-   */
-  @Nonnull
-  private final RoundBasedTaskExecutor _executor;
-  /**
    * Elements that should be disposed prior to next reaction being invoked.
    * Disposes are often scheduled when they can not happen immediately as the transaction is not READ_WRITE.
    * i.e. A disposeOnDeactivate component may no longer have any observers when a ComputableValue no longer
@@ -31,10 +21,6 @@ final class ReactionScheduler
    */
   @Nonnull
   private final CircularBuffer<Disposable> _pendingDisposes = new CircularBuffer<>( 100 );
-  /**
-   * Flag set when processing disposes.
-   */
-  private boolean _disposesRunning;
 
   @SuppressWarnings( "unchecked" )
   ReactionScheduler( @Nullable final ArezContext context )
@@ -45,30 +31,6 @@ final class ReactionScheduler
                     () -> "Arez-0164: ReactionScheduler passed a context but Arez.areZonesEnabled() is false" );
     }
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
-    _taskQueue = new MultiPriorityTaskQueue( Observer::getPriorityIndex );
-    _executor = new RoundBasedTaskExecutor( _taskQueue );
-  }
-
-  /**
-   * Return the task queue associated with the scheduler.
-   *
-   * @return the task queue associated with the scheduler.
-   */
-  @Nonnull
-  MultiPriorityTaskQueue getTaskQueue()
-  {
-    return _taskQueue;
-  }
-
-  /**
-   * Return the executor responsible for executing tasks.
-   *
-   * @return the executor responsible for executing tasks.
-   */
-  @Nonnull
-  RoundBasedTaskExecutor getExecutor()
-  {
-    return _executor;
   }
 
   /**
@@ -89,16 +51,6 @@ final class ReactionScheduler
   }
 
   /**
-   * Return true if disposes are currently being disposed, false otherwise.
-   *
-   * @return true if disposes are currently being disposed, false otherwise.
-   */
-  boolean areDisposesRunning()
-  {
-    return _disposesRunning;
-  }
-
-  /**
    * If the schedule is not already running pending tasks then run pending observers until
    * complete or runaway reaction detected.
    */
@@ -110,16 +62,15 @@ final class ReactionScheduler
      */
     if ( Arez.shouldCheckInvariants() )
     {
-      final ArezContext context = getContext();
-      invariant( () -> !context.isTransactionActive(),
+      invariant( () -> !getContext().isTransactionActive(),
                  () -> "Arez-0100: Invoked runPendingTasks() when transaction named '" +
-                       context.getTransaction().getName() + "' is active." );
+                       getContext().getTransaction().getName() + "' is active." );
     }
 
     //TODO: getExecutor().runTasks();
     while ( true )
     {
-      if ( !runDispose() && !getExecutor().runNextTask() )
+      if ( !runDispose() && !getContext().getExecutor().runNextTask() )
       {
         break;
       }
@@ -145,12 +96,10 @@ final class ReactionScheduler
     }
     if ( 0 == _pendingDisposes.size() )
     {
-      _disposesRunning = false;
       return false;
     }
     else
     {
-      _disposesRunning = true;
       final Disposable disposable = _pendingDisposes.pop();
       assert null != disposable;
       Disposable.dispose( disposable );
@@ -160,7 +109,7 @@ final class ReactionScheduler
 
   boolean hasTasksToSchedule()
   {
-    return !_pendingDisposes.isEmpty() || _taskQueue.hasTasks();
+    return !_pendingDisposes.isEmpty() || getContext().getTaskQueue().hasTasks();
   }
 
   @Nonnull

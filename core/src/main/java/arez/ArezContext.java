@@ -44,6 +44,16 @@ public final class ArezContext
    */
   private final ReactionScheduler _scheduler = new ReactionScheduler( Arez.areZonesEnabled() ? this : null );
   /**
+   * Tasks scheduled but  yet to be run.
+   */
+  @Nonnull
+  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue();
+  /**
+   * Executor responsible for executing tasks.
+   */
+  @Nonnull
+  private final RoundBasedTaskExecutor _executor = new RoundBasedTaskExecutor( _taskQueue );
+  /**
    * Support infrastructure for propagating observer errors.
    */
   @Nullable
@@ -974,8 +984,14 @@ public final class ArezContext
                        "read-only tracking transaction. Observers that are supporting ComputableValue instances " +
                        "must not schedule self." );
     }
-    _scheduler.getTaskQueue().queueTask( observer );
-    observer.markAsScheduled();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> !observer.getTask().isScheduled(),
+                 () -> "Arez-0213: Attempting to schedule task named '" + observer.getName() +
+                       "' when task is already scheduled." );
+    }
+    observer.getTask().markAsScheduled();
+    _taskQueue.queueTask( observer.getPriorityIndex(), observer.getTask() );
   }
 
   /**
@@ -2181,6 +2197,23 @@ public final class ArezContext
     }
     assert null != _spy;
     return _spy;
+  }
+
+  /**
+   * Return the task queue associated with the context.
+   *
+   * @return the task queue associated with the context.
+   */
+  @Nonnull
+  MultiPriorityTaskQueue getTaskQueue()
+  {
+    return _taskQueue;
+  }
+
+  @Nonnull
+  RoundBasedTaskExecutor getExecutor()
+  {
+    return _executor;
   }
 
   void registerObservableValue( @Nonnull final ObservableValue observableValue )

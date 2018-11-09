@@ -760,9 +760,9 @@ public class ComputableValueTest
 
     context.safeAction( () -> {
       observableValue.reportChanged();
-      assertTrue( computableValue.getObserver().isScheduled() );
+      assertTrue( computableValue.getObserver().getTask().isScheduled() );
       computableValue.reportPossiblyChanged();
-      assertTrue( computableValue.getObserver().isScheduled() );
+      assertTrue( computableValue.getObserver().getTask().isScheduled() );
     } );
 
     assertEquals( autorunCallCount.get(), 1 );
