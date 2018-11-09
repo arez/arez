@@ -111,8 +111,9 @@ final class MultiPriorityTaskQueue
       invariant( () -> Arrays.stream( _taskQueues ).noneMatch( b -> b.contains( task ) ),
                  () -> "Arez-0099: Attempting to schedule task named '" + task.getName() +
                        "' when task is already in queues." );
-      //TODO: Turn this into invariant
-      assert priority >= 0 && priority < _taskQueues.length;
+      invariant( () -> priority >= 0 && priority < _taskQueues.length,
+                 () -> "Arez-0215: Attempting to queue task named '" + task.getName() +
+                       "' but passed an invalid priority " + priority + "." );
     }
     _taskQueues[ priority ].add( Objects.requireNonNull( task ) );
   }
