@@ -20,9 +20,9 @@ final class FifoTaskQueue
   @Nonnull
   private final CircularBuffer<Task> _buffer;
 
-  FifoTaskQueue( final int queueSize )
+  FifoTaskQueue( final int initialCapacity )
   {
-    _buffer = new CircularBuffer<>( queueSize );
+    _buffer = new CircularBuffer<>( initialCapacity );
   }
 
   @Override
