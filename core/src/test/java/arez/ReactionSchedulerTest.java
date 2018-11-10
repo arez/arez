@@ -63,7 +63,7 @@ public class ReactionSchedulerTest
   }
 
   @Test
-  public void onRunawayReactionsDetected_noPurgeCOnfigured()
+  public void onRunawayReactionsDetected_noPurgeConfigured()
   {
     ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
 
