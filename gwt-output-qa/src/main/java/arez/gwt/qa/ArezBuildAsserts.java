@@ -229,7 +229,6 @@ public final class ArezBuildAsserts
     // Assert no Component cruft is enabled as !Arez.areNativeComponentsEnabled() in the build
     index.assertSymbol( "arez\\.Component.*", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "$$arezi$$_component", enabled );
-    index.assertSymbol( ".*\\.Arez_.*Repository", "component", enabled );
 
     // No repositories need their own identity if native components disabled
     assertSyntheticId( index, ".*\\.Arez_[^\\.]+Repository", false );
