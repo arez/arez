@@ -88,4 +88,10 @@ final class FifoTaskQueue
   {
     return _taskQueue.stream();
   }
+
+  @Nonnull
+  CircularBuffer<Task> getBuffer()
+  {
+    return _taskQueue;
+  }
 }
