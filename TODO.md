@@ -24,6 +24,8 @@ complete as there is too much un-said.
 
 * Add assertions to verify all the `_context` fields in `Transaction`, `SpyImpl`, `ScheduleLock`, `MemoizeCache`, `ReactionScheduler` is not present if zones enabled.
 
+* Add assertions to verify that `Locator` and related is stripped out unless enabled.
+
 * Add ErrorProne to build
 
 * Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
