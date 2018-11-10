@@ -3,6 +3,7 @@ package arez;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
+import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -140,7 +141,6 @@ public class MultiPriorityTaskQueueTest
   @Nonnull
   private Task newTask( @Nonnull final String name )
   {
-    final Runnable work = () -> assertTrue( true );
-    return new Task( name, work );
+    return new Task( name, ValueUtil::randomString );
   }
 }
