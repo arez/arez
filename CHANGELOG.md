@@ -12,6 +12,8 @@
 * **\[gwt-output-qa\]** Update assertions in `ArezBuildAsserts` that reference classes that have been
   renamed. i.e. Assertions for classes such as `arez.ReactionEnvironment` that was renamed to
   `arez.ReactionEnvironment`.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to ensure names are omitted if names are
+  disabled.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)

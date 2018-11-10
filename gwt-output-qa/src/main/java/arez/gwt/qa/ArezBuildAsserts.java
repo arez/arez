@@ -134,6 +134,11 @@ public final class ArezBuildAsserts
                                             final boolean enabled )
   {
     index.assertSymbol( "arez\\.ThrowableUtil", enabled );
+    index.assertSymbol( "arez\\.Component", "_name", enabled );
+    index.assertSymbol( "arez\\.Node", "_name", enabled );
+    index.assertSymbol( "arez\\.Task", "_name", enabled );
+    index.assertSymbol( "arez\\.Transaction", "_name", enabled );
+    index.assertSymbol( "arez\\.component\\.MemoizeCache", "_name", enabled );
     index.assertSymbol( ".*\\.Arez_.*Repository", "getRepositoryName", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "toString", enabled );
   }
