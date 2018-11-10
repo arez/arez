@@ -23,6 +23,10 @@ complete as there is too much un-said.
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic.
 
+* Consider removing the notion of environments form within Arez as only used to call `batchedUpdates` in
+  react and that already occurs during rendering and event handling. For the other scenarios (i.e. network
+  events etc.) we could manually call it from relevant places.
+
 * Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
   `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
   The generated components then just delegate methods to it. The goal is to reduce the per-component
