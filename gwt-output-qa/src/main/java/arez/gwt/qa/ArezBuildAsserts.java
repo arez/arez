@@ -20,9 +20,6 @@ public final class ArezBuildAsserts
    */
   public static void assertStandardOutputs( @Nonnull final SymbolEntryIndex index )
   {
-    // These are JsFunction instances and thus should be omitted
-    index.assertNoClassNameMatches( "arez\\.Reaction" );
-
     assertNoTestOnlyElements( index );
 
     // This should be optimized out completely
@@ -93,8 +90,6 @@ public final class ArezBuildAsserts
   public static void assertShouldEnforceTransactionTypeOutputs( @Nonnull final SymbolEntryIndex index,
                                                                 final boolean enabled )
   {
-    // Assert no Transaction validation cruft is enabled as !Arez.shouldEnforceTransactionType() in the build
-    index.assertSymbol( "arez\\.TransactionMode", enabled );
   }
 
   /**

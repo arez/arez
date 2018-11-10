@@ -7,6 +7,8 @@
   scheduled. If a subsequent action triggered the observer to be re-scheduled, the runtime would skip the
   step of queueing the observer as it believed the observer was still in the queue. Thus observers that had
   been purged would never react again.
+* **\[gwt-output-qa\]** Remove assertions from `ArezBuildAsserts` that reference classes that have been
+  removed. i.e. Assertions for non-existent classes such as `arez.Reaction` and `arez.TransactionMode`.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
