@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+* **\[core\]** Fixed bug inside scheduler that occurred when runaway reactions were detected and purged.
+  The observers had been removed from the task queue but still had the flag set indicating that they were
+  scheduled. If a subsequent action triggered the observer to be re-scheduled, the runtime would skip the
+  step of queueing the observer as it believed the observer was still in the queue. Thus observers that had
+  been purged would never react again.
+
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
 
