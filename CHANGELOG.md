@@ -9,6 +9,9 @@
   been purged would never react again.
 * **\[gwt-output-qa\]** Remove assertions from `ArezBuildAsserts` that reference classes that have been
   removed. i.e. Assertions for non-existent classes such as `arez.Reaction` and `arez.TransactionMode`.
+* **\[gwt-output-qa\]** Update assertions in `ArezBuildAsserts` that reference classes that have been
+  renamed. i.e. Assertions for classes such as `arez.ReactionEnvironment` that was renamed to
+  `arez.ReactionEnvironment`.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)

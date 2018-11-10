@@ -103,7 +103,7 @@ public final class ArezBuildAsserts
                                                                     final boolean enabled )
   {
     // Assert RepositoryUtil is eliminated once !Arez.areCollectionsPropertiesUnmodifiable() in the build
-    index.assertSymbol( "arez\\.component\\.RepositoryUtil", enabled );
+    index.assertSymbol( "arez\\.component\\.CollectionsUtil", enabled );
   }
 
   /**
@@ -201,7 +201,7 @@ public final class ArezBuildAsserts
    */
   public static void assertEnvironmentsOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
-    index.assertSymbol( "arez\\.ReactionEnvironment", enabled );
+    index.assertSymbol( "arez\\.Environment", enabled );
     index.assertSymbol( "arez\\.ArezContext", "_environment", enabled );
     index.assertSymbol( "arez\\.ArezContext", "_inEnvironmentContext", enabled );
   }
