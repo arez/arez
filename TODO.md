@@ -18,7 +18,6 @@ complete as there is too much un-said.
 * `Task.Work` should a `@JsFunction`
 * Add tests
   - `FifoTaskQueue`
-  - `RoundBasedTaskExecutor`
 
 ## Enhancements
 
