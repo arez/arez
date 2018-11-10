@@ -24,6 +24,8 @@ complete as there is too much un-said.
 
 * Add assertions to verify all the `_context` fields in `Transaction`, `SpyImpl`, `ScheduleLock`, `MemoizeCache`, `ReactionScheduler` is not present if zones enabled.
 
+* Add ErrorProne to build
+
 * Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
   `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
   The generated components then just delegate methods to it. The goal is to reduce the per-component
@@ -74,7 +76,8 @@ complete as there is too much un-said.
   invariant failure and add documentation to the website.
 
   Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
-  they are only called from within the appropriate guard. Not sure this is possible.
+  they are only called from within the appropriate guard. Not sure this is possible. This probably requires a
+  custom rule in error prone.
 
   Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
   failure or made so that they are only emitted the first time they are triggered based on compile time
