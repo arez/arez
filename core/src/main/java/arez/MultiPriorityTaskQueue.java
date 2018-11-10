@@ -99,6 +99,7 @@ final class MultiPriorityTaskQueue
                  () -> "Arez-0215: Attempting to queue task named '" + task.getName() +
                        "' but passed an invalid priority " + priority + "." );
     }
+    Objects.requireNonNull( task ).markAsQueued();
     _buffers[ priority ].add( Objects.requireNonNull( task ) );
   }
 
@@ -134,9 +135,12 @@ final class MultiPriorityTaskQueue
     //noinspection ForLoopReplaceableByForEach
     for ( int i = 0; i < _buffers.length; i++ )
     {
-      final CircularBuffer<Task> taskQueue = _buffers[ i ];
-      taskQueue.stream().forEach( tasks::add );
-      taskQueue.clear();
+      final CircularBuffer<Task> buffer = _buffers[ i ];
+      buffer.stream().forEach( task -> {
+        tasks.add( task );
+        task.markAsDequeued();
+      } );
+      buffer.clear();
     }
     return tasks;
   }

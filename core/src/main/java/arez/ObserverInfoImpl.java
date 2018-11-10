@@ -80,7 +80,7 @@ final class ObserverInfoImpl
   @Override
   public boolean isScheduled()
   {
-    return _observer.getTask().isScheduled();
+    return _observer.getTask().isQueued();
   }
 
   /**

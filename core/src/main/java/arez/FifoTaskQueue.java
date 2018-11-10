@@ -54,6 +54,7 @@ final class FifoTaskQueue
                  () -> "Arez-0098: Attempting to queue task named '" + task.getName() +
                        "' when task is already queued." );
     }
+    Objects.requireNonNull( task ).markAsQueued();
     _buffer.add( Objects.requireNonNull( task ) );
   }
 
@@ -74,7 +75,10 @@ final class FifoTaskQueue
   public Collection<Task> clear()
   {
     final ArrayList<Task> tasks = new ArrayList<>();
-    _buffer.stream().forEach( tasks::add );
+    _buffer.stream().forEach( task -> {
+      tasks.add( task );
+      task.markAsDequeued();
+    } );
     _buffer.clear();
     return tasks;
   }

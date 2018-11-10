@@ -602,7 +602,7 @@ public final class Observer
                    () -> "Arez-0088: Observer named '" + getName() + "' is not active but an attempt has been made " +
                          "to schedule observer." );
       }
-      if ( !getTask().isScheduled() )
+      if ( !getTask().isQueued() )
       {
         getContext().scheduleReaction( this );
       }

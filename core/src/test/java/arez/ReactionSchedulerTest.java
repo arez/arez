@@ -51,7 +51,7 @@ public class ReactionSchedulerTest
     context.getTaskQueue()
       .getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
       .add( observer.getTask() );
-    observer.getTask().markAsScheduled();
+    observer.getTask().markAsQueued();
 
     assertInvariantFailure( () -> context.getExecutor().onRunawayTasksDetected(),
                             "Arez-0101: Runaway task(s) detected. Tasks still running after " +
@@ -385,7 +385,7 @@ public class ReactionSchedulerTest
 
     Transaction.setTransaction( null );
 
-    assertTrue( observer.getTask().isScheduled() );
+    assertTrue( observer.getTask().isQueued() );
     assertEquals( getNormalPriorityTaskCount( context ), 1 );
     assertEquals( context.getExecutor().getCurrentRound(), 0 );
     assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
@@ -397,7 +397,7 @@ public class ReactionSchedulerTest
     assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertEquals( context.getExecutor().getCurrentRound(), 1 );
     assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertFalse( observer.getTask().isScheduled() );
+    assertFalse( observer.getTask().isQueued() );
 
     final boolean ran2 = context.getExecutor().runNextTask();
 
@@ -406,7 +406,7 @@ public class ReactionSchedulerTest
     assertEquals( getNormalPriorityTaskCount( context ), 0 );
     assertEquals( context.getExecutor().getCurrentRound(), 0 );
     assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
-    assertFalse( observer.getTask().isScheduled() );
+    assertFalse( observer.getTask().isQueued() );
   }
 
   @Test
@@ -425,7 +425,7 @@ public class ReactionSchedulerTest
     //observer has observed so setStale should result in reschedule
     observer.setState( Flags.STATE_STALE );
 
-    assertTrue( observer.getTask().isScheduled() );
+    assertTrue( observer.getTask().isQueued() );
     assertEquals( getNormalPriorityTaskCount( context ), 1 );
     assertEquals( context.getExecutor().getCurrentRound(), 0 );
     assertEquals( context.getExecutor().getRemainingTasksInCurrentRound(), 0 );
@@ -489,7 +489,7 @@ public class ReactionSchedulerTest
 
       //observer has observed so setStale should result in reschedule
       observers[ i ].setState( Flags.STATE_STALE );
-      assertTrue( observers[ i ].getTask().isScheduled() );
+      assertTrue( observers[ i ].getTask().isQueued() );
     }
 
     Transaction.setTransaction( null );
@@ -578,7 +578,7 @@ public class ReactionSchedulerTest
     context.pauseScheduler();
     context.safeAction( observer::reportStale );
 
-    assertTrue( observer.getTask().isScheduled() );
+    assertTrue( observer.getTask().isQueued() );
 
     context.markSchedulerAsActive();
 
@@ -627,7 +627,7 @@ public class ReactionSchedulerTest
     observerReference.set( observer );
     context.pauseScheduler();
     context.safeAction( observer::reportStale );
-    assertTrue( observer.getTask().isScheduled() );
+    assertTrue( observer.getTask().isQueued() );
 
     context.markSchedulerAsActive();
 

@@ -64,7 +64,6 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.ComputableValue", "setError" );
     index.assertNoMemberMatches( "arez\\.ComputableValue", "setComputing" );
     index.assertNoMemberMatches( "arez\\.ObservableValue", "getWorkState" );
-    index.assertNoMemberMatches( "arez\\.Observer", "markAsScheduled" );
     index.assertNoMemberMatches( "arez\\.ObserverErrorHandlerSupport", "getObserverErrorHandlers" );
     index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getPendingObservers" );
     index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getCurrentReactionRound" );

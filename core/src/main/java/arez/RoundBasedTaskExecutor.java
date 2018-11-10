@@ -143,10 +143,7 @@ final class RoundBasedTaskExecutor
 
     if ( Arez.purgeTasksWhenRunawayDetected() )
     {
-      for ( final Task task : _taskQueue.clear() )
-      {
-        task.markAsExecuted();
-      }
+      _taskQueue.clear();
     }
 
     if ( Arez.shouldCheckInvariants() )

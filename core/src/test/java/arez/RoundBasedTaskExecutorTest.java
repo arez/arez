@@ -34,11 +34,8 @@ public class RoundBasedTaskExecutorTest
     final Task task2 = new Task( "B", task2CallCount::incrementAndGet );
     final Task task3 = new Task( "C", task3CallCount::incrementAndGet );
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
     taskQueue.queueTask( task2 );
-    task2.markAsScheduled();
     taskQueue.queueTask( task3 );
-    task3.markAsScheduled();
 
     assertEquals( executor.getMaxRounds(), 2 );
 
@@ -78,9 +75,7 @@ public class RoundBasedTaskExecutorTest
 
     // Now we schedule some tasks again to push execution into round 2
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
     taskQueue.queueTask( task2 );
-    task2.markAsScheduled();
 
     assertEquals( taskQueue.getQueueSize(), 3 );
 
@@ -138,11 +133,8 @@ public class RoundBasedTaskExecutorTest
     final Task task2 = new Task( "B", task2CallCount::incrementAndGet );
     final Task task3 = new Task( "C", task3CallCount::incrementAndGet );
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
     taskQueue.queueTask( task2 );
-    task2.markAsScheduled();
     taskQueue.queueTask( task3 );
-    task3.markAsScheduled();
 
     assertEquals( executor.getMaxRounds(), 2 );
     assertEquals( executor.getCurrentRound(), 0 );
@@ -186,11 +178,9 @@ public class RoundBasedTaskExecutorTest
       task1CallCount.incrementAndGet();
       final Task task = taskRef.get();
       taskQueue.queueTask( task );
-      task.markAsScheduled();
     } );
     taskRef.set( task1 );
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
 
     assertEquals( executor.getMaxRounds(), 2 );
     assertEquals( executor.getCurrentRound(), 0 );
@@ -202,7 +192,7 @@ public class RoundBasedTaskExecutorTest
 
     // Ensure tasks purged
     assertEquals( taskQueue.getQueueSize(), 0 );
-    assertFalse( task1.isScheduled() );
+    assertFalse( task1.isQueued() );
 
     assertEquals( task1CallCount.get(), 2 );
   }
@@ -223,11 +213,9 @@ public class RoundBasedTaskExecutorTest
       task1CallCount.incrementAndGet();
       final Task task = taskRef.get();
       taskQueue.queueTask( task );
-      task.markAsScheduled();
     } );
     taskRef.set( task1 );
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
 
     assertEquals( executor.getMaxRounds(), 2 );
     assertEquals( executor.getCurrentRound(), 0 );
@@ -238,7 +226,7 @@ public class RoundBasedTaskExecutorTest
 
     // Ensure tasks purged
     assertEquals( taskQueue.getQueueSize(), 0 );
-    assertFalse( task1.isScheduled() );
+    assertFalse( task1.isQueued() );
 
     assertEquals( task1CallCount.get(), 2 );
   }
@@ -253,14 +241,13 @@ public class RoundBasedTaskExecutorTest
 
     final Task task1 = new Task( "A", ValueUtil::randomString );
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
 
     assertInvariantFailure( executor::onRunawayTasksDetected,
                             "Arez-0101: Runaway task(s) detected. Tasks still running after 2 rounds. Current tasks include: [A]" );
 
     // Ensure tasks purged
     assertEquals( taskQueue.getQueueSize(), 0 );
-    assertFalse( task1.isScheduled() );
+    assertFalse( task1.isQueued() );
   }
 
   @Test
@@ -273,13 +260,12 @@ public class RoundBasedTaskExecutorTest
 
     final Task task1 = new Task( "A", ValueUtil::randomString );
     taskQueue.queueTask( task1 );
-    task1.markAsScheduled();
 
     assertInvariantFailure( executor::onRunawayTasksDetected,
                             "Arez-0101: Runaway task(s) detected. Tasks still running after 2 rounds. Current tasks include: [A]" );
 
     // Ensure tasks not purged
     assertEquals( taskQueue.getQueueSize(), 1 );
-    assertTrue( task1.isScheduled() );
+    assertTrue( task1.isQueued() );
   }
 }

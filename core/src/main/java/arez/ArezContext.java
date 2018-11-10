@@ -984,7 +984,6 @@ public final class ArezContext
                        "read-only tracking transaction. Observers that are supporting ComputableValue instances " +
                        "must not schedule self." );
     }
-    observer.getTask().markAsScheduled();
     _taskQueue.queueTask( observer.getPriorityIndex(), observer.getTask() );
   }
 

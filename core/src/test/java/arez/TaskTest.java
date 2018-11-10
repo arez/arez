@@ -20,24 +20,24 @@ public class TaskTest
 
     assertEquals( task.toString(), name );
 
-    assertFalse( task.isScheduled() );
+    assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     // Mark scheduling so we see that dispose flips schedule flag
-    task.markAsScheduled();
+    task.markAsQueued();
 
-    assertTrue( task.isScheduled() );
+    assertTrue( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     task.dispose();
 
-    assertFalse( task.isScheduled() );
+    assertFalse( task.isQueued() );
     assertTrue( task.isDisposed() );
 
     // Second dispose is effectively a no-op
     task.dispose();
 
-    assertFalse( task.isScheduled() );
+    assertFalse( task.isQueued() );
     assertTrue( task.isDisposed() );
   }
 
@@ -66,41 +66,39 @@ public class TaskTest
   }
 
   @Test
-  public void scheduleFlag()
+  public void queuedFlag()
   {
     final Task task = new Task( ValueUtil.randomString(), ValueUtil::randomString );
 
-    assertFalse( task.isScheduled() );
+    assertFalse( task.isQueued() );
 
-    task.markAsScheduled();
+    task.markAsQueued();
 
-    assertTrue( task.isScheduled() );
+    assertTrue( task.isQueued() );
 
-    task.markAsExecuted();
+    task.markAsDequeued();
 
-    assertFalse( task.isScheduled() );
+    assertFalse( task.isQueued() );
   }
 
   @Test
-  public void markAsScheduled_alreadyScheduled()
+  public void markAsQueued_alreadyScheduled()
   {
-    final Task task = new Task( ValueUtil.randomString(), ValueUtil::randomString );
+    final Task task = new Task( "X", ValueUtil::randomString );
 
-    task.markAsScheduled();
-    assertInvariantFailure( task::markAsScheduled,
-                            "Arez-0128: Attempting to re-schedule task named '" + task.getName() +
-                            "' when task is already scheduled." );
+    task.markAsQueued();
+    assertInvariantFailure( task::markAsQueued,
+                            "Arez-0128: Attempting to re-queue task named 'X' when task is queued." );
 
   }
 
   @Test
   public void markAsExecuted_notScheduled()
   {
-    final Task task = new Task( ValueUtil.randomString(), ValueUtil::randomString );
+    final Task task = new Task( "X", ValueUtil::randomString );
 
-    assertInvariantFailure( task::markAsExecuted,
-                            "Arez-0129: Attempting to clear scheduled flag on task named '" + task.getName() +
-                            "' but task is not scheduled." );
+    assertInvariantFailure( task::markAsDequeued,
+                            "Arez-0129: Attempting to clear queued flag on task named 'X' but task is not queued." );
 
   }
 
@@ -124,14 +122,14 @@ public class TaskTest
     final AtomicInteger callCount = new AtomicInteger();
     final Task task = new Task( ValueUtil.randomString(), callCount::incrementAndGet );
 
-    task.markAsScheduled();
+    task.markAsQueued();
 
     assertEquals( callCount.get(), 0 );
-    assertTrue( task.isScheduled() );
+    assertTrue( task.isQueued() );
 
     task.executeTask();
 
     assertEquals( callCount.get(), 1 );
-    assertFalse( task.isScheduled() );
+    assertFalse( task.isQueued() );
   }
 }

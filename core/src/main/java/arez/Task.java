@@ -25,7 +25,7 @@ final class Task
   /**
    * Flag set to true when the task has been scheduled and should not be re-scheduled until next executed.
    */
-  private boolean _scheduled;
+  private boolean _queued;
   /**
    * Flag set to true when the task has been disposed and should no longer be scheduled.
    */
@@ -97,9 +97,9 @@ final class Task
     // It is possible that the task was executed outside the executor and
     // may no longer need to be executed. This particularly true when executing tasks
     // using the "idle until urgent" strategy.
-    if ( isScheduled() )
+    if ( isQueued() )
     {
-      markAsExecuted();
+      markAsDequeued();
 
       // Observers currently catch error and handle internally. Thus no need to catch
       // errors here. is this correct behaviour? We could instead handle it here by
@@ -117,7 +117,7 @@ final class Task
     if ( isNotDisposed() )
     {
       _disposed = true;
-      _scheduled = false;
+      _queued = false;
     }
   }
 
@@ -131,32 +131,32 @@ final class Task
   }
 
   /**
-   * Mark task as being scheduled, first verifying that it is not already scheduled.
-   * This is used so that task will not be able to be scheduled again until it has run.
+   * Mark task as being queued, first verifying that it is not already queued.
+   * This is used so that task will not be able to be queued again until it has run.
    */
-  void markAsScheduled()
+  void markAsQueued()
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !_scheduled,
-                 () -> "Arez-0128: Attempting to re-schedule task named '" + getName() +
-                       "' when task is already scheduled." );
+      invariant( () -> !_queued,
+                 () -> "Arez-0128: Attempting to re-queue task named '" + getName() +
+                       "' when task is queued." );
     }
-    _scheduled = true;
+    _queued = true;
   }
 
   /**
-   * Clear the scheduled flag, first verifying that the task is scheduled.
+   * Clear the queued flag, first verifying that the task is queued.
    */
-  void markAsExecuted()
+  void markAsDequeued()
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> _scheduled,
-                 () -> "Arez-0129: Attempting to clear scheduled flag on task named '" + getName() +
-                       "' but task is not scheduled." );
+      invariant( () -> _queued,
+                 () -> "Arez-0129: Attempting to clear queued flag on task named '" + getName() +
+                       "' but task is not queued." );
     }
-    _scheduled = false;
+    _queued = false;
   }
 
   /**
@@ -164,8 +164,8 @@ final class Task
    *
    * @return true if task is already scheduled.
    */
-  boolean isScheduled()
+  boolean isQueued()
   {
-    return _scheduled;
+    return _queued;
   }
 }
