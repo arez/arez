@@ -22,8 +22,6 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
-* Add assertions to verify all the `_context` fields in `Transaction`, `SpyImpl`, `ScheduleLock`, `MemoizeCache`, `ReactionScheduler` is not present if zones enabled.
-
 * Add assertions to verify that `Locator` and related is stripped out unless enabled.
 
 * Add ErrorProne to build

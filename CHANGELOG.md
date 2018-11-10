@@ -14,6 +14,8 @@
   `arez.ReactionEnvironment`.
 * **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to ensure names are omitted if names are
   disabled.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `_context` field in `Transaction`,
+  `SpyImpl`, `ScheduleLock`, `MemoizeCache` and `ReactionScheduler` classes is not present if zones disabled.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
