@@ -29,6 +29,9 @@ complete as there is too much un-said.
 
 * For components with synthetic ids - the id should be in a separate class to avoid creation of `<clinit>`
 
+* Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
+  OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
+
 * Consider reworking scheduler to pull in work from streak. Then import and test
   `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
   dispose queue into regular task queue. Long term we could consider moving this and a time based
