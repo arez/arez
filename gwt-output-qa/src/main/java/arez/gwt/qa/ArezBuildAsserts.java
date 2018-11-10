@@ -65,10 +65,6 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.ComputableValue", "setComputing" );
     index.assertNoMemberMatches( "arez\\.ObservableValue", "getWorkState" );
     index.assertNoMemberMatches( "arez\\.ObserverErrorHandlerSupport", "getObserverErrorHandlers" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getPendingObservers" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getCurrentReactionRound" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getRemainingReactionsInCurrentRound" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "setCurrentReactionRound" );
     index.assertNoMemberMatches( "arez\\.SpyImpl", "getSpyEventHandlers" );
     index.assertNoMemberMatches( "arez\\.Transaction", "getPendingDeactivations" );
     index.assertNoMemberMatches( "arez\\.Transaction", "setTransaction" );
@@ -195,7 +191,6 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.Node", "_context", enabled );
     index.assertSymbol( "arez\\.Component", "_context", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
-    index.assertSymbol( "arez\\.ReactionScheduler", "_context", enabled );
     index.assertSymbol( "arez\\.SchedulerLock", "_context", enabled );
     index.assertSymbol( "arez\\.SpyImpl", "_context", enabled );
     index.assertSymbol( "arez\\.Transaction", "_context", enabled );

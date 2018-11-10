@@ -7,7 +7,6 @@ complete as there is too much un-said.
 ## Current PR
 
 * Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
-* Move disposeQueue into just being a list of high priority tasks and remove `ReactionScheduler`.
 * `Task.Work` should a `@JsFunction`
 
 ## Enhancements

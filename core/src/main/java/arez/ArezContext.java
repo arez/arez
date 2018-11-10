@@ -39,11 +39,6 @@ public final class ArezContext
    */
   private int _nextTransactionId = 1;
   /**
-   * Reaction Scheduler.
-   * Currently hard-coded, in the future potentially configurable.
-   */
-  private final ReactionScheduler _scheduler = new ReactionScheduler( Arez.areZonesEnabled() ? this : null );
-  /**
    * Tasks scheduled but  yet to be run.
    */
   @Nonnull
@@ -1178,13 +1173,13 @@ public final class ArezContext
             // feeds back into Arez.
             do
             {
-              safeRunInEnvironment( safeProcedureToFunction( _scheduler::runPendingTasks ) );
+              safeRunInEnvironment( safeProcedureToFunction( _executor::runTasks ) );
             }
-            while ( _scheduler.hasTasksToSchedule() );
+            while ( _taskQueue.hasTasks() );
           }
           else
           {
-            _scheduler.runPendingTasks();
+            _executor.runTasks();
           }
         }
         finally
@@ -1265,11 +1260,12 @@ public final class ArezContext
    * The disposable must not already be in the list of pending observers.
    * The disposable will be processed before the next top-level reaction.
    *
+   * @param name       the name describing the dispose task.
    * @param disposable the disposable.
    */
-  public void scheduleDispose( @Nonnull final Disposable disposable )
+  public void scheduleDispose( @Nullable final String name, @Nonnull final Disposable disposable )
   {
-    _scheduler.scheduleDispose( disposable );
+    _taskQueue.queueTask( 0, new Task( generateName( "Dispose", name ), disposable::dispose ) );
   }
 
   /**
@@ -2397,12 +2393,6 @@ public final class ArezContext
   int currentNextTransactionId()
   {
     return _nextTransactionId;
-  }
-
-  @Nonnull
-  ReactionScheduler getScheduler()
-  {
-    return _scheduler;
   }
 
   void setNextNodeId( final int nextNodeId )

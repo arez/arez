@@ -3394,16 +3394,43 @@ public class ArezContextTest
   public void scheduleDispose()
   {
     final ArezContext context = Arez.context();
-    final ReactionScheduler scheduler = context.getScheduler();
+    final MultiPriorityTaskQueue queue = context.getTaskQueue();
 
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
-    assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
+    assertEquals( queue.getOrderedTasks().count(), 0L );
 
-    context.scheduleDispose( observer );
+    final String name = observer.getName() + ".dispose";
+    context.scheduleDispose( name, observer );
 
-    assertEquals( scheduler.getPendingDisposes().size(), 1 );
-    assertTrue( scheduler.getPendingDisposes().contains( observer ) );
+    assertEquals( queue.getOrderedTasks().count(), 1L );
+
+    final CircularBuffer<Task> buffer = queue.getBufferByPriority( 0 );
+    assertEquals( buffer.size(), 1 );
+    final Task task = buffer.get( 0 );
+    assertNotNull( task );
+    assertEquals( task.getName(), name );
+  }
+
+  @Test
+  public void scheduleDispose_withNoNameWhenNamesEnabled()
+  {
+    final ArezContext context = Arez.context();
+    final MultiPriorityTaskQueue queue = context.getTaskQueue();
+
+    final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
+
+    assertEquals( queue.getOrderedTasks().count(), 0L );
+
+    context.scheduleDispose( null, observer );
+
+    assertEquals( queue.getOrderedTasks().count(), 1L );
+
+    final CircularBuffer<Task> buffer = queue.getBufferByPriority( 0 );
+    assertEquals( buffer.size(), 1 );
+    final Task task = buffer.get( 0 );
+    assertNotNull( task );
+    assertEquals( task.getName(), "Dispose@3" );
   }
 
   @Test

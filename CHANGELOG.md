@@ -18,6 +18,17 @@
   `SpyImpl`, `ScheduleLock`, `MemoizeCache` and `ReactionScheduler` classes is not present if zones disabled.
 * **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `Locator` interface and supporting
   infrastructure is omitted if references are disabled.
+* **\[core\]** Changed the api of the `ArezContext.scheduleDispose(...)` method to accept an optional name
+  that will identify the task used to schedule dispose action. The name will be derived if not specified and
+  names are required.
+* **\[core\]** Completely refactor the scheduler to extract monolithic scheduler into smaller components,
+  including a separate `TaskQueue` and an `Executor`. This is based on experiments conducted as parted of the
+  `Streak` streaming events library. This also made it possible to merge the separate dispose action task queue
+  and the observer reaction queue into a single unified task queue. As a result deferred disposes are scheduled
+  at the same priority as `HIGHEST` priority reactions. This may result in some differences in task sequencing as
+  previous to this change deferred dispose task were treated as a higher priority queue than `HIGHEST`. However
+  if the application used the priorities as documented or only used the higher level component abstraction then
+  this change should have no practical impact on application behaviour.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
