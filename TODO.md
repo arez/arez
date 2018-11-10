@@ -4,7 +4,12 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Enhancements
+## Current PR
+
+* Consider reworking scheduler to pull in work from streak. Then import and test
+  `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
+  dispose queue into regular task queue. Long term we could consider moving this and a time based
+  scheduler into another package so could be used in other contexts.
 
 * Ensure name of task is stripped in production in `BuildOutputAsserts`
 * Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
@@ -14,6 +19,8 @@ complete as there is too much un-said.
 * Add tests
   - `FifoTaskQueue`
   - `RoundBasedTaskExecutor`
+
+## Enhancements
 
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
@@ -30,11 +37,6 @@ complete as there is too much un-said.
 
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
-
-* Consider reworking scheduler to pull in work from streak. Then import and test
-  `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
-  dispose queue into regular task queue. Long term we could consider moving this and a time based
-  scheduler into another package so could be used in other contexts.
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
