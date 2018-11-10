@@ -218,6 +218,23 @@ public final class ArezBuildAsserts
   }
 
   /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_references`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
+  public static void assertReferencesOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.AggregateLocator", enabled );
+    index.assertSymbol( "arez\\.Locator", enabled );
+    index.assertSymbol( "arez\\.component\\.TypeBasedLocator", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_locator", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "registerLocator", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "locator", enabled );
+  }
+
+  /**
    * This assertion verifies that the symbols that are conditional on the `arez.enable_native_components`
    * setting are present if enabled and not present if not enabled.
    *
@@ -279,6 +296,7 @@ public final class ArezBuildAsserts
    */
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
                                         final boolean areNamesEnabled,
+                                        final boolean areReferencesEnabled,
                                         final boolean areEnvironmentsEnabled,
                                         final boolean areSpiesEnabled,
                                         final boolean areNativeComponentsEnabled,
@@ -290,6 +308,7 @@ public final class ArezBuildAsserts
   {
     assertStandardOutputs( index );
     assertAreNamesEnabled( index, areNamesEnabled );
+    assertReferencesOutputs( index, areReferencesEnabled );
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
     assertAreRegistriesEnabled( index, areRegistriesEnabled );
