@@ -49,7 +49,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     context.getTaskQueue()
-      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
       .add( observer.getTask() );
     observer.getTask().markAsScheduled();
 
@@ -71,7 +71,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     context.getTaskQueue()
-      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
       .add( observer.getTask() );
 
     assertThrows( IllegalStateException.class, () -> context.getExecutor().onRunawayTasksDetected() );
@@ -89,7 +89,7 @@ public class ReactionSchedulerTest
 
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     context.getTaskQueue()
-      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
       .add( observer.getTask() );
 
     context.getExecutor().onRunawayTasksDetected();
@@ -182,7 +182,7 @@ public class ReactionSchedulerTest
 
     assertEquals( getNormalPriorityTaskCount( context ), 1 );
     assertTrue( context.getTaskQueue()
-                  .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+                  .getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
                   .contains( observer.getTask() ) );
     assertTrue( scheduler.hasTasksToSchedule() );
   }
@@ -344,7 +344,7 @@ public class ReactionSchedulerTest
   private CircularBuffer<Task> getTasksByPriority( @Nonnull final ArezContext context, final int priority )
   {
     final int priorityIndex = Flags.getPriorityIndex( priority );
-    return context.getTaskQueue().getTasksByPriority( priorityIndex );
+    return context.getTaskQueue().getBufferByPriority( priorityIndex );
   }
 
   @Test
@@ -356,7 +356,7 @@ public class ReactionSchedulerTest
 
     context
       .getTaskQueue()
-      .getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
+      .getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) )
       .add( observer.getTask() );
 
     assertInvariantFailure( () -> queueTask( context, observer ),
@@ -443,7 +443,7 @@ public class ReactionSchedulerTest
 
     setupReadWriteTransaction();
     // Purge the observer that was scheduled
-    context.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).clear();
+    context.getTaskQueue().getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).clear();
 
     final int round1Size = 10;
     final int round2Size = 4;
@@ -722,7 +722,7 @@ public class ReactionSchedulerTest
 
   private int getNormalPriorityTaskCount( final ArezContext context )
   {
-    return context.getTaskQueue().getTasksByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).size();
+    return context.getTaskQueue().getBufferByPriority( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL ) ).size();
   }
 
   @Test

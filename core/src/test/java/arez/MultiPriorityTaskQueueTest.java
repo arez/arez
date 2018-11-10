@@ -15,7 +15,7 @@ public class MultiPriorityTaskQueueTest
     final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 22 );
 
     assertEquals( queue.getPriorityCount(), 3 );
-    assertEquals( queue.getTasksByPriority( 0 ).getCapacity(), 22 );
+    assertEquals( queue.getBufferByPriority( 0 ).getCapacity(), 22 );
   }
 
   @Test
@@ -63,11 +63,11 @@ public class MultiPriorityTaskQueueTest
     queue.queueTask( 1, newTask( "F" ) );
     assertEquals( queue.getQueueSize(), 6 );
 
-    assertEquals( queue.getTasksByPriority( 0 ).size(), 1 );
-    assertEquals( queue.getTasksByPriority( 1 ).size(), 2 );
-    assertEquals( queue.getTasksByPriority( 2 ).size(), 1 );
-    assertEquals( queue.getTasksByPriority( 3 ).size(), 0 );
-    assertEquals( queue.getTasksByPriority( 4 ).size(), 2 );
+    assertEquals( queue.getBufferByPriority( 0 ).size(), 1 );
+    assertEquals( queue.getBufferByPriority( 1 ).size(), 2 );
+    assertEquals( queue.getBufferByPriority( 2 ).size(), 1 );
+    assertEquals( queue.getBufferByPriority( 3 ).size(), 0 );
+    assertEquals( queue.getBufferByPriority( 4 ).size(), 2 );
 
     assertEquals( getTask( queue, 0, 0 ).getName(), "A" );
     assertEquals( getTask( queue, 1, 0 ).getName(), "B" );
@@ -132,7 +132,7 @@ public class MultiPriorityTaskQueueTest
   @Nonnull
   private Task getTask( @Nonnull final MultiPriorityTaskQueue queue, final int priority, final int index )
   {
-    final Task task = queue.getTasksByPriority( priority ).get( index );
+    final Task task = queue.getBufferByPriority( priority ).get( index );
     assertNotNull( task );
     return task;
   }

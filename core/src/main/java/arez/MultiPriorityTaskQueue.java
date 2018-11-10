@@ -19,7 +19,7 @@ final class MultiPriorityTaskQueue
    * A buffer per priority containing tasks that have been scheduled but are not executing.
    */
   @Nonnull
-  private final CircularBuffer<Task>[] _taskQueues;
+  private final CircularBuffer<Task>[] _buffers;
 
   /**
    * Construct queue with specified priority count where each priority is backed by a buffer with specified size.
@@ -32,10 +32,10 @@ final class MultiPriorityTaskQueue
   {
     assert priorityCount > 0;
     assert bufferSize > 0;
-    _taskQueues = (CircularBuffer<Task>[]) new CircularBuffer[ priorityCount ];
+    _buffers = (CircularBuffer<Task>[]) new CircularBuffer[ priorityCount ];
     for ( int i = 0; i < priorityCount; i++ )
     {
-      _taskQueues[ i ] = new CircularBuffer<>( bufferSize );
+      _buffers[ i ] = new CircularBuffer<>( bufferSize );
     }
   }
 
@@ -46,7 +46,7 @@ final class MultiPriorityTaskQueue
    */
   int getPriorityCount()
   {
-    return _taskQueues.length;
+    return _buffers.length;
   }
 
   /**
@@ -57,9 +57,9 @@ final class MultiPriorityTaskQueue
   {
     int count = 0;
     //noinspection ForLoopReplaceableByForEach
-    for ( int i = 0; i < _taskQueues.length; i++ )
+    for ( int i = 0; i < _buffers.length; i++ )
     {
-      count += _taskQueues[ i ].size();
+      count += _buffers[ i ].size();
     }
     return count;
   }
@@ -71,9 +71,9 @@ final class MultiPriorityTaskQueue
   public boolean hasTasks()
   {
     //noinspection ForLoopReplaceableByForEach
-    for ( int i = 0; i < _taskQueues.length; i++ )
+    for ( int i = 0; i < _buffers.length; i++ )
     {
-      if ( !_taskQueues[ i ].isEmpty() )
+      if ( !_buffers[ i ].isEmpty() )
       {
         return true;
       }
@@ -92,14 +92,14 @@ final class MultiPriorityTaskQueue
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> Arrays.stream( _taskQueues ).noneMatch( b -> b.contains( task ) ),
+      invariant( () -> Arrays.stream( _buffers ).noneMatch( b -> b.contains( task ) ),
                  () -> "Arez-0099: Attempting to queue task named '" + task.getName() +
                        "' when task is already queued." );
-      invariant( () -> priority >= 0 && priority < _taskQueues.length,
+      invariant( () -> priority >= 0 && priority < _buffers.length,
                  () -> "Arez-0215: Attempting to queue task named '" + task.getName() +
                        "' but passed an invalid priority " + priority + "." );
     }
-    _taskQueues[ priority ].add( Objects.requireNonNull( task ) );
+    _buffers[ priority ].add( Objects.requireNonNull( task ) );
   }
 
   /**
@@ -111,9 +111,9 @@ final class MultiPriorityTaskQueue
   {
     // Return the highest priority taskQueue that has tasks in it and return task.
     //noinspection ForLoopReplaceableByForEach
-    for ( int i = 0; i < _taskQueues.length; i++ )
+    for ( int i = 0; i < _buffers.length; i++ )
     {
-      final CircularBuffer<Task> taskQueue = _taskQueues[ i ];
+      final CircularBuffer<Task> taskQueue = _buffers[ i ];
       if ( !taskQueue.isEmpty() )
       {
         final Task task = taskQueue.pop();
@@ -132,9 +132,9 @@ final class MultiPriorityTaskQueue
   {
     final ArrayList<Task> tasks = new ArrayList<>();
     //noinspection ForLoopReplaceableByForEach
-    for ( int i = 0; i < _taskQueues.length; i++ )
+    for ( int i = 0; i < _buffers.length; i++ )
     {
-      final CircularBuffer<Task> taskQueue = _taskQueues[ i ];
+      final CircularBuffer<Task> taskQueue = _buffers[ i ];
       taskQueue.stream().forEach( tasks::add );
       taskQueue.clear();
     }
@@ -149,12 +149,12 @@ final class MultiPriorityTaskQueue
   public Stream<Task> getOrderedTasks()
   {
     assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    return Stream.of( _taskQueues ).flatMap( CircularBuffer::stream );
+    return Stream.of( _buffers ).flatMap( CircularBuffer::stream );
   }
 
   @Nonnull
-  CircularBuffer<Task> getTasksByPriority( final int priority )
+  CircularBuffer<Task> getBufferByPriority( final int priority )
   {
-    return _taskQueues[ priority ];
+    return _buffers[ priority ];
   }
 }
