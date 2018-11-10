@@ -24,18 +24,18 @@ final class MultiPriorityTaskQueue
   /**
    * Construct queue with specified priority count where each priority is backed by a buffer with specified size.
    *
-   * @param priorityCount the number of priorities supported.
-   * @param bufferSize    the initial size of buffer for each priority.
+   * @param priorityCount   the number of priorities supported.
+   * @param initialCapacity the initial size of buffer for each priority.
    */
   @SuppressWarnings( "unchecked" )
-  MultiPriorityTaskQueue( final int priorityCount, final int bufferSize )
+  MultiPriorityTaskQueue( final int priorityCount, final int initialCapacity )
   {
     assert priorityCount > 0;
-    assert bufferSize > 0;
+    assert initialCapacity > 0;
     _buffers = (CircularBuffer<Task>[]) new CircularBuffer[ priorityCount ];
     for ( int i = 0; i < priorityCount; i++ )
     {
-      _buffers[ i ] = new CircularBuffer<>( bufferSize );
+      _buffers[ i ] = new CircularBuffer<>( initialCapacity );
     }
   }
 
