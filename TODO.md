@@ -26,6 +26,9 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
+  based on appropriate annotation magic.
+
 * Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
   `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
   The generated components then just delegate methods to it. The goal is to reduce the per-component
