@@ -15,8 +15,6 @@ complete as there is too much un-said.
 * Move disposeQueue into just being a list of high priority tasks and remove `ReactionScheduler`.
 * Expose `TaskQueue` stats to spy subsystem
 * `Task.Work` should a `@JsFunction`
-* Add tests
-  - `FifoTaskQueue`
 
 ## Enhancements
 
