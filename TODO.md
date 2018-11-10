@@ -10,7 +10,6 @@ complete as there is too much un-said.
   dispose queue into regular task queue. Long term we could consider moving this and a time based
   scheduler into another package so could be used in other contexts.
 
-* Ensure name of task is stripped in production in `BuildOutputAsserts`
 * Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
 * Move disposeQueue into just being a list of high priority tasks and remove `ReactionScheduler`.
 * Expose `TaskQueue` stats to spy subsystem
