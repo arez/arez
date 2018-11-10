@@ -6,8 +6,7 @@ complete as there is too much un-said.
 
 ## Current PR
 
-* Consider reworking scheduler to pull in work from streak. Then import and test
-  `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
+* Consider reworking scheduler to pull in work from streak. This would hopefully allow the collapsing of
   dispose queue into regular task queue. Long term we could consider moving this and a time based
   scheduler into another package so could be used in other contexts.
 
