@@ -18,17 +18,17 @@ final class FifoTaskQueue
    * A buffer per priority containing tasks that have been scheduled but are not executing.
    */
   @Nonnull
-  private final CircularBuffer<Task> _taskQueue;
+  private final CircularBuffer<Task> _buffer;
 
   FifoTaskQueue( final int queueSize )
   {
-    _taskQueue = new CircularBuffer<>( queueSize );
+    _buffer = new CircularBuffer<>( queueSize );
   }
 
   @Override
   public int getQueueSize()
   {
-    return _taskQueue.size();
+    return _buffer.size();
   }
 
   /**
@@ -37,7 +37,7 @@ final class FifoTaskQueue
   @Override
   public boolean hasTasks()
   {
-    return !_taskQueue.isEmpty();
+    return !_buffer.isEmpty();
   }
 
   /**
@@ -50,11 +50,11 @@ final class FifoTaskQueue
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !_taskQueue.contains( task ),
+      invariant( () -> !_buffer.contains( task ),
                  () -> "Arez-0098: Attempting to queue task named '" + task.getName() +
                        "' when task is already queued." );
     }
-    _taskQueue.add( Objects.requireNonNull( task ) );
+    _buffer.add( Objects.requireNonNull( task ) );
   }
 
   /**
@@ -64,7 +64,7 @@ final class FifoTaskQueue
   @Override
   public Task dequeueTask()
   {
-    return _taskQueue.pop();
+    return _buffer.pop();
   }
 
   /**
@@ -74,8 +74,8 @@ final class FifoTaskQueue
   public Collection<Task> clear()
   {
     final ArrayList<Task> tasks = new ArrayList<>();
-    _taskQueue.stream().forEach( tasks::add );
-    _taskQueue.clear();
+    _buffer.stream().forEach( tasks::add );
+    _buffer.clear();
     return tasks;
   }
 
@@ -86,12 +86,12 @@ final class FifoTaskQueue
   @Override
   public Stream<Task> getOrderedTasks()
   {
-    return _taskQueue.stream();
+    return _buffer.stream();
   }
 
   @Nonnull
   CircularBuffer<Task> getBuffer()
   {
-    return _taskQueue;
+    return _buffer;
   }
 }
