@@ -6,7 +6,6 @@ complete as there is too much un-said.
 
 ## Current PR
 
-* Rename `purgeReactionsWhenRunawayDetected` to `purgeTasksWhenRunawayDetected`
 * `Task.Work` should a `@JsFunction`
 
 ## Enhancements

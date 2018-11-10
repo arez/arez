@@ -167,7 +167,7 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void runTasks_invoking_onRunawayReactionsDetected()
   {
-    ArezTestUtil.purgeReactionsWhenRunawayDetected();
+    ArezTestUtil.purgeTasksWhenRunawayDetected();
 
     final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
@@ -201,7 +201,7 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void runTasks_invoking_onRunawayReactionsDetected_noInvariantsEnabled()
   {
-    ArezTestUtil.purgeReactionsWhenRunawayDetected();
+    ArezTestUtil.purgeTasksWhenRunawayDetected();
     ArezTestUtil.noCheckInvariants();
 
     final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
@@ -234,7 +234,7 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void onRunawayReactionsDetected()
   {
-    ArezTestUtil.purgeReactionsWhenRunawayDetected();
+    ArezTestUtil.purgeTasksWhenRunawayDetected();
 
     final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
@@ -253,7 +253,7 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void onRunawayReactionsDetected_noPurgeConfigured()
   {
-    ArezTestUtil.noPurgeReactionsWhenRunawayDetected();
+    ArezTestUtil.noPurgeTasksWhenRunawayDetected();
 
     final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );

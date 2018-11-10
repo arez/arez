@@ -167,7 +167,7 @@ public final class Arez
    */
   public static boolean purgeTasksWhenRunawayDetected()
   {
-    return ArezConfig.purgeReactionsWhenRunawayDetected();
+    return ArezConfig.purgeTasksWhenRunawayDetected();
   }
 
   /**

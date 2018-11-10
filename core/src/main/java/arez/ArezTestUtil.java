@@ -60,7 +60,7 @@ public final class ArezTestUtil
     enableObserverErrorHandlers();
     enableReferences();
     enableEnvironments();
-    purgeReactionsWhenRunawayDetected();
+    purgeTasksWhenRunawayDetected();
     disableZones();
 
     resetState();
@@ -209,29 +209,29 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.purge_reactions_when_runaway_detected` setting to true.
+   * Set `arez.purge_tasks_when_runaway_detected` setting to true.
    */
-  public static void purgeReactionsWhenRunawayDetected()
+  public static void purgeTasksWhenRunawayDetected()
   {
-    setPurgeReactionsWhenRunawayDetected( true );
+    setPurgeTasksWhenRunawayDetected( true );
   }
 
   /**
-   * Set `arez.purge_reactions_when_runaway_detected` setting to false.
+   * Set `arez.purge_tasks_when_runaway_detected` setting to false.
    */
-  public static void noPurgeReactionsWhenRunawayDetected()
+  public static void noPurgeTasksWhenRunawayDetected()
   {
-    setPurgeReactionsWhenRunawayDetected( false );
+    setPurgeTasksWhenRunawayDetected( false );
   }
 
   /**
-   * Configure the `arez.purge_reactions_when_runaway_detected` setting.
+   * Configure the `arez.purge_tasks_when_runaway_detected` setting.
    *
    * @param value the setting.
    */
-  private static void setPurgeReactionsWhenRunawayDetected( final boolean value )
+  private static void setPurgeTasksWhenRunawayDetected( final boolean value )
   {
-    setConstant( "PURGE_REACTIONS", value );
+    setConstant( "PURGE_ON_RUNAWAY", value );
   }
 
   /**
