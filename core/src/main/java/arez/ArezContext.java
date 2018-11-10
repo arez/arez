@@ -1309,7 +1309,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @return the value returned from the executable.
    * @throws Exception if the executable throws an an exception.
@@ -1326,7 +1326,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @return the value returned from the executable.
@@ -1345,7 +1345,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -1442,7 +1442,7 @@ public final class ArezContext
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @return the value returned from the executable.
    */
@@ -1456,7 +1456,7 @@ public final class ArezContext
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @return the value returned from the executable.
@@ -1473,7 +1473,7 @@ public final class ArezContext
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -1562,7 +1562,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @throws Throwable if the procedure throws an an exception.
    */
@@ -1577,7 +1577,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @throws Throwable if the procedure throws an an exception.
@@ -1594,7 +1594,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -1717,7 +1717,7 @@ public final class ArezContext
   /**
    * Execute the supplied executable in a transaction.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    */
   public void safeAction( @Nullable final String name, @Nonnull final SafeProcedure executable )
@@ -1728,7 +1728,7 @@ public final class ArezContext
   /**
    * Execute the supplied executable in a transaction.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    */
@@ -1740,7 +1740,7 @@ public final class ArezContext
   /**
    * Execute the supplied executable in a transaction.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
