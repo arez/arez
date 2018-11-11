@@ -14,8 +14,6 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
-* Add assertions to verify that `?`  is stripped out unless `enable_property_introspection` enabled.
-
 * Add ErrorProne to build
 
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions

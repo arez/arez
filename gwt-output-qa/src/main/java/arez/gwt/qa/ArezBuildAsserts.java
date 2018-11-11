@@ -197,6 +197,29 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.component\\.MemoizeCache", "_context", enabled );
   }
 
+
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_environments`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
+  public static void assertPropertyIntrospectorOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.spy\\.PropertyAccessor", enabled );
+    index.assertSymbol( "arez\\.ComputableValueInfoImpl", "getValue", enabled );
+    index.assertSymbol( "arez\\.ComputableValueInfoImpl", "_accessor", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "getAccessor", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "_mutator", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "getMutator", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "getObservableValue", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "hasAccessor", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "getValue", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "hasMutator", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "setValue", enabled );
+  }
+
   /**
    * This assertion verifies that the symbols that are conditional on the `arez.enable_environments`
    * setting are present if enabled and not present if not enabled.
@@ -291,6 +314,7 @@ public final class ArezBuildAsserts
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
                                         final boolean areNamesEnabled,
                                         final boolean areReferencesEnabled,
+                                        final boolean arePropertyIntrospectorsEnabled,
                                         final boolean areEnvironmentsEnabled,
                                         final boolean areSpiesEnabled,
                                         final boolean areNativeComponentsEnabled,
@@ -303,6 +327,7 @@ public final class ArezBuildAsserts
     assertStandardOutputs( index );
     assertAreNamesEnabled( index, areNamesEnabled );
     assertReferencesOutputs( index, areReferencesEnabled );
+    assertPropertyIntrospectorOutputs( index, areReferencesEnabled );
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
     assertAreRegistriesEnabled( index, areRegistriesEnabled );

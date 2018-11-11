@@ -18,6 +18,8 @@
   `SpyImpl`, `ScheduleLock`, `MemoizeCache` and `ReactionScheduler` classes is not present if zones disabled.
 * **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `Locator` interface and supporting
   infrastructure is omitted if references are disabled.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `PropertyAccessor` interface and
+  supporting infrastructure is omitted if property introspectors are disabled.
 * **\[core\]** Changed the api of the `ArezContext.scheduleDispose(...)` method to accept an optional name
   that will identify the task used to schedule dispose action. The name will be derived if not specified and
   names are required.
