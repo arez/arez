@@ -2,7 +2,6 @@ package arez;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
@@ -38,7 +37,7 @@ public abstract class AbstractArezTest
     ArezTestUtil.resetConfig( true );
     if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
     {
-      fail( "Unexpected Observer Errors: " + _observerErrors.stream().collect( Collectors.joining( "\n" ) ) );
+      fail( "Unexpected Observer Errors: " + String.join( "\n", _observerErrors ) );
     }
   }
 
@@ -78,7 +77,7 @@ public abstract class AbstractArezTest
 
   @SuppressWarnings( "SameParameterValue" )
   final void setField( @Nonnull final Object object, @Nonnull final String fieldName, @Nullable final Object value )
-    throws NoSuchFieldException, IllegalAccessException
+    throws IllegalAccessException
   {
     getField( object.getClass(), fieldName ).set( object, value );
   }

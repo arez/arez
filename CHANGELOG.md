@@ -2,6 +2,38 @@
 
 ### Unreleased
 
+* **\[core\]** Fixed bug inside scheduler that occurred when runaway reactions were detected and purged.
+  The observers had been removed from the task queue but still had the flag set indicating that they were
+  scheduled. If a subsequent action triggered the observer to be re-scheduled, the runtime would skip the
+  step of queueing the observer as it believed the observer was still in the queue. Thus observers that had
+  been purged would never react again.
+* **\[gwt-output-qa\]** Remove assertions from `ArezBuildAsserts` that reference classes that have been
+  removed. i.e. Assertions for non-existent classes such as `arez.Reaction` and `arez.TransactionMode`.
+* **\[gwt-output-qa\]** Update assertions in `ArezBuildAsserts` that reference classes that have been
+  renamed. i.e. Assertions for classes such as `arez.ReactionEnvironment` that was renamed to
+  `arez.ReactionEnvironment`.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to ensure names are omitted if names are
+  disabled.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `_context` field in `Transaction`,
+  `SpyImpl`, `ScheduleLock`, `MemoizeCache` and `ReactionScheduler` classes is not present if zones disabled.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `Locator` interface and supporting
+  infrastructure is omitted if references are disabled.
+* **\[gwt-output-qa\]** Add assertions in `ArezBuildAsserts` to verify the `PropertyAccessor` interface and
+  supporting infrastructure is omitted if property introspectors are disabled.
+* **\[core\]** Changed the api of the `ArezContext.scheduleDispose(...)` method to accept an optional name
+  that will identify the task used to schedule dispose action. The name will be derived if not specified and
+  names are required.
+* **\[core\]** Completely refactor the scheduler to extract monolithic scheduler into smaller components,
+  including a separate `TaskQueue` and an `Executor`. This is based on experiments conducted as parted of the
+  `Streak` streaming events library. This also made it possible to merge the separate dispose action task queue
+  and the observer reaction queue into a single unified task queue. As a result deferred disposes are scheduled
+  at the same priority as `HIGHEST` priority reactions. This may result in some differences in task sequencing as
+  previous to this change deferred dispose task were treated as a higher priority queue than `HIGHEST`. However
+  if the application used the priorities as documented or only used the higher level component abstraction then
+  this change should have no practical impact on application behaviour.
+* **\[core\]** Rename the compile time constant `arez.purge_reactions_when_runaway_detected` to
+  `arez.purge_tasks_when_runaway_detected` and rename all related infrastructure.
+
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
 

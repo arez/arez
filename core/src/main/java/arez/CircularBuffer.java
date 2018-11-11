@@ -47,6 +47,17 @@ final class CircularBuffer<T>
     _isWrappedBuffer = false;
   }
 
+  /**
+   * Return the current capacity of the buffer.
+   * The buffer may grow.
+   *
+   * @return the current capacity of the buffer.
+   */
+  int getCapacity()
+  {
+    return _elements.length;
+  }
+
   int size()
   {
     if ( _isWrappedBuffer )

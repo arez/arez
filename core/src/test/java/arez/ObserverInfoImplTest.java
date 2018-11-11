@@ -64,7 +64,7 @@ public class ObserverInfoImplTest
 
     assertFalse( info.isScheduled() );
 
-    observer.setScheduledFlag();
+    observer.getTask().markAsQueued();
 
     assertTrue( info.isScheduled() );
   }

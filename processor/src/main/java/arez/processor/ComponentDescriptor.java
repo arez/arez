@@ -3674,7 +3674,7 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N = $N().computable( " +
                             "$T.areNativeComponentsEnabled() ? this.$N : null, " +
                             "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "() -> $N(), null, () -> $N().scheduleDispose( this ), null, $T.PRIORITY_HIGHEST )",
+                            "() -> $N(), null, () -> $N().scheduleDispose( $T.areNamesEnabled() ? $N() + $S : null, this ), null, $T.PRIORITY_HIGHEST )",
                             GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
                             getContextMethodName(),
                             GeneratorUtil.AREZ_CLASSNAME,
@@ -3684,6 +3684,9 @@ final class ComponentDescriptor
                             ".disposeOnDeactivate",
                             GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME,
                             getContextMethodName(),
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            getComponentNameMethodName(),
+                            ".disposeOnDeactivate",
                             GeneratorUtil.FLAGS_CLASSNAME );
     }
 

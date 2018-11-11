@@ -406,6 +406,7 @@ public class FlagsTest
       final String name = field.getName();
       if ( !name.endsWith( "_MASK" ) &&
            !name.endsWith( "_SHIFT" ) &&
+           !"PRIORITY_COUNT".equals( name ) &&
            !Modifier.isPrivate( field.getModifiers() ) &&
            !field.isSynthetic() )
       {

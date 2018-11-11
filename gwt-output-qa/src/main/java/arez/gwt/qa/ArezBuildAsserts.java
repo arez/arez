@@ -20,9 +20,6 @@ public final class ArezBuildAsserts
    */
   public static void assertStandardOutputs( @Nonnull final SymbolEntryIndex index )
   {
-    // These are JsFunction instances and thus should be omitted
-    index.assertNoClassNameMatches( "arez\\.Reaction" );
-
     assertNoTestOnlyElements( index );
 
     // This should be optimized out completely
@@ -67,12 +64,7 @@ public final class ArezBuildAsserts
     index.assertNoMemberMatches( "arez\\.ComputableValue", "setError" );
     index.assertNoMemberMatches( "arez\\.ComputableValue", "setComputing" );
     index.assertNoMemberMatches( "arez\\.ObservableValue", "getWorkState" );
-    index.assertNoMemberMatches( "arez\\.Observer", "markAsScheduled" );
     index.assertNoMemberMatches( "arez\\.ObserverErrorHandlerSupport", "getObserverErrorHandlers" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getPendingObservers" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getCurrentReactionRound" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "getRemainingReactionsInCurrentRound" );
-    index.assertNoMemberMatches( "arez\\.ReactionScheduler", "setCurrentReactionRound" );
     index.assertNoMemberMatches( "arez\\.SpyImpl", "getSpyEventHandlers" );
     index.assertNoMemberMatches( "arez\\.Transaction", "getPendingDeactivations" );
     index.assertNoMemberMatches( "arez\\.Transaction", "setTransaction" );
@@ -93,8 +85,6 @@ public final class ArezBuildAsserts
   public static void assertShouldEnforceTransactionTypeOutputs( @Nonnull final SymbolEntryIndex index,
                                                                 final boolean enabled )
   {
-    // Assert no Transaction validation cruft is enabled as !Arez.shouldEnforceTransactionType() in the build
-    index.assertSymbol( "arez\\.TransactionMode", enabled );
   }
 
   /**
@@ -108,7 +98,7 @@ public final class ArezBuildAsserts
                                                                     final boolean enabled )
   {
     // Assert RepositoryUtil is eliminated once !Arez.areCollectionsPropertiesUnmodifiable() in the build
-    index.assertSymbol( "arez\\.component\\.RepositoryUtil", enabled );
+    index.assertSymbol( "arez\\.component\\.CollectionsUtil", enabled );
   }
 
   /**
@@ -139,6 +129,11 @@ public final class ArezBuildAsserts
                                             final boolean enabled )
   {
     index.assertSymbol( "arez\\.ThrowableUtil", enabled );
+    index.assertSymbol( "arez\\.Component", "_name", enabled );
+    index.assertSymbol( "arez\\.Node", "_name", enabled );
+    index.assertSymbol( "arez\\.Task", "_name", enabled );
+    index.assertSymbol( "arez\\.Transaction", "_name", enabled );
+    index.assertSymbol( "arez\\.component\\.MemoizeCache", "_name", enabled );
     index.assertSymbol( ".*\\.Arez_.*Repository", "getRepositoryName", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "toString", enabled );
   }
@@ -194,7 +189,35 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.Arez", "currentZone", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "$$arezi$$_context", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
-    index.assertSymbol( "arez\\.ReactionScheduler", "_context", enabled );
+    index.assertSymbol( "arez\\.Component", "_context", enabled );
+    index.assertSymbol( "arez\\.Node", "_context", enabled );
+    index.assertSymbol( "arez\\.SchedulerLock", "_context", enabled );
+    index.assertSymbol( "arez\\.SpyImpl", "_context", enabled );
+    index.assertSymbol( "arez\\.Transaction", "_context", enabled );
+    index.assertSymbol( "arez\\.component\\.MemoizeCache", "_context", enabled );
+  }
+
+
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_environments`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
+  public static void assertPropertyIntrospectorOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.spy\\.PropertyAccessor", enabled );
+    index.assertSymbol( "arez\\.ComputableValueInfoImpl", "getValue", enabled );
+    index.assertSymbol( "arez\\.ComputableValueInfoImpl", "_accessor", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "getAccessor", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "_mutator", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "getMutator", enabled );
+    index.assertSymbol( "arez\\.ObservableValue", "getObservableValue", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "hasAccessor", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "getValue", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "hasMutator", enabled );
+    index.assertSymbol( "arez\\.ObservableValueInfoImpl", "setValue", enabled );
   }
 
   /**
@@ -206,9 +229,26 @@ public final class ArezBuildAsserts
    */
   public static void assertEnvironmentsOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
-    index.assertSymbol( "arez\\.ReactionEnvironment", enabled );
+    index.assertSymbol( "arez\\.Environment", enabled );
     index.assertSymbol( "arez\\.ArezContext", "_environment", enabled );
     index.assertSymbol( "arez\\.ArezContext", "_inEnvironmentContext", enabled );
+  }
+
+  /**
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_references`
+   * setting are present if enabled and not present if not enabled.
+   *
+   * @param index   the index that contains all symbols for output target.
+   * @param enabled true if setting is enabled, false otherwise.
+   */
+  public static void assertReferencesOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
+  {
+    index.assertSymbol( "arez\\.AggregateLocator", enabled );
+    index.assertSymbol( "arez\\.Locator", enabled );
+    index.assertSymbol( "arez\\.component\\.TypeBasedLocator", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_locator", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "registerLocator", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "locator", enabled );
   }
 
   /**
@@ -223,7 +263,6 @@ public final class ArezBuildAsserts
     // Assert no Component cruft is enabled as !Arez.areNativeComponentsEnabled() in the build
     index.assertSymbol( "arez\\.Component.*", enabled );
     index.assertSymbol( ".*\\.Arez_.*", "$$arezi$$_component", enabled );
-    index.assertSymbol( ".*\\.Arez_.*Repository", "component", enabled );
 
     // No repositories need their own identity if native components disabled
     assertSyntheticId( index, ".*\\.Arez_[^\\.]+Repository", false );
@@ -274,6 +313,8 @@ public final class ArezBuildAsserts
    */
   public static void assertArezOutputs( @Nonnull final SymbolEntryIndex index,
                                         final boolean areNamesEnabled,
+                                        final boolean areReferencesEnabled,
+                                        final boolean arePropertyIntrospectorsEnabled,
                                         final boolean areEnvironmentsEnabled,
                                         final boolean areSpiesEnabled,
                                         final boolean areNativeComponentsEnabled,
@@ -285,6 +326,8 @@ public final class ArezBuildAsserts
   {
     assertStandardOutputs( index );
     assertAreNamesEnabled( index, areNamesEnabled );
+    assertReferencesOutputs( index, areReferencesEnabled );
+    assertPropertyIntrospectorOutputs( index, areReferencesEnabled );
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
     assertAreRegistriesEnabled( index, areRegistriesEnabled );

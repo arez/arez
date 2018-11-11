@@ -39,10 +39,15 @@ public final class ArezContext
    */
   private int _nextTransactionId = 1;
   /**
-   * Reaction Scheduler.
-   * Currently hard-coded, in the future potentially configurable.
+   * Tasks scheduled but  yet to be run.
    */
-  private final ReactionScheduler _scheduler = new ReactionScheduler( Arez.areZonesEnabled() ? this : null );
+  @Nonnull
+  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Flags.PRIORITY_COUNT, 100 );
+  /**
+   * Executor responsible for executing tasks.
+   */
+  @Nonnull
+  private final RoundBasedTaskExecutor _executor = new RoundBasedTaskExecutor( _taskQueue, 100 );
   /**
    * Support infrastructure for propagating observer errors.
    */
@@ -974,7 +979,7 @@ public final class ArezContext
                        "read-only tracking transaction. Observers that are supporting ComputableValue instances " +
                        "must not schedule self." );
     }
-    _scheduler.scheduleReaction( observer );
+    _taskQueue.queueTask( observer.getPriorityIndex(), observer.getTask() );
   }
 
   /**
@@ -1168,13 +1173,13 @@ public final class ArezContext
             // feeds back into Arez.
             do
             {
-              safeRunInEnvironment( safeProcedureToFunction( _scheduler::runPendingTasks ) );
+              safeRunInEnvironment( safeProcedureToFunction( _executor::runTasks ) );
             }
-            while ( _scheduler.hasTasksToSchedule() );
+            while ( _taskQueue.hasTasks() );
           }
           else
           {
-            _scheduler.runPendingTasks();
+            _executor.runTasks();
           }
         }
         finally
@@ -1255,11 +1260,12 @@ public final class ArezContext
    * The disposable must not already be in the list of pending observers.
    * The disposable will be processed before the next top-level reaction.
    *
+   * @param name       the name describing the dispose task.
    * @param disposable the disposable.
    */
-  public void scheduleDispose( @Nonnull final Disposable disposable )
+  public void scheduleDispose( @Nullable final String name, @Nonnull final Disposable disposable )
   {
-    _scheduler.scheduleDispose( disposable );
+    _taskQueue.queueTask( 0, new Task( generateName( "Dispose", name ), disposable::dispose ) );
   }
 
   /**
@@ -1299,7 +1305,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @return the value returned from the executable.
    * @throws Exception if the executable throws an an exception.
@@ -1316,7 +1322,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @return the value returned from the executable.
@@ -1335,7 +1341,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -1432,7 +1438,7 @@ public final class ArezContext
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @return the value returned from the executable.
    */
@@ -1446,7 +1452,7 @@ public final class ArezContext
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @return the value returned from the executable.
@@ -1463,7 +1469,7 @@ public final class ArezContext
    * The executable is should not throw an exception.
    *
    * @param <T>        the type of return value.
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -1552,7 +1558,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @throws Throwable if the procedure throws an an exception.
    */
@@ -1567,7 +1573,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @throws Throwable if the procedure throws an an exception.
@@ -1584,7 +1590,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -1707,7 +1713,7 @@ public final class ArezContext
   /**
    * Execute the supplied executable in a transaction.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    */
   public void safeAction( @Nullable final String name, @Nonnull final SafeProcedure executable )
@@ -1718,7 +1724,7 @@ public final class ArezContext
   /**
    * Execute the supplied executable in a transaction.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    */
@@ -1730,7 +1736,7 @@ public final class ArezContext
   /**
    * Execute the supplied executable in a transaction.
    *
-   * @param name       the name of the transaction.
+   * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
@@ -2182,6 +2188,23 @@ public final class ArezContext
     return _spy;
   }
 
+  /**
+   * Return the task queue associated with the context.
+   *
+   * @return the task queue associated with the context.
+   */
+  @Nonnull
+  MultiPriorityTaskQueue getTaskQueue()
+  {
+    return _taskQueue;
+  }
+
+  @Nonnull
+  RoundBasedTaskExecutor getExecutor()
+  {
+    return _executor;
+  }
+
   void registerObservableValue( @Nonnull final ObservableValue observableValue )
   {
     final String name = observableValue.getName();
@@ -2370,12 +2393,6 @@ public final class ArezContext
   int currentNextTransactionId()
   {
     return _nextTransactionId;
-  }
-
-  @Nonnull
-  ReactionScheduler getScheduler()
-  {
-    return _scheduler;
   }
 
   void setNextNodeId( final int nextNodeId )

@@ -11,6 +11,8 @@ public class CircularBufferTest
   {
     final CircularBuffer<String> buffer = new CircularBuffer<>( 3 );
     assertEquals( buffer.size(), 0 );
+    assertEquals( buffer.getCapacity(), 3 );
+
     assertNull( buffer.get( 0 ) );
     assertNull( buffer.get( 1 ) );
     assertNull( buffer.get( 2 ) );
@@ -20,6 +22,7 @@ public class CircularBufferTest
 
     buffer.add( "A" );
     assertEquals( buffer.size(), 1 );
+    assertEquals( buffer.getCapacity(), 3 );
     assertEquals( buffer.get( 0 ), "A" );
     assertNull( buffer.get( 1 ) );
     assertNull( buffer.get( 2 ) );
@@ -28,6 +31,7 @@ public class CircularBufferTest
 
     buffer.add( "B" );
     assertEquals( buffer.size(), 2 );
+    assertEquals( buffer.getCapacity(), 3 );
     assertEquals( buffer.get( 0 ), "A" );
     assertEquals( buffer.get( 1 ), "B" );
     assertNull( buffer.get( 2 ) );
@@ -36,6 +40,7 @@ public class CircularBufferTest
 
     buffer.add( "C" );
     assertEquals( buffer.size(), 3 );
+    assertEquals( buffer.getCapacity(), 3 );
     assertEquals( buffer.get( 0 ), "A" );
     assertEquals( buffer.get( 1 ), "B" );
     assertEquals( buffer.get( 2 ), "C" );
@@ -45,6 +50,7 @@ public class CircularBufferTest
     assertEquals( buffer.pop(), "A" );
 
     assertEquals( buffer.size(), 2 );
+    assertEquals( buffer.getCapacity(), 3 );
     assertEquals( buffer.get( 0 ), "B" );
     assertEquals( buffer.get( 1 ), "C" );
     assertNull( buffer.get( 2 ) );
@@ -53,6 +59,7 @@ public class CircularBufferTest
 
     buffer.add( "D" );
     assertEquals( buffer.size(), 3 );
+    assertEquals( buffer.getCapacity(), 3 );
     assertEquals( buffer.get( 0 ), "B" );
     assertEquals( buffer.get( 1 ), "C" );
     assertEquals( buffer.get( 2 ), "D" );
@@ -63,6 +70,7 @@ public class CircularBufferTest
     buffer.add( "F" );
     buffer.add( "G" );
     assertEquals( buffer.size(), 6 );
+    assertEquals( buffer.getCapacity(), 9 );
     assertEquals( buffer.get( 0 ), "B" );
     assertEquals( buffer.get( 1 ), "C" );
     assertEquals( buffer.get( 2 ), "D" );

@@ -161,6 +161,10 @@ public final class Flags
    */
   private static final int PRIORITY_SHIFT = 15;
   /**
+   * The number of priority levels.
+   */
+  static final int PRIORITY_COUNT = 5;
+  /**
    * The action or observer must be wrapped by the {@link Environment} if the environment is
    * supplied to the {@link ArezContext}. This flag is incompatible with {@link #ENVIRONMENT_NOT_REQUIRED}
    * and the javadocs for {@link #ENVIRONMENT_NOT_REQUIRED} documents how the default value is derived.
@@ -229,13 +233,14 @@ public final class Flags
   static final int ACTION_FLAGS_MASK =
     TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK | NO_REPORT_RESULT;
   /**
+   * The flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  static final int UNUSED = 1 << 10;
+  /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observe} or {@link Observer#_onDepsChange}.
    */
-  static final int EXECUTE_OBSERVE_NEXT = 1 << 10;
-  /**
-   * The observer has been scheduled.
-   */
-  static final int SCHEDULED = 1 << 9;
+  static final int EXECUTE_OBSERVE_NEXT = 1 << 9;
   /**
    * Mask used to extract state bits.
    * State is the lowest bits as it is the most frequently accessed numeric fields
@@ -273,7 +278,7 @@ public final class Flags
   /**
    * Mask that identifies the bits associated with runtime configuration.
    */
-  static final int RUNTIME_FLAGS_MASK = EXECUTE_OBSERVE_NEXT | SCHEDULED | STATE_MASK;
+  static final int RUNTIME_FLAGS_MASK = EXECUTE_OBSERVE_NEXT | STATE_MASK;
 
   /**
    * Return true if flags contains priority.

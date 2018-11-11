@@ -10,11 +10,24 @@ complete as there is too much un-said.
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
 
-* Consider reworking scheduler to pull in work from streak. Initial work would split scheduler into
-  `TaskQueue` interface, and a `MultiPriorityTaskQueue` implementation. Then import and test
-  `RoundBasedTaskExecutor` and `AbstractTaskExecutor`. This would hopefully allow the collapsing of
-  dispose queue into regular task queue. Long term we could consider moving this and a time based
-  scheduler into another package so could be used in other contexts.
+* Add ErrorProne to build
+
+* Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
+  based on appropriate annotation magic.
+
+* Consider removing the notion of environments form within Arez as only used to call `batchedUpdates` in
+  react and that already occurs during rendering and event handling. For the other scenarios (i.e. network
+  events etc.) we could manually call it from relevant places.
+
+* Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
+  `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
+  The generated components then just delegate methods to it. The goal is to reduce the per-component
+  code size.
+
+* For components with synthetic ids - the id should be in a separate class to avoid creation of `<clinit>`
+
+* Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
+  OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
@@ -56,7 +69,8 @@ complete as there is too much un-said.
   invariant failure and add documentation to the website.
 
   Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
-  they are only called from within the appropriate guard. Not sure this is possible.
+  they are only called from within the appropriate guard. Not sure this is possible. This probably requires a
+  custom rule in error prone.
 
   Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
   failure or made so that they are only emitted the first time they are triggered based on compile time

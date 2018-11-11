@@ -139,6 +139,15 @@ public class ExternalApiTest
   }
 
   @Test
+  public void purgeTasksWhenRunawayDetected()
+  {
+    ArezTestUtil.noPurgeTasksWhenRunawayDetected();
+    assertFalse( Arez.purgeTasksWhenRunawayDetected() );
+    ArezTestUtil.purgeTasksWhenRunawayDetected();
+    assertTrue( Arez.purgeTasksWhenRunawayDetected() );
+  }
+
+  @Test
   public void createComputableValue()
     throws Throwable
   {
@@ -662,18 +671,19 @@ public class ExternalApiTest
     } );
 
     assertEquals( trace,
-                  Arrays.asList( /*
-                                  * Initial observer reaction as runImmediate parameter was true
-                                  */
-                                 "PreTrace", "Observer", "PostTrace",
-                                 /*
-                                  * Explicit action!
-                                  */
-                                 "Action",
-                                 /*
-                                  * Action triggers scheduler and observer reacts to changes
-                                  */
-                                 "PreTrace", "Observer", "PostTrace" ) );
+                  Arrays.asList(
+                    /*
+                     * Initial observer reaction as runImmediate parameter was true
+                     */
+                    "PreTrace", "Observer", "PostTrace",
+                    /*
+                     * Explicit action!
+                     */
+                    "Action",
+                    /*
+                     * Action triggers scheduler and observer reacts to changes
+                     */
+                    "PreTrace", "Observer", "PostTrace" ) );
   }
 
   /**

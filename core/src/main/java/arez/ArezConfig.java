@@ -10,7 +10,7 @@ final class ArezConfig
   private static boolean ENABLE_NAMES = PROVIDER.areNamesEnabled();
   private static boolean ENABLE_VERIFY = PROVIDER.isVerifyEnabled();
   private static boolean ENABLE_PROPERTY_INTROSPECTION = PROVIDER.arePropertyIntrospectorsEnabled();
-  private static boolean PURGE_REACTIONS = PROVIDER.purgeReactionsWhenRunawayDetected();
+  private static boolean PURGE_ON_RUNAWAY = PROVIDER.purgeTasksWhenRunawayDetected();
   private static boolean ENFORCE_TRANSACTION_TYPE = PROVIDER.enforceTransactionType();
   private static boolean ENABLE_REFERENCES = PROVIDER.areReferencesEnabled();
   private static boolean ENABLE_SPIES = PROVIDER.areSpiesEnabled();
@@ -58,9 +58,9 @@ final class ArezConfig
     return ENFORCE_TRANSACTION_TYPE;
   }
 
-  static boolean purgeReactionsWhenRunawayDetected()
+  static boolean purgeTasksWhenRunawayDetected()
   {
-    return PURGE_REACTIONS;
+    return PURGE_ON_RUNAWAY;
   }
 
   static boolean areReferencesEnabled()
@@ -154,9 +154,9 @@ final class ArezConfig
 
     @GwtIncompatible
     @Override
-    boolean purgeReactionsWhenRunawayDetected()
+    boolean purgeTasksWhenRunawayDetected()
     {
-      return "true".equals( System.getProperty( "arez.purge_reactions_when_runaway_detected", "true" ) );
+      return "true".equals( System.getProperty( "arez.purge_tasks_when_runaway_detected", "true" ) );
     }
 
     @GwtIncompatible
@@ -267,9 +267,9 @@ final class ArezConfig
       return "true" == System.getProperty( "arez.enforce_transaction_type" );
     }
 
-    boolean purgeReactionsWhenRunawayDetected()
+    boolean purgeTasksWhenRunawayDetected()
     {
-      return "true" == System.getProperty( "arez.purge_reactions_when_runaway_detected" );
+      return "true" == System.getProperty( "arez.purge_tasks_when_runaway_detected" );
     }
 
     boolean areReferencesEnabled()

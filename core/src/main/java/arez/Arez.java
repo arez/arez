@@ -161,6 +161,16 @@ public final class Arez
   }
 
   /**
+   * Return true if active tasks will be purged if the scheduler is still running after 100 rounds.
+   *
+   * @return true if active tasks will be purged if the scheduler is still running after 100 rounds.
+   */
+  public static boolean purgeTasksWhenRunawayDetected()
+  {
+    return ArezConfig.purgeTasksWhenRunawayDetected();
+  }
+
+  /**
    * Return the ArezContext from the provider.
    *
    * @return the ArezContext.

@@ -468,15 +468,15 @@ public class ObservableValueTest
   public void addObserver_updatesLestStaleObserverState()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.observer( new CountAndObserveProcedure() );
-    setCurrentTransaction( observer );
+    final ComputableValue computable = context.computable( () -> 1 );
+    setCurrentTransaction( computable.getObserver() );
 
     final ObservableValue<?> observableValue = context.observable();
     observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    computable.getObserver().setState( Flags.STATE_POSSIBLY_STALE );
 
-    observableValue.addObserver( observer );
+    observableValue.addObserver( computable.getObserver() );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_POSSIBLY_STALE );
 

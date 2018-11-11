@@ -23,7 +23,7 @@ goog.define('arez.enable_verify', 'false');
 goog.define('arez.enforce_transaction_type', 'false');
 
 /** @define {string} */
-goog.define('arez.purge_reactions_when_runaway_detected', 'true');
+goog.define('arez.purge_tasks_when_runaway_detected', 'true');
 
 /** @define {string} */
 goog.define('arez.collections_properties_unmodifiable', 'false');
