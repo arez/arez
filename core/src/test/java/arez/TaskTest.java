@@ -46,8 +46,7 @@ public class TaskTest
   {
     ArezTestUtil.disableNames();
 
-    final Runnable work = ValueUtil::randomString;
-    final Task task = new Task( null, work );
+    final Task task = new Task( null, ValueUtil::randomString );
     assertTrue( task.toString().startsWith( task.getClass().getName() + "@" ), "task.toString() == " + task );
 
     assertInvariantFailure( task::getName,
@@ -60,8 +59,7 @@ public class TaskTest
     ArezTestUtil.disableNames();
 
     final String name = ValueUtil.randomString();
-    final Runnable work = ValueUtil::randomString;
-    assertInvariantFailure( () -> new Task( name, work ),
+    assertInvariantFailure( () -> new Task( name, ValueUtil::randomString ),
                             "Arez-0130: Task passed a name '" + name + "' but Arez.areNamesEnabled() returns false" );
   }
 
