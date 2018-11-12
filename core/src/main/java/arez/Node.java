@@ -32,13 +32,10 @@ public abstract class Node
 
   Node( @Nullable final ArezContext context, @Nullable final String name )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-0180: Node passed a context but Arez.areZonesEnabled() is false" );
-    }
-    if ( Arez.shouldCheckApiInvariants() )
-    {
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false" );
     }
