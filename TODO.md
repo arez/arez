@@ -24,8 +24,6 @@ complete as there is too much un-said.
   The generated components then just delegate methods to it. The goal is to reduce the per-component
   code size.
 
-* For components with synthetic ids - the id should be in a separate class to avoid creation of `<clinit>`
-
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
 
