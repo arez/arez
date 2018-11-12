@@ -19,7 +19,7 @@ public abstract class Node
   implements Disposable
 {
   /**
-   * Reference to the system to which this node belongs.
+   * Reference to the context to which this node belongs.
    */
   @Nullable
   private final ArezContext _context;
