@@ -33,6 +33,8 @@
   this change should have no practical impact on application behaviour.
 * **\[core\]** Rename the compile time constant `arez.purge_reactions_when_runaway_detected` to
   `arez.purge_tasks_when_runaway_detected` and rename all related infrastructure.
+* **\[core\]** Fix a bug in `arez.Node` where an `apiInvariant` check was guarded by `Arez.shouldCheckInvariants()`
+  rather than the correct `Arez.shouldCheckApiInvariants()`.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
