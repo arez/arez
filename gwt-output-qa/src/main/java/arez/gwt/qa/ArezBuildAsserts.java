@@ -180,7 +180,6 @@ public final class ArezBuildAsserts
    */
   public static void assertZoneOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
-
     index.assertSymbol( "arez\\.Zone", enabled );
     index.assertSymbol( "arez\\.ArezZoneHolder", enabled );
     index.assertSymbol( "arez\\.Arez", "createZone", enabled );
