@@ -326,7 +326,7 @@ public final class ArezBuildAsserts
     assertStandardOutputs( index );
     assertAreNamesEnabled( index, areNamesEnabled );
     assertReferencesOutputs( index, areReferencesEnabled );
-    assertPropertyIntrospectorOutputs( index, areReferencesEnabled );
+    assertPropertyIntrospectorOutputs( index, arePropertyIntrospectorsEnabled );
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
     assertAreRegistriesEnabled( index, areRegistriesEnabled );
