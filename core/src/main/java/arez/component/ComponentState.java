@@ -126,10 +126,9 @@ public final class ComponentState
         return "ready";
       case COMPONENT_DISPOSING:
         return "disposing";
-      case COMPONENT_DISPOSED:
-        return "disposed";
       default:
-        throw new IllegalStateException( "Unexpected state passed into ComponentState.describe: " + state );
+        assert COMPONENT_DISPOSED == state;
+        return "disposed";
     }
   }
 
