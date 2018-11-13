@@ -19,6 +19,10 @@ import java.lang.annotation.Target;
  * annotation is not present the Annotation processor will synthesize an ID as a
  * monotonically increasing integer for each instance of the type.</p>
  *
+ * <p>It should also be noted that this method will be invoked before the component
+ * has been completely constructed as it is used during construction of the reactive
+ * elements.</p>
+ *
  * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
