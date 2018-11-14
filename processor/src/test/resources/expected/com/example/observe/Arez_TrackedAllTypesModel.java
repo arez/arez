@@ -91,13 +91,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render1, () -> super.render1(), null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render1, () -> super.render1(), null );
   }
 
   @Override
@@ -119,13 +113,7 @@ public final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implem
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      return this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render3, () -> super.render3(), null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    return this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render3, () -> super.render3(), null );
   }
 
   @Override
