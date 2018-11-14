@@ -3141,6 +3141,7 @@ final class ComponentDescriptor
     builder.addStatement( "return this.$N.isDisposed()", GeneratorUtil.KERNEL_FIELD_NAME );
     return builder.build();
   }
+
   /**
    * Generate the observe method.
    */
