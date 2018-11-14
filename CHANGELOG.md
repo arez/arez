@@ -43,6 +43,8 @@
   which may impact custom introspection tools.
 * **\[core\]** Extract out common code from the generated components into `ComponentKernel` to reduce the
   amount of code generated per-component.
+* **\[core\]** Change the annotation on `Disposable.dispose(...)` to allow a null parameter. The code already
+  correctly handled this scenario.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)
