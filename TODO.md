@@ -102,10 +102,6 @@ complete as there is too much un-said.
 
 * Completed the `arez-devtools` project.
 
-* Support `@OnChange` for `@Observable` and `@Memoize` methods. This hook is called immediately after the
-  change and includes the old value and the new value. The nullability annotations on the hook method should
-  match expectations.
-
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
