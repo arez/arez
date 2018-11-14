@@ -221,6 +221,7 @@ public final class MemoizeCache<T>
    * Retrieve the computable value for specified parameters, creating it if necessary.
    *
    * @param args the arguments passed to the memoized function.
+   * @return the computable value instance for the specified args.
    */
   @SuppressWarnings( "unchecked" )
   public ComputableValue<T> getComputableValue( @Nonnull final Object... args )
