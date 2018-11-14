@@ -309,7 +309,7 @@ public final class ComponentKernel
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> COMPONENT_INITIALIZED == _state,
-                    () -> "Arez-0218: Bad state transition from " + describeState( _state ) +
+                    () -> "Arez-0219: Bad state transition from " + describeState( _state ) +
                           " to " + describeState( COMPONENT_CONSTRUCTED ) +
                           " on component named '" + getName() + "'." );
       _state = COMPONENT_CONSTRUCTED;
@@ -328,7 +328,7 @@ public final class ComponentKernel
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> COMPONENT_CONSTRUCTED == _state,
-                    () -> "Arez-0218: Bad state transition from " + describeState( _state ) +
+                    () -> "Arez-0220: Bad state transition from " + describeState( _state ) +
                           " to " + describeState( COMPONENT_COMPLETE ) +
                           " on component named '" + getName() + "'." );
       _state = COMPONENT_COMPLETE;
