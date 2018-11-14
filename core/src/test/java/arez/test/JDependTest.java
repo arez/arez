@@ -44,6 +44,7 @@ public class JDependTest
 
     component.dependsUpon( braincheck );
     component.dependsUpon( arez );
+    component.dependsUpon( spy );
 
     final DependencyConstraint.MatchResult result = jdepend.analyzeDependencies( constraint );
 
