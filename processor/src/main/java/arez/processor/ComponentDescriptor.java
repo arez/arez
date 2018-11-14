@@ -501,8 +501,7 @@ final class ComponentDescriptor
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
-      new ActionDescriptor( this,
-                            name,
+      new ActionDescriptor( name,
                             requireNewTransaction,
                             requireEnvironment,
                             mutation,

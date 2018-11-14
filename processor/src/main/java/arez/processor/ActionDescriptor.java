@@ -23,8 +23,6 @@ import javax.lang.model.type.TypeMirror;
 final class ActionDescriptor
 {
   @Nonnull
-  private final ComponentDescriptor _componentDescriptor;
-  @Nonnull
   private final String _name;
   private final boolean _requireNewTransaction;
   private final boolean _requireEnvironment;
@@ -37,8 +35,7 @@ final class ActionDescriptor
   @Nonnull
   private final ExecutableType _actionType;
 
-  ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
-                    @Nonnull final String name,
+  ActionDescriptor( @Nonnull final String name,
                     final boolean requireNewTransaction,
                     final boolean requireEnvironment,
                     final boolean mutation,
@@ -48,7 +45,6 @@ final class ActionDescriptor
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _requireNewTransaction = requireNewTransaction;
     _requireEnvironment = requireEnvironment;
