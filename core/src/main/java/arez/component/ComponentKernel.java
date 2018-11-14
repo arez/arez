@@ -24,6 +24,10 @@ public final class ComponentKernel
   implements Disposable
 {
   /**
+   * The component has been created, but not yet initialized.
+   */
+  private final static byte COMPONENT_CREATED = 0;
+  /**
    * The components constructor has been called, the {@link ArezContext} field initialized (if necessary),
    * and the synthetic id has been generated (if required).
    */
@@ -53,10 +57,6 @@ public final class ComponentKernel
    * The component has been disposed.
    */
   private final static byte COMPONENT_DISPOSED = -1;
-  /**
-   * The component has been created, but not yet initialized.
-   */
-  private final static byte COMPONENT_CREATED = 0;
   /**
    * Reference to the context to which this component belongs.
    */
