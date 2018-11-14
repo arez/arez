@@ -77,8 +77,6 @@ final class GeneratorUtil
    */
   private static final String CAUGHT_THROWABLE_NAME = "$$arez_exception$$";
   static final String LOCATOR_METHOD_NAME = FRAMEWORK_PREFIX + "locator";
-  static final String DISPOSED_OBSERVABLE_FIELD_NAME = FRAMEWORK_PREFIX + "disposedObservable";
-  static final String DISPOSE_ON_DEACTIVATE_FIELD_NAME = FRAMEWORK_PREFIX + "disposeOnDeactivate";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
   static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";

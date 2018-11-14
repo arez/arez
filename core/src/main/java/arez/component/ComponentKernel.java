@@ -21,7 +21,7 @@ import static org.realityforge.braincheck.Guards.*;
  * generated class but is instead in a single location. This results in smaller, faster code.
  */
 public final class ComponentKernel
-  implements Disposable
+  implements Disposable, ComponentObservable
 {
   /**
    * The component has been created, but not yet initialized.
@@ -108,13 +108,25 @@ public final class ComponentKernel
    */
   @Nullable
   private final DisposeNotifier _disposeNotifier;
+  /**
+   * Mechanism for implementing {@link ComponentObservable} on the component.
+   */
+  @Nullable
+  private final ObservableValue<Boolean> _componentObservable;
+  /**
+   * Mechanism for implementing {@link ArezComponent#disposeOnDeactivate()} on the component.
+   */
+  @Nullable
+  private final ComputableValue<Boolean> _disposeOnDeactivate;
 
   public ComponentKernel( @Nullable final ArezContext context,
                           @Nullable final String name,
                           final int id,
                           @Nullable final Component component,
-                          @Nullable final DisposeNotifier disposeNotifier,
-                          @Nullable final SafeProcedure disposeCallback )
+                          @Nullable final SafeProcedure disposeCallback,
+                          final boolean defineDisposeNotifier,
+                          final boolean isComponentObservable,
+                          final boolean disposeOnDeactivate )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -133,8 +145,66 @@ public final class ComponentKernel
     {
       _state = COMPONENT_INITIALIZED;
     }
-    _disposeNotifier = disposeNotifier;
+    _disposeNotifier = defineDisposeNotifier ? new DisposeNotifier() : null;
     _disposeCallback = Arez.areNativeComponentsEnabled() ? null : Objects.requireNonNull( disposeCallback );
+    _componentObservable = isComponentObservable ? createComponentObservable() : null;
+    _disposeOnDeactivate = disposeOnDeactivate ? createDisposeOnDeactivate() : null;
+  }
+
+  @Nonnull
+  private ComputableValue<Boolean> createDisposeOnDeactivate()
+  {
+    return getContext().computable( Arez.areNativeComponentsEnabled() ? getComponent() : null,
+                                    Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate" : null,
+                                    this::observe0,
+                                    null,
+                                    this::scheduleDispose,
+                                    null,
+                                    Flags.PRIORITY_HIGHEST );
+  }
+
+  private void scheduleDispose()
+  {
+    getContext().scheduleDispose( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate" : null, this );
+  }
+
+  @Nonnull
+  private ObservableValue<Boolean> createComponentObservable()
+  {
+    return getContext().observable( Arez.areNativeComponentsEnabled() ? getComponent() : null,
+                                    Arez.areNamesEnabled() ? getName() + ".isDisposed" : null,
+                                    Arez.arePropertyIntrospectorsEnabled() ? () -> _state > 0 : null );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean observe()
+  {
+    // TODO: invariant checks null != _disposeOnDeactivate or null != _componentObservable
+    if ( null != _disposeOnDeactivate )
+    {
+      return _disposeOnDeactivate.get();
+    }
+    else
+    {
+      return observe0();
+    }
+  }
+
+  /**
+   * Internal observe method that may be directly used or used from computable if disposeOnDeactivate is true.
+   */
+  private boolean observe0()
+  {
+    assert null != _componentObservable;
+    final boolean isNotDisposed = isNotDisposed();
+    if ( isNotDisposed )
+    {
+      _componentObservable.reportObserved();
+    }
+    return isNotDisposed;
   }
 
   /**
@@ -173,6 +243,17 @@ public final class ComponentKernel
   public boolean isDisposed()
   {
     return _state < 0;
+  }
+
+  public void releaseResources()
+  {
+    // If native components are enabled, these elements are registered with native component
+    // and will thus be disposed as part
+    if ( !Arez.areNativeComponentsEnabled() )
+    {
+      Disposable.dispose( _componentObservable );
+      Disposable.dispose( _disposeOnDeactivate );
+    }
   }
 
   /**

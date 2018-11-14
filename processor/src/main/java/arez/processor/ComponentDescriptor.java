@@ -2621,7 +2621,6 @@ final class ComponentDescriptor
 
     if ( _observable )
     {
-      builder.addMethod( buildInternalObserve() );
       builder.addMethod( buildObserve() );
     }
     if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
@@ -2682,7 +2681,10 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
-    codeBlock.addStatement( "return $S + this.$N.getName() + $S", "ArezComponent[", GeneratorUtil.KERNEL_FIELD_NAME, "]" );
+    codeBlock.addStatement( "return $S + this.$N.getName() + $S",
+                            "ArezComponent[",
+                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            "]" );
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "return super.toString()" );
     codeBlock.endControlFlow();
@@ -3111,7 +3113,7 @@ final class ComponentDescriptor
     }
     if ( _observable )
     {
-      builder.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
+      builder.addStatement( "this.$N.releaseResources()", GeneratorUtil.KERNEL_FIELD_NAME );
     }
     _roObserves.forEach( observe -> observe.buildDisposer( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildDisposer( builder ) );
@@ -3140,30 +3142,6 @@ final class ComponentDescriptor
     builder.addStatement( "return this.$N.isDisposed()", GeneratorUtil.KERNEL_FIELD_NAME );
     return builder.build();
   }
-
-  /**
-   * Generate the observe method.
-   */
-  @Nonnull
-  private MethodSpec buildInternalObserve()
-    throws ArezProcessorException
-  {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME ).
-        addModifiers( Modifier.PRIVATE ).
-        returns( TypeName.BOOLEAN );
-
-    builder.addStatement( "final boolean isNotDisposed = isNotDisposed()" );
-
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( isNotDisposed ) " );
-    block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
-    block.endControlFlow();
-    builder.addCode( block.build() );
-    builder.addStatement( "return isNotDisposed" );
-    return builder.build();
-  }
-
   /**
    * Generate the observe method.
    */
@@ -3176,15 +3154,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
-
-    if ( _disposeOnDeactivate )
-    {
-      builder.addStatement( "return $N.get()", GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME );
-    }
-    else
-    {
-      builder.addStatement( "return $N()", GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME );
-    }
+    builder.addStatement( "return this.$N.observe()", GeneratorUtil.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3324,33 +3294,10 @@ final class ComponentDescriptor
       builder.addField( nextIdField.build() );
     }
 
-    if ( _observable )
-    {
-      final ParameterizedTypeName typeName =
-        ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME, TypeName.BOOLEAN.box() );
-      final FieldSpec.Builder field =
-        FieldSpec.builder( typeName,
-                           GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE );
-      builder.addField( field.build() );
-    }
-
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildFields( builder ) );
     _roObserves.forEach( observe -> observe.buildFields( builder ) );
     _roReferences.forEach( r -> r.buildFields( builder ) );
-    if ( _disposeOnDeactivate )
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTABLE_VALUE_CLASSNAME,
-                                                      TypeName.BOOLEAN.box() ),
-                           GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      builder.addField( field.build() );
-    }
   }
 
   /**
@@ -3473,43 +3420,6 @@ final class ComponentDescriptor
       }
     }
 
-    if ( _observable )
-    {
-      builder.addStatement( "this.$N = $N.observable( " +
-                            "$T.areNativeComponentsEnabled() ? $N : null, " +
-                            "$T.areNamesEnabled() ? $N + $S : null, " +
-                            "$T.arePropertyIntrospectorsEnabled() ? () -> !this.$N.isDisposed() : null )",
-                            GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
-                            GeneratorUtil.CONTEXT_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.COMPONENT_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.NAME_VAR_NAME,
-                            ".isDisposed",
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.KERNEL_FIELD_NAME );
-    }
-    if ( _disposeOnDeactivate )
-    {
-      builder.addStatement( "this.$N = $N.computable( " +
-                            "$T.areNativeComponentsEnabled() ? $N : null, " +
-                            "$T.areNamesEnabled() ? $N + $S : null, " +
-                            "() -> $N(), null, () -> $N.scheduleDispose( $T.areNamesEnabled() ? $N + $S : null, this ), null, $T.PRIORITY_HIGHEST )",
-                            GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
-                            GeneratorUtil.CONTEXT_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.COMPONENT_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.NAME_VAR_NAME,
-                            ".disposeOnDeactivate",
-                            GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME,
-                            GeneratorUtil.CONTEXT_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.NAME_VAR_NAME,
-                            ".disposeOnDeactivate",
-                            GeneratorUtil.FLAGS_CLASSNAME );
-    }
-
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildInitializer( builder ) );
     _roObserves.forEach( observe -> observe.buildInitializer( builder ) );
@@ -3570,19 +3480,16 @@ final class ComponentDescriptor
     sb.append( "$N, " );
     params.add( GeneratorUtil.COMPONENT_VAR_NAME );
 
-    if ( _disposeTrackable )
-    {
-      sb.append( "new $T(), " );
-      params.add( GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME );
-    }
-    else
-    {
-      sb.append( "null, " );
-    }
-
-    sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N )" );
+    sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
     params.add( GeneratorUtil.AREZ_CLASSNAME );
     params.add( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME );
+
+    sb.append( _disposeTrackable );
+    sb.append( ", " );
+    sb.append( _observable );
+    sb.append( ", " );
+    sb.append( _disposeOnDeactivate );
+    sb.append( " )" );
 
     builder.addStatement( sb.toString(), params.toArray() );
   }

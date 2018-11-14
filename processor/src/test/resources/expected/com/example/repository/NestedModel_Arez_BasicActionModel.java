@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Flags;
-import arez.ObservableValue;
 import arez.component.ComponentKernel;
 import arez.component.ComponentObservable;
 import arez.component.DisposeNotifier;
@@ -21,16 +20,13 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  private final ObservableValue<Boolean> $$arezi$$_disposedObservable;
-
   public NestedModel_Arez_BasicActionModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "BasicActionModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "BasicActionModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, new DisposeNotifier(), Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose );
-    this.$$arezi$$_disposedObservable = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> !this.$$arezi$$_kernel.isDisposed() : null );
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, true, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -45,17 +41,9 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
     return $$arezi$$_id();
   }
 
-  private boolean $$arezi$$_observe() {
-    final boolean isNotDisposed = isNotDisposed();
-    if ( isNotDisposed )  {
-      this.$$arezi$$_disposedObservable.reportObserved();
-    }
-    return isNotDisposed;
-  }
-
   @Override
   public boolean observe() {
-    return $$arezi$$_observe();
+    return this.$$arezi$$_kernel.observe();
   }
 
   private void $$arezi$$_preDispose() {
@@ -80,7 +68,7 @@ public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicAc
 
   private void $$arezi$$_dispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_disposedObservable.dispose();
+    this.$$arezi$$_kernel.releaseResources();
   }
 
   @Override

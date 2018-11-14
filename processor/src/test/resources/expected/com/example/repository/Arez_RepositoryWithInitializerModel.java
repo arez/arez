@@ -20,8 +20,6 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  private final ObservableValue<Boolean> $$arezi$$_disposedObservable;
-
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
@@ -33,9 +31,8 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
     final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "RepositoryWithInitializerModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RepositoryWithInitializerModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, new DisposeNotifier(), Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose );
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, true, false );
     this.$$arezd$$_time = time;
-    this.$$arezi$$_disposedObservable = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".isDisposed" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> !this.$$arezi$$_kernel.isDisposed() : null );
     this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_time : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_time = v : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -51,17 +48,9 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
     return $$arezi$$_id();
   }
 
-  private boolean $$arezi$$_observe() {
-    final boolean isNotDisposed = isNotDisposed();
-    if ( isNotDisposed )  {
-      this.$$arezi$$_disposedObservable.reportObserved();
-    }
-    return isNotDisposed;
-  }
-
   @Override
   public boolean observe() {
-    return $$arezi$$_observe();
+    return this.$$arezi$$_kernel.observe();
   }
 
   private void $$arezi$$_preDispose() {
@@ -86,7 +75,7 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
 
   private void $$arezi$$_dispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_disposedObservable.dispose();
+    this.$$arezi$$_kernel.releaseResources();
     this.$$arez$$_time.dispose();
   }
 

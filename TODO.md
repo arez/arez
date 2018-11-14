@@ -6,10 +6,6 @@ complete as there is too much un-said.
 
 ## Current PR
 
-* Move generation of `$$arezi$$_disposedObservable` to `ComponentKernel` for components that require this mechanism.
-
-* Move generation of `$$arezi$$_disposeOnDeactivate` to `ComponentKernel` for components that require this mechanism.
-
 * Test `ComponentKernel` up the whazoo
 
 * Create `arez.component.internal` package and move the following classes into it:
