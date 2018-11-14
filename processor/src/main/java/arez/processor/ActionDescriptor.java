@@ -194,9 +194,16 @@ final class ActionDescriptor
     statement.append( " )" );
 
     GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
-    GeneratorUtil.generateTryBlock( builder,
-                                    thrownTypes,
-                                    b -> b.addStatement( statement.toString(), params.toArray() ) );
+    if ( isSafe )
+    {
+      builder.addStatement( statement.toString(), params.toArray() );
+    }
+    else
+    {
+      GeneratorUtil.generateTryBlock( builder,
+                                      thrownTypes,
+                                      b -> b.addStatement( statement.toString(), params.toArray() ) );
+    }
 
     return builder.build();
   }

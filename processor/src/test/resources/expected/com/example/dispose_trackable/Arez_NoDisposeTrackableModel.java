@@ -56,13 +56,7 @@ public final class Arez_NoDisposeTrackableModel extends NoDisposeTrackableModel 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'someValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".someValue" : null, () -> super.someValue(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".someValue" : null, () -> super.someValue(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
   }
 
   @Override

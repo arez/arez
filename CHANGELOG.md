@@ -47,6 +47,8 @@
   correctly handled this scenario.
 * **\[processor\]** Fix bug where the underlying `ComputableValue` used to implement the `disposeOnDeactivate`
   parameter of the `@ArezComponent` was not being correctly disposed when the component was released.
+* **\[processor\]** Change the way code is generated for `@Action` annotated methods that do not declare exceptions
+  by removing the wrapping try-catch infrastructure as it is not needed and added code bloat.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)

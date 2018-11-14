@@ -69,13 +69,7 @@ public final class Arez_RequiresTxTypeActionModel extends RequiresTxTypeActionMo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
   }
 
   @Override

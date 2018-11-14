@@ -103,13 +103,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'handleWriter' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".handleWriter" : null, () -> super.handleWriter( writer ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { writer } : null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".handleWriter" : null, () -> super.handleWriter( writer ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { writer } : null );
   }
 
   @Override
@@ -117,13 +111,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'handleError' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".handleError" : null, () -> super.handleError( error ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { error } : null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".handleError" : null, () -> super.handleError( error ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { error } : null );
   }
 
   @Override
@@ -131,13 +119,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genWriter' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".genWriter" : null, () -> super.genWriter(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".genWriter" : null, () -> super.genWriter(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
   }
 
   @Override
@@ -145,13 +127,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genError' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".genError" : null, () -> super.genError(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
-    } catch( final RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".genError" : null, () -> super.genError(), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, null );
   }
 
   @Override
