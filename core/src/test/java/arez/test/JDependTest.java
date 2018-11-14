@@ -1,6 +1,7 @@
 package arez.test;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,9 +56,40 @@ public class JDependTest
             undefinedPackages.stream().map( Object::toString ).collect( Collectors.joining( ", " ) ) );
     }
 
-    assertTrue( result.matches(),
-                "NonMatchingPackages: " +
-                result.getNonMatchingPackages().stream().map( Arrays::asList ).collect( Collectors.toList() ) );
+    final List<JavaPackage[]> nonMatchingPackages = result.getNonMatchingPackages();
+    if ( !nonMatchingPackages.isEmpty() )
+    {
+      final StringBuilder sb = new StringBuilder();
+      sb.append( "Discovered packages where relationships do not align.\n" );
+      for ( final JavaPackage[] packages : nonMatchingPackages )
+      {
+        final JavaPackage expected = packages[ 0 ];
+        final JavaPackage actual = packages[ 1 ];
+
+        final ArrayList<JavaPackage> oldAfferents = new ArrayList<>( expected.getAfferents() );
+        oldAfferents.removeAll( actual.getAfferents() );
+
+        oldAfferents.forEach( p -> sb
+          .append( "Package " )
+          .append( p.getName() )
+          .append( " no longer depends upon " )
+          .append( expected.getName() )
+          .append( "\n" )
+        );
+
+        final ArrayList<JavaPackage> newAfferents = new ArrayList<>( actual.getAfferents() );
+        newAfferents.removeAll( expected.getAfferents() );
+
+        newAfferents.forEach( p -> sb
+          .append( "Package " )
+          .append( p.getName() )
+          .append( " now depends upon " )
+          .append( expected.getName() )
+          .append( "\n" )
+        );
+      }
+      fail( sb.toString() );
+    }
   }
 
   @Nonnull
