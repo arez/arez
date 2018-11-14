@@ -297,7 +297,8 @@ public final class MemoizeCache<T>
                        " but unable to locate corresponding ComputableValue." );
     }
     assert null != computableValue;
-    getContext().scheduleDispose( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null, computableValue );
+    getContext().scheduleDispose( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
+                                  computableValue );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();
