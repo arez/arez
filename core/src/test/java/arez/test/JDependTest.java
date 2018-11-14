@@ -2,6 +2,7 @@ package arez.test;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import jdepend.framework.DependencyConstraint;
@@ -46,7 +47,12 @@ public class JDependTest
 
     final DependencyConstraint.MatchResult result = jdepend.analyzeDependencies( constraint );
 
-    assertEquals( result.getUndefinedPackages().size(), 0, "Undefined Packages: " + result.getUndefinedPackages() );
+    final List<JavaPackage> undefinedPackages = result.getUndefinedPackages();
+    if ( !undefinedPackages.isEmpty() )
+    {
+      fail( "Undefined Packages: " +
+            undefinedPackages.stream().map( Object::toString ).collect( Collectors.joining( ", " ) ) );
+    }
 
     assertTrue( result.matches(),
                 "NonMatchingPackages: " +
