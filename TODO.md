@@ -14,9 +14,9 @@ complete as there is too much un-said.
   - `AbstractRepository`
   - `AbstractContainer`
 
-* Asses moving DisposeNotifer dispose into `ComponentKernel` ... before `@PreDispose` method. This would
-  allow slightly less code per-component and move it into the central class. It may mean a custom PreDispose
-  is required for native components???.
+* Pass in PreDispose and PostDispose into `ComponentKernel` so it can orchestrate the dispose and make sure
+  that the elements it creates occur in the correct location. This would reduce the amount of per-component
+  code present.
 
 ## Enhancements
 
