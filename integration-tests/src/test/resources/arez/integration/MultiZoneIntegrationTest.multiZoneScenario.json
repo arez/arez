@@ -1,26 +1,6 @@
 
 [
     {
-        "name": "PersonModel.0",
-        "type": "ComponentCreateStart"
-    },
-    {
-        "name": "PersonModel.0.firstName",
-        "type": "ObservableValueCreate"
-    },
-    {
-        "name": "PersonModel.0.lastName",
-        "type": "ObservableValueCreate"
-    },
-    {
-        "name": "PersonModel.0.fullName",
-        "type": "ComputableValueCreate"
-    },
-    {
-        "name": "PersonModel.0",
-        "type": "ComponentCreateComplete"
-    },
-    {
         "name": "PersonModel.1",
         "type": "ComponentCreateStart"
     },
@@ -38,6 +18,26 @@
     },
     {
         "name": "PersonModel.1",
+        "type": "ComponentCreateComplete"
+    },
+    {
+        "name": "PersonModel.2",
+        "type": "ComponentCreateStart"
+    },
+    {
+        "name": "PersonModel.2.firstName",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "PersonModel.2.lastName",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "PersonModel.2.fullName",
+        "type": "ComputableValueCreate"
+    },
+    {
+        "name": "PersonModel.2",
         "type": "ComponentCreateComplete"
     },
     {
@@ -262,7 +262,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.firstName",
+        "name": "PersonModel.1.firstName",
         "type": "ObservableValueChange",
         "value": "Fred"
     },
@@ -296,7 +296,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.lastName",
+        "name": "PersonModel.1.lastName",
         "type": "ObservableValueChange",
         "value": "Donaldo"
     },
@@ -330,7 +330,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.lastName",
+        "name": "PersonModel.2.lastName",
         "type": "ObservableValueChange",
         "value": "Donaldo"
     },

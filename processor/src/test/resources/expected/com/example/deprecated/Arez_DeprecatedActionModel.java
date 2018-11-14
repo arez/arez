@@ -5,63 +5,34 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Flags;
-import arez.component.ComponentState;
+import arez.component.ComponentKernel;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_DeprecatedActionModel extends DeprecatedActionModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
-  private final int $$arezi$$_id;
-
-  private byte $$arezi$$_state;
-
-  @Nullable
-  private final ArezContext $$arezi$$_context;
-
-  private final Component $$arezi$$_component;
-
-  private final DisposeNotifier $$arezi$$_disposeNotifier;
+  private final ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("deprecation")
   public Arez_DeprecatedActionModel() {
     super();
-    this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
-    if ( Arez.shouldCheckApiInvariants() ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
-    }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "DeprecatedActionModel", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    if ( Arez.shouldCheckApiInvariants() ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
-    }
-    if ( Arez.areNativeComponentsEnabled() ) {
-      this.$$arezi$$_component.complete();
-    }
-    if ( Arez.shouldCheckApiInvariants() ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_READY;
-    }
-  }
-
-  final ArezContext $$arezi$$_context() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'DeprecatedActionModel'" );
-    }
-    return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
+    final ArezContext $$arezv$$_context = Arez.context();
+    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "DeprecatedActionModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeprecatedActionModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, new DisposeNotifier(), Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose );
+    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel.componentReady();
   }
 
   final int $$arezi$$_id() {
-    if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areRegistriesEnabled() && !Arez.areNativeComponentsEnabled() ) {
-      Guards.fail( () -> "Method invoked to access id when id not expected on component named '" + $$arezi$$_name() + "'." );
-    }
-    return this.$$arezi$$_id;
+    return this.$$arezi$$_kernel.getId();
   }
 
   @Override
@@ -70,53 +41,38 @@ public final class Arez_DeprecatedActionModel extends DeprecatedActionModel impl
     return $$arezi$$_id();
   }
 
-  String $$arezi$$_name() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'DeprecatedActionModel'" );
-    }
-    return "DeprecatedActionModel." + $$arezi$$_id();
-  }
-
   private void $$arezi$$_preDispose() {
-    $$arezi$$_disposeNotifier.dispose();
+    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
   @Override
   @Nonnull
   public DisposeNotifier getNotifier() {
-    return $$arezi$$_disposeNotifier;
+    return this.$$arezi$$_kernel.getDisposeNotifier();
   }
 
   @Override
   public boolean isDisposed() {
-    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
   public void dispose() {
-    if ( !ComponentState.isDisposingOrDisposed( this.$$arezi$$_state ) ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
-      if ( Arez.areNativeComponentsEnabled() ) {
-        this.$$arezi$$_component.dispose();
-      } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
-          this.$$arezi$$_preDispose();
-        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
-      }
-      if ( Arez.shouldCheckApiInvariants() ) {
-        this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
-      }
-    }
+    this.$$arezi$$_kernel.dispose();
+  }
+
+  private void $$arezi$$_dispose() {
+    this.$$arezi$$_preDispose();
   }
 
   @Deprecated
   @Override
   public void doStuff(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'doStuff' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     try {
-      $$arezi$$_context().safeAction(Arez.areNamesEnabled() ? $$arezi$$_name() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+      this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), Flags.READ_WRITE | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
     } catch( final RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {
@@ -150,7 +106,7 @@ public final class Arez_DeprecatedActionModel extends DeprecatedActionModel impl
   @Override
   public final String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + $$arezi$$_name() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {
       return super.toString();
     }

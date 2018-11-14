@@ -106,8 +106,9 @@ final class ActionDescriptor
     {
       statement.append( "return " );
     }
-    statement.append( "$N()." );
-    params.add( _componentDescriptor.getContextMethodName() );
+
+    statement.append( "this.$N.getContext()." );
+    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
 
     if ( isProcedure && isSafe )
     {
@@ -128,9 +129,9 @@ final class ActionDescriptor
 
     statement.append( "(" );
 
-    statement.append( "$T.areNamesEnabled() ? $N() + $S : null" );
+    statement.append( "$T.areNamesEnabled() ? this.$N.getName() + $S : null" );
     params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( _componentDescriptor.getComponentNameMethodName() );
+    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
     params.add( "." + getName() );
 
     statement.append( ", () -> super." );
@@ -196,7 +197,7 @@ final class ActionDescriptor
     }
     statement.append( " )" );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
     GeneratorUtil.generateTryBlock( builder,
                                     thrownTypes,
                                     b -> b.addStatement( statement.toString(), params.toArray() ) );

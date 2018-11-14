@@ -34,7 +34,7 @@ public class ComponentObservableTest
     final Observer observer = context.observer( () -> ComponentObservable.observe( component ) );
     final List<ObservableValueInfo> dependencies = context.getSpy().asObserverInfo( observer ).getDependencies();
     assertEquals( dependencies.size(), 1 );
-    assertEquals( dependencies.get( 0 ).getName(), "TestComponent.0.isDisposed" );
+    assertEquals( dependencies.get( 0 ).getName(), "TestComponent.1.isDisposed" );
   }
 
   @Test

@@ -4,9 +4,8 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Flags;
 import arez.Locator;
-import arez.component.ComponentState;
+import arez.component.ComponentKernel;
 import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
@@ -20,16 +19,7 @@ import org.realityforge.braincheck.Guards;
 final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
-  private final int $$arezi$$_id;
-
-  private byte $$arezi$$_state;
-
-  @Nullable
-  private final ArezContext $$arezi$$_context;
-
-  private final Component $$arezi$$_component;
-
-  private final DisposeNotifier $$arezi$$_disposeNotifier;
+  private final ComponentKernel $$arezi$$_kernel;
 
   @Nullable
   private DisableInverseModel $$arezr$$_other;
@@ -39,44 +29,25 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
-    this.$$arezi$$_context = Arez.areZonesEnabled() ? Arez.context() : null;
-    this.$$arezi$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? $$arezi$$_nextId++ : 0;
-    if ( Arez.shouldCheckApiInvariants() ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_INITIALIZED;
-    }
-    this.$$arezi$$_component = Arez.areNativeComponentsEnabled() ? $$arezi$$_context().component( "Element", $$arezi$$_id(), Arez.areNamesEnabled() ? $$arezi$$_name() : null, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_disposeNotifier = new DisposeNotifier();
-    if ( Arez.shouldCheckApiInvariants() ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_CONSTRUCTED;
-    }
+    final ArezContext $$arezv$$_context = Arez.context();
+    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Element." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Element", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, new DisposeNotifier(), Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose );
+    this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_other();
-    if ( Arez.areNativeComponentsEnabled() ) {
-      this.$$arezi$$_component.complete();
-    }
-    if ( Arez.shouldCheckApiInvariants() ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_READY;
-    }
-  }
-
-  final ArezContext $$arezi$$_context() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_context' invoked on uninitialized component of type 'Element'" );
-    }
-    return Arez.areZonesEnabled() ? this.$$arezi$$_context : Arez.context();
+    this.$$arezi$$_kernel.componentReady();
   }
 
   final Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'Element'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'Element'" );
     }
-    return $$arezi$$_context().locator();
+    return this.$$arezi$$_kernel.getContext().locator();
   }
 
   final int $$arezi$$_id() {
-    if ( Arez.shouldCheckInvariants() && !Arez.areNamesEnabled() && !Arez.areRegistriesEnabled() && !Arez.areNativeComponentsEnabled() ) {
-      Guards.fail( () -> "Method invoked to access id when id not expected on component named '" + $$arezi$$_name() + "'." );
-    }
-    return this.$$arezi$$_id;
+    return this.$$arezi$$_kernel.getId();
   }
 
   @Override
@@ -85,77 +56,62 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     return $$arezi$$_id();
   }
 
-  String $$arezi$$_name() {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.hasBeenInitialized( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_name' invoked on uninitialized component of type 'Element'" );
-    }
-    return "Element." + $$arezi$$_id();
-  }
-
   private void $$arezi$$_preDispose() {
-    $$arezi$$_disposeNotifier.dispose();
+    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
   @Override
   @Nonnull
   public DisposeNotifier getNotifier() {
-    return $$arezi$$_disposeNotifier;
+    return this.$$arezi$$_kernel.getDisposeNotifier();
   }
 
   @Override
   public boolean isDisposed() {
-    return ComponentState.isDisposingOrDisposed( this.$$arezi$$_state );
+    return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
   public void dispose() {
-    if ( !ComponentState.isDisposingOrDisposed( this.$$arezi$$_state ) ) {
-      this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSING;
-      if ( Arez.areNativeComponentsEnabled() ) {
-        this.$$arezi$$_component.dispose();
-      } else {
-        $$arezi$$_context().safeAction( Arez.areNamesEnabled() ? $$arezi$$_name() + ".dispose" : null, () -> { {
-          this.$$arezi$$_preDispose();
-        } }, Flags.NO_VERIFY_ACTION_REQUIRED );
-      }
-      if ( Arez.shouldCheckApiInvariants() ) {
-        this.$$arezi$$_state = ComponentState.COMPONENT_DISPOSED;
-      }
-    }
+    this.$$arezi$$_kernel.dispose();
+  }
+
+  private void $$arezi$$_dispose() {
+    this.$$arezi$$_preDispose();
   }
 
   @Override
   public void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'verify' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( DisableInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type DisableInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( DisableInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_otherId = this.getOtherId();
       final DisableInverseModel $$arezv$$_other = this.$$arezi$$_locator().findById( DisableInverseModel.class, $$arezv$$_otherId );
-      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
     }
   }
 
   @Override
   DisableInverseModel getOther() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named 'getOther' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getOther' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + $$arezi$$_name() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Nonnull reference method named 'getOther' invoked on component named '" + this.$$arezi$$_kernel.getName() + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId() );
     }
     return this.$$arezr$$_other;
   }
 
   private void $$arezi$$_link_other() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> ComponentState.isActive( this.$$arezi$$_state ), () -> "Method named '$$arezi$$_link_other' invoked on " + ComponentState.describe( this.$$arezi$$_state ) + " component named '" + $$arezi$$_name() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_other' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( DisableInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + $$arezi$$_name() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
     }
   }
 
@@ -189,7 +145,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
   @Override
   public final String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + $$arezi$$_name() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {
       return super.toString();
     }

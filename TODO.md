@@ -4,6 +4,22 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
+## Current PR
+
+* Move generation of `$$arezi$$_disposedObservable` to `ComponentKernel` for components that require this mechanism.
+
+* Test `ComponentKernel` up the whazoo
+
+* Create `arez.component.internal` package and move the following classes into it:
+  - `ComponentKernel`
+  - `MemoizeCache`
+  - `AbstractRepository`
+  - `AbstractContainer`
+
+* Asses moving DisposeNotifer dispose into `ComponentKernel` ... before `@PreDispose` method. This would
+  allow slightly less code per-component and move it into the central class. It may mean a custom PreDispose
+  is required for native components???.
+
 ## Enhancements
 
 * Profile with D8
@@ -18,12 +34,6 @@ complete as there is too much un-said.
 * Consider removing the notion of environments form within Arez as only used to call `batchedUpdates` in
   react and that already occurs during rendering and event handling. For the other scenarios (i.e. network
   events etc.) we could manually call it from relevant places.
-
-* Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
-  `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
-  The generated components then just delegate methods to it. The goal is to reduce the per-component
-  code size. Make `ComponentState` private as a result of the transform. Move `ComponentKernel` to internal
-  package to indicate should not be used. (Possibly also `MemoizeCache`, `AbstractRepository` and `AbstractContainer`)
 
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`

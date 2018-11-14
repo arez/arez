@@ -51,7 +51,7 @@ public class AccessingDisposedTest
 
     assertTrue( Disposable.isDisposed( component ) );
     assertInvariant( component::myAction,
-                     "Method named 'myAction' invoked on disposed component named 'TestComponent.0'" );
+                     "Method named 'myAction' invoked on disposed component named 'TestComponent.1'" );
   }
 
   @Test

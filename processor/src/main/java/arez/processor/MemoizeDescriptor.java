@@ -425,47 +425,47 @@ final class MemoizeDescriptor
     if ( isCollectionType() && !hasHooks() )
     {
       sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
-                 "$N().computable( " +
-                 "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-                 "$T.areNamesEnabled() ? $N() + $S : null, " +
+                 "$N.computable( " +
+                 "$T.areNativeComponentsEnabled() ? $N : null, " +
+                 "$T.areNamesEnabled() ? $N + $S : null, " +
                  "() -> super.$N(), " );
       parameters.add( getFieldName() );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( _componentDescriptor.getContextMethodName() );
+      parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( GeneratorUtil.NAME_VAR_NAME );
       parameters.add( "." + getName() );
       parameters.add( _method.getSimpleName().toString() );
       appendInitializerSuffix( parameters, sb, true );
 
       // Else part of ternary
-      sb.append( " : $N().computable( " +
-                 "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-                 "$T.areNamesEnabled() ? $N() + $S : null, " +
+      sb.append( " : $N.computable( " +
+                 "$T.areNativeComponentsEnabled() ? $N : null, " +
+                 "$T.areNamesEnabled() ? $N + $S : null, " +
                  "() -> super.$N(), " );
-      parameters.add( _componentDescriptor.getContextMethodName() );
+      parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( GeneratorUtil.NAME_VAR_NAME );
       parameters.add( "." + getName() );
       parameters.add( _method.getSimpleName().toString() );
       appendInitializerSuffix( parameters, sb, false );
     }
     else // hasHooks()
     {
-      sb.append( "this.$N = $N().computable( " +
-                 "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-                 "$T.areNamesEnabled() ? $N() + $S : null, " +
+      sb.append( "this.$N = $N.computable( " +
+                 "$T.areNativeComponentsEnabled() ? $N : null, " +
+                 "$T.areNamesEnabled() ? $N + $S : null, " +
                  "() -> super.$N(), " );
       parameters.add( getFieldName() );
-      parameters.add( _componentDescriptor.getContextMethodName() );
+      parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+      parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
       parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-      parameters.add( _componentDescriptor.getComponentNameMethodName() );
+      parameters.add( GeneratorUtil.NAME_VAR_NAME );
       parameters.add( "." + getName() );
       parameters.add( _method.getSimpleName().toString() );
       appendInitializerSuffix( parameters, sb, true );
@@ -479,17 +479,17 @@ final class MemoizeDescriptor
     assert null != _methodType;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append(
-      "this.$N = new $T<>( $T.areZonesEnabled() ? $N() : null, $T.areNativeComponentsEnabled() ? this.$N : null, " +
-      "$T.areNamesEnabled() ? $N() + $S : null, args -> super.$N(" );
+    sb.append( "this.$N = new $T<>( $T.areZonesEnabled() ? $N : null, " +
+               "$T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, args -> super.$N(" );
     parameters.add( getFieldName() );
     parameters.add( GeneratorUtil.MEMOIZE_CACHE_CLASSNAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( _componentDescriptor.getContextMethodName() );
+    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( GeneratorUtil.NAME_VAR_NAME );
     parameters.add( "." + getName() );
     parameters.add( _method.getSimpleName().toString() );
 
@@ -654,7 +654,7 @@ final class MemoizeDescriptor
     return null != _onActivate || null != _onDeactivate || null != _onStale;
   }
 
-  void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
+  void buildDisposer( @Nonnull final MethodSpec.Builder codeBlock )
   {
     codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
@@ -772,7 +772,7 @@ final class MemoizeDescriptor
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _methodType.getReturnType() );
     builder.returns( returnType );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     if ( isCollectionType() )
     {
@@ -869,7 +869,7 @@ final class MemoizeDescriptor
       }
     }
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> parameters = new ArrayList<>();
@@ -911,7 +911,7 @@ final class MemoizeDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -985,7 +985,7 @@ final class MemoizeDescriptor
       }
     }
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> parameters = new ArrayList<>();

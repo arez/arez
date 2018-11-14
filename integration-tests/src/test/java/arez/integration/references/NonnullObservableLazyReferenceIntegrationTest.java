@@ -79,7 +79,7 @@ public class NonnullObservableLazyReferenceIntegrationTest
     Disposable.dispose( model1 );
 
     assertInvariant( model1::getModel2,
-                     "Method named 'getModel2' invoked on disposed component named 'Model1.0'" );
+                     "Method named 'getModel2' invoked on disposed component named 'Model1.1'" );
   }
 
   @ArezComponent

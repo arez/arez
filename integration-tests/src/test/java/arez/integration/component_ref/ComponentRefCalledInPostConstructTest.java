@@ -27,6 +27,6 @@ public class ComponentRefCalledInPostConstructTest
   public void scenario()
   {
     assertInvariant( ComponentRefCalledInPostConstructTest_Arez_TestComponent::new,
-                     "Method named 'getComponent' invoked on incomplete component named 'TestComponent.0'" );
+                     "Method named 'getComponent' invoked on incomplete component named 'TestComponent.1'" );
   }
 }
