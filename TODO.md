@@ -100,7 +100,7 @@ complete as there is too much un-said.
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
 
-* Completed the `arez-devtools` project.
+* Complete the `arez-devtools` project.
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
