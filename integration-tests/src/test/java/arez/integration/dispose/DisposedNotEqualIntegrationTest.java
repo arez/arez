@@ -35,21 +35,21 @@ public class DisposedNotEqualIntegrationTest
 
     Disposable.dispose( model3 );
 
-    assertTrue( model1.equals( model2 ) );
-    assertFalse( model1.equals( model3 ) );
-    assertTrue( model2.equals( model1 ) );
-    assertFalse( model2.equals( model3 ) );
-    assertFalse( model3.equals( model1 ) );
-    assertFalse( model3.equals( model2 ) );
+    assertEquals( model1, model2 );
+    assertNotEquals( model1, model3 );
+    assertEquals( model2, model1 );
+    assertNotEquals( model2, model3 );
+    assertNotEquals( model3, model1 );
+    assertNotEquals( model3, model2 );
 
     Disposable.dispose( model2 );
 
-    assertFalse( model1.equals( model2 ) );
-    assertFalse( model1.equals( model3 ) );
-    assertFalse( model2.equals( model1 ) );
-    assertTrue( model2.equals( model3 ) );
-    assertFalse( model3.equals( model1 ) );
-    assertTrue( model3.equals( model2 ) );
+    assertNotEquals( model1, model2 );
+    assertNotEquals( model1, model3 );
+    assertNotEquals( model2, model1 );
+    assertEquals( model2, model3 );
+    assertNotEquals( model3, model1 );
+    assertEquals( model3, model2 );
   }
 
   @ArezComponent( allowEmpty = true, requireEquals = Feature.ENABLE )
