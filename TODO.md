@@ -84,6 +84,9 @@ complete as there is too much un-said.
   failure or made so that they are only emitted the first time they are triggered based on compile time
   settings.
 
+* Refactor `BrowserLocation` so that it uses `@Memoize` and only listens to location if there is code observing
+  browser location field.
+
 * Implement something similar to `getDependencyTree` from mobx
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
