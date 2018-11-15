@@ -301,6 +301,62 @@ public final class ComponentKernel
   }
 
   /**
+   * Return true if the component has been initialized.
+   *
+   * @return true if the component has been initialized.
+   */
+  public boolean hasBeenInitialized()
+  {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+    return COMPONENT_CREATED != _state;
+  }
+
+  /**
+   * Return true if the component has been constructed.
+   *
+   * @return true if the component has been constructed.
+   */
+  public boolean hasBeenConstructed()
+  {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+    return hasBeenInitialized() && COMPONENT_INITIALIZED != _state;
+  }
+
+  /**
+   * Return true if the component has been completed.
+   *
+   * @return true if the component has been completed.
+   */
+  public boolean hasBeenCompleted()
+  {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+    return hasBeenConstructed() && COMPONENT_CONSTRUCTED != _state;
+  }
+
+  /**
+   * Return true if the component is ready.
+   *
+   * @return true if the component is ready.
+   */
+  boolean isReady()
+  {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+    return COMPONENT_READY == _state;
+  }
+
+  /**
+   * Return true if the component is active and can be interacted with.
+   * This means that the component has been constructed and has not started to be disposed.
+   *
+   * @return true if the component is active.
+   */
+  public boolean isActive()
+  {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+    return COMPONENT_CONSTRUCTED == _state || COMPONENT_COMPLETE == _state || COMPONENT_READY == _state;
+  }
+
+  /**
    * Describe component state. This is usually used to provide error messages.
    *
    * @return a string description of the state.
@@ -331,17 +387,6 @@ public final class ComponentKernel
         assert ComponentKernel.COMPONENT_DISPOSED == state;
         return "disposed";
     }
-  }
-
-  /**
-   * Return true if the component has been initialized.
-   *
-   * @return true if the component has been initialized.
-   */
-  public boolean hasBeenInitialized()
-  {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    return COMPONENT_CREATED != _state;
   }
 
   /**
@@ -414,51 +459,6 @@ public final class ComponentKernel
                           " on component named '" + getName() + "'." );
       _state = COMPONENT_READY;
     }
-  }
-
-  /**
-   * Return true if the component has been constructed.
-   *
-   * @return true if the component has been constructed.
-   */
-  public boolean hasBeenConstructed()
-  {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    return hasBeenInitialized() && COMPONENT_INITIALIZED != _state;
-  }
-
-  /**
-   * Return true if the component has been completed.
-   *
-   * @return true if the component has been completed.
-   */
-  public boolean hasBeenCompleted()
-  {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    return hasBeenConstructed() && COMPONENT_CONSTRUCTED != _state;
-  }
-
-  /**
-   * Return true if the component is ready.
-   *
-   * @return true if the component is ready.
-   */
-  boolean isReady()
-  {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    return COMPONENT_READY == _state;
-  }
-
-  /**
-   * Return true if the component is active and can be interacted with.
-   * This means that the component has been constructed and has not started to be disposed.
-   *
-   * @return true if the component is active.
-   */
-  public boolean isActive()
-  {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    return COMPONENT_CONSTRUCTED == _state || COMPONENT_COMPLETE == _state || COMPONENT_READY == _state;
   }
 
   /**
