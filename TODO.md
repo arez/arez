@@ -26,6 +26,9 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
+  `DisposeTracker`? and made into interface with implementation in `internal` package?
+
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic.
 
