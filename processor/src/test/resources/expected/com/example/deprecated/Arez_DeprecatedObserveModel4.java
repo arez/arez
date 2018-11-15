@@ -29,8 +29,8 @@ public final class Arez_DeprecatedObserveModel4 extends DeprecatedObserveModel4 
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DeprecatedObserveModel4." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeprecatedObserveModel4", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeprecatedObserveModel4", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_render = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.render(), () -> super.onRenderDepsChange(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES | Flags.ENVIRONMENT_REQUIRED );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -46,7 +46,7 @@ public final class Arez_DeprecatedObserveModel4 extends DeprecatedObserveModel4 
     return $$arezi$$_id();
   }
 
-  private void $$arezi$$_preDispose() {
+  private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
@@ -67,7 +67,6 @@ public final class Arez_DeprecatedObserveModel4 extends DeprecatedObserveModel4 
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_render.dispose();
   }
 

@@ -24,8 +24,8 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "FunctionActionThrowsThrowableModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "FunctionActionThrowsThrowableModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "FunctionActionThrowsThrowableModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -40,7 +40,7 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
     return $$arezi$$_id();
   }
 
-  private void $$arezi$$_preDispose() {
+  private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
@@ -61,7 +61,6 @@ public final class Arez_FunctionActionThrowsThrowableModel extends FunctionActio
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

@@ -27,8 +27,8 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DisposingModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DisposingModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose(),  () -> super.postDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DisposingModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose(),  () -> super.postDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : () -> super.preDispose(), Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, Arez.areNativeComponentsEnabled() ? null : () -> super.postDispose(), true, false, false );
     this.$$arez$$_someValue = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".someValue" : null, () -> super.someValue(), Flags.PRIORITY_NORMAL | Flags.ENVIRONMENT_NOT_REQUIRED | Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -44,7 +44,7 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
     return $$arezi$$_id();
   }
 
-  private void $$arezi$$_preDispose() {
+  private void $$arezi$$_nativeComponentPreDispose() {
     super.preDispose();
     this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
@@ -66,7 +66,7 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
+    super.preDispose();
     this.$$arez$$_someValue.dispose();
     super.postDispose();
   }

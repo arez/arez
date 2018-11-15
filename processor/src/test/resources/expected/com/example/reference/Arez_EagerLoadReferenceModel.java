@@ -32,8 +32,8 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel impleme
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "EagerLoadReferenceModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "EagerLoadReferenceModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "EagerLoadReferenceModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_myEntity();
     this.$$arezi$$_kernel.componentReady();
@@ -57,6 +57,10 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel impleme
   }
 
   private void $$arezi$$_preDispose() {
+  }
+
+  private void $$arezi$$_nativeComponentPreDispose() {
+    this.$$arezi$$_preDispose();
     this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 

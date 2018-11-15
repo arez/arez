@@ -81,6 +81,7 @@ final class GeneratorUtil
   static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
+  static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "nativeComponentPreDispose";
   static final String INTERNAL_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "dispose";
   static final String CONTEXT_VAR_NAME = VARIABLE_PREFIX + "context";
   static final String ID_VAR_NAME = VARIABLE_PREFIX + "id";

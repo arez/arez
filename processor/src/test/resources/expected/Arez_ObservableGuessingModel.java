@@ -32,8 +32,8 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ObservableGuessingModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ObservableGuessingModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ObservableGuessingModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
     this.$$arez$$_foo = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".foo" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.isFoo() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFoo( v ) : null );
     this.$$arez$$_string = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".string" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getString() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setString( v ) : null );
@@ -51,7 +51,7 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
     return $$arezi$$_id();
   }
 
-  private void $$arezi$$_preDispose() {
+  private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
@@ -72,7 +72,6 @@ public final class Arez_ObservableGuessingModel extends ObservableGuessingModel 
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_time.dispose();
     this.$$arez$$_foo.dispose();
     this.$$arez$$_string.dispose();

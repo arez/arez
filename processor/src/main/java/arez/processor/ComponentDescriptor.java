@@ -2622,12 +2622,13 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildObserve() );
     }
-    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
+    if ( hasInternalPreDispose() )
     {
       builder.addMethod( buildInternalPreDispose() );
     }
     if ( _disposeTrackable )
     {
+      builder.addMethod( buildNativeComponentPreDispose() );
       builder.addMethod( buildNotifierAccessor() );
     }
     builder.addMethod( buildIsDisposed() );
@@ -3102,17 +3103,13 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
-    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
+    if ( hasInternalPreDispose() )
     {
       builder.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
     else if ( null != _preDispose )
     {
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
-    }
-    if ( _observable )
-    {
-      builder.addStatement( "this.$N.releaseResources()", GeneratorUtil.KERNEL_FIELD_NAME );
     }
     _roObserves.forEach( observe -> observe.buildDisposer( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildDisposer( builder ) );
@@ -3123,6 +3120,14 @@ final class ComponentDescriptor
     }
 
     return builder.build();
+  }
+
+  private boolean hasInternalPreDispose()
+  {
+    return !_roReferences.isEmpty() ||
+           !_roInverses.isEmpty() ||
+           !_roCascadeDisposes.isEmpty() ||
+           !_roDependencies.isEmpty();
   }
 
   /**
@@ -3159,6 +3164,31 @@ final class ComponentDescriptor
   }
 
   /**
+   * Generate the preDispose method only used when native components are enabled.
+   */
+  @Nonnull
+  private MethodSpec buildNativeComponentPreDispose()
+    throws ArezProcessorException
+  {
+    assert _disposeTrackable;
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    if ( hasInternalPreDispose() )
+    {
+      builder.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+    }
+    else if ( null != _preDispose )
+    {
+      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+    }
+    builder.addStatement( "this.$N.getDisposeNotifier().dispose()", GeneratorUtil.KERNEL_FIELD_NAME );
+
+    return builder.build();
+  }
+
+  /**
    * Generate the preDispose method.
    */
   @Nonnull
@@ -3178,7 +3208,6 @@ final class ComponentDescriptor
     _roInverses.forEach( r -> r.buildDisposer( builder ) );
     if ( _disposeTrackable )
     {
-      builder.addStatement( "this.$N.getDisposeNotifier().dispose()", GeneratorUtil.KERNEL_FIELD_NAME );
       for ( final DependencyDescriptor dependency : _roDependencies )
       {
         final Element element = dependency.getElement();
@@ -3480,9 +3509,36 @@ final class ComponentDescriptor
     sb.append( "$N, " );
     params.add( GeneratorUtil.COMPONENT_VAR_NAME );
 
+    if ( hasInternalPreDispose() )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+    }
+    else if ( null != _preDispose )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( _preDispose.getSimpleName() );
+    }
+    else
+    {
+      sb.append( "null, " );
+    }
     sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
     params.add( GeneratorUtil.AREZ_CLASSNAME );
     params.add( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME );
+
+    if ( null != _postDispose )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( _postDispose.getSimpleName() );
+    }
+    else
+    {
+      sb.append( "null, " );
+    }
 
     sb.append( _disposeTrackable );
     sb.append( ", " );
@@ -3575,7 +3631,7 @@ final class ComponentDescriptor
       if ( _disposeTrackable )
       {
         sb.append( "() -> $N()" );
-        params.add( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+        params.add( GeneratorUtil.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
       }
       else if ( null != _preDispose )
       {

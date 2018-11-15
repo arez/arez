@@ -29,8 +29,8 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "RepositoryPreDisposeHook." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RepositoryPreDisposeHook", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose(),  () -> super.myPostDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, true, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RepositoryPreDisposeHook", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose(),  () -> super.myPostDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : () -> super.myPreDispose(), Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, Arez.areNativeComponentsEnabled() ? null : () -> super.myPostDispose(), true, true, false );
     this.$$arez$$_name = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getName() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setName( v ) : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -51,7 +51,7 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
     return this.$$arezi$$_kernel.observe();
   }
 
-  private void $$arezi$$_preDispose() {
+  private void $$arezi$$_nativeComponentPreDispose() {
     super.myPreDispose();
     this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
@@ -73,8 +73,7 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.releaseResources();
+    super.myPreDispose();
     this.$$arez$$_name.dispose();
     super.myPostDispose();
   }

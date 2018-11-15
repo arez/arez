@@ -22,8 +22,8 @@ final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDepende
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ScheduleDeferredDependencyModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ScheduleDeferredDependencyModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ScheduleDeferredDependencyModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     final DisposeTrackable $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
       DisposeTrackable.asDisposeTrackable( super.getTime() ).getNotifier().addOnDisposeListener( this, this::dispose );
@@ -46,7 +46,6 @@ final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDepende
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
     final DisposeTrackable $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
       DisposeTrackable.asDisposeTrackable( $$arezv$$_getTime_dependency ).getNotifier().removeOnDisposeListener( this );
@@ -54,6 +53,11 @@ final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDepende
     if ( null != this.dependency2 ) {
       DisposeTrackable.asDisposeTrackable( this.dependency2 ).getNotifier().removeOnDisposeListener( this );
     }
+  }
+
+  private void $$arezi$$_nativeComponentPreDispose() {
+    this.$$arezi$$_preDispose();
+    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
   @Override

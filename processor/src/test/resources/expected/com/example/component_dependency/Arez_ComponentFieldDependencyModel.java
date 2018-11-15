@@ -22,8 +22,8 @@ public final class Arez_ComponentFieldDependencyModel extends ComponentFieldDepe
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ComponentFieldDependencyModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentFieldDependencyModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentFieldDependencyModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     if ( null != this.foo ) {
       DisposeTrackable.asDisposeTrackable( this.foo ).getNotifier().addOnDisposeListener( this, this::dispose );
     }
@@ -42,10 +42,14 @@ public final class Arez_ComponentFieldDependencyModel extends ComponentFieldDepe
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
     if ( null != this.foo ) {
       DisposeTrackable.asDisposeTrackable( this.foo ).getNotifier().removeOnDisposeListener( this );
     }
+  }
+
+  private void $$arezi$$_nativeComponentPreDispose() {
+    this.$$arezi$$_preDispose();
+    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
   @Override

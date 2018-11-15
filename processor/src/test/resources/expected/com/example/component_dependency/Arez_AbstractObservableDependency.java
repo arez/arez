@@ -30,8 +30,8 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "AbstractObservableDependency." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "AbstractObservableDependency", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_preDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, true, false, false );
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "AbstractObservableDependency", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_value : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
     final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
@@ -52,11 +52,15 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
   }
 
   private void $$arezi$$_preDispose() {
-    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
     final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
       DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).getNotifier().removeOnDisposeListener( this );
     }
+  }
+
+  private void $$arezi$$_nativeComponentPreDispose() {
+    this.$$arezi$$_preDispose();
+    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
   }
 
   @Override

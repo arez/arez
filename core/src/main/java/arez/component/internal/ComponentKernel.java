@@ -100,10 +100,20 @@ public final class ComponentKernel
   @Nullable
   private final Component _component;
   /**
+   * This callback is invoked before the component is disposed.
+   */
+  @Nullable
+  private final SafeProcedure _preDisposeCallback;
+  /**
    * This callback is invoked to dispose the reactive elements of the component.
    */
   @Nullable
   private final SafeProcedure _disposeCallback;
+  /**
+   * This callback is invoked after the component is disposed.
+   */
+  @Nullable
+  private final SafeProcedure _postDisposeCallback;
   /**
    * The mechanisms to notify downstream elements that the component has been disposed. This should be non-null
    * if the {@link ArezComponent#disposeTrackable()} is enabled, and <code>null</code> otherwise.
@@ -125,7 +135,9 @@ public final class ComponentKernel
                           @Nullable final String name,
                           final int id,
                           @Nullable final Component component,
+                          @Nullable final SafeProcedure preDisposeCallback,
                           @Nullable final SafeProcedure disposeCallback,
+                          @Nullable final SafeProcedure postDisposeCallback,
                           final boolean defineDisposeNotifier,
                           final boolean isComponentObservable,
                           final boolean disposeOnDeactivate )
@@ -148,7 +160,9 @@ public final class ComponentKernel
       _state = COMPONENT_INITIALIZED;
     }
     _disposeNotifier = defineDisposeNotifier ? new DisposeNotifier() : null;
-    _disposeCallback = Arez.areNativeComponentsEnabled() ? null : Objects.requireNonNull( disposeCallback );
+    _preDisposeCallback = Arez.areNativeComponentsEnabled() ? null : preDisposeCallback;
+    _disposeCallback = Arez.areNativeComponentsEnabled() ? null : disposeCallback;
+    _postDisposeCallback = Arez.areNativeComponentsEnabled() ? null : postDisposeCallback;
     _componentObservable = isComponentObservable ? createComponentObservable() : null;
     _disposeOnDeactivate = disposeOnDeactivate ? createDisposeOnDeactivate() : null;
   }
@@ -231,15 +245,30 @@ public final class ComponentKernel
       }
       else
       {
-        assert null != _disposeCallback;
         getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
-                                 _disposeCallback,
+                                 this::performDispose,
                                  Flags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() )
       {
         _state = COMPONENT_DISPOSED;
       }
+    }
+  }
+
+  private void performDispose()
+  {
+    invokeCallbackIfNecessary( _preDisposeCallback );
+    releaseResources();
+    invokeCallbackIfNecessary( _disposeCallback );
+    invokeCallbackIfNecessary( _postDisposeCallback );
+  }
+
+  private void invokeCallbackIfNecessary( @Nullable final SafeProcedure callback )
+  {
+    if ( null != callback )
+    {
+      callback.call();
     }
   }
 
@@ -252,8 +281,9 @@ public final class ComponentKernel
     return _state < 0;
   }
 
-  public void releaseResources()
+  private void releaseResources()
   {
+    Disposable.dispose( _disposeNotifier );
     // If native components are enabled, these elements are registered with native component
     // and will thus be disposed as part
     if ( !Arez.areNativeComponentsEnabled() )
