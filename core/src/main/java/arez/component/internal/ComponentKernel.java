@@ -149,6 +149,13 @@ public final class ComponentKernel
       apiInvariant( () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0156: ComponentKernel passed a name '" + name +
                           "' but Arez.areNamesEnabled() returns false." );
+      apiInvariant( () -> !Arez.areNativeComponentsEnabled() ||
+                          null == component ||
+                          0 == id ||
+                          ( (Integer) id ).equals( component.getId() ),
+                    () -> "Arez-0222: ComponentKernel named '" + name +
+                          "' passed an id " + id + " and a component but the component had a different id (" +
+                          Objects.requireNonNull( component ).getId() + ")" );
     }
 
     if ( Arez.shouldCheckApiInvariants() )
