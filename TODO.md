@@ -99,6 +99,11 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
+* Enhance scheduler and expose the ability to add deferred tasks.
+  - https://philipwalton.com/articles/idle-until-urgent/
+  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
+  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
+
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of `@Computable`/`@Observe` methods at a later time. This
