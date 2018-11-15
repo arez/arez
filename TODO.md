@@ -94,6 +94,7 @@ complete as there is too much un-said.
   build types.
 
 * Complete the `arez-devtools` project.
+  - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
