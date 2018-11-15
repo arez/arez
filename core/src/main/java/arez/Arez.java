@@ -97,7 +97,7 @@ public final class Arez
    */
   public static boolean arePropertyIntrospectorsEnabled()
   {
-    return ArezConfig.arePropertyIntrospectorsEnabled();
+    return areSpiesEnabled() && ArezConfig.arePropertyIntrospectorsEnabled();
   }
 
   /**
