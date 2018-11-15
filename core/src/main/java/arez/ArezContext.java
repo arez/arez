@@ -2199,12 +2199,6 @@ public final class ArezContext
     return _taskQueue;
   }
 
-  @Nonnull
-  RoundBasedTaskExecutor getExecutor()
-  {
-    return _executor;
-  }
-
   void registerObservableValue( @Nonnull final ObservableValue observableValue )
   {
     final String name = observableValue.getName();
