@@ -340,6 +340,7 @@ public final class ComponentKernel
    */
   public boolean hasBeenInitialized()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return COMPONENT_CREATED != _state;
   }
 
@@ -422,6 +423,7 @@ public final class ComponentKernel
    */
   public boolean hasBeenConstructed()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return hasBeenInitialized() && COMPONENT_INITIALIZED != _state;
   }
 
@@ -432,6 +434,7 @@ public final class ComponentKernel
    */
   public boolean hasBeenCompleted()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return hasBeenConstructed() && COMPONENT_CONSTRUCTED != _state;
   }
 
@@ -442,6 +445,7 @@ public final class ComponentKernel
    */
   boolean isReady()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return COMPONENT_READY == _state;
   }
 
@@ -453,6 +457,7 @@ public final class ComponentKernel
    */
   public boolean isActive()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return COMPONENT_CONSTRUCTED == _state || COMPONENT_COMPLETE == _state || COMPONENT_READY == _state;
   }
 
