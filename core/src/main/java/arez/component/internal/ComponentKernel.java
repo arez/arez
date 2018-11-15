@@ -447,12 +447,6 @@ public final class ComponentKernel
   @Nonnull
   public ArezContext getContext()
   {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( this::hasBeenInitialized,
-                    () -> "Arez-0165: Attempted to invoke method named 'getContext()' invoked on uninitialized " +
-                          "component named '" + getName() + "'" );
-    }
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
