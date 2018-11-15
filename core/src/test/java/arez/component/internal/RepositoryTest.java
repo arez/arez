@@ -1,4 +1,4 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.AbstractArezTest;
 import arez.Arez;
@@ -6,6 +6,12 @@ import arez.ArezContext;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
+import arez.component.ComponentObservable;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
+import arez.component.Identifiable;
+import arez.component.NoResultException;
+import arez.component.NoSuchEntityException;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;

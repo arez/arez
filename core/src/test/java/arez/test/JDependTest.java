@@ -29,6 +29,7 @@ public class JDependTest
     final JavaPackage spy = constraint.addPackage( "arez.spy" );
     constraint.addPackage( "arez.annotations" );
     final JavaPackage component = constraint.addPackage( "arez.component" );
+    final JavaPackage internal = constraint.addPackage( "arez.component.internal" );
     final JavaPackage braincheck = constraint.addPackage( "org.realityforge.braincheck" );
     final JavaPackage jsinterop = constraint.addPackage( "jsinterop.annotations" );
 
@@ -45,7 +46,11 @@ public class JDependTest
 
     component.dependsUpon( braincheck );
     component.dependsUpon( arez );
-    component.dependsUpon( spy );
+
+    internal.dependsUpon( braincheck );
+    internal.dependsUpon( arez );
+    internal.dependsUpon( component );
+    internal.dependsUpon( spy );
 
     final DependencyConstraint.MatchResult result = jdepend.analyzeDependencies( constraint );
 

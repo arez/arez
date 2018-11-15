@@ -8,7 +8,7 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Repository;
-import arez.component.ComponentKernel;
+import arez.component.internal.ComponentKernel;
 import arez.component.TypeBasedLocator;
 import arez.component.Verifiable;
 import arez.integration.AbstractArezIntegrationTest;

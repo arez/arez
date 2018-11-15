@@ -53,6 +53,12 @@
   not declare exceptions by removing the wrapping try-catch infrastructure as it is not needed and added code bloat.
 * **\[core\]** Change the implementation of `Arez.arePropertyIntrospectorsEnabled()` so that it is false unless
   `Arez.areSpiesEnabled()` is also true.
+* **\[core\]** Create the `arez.component.internal` package to contain classes that are implementation aspects that
+  Arez users should not rely upon as they may change. Move the following classes into the package:
+  - `ComponentKernel`
+  - `MemoizeCache`
+  - `AbstractRepository`
+  - `AbstractContainer`
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)

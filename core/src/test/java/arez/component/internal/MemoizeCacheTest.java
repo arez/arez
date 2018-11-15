@@ -1,4 +1,4 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.AbstractArezTest;
 import arez.Arez;

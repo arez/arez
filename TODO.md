@@ -8,12 +8,6 @@ complete as there is too much un-said.
 
 * Test `ComponentKernel` up the whazoo
 
-* Create `arez.component.internal` package and move the following classes into it:
-  - `ComponentKernel`
-  - `MemoizeCache`
-  - `AbstractRepository`
-  - `AbstractContainer`
-
 * Pass in PreDispose and PostDispose into `ComponentKernel` so it can orchestrate the dispose and make sure
   that the elements it creates occur in the correct location. This would reduce the amount of per-component
   code present.

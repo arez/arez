@@ -1,4 +1,4 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -10,6 +10,8 @@ import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
+import arez.component.ComponentObservable;
+import arez.component.DisposeNotifier;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

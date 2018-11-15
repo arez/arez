@@ -1,10 +1,15 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.Arez;
 import arez.Disposable;
 import arez.ObservableValue;
 import arez.annotations.ObservableValueRef;
 import arez.annotations.PreDispose;
+import arez.component.CollectionsUtil;
+import arez.component.ComponentObservable;
+import arez.component.DisposeTrackable;
+import arez.component.Identifiable;
+import arez.component.NoSuchEntityException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
