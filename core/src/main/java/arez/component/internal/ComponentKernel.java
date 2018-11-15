@@ -469,8 +469,7 @@ public final class ComponentKernel
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( Arez::areNamesEnabled,
-                    () -> "Arez-0164: ComponentKernel.getName() invoked when Arez.areNamesEnabled() returns " +
-                          "false on component named '" + getName() + "'." );
+                    () -> "Arez-0164: ComponentKernel.getName() invoked when Arez.areNamesEnabled() returns false." );
     }
     assert null != _name;
     return _name;
