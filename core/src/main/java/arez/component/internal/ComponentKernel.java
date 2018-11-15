@@ -184,7 +184,12 @@ public final class ComponentKernel
   @Override
   public boolean observe()
   {
-    // TODO: invariant checks null != _disposeOnDeactivate or null != _componentObservable
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> null != _disposeOnDeactivate || null != _componentObservable,
+                    () -> "Arez-0221: ComponentKernel.observe() invoked on component named '" + getName() +
+                          "' but observing is not enabled for component." );
+    }
     if ( null != _disposeOnDeactivate )
     {
       return _disposeOnDeactivate.get();
