@@ -534,4 +534,21 @@ public final class ComponentKernel
     assert null != _disposeNotifier;
     return _disposeNotifier;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public final String toString()
+  {
+    if ( Arez.areNamesEnabled() )
+    {
+      return getName();
+    }
+    else
+    {
+      return super.toString();
+    }
+  }
 }
