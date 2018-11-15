@@ -436,6 +436,16 @@ public final class ComponentKernel
   }
 
   /**
+   * Return true if the component is ready.
+   *
+   * @return true if the component is ready.
+   */
+  boolean isReady()
+  {
+    return COMPONENT_READY == _state;
+  }
+
+  /**
    * Return true if the component is active and can be interacted with.
    * This means that the component has been constructed and has not started to be disposed.
    *
