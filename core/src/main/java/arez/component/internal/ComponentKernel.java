@@ -151,14 +151,14 @@ public final class ComponentKernel
                           "' but Arez.areNamesEnabled() returns false." );
     }
 
-    _name = Arez.areNamesEnabled() ? name : null;
-    _context = Arez.areZonesEnabled() ? context : null;
-    _component = Arez.areNativeComponentsEnabled() ? component : null;
-    _id = id;
     if ( Arez.shouldCheckApiInvariants() )
     {
       _state = COMPONENT_INITIALIZED;
     }
+    _name = Arez.areNamesEnabled() ? name : null;
+    _context = Arez.areZonesEnabled() ? context : null;
+    _component = Arez.areNativeComponentsEnabled() ? component : null;
+    _id = id;
     _disposeNotifier = defineDisposeNotifier ? new DisposeNotifier() : null;
     _preDisposeCallback = Arez.areNativeComponentsEnabled() ? null : preDisposeCallback;
     _disposeCallback = Arez.areNativeComponentsEnabled() ? null : disposeCallback;
