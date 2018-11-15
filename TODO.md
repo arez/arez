@@ -21,7 +21,7 @@ complete as there is too much un-said.
 
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()()`
-  is stripped if names not enabled. 
+  is stripped if names not enabled.
 
 * Consider removing the notion of environments form within Arez as only used to call `batchedUpdates` in
   react and that already occurs during rendering and event handling. For the other scenarios (i.e. network
