@@ -437,7 +437,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( observableValue::canDeactivate,
+      invariant( observableValue::canDeactivateNow,
                  () -> "Arez-0140: Invoked queueForDeactivation on transaction named '" +
                        getName() + "' for observableValue named '" + observableValue.getName() + "' when " +
                        "observableValue can not be deactivated." );
@@ -892,7 +892,7 @@ final class Transaction
     {
       final ComputableValue<?> computableValue = _tracker.getComputableValue();
       final ObservableValue<?> observableValue = computableValue.getObservableValue();
-      if ( !observableValue.hasObservers() && !computableValue.getObserver().isKeepAlive() )
+      if ( observableValue.canDeactivateNow() )
       {
         queueForDeactivation( observableValue );
       }

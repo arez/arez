@@ -46,7 +46,7 @@ public class ObservableValueTest
 
     // Fields for calculated observables in this non-calculated variant
     assertFalse( observableValue.isComputableValue() );
-    assertFalse( observableValue.canDeactivate() );
+    assertFalse( observableValue.canDeactivateNow() );
 
     assertFalse( observableValue.isComputableValue() );
 
@@ -73,7 +73,7 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getObserver(), observer );
     assertNull( observableValue.getComponent() );
-    assertTrue( observableValue.canDeactivate() );
+    assertTrue( observableValue.canDeactivateNow() );
 
     assertTrue( observableValue.isComputableValue() );
 
@@ -1015,8 +1015,8 @@ public class ObservableValueTest
     observer.getDependencies().add( observableValue );
 
     assertInvariantFailure( observableValue::queueForDeactivation,
-                            "Arez-0073: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
-                            observableValue.getName() + "' but ObservableValue has observers." );
+                            "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" +
+                            observableValue.getName() + "' but ObservableValue is not able to be deactivated." );
   }
 
   @Test
