@@ -9,6 +9,8 @@ import arez.Disposable;
 import arez.Flags;
 import arez.Observer;
 import arez.SafeFunction;
+import arez.component.DisposeNotifier;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -396,6 +398,44 @@ public class ComponentKernelTest
 
     // Observer has been disposed so it never gets dispose action
     assertEquals( disposedCallCount.get(), 0 );
+    assertTrue( kernel.isDisposed() );
+  }
+
+  @Test
+  public void disposeSequencing()
+  {
+    ArezTestUtil.disableNativeComponents();
+
+    final ArrayList<String> tasks = new ArrayList<>();
+
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           name,
+                           0,
+                           null,
+                           () -> tasks.add( "PreDispose" ),
+                           () -> tasks.add( "Dispose" ),
+                           () -> tasks.add( "PostDispose" ),
+                           true,
+                           false,
+                           false );
+
+    kernel.componentConstructed();
+    kernel.componentReady();
+    final DisposeNotifier disposeNotifier = kernel.getDisposeNotifier();
+    assertNotNull( disposeNotifier );
+    disposeNotifier.addOnDisposeListener( "X", () -> {
+      tasks.add( "OnDisposeListener" );
+      assertEquals( kernel.describeState(), "disposing" );
+    } );
+
+    Disposable.dispose( kernel );
+
+    assertEquals( String.join( ",", tasks ),
+                  "PreDispose,OnDisposeListener,Dispose,PostDispose" );
     assertTrue( kernel.isDisposed() );
   }
 }
