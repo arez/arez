@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.testng.Assert.*;
 
-final class TestSpyEventHandler
+public final class TestSpyEventHandler
   implements SpyEventHandler
 {
   private final ArrayList<Object> _events = new ArrayList<>();
@@ -22,7 +22,7 @@ final class TestSpyEventHandler
     _events.add( event );
   }
 
-  void assertEventCount( final int count )
+  public void assertEventCount( final int count )
   {
     assertEquals( _events.size(), count, "Actual events: " + _events );
   }
@@ -31,7 +31,7 @@ final class TestSpyEventHandler
    * Assert "next" Event is of specific type.
    * Increment the next counter.
    */
-  <T> void assertNextEvent( @Nonnull final Class<T> type )
+  public <T> void assertNextEvent( @Nonnull final Class<T> type )
   {
     assertEvent( type, null );
   }
@@ -40,7 +40,7 @@ final class TestSpyEventHandler
    * Assert "next" Event is of specific type.
    * Increment the next counter, run action.
    */
-  <T> void assertNextEvent( @Nonnull final Class<T> type, @Nonnull final Consumer<T> action )
+  public <T> void assertNextEvent( @Nonnull final Class<T> type, @Nonnull final Consumer<T> action )
   {
     assertEvent( type, action );
   }
