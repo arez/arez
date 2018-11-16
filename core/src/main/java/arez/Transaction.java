@@ -870,6 +870,7 @@ final class Transaction
     // that avoids this by just allowing us to change current size
     if ( null != _observableValues )
     {
+      //noinspection ListRemoveInLoop
       for ( int i = _observableValues.size() - 1; i >= currentIndex; i-- )
       {
         _observableValues.remove( i );
