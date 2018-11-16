@@ -12,26 +12,26 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
+  `DisposeTracker`? and made into interface with implementation in `internal` package?
+
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
-  based on appropriate annotation magic.
+  based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()()`
+  is stripped if names not enabled.
 
 * Consider removing the notion of environments form within Arez as only used to call `batchedUpdates` in
   react and that already occurs during rendering and event handling. For the other scenarios (i.e. network
   events etc.) we could manually call it from relevant places.
-
-* Extract out component info that includes `$$arezi$$_disposedObservable`, `$$arezi$$_state`,
-  `$$arezi$$_component`, `$$arezi$$_context`, `$$arezi$$_id`, and `$$arezi$$_disposeNotifier`.
-  The generated components then just delegate methods to it. The goal is to reduce the per-component
-  code size.
 
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
-* `ComputableValue` should expose `activate()` and `deactivate()` methods so we can make the value "hot" (a.k.a temporarily
-  `KEEPALIVE`) and then make it "cold" again later. Perhaps a better approach is to add a `Disposable warm()` that is
-  backed by counter and only deactivates if counter is 0 and no listeners.
+* `ComputableValue` should expose `keepAlive()` method that returns a `Disposable`. Invoking the method makes
+  the value "hot" (a.k.a temporarily `KEEPALIVE`) and will release lock (potentially making  it "cold" again)
+  when `Disposable.dispose()` is called later. It must be backed by a counter and only deactivates if counter
+  is 0 and no listeners.
 
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
@@ -74,6 +74,9 @@ complete as there is too much un-said.
   failure or made so that they are only emitted the first time they are triggered based on compile time
   settings.
 
+* Refactor `BrowserLocation` so that it uses `@Memoize` and only listens to location if there is code observing
+  browser location field.
+
 * Implement something similar to `getDependencyTree` from mobx
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
@@ -87,15 +90,17 @@ complete as there is too much un-said.
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
 
-* Completed the `arez-devtools` project.
-
-* Support `@OnChange` for `@Observable` and `@Memoize` methods. This hook is called immediately after the
-  change and includes the old value and the new value. The nullability annotations on the hook method should
-  match expectations.
+* Complete the `arez-devtools` project.
+  - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
+
+* Enhance scheduler and expose the ability to add deferred tasks.
+  - https://philipwalton.com/articles/idle-until-urgent/
+  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
+  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
 
 ## Reactive-Streaming integration
 

@@ -122,7 +122,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.0.otherID",
+        "name": "TestComponent.1.otherID",
         "type": "ObservableValueChange",
         "value": 22
     },

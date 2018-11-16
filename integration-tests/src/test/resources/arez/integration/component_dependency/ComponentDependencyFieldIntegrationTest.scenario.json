@@ -1,14 +1,6 @@
 
 [
     {
-        "name": "Model1.0",
-        "type": "ComponentCreateStart"
-    },
-    {
-        "name": "Model1.0",
-        "type": "ComponentCreateComplete"
-    },
-    {
         "name": "Model1.1",
         "type": "ComponentCreateStart"
     },
@@ -17,11 +9,11 @@
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.0",
+        "name": "Model1.2",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model2.0",
+        "name": "Model1.2",
         "type": "ComponentCreateComplete"
     },
     {
@@ -33,95 +25,12 @@
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.0",
-        "type": "ComponentDisposeStart"
+        "name": "Model2.2",
+        "type": "ComponentCreateStart"
     },
     {
-        "name": "Model2.0.dispose",
-        "tracked": false,
-        "type": "ActionStart",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "name": "Model2.0.dispose",
-        "tracker": null,
-        "type": "TransactionStart"
-    },
-    {
-        "mutation": true,
-        "name": "Model2.0.dispose",
-        "tracker": null,
-        "type": "TransactionComplete"
-    },
-    {
-        "result": null,
-        "name": "Model2.0.dispose",
-        "errorMessage": null,
-        "tracked": false,
-        "returnsResult": false,
-        "type": "ActionComplete",
-        "parameters": [
-        ]
-    },
-    {
-        "name": "Model2.0",
-        "type": "ComponentDisposeComplete"
-    },
-    {
-        "name": "Model1.0",
-        "type": "ComponentDisposeStart"
-    },
-    {
-        "name": "Model1.0.dispose",
-        "tracked": false,
-        "type": "ActionStart",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "name": "Model1.0.dispose",
-        "tracker": null,
-        "type": "TransactionStart"
-    },
-    {
-        "mutation": true,
-        "name": "Model1.0.dispose",
-        "tracker": null,
-        "type": "TransactionComplete"
-    },
-    {
-        "result": null,
-        "name": "Model1.0.dispose",
-        "errorMessage": null,
-        "tracked": false,
-        "returnsResult": false,
-        "type": "ActionComplete",
-        "parameters": [
-        ]
-    },
-    {
-        "name": "Model1.0",
-        "type": "ComponentDisposeComplete"
-    },
-    {
-        "name": "Model1.1",
-        "type": "ComponentDisposeStart"
-    },
-    {
-        "name": "Model1.1.dispose",
-        "tracked": false,
-        "type": "ActionStart",
-        "parameters": [
-        ]
-    },
-    {
-        "mutation": true,
-        "name": "Model1.1.dispose",
-        "tracker": null,
-        "type": "TransactionStart"
+        "name": "Model2.2",
+        "type": "ComponentCreateComplete"
     },
     {
         "name": "Model2.1",
@@ -133,6 +42,18 @@
         "type": "ActionStart",
         "parameters": [
         ]
+    },
+    {
+        "mutation": true,
+        "name": "Model2.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "Model2.1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
     },
     {
         "result": null,
@@ -149,6 +70,23 @@
         "type": "ComponentDisposeComplete"
     },
     {
+        "name": "Model1.1",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "Model1.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Model1.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
         "mutation": true,
         "name": "Model1.1.dispose",
         "tracker": null,
@@ -166,6 +104,68 @@
     },
     {
         "name": "Model1.1",
+        "type": "ComponentDisposeComplete"
+    },
+    {
+        "name": "Model1.2",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "Model1.2.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Model1.2.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "Model2.2",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "Model2.2.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "name": "Model2.2.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model2.2",
+        "type": "ComponentDisposeComplete"
+    },
+    {
+        "mutation": true,
+        "name": "Model1.2.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Model1.2.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.2",
         "type": "ComponentDisposeComplete"
     }
 ]

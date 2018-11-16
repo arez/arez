@@ -183,7 +183,7 @@ final class ReferenceDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _method.getReturnType() ) );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     if ( !"LAZY".equals( _linkType ) )
     {
@@ -192,24 +192,24 @@ final class ReferenceDescriptor
       if ( isNullable() )
       {
         block.addStatement( "$T.apiInvariant( () -> null != $N || null == $N(), () -> \"Nullable reference method " +
-                            "named '$N' invoked on component named '\" + $N() + \"' and reference has not been " +
+                            "named '$N' invoked on component named '\" + this.$N.getName() + \"' and reference has not been " +
                             "resolved yet is not lazy. Id = \" + $N() )",
                             GeneratorUtil.GUARDS_CLASSNAME,
                             getFieldName(),
                             _idMethod.getSimpleName(),
                             _method.getSimpleName(),
-                            _componentDescriptor.getComponentNameMethodName(),
+                            GeneratorUtil.KERNEL_FIELD_NAME,
                             _idMethod.getSimpleName() );
       }
       else
       {
         block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Nonnull reference method named '$N' " +
-                            "invoked on component named '\" + $N() + \"' but reference has not been resolved yet " +
+                            "invoked on component named '\" + this.$N.getName() + \"' but reference has not been resolved yet " +
                             "is not lazy. Id = \" + $N() )",
                             GeneratorUtil.GUARDS_CLASSNAME,
                             getFieldName(),
                             _method.getSimpleName(),
-                            _componentDescriptor.getComponentNameMethodName(),
+                            GeneratorUtil.KERNEL_FIELD_NAME,
                             _idMethod.getSimpleName() );
       }
       block.endControlFlow();
@@ -270,7 +270,7 @@ final class ReferenceDescriptor
     final String methodName = getLinkMethodName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     builder.addModifiers( Modifier.PRIVATE );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     if ( "EAGER".equals( getLinkType() ) )
     {
@@ -326,12 +326,12 @@ final class ReferenceDescriptor
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
-                        "on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                        "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
                         "and id = \" + $N() )",
                         GeneratorUtil.GUARDS_CLASSNAME,
                         getFieldName(),
                         _name,
-                        _componentDescriptor.getComponentNameMethodName(),
+                        GeneratorUtil.KERNEL_FIELD_NAME,
                         getMethod().getReturnType().toString(),
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
@@ -358,12 +358,12 @@ final class ReferenceDescriptor
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
-                        "on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                        "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
                         "and id = \" + $N() )",
                         GeneratorUtil.GUARDS_CLASSNAME,
                         getFieldName(),
                         _name,
-                        _componentDescriptor.getComponentNameMethodName(),
+                        GeneratorUtil.KERNEL_FIELD_NAME,
                         getMethod().getReturnType().toString(),
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
@@ -498,12 +498,12 @@ final class ReferenceDescriptor
                           getMethod().getReturnType(),
                           idName );
     builder.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
-                          "on component named '\" + $N() + \"' is unable to resolve entity of type $N " +
+                          "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
                           "and id = \" + $N() )",
                           GeneratorUtil.GUARDS_CLASSNAME,
                           refName,
                           _name,
-                          _componentDescriptor.getComponentNameMethodName(),
+                          GeneratorUtil.KERNEL_FIELD_NAME,
                           getMethod().getReturnType().toString(),
                           getIdMethod().getSimpleName() );
   }

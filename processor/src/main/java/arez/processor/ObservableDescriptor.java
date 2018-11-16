@@ -286,16 +286,16 @@ final class ObservableDescriptor
   {
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N().observable( " +
-               "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-               "$T.areNamesEnabled() ? $N() + $S : null, " +
+    sb.append( "this.$N = $N.observable( " +
+               "$T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, " +
                "$T.arePropertyIntrospectorsEnabled() ? () -> " );
     parameters.add( getFieldName() );
-    parameters.add( _componentDescriptor.getContextMethodName() );
+    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( GeneratorUtil.NAME_VAR_NAME );
     parameters.add( "." + getName() );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
 
@@ -338,7 +338,7 @@ final class ObservableDescriptor
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
 
-  void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
+  void buildDisposer( @Nonnull final MethodSpec.Builder codeBlock )
   {
     codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
@@ -379,7 +379,7 @@ final class ObservableDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -412,17 +412,17 @@ final class ObservableDescriptor
       builder.addParameter( param.build() );
 
       final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( $N().isTransactionActive() )", _componentDescriptor.getContextMethodName() );
+      block.beginControlFlow( "if ( this.$N.getContext().isTransactionActive() )", GeneratorUtil.KERNEL_FIELD_NAME );
       block.addStatement( "this.$N( $N )", GeneratorUtil.FRAMEWORK_PREFIX + methodName, paramName );
       block.nextControlFlow( "else" );
 
       if ( _setterType.getThrownTypes().isEmpty() )
       {
-        block.addStatement( "this.$N().safeAction( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
-                            _componentDescriptor.getContextMethodName(),
+        block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
+                            GeneratorUtil.KERNEL_FIELD_NAME,
                             GeneratorUtil.AREZ_CLASSNAME,
-                            _componentDescriptor.getComponentNameMethodName(),
-                            methodName,
+                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            "." + methodName,
                             GeneratorUtil.FRAMEWORK_PREFIX + methodName,
                             paramName );
       }
@@ -430,11 +430,11 @@ final class ObservableDescriptor
       {
         //noinspection CodeBlock2Expr
         GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
-          b.addStatement( "this.$N().action( $T.areNamesEnabled() ? $N() + \".$N\" : null, () -> this.$N( $N ) )",
-                          _componentDescriptor.getContextMethodName(),
+          b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
+                          GeneratorUtil.KERNEL_FIELD_NAME,
                           GeneratorUtil.AREZ_CLASSNAME,
-                          _componentDescriptor.getComponentNameMethodName(),
-                          methodName,
+                          GeneratorUtil.KERNEL_FIELD_NAME,
+                          "." +  methodName,
                           GeneratorUtil.FRAMEWORK_PREFIX + methodName,
                           paramName );
         } );
@@ -490,7 +490,7 @@ final class ObservableDescriptor
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
     ProcessorUtil.copyWhitelistedAnnotations( element, param );
     builder.addParameter( param.build() );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
     builder.addStatement( "this.$N.preReportChanged()", getFieldName() );
 
     final String varName = GeneratorUtil.VARIABLE_PREFIX + "currentValue";
@@ -722,7 +722,7 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getterType.getReturnType() ) );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     if ( _readOutsideTransaction )
     {

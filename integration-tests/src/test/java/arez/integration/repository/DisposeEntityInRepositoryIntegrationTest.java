@@ -63,7 +63,7 @@ public class DisposeEntityInRepositoryIntegrationTest
     assertTrue( Disposable.isDisposed( component1 ) );
     assertFalse( Disposable.isDisposed( component2 ) );
 
-    safeAction( () -> assertEquals( repository.findById( 1 ), null ) );
+    safeAction( () -> assertNull( repository.findById( 1 ) ) );
     safeAction( () -> assertEquals( repository.findById( 2 ), component2 ) );
   }
 }

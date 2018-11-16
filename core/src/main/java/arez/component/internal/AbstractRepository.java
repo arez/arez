@@ -1,6 +1,9 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.Arez;
+import arez.component.CollectionsUtil;
+import arez.component.NoResultException;
+import arez.component.NoSuchEntityException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;

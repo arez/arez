@@ -10,6 +10,7 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Repository;
+import arez.component.internal.ComponentKernel;
 import arez.component.TypeBasedLocator;
 import arez.component.Verifiable;
 import arez.integration.AbstractArezIntegrationTest;
@@ -102,9 +103,13 @@ public class VerifyZeroOrOneInverseIntegrationTest
 
     verify( model2 );
 
-    final Field field = model1.getClass().getDeclaredField( "$$arezi$$_state" );
+    final Field kernelField = model1.getClass().getDeclaredField( "$$arezi$$_kernel" );
+    kernelField.setAccessible( true );
+    final ComponentKernel kernel = (ComponentKernel) kernelField.get( model1 );
+
+    final Field field = kernel.getClass().getDeclaredField( "_state" );
     field.setAccessible( true );
-    field.set( model1, (byte) -1 );
+    field.set( kernel, (byte) -1 );
 
     assertInvariant( () -> verify( model2 ),
                      "Inverse relationship named 'model1' on component named 'Model2.1' contains disposed element 'ArezComponent[Model1.0]'" );

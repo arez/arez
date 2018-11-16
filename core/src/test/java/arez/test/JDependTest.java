@@ -1,7 +1,9 @@
 package arez.test;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import jdepend.framework.DependencyConstraint;
@@ -25,8 +27,9 @@ public class JDependTest
 
     final JavaPackage arez = constraint.addPackage( "arez" );
     final JavaPackage spy = constraint.addPackage( "arez.spy" );
-    final JavaPackage annotations = constraint.addPackage( "arez.annotations" );
+    constraint.addPackage( "arez.annotations" );
     final JavaPackage component = constraint.addPackage( "arez.component" );
+    final JavaPackage internal = constraint.addPackage( "arez.component.internal" );
     final JavaPackage braincheck = constraint.addPackage( "org.realityforge.braincheck" );
     final JavaPackage jsinterop = constraint.addPackage( "jsinterop.annotations" );
 
@@ -44,13 +47,54 @@ public class JDependTest
     component.dependsUpon( braincheck );
     component.dependsUpon( arez );
 
+    internal.dependsUpon( braincheck );
+    internal.dependsUpon( arez );
+    internal.dependsUpon( component );
+    internal.dependsUpon( spy );
+
     final DependencyConstraint.MatchResult result = jdepend.analyzeDependencies( constraint );
 
-    assertEquals( result.getUndefinedPackages().size(), 0, "Undefined Packages: " + result.getUndefinedPackages() );
+    final List<JavaPackage> undefinedPackages = result.getUndefinedPackages();
+    if ( !undefinedPackages.isEmpty() )
+    {
+      fail( "Undefined Packages: " +
+            undefinedPackages.stream().map( Object::toString ).collect( Collectors.joining( ", " ) ) );
+    }
 
-    assertTrue( result.matches(),
-                "NonMatchingPackages: " +
-                result.getNonMatchingPackages().stream().map( Arrays::asList ).collect( Collectors.toList() ) );
+    final List<JavaPackage[]> nonMatchingPackages = result.getNonMatchingPackages();
+    if ( !nonMatchingPackages.isEmpty() )
+    {
+      final StringBuilder sb = new StringBuilder();
+      sb.append( "Discovered packages where relationships do not align.\n" );
+      for ( final JavaPackage[] packages : nonMatchingPackages )
+      {
+        final JavaPackage expected = packages[ 0 ];
+        final JavaPackage actual = packages[ 1 ];
+
+        final ArrayList<JavaPackage> oldAfferents = new ArrayList<>( expected.getAfferents() );
+        oldAfferents.removeAll( actual.getAfferents() );
+
+        oldAfferents.forEach( p -> sb
+          .append( "Package " )
+          .append( p.getName() )
+          .append( " no longer depends upon " )
+          .append( expected.getName() )
+          .append( "\n" )
+        );
+
+        final ArrayList<JavaPackage> newAfferents = new ArrayList<>( actual.getAfferents() );
+        newAfferents.removeAll( expected.getAfferents() );
+
+        newAfferents.forEach( p -> sb
+          .append( "Package " )
+          .append( p.getName() )
+          .append( " now depends upon " )
+          .append( expected.getName() )
+          .append( "\n" )
+        );
+      }
+      fail( sb.toString() );
+    }
   }
 
   @Nonnull

@@ -33,10 +33,10 @@ final class GeneratorUtil
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
   static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
   static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
-  static final ClassName ABSTRACT_REPOSITORY_CLASSNAME = ClassName.get( "arez.component", "AbstractRepository" );
+  static final ClassName ABSTRACT_REPOSITORY_CLASSNAME = ClassName.get( "arez.component.internal", "AbstractRepository" );
+  static final ClassName KERNEL_CLASSNAME = ClassName.get( "arez.component.internal", "ComponentKernel" );
+  static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component.internal", "MemoizeCache" );
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
-  static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component", "MemoizeCache" );
-  static final ClassName COMPONENT_STATE_CLASSNAME = ClassName.get( "arez.component", "ComponentState" );
   static final ClassName COMPONENT_OBSERVABLE_CLASSNAME = ClassName.get( "arez.component", "ComponentObservable" );
   static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeTrackable" );
   static final ClassName DISPOSE_NOTIFIER_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
@@ -76,21 +76,17 @@ final class GeneratorUtil
    * The name of exceptions when caught by Arez infrastructure.
    */
   private static final String CAUGHT_THROWABLE_NAME = "$$arez_exception$$";
-  /**
-   * The state of the entity.
-   */
-  static final String STATE_FIELD_NAME = FRAMEWORK_PREFIX + "state";
   static final String LOCATOR_METHOD_NAME = FRAMEWORK_PREFIX + "locator";
-  static final String DISPOSED_OBSERVABLE_FIELD_NAME = FRAMEWORK_PREFIX + "disposedObservable";
-  static final String DISPOSE_NOTIFIER_FIELD_NAME = FRAMEWORK_PREFIX + "disposeNotifier";
-  static final String DISPOSE_ON_DEACTIVATE_FIELD_NAME = FRAMEWORK_PREFIX + "disposeOnDeactivate";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
-  static final String NAME_METHOD_NAME = FRAMEWORK_PREFIX + "name";
+  static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
-  static final String CONTEXT_FIELD_NAME = FRAMEWORK_PREFIX + "context";
-  static final String COMPONENT_FIELD_NAME = FRAMEWORK_PREFIX + "component";
-  static final String INTERNAL_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "observe";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
+  static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "nativeComponentPreDispose";
+  static final String INTERNAL_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "dispose";
+  static final String CONTEXT_VAR_NAME = VARIABLE_PREFIX + "context";
+  static final String ID_VAR_NAME = VARIABLE_PREFIX + "id";
+  static final String NAME_VAR_NAME = VARIABLE_PREFIX + "name";
+  static final String COMPONENT_VAR_NAME = VARIABLE_PREFIX + "component";
   static final TypeKind DEFAULT_ID_KIND = TypeKind.INT;
   static final TypeName DEFAULT_ID_TYPE = TypeName.INT;
 
@@ -155,11 +151,11 @@ final class GeneratorUtil
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenInitialized( this.$N ), " +
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenInitialized(), " +
                         "() -> \"Method named '$N' invoked on uninitialized component of type '$N'\" )",
                         GUARDS_CLASSNAME,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
                         methodName,
                         descriptor.getType() );
     block.endControlFlow();
@@ -167,89 +163,62 @@ final class GeneratorUtil
     builder.addCode( block.build() );
   }
 
-  static void generateNotConstructedInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                               @Nonnull final MethodSpec.Builder builder,
+  static void generateNotConstructedInvariant( @Nonnull final MethodSpec.Builder builder,
                                                @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenConstructed( this.$N ), () -> \"Method named '$N' invoked " +
-                        "on un-constructed component named '\" + $N() + \"'\" )",
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenConstructed(), " +
+                        "() -> \"Method named '$N' invoked on un-constructed component named '\" + " +
+                        "( null == this.$N ? '?' : this.$N.getName() ) + \"'\" )",
                         GUARDS_CLASSNAME,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
                         methodName,
-                        descriptor.getComponentNameMethodName() );
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME );
     block.endControlFlow();
 
     builder.addCode( block.build() );
   }
 
-  static void generateNotCompleteInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                            @Nonnull final MethodSpec.Builder builder,
+  static void generateNotCompleteInvariant( @Nonnull final MethodSpec.Builder builder,
                                             @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.hasBeenCompleted( this.$N ), () -> \"Method named '$N' invoked " +
-                        "on incomplete component named '\" + $N() + \"'\" )",
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenCompleted(), " +
+                        "() -> \"Method named '$N' invoked on incomplete component named '\" + " +
+                        "( null == this.$N ? '?' : this.$N.getName() ) + \"'\" )",
                         GUARDS_CLASSNAME,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
                         methodName,
-                        descriptor.getComponentNameMethodName() );
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME );
     block.endControlFlow();
 
     builder.addCode( block.build() );
   }
 
-  static void generateNotDisposedInvariant( @Nonnull final ComponentDescriptor descriptor,
-                                            @Nonnull final MethodSpec.Builder builder,
+  static void generateNotDisposedInvariant( @Nonnull final MethodSpec.Builder builder,
                                             @Nonnull final String methodName )
   {
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> $T.isActive( this.$N ), () -> \"Method named '$N' invoked " +
-                        "on \" + $T.describe( this.$N ) + \" component named '\" + $N() + \"'\" )",
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.isActive(), " +
+                        "() -> \"Method named '$N' invoked on \" + this.$N.describeState() + \" component " +
+                        "named '\" + ( null == this.$N ? '?' : this.$N.getName() ) + \"'\" )",
                         GUARDS_CLASSNAME,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
                         methodName,
-                        COMPONENT_STATE_CLASSNAME,
-                        STATE_FIELD_NAME,
-                        descriptor.getComponentNameMethodName() );
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME );
     block.endControlFlow();
 
     builder.addCode( block.build() );
-  }
-
-  static void setStateForInvariantChecking( @Nonnull final MethodSpec.Builder builder, @Nonnull final String stateName )
-  {
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-
-    block.addStatement( "this.$N = $T.$N",
-                        GeneratorUtil.STATE_FIELD_NAME,
-                        GeneratorUtil.COMPONENT_STATE_CLASSNAME,
-                        stateName );
-    block.endControlFlow();
-
-    builder.addCode( block.build() );
-  }
-
-  @SuppressWarnings( "SameParameterValue" )
-  static void setStateForInvariantChecking( @Nonnull final CodeBlock.Builder builder, @Nonnull final String stateName )
-  {
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-
-    block.addStatement( "this.$N = $T.$N",
-                        GeneratorUtil.STATE_FIELD_NAME,
-                        GeneratorUtil.COMPONENT_STATE_CLASSNAME,
-                        stateName );
-    block.endControlFlow();
-
-    builder.add( block.build() );
   }
 
   static void generateTryBlock( @Nonnull final MethodSpec.Builder builder,

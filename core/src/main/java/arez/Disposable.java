@@ -1,6 +1,7 @@
 package arez;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -37,7 +38,7 @@ public interface Disposable
    *
    * @param object the object to dispose.
    */
-  static void dispose( @Nonnull final Object object )
+  static void dispose( @Nullable final Object object )
   {
     if ( object instanceof Disposable )
     {

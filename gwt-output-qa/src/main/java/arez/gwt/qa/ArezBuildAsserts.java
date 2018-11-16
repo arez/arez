@@ -24,10 +24,11 @@ public final class ArezBuildAsserts
 
     // This should be optimized out completely
     index.assertNoClassNameMatches( "arez\\.ArezConfig" );
-    index.assertNoClassNameMatches( "arez\\.component\\.ComponentState" );
 
     // This should be eliminated as it will improve the ability for GWT compiler to dead-code-eliminate
     index.assertNoMemberMatches( "arez\\.Arez", "$clinit" );
+
+    index.assertNoMemberMatches( "arez\\.component\\.ComponentKernel", "$clinit" );
 
     // This should be eliminated as only used during invariant checking
     index.assertNoMemberMatches( "arez\\.ObservableValue", "preReportChanged" );
@@ -130,6 +131,7 @@ public final class ArezBuildAsserts
   {
     index.assertSymbol( "arez\\.ThrowableUtil", enabled );
     index.assertSymbol( "arez\\.Component", "_name", enabled );
+    index.assertSymbol( "arez\\.component\\.ComponentKernel", "_name", enabled );
     index.assertSymbol( "arez\\.Node", "_name", enabled );
     index.assertSymbol( "arez\\.Task", "_name", enabled );
     index.assertSymbol( "arez\\.Transaction", "_name", enabled );
@@ -180,14 +182,13 @@ public final class ArezBuildAsserts
    */
   public static void assertZoneOutputs( @Nonnull final SymbolEntryIndex index, final boolean enabled )
   {
-
     index.assertSymbol( "arez\\.Zone", enabled );
     index.assertSymbol( "arez\\.ArezZoneHolder", enabled );
     index.assertSymbol( "arez\\.Arez", "createZone", enabled );
     index.assertSymbol( "arez\\.Arez", "activateZone", enabled );
     index.assertSymbol( "arez\\.Arez", "deactivateZone", enabled );
     index.assertSymbol( "arez\\.Arez", "currentZone", enabled );
-    index.assertSymbol( ".*\\.Arez_.*", "$$arezi$$_context", enabled );
+    index.assertSymbol( "arez\\.component\\.ComponentKernel", "_context", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
     index.assertSymbol( "arez\\.Component", "_context", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
@@ -196,7 +197,6 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.Transaction", "_context", enabled );
     index.assertSymbol( "arez\\.component\\.MemoizeCache", "_context", enabled );
   }
-
 
   /**
    * This assertion verifies that the symbols that are conditional on the `arez.enable_environments`
@@ -262,7 +262,7 @@ public final class ArezBuildAsserts
   {
     // Assert no Component cruft is enabled as !Arez.areNativeComponentsEnabled() in the build
     index.assertSymbol( "arez\\.Component.*", enabled );
-    index.assertSymbol( ".*\\.Arez_.*", "$$arezi$$_component", enabled );
+    index.assertSymbol( "arez\\.component\\.ComponentKernel", "_component", enabled );
 
     // No repositories need their own identity if native components disabled
     assertSyntheticId( index, ".*\\.Arez_[^\\.]+Repository", false );
@@ -327,7 +327,7 @@ public final class ArezBuildAsserts
     assertStandardOutputs( index );
     assertAreNamesEnabled( index, areNamesEnabled );
     assertReferencesOutputs( index, areReferencesEnabled );
-    assertPropertyIntrospectorOutputs( index, areReferencesEnabled );
+    assertPropertyIntrospectorOutputs( index, arePropertyIntrospectorsEnabled );
     assertSpyOutputs( index, areSpiesEnabled );
     assertNativeComponentOutputs( index, areNativeComponentsEnabled );
     assertAreRegistriesEnabled( index, areRegistriesEnabled );

@@ -1,4 +1,4 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -221,6 +221,7 @@ public final class MemoizeCache<T>
    * Retrieve the computable value for specified parameters, creating it if necessary.
    *
    * @param args the arguments passed to the memoized function.
+   * @return the computable value instance for the specified args.
    */
   @SuppressWarnings( "unchecked" )
   public ComputableValue<T> getComputableValue( @Nonnull final Object... args )
@@ -296,7 +297,8 @@ public final class MemoizeCache<T>
                        " but unable to locate corresponding ComputableValue." );
     }
     assert null != computableValue;
-    getContext().scheduleDispose( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null, computableValue );
+    getContext().scheduleDispose( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
+                                  computableValue );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();

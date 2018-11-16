@@ -501,8 +501,7 @@ final class ComponentDescriptor
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
-      new ActionDescriptor( this,
-                            name,
+      new ActionDescriptor( name,
                             requireNewTransaction,
                             requireEnvironment,
                             mutation,
@@ -2588,7 +2587,10 @@ final class ComponentDescriptor
 
     buildConstructors( builder, typeUtils );
 
-    builder.addMethod( buildContextRefMethod() );
+    if ( null != _contextRef )
+    {
+      builder.addMethod( buildContextRefMethod() );
+    }
     if ( null != _componentRef )
     {
       builder.addMethod( buildComponentRefMethod() );
@@ -2606,7 +2608,10 @@ final class ComponentDescriptor
       builder.addMethod( buildComponentIdMethod() );
     }
     builder.addMethod( buildArezIdMethod() );
-    builder.addMethod( buildComponentNameMethod() );
+    if ( null != _componentNameRef )
+    {
+      builder.addMethod( buildComponentNameMethod() );
+    }
     final MethodSpec method = buildComponentTypeNameMethod();
     if ( null != method )
     {
@@ -2615,19 +2620,20 @@ final class ComponentDescriptor
 
     if ( _observable )
     {
-      builder.addMethod( buildInternalObserve() );
       builder.addMethod( buildObserve() );
     }
-    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
+    if ( hasInternalPreDispose() )
     {
       builder.addMethod( buildInternalPreDispose() );
     }
     if ( _disposeTrackable )
     {
+      builder.addMethod( buildNativeComponentPreDispose() );
       builder.addMethod( buildNotifierAccessor() );
     }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
+    builder.addMethod( buildInternalDispose() );
     if ( _verify )
     {
       builder.addMethod( buildVerify() );
@@ -2675,7 +2681,10 @@ final class ComponentDescriptor
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
-    codeBlock.addStatement( "return $S + $N() + $S", "ArezComponent[", getComponentNameMethodName(), "]" );
+    codeBlock.addStatement( "return $S + this.$N.getName() + $S",
+                            "ArezComponent[",
+                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            "]" );
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "return super.toString()" );
     codeBlock.endControlFlow();
@@ -2855,39 +2864,23 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  String getComponentNameMethodName()
-  {
-    return null == _componentNameRef ? GeneratorUtil.NAME_METHOD_NAME : _componentNameRef.getSimpleName().toString();
-  }
-
-  @Nonnull
   private MethodSpec buildContextRefMethod()
     throws ArezProcessorException
   {
-    final String methodName = getContextMethodName();
+    assert null != _contextRef;
+    final String methodName = _contextRef.getSimpleName().toString();
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
+      addAnnotation( Override.class ).
       returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME );
+
+    ProcessorUtil.copyWhitelistedAnnotations( _contextRef, method );
+    ProcessorUtil.copyAccessModifiers( _contextRef, method );
 
     GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
 
-    method.addStatement( "return $T.areZonesEnabled() ? this.$N : $T.context()",
-                         GeneratorUtil.AREZ_CLASSNAME,
-                         GeneratorUtil.CONTEXT_FIELD_NAME,
-                         GeneratorUtil.AREZ_CLASSNAME );
-    if ( null != _contextRef )
-    {
-      method.addAnnotation( Override.class );
-      ProcessorUtil.copyWhitelistedAnnotations( _contextRef, method );
-      ProcessorUtil.copyAccessModifiers( _contextRef, method );
-    }
+    method.addStatement( "return this.$N.getContext()", GeneratorUtil.KERNEL_FIELD_NAME );
     return method.build();
-  }
-
-  @Nonnull
-  String getContextMethodName()
-  {
-    return null != _contextRef ? _contextRef.getSimpleName().toString() : GeneratorUtil.CONTEXT_FIELD_NAME;
   }
 
   @Nonnull
@@ -2901,7 +2894,7 @@ final class ComponentDescriptor
 
     GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
 
-    method.addStatement( "return $N().locator()", getContextMethodName() );
+    method.addStatement( "return this.$N.getContext().locator()", GeneratorUtil.KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -2917,9 +2910,9 @@ final class ComponentDescriptor
       returns( GeneratorUtil.COMPONENT_CLASSNAME );
 
     GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
-    GeneratorUtil.generateNotConstructedInvariant( this, method, methodName );
-    GeneratorUtil.generateNotCompleteInvariant( this, method, methodName );
-    GeneratorUtil.generateNotDisposedInvariant( this, method, methodName );
+    GeneratorUtil.generateNotConstructedInvariant( method, methodName );
+    GeneratorUtil.generateNotCompleteInvariant( method, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( method, methodName );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
@@ -2932,7 +2925,7 @@ final class ComponentDescriptor
 
     method.addCode( block.build() );
 
-    method.addStatement( "return this.$N", GeneratorUtil.COMPONENT_FIELD_NAME );
+    method.addStatement( "return this.$N.getComponent()", GeneratorUtil.KERNEL_FIELD_NAME );
     ProcessorUtil.copyWhitelistedAnnotations( _componentRef, method );
     ProcessorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
@@ -2978,37 +2971,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
       addModifiers( Modifier.FINAL ).
       returns( GeneratorUtil.DEFAULT_ID_TYPE );
-
-    if ( !_idRequired )
-    {
-      final CodeBlock.Builder block = CodeBlock.builder();
-      if ( _nameIncludesId )
-      {
-        block.beginControlFlow(
-          "if ( $T.shouldCheckInvariants() && !$T.areNamesEnabled() && !$T.areRegistriesEnabled() && !$T.areNativeComponentsEnabled() )",
-          GeneratorUtil.AREZ_CLASSNAME,
-          GeneratorUtil.AREZ_CLASSNAME,
-          GeneratorUtil.AREZ_CLASSNAME,
-          GeneratorUtil.AREZ_CLASSNAME );
-      }
-      else
-      {
-        block.beginControlFlow(
-          "if ( $T.shouldCheckInvariants() && !$T.areRegistriesEnabled() && !$T.areNativeComponentsEnabled() )",
-          GeneratorUtil.AREZ_CLASSNAME,
-          GeneratorUtil.AREZ_CLASSNAME,
-          GeneratorUtil.AREZ_CLASSNAME );
-      }
-      block.addStatement(
-        "$T.fail( () -> \"Method invoked to access id when id not expected on component named '\" + $N() + \"'.\" )",
-        GeneratorUtil.GUARDS_CLASSNAME,
-        getComponentNameMethodName() );
-      block.endControlFlow();
-
-      method.addCode( block.build() );
-    }
-
-    return method.addStatement( "return this.$N", GeneratorUtil.ID_FIELD_NAME ).build();
+    return method.addStatement( "return this.$N.getId()", GeneratorUtil.KERNEL_FIELD_NAME ).build();
   }
 
   /**
@@ -3018,32 +2981,16 @@ final class ComponentDescriptor
   private MethodSpec buildComponentNameMethod()
     throws ArezProcessorException
   {
-    final MethodSpec.Builder builder;
-    final String methodName;
-    if ( null == _componentNameRef )
-    {
-      methodName = GeneratorUtil.NAME_METHOD_NAME;
-      builder = MethodSpec.methodBuilder( methodName );
-    }
-    else
-    {
-      methodName = _componentNameRef.getSimpleName().toString();
-      builder = MethodSpec.methodBuilder( methodName );
-      ProcessorUtil.copyWhitelistedAnnotations( _componentNameRef, builder );
-      ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
-      builder.addModifiers( Modifier.FINAL );
-    }
+    assert null != _componentNameRef;
+    final String methodName = _componentNameRef.getSimpleName().toString();
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( methodName ).addModifiers( Modifier.FINAL ).returns( TypeName.get( String.class ) );
 
-    builder.returns( TypeName.get( String.class ) );
+    ProcessorUtil.copyWhitelistedAnnotations( _componentNameRef, builder );
+    ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
+
     GeneratorUtil.generateNotInitializedInvariant( this, builder, methodName );
-    if ( _nameIncludesId )
-    {
-      builder.addStatement( "return $S + $N()", _type.isEmpty() ? "" : _type + ".", getIdMethodName() );
-    }
-    else
-    {
-      builder.addStatement( "return $S", _type );
-    }
+    builder.addStatement( "return this.$N.getName()", GeneratorUtil.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3075,7 +3022,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    GeneratorUtil.generateNotDisposedInvariant( this, builder, "verify" );
+    GeneratorUtil.generateNotDisposedInvariant( builder, "verify" );
 
     if ( !_roReferences.isEmpty() || !_roInverses.isEmpty() )
     {
@@ -3120,7 +3067,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    GeneratorUtil.generateNotDisposedInvariant( this, builder, "link" );
+    GeneratorUtil.generateNotDisposedInvariant( builder, "link" );
 
     final List<ReferenceDescriptor> explicitReferences =
       _roReferences.stream().filter( r -> r.getLinkType().equals( "EXPLICIT" ) ).collect( Collectors.toList() );
@@ -3143,55 +3090,44 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    codeBlock.beginControlFlow( "if ( !$T.isDisposingOrDisposed( this.$N ) )",
-                                GeneratorUtil.COMPONENT_STATE_CLASSNAME,
-                                GeneratorUtil.STATE_FIELD_NAME );
-    codeBlock.addStatement( "this.$N = $T.COMPONENT_DISPOSING",
-                            GeneratorUtil.STATE_FIELD_NAME,
-                            GeneratorUtil.COMPONENT_STATE_CLASSNAME );
-    final CodeBlock.Builder nativeComponentBlock = CodeBlock.builder();
-    nativeComponentBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
-    nativeComponentBlock.addStatement( "this.$N.dispose()", GeneratorUtil.COMPONENT_FIELD_NAME );
-    nativeComponentBlock.nextControlFlow( "else" );
+    builder.addStatement( "this.$N.dispose()", GeneratorUtil.KERNEL_FIELD_NAME );
 
-    final CodeBlock.Builder actionBlock = CodeBlock.builder();
+    return builder.build();
+  }
 
-    actionBlock.beginControlFlow( "$N().safeAction( $T.areNamesEnabled() ? $N() + $S : null, () -> {",
-                                  getContextMethodName(),
-                                  GeneratorUtil.AREZ_CLASSNAME,
-                                  getComponentNameMethodName(),
-                                  ".dispose" );
+  @Nonnull
+  private MethodSpec buildInternalDispose()
+    throws ArezProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
 
-    if ( _disposeTrackable || !_roReferences.isEmpty() || !_roInverses.isEmpty() || !_roCascadeDisposes.isEmpty() )
+    if ( hasInternalPreDispose() )
     {
-      actionBlock.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+      builder.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
     else if ( null != _preDispose )
     {
-      actionBlock.addStatement( "super.$N()", _preDispose.getSimpleName() );
+      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
-    if ( _observable )
-    {
-      actionBlock.addStatement( "this.$N.dispose()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
-    }
-    _roObserves.forEach( observe -> observe.buildDisposer( actionBlock ) );
-    _roMemoizes.forEach( memoize -> memoize.buildDisposer( actionBlock ) );
-    _roObservables.forEach( observable -> observable.buildDisposer( actionBlock ) );
+    _roObserves.forEach( observe -> observe.buildDisposer( builder ) );
+    _roMemoizes.forEach( memoize -> memoize.buildDisposer( builder ) );
+    _roObservables.forEach( observable -> observable.buildDisposer( builder ) );
     if ( null != _postDispose )
     {
-      actionBlock.addStatement( "super.$N()", _postDispose.getSimpleName() );
+      builder.addStatement( "super.$N()", _postDispose.getSimpleName() );
     }
-    actionBlock.endControlFlow( "}, $T.NO_VERIFY_ACTION_REQUIRED )", GeneratorUtil.FLAGS_CLASSNAME );
-    nativeComponentBlock.add( actionBlock.build() );
-    nativeComponentBlock.endControlFlow();
-    codeBlock.add( nativeComponentBlock.build() );
-    GeneratorUtil.setStateForInvariantChecking( codeBlock, "COMPONENT_DISPOSED" );
-    codeBlock.endControlFlow();
-
-    builder.addCode( codeBlock.build() );
 
     return builder.build();
+  }
+
+  private boolean hasInternalPreDispose()
+  {
+    return !_roReferences.isEmpty() ||
+           !_roInverses.isEmpty() ||
+           !_roCascadeDisposes.isEmpty() ||
+           !_roDependencies.isEmpty();
   }
 
   /**
@@ -3207,32 +3143,7 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "return $T.isDisposingOrDisposed( this.$N )",
-                          GeneratorUtil.COMPONENT_STATE_CLASSNAME,
-                          GeneratorUtil.STATE_FIELD_NAME );
-    return builder.build();
-  }
-
-  /**
-   * Generate the observe method.
-   */
-  @Nonnull
-  private MethodSpec buildInternalObserve()
-    throws ArezProcessorException
-  {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME ).
-        addModifiers( Modifier.PRIVATE ).
-        returns( TypeName.BOOLEAN );
-
-    builder.addStatement( "final boolean isNotDisposed = isNotDisposed()" );
-
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( isNotDisposed ) ", getContextMethodName() );
-    block.addStatement( "this.$N.reportObserved()", GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME );
-    block.endControlFlow();
-    builder.addCode( block.build() );
-    builder.addStatement( "return isNotDisposed" );
+    builder.addStatement( "return this.$N.isDisposed()", GeneratorUtil.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3248,15 +3159,32 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
+    builder.addStatement( "return this.$N.observe()", GeneratorUtil.KERNEL_FIELD_NAME );
+    return builder.build();
+  }
 
-    if ( _disposeOnDeactivate )
+  /**
+   * Generate the preDispose method only used when native components are enabled.
+   */
+  @Nonnull
+  private MethodSpec buildNativeComponentPreDispose()
+    throws ArezProcessorException
+  {
+    assert _disposeTrackable;
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    if ( hasInternalPreDispose() )
     {
-      builder.addStatement( "return $N.get()", GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME );
+      builder.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
-    else
+    else if ( null != _preDispose )
     {
-      builder.addStatement( "return $N()", GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME );
+      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
+    builder.addStatement( "this.$N.getDisposeNotifier().dispose()", GeneratorUtil.KERNEL_FIELD_NAME );
+
     return builder.build();
   }
 
@@ -3280,7 +3208,6 @@ final class ComponentDescriptor
     _roInverses.forEach( r -> r.buildDisposer( builder ) );
     if ( _disposeTrackable )
     {
-      builder.addStatement( "$N.dispose()", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
       for ( final DependencyDescriptor dependency : _roDependencies )
       {
         final Element element = dependency.getElement();
@@ -3362,7 +3289,7 @@ final class ComponentDescriptor
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
         returns( GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME );
 
-    builder.addStatement( "return $N", GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME );
+    builder.addStatement( "return this.$N.getDisposeNotifier()", GeneratorUtil.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3376,6 +3303,14 @@ final class ComponentDescriptor
    */
   private void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
+
+    final FieldSpec.Builder idField =
+      FieldSpec.builder( GeneratorUtil.KERNEL_CLASSNAME,
+                         GeneratorUtil.KERNEL_FIELD_NAME,
+                         Modifier.FINAL,
+                         Modifier.PRIVATE );
+    builder.addField( idField.build() );
+
     // If we don't have a method for object id but we need one then synthesize it
     if ( null == _componentId )
     {
@@ -3386,76 +3321,12 @@ final class ComponentDescriptor
                            Modifier.STATIC,
                            Modifier.PRIVATE );
       builder.addField( nextIdField.build() );
-
-      final FieldSpec.Builder idField =
-        FieldSpec.builder( GeneratorUtil.DEFAULT_ID_TYPE,
-                           GeneratorUtil.ID_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE );
-      builder.addField( idField.build() );
     }
 
-    final FieldSpec.Builder disposableField =
-      FieldSpec.builder( TypeName.BYTE, GeneratorUtil.STATE_FIELD_NAME, Modifier.PRIVATE );
-    builder.addField( disposableField.build() );
-
-    // Create the field that contains the context
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.AREZ_CONTEXT_CLASSNAME,
-                           GeneratorUtil.CONTEXT_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE ).
-          addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
-      builder.addField( field.build() );
-    }
-
-    //Create the field that contains the component
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.COMPONENT_CLASSNAME,
-                           GeneratorUtil.COMPONENT_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE );
-      builder.addField( field.build() );
-
-    }
-    if ( _observable )
-    {
-      final ParameterizedTypeName typeName =
-        ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME, TypeName.BOOLEAN.box() );
-      final FieldSpec.Builder field =
-        FieldSpec.builder( typeName,
-                           GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE );
-      builder.addField( field.build() );
-
-    }
-    if ( _disposeTrackable )
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME,
-                           GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE );
-      builder.addField( field.build() );
-    }
     _roObservables.forEach( observable -> observable.buildFields( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildFields( builder ) );
     _roObserves.forEach( observe -> observe.buildFields( builder ) );
     _roReferences.forEach( r -> r.buildFields( builder ) );
-    if ( _disposeOnDeactivate )
-    {
-      final FieldSpec.Builder field =
-        FieldSpec.builder( ParameterizedTypeName.get( GeneratorUtil.COMPUTABLE_VALUE_CLASSNAME,
-                                                      TypeName.BOOLEAN.box() ),
-                           GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
-                           Modifier.FINAL,
-                           Modifier.PRIVATE ).
-          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      builder.addField( field.build() );
-    }
   }
 
   /**
@@ -3546,6 +3417,8 @@ final class ComponentDescriptor
       builder.addCode( block.build() );
     }
 
+    buildComponentKernel( builder );
+
     for ( final ObservableDescriptor observable : initializers )
     {
       final String candidateName = observable.getName();
@@ -3576,127 +3449,13 @@ final class ComponentDescriptor
       }
     }
 
-    builder.addStatement( "this.$N = $T.areZonesEnabled() ? $T.context() : null",
-                          GeneratorUtil.CONTEXT_FIELD_NAME,
-                          GeneratorUtil.AREZ_CLASSNAME,
-                          GeneratorUtil.AREZ_CLASSNAME );
-
-    // Synthesize Id if required
-    if ( null == _componentId )
-    {
-      if ( _idRequired )
-      {
-        builder.addStatement( "this.$N = $N++", GeneratorUtil.ID_FIELD_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
-      }
-      else if ( _nameIncludesId )
-      {
-        builder.addStatement( "this.$N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || " +
-                              "$T.areNativeComponentsEnabled() ) ? $N++ : 0",
-                              GeneratorUtil.ID_FIELD_NAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.NEXT_ID_FIELD_NAME );
-      }
-      else
-      {
-        builder.addStatement( "this.$N = ( $T.areRegistriesEnabled() || $T.areNativeComponentsEnabled() ) ? $N++ : 0",
-                              GeneratorUtil.ID_FIELD_NAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.NEXT_ID_FIELD_NAME );
-      }
-    }
-    GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_INITIALIZED" );
-
-    // Create component representation if required
-    {
-      final StringBuilder sb = new StringBuilder();
-      final ArrayList<Object> params = new ArrayList<>();
-      sb.append( "this.$N = $T.areNativeComponentsEnabled() ? " +
-                 "$N().component( $S, $N(), $T.areNamesEnabled() ? $N() :" +
-                 " null" );
-      params.add( GeneratorUtil.COMPONENT_FIELD_NAME );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
-      params.add( getContextMethodName() );
-      params.add( _type );
-      params.add( getIdMethodName() );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
-      params.add( getComponentNameMethodName() );
-      if ( _disposeTrackable || null != _preDispose || null != _postDispose )
-      {
-        sb.append( ", " );
-        if ( _disposeTrackable )
-        {
-          sb.append( "() -> $N()" );
-          params.add( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
-        }
-        else if ( null != _preDispose )
-        {
-          sb.append( "() -> super.$N()" );
-          params.add( _preDispose.getSimpleName().toString() );
-        }
-
-        if ( null != _postDispose )
-        {
-          sb.append( ",  () -> super.$N()" );
-          params.add( _postDispose.getSimpleName().toString() );
-        }
-      }
-      sb.append( " ) : null" );
-      builder.addStatement( sb.toString(), params.toArray() );
-    }
-    if ( _observable )
-    {
-      builder.addStatement( "this.$N = $N().observable( " +
-                            "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-                            "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "$T.arePropertyIntrospectorsEnabled() ? () -> this.$N >= 0 : null )",
-                            GeneratorUtil.DISPOSED_OBSERVABLE_FIELD_NAME,
-                            getContextMethodName(),
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.COMPONENT_FIELD_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            getComponentNameMethodName(),
-                            ".isDisposed",
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.STATE_FIELD_NAME );
-    }
-    if ( _disposeTrackable )
-    {
-      builder.addStatement( "this.$N = new $T()",
-                            GeneratorUtil.DISPOSE_NOTIFIER_FIELD_NAME,
-                            GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME );
-
-    }
-    if ( _disposeOnDeactivate )
-    {
-      builder.addStatement( "this.$N = $N().computable( " +
-                            "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-                            "$T.areNamesEnabled() ? $N() + $S : null, " +
-                            "() -> $N(), null, () -> $N().scheduleDispose( $T.areNamesEnabled() ? $N() + $S : null, this ), null, $T.PRIORITY_HIGHEST )",
-                            GeneratorUtil.DISPOSE_ON_DEACTIVATE_FIELD_NAME,
-                            getContextMethodName(),
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.COMPONENT_FIELD_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            getComponentNameMethodName(),
-                            ".disposeOnDeactivate",
-                            GeneratorUtil.INTERNAL_OBSERVE_METHOD_NAME,
-                            getContextMethodName(),
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            getComponentNameMethodName(),
-                            ".disposeOnDeactivate",
-                            GeneratorUtil.FLAGS_CLASSNAME );
-    }
-
     _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildInitializer( builder ) );
     _roObserves.forEach( observe -> observe.buildInitializer( builder ) );
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
     _roDependencies.forEach( e -> e.buildInitializer( builder ) );
 
-    GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_CONSTRUCTED" );
+    builder.addStatement( "this.$N.componentConstructed()", GeneratorUtil.KERNEL_FIELD_NAME );
 
     final List<ReferenceDescriptor> eagerReferences =
       _roReferences.stream().filter( r -> r.getLinkType().equals( "EAGER" ) ).collect( Collectors.toList() );
@@ -3711,22 +3470,183 @@ final class ComponentDescriptor
       builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
     }
 
-    final CodeBlock.Builder componentEnabledBlock = CodeBlock.builder();
-    componentEnabledBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )",
-                                            GeneratorUtil.AREZ_CLASSNAME );
-    componentEnabledBlock.addStatement( "this.$N.complete()", GeneratorUtil.COMPONENT_FIELD_NAME );
-    componentEnabledBlock.endControlFlow();
-    builder.addCode( componentEnabledBlock.build() );
-
     if ( !_deferSchedule && requiresSchedule() )
     {
-      GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_COMPLETE" );
+      builder.addStatement( "this.$N.componentComplete()", GeneratorUtil.KERNEL_FIELD_NAME );
+    }
+    else
+    {
+      builder.addStatement( "this.$N.componentReady()", GeneratorUtil.KERNEL_FIELD_NAME );
+    }
+    return builder.build();
+  }
 
-      builder.addStatement( "$N().triggerScheduler()", getContextMethodName() );
+  private void buildComponentKernel( @Nonnull final MethodSpec.Builder builder )
+  {
+    buildContextVar( builder );
+    buildSyntheticIdVarIfRequired( builder );
+    buildNameVar( builder );
+    buildNativeComponentVar( builder );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+
+    sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $N, " );
+    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
+    params.add( GeneratorUtil.KERNEL_CLASSNAME );
+    params.add( GeneratorUtil.AREZ_CLASSNAME );
+    params.add( GeneratorUtil.CONTEXT_VAR_NAME );
+    params.add( GeneratorUtil.NAME_VAR_NAME );
+    if ( null == _componentId )
+    {
+      sb.append( "$N, " );
+      params.add( GeneratorUtil.ID_VAR_NAME );
+    }
+    else
+    {
+      sb.append( "0, " );
+    }
+    sb.append( "$N, " );
+    params.add( GeneratorUtil.COMPONENT_VAR_NAME );
+
+    if ( hasInternalPreDispose() )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+    }
+    else if ( null != _preDispose )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( _preDispose.getSimpleName() );
+    }
+    else
+    {
+      sb.append( "null, " );
+    }
+    sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+    params.add( GeneratorUtil.AREZ_CLASSNAME );
+    params.add( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME );
+
+    if ( null != _postDispose )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( _postDispose.getSimpleName() );
+    }
+    else
+    {
+      sb.append( "null, " );
     }
 
-    GeneratorUtil.setStateForInvariantChecking( builder, "COMPONENT_READY" );
-    return builder.build();
+    sb.append( _disposeTrackable );
+    sb.append( ", " );
+    sb.append( _observable );
+    sb.append( ", " );
+    sb.append( _disposeOnDeactivate );
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), params.toArray() );
+  }
+
+  private void buildContextVar( @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement( "final $T $N = $T.context()",
+                          GeneratorUtil.AREZ_CONTEXT_CLASSNAME,
+                          GeneratorUtil.CONTEXT_VAR_NAME,
+                          GeneratorUtil.AREZ_CLASSNAME );
+  }
+
+  private void buildNameVar( @Nonnull final MethodSpec.Builder builder )
+  {
+    // This is the same logic used to synthesize name in the getName() method
+    // Duplication is okay as it will be optimized out in production builds.
+    if ( _nameIncludesId )
+    {
+      builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S + $N : null",
+                            GeneratorUtil.NAME_VAR_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            _type.isEmpty() ? "" : _type + ".",
+                            GeneratorUtil.ID_VAR_NAME );
+    }
+    else
+    {
+      builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S : null",
+                            GeneratorUtil.NAME_VAR_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            _type );
+    }
+  }
+
+  private void buildSyntheticIdVarIfRequired( @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( null == _componentId )
+    {
+      if ( _idRequired )
+      {
+        builder.addStatement( "final int $N = ++$N", GeneratorUtil.ID_VAR_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
+      }
+      else if ( _nameIncludesId )
+      {
+        builder.addStatement( "final int $N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || " +
+                              "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
+                              GeneratorUtil.ID_VAR_NAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.NEXT_ID_FIELD_NAME );
+      }
+      else
+      {
+        builder.addStatement( "final int $N = ( $T.areRegistriesEnabled() || " +
+                              "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
+                              GeneratorUtil.ID_VAR_NAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.AREZ_CLASSNAME,
+                              GeneratorUtil.NEXT_ID_FIELD_NAME );
+      }
+    }
+    else
+    {
+      builder.addStatement( "final Object $N = $N()", GeneratorUtil.ID_VAR_NAME, _componentId.getSimpleName() );
+    }
+  }
+
+  private void buildNativeComponentVar( final MethodSpec.Builder builder )
+  {
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+    sb.append( "final $T $N = $T.areNativeComponentsEnabled() ? $N.component( $S, $N, $N" );
+    params.add( GeneratorUtil.COMPONENT_CLASSNAME );
+    params.add( GeneratorUtil.COMPONENT_VAR_NAME );
+    params.add( GeneratorUtil.AREZ_CLASSNAME );
+    params.add( GeneratorUtil.CONTEXT_VAR_NAME );
+    params.add( _type );
+    params.add( GeneratorUtil.ID_VAR_NAME );
+    params.add( GeneratorUtil.NAME_VAR_NAME );
+    if ( _disposeTrackable || null != _preDispose || null != _postDispose )
+    {
+      sb.append( ", " );
+      if ( _disposeTrackable )
+      {
+        sb.append( "() -> $N()" );
+        params.add( GeneratorUtil.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
+      }
+      else if ( null != _preDispose )
+      {
+        sb.append( "() -> super.$N()" );
+        params.add( _preDispose.getSimpleName().toString() );
+      }
+
+      if ( null != _postDispose )
+      {
+        sb.append( ",  () -> super.$N()" );
+        params.add( _postDispose.getSimpleName().toString() );
+      }
+    }
+    sb.append( " ) : null" );
+    builder.addStatement( sb.toString(), params.toArray() );
   }
 
   @Nonnull

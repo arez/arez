@@ -1,53 +1,53 @@
 
 [
     {
-        "name": "PersonModel.0",
+        "name": "PersonModel.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "PersonModel.0.firstName",
+        "name": "PersonModel.1.firstName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.0.lastName",
+        "name": "PersonModel.1.lastName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.0",
+        "name": "PersonModel.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.0.fullName",
-        "tracker": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
+        "tracker": "PersonModel.1.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ObservableValueChange",
         "value": "Bill Smith"
     },
     {
         "mutation": false,
-        "name": "PersonModel.0.fullName",
-        "tracker": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
+        "tracker": "PersonModel.1.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Bill Smith",
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -65,12 +65,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.firstName",
+        "name": "PersonModel.1.firstName",
         "type": "ObservableValueChange",
         "value": "Fred"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ObserveSchedule"
     },
     {
@@ -90,29 +90,29 @@
         ]
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.0.fullName",
-        "tracker": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
+        "tracker": "PersonModel.1.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ObservableValueChange",
         "value": "Fred Smith"
     },
     {
         "mutation": false,
-        "name": "PersonModel.0.fullName",
-        "tracker": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
+        "tracker": "PersonModel.1.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Fred Smith",
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -130,12 +130,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.lastName",
+        "name": "PersonModel.1.lastName",
         "type": "ObservableValueChange",
         "value": "Donaldo"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ObserveSchedule"
     },
     {
@@ -155,29 +155,29 @@
         ]
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.0.fullName",
-        "tracker": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
+        "tracker": "PersonModel.1.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "type": "ObservableValueChange",
         "value": "Fred Donaldo"
     },
     {
         "mutation": false,
-        "name": "PersonModel.0.fullName",
-        "tracker": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
+        "tracker": "PersonModel.1.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Fred Donaldo",
-        "name": "PersonModel.0.fullName",
+        "name": "PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     }

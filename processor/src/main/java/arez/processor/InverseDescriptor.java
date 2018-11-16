@@ -130,7 +130,7 @@ final class InverseDescriptor
         .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
         .build();
     builder.addParameter( parameter );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "this.$N.preReportChanged()", _observable.getFieldName() );
 
@@ -175,7 +175,7 @@ final class InverseDescriptor
         .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
         .build();
     builder.addParameter( parameter );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "this.$N.preReportChanged()", _observable.getFieldName() );
     final CodeBlock.Builder block = CodeBlock.builder();
@@ -228,7 +228,7 @@ final class InverseDescriptor
       parameter.addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
     }
     builder.addParameter( parameter.build() );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "this.$N.preReportChanged()", _observable.getFieldName() );
     builder.addStatement( "this.$N = $N", _observable.getDataFieldName(), _otherName );
@@ -255,7 +255,7 @@ final class InverseDescriptor
         .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
         .build();
     builder.addParameter( parameter );
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "this.$N.preReportChanged()", _observable.getFieldName() );
 
@@ -294,12 +294,13 @@ final class InverseDescriptor
     final CodeBlock.Builder builder = CodeBlock.builder();
     builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
     builder.addStatement( "$T.apiInvariant( () -> $T.isNotDisposed( this.$N ), () -> \"Inverse relationship " +
-                          "named '$N' on component named '\" + $N() + \"' contains disposed element '\" + this.$N + \"'\" )",
+                          "named '$N' on component named '\" + this.$N.getName() + \"' contains disposed element " +
+                          "'\" + this.$N + \"'\" )",
                           GeneratorUtil.GUARDS_CLASSNAME,
                           GeneratorUtil.DISPOSABLE_CLASSNAME,
                           _observable.getDataFieldName(),
                           _observable.getName(),
-                          _componentDescriptor.getComponentNameMethodName(),
+                          GeneratorUtil.KERNEL_FIELD_NAME,
                           _observable.getDataFieldName() );
     builder.endControlFlow();
     code.add( builder.build() );
@@ -313,11 +314,12 @@ final class InverseDescriptor
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> $T.isNotDisposed( element ), () -> \"Inverse relationship " +
-                        "named '$N' on component named '\" + $N() + \"' contains disposed element '\" + element + \"'\" )",
+                        "named '$N' on component named '\" + this.$N.getName() + \"' contains disposed element " +
+                        "'\" + element + \"'\" )",
                         GeneratorUtil.GUARDS_CLASSNAME,
                         GeneratorUtil.DISPOSABLE_CLASSNAME,
                         _observable.getName(),
-                        _componentDescriptor.getComponentNameMethodName() );
+                        GeneratorUtil.KERNEL_FIELD_NAME );
     block.endControlFlow();
     builder.add( block.build() );
 

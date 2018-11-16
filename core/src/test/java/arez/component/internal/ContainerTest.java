@@ -1,4 +1,4 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.AbstractArezTest;
 import arez.Arez;
@@ -6,6 +6,12 @@ import arez.ArezContext;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
+import arez.component.ComponentObservable;
+import arez.component.DisposeNotifier;
+import arez.component.DisposeTrackable;
+import arez.component.Identifiable;
+import arez.component.NoSuchEntityException;
+import arez.component.internal.AbstractContainer;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;

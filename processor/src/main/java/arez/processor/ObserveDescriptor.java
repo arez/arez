@@ -239,14 +239,14 @@ final class ObserveDescriptor
   {
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N().observer( $T.areNativeComponentsEnabled() ? this.$N : null, " +
-               "$T.areNamesEnabled() ? $N() + $S : null, () -> super.$N(), " );
+    sb.append( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, () -> super.$N(), " );
     parameters.add( getFieldName() );
-    parameters.add( _componentDescriptor.getContextMethodName() );
+    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( GeneratorUtil.NAME_VAR_NAME );
     parameters.add( "." + getName() );
     parameters.add( getObserved().getSimpleName().toString() );
     if ( null != _onDepsChange )
@@ -267,15 +267,15 @@ final class ObserveDescriptor
     assert null != _onDepsChange;
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N().tracker( " +
-               "$T.areNativeComponentsEnabled() ? this.$N : null, " +
-               "$T.areNamesEnabled() ? $N() + $S : null, () -> super.$N(), " );
+    sb.append( "this.$N = $N.tracker( " +
+               "$T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, () -> super.$N(), " );
     parameters.add( getFieldName() );
-    parameters.add( _componentDescriptor.getContextMethodName() );
+    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_FIELD_NAME );
+    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( _componentDescriptor.getComponentNameMethodName() );
+    parameters.add( GeneratorUtil.NAME_VAR_NAME );
     parameters.add( "." + getName() );
     parameters.add( _onDepsChange.getSimpleName().toString() );
 
@@ -343,7 +343,7 @@ final class ObserveDescriptor
     }
   }
 
-  void buildDisposer( @Nonnull final CodeBlock.Builder codeBlock )
+  void buildDisposer( @Nonnull final MethodSpec.Builder codeBlock )
   {
     codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
   }
@@ -383,7 +383,7 @@ final class ObserveDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -417,13 +417,13 @@ final class ObserveDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> params = new ArrayList<>();
 
-    GeneratorUtil.generateNotDisposedInvariant( _componentDescriptor, builder, methodName );
+    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
     if ( !isProcedure )
     {
       statement.append( "return " );
     }
-    statement.append( "$N()." );
-    params.add( _componentDescriptor.getContextMethodName() );
+    statement.append( "this.$N.getContext()." );
+    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
 
     if ( isProcedure && isSafe )
     {
@@ -503,9 +503,16 @@ final class ObserveDescriptor
     }
     statement.append( " )" );
 
-    GeneratorUtil.generateTryBlock( builder,
-                                    thrownTypes,
-                                    b -> b.addStatement( statement.toString(), params.toArray() ) );
+    if ( isSafe )
+    {
+      builder.addStatement( statement.toString(), params.toArray() );
+    }
+    else
+    {
+      GeneratorUtil.generateTryBlock( builder,
+                                      thrownTypes,
+                                      b -> b.addStatement( statement.toString(), params.toArray() ) );
+    }
 
     return builder.build();
   }

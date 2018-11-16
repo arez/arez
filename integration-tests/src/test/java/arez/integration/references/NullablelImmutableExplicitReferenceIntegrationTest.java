@@ -47,7 +47,7 @@ public class NullablelImmutableExplicitReferenceIntegrationTest
     assertEquals( findCallCount.get(), 0 );
 
     assertInvariant( model1::getModel2,
-                     "Nullable reference method named 'getModel2' invoked on component named 'Model1.0' and reference has not been resolved yet is not lazy. Id = 0" );
+                     "Nullable reference method named 'getModel2' invoked on component named 'Model1.1' and reference has not been resolved yet is not lazy. Id = 1" );
 
     Linkable.link( model1 );
 
@@ -60,7 +60,7 @@ public class NullablelImmutableExplicitReferenceIntegrationTest
     Disposable.dispose( model1 );
 
     assertInvariant( model1::getModel2,
-                     "Method named 'getModel2' invoked on disposed component named 'Model1.0'" );
+                     "Method named 'getModel2' invoked on disposed component named 'Model1.1'" );
 
     findCallCount.set( 0 );
 
