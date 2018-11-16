@@ -59,6 +59,8 @@
   - `MemoizeCache`
   - `AbstractRepository`
   - `AbstractContainer`
+* **\[core\]** Fix invariant failure when the `ComponentObservable.observe()` method is invoked on a
+  disposed component annotated with `@ArezComponent(disposeOnDeactivate=true)`.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)

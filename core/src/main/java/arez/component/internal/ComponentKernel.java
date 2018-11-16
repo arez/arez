@@ -213,7 +213,7 @@ public final class ComponentKernel
     }
     if ( null != _disposeOnDeactivate )
     {
-      return _disposeOnDeactivate.get();
+      return isNotDisposed() ? _disposeOnDeactivate.get() : false;
     }
     else
     {
