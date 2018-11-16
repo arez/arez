@@ -281,7 +281,7 @@ public final class ObservableValue<T>
   /**
    * Return true if this observable can deactivate when it is no longer observed and activate when it is observed again.
    */
-  boolean canDeactivate()
+  private boolean canDeactivate()
   {
     return isComputableValue() && !getObserver().isKeepAlive();
   }
