@@ -288,8 +288,7 @@ public final class ObservableValue<T>
 
   boolean canDeactivateNow()
   {
-    return canDeactivate() &&
-           !hasObservers();
+    return canDeactivate() && !hasObservers();
   }
 
   /**
