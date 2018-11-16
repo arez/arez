@@ -45,6 +45,12 @@ public final class TestSpyEventHandler
     assertEvent( type, action );
   }
 
+  public void reset()
+  {
+    _events.clear();
+    _currentAssertIndex = 0;
+  }
+
   private <T> void assertEvent( @Nonnull final Class<T> type, @Nullable final Consumer<T> action )
   {
     assertTrue( _events.size() > _currentAssertIndex );
