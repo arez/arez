@@ -145,15 +145,15 @@ public class ComputableValueApiTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( "TestComputableValue", action, Flags.KEEPALIVE );
+      context.computable( action, Flags.KEEPALIVE );
 
     assertEquals( calls.get(), 1 );
 
-    context.action( "Get 1", computableValue::get );
+    context.action( computableValue::get );
 
     assertEquals( calls.get(), 1 );
 
-    context.action( "Get 2", computableValue::get );
+    context.action( computableValue::get );
 
     assertEquals( calls.get(), 1 );
 
