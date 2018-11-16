@@ -164,7 +164,7 @@ public final class ComponentKernel
     }
     _name = Arez.areNamesEnabled() ? name : null;
     _context = Arez.areZonesEnabled() ? context : null;
-    _component = Arez.areNativeComponentsEnabled() ? component : null;
+    _component = Arez.areNativeComponentsEnabled() ? Objects.requireNonNull( component ) : null;
     _id = id;
     _disposeNotifier = defineDisposeNotifier ? new DisposeNotifier() : null;
     _preDisposeCallback = Arez.areNativeComponentsEnabled() ? null : preDisposeCallback;
