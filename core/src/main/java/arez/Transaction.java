@@ -437,7 +437,7 @@ final class Transaction
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( observableValue::canDeactivate,
+      invariant( observableValue::canDeactivateNow,
                  () -> "Arez-0140: Invoked queueForDeactivation on transaction named '" +
                        getName() + "' for observableValue named '" + observableValue.getName() + "' when " +
                        "observableValue can not be deactivated." );
@@ -870,6 +870,7 @@ final class Transaction
     // that avoids this by just allowing us to change current size
     if ( null != _observableValues )
     {
+      //noinspection ListRemoveInLoop
       for ( int i = _observableValues.size() - 1; i >= currentIndex; i-- )
       {
         _observableValues.remove( i );
@@ -892,7 +893,7 @@ final class Transaction
     {
       final ComputableValue<?> computableValue = _tracker.getComputableValue();
       final ObservableValue<?> observableValue = computableValue.getObservableValue();
-      if ( !observableValue.hasObservers() && !computableValue.getObserver().isKeepAlive() )
+      if ( observableValue.canDeactivateNow() )
       {
         queueForDeactivation( observableValue );
       }

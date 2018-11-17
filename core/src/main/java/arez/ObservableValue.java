@@ -279,11 +279,16 @@ public final class ObservableValue<T>
   }
 
   /**
-   * Return true if this observable can deactivate when it is no longer observed and activate when it is observed again.
+   * Return true if this observable can deactivate when it is no longer observed and has no keepAlive locks and activate when it is observed again.
    */
   boolean canDeactivate()
   {
     return isComputableValue() && !getObserver().isKeepAlive();
+  }
+
+  boolean canDeactivateNow()
+  {
+    return canDeactivate() && !hasObservers() && 0 == getObserver().getComputableValue().getKeepAliveRefCount();
   }
 
   /**
@@ -439,7 +444,7 @@ public final class ObservableValue<T>
     }
     final ArrayList<Observer> observers = getObservers();
     observers.remove( observer );
-    if ( observers.isEmpty() && canDeactivate() )
+    if ( canDeactivateNow() )
     {
       queueForDeactivation();
     }
@@ -456,7 +461,7 @@ public final class ObservableValue<T>
       invariant( () -> getContext().isTransactionActive(),
                  () -> "Arez-0071: Attempt to invoke queueForDeactivation on ObservableValue named '" + getName() +
                        "' when there is no active transaction." );
-      invariant( this::canDeactivate,
+      invariant( this::canDeactivateNow,
                  () -> "Arez-0072: Attempted to invoke queueForDeactivation() on ObservableValue named '" + getName() +
                        "' but ObservableValue is not able to be deactivated." );
       invariant( () -> !hasObservers(),

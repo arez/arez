@@ -12,6 +12,8 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Consider moving computable flags, action flags and observer flags into separate classes
+
 * Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
   `DisposeTracker`? and made into interface with implementation in `internal` package?
 
@@ -27,11 +29,6 @@ complete as there is too much un-said.
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
-
-* `ComputableValue` should expose `keepAlive()` method that returns a `Disposable`. Invoking the method makes
-  the value "hot" (a.k.a temporarily `KEEPALIVE`) and will release lock (potentially making  it "cold" again)
-  when `Disposable.dispose()` is called later. It must be backed by a counter and only deactivates if counter
-  is 0 and no listeners.
 
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.

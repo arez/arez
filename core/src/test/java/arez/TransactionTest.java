@@ -165,9 +165,6 @@ public class TransactionTest
     derivation.setState( Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue2 = derivation.getComputableValue().getObservableValue();
 
-    tracker.getDependencies().add( observableValue2 );
-    observableValue2.getObservers().add( tracker );
-
     observableValue2.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue2 );
 
