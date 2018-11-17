@@ -1,6 +1,6 @@
 # Arez-When
 
-[![Build Status](https://secure.travis-ci.org/arez/arez-when.png?branch=master)](http://travis-ci.org/arez/arez-when)
+[![Build Status](https://secure.travis-ci.org/arez/arez-when.svg?branch=master)](http://travis-ci.org/arez/arez-when)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.when/arez-when.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.when%22)
 
 An Arez component that defines a a "when" observer. When observers contain two functions; the condition function
