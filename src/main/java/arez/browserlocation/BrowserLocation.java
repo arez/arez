@@ -1,10 +1,14 @@
 package arez.browserlocation;
 
+import arez.ComputableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComputableValueRef;
+import arez.annotations.DepType;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
-import arez.annotations.PostConstruct;
-import arez.annotations.PreDispose;
+import arez.annotations.OnActivate;
+import arez.annotations.OnDeactivate;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -33,17 +37,12 @@ public abstract class BrowserLocation
    * The location according to the application.
    */
   @Nonnull
-  private String _location = "";
-  /**
-   * The location according to the browser.
-   */
-  @Nonnull
-  private String _browserLocation = "";
+  private String _location;
   /**
    * The location that the application is attempting to update the browser to.
    */
   @Nonnull
-  private String _targetLocation = "";
+  private String _targetLocation;
   /**
    * Should we prevent the default action associated with hash change?
    */
@@ -61,19 +60,7 @@ public abstract class BrowserLocation
 
   BrowserLocation()
   {
-  }
-
-  @PostConstruct
-  final void postConstruct()
-  {
-    DomGlobal.window.addEventListener( "hashchange", _listener, false );
-    _targetLocation = _browserLocation = _location = getHash();
-  }
-
-  @PreDispose
-  final void preDispose()
-  {
-    DomGlobal.window.removeEventListener( "hashchange", _listener, false );
+    _targetLocation = _location = getHash();
   }
 
   /**
@@ -146,23 +133,33 @@ public abstract class BrowserLocation
     _location = Objects.requireNonNull( location );
   }
 
-  @Observable
+  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   @Nonnull
   public String getBrowserLocation()
   {
-    return _browserLocation;
+    return getHash();
   }
 
-  void setBrowserLocation( @Nonnull final String browserLocation )
+  @OnActivate
+  final void onBrowserLocationActivate()
   {
-    _browserLocation = Objects.requireNonNull( browserLocation );
+    DomGlobal.window.addEventListener( "hashchange", _listener, false );
   }
+
+  @OnDeactivate
+  final void onBrowserLocationDeactivate()
+  {
+    DomGlobal.window.removeEventListener( "hashchange", _listener, false );
+  }
+
+  @ComputableValueRef
+  abstract ComputableValue getBrowserLocationComputableValue();
 
   @Action
   void updateBrowserLocation()
   {
-    final String location = getHash();
-    setBrowserLocation( location );
+    getBrowserLocationComputableValue().reportPossiblyChanged();
+    final String location = getBrowserLocation();
     if ( _targetLocation.equals( location ) )
     {
       setLocation( location );
