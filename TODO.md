@@ -12,6 +12,8 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Consider moving computable flags, action flags and observer flags into separate classes
+
 * Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
   `DisposeTracker`? and made into interface with implementation in `internal` package?
 
