@@ -1,6 +1,6 @@
 # Arez-BrowserLocation
 
-[![Build Status](https://secure.travis-ci.org/arez/arez-browserlocation.png?branch=master)](http://travis-ci.org/arez/arez-browserlocation)
+[![Build Status](https://secure.travis-ci.org/arez/arez-browserlocation.svg?branch=master)](http://travis-ci.org/arez/arez-browserlocation)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.browserlocation/arez-browserlocation.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.browserlocation%22)
 
 This library provides an Arez browser component that makes the hash component of the
