@@ -31,7 +31,8 @@ public class ComputableValueTest
     final Procedure onDeactivate = new NoopProcedure();
     final Procedure onStale = new NoopProcedure();
 
-    final ComputableValue<String> computableValue = context.computable( name, function, onActivate, onDeactivate, onStale );
+    final ComputableValue<String> computableValue =
+      context.computable( name, function, onActivate, onDeactivate, onStale );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
