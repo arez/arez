@@ -63,6 +63,11 @@ public final class ComputableValue<T>
    */
   private boolean _disposed;
   /**
+   * The number of times that keepAlive has been called without being released.
+   * If this is non-zero then the computedValue should not be deactivated.
+   */
+  private int _keepAliveRefCount;
+  /**
    * Hook action called when the ComputableValue moves to observed state.
    */
   @Nullable
@@ -250,6 +255,116 @@ public final class ComputableValue<T>
   public boolean isDisposed()
   {
     return _disposed;
+  }
+
+  /**
+   * Invoke this method to ensure that the ComputableValue is activated and computing
+   * a value even if there are no observers. This is used when there is a chance that
+   * the value will be accessed multiple times, without being accessed from within a
+   * tracking transaction (i.e. the value may only be accessed from actions or may have
+   * observers come and go).
+   *
+   * <p>This method should not be called if the computable value was created with the
+   * {@link Flags#KEEPALIVE} as it is never deactivated in that configuration.</p>
+   *
+   * <p>When the computable value no longer needs to be kept alive the return value
+   * from this method should be disposed.</p>
+   *
+   * @return the object to dispose when no longer need to keep alive.
+   */
+  @Nonnull
+  public Disposable keepAlive()
+  {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> !getObserver().isKeepAlive(),
+                    () -> "Arez-0223: ComputableValue.keepAlive() was invoked on computable value named '" +
+                          getName() + "' but invoking this method when the computable value has been configured " +
+                          "with the KEEPALIVE flag is invalid as the computable is always activated." );
+    }
+    incrementKeepAliveRefCount();
+    return new Disposable()
+    {
+      private boolean _disposed;
+
+      @Override
+      public void dispose()
+      {
+        if ( !_disposed )
+        {
+          _disposed = true;
+          decrementKeepAliveRefCount();
+        }
+      }
+
+      @Override
+      public boolean isDisposed()
+      {
+        return _disposed;
+      }
+    };
+  }
+
+  void incrementKeepAliveRefCount()
+  {
+    keepAliveInvariants();
+    _keepAliveRefCount++;
+    if ( 1 == _keepAliveRefCount )
+    {
+      final ObservableValue<T> observableValue = getObservableValue();
+      if ( !observableValue.isActive() )
+      {
+        final ArezContext context = getContext();
+        if ( context.isTransactionActive() )
+        {
+          get();
+        }
+        else
+        {
+          context.scheduleReaction( getObserver() );
+          context.triggerScheduler();
+        }
+      }
+    }
+  }
+
+  void decrementKeepAliveRefCount()
+  {
+    _keepAliveRefCount--;
+    keepAliveInvariants();
+    if ( 0 == _keepAliveRefCount )
+    {
+      final ObservableValue<T> observableValue = getObservableValue();
+      final ArezContext context = getContext();
+      if ( context.isTransactionActive() )
+      {
+        if ( !observableValue.isPendingDeactivation() )
+        {
+          context.getTransaction().queueForDeactivation( observableValue );
+        }
+      }
+      else
+      {
+        getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".deactivate" : null,
+                                 observableValue::deactivate,
+                                 Flags.NO_VERIFY_ACTION_REQUIRED );
+      }
+    }
+  }
+
+  private void keepAliveInvariants()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( () -> _keepAliveRefCount >= 0,
+                 () -> "Arez-0165: KeepAliveRefCount on ComputableValue named '" + getName() +
+                       "' has an invalid value " + _keepAliveRefCount );
+    }
+  }
+
+  int getKeepAliveRefCount()
+  {
+    return _keepAliveRefCount;
   }
 
   /**
@@ -447,5 +562,10 @@ public final class ComputableValue<T>
   void setComputing( final boolean computing )
   {
     _computing = computing;
+  }
+
+  void setKeepAliveRefCount( final int keepAliveRefCount )
+  {
+    _keepAliveRefCount = keepAliveRefCount;
   }
 }

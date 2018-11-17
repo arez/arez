@@ -4,7 +4,10 @@ import arez.spy.ActionCompleteEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
+import arez.spy.ComputeCompleteEvent;
+import arez.spy.ComputeStartEvent;
 import arez.spy.ObservableValueChangeEvent;
+import arez.spy.ObserveScheduleEvent;
 import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
@@ -800,5 +803,237 @@ public class ComputableValueTest
 
     assertInvariantFailure( computableValue::asInfo,
                             "Arez-0195: ComputableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+  }
+
+  @Test
+  public void incrementKeepAliveRefCount()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      calls.incrementAndGet();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function );
+
+    assertFalse( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    assertEquals( calls.get(), 0 );
+
+    computableValue.incrementKeepAliveRefCount();
+
+    assertEquals( calls.get(), 1 );
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 1 );
+
+    handler.assertEventCount( 6 );
+    handler.assertNextEvent( ObserveScheduleEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+
+    handler.reset();
+
+    computableValue.incrementKeepAliveRefCount();
+
+    handler.assertEventCount( 0 );
+    assertEquals( calls.get(), 1 );
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 2 );
+  }
+
+  @Test
+  public void incrementKeepAliveRefCount_badInitialRefCount()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function );
+
+    computableValue.setKeepAliveRefCount( -1 );
+
+    assertInvariantFailure( computableValue::incrementKeepAliveRefCount,
+                            "Arez-0165: KeepAliveRefCount on ComputableValue named 'ComputableValue@2' has an invalid value -1" );
+  }
+
+  @Test
+  public void decrementKeepAliveRefCount()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      calls.incrementAndGet();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function );
+
+    assertFalse( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 0 );
+
+    assertEquals( calls.get(), 0 );
+
+    computableValue.incrementKeepAliveRefCount();
+
+    assertEquals( calls.get(), 1 );
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 1 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    computableValue.decrementKeepAliveRefCount();
+
+    assertEquals( calls.get(), 1 );
+    assertFalse( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 0 );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+  }
+
+  @Test
+  public void decrementKeepAliveRefCount_badInitialRefCount()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function );
+
+    assertInvariantFailure( computableValue::decrementKeepAliveRefCount,
+                            "Arez-0165: KeepAliveRefCount on ComputableValue named 'ComputableValue@2' has an invalid value -1" );
+  }
+
+  @Test
+  public void keepAlive()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      calls.incrementAndGet();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function );
+
+    assertFalse( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 0 );
+
+    assertEquals( calls.get(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Disposable keepAliveLock1 = computableValue.keepAlive();
+
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 1 );
+
+    assertEquals( calls.get(), 1 );
+
+    handler.assertEventCount( 6 );
+    handler.assertNextEvent( ObserveScheduleEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+
+    handler.reset();
+
+    final Disposable keepAliveLock2 = computableValue.keepAlive();
+
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 2 );
+    assertEquals( calls.get(), 1 );
+    assertFalse( keepAliveLock1.isDisposed() );
+    assertFalse( keepAliveLock2.isDisposed() );
+    handler.assertEventCount( 0 );
+
+    keepAliveLock1.dispose();
+
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 1 );
+    assertEquals( calls.get(), 1 );
+    assertTrue( keepAliveLock1.isDisposed() );
+    assertFalse( keepAliveLock2.isDisposed() );
+    handler.assertEventCount( 0 );
+
+    // Should be a no-op
+    keepAliveLock1.dispose();
+
+    assertTrue( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 1 );
+    assertEquals( calls.get(), 1 );
+    assertTrue( keepAliveLock1.isDisposed() );
+    assertFalse( keepAliveLock2.isDisposed() );
+    handler.assertEventCount( 0 );
+
+    keepAliveLock2.dispose();
+
+    assertFalse( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 0 );
+    assertTrue( keepAliveLock1.isDisposed() );
+    assertTrue( keepAliveLock2.isDisposed() );
+    assertEquals( calls.get(), 1 );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    // Another no-op
+    keepAliveLock2.dispose();
+
+    assertFalse( computableValue.getObserver().isActive() );
+    assertEquals( computableValue.getKeepAliveRefCount(), 0 );
+    assertTrue( keepAliveLock1.isDisposed() );
+    assertTrue( keepAliveLock2.isDisposed() );
+    assertEquals( calls.get(), 1 );
+
+    handler.assertEventCount( 0 );
+  }
+
+  @Test
+  public void keepAlive_on_KEEPALIVE_Computable()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+
+    final SafeFunction<String> function = () -> {
+      observable.reportObserved();
+      return "";
+    };
+    final ComputableValue<String> computableValue = context.computable( function, Flags.KEEPALIVE );
+
+    assertInvariantFailure( computableValue::keepAlive,
+                            "Arez-0223: ComputableValue.keepAlive() was invoked on computable value named 'ComputableValue@2' but invoking this method when the computable value has been configured with the KEEPALIVE flag is invalid as the computable is always activated." );
   }
 }

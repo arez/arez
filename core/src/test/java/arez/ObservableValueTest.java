@@ -46,6 +46,7 @@ public class ObservableValueTest
 
     // Fields for calculated observables in this non-calculated variant
     assertFalse( observableValue.isComputableValue() );
+    assertFalse( observableValue.canDeactivate() );
     assertFalse( observableValue.canDeactivateNow() );
 
     assertFalse( observableValue.isComputableValue() );
@@ -73,6 +74,7 @@ public class ObservableValueTest
 
     assertEquals( observableValue.getObserver(), observer );
     assertNull( observableValue.getComponent() );
+    assertTrue( observableValue.canDeactivate() );
     assertTrue( observableValue.canDeactivateNow() );
 
     assertTrue( observableValue.isComputableValue() );
@@ -1038,6 +1040,45 @@ public class ObservableValueTest
     observableValue.resetPendingDeactivation();
 
     assertFalse( observableValue.isPendingDeactivation() );
+  }
+
+  @Test
+  public void canDeactivate()
+  {
+    final ArezContext context = Arez.context();
+    final Observer randomObserver = context.observer( new CountAndObserveProcedure() );
+    setCurrentTransaction( randomObserver );
+
+    final ComputableValue<String> computableValue = context.computable( () -> "" );
+    final Observer observer = computableValue.getObserver();
+    final ObservableValue<?> observableValue = computableValue.getObservableValue();
+
+    observer.setState( Flags.STATE_UP_TO_DATE );
+
+    assertTrue( observableValue.canDeactivate() );
+    assertTrue( observableValue.canDeactivateNow() );
+
+    observableValue.addObserver( randomObserver );
+    randomObserver.getDependencies().add( observableValue );
+
+    assertTrue( observableValue.canDeactivate() );
+    assertFalse( observableValue.canDeactivateNow() );
+
+    observableValue.removeObserver( randomObserver );
+    randomObserver.getDependencies().remove( observableValue );
+
+    assertTrue( observableValue.canDeactivate() );
+    assertTrue( observableValue.canDeactivateNow() );
+
+    final Disposable keepAliveLock = computableValue.keepAlive();
+
+    assertTrue( observableValue.canDeactivate() );
+    assertFalse( observableValue.canDeactivateNow() );
+
+    keepAliveLock.dispose();
+
+    assertTrue( observableValue.canDeactivate() );
+    assertTrue( observableValue.canDeactivateNow() );
   }
 
   @Test

@@ -279,16 +279,16 @@ public final class ObservableValue<T>
   }
 
   /**
-   * Return true if this observable can deactivate when it is no longer observed and activate when it is observed again.
+   * Return true if this observable can deactivate when it is no longer observed and has no keepAlive locks and activate when it is observed again.
    */
-  private boolean canDeactivate()
+  boolean canDeactivate()
   {
     return isComputableValue() && !getObserver().isKeepAlive();
   }
 
   boolean canDeactivateNow()
   {
-    return canDeactivate() && !hasObservers();
+    return canDeactivate() && !hasObservers() && 0 == getObserver().getComputableValue().getKeepAliveRefCount();
   }
 
   /**

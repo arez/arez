@@ -61,6 +61,11 @@
   - `AbstractContainer`
 * **\[core\]** Fix invariant failure when the `ComponentObservable.observe()` method is invoked on a
   disposed component annotated with `@ArezComponent(disposeOnDeactivate=true)`.
+* **\[core\]** A `ComputableValue` can be kept alive programmatically by invoking the
+  newly added `ComputableValue.keepAlive()` method which will create a lock keepin the value active. When
+  the method is invoked the computable value will be activated if not currently active. The lock will only
+  be released when the return value of the `keepAlive()` method is disposed. A `ComputableValue` can only
+  deactivate if there are no observers and no locks active.
 
 ### [v0.114](https://github.com/arez/arez/tree/v0.114) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.113...v0.114)

@@ -4,8 +4,20 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
+import arez.Disposable;
 import arez.Flags;
+import arez.ObservableValue;
 import arez.SafeFunction;
+import arez.SafeProcedure;
+import arez.TestSpyEventHandler;
+import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionStartEvent;
+import arez.spy.ComputeCompleteEvent;
+import arez.spy.ComputeStartEvent;
+import arez.spy.ObservableValueChangeEvent;
+import arez.spy.ObserveScheduleEvent;
+import arez.spy.TransactionCompleteEvent;
+import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.testng.annotations.Test;
@@ -158,5 +170,218 @@ public class ComputableValueApiTest
     assertEquals( calls.get(), 1 );
 
     computableValue.dispose();
+  }
+
+  @Test
+  public void keepAliveViaLock()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = Arez.context().observable();
+
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> action = () -> {
+      observable.reportObserved();
+      calls.incrementAndGet();
+      return "";
+    };
+
+    final ComputableValue<String> computableValue = context.computable( "MyComputable", action );
+    assertEquals( calls.get(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 1 );
+
+    handler.assertEventCount( 9 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 2 );
+
+    handler.assertEventCount( 9 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    final Disposable keepAliveLock = computableValue.keepAlive();
+
+    handler.assertEventCount( 6 );
+    handler.assertNextEvent( ObserveScheduleEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+
+    handler.reset();
+
+    assertEquals( calls.get(), 3 );
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 3 );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 3 );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    keepAliveLock.dispose();
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), "MyComputable.deactivate" ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), "MyComputable.deactivate" ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class,
+                             e -> assertEquals( e.getName(), "MyComputable.deactivate" ) );
+    handler.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), "MyComputable.deactivate" ) );
+
+    handler.reset();
+
+    keepAliveLock.dispose();
+
+    handler.assertEventCount( 0 );
+  }
+
+  @Test
+  public void keepAliveViaLockInsideTransactions()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    final ObservableValue<Object> observable = Arez.context().observable();
+
+    final AtomicInteger calls = new AtomicInteger();
+    final SafeFunction<String> action = () -> {
+      observable.reportObserved();
+      calls.incrementAndGet();
+      return "";
+    };
+
+    final ComputableValue<String> computableValue = context.computable( "MyComputable", action );
+    assertEquals( calls.get(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 1 );
+
+    handler.assertEventCount( 9 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 2 );
+
+    handler.assertEventCount( 9 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    final Disposable keepAliveLock = context.safeAction( computableValue::keepAlive );
+
+    handler.assertEventCount( 9 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    assertEquals( calls.get(), 3 );
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 3 );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    context.action( computableValue::get );
+    assertEquals( calls.get(), 3 );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.reset();
+
+    context.safeAction( "MyAction", (SafeProcedure) keepAliveLock::dispose, Flags.NO_VERIFY_ACTION_REQUIRED );
+
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), "MyAction" ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), "MyAction" ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class,
+                             e -> assertEquals( e.getName(), "MyAction" ) );
+    handler.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), "MyAction" ) );
+
+    handler.reset();
+
+    keepAliveLock.dispose();
+
+    handler.assertEventCount( 0 );
   }
 }
