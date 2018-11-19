@@ -2,6 +2,15 @@
 
 ### Unreleased
 
+### [v0.41](https://github.com/arez/arez-browserlocation/tree/v0.41) (2018-11-19)
+[Full Changelog](https://github.com/arez/arez-browserlocation/compare/v0.40...v0.41)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.115'
+* Refactor the `BrowserLocation.getBrowserLocation()` method from being an observable
+  property to being a `@Memoize` annotated method. This makes it possible to avoid
+  adding an event listener for the `hashchange` event unless there is an observer
+  for the `@Memoize` method.
+
 ### [v0.40](https://github.com/arez/arez-browserlocation/tree/v0.40) (2018-11-07)
 [Full Changelog](https://github.com/arez/arez-browserlocation/compare/v0.39...v0.40)
 

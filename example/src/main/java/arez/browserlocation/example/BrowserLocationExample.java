@@ -17,7 +17,7 @@ public class BrowserLocationExample
     final BrowserLocation browserLocation = BrowserLocation.create();
 
     final ArezContext context = Arez.context();
-    context.observer( () -> cleanLocation( browserLocation ), Flags.READ_WRITE );
+    context.observer( () -> cleanLocation( browserLocation ), Flags.READ_WRITE | Flags.NESTED_ACTIONS_ALLOWED );
     context.observer( () -> printBrowserLocation( browserLocation ) );
 
     DomGlobal.document.querySelector( "#route_base" ).
