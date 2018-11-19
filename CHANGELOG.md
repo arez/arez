@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.115](https://github.com/arez/arez/tree/v0.115) (2018-11-19)
+[Full Changelog](https://github.com/arez/arez/compare/v0.114...v0.115)
 
 * **\[core\]** Fixed bug inside scheduler that occurred when runaway reactions were detected and purged.
   The observers had been removed from the task queue but still had the flag set indicating that they were
