@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.116](https://github.com/arez/arez/tree/v0.116) (2018-11-21)
+[Full Changelog](https://github.com/arez/arez/compare/v0.115...v0.116)
 
 * **\[processor\]** Eliminate dead code emitted when an abstract observable with no initializer
   (i.e. `@Observable( initializer = Feature.DISABLE )`) is also annotated with the `@ComponentDependency`
