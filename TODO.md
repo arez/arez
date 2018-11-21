@@ -96,6 +96,12 @@ complete as there is too much un-said.
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
 
+* Enhance scheduler to support different categories of scheduled tasks:
+  - See talk notes https://github.com/spanicker/main-thread-scheduling and sample code https://github.com/developit/task-worklet
+  - User Blocking Tasks: input handlers + requestAnimationFrame + microTasks
+  - Default tasks: (i.e scheduled tasks via `setTimeout()` and `postMessage()`)
+  - Idle tasks: (i.e tasks scheduled but will only use time if any left before next render i.e. `requestIdleTimeout()`)
+
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of `@Computable`/`@Observe` methods at a later time. This
