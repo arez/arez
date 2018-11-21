@@ -124,7 +124,9 @@ final class DependencyDescriptor
                                 GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
                                 getObservable().getDataFieldName() );
         }
-        else
+        // Abstract methods that do not require initializer have no chance to be non-null in the constructor
+        // so there is no need to try and add listener as this can not occur
+        else if( !method.getModifiers().contains( Modifier.ABSTRACT ) || getObservable().requireInitializer() )
         {
           final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
           builder.addStatement( "final $T $N = this.$N",

@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_AbstractObservableDependency extends AbstractObservableDependency implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_ObservablePairWithInitializerDependency extends ObservablePairWithInitializerDependency implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -25,14 +25,19 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
 
   private DisposeTrackable $$arezd$$_value;
 
-  public Arez_AbstractObservableDependency() {
+  public Arez_ObservablePairWithInitializerDependency(final DisposeTrackable value) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "AbstractObservableDependency." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "AbstractObservableDependency", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ObservablePairWithInitializerDependency." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ObservablePairWithInitializerDependency", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
+    this.$$arezd$$_value = value;
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_value : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
+    final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
+    if ( null != $$arezv$$_getValue_dependency ) {
+      DisposeTrackable.asDisposeTrackable( $$arezd$$_value ).getNotifier().addOnDisposeListener( this, this::dispose );
+    }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
   }
@@ -120,8 +125,8 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_AbstractObservableDependency ) {
-        final Arez_AbstractObservableDependency that = (Arez_AbstractObservableDependency) o;
+      if ( o instanceof Arez_ObservablePairWithInitializerDependency ) {
+        final Arez_ObservablePairWithInitializerDependency that = (Arez_ObservablePairWithInitializerDependency) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
