@@ -98,7 +98,6 @@ final class DependencyDescriptor
       }
       else
       {
-
         final CodeBlock.Builder listenerBlock = CodeBlock.builder();
         listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
         listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier()." +
