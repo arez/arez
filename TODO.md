@@ -104,8 +104,6 @@ complete as there is too much un-said.
   - Default tasks: (i.e scheduled tasks via `setTimeout()` and `postMessage()`)
   - Idle tasks: (i.e tasks scheduled but will only use time if any left before next render i.e. `requestIdleTimeout()`)
 
-* Scheduling/Concurrency terminology to adopt - https://slikts.github.io/concurrency-glossary/
-
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of `@Computable`/`@Observe` methods at a later time. This
