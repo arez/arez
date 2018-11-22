@@ -104,6 +104,9 @@ complete as there is too much un-said.
   - Default tasks: (i.e scheduled tasks via `setTimeout()` and `postMessage()`)
   - Idle tasks: (i.e tasks scheduled but will only use time if any left before next render i.e. `requestIdleTimeout()`)
 
+* Once the scheduler is in play it is likely we will want to implement code using `idle-until-urgent` strategy.
+  Useful to delay some of the expensive setup for off screen stuff. See https://philipwalton.com/articles/idle-until-urgent/
+
 ## Reactive-Streaming integration
 
 * Experiment with controlling scheduling/executing of `@Computable`/`@Observe` methods at a later time. This
