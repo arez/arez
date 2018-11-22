@@ -14,6 +14,8 @@ complete as there is too much un-said.
 
 * Consider moving computable flags, action flags and observer flags into separate classes
 
+* Consider renaming `Executor.AREZ` to `Executor.INTERNAL` and `Executor.APPLICATION` to `Executor.EXTERNAL`
+
 * Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
   `DisposeTracker`? and made into interface with implementation in `internal` package?
 
