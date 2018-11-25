@@ -26,8 +26,7 @@ title: Frequently Asked Questions
 
 Arez only re-runs {@api_url: annotations.Observe} annotated methods if it is told that an observable property that
 is a dependency of the {@api_url: annotations.Observe} method is changed. Assuming you are using classes annotated
-with {@api_url: annotations.ArezComponent}  then this means
-that the code must:
+with {@api_url: annotations.ArezComponent} then this means that the code must:
 
 * mutate the property using the setter method to mark the property as changed. The generated code ultimately calls
   the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} method to mark the property as changed.
