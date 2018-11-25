@@ -51,3 +51,4 @@ Arez is licensed under [Apache License, Version 2.0](LICENSE).
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
   - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
   -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
+  - [GlimmerJS Tracked Properties](https://glimmerjs.com/guides/tracked-properties)
