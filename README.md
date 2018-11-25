@@ -47,7 +47,7 @@ Arez is licensed under [Apache License, Version 2.0](LICENSE).
   inspiration or were directly copied and modified (i.e. MobX's [(@)computed](https://mobx.js.org/refguide/computed-decorator.html))
   docs were used to seed `docs/computable_values.md`).
 
-* Other frameworks that influenced the development of Arez include;
+* Other frameworks that influenced or are influencing the development of Arez include;
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
   - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
   -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
