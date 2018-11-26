@@ -12,7 +12,7 @@ public class TaskTest
   public void basicOperation()
   {
     final String name = ValueUtil.randomString();
-    final Runnable work = ValueUtil::randomString;
+    final SafeProcedure work = ValueUtil::randomString;
     final Task task = new Task( name, work );
 
     assertEquals( task.getName(), name );

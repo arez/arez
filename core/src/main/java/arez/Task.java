@@ -21,7 +21,7 @@ final class Task
    * The code to invoke when task is executed.
    */
   @Nonnull
-  private final Runnable _work;
+  private final SafeProcedure _work;
   /**
    * Flag set to true when the task has been scheduled and should not be re-scheduled until next executed.
    */
@@ -31,7 +31,7 @@ final class Task
    */
   private boolean _disposed;
 
-  Task( @Nullable final String name, @Nonnull final Runnable work )
+  Task( @Nullable final String name, @Nonnull final SafeProcedure work )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -84,7 +84,7 @@ final class Task
    * @return the task.
    */
   @Nonnull
-  Runnable getWork()
+  SafeProcedure getWork()
   {
     return _work;
   }
@@ -104,7 +104,7 @@ final class Task
       // Observers currently catch error and handle internally. Thus no need to catch
       // errors here. is this correct behaviour? We could instead handle it here by
       // per-task handler or a global error handler.
-      _work.run();
+      _work.call();
     }
   }
 
