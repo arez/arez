@@ -324,7 +324,12 @@ public final class Flags
    */
   static int getPriorityIndex( final int flags )
   {
-    return ( getPriority( flags ) >> PRIORITY_SHIFT ) - 1;
+    return extractPriorityIndex( getPriority( flags ) );
+  }
+
+  static int extractPriorityIndex( final int priority )
+  {
+    return ( priority >> PRIORITY_SHIFT ) - 1;
   }
 
   static int priority( final int flags )
