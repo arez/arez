@@ -12,6 +12,14 @@ final class Task
   implements Disposable
 {
   /**
+   * Flag set to true when the task has been scheduled and should not be re-scheduled until next executed.
+   */
+  private static final int QUEUED = 1 << 1;
+  /**
+   * Flag set to true when the task has been disposed and should no longer be scheduled.
+   */
+  private static final int DISPOSED = 2 << 1;
+  /**
    * A human consumable name for task. It should be non-null if {@link Arez#areNamesEnabled()} returns
    * true and <tt>null</tt> otherwise.
    */
@@ -23,13 +31,9 @@ final class Task
   @Nonnull
   private final SafeProcedure _work;
   /**
-   * Flag set to true when the task has been scheduled and should not be re-scheduled until next executed.
+   * Flags representing state of the task.
    */
-  private boolean _queued;
-  /**
-   * Flag set to true when the task has been disposed and should no longer be scheduled.
-   */
-  private boolean _disposed;
+  private int _flags;
 
   Task( @Nullable final String name, @Nonnull final SafeProcedure work )
   {
@@ -116,8 +120,8 @@ final class Task
   {
     if ( isNotDisposed() )
     {
-      _disposed = true;
-      _queued = false;
+      _flags |= DISPOSED;
+      _flags &= ~QUEUED;
     }
   }
 
@@ -127,7 +131,7 @@ final class Task
   @Override
   public boolean isDisposed()
   {
-    return _disposed;
+    return 0 != ( _flags & DISPOSED );
   }
 
   /**
@@ -142,7 +146,7 @@ final class Task
                  () -> "Arez-0128: Attempting to re-queue task named '" + getName() +
                        "' when task is queued." );
     }
-    _queued = true;
+    _flags |= QUEUED;
   }
 
   /**
@@ -156,7 +160,7 @@ final class Task
                  () -> "Arez-0129: Attempting to clear queued flag on task named '" + getName() +
                        "' but task is not queued." );
     }
-    _queued = false;
+    _flags &= ~QUEUED;
   }
 
   /**
@@ -166,6 +170,6 @@ final class Task
    */
   boolean isQueued()
   {
-    return _queued;
+    return 0 != ( _flags & QUEUED );
   }
 }
