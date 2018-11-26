@@ -12,13 +12,17 @@ final class Task
   implements Disposable
 {
   /**
-   * Flag set to true when the task has been scheduled and should not be re-scheduled until next executed.
+   * State when the task has not been scheduled.
    */
-  private static final int QUEUED = 1 << 1;
+  private static final int IDLE = 0;
   /**
-   * Flag set to true when the task has been disposed and should no longer be scheduled.
+   * State when the task has been scheduled and should not be re-scheduled until next executed.
    */
-  private static final int DISPOSED = 2 << 1;
+  private static final int QUEUED = 1;
+  /**
+   * State when the task has been disposed and should no longer be scheduled.
+   */
+  private static final int DISPOSED = 2;
   /**
    * A human consumable name for task. It should be non-null if {@link Arez#areNamesEnabled()} returns
    * true and <tt>null</tt> otherwise.
@@ -31,9 +35,9 @@ final class Task
   @Nonnull
   private final SafeProcedure _work;
   /**
-   * Flags representing state of the task.
+   * State of the task.
    */
-  private int _flags;
+  private int _state;
 
   Task( @Nullable final String name, @Nonnull final SafeProcedure work )
   {
@@ -120,8 +124,7 @@ final class Task
   {
     if ( isNotDisposed() )
     {
-      _flags |= DISPOSED;
-      _flags &= ~QUEUED;
+      _state = DISPOSED;
     }
   }
 
@@ -131,7 +134,7 @@ final class Task
   @Override
   public boolean isDisposed()
   {
-    return 0 != ( _flags & DISPOSED );
+    return DISPOSED == _state;
   }
 
   /**
@@ -146,7 +149,7 @@ final class Task
                  () -> "Arez-0128: Attempting to re-queue task named '" + getName() +
                        "' when task is queued." );
     }
-    _flags |= QUEUED;
+    _state = QUEUED;
   }
 
   /**
@@ -160,7 +163,7 @@ final class Task
                  () -> "Arez-0129: Attempting to clear queued flag on task named '" + getName() +
                        "' but task is not queued." );
     }
-    _flags &= ~QUEUED;
+    _state = IDLE;
   }
 
   /**
@@ -170,6 +173,6 @@ final class Task
    */
   boolean isQueued()
   {
-    return 0 != ( _flags & QUEUED );
+    return QUEUED == _state;
   }
 }
