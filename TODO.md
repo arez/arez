@@ -129,6 +129,14 @@ complete as there is too much un-said.
   be pushed as a task passed to scheduler. This would support several alternative approaches when architecting
   applications.
 
+## TS/JS Integration
+
+* It would be possible using J2CL to compile a version of Arez usable by vanilla Javascript, Typescript or Closure
+  annotated javascript. For this to be useful it would be necessary to explicitly define a js API layer in a package
+  such as `arez.js.*` that provides access to the `ArezContext` and factory methods in a fashion suitable for
+  consumption by a js application. A component model for javascript applications would also need to be created
+  which would most likely draw heavy inspiration from Mobx.
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
