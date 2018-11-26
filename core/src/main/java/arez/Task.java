@@ -138,7 +138,7 @@ final class Task
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !_queued,
+      invariant( () -> !isQueued(),
                  () -> "Arez-0128: Attempting to re-queue task named '" + getName() +
                        "' when task is queued." );
     }
@@ -152,7 +152,7 @@ final class Task
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> _queued,
+      invariant( this::isQueued,
                  () -> "Arez-0129: Attempting to clear queued flag on task named '" + getName() +
                        "' but task is not queued." );
     }
