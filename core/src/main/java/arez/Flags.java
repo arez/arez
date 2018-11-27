@@ -233,6 +233,10 @@ public final class Flags
   static final int ACTION_FLAGS_MASK =
     TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK | NO_REPORT_RESULT;
   /**
+   * Mask containing flags that can be applied to a task.
+   */
+  static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK;
+  /**
    * The flag is currently unused.
    */
   @SuppressWarnings( "unused" )

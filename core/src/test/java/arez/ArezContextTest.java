@@ -3740,4 +3740,13 @@ public class ArezContextTest
 
     assertEquals( String.join( ",", calls ), "5,2,4,3,7,1,6" );
   }
+
+  @Test
+  public void task_bad_flags()
+  {
+    final ArezContext context = Arez.context();
+
+    assertInvariantFailure( () -> context.task( "MyTask", ValueUtil::randomString, Flags.REQUIRE_NEW_TRANSACTION ),
+                            "Arez-0224: Task named 'MyTask' passed invalid flags: " + Flags.REQUIRE_NEW_TRANSACTION );
+  }
 }

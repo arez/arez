@@ -1024,9 +1024,14 @@ public final class ArezContext
   @Nonnull
   public Disposable task( @Nullable final String name, @Nonnull final SafeProcedure work, final int flags )
   {
+    final String taskName = generateName( "Task", name );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> ( ~Flags.TASK_FLAGS_MASK & flags ) == 0,
+                    () -> "Arez-0224: Task named '" + taskName + "' passed invalid flags: " + flags );
+    }
     final int actualFlags = flags | Flags.priority( flags ) | Flags.runType( flags, Flags.RUN_NOW );
     final int priorityIndex = Flags.extractPriorityIndex( Flags.getPriority( actualFlags ) );
-    final String taskName = generateName( "Task", name );
     final Task task = new Task( taskName, () -> _runTask( taskName, work ) );
     _taskQueue.queueTask( priorityIndex, task );
     // If we have not explicitly supplied the RUN_LATER flag then assume it is a run now and
