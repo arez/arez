@@ -9,6 +9,8 @@ import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.Spy;
+import arez.spy.TaskCompleteEvent;
+import arez.spy.TaskStartEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -980,6 +982,92 @@ public final class ArezContext
                        "must not schedule self." );
     }
     _taskQueue.queueTask( observer.getPriorityIndex(), observer.getTask() );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running then the scheduler will be triggered.
+   *
+   * @param work the representation of the task to execute.
+   * @return a Disposable that can be used to cancel the task before it is executed.
+   */
+  @Nonnull
+  public Disposable task( @Nonnull final SafeProcedure work )
+  {
+    return task( null, work );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running then the scheduler will be triggered.
+   *
+   * @param name the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
+   * @param work the representation of the task to execute.
+   * @return a Disposable that can be used to cancel the task before it is executed.
+   */
+  @Nonnull
+  public Disposable task( @Nullable final String name, @Nonnull final SafeProcedure work )
+  {
+    return task( name, work, 0 );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
+   * scheduler will be triggered.
+   *
+   * @param name  the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
+   * @param work  the representation of the task to execute.
+   * @param flags the flags to configure task. Valid flags include PRIORITY_* and RUN_* flags.
+   * @return a Disposable that can be used to cancel the task before it is executed.
+   */
+  @Nonnull
+  public Disposable task( @Nullable final String name, @Nonnull final SafeProcedure work, final int flags )
+  {
+    final int actualFlags = flags | Flags.priority( flags ) | Flags.runType( flags, Flags.RUN_NOW );
+    final int priorityIndex = Flags.extractPriorityIndex( Flags.getPriority( actualFlags ) );
+    final String taskName = generateName( "Task", name );
+    final Task task = new Task( taskName, () -> _runTask( taskName, work ) );
+    _taskQueue.queueTask( priorityIndex, task );
+    // If we have not explicitly supplied the RUN_LATER flag then assume it is a run now and
+    // trigger the scheduler
+    if ( 0 == ( flags & Flags.RUN_LATER ) )
+    {
+      triggerScheduler();
+    }
+    return task;
+  }
+
+  /**
+   * Actually execute the task, capture errors and send spy events.
+   *
+   * @param taskName the name of the task. Must be non-null if spies are enabled.
+   * @param work     the underlying work to execute.
+   */
+  private void _runTask( @Nullable final String taskName, @Nonnull final SafeProcedure work )
+  {
+    long startedAt = 0L;
+    if ( willPropagateSpyEvents() )
+    {
+      startedAt = System.currentTimeMillis();
+      assert null != taskName;
+      getSpy().reportSpyEvent( new TaskStartEvent( taskName ) );
+    }
+    Throwable error = null;
+    try
+    {
+      work.call();
+    }
+    catch ( final Throwable t )
+    {
+      error = t;
+    }
+    if ( willPropagateSpyEvents() )
+    {
+      assert null != taskName;
+      final long duration = System.currentTimeMillis() - startedAt;
+      getSpy().reportSpyEvent( new TaskCompleteEvent( taskName, error, (int) duration ) );
+    }
   }
 
   /**

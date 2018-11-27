@@ -19,13 +19,17 @@ import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import arez.spy.TaskCompleteEvent;
+import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -3586,5 +3590,154 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> "" ) ) );
+  }
+
+  @Test
+  public void task()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final String name = ValueUtil.randomString();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Disposable task = context.task( name, callCount::incrementAndGet, 0 );
+
+    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( callCount.get(), 1 );
+    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> {
+      assertEquals( e.getName(), name );
+      assertNull( e.getThrowable() );
+    } );
+
+    handler.reset();
+
+    // This does nothing but just to make sure
+    task.dispose();
+
+    assertEquals( callCount.get(), 1 );
+    assertFalse( ( (Task) task ).isQueued() );
+    assertTrue( task.isDisposed() );
+
+    handler.assertEventCount( 0 );
+  }
+
+  @Test
+  public void task_throwsException()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final String name = ValueUtil.randomString();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final String errorMessage = "Blah Error!";
+    final SafeProcedure work = () -> {
+      callCount.incrementAndGet();
+      throw new RuntimeException( errorMessage );
+    };
+    final Disposable task = context.task( name, work, 0 );
+
+    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( callCount.get(), 1 );
+    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> {
+      assertEquals( e.getName(), name );
+      assertNotNull( e.getThrowable() );
+      assertEquals( e.getThrowable().getMessage(), errorMessage );
+    } );
+  }
+
+  @Test
+  public void task_minimalParameters()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Disposable task = context.task( callCount::incrementAndGet );
+
+    final String name = "Task@1";
+    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( callCount.get(), 1 );
+    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getName(), name ) );
+  }
+
+  @Test
+  public void task_RUN_LATER()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Disposable task = context.task( null, callCount::incrementAndGet, Flags.RUN_LATER );
+
+    final String name = "Task@1";
+    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( callCount.get(), 0 );
+    assertTrue( ( (Task) task ).isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 0 );
+
+    // Trigger scheduler and allow task to run
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
+    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getName(), name ) );
+  }
+
+  @Test
+  public void task_different_PRIORITY()
+  {
+    final ArezContext context = Arez.context();
+
+    final ArrayList<String> calls = new ArrayList<>();
+
+    context.task( null, () -> calls.add( "1" ), Flags.RUN_LATER | Flags.PRIORITY_LOW );
+    context.task( null, () -> calls.add( "2" ), Flags.RUN_LATER | Flags.PRIORITY_HIGH );
+    context.task( null, () -> calls.add( "3" ), Flags.RUN_LATER );
+    context.task( null, () -> calls.add( "4" ), Flags.RUN_LATER | Flags.PRIORITY_HIGH );
+    context.task( null, () -> calls.add( "5" ), Flags.RUN_LATER | Flags.PRIORITY_HIGHEST );
+    context.task( null, () -> calls.add( "6" ), Flags.RUN_LATER | Flags.PRIORITY_LOWEST );
+    context.task( null, () -> calls.add( "7" ), Flags.RUN_LATER | Flags.PRIORITY_NORMAL );
+
+    // Trigger scheduler and allow tasks to run according to priority
+    context.triggerScheduler();
+
+    assertEquals( String.join( ",", calls ), "5,2,4,3,7,1,6" );
   }
 }

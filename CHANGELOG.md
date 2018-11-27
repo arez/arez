@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+* **\[core\]** Add several `ArezContext.task(...)` methods that allow scheduling of arbitrary tasks to
+  be executed the Arez scheduler. If the scheduler is currently executing tasks, the task will be added
+  to the queue and executed in turn otherwise the scheduler will be activated. This functionality is primarily
+  used to enable better integration between the Arez runtime and external libraries.
+
 ### [v0.116](https://github.com/arez/arez/tree/v0.116) (2018-11-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.115...v0.116)
 
