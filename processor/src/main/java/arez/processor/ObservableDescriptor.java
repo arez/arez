@@ -32,8 +32,6 @@ import javax.lang.model.type.TypeMirror;
 final class ObservableDescriptor
 {
   @Nonnull
-  private final ComponentDescriptor _componentDescriptor;
-  @Nonnull
   private final String _name;
   private boolean _expectSetter;
   private boolean _readOutsideTransaction;
@@ -59,10 +57,8 @@ final class ObservableDescriptor
   @Nullable
   private InverseDescriptor _inverseDescriptor;
 
-  ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
-                        @Nonnull final String name )
+  ObservableDescriptor( @Nonnull final String name )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
     setReadOutsideTransaction( false );
