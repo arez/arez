@@ -125,7 +125,7 @@ public final class Observer
                     final int flags )
   {
     super( context, name );
-    _task = new Task( name, this::invokeReaction );
+    _task = new Task( context, name, this::invokeReaction );
     _flags = flags | Flags.STATE_INACTIVE;
     if ( Arez.shouldCheckInvariants() )
     {

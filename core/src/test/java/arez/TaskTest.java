@@ -13,7 +13,7 @@ public class TaskTest
   {
     final String name = ValueUtil.randomString();
     final SafeProcedure work = ValueUtil::randomString;
-    final Task task = new Task( name, work );
+    final Task task = new Task( Arez.context(), name, work );
 
     assertEquals( task.getName(), name );
     assertEquals( task.getWork(), work );
@@ -42,31 +42,9 @@ public class TaskTest
   }
 
   @Test
-  public void noNameSuppliedWhenNamesDisabled()
-  {
-    ArezTestUtil.disableNames();
-
-    final Task task = new Task( null, ValueUtil::randomString );
-    assertTrue( task.toString().startsWith( task.getClass().getName() + "@" ), "task.toString() == " + task );
-
-    assertInvariantFailure( task::getName,
-                            "Arez-0214: Task.getName() invoked when Arez.areNamesEnabled() returns false" );
-  }
-
-  @Test
-  public void nameSuppliedWhenNamesDisabled()
-  {
-    ArezTestUtil.disableNames();
-
-    final String name = ValueUtil.randomString();
-    assertInvariantFailure( () -> new Task( name, ValueUtil::randomString ),
-                            "Arez-0130: Task passed a name '" + name + "' but Arez.areNamesEnabled() returns false" );
-  }
-
-  @Test
   public void queuedFlag()
   {
-    final Task task = new Task( ValueUtil.randomString(), ValueUtil::randomString );
+    final Task task = new Task( Arez.context(), ValueUtil.randomString(), ValueUtil::randomString );
 
     assertFalse( task.isQueued() );
 
@@ -82,7 +60,7 @@ public class TaskTest
   @Test
   public void markAsQueued_alreadyScheduled()
   {
-    final Task task = new Task( "X", ValueUtil::randomString );
+    final Task task = new Task( Arez.context(), "X", ValueUtil::randomString );
 
     task.markAsQueued();
     assertInvariantFailure( task::markAsQueued,
@@ -93,7 +71,7 @@ public class TaskTest
   @Test
   public void markAsExecuted_notScheduled()
   {
-    final Task task = new Task( "X", ValueUtil::randomString );
+    final Task task = new Task( Arez.context(), "X", ValueUtil::randomString );
 
     assertInvariantFailure( task::markAsDequeued,
                             "Arez-0129: Attempting to clear queued flag on task named 'X' but task is not queued." );
@@ -104,7 +82,7 @@ public class TaskTest
   public void executeTask_notScheduled()
   {
     final AtomicInteger callCount = new AtomicInteger();
-    final Task task = new Task( ValueUtil.randomString(), callCount::incrementAndGet );
+    final Task task = new Task( Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet );
 
     assertEquals( callCount.get(), 0 );
 
@@ -118,7 +96,7 @@ public class TaskTest
   public void executeTask_scheduled()
   {
     final AtomicInteger callCount = new AtomicInteger();
-    final Task task = new Task( ValueUtil.randomString(), callCount::incrementAndGet );
+    final Task task = new Task( Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet );
 
     task.markAsQueued();
 

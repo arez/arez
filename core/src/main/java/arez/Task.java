@@ -9,7 +9,7 @@ import static org.realityforge.braincheck.Guards.*;
  * A task represents an executable element that can be ran by a task executor.
  */
 final class Task
-  implements Disposable
+  extends Node
 {
   /**
    * State when the task has not been scheduled.
@@ -24,12 +24,6 @@ final class Task
    */
   private static final int DISPOSED = 2;
   /**
-   * A human consumable name for task. It should be non-null if {@link Arez#areNamesEnabled()} returns
-   * true and <tt>null</tt> otherwise.
-   */
-  @Nullable
-  private final String _name;
-  /**
    * The code to invoke when task is executed.
    */
   @Nonnull
@@ -39,51 +33,10 @@ final class Task
    */
   private int _state;
 
-  Task( @Nullable final String name, @Nonnull final SafeProcedure work )
+  Task( @Nullable final ArezContext context, @Nullable final String name, @Nonnull final SafeProcedure work )
   {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> Arez.areNamesEnabled() || null == name,
-                    () -> "Arez-0130: Task passed a name '" + name + "' but Arez.areNamesEnabled() returns false" );
-    }
-    _name = name;
+    super( context, name );
     _work = Objects.requireNonNull( work );
-  }
-
-  /**
-   * Return the name of the task.
-   * This method should NOT be invoked unless {@link Arez#areNamesEnabled()} returns true and will throw an
-   * exception if invariant checking is enabled.
-   *
-   * @return the name of the task.
-   */
-  @Nonnull
-  final String getName()
-  {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( Arez::areNamesEnabled,
-                    () -> "Arez-0214: Task.getName() invoked when Arez.areNamesEnabled() returns false" );
-    }
-    assert null != _name;
-    return _name;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Nonnull
-  @Override
-  public final String toString()
-  {
-    if ( Arez.areNamesEnabled() )
-    {
-      return getName();
-    }
-    else
-    {
-      return super.toString();
-    }
   }
 
   /**

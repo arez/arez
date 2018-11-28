@@ -24,9 +24,9 @@ public class MultiPriorityTaskQueueTest
   {
     final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 10 );
 
-    assertInvariantFailure( () -> queue.queueTask( -1, new Task( "A", ValueUtil::randomString ) ),
+    assertInvariantFailure( () -> queue.queueTask( -1, new Task( Arez.context(), "A", ValueUtil::randomString ) ),
                             "Arez-0215: Attempting to queue task named 'A' but passed an invalid priority -1." );
-    assertInvariantFailure( () -> queue.queueTask( 77, new Task( "A", ValueUtil::randomString ) ),
+    assertInvariantFailure( () -> queue.queueTask( 77, new Task( Arez.context(), "A", ValueUtil::randomString ) ),
                             "Arez-0215: Attempting to queue task named 'A' but passed an invalid priority 77." );
   }
 
@@ -35,7 +35,7 @@ public class MultiPriorityTaskQueueTest
   {
     final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 10 );
 
-    final Task task = new Task( "A", ValueUtil::randomString );
+    final Task task = new Task( Arez.context(), "A", ValueUtil::randomString );
     queue.queueTask( 0, task );
     assertInvariantFailure( () -> queue.queueTask( 1, task ),
                             "Arez-0099: Attempting to queue task named 'A' when task is already queued." );
@@ -50,18 +50,19 @@ public class MultiPriorityTaskQueueTest
     assertEquals( queue.getQueueSize(), 0 );
     assertNull( queue.dequeueTask() );
 
-    queue.queueTask( 0, new Task( "A", ValueUtil::randomString ) );
+    final ArezContext context = Arez.context();
+    queue.queueTask( 0, new Task( context, "A", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 1 );
     assertTrue( queue.hasTasks() );
-    queue.queueTask( 1, new Task( "B", ValueUtil::randomString ) );
+    queue.queueTask( 1, new Task( context, "B", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 2 );
-    queue.queueTask( 4, new Task( "C", ValueUtil::randomString ) );
+    queue.queueTask( 4, new Task( context, "C", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 3 );
-    queue.queueTask( 4, new Task( "D", ValueUtil::randomString ) );
+    queue.queueTask( 4, new Task( context, "D", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 4 );
-    queue.queueTask( 2, new Task( "E", ValueUtil::randomString ) );
+    queue.queueTask( 2, new Task( context, "E", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 5 );
-    queue.queueTask( 1, new Task( "F", ValueUtil::randomString ) );
+    queue.queueTask( 1, new Task( context, "F", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 6 );
 
     assertEquals( queue.getBufferByPriority( 0 ).size(), 1 );
@@ -107,12 +108,13 @@ public class MultiPriorityTaskQueueTest
   {
     final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 5, 100 );
 
-    queue.queueTask( 0, new Task( "A", ValueUtil::randomString ) );
-    queue.queueTask( 1, new Task( "B", ValueUtil::randomString ) );
-    queue.queueTask( 4, new Task( "C", ValueUtil::randomString ) );
-    queue.queueTask( 4, new Task( "D", ValueUtil::randomString ) );
-    queue.queueTask( 2, new Task( "E", ValueUtil::randomString ) );
-    queue.queueTask( 1, new Task( "F", ValueUtil::randomString ) );
+    final ArezContext context = Arez.context();
+    queue.queueTask( 0, new Task( context, "A", ValueUtil::randomString ) );
+    queue.queueTask( 1, new Task( context, "B", ValueUtil::randomString ) );
+    queue.queueTask( 4, new Task( context, "C", ValueUtil::randomString ) );
+    queue.queueTask( 4, new Task( context, "D", ValueUtil::randomString ) );
+    queue.queueTask( 2, new Task( context, "E", ValueUtil::randomString ) );
+    queue.queueTask( 1, new Task( context, "F", ValueUtil::randomString ) );
 
     assertEquals( queue.getQueueSize(), 6 );
 

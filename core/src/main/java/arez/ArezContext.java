@@ -1032,7 +1032,7 @@ public final class ArezContext
     }
     final int actualFlags = flags | Flags.priority( flags ) | Flags.runType( flags, Flags.RUN_NOW );
     final int priorityIndex = Flags.extractPriorityIndex( Flags.getPriority( actualFlags ) );
-    final Task task = new Task( taskName, () -> _runTask( taskName, work ) );
+    final Task task = new Task( Arez.areZonesEnabled() ? this : null, taskName, () -> _runTask( taskName, work ) );
     _taskQueue.queueTask( priorityIndex, task );
     // If we have not explicitly supplied the RUN_LATER flag then assume it is a run now and
     // trigger the scheduler
@@ -1358,7 +1358,10 @@ public final class ArezContext
    */
   public void scheduleDispose( @Nullable final String name, @Nonnull final Disposable disposable )
   {
-    _taskQueue.queueTask( 0, new Task( generateName( "Dispose", name ), disposable::dispose ) );
+    _taskQueue.queueTask( 0,
+                          new Task( Arez.areZonesEnabled() ? this : null,
+                                    generateName( "Dispose", name ),
+                                    disposable::dispose ) );
   }
 
   /**
