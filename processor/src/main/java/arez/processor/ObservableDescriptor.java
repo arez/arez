@@ -393,7 +393,7 @@ final class ObservableDescriptor
     assert null != _setter;
     assert null != _setterType;
     assert null != _getter;
-    final String methodName = "" + _setter.getSimpleName().toString();
+    final String methodName = _setter.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _setter, builder );
     ProcessorUtil.copyExceptions( _setterType, builder );
@@ -418,25 +418,27 @@ final class ObservableDescriptor
 
       if ( _setterType.getThrownTypes().isEmpty() )
       {
-        block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
-                            GeneratorUtil.KERNEL_FIELD_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.KERNEL_FIELD_NAME,
-                            "." + methodName,
-                            GeneratorUtil.FRAMEWORK_PREFIX + methodName,
-                            paramName );
+        block.addStatement(
+          "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
+          GeneratorUtil.KERNEL_FIELD_NAME,
+          GeneratorUtil.AREZ_CLASSNAME,
+          GeneratorUtil.KERNEL_FIELD_NAME,
+          "." + methodName,
+          GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+          paramName );
       }
       else
       {
         //noinspection CodeBlock2Expr
         GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
-          b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
-                          GeneratorUtil.KERNEL_FIELD_NAME,
-                          GeneratorUtil.AREZ_CLASSNAME,
-                          GeneratorUtil.KERNEL_FIELD_NAME,
-                          "." +  methodName,
-                          GeneratorUtil.FRAMEWORK_PREFIX + methodName,
-                          paramName );
+          b.addStatement(
+            "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
+            GeneratorUtil.KERNEL_FIELD_NAME,
+            GeneratorUtil.AREZ_CLASSNAME,
+            GeneratorUtil.KERNEL_FIELD_NAME,
+            "." + methodName,
+            GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+            paramName );
         } );
       }
 
