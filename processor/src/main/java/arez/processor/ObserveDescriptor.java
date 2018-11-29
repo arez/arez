@@ -445,9 +445,8 @@ final class ObserveDescriptor
     statement.append( "( this.$N, " );
     params.add( getFieldName() );
 
-    statement.append( "() -> super." );
-    statement.append( _observed.getSimpleName() );
-    statement.append( "(" );
+    statement.append( "() -> super.$N(" );
+    params.add( _observed.getSimpleName() );
 
     final List<? extends VariableElement> parameters = _observed.getParameters();
     final int paramCount = parameters.size();
