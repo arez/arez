@@ -1,6 +1,7 @@
 package arez;
 
 import arez.spy.Priority;
+import arez.spy.TaskInfo;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,6 +22,12 @@ public final class Task
    * State of the task.
    */
   private int _flags;
+  /**
+   * Cached info object associated with element.
+   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   */
+  @Nullable
+  private TaskInfo _info;
 
   Task( @Nullable final ArezContext context,
         @Nullable final String name,
@@ -154,6 +161,27 @@ public final class Task
   public boolean isDisposed()
   {
     return Flags.STATE_DISPOSED == Flags.getState( _flags );
+  }
+
+  /**
+   * Return the info associated with this class.
+   *
+   * @return the info associated with this class.
+   */
+  @SuppressWarnings( "ConstantConditions" )
+  @Nonnull
+  TaskInfo asInfo()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areSpiesEnabled,
+                 () -> "Arez-0130: Task.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+    }
+    if ( Arez.areSpiesEnabled() && null == _info )
+    {
+      _info = new TaskInfoImpl( this );
+    }
+    return Arez.areSpiesEnabled() ? _info : null;
   }
 
   /**

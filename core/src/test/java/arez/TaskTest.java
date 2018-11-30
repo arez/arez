@@ -208,6 +208,16 @@ public class TaskTest
   }
 
   @Test
+  public void asInfo_spyDisabled()
+  {
+    ArezTestUtil.disableSpies();
+
+    final Task task = Arez.context().task( ValueUtil::randomString );
+    assertInvariantFailure( task::asInfo,
+                            "Arez-0130: Task.asInfo() invoked but Arez.areSpiesEnabled() returned false." );
+  }
+
+  @Test
   public void isStateValid()
   {
     assertTrue( Task.Flags.isStateValid( Task.Flags.RUN_LATER ) );
