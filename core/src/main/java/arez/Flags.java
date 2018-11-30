@@ -98,7 +98,7 @@ public final class Flags
   /**
    * A flag that can be passed to a Task that indicates that the task should be disposed after it has completed execution.
    */
-  public static final int DISPOSE_ON_COMPLETE = 1 << 19;
+  public static final int DISPOSE_ON_COMPLETE = Task.Flags.DISPOSE_ON_COMPLETE;
   /**
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
