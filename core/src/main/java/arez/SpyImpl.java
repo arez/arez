@@ -256,6 +256,16 @@ final class SpyImpl
     return computableValue.asInfo();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public TaskInfo asTaskInfo( @Nonnull final Task task )
+  {
+    return task.asInfo();
+  }
+
   @Nonnull
   ArrayList<SpyEventHandler> getSpyEventHandlers()
   {

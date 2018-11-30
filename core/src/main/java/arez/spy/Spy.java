@@ -5,6 +5,7 @@ import arez.Component;
 import arez.ComputableValue;
 import arez.ObservableValue;
 import arez.Observer;
+import arez.Task;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -169,4 +170,13 @@ public interface Spy
    */
   @Nonnull
   <T> ComputableValueInfo asComputableValueInfo( @Nonnull ComputableValue<T> computableValue );
+
+  /**
+   * Convert the specified task into an TaskInfo.
+   *
+   * @param task the Task.
+   * @return the TaskInfo.
+   */
+  @Nonnull
+  TaskInfo asTaskInfo( @Nonnull Task task );
 }

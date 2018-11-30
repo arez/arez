@@ -448,6 +448,16 @@ public class SpyImplTest
   }
 
   @Test
+  public void asTaskInfo()
+  {
+    final ArezContext context = Arez.context();
+    final Task task = context.task( ValueUtil::randomString );
+    final TaskInfo info = context.getSpy().asTaskInfo( task );
+
+    assertEquals( info.getName(), task.getName() );
+  }
+
+  @Test
   public void asObservableInfo()
   {
     final ArezContext context = Arez.context();
