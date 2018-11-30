@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.117](https://github.com/arez/arez/tree/v0.117) (2018-11-30)
+[Full Changelog](https://github.com/arez/arez/compare/v0.116...v0.117)
 
 * **\[core\]** Add several `ArezContext.task(...)` methods that allow scheduling of arbitrary tasks to
   be executed the Arez scheduler. If the scheduler is currently executing tasks, the task will be added
