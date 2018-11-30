@@ -128,7 +128,7 @@ public class TaskTest
     assertFalse( task.isIdle() );
     assertTrue( task.isQueued() );
 
-    task.markAsDequeued();
+    task.markAsIdle();
 
     assertTrue( task.isIdle() );
     assertFalse( task.isQueued() );
@@ -150,7 +150,7 @@ public class TaskTest
   {
     final Task task = new Task( Arez.context(), "X", ValueUtil::randomString, 0 );
 
-    assertInvariantFailure( task::markAsDequeued,
+    assertInvariantFailure( task::markAsIdle,
                             "Arez-0129: Attempting to clear queued flag on task named 'X' but task is not queued." );
 
   }

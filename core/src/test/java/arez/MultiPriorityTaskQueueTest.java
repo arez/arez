@@ -38,9 +38,9 @@ public class MultiPriorityTaskQueueTest
 
     final ArezContext context = Arez.context();
     final Task task = context.task( "A", ValueUtil::randomString, Task.Flags.RUN_LATER );
-    task.markAsDequeued();
+    task.markAsIdle();
     queue.queueTask( 0, task );
-    task.markAsDequeued();
+    task.markAsIdle();
     assertInvariantFailure( () -> queue.queueTask( 2, task ),
                             "Arez-0099: Attempting to queue task named 'A' when task is already queued." );
   }

@@ -133,7 +133,7 @@ public final class Task
     // using the "idle until urgent" strategy.
     if ( isQueued() )
     {
-      markAsDequeued();
+      markAsIdle();
 
       if ( 0 == ( _flags & Flags.NO_WRAP_TASK ) )
       {
@@ -245,7 +245,7 @@ public final class Task
   /**
    * Clear the queued flag, first verifying that the task is queued.
    */
-  void markAsDequeued()
+  void markAsIdle()
   {
     if ( Arez.shouldCheckInvariants() )
     {

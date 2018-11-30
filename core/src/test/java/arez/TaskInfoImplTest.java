@@ -51,7 +51,7 @@ public class TaskInfoImplTest
     assertFalse( info.isIdle() );
     assertTrue( info.isScheduled() );
 
-    task.markAsDequeued();
+    task.markAsIdle();
 
     assertTrue( info.isIdle() );
     assertFalse( info.isScheduled() );

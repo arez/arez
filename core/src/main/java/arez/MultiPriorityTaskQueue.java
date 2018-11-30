@@ -150,7 +150,7 @@ final class MultiPriorityTaskQueue
       final CircularBuffer<Task> buffer = _buffers[ i ];
       buffer.stream().forEach( task -> {
         tasks.add( task );
-        task.markAsDequeued();
+        task.markAsIdle();
       } );
       buffer.clear();
     }
