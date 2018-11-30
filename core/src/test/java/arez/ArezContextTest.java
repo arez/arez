@@ -2064,7 +2064,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final ObservableValue<Object> observable = context.observable();
-    final AtomicInteger observedCallCount = new AtomicInteger();
+    final AtomicInteger observeCallCount = new AtomicInteger();
     final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final Component component = context.component( ValueUtil.randomString(), 22 );
@@ -2072,7 +2072,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     final Observer observer =
       context.observer( component, name, () -> {
-        observedCallCount.incrementAndGet();
+        observeCallCount.incrementAndGet();
         observable.reportObserved();
         assertEquals( context.getTransaction().getName(), name );
       }, onDepsChangeCallCount::incrementAndGet );
@@ -2568,11 +2568,11 @@ public class ArezContextTest
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Procedure observed = () -> {
+    final Procedure observe = () -> {
       observeADependency();
       callCount.incrementAndGet();
     };
-    final Observer observer = context.observer( observed );
+    final Observer observer = context.observer( observe );
 
     assertNull( observer.getComponent() );
     assertEquals( observer.getName(), "Observer@22" );
@@ -2585,7 +2585,7 @@ public class ArezContextTest
     assertFalse( observer.nestedActionsAllowed() );
     assertNull( observer.getOnDepsChange() );
     assertFalse( observer.isApplicationExecutor() );
-    assertEquals( observer.getObserve(), observed );
+    assertEquals( observer.getObserve(), observe );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2727,10 +2727,10 @@ public class ArezContextTest
   public void observer_areArezDependenciesRequired()
   {
     final ArezContext context = Arez.context();
-    final Procedure observed = AbstractArezTest::observeADependency;
-    assertFalse( context.observer( observed, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES ).areArezDependenciesRequired() );
-    assertFalse( context.observer( observed, Flags.AREZ_OR_NO_DEPENDENCIES ).areArezDependenciesRequired() );
-    assertTrue( context.observer( observed, Flags.AREZ_DEPENDENCIES ).areArezDependenciesRequired() );
+    final Procedure observe = AbstractArezTest::observeADependency;
+    assertFalse( context.observer( observe, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES ).areArezDependenciesRequired() );
+    assertFalse( context.observer( observe, Flags.AREZ_OR_NO_DEPENDENCIES ).areArezDependenciesRequired() );
+    assertTrue( context.observer( observe, Flags.AREZ_DEPENDENCIES ).areArezDependenciesRequired() );
   }
 
   @Test
