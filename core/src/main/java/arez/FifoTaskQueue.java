@@ -46,7 +46,8 @@ final class FifoTaskQueue
    *
    * @param task the task.
    */
-  void queueTask( @Nonnull final Task task )
+  @Override
+  public void queueTask( @Nonnull final Task task )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -77,7 +78,7 @@ final class FifoTaskQueue
     final ArrayList<Task> tasks = new ArrayList<>();
     _buffer.stream().forEach( task -> {
       tasks.add( task );
-      task.markAsDequeued();
+      task.markAsIdle();
     } );
     _buffer.clear();
     return tasks;

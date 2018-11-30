@@ -32,8 +32,6 @@ import javax.lang.model.type.TypeMirror;
 final class ObservableDescriptor
 {
   @Nonnull
-  private final ComponentDescriptor _componentDescriptor;
-  @Nonnull
   private final String _name;
   private boolean _expectSetter;
   private boolean _readOutsideTransaction;
@@ -59,10 +57,8 @@ final class ObservableDescriptor
   @Nullable
   private InverseDescriptor _inverseDescriptor;
 
-  ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
-                        @Nonnull final String name )
+  ObservableDescriptor( @Nonnull final String name )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
     setReadOutsideTransaction( false );
@@ -393,7 +389,7 @@ final class ObservableDescriptor
     assert null != _setter;
     assert null != _setterType;
     assert null != _getter;
-    final String methodName = "" + _setter.getSimpleName().toString();
+    final String methodName = _setter.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     ProcessorUtil.copyAccessModifiers( _setter, builder );
     ProcessorUtil.copyExceptions( _setterType, builder );
@@ -418,7 +414,8 @@ final class ObservableDescriptor
 
       if ( _setterType.getThrownTypes().isEmpty() )
       {
-        block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
+        block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                            "() -> this.$N( $N ) )",
                             GeneratorUtil.KERNEL_FIELD_NAME,
                             GeneratorUtil.AREZ_CLASSNAME,
                             GeneratorUtil.KERNEL_FIELD_NAME,
@@ -430,11 +427,12 @@ final class ObservableDescriptor
       {
         //noinspection CodeBlock2Expr
         GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
-          b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
+          b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                          "() -> this.$N( $N ) )",
                           GeneratorUtil.KERNEL_FIELD_NAME,
                           GeneratorUtil.AREZ_CLASSNAME,
                           GeneratorUtil.KERNEL_FIELD_NAME,
-                          "." +  methodName,
+                          "." + methodName,
                           GeneratorUtil.FRAMEWORK_PREFIX + methodName,
                           paramName );
         } );

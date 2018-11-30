@@ -25,7 +25,8 @@ public class FifoTaskQueueTest
   {
     final FifoTaskQueue queue = new FifoTaskQueue( 20 );
 
-    final Task task = new Task( "A", ValueUtil::randomString );
+    final ArezContext context = Arez.context();
+    final Task task = context.task( "A", ValueUtil::randomString );
     queue.queueTask( task );
     assertInvariantFailure( () -> queue.queueTask( task ),
                             "Arez-0098: Attempting to queue task named 'A' when task is already queued." );
@@ -40,18 +41,19 @@ public class FifoTaskQueueTest
     assertEquals( queue.getQueueSize(), 0 );
     assertNull( queue.dequeueTask() );
 
-    queue.queueTask( new Task( "A", ValueUtil::randomString ) );
+    final ArezContext context = Arez.context();
+    queue.queueTask( context.task( "A", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 1 );
     assertTrue( queue.hasTasks() );
-    queue.queueTask( new Task( "B", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "B", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 2 );
-    queue.queueTask( new Task( "C", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "C", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 3 );
-    queue.queueTask( new Task( "D", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "D", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 4 );
-    queue.queueTask( new Task( "E", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "E", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 5 );
-    queue.queueTask( new Task( "F", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "F", ValueUtil::randomString ) );
     assertEquals( queue.getQueueSize(), 6 );
 
     assertEquals( queue.getBuffer().size(), 6 );
@@ -101,12 +103,13 @@ public class FifoTaskQueueTest
   {
     final FifoTaskQueue queue = new FifoTaskQueue( 20 );
 
-    queue.queueTask( new Task( "A", ValueUtil::randomString ) );
-    queue.queueTask( new Task( "B", ValueUtil::randomString ) );
-    queue.queueTask( new Task( "C", ValueUtil::randomString ) );
-    queue.queueTask( new Task( "D", ValueUtil::randomString ) );
-    queue.queueTask( new Task( "E", ValueUtil::randomString ) );
-    queue.queueTask( new Task( "F", ValueUtil::randomString ) );
+    final ArezContext context = Arez.context();
+    queue.queueTask( context.task( "A", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "B", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "C", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "D", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "E", ValueUtil::randomString ) );
+    queue.queueTask( context.task( "F", ValueUtil::randomString ) );
 
     assertEquals( queue.getQueueSize(), 6 );
 

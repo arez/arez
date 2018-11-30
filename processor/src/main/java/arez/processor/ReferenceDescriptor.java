@@ -483,7 +483,6 @@ final class ReferenceDescriptor
     else
     {
       buildVerify( builder, idName, refName );
-      ;
     }
   }
 

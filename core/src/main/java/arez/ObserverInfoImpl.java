@@ -108,7 +108,7 @@ final class ObserverInfoImpl
   @Override
   public Priority getPriority()
   {
-    return _observer.getPriority();
+    return _observer.getTask().getPriority();
   }
 
   /**

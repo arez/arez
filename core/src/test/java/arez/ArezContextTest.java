@@ -19,6 +19,8 @@ import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import arez.spy.TaskCompleteEvent;
+import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.io.IOException;
@@ -2062,7 +2064,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final ObservableValue<Object> observable = context.observable();
-    final AtomicInteger observedCallCount = new AtomicInteger();
+    final AtomicInteger observeCallCount = new AtomicInteger();
     final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final Component component = context.component( ValueUtil.randomString(), 22 );
@@ -2070,7 +2072,7 @@ public class ArezContextTest
     final String name = ValueUtil.randomString();
     final Observer observer =
       context.observer( component, name, () -> {
-        observedCallCount.incrementAndGet();
+        observeCallCount.incrementAndGet();
         observable.reportObserved();
         assertEquals( context.getTransaction().getName(), name );
       }, onDepsChangeCallCount::incrementAndGet );
@@ -2289,7 +2291,7 @@ public class ArezContextTest
     assertEquals( computableValue.getOnDeactivate(), onDeactivate );
     assertEquals( computableValue.getOnStale(), onStale );
     assertEquals( computableValue.getObserver().getName(), name );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.HIGH );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.HIGH );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }
 
@@ -2477,7 +2479,7 @@ public class ArezContextTest
     assertNull( computableValue.getOnActivate() );
     assertNull( computableValue.getOnDeactivate() );
     assertNull( computableValue.getOnStale() );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
   }
 
   @Test
@@ -2500,7 +2502,7 @@ public class ArezContextTest
     assertNull( computableValue.getOnActivate() );
     assertNull( computableValue.getOnDeactivate() );
     assertNull( computableValue.getOnStale() );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }
 
@@ -2536,7 +2538,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 1 );
 
     assertEquals( getObserverErrors().size(), 1 );
@@ -2566,24 +2568,24 @@ public class ArezContextTest
 
     context.setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
-    final Procedure observed = () -> {
+    final Procedure observe = () -> {
       observeADependency();
       callCount.incrementAndGet();
     };
-    final Observer observer = context.observer( observed );
+    final Observer observer = context.observer( observe );
 
     assertNull( observer.getComponent() );
     assertEquals( observer.getName(), "Observer@22" );
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.isComputableValue() );
     assertFalse( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isKeepAlive() );
     assertFalse( observer.nestedActionsAllowed() );
     assertNull( observer.getOnDepsChange() );
     assertFalse( observer.isApplicationExecutor() );
-    assertEquals( observer.getObserve(), observed );
+    assertEquals( observer.getObserve(), observe );
     assertEquals( callCount.get(), 1 );
   }
 
@@ -2617,7 +2619,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertTrue( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.nestedActionsAllowed() );
     assertFalse( observer.supportsManualSchedule() );
     assertEquals( callCount.get(), 1 );
@@ -2643,7 +2645,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertTrue( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( callCount.get(), 1 );
 
@@ -2699,7 +2701,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( AbstractArezTest::observeADependency, Flags.PRIORITY_HIGH );
-    assertEquals( observer.getPriority(), Priority.HIGH );
+    assertEquals( observer.getTask().getPriority(), Priority.HIGH );
   }
 
   @Test
@@ -2725,10 +2727,10 @@ public class ArezContextTest
   public void observer_areArezDependenciesRequired()
   {
     final ArezContext context = Arez.context();
-    final Procedure observed = AbstractArezTest::observeADependency;
-    assertFalse( context.observer( observed, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES ).areArezDependenciesRequired() );
-    assertFalse( context.observer( observed, Flags.AREZ_OR_NO_DEPENDENCIES ).areArezDependenciesRequired() );
-    assertTrue( context.observer( observed, Flags.AREZ_DEPENDENCIES ).areArezDependenciesRequired() );
+    final Procedure observe = AbstractArezTest::observeADependency;
+    assertFalse( context.observer( observe, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES ).areArezDependenciesRequired() );
+    assertFalse( context.observer( observe, Flags.AREZ_OR_NO_DEPENDENCIES ).areArezDependenciesRequired() );
+    assertTrue( context.observer( observe, Flags.AREZ_DEPENDENCIES ).areArezDependenciesRequired() );
   }
 
   @Test
@@ -2757,7 +2759,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
@@ -2791,7 +2793,7 @@ public class ArezContextTest
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertNull( observer.getComponent() );
-    assertEquals( observer.getPriority(), Priority.HIGH );
+    assertEquals( observer.getTask().getPriority(), Priority.HIGH );
     assertTrue( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isApplicationExecutor() );
     assertTrue( observer.nestedActionsAllowed() );
@@ -2819,7 +2821,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isApplicationExecutor() );
   }
@@ -3296,6 +3298,7 @@ public class ArezContextTest
     final ObservableValue<Object> observableValue = context.observable();
     final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Task task = context.task( ValueUtil::randomString );
 
     assertInvariantFailure( () -> context.registerObservableValue( observableValue ),
                             "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
@@ -3315,6 +3318,12 @@ public class ArezContextTest
                             "Arez-0034: ArezContext.deregisterComputableValue invoked when Arez.areRegistriesEnabled() returns false." );
     assertInvariantFailure( context::getTopLevelComputableValues,
                             "Arez-0036: ArezContext.getTopLevelComputableValues() invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( () -> context.registerTask( task ),
+                            "Arez-0214: ArezContext.registerTask invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( () -> context.deregisterTask( task ),
+                            "Arez-0226: ArezContext.deregisterTask invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( context::getTopLevelTasks,
+                            "Arez-0228: ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -3391,6 +3400,59 @@ public class ArezContextTest
   }
 
   @Test
+  public void taskRegistry()
+  {
+    final ArezContext context = Arez.context();
+
+    final Task task = context.task( ValueUtil::randomString );
+
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    assertEquals( context.getTopLevelTasks().get( task.getName() ), task );
+
+    assertInvariantFailure( () -> context.registerTask( task ),
+                            "Arez-0225: ArezContext.registerTask invoked with Task named '" +
+                            task.getName() + "' but an existing Task with that name is already registered." );
+
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    context.getTopLevelTasks().clear();
+    assertEquals( context.getTopLevelTasks().size(), 0 );
+
+    assertInvariantFailure( () -> context.deregisterTask( task ),
+                            "Arez-0227: ArezContext.deregisterTask invoked with Task named '" +
+                            task.getName() + "' but no Task with that name is registered." );
+  }
+
+  @Test
+  public void computedValueNotPopulateOtherTopLevelRegistries()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputableValue computableValue = context.computable( () -> "" );
+
+    assertEquals( context.getTopLevelComputableValues().size(), 1 );
+    assertEquals( context.getTopLevelComputableValues().get( computableValue.getName() ), computableValue );
+
+    assertEquals( context.getTopLevelTasks().size(), 0 );
+    assertEquals( context.getTopLevelObservers().size(), 0 );
+    assertEquals( context.getTopLevelObservables().size(), 0 );
+  }
+
+  @Test
+  public void observersNotPopulateOtherTopLevelRegistries()
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer observer = context.observer( ValueUtil::randomString, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    assertEquals( context.getTopLevelObservers().size(), 1 );
+    assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
+
+    assertEquals( context.getTopLevelTasks().size(), 0 );
+    assertEquals( context.getTopLevelComputableValues().size(), 0 );
+    assertEquals( context.getTopLevelObservables().size(), 0 );
+  }
+
+  @Test
   public void scheduleDispose()
   {
     final ArezContext context = Arez.context();
@@ -3399,6 +3461,9 @@ public class ArezContextTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
     assertEquals( queue.getOrderedTasks().count(), 0L );
+
+    // Pause scheduler so that the task is not invoked immediately
+    final Disposable schedulerLock = context.pauseScheduler();
 
     final String name = observer.getName() + ".dispose";
     context.scheduleDispose( name, observer );
@@ -3410,6 +3475,20 @@ public class ArezContextTest
     final Task task = buffer.get( 0 );
     assertNotNull( task );
     assertEquals( task.getName(), name );
+
+    // Ensure that the scheduled dispose is actually in the top level registry
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    assertEquals( context.getTopLevelTasks().get( name ), task );
+
+    assertFalse( task.isDisposed() );
+    assertFalse( observer.isDisposed() );
+
+    schedulerLock.dispose();
+
+    assertTrue( task.isDisposed() );
+    assertTrue( observer.isDisposed() );
+    assertEquals( queue.getOrderedTasks().count(), 0L );
+    assertEquals( context.getTopLevelTasks().size(), 0 );
   }
 
   @Test
@@ -3422,6 +3501,9 @@ public class ArezContextTest
 
     assertEquals( queue.getOrderedTasks().count(), 0L );
 
+    // Pause scheduler so that the task stays in the queue
+    context.pauseScheduler();
+
     context.scheduleDispose( null, observer );
 
     assertEquals( queue.getOrderedTasks().count(), 1L );
@@ -3431,6 +3513,10 @@ public class ArezContextTest
     final Task task = buffer.get( 0 );
     assertNotNull( task );
     assertEquals( task.getName(), "Dispose@3" );
+
+    // Ensure that the scheduled dispose is actually in the top level registry
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    assertEquals( context.getTopLevelTasks().get( "Dispose@3" ), task );
   }
 
   @Test
@@ -3586,5 +3672,163 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> context.safeRunInEnvironment( () -> "" ) ) );
+  }
+
+  @Test
+  public void task()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final String name = ValueUtil.randomString();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Task task = context.task( name, callCount::incrementAndGet, 0 );
+
+    assertEquals( task.getName(), name );
+    assertEquals( callCount.get(), 1 );
+    assertFalse( task.isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> {
+      assertEquals( e.getTask().getName(), name );
+      assertNull( e.getThrowable() );
+    } );
+
+    handler.reset();
+
+    // This does nothing but just to make sure
+    task.dispose();
+
+    assertEquals( callCount.get(), 1 );
+    assertFalse( task.isQueued() );
+    assertTrue( task.isDisposed() );
+
+    handler.assertEventCount( 0 );
+  }
+
+  @Test
+  public void task_throwsException()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+    final String name = ValueUtil.randomString();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final String errorMessage = "Blah Error!";
+    final SafeProcedure work = () -> {
+      callCount.incrementAndGet();
+      throw new RuntimeException( errorMessage );
+    };
+    final Task task = context.task( name, work, 0 );
+
+    assertEquals( task.getName(), name );
+    assertEquals( callCount.get(), 1 );
+    assertFalse( task.isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> {
+      assertEquals( e.getTask().getName(), name );
+      assertNotNull( e.getThrowable() );
+      assertEquals( e.getThrowable().getMessage(), errorMessage );
+    } );
+  }
+
+  @Test
+  public void task_minimalParameters()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Task task = context.task( callCount::incrementAndGet );
+
+    final String name = "Task@1";
+    assertEquals( task.getName(), name );
+    assertEquals( callCount.get(), 1 );
+    assertFalse( task.isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+  }
+
+  @Test
+  public void task_RUN_LATER()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    final Task task = context.task( null, callCount::incrementAndGet, Flags.RUN_LATER );
+
+    final String name = "Task@1";
+    assertEquals( task.getName(), name );
+    assertEquals( callCount.get(), 0 );
+    assertTrue( task.isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 0 );
+
+    // Trigger scheduler and allow task to run
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
+    assertFalse( task.isQueued() );
+    assertFalse( task.isDisposed() );
+
+    handler.assertEventCount( 2 );
+
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+  }
+
+  @Test
+  public void task_different_PRIORITY()
+  {
+    final ArezContext context = Arez.context();
+
+    final ArrayList<String> calls = new ArrayList<>();
+
+    context.task( null, () -> calls.add( "1" ), Flags.RUN_LATER | Flags.PRIORITY_LOW );
+    context.task( null, () -> calls.add( "2" ), Flags.RUN_LATER | Flags.PRIORITY_HIGH );
+    context.task( null, () -> calls.add( "3" ), Flags.RUN_LATER );
+    context.task( null, () -> calls.add( "4" ), Flags.RUN_LATER | Flags.PRIORITY_HIGH );
+    context.task( null, () -> calls.add( "5" ), Flags.RUN_LATER | Flags.PRIORITY_HIGHEST );
+    context.task( null, () -> calls.add( "6" ), Flags.RUN_LATER | Flags.PRIORITY_LOWEST );
+    context.task( null, () -> calls.add( "7" ), Flags.RUN_LATER | Flags.PRIORITY_NORMAL );
+
+    // Trigger scheduler and allow tasks to run according to priority
+    context.triggerScheduler();
+
+    assertEquals( String.join( ",", calls ), "5,2,4,3,7,1,6" );
+  }
+
+  @Test
+  public void task_bad_flags()
+  {
+    final ArezContext context = Arez.context();
+
+    assertInvariantFailure( () -> context.task( "MyTask", ValueUtil::randomString, Flags.REQUIRE_NEW_TRANSACTION ),
+                            "Arez-0224: Task named 'MyTask' passed invalid flags: " + Flags.REQUIRE_NEW_TRANSACTION );
   }
 }

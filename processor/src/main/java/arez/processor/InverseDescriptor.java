@@ -121,7 +121,7 @@ final class InverseDescriptor
   {
     final String methodName = GeneratorUtil.getInverseAddMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( !isReferenceInSamePackage() )
+    if ( isReferenceInDifferentPackage() )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -166,7 +166,7 @@ final class InverseDescriptor
   {
     final String methodName = GeneratorUtil.getInverseRemoveMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( !isReferenceInSamePackage() )
+    if ( isReferenceInDifferentPackage() )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -213,7 +213,7 @@ final class InverseDescriptor
       GeneratorUtil.getInverseSetMethodName( _observable.getName() ) :
       GeneratorUtil.getInverseZSetMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( !isReferenceInSamePackage() )
+    if ( isReferenceInDifferentPackage() )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -246,7 +246,7 @@ final class InverseDescriptor
       GeneratorUtil.getInverseUnsetMethodName( _observable.getName() ) :
       GeneratorUtil.getInverseZUnsetMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( !isReferenceInSamePackage() )
+    if ( isReferenceInDifferentPackage() )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -270,11 +270,11 @@ final class InverseDescriptor
     return builder.build();
   }
 
-  private boolean isReferenceInSamePackage()
+  private boolean isReferenceInDifferentPackage()
   {
     final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( _targetType );
     final PackageElement selfPackageElement = getPackageElement( _componentDescriptor.getElement() );
-    return Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
+    return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
   }
 
   void buildVerify( @Nonnull final CodeBlock.Builder code )

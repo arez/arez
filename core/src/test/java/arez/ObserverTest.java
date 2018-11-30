@@ -59,7 +59,7 @@ public class ObserverTest
 
     assertFalse( observer.isComputableValue() );
 
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.canObserveLowerPriorityDependencies() );
 
     observer.invariantState();
@@ -248,17 +248,6 @@ public class ObserverTest
                                                 Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ),
                             "Arez-0209: Observer named '" + name + "' incorrectly specified both the " +
                             "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
-  }
-
-  @Test
-  public void construct_with_computed_value_REACT_IMMEDIATELY_and_not_KEEPALIVE()
-  {
-    final ArezContext context = Arez.context();
-
-    final ComputableValue<String> computableValue = context.computable( () -> "" );
-
-    assertInvariantFailure( () -> new Observer( computableValue, Flags.RUN_NOW ),
-                            "Arez-0208: ComputableValue named 'ComputableValue@1' incorrectly specified RUN_NOW flag but not the KEEPALIVE flag." );
   }
 
   @Test

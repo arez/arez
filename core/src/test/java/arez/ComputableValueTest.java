@@ -50,7 +50,7 @@ public class ComputableValueTest
     // Verify the linking of all child elements
     assertEquals( computableValue.getObserver().getName(), name );
     assertTrue( computableValue.getObserver().isComputableValue() );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertEquals( computableValue.getObserver().getComputableValue(), computableValue );
     assertEquals( computableValue.getObserver().getState(), Flags.STATE_INACTIVE );
     assertEquals( computableValue.getObservableValue().getName(), name );
@@ -89,7 +89,7 @@ public class ComputableValueTest
     // Verify the linking of all child elements
     assertEquals( computableValue.getObserver().getName(), name );
     assertTrue( computableValue.getObserver().isComputableValue() );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertEquals( computableValue.getObserver().getComputableValue(), computableValue );
     assertEquals( computableValue.getObserver().getState(), Flags.STATE_UP_TO_DATE );
     assertEquals( computableValue.getObservableValue().getName(), name );
@@ -105,7 +105,7 @@ public class ComputableValueTest
   public void highPriorityComputableValue()
   {
     final ComputableValue<String> computableValue = Arez.context().computable( () -> "", Flags.PRIORITY_HIGH );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.HIGH );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.HIGH );
   }
 
   @Test

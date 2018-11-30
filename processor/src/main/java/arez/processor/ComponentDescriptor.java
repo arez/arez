@@ -271,7 +271,7 @@ final class ComponentDescriptor
   @Nonnull
   private ObservableDescriptor findOrCreateObservable( @Nonnull final String name )
   {
-    return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
+    return _observables.computeIfAbsent( name, ObservableDescriptor::new );
   }
 
   @Nonnull

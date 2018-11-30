@@ -12,7 +12,12 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
-* Consider moving computable flags, action flags and observer flags into separate classes
+* Rename `ArezContext.triggerScheduler()` to `ArezContext.triggerExecutor()` or something similar that
+  indicates it is executing tasks but not doing clock based scheduling????
+
+* Should we introduce an interface `SchedulerLock extends Disposable` that is returned from `pauseScheduler()`? 
+
+* Consider moving computable flags, action flags, task flags and observer flags into separate classes
 
 * Consider renaming `Executor.AREZ` to `Executor.INTERNAL` and `Executor.APPLICATION` to `Executor.EXTERNAL`
 
@@ -77,6 +82,9 @@ complete as there is too much un-said.
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
+* Consider adding per-task error handler and a global task error handler. Observer error handlers should
+  be merged into this code  to reduce code size and conceptual overhead.
+
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
@@ -88,6 +96,7 @@ complete as there is too much un-said.
 
 * Complete the `arez-devtools` project.
   - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
+  - Embers DevTools is truly magical -  https://egghead.io/lessons/javascript-debug-ember-applications-using-ember-inspector
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
@@ -127,6 +136,14 @@ complete as there is too much un-said.
   instances into streams. These changes could either be pushed inline within the `READ_WRITE` transaction or could
   be pushed as a task passed to scheduler. This would support several alternative approaches when architecting
   applications.
+
+## TS/JS Integration
+
+* It would be possible using J2CL to compile a version of Arez usable by vanilla Javascript, Typescript or Closure
+  annotated javascript. For this to be useful it would be necessary to explicitly define a js API layer in a package
+  such as `arez.js.*` that provides access to the `ArezContext` and factory methods in a fashion suitable for
+  consumption by a js application. A component model for javascript applications would also need to be created
+  which would most likely draw heavy inspiration from Mobx.
 
 ## Process
 

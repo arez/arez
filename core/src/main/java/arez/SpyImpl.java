@@ -6,6 +6,7 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Spy;
 import arez.spy.SpyEventHandler;
+import arez.spy.TaskInfo;
 import arez.spy.TransactionInfo;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -210,6 +211,16 @@ final class SpyImpl
    */
   @Nonnull
   @Override
+  public Collection<TaskInfo> findAllTopLevelTasks()
+  {
+    return TaskInfoImpl.asUnmodifiableInfos( getContext().getTopLevelTasks().values() );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
   public ComponentInfo asComponentInfo( @Nonnull final Component component )
   {
     return component.asInfo();
@@ -243,6 +254,16 @@ final class SpyImpl
   public <T> ComputableValueInfo asComputableValueInfo( @Nonnull final ComputableValue<T> computableValue )
   {
     return computableValue.asInfo();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Nonnull
+  @Override
+  public TaskInfo asTaskInfo( @Nonnull final Task task )
+  {
+    return task.asInfo();
   }
 
   @Nonnull

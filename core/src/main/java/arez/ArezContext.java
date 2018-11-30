@@ -42,7 +42,7 @@ public final class ArezContext
    * Tasks scheduled but  yet to be run.
    */
   @Nonnull
-  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Flags.PRIORITY_COUNT, 100 );
+  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 100 );
   /**
    * Executor responsible for executing tasks.
    */
@@ -79,6 +79,11 @@ public final class ArezContext
   @Nullable
   private final HashMap<String, ComputableValue<?>> _computableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  /**
+   * Registry of all active tasks.
+   */
+  @Nullable
+  private final HashMap<String, Task> _tasks = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level observers.
    * These are all the Observer instances not contained within a component.
@@ -979,7 +984,67 @@ public final class ArezContext
                        "read-only tracking transaction. Observers that are supporting ComputableValue instances " +
                        "must not schedule self." );
     }
-    _taskQueue.queueTask( observer.getPriorityIndex(), observer.getTask() );
+    _taskQueue.queueTask( observer.getTask() );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running then the scheduler will be triggered.
+   *
+   * @param work the representation of the task to execute.
+   * @return the new task.
+   */
+  @Nonnull
+  public Task task( @Nonnull final SafeProcedure work )
+  {
+    return task( null, work );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running then the scheduler will be triggered.
+   *
+   * @param name the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
+   * @param work the representation of the task to execute.
+   * @return the new task.
+   */
+  @Nonnull
+  public Task task( @Nullable final String name, @Nonnull final SafeProcedure work )
+  {
+    return task( name, work, 0 );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
+   * scheduler will be triggered.
+   *
+   * @param work  the representation of the task to execute.
+   * @param flags the flags to configure task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
+   * @return the new task.
+   */
+  @Nonnull
+  public Task task( @Nonnull final SafeProcedure work, final int flags )
+  {
+    return task( null, work, flags );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
+   * scheduler will be triggered.
+   *
+   * @param name  the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
+   * @param work  the representation of the task to execute.
+   * @param flags the flags to configure task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
+   * @return the new task.
+   */
+  @Nonnull
+  public Task task( @Nullable final String name, @Nonnull final SafeProcedure work, final int flags )
+  {
+    final Task task = new Task( Arez.areZonesEnabled() ? this : null, generateName( "Task", name ), work, flags );
+    task.initialSchedule();
+    return task;
   }
 
   /**
@@ -1168,7 +1233,7 @@ public final class ArezContext
             // The environment wrapper can perform actions that trigger the need for the Arez
             // scheduler to re-run so we keep checking until there is no more work to be done.
             // This is typically used when the environment reacts to changes that Arez triggered
-            // (i.e. via @Track callbacks) which in turn reschedules Arez changes. This happens
+            // (i.e. via @Observe callbacks) which in turn reschedules Arez changes. This happens
             // in frameworks like react4j which have only scheduler that responds to changes and
             // feeds back into Arez.
             do
@@ -1260,12 +1325,29 @@ public final class ArezContext
    * The disposable must not already be in the list of pending observers.
    * The disposable will be processed before the next top-level reaction.
    *
+   * @param disposable the disposable.
+   */
+  public void scheduleDispose( @Nonnull final Disposable disposable )
+  {
+    scheduleDispose( null, disposable );
+  }
+
+  /**
+   * Add the specified disposable to the list of pending disposables.
+   * The disposable must not already be in the list of pending observers.
+   * The disposable will be processed before the next top-level reaction.
+   *
    * @param name       the name describing the dispose task.
    * @param disposable the disposable.
    */
   public void scheduleDispose( @Nullable final String name, @Nonnull final Disposable disposable )
   {
-    _taskQueue.queueTask( 0, new Task( generateName( "Dispose", name ), disposable::dispose ) );
+    final Task task =
+      new Task( Arez.areZonesEnabled() ? this : null,
+                generateName( "Dispose", name ),
+                disposable::dispose,
+                Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
+    task.initialSchedule();
   }
 
   /**
@@ -2329,6 +2411,50 @@ public final class ArezContext
     }
     assert null != _computableValues;
     return _computableValues;
+  }
+
+  void registerTask( @Nonnull final Task task )
+  {
+    final String name = task.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0214: ArezContext.registerTask invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _tasks;
+      invariant( () -> !_tasks.containsKey( name ),
+                 () -> "Arez-0225: ArezContext.registerTask invoked with Task named '" + name +
+                       "' but an existing Task with that name is already registered." );
+    }
+    assert null != _tasks;
+    _tasks.put( name, task );
+  }
+
+  void deregisterTask( @Nonnull final Task task )
+  {
+    final String name = task.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0226: ArezContext.deregisterTask invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _tasks;
+      invariant( () -> _tasks.containsKey( name ),
+                 () -> "Arez-0227: ArezContext.deregisterTask invoked with Task named '" + name +
+                       "' but no Task with that name is registered." );
+    }
+    assert null != _tasks;
+    _tasks.remove( name );
+  }
+
+  @Nonnull
+  HashMap<String, Task> getTopLevelTasks()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0228: ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false." );
+    }
+    assert null != _tasks;
+    return _tasks;
   }
 
   @Nonnull

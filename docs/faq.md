@@ -26,8 +26,7 @@ title: Frequently Asked Questions
 
 Arez only re-runs {@api_url: annotations.Observe} annotated methods if it is told that an observable property that
 is a dependency of the {@api_url: annotations.Observe} method is changed. Assuming you are using classes annotated
-with {@api_url: annotations.ArezComponent}  then this means
-that the code must:
+with {@api_url: annotations.ArezComponent} then this means that the code must:
 
 * mutate the property using the setter method to mark the property as changed. The generated code ultimately calls
   the {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} method to mark the property as changed.
@@ -175,3 +174,35 @@ This has produced significantly more clutter in the codebase but needs to be sup
 to be a deployment target. As an indication of how much of an impact it can have, the size of one trivial
 application went from 141KB to 74KB after this change. If/When Arez targets GWT 3.x and not GWT 2.x, it is
 expected that most of this complexity can be removed from the codebase.
+
+## Alternatives
+
+### How does Arez compare to Mobx?
+
+Arez began life as a port of Mobx so they both share a core conceptual model of observable values, computable
+values (a.k.a derived values) and observers. The internals that implement Arez are better optimized for both
+execution speed and base code size than the Mobx equivalents due to the magic of the GWT2.x and J2CL compilers.
+For many use cases Arez has a much smaller memory footprint.
+
+As the number of observable nodes increases, Mobx has the advantage and the code size will increase at a
+lower rate compared to a normal Arez application. The actual threshold where the size of the Arez code is higher
+than the equivalent functionality in Mobx is a moving target as both projects are continually evolving. In
+practice it is expected to be in the vicinity of ~6000 `@Observable` annotated methods but this has not been
+measured recently.
+
+The reason for the difference is primarily how the two different frameworks make an object reactive. The Arez
+component model statically generates code at compile time to make an element reactive while Mobx introduces
+reactivity dynamically at runtime. Arez has experimented with using dynamic runtime enhancement of a component
+but this approach relied upon features of J2CL and J2CL is still in development. Arez's dynamic components were
+also limited to running on a javascript virtual machine and would no longer be able to be run on a JVM without
+an alternative implementation strategy.
+
+Mobx has a much larger ecosystem with a larger developer base. As a result Mobx offers much better educational
+resources (such as documentation and video courses). Some features of Mobx (i.e. `when(...)`) are only available
+as libraries (i.e. `arez-when` project) where they are baked into Mobx. Arez includes an opinionated
+component model within the core framework where as the equivalent within in the Mobx ecosystem is provided by
+[Mobx State Tree](https://github.com/mobxjs/mobx-state-tree) or MST. MST provides similar features to the Arez
+component model as well as additional functionality such as serialization and deserialization of state.
+
+Overall the two libraries share many similarities. Arez is focused on performance and is written in Java. Mobx
+has a larger ecosystem and is written in javascript (or TypeScript to be more precise).

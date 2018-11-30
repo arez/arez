@@ -7,7 +7,6 @@ import arez.spy.ObserveStartEvent;
 import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
-import arez.spy.Priority;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -85,12 +84,13 @@ public final class Observer
           null,
           flags |
           ( Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? 0 : Flags.DEACTIVATE_ON_UNOBSERVE ) |
-          Flags.runType( flags, Flags.KEEPALIVE == Flags.getScheduleType( flags ) ? Flags.RUN_NOW : Flags.RUN_LATER ) |
+          Task.Flags.runType( flags, Flags.KEEPALIVE == Flags.getScheduleType( flags ) ?
+                                     Task.Flags.RUN_NOW :
+                                     Task.Flags.RUN_LATER ) |
           Flags.environmentFlag( flags ) |
           ( Arez.shouldEnforceTransactionType() ? Flags.READ_ONLY : 0 ) |
           Flags.NESTED_ACTIONS_DISALLOWED |
-          Flags.dependencyType( flags ) |
-          Flags.priority( flags ) );
+          Flags.dependencyType( flags ) );
   }
 
   Observer( @Nullable final ArezContext context,
@@ -109,8 +109,7 @@ public final class Observer
           flags |
           ( null == observe ? Flags.APPLICATION_EXECUTOR : Flags.KEEPALIVE ) |
           ( null != observe ? Flags.ENVIRONMENT_REQUIRED : Flags.environmentFlag( flags ) ) |
-          Flags.runType( flags, null == observe ? Flags.RUN_LATER : Flags.RUN_NOW ) |
-          Flags.priority( flags ) |
+          Task.Flags.runType( flags, null == observe ? Task.Flags.RUN_LATER : Task.Flags.RUN_NOW ) |
           Flags.nestedActionRule( flags ) |
           Flags.dependencyType( flags ) |
           Flags.transactionMode( flags ) );
@@ -125,8 +124,13 @@ public final class Observer
                     final int flags )
   {
     super( context, name );
-    _task = new Task( name, this::invokeReaction );
-    _flags = flags | Flags.STATE_INACTIVE;
+    _task = new Task( context,
+                      name,
+                      this::invokeReaction,
+                      ( flags & Task.Flags.OBSERVER_TASK_FLAGS_MASK ) |
+                      Task.Flags.NO_REGISTER_TASK |
+                      Task.Flags. NO_WRAP_TASK );
+    _flags = ( flags & ~Task.Flags.OBSERVER_TASK_FLAGS_MASK ) | Flags.STATE_INACTIVE;
     if ( Arez.shouldCheckInvariants() )
     {
       if ( Arez.shouldEnforceTransactionType() )
@@ -141,10 +145,10 @@ public final class Observer
                    () -> "Arez-0082: Observer named '" + getName() + "' specified transaction mode '" +
                          Flags.getTransactionModeName( flags ) + "' when Arez.enforceTransactionType() is false." );
       }
-      invariant( () -> Flags.isPriorityValid( flags ),
+      invariant( () -> Task.Flags.isPriorityValid( _task.getFlags() ),
                  () -> "Arez-0080: Observer named '" + getName() + "' has invalid priority " +
-                       Flags.getPriorityIndex( flags ) + "." );
-      invariant( () -> Flags.isRunTypeValid( flags ),
+                       Task.Flags.getPriorityIndex( _task.getFlags() ) + "." );
+      invariant( () -> Task.Flags.isRunTypeValid( _task.getFlags() ),
                  () -> "Arez-0081: Observer named '" + getName() + "' incorrectly specified both " +
                        "RUN_NOW and RUN_LATER flags." );
       invariant( () -> Flags.isEnvironmentValid( flags ),
@@ -156,7 +160,7 @@ public final class Observer
       invariant( () -> Arez.areNativeComponentsEnabled() || null == component,
                  () -> "Arez-0083: Observer named '" + getName() + "' has component specified but " +
                        "Arez.areNativeComponentsEnabled() is false." );
-      invariant( () -> Flags.getPriority( flags ) != Flags.PRIORITY_LOWEST ||
+      invariant( () -> Task.Flags.getPriority( flags ) != Task.Flags.PRIORITY_LOWEST ||
                        0 == ( flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
                  () -> "Arez-0184: Observer named '" + getName() + "' has LOWEST priority but has passed " +
                        "OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer " +
@@ -167,11 +171,9 @@ public final class Observer
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observe;
       assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observe;
-      invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
-                          Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
-                          null != computableValue ),
-                 () -> "Arez-0208: ComputableValue named '" + getName() + "' incorrectly specified " +
-                       "RUN_NOW flag but not the KEEPALIVE flag." );
+      assert !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
+                Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
+                null != computableValue );
       invariant( () -> Flags.isNestedActionsModeValid( flags ),
                  () -> "Arez-0209: Observer named '" + getName() + "' incorrectly specified both the " +
                        "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
@@ -216,23 +218,8 @@ public final class Observer
 
   void initialSchedule()
   {
-    final ArezContext context = getContext();
-    context.scheduleReaction( this );
-    if ( 0 != ( _flags & Flags.RUN_NOW ) )
-    {
-      context.triggerScheduler();
-    }
-  }
-
-  int getPriorityIndex()
-  {
-    return Flags.getPriorityIndex( _flags );
-  }
-
-  @Nonnull
-  Priority getPriority()
-  {
-    return Priority.values()[ getPriorityIndex() ];
+    getContext().scheduleReaction( this );
+    _task.triggerSchedulerInitiallyUnlessRunLater();
   }
 
   boolean areArezDependenciesRequired()

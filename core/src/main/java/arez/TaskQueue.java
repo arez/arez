@@ -41,6 +41,14 @@ interface TaskQueue
   Collection<Task> clear();
 
   /**
+   * Add a task to the TaskQueue.
+   * The task must not be already queued.
+   *
+   * @param task the task.
+   */
+  void queueTask( @Nonnull Task task );
+
+  /**
    * Return a stream containing tasks ordered as they would be executed.
    * This method may be very slow and should not be invoked during production compiles.
    * It is only expected to be called from invariant checking code.

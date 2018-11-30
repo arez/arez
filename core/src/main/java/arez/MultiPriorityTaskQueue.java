@@ -85,6 +85,18 @@ final class MultiPriorityTaskQueue
    * Add the specified task to the queue.
    * The task must not already be in the queue.
    *
+   * @param task     the task.
+   */
+  @Override
+  public void queueTask( @Nonnull final Task task )
+  {
+    queueTask( task.getPriorityIndex(), task );
+  }
+
+  /**
+   * Add the specified task to the queue.
+   * The task must not already be in the queue.
+   *
    * @param priority the task priority.
    * @param task     the task.
    */
@@ -138,7 +150,7 @@ final class MultiPriorityTaskQueue
       final CircularBuffer<Task> buffer = _buffers[ i ];
       buffer.stream().forEach( task -> {
         tasks.add( task );
-        task.markAsDequeued();
+        task.markAsIdle();
       } );
       buffer.clear();
     }
