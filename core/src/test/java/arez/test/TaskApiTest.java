@@ -106,9 +106,9 @@ public class TaskApiTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final ArezContext context = Arez.context();
-    final Task task = context.task( callCount::incrementAndGet );
-
     final Disposable schedulerLock = context.pauseScheduler();
+
+    final Task task = context.task( callCount::incrementAndGet );
 
     assertEquals( callCount.get(), 0 );
 
