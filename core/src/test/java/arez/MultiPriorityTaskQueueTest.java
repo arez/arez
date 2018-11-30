@@ -53,7 +53,7 @@ public class MultiPriorityTaskQueueTest
     final ArezContext context = Arez.context();
     final Task task = context.task( "A", ValueUtil::randomString, Task.Flags.RUN_LATER );
     assertInvariantFailure( () -> queue.queueTask( task ),
-                            "Arez-0128: Attempting to re-queue task named 'A' when task is queued." );
+                            "Arez-0128: Attempting to queue task named 'A' when task is not idle." );
   }
 
   @Test

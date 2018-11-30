@@ -141,7 +141,7 @@ public class TaskTest
 
     task.markAsQueued();
     assertInvariantFailure( task::markAsQueued,
-                            "Arez-0128: Attempting to re-queue task named 'X' when task is queued." );
+                            "Arez-0128: Attempting to queue task named 'X' when task is not idle." );
 
   }
 
