@@ -3476,6 +3476,10 @@ public class ArezContextTest
     assertNotNull( task );
     assertEquals( task.getName(), name );
 
+    // Ensure that the scheduled dispose is actually in the top level registry
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    assertEquals( context.getTopLevelTasks().get( name ), task );
+
     assertFalse( task.isDisposed() );
     assertFalse( observer.isDisposed() );
 
@@ -3483,6 +3487,8 @@ public class ArezContextTest
 
     assertTrue( task.isDisposed() );
     assertTrue( observer.isDisposed() );
+    assertEquals( queue.getOrderedTasks().count(), 0L );
+    assertEquals( context.getTopLevelTasks().size(), 0 );
   }
 
   @Test
@@ -3507,6 +3513,10 @@ public class ArezContextTest
     final Task task = buffer.get( 0 );
     assertNotNull( task );
     assertEquals( task.getName(), "Dispose@3" );
+
+    // Ensure that the scheduled dispose is actually in the top level registry
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    assertEquals( context.getTopLevelTasks().get( "Dispose@3" ), task );
   }
 
   @Test
