@@ -188,7 +188,7 @@ public final class ComponentKernel
 
   private void scheduleDispose()
   {
-    getContext().scheduleDispose( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate" : null, this );
+    getContext().scheduleDispose( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate.task" : null, this );
   }
 
   @Nonnull

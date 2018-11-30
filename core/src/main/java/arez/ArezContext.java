@@ -82,6 +82,11 @@ public final class ArezContext
   private final HashMap<String, ComputableValue<?>> _computableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
+   * Registry of all active tasks.
+   */
+  @Nullable
+  private final HashMap<String, Task> _tasks = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  /**
    * Registry of top level observers.
    * These are all the Observer instances not contained within a component.
    */
@@ -2442,6 +2447,50 @@ public final class ArezContext
     }
     assert null != _computableValues;
     return _computableValues;
+  }
+
+  void registerTask( @Nonnull final Task task )
+  {
+    final String name = task.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0214: ArezContext.registerTask invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _tasks;
+      invariant( () -> !_tasks.containsKey( name ),
+                 () -> "Arez-0225: ArezContext.registerTask invoked with Task named '" + name +
+                       "' but an existing Task with that name is already registered." );
+    }
+    assert null != _tasks;
+    _tasks.put( name, task );
+  }
+
+  void deregisterTask( @Nonnull final Task task )
+  {
+    final String name = task.getName();
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0226: ArezContext.deregisterTask invoked when Arez.areRegistriesEnabled() returns false." );
+      assert null != _tasks;
+      invariant( () -> _tasks.containsKey( name ),
+                 () -> "Arez-0227: ArezContext.deregisterTask invoked with Task named '" + name +
+                       "' but no Task with that name is registered." );
+    }
+    assert null != _tasks;
+    _tasks.remove( name );
+  }
+
+  @Nonnull
+  HashMap<String, Task> getTopLevelTasks()
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::areRegistriesEnabled,
+                 () -> "Arez-0228: ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false." );
+    }
+    assert null != _tasks;
+    return _tasks;
   }
 
   @Nonnull

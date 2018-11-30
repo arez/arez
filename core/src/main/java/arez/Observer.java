@@ -124,8 +124,11 @@ public final class Observer
                     final int flags )
   {
     super( context, name );
-    _task = new Task( context, name, this::invokeReaction, flags & Task.Flags.TASK_FLAGS_MASK );
-    _flags = ( flags & ~Task.Flags.TASK_FLAGS_MASK ) | Flags.STATE_INACTIVE;
+    _task = new Task( context,
+                      name,
+                      this::invokeReaction,
+                      ( flags & Task.Flags.OBSERVER_TASK_FLAGS_MASK ) | Task.Flags.NO_REGISTER_TASK );
+    _flags = ( flags & ~Task.Flags.OBSERVER_TASK_FLAGS_MASK ) | Flags.STATE_INACTIVE;
     if ( Arez.shouldCheckInvariants() )
     {
       if ( Arez.shouldEnforceTransactionType() )
@@ -166,11 +169,9 @@ public final class Observer
       // Next lines are impossible situations to create from tests. Add asserts to verify this.
       assert Flags.KEEPALIVE != Flags.getScheduleType( flags ) || null != observe;
       assert Flags.APPLICATION_EXECUTOR != Flags.getScheduleType( flags ) || null == observe;
-      invariant( () -> !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
-                          Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
-                          null != computableValue ),
-                 () -> "Arez-0208: ComputableValue named '" + getName() + "' incorrectly specified " +
-                       "RUN_NOW flag but not the KEEPALIVE flag." );
+      assert !( Flags.RUN_NOW == ( flags & Flags.RUN_NOW ) &&
+                Flags.KEEPALIVE != Flags.getScheduleType( flags ) &&
+                null != computableValue );
       invariant( () -> Flags.isNestedActionsModeValid( flags ),
                  () -> "Arez-0209: Observer named '" + getName() + "' incorrectly specified both the " +
                        "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );

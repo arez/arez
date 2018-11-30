@@ -3298,6 +3298,7 @@ public class ArezContextTest
     final ObservableValue<Object> observableValue = context.observable();
     final ComputableValue<String> computableValue = context.computable( () -> "" );
     final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Task task = context.task( ValueUtil::randomString );
 
     assertInvariantFailure( () -> context.registerObservableValue( observableValue ),
                             "Arez-0022: ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false." );
@@ -3317,6 +3318,12 @@ public class ArezContextTest
                             "Arez-0034: ArezContext.deregisterComputableValue invoked when Arez.areRegistriesEnabled() returns false." );
     assertInvariantFailure( context::getTopLevelComputableValues,
                             "Arez-0036: ArezContext.getTopLevelComputableValues() invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( () -> context.registerTask( task ),
+                            "Arez-0214: ArezContext.registerTask invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( () -> context.deregisterTask( task ),
+                            "Arez-0226: ArezContext.deregisterTask invoked when Arez.areRegistriesEnabled() returns false." );
+    assertInvariantFailure( context::getTopLevelTasks,
+                            "Arez-0228: ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test
@@ -3390,6 +3397,59 @@ public class ArezContextTest
                             "Arez-0035: ArezContext.deregisterComputableValue invoked with " +
                             "ComputableValue named '" + computableValue.getName() + "' but no ComputableValue " +
                             "with that name is registered." );
+  }
+
+  @Test
+  public void taskRegistry()
+  {
+    final ArezContext context = Arez.context();
+
+    final Task task = context.task( ValueUtil::randomString );
+
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    assertEquals( context.getTopLevelTasks().get( task.getName() ), task );
+
+    assertInvariantFailure( () -> context.registerTask( task ),
+                            "Arez-0225: ArezContext.registerTask invoked with Task named '" +
+                            task.getName() + "' but an existing Task with that name is already registered." );
+
+    assertEquals( context.getTopLevelTasks().size(), 1 );
+    context.getTopLevelTasks().clear();
+    assertEquals( context.getTopLevelTasks().size(), 0 );
+
+    assertInvariantFailure( () -> context.deregisterTask( task ),
+                            "Arez-0227: ArezContext.deregisterTask invoked with Task named '" +
+                            task.getName() + "' but no Task with that name is registered." );
+  }
+
+  @Test
+  public void computedValueNotPopulateOtherTopLevelRegistries()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputableValue computableValue = context.computable( () -> "" );
+
+    assertEquals( context.getTopLevelComputableValues().size(), 1 );
+    assertEquals( context.getTopLevelComputableValues().get( computableValue.getName() ), computableValue );
+
+    assertEquals( context.getTopLevelTasks().size(), 0 );
+    assertEquals( context.getTopLevelObservers().size(), 0 );
+    assertEquals( context.getTopLevelObservables().size(), 0 );
+  }
+
+  @Test
+  public void observersNotPopulateOtherTopLevelRegistries()
+  {
+    final ArezContext context = Arez.context();
+
+    final Observer observer = context.observer( ValueUtil::randomString, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    assertEquals( context.getTopLevelObservers().size(), 1 );
+    assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );
+
+    assertEquals( context.getTopLevelTasks().size(), 0 );
+    assertEquals( context.getTopLevelComputableValues().size(), 0 );
+    assertEquals( context.getTopLevelObservables().size(), 0 );
   }
 
   @Test

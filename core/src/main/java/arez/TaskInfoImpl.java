@@ -2,7 +2,11 @@ package arez;
 
 import arez.spy.Priority;
 import arez.spy.TaskInfo;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 /**
@@ -16,6 +20,21 @@ final class TaskInfoImpl
   TaskInfoImpl( @Nonnull final Task task )
   {
     _task = Objects.requireNonNull( task );
+  }
+
+  @Nonnull
+  private static List<TaskInfo> asInfos( @Nonnull final Collection<Task> tasks )
+  {
+    return tasks
+      .stream()
+      .map( Task::asInfo )
+      .collect( Collectors.toList() );
+  }
+
+  @Nonnull
+  static List<TaskInfo> asUnmodifiableInfos( @Nonnull final Collection<Task> tasks )
+  {
+    return Collections.unmodifiableList( asInfos( tasks ) );
   }
 
   /**

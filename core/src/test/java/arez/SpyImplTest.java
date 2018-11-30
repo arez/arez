@@ -6,6 +6,7 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Spy;
 import arez.spy.SpyEventHandler;
+import arez.spy.TaskInfo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -300,6 +301,33 @@ public class SpyImplTest
 
     assertInvariantFailure( spy::findAllComponentTypes,
                             "Arez-0012: ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false." );
+  }
+
+  @Test
+  public void findAllTopLevelTasks()
+  {
+    final ArezContext context = Arez.context();
+
+    final Task task = context.task( ValueUtil::randomString );
+
+    final Spy spy = context.getSpy();
+
+    final Collection<TaskInfo> values = spy.findAllTopLevelTasks();
+    assertEquals( values.size(), 1 );
+    assertEquals( values.iterator().next().getName(), task.getName() );
+    assertUnmodifiable( values );
+  }
+
+  @Test
+  public void findAllTopLevelTasks_registriesDisabled()
+  {
+    ArezTestUtil.disableRegistries();
+
+    final ArezContext context = Arez.context();
+    final Spy spy = context.getSpy();
+
+    assertInvariantFailure( spy::findAllTopLevelTasks,
+                            "Arez-0228: ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false." );
   }
 
   @Test

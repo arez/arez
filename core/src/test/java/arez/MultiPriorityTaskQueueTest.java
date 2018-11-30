@@ -27,8 +27,8 @@ public class MultiPriorityTaskQueueTest
     final ArezContext context = Arez.context();
     assertInvariantFailure( () -> queue.queueTask( -1, context.task( "A", ValueUtil::randomString ) ),
                             "Arez-0215: Attempting to queue task named 'A' but passed an invalid priority -1." );
-    assertInvariantFailure( () -> queue.queueTask( 77, context.task( "A", ValueUtil::randomString ) ),
-                            "Arez-0215: Attempting to queue task named 'A' but passed an invalid priority 77." );
+    assertInvariantFailure( () -> queue.queueTask( 77, context.task( "B", ValueUtil::randomString ) ),
+                            "Arez-0215: Attempting to queue task named 'B' but passed an invalid priority 77." );
   }
 
   @Test

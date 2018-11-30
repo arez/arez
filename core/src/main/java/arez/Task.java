@@ -44,6 +44,10 @@ public final class Task
 
     _work = Objects.requireNonNull( work );
     _flags = flags | Flags.STATE_IDLE | Flags.runType( flags ) | Flags.priority( flags );
+    if ( Arez.areRegistriesEnabled() && 0 == ( _flags & Flags.NO_REGISTER_TASK ) )
+    {
+      getContext().registerTask( this );
+    }
   }
 
   /**
@@ -151,6 +155,10 @@ public final class Task
     if ( isNotDisposed() )
     {
       _flags = Flags.setState( _flags, Flags.STATE_DISPOSED );
+      if ( Arez.areRegistriesEnabled() && 0 == ( _flags & Flags.NO_REGISTER_TASK ) )
+      {
+        getContext().deregisterTask( this );
+      }
     }
   }
 
@@ -323,9 +331,19 @@ public final class Task
      */
     static final int DISPOSE_ON_COMPLETE = 1 << 19;
     /**
+     * The flag that indicates that task should not be registered in top level registry.
+     * This is used when Observers etc create tasks and do not need them exposed to the spy framework.
+     */
+    static final int NO_REGISTER_TASK = 1 << 18;
+    /**
      * Mask containing flags that can be applied to a task.
      */
-    static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE;
+    static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE | NO_REGISTER_TASK;
+    /**
+     * Mask containing flags that can be applied to a task representing an observer.
+     * This omits DISPOSE_ON_COMPLETE as observer is responsible for disposing task
+     */
+    static final int OBSERVER_TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK;
     /**
      * State when the task has not been scheduled.
      */

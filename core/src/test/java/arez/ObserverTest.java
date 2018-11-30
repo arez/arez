@@ -251,17 +251,6 @@ public class ObserverTest
   }
 
   @Test
-  public void construct_with_computed_value_REACT_IMMEDIATELY_and_not_KEEPALIVE()
-  {
-    final ArezContext context = Arez.context();
-
-    final ComputableValue<String> computableValue = context.computable( () -> "" );
-
-    assertInvariantFailure( () -> new Observer( computableValue, Flags.RUN_NOW ),
-                            "Arez-0208: ComputableValue named 'ComputableValue@1' incorrectly specified RUN_NOW flag but not the KEEPALIVE flag." );
-  }
-
-  @Test
   public void construct_with_mode_but_checking_Disabled()
   {
     ArezTestUtil.noEnforceTransactionType();

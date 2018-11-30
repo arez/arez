@@ -122,6 +122,17 @@ public interface Spy
   Collection<ComputableValueInfo> findAllTopLevelComputableValues();
 
   /**
+   * Find all the "top-level" tasks defined by the system.
+   * This does not return tasks that are used to define Observers etc.
+   * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
+   * This collection returned is unmodifiable.
+   *
+   * @return the collection of tasks defined by the context.
+   */
+  @Nonnull
+  Collection<TaskInfo> findAllTopLevelTasks();
+
+  /**
    * Convert the specified component into an ComponentInfo.
    *
    * @param component the Component.
