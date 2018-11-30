@@ -1027,15 +1027,6 @@ public final class ArezContext
     final String taskName = generateName( "Task", name );
     final Task task =
       new Task( Arez.areZonesEnabled() ? this : null, taskName, () -> _runTask( taskName, work ), flags );
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( () -> Task.Flags.isPriorityValid( task.getFlags() ),
-                 () -> "Arez-0130: Task named '" + taskName + "' has invalid priority " +
-                       Task.Flags.getPriorityIndex( task.getFlags() ) + "." );
-      invariant( () -> Task.Flags.isRunTypeValid( task.getFlags() ),
-                 () -> "Arez-0214: Task named '" + taskName + "' incorrectly specified both " +
-                       "RUN_NOW and RUN_LATER flags." );
-    }
     task.initialSchedule();
     return task;
   }
