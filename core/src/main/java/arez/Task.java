@@ -39,6 +39,18 @@ public final class Task
     _flags = flags | Flags.STATE_IDLE | Flags.runType( flags ) | Flags.priority( flags );
   }
 
+  /**
+   * Re-schedule this task if it is idle and trigger the scheduler if it is not active.
+   */
+  public void schedule()
+  {
+    if ( isIdle() )
+    {
+      queueTask();
+    }
+    getContext().triggerScheduler();
+  }
+
   int getFlags()
   {
     return _flags;

@@ -1,6 +1,7 @@
 package arez;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -43,6 +44,75 @@ public class TaskTest
     assertFalse( task.isIdle() );
     assertFalse( task.isQueued() );
     assertTrue( task.isDisposed() );
+  }
+
+  @Test
+  public void schedule()
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+    final Task task = Arez.context().task( callCount::incrementAndGet );
+
+    assertEquals( callCount.get(), 1 );
+
+    assertTrue( task.isIdle() );
+
+    task.schedule();
+
+    assertEquals( callCount.get(), 2 );
+  }
+
+  @Test
+  public void schedule_whileSchedulerPaused()
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+    final ArezContext context = Arez.context();
+    final Task task = context.task( callCount::incrementAndGet );
+
+    final Disposable schedulerLock = context.pauseScheduler();
+
+    assertEquals( callCount.get(), 0 );
+
+    assertTrue( task.isQueued() );
+
+    // Reschedule ... should be a no-op
+    task.schedule();
+
+    assertEquals( callCount.get(), 0 );
+
+    assertTrue( task.isQueued() );
+
+    schedulerLock.dispose();
+
+    assertEquals( callCount.get(), 1 );
+
+    assertTrue( task.isIdle() );
+  }
+
+  @Test
+  public void schedule_insideTask()
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+    final ArezContext context = Arez.context();
+    final AtomicReference<Task> taskRef = new AtomicReference<>();
+    context.task( () -> {
+      taskRef.set( context.task( callCount::incrementAndGet ) );
+
+      assertEquals( callCount.get(), 0 );
+
+      assertTrue( taskRef.get().isQueued() );
+
+      // Reschedule ... should be a no-op
+      taskRef.get().schedule();
+
+      assertEquals( callCount.get(), 0 );
+
+      assertTrue( taskRef.get().isQueued() );
+
+    } );
+
+    assertEquals( callCount.get(), 1 );
+
+    assertTrue( taskRef.get().isIdle() );
   }
 
   @Test
