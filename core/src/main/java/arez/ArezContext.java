@@ -1233,7 +1233,7 @@ public final class ArezContext
             // The environment wrapper can perform actions that trigger the need for the Arez
             // scheduler to re-run so we keep checking until there is no more work to be done.
             // This is typically used when the environment reacts to changes that Arez triggered
-            // (i.e. via @Track callbacks) which in turn reschedules Arez changes. This happens
+            // (i.e. via @Observe callbacks) which in turn reschedules Arez changes. This happens
             // in frameworks like react4j which have only scheduler that responds to changes and
             // feeds back into Arez.
             do
