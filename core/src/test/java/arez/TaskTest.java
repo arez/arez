@@ -20,23 +20,27 @@ public class TaskTest
 
     assertEquals( task.toString(), name );
 
+    assertTrue( task.isIdle() );
     assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     // Mark scheduling so we see that dispose flips schedule flag
     task.markAsQueued();
 
+    assertFalse( task.isIdle() );
     assertTrue( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     task.dispose();
 
+    assertFalse( task.isIdle() );
     assertFalse( task.isQueued() );
     assertTrue( task.isDisposed() );
 
     // Second dispose is effectively a no-op
     task.dispose();
 
+    assertFalse( task.isIdle() );
     assertFalse( task.isQueued() );
     assertTrue( task.isDisposed() );
   }
@@ -46,14 +50,17 @@ public class TaskTest
   {
     final Task task = new Task( Arez.context(), ValueUtil.randomString(), ValueUtil::randomString, 0 );
 
+    assertTrue( task.isIdle() );
     assertFalse( task.isQueued() );
 
     task.markAsQueued();
 
+    assertFalse( task.isIdle() );
     assertTrue( task.isQueued() );
 
     task.markAsDequeued();
 
+    assertTrue( task.isIdle() );
     assertFalse( task.isQueued() );
   }
 

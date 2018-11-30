@@ -174,6 +174,16 @@ final class Task
   }
 
   /**
+   * Return true if task is idle or not disposed and not scheduled.
+   *
+   * @return true if task is idle.
+   */
+  boolean isIdle()
+  {
+    return Flags.STATE_IDLE == Flags.getState( _flags );
+  }
+
+  /**
    * Return true if task is already scheduled.
    *
    * @return true if task is already scheduled.
