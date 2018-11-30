@@ -15,6 +15,8 @@ title: Frequently Asked Questions
   * [Why does the annotation processor only sometimes generate a toString() method?](#why-does-the-annotation-processor-only-sometimes-generate-a-tostring-method)
 - [Library Implementation Decisions](#library-implementation-decisions)
   * [Why guard invariant checks with `Arez.shouldCheckInvariants()`?](#why-guard-invariant-checks-with-arezshouldcheckinvariants)
+- [Alternatives](#alternatives)
+  * [How does Arez compare to Mobx?](#how-does-arez-compare-to-mobx)
 
 <!-- tocstop -->
 
