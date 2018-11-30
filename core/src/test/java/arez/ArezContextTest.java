@@ -3463,7 +3463,7 @@ public class ArezContextTest
     assertEquals( queue.getOrderedTasks().count(), 0L );
 
     // Pause scheduler so that the task is not invoked immediately
-    context.pauseScheduler();
+    final Disposable schedulerLock = context.pauseScheduler();
 
     final String name = observer.getName() + ".dispose";
     context.scheduleDispose( name, observer );
@@ -3475,6 +3475,11 @@ public class ArezContextTest
     final Task task = buffer.get( 0 );
     assertNotNull( task );
     assertEquals( task.getName(), name );
+
+    schedulerLock.dispose();
+
+    assertTrue( task.isDisposed() );
+    assertTrue( observer.isDisposed() );
   }
 
   @Test
