@@ -3685,11 +3685,11 @@ public class ArezContextTest
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    final Disposable task = context.task( name, callCount::incrementAndGet, 0 );
+    final Task task = context.task( name, callCount::incrementAndGet, 0 );
 
-    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( task.getName(), name );
     assertEquals( callCount.get(), 1 );
-    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 2 );
@@ -3706,7 +3706,7 @@ public class ArezContextTest
     task.dispose();
 
     assertEquals( callCount.get(), 1 );
-    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isQueued() );
     assertTrue( task.isDisposed() );
 
     handler.assertEventCount( 0 );
@@ -3728,11 +3728,11 @@ public class ArezContextTest
       callCount.incrementAndGet();
       throw new RuntimeException( errorMessage );
     };
-    final Disposable task = context.task( name, work, 0 );
+    final Task task = context.task( name, work, 0 );
 
-    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( task.getName(), name );
     assertEquals( callCount.get(), 1 );
-    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 2 );
@@ -3755,12 +3755,12 @@ public class ArezContextTest
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    final Disposable task = context.task( callCount::incrementAndGet );
+    final Task task = context.task( callCount::incrementAndGet );
 
     final String name = "Task@1";
-    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( task.getName(), name );
     assertEquals( callCount.get(), 1 );
-    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 2 );
@@ -3779,12 +3779,12 @@ public class ArezContextTest
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
 
-    final Disposable task = context.task( null, callCount::incrementAndGet, Flags.RUN_LATER );
+    final Task task = context.task( null, callCount::incrementAndGet, Flags.RUN_LATER );
 
     final String name = "Task@1";
-    assertEquals( ( (Task) task ).getName(), name );
+    assertEquals( task.getName(), name );
     assertEquals( callCount.get(), 0 );
-    assertTrue( ( (Task) task ).isQueued() );
+    assertTrue( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 0 );
@@ -3793,7 +3793,7 @@ public class ArezContextTest
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 1 );
-    assertFalse( ( (Task) task ).isQueued() );
+    assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 2 );
