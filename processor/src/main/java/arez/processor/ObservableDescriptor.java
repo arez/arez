@@ -427,14 +427,14 @@ final class ObservableDescriptor
       {
         //noinspection CodeBlock2Expr
         GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
-          b.addStatement(
-            "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
-            GeneratorUtil.KERNEL_FIELD_NAME,
-            GeneratorUtil.AREZ_CLASSNAME,
-            GeneratorUtil.KERNEL_FIELD_NAME,
-            "." + methodName,
-            GeneratorUtil.FRAMEWORK_PREFIX + methodName,
-            paramName );
+          b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                          "() -> this.$N( $N ) )",
+                          GeneratorUtil.KERNEL_FIELD_NAME,
+                          GeneratorUtil.AREZ_CLASSNAME,
+                          GeneratorUtil.KERNEL_FIELD_NAME,
+                          "." + methodName,
+                          GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+                          paramName );
         } );
       }
 
