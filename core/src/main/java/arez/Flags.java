@@ -68,18 +68,14 @@ public final class Flags
    * specified if {@link #RUN_LATER} is specified.
    */
   @SuppressWarnings( "WeakerAccess" )
-  public static final int RUN_NOW = 1 << 22;
+  public static final int RUN_NOW = Task.Flags.RUN_NOW;
   /**
    * The scheduler will not be triggered when the observer is created. The observer either
    * has no {@link Observer#_observe} function or is responsible for ensuring that
    * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
    * specified if {@link #RUN_NOW} is specified.
    */
-  public static final int RUN_LATER = 1 << 21;
-  /**
-   * Mask used to extract run type bits.
-   */
-  private static final int RUN_TYPE_MASK = RUN_NOW | RUN_LATER;
+  public static final int RUN_LATER = Task.Flags.RUN_LATER;
   /**
    * The runtime will keep the observer reacting to dependencies until disposed. This is the default value for
    * observers that supply a observed function but may be explicitly supplied when creating {@link ComputableValue}
@@ -108,7 +104,7 @@ public final class Flags
    * @see arez.annotations.Priority#HIGHEST
    * @see arez.spy.Priority#HIGHEST
    */
-  public static final int PRIORITY_HIGHEST = 0b001 << 15;
+  public static final int PRIORITY_HIGHEST = Task.Flags.PRIORITY_HIGHEST;
   /**
    * High priority.
    * To reduce the chance that downstream elements will react multiple times within a single
@@ -119,7 +115,7 @@ public final class Flags
    * @see arez.annotations.Priority#HIGH
    * @see arez.spy.Priority#HIGH
    */
-  public static final int PRIORITY_HIGH = 0b010 << 15;
+  public static final int PRIORITY_HIGH = Task.Flags.PRIORITY_HIGH;
   /**
    * Normal priority if no other priority otherwise specified.
    * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
@@ -127,7 +123,7 @@ public final class Flags
    * @see arez.annotations.Priority#NORMAL
    * @see arez.spy.Priority#NORMAL
    */
-  public static final int PRIORITY_NORMAL = 0b011 << 15;
+  public static final int PRIORITY_NORMAL = Task.Flags.PRIORITY_NORMAL;
   /**
    * Low priority.
    * Usually used to schedule observers that reflect state onto non-reactive
@@ -140,7 +136,7 @@ public final class Flags
    * @see arez.annotations.Priority#LOW
    * @see arez.spy.Priority#LOW
    */
-  public static final int PRIORITY_LOW = 0b100 << 15;
+  public static final int PRIORITY_LOW = Task.Flags.PRIORITY_LOW;
   /**
    * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
    * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -151,19 +147,7 @@ public final class Flags
    * @see arez.annotations.Priority#LOWEST
    * @see arez.spy.Priority#LOWEST
    */
-  public static final int PRIORITY_LOWEST = 0b101 << 15;
-  /**
-   * Mask used to extract priority bits.
-   */
-  private static final int PRIORITY_MASK = 0b111 << 15;
-  /**
-   * Shift used to extract priority after applying mask.
-   */
-  private static final int PRIORITY_SHIFT = 15;
-  /**
-   * The number of priority levels.
-   */
-  static final int PRIORITY_COUNT = 5;
+  public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
   /**
    * The action or observer must be wrapped by the {@link Environment} if the environment is
    * supplied to the {@link ArezContext}. This flag is incompatible with {@link #ENVIRONMENT_NOT_REQUIRED}
@@ -194,9 +178,9 @@ public final class Flags
     NESTED_ACTIONS_MASK |
     DEPENDENCIES_TYPE_MASK |
     TRANSACTION_MASK |
-    RUN_TYPE_MASK |
+    Task.Flags.RUN_TYPE_MASK |
     SCHEDULE_TYPE_MASK |
-    PRIORITY_MASK |
+    Task.Flags.PRIORITY_MASK |
     ENVIRONMENT_MASK |
     NO_REPORT_RESULT;
   /**
@@ -232,10 +216,6 @@ public final class Flags
    */
   static final int ACTION_FLAGS_MASK =
     TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK | NO_REPORT_RESULT;
-  /**
-   * Mask containing flags that can be applied to a task.
-   */
-  static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK;
   /**
    * The flag is currently unused.
    */
@@ -283,63 +263,6 @@ public final class Flags
    * Mask that identifies the bits associated with runtime configuration.
    */
   static final int RUNTIME_FLAGS_MASK = EXECUTE_OBSERVE_NEXT | STATE_MASK;
-
-  /**
-   * Return true if flags contains priority.
-   *
-   * @param flags the flags.
-   * @return true if flags contains priority.
-   */
-  static boolean isPrioritySpecified( final int flags )
-  {
-    return 0 != ( flags & PRIORITY_MASK );
-  }
-
-  /**
-   * Return true if flags contains valid priority.
-   *
-   * @param flags the flags.
-   * @return true if flags contains priority.
-   */
-  static boolean isPriorityValid( final int flags )
-  {
-    final int priorityIndex = getPriorityIndex( flags );
-    return priorityIndex <= 4 && priorityIndex >= 0;
-  }
-
-  /**
-   * Extract and return the priority value ranging from the highest priority 0 and lowest priority 4.
-   * This method assumes that flags has valid priority and will not attempt to re-check.
-   *
-   * @param flags the flags.
-   * @return the priority.
-   */
-  static int getPriority( final int flags )
-  {
-    return flags & PRIORITY_MASK;
-  }
-
-  /**
-   * Extract and return the priority value ranging from the highest priority 0 and lowest priority 4.
-   * This method assumes that flags has valid priority and will not attempt to re-check.
-   *
-   * @param flags the flags.
-   * @return the priority.
-   */
-  static int getPriorityIndex( final int flags )
-  {
-    return extractPriorityIndex( getPriority( flags ) );
-  }
-
-  static int extractPriorityIndex( final int priority )
-  {
-    return ( priority >> PRIORITY_SHIFT ) - 1;
-  }
-
-  static int priority( final int flags )
-  {
-    return defaultFlagUnlessSpecified( flags, PRIORITY_MASK, PRIORITY_NORMAL );
-  }
 
   static int nestedActionRule( final int flags )
   {
@@ -436,29 +359,6 @@ public final class Flags
     return Arez.shouldCheckInvariants() ?
            defaultFlagUnlessSpecified( flags, DEPENDENCIES_TYPE_MASK, AREZ_DEPENDENCIES ) :
            0;
-  }
-
-  /**
-   * Return true if flags contains a valid react type.
-   *
-   * @param flags the flags.
-   * @return true if flags contains react type.
-   */
-  static boolean isRunTypeValid( final int flags )
-  {
-    return RUN_NOW == ( flags & RUN_NOW ) ^ RUN_LATER == ( flags & RUN_LATER );
-  }
-
-  /**
-   * Return the default run type flag if run type not specified.
-   *
-   * @param flags       the flags.
-   * @param defaultFlag the default flag to apply
-   * @return the default run type if run type unspecified else 0.
-   */
-  static int runType( final int flags, final int defaultFlag )
-  {
-    return defaultFlagUnlessSpecified( flags, RUN_TYPE_MASK, defaultFlag );
   }
 
   /**

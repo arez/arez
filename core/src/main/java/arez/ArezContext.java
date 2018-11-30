@@ -44,7 +44,7 @@ public final class ArezContext
    * Tasks scheduled but  yet to be run.
    */
   @Nonnull
-  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Flags.PRIORITY_COUNT, 100 );
+  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 100 );
   /**
    * Executor responsible for executing tasks.
    */
@@ -981,7 +981,7 @@ public final class ArezContext
                        "read-only tracking transaction. Observers that are supporting ComputableValue instances " +
                        "must not schedule self." );
     }
-    _taskQueue.queueTask( observer.getPriorityIndex(), observer.getTask() );
+    _taskQueue.queueTask( observer.getTask() );
   }
 
   /**
@@ -992,7 +992,7 @@ public final class ArezContext
    * @return a Disposable that can be used to cancel the task before it is executed.
    */
   @Nonnull
-  public Disposable task( @Nonnull final SafeProcedure work )
+  public Task task( @Nonnull final SafeProcedure work )
   {
     return task( null, work );
   }
@@ -1006,7 +1006,7 @@ public final class ArezContext
    * @return a Disposable that can be used to cancel the task before it is executed.
    */
   @Nonnull
-  public Disposable task( @Nullable final String name, @Nonnull final SafeProcedure work )
+  public Task task( @Nullable final String name, @Nonnull final SafeProcedure work )
   {
     return task( name, work, 0 );
   }
@@ -1022,24 +1022,21 @@ public final class ArezContext
    * @return a Disposable that can be used to cancel the task before it is executed.
    */
   @Nonnull
-  public Disposable task( @Nullable final String name, @Nonnull final SafeProcedure work, final int flags )
+  public Task task( @Nullable final String name, @Nonnull final SafeProcedure work, final int flags )
   {
     final String taskName = generateName( "Task", name );
-    if ( Arez.shouldCheckApiInvariants() )
+    final Task task =
+      new Task( Arez.areZonesEnabled() ? this : null, taskName, () -> _runTask( taskName, work ), flags );
+    if ( Arez.shouldCheckInvariants() )
     {
-      apiInvariant( () -> ( ~Flags.TASK_FLAGS_MASK & flags ) == 0,
-                    () -> "Arez-0224: Task named '" + taskName + "' passed invalid flags: " + flags );
+      invariant( () -> Task.Flags.isPriorityValid( task.getFlags() ),
+                 () -> "Arez-0130: Task named '" + taskName + "' has invalid priority " +
+                       Task.Flags.getPriorityIndex( task.getFlags() ) + "." );
+      invariant( () -> Task.Flags.isRunTypeValid( task.getFlags() ),
+                 () -> "Arez-0214: Task named '" + taskName + "' incorrectly specified both " +
+                       "RUN_NOW and RUN_LATER flags." );
     }
-    final int actualFlags = flags | Flags.priority( flags ) | Flags.runType( flags, Flags.RUN_NOW );
-    final int priorityIndex = Flags.extractPriorityIndex( Flags.getPriority( actualFlags ) );
-    final Task task = new Task( Arez.areZonesEnabled() ? this : null, taskName, () -> _runTask( taskName, work ) );
-    _taskQueue.queueTask( priorityIndex, task );
-    // If we have not explicitly supplied the RUN_LATER flag then assume it is a run now and
-    // trigger the scheduler
-    if ( 0 == ( flags & Flags.RUN_LATER ) )
-    {
-      triggerScheduler();
-    }
+    task.initialSchedule();
     return task;
   }
 
@@ -1353,15 +1350,29 @@ public final class ArezContext
    * The disposable must not already be in the list of pending observers.
    * The disposable will be processed before the next top-level reaction.
    *
+   * @param disposable the disposable.
+   */
+  public void scheduleDispose( @Nonnull final Disposable disposable )
+  {
+    scheduleDispose( null, disposable );
+  }
+
+  /**
+   * Add the specified disposable to the list of pending disposables.
+   * The disposable must not already be in the list of pending observers.
+   * The disposable will be processed before the next top-level reaction.
+   *
    * @param name       the name describing the dispose task.
    * @param disposable the disposable.
    */
   public void scheduleDispose( @Nullable final String name, @Nonnull final Disposable disposable )
   {
-    _taskQueue.queueTask( 0,
-                          new Task( Arez.areZonesEnabled() ? this : null,
-                                    generateName( "Dispose", name ),
-                                    disposable::dispose ) );
+    final Task task =
+      new Task( Arez.areZonesEnabled() ? this : null,
+                generateName( "Dispose", name ),
+                disposable::dispose,
+                Task.Flags.PRIORITY_HIGHEST );
+    task.initialSchedule();
   }
 
   /**

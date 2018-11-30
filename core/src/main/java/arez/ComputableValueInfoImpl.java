@@ -70,7 +70,7 @@ final class ComputableValueInfoImpl
   @Override
   public Priority getPriority()
   {
-    return _computableValue.getObserver().getPriority();
+    return _computableValue.getObserver().getTask().getPriority();
   }
 
   /**

@@ -46,7 +46,8 @@ final class FifoTaskQueue
    *
    * @param task the task.
    */
-  void queueTask( @Nonnull final Task task )
+  @Override
+  public void queueTask( @Nonnull final Task task )
   {
     if ( Arez.shouldCheckInvariants() )
     {

@@ -59,7 +59,7 @@ public class ObserverTest
 
     assertFalse( observer.isComputableValue() );
 
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.canObserveLowerPriorityDependencies() );
 
     observer.invariantState();

@@ -406,11 +406,11 @@ public final class ObservableValue<T>
                        "named '" + getName() + "' when observer is disposed." );
       invariant( () -> !isComputableValue() ||
                        observer.canObserveLowerPriorityDependencies() ||
-                       observer.getPriority().ordinal() >= getObserver().getPriority().ordinal(),
+                       observer.getTask().getPriority().ordinal() >= getObserver().getTask().getPriority().ordinal(),
                  () -> "Arez-0183: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
-                       "named '" + getName() + "' where the observer is scheduled at a " + observer.getPriority() +
-                       " priority but the ObservableValue's owner is scheduled at a " +
-                       getObserver().getPriority() + " priority." );
+                       "named '" + getName() + "' where the observer is scheduled at a " +
+                       observer.getTask().getPriority() + " priority but the ObservableValue's owner is scheduled " +
+                       "at a " + getObserver().getTask().getPriority() + " priority." );
       invariant( () -> getContext().getTransaction().getTracker() == observer,
                  () -> "Arez-0203: Attempting to add observer named '" + observer.getName() + "' to ObservableValue " +
                        "named '" + getName() + "' but the observer is not the tracker in transaction named '" +

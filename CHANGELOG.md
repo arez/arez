@@ -8,6 +8,13 @@
   used to enable better integration between the Arez runtime and external libraries.
 * **\[processor\]** Fix bug where methods annotated with `@Action` or `@Observe` could not contain `$`
   characters. Add tests to ensure other Arez annotated methods and/or fields support `$` in the name.  
+* **\[core\]** Add a `ArezContext.scheduleDispose(Disposable)` method that does not require that a name
+  be supplied for the dispose action.
+* **\[core\]** Changed the implementation of the `ArezContext.scheduleDispose(...)` methods so that if the
+  scheduler is not active then it will be triggered. The previous implementation assumed that the scheduler
+  was active.
+* **\[core\]** Refactor the internal mechanisms for tracking task priority and initial run flags (i.e.
+  `Flags.RUN_NOW` versus `Flags.RUN_LATER`) so that they are stored on the task and not on the observer.
 
 ### [v0.116](https://github.com/arez/arez/tree/v0.116) (2018-11-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.115...v0.116)

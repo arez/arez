@@ -24,19 +24,16 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void runNextTask()
   {
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final ArezContext context = Arez.context();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
     final AtomicInteger task2CallCount = new AtomicInteger();
     final AtomicInteger task3CallCount = new AtomicInteger();
-    final ArezContext context = Arez.context();
-    final Task task1 = new Task( context, "A", task1CallCount::incrementAndGet );
-    final Task task2 = new Task( context, "B", task2CallCount::incrementAndGet );
-    final Task task3 = new Task( context, "C", task3CallCount::incrementAndGet );
-    taskQueue.queueTask( task1 );
-    taskQueue.queueTask( task2 );
-    taskQueue.queueTask( task3 );
+    final Task task1 = context.task( "A", task1CallCount::incrementAndGet, Task.Flags.RUN_LATER );
+    final Task task2 = context.task( "B", task2CallCount::incrementAndGet, Task.Flags.RUN_LATER );
+    context.task( "C", task3CallCount::incrementAndGet, Task.Flags.RUN_LATER );
 
     assertEquals( executor.getMaxRounds(), 2 );
 
@@ -75,8 +72,8 @@ public class RoundBasedTaskExecutorTest
     assertEquals( task3CallCount.get(), 0 );
 
     // Now we schedule some tasks again to push execution into round 2
-    taskQueue.queueTask( task1 );
-    taskQueue.queueTask( task2 );
+    task1.queueTask();
+    task2.queueTask();
 
     assertEquals( taskQueue.getQueueSize(), 3 );
 
@@ -124,19 +121,16 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void runTasks()
   {
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final ArezContext context = Arez.context();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
     final AtomicInteger task2CallCount = new AtomicInteger();
     final AtomicInteger task3CallCount = new AtomicInteger();
-    final ArezContext context = Arez.context();
-    final Task task1 = new Task( context, "A", task1CallCount::incrementAndGet );
-    final Task task2 = new Task( context, "B", task2CallCount::incrementAndGet );
-    final Task task3 = new Task( context, "C", task3CallCount::incrementAndGet );
-    taskQueue.queueTask( task1 );
-    taskQueue.queueTask( task2 );
-    taskQueue.queueTask( task3 );
+    context.task( "A", task1CallCount::incrementAndGet, Task.Flags.RUN_LATER );
+    context.task( "B", task2CallCount::incrementAndGet, Task.Flags.RUN_LATER );
+    context.task( "C", task3CallCount::incrementAndGet, Task.Flags.RUN_LATER );
 
     assertEquals( executor.getMaxRounds(), 2 );
     assertEquals( executor.getCurrentRound(), 0 );
@@ -171,18 +165,18 @@ public class RoundBasedTaskExecutorTest
   {
     ArezTestUtil.purgeTasksWhenRunawayDetected();
 
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final ArezContext context = Arez.context();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
     final AtomicReference<Task> taskRef = new AtomicReference<>();
-    final Task task1 = new Task( Arez.context(), "A", () -> {
+    final Task task1 = context.task( "A", () -> {
       task1CallCount.incrementAndGet();
       final Task task = taskRef.get();
       taskQueue.queueTask( task );
-    } );
+    }, Task.Flags.RUN_LATER );
     taskRef.set( task1 );
-    taskQueue.queueTask( task1 );
 
     assertEquals( executor.getMaxRounds(), 2 );
     assertEquals( executor.getCurrentRound(), 0 );
@@ -205,18 +199,18 @@ public class RoundBasedTaskExecutorTest
     ArezTestUtil.purgeTasksWhenRunawayDetected();
     ArezTestUtil.noCheckInvariants();
 
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final ArezContext context = Arez.context();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
     final AtomicReference<Task> taskRef = new AtomicReference<>();
-    final Task task1 = new Task( Arez.context(), "A", () -> {
+    final Task task1 = context.task( "A", () -> {
       task1CallCount.incrementAndGet();
       final Task task = taskRef.get();
       taskQueue.queueTask( task );
-    } );
+    }, Task.Flags.RUN_LATER );
     taskRef.set( task1 );
-    taskQueue.queueTask( task1 );
 
     assertEquals( executor.getMaxRounds(), 2 );
     assertEquals( executor.getCurrentRound(), 0 );
@@ -240,7 +234,7 @@ public class RoundBasedTaskExecutorTest
     final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
-    final Task task1 = new Task( Arez.context(), "A", ValueUtil::randomString );
+    final Task task1 = Arez.context().task( "A", ValueUtil::randomString );
     taskQueue.queueTask( task1 );
 
     assertInvariantFailure( executor::onRunawayTasksDetected,
@@ -259,7 +253,7 @@ public class RoundBasedTaskExecutorTest
     final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
-    final Task task1 = new Task( Arez.context(), "A", ValueUtil::randomString );
+    final Task task1 = Arez.context().task( "A", ValueUtil::randomString );
     taskQueue.queueTask( task1 );
 
     assertInvariantFailure( executor::onRunawayTasksDetected,

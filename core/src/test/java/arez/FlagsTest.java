@@ -116,28 +116,6 @@ public class FlagsTest
   }
 
   @Test
-  public void isPrioritySpecified()
-  {
-    assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_HIGHEST ) );
-    assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_HIGH ) );
-    assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_NORMAL ) );
-    assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_LOW ) );
-    assertTrue( Flags.isPrioritySpecified( Flags.PRIORITY_LOWEST ) );
-    assertFalse( Flags.isPrioritySpecified( 0 ) );
-    assertFalse( Flags.isPrioritySpecified( Flags.READ_WRITE ) );
-  }
-
-  @Test
-  public void getPriority()
-  {
-    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_HIGHEST | Flags.STATE_INACTIVE ), 0 );
-    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_HIGH | Flags.STATE_INACTIVE ), 1 );
-    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_NORMAL | Flags.STATE_INACTIVE ), 2 );
-    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_LOW | Flags.STATE_INACTIVE ), 3 );
-    assertEquals( Flags.getPriorityIndex( Flags.PRIORITY_LOWEST | Flags.STATE_INACTIVE ), 4 );
-  }
-
-  @Test
   public void isTransactionModeSpecified()
   {
     assertTrue( Flags.isTransactionModeSpecified( Flags.READ_ONLY ) );
@@ -172,16 +150,6 @@ public class FlagsTest
     assertFalse( Flags.isNestedActionsModeValid( 0 ) );
     assertFalse( Flags.isNestedActionsModeValid( Flags.PRIORITY_LOWEST ) );
     assertFalse( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ) );
-  }
-
-  @Test
-  public void isRunTypeValid()
-  {
-    assertTrue( Flags.isRunTypeValid( Flags.RUN_NOW ) );
-    assertTrue( Flags.isRunTypeValid( Flags.RUN_LATER ) );
-    assertFalse( Flags.isRunTypeValid( 0 ) );
-    assertFalse( Flags.isRunTypeValid( Flags.PRIORITY_LOWEST ) );
-    assertFalse( Flags.isRunTypeValid( Flags.RUN_NOW | Flags.RUN_LATER ) );
   }
 
   @Test
@@ -229,18 +197,6 @@ public class FlagsTest
   }
 
   @Test
-  public void defaultPriorityUnlessSpecified()
-  {
-    assertEquals( Flags.priority( Flags.PRIORITY_HIGHEST ), 0 );
-    assertEquals( Flags.priority( Flags.PRIORITY_HIGH ), 0 );
-    assertEquals( Flags.priority( Flags.PRIORITY_NORMAL ), 0 );
-    assertEquals( Flags.priority( Flags.PRIORITY_LOW ), 0 );
-    assertEquals( Flags.priority( Flags.PRIORITY_LOWEST ), 0 );
-    assertEquals( Flags.priority( 0 ), Flags.PRIORITY_NORMAL );
-    assertEquals( Flags.priority( Flags.READ_ONLY ), Flags.PRIORITY_NORMAL );
-  }
-
-  @Test
   public void defaultNestedActionRuleUnlessSpecified()
   {
     assertEquals( Flags.nestedActionRule( Flags.NESTED_ACTIONS_ALLOWED ), 0 );
@@ -262,15 +218,6 @@ public class FlagsTest
 
     ArezTestUtil.noEnforceTransactionType();
     assertEquals( Flags.transactionMode( 0 ), 0 );
-  }
-
-  @Test
-  public void defaultReactTypeUnlessSpecified()
-  {
-    assertEquals( Flags.runType( Flags.RUN_NOW, Flags.RUN_NOW ), 0 );
-    assertEquals( Flags.runType( Flags.RUN_LATER, Flags.RUN_NOW ), 0 );
-    assertEquals( Flags.runType( 0, Flags.RUN_NOW ), Flags.RUN_NOW );
-    assertEquals( Flags.runType( Flags.NESTED_ACTIONS_DISALLOWED, Flags.RUN_NOW ), Flags.RUN_NOW );
   }
 
   @Test
@@ -406,7 +353,6 @@ public class FlagsTest
       final String name = field.getName();
       if ( !name.endsWith( "_MASK" ) &&
            !name.endsWith( "_SHIFT" ) &&
-           !"PRIORITY_COUNT".equals( name ) &&
            !Modifier.isPrivate( field.getModifiers() ) &&
            !field.isSynthetic() )
       {

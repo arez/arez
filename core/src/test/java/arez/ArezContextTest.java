@@ -2291,7 +2291,7 @@ public class ArezContextTest
     assertEquals( computableValue.getOnDeactivate(), onDeactivate );
     assertEquals( computableValue.getOnStale(), onStale );
     assertEquals( computableValue.getObserver().getName(), name );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.HIGH );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.HIGH );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }
 
@@ -2479,7 +2479,7 @@ public class ArezContextTest
     assertNull( computableValue.getOnActivate() );
     assertNull( computableValue.getOnDeactivate() );
     assertNull( computableValue.getOnStale() );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
   }
 
   @Test
@@ -2502,7 +2502,7 @@ public class ArezContextTest
     assertNull( computableValue.getOnActivate() );
     assertNull( computableValue.getOnDeactivate() );
     assertNull( computableValue.getOnStale() );
-    assertEquals( computableValue.getObserver().getPriority(), Priority.NORMAL );
+    assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }
 
@@ -2538,7 +2538,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertEquals( callCount.get(), 1 );
 
     assertEquals( getObserverErrors().size(), 1 );
@@ -2578,7 +2578,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.isComputableValue() );
     assertFalse( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isKeepAlive() );
@@ -2619,7 +2619,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), "Observer@22" );
     assertTrue( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.nestedActionsAllowed() );
     assertFalse( observer.supportsManualSchedule() );
     assertEquals( callCount.get(), 1 );
@@ -2645,7 +2645,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertTrue( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( callCount.get(), 1 );
 
@@ -2701,7 +2701,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( AbstractArezTest::observeADependency, Flags.PRIORITY_HIGH );
-    assertEquals( observer.getPriority(), Priority.HIGH );
+    assertEquals( observer.getTask().getPriority(), Priority.HIGH );
   }
 
   @Test
@@ -2759,7 +2759,7 @@ public class ArezContextTest
     assertEquals( observer.getName(), name );
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( callCount.get(), 0 );
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
@@ -2793,7 +2793,7 @@ public class ArezContextTest
     assertFalse( observer.isMutation() );
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertNull( observer.getComponent() );
-    assertEquals( observer.getPriority(), Priority.HIGH );
+    assertEquals( observer.getTask().getPriority(), Priority.HIGH );
     assertTrue( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isApplicationExecutor() );
     assertTrue( observer.nestedActionsAllowed() );
@@ -2821,7 +2821,7 @@ public class ArezContextTest
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
-    assertEquals( observer.getPriority(), Priority.NORMAL );
+    assertEquals( observer.getTask().getPriority(), Priority.NORMAL );
     assertFalse( observer.canObserveLowerPriorityDependencies() );
     assertTrue( observer.isApplicationExecutor() );
   }
@@ -3402,6 +3402,9 @@ public class ArezContextTest
 
     assertEquals( queue.getOrderedTasks().count(), 0L );
 
+    // Pause scheduler so that the task is not invoked immediately
+    context.pauseScheduler();
+
     final String name = observer.getName() + ".dispose";
     context.scheduleDispose( name, observer );
 
@@ -3423,6 +3426,9 @@ public class ArezContextTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
     assertEquals( queue.getOrderedTasks().count(), 0L );
+
+    // Pause scheduler so that the task stays in the queue
+    context.pauseScheduler();
 
     context.scheduleDispose( null, observer );
 
