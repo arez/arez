@@ -12,7 +12,7 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
-* Consider moving computable flags, action flags and observer flags into separate classes
+* Consider moving computable flags, action flags, task flags and observer flags into separate classes
 
 * Consider renaming `Executor.AREZ` to `Executor.INTERNAL` and `Executor.APPLICATION` to `Executor.EXTERNAL`
 
