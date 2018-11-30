@@ -414,14 +414,14 @@ final class ObservableDescriptor
 
       if ( _setterType.getThrownTypes().isEmpty() )
       {
-        block.addStatement(
-          "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, () -> this.$N( $N ) )",
-          GeneratorUtil.KERNEL_FIELD_NAME,
-          GeneratorUtil.AREZ_CLASSNAME,
-          GeneratorUtil.KERNEL_FIELD_NAME,
-          "." + methodName,
-          GeneratorUtil.FRAMEWORK_PREFIX + methodName,
-          paramName );
+        block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                            "() -> this.$N( $N ) )",
+                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            GeneratorUtil.AREZ_CLASSNAME,
+                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            "." + methodName,
+                            GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+                            paramName );
       }
       else
       {
