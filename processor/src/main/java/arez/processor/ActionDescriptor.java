@@ -130,9 +130,8 @@ final class ActionDescriptor
     params.add( GeneratorUtil.KERNEL_FIELD_NAME );
     params.add( "." + getName() );
 
-    statement.append( ", () -> super." );
-    statement.append( _action.getSimpleName() );
-    statement.append( "(" );
+    statement.append( ", () -> super.$N(" );
+    params.add( _action.getSimpleName().toString() );
 
     final List<? extends VariableElement> parameters = _action.getParameters();
     final int paramCount = parameters.size();

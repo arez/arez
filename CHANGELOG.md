@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[processor\]** Fix bug where methods annotated with `@Action` or `@Observe` could not contain `$`
+  characters. Add tests to ensure other Arez annotated methods and/or fields support `$` in the name.  
+
 ### [v0.116](https://github.com/arez/arez/tree/v0.116) (2018-11-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.115...v0.116)
 
