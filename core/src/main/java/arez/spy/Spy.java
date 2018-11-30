@@ -92,7 +92,7 @@ public interface Spy
   Collection<String> findAllComponentTypes();
 
   /**
-   * Find all the collection of observables not contained by a native component.
+   * Find all the observables not contained by a native component.
    * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
    * This collection returned is unmodifiable.
    *
@@ -102,7 +102,7 @@ public interface Spy
   Collection<ObservableValueInfo> findAllTopLevelObservableValues();
 
   /**
-   * Find all the collection of observers not contained by a native component.
+   * Find all the observers not contained by a native component.
    * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
    * This collection returned is unmodifiable.
    *
@@ -112,7 +112,7 @@ public interface Spy
   Collection<ObserverInfo> findAllTopLevelObservers();
 
   /**
-   * Find all the collection of computable values not contained by a native component.
+   * Find all the computable values not contained by a native component.
    * This method should not be invoked unless {@link Arez#areRegistriesEnabled()} returns true.
    * This collection returned is unmodifiable.
    *
