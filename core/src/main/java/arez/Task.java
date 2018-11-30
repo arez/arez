@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * A task represents an executable element that can be ran by a task executor.
+ * A task represents an executable element that can be run by the task executor.
  */
-final class Task
+public final class Task
   extends Node
 {
   /**

@@ -27,7 +27,7 @@ public class TaskApiTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    final Disposable task = context.task( name, callCount::incrementAndGet, 0 );
+    final Task task = context.task( name, callCount::incrementAndGet, 0 );
 
     assertEquals( callCount.get(), 1 );
     assertNotNull( task );
@@ -53,7 +53,7 @@ public class TaskApiTest
     context.getSpy().addSpyEventHandler( handler );
 
     final String name = ValueUtil.randomString();
-    final Disposable task = context.task( name, () -> {
+    final Task task = context.task( name, () -> {
       callCount.incrementAndGet();
       throw new IllegalStateException( "Foo" );
     }, 0 );
@@ -80,7 +80,7 @@ public class TaskApiTest
     final AtomicInteger callCount = new AtomicInteger();
 
     final String name = ValueUtil.randomString();
-    final Disposable task = context.task( name, callCount::incrementAndGet, Flags.DISPOSE_ON_COMPLETE );
+    final Task task = context.task( name, callCount::incrementAndGet, Flags.DISPOSE_ON_COMPLETE );
 
     assertEquals( callCount.get(), 1 );
     assertNotNull( task );
