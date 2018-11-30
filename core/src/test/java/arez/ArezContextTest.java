@@ -3476,6 +3476,9 @@ public class ArezContextTest
     assertNotNull( task );
     assertEquals( task.getName(), name );
 
+    assertFalse( task.isDisposed() );
+    assertFalse( observer.isDisposed() );
+
     schedulerLock.dispose();
 
     assertTrue( task.isDisposed() );
