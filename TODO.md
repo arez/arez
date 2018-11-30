@@ -9,6 +9,7 @@ complete as there is too much un-said.
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
+  - https://v8.dev/docs/profile
 
 * Add ErrorProne to build
 
