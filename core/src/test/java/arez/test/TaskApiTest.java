@@ -81,8 +81,7 @@ public class TaskApiTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final String name = ValueUtil.randomString();
-    final Task task = context.task( name, callCount::incrementAndGet, Flags.DISPOSE_ON_COMPLETE );
+    final Task task = context.task( callCount::incrementAndGet, Flags.DISPOSE_ON_COMPLETE );
 
     assertEquals( callCount.get(), 1 );
     assertNotNull( task );

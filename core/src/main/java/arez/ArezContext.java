@@ -1016,6 +1016,21 @@ public final class ArezContext
    * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
    * scheduler will be triggered.
    *
+   * @param work  the representation of the task to execute.
+   * @param flags the flags to configure task. Valid flags include PRIORITY_* and RUN_* flags.
+   * @return a Disposable that can be used to cancel the task before it is executed.
+   */
+  @Nonnull
+  public Task task( @Nonnull final SafeProcedure work, final int flags )
+  {
+    return task( null, work, flags );
+  }
+
+  /**
+   * Create and queue a task to be executed by the runtime.
+   * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
+   * scheduler will be triggered.
+   *
    * @param name  the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
    * @param work  the representation of the task to execute.
    * @param flags the flags to configure task. Valid flags include PRIORITY_* and RUN_* flags.
