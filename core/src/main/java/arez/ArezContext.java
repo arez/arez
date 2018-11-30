@@ -1371,7 +1371,7 @@ public final class ArezContext
       new Task( Arez.areZonesEnabled() ? this : null,
                 generateName( "Dispose", name ),
                 disposable::dispose,
-                Task.Flags.PRIORITY_HIGHEST );
+                Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE );
     task.initialSchedule();
   }
 

@@ -90,6 +90,7 @@ public class TaskTest
     task.executeTask();
 
     assertEquals( callCount.get(), 0 );
+    assertFalse( Disposable.isDisposed( task ) );
   }
 
   @Test
@@ -107,6 +108,26 @@ public class TaskTest
 
     assertEquals( callCount.get(), 1 );
     assertFalse( task.isQueued() );
+    assertFalse( Disposable.isDisposed( task ) );
+  }
+
+  @Test
+  public void executeTask_DISPOSE_ON_COMPLETE()
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+    final Task task =
+      new Task( Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet, Task.Flags.DISPOSE_ON_COMPLETE );
+
+    task.markAsQueued();
+
+    assertEquals( callCount.get(), 0 );
+    assertTrue( task.isQueued() );
+
+    task.executeTask();
+
+    assertEquals( callCount.get(), 1 );
+    assertFalse( task.isQueued() );
+    assertTrue( Disposable.isDisposed( task ) );
   }
 
   @Test

@@ -114,6 +114,12 @@ final class Task
       // errors here. is this correct behaviour? We could instead handle it here by
       // per-task handler or a global error handler.
       _work.call();
+
+      // If this task has been marked as a task to dispose on completion then do so
+      if ( 0 != ( _flags & Flags.DISPOSE_ON_COMPLETE ) )
+      {
+        dispose();
+      }
     }
   }
 
@@ -263,9 +269,13 @@ final class Task
      */
     static final int RUN_TYPE_MASK = RUN_NOW | RUN_LATER;
     /**
+     * The flag that specifies that the task should be disposed after it has completed execution.
+     */
+    static final int DISPOSE_ON_COMPLETE = 1 << 19;
+    /**
      * Mask containing flags that can be applied to a task.
      */
-    static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK;
+    static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE;
     /**
      * State when the task has not been scheduled.
      */

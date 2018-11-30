@@ -96,6 +96,10 @@ public final class Flags
    */
   private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | APPLICATION_EXECUTOR;
   /**
+   * A flag that can be passed to a Task that indicates that the task should be disposed after it has completed execution.
+   */
+  public static final int DISPOSE_ON_COMPLETE = 1 << 19;
+  /**
    * Highest priority.
    * This priority should be used when the observer will dispose or release other reactive elements
    * (and thus remove elements from being scheduled).

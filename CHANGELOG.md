@@ -15,6 +15,9 @@
   was active.
 * **\[core\]** Refactor the internal mechanisms for tracking task priority and initial run flags (i.e.
   `Flags.RUN_NOW` versus `Flags.RUN_LATER`) so that they are stored on the task and not on the observer.
+* **\[core\]** Add support for passing the `Flags.DISPOSE_ON_COMPLETE` flag when creating tasks. The task
+  will be disposed when it completes execution, regardless of wether the task completed successfully or with
+  an error.
 
 ### [v0.116](https://github.com/arez/arez/tree/v0.116) (2018-11-21)
 [Full Changelog](https://github.com/arez/arez/compare/v0.115...v0.116)
