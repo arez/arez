@@ -5,23 +5,23 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * Notification where explicitly scheduled Task is starting.
+ * Notification that Task is starting.
  */
 public final class TaskStartEvent
   implements SerializableEvent
 {
   @Nonnull
-  private final String _name;
+  private final TaskInfo _task;
 
-  public TaskStartEvent( @Nonnull final String name )
+  public TaskStartEvent( @Nonnull final TaskInfo task )
   {
-    _name = Objects.requireNonNull( name );
+    _task = Objects.requireNonNull( task );
   }
 
   @Nonnull
-  public String getName()
+  public TaskInfo getTask()
   {
-    return _name;
+    return _task;
   }
 
   /**
@@ -31,6 +31,6 @@ public final class TaskStartEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "TaskStart" );
-    map.put( "name", getName() );
+    map.put( "name", getTask().getName() );
   }
 }

@@ -6,31 +6,31 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Notification where explicitly scheduled Task has completed.
+ * Notification that task has completed execution.
  */
 public final class TaskCompleteEvent
   implements SerializableEvent
 {
   @Nonnull
-  private final String _name;
+  private final TaskInfo _task;
   @Nullable
   private final Throwable _throwable;
   private final int _duration;
 
-  public TaskCompleteEvent( @Nonnull final String name,
+  public TaskCompleteEvent( @Nonnull final TaskInfo task,
                             @Nullable final Throwable throwable,
                             final int duration )
   {
     assert duration >= 0;
-    _name = Objects.requireNonNull( name );
+    _task = Objects.requireNonNull( task );
     _throwable = throwable;
     _duration = duration;
   }
 
   @Nonnull
-  public String getName()
+  public TaskInfo getTask()
   {
-    return _name;
+    return _task;
   }
 
   @Nullable
@@ -51,7 +51,7 @@ public final class TaskCompleteEvent
   public void toMap( @Nonnull final Map<String, Object> map )
   {
     map.put( "type", "TaskComplete" );
-    map.put( "name", getName() );
+    map.put( "name", getTask().getName() );
     map.put( "duration", getDuration() );
     final Throwable throwable = getThrowable();
     final String message =

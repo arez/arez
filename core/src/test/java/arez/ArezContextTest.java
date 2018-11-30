@@ -3694,9 +3694,9 @@ public class ArezContextTest
 
     handler.assertEventCount( 2 );
 
-    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
-      assertEquals( e.getName(), name );
+      assertEquals( e.getTask().getName(), name );
       assertNull( e.getThrowable() );
     } );
 
@@ -3737,9 +3737,9 @@ public class ArezContextTest
 
     handler.assertEventCount( 2 );
 
-    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
-      assertEquals( e.getName(), name );
+      assertEquals( e.getTask().getName(), name );
       assertNotNull( e.getThrowable() );
       assertEquals( e.getThrowable().getMessage(), errorMessage );
     } );
@@ -3765,8 +3765,8 @@ public class ArezContextTest
 
     handler.assertEventCount( 2 );
 
-    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
-    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
   }
 
   @Test
@@ -3798,8 +3798,8 @@ public class ArezContextTest
 
     handler.assertEventCount( 2 );
 
-    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
-    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
   }
 
   @Test

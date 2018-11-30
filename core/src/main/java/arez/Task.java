@@ -163,7 +163,7 @@ public final class Task
     if ( willPropagateSpyEvents() )
     {
       startedAt = System.currentTimeMillis();
-      getSpy().reportSpyEvent( new TaskStartEvent( getName() ) );
+      getSpy().reportSpyEvent( new TaskStartEvent( asInfo() ) );
     }
     Throwable error = null;
     try
@@ -178,7 +178,7 @@ public final class Task
     if ( willPropagateSpyEvents() )
     {
       final long duration = System.currentTimeMillis() - startedAt;
-      getSpy().reportSpyEvent( new TaskCompleteEvent( getName(), error, (int) duration ) );
+      getSpy().reportSpyEvent( new TaskCompleteEvent( asInfo(), error, (int) duration ) );
     }
   }
 

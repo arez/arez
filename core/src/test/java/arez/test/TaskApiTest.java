@@ -36,9 +36,9 @@ public class TaskApiTest
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 2 );
-    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
-      assertEquals( e.getName(), name );
+      assertEquals( e.getTask().getName(), name );
       assertNull( e.getThrowable() );
       assertTrue( e.getDuration() >= 0 );
     } );
@@ -65,9 +65,9 @@ public class TaskApiTest
     assertFalse( task.isDisposed() );
 
     handler.assertEventCount( 2 );
-    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getName(), name ) );
+    handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
-      assertEquals( e.getName(), name );
+      assertEquals( e.getTask().getName(), name );
       assertNotNull( e.getThrowable() );
       assertEquals( e.getThrowable().getMessage(), "Foo" );
       assertTrue( e.getDuration() >= 0 );
