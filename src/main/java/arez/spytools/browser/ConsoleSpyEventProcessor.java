@@ -22,6 +22,8 @@ import arez.spy.ObserveStartEvent;
 import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
+import arez.spy.TaskCompleteEvent;
+import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
@@ -57,6 +59,8 @@ public class ConsoleSpyEventProcessor
   @CssRules
   private static final String REACTION_SCHEDULED_COLOR =
     "color: #10a210; font-weight: normal; background-repeat: no-repeat; background-size: contain; padding-left: 20px; background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDE1IDE1Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMxMGEyMTAiIHN0cm9rZU1pdGVybGltaXQ9IjEwIj48cGF0aCBkPSJNMTIuNjk3IDEwLjVhNiA2IDAgMSAxIC4xMTUtNS43OTIiLz48cGF0aCBkPSJNNy41IDcuNVYzTTcuNSA3LjVMMTAgMTAiLz48L2c+PGcgZmlsbD0iIzAwMDAwMCI+PHBhdGggZD0iTTEwLjYxOCA0Ljc0M0wxMy41IDcuNWwuOTQ3LTMuODc0eiIvPjxjaXJjbGUgY3g9IjcuNSIgY3k9IjcuNSIgcj0iLjc1Ii8+PC9nPjwvc3ZnPgo=);";
+  @CssRules
+  private static final String TASK_COLOR = "color: #c143eb; font-weight: normal;";
   @CssRules
   private static final String ACTION_COLOR = "color: #006AEB; font-weight: normal;";
   @CssRules
@@ -98,6 +102,31 @@ public class ConsoleSpyEventProcessor
 
     on( ActionStartEvent.class, this::onActionStart );
     on( ActionCompleteEvent.class, this::onActionComplete );
+
+    on( TaskStartEvent.class, this::onTaskStart );
+    on( TaskCompleteEvent.class, this::onTaskComplete );
+  }
+
+  /**
+   * Handle the TaskStartEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onTaskStart( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final TaskStartEvent e )
+  {
+    log( d, "%cTask Start " + e.getTask().getName(), TASK_COLOR );
+  }
+
+  /**
+   * Handle the TaskCompleteEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onTaskComplete( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final TaskCompleteEvent e )
+  {
+    log( d, "%cTask Complete " + e.getTask().getName(), TASK_COLOR );
   }
 
   /**

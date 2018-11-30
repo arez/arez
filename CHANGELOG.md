@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Update the 'org.realityforge.arez' dependencies to version '0.117'
+* Add support for the `TaskStartEvent` and `TaskCompleteEvent` spy events.
 
 ### [v0.41](https://github.com/arez/arez-spytools/tree/v0.41) (2018-11-21)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.40...v0.41)

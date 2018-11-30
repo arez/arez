@@ -21,6 +21,8 @@ import arez.spy.ObserveStartEvent;
 import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
+import arez.spy.TaskCompleteEvent;
+import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import javax.annotation.Nonnull;
@@ -64,6 +66,7 @@ public final class SpyUtil
          ObserveStartEvent.class == type ||
          TransactionStartEvent.class == type ||
          ComputeStartEvent.class == type ||
+         TaskStartEvent.class == type ||
          ActionStartEvent.class == type )
     {
       return NestingDelta.INCREASE;
@@ -73,6 +76,7 @@ public final class SpyUtil
               ObserveCompleteEvent.class == type ||
               TransactionCompleteEvent.class == type ||
               ComputeCompleteEvent.class == type ||
+              TaskCompleteEvent.class == type ||
               ActionCompleteEvent.class == type )
     {
       return NestingDelta.DECREASE;
