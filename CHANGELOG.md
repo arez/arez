@@ -5,7 +5,9 @@
 * **\[core\]** Add several `ArezContext.task(...)` methods that allow scheduling of arbitrary tasks to
   be executed the Arez scheduler. If the scheduler is currently executing tasks, the task will be added
   to the queue and executed in turn otherwise the scheduler will be activated. This functionality is primarily
-  used to enable better integration between the Arez runtime and external libraries.
+  used to enable better integration between the Arez runtime and external libraries. The `arez.Task` class
+  provides mechanisms for re-scheduling the task (via the `schedule()` method) and canceling a task (via
+  `dispose()`). The tasks are also exposed in the spy subsystem via the `Spy.getTopLevelTasks()` method. 
 * **\[processor\]** Fix bug where methods annotated with `@Action` or `@Observe` could not contain `$`
   characters. Add tests to ensure other Arez annotated methods and/or fields support `$` in the name.  
 * **\[core\]** Add a `ArezContext.scheduleDispose(Disposable)` method that does not require that a name
