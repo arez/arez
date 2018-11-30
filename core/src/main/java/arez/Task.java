@@ -1,7 +1,9 @@
 package arez;
 
 import arez.spy.Priority;
+import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskInfo;
+import arez.spy.TaskStartEvent;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -133,16 +135,50 @@ public final class Task
     {
       markAsDequeued();
 
-      // Observers currently catch error and handle internally. Thus no need to catch
-      // errors here. is this correct behaviour? We could instead handle it here by
-      // per-task handler or a global error handler.
-      _work.call();
+      if ( 0 == ( _flags & Flags.NO_WRAP_TASK ) )
+      {
+        runTask();
+      }
+      else
+      {
+        // It is expected that the task/observers currently catch error
+        // and handle internally. Thus no need to catch errors here.
+        _work.call();
+      }
 
       // If this task has been marked as a task to dispose on completion then do so
       if ( 0 != ( _flags & Flags.DISPOSE_ON_COMPLETE ) )
       {
         dispose();
       }
+    }
+  }
+
+  /**
+   * Actually execute the task, capture errors and send spy events.
+   */
+  private void runTask()
+  {
+    long startedAt = 0L;
+    if ( willPropagateSpyEvents() )
+    {
+      startedAt = System.currentTimeMillis();
+      getSpy().reportSpyEvent( new TaskStartEvent( getName() ) );
+    }
+    Throwable error = null;
+    try
+    {
+      getWork().call();
+    }
+    catch ( final Throwable t )
+    {
+      // Should we handle it with a per-task handler or a global error handler?
+      error = t;
+    }
+    if ( willPropagateSpyEvents() )
+    {
+      final long duration = System.currentTimeMillis() - startedAt;
+      getSpy().reportSpyEvent( new TaskCompleteEvent( getName(), error, (int) duration ) );
     }
   }
 
@@ -327,6 +363,13 @@ public final class Task
      */
     static final int RUN_TYPE_MASK = RUN_NOW | RUN_LATER;
     /**
+     * The flag that indicates that task should not be wrapped.
+     * The wrapping is responsible for ensuring the task never generates an exception and for generating
+     * the spy events. If wrapping is disabled it is expected that the caller is responsible for integrating
+     * with the spy subsystem and catching exceptions if any.
+     */
+    static final int NO_WRAP_TASK = 1 << 20;
+    /**
      * The flag that specifies that the task should be disposed after it has completed execution.
      */
     static final int DISPOSE_ON_COMPLETE = 1 << 19;
@@ -338,7 +381,8 @@ public final class Task
     /**
      * Mask containing flags that can be applied to a task.
      */
-    static final int TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE | NO_REGISTER_TASK;
+    static final int TASK_FLAGS_MASK =
+      PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE | NO_REGISTER_TASK | NO_WRAP_TASK;
     /**
      * Mask containing flags that can be applied to a task representing an observer.
      * This omits DISPOSE_ON_COMPLETE as observer is responsible for disposing task

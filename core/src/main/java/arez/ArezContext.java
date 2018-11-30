@@ -9,8 +9,6 @@ import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.Spy;
-import arez.spy.TaskCompleteEvent;
-import arez.spy.TaskStartEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1044,43 +1042,9 @@ public final class ArezContext
   @Nonnull
   public Task task( @Nullable final String name, @Nonnull final SafeProcedure work, final int flags )
   {
-    final String taskName = generateName( "Task", name );
-    final Task task =
-      new Task( Arez.areZonesEnabled() ? this : null, taskName, () -> _runTask( taskName, work ), flags );
+    final Task task = new Task( Arez.areZonesEnabled() ? this : null, generateName( "Task", name ), work, flags );
     task.initialSchedule();
     return task;
-  }
-
-  /**
-   * Actually execute the task, capture errors and send spy events.
-   *
-   * @param taskName the name of the task. Must be non-null if spies are enabled.
-   * @param work     the underlying work to execute.
-   */
-  private void _runTask( @Nullable final String taskName, @Nonnull final SafeProcedure work )
-  {
-    long startedAt = 0L;
-    if ( willPropagateSpyEvents() )
-    {
-      startedAt = System.currentTimeMillis();
-      assert null != taskName;
-      getSpy().reportSpyEvent( new TaskStartEvent( taskName ) );
-    }
-    Throwable error = null;
-    try
-    {
-      work.call();
-    }
-    catch ( final Throwable t )
-    {
-      error = t;
-    }
-    if ( willPropagateSpyEvents() )
-    {
-      assert null != taskName;
-      final long duration = System.currentTimeMillis() - startedAt;
-      getSpy().reportSpyEvent( new TaskCompleteEvent( taskName, error, (int) duration ) );
-    }
   }
 
   /**
@@ -1382,7 +1346,7 @@ public final class ArezContext
       new Task( Arez.areZonesEnabled() ? this : null,
                 generateName( "Dispose", name ),
                 disposable::dispose,
-                Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE );
+                Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
     task.initialSchedule();
   }
 
