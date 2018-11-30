@@ -407,6 +407,7 @@ final class ProcessorUtil
     return (T) value.getValue();
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   @Nonnull
   static AnnotationMirror getAnnotationByType( @Nonnull final Element typeElement,
                                                @Nonnull final String annotationClassName )
