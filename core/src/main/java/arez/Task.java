@@ -236,9 +236,8 @@ public final class Task
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      invariant( () -> !isQueued(),
-                 () -> "Arez-0128: Attempting to re-queue task named '" + getName() +
-                       "' when task is queued." );
+      invariant( this::isIdle,
+                 () -> "Arez-0128: Attempting to re-queue task named '" + getName() + "' when task is queued." );
     }
     _flags = Flags.setState( _flags, Flags.STATE_QUEUED );
   }
