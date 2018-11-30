@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.42](https://github.com/arez/arez-promise/tree/v0.42) (2018-11-30)
 [Full Changelog](https://github.com/arez/arez-promise/compare/v0.41...v0.42)
 
