@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.15](https://github.com/arez/arez-when/tree/v0.15) (2018-12-01)
+[Full Changelog](https://github.com/arez/arez-when/compare/v0.14...v0.15)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.118'
 
