@@ -23,7 +23,7 @@ import static org.realityforge.braincheck.Guards.*;
  * The context also provides the mechanism for creating transactions to read and write state
  * within the system.
  */
-@SuppressWarnings( "Duplicates" )
+@SuppressWarnings( { "Duplicates", "ConstantConditions" } )
 public final class ArezContext
 {
   /**
