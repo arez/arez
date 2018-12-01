@@ -56,7 +56,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.when</groupId>
    <artifactId>arez-when</artifactId>
-   <version>0.14</version>
+   <version>0.15</version>
 </dependency>
 ```
 
