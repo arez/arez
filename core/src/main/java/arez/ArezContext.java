@@ -115,7 +115,7 @@ public final class ArezContext
    */
   private boolean _schedulerActive;
   /**
-   * Flag indicating whether the scheduler is currently active.
+   * Flag indicating whether the current task is executing within the environment.
    */
   private boolean _inEnvironmentContext;
 
