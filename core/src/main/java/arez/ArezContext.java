@@ -1048,6 +1048,16 @@ public final class ArezContext
   }
 
   /**
+   * Return true if the scheduler is currently executing tasks.
+   *
+   * @return true if the scheduler is currently executing tasks.
+   */
+  public boolean isSchedulerActive()
+  {
+    return _schedulerActive;
+  }
+
+  /**
    * Return true if there is a transaction in progress.
    *
    * @return true if there is a transaction in progress.

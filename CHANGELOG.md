@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* **\[core\]** Add `ArezContext.isSchedulerActive()` method.
+
 ### [v0.117](https://github.com/arez/arez/tree/v0.117) (2018-11-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.116...v0.117)
 

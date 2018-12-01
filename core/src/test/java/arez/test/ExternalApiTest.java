@@ -148,6 +148,26 @@ public class ExternalApiTest
   }
 
   @Test
+  public void isSchedulerActive_insideTask()
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isSchedulerActive() );
+    context.task( () -> assertTrue( context.isSchedulerActive() ) );
+    assertFalse( context.isSchedulerActive() );
+  }
+
+  @Test
+  public void isSchedulerActive_insideObserver()
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isSchedulerActive() );
+    context.observer( () -> assertTrue( context.isSchedulerActive() ), Flags.AREZ_OR_NO_DEPENDENCIES );
+    assertFalse( context.isSchedulerActive() );
+  }
+
+  @Test
   public void createComputableValue()
     throws Throwable
   {
