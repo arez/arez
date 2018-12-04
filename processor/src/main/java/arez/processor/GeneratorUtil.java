@@ -33,7 +33,8 @@ final class GeneratorUtil
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
   static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
   static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
-  static final ClassName ABSTRACT_REPOSITORY_CLASSNAME = ClassName.get( "arez.component.internal", "AbstractRepository" );
+  static final ClassName ABSTRACT_REPOSITORY_CLASSNAME =
+    ClassName.get( "arez.component.internal", "AbstractRepository" );
   static final ClassName KERNEL_CLASSNAME = ClassName.get( "arez.component.internal", "ComponentKernel" );
   static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component.internal", "MemoizeCache" );
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
@@ -81,7 +82,8 @@ final class GeneratorUtil
   static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
-  static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "nativeComponentPreDispose";
+  static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME =
+    FRAMEWORK_PREFIX + "nativeComponentPreDispose";
   static final String INTERNAL_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "dispose";
   static final String CONTEXT_VAR_NAME = VARIABLE_PREFIX + "context";
   static final String ID_VAR_NAME = VARIABLE_PREFIX + "id";
