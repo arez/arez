@@ -1702,7 +1702,7 @@ public class ObserverTest
     assertEquals( observed.getCallCount(), 0 );
     assertEquals( onDepsChange.getCallCount(), 0 );
 
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     observer.schedule();
 
@@ -1743,7 +1743,7 @@ public class ObserverTest
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 1 );
 
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     // This does not cause exception - thus transaction must be marked as used
     context.safeAction( observer::schedule );
@@ -1781,7 +1781,7 @@ public class ObserverTest
     assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     observer.schedule();
 
@@ -1818,7 +1818,7 @@ public class ObserverTest
 
     assertFalse( observer.getTask().isQueued() );
 
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     assertInvariantFailure( observer::schedule,
                             "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +

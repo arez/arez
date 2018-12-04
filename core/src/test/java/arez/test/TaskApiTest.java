@@ -3,8 +3,8 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Disposable;
 import arez.Flags;
+import arez.SchedulerLock;
 import arez.Task;
 import arez.TestSpyEventHandler;
 import arez.spy.TaskCompleteEvent;
@@ -106,7 +106,7 @@ public class TaskApiTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final ArezContext context = Arez.context();
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     final Task task = context.task( callCount::incrementAndGet );
 

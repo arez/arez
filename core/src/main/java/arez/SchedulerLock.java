@@ -6,10 +6,9 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * A lock that stop the scheduler from reacting to any changes until the lock is released.
- * This is principally used so that users can control
+ * A lock that stops the scheduler from running tasks until the lock is released.
  */
-final class SchedulerLock
+public final class SchedulerLock
   implements Disposable
 {
   @Nullable

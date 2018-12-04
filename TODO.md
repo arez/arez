@@ -16,8 +16,6 @@ complete as there is too much un-said.
 * Rename `ArezContext.triggerScheduler()` to `ArezContext.triggerExecutor()` or something similar that
   indicates it is executing tasks but not doing clock based scheduling????
 
-* Should we introduce an interface `SchedulerLock extends Disposable` that is returned from `pauseScheduler()`?
-
 * Consider moving computable flags, action flags, task flags and observer flags into separate classes
 
 * Consider renaming `Executor.AREZ` to `Executor.INTERNAL` and `Executor.APPLICATION` to `Executor.EXTERNAL`

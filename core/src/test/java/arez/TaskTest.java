@@ -66,7 +66,7 @@ public class TaskTest
   {
     final AtomicInteger callCount = new AtomicInteger();
     final ArezContext context = Arez.context();
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     final Task task = context.task( callCount::incrementAndGet );
 

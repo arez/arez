@@ -11,6 +11,9 @@
   (i.e. network events triggering changes etc.) with the goal of ultimately deprecating and removing the method
   when concurrent react is activated. As a result the conceptual overhead, maintenance costs and slight code size
   increase no longer seems a reasonable tradeoff within Arez and has been removed until it is actually needed.
+* **\[core\]** Make the `arez.SchedulerLock` class public and change the return type of the
+  `ArezContext.pauseScheduler()` to be `ScheulerLock`. This does not change the functionality exposed but instead
+  ensures that the method returns an object with a more easily understandable purpose.
 
 ### [v0.118](https://github.com/arez/arez/tree/v0.118) (2018-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.117...v0.118)

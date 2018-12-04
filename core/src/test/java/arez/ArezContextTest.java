@@ -2336,7 +2336,7 @@ public class ArezContextTest
     final Observer observer1 = context.observer( "O1", observableValue::reportObserved );
     final Observer observer2 = context.observer( "O2", observableValue::reportObserved, Flags.PRIORITY_HIGH );
 
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     // Trigger change that should schedule above observers
     context.safeAction( observableValue::reportChanged );
@@ -2641,7 +2641,7 @@ public class ArezContextTest
     assertFalse( context.isSchedulerPaused() );
 
     assertEquals( context.getSchedulerLockCount(), 0 );
-    final Disposable lock1 = context.pauseScheduler();
+    final SchedulerLock lock1 = context.pauseScheduler();
     assertEquals( context.getSchedulerLockCount(), 1 );
     assertTrue( context.isSchedulerPaused() );
 
@@ -2656,7 +2656,7 @@ public class ArezContextTest
 
     assertEquals( callCount.get(), 0 );
 
-    final Disposable lock2 = context.pauseScheduler();
+    final SchedulerLock lock2 = context.pauseScheduler();
     assertEquals( context.getSchedulerLockCount(), 2 );
     assertTrue( context.isSchedulerPaused() );
 
@@ -3132,7 +3132,7 @@ public class ArezContextTest
     assertEquals( queue.getOrderedTasks().count(), 0L );
 
     // Pause scheduler so that the task is not invoked immediately
-    final Disposable schedulerLock = context.pauseScheduler();
+    final SchedulerLock schedulerLock = context.pauseScheduler();
 
     final String name = observer.getName() + ".dispose";
     context.scheduleDispose( name, observer );
