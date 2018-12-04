@@ -133,8 +133,6 @@ public final class MemoizeCache<T>
                        Flags.PRIORITY_NORMAL |
                        Flags.PRIORITY_LOW |
                        Flags.PRIORITY_LOWEST |
-                       Flags.ENVIRONMENT_REQUIRED |
-                       Flags.ENVIRONMENT_NOT_REQUIRED |
                        Flags.AREZ_DEPENDENCIES |
                        Flags.AREZ_OR_NO_DEPENDENCIES |
                        Flags.AREZ_OR_EXTERNAL_DEPENDENCIES |

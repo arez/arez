@@ -47,7 +47,6 @@ final class MemoizeDescriptor
   @Nullable
   private ExecutableType _methodType;
   private boolean _keepAlive;
-  private boolean _requireEnvironment;
   private String _priority;
   private boolean _reportResult;
   private boolean _observeLowerPriorityDependencies;
@@ -124,7 +123,6 @@ final class MemoizeDescriptor
   void setMemoize( @Nonnull final ExecutableElement method,
                    @Nonnull final ExecutableType methodType,
                    final boolean keepAlive,
-                   final boolean requireEnvironment,
                    @Nonnull final String priority,
                    final boolean reportResult,
                    final boolean observeLowerPriorityDependencies,
@@ -142,7 +140,6 @@ final class MemoizeDescriptor
     _method = Objects.requireNonNull( method );
     _methodType = Objects.requireNonNull( methodType );
     _keepAlive = keepAlive;
-    _requireEnvironment = requireEnvironment;
     _priority = Objects.requireNonNull( priority );
     _reportResult = reportResult;
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
@@ -607,14 +604,6 @@ final class MemoizeDescriptor
     if ( _observeLowerPriorityDependencies )
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
-    }
-    if ( _requireEnvironment )
-    {
-      flags.add( "ENVIRONMENT_REQUIRED" );
-    }
-    else
-    {
-      flags.add( "ENVIRONMENT_NOT_REQUIRED" );
     }
     switch ( _depType )
     {

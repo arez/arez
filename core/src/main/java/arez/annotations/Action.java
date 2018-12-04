@@ -71,11 +71,4 @@ public @interface Action
    * @return true to verify action reads or writes observable data.
    */
   boolean verifyRequired() default true;
-
-  /**
-   * True if invocations of the action must be executed in an {@link arez.Environment}.
-   *
-   * @return true if invocations of the action must be executed in an {@link arez.Environment}, false otherwise.
-   */
-  boolean requireEnvironment() default false;
 }

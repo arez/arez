@@ -153,24 +153,6 @@ public final class Flags
    */
   public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
   /**
-   * The action or observer must be wrapped by the {@link Environment} if the environment is
-   * supplied to the {@link ArezContext}. This flag is incompatible with {@link #ENVIRONMENT_NOT_REQUIRED}
-   * and the javadocs for {@link #ENVIRONMENT_NOT_REQUIRED} documents how the default value is derived.
-   */
-  public static final int ENVIRONMENT_REQUIRED = 1 << 14;
-  /**
-   * The action or observer need not be wrapped by the {@link Environment} if the environment is supplied to the {@link ArezContext}.
-   * <p>This flag must not be present if {@link #ENVIRONMENT_REQUIRED} is present. If neither
-   * ENVIRONMENT_NOT_REQUIRED nor {@link #ENVIRONMENT_REQUIRED} is specified then ENVIRONMENT_REQUIRED is assumed for
-   * observers where the {@link #APPLICATION_EXECUTOR} is not present, while ENVIRONMENT_NOT_REQUIRED is assumed for
-   * actions and other observers.</p>
-   */
-  public static final int ENVIRONMENT_NOT_REQUIRED = 1 << 13;
-  /**
-   * Mask used to extract environment bits.
-   */
-  private static final int ENVIRONMENT_MASK = ENVIRONMENT_REQUIRED | ENVIRONMENT_NOT_REQUIRED;
-  /**
    * The flag can be passed to actions or observers to force the action to not report result to spy infrastructure.
    */
   public static final int NO_REPORT_RESULT = 1 << 12;
@@ -185,7 +167,6 @@ public final class Flags
     Task.Flags.RUN_TYPE_MASK |
     SCHEDULE_TYPE_MASK |
     Task.Flags.PRIORITY_MASK |
-    ENVIRONMENT_MASK |
     NO_REPORT_RESULT;
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
@@ -219,12 +200,22 @@ public final class Flags
    * Mask containing flags that can be applied to an action.
    */
   static final int ACTION_FLAGS_MASK =
-    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | ENVIRONMENT_MASK | NO_REPORT_RESULT;
+    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
   /**
    * The flag is currently unused.
    */
   @SuppressWarnings( "unused" )
-  static final int UNUSED = 1 << 10;
+  static final int UNUSED1 = 1 << 14;
+  /**
+   * The flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  static final int UNUSED2 = 1 << 13;
+  /**
+   * The flag is currently unused.
+   */
+  @SuppressWarnings( "unused" )
+  static final int UNUSED3 = 1 << 10;
   /**
    * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observe} or {@link Observer#_onDepsChange}.
    */
@@ -292,23 +283,6 @@ public final class Flags
   {
     return VERIFY_ACTION_REQUIRED == ( flags & VERIFY_ACTION_MASK ) ||
            NO_VERIFY_ACTION_REQUIRED == ( flags & VERIFY_ACTION_MASK );
-  }
-
-  static int environmentFlag( final int flags )
-  {
-    return defaultFlagUnlessSpecified( flags, ENVIRONMENT_MASK, ENVIRONMENT_NOT_REQUIRED );
-  }
-
-  /**
-   * Return true if flags contains a valid environment flag.
-   *
-   * @param flags the flags.
-   * @return true if flags contains valid environment flag.
-   */
-  static boolean isEnvironmentValid( final int flags )
-  {
-    return ENVIRONMENT_REQUIRED == ( flags & ENVIRONMENT_MASK ) ^
-           ENVIRONMENT_NOT_REQUIRED == ( flags & ENVIRONMENT_MASK );
   }
 
   /**

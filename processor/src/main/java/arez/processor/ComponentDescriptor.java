@@ -496,14 +496,12 @@ final class ComponentDescriptor
     checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean requireNewTransaction = getAnnotationParameter( annotation, "requireNewTransaction" );
-    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     final boolean reportParameters = getAnnotationParameter( annotation, "reportParameters" );
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
       new ActionDescriptor( name,
                             requireNewTransaction,
-                            requireEnvironment,
                             mutation,
                             verifyRequired,
                             reportParameters,
@@ -554,7 +552,6 @@ final class ComponentDescriptor
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final VariableElement executor = getAnnotationParameter( annotation, "executor" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
-    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
 
     final ObserveDescriptor observed = findOrCreateObserved( name );
     observed.setObservedMethod( mutation,
@@ -565,7 +562,6 @@ final class ComponentDescriptor
                                 depType.getSimpleName().toString(),
                                 observeLowerPriorityDependencies,
                                 nestedActionsAllowed,
-                                requireEnvironment,
                                 method,
                                 methodType );
   }
@@ -677,12 +673,10 @@ final class ComponentDescriptor
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
-    final boolean requireEnvironment = getAnnotationParameter( annotation, "requireEnvironment" );
     final String depTypeAsString = depType.getSimpleName().toString();
     findOrCreateMemoize( name ).setMemoize( method,
                                             methodType,
                                             keepAlive,
-                                            requireEnvironment,
                                             priority.getSimpleName().toString(),
                                             reportResult,
                                             observeLowerPriorityDependencies,
@@ -2125,7 +2119,6 @@ final class ComponentDescriptor
                                      true,
                                      true,
                                      "AREZ",
-                                     false,
                                      false,
                                      false,
                                      candidate.getMethod(),
