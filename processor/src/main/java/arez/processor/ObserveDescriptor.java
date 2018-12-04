@@ -33,7 +33,7 @@ final class ObserveDescriptor
   private final String _name;
   private boolean _mutation;
   private String _priority;
-  private boolean _arezExecutor;
+  private boolean _internalExecutor;
   private boolean _reportParameters;
   private boolean _reportResult;
   private String _depType;
@@ -82,7 +82,7 @@ final class ObserveDescriptor
 
   void setObserveMethod( final boolean mutation,
                          @Nonnull final String priority,
-                         final boolean arezExecutor,
+                         final boolean internalExecutor,
                          final boolean reportParameters,
                          final boolean reportResult,
                          @Nonnull final String depType,
@@ -93,7 +93,7 @@ final class ObserveDescriptor
   {
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.OBSERVE_ANNOTATION_CLASSNAME, method );
 
-    if ( arezExecutor )
+    if ( internalExecutor )
     {
       if ( !method.getParameters().isEmpty() )
       {
@@ -134,7 +134,7 @@ final class ObserveDescriptor
     {
       _mutation = mutation;
       _priority = Objects.requireNonNull( priority );
-      _arezExecutor = arezExecutor;
+      _internalExecutor = internalExecutor;
       _reportParameters = reportParameters;
       _reportResult = reportResult;
       _depType = Objects.requireNonNull( depType );
@@ -193,14 +193,14 @@ final class ObserveDescriptor
 
   void validate()
   {
-    if ( _arezExecutor && null != _onDepsChange && null == _refMethod )
+    if ( _internalExecutor && null != _onDepsChange && null == _refMethod )
     {
       assert null != _observe;
       throw new ArezProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
                                         "method but has not defined an @ObserverRef method and thus can never" +
                                         "schedule observer.", _observe );
     }
-    if ( !_arezExecutor && null == _onDepsChange )
+    if ( !_internalExecutor && null == _onDepsChange )
     {
       assert null != _observe;
       throw new ArezProcessorException( "@Observe target defined parameter executor=EXTERNAL but does not " +
@@ -220,7 +220,7 @@ final class ObserveDescriptor
    */
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
   {
-    if ( _arezExecutor )
+    if ( _internalExecutor )
     {
       buildObserverInitializer( builder );
     }
@@ -338,7 +338,7 @@ final class ObserveDescriptor
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
     throws ArezProcessorException
   {
-    if ( _arezExecutor )
+    if ( _internalExecutor )
     {
       builder.addMethod( buildObserve() );
     }
