@@ -201,7 +201,7 @@ public final class ArezBuildAsserts
   }
 
   /**
-   * This assertion verifies that the symbols that are conditional on the `arez.enable_environments`
+   * This assertion verifies that the symbols that are conditional on the `arez.enable_property_introspection`
    * setting are present if enabled and not present if not enabled.
    *
    * @param index   the index that contains all symbols for output target.
