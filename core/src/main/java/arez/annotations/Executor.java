@@ -4,7 +4,7 @@ import arez.Observer;
 import arez.Procedure;
 
 /**
- * Enum describing the agent responsible for executing the {@link arez.Observer}'s observed method.
+ * Enum describing the executor responsible for executing the {@link arez.Observer}'s observe method.
  */
 public enum Executor
 {
