@@ -97,13 +97,6 @@ public @interface Memoize
   DepType depType() default DepType.AREZ;
 
   /**
-   * True if invocations of the computable must be executed in an {@link arez.Environment}.
-   *
-   * @return true if invocations of the computable must be executed in an {@link arez.Environment}, false otherwise.
-   */
-  boolean requireEnvironment() default false;
-
-  /**
    * Return true if the return value of the comptable value should be reported to the Arez spy subsystem.
    * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
    *

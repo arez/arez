@@ -43,8 +43,6 @@ public class ObserverTest
 
     assertTrue( observer.shouldExecuteObserveNext() );
 
-    assertTrue( observer.isEnvironmentRequired() );
-
     // Starts out inactive and inactive means no dependencies
     assertEquals( observer.getState(), Flags.STATE_INACTIVE );
     assertFalse( observer.isActive() );
@@ -75,8 +73,6 @@ public class ObserverTest
 
     assertFalse( observer.shouldExecuteObserveNext() );
 
-    assertFalse( observer.isEnvironmentRequired() );
-
     assertNull( observer.getObserve() );
     assertEquals( observer.getOnDepsChange(), onDepsChange );
     assertFalse( observer.isComputableValue() );
@@ -91,8 +87,6 @@ public class ObserverTest
 
     assertTrue( observer.isComputableValue() );
     assertTrue( observer.shouldExecuteObserveNext() );
-
-    assertFalse( observer.isEnvironmentRequired() );
 
     assertEquals( computableValue.getObservableValue().getName(), observer.getName() );
     assertEquals( computableValue.getObservableValue().getObserver(), observer );
@@ -219,20 +213,6 @@ public class ObserverTest
                                                 Flags.REQUIRE_NEW_TRANSACTION ),
                             "Arez-0207: Observer named 'MyObserver' specified illegal flags: " +
                             Flags.REQUIRE_NEW_TRANSACTION );
-  }
-
-  @Test
-  public void construct_with_duplicate_ENVIRONMENT_flags()
-  {
-    final String name = ValueUtil.randomString();
-
-    assertInvariantFailure( () -> Arez.context().observer( name,
-                                                           new CountAndObserveProcedure(),
-                                                           new CountingProcedure(),
-                                                           Flags.ENVIRONMENT_REQUIRED |
-                                                           Flags.ENVIRONMENT_NOT_REQUIRED ),
-                            "Arez-0121: Observer named '" + name + "' incorrectly specified both " +
-                            "the ENVIRONMENT_REQUIRED flag and the ENVIRONMENT_NOT_REQUIRED flag." );
   }
 
   @Test

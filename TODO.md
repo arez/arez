@@ -29,10 +29,6 @@ complete as there is too much un-said.
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()`
   is stripped if names not enabled.
 
-* Consider removing the notion of environments form within Arez as only used to call `batchedUpdates` in
-  react and that already occurs during rendering and event handling. For the other scenarios (i.e. network
-  events etc.) we could manually call it from relevant places.
-
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
 

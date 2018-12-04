@@ -25,7 +25,6 @@ final class ActionDescriptor
   @Nonnull
   private final String _name;
   private final boolean _requireNewTransaction;
-  private final boolean _requireEnvironment;
   private final boolean _mutation;
   private final boolean _verifyRequired;
   private final boolean _reportParameters;
@@ -37,7 +36,6 @@ final class ActionDescriptor
 
   ActionDescriptor( @Nonnull final String name,
                     final boolean requireNewTransaction,
-                    final boolean requireEnvironment,
                     final boolean mutation,
                     final boolean verifyRequired,
                     final boolean reportParameters,
@@ -47,7 +45,6 @@ final class ActionDescriptor
   {
     _name = Objects.requireNonNull( name );
     _requireNewTransaction = requireNewTransaction;
-    _requireEnvironment = requireEnvironment;
     _mutation = mutation;
     _verifyRequired = verifyRequired;
     _reportParameters = reportParameters;
@@ -222,14 +219,6 @@ final class ActionDescriptor
     else
     {
       flags.add( "READ_ONLY" );
-    }
-    if ( _requireEnvironment )
-    {
-      flags.add( "ENVIRONMENT_REQUIRED" );
-    }
-    else
-    {
-      flags.add( "ENVIRONMENT_NOT_REQUIRED" );
     }
     if ( _verifyRequired )
     {

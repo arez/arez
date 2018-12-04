@@ -2,6 +2,16 @@
 
 ### Unreleased
 
+* **\[core\]** Remove the concept of environments from within Arez. It was primarily used as a mechanism
+  for integrating with external frameworks with their own scheduler so that context can be introduced around
+  reactions, tasks and actions. The best example was integration with [React4j](https://react4j.github.io/)
+  that ensured that the top level task within Arez was wrapped within a `batchedUpdates(...)` wrapper
+  method which avoided repeated re-rendering of components. React has subsequently made batching automatic
+  for event handlers and within the normal rendering lifecycles and optional in other scenarios
+  (i.e. network events triggering changes etc.) with the goal of ultimately deprecating and removing the method
+  when concurrent react is activated. As a result the conceptual overhead, maintenance costs and slight code size
+  increase no longer seems a reasonable tradeoff within Arez and has been removed until it is actually needed.
+
 ### [v0.118](https://github.com/arez/arez/tree/v0.118) (2018-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.117...v0.118)
 

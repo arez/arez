@@ -35,9 +35,6 @@ goog.define('arez.enable_zones', 'false');
 goog.define('arez.enable_spies', 'false');
 
 /** @define {string} */
-goog.define('arez.enable_environments', 'false');
-
-/** @define {string} */
 goog.define('arez.enable_native_components', 'false');
 
 /** @define {string} */

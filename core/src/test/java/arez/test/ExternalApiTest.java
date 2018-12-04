@@ -105,15 +105,6 @@ public class ExternalApiTest
   }
 
   @Test
-  public void areEnvironmentsEnabled()
-  {
-    ArezTestUtil.disableEnvironments();
-    assertFalse( Arez.areEnvironmentsEnabled() );
-    ArezTestUtil.enableEnvironments();
-    assertTrue( Arez.areEnvironmentsEnabled() );
-  }
-
-  @Test
   public void isVerifyEnabled()
   {
     ArezTestUtil.disableVerify();
@@ -637,73 +628,6 @@ public class ExternalApiTest
 
     assertEquals( callCount.get(), 1 );
     assertFalse( context.isSchedulerPaused() );
-  }
-
-  @Test
-  public void setEnvironment()
-  {
-    final ArrayList<String> trace = new ArrayList<>();
-
-    final ArezContext context = Arez.context();
-
-    final ObservableValue<Object> observable = context.observable();
-
-    context.setEnvironment( new Environment()
-    {
-      @Override
-      public <T> T run( @Nonnull final SafeFunction<T> function )
-      {
-        trace.add( "PreTrace" );
-        try
-        {
-          return function.call();
-        }
-        finally
-        {
-          trace.add( "PostTrace" );
-        }
-      }
-
-      @Override
-      public <T> T run( @Nonnull final Function<T> function )
-        throws Throwable
-      {
-        trace.add( "PreTrace" );
-        try
-        {
-          return function.call();
-        }
-        finally
-        {
-          trace.add( "PostTrace" );
-        }
-      }
-    } );
-
-    context.observer( () -> {
-      observable.reportObserved();
-      trace.add( "Observer" );
-    } );
-
-    context.safeAction( () -> {
-      observable.reportChanged();
-      trace.add( "Action" );
-    } );
-
-    assertEquals( trace,
-                  Arrays.asList(
-                    /*
-                     * Initial observer reaction as runImmediate parameter was true
-                     */
-                    "PreTrace", "Observer", "PostTrace",
-                    /*
-                     * Explicit action!
-                     */
-                    "Action",
-                    /*
-                     * Action triggers scheduler and observer reacts to changes
-                     */
-                    "PreTrace", "Observer", "PostTrace" ) );
   }
 
   /**

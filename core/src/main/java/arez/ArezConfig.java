@@ -14,7 +14,6 @@ final class ArezConfig
   private static boolean ENFORCE_TRANSACTION_TYPE = PROVIDER.enforceTransactionType();
   private static boolean ENABLE_REFERENCES = PROVIDER.areReferencesEnabled();
   private static boolean ENABLE_SPIES = PROVIDER.areSpiesEnabled();
-  private static boolean ENABLE_ENVIRONMENTS = PROVIDER.areEnvironmentsEnabled();
   private static boolean ENABLE_ZONES = PROVIDER.areZonesEnabled();
   private static boolean COLLECTION_PROPERTIES_UNMODIFIABLE = PROVIDER.areCollectionsPropertiesUnmodifiable();
   private static boolean ENABLE_NATIVE_COMPONENTS = PROVIDER.areNativeComponentsEnabled();
@@ -71,11 +70,6 @@ final class ArezConfig
   static boolean areSpiesEnabled()
   {
     return ENABLE_SPIES;
-  }
-
-  static boolean areEnvironmentsEnabled()
-  {
-    return ENABLE_ENVIRONMENTS;
   }
 
   static boolean areZonesEnabled()
@@ -171,13 +165,6 @@ final class ArezConfig
     boolean areSpiesEnabled()
     {
       return "true".equals( System.getProperty( "arez.enable_spies", PRODUCTION_MODE ? "false" : "true" ) );
-    }
-
-    @GwtIncompatible
-    @Override
-    boolean areEnvironmentsEnabled()
-    {
-      return "true".equals( System.getProperty( "arez.enable_environments", "false" ) );
     }
 
     @GwtIncompatible
@@ -280,11 +267,6 @@ final class ArezConfig
     boolean areSpiesEnabled()
     {
       return "true" == System.getProperty( "arez.enable_spies" );
-    }
-
-    boolean areEnvironmentsEnabled()
-    {
-      return "true" == System.getProperty( "arez.enable_environments" );
     }
 
     boolean areZonesEnabled()

@@ -48,16 +48,6 @@ public final class Arez
   }
 
   /**
-   * Return true if environments are enabled.
-   *
-   * @return true if environments are enabled, false otherwise.
-   */
-  public static boolean areEnvironmentsEnabled()
-  {
-    return ArezConfig.areEnvironmentsEnabled();
-  }
-
-  /**
    * Return true if spies are enabled.
    *
    * @return true if spies are enabled, false otherwise.

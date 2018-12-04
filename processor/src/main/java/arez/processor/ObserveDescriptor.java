@@ -39,7 +39,6 @@ final class ObserveDescriptor
   private String _depType;
   private boolean _observeLowerPriorityDependencies;
   private boolean _nestedActionsAllowed;
-  private boolean _requireEnvironment;
   @Nullable
   private ExecutableElement _observed;
   @Nullable
@@ -89,7 +88,6 @@ final class ObserveDescriptor
                           @Nonnull final String depType,
                           final boolean observeLowerPriorityDependencies,
                           final boolean nestedActionsAllowed,
-                          final boolean requireEnvironment,
                           @Nonnull final ExecutableElement method,
                           @Nonnull final ExecutableType trackedMethodType )
   {
@@ -140,7 +138,6 @@ final class ObserveDescriptor
       _depType = Objects.requireNonNull( depType );
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _nestedActionsAllowed = nestedActionsAllowed;
-      _requireEnvironment = requireEnvironment;
       _observed = Objects.requireNonNull( method );
       _observedType = Objects.requireNonNull( trackedMethodType );
     }
@@ -213,10 +210,6 @@ final class ObserveDescriptor
       throw new ArezProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
                                         "defined an @ObserverRef method and thus can not invoke reportStale().",
                                         _observed );
-    }
-    if ( _arezExecutor )
-    {
-      _requireEnvironment = true;
     }
   }
 
@@ -318,14 +311,6 @@ final class ObserveDescriptor
       default:
         flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
         break;
-    }
-    if ( _requireEnvironment )
-    {
-      flags.add( "ENVIRONMENT_REQUIRED" );
-    }
-    else
-    {
-      flags.add( "ENVIRONMENT_NOT_REQUIRED" );
     }
     if ( _mutation )
     {

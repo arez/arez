@@ -29,7 +29,6 @@ public class BuildOutputTest
                                         false,
                                         false,
                                         false,
-                                        false,
                                         false );
 
     // This pattern should apply if nameIncludeId is false (or @Singleton present), no @Repository annotation and !Arez.areNativeComponentsEnabled()

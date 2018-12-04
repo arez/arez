@@ -105,19 +105,9 @@ public final class ArezContext
    */
   private int _schedulerLockCount;
   /**
-   * Optional environment in which reactions are executed.
-   * This is null unless {@link Arez#areEnvironmentsEnabled()} returns <code>true</code>.
-   */
-  @Nullable
-  private Environment _environment;
-  /**
    * Flag indicating whether the scheduler is currently active.
    */
   private boolean _schedulerActive;
-  /**
-   * Flag indicating whether the current task is executing within the environment.
-   */
-  private boolean _inEnvironmentContext;
 
   /**
    * Arez context should not be created directly but only accessed via Arez.
@@ -1202,28 +1192,11 @@ public final class ArezContext
   }
 
   /**
-   * Specify the environment in which reactions are invoked.
-   * This method should not be invoked unless {@link Arez#areEnvironmentsEnabled()} returns <code>true</code>.
-   *
-   * @param environment the environment in which to execute reactions.
-   */
-  public void setEnvironment( @Nullable final Environment environment )
-  {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( Arez::areEnvironmentsEnabled,
-                    () -> "Arez-0124: ArezContext.setEnvironment() invoked but Arez.areEnvironmentsEnabled() returned false." );
-    }
-    _environment = Arez.areEnvironmentsEnabled() ? environment : null;
-  }
-
-  /**
    * Method invoked to trigger the scheduler to run any pending reactions. The scheduler will only be
    * triggered if there is no transaction active. This method is typically used after one or more Observers
    * have been created outside a transaction with the runImmediately flag set to false and the caller wants
    * to force the observers to react. Otherwise the Observers will not be schedule until the next top-level
-   * transaction completes. Pending reactions are run in the environment specified by {@link #setEnvironment(Environment)}
-   * if any has been specified.
+   * transaction completes.
    */
   public void triggerScheduler()
   {
@@ -1238,24 +1211,7 @@ public final class ArezContext
         _schedulerActive = true;
         try
         {
-          if ( Arez.areEnvironmentsEnabled() && null != _environment )
-          {
-            // The environment wrapper can perform actions that trigger the need for the Arez
-            // scheduler to re-run so we keep checking until there is no more work to be done.
-            // This is typically used when the environment reacts to changes that Arez triggered
-            // (i.e. via @Observe callbacks) which in turn reschedules Arez changes. This happens
-            // in frameworks like react4j which have only scheduler that responds to changes and
-            // feeds back into Arez.
-            do
-            {
-              safeRunInEnvironment( safeProcedureToFunction( _executor::runTasks ) );
-            }
-            while ( _taskQueue.hasTasks() );
-          }
-          else
-          {
-            _executor.runTasks();
-          }
+          _executor.runTasks();
         }
         finally
         {
@@ -1263,71 +1219,6 @@ public final class ArezContext
         }
       }
     }
-  }
-
-  /**
-   * Invoke the specified executable in the environment if the environment is present and not already on the call stack.
-   *
-   * @param executable executable to invoke.
-   */
-  <T> T safeRunInEnvironment( @Nonnull final SafeFunction<T> executable )
-  {
-    if ( shouldSkipEnvironmentSetup() )
-    {
-      return executable.call();
-    }
-    else
-    {
-      try
-      {
-        _inEnvironmentContext = true;
-        assert null != _environment;
-        return _environment.run( executable );
-      }
-      finally
-      {
-        _inEnvironmentContext = false;
-      }
-    }
-  }
-
-  /**
-   * Invoke the specified executable in the environment if the environment is present and not already on the call stack.
-   *
-   * @param executable executable to invoke.
-   */
-  <T> T runInEnvironment( @Nonnull final Function<T> executable )
-    throws Throwable
-  {
-    if ( shouldSkipEnvironmentSetup() )
-    {
-      return executable.call();
-    }
-    else
-    {
-      try
-      {
-        _inEnvironmentContext = true;
-        assert null != _environment;
-        return _environment.run( executable );
-      }
-      finally
-      {
-        _inEnvironmentContext = false;
-      }
-    }
-  }
-
-  /**
-   * Return true if no need to wrap invocation in environment.
-   * This would true if environment compile time setting disables environments, no environment
-   * has been supplied or already nested in environment invocation.
-   *
-   * @return true if no need to wrap invocation in environment.
-   */
-  private boolean shouldSkipEnvironmentSetup()
-  {
-    return !Arez.areEnvironmentsEnabled() || null == _environment || _inEnvironmentContext;
   }
 
   /**
@@ -1907,14 +1798,14 @@ public final class ArezContext
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
       {
-        result = maybeRunInEnvironment( executable, flags );
+        result = executable.call();
       }
       else
       {
         final Transaction transaction = newTransaction( name, flags, observer );
         try
         {
-          result = maybeRunInEnvironment( executable, flags );
+          result = executable.call();
           verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
@@ -1981,14 +1872,14 @@ public final class ArezContext
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
       {
-        result = maybeRunInEnvironment( executable, flags );
+        result = executable.call();
       }
       else
       {
         final Transaction transaction = newTransaction( name, flags, observer );
         try
         {
-          result = maybeRunInEnvironment( executable, flags );
+          result = executable.call();
           verifyActionDependencies( name, observer, flags, transaction );
         }
         finally
@@ -2028,31 +1919,6 @@ public final class ArezContext
     }
   }
 
-  private <T> T maybeRunInEnvironment( @Nonnull final SafeFunction<T> executable, final int flags )
-  {
-    if ( Flags.ENVIRONMENT_REQUIRED == ( flags & Flags.ENVIRONMENT_REQUIRED ) )
-    {
-      return safeRunInEnvironment( executable );
-    }
-    else
-    {
-      return executable.call();
-    }
-  }
-
-  private <T> T maybeRunInEnvironment( @Nonnull final Function<T> executable, final int flags )
-    throws Throwable
-  {
-    if ( Flags.ENVIRONMENT_REQUIRED == ( flags & Flags.ENVIRONMENT_REQUIRED ) )
-    {
-      return runInEnvironment( executable );
-    }
-    else
-    {
-      return executable.call();
-    }
-  }
-
   private void verifyActionFlags( @Nullable final String name, final int flags )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -2061,9 +1927,6 @@ public final class ArezContext
       apiInvariant( () -> 0 == nonActionFlags,
                     () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
                           "flags set: " + nonActionFlags );
-      apiInvariant( () -> Flags.isEnvironmentValid( flags | Flags.environmentFlag( flags ) ),
-                    () -> "Arez-0125: Flags passed to action '" + name + "' include both ENVIRONMENT_REQUIRED " +
-                          "and ENVIRONMENT_NOT_REQUIRED." );
       apiInvariant( () -> !Arez.shouldEnforceTransactionType() ||
                           Flags.isTransactionModeValid( flags | Flags.transactionMode( flags ) ),
                     () -> "Arez-0126: Flags passed to action '" + name + "' include both READ_ONLY and READ_WRITE." );
@@ -2486,7 +2349,6 @@ public final class ArezContext
            ( Arez.shouldCheckInvariants() ?
              observer.areArezDependenciesRequired() ? Flags.AREZ_DEPENDENCIES : Flags.AREZ_OR_NO_DEPENDENCIES :
              0 ) |
-           ( observer.isEnvironmentRequired() ? Flags.ENVIRONMENT_REQUIRED : Flags.ENVIRONMENT_NOT_REQUIRED ) |
            ( Arez.areSpiesEnabled() && observer.noReportResults() ? Flags.NO_REPORT_RESULT : 0 ) |
            ( Arez.shouldEnforceTransactionType() ? ( observer.isMutation() ? Flags.READ_WRITE : Flags.READ_ONLY ) : 0 );
   }
