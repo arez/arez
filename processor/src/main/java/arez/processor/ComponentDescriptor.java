@@ -219,7 +219,7 @@ final class ComponentDescriptor
            _roDependencies.stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
                                                    ( !e.isMethodDependency() && isDeprecated( e.getField() ) ) ) ||
            _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
-           _roObserves.stream().anyMatch( e -> ( e.hasObserved() && isDeprecated( e.getObserved() ) ) ||
+           _roObserves.stream().anyMatch( e -> ( e.hasObserve() && isDeprecated( e.getObserve() ) ) ||
                                                ( e.hasOnDepsChange() && isDeprecated( e.getOnDepsChange() ) ) );
 
   }
@@ -275,7 +275,7 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private ObserveDescriptor findOrCreateObserved( @Nonnull final String name )
+  private ObserveDescriptor findOrCreateObserve( @Nonnull final String name )
   {
     return _observes.computeIfAbsent( name, n -> new ObserveDescriptor( this, n ) );
   }
@@ -536,13 +536,13 @@ final class ComponentDescriptor
     }
   }
 
-  private void addObserved( @Nonnull final AnnotationMirror annotation,
-                            @Nonnull final ExecutableElement method,
-                            @Nonnull final ExecutableType methodType )
+  private void addObserve( @Nonnull final AnnotationMirror annotation,
+                           @Nonnull final ExecutableElement method,
+                           @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
   {
-    final String name = deriveObservedName( method, annotation );
-    checkNameUnique( name, method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
+    final String name = deriveObserveName( method, annotation );
+    checkNameUnique( name, method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
@@ -553,22 +553,21 @@ final class ComponentDescriptor
     final VariableElement executor = getAnnotationParameter( annotation, "executor" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
 
-    final ObserveDescriptor observed = findOrCreateObserved( name );
-    observed.setObservedMethod( mutation,
-                                priority.getSimpleName().toString(),
-                                executor.getSimpleName().toString().equals( "INTERNAL" ),
-                                reportParameters,
-                                reportResult,
-                                depType.getSimpleName().toString(),
-                                observeLowerPriorityDependencies,
-                                nestedActionsAllowed,
-                                method,
-                                methodType );
+    findOrCreateObserve( name ).setObserveMethod( mutation,
+                                                  priority.getSimpleName().toString(),
+                                                  executor.getSimpleName().toString().equals( "INTERNAL" ),
+                                                  reportParameters,
+                                                  reportResult,
+                                                  depType.getSimpleName().toString(),
+                                                  observeLowerPriorityDependencies,
+                                                  nestedActionsAllowed,
+                                                  method,
+                                                  methodType );
   }
 
   @Nonnull
-  private String deriveObservedName( @Nonnull final ExecutableElement method,
-                                     @Nonnull final AnnotationMirror annotation )
+  private String deriveObserveName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final AnnotationMirror annotation )
     throws ArezProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
@@ -600,7 +599,7 @@ final class ComponentDescriptor
                       ObserveDescriptor.ON_DEPS_CHANGE_PATTERN,
                       "DepsChange",
                       getAnnotationParameter( annotation, "name" ) );
-    findOrCreateObserved( name ).setOnDepsChange( method );
+    findOrCreateObserve( name ).setOnDepsChange( method );
   }
 
   private void addObserverRef( @Nonnull final AnnotationMirror annotation,
@@ -1120,8 +1119,8 @@ final class ComponentDescriptor
                          Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                          memoize.getMethod() );
     }
-    // Observed have pairs so let the caller determine whether a duplicate occurs in that scenario
-    if ( !sourceAnnotationName.equals( Constants.OBSERVED_ANNOTATION_CLASSNAME ) )
+    // Observe have pairs so let the caller determine whether a duplicate occurs in that scenario
+    if ( !sourceAnnotationName.equals( Constants.OBSERVE_ANNOTATION_CLASSNAME ) )
     {
       final ObserveDescriptor observed = _observes.get( name );
       if ( null != observed )
@@ -1129,8 +1128,8 @@ final class ComponentDescriptor
         throw toException( name,
                            sourceAnnotationName,
                            sourceMethod,
-                           Constants.OBSERVED_ANNOTATION_CLASSNAME,
-                           observed.getObserved() );
+                           Constants.OBSERVE_ANNOTATION_CLASSNAME,
+                           observed.getObserve() );
       }
     }
     // Observables have pairs so let the caller determine whether a duplicate occurs in that scenario
@@ -2108,21 +2107,21 @@ final class ComponentDescriptor
   {
     for ( final ObserveDescriptor observe : _roObserves )
     {
-      if ( !observe.hasObserved() )
+      if ( !observe.hasObserve() )
       {
         final CandidateMethod candidate = observes.remove( observe.getName() );
         if ( null != candidate )
         {
-          observe.setObservedMethod( false,
-                                     "NORMAL",
-                                     true,
-                                     true,
-                                     true,
-                                     "AREZ",
-                                     false,
-                                     false,
-                                     candidate.getMethod(),
-                                     candidate.getMethodType() );
+          observe.setObserveMethod( false,
+                                    "NORMAL",
+                                    true,
+                                    true,
+                                    true,
+                                    "AREZ",
+                                    false,
+                                    false,
+                                    candidate.getMethod(),
+                                    candidate.getMethodType() );
         }
         else
         {
@@ -2150,7 +2149,7 @@ final class ComponentDescriptor
     final AnnotationMirror action =
       ProcessorUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
     final AnnotationMirror observed =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVED_ANNOTATION_CLASSNAME );
+      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observable =
       ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observableValueRef =
@@ -2225,7 +2224,7 @@ final class ComponentDescriptor
     }
     else if ( null != observed )
     {
-      addObserved( observed, method, methodType );
+      addObserve( observed, method, methodType );
       return true;
     }
     else if ( null != onDepsChange )
@@ -2389,7 +2388,7 @@ final class ComponentDescriptor
   {
     final String[] annotationTypes =
       new String[]{ Constants.ACTION_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVED_ANNOTATION_CLASSNAME,
+                    Constants.OBSERVE_ANNOTATION_CLASSNAME,
                     Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,

@@ -40,7 +40,7 @@ final class ObserveDescriptor
   private boolean _observeLowerPriorityDependencies;
   private boolean _nestedActionsAllowed;
   @Nullable
-  private ExecutableElement _observed;
+  private ExecutableElement _observe;
   @Nullable
   private ExecutableType _observedType;
   @Nullable
@@ -69,39 +69,41 @@ final class ObserveDescriptor
   }
 
   @Nonnull
-  ExecutableElement getObserved()
+  ExecutableElement getObserve()
   {
-    assert null != _observed;
-    return _observed;
+    assert null != _observe;
+    return _observe;
   }
 
-  boolean hasObserved()
+  boolean hasObserve()
   {
-    return null != _observed;
+    return null != _observe;
   }
 
-  void setObservedMethod( final boolean mutation,
-                          @Nonnull final String priority,
-                          final boolean arezExecutor,
-                          final boolean reportParameters,
-                          final boolean reportResult,
-                          @Nonnull final String depType,
-                          final boolean observeLowerPriorityDependencies,
-                          final boolean nestedActionsAllowed,
-                          @Nonnull final ExecutableElement method,
-                          @Nonnull final ExecutableType trackedMethodType )
+  void setObserveMethod( final boolean mutation,
+                         @Nonnull final String priority,
+                         final boolean arezExecutor,
+                         final boolean reportParameters,
+                         final boolean reportResult,
+                         @Nonnull final String depType,
+                         final boolean observeLowerPriorityDependencies,
+                         final boolean nestedActionsAllowed,
+                         @Nonnull final ExecutableElement method,
+                         @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.OBSERVED_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.OBSERVE_ANNOTATION_CLASSNAME, method );
 
     if ( arezExecutor )
     {
       if ( !method.getParameters().isEmpty() )
       {
-        throw new ArezProcessorException( "@Observe target must not have any parameters when executor=INTERNAL", method );
+        throw new ArezProcessorException( "@Observe target must not have any parameters when executor=INTERNAL",
+                                          method );
       }
       if ( !method.getThrownTypes().isEmpty() )
       {
-        throw new ArezProcessorException( "@Observe target must not throw any exceptions when executor=INTERNAL", method );
+        throw new ArezProcessorException( "@Observe target must not throw any exceptions when executor=INTERNAL",
+                                          method );
       }
       if ( TypeKind.VOID != method.getReturnType().getKind() )
       {
@@ -123,10 +125,10 @@ final class ObserveDescriptor
       }
     }
 
-    if ( null != _observed )
+    if ( null != _observe )
     {
       throw new ArezProcessorException( "@Observe target duplicates existing method named " +
-                                        _observed.getSimpleName(), method );
+                                        _observe.getSimpleName(), method );
     }
     else
     {
@@ -138,7 +140,7 @@ final class ObserveDescriptor
       _depType = Objects.requireNonNull( depType );
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _nestedActionsAllowed = nestedActionsAllowed;
-      _observed = Objects.requireNonNull( method );
+      _observe = Objects.requireNonNull( method );
       _observedType = Objects.requireNonNull( trackedMethodType );
     }
   }
@@ -193,23 +195,23 @@ final class ObserveDescriptor
   {
     if ( _arezExecutor && null != _onDepsChange && null == _refMethod )
     {
-      assert null != _observed;
+      assert null != _observe;
       throw new ArezProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
                                         "method but has not defined an @ObserverRef method and thus can never" +
-                                        "schedule observer.", _observed );
+                                        "schedule observer.", _observe );
     }
     if ( !_arezExecutor && null == _onDepsChange )
     {
-      assert null != _observed;
+      assert null != _observe;
       throw new ArezProcessorException( "@Observe target defined parameter executor=EXTERNAL but does not " +
-                                        "specify an @OnDepsChange method.", _observed );
+                                        "specify an @OnDepsChange method.", _observe );
     }
     if ( "AREZ_OR_EXTERNAL".equals( _depType ) && null == _refMethod )
     {
-      assert null != _observed;
+      assert null != _observe;
       throw new ArezProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
                                         "defined an @ObserverRef method and thus can not invoke reportStale().",
-                                        _observed );
+                                        _observe );
     }
   }
 
@@ -241,7 +243,7 @@ final class ObserveDescriptor
     parameters.add( GeneratorUtil.AREZ_CLASSNAME );
     parameters.add( GeneratorUtil.NAME_VAR_NAME );
     parameters.add( "." + getName() );
-    parameters.add( getObserved().getSimpleName().toString() );
+    parameters.add( getObserve().getSimpleName().toString() );
     if ( null != _onDepsChange )
     {
       sb.append( "() -> super.$N(), " );
@@ -338,7 +340,7 @@ final class ObserveDescriptor
   {
     if ( _arezExecutor )
     {
-      builder.addMethod( buildObserved() );
+      builder.addMethod( buildObserve() );
     }
     else
     {
@@ -382,21 +384,21 @@ final class ObserveDescriptor
   private MethodSpec buildTracked()
     throws ArezProcessorException
   {
-    assert null != _observed;
+    assert null != _observe;
     assert null != _observedType;
 
-    final String methodName = _observed.getSimpleName().toString();
+    final String methodName = _observe.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _observed, builder );
+    ProcessorUtil.copyAccessModifiers( _observe, builder );
     ProcessorUtil.copyExceptions( _observedType, builder );
     ProcessorUtil.copyTypeParameters( _observedType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _observed, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _observe, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _observedType.getReturnType();
     builder.returns( TypeName.get( returnType ) );
 
     final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
-    final List<? extends TypeMirror> thrownTypes = _observed.getThrownTypes();
+    final List<? extends TypeMirror> thrownTypes = _observe.getThrownTypes();
     final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
@@ -431,9 +433,9 @@ final class ObserveDescriptor
     params.add( getFieldName() );
 
     statement.append( "() -> super.$N(" );
-    params.add( _observed.getSimpleName() );
+    params.add( _observe.getSimpleName() );
 
-    final List<? extends VariableElement> parameters = _observed.getParameters();
+    final List<? extends VariableElement> parameters = _observe.getParameters();
     final int paramCount = parameters.size();
     if ( 0 != paramCount )
     {
@@ -506,19 +508,19 @@ final class ObserveDescriptor
    * This is wrapped to block user from directly invoking observed method.
    */
   @Nonnull
-  private MethodSpec buildObserved()
+  private MethodSpec buildObserve()
     throws ArezProcessorException
   {
-    assert null != _observed;
+    assert null != _observe;
     assert null != _observedType;
-    final String methodName = _observed.getSimpleName().toString();
+    final String methodName = _observe.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _observed, builder );
+    ProcessorUtil.copyAccessModifiers( _observe, builder );
     ProcessorUtil.copyExceptions( _observedType, builder );
     ProcessorUtil.copyTypeParameters( _observedType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _observed, builder );
+    ProcessorUtil.copyWhitelistedAnnotations( _observe, builder );
     builder.addAnnotation( Override.class );
-    final TypeMirror returnType = _observed.getReturnType();
+    final TypeMirror returnType = _observe.getReturnType();
     builder.returns( TypeName.get( returnType ) );
 
     final CodeBlock.Builder block = CodeBlock.builder();
@@ -534,7 +536,7 @@ final class ObserveDescriptor
     // that only contains a super invocation and will thus inline it. If the body is left empty then the
     // GWT compiler will be required to keep the empty method present because it can not determine that the
     // empty method will never be invoked.
-    builder.addStatement( "super.$N()", _observed.getSimpleName() );
+    builder.addStatement( "super.$N()", _observe.getSimpleName() );
 
     return builder.build();
   }
