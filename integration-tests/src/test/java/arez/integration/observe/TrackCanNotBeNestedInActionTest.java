@@ -16,7 +16,7 @@ public class TrackCanNotBeNestedInActionTest
   {
     int _renderCallCount;
 
-    @Observe( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.EXTERNAL )
     void render()
     {
       observeADependency();

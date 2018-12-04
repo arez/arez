@@ -11,9 +11,9 @@ public enum Executor
   /**
    * Arez is responsible for invoking the observed method.
    */
-  AREZ,
+  INTERNAL,
   /**
    * The application is responsible for invoking the observed method via the {@link arez.ArezContext#observe(Observer, arez.Function, Object...)}  or {@link arez.ArezContext#observe(Observer, Procedure, Object...)} methods.
    */
-  APPLICATION
+  EXTERNAL
 }

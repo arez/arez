@@ -9,7 +9,7 @@ import arez.annotations.OnDepsChange;
 public abstract class CurrencyView
 {
   // A read-only observer that renders
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public ReactNode render()
   {
     //Render component here

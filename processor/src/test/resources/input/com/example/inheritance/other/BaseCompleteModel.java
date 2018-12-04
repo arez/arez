@@ -98,7 +98,7 @@ public abstract class BaseCompleteModel
   @ObservableValueRef
   protected abstract ObservableValue<String> getMyValueObservableValue();
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public void render( final long time, float someOtherParameter )
   {
   }

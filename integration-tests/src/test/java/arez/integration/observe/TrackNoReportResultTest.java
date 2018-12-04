@@ -22,7 +22,7 @@ public class TrackNoReportResultTest
   @ArezComponent
   public static abstract class Model
   {
-    @Observe( executor = Executor.APPLICATION, reportResult = false )
+    @Observe( executor = Executor.EXTERNAL, reportResult = false )
     public int render()
     {
       getTime();

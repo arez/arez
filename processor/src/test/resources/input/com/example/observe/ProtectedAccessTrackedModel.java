@@ -8,7 +8,7 @@ import arez.annotations.OnDepsChange;
 @ArezComponent
 public abstract class ProtectedAccessTrackedModel
 {
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   protected void render( final long time, float someOtherParameter )
   {
   }

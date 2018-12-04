@@ -21,7 +21,7 @@ public class TrackCanNestActionTest
     int _depsChangedCallCount;
     int _actionCallCount;
 
-    @Observe( executor = Executor.APPLICATION, nestedActionsAllowed = true )
+    @Observe( executor = Executor.EXTERNAL, nestedActionsAllowed = true )
     public void render()
     {
       getTime2();

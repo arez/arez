@@ -8,7 +8,7 @@ import arez.annotations.OnDepsChange;
 @ArezComponent
 public abstract class BasicTrackedModel
 {
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public void render( final long time, float someOtherParameter )
   {
   }

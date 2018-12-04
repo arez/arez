@@ -28,7 +28,7 @@ public abstract class TrainTicket
     setRemainingRides( getRemainingRides() - 1 );
   }
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public String render()
   {
     return "<table class='ticket'>" +

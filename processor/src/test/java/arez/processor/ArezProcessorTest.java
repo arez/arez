@@ -605,9 +605,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.action.StaticActionModel", "@Action target must not be static" },
 
         new Object[]{ "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
-                      "@Observe target defined parameter executor=APPLICATION but does not specify an @OnDepsChange method." },
+                      "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method." },
         new Object[]{ "com.example.observe.ArezExecutorOnDepsChangeButNoObserverRefModel",
-                      "@Observe target with parameter executor=AREZ defined an @OnDepsChange method but has not defined an @ObserverRef method and thus can neverschedule observer." },
+                      "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange method but has not defined an @ObserverRef method and thus can neverschedule observer." },
         new Object[]{ "com.example.observe.NonArezDependenciesButNoObserverRefModel",
                       "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not defined an @ObserverRef method and thus can not invoke reportStale()." },
         new Object[]{ "com.example.observe.ObserveAbstractModel", "@Observe target must not be abstract" },
@@ -628,9 +628,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.ObserveThrowsExceptionModel",
                       "@Observe target must not throw any exceptions" },
         new Object[]{ "com.example.observe.ReportResultArezExecutorModel",
-                      "@Observe target must not specify reportResult parameter when executor=AREZ" },
+                      "@Observe target must not specify reportResult parameter when executor=INTERNAL" },
         new Object[]{ "com.example.observe.ReportParametersArezExecutorModel",
-                      "@Observe target must not specify reportParameters parameter when executor=AREZ" },
+                      "@Observe target must not specify reportParameters parameter when executor=INTERNAL" },
 
         new Object[]{ "com.example.cascade_dispose.AbstractMethodComponent",
                       "@CascadeDispose target must not be abstract" },

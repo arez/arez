@@ -9,7 +9,7 @@ import arez.annotations.Observe;
 public abstract class MemoizeAndObserveMethodModel
 {
   @Memoize
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public long getField()
   {
     return 22;

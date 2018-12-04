@@ -8,7 +8,7 @@ import arez.annotations.OnDepsChange;
 @ArezComponent
 public abstract class NestedActionsAllowedTrackedModel
 {
-  @Observe( executor = Executor.APPLICATION, nestedActionsAllowed = true )
+  @Observe( executor = Executor.EXTERNAL, nestedActionsAllowed = true )
   public void render( final long time, float someOtherParameter )
   {
   }

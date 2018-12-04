@@ -6,7 +6,7 @@ import arez.annotations.OnDepsChange;
 
 public class BaseModelProtectedAccess
 {
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   protected void render( final long time, float someOtherParameter )
   {
   }

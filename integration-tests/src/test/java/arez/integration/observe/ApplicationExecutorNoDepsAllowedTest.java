@@ -21,7 +21,7 @@ public class ApplicationExecutorNoDepsAllowedTest
   {
     int _renderCallCount;
 
-    @Observe( executor = Executor.APPLICATION, depType = DepType.AREZ_OR_NONE )
+    @Observe( executor = Executor.EXTERNAL, depType = DepType.AREZ_OR_NONE )
     void render()
     {
       _renderCallCount++;

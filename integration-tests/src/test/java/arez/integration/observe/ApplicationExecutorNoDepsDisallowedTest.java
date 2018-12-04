@@ -17,7 +17,7 @@ public class ApplicationExecutorNoDepsDisallowedTest
   {
     int _renderCallCount;
 
-    @Observe( executor = Executor.APPLICATION, depType = DepType.AREZ )
+    @Observe( executor = Executor.EXTERNAL, depType = DepType.AREZ )
     void render()
     {
       _renderCallCount++;

@@ -49,7 +49,7 @@ public abstract class SingletonWithIdModel
   @ObserverRef
   abstract Observer getRenderObserver();
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public void render2( int i )
   {
   }

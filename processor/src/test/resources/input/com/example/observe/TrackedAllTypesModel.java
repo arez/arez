@@ -9,24 +9,24 @@ import java.text.ParseException;
 @ArezComponent
 public abstract class TrackedAllTypesModel
 {
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public void render1()
   {
   }
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public void render2()
     throws ParseException
   {
   }
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   protected int render3()
   {
     return 0;
   }
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   int render4()
     throws ParseException
   {

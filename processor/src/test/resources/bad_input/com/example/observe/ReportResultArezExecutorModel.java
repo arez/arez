@@ -7,7 +7,7 @@ import arez.annotations.Observe;
 @ArezComponent
 public abstract class ReportResultArezExecutorModel
 {
-  @Observe( reportResult = false, executor = Executor.AREZ )
+  @Observe( reportResult = false, executor = Executor.INTERNAL )
   void doStuff()
   {
   }

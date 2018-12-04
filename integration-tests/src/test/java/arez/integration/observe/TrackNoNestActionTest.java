@@ -20,7 +20,7 @@ public class TrackNoNestActionTest
     int _depsChangedCallCount;
     int _actionCallCount;
 
-    @Observe( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.EXTERNAL )
     public void render()
     {
       getTime2();

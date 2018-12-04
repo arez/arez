@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be abstract</li>
  * </ul>
  *
- * <p>If the {@link #executor()} is set to {@link Executor#AREZ} then the method must also
+ * <p>If the {@link #executor()} is set to {@link Executor#INTERNAL} then the method must also
  * comply with the following additional constraints:</p>
  * <ul>
  * <li>Must not be public</li>
@@ -70,7 +70,7 @@ public @interface Observe
    *
    * @return the actor responsible for calling the observed method.
    */
-  Executor executor() default Executor.AREZ;
+  Executor executor() default Executor.INTERNAL;
 
   /**
    * Flag controlling whether the observer can observe ComputableValue instances with lower priorities.
@@ -109,7 +109,7 @@ public @interface Observe
   /**
    * Return true if the return value of the observed function (if any) should be reported to the Arez spy subsystem.
    * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
-   * This is only useful if the value of {@link #executor()} is set to {@link Executor#APPLICATION} as otherwise the
+   * This is only useful if the value of {@link #executor()} is set to {@link Executor#EXTERNAL} as otherwise the
    * result is not reported anyway.
    *
    * @return true to report the return value, false otherwise.

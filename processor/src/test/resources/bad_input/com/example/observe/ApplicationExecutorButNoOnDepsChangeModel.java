@@ -9,7 +9,7 @@ import arez.annotations.ObserverRef;
 @ArezComponent
 public abstract class ApplicationExecutorButNoOnDepsChangeModel
 {
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   void doStuff()
   {
   }

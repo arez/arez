@@ -255,7 +255,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Override
   protected void myWatcher() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observe method named 'myWatcher' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'myWatcher' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
     super.myWatcher();
   }

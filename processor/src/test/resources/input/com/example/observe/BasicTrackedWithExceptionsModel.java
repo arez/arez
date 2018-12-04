@@ -9,7 +9,7 @@ import java.text.ParseException;
 @ArezComponent
 public abstract class BasicTrackedWithExceptionsModel
 {
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   public void render()
     throws ParseException
   {

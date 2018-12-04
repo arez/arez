@@ -11,7 +11,7 @@ public abstract class BaseObserveModel
   {
   }
 
-  @Observe( executor = Executor.APPLICATION )
+  @Observe( executor = Executor.EXTERNAL )
   void render( final long time, float someOtherParameter )
   {
   }

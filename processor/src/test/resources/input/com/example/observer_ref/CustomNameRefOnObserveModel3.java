@@ -10,7 +10,7 @@ import arez.annotations.OnDepsChange;
 @ArezComponent
 public abstract class CustomNameRefOnObserveModel3
 {
-  @Observe( executor = Executor.APPLICATION, name = "render" )
+  @Observe( executor = Executor.EXTERNAL, name = "render" )
   public void $$$rende$$$r()
   {
   }

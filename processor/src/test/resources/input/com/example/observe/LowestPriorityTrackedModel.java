@@ -9,7 +9,7 @@ import arez.annotations.Priority;
 @ArezComponent
 public abstract class LowestPriorityTrackedModel
 {
-  @Observe( executor = Executor.APPLICATION, priority = Priority.LOWEST )
+  @Observe( executor = Executor.EXTERNAL, priority = Priority.LOWEST )
   public void render( final long time, float someOtherParameter )
   {
   }

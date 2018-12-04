@@ -217,7 +217,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model4();
     }
 
-    @Observe( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.EXTERNAL )
     public void myObserveReaction()
     {
       setName( "Changed" );
@@ -253,7 +253,7 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
-    @Observe( executor = Executor.APPLICATION )
+    @Observe( executor = Executor.EXTERNAL )
     public void myObserveReaction()
     {
       getName();
@@ -288,7 +288,7 @@ public class ObserversMutationParameterIntegrationTest
       return new ObserversMutationParameterIntegrationTest_Arez_Model6();
     }
 
-    @Observe( executor = Executor.APPLICATION, mutation = true )
+    @Observe( executor = Executor.EXTERNAL, mutation = true )
     public void myObserveReaction()
     {
       observeADependency();

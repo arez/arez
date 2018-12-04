@@ -72,7 +72,7 @@ public final class Arez_ScheduleDeferredModel extends ScheduleDeferredModel impl
   @Override
   protected void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
+      Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
     super.doStuff();
   }

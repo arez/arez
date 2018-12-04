@@ -556,7 +556,7 @@ final class ComponentDescriptor
     final ObserveDescriptor observed = findOrCreateObserved( name );
     observed.setObservedMethod( mutation,
                                 priority.getSimpleName().toString(),
-                                executor.getSimpleName().toString().equals( "AREZ" ),
+                                executor.getSimpleName().toString().equals( "INTERNAL" ),
                                 reportParameters,
                                 reportResult,
                                 depType.getSimpleName().toString(),

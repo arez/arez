@@ -37,7 +37,7 @@ public abstract class OverrideNamesInModel
     return 0;
   }
 
-  @Observe( executor = Executor.APPLICATION,name = "XX" )
+  @Observe( executor = Executor.EXTERNAL,name = "XX" )
   public void render()
     throws ParseException
   {

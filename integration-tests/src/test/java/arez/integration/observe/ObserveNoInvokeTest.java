@@ -31,7 +31,7 @@ public class ObserveNoInvokeTest
     assertEquals( component._observerCallCount, 1 );
 
     assertInvariant( component::observer,
-                     "Observe method named 'observer' invoked but @Observe(executor=AREZ) annotated methods should only be invoked by the runtime." );
+                     "Observe method named 'observer' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     assertEquals( component._observerCallCount, 1 );
   }
 }
