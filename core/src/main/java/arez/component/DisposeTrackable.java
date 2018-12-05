@@ -10,7 +10,7 @@ import static org.realityforge.braincheck.Guards.*;
  * when the component is disposed. This notification occurs using a call-back
  * and occurs within the dispose transaction (after {@link arez.annotations.PreDispose}
  * is invoked if present) using a callback. Contrast this with the strategy used by
- * {@link ComponentObservable} which uses standard Arez observables to tracke when
+ * {@link ComponentObservable} which uses standard Arez observables to track when
  * a component is disposed.
  */
 public interface DisposeTrackable
