@@ -2224,8 +2224,10 @@ public class TransactionTest
   @Test
   public void beginTransaction_nested_inDifferentContext()
   {
-    final ArezContext context1 = new ArezContext();
-    final ArezContext context2 = new ArezContext();
+    final Zone zone1 = Arez.createZone();
+    final Zone zone2 = Arez.createZone();
+    final ArezContext context1 = zone1.getContext();
+    final ArezContext context2 = zone2.getContext();
 
     assertFalse( context1.isTransactionActive() );
     assertFalse( context2.isTransactionActive() );
@@ -2249,8 +2251,10 @@ public class TransactionTest
   @Test
   public void beginTransaction_triple_nested_alternating_contexts()
   {
-    final ArezContext context1 = new ArezContext();
-    final ArezContext context2 = new ArezContext();
+    final Zone zone1 = Arez.createZone();
+    final Zone zone2 = Arez.createZone();
+    final ArezContext context1 = zone1.getContext();
+    final ArezContext context2 = zone2.getContext();
 
     assertFalse( context1.isTransactionActive() );
     assertFalse( context2.isTransactionActive() );
@@ -2436,8 +2440,10 @@ public class TransactionTest
   @Test
   public void commitTransaction_enablesScheduler_forInterleavedContexts()
   {
-    final ArezContext context1 = new ArezContext();
-    final ArezContext context2 = new ArezContext();
+    final Zone zone1 = Arez.createZone();
+    final Zone zone2 = Arez.createZone();
+    final ArezContext context1 = zone1.getContext();
+    final ArezContext context2 = zone2.getContext();
 
     final Transaction transaction1 =
       Transaction.begin( context1, ValueUtil.randomString(), false, null );
@@ -2465,8 +2471,10 @@ public class TransactionTest
   @Test
   public void commitTransaction_enablesScheduler_forStripedContexts()
   {
-    final ArezContext context1 = new ArezContext();
-    final ArezContext context2 = new ArezContext();
+    final Zone zone1 = Arez.createZone();
+    final Zone zone2 = Arez.createZone();
+    final ArezContext context1 = zone1.getContext();
+    final ArezContext context2 = zone2.getContext();
 
     final Transaction transaction1 =
       Transaction.begin( context1, ValueUtil.randomString(), false, null );
