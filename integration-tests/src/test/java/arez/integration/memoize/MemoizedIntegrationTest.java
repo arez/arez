@@ -5,11 +5,14 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
+import arez.Flags;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
+import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -121,8 +124,6 @@ public class MemoizedIntegrationTest
   public void scenario_disposeWithoutDeactivate()
     throws Throwable
   {
-    setIgnoreObserverErrors( true );
-
     final ArezContext context = Arez.context();
 
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
@@ -131,9 +132,11 @@ public class MemoizedIntegrationTest
 
     context.observer( "SearchResult - red - 20",
                       () -> {
-                        observeADependency();
-                        recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
-                      } );
+                        if ( ComponentObservable.observe( person ) )
+                        {
+                          recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                        }
+                      }, Flags.AREZ_OR_NO_DEPENDENCIES );
 
     Disposable.dispose( person );
 
@@ -145,7 +148,6 @@ public class MemoizedIntegrationTest
     throws Throwable
   {
     ArezTestUtil.disableNativeComponents();
-    setIgnoreObserverErrors( true );
 
     final ArezContext context = Arez.context();
 
@@ -155,9 +157,11 @@ public class MemoizedIntegrationTest
 
     context.observer( "SearchResult - red - 20",
                       () -> {
-                        observeADependency();
-                        recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
-                      } );
+                        if ( ComponentObservable.observe( person ) )
+                        {
+                          recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
+                        }
+                      }, Flags.AREZ_OR_NO_DEPENDENCIES );
 
     Disposable.dispose( person );
 
@@ -165,7 +169,7 @@ public class MemoizedIntegrationTest
   }
 
   @SuppressWarnings( "WeakerAccess" )
-  @ArezComponent
+  @ArezComponent( observable = Feature.ENABLE )
   public static abstract class PersonModel
   {
     private String _name;

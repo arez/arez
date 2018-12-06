@@ -5,6 +5,10 @@
         "type": "ComponentCreateStart"
     },
     {
+        "name": "PersonModel.2.isDisposed",
+        "type": "ObservableValueCreate"
+    },
+    {
         "name": "PersonModel.2.name",
         "type": "ObservableValueCreate"
     },

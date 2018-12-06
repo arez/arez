@@ -5,6 +5,10 @@
         "type": "ComponentCreateStart"
     },
     {
+        "name": "PersonModel.4.isDisposed",
+        "type": "ObservableValueCreate"
+    },
+    {
         "name": "PersonModel.4.name",
         "type": "ObservableValueCreate"
     },
@@ -40,10 +44,6 @@
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
         "type": "TransactionStart"
-    },
-    {
-        "name": "ObservableValue@1",
-        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.4.doesFullSearchMatch.0",
@@ -183,6 +183,32 @@
         ]
     },
     {
+        "name": "PersonModel.4.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "PersonModel.4.isDisposed",
+        "type": "ObservableValueChange",
+        "value": false
+    },
+    {
+        "result": null,
+        "name": "PersonModel.4.isDisposed.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "PersonModel.4.isDisposed",
+        "type": "ObservableValueDispose"
+    },
+    {
         "name": "PersonModel.4.name.dispose",
         "tracked": false,
         "type": "ActionStart",
@@ -268,10 +294,6 @@
         "type": "TransactionStart"
     },
     {
-        "name": "ObservableValue@2",
-        "type": "ObservableValueCreate"
-    },
-    {
         "mutation": false,
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
@@ -280,7 +302,7 @@
     {
         "result": null,
         "name": "SearchResult - red - 20",
-        "errorMessage": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.4'",
+        "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
         "type": "ActionComplete",
@@ -288,14 +310,8 @@
         ]
     },
     {
-        "errorType": "REACTION_ERROR",
         "name": "SearchResult - red - 20",
-        "type": "ObserverError",
-        "message": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.4'"
-    },
-    {
-        "name": "SearchResult - red - 20",
-        "errorMessage": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.4'",
+        "errorMessage": null,
         "type": "ObserveComplete"
     },
     {

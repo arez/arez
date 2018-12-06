@@ -1,6 +1,10 @@
 
 [
     {
+        "name": "PersonModel.3.isDisposed",
+        "type": "ObservableValueCreate"
+    },
+    {
         "name": "PersonModel.3.name",
         "type": "ObservableValueCreate"
     },
@@ -32,10 +36,6 @@
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
         "type": "TransactionStart"
-    },
-    {
-        "name": "ObservableValue@1",
-        "type": "ObservableValueCreate"
     },
     {
         "name": "PersonModel.3.doesFullSearchMatch.0",
@@ -107,6 +107,36 @@
         "type": "TransactionStart"
     },
     {
+        "name": "PersonModel.3.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "PersonModel.3.isDisposed",
+        "type": "ObservableValueChange",
+        "value": false
+    },
+    {
+        "name": "SearchResult - red - 20",
+        "type": "ObserveSchedule"
+    },
+    {
+        "result": null,
+        "name": "PersonModel.3.isDisposed.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "PersonModel.3.isDisposed",
+        "type": "ObservableValueDispose"
+    },
+    {
         "name": "PersonModel.3.doesSearchMatch",
         "tracked": false,
         "type": "ActionStart",
@@ -162,10 +192,6 @@
         "name": "PersonModel.3.doesFullSearchMatch.0",
         "type": "ObservableValueChange",
         "value": null
-    },
-    {
-        "name": "SearchResult - red - 20",
-        "type": "ObserveSchedule"
     },
     {
         "result": null,
@@ -290,10 +316,6 @@
         "type": "TransactionStart"
     },
     {
-        "name": "ObservableValue@2",
-        "type": "ObservableValueCreate"
-    },
-    {
         "mutation": false,
         "name": "SearchResult - red - 20",
         "tracker": "SearchResult - red - 20",
@@ -302,7 +324,7 @@
     {
         "result": null,
         "name": "SearchResult - red - 20",
-        "errorMessage": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.3'",
+        "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
         "type": "ActionComplete",
@@ -310,14 +332,8 @@
         ]
     },
     {
-        "errorType": "REACTION_ERROR",
         "name": "SearchResult - red - 20",
-        "type": "ObserverError",
-        "message": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.3'"
-    },
-    {
-        "name": "SearchResult - red - 20",
-        "errorMessage": "Method named 'doesFullSearchMatch' invoked on disposing component named 'PersonModel.3'",
+        "errorMessage": null,
         "type": "ObserveComplete"
     }
 ]

@@ -5,6 +5,10 @@
         "type": "ComponentCreateStart"
     },
     {
+        "name": "PersonModel.1.isDisposed",
+        "type": "ObservableValueCreate"
+    },
+    {
         "name": "PersonModel.1.name",
         "type": "ObservableValueCreate"
     },
@@ -1826,6 +1830,32 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "name": "PersonModel.1.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "PersonModel.1.isDisposed",
+        "type": "ObservableValueChange",
+        "value": false
+    },
+    {
+        "result": null,
+        "name": "PersonModel.1.isDisposed.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "PersonModel.1.isDisposed",
+        "type": "ObservableValueDispose"
     },
     {
         "name": "PersonModel.1.name.dispose",
