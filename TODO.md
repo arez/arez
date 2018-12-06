@@ -15,6 +15,13 @@ complete as there is too much un-said.
 
 * Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
 
+* Injectible components should run injector prior to postConstruct
+
+* Can inverse references be maps. The key would be the component id.
+
+* Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
+  wrapper around underling collections.
+
 * Consider moving computable flags, action flags, task flags and observer flags into separate classes
 
 * Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
