@@ -13,7 +13,7 @@ public class TransactionInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null, false );
     final TransactionInfo info = transaction.asInfo();
 
     assertEquals( info.getName(), transaction.getName() );
@@ -27,7 +27,7 @@ public class TransactionInfoImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null );
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), true, null, false );
     final TransactionInfo info = transaction.asInfo();
 
     assertInvariantFailure( info::getTracker,
@@ -42,7 +42,7 @@ public class TransactionInfoImplTest
 
     final Observer observer = context.computable( () -> "" ).getObserver();
     final Transaction transaction =
-      new Transaction( context, null, observer.getName(), observer.isMutation(), observer );
+      new Transaction( context, null, observer.getName(), observer.isMutation(), observer, false );
     final TransactionInfo info = transaction.asInfo();
 
     assertEquals( info.getName(), transaction.getName() );
@@ -60,8 +60,9 @@ public class TransactionInfoImplTest
     final Observer observer1 = context.observer( new CountAndObserveProcedure() );
     final Observer observer2 = context.observer( new CountAndObserveProcedure() );
 
-    final Transaction transaction1 = new Transaction( context, null, observer1.getName(), false, observer1 );
-    final Transaction transaction2 = new Transaction( context, transaction1, observer2.getName(), false, observer2 );
+    final Transaction transaction1 = new Transaction( context, null, observer1.getName(), false, observer1, false );
+    final Transaction transaction2 =
+      new Transaction( context, transaction1, observer2.getName(), false, observer2, false );
     final TransactionInfo info = transaction2.asInfo();
 
     assertEquals( info.getName(), transaction2.getName() );

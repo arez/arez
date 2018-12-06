@@ -20,6 +20,11 @@
   zone stacks are not created if zones are disabled. Nor is a non-Zoned context created if zones are enabled.
 * **\[core\]** The `ArezTestUtil.resetState()` method was made private and instead it is automatically invoked
   when configuration settings are modified that needs a state reset.
+* **\[core\]** Fixed a bug where actions invoked from within a `Zone` where the action is part of a different
+  `Zone` did not correctly activate and deactivate the zone to which it was associated with over the scope of
+  the execution. Thus any call to `Arez.context()` would return the incorrect context and thus components created
+  within the action were associated with the incorrect zone. A similar bug was present in externally executed
+  observe methods.
 
 ### [v0.118](https://github.com/arez/arez/tree/v0.118) (2018-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.117...v0.118)

@@ -198,6 +198,8 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.SchedulerLock", "_context", enabled );
     index.assertSymbol( "arez\\.SpyImpl", "_context", enabled );
     index.assertSymbol( "arez\\.Transaction", "_context", enabled );
+    index.assertSymbol( "arez\\.Transaction", "_zoneActivated", enabled );
+    index.assertSymbol( "arez\\.Transaction", "_previousInSameContext", enabled );
     index.assertSymbol( "arez\\.component\\.MemoizeCache", "_context", enabled );
   }
 

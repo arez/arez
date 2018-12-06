@@ -87,6 +87,11 @@ final class Transaction
    */
   private boolean _transactionUsed;
   /**
+   * The flag set if transaction changed zones.
+   * This should only be accessed when {@link Arez#areZonesEnabled()} returns true.
+   */
+  private boolean _zoneActivated;
+  /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
@@ -168,7 +173,18 @@ final class Transaction
                          "different context." );
       }
     }
-    c_transaction = new Transaction( Arez.areZonesEnabled() ? context : null, c_transaction, name, mutation, tracker );
+    boolean zoneActivated = false;
+    if ( Arez.areZonesEnabled() )
+    {
+      final Zone zone = context.getZone();
+      if ( Arez.currentZone() != zone )
+      {
+        Arez.activateZone( zone );
+        zoneActivated = true;
+      }
+    }
+    c_transaction =
+      new Transaction( Arez.areZonesEnabled() ? context : null, c_transaction, name, mutation, tracker, zoneActivated );
     context.disableScheduler();
     c_transaction.begin();
     if ( context.willPropagateSpyEvents() )
@@ -228,6 +244,12 @@ final class Transaction
         c_transaction.getContext().enableScheduler();
       }
       c_transaction = c_transaction.getPrevious();
+      if ( Arez.areZonesEnabled() && transaction._zoneActivated )
+      {
+        final Zone currentZone = transaction.getContext().getZone();
+        assert currentZone == Arez.currentZone();
+        Arez.deactivateZone( currentZone );
+      }
     }
   }
 
@@ -235,7 +257,8 @@ final class Transaction
                @Nullable final Transaction previous,
                @Nullable final String name,
                final boolean mutation,
-               @Nullable final Observer tracker )
+               @Nullable final Observer tracker,
+               final boolean zoneActivated )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -251,6 +274,7 @@ final class Transaction
     _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
     _mutation = Arez.shouldEnforceTransactionType() && mutation;
     _tracker = tracker;
+    _zoneActivated = Arez.areZonesEnabled() && zoneActivated;
     _startedAt = Arez.areSpiesEnabled() ? System.currentTimeMillis() : 0;
 
     if ( Arez.shouldCheckInvariants() )

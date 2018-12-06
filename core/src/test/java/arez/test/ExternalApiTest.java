@@ -510,6 +510,25 @@ public class ExternalApiTest
   }
 
   @Test
+  public void contextReturnsZonedContextWithinActions()
+  {
+    final ArezContext context = Arez.context();
+
+    final Zone zone = Arez.createZone();
+
+    assertEquals( context, Arez.context() );
+    zone.safeRun( () -> {
+      assertNotEquals( context, Arez.context() );
+      assertEquals( zone.getContext(), Arez.context() );
+      context.safeAction( () -> {
+        assertEquals( context, Arez.context() );
+        assertNotEquals( zone.getContext(), Arez.context() );
+      }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    } );
+    assertEquals( context, Arez.context() );
+  }
+
+  @Test
   public void supportsMultipleContexts()
     throws Throwable
   {

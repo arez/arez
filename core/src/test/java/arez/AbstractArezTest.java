@@ -117,7 +117,8 @@ public abstract class AbstractArezTest
                                                  null,
                                                  ValueUtil.randomString(),
                                                  observer.isMutation(),
-                                                 observer ) );
+                                                 observer,
+                                                 false ) );
   }
 
   protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
