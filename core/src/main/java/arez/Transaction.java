@@ -211,8 +211,10 @@ final class Transaction
         final Observer tracker = c_transaction.getTracker();
         final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
         final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
-        c_transaction.getContext().getSpy().
-          reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, (int) duration ) );
+        c_transaction
+          .getContext()
+          .getSpy()
+          .reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, (int) duration ) );
       }
     }
     finally
