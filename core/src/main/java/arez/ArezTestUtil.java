@@ -67,7 +67,7 @@ public final class ArezTestUtil
 
   /**
    * Reset the state of Arez.
-   * This occasionally needs to be invoked after changing configuraiton settings in tests.
+   * This occasionally needs to be invoked after changing configuration settings in tests.
    */
   public static void resetState()
   {
