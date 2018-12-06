@@ -191,6 +191,7 @@ public final class ArezBuildAsserts
     index.assertSymbol( "arez\\.Arez", "deactivateZone", enabled );
     index.assertSymbol( "arez\\.Arez", "currentZone", enabled );
     index.assertSymbol( "arez\\.component\\.ComponentKernel", "_context", enabled );
+    index.assertSymbol( "arez\\.ArezContext", "_zone", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
     index.assertSymbol( "arez\\.Component", "_context", enabled );
     index.assertSymbol( "arez\\.Node", "_context", enabled );
