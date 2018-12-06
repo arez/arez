@@ -37,6 +37,24 @@ public class ArezContextTest
   extends AbstractArezTest
 {
   @Test
+  public void zoneEnabledConstruction()
+  {
+    ArezTestUtil.enableZones();
+
+    final ArezContext context = Arez.context();
+
+    final Zone defaultZone = Arez.currentZone();
+
+    assertEquals( context.getZone(), defaultZone );
+
+    final Zone zone = Arez.createZone();
+    zone.safeRun( () -> {
+      assertNotEquals( Arez.context().getZone(), defaultZone );
+      assertEquals( Arez.context().getZone(), zone );
+    } );
+  }
+
+  @Test
   public void generateName()
   {
     final ArezContext context = Arez.context();

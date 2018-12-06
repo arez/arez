@@ -2286,8 +2286,8 @@ public class TransactionTest
   {
     ArezTestUtil.disableZones();
 
-    final ArezContext context1 = new ArezContext();
-    final ArezContext context2 = new ArezContext();
+    final ArezContext context1 = new ArezContext( null );
+    final ArezContext context2 = new ArezContext( null );
 
     assertFalse( context1.isTransactionActive() );
     assertFalse( context2.isTransactionActive() );

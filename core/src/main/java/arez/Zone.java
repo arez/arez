@@ -10,7 +10,7 @@ public final class Zone
   /**
    * The underlying context for zone.
    */
-  private final ArezContext _context = new ArezContext();
+  private final ArezContext _context = new ArezContext( this );
 
   /**
    * Return the context for the zone.

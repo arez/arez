@@ -39,6 +39,11 @@ public final class ArezContext
    */
   private int _nextTransactionId = 1;
   /**
+   * Zone associated with the context. This should be null unless {@link Arez#areZonesEnabled()} returns <code>true</code>.
+   */
+  @Nullable
+  private final Zone _zone;
+  /**
    * Tasks scheduled but  yet to be run.
    */
   @Nonnull
@@ -112,8 +117,9 @@ public final class ArezContext
   /**
    * Arez context should not be created directly but only accessed via Arez.
    */
-  ArezContext()
+  ArezContext( @Nullable final Zone zone )
   {
+    _zone = Arez.areZonesEnabled() ? Objects.requireNonNull( zone ) : null;
   }
 
   /**
@@ -2328,6 +2334,13 @@ public final class ArezContext
     }
     assert null != _tasks;
     return _tasks;
+  }
+
+  @Nonnull
+  Zone getZone()
+  {
+    assert null != _zone;
+    return _zone;
   }
 
   @Nonnull
