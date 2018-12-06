@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 final class ArezContextHolder
 {
   @Nullable
-  private static ArezContext c_context = Arez.areZonesEnabled() ? null : new ArezContext();
+  private static ArezContext c_context = Arez.areZonesEnabled() ? null : new ArezContext( null );
 
   private ArezContextHolder()
   {
@@ -35,6 +35,6 @@ final class ArezContextHolder
    */
   static void reset()
   {
-    c_context = new ArezContext();
+    c_context = Arez.areZonesEnabled() ? null : new ArezContext( null );
   }
 }

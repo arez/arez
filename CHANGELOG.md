@@ -16,6 +16,8 @@
   ensures that the method returns an object with a more easily understandable purpose.
 * **\[core\]** Rename the `Executor.AREZ` enum to `Executor.INTERNAL` and the `Executor.APPLICATION` enum
   to `Executor.EXTERNAL` to reflect actual semantics.
+* **\[core\]** Change the mechanisms via which test utility `arez.ArezTestUtil` resets state so that zones and
+  zone stacks are not created if zones are disabled. Nor is a non-Zoned context created if zones are enabled.
 
 ### [v0.118](https://github.com/arez/arez/tree/v0.118) (2018-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.117...v0.118)

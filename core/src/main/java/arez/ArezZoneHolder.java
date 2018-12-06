@@ -103,9 +103,9 @@ final class ArezZoneHolder
    */
   static void reset()
   {
-    c_defaultZone = new Zone();
+    c_defaultZone = Arez.areZonesEnabled() ? new Zone() : null;
     c_zone = c_defaultZone;
-    c_zoneStack = new ArrayList<>();
+    c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
   }
 
   @Nonnull
