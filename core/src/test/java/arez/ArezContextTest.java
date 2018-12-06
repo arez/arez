@@ -3214,7 +3214,6 @@ public class ArezContextTest
   public void locator_referencesDisabled()
   {
     ArezTestUtil.disableReferences();
-    ArezTestUtil.resetState();
 
     assertInvariantFailure( () -> Arez.context().locator(),
                             "Arez-0192: ArezContext.locator() invoked but Arez.areReferencesEnabled() returned false." );
@@ -3224,7 +3223,6 @@ public class ArezContextTest
   public void registerLocator_referencesDisabled()
   {
     ArezTestUtil.disableReferences();
-    ArezTestUtil.resetState();
 
     assertInvariantFailure( () -> Arez.context().registerLocator( new TypeBasedLocator() ),
                             "Arez-0191: ArezContext.registerLocator invoked but Arez.areReferencesEnabled() returned false." );

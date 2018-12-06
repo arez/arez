@@ -26,7 +26,6 @@ public class DisposedNotEqualIntegrationTest
      */
     ArezTestUtil.disableNativeComponents();
     ArezTestUtil.disableRegistries();
-    ArezTestUtil.resetState();
 
     final String id = ValueUtil.randomString();
     final Model1 model1 = Model1.create( id );

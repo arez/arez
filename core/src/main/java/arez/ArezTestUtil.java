@@ -61,15 +61,13 @@ public final class ArezTestUtil
     enableReferences();
     purgeTasksWhenRunawayDetected();
     disableZones();
-
-    resetState();
   }
 
   /**
    * Reset the state of Arez.
    * This occasionally needs to be invoked after changing configuration settings in tests.
    */
-  public static void resetState()
+  private static void resetState()
   {
     ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
     Transaction.setTransaction( null );
@@ -261,18 +259,24 @@ public final class ArezTestUtil
 
   /**
    * Set `arez.enable_zones` setting to true.
+   * This will result in the Arez state being reset to align with this setting. The
+   * normal practice is to invoke this at the start of a test.
    */
   public static void enableZones()
   {
     setEnableZones( true );
+    resetState();
   }
 
   /**
    * Set `arez.enable_zones` setting to false.
+   * This will result in the Arez state being reset to align with this setting. The
+   * normal practice is to invoke this at the start of a test.
    */
   public static void disableZones()
   {
     setEnableZones( false );
+    resetState();
   }
 
   /**
@@ -313,18 +317,24 @@ public final class ArezTestUtil
 
   /**
    * Set `arez.enable_native_components` setting to true.
+   * This will result in the Arez state being reset to align with this setting. The
+   * normal practice is to invoke this at the start of a test.
    */
   public static void enableNativeComponents()
   {
     setEnableNativeComponents( true );
+    resetState();
   }
 
   /**
    * Set `arez.enable_native_components` setting to false.
+   * This will result in the Arez state being reset to align with this setting. The
+   * normal practice is to invoke this at the start of a test.
    */
   public static void disableNativeComponents()
   {
     setEnableNativeComponents( false );
+    resetState();
   }
 
   /**
@@ -339,18 +349,24 @@ public final class ArezTestUtil
 
   /**
    * Set `arez.enable_registries` setting to true.
+   * This will result in the Arez state being reset to align with this setting. The
+   * normal practice is to invoke this at the start of a test.
    */
   public static void enableRegistries()
   {
     setEnableRegistries( true );
+    resetState();
   }
 
   /**
    * Set `arez.enable_registries` setting to false.
+   * This will result in the Arez state being reset to align with this setting. The
+   * normal practice is to invoke this at the start of a test.
    */
   public static void disableRegistries()
   {
     setEnableRegistries( false );
+    resetState();
   }
 
   /**

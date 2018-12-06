@@ -86,7 +86,6 @@ public class ExternalApiTest
     ArezTestUtil.disableZones();
     assertFalse( Arez.areZonesEnabled() );
     ArezTestUtil.enableZones();
-    ArezTestUtil.resetState();
     assertTrue( Arez.areZonesEnabled() );
   }
 
@@ -96,7 +95,6 @@ public class ExternalApiTest
     ArezTestUtil.disableReferences();
     assertFalse( Arez.areReferencesEnabled() );
     ArezTestUtil.enableReferences();
-    ArezTestUtil.resetState();
     assertTrue( Arez.areReferencesEnabled() );
   }
 

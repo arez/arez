@@ -1751,7 +1751,6 @@ public class ObservableValueTest
   public void asInfo_spyDisabled()
   {
     ArezTestUtil.disableSpies();
-    ArezTestUtil.resetState();
 
     final ObservableValue<String> observableValue = Arez.context().observable();
 

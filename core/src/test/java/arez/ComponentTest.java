@@ -20,7 +20,6 @@ public class ComponentTest
   public void constructorPassedContext_whenZonesDisabled()
   {
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
 
     assertInvariantFailure( () -> new Component( Arez.context(),
                                                  ValueUtil.randomString(),
@@ -541,7 +540,6 @@ public class ComponentTest
   public void asInfo_spyDisabled()
   {
     ArezTestUtil.disableSpies();
-    ArezTestUtil.resetState();
 
     final ArezContext context = Arez.context();
 

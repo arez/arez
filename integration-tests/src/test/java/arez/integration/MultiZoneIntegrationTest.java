@@ -21,7 +21,6 @@ public class MultiZoneIntegrationTest
     throws Throwable
   {
     ArezTestUtil.enableZones();
-    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
     final Zone zone2 = Arez.createZone();
@@ -75,7 +74,6 @@ public class MultiZoneIntegrationTest
     throws Throwable
   {
     ArezTestUtil.enableZones();
-    ArezTestUtil.resetState();
 
     final Zone zone1 = Arez.createZone();
     final Zone zone2 = Arez.createZone();

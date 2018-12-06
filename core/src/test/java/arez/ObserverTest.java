@@ -1573,7 +1573,6 @@ public class ObserverTest
   public void asInfo_spyDisabled()
   {
     ArezTestUtil.disableSpies();
-    ArezTestUtil.resetState();
 
     final Observer observer = Arez.context().tracker( ValueUtil::randomString );
 

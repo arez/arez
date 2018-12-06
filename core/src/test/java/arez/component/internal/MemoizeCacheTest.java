@@ -28,7 +28,6 @@ public class MemoizeCacheTest
   {
     super.beforeTest();
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
   }
 
   @Test
@@ -293,7 +292,6 @@ public class MemoizeCacheTest
   public void constructorPassedContext_whenZonesDisabled()
   {
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
     assertInvariantFailure( () -> new MemoizeCache<>( Arez.context(), null, null, args -> args[ 0 ], 1 ),
                             "Arez-174: MemoizeCache passed a context but Arez.areZonesEnabled() is false" );
   }

@@ -31,7 +31,6 @@ public class SchedulerLockTest
   public void constructorPassedContext_whenZonesDisabled()
   {
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
     assertInvariantFailure( () -> new SchedulerLock( Arez.context() ),
                             "Arez-0174: SchedulerLock passed a context but Arez.areZonesEnabled() is false" );
   }

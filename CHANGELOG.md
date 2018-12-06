@@ -18,6 +18,8 @@
   to `Executor.EXTERNAL` to reflect actual semantics.
 * **\[core\]** Change the mechanisms via which test utility `arez.ArezTestUtil` resets state so that zones and
   zone stacks are not created if zones are disabled. Nor is a non-Zoned context created if zones are enabled.
+* **\[core\]** The `ArezTestUtil.resetState()` method was made private and instead it is automatically invoked
+  when configuration settings are modified that needs a state reset.
 
 ### [v0.118](https://github.com/arez/arez/tree/v0.118) (2018-12-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.117...v0.118)

@@ -792,7 +792,6 @@ public class ComputableValueTest
   public void asInfo_spyDisabled()
   {
     ArezTestUtil.disableSpies();
-    ArezTestUtil.resetState();
 
     final ArezContext context = Arez.context();
 

@@ -48,7 +48,6 @@ public class TransactionTest
   public void constructorPassedContext_whenZonesDisabled()
   {
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
 
     assertInvariantFailure( () -> new Transaction( Arez.context(),
                                                    null,
@@ -2282,7 +2281,6 @@ public class TransactionTest
   public void beginTransaction_triple_nested_alternating_contexts_but_zones_disabled()
   {
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
 
     final ArezContext context1 = new ArezContext();
     final ArezContext context2 = new ArezContext();

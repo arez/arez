@@ -31,7 +31,6 @@ public class ComponentIdRefTest
   {
     ArezTestUtil.disableNativeComponents();
     ArezTestUtil.disableRegistries();
-    ArezTestUtil.resetState();
 
     final TestComponent component1 = new ComponentIdRefTest_Arez_TestComponent();
     final TestComponent component2 = new ComponentIdRefTest_Arez_TestComponent();

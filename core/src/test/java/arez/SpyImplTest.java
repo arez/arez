@@ -22,7 +22,6 @@ public class SpyImplTest
   public void constructorPassedContext_whenZonesDisabled()
   {
     ArezTestUtil.disableZones();
-    ArezTestUtil.resetState();
 
     assertInvariantFailure( () -> new SpyImpl( Arez.context() ),
                             "Arez-185: SpyImpl passed a context but Arez.areZonesEnabled() is false" );
