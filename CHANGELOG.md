@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.16](https://github.com/arez/arez-when/tree/v0.16) (2018-12-07)
+[Full Changelog](https://github.com/arez/arez-when/compare/v0.15...v0.16)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.119'
 * Update the 'org.realityforge.braincheck' dependencies to version '1.12.0'
