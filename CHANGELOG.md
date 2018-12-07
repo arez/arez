@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.45](https://github.com/arez/arez-browserlocation/tree/v0.45) (2018-12-07)
 [Full Changelog](https://github.com/arez/arez-browserlocation/compare/v0.44...v0.45)
 
