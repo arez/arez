@@ -293,6 +293,8 @@ public final class ArezBuildAsserts
    *
    * @param index                                the index that contains all symbols for output target.
    * @param areNamesEnabled                      the value of the `arez.enable_names` setting.
+   * @param areReferencesEnabled                 the value of the `arez.enable_references` setting.
+   * @param arePropertyIntrospectorsEnabled      the value of the `arez.enable_property_introspection` setting.
    * @param areSpiesEnabled                      the value of the `arez.enable_spies` setting.
    * @param areNativeComponentsEnabled           the value of the `arez.enable_native_components` setting.
    * @param areRegistriesEnabled                 the value of the `arez.enable_registries` setting.
