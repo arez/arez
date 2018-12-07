@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.119'
 * Update the 'org.realityforge.braincheck' dependencies to version '1.12.0'
 
 ### [v0.15](https://github.com/arez/arez-when/tree/v0.15) (2018-12-01)

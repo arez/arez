@@ -23,7 +23,6 @@ public abstract class AbstractTest
     BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
-    ArezTestUtil.resetState();
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
