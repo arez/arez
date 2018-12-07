@@ -101,10 +101,9 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Enhance scheduler and expose the ability to add deferred tasks.
-  - https://philipwalton.com/articles/idle-until-urgent/
-  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
-  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
+* Prime scheduler links:
+  - https://github.com/spanicker/main-thread-scheduling
+  - https://github.com/developit/task-worklet
 
 * Enhance scheduler to support different categories of scheduled tasks:
   - See talk notes https://github.com/spanicker/main-thread-scheduling and sample code https://github.com/developit/task-worklet
@@ -113,7 +112,10 @@ complete as there is too much un-said.
   - Idle tasks: (i.e tasks scheduled but will only use time if any left before next render i.e. `requestIdleTimeout()`)
 
 * Once the scheduler is in play it is likely we will want to implement code using `idle-until-urgent` strategy.
-  Useful to delay some of the expensive setup for off screen stuff. See https://philipwalton.com/articles/idle-until-urgent/
+  Useful to delay some of the expensive setup for off screen stuff.
+  - https://philipwalton.com/articles/idle-until-urgent/
+  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
+  - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
 
 ## Reactive-Streaming integration
 
