@@ -101,8 +101,6 @@ complete as there is too much un-said.
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Patch `dagger.internal.Preconditions` with super-source so that the exceptions only occur in dev mode. Also `DoubleCheck`??
-
 * Prime scheduler links:
   - https://github.com/spanicker/main-thread-scheduling
   - https://github.com/developit/task-worklet
