@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-GWT_EXAMPLES=%w(arez.mediaquery.example.MediaQueryExample)
+GWT_EXAMPLES=%w(arez.windowsize.example.WindowSizeExample)
 
 desc 'Arez-WindowSize: Arez browser component that exposes window sizes as observables'
 define 'arez-windowsize' do
