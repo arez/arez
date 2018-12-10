@@ -205,7 +205,10 @@ public final class ComputableValue<T>
                           getName() + "' but the computable value has not specified the " +
                           "AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
     }
-    Transaction.current().verifyWriteAllowed( getObservableValue() );
+    if ( Arez.shouldEnforceTransactionType() )
+    {
+      Transaction.current().verifyWriteAllowed( getObservableValue() );
+    }
     if ( Flags.STATE_UP_TO_DATE == getObserver().getState() )
     {
       getObserver().setState( Flags.STATE_POSSIBLY_STALE );
