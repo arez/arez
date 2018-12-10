@@ -34,6 +34,12 @@ define 'arez-windowsize' do
   package(:sources)
   package(:javadoc)
 
+  test.options[:properties] = { 'braincheck.environment' => 'development', 'arez.environment' => 'development' }
+  test.options[:java_args] = ['-ea']
+
+  test.using :testng
+  test.compile.with [:guiceyloops]
+
   doc.
     using(:javadoc,
           :windowtitle => 'Arez WindowSize API Documentation',
@@ -45,6 +51,7 @@ define 'arez-windowsize' do
   iml.excluded_directories << project._('tmp')
   ipr.extra_modules << 'example/example.iml'
 
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   GWT_EXAMPLES.each do |gwt_module|
