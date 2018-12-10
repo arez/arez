@@ -1,0 +1,8 @@
+<module>
+  <inherits name='arez.ArezDev'/>
+  <inherits name='arez.idlestatus.IdleStatus'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.idlestatus.example.IdleStatusExample'/>
+</module>
