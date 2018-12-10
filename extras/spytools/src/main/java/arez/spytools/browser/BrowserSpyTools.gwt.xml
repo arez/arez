@@ -1,0 +1,5 @@
+<module>
+  <inherits name='arez.spytools.SpyTools'/>
+
+  <source path=''/>
+</module>
