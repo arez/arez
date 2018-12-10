@@ -15,7 +15,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.timeddisposer</groupId>
    <artifactId>arez-timeddisposer</artifactId>
-   <version>0.44</version>
+   <version>0.45</version>
 </dependency>
 ```
 
