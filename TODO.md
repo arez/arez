@@ -13,6 +13,10 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Should we add hooks that allow components to customize flags passed to created elements. The goal is to allow the
+  component to dynamically customize configuration of a reactive element without defining a new class. i.e. Using
+  the same class but allowing
+
 * Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
 
 * Injectible components should run injector prior to postConstruct
