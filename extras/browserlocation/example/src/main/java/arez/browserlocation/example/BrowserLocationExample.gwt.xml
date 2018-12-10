@@ -1,0 +1,9 @@
+<module>
+  <inherits name='arez.ArezDev'/>
+  <inherits name='arez.browserlocation.BrowserLocation'/>
+  <inherits name="com.google.gwt.core.Core"/>
+
+  <source path=''/>
+
+  <entry-point class='arez.browserlocation.example.BrowserLocationExample'/>
+</module>
