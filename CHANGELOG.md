@@ -4,6 +4,8 @@
 
 * **\[core\]** Generate an invariant failure if `ComputeableValue.reportPossiblyChanged()` is invoked on
   disposed `ComputeableValue` instance.
+* **\[core\]** Invoking `ComputeableValue.reportPossiblyChanged()` on a `ComputeableValue` instance that has no
+  observers should not generate an invariant failure.
 
 ### [v0.119](https://github.com/arez/arez/tree/v0.119) (2018-12-07)
 [Full Changelog](https://github.com/arez/arez/compare/v0.118...v0.119)

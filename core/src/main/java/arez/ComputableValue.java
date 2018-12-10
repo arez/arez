@@ -209,6 +209,10 @@ public final class ComputableValue<T>
     {
       Transaction.current().verifyWriteAllowed( getObservableValue() );
     }
+    if ( Arez.shouldCheckInvariants() )
+    {
+      Transaction.current().markTransactionAsUsed();
+    }
     if ( Flags.STATE_UP_TO_DATE == getObserver().getState() )
     {
       getObserver().setState( Flags.STATE_POSSIBLY_STALE );

@@ -3,6 +3,7 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
+import arez.ArezTestUtil;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
@@ -69,6 +70,34 @@ public class ComputableValueApiTest
     assertEquals( observerCallCount.get(), 2 );
 
     context.safeAction( () -> assertEquals( computableValue.get(), (Integer) 21 ) );
+  }
+
+  @Test
+  public void reportPossiblyChanged_notObserved()
+  {
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger result = new AtomicInteger();
+
+    result.set( 42 );
+
+    final ArezContext context = Arez.context();
+    final ComputableValue<Integer> computableValue = context.computable( () -> {
+      computedCallCount.incrementAndGet();
+      return result.get();
+    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+
+    assertEquals( computedCallCount.get(), 0 );
+
+    context.safeAction( () -> assertEquals( computableValue.get(), (Integer) 42 ) );
+
+    assertEquals( computedCallCount.get(), 1 );
+
+    result.set( 21 );
+
+    // This MUST not produce an invariant failure because transaction was not used
+    context.safeAction( computableValue::reportPossiblyChanged );
+
+    assertEquals( computedCallCount.get(), 1 );
   }
 
   @Test
