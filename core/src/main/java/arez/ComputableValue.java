@@ -197,6 +197,9 @@ public final class ComputableValue<T>
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
+      apiInvariant( this::isNotDisposed,
+                    () -> "Arez-0121: The method reportPossiblyChanged() was invoked on disposed " +
+                          "ComputableValue named '" + getName() + "'." );
       apiInvariant( () -> getObserver().areExternalDependenciesAllowed(),
                     () -> "Arez-0085: The method reportPossiblyChanged() was invoked on ComputableValue named '" +
                           getName() + "' but the computable value has not specified the " +

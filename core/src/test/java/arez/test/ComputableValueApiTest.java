@@ -72,6 +72,29 @@ public class ComputableValueApiTest
   }
 
   @Test
+  public void reportPossiblyChanged_onDisposedWithInvariantsDisabled()
+  {
+    ArezTestUtil.noCheckInvariants();
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger result = new AtomicInteger();
+
+    result.set( 42 );
+
+    final ArezContext context = Arez.context();
+    final ComputableValue<Integer> computableValue = context.computable( () -> {
+      computedCallCount.incrementAndGet();
+      return result.get();
+    } );
+
+    computableValue.dispose();
+
+    assertInvariantFailure( () -> context.safeAction( computableValue::reportPossiblyChanged ),
+                            "Arez-0121: The method reportPossiblyChanged() was invoked on disposed ComputableValue named 'ComputableValue@1'." );
+
+    assertEquals( computedCallCount.get(), 0 );
+  }
+
+  @Test
   public void computedWithNoDependencies()
   {
     final AtomicInteger observerCallCount = new AtomicInteger();
