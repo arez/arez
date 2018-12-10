@@ -1,6 +1,7 @@
 package arez.windowsize;
 
 import arez.ComputableValue;
+import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
@@ -10,6 +11,7 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
+import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.EventTarget;
 import java.util.Objects;
@@ -61,7 +63,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
    * The
    */
   @Nonnull
-  private final EventListener _listener = e -> notifyOnChange();
+  private final EventListener _listener = this::onEvent;
   @Nonnull
   private SourceType _source;
   @Nonnull
@@ -163,6 +165,21 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
   {
     _active = false;
     unbindListener();
+  }
+
+  private void onEvent( final Event e )
+  {
+    // Due to bugs (?) or perhaps "implementation choices" in some browsers, an event can be delivered
+    // after listener is removed. According to notes in https://github.com/ReactTraining/react-media/blob/master/modules/MediaQueryList.js
+    // Safari doesn't clear up listener queue on MediaQueryList when removeListener is called if there
+    // is already waiting in the internal event queue.
+    //
+    // To avoid a potential crash when invariants are enabled or indeterminate behaviour when invariants
+    // are not enabled, a guard has been added.
+    if ( Disposable.isNotDisposed( this ) )
+    {
+      notifyOnChange();
+    }
   }
 
   /**
