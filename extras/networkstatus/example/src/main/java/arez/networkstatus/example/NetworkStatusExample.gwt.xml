@@ -1,0 +1,9 @@
+<module>
+  <inherits name='elemental2.dom.Dom'/>
+  <inherits name='arez.ArezDev'/>
+  <inherits name='arez.networkstatus.NetworkStatus'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.networkstatus.example.NetworkStatusExample'/>
+</module>
