@@ -135,7 +135,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
   @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public ValueType getValue()
   {
-    // Deliverately observing source via getSource() so that this method re-runs
+    // Deliberately observing source via getSource() so that this method re-runs
     // when source changes
     return _getter.get( getSource() );
   }
