@@ -1,0 +1,9 @@
+<module>
+  <inherits name='elemental2.dom.Dom'/>
+  <inherits name='arez.ArezDev'/>
+  <inherits name='arez.promise.ObservablePromise'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.promise.example.ObservablePromiseExample'/>
+</module>
