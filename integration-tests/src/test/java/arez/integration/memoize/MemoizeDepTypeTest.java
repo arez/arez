@@ -9,7 +9,6 @@ import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
-@SuppressWarnings( "Duplicates" )
 public class MemoizeDepTypeTest
   extends AbstractArezIntegrationTest
 {
@@ -51,7 +50,7 @@ public class MemoizeDepTypeTest
   @Test
   public void scenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model model = Model.create();
 

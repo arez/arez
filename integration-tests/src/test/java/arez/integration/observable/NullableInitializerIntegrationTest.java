@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 public class NullableInitializerIntegrationTest
   extends AbstractArezIntegrationTest
 {

@@ -20,6 +20,7 @@ import static arez.processor.ProcessorUtil.*;
 /**
  * Declaration of a reference.
  */
+@SuppressWarnings( "Duplicates" )
 final class ReferenceDescriptor
 {
   @Nonnull

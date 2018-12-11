@@ -57,7 +57,6 @@ public class TaskInfoImplTest
     assertFalse( info.isScheduled() );
   }
 
-  @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
   {
@@ -69,7 +68,6 @@ public class TaskInfoImplTest
     final TaskInfo info1b = new TaskInfoImpl( task1 );
     final TaskInfo info2 = task2.asInfo();
 
-    //noinspection EqualsBetweenInconvertibleTypes
     assertNotEquals( "", info1a );
 
     assertEquals( info1a, info1a );

@@ -7,6 +7,7 @@ import java.text.ParseException;
 @ArezComponent
 public abstract class ObserveThrowsExceptionModel
 {
+  @SuppressWarnings( "RedundantThrows" )
   @Observe
   void doStuff()
     throws ParseException

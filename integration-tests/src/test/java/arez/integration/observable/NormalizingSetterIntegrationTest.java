@@ -12,7 +12,6 @@ import static org.testng.Assert.*;
 public class NormalizingSetterIntegrationTest
   extends AbstractArezIntegrationTest
 {
-  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void disallowNullInSetter()
   {

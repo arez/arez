@@ -9,13 +9,15 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( { "WeakerAccess", "Duplicates" } )
+@SuppressWarnings( { "WeakerAccess" } )
 public class ObserversMutationParameterIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test
   public void readOnlyAutorunAttemptsMutationScenario()
   {
+    captureObserverErrors();
+
     final Model1 model = Model1.create();
 
     assertEquals( getObserverErrors().size(), 0 );
@@ -30,6 +32,8 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyAutorunAttemptsQueryScenario()
   {
+    captureObserverErrors();
+
     final Model2 model = Model2.create();
 
     assertEquals( getObserverErrors().size(), 0 );
@@ -44,6 +48,8 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readWriteAutorunAttemptsMutationScenario()
   {
+    captureObserverErrors();
+
     final Model3 model = Model3.create();
 
     assertEquals( getObserverErrors().size(), 0 );
@@ -58,6 +64,8 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyTrackAttemptsMutationScenario()
   {
+    captureObserverErrors();
+
     final Model4 model = Model4.create();
 
     assertEquals( getObserverErrors().size(), 0 );
@@ -72,6 +80,8 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyTrackAttemptsQueryScenario()
   {
+    captureObserverErrors();
+
     final Model5 model = Model5.create();
 
     assertEquals( getObserverErrors().size(), 0 );
@@ -86,6 +96,8 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readWriteTrackAttemptsMutationScenario()
   {
+    captureObserverErrors();
+
     final Model6 model = Model6.create();
 
     assertEquals( getObserverErrors().size(), 0 );

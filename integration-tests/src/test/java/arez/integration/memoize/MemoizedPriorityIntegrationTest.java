@@ -16,7 +16,6 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 public class MemoizedPriorityIntegrationTest
   extends AbstractArezIntegrationTest
 {

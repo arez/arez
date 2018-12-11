@@ -12,7 +12,6 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 public class PriorityOrderingIntegrationTest
   extends AbstractArezIntegrationTest
 {

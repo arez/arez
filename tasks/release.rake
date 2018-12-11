@@ -115,6 +115,10 @@ CONTENT
       sh "git tag v#{ENV['PRODUCT_VERSION']}"
     end
 
+    stage('MavenCentralPublish', 'Publish artifacts to Maven Central') do
+      sh 'buildr clean mcrt:publish_if_tagged site:deploy TEST=no GWT=no'
+    end
+
     stage('PatchChangelogPostRelease', 'Patch the changelog post release to prepare for next development iteration') do
       changelog = IO.read('CHANGELOG.md')
       changelog = changelog.gsub("# Change Log\n", <<HEADER)
@@ -145,7 +149,7 @@ HEADER
       DOWNSTREAM_PROJECTS.each do |downstream|
         # Need to extract the version from that project
         downstream_version = IO.read("target/arez_downstream-test/deploy_test/workdir/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
-        sh "cd target/arez_downstream-test/deploy_test/workdir/#{downstream} && bundle exec buildr perform_release STAGE=PushChanges PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
+        sh "cd target/arez_downstream-test/deploy_test/workdir/#{downstream} && bundle exec buildr perform_release STAGE=StageRelease PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
         full_branch = "master-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
         `cd target/arez_downstream-test/deploy_test/workdir/#{downstream} && git push origin :#{full_branch} 2>&1`
         puts "Completed remote branch #{full_branch}. Removed." if 0 == $?.exitstatus

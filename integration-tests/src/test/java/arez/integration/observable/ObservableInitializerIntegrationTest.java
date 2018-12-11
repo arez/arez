@@ -10,7 +10,6 @@ import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-@SuppressWarnings( "Duplicates" )
 public class ObservableInitializerIntegrationTest
   extends AbstractArezIntegrationTest
 {

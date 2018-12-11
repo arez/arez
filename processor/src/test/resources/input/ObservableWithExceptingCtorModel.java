@@ -5,6 +5,7 @@ import arez.annotations.Observable;
 @ArezComponent
 public abstract class ObservableWithExceptingCtorModel
 {
+  @SuppressWarnings( "RedundantThrows" )
   public ObservableWithExceptingCtorModel()
     throws Exception
   {

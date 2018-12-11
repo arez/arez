@@ -15,13 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import static com.google.common.truth.Truth.*;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 abstract class AbstractArezProcessorTest
 {
   void assertSuccessfulCompile( @Nonnull final String classname,
@@ -136,8 +134,7 @@ abstract class AbstractArezProcessorTest
       repositoryDaggerModule.append( ".java" );
       expectedOutputs.add( repositoryDaggerModule.toString() );
     }
-    assertSuccessfulCompile( input.toString(),
-                             expectedOutputs.toArray( new String[ expectedOutputs.size() ] ) );
+    assertSuccessfulCompile( input.toString(), expectedOutputs.toArray( new String[ 0 ] ) );
   }
 
   void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String... expectedOutputResources )
@@ -213,9 +210,7 @@ abstract class AbstractArezProcessorTest
     }
     final JavaFileObject firstExpected = fixture( outputs.get( 0 ) );
     final JavaFileObject[] restExpected =
-      outputs.stream().skip( 1 ).map( this::fixture ).
-        collect( Collectors.toList() ).
-        toArray( new JavaFileObject[ 0 ] );
+      outputs.stream().skip( 1 ).map( this::fixture ).toArray( JavaFileObject[]::new );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( inputs ).
       processedWith( new ArezProcessor() ).
@@ -225,7 +220,6 @@ abstract class AbstractArezProcessorTest
   }
 
   void assertFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
-    throws Exception
   {
     final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
     final StringBuilder input = new StringBuilder();
@@ -241,7 +235,6 @@ abstract class AbstractArezProcessorTest
 
   private void assertFailedCompileResource( @Nonnull final String inputResource,
                                             @Nonnull final String errorMessageFragment )
-    throws Exception
   {
     assertFailedCompileResource( Collections.singletonList( fixture( inputResource ) ), errorMessageFragment );
   }

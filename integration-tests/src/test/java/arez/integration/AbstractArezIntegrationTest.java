@@ -21,16 +21,16 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( { "Duplicates", "SameParameterValue" } )
+@SuppressWarnings( { "SameParameterValue" } )
 public abstract class AbstractArezIntegrationTest
 {
   private final ArrayList<String> _observerErrors = new ArrayList<>();
-  private boolean _ignoreObserverErrors;
+  private boolean _captureObserverErrors;
   private String _currentMethod;
 
-  protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
+  protected final void captureObserverErrors()
   {
-    _ignoreObserverErrors = ignoreObserverErrors;
+    _captureObserverErrors = true;
   }
 
   @BeforeMethod
@@ -39,7 +39,7 @@ public abstract class AbstractArezIntegrationTest
     _currentMethod = method.getName();
     BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
-    _ignoreObserverErrors = false;
+    _captureObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
   }
@@ -50,7 +50,7 @@ public abstract class AbstractArezIntegrationTest
   {
     final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
     _observerErrors.add( message );
-    if ( !_ignoreObserverErrors )
+    if ( !_captureObserverErrors )
     {
       System.out.println( message );
       if ( null != throwable )
@@ -65,7 +65,7 @@ public abstract class AbstractArezIntegrationTest
   {
     BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
-    if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
+    if ( !_captureObserverErrors && !_observerErrors.isEmpty() )
     {
       fail( "Unexpected Observer Errors: " + String.join( "\n", _observerErrors ) );
     }
@@ -84,6 +84,7 @@ public abstract class AbstractArezIntegrationTest
   @Nonnull
   protected final ArrayList<String> getObserverErrors()
   {
+    assert _captureObserverErrors;
     return _observerErrors;
   }
 

@@ -39,7 +39,6 @@ import static javax.tools.Diagnostic.Kind.*;
 /**
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
  */
-@SuppressWarnings( "Duplicates" )
 @AutoService( Processor.class )
 @SupportedAnnotationTypes( { "arez.annotations.*" } )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
@@ -228,7 +227,6 @@ public final class ArezProcessor
     }
   }
 
-  @SuppressWarnings( "unchecked" )
   @Nonnull
   private ComponentDescriptor parse( @Nonnull final PackageElement packageElement,
                                      @Nonnull final TypeElement typeElement )

@@ -25,7 +25,6 @@ import static org.testng.Assert.*;
  * This class tests all the public API of Arez and identifies all
  * the elements that should be visible outside package.
  */
-@SuppressWarnings( "Duplicates" )
 public class ExternalApiTest
   extends AbstractArezTest
 {

@@ -7,6 +7,7 @@ import java.text.ParseException;
 @ArezComponent
 public abstract class PostDisposeThrowsExceptionModel
 {
+  @SuppressWarnings( "RedundantThrows" )
   @PostDispose
   void doStuff()
     throws ParseException

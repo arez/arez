@@ -10,6 +10,7 @@ import java.util.Collection;
 @ArezComponent
 abstract class ThrowsInverseModel
 {
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @Inverse
   abstract Collection<MyEntity> getMyEntity()
     throws Exception;

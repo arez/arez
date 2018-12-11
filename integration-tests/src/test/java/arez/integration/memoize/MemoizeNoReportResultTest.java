@@ -23,7 +23,6 @@ public class MemoizeNoReportResultTest
 {
   @Test
   public void scenario()
-    throws Throwable
   {
     final ArezContext context = Arez.context();
 
