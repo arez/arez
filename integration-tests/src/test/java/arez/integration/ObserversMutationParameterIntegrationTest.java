@@ -16,6 +16,8 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyAutorunAttemptsMutationScenario()
   {
+    setIgnoreObserverErrors( true );
+
     final Model1 model = Model1.create();
 
     assertEquals( getObserverErrors().size(), 0 );
