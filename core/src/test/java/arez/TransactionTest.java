@@ -2530,7 +2530,6 @@ public class TransactionTest
     assertTrue( context1.isSchedulerEnabled() );
   }
 
-  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void commitTransaction_generates_spyEvent()
   {

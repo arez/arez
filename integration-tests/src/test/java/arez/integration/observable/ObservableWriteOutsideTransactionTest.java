@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 public class ObservableWriteOutsideTransactionTest
   extends AbstractArezIntegrationTest
 {

@@ -23,7 +23,6 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 public class ObserverTest
   extends AbstractArezTest
 {
@@ -1184,7 +1183,6 @@ public class ObserverTest
     } );
   }
 
-  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void invokeReaction_ComputableValue_SpyEventHandlerPresent()
   {

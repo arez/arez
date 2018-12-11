@@ -190,7 +190,6 @@ public final class Arez
   /**
    * Save the old zone and make the specified zone the current zone.
    */
-  @SuppressWarnings( "ConstantConditions" )
   static void activateZone( @Nonnull final Zone zone )
   {
     ArezZoneHolder.activateZone( zone );
@@ -201,7 +200,6 @@ public final class Arez
    * This takes the zone that was current when {@link #activateZone(Zone)} was called for the active zone
    * and restores it to being the current zone.
    */
-  @SuppressWarnings( "ConstantConditions" )
   static void deactivateZone( @Nonnull final Zone zone )
   {
     ArezZoneHolder.deactivateZone( zone );

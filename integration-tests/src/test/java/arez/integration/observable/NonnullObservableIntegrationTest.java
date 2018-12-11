@@ -19,7 +19,6 @@ public class NonnullObservableIntegrationTest
     safeAction( () -> assertThrows( AssertionError.class, () -> model.setLastName( null ) ) );
   }
 
-  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void disallowNullInInitializer()
   {

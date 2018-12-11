@@ -9,7 +9,6 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 
-@SuppressWarnings( "Duplicates" )
 public class CoreCanObserveLowerPriorityIntegrationTest
   extends AbstractArezIntegrationTest
 {

@@ -21,7 +21,6 @@ import javax.tools.JavaFileObject;
 import static com.google.common.truth.Truth.*;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 abstract class AbstractArezProcessorTest
 {
   void assertSuccessfulCompile( @Nonnull final String classname,

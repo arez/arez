@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( { "WeakerAccess", "Duplicates" } )
+@SuppressWarnings( { "WeakerAccess" } )
 public class ObserversMutationParameterIntegrationTest
   extends AbstractArezIntegrationTest
 {

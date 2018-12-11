@@ -53,7 +53,6 @@ public class EqualsAndHashCodeTest
     assertNotEquals( person1.hashCode(), person2.hashCode() );
     assertNotEquals( person1.hashCode(), person3.hashCode() );
 
-    //noinspection EqualsWithItself
     assertEquals( person1, person1 );
     assertNotEquals( person1, person2 );
     assertNotEquals( person1, person3 );

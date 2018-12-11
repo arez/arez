@@ -21,7 +21,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( { "Duplicates", "SameParameterValue" } )
+@SuppressWarnings( { "SameParameterValue" } )
 public abstract class AbstractArezIntegrationTest
 {
   private final ArrayList<String> _observerErrors = new ArrayList<>();

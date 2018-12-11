@@ -403,7 +403,6 @@ public final class ComputableValue<T>
    *
    * @return the observable for the derived value.
    */
-  @SuppressWarnings( "unchecked" )
   @Nonnull
   ObservableValue<T> getObservableValue()
   {

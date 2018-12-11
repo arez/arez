@@ -32,7 +32,6 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "Duplicates" )
 public class ArezContextTest
   extends AbstractArezTest
 {
@@ -2311,7 +2310,6 @@ public class ArezContextTest
     assertEquals( callCount.get(), 1 );
   }
 
-  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void autorun_runImmediately()
   {
@@ -2342,7 +2340,6 @@ public class ArezContextTest
     assertObserverReaction( handler, name );
   }
 
-  @SuppressWarnings( "ConstantConditions" )
   @Test
   public void autorun_runImmediately_will_obeyNormalSchedulingPriorities()
   {
