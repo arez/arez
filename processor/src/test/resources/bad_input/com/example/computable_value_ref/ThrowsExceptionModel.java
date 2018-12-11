@@ -15,6 +15,7 @@ public abstract class ThrowsExceptionModel
     return 0;
   }
 
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ComputableValueRef
   abstract ComputableValue getTimeComputableValue()
     throws ParseException;

@@ -6,6 +6,7 @@ import arez.annotations.Observable;
 @ArezComponent
 public abstract class AbstractGetterThrowsExceptionModel
 {
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @Observable
   public abstract long getField()
     throws Exception;

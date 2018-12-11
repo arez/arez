@@ -20,6 +20,7 @@ public abstract class ThrowsExceptionModel
   {
   }
 
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @Nonnull
   @ObservableValueRef
   public abstract ObservableValue getTimeObservableValue()

@@ -10,6 +10,7 @@ abstract class ThrowsReferenceIdModel
   @Reference
   abstract MyEntity getMyEntity();
 
+  @SuppressWarnings( "RedundantThrows" )
   @ReferenceId
   int getMyEntityId()
     throws Exception

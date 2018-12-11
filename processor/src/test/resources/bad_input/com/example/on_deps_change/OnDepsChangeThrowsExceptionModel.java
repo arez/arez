@@ -12,6 +12,7 @@ public abstract class OnDepsChangeThrowsExceptionModel
   {
   }
 
+  @SuppressWarnings( "RedundantThrows" )
   @OnDepsChange
   void onRenderDepsChange()
     throws Exception

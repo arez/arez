@@ -13,6 +13,7 @@ public abstract class ExceptionModel
   {
   }
 
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ObserverRef
   abstract Observer getDoStuffObserver()
     throws Exception;

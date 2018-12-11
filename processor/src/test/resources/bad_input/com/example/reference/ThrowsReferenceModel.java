@@ -7,6 +7,7 @@ import arez.annotations.ReferenceId;
 @ArezComponent
 abstract class ThrowsReferenceModel
 {
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @Reference
   abstract MyEntity getMyEntity()
     throws Exception;

@@ -1289,7 +1289,6 @@ public class ArezProcessorTest
 
   @Test( dataProvider = "failedCompiles" )
   public void processFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
-    throws Exception
   {
     assertFailedCompile( classname, errorMessageFragment );
   }
@@ -1324,7 +1323,6 @@ public class ArezProcessorTest
   @Test( dataProvider = "packageAccessElementInDifferentPackage" )
   public void processFailedCompileInheritedPackageAccessInDifferentPackage( @Nonnull final String annotation,
                                                                             @Nonnull final String name )
-    throws Exception
   {
     final JavaFileObject source1 =
       fixture( "bad_input/com/example/package_access/other/Base" + name + "Model.java" );
@@ -1337,7 +1335,6 @@ public class ArezProcessorTest
 
   @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageWhenInRoot()
-    throws Exception
   {
     final JavaFileObject source1 =
       fixture( "bad_input/com/example/package_access/other/BaseActionModel.java" );
@@ -1350,7 +1347,6 @@ public class ArezProcessorTest
 
   @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Setter()
-    throws Exception
   {
     final JavaFileObject source1 =
       fixture( "bad_input/com/example/package_access/other/BaseObservable2Model.java" );
@@ -1363,7 +1359,6 @@ public class ArezProcessorTest
 
   @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Getter()
-    throws Exception
   {
     final JavaFileObject source1 =
       fixture( "bad_input/com/example/package_access/other/BaseObservable3Model.java" );

@@ -21,7 +21,6 @@ public class ObservableWriteOutsideTransactionTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final MyComponent component = new ObservableWriteOutsideTransactionTest_Arez_MyComponent();
 

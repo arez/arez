@@ -14,6 +14,7 @@ public abstract class OnActivateThrowsExceptionModel
     return 0;
   }
 
+  @SuppressWarnings( "RedundantThrows" )
   @OnActivate
   void onMyValueActivate()
     throws ParseException

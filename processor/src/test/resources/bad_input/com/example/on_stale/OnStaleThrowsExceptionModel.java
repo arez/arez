@@ -14,6 +14,7 @@ public abstract class OnStaleThrowsExceptionModel
     return 0;
   }
 
+  @SuppressWarnings( "RedundantThrows" )
   @OnStale
   void onMyValueStale()
     throws ParseException

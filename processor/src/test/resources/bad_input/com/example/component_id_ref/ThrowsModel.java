@@ -6,6 +6,7 @@ import arez.annotations.ComponentIdRef;
 @ArezComponent( allowEmpty = true )
 public abstract class ThrowsModel
 {
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ComponentIdRef
   abstract int getId()
     throws Exception;

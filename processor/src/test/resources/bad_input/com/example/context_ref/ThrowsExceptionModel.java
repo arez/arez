@@ -7,6 +7,7 @@ import arez.annotations.ContextRef;
 @ArezComponent( allowEmpty = true )
 abstract class ThrowsExceptionModel
 {
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ContextRef
   abstract ArezContext getContext()
     throws Exception;

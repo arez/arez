@@ -13,6 +13,7 @@ public abstract class ComponentNameRefThrowsExceptionModel
   {
   }
 
+  @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ComponentNameRef
   abstract String getTypeName()
     throws IOException;

@@ -14,6 +14,7 @@ public abstract class OnDeactivateThrowsExceptionModel
     return 0;
   }
 
+  @SuppressWarnings( "RedundantThrows" )
   @OnDeactivate
   void onMyValueDeactivate()
     throws ParseException
