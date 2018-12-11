@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.121](https://github.com/arez/arez/tree/v0.121) (2018-12-11)
+[Full Changelog](https://github.com/arez/arez/compare/v0.120...v0.121)
 
 * Update the release process so that releases of Arez and downstream projects are done by the local machine
   performing the release process rather than delegating to TravisCI. This was done as recent changes to TravisCI
