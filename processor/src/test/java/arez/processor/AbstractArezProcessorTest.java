@@ -135,8 +135,7 @@ abstract class AbstractArezProcessorTest
       repositoryDaggerModule.append( ".java" );
       expectedOutputs.add( repositoryDaggerModule.toString() );
     }
-    assertSuccessfulCompile( input.toString(),
-                             expectedOutputs.toArray( new String[ expectedOutputs.size() ] ) );
+    assertSuccessfulCompile( input.toString(), expectedOutputs.toArray( new String[ 0 ] ) );
   }
 
   void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String... expectedOutputResources )
