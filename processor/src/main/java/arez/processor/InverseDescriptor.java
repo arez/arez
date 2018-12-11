@@ -20,6 +20,7 @@ import static arez.processor.ProcessorUtil.*;
 /**
  * Declaration of an inverse.
  */
+@SuppressWarnings( "Duplicates" )
 final class InverseDescriptor
 {
   @Nonnull
