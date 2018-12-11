@@ -160,6 +160,8 @@ HEADER
         `cd archive/downstream/#{downstream} && git push origin :#{full_branch} 2>&1`
         puts "Completed remote branch #{full_branch}. Removed." if 0 == $?.exitstatus
       end
+
+      FileUtils.rm_rf 'archive'
     end
 
     stage('GithubRelease', 'Create a Release on GitHub') do
