@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.46](https://github.com/arez/arez-promise/tree/v0.46) (2018-12-11)
+[Full Changelog](https://github.com/arez/arez-promise/compare/v0.45...v0.46)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.121'
 * Remove deployment from TravisCI infrastructure as it is no longer feasible.
