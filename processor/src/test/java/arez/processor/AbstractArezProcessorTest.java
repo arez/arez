@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import static com.google.common.truth.Truth.*;
@@ -211,9 +210,7 @@ abstract class AbstractArezProcessorTest
     }
     final JavaFileObject firstExpected = fixture( outputs.get( 0 ) );
     final JavaFileObject[] restExpected =
-      outputs.stream().skip( 1 ).map( this::fixture ).
-        collect( Collectors.toList() ).
-        toArray( new JavaFileObject[ 0 ] );
+      outputs.stream().skip( 1 ).map( this::fixture ).toArray( JavaFileObject[]::new );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( inputs ).
       processedWith( new ArezProcessor() ).
