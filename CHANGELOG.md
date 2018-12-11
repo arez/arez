@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.48](https://github.com/arez/arez-idlestatus/tree/v0.48) (2018-12-11)
+[Full Changelog](https://github.com/arez/arez-idlestatus/compare/v0.47...v0.48)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.121'
 * Remove deployment from TravisCI infrastructure as it is no longer feasible.
