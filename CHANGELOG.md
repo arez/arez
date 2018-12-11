@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove deployment from TravisCI infrastructure as it is no longer feasible.
+
 ### [v0.45](https://github.com/arez/arez-spytools/tree/v0.45) (2018-12-10)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.44...v0.45)
 
