@@ -87,6 +87,10 @@ HEADER
       sh 'rm -f _buildr.rb'
     end
 
+    stage('MavenCentralPublish', 'Publish artifacts to Maven Central') do
+      sh 'bundle exec buildr clean mcrt:publish_if_tagged site:publish_if_tagged TEST=no GWT=no'
+    end
+
     stage('PatchChangelogPostRelease', 'Patch the changelog post release to prepare for next development iteration') do
       changelog = IO.read('CHANGELOG.md')
       changelog = changelog.gsub("# Change Log\n", <<HEADER)
