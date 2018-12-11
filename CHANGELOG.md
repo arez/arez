@@ -2,9 +2,9 @@
 
 ### Unreleased
 
-* Update the release process so that releases of downstream projects are done by the local machine performing
-  the release process rather than delegating to TravisCI. This was done as recent changes to TravisCI and/or
-  Maven Central make it impossible to perform this task on the TravisCI build machines.
+* Update the release process so that releases of Arez and downstream projects are done by the local machine
+  performing the release process rather than delegating to TravisCI. This was done as recent changes to TravisCI
+  and/or Maven Central make it impossible to perform this task on the TravisCI build machines.
 
 ### [v0.120](https://github.com/arez/arez/tree/v0.120) (2018-12-10)
 [Full Changelog](https://github.com/arez/arez/compare/v0.119...v0.120)
