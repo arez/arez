@@ -15,7 +15,7 @@ public class CoreCanNotObserveLowerPriorityIntegrationTest
   @Test
   public void scenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final ArezContext context = Arez.context();
 

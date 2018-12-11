@@ -51,7 +51,7 @@ public class MemoizeDepTypeTest
   @Test
   public void scenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model model = Model.create();
 

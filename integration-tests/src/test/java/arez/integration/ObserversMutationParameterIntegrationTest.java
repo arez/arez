@@ -16,7 +16,7 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyAutorunAttemptsMutationScenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model1 model = Model1.create();
 
@@ -32,7 +32,7 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyAutorunAttemptsQueryScenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model2 model = Model2.create();
 
@@ -48,7 +48,7 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readWriteAutorunAttemptsMutationScenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model3 model = Model3.create();
 
@@ -64,7 +64,7 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyTrackAttemptsMutationScenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model4 model = Model4.create();
 
@@ -80,7 +80,7 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readOnlyTrackAttemptsQueryScenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model5 model = Model5.create();
 
@@ -96,7 +96,7 @@ public class ObserversMutationParameterIntegrationTest
   @Test
   public void readWriteTrackAttemptsMutationScenario()
   {
-    setIgnoreObserverErrors( true );
+    captureObserverErrors();
 
     final Model6 model = Model6.create();
 
