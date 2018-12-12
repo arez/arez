@@ -26,7 +26,7 @@ The simplest way to use component;
 
 * Use one of the many components provided by the library. A list of some examples provided
   by the library includes but is not limited to:
-  
+
   * [DocumentVisibility](https://arez.github.io/dom/index.html?arez/dom/DocumentVisibility.html): Exposes `document.visibilityState` as an observable property for specified documents.
   * [EventDrivenValue](https://arez.github.io/dom/index.html?arez/dom/EventDrivenValue.html): Generic component that exposes a property as observable where changes to the variable are signalled using an event.
   * [WindowSize](https://arez.github.io/dom/index.html?arez/dom/WindowSize.html): Factory for creating observables for dimensions of a window. (i.e. `window.(inner|outer)(Width|Height)`)
