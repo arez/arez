@@ -166,6 +166,9 @@ complete as there is too much un-said.
 
 ## Documentation
 
+* Update GitHub documentation - Add links to "How to create a [Minimal, Complete, and Verifiable](https://stackoverflow.com/help/mcve) example"
+  in the issue templates as well as contributing doco.
+
 * The Overview page is terrible - improve it so people would want to use the product.
 
 * Document lifecycle of component. i.e. The order of operations
