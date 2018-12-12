@@ -4,7 +4,7 @@ require 'buildr/gwt'
 
 GWT_EXAMPLES=%w(arez.dom.example.WindowSizeExample arez.dom.example.DocumentVisibilityExample)
 
-desc 'Arez-Dom: Arez browser components that add reactivity to DOM attributes'
+desc 'Arez-Dom: Arez browser components that make DOM properties observable'
 define 'arez-dom' do
   project.group = 'org.realityforge.arez.dom'
   compile.options.source = '1.8'
