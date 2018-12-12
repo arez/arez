@@ -9,8 +9,8 @@ import javax.annotation.Nonnull;
  * <h1>A very simple example</h1>
  * <pre>{@code
  * import arez.Arez;
- * import arez.windowsize.EventDrivenValue;
- * import arez.windowsize.WindowSize;
+ * import arez.dom.EventDrivenValue;
+ * import arez.dom.WindowSize;
  * import com.google.gwt.core.client.EntryPoint;
  * import elemental2.dom.DomGlobal;
  * import elemental2.dom.Window;
