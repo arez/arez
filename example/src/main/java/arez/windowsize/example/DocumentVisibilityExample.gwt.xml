@@ -1,0 +1,9 @@
+<module>
+  <inherits name='arez.ArezDebug'/>
+  <inherits name="arez.windowsize.WindowSize"/>
+  <inherits name="com.google.gwt.core.Core"/>
+
+  <source path=''/>
+
+  <entry-point class='arez.windowsize.example.DocumentVisibilityExample'/>
+</module>
