@@ -4,6 +4,8 @@
 
 ### Unreleased
 
+* Add the `arez-dom` project into the set of projects that are built and tested during the build and release process.
+
 ### [v0.121](https://github.com/arez/arez/tree/v0.121) (2018-12-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.120...v0.121)
 

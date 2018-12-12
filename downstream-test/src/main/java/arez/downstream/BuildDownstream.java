@@ -54,6 +54,7 @@ public final class BuildDownstream
         }
       }
       Stream.of( "arez-browserlocation",
+                 "arez-dom",
                  "arez-promise",
                  "arez-mediaquery",
                  "arez-networkstatus",
