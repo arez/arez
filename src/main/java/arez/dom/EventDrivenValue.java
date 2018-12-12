@@ -25,7 +25,7 @@ import jsinterop.annotations.JsFunction;
  * as:
  *
  * <pre>{@code
- * EventDrivenValue&lt;Window, Integer&gt; innerWidth = EventDrivenValue.create( window, "resize", () -> window.innerWidth )
+ * EventDrivenValue<Window, Integer> innerWidth = EventDrivenValue.create( window, "resize", () -> window.innerWidth )
  * }</pre>
  *
  * <p>It is important that the code not add a listener to the underlying event source until there is an
