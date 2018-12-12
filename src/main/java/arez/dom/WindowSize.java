@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
  * {
  *   public void onModuleLoad()
  *   {
- *     final EventDrivenValue&lt;Window, Integer&gt; innerHeight = WindowSize.innerHeight( DomGlobal.window );
- *     final EventDrivenValue&lt;Window, Integer&gt; innerWidth = WindowSize.innerWidth( DomGlobal.window );
+ *     final EventDrivenValue<Window, Integer> innerHeight = WindowSize.innerHeight( DomGlobal.window );
+ *     final EventDrivenValue<Window, Integer> innerWidth = WindowSize.innerWidth( DomGlobal.window );
  *
  *     Arez.context().observer( () -> DomGlobal.document.querySelector( "#status" ).textContent =
  *       "Screen size: " + innerWidth.getValue() + " x " + innerHeight.getValue() );
