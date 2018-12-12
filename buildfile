@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-GWT_EXAMPLES=%w(arez.windowsize.example.WindowSizeExample arez.windowsize.example.DocumentVisibilityExample)
+GWT_EXAMPLES=%w(arez.dom.example.WindowSizeExample arez.dom.example.DocumentVisibilityExample)
 
 desc 'Arez-Dom: Arez browser components that add reactivity to DOM attributes'
 define 'arez-dom' do
