@@ -115,6 +115,8 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
   /**
    * Set the element that generates events.
    * This ensures that the event listeners are managed correctly if the source is currently being observed.
+   *
+   * @param source the the event source.
    */
   public void setSource( @Nonnull final SourceType source )
   {
