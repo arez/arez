@@ -1,9 +1,9 @@
-package arez.windowsize.example;
+package arez.dom.example;
 
 import arez.Arez;
-import arez.windowsize.Dimension;
-import arez.windowsize.EventDrivenValue;
-import arez.windowsize.WindowSize;
+import arez.dom.Dimension;
+import arez.dom.EventDrivenValue;
+import arez.dom.WindowSize;
 import com.google.gwt.core.client.EntryPoint;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Window;

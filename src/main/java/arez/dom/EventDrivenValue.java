@@ -1,4 +1,4 @@
-package arez.windowsize;
+package arez.dom;
 
 import arez.ComputableValue;
 import arez.Disposable;

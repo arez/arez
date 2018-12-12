@@ -1,4 +1,4 @@
-package arez.windowsize;
+package arez.dom;
 
 import arez.ArezTestUtil;
 import org.realityforge.braincheck.BrainCheckTestUtil;

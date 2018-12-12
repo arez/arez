@@ -4,9 +4,9 @@ require 'buildr/gwt'
 
 GWT_EXAMPLES=%w(arez.windowsize.example.WindowSizeExample arez.windowsize.example.DocumentVisibilityExample)
 
-desc 'Arez-WindowSize: Arez browser component that exposes window sizes as observables'
-define 'arez-windowsize' do
-  project.group = 'org.realityforge.arez.windowsize'
+desc 'Arez-Dom: Arez browser components that add reactivity to DOM attributes'
+define 'arez-dom' do
+  project.group = 'org.realityforge.arez.dom'
   compile.options.source = '1.8'
   compile.options.target = '1.8'
   compile.options.lint = 'all'
@@ -42,7 +42,7 @@ define 'arez-windowsize' do
 
   doc.
     using(:javadoc,
-          :windowtitle => 'Arez WindowSize API Documentation',
+          :windowtitle => 'Arez DOM API Documentation',
           :linksource => true,
           :timestamp => false,
           :link => %w(https://arez.github.io/api https://docs.oracle.com/javase/8/docs/api http://www.gwtproject.org/javadoc/latest/)
@@ -70,8 +70,8 @@ define 'example', :base_dir => "#{File.dirname(__FILE__)}/example" do
   compile.options.source = '1.8'
   compile.options.target = '1.8'
 
-  compile.with project('arez-windowsize').package(:jar),
-               project('arez-windowsize').compile.dependencies,
+  compile.with project('arez-dom').package(:jar),
+               project('arez-dom').compile.dependencies,
                :gwt_user
 
   gwt_enhance(project)

@@ -1,8 +1,8 @@
-package arez.windowsize;
+package arez.dom;
 
 import arez.Arez;
 import arez.Observer;
-import arez.windowsize.util.TestEventTarget;
+import arez.dom.util.TestEventTarget;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import java.util.concurrent.atomic.AtomicInteger;

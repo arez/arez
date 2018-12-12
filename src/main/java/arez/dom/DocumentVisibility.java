@@ -1,4 +1,4 @@
-package arez.windowsize;
+package arez.dom;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDocument;
@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * <h1>A very simple example</h1>
  * <pre>{@code
  * import arez.Arez;
- * import arez.windowsize.DocumentVisibility;
+ * import arez.dom.DocumentVisibility;
  * import com.google.gwt.core.client.EntryPoint;
  * import elemental2.dom.DomGlobal;
  *

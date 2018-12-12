@@ -1,4 +1,4 @@
-package arez.windowsize;
+package arez.dom;
 
 public final class Dimension
 {

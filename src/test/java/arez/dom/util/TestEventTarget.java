@@ -1,4 +1,4 @@
-package arez.windowsize.util;
+package arez.dom.util;
 
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;

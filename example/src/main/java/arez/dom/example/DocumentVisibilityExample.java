@@ -1,7 +1,7 @@
-package arez.windowsize.example;
+package arez.dom.example;
 
 import arez.Arez;
-import arez.windowsize.DocumentVisibility;
+import arez.dom.DocumentVisibility;
 import com.google.gwt.core.client.EntryPoint;
 import elemental2.dom.DomGlobal;
 

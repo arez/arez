@@ -1,4 +1,4 @@
-package arez.windowsize;
+package arez.dom;
 
 import elemental2.dom.Window;
 import javax.annotation.Nonnull;
