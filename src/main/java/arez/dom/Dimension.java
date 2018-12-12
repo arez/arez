@@ -1,26 +1,48 @@
 package arez.dom;
 
+/**
+ * A class containing width and height dimensions.
+ */
 public final class Dimension
 {
   private final int _width;
   private final int _height;
 
+  /**
+   * Create the dimension object.
+   *
+   * @param width  the width.
+   * @param height the height.
+   */
   public Dimension( final int width, final int height )
   {
     _width = width;
     _height = height;
   }
 
+  /**
+   * Return the width.
+   *
+   * @return the width.
+   */
   public int getWidth()
   {
     return _width;
   }
 
+  /**
+   * Return the height.
+   *
+   * @return the height.
+   */
   public int getHeight()
   {
     return _height;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean equals( final Object o )
   {
