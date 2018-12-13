@@ -2,7 +2,6 @@ package arez.test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -90,6 +89,28 @@ public class JDependTest
           .append( p.getName() )
           .append( " now depends upon " )
           .append( expected.getName() )
+          .append( "\n" )
+        );
+
+        final ArrayList<JavaPackage> oldEfferents = new ArrayList<>( expected.getEfferents() );
+        oldEfferents.removeAll( actual.getEfferents() );
+
+        oldEfferents.forEach( p -> sb
+          .append( "Package " )
+          .append( expected.getName() )
+          .append( " no longer depends depends upon " )
+          .append( p.getName() )
+          .append( "\n" )
+        );
+
+        final ArrayList<JavaPackage> newEfferents = new ArrayList<>( actual.getEfferents() );
+        newEfferents.removeAll( expected.getEfferents() );
+
+        newEfferents.forEach( p -> sb
+          .append( "Package " )
+          .append( expected.getName() )
+          .append( " now upon " )
+          .append( p.getName() )
           .append( "\n" )
         );
       }
