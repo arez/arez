@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.google.auto.common.GeneratedAnnotationSpecs;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
@@ -191,6 +190,18 @@ final class ComponentDescriptor
     _generateToString = generateToString;
     _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
+  }
+
+  @Nonnull
+  SourceVersion getSourceVersion()
+  {
+    return _sourceVersion;
+  }
+
+  @Nonnull
+  Elements getElements()
+  {
+    return _elements;
   }
 
   @Nonnull
@@ -2515,7 +2526,7 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL );
     addOriginatingTypes( getElement(), builder );
 
-    addGeneratedAnnotation( builder );
+    Generator.addGeneratedAnnotation( this, builder );
     if ( !_roMemoizes.isEmpty() )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
@@ -3673,7 +3684,7 @@ final class ComponentDescriptor
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     addOriginatingTypes( getElement(), builder );
 
-    addGeneratedAnnotation( builder );
+    Generator.addGeneratedAnnotation( this, builder );
     builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
     builder.addModifiers( Modifier.PUBLIC );
 
@@ -3751,7 +3762,7 @@ final class ComponentDescriptor
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     addOriginatingTypes( element, builder );
 
-    addGeneratedAnnotation( builder );
+    Generator.addGeneratedAnnotation( this, builder );
 
     final boolean addSingletonAnnotation =
       "ENABLE".equals( _repositoryInjectConfig ) ||
@@ -4071,13 +4082,6 @@ final class ComponentDescriptor
                                         @Nonnull final String parameterName )
   {
     return ProcessorUtil.getAnnotationValue( _elements, annotation, parameterName );
-  }
-
-  private void addGeneratedAnnotation( @Nonnull final TypeSpec.Builder builder )
-  {
-    GeneratedAnnotationSpecs
-      .generatedAnnotationSpec( _elements, _sourceVersion, ArezProcessor.class )
-      .ifPresent( builder::addAnnotation );
   }
 
   private boolean shouldRepositoryDefineCreate()
