@@ -2524,7 +2524,7 @@ final class ComponentDescriptor
       superclass( TypeName.get( getElement().asType() ) ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
-    addOriginatingTypes( getElement(), builder );
+    Generator.addOriginatingTypes( getElement(), builder );
 
     Generator.addGeneratedAnnotation( this, builder );
     if ( !_roMemoizes.isEmpty() )
@@ -3682,7 +3682,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
-    addOriginatingTypes( getElement(), builder );
+    Generator.addOriginatingTypes( getElement(), builder );
 
     Generator.addGeneratedAnnotation( this, builder );
     builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
@@ -3760,7 +3760,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
-    addOriginatingTypes( element, builder );
+    Generator.addOriginatingTypes( element, builder );
 
     Generator.addGeneratedAnnotation( this, builder );
 
@@ -3834,12 +3834,6 @@ final class ComponentDescriptor
       builder.addMethod( buildRepositoryDetach() );
     }
     return builder.build();
-  }
-
-  private void addOriginatingTypes( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
-  {
-    builder.addOriginatingElement( element );
-    ProcessorUtil.getSuperTypes( element ).forEach( builder::addOriginatingElement );
   }
 
   @Nonnull
