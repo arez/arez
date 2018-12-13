@@ -263,7 +263,7 @@ public final class CollectBuildStats
     try
     {
       properties.store( new FileWriter( outputFile.toFile() ), "" );
-      Patch.file( outputFile, c -> c.replaceAll( "\\#.*\n", "" ) );
+      Patch.file( outputFile, c -> c.replaceAll( "#.*\n", "" ) );
     }
     catch ( final IOException ioe )
     {
