@@ -11,7 +11,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.EventTarget;
 import java.util.Objects;
@@ -63,7 +62,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
    * The
    */
   @Nonnull
-  private final EventListener _listener = this::onEvent;
+  private final EventListener _listener = e -> onEvent();
   @Nonnull
   private SourceType _source;
   @Nonnull
@@ -169,7 +168,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
     unbindListener();
   }
 
-  private void onEvent( final Event e )
+  private void onEvent()
   {
     // Due to bugs (?) or perhaps "implementation choices" in some browsers, an event can be delivered
     // after listener is removed. According to notes in https://github.com/ReactTraining/react-media/blob/master/modules/MediaQueryList.js
