@@ -10,7 +10,8 @@ import java.util.Map;
  */
 public final class BrowserSpyUtil
 {
-  private static final Map<ArezContext, ConsoleSpyEventProcessor> c_processors = new HashMap<>();
+  private static final Map<ArezContext, ConsoleSpyEventProcessor> c_processors =
+    Arez.areSpiesEnabled() ? new HashMap<>() : null;
 
   /**
    * Return true if spy event logging is enabled.
@@ -19,7 +20,7 @@ public final class BrowserSpyUtil
    */
   public static boolean isSpyEventLoggingEnabled()
   {
-    return c_processors.containsKey( Arez.context() );
+    return Arez.areSpiesEnabled() && c_processors.containsKey( Arez.context() );
   }
 
   /**
