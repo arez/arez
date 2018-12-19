@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* Restructure `ReactArezSpyUtil` so that it will be completely optimized away
+  if `Arez.areSpiesEnabled()` returns false.
+
 ### [v0.46](https://github.com/arez/arez-spytools/tree/v0.46) (2018-12-11)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.45...v0.46)
 

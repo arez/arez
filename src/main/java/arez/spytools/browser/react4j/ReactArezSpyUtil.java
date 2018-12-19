@@ -1,7 +1,6 @@
 package arez.spytools.browser.react4j;
 
 import arez.Arez;
-import arez.ArezContext;
 
 /**
  * Utility class for interacting with spy capabilities.
@@ -19,7 +18,7 @@ public final class ReactArezSpyUtil
    */
   public static boolean isSpyEventLoggingEnabled()
   {
-    return c_loggingEnabled;
+    return Arez.areSpiesEnabled() && c_loggingEnabled;
   }
 
   /**
@@ -28,10 +27,9 @@ public final class ReactArezSpyUtil
    */
   public static void enableSpyEventLogging()
   {
-    final ArezContext context = Arez.context();
     if ( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() )
     {
-      context.getSpy().addSpyEventHandler( PROCESSOR );
+      Arez.context().getSpy().addSpyEventHandler( PROCESSOR );
       c_loggingEnabled = true;
     }
   }
@@ -42,10 +40,9 @@ public final class ReactArezSpyUtil
    */
   public static void disableSpyEventLogging()
   {
-    final ArezContext context = Arez.context();
     if ( Arez.areSpiesEnabled() && isSpyEventLoggingEnabled() )
     {
-      context.getSpy().removeSpyEventHandler( PROCESSOR );
+      Arez.context().getSpy().removeSpyEventHandler( PROCESSOR );
       c_loggingEnabled = false;
     }
   }
