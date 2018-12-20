@@ -11,3 +11,7 @@ complete as there is too much un-said.
 * Add a Gelocation component. See https://github.com/arez/arez/issues/9
 
 * Add a DeviceMotion component. See https://github.com/arez/arez/issues/8
+
+* Consider replacing `EventDrivenValue` with `SubsciptionBasedValue` that has `onActivate` hook and an
+  `onDeactivate` hooked passed into constructor as well as `getValue()` hook. Alternatively could passing
+  in `List` of events that drive `EventDrivenValue`.
