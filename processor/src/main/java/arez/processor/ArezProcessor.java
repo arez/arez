@@ -217,7 +217,7 @@ public final class ArezProcessor
     final TypeElement typeElement = (TypeElement) element;
     final ComponentDescriptor descriptor = parse( packageElement, typeElement );
     emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
-    if ( descriptor.shouldGenerateComponentDaggerModule() )
+    if ( descriptor.needsDaggerIntegration() )
     {
       emitTypeSpec( descriptor.getPackageName(), descriptor.buildComponentDaggerModule() );
     }

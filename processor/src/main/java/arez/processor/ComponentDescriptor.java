@@ -3669,7 +3669,7 @@ final class ComponentDescriptor
            initializers.stream().anyMatch( o -> o.getName().equals( name ) );
   }
 
-  boolean shouldGenerateComponentDaggerModule()
+  boolean needsDaggerIntegration()
   {
     return _dagger;
   }
@@ -3678,7 +3678,7 @@ final class ComponentDescriptor
   TypeSpec buildComponentDaggerModule()
     throws ArezProcessorException
   {
-    assert shouldGenerateComponentDaggerModule();
+    assert needsDaggerIntegration();
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
