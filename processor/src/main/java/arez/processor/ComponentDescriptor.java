@@ -205,6 +205,12 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  ClassName getClassName()
+  {
+    return ClassName.get( getElement() );
+  }
+
+  @Nonnull
   Types getTypeUtils()
   {
     return _typeUtils;
@@ -3834,6 +3840,18 @@ final class ComponentDescriptor
       builder.addMethod( buildRepositoryDetach() );
     }
     return builder.build();
+  }
+
+  @Nonnull
+  ClassName getEnhancedClassName()
+  {
+    return ClassName.get( getPackageName(), getArezClassName() );
+  }
+
+  @Nonnull
+  ClassName getClassNameToConstruct()
+  {
+    return getEnhancedClassName();
   }
 
   @Nonnull
