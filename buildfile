@@ -26,7 +26,9 @@ define 'arez-dom' do
                :elemental2_promise,
                :elemental2_dom,
                :braincheck,
-               :arez_core
+               :arez_core,
+               # gwt_user is present for @DoNotAutobox annotation
+               :gwt_user
 
   gwt_enhance(project)
 
