@@ -8,7 +8,6 @@ complete as there is too much un-said.
   or as a scheduled idle task. This may need to wail till Arez gets time based scheduling in place.
   See https://github.com/arez/arez/issues/10
 
-* Add a Gelocation component. See https://github.com/arez/arez/issues/9
 
 * Add a DeviceMotion component. See https://github.com/arez/arez/issues/8
 
