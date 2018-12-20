@@ -2,6 +2,8 @@ package arez.processor;
 
 final class Constants
 {
+  static final String DAGGER_BINDS_CLASSNAME = "dagger.Binds";
+  static final String DAGGER_SUBCOMPONENT_CLASSNAME = "dagger.Subcomponent";
   static final String ACTION_ANNOTATION_CLASSNAME = "arez.annotations.Action";
   static final String COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ArezComponent";
   static final String OBSERVE_ANNOTATION_CLASSNAME = "arez.annotations.Observe";
