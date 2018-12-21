@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 @ArezComponent( dagger = Feature.DISABLE )
 public abstract class ScopedButNoDaggerModel
 {
-  public ScopedButNoDaggerModel()
+  ScopedButNoDaggerModel()
   {
   }
 

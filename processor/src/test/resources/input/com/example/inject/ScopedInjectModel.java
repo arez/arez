@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 @ArezComponent
 public abstract class ScopedInjectModel
 {
-  public ScopedInjectModel()
+  ScopedInjectModel()
   {
   }
 
