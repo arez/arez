@@ -1,12 +1,12 @@
 package com.example.repository;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Feature;
+import arez.annotations.InjectMode;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import javax.annotation.Nonnull;
 
-@Repository( inject = Feature.DISABLE )
+@Repository( inject = InjectMode.NONE )
 @ArezComponent
 public abstract class InjectDisabledRepository
 {

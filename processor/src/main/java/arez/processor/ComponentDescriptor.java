@@ -48,6 +48,13 @@ import static arez.processor.ProcessorUtil.*;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
+  enum InjectMode
+  {
+    NONE,
+    CONSUME,
+    PROVIDE
+  }
+
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
   private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
@@ -69,7 +76,7 @@ final class ComponentDescriptor
   /**
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
-  private String _repositoryInjectConfig = "AUTODETECT";
+  private String _repositoryInjectMode = "AUTODETECT";
   @Nonnull
   private final SourceVersion _sourceVersion;
   @Nonnull
@@ -83,9 +90,13 @@ final class ComponentDescriptor
   private final boolean _observable;
   private final boolean _disposeTrackable;
   private final boolean _disposeOnDeactivate;
-  private final boolean _injectClassesPresent;
-  private final boolean _inject;
+  @Nonnull
+  private final InjectMode _injectMode;
   private final boolean _dagger;
+  /**
+   * Is there any @Inject annotated fields or methods? If so we need to do a dance when generating Dagger support.
+   */
+  private final boolean _nonConstructorInjections;
   /**
    * Annotation that indicates whether equals/hashCode should be implemented. See arez.annotations.ArezComponent.requireEquals()
    */
@@ -160,9 +171,9 @@ final class ComponentDescriptor
                        final boolean observable,
                        final boolean disposeTrackable,
                        final boolean disposeOnDeactivate,
-                       final boolean injectClassesPresent,
-                       final boolean inject,
+                       @Nonnull final String injectMode,
                        final boolean dagger,
+                       final boolean nonConstructorInjections,
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -180,9 +191,9 @@ final class ComponentDescriptor
     _observable = observable;
     _disposeTrackable = disposeTrackable;
     _disposeOnDeactivate = disposeOnDeactivate;
-    _injectClassesPresent = injectClassesPresent;
-    _inject = inject;
+    _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
+    _nonConstructorInjections = nonConstructorInjections;
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
@@ -2592,6 +2603,19 @@ final class ComponentDescriptor
       builder.addSuperinterface( GeneratorUtil.LINKABLE_CLASSNAME );
     }
 
+    if ( needsEnhancer() )
+    {
+      final TypeSpec.Builder enhancer =
+        TypeSpec.interfaceBuilder( "Enhancer" ).addModifiers( Modifier.STATIC );
+      enhancer.addMethod( MethodSpec
+                            .methodBuilder( "enhance" )
+                            .addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ),
+                                                                  "component" ).build() )
+                            .addModifiers( Modifier.PUBLIC, Modifier.ABSTRACT )
+                            .build() );
+      builder.addType( enhancer.build() );
+    }
+
     buildFields( builder );
 
     buildConstructors( builder, typeUtils );
@@ -3383,7 +3407,7 @@ final class ComponentDescriptor
                                .build() );
     }
 
-    if ( _inject )
+    if ( InjectMode.NONE != _injectMode )
     {
       builder.addAnnotation( GeneratorUtil.INJECT_CLASSNAME );
     }
@@ -3412,6 +3436,15 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
+
+    if ( needsEnhancer() )
+    {
+      builder.addParameter( ParameterSpec.builder( ClassName.bestGuess( "Enhancer" ),
+                                                   GeneratorUtil.ENHANCER_PARAM_NAME,
+                                                   Modifier.FINAL )
+                              .addAnnotation( Generator.NONNULL_CLASSNAME ).build() );
+    }
+
     if ( !_references.isEmpty() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
@@ -3471,6 +3504,10 @@ final class ComponentDescriptor
     for ( final ReferenceDescriptor reference : eagerReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+    }
+    if ( needsEnhancer() )
+    {
+      builder.addStatement( "$N.enhance( this )", GeneratorUtil.ENHANCER_PARAM_NAME );
     }
 
     final ExecutableElement postConstruct = getPostConstruct();
@@ -3681,6 +3718,22 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  InjectMode getInjectMode()
+  {
+    return _injectMode;
+  }
+
+  boolean needsDaggerModule()
+  {
+    return needsDaggerIntegration() && InjectMode.PROVIDE == _injectMode && !needsEnhancer();
+  }
+
+  boolean needsEnhancer()
+  {
+    return needsDaggerIntegration() && ( null != _postConstruct || requiresSchedule() ) && _nonConstructorInjections;
+  }
+
+  @Nonnull
   TypeSpec buildComponentDaggerModule()
     throws ArezProcessorException
   {
@@ -3718,12 +3771,12 @@ final class ComponentDescriptor
   @SuppressWarnings( "ConstantConditions" )
   void configureRepository( @Nonnull final String name,
                             @Nonnull final List<TypeElement> extensions,
-                            @Nonnull final String repositoryInjectConfig,
+                            @Nonnull final String repositoryInjectMode,
                             @Nonnull final String repositoryDaggerConfig )
   {
     assert null != name;
     assert null != extensions;
-    _repositoryInjectConfig = repositoryInjectConfig;
+    _repositoryInjectMode = repositoryInjectMode;
     _repositoryDaggerConfig = repositoryDaggerConfig;
     for ( final TypeElement extension : extensions )
     {
@@ -3771,8 +3824,10 @@ final class ComponentDescriptor
     Generator.addGeneratedAnnotation( this, builder );
 
     final boolean addSingletonAnnotation =
-      "ENABLE".equals( _repositoryInjectConfig ) ||
-      ( "AUTODETECT".equals( _repositoryInjectConfig ) && _injectClassesPresent );
+      "CONSUME".equals( _repositoryInjectMode ) ||
+      "PROVIDE".equals( _repositoryInjectMode ) ||
+      ( "AUTODETECT".equals( _repositoryInjectMode ) &&
+        null != _elements.getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME ) );
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );
@@ -3780,13 +3835,13 @@ final class ComponentDescriptor
     {
       arezComponent.addMember( "nameIncludesId", "false" );
     }
-    if ( !"AUTODETECT".equals( _repositoryInjectConfig ) )
+    if ( !"AUTODETECT".equals( _repositoryInjectMode ) )
     {
-      arezComponent.addMember( "inject", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryInjectConfig );
+      arezComponent.addMember( "inject", "$T.$N", GeneratorUtil.INJECT_MODE_CLASSNAME, _repositoryInjectMode );
     }
     if ( !"AUTODETECT".equals( _repositoryDaggerConfig ) )
     {
-      arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryDaggerConfig );
+      arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.FEATURE_CLASSNAME, _repositoryDaggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
     if ( addSingletonAnnotation )
@@ -3849,6 +3904,12 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  ClassName getEnhancerClassName()
+  {
+    return ClassName.get( getPackageName(), getArezClassName(), "Enhancer" );
+  }
+
+  @Nonnull
   ClassName getClassNameToConstruct()
   {
     return getEnhancedClassName();
@@ -3864,6 +3925,13 @@ final class ComponentDescriptor
   private String getComponentDaggerModuleName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
+  }
+
+  @Nonnull
+  ClassName getDaggerComponentExtensionClassName()
+  {
+    return ClassName.get( getPackageName(),
+                          getNestedClassPrefix() + _element.getSimpleName() + "DaggerComponentExtension" );
   }
 
   @Nonnull

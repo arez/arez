@@ -1,4 +1,4 @@
-package arez.integration;
+package arez.integration.dagger;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -7,6 +7,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
+import arez.integration.AbstractArezIntegrationTest;
 import dagger.Component;
 import javax.inject.Singleton;
 import org.testng.annotations.Test;
@@ -60,8 +61,8 @@ public class DaggerRepositoryIntegrationTest
     final ArezContext context = Arez.context();
 
     context.action( () -> assertEquals( repository.findAll().size(), 3 ), Flags.READ_ONLY );
-    context.action( () -> assertEquals( repository.findAll().contains( component1 ), true ), Flags.READ_ONLY );
-    context.action( () -> assertEquals( repository.findAll().contains( component2 ), true ), Flags.READ_ONLY );
-    context.action( () -> assertEquals( repository.findAll().contains( component3 ), true ), Flags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAll().contains( component1 ) ), Flags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAll().contains( component2 ) ), Flags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAll().contains( component3 ) ), Flags.READ_ONLY );
   }
 }

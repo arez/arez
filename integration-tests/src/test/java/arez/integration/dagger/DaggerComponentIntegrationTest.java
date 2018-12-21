@@ -1,11 +1,12 @@
-package arez.integration;
+package arez.integration.dagger;
 
 import arez.Arez;
+import arez.ArezContext;
 import arez.Flags;
-import arez.Procedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
+import arez.integration.AbstractArezIntegrationTest;
 import dagger.Component;
 import javax.inject.Singleton;
 import org.testng.annotations.Test;
@@ -45,10 +46,9 @@ public class DaggerComponentIntegrationTest
     final TestDaggerComponent daggerComponent = DaggerDaggerComponentIntegrationTest_TestDaggerComponent.create();
     final TestComponent component = daggerComponent.component();
 
-    final Procedure executable1 = () -> assertEquals( component.getValue(), "" );
-    Arez.context().action( executable1, Flags.READ_ONLY );
-    Arez.context().action( () -> component.setValue( "X" ) );
-    final Procedure executable = () -> assertEquals( component.getValue(), "X" );
-    Arez.context().action( executable, Flags.READ_ONLY );
+    final ArezContext context = Arez.context();
+    context.action( () -> assertEquals( component.getValue(), "" ), Flags.READ_ONLY );
+    context.action( () -> component.setValue( "X" ) );
+    context.action( () -> assertEquals( component.getValue(), "X" ), Flags.READ_ONLY );
   }
 }

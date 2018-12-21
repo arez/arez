@@ -2,12 +2,15 @@ package com.example.inject;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.InjectMode;
+import javax.inject.Inject;
 
-@ArezComponent( inject = InjectMode.PROVIDE )
-public abstract class BasicInjectModel
+@ArezComponent
+public abstract class InjectViaAnnotationModel
 {
-  BasicInjectModel()
+  @Inject
+  Runnable _action;
+
+  InjectViaAnnotationModel()
   {
   }
 

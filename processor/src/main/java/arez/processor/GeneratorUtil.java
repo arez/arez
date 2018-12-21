@@ -21,7 +21,9 @@ final class GeneratorUtil
   static final ClassName INJECT_CLASSNAME = ClassName.get( "javax.inject", "Inject" );
   static final ClassName SINGLETON_CLASSNAME = ClassName.get( "javax.inject", "Singleton" );
   static final ClassName DAGGER_BINDS_CLASSNAME = ClassName.get( "dagger", "Binds" );
+  static final ClassName DAGGER_PROVIDES_CLASSNAME = ClassName.get( "dagger", "Provides" );
   static final ClassName DAGGER_MODULE_CLASSNAME = ClassName.get( "dagger", "Module" );
+  static final ClassName DAGGER_SUBCOMPONENT_CLASSNAME = ClassName.get( "dagger", "Subcomponent" );
   static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   static final ClassName FLAGS_CLASSNAME = ClassName.get( "arez", "Flags" );
@@ -31,7 +33,8 @@ final class GeneratorUtil
   static final ClassName COMPUTABLE_VALUE_CLASSNAME = ClassName.get( "arez", "ComputableValue" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "arez", "Disposable" );
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
-  static final ClassName INJECTIBLE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
+  static final ClassName FEATURE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
+  static final ClassName INJECT_MODE_CLASSNAME = ClassName.get( "arez.annotations", "InjectMode" );
   static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
   static final ClassName ABSTRACT_REPOSITORY_CLASSNAME =
     ClassName.get( "arez.component.internal", "AbstractRepository" );
@@ -81,6 +84,7 @@ final class GeneratorUtil
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
   static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
+  static final String ENHANCER_PARAM_NAME = FRAMEWORK_PREFIX + "enhancer";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
   static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME =
     FRAMEWORK_PREFIX + "nativeComponentPreDispose";

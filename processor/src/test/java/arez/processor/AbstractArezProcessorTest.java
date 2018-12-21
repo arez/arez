@@ -23,7 +23,8 @@ import static org.testng.Assert.*;
 abstract class AbstractArezProcessorTest
 {
   void assertSuccessfulCompile( @Nonnull final String classname,
-                                final boolean componentDaggerEnabled,
+                                final boolean daggerModuleExpected,
+                                final boolean daggerComponentExtensionExpected,
                                 final boolean repositoryEnabled,
                                 final boolean repositoryDaggerEnabled )
     throws Exception
@@ -33,14 +34,19 @@ abstract class AbstractArezProcessorTest
     final StringBuilder arezComponent = new StringBuilder();
     final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
-    final StringBuilder componentDaggerModule = componentDaggerEnabled ? new StringBuilder() : null;
+    final StringBuilder componentDaggerModule = daggerModuleExpected ? new StringBuilder() : null;
+    final StringBuilder componentExtension = daggerComponentExtensionExpected ? new StringBuilder() : null;
     final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder repositoryDaggerModule = repositoryDaggerEnabled ? new StringBuilder() : null;
     input.append( "input" );
     arezComponent.append( "expected" );
-    if ( componentDaggerEnabled )
+    if ( daggerModuleExpected )
     {
       componentDaggerModule.append( "expected" );
+    }
+    if ( daggerComponentExtensionExpected )
+    {
+      componentExtension.append( "expected" );
     }
     if ( repositoryEnabled )
     {
@@ -57,9 +63,13 @@ abstract class AbstractArezProcessorTest
       input.append( '/' );
       input.append( elements[ i ] );
       arezComponent.append( '/' );
-      if ( componentDaggerEnabled )
+      if ( daggerModuleExpected )
       {
         componentDaggerModule.append( '/' );
+      }
+      if ( daggerComponentExtensionExpected )
+      {
+        componentExtension.append( '/' );
       }
       if ( repositoryEnabled )
       {
@@ -81,12 +91,20 @@ abstract class AbstractArezProcessorTest
         }
       }
       arezComponent.append( elements[ i ] );
-      if ( componentDaggerEnabled )
+      if ( daggerModuleExpected )
       {
         componentDaggerModule.append( elements[ i ] );
         if ( isLastElement )
         {
           componentDaggerModule.append( "DaggerModule" );
+        }
+      }
+      if ( daggerComponentExtensionExpected )
+      {
+        componentExtension.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          componentExtension.append( "DaggerComponentExtension" );
         }
       }
 
@@ -115,10 +133,15 @@ abstract class AbstractArezProcessorTest
     arezComponent.append( ".java" );
     final ArrayList<String> expectedOutputs = new ArrayList<>();
     expectedOutputs.add( arezComponent.toString() );
-    if ( componentDaggerEnabled )
+    if ( daggerModuleExpected )
     {
       componentDaggerModule.append( ".java" );
       expectedOutputs.add( componentDaggerModule.toString() );
+    }
+    if ( daggerComponentExtensionExpected )
+    {
+      componentExtension.append( ".java" );
+      expectedOutputs.add( componentExtension.toString() );
     }
     if ( repositoryEnabled )
     {
