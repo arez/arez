@@ -212,31 +212,8 @@ complete as there is too much un-said.
 
 ## Incremental
 
-* An Ocaml framework that is very similar conceptually to Arez's core (ObservableValue = variable,
-  ComputableValue = incremental, Observer = observer). They manually trigger scheduling (via stabilize call)
-  and assume a DAG rather than a graph that will eventually stabilize.
-
-* http://www.umut-acar.org/self-adjusting-computation
-* https://blog.janestreet.com/introducing-incremental/
-
-* Interestingly it also supports persistent data structures from functional programming paradigms. This
-  feels very similar to the `CachedRelationship` from Rose.
-
-* It also allows better control over which dependencies fire. i.e. Imagine you have a flag that indicates
-  UI component that is selected. Each time it changes, all UI components need to re-fire to calculate boolean
-  (probably `@Computable`) variable `"isSelected"`. Incremental can control dependencies that will fire and
-  will only fire the two that need changing (i.e. the one going from selected to not selected and the one
-  going from non selected to selected). It seems they do this by getting before and after values and and
-  potentially dependency list and then writing custom change code. This approach is common when interacting
-  with imperative API. VirtualDOM is like this. Compute the desired state, then perform diff against last
-  state and perform patching against actual DOM to align. So get two variables (before VDOM, after VDOM)
-  and use diff and patch operations to apply effects.
-
-* It suggests that Arez should support some intelligent propagation of changes from Observables. Translating
-  the concepts into Arez there seems to be two strategies for doing this. Allowing the observer to receive
-  change messages that include the old state and the new state and writing the observer so that it can
-  incrementally apply changes. It may also mean adding hooks to `Observable` and `ComputableValue` instances
-  such that they can determine which dependencies that they will update on changes.
-
-* https://github.com/janestreet/incremental
-* https://www.youtube.com/watch?v=HNiFiLVg20k
+* Incremental suggests that it may be useful to allow `ObservableValue`/`ComputableValue` nodes
+  within Arez to update the list of nodes that depend upon it and select which dependents will be
+  marked as STALE for a particular change. It may also be useful for `ComputableValue`/`Observer`
+  nodes to receive a notification when a change would make it stale so that the node can incrementally
+  update itself.

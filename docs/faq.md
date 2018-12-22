@@ -17,6 +17,7 @@ title: Frequently Asked Questions
   * [Why guard invariant checks with `Arez.shouldCheckInvariants()`?](#why-guard-invariant-checks-with-arezshouldcheckinvariants)
 - [Alternatives](#alternatives)
   * [How does Arez compare to Mobx?](#how-does-arez-compare-to-mobx)
+  * [How does Arez compare to Incremental?](#how-does-arez-compare-to-incremental)
 
 <!-- tocstop -->
 
@@ -206,5 +207,58 @@ component model within the core framework where as the equivalent within in the 
 [Mobx State Tree](https://github.com/mobxjs/mobx-state-tree) or MST. MST provides similar features to the Arez
 component model as well as additional functionality such as serialization and deserialization of state.
 
+Arez includes a significantly more advanced scheduler where observers and memoized functions can be scheduled at
+different priorities. The scheduler also allows user code to explicitly schedule tasks that will be interleaved
+with observer reactions. Both of these features have opened up significant mechanisms for improving performance
+
 Overall the two libraries share many similarities. Arez is focused on performance and is written in Java. Mobx
 has a larger ecosystem and is written in javascript (or TypeScript to be more precise).
+
+### How does Arez compare to Incremental?
+
+[Incremental](https://github.com/janestreet/incremental) is an Ocaml library that should have inspired Arez
+but it was not discovered until after Arez had crystalized. Many of the core elements in Incremental have direct
+parallels in Arez. i.e. Incremental's concepts of `variable`, `incremental` and `observer` are approximately
+equivalent to Arez's {@api_url: ObservableValue}, {@api_url: ComputableValue} and {@api_url: Observer}.
+
+Incremental differs in that it manually triggers scheduling of tasks to converge the state after a variable has
+changed via a stabilize call. This is in contrast with Arez that automatically converges the state after every
+{@api_url: ObservableValue} change unless the develoepr has specifically paused the scheduler. Incremental also
+assumes a directed acyclic graph where Arez assumes an arbitrary graph that will eventually stabilize.
+
+Incremental is based upon the [Self-Adjusting Computation](http://www.umut-acar.org/self-adjusting-computation)
+academic literature which should be considered a significant advantage. Arez (and Mobx before it) has stumbled
+on the same techniques as outlined in the research literature (i.e. Dynamic dependence graphs and memoized dynamic
+dependence graphs as a way of implementing change propagation) but both lack the rigour that is present in the
+literature. The author is unable to determine whether the Incremental implementation has the precision described
+in the literature as the library was primarily assessed based on the [technical documentation](https://github.com/janestreet/incremental/blob/master/src/incremental_intf.ml),
+the initial [announcement](https://blog.janestreet.com/introducing-incremental) and a [conference talk](https://www.youtube.com/watch?v=HNiFiLVg20k).
+
+Incremental also provides a "... low-level, experimental interface to incremental" which allows applications
+to explicitly control change propagation for performance reasons. It comes at the cost that it's much harder
+to use right. The capabilities offered by this interface include:
+
+* Receive notification when a dependency changes so that the `"expert"` node can update itself incrementally.
+* Allow the `"expert"` node to update the nodes that depend upon it.
+* Allow the `"expert"` node to select the nodes that depend upon it that will react to changes.
+
+While this approach is fraught with danger and highly problematic, if done correctly it can significantly
+improve performance. Imagine you have an observable property that identifies the UI component that is
+selected by the user and there is 1000 UI components that have a memoized boolean property `"isSelected"`
+that indicates whether they are selected. When the selected value is changed, both Arez and Mobx would
+schedule 1000 reactions which would ultimately result in two changes (i.e. one UI component's `"isSelected"`
+property becoming `true` and one UI component's `"isSelected"` property becoming `false`). Incremental
+allows for the possibility that a custom `"expert"` node for the `"selected"` property could instead just
+trigger two reactions, thus avoiding 998 wasted reactions.
+
+Incremental also allows incremental updates which is commonly used when interacting with an imperative API.
+VirtualDOM is like this. Compute the desired state, then perform diff against last state and perform patching
+against actual DOM to align. So get two variables (before VDOM, after VDOM) and use diff and patch operations
+to apply effects. This could be implemented within Incremental whereas both Arez and Mobx defer to other frameworks
+such as react to achieve a similar goal.
+
+Incremental also has some downsides when compared to Arez as a cycle in the dependence graph or an exception
+during stabilization will cause the stabilization process to terminate. Cycles are explicitly supported within
+Arez as long as the system stabilizes within a fixed number of rounds. An exception within Arez can be handled
+locally but even if unhandled, it will only stop change propagation within the graph that the dependency exists
+and it will recover gracefully if the condition that caused the error is resolved.
