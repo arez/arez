@@ -48,6 +48,7 @@ Arez is licensed under [Apache License, Version 2.0](LICENSE).
   docs were used to seed `docs/computable_values.md`).
 
 * Other frameworks that influenced or are influencing the development of Arez include;
+  - [Incremental](https://github.com/janestreet/incremental) is an Ocaml library that should have inspired Arez.
   - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
   - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
   -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
