@@ -180,15 +180,15 @@ final class ObserveDescriptor
   void buildFields( @Nonnull final TypeSpec.Builder builder )
   {
     final FieldSpec.Builder field =
-      FieldSpec.builder( GeneratorUtil.OBSERVER_CLASSNAME, getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      FieldSpec.builder( Generator.OBSERVER_CLASSNAME, getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
+        addAnnotation( Generator.NONNULL_CLASSNAME );
     builder.addField( field.build() );
   }
 
   @Nonnull
   private String getFieldName()
   {
-    return GeneratorUtil.FIELD_PREFIX + getName();
+    return Generator.FIELD_PREFIX + getName();
   }
 
   void validate()
@@ -237,11 +237,11 @@ final class ObserveDescriptor
     sb.append( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
                "$T.areNamesEnabled() ? $N + $S : null, () -> super.$N(), " );
     parameters.add( getFieldName() );
-    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.NAME_VAR_NAME );
+    parameters.add( Generator.CONTEXT_VAR_NAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
+    parameters.add( Generator.COMPONENT_VAR_NAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
+    parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
     parameters.add( getObserve().getSimpleName().toString() );
     if ( null != _onDepsChange )
@@ -266,11 +266,11 @@ final class ObserveDescriptor
                "$T.areNativeComponentsEnabled() ? $N : null, " +
                "$T.areNamesEnabled() ? $N + $S : null, () -> super.$N(), " );
     parameters.add( getFieldName() );
-    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.NAME_VAR_NAME );
+    parameters.add( Generator.CONTEXT_VAR_NAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
+    parameters.add( Generator.COMPONENT_VAR_NAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
+    parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
     parameters.add( _onDepsChange.getSimpleName().toString() );
 
@@ -326,7 +326,7 @@ final class ObserveDescriptor
     expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
     for ( int i = 0; i < flags.size(); i++ )
     {
-      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
+      parameters.add( Generator.FLAGS_CLASSNAME );
     }
   }
 
@@ -370,7 +370,7 @@ final class ObserveDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -404,13 +404,13 @@ final class ObserveDescriptor
     final StringBuilder statement = new StringBuilder();
     final ArrayList<Object> params = new ArrayList<>();
 
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
     if ( !isProcedure )
     {
       statement.append( "return " );
     }
     statement.append( "this.$N.getContext()." );
-    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
+    params.add( Generator.KERNEL_FIELD_NAME );
 
     if ( isProcedure && isSafe )
     {
@@ -468,7 +468,7 @@ final class ObserveDescriptor
     if ( _reportParameters && !parameters.isEmpty() )
     {
       statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( Generator.AREZ_CLASSNAME );
       params.add( Object.class );
       firstParam = true;
       for ( final VariableElement parameter : parameters )
@@ -495,8 +495,8 @@ final class ObserveDescriptor
     }
     else
     {
-      GeneratorUtil.generateTryBlock( builder,
-                                      thrownTypes,
+      Generator.generateTryBlock( builder,
+                                  thrownTypes,
                                       b -> b.addStatement( statement.toString(), params.toArray() ) );
     }
 
@@ -524,10 +524,10 @@ final class ObserveDescriptor
     builder.returns( TypeName.get( returnType ) );
 
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
     block.addStatement( "$T.fail( () -> \"Observe method named '$N' invoked but @Observe(executor=INTERNAL) " +
                         "annotated methods should only be invoked by the runtime.\" )",
-                        GeneratorUtil.GUARDS_CLASSNAME,
+                        Generator.GUARDS_CLASSNAME,
                         methodName );
     block.endControlFlow();
 

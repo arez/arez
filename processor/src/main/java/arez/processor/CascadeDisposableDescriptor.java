@@ -33,14 +33,12 @@ final class CascadeDisposableDescriptor
   {
     if ( null != _field )
     {
-      builder.addStatement( "$T.dispose( $N )", GeneratorUtil.DISPOSABLE_CLASSNAME, _field.getSimpleName().toString() );
+      builder.addStatement( "$T.dispose( $N )", Generator.DISPOSABLE_CLASSNAME, _field.getSimpleName().toString() );
     }
     else
     {
       assert null != _method;
-      builder.addStatement( "$T.dispose( $N() )",
-                            GeneratorUtil.DISPOSABLE_CLASSNAME,
-                            _method.getSimpleName().toString() );
+      builder.addStatement( "$T.dispose( $N() )", Generator.DISPOSABLE_CLASSNAME, _method.getSimpleName().toString() );
     }
   }
 }

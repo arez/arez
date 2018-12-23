@@ -231,14 +231,14 @@ final class ObservableDescriptor
   {
     assert null != _getterType;
     final ParameterizedTypeName typeName =
-      ParameterizedTypeName.get( GeneratorUtil.OBSERVABLE_CLASSNAME,
+      ParameterizedTypeName.get( Generator.OBSERVABLE_CLASSNAME,
                                  TypeName.get( _getterType.getReturnType() ).box() );
     final FieldSpec.Builder field =
       FieldSpec.builder( typeName,
                          getFieldName(),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+        addAnnotation( Generator.NONNULL_CLASSNAME );
     builder.addField( field.build() );
     if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {
@@ -263,19 +263,19 @@ final class ObservableDescriptor
   @Nonnull
   String getDataFieldName()
   {
-    return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + getName();
+    return Generator.OBSERVABLE_DATA_FIELD_PREFIX + getName();
   }
 
   @Nonnull
   String getCollectionCacheDataFieldName()
   {
-    return GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + getName();
+    return Generator.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + getName();
   }
 
   @Nonnull
   String getFieldName()
   {
-    return GeneratorUtil.FIELD_PREFIX + getName();
+    return Generator.FIELD_PREFIX + getName();
   }
 
   void buildInitializer( @Nonnull final MethodSpec.Builder builder )
@@ -287,13 +287,13 @@ final class ObservableDescriptor
                "$T.areNamesEnabled() ? $N + $S : null, " +
                "$T.arePropertyIntrospectorsEnabled() ? () -> " );
     parameters.add( getFieldName() );
-    parameters.add( GeneratorUtil.CONTEXT_VAR_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.COMPONENT_VAR_NAME );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
-    parameters.add( GeneratorUtil.NAME_VAR_NAME );
+    parameters.add( Generator.CONTEXT_VAR_NAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
+    parameters.add( Generator.COMPONENT_VAR_NAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
+    parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
-    parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+    parameters.add( Generator.AREZ_CLASSNAME );
 
     final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
     if ( abstractObservables )
@@ -312,7 +312,7 @@ final class ObservableDescriptor
     {
       //setter
       sb.append( ", $T.arePropertyIntrospectorsEnabled() ? v -> " );
-      parameters.add( GeneratorUtil.AREZ_CLASSNAME );
+      parameters.add( Generator.AREZ_CLASSNAME );
       if ( abstractObservables )
       {
         sb.append( "this.$N = v" );
@@ -375,7 +375,7 @@ final class ObservableDescriptor
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
 
     builder.addStatement( "return $N", getFieldName() );
 
@@ -408,32 +408,32 @@ final class ObservableDescriptor
       builder.addParameter( param.build() );
 
       final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( this.$N.getContext().isTransactionActive() )", GeneratorUtil.KERNEL_FIELD_NAME );
-      block.addStatement( "this.$N( $N )", GeneratorUtil.FRAMEWORK_PREFIX + methodName, paramName );
+      block.beginControlFlow( "if ( this.$N.getContext().isTransactionActive() )", Generator.KERNEL_FIELD_NAME );
+      block.addStatement( "this.$N( $N )", Generator.FRAMEWORK_PREFIX + methodName, paramName );
       block.nextControlFlow( "else" );
 
       if ( _setterType.getThrownTypes().isEmpty() )
       {
         block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
                             "() -> this.$N( $N ) )",
-                            GeneratorUtil.KERNEL_FIELD_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
-                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            Generator.KERNEL_FIELD_NAME,
+                            Generator.AREZ_CLASSNAME,
+                            Generator.KERNEL_FIELD_NAME,
                             "." + methodName,
-                            GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+                            Generator.FRAMEWORK_PREFIX + methodName,
                             paramName );
       }
       else
       {
         //noinspection CodeBlock2Expr
-        GeneratorUtil.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
+        Generator.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
           b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
                           "() -> this.$N( $N ) )",
-                          GeneratorUtil.KERNEL_FIELD_NAME,
-                          GeneratorUtil.AREZ_CLASSNAME,
-                          GeneratorUtil.KERNEL_FIELD_NAME,
+                          Generator.KERNEL_FIELD_NAME,
+                          Generator.AREZ_CLASSNAME,
+                          Generator.KERNEL_FIELD_NAME,
                           "." + methodName,
-                          GeneratorUtil.FRAMEWORK_PREFIX + methodName,
+                          Generator.FRAMEWORK_PREFIX + methodName,
                           paramName );
         } );
       }
@@ -461,7 +461,7 @@ final class ObservableDescriptor
     assert null != _setterType;
     assert null != _getter;
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.FRAMEWORK_PREFIX + _setter.getSimpleName().toString() );
+      MethodSpec.methodBuilder( Generator.FRAMEWORK_PREFIX + _setter.getSimpleName().toString() );
     builder.addModifiers( Modifier.PRIVATE );
     ProcessorUtil.copyExceptions( _setterType, builder );
     ProcessorUtil.copyTypeParameters( _setterType, builder );
@@ -488,10 +488,10 @@ final class ObservableDescriptor
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
     ProcessorUtil.copyWhitelistedAnnotations( element, param );
     builder.addParameter( param.build() );
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
     builder.addStatement( "this.$N.preReportChanged()", getFieldName() );
 
-    final String varName = GeneratorUtil.VARIABLE_PREFIX + "currentValue";
+    final String varName = Generator.VARIABLE_PREFIX + "currentValue";
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
@@ -519,7 +519,7 @@ final class ObservableDescriptor
     if ( shouldGenerateUnmodifiableCollectionVariant() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
       block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
       block.endControlFlow();
 
@@ -532,7 +532,7 @@ final class ObservableDescriptor
         if ( isGetterNonnull() )
         {
           codeBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                  GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   varName );
         }
         else
@@ -540,7 +540,7 @@ final class ObservableDescriptor
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
           listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                      GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                      Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                       varName );
           listenerBlock.endControlFlow();
           codeBlock.add( listenerBlock.build() );
@@ -555,7 +555,7 @@ final class ObservableDescriptor
           {
             codeBlock
               .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-                             GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                             Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
           }
           else
@@ -564,7 +564,7 @@ final class ObservableDescriptor
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
               .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-                             GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                             Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
             listenerBlock.endControlFlow();
             codeBlock.add( listenerBlock.build() );
@@ -576,7 +576,7 @@ final class ObservableDescriptor
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
             .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-                           GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                           Generator.DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
                            _setter.getSimpleName().toString() );
           listenerBlock.endControlFlow();
@@ -591,7 +591,7 @@ final class ObservableDescriptor
         if ( isGetterNonnull() )
         {
           codeBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                  GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   varName );
         }
         else
@@ -599,7 +599,7 @@ final class ObservableDescriptor
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
           listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                      GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                      Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                       varName );
           listenerBlock.endControlFlow();
           codeBlock.add( listenerBlock.build() );
@@ -614,7 +614,7 @@ final class ObservableDescriptor
           {
             codeBlock
               .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-                             GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                             Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
           }
           else
@@ -623,7 +623,7 @@ final class ObservableDescriptor
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
               .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-                             GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                             Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
             listenerBlock.endControlFlow();
             codeBlock.add( listenerBlock.build() );
@@ -635,7 +635,7 @@ final class ObservableDescriptor
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
             .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
-                           GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                           Generator.DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
                            _setter.getSimpleName().toString() );
           listenerBlock.endControlFlow();
@@ -720,7 +720,7 @@ final class ObservableDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getterType.getReturnType() ) );
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
 
     if ( _readOutsideTransaction )
     {
@@ -738,13 +738,13 @@ final class ObservableDescriptor
         if ( isGetterNonnull() )
         {
           final CodeBlock.Builder block = CodeBlock.builder();
-          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
 
           final CodeBlock.Builder guard = CodeBlock.builder();
           guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
           guard.addStatement( "this.$N = $T.wrap( this.$N )",
                               getCollectionCacheDataFieldName(),
-                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              Generator.COLLECTIONS_UTIL_CLASSNAME,
                               getDataFieldName() );
           guard.endControlFlow();
           block.add( guard.build() );
@@ -760,7 +760,7 @@ final class ObservableDescriptor
         else
         {
           final CodeBlock.Builder block = CodeBlock.builder();
-          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
 
           final String result = "$$ar$$_result";
           block.addStatement( "final $T $N = this.$N",
@@ -773,7 +773,7 @@ final class ObservableDescriptor
                                   result );
           guard.addStatement( "this.$N = $T.wrap( $N )",
                               getCollectionCacheDataFieldName(),
-                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              Generator.COLLECTIONS_UTIL_CLASSNAME,
                               result );
           guard.endControlFlow();
           block.add( guard.build() );
@@ -799,13 +799,13 @@ final class ObservableDescriptor
         if ( isGetterNonnull() )
         {
           final CodeBlock.Builder block = CodeBlock.builder();
-          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
 
           final CodeBlock.Builder guard = CodeBlock.builder();
           guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
           guard.addStatement( "this.$N = $T.wrap( super.$N() )",
                               getCollectionCacheDataFieldName(),
-                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              Generator.COLLECTIONS_UTIL_CLASSNAME,
                               _getter.getSimpleName() );
           guard.endControlFlow();
           block.add( guard.build() );
@@ -821,7 +821,7 @@ final class ObservableDescriptor
         else
         {
           final CodeBlock.Builder block = CodeBlock.builder();
-          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", GeneratorUtil.AREZ_CLASSNAME );
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
 
           final String result = "$$ar$$_result";
           block.addStatement( "final $T $N = super.$N()",
@@ -834,7 +834,7 @@ final class ObservableDescriptor
                                   result );
           guard.addStatement( "this.$N = $T.wrap( $N )",
                               getCollectionCacheDataFieldName(),
-                              GeneratorUtil.COLLECTIONS_UTIL_CLASSNAME,
+                              Generator.COLLECTIONS_UTIL_CLASSNAME,
                               result );
           guard.endControlFlow();
           block.add( guard.build() );

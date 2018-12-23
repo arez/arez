@@ -93,7 +93,7 @@ final class DependencyDescriptor
       {
         builder.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier()." +
                               "addOnDisposeListener( this, this::dispose )",
-                              GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                              Generator.DISPOSE_TRACKABLE_CLASSNAME,
                               fieldName );
       }
       else
@@ -102,7 +102,7 @@ final class DependencyDescriptor
         listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
         listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier()." +
                                     "addOnDisposeListener( this, this::dispose )",
-                                    GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                    Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                     _field.getSimpleName() );
         listenerBlock.endControlFlow();
         builder.addCode( listenerBlock.build() );
@@ -121,14 +121,14 @@ final class DependencyDescriptor
         {
           assert _cascade;
           builder.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
-                                GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                 getObservable().getDataFieldName() );
         }
         // Abstract methods that do not require initializer have no chance to be non-null in the constructor
         // so there is no need to try and add listener as this can not occur
         else if ( !method.getModifiers().contains( Modifier.ABSTRACT ) || getObservable().requireInitializer() )
         {
-          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+          final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
           builder.addStatement( "final $T $N = this.$N",
                                 getMethod().getReturnType(),
                                 varName,
@@ -139,14 +139,14 @@ final class DependencyDescriptor
           {
             listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier()." +
                                         "addOnDisposeListener( this, this::dispose )",
-                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         getObservable().getDataFieldName() );
           }
           else
           {
             listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier()." +
                                         "addOnDisposeListener( this, () -> $N( null ) )",
-                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         getObservable().getDataFieldName(),
                                         getObservable().getSetter().getSimpleName().toString() );
           }
@@ -161,12 +161,12 @@ final class DependencyDescriptor
           assert _cascade;
           builder.addStatement( "$T.asDisposeTrackable( super.$N() ).getNotifier()." +
                                 "addOnDisposeListener( this, this::dispose )",
-                                GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                 method.getSimpleName().toString() );
         }
         else
         {
-          final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+          final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
           builder.addStatement( "final $T $N = super.$N()",
                                 getMethod().getReturnType(),
                                 varName,
@@ -177,14 +177,14 @@ final class DependencyDescriptor
           {
             listenerBlock.addStatement( "$T.asDisposeTrackable( super.$N() ).getNotifier()." +
                                         "addOnDisposeListener( this, this::dispose )",
-                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         method.getSimpleName() );
           }
           else
           {
             listenerBlock.addStatement( "$T.asDisposeTrackable( super.$N() ).getNotifier()." +
                                         "addOnDisposeListener( this, () -> $N( null ) )",
-                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         method.getSimpleName(),
                                         getObservable().getSetter().getSimpleName().toString() );
           }

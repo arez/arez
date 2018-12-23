@@ -101,7 +101,7 @@ final class ActionDescriptor
     }
 
     statement.append( "this.$N.getContext()." );
-    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
+    params.add( Generator.KERNEL_FIELD_NAME );
 
     if ( isProcedure && isSafe )
     {
@@ -123,8 +123,8 @@ final class ActionDescriptor
     statement.append( "(" );
 
     statement.append( "$T.areNamesEnabled() ? this.$N.getName() + $S : null" );
-    params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
+    params.add( Generator.AREZ_CLASSNAME );
+    params.add( Generator.KERNEL_FIELD_NAME );
     params.add( "." + getName() );
 
     statement.append( ", () -> super.$N(" );
@@ -168,7 +168,7 @@ final class ActionDescriptor
     if ( _reportParameters && !parameters.isEmpty() )
     {
       statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( Generator.AREZ_CLASSNAME );
       params.add( Object.class );
       firstParam = true;
       for ( final VariableElement parameter : parameters )
@@ -189,15 +189,15 @@ final class ActionDescriptor
     }
     statement.append( " )" );
 
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
     if ( isSafe )
     {
       builder.addStatement( statement.toString(), params.toArray() );
     }
     else
     {
-      GeneratorUtil.generateTryBlock( builder,
-                                      thrownTypes,
+      Generator.generateTryBlock( builder,
+                                  thrownTypes,
                                       b -> b.addStatement( statement.toString(), params.toArray() ) );
     }
 
@@ -236,7 +236,7 @@ final class ActionDescriptor
     expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
     for ( int i = 0; i < flags.size(); i++ )
     {
-      parameters.add( GeneratorUtil.FLAGS_CLASSNAME );
+      parameters.add( Generator.FLAGS_CLASSNAME );
     }
   }
 }
