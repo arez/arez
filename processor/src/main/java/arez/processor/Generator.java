@@ -3,6 +3,7 @@ package arez.processor;
 import com.google.auto.common.GeneratedAnnotationSpecs;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -164,13 +165,26 @@ final class Generator
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
     builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
 
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "provideEnhancer" )
-                         .addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME )
-                         .addModifiers( Modifier.STATIC )
-                         .returns( descriptor.getEnhancerClassName() )
-                         .addStatement( "return InjectSupport.c_enhancer" )
-                         .build() );
+    final MethodSpec.Builder method = MethodSpec
+      .methodBuilder( "provideEnhancer" )
+      .addAnnotation( GeneratorUtil.DAGGER_PROVIDES_CLASSNAME )
+      .addModifiers( Modifier.STATIC )
+      .returns( descriptor.getEnhancerClassName() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != InjectSupport.c_enhancer, " +
+                        "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
+                        "the dependency injection provider has been initialized. Please see " +
+                        "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
+                        "directions how to configure dependency injection.\" )",
+                        GeneratorUtil.GUARDS_CLASSNAME,
+                        descriptor.getType() );
+    block.endControlFlow();
+
+    method.addCode( block.build() );
+
+    method.addStatement( "return InjectSupport.c_enhancer" );
+    builder.addMethod( method.build() );
 
     return builder.build();
   }

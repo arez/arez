@@ -21,8 +21,6 @@ complete as there is too much un-said.
 
 * Add more integration tests?
 
-* Generate invariant failure if access `provideEnhancer()` and enhancer is not present
-
 * Update documentation
 
 * Injection managed components should not have public access constructors
