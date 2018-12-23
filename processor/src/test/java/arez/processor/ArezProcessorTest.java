@@ -912,10 +912,18 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
                       "@ArezComponent specified inject parameter but has more than one constructor" },
+        new Object[]{ "com.example.inject.DaggerEnableInjectDisabledModel",
+                      "@ArezComponent target has a dagger parameter that resolved to ENABLE but the inject parameter is set to NONE and this is not a valid combination of parameters." },
+        new Object[]{ "com.example.inject.InjectFieldsInjectDisabledModel",
+                      "@ArezComponent target has fields annotated with the javax.inject.Inject annotation but the inject parameter is set to NONE and this is not a valid scenario. Remove the @Inject annotation(s) or change the inject parameter to a value other than NONE." },
+        new Object[]{ "com.example.inject.InjectMethodsInjectDisabledModel",
+                      "@ArezComponent target has methods annotated with the javax.inject.Inject annotation but the inject parameter is set to NONE and this is not a valid scenario. Remove the @Inject annotation(s) or change the inject parameter to a value other than NONE." },
         new Object[]{ "com.example.inject.MultipleConstructorsScopedModel",
                       "@ArezComponent target has specified a scope annotation but has more than one constructor and thus is not a candidate for injection" },
         new Object[]{ "com.example.inject.MultipleScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleScopesModel.MyScope]" },
+        new Object[]{ "com.example.inject.ScopePresentInjectDisabledModel",
+                      "@ArezComponent target has a dagger parameter that resolved to ENABLE but the inject parameter is set to NONE and this is not a valid combination of parameters." },
 
         new Object[]{ "com.example.inverse.BadCollectionTypeInverseModel",
                       "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
