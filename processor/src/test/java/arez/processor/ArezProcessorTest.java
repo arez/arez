@@ -923,7 +923,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.MultipleScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleScopesModel.MyScope]" },
         new Object[]{ "com.example.inject.ScopePresentInjectDisabledModel",
-                      "@ArezComponent target has a dagger parameter that resolved to ENABLE but the inject parameter is set to NONE and this is not a valid combination of parameters." },
+                      "@ArezComponent target is annotated with scope annotation @javax.inject.Singleton but the inject parameter is set to NONE and this is not a valid scenario. Remove the scope annotation or change the inject parameter to a value other than NONE." },
 
         new Object[]{ "com.example.inverse.BadCollectionTypeInverseModel",
                       "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
