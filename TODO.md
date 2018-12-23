@@ -21,8 +21,6 @@ complete as there is too much un-said.
 
 * Add more integration tests?
 
-* Add tests in processor package to cover off all the uncovered code.
-
 * Generate invariant failure if access `provideEnhancer()` and enhancer is not present
 
 * Update documentation
