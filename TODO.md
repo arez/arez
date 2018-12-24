@@ -4,6 +4,12 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
+## Next Release
+
+* Update inject documentation
+
+* Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
+
 ## Enhancements
 
 * Profile with D8
@@ -18,12 +24,6 @@ complete as there is too much un-said.
   the same class but allowing
 
 * Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
-
-
-
-* Update inject documentation
-
-* Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
 
 * Can inverse references be maps. The key would be the component id.
 
