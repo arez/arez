@@ -421,30 +421,6 @@ public class ArezProcessorTest
   }
 
   @Test
-  public void XXXX()
-    throws Exception
-  {
-    assertSuccessfulCompile( "com.example.component_dependency.NonCascadeObservableDependency",
-                             false,
-                             false,
-                             false,
-                             false );
-    //assertSuccessfulCompile( "com.example.inject.InjectViaAnnotationWithPostConstructModel",
-    //                         false,
-    //                         true,
-    //                         false,
-    //                         false );
-    //assertSuccessfulCompile( "com.example.inject.ConsumeInjectViaAnnotationWithPostConstructModel",
-    //                         false,
-    //                         true,
-    //                         false,
-    //                         false );
-    //
-    assertFailedCompile( "com.example.inject.DaggerEnableNonPublicModel",
-                         "@ArezComponent target is not public but is configured as inject = PROVIDE using the dagger injection framework. Due to constraints within the dagger framework the type needs to made public." );
-  }
-
-  @Test
   public void processSuccessfulMultipleInverseWithSameTarget()
     throws Exception
   {
