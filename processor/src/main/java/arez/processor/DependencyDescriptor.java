@@ -126,7 +126,7 @@ final class DependencyDescriptor
         }
         // Abstract methods that do not require initializer have no chance to be non-null in the constructor
         // so there is no need to try and add listener as this can not occur
-        else if ( !method.getModifiers().contains( Modifier.ABSTRACT ) || getObservable().requireInitializer() )
+        else if ( getObservable().requireInitializer() )
         {
           final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
           builder.addStatement( "final $T $N = this.$N",
