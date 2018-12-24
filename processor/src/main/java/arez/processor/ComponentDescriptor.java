@@ -1115,6 +1115,23 @@ final class ComponentDescriptor
                                         " but no @ComponentId annotated method. The type is expected to be of " +
                                         "type int.", _element );
     }
+    else if ( InjectMode.NONE != _injectMode )
+    {
+      for ( final ExecutableElement constructor : getConstructors( getElement() ) )
+      {
+        // The annotation processor engine can not distinguish between a "default constructor"
+        // synthesized by the compiler and one written by a user that has the same signature.
+        // So our check just skips scenarios where the constructor could be synthetic.
+        if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+             !( constructor.getParameters().isEmpty() && constructor.getThrownTypes().isEmpty() ) )
+        {
+          throw new ArezProcessorException( "@ArezComponent target has a public constructor but the inject parameter " +
+                                            "does not resolve to NONE. Public constructors are not necessary when " +
+                                            "the instantiation of the component is managed by the injection framework.",
+                                            constructor );
+        }
+      }
+    }
   }
 
   private boolean requiresSchedule()

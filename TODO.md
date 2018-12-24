@@ -21,13 +21,12 @@ complete as there is too much un-said.
 
 * Update documentation
 
-* Injection managed components should not have public access constructors
-
 * If inject mode is PROVIDE then the class must be public. This is a dagger limitation. We should detect
   and raise an error.
 
 * If inject mode is CONSUME then the class may not be public. However need to downcast to `Object` via
   `@Bind` and then cast again when extracting out. See example in `daggerV2` branch for how to do this.
+
 
 * Can inverse references be maps. The key would be the component id.
 

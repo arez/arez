@@ -924,6 +924,8 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified a scope annotation but has more than one constructor and thus is not a candidate for injection" },
         new Object[]{ "com.example.inject.MultipleScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleScopesModel.MyScope]" },
+        new Object[]{ "com.example.inject.PublicCtorModel",
+                      "@ArezComponent target has a public constructor but the inject parameter does not resolve to NONE. Public constructors are not necessary when the instantiation of the component is managed by the injection framework." },
         new Object[]{ "com.example.inject.ScopePresentInjectDisabledModel",
                       "@ArezComponent target is annotated with scope annotation @javax.inject.Singleton but the inject parameter is set to NONE and this is not a valid scenario. Remove the scope annotation or change the inject parameter to a value other than NONE." },
 
