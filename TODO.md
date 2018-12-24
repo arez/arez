@@ -21,8 +21,8 @@ complete as there is too much un-said.
 
 * Update inject documentation
 
-* If inject mode is CONSUME then the class may not be public. However need to downcast to `Object` via
-  `@Bind` and then cast again when extracting out. See example in `daggerV2` branch for how to do this.
+* Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
+
 
 
 * Can inverse references be maps. The key would be the component id.

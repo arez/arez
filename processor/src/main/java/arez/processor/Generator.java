@@ -138,7 +138,7 @@ final class Generator
                          .build() );
 
     builder.addType( buildInjectSupport( descriptor ) );
-    builder.addType( buildDaggerModule( descriptor ) );
+    builder.addType( buildProviderDaggerModule( descriptor ) );
     builder.addType( buildEnhancerDaggerModule( descriptor ) );
 
     return builder.build();
@@ -170,7 +170,7 @@ final class Generator
     }
 
     builder.addType( buildInjectSupport( descriptor ) );
-    builder.addType( buildDaggerModule( descriptor ) );
+    builder.addType( buildConsumerDaggerModule( descriptor ) );
     builder.addType( buildEnhancerDaggerModule( descriptor ) );
     builder.addType( buildConsumerDaggerSubcomponent( descriptor ) );
 
@@ -188,9 +188,28 @@ final class Generator
                              .addMember( "modules", "DaggerModule.class" )
                              .build() );
 
-    builder.addMethod( MethodSpec.methodBuilder( "createProvider" ).
-      addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-      returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
+    if ( descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "createProvider" ).
+        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
+    }
+    else
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "createRawProvider" ).
+        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, ClassName.get( Object.class ) ) ).build() );
+      builder.addMethod( MethodSpec.methodBuilder( "createProvider" ).
+        addModifiers( Modifier.DEFAULT, Modifier.PUBLIC ).
+        addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                         .addMember( "value", "$S", "unchecked" )
+                         .build() ).
+        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).
+        addStatement( "return ($T) ($T) createRawProvider()",
+                      ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ),
+                      PROVIDER_CLASSNAME ).
+        build() );
+    }
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "inject" )
@@ -205,7 +224,7 @@ final class Generator
   }
 
   @Nonnull
-  private static TypeSpec buildDaggerModule( @Nonnull final ComponentDescriptor descriptor )
+  private static TypeSpec buildProviderDaggerModule( @Nonnull final ComponentDescriptor descriptor )
   {
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerModule" );
 
@@ -220,6 +239,30 @@ final class Generator
                          .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
                          .addParameter( descriptor.getClassNameToConstruct(), "component" )
                          .returns( descriptor.getClassName() )
+                         .build() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static TypeSpec buildConsumerDaggerModule( @Nonnull final ComponentDescriptor descriptor )
+  {
+    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerModule" );
+
+    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
+    builder.addAnnotation( AnnotationSpec.builder( DAGGER_MODULE_CLASSNAME )
+                             .addMember( "includes", "EnhancerDaggerModule.class" )
+                             .build() );
+
+    final ClassName targetType = descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) ?
+                                 descriptor.getClassName() :
+                                 ClassName.get( Object.class );
+    builder.addMethod( MethodSpec
+                         .methodBuilder( "bindComponent" )
+                         .addAnnotation( DAGGER_BINDS_CLASSNAME )
+                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
+                         .addParameter( descriptor.getClassNameToConstruct(), "component" )
+                         .returns( targetType )
                          .build() );
 
     return builder.build();

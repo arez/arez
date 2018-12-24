@@ -227,6 +227,11 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.InjectViaAnnotationWithPostConstructModel", false, true, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false, false },
+        new Object[]{ "com.example.inject.NonPublicConsumeInjectViaAnnotationWithPostConstructModel",
+                      false,
+                      true,
+                      false,
+                      false },
         new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false, false },
         new Object[]{ "com.example.inject.ScopedInjectModel", true, false, false, false },
         new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false, false },
@@ -414,6 +419,29 @@ public class ArezProcessorTest
                              repositoryEnabled,
                              repositoryDaggerEnabled );
   }
+
+  @Test
+  public void XXXX()
+    throws Exception
+  {
+    assertSuccessfulCompile( "com.example.component_dependency.NonCascadeObservableDependency",
+                             false,
+                             false,
+                             false,
+                             false );
+    //assertSuccessfulCompile( "com.example.inject.InjectViaAnnotationWithPostConstructModel",
+    //                         false,
+    //                         true,
+    //                         false,
+    //                         false );
+    //assertSuccessfulCompile( "com.example.inject.ConsumeInjectViaAnnotationWithPostConstructModel",
+    //                         false,
+    //                         true,
+    //                         false,
+    //                         false );
+    //
+    assertFailedCompile( "com.example.inject.DaggerEnableNonPublicModel",
+                         "@ArezComponent target is not public but is configured as inject = PROVIDE using the dagger injection framework. Due to constraints within the dagger framework the type needs to made public." );
   }
 
   @Test
