@@ -19,8 +19,6 @@ complete as there is too much un-said.
 
 * Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
 
-* Add more integration tests?
-
 * Update documentation
 
 * Injection managed components should not have public access constructors
