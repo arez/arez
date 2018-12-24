@@ -168,6 +168,7 @@ public class ArezProcessorTest
                       false,
                       false,
                       false },
+        new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency", false, false, false, false },
         new Object[]{ "com.example.component_dependency.NonnullAbstractObservableDependency",
                       false,
                       false,
