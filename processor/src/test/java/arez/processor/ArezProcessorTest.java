@@ -651,6 +651,19 @@ public class ArezProcessorTest
                              Collections.singletonList( output1 ) );
   }
 
+  @Test
+  public void processSuccessfulWithInjectViaInheritance()
+    throws Exception
+  {
+    final JavaFileObject source1 = fixture( "input/com/example/inject/inheritance/other/BaseInjectModel.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/inject/inheritance/EnhancerNeededForConsumerModel.java" );
+    final String output1 = "expected/com/example/inject/inheritance/Arez_EnhancerNeededForConsumerModel.java";
+    final String output2 =
+      "expected/com/example/inject/inheritance/EnhancerNeededForConsumerModelDaggerComponentExtension.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2 ) );
+  }
+
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
