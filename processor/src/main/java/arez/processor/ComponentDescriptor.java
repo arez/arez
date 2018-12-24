@@ -1131,6 +1131,15 @@ final class ComponentDescriptor
                                             constructor );
         }
       }
+      if ( InjectMode.PROVIDE == _injectMode &&
+           _dagger &&
+           !getElement().getModifiers().contains( Modifier.PUBLIC ) )
+      {
+        throw new ArezProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
+                                          "using the dagger injection framework. Due to constraints within the " +
+                                          "dagger framework the type needs to made public.",
+                                          getElement() );
+      }
     }
   }
 
@@ -3874,6 +3883,18 @@ final class ComponentDescriptor
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
     ProcessorUtil.copyAccessModifiers( element, builder );
+
+    /*
+     * If the repository will be generated as a PROVIDE inject mode when dagger is present
+     * but the type is not public, we still need to generate a public repository due to
+     * constraints imposed by dagger.
+     */
+    if ( addSingletonAnnotation &&
+         !"CONSUME".equals( _repositoryInjectMode ) &&
+         !element.getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
 
     builder.addModifiers( Modifier.ABSTRACT );
 
