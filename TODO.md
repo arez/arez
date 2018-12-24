@@ -19,7 +19,7 @@ complete as there is too much un-said.
 
 * Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
 
-* Update documentation
+* Update inject documentation
 
 * If inject mode is CONSUME then the class may not be public. However need to downcast to `Object` via
   `@Bind` and then cast again when extracting out. See example in `daggerV2` branch for how to do this.
