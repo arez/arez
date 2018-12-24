@@ -23,7 +23,7 @@ complete as there is too much un-said.
   component to dynamically customize configuration of a reactive element without defining a new class. i.e. Using
   the same class but allowing
 
-* Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
+* Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
 
 * Can inverse references be maps. The key would be the component id.
 
