@@ -31,7 +31,7 @@ public class NonCtorInjectNoSchedulesNoPostConstructTest
   }
 
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true )
-  static abstract class MyComponent
+  public static abstract class MyComponent
   {
     @Inject
     MyDependency _dependency;

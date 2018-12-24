@@ -49,7 +49,7 @@ public class MixedInjectWithObservePostConstructTest
   }
 
   @ArezComponent( dagger = Feature.ENABLE )
-  static abstract class MyComponent
+  public static abstract class MyComponent
   {
     private final MyDependency2 _dependency2;
     @Inject

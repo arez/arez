@@ -16,7 +16,7 @@ public class DaggerComponentIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( dagger = Feature.ENABLE )
-  static abstract class TestComponent
+  public static abstract class TestComponent
   {
     private String _value = "";
 
