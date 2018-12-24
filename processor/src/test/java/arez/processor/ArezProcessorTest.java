@@ -80,6 +80,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false, false },
         new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false, false },
         new Object[]{ "com.example.component.NotObservableModel", false, false, false, false },
+        new Object[]{ "com.example.component.ObservableModel", false, false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentId", false, false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals", false, false, false, false },
         new Object[]{ "com.example.component_id.ByteComponentId", false, false, false, false },
