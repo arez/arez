@@ -12,6 +12,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
+
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
