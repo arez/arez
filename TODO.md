@@ -19,11 +19,11 @@ complete as there is too much un-said.
 
 * Why do zones not have a name? WHy are Zones not part of serialized forms of events? - they should at least have a unique id
 
+
+
 * Update inject documentation
 
 * Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
-
-
 
 * Can inverse references be maps. The key would be the component id.
 
