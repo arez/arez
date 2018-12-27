@@ -173,6 +173,39 @@ complete as there is too much un-said.
   consumption by a js application. A component model for javascript applications would also need to be created
   which would most likely draw heavy inspiration from Mobx.
 
+## Better Injection Framework
+
+Dagger2 is not a great injection framework for our context. Some annoyances that have arisen after usage:
+
+* The code size is sub-optimal and even simple changes can significantly decrease code size. See
+  `org.realityforge.dagger:dagger-gwt-lite:jar` for some simple optimizations although there is a lot more
+  possible.
+* The code for the compiler is spread across multiple jars and can collide with other annotation processors.
+  The annotation processor should have dependencies shaded and placed in a single jar.
+* Compile warnings as the code generated uses "unchecked or unsafe" operations and does not suppress them.
+* Scopes do not really make sense in the context of the web application. It is unclear what the web context
+  cares about. Maybe `@Singleton`, (Component) `TreeLocal` and per code-split. This may be hierarchical scopes
+  for statically determinable scopes and some other construct for dynamic `TreeLocal` dependencies or maybe these
+  are pushed to the web-application framework ala react4j and can only appear there.
+* Code-splitting is complex ... if at all possible.
+* Dagger includes a lot more complex support code for Android and friends which seems less useful for web.
+* Dagger often does not detect errors at annotation processing time (particularly wrt visibility of code)
+  and instead leaves the compiler responsible for failing to compile incorrectly generated code.
+* Arez needs 6 different code paths to handle all the different ways in which we need to generate dagger support
+  code depending on the features we use and this is error prone and complex. These code paths are based around
+  the following features:
+  - Is the component solely a consumer of dependencies or can it be provided to other components.
+    (a.k.a. Should the Arez component be placed in main Dagger component or a Dagger sub-component)
+  - Does the component have schedule-able elements or postConstruct lifecycle steps that requires that
+    the component is injected correctly before the constructor complete or not.
+  - Does the component need to be provided parameters at the time of creation of the component or not.
+* Building the Dagger components is extremely complex. There are many different ways in which the dagger artifacts
+  need to be combined to form a component (i.e. added as a module or not, extending the component or not,
+  explicitly calling bind helper methods or not).
+
+In the future we may have the cycles to address these issues. However a solution seems to be to either replace
+dagger with a better injection framework or build tooling on top of dagger that hides it's complexities.
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
