@@ -118,9 +118,19 @@ final class Generator
 
     builder.addModifiers( Modifier.PUBLIC );
 
-    builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Provider" ).
-      addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-      returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
+    final boolean shouldGenerateFactoryToInject = descriptor.shouldGenerateFactoryToInject();
+    if ( shouldGenerateFactoryToInject )
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Factory" ).
+        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+        returns( descriptor.getClassName().nestedClass( "Factory" ) ).build() );
+    }
+    else
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Provider" ).
+        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
+        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
+    }
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "inject" )
@@ -137,9 +147,26 @@ final class Generator
                          .addStatement( "InjectSupport.c_enhancer = this::inject" )
                          .build() );
 
-    builder.addType( buildInjectSupport( descriptor ) );
-    builder.addType( buildProviderDaggerModule( descriptor ) );
-    builder.addType( buildEnhancerDaggerModule( descriptor ) );
+    final boolean needsEnhancer = descriptor.needsEnhancer();
+    if ( needsEnhancer )
+    {
+      builder.addType( buildInjectSupport( descriptor ) );
+    }
+    if ( shouldGenerateFactoryToInject )
+    {
+      if ( needsEnhancer )
+      {
+        builder.addType( buildFactoryBasedDaggerModule( descriptor ) );
+      }
+    }
+    else
+    {
+      builder.addType( buildProviderDaggerModule( descriptor ) );
+      if ( needsEnhancer )
+      {
+        builder.addType( buildEnhancerDaggerModule( descriptor ) );
+      }
+    }
 
     return builder.build();
   }
@@ -160,6 +187,8 @@ final class Generator
           returns( ClassName.bestGuess( "DaggerSubcomponent" ) );
       builder.addMethod( method.build() );
     }
+    final boolean needsEnhancer = descriptor.needsEnhancer();
+    if ( needsEnhancer )
     {
       final MethodSpec.Builder method =
         MethodSpec.methodBuilder( "bind" + descriptor.getType() ).
@@ -169,16 +198,25 @@ final class Generator
       builder.addMethod( method.build() );
     }
 
-    builder.addType( buildInjectSupport( descriptor ) );
+    if ( needsEnhancer )
+    {
+      builder.addType( buildInjectSupport( descriptor ) );
+    }
     if ( descriptor.shouldGenerateFactoryToInject() )
     {
-      builder.addType( buildFactoryBasedDaggerModule( descriptor ) );
+      if ( needsEnhancer )
+      {
+        builder.addType( buildFactoryBasedDaggerModule( descriptor ) );
+      }
       builder.addType( buildFactoryBasedDaggerSubcomponent( descriptor ) );
     }
     else
     {
       builder.addType( buildConsumerDaggerModule( descriptor ) );
-      builder.addType( buildEnhancerDaggerModule( descriptor ) );
+      if ( needsEnhancer )
+      {
+        builder.addType( buildEnhancerDaggerModule( descriptor ) );
+      }
       builder.addType( buildConsumerDaggerSubcomponent( descriptor ) );
     }
 
@@ -191,10 +229,13 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerSubcomponent" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    builder.addAnnotation( AnnotationSpec
-                             .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
-                             .addMember( "modules", "DaggerModule.class" )
-                             .build() );
+    if ( descriptor.needsEnhancer() )
+    {
+      builder.addAnnotation( AnnotationSpec
+                               .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
+                               .addMember( "modules", "DaggerModule.class" )
+                               .build() );
+    }
 
     if ( descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) )
     {
@@ -237,10 +278,13 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerSubcomponent" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    builder.addAnnotation( AnnotationSpec
-                             .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
-                             .addMember( "modules", "DaggerModule.class" )
-                             .build() );
+    if ( descriptor.needsEnhancer() )
+    {
+      builder.addAnnotation( AnnotationSpec
+                               .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
+                               .addMember( "modules", "DaggerModule.class" )
+                               .build() );
+    }
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "createFactory" )
@@ -266,9 +310,12 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerModule" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    builder.addAnnotation( AnnotationSpec.builder( DAGGER_MODULE_CLASSNAME )
-                             .addMember( "includes", "EnhancerDaggerModule.class" )
-                             .build() );
+    if ( descriptor.needsEnhancer() )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( DAGGER_MODULE_CLASSNAME )
+                               .addMember( "includes", "EnhancerDaggerModule.class" )
+                               .build() );
+    }
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "bindComponent" )

@@ -229,6 +229,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.FactoryConsumer4Model", false, true, false, false },
         new Object[]{ "com.example.inject.FactoryConsumer5Model", false, true, false, false },
         new Object[]{ "com.example.inject.FactoryConsumer6Model", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumer7Model", false, true, false, false },
         new Object[]{ "com.example.inject.InjectViaAnnotationModel", false, false, false, false },
         new Object[]{ "com.example.inject.InjectViaAnnotationWithPostConstructModel", false, true, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false, false },
@@ -425,6 +426,14 @@ public class ArezProcessorTest
                              repositoryEnabled,
                              repositoryDaggerEnabled );
   }
+
+  @Test
+  public void XXX()
+    throws Exception
+  {
+    assertSuccessfulCompile( "com.example.inject.FactoryConsumer7Model", false, true, false, false );
+  }
+  //
 
   @Test
   public void processSuccessfulMultipleInverseWithSameTarget()

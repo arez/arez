@@ -3922,7 +3922,12 @@ final class ComponentDescriptor
 
   boolean needsDaggerModule()
   {
-    return needsDaggerIntegration() && InjectMode.PROVIDE == _injectMode && !needsEnhancer();
+    return needsDaggerIntegration() && InjectMode.PROVIDE == _injectMode && !needsDaggerComponentExtension();
+  }
+
+  boolean needsDaggerComponentExtension()
+  {
+    return ( needsDaggerIntegration() && _generatesFactoryToInject ) || needsEnhancer();
   }
 
   boolean needsEnhancer()

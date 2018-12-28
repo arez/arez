@@ -219,7 +219,7 @@ public final class ArezProcessor
     emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
     if ( descriptor.needsDaggerIntegration() )
     {
-      if ( descriptor.needsEnhancer() )
+      if ( descriptor.needsDaggerComponentExtension() )
       {
         if ( ComponentDescriptor.InjectMode.PROVIDE == descriptor.getInjectMode() )
         {
