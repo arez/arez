@@ -1,6 +1,7 @@
 package arez.processor;
 
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
@@ -268,6 +269,18 @@ final class ProcessorUtil
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final ParameterSpec.Builder builder )
+  {
+    for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
+    {
+      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
+      {
+        builder.addAnnotation( AnnotationSpec.get( annotation ) );
+      }
+    }
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final FieldSpec.Builder builder )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
