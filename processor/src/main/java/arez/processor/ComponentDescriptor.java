@@ -3494,11 +3494,12 @@ final class ComponentDescriptor
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> params = new ArrayList<>();
 
-    sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $N, " );
+    sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $T.areNamesEnabled() ? $N : null, " );
     params.add( GeneratorUtil.KERNEL_FIELD_NAME );
     params.add( GeneratorUtil.KERNEL_CLASSNAME );
     params.add( GeneratorUtil.AREZ_CLASSNAME );
     params.add( GeneratorUtil.CONTEXT_VAR_NAME );
+    params.add( GeneratorUtil.AREZ_CLASSNAME );
     params.add( GeneratorUtil.NAME_VAR_NAME );
     if ( null == _componentId )
     {

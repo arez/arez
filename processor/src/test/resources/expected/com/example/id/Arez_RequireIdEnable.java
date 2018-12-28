@@ -23,7 +23,7 @@ final class Arez_RequireIdEnable extends RequireIdEnable implements Disposable, 
     final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "RequireIdEnable." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RequireIdEnable", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, $$arezv$$_name, $$arezv$$_id, $$arezv$$_component, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, $$arezv$$_component, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
