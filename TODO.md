@@ -11,6 +11,7 @@ complete as there is too much un-said.
 * Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
 
 * Add `Arez.areNativeComponentsEnabled()` guard when passing component into `new ComponentKernel(...)` to ensure DCE occurs.
+* Add guard when passing `$$arezv$$_id` into `new ComponentKernel(...)` to ensure DCE occurs.
 
 ## Enhancements
 
