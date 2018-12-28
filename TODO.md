@@ -56,6 +56,9 @@ complete as there is too much un-said.
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
   are not useful. We should also include the average amount of time it took to calculate the value?
 
+* Could also record fan out and fan in for each node and rates of change for each node to see what problems could
+  arise and where the potential bottlenecks are located.
+
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
   We could also enhance the tests so that every invariant failure that is generated is written to a file
