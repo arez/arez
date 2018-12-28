@@ -10,6 +10,8 @@ complete as there is too much un-said.
 
 * Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
 
+* Add `Arez.areNativeComponentsEnabled()` guard when passing component into `new ComponentKernel(...)` to ensure DCE occurs.
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
