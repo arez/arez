@@ -10,6 +10,7 @@ import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -101,6 +102,7 @@ final class Arez_FactoryConsumer5Model extends FactoryConsumer5Model implements 
     @Nonnull
     private final Enhancer $$arezi$$_enhancer;
 
+    @Inject
     Factory(@Nonnull final Enhancer $$arezi$$_enhancer) {
       this.$$arezi$$_enhancer = Objects.requireNonNull( $$arezi$$_enhancer );
     }

@@ -2779,6 +2779,7 @@ final class ComponentDescriptor
     }
 
     final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
+    ctor.addAnnotation( Generator.INJECT_CLASSNAME );
     if ( needsEnhancer )
     {
       final String name = Generator.FRAMEWORK_PREFIX + "enhancer";

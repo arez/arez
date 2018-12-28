@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -105,6 +106,7 @@ final class Arez_FactoryConsumer3Model extends FactoryConsumer3Model implements 
     @Nullable
     private final String nonPerInstanceValue;
 
+    @Inject
     Factory(@Nonnull final Enhancer $$arezi$$_enhancer,
         @Nullable final String nonPerInstanceValue) {
       this.$$arezi$$_enhancer = Objects.requireNonNull( $$arezi$$_enhancer );

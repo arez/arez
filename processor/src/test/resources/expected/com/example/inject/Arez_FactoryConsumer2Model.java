@@ -10,6 +10,7 @@ import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -103,6 +104,7 @@ final class Arez_FactoryConsumer2Model extends FactoryConsumer2Model implements 
 
     private final long nonPerInstanceValue;
 
+    @Inject
     Factory(@Nonnull final Enhancer $$arezi$$_enhancer, final long nonPerInstanceValue) {
       this.$$arezi$$_enhancer = Objects.requireNonNull( $$arezi$$_enhancer );
       this.nonPerInstanceValue = nonPerInstanceValue;
