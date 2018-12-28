@@ -208,6 +208,12 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
 In the future we may have the cycles to address these issues. However a solution seems to be to either replace
 dagger with a better injection framework or build tooling on top of dagger that hides it's complexities.
 
+### An Ideal Injection framework
+
+To integrate with dagger we store data in a bunch of static fields. It may be better to store that data in the
+`ArezContext` somehow. In an ideal world we would also be able to inspect the static injections into components
+via the spy API.
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
