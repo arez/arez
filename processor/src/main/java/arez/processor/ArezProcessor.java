@@ -345,6 +345,30 @@ public final class ArezProcessor
                                         "disposeOnDeactivate = true which is not a valid combination", typeElement );
     }
 
+    boolean generatesFactoryToInject = false;
+    if ( dagger )
+    {
+      final ExecutableElement ctor = ProcessorUtil.getConstructors( typeElement ).get( 0 );
+      assert null != ctor;
+      final List<? extends VariableElement> perInstanceParameters = ctor.getParameters()
+        .stream()
+        .filter( f -> null != ProcessorUtil.findAnnotationByType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+        .collect( Collectors.toList() );
+      if ( !perInstanceParameters.isEmpty() )
+      {
+        if ( "PROVIDE".equals( injectMode ) )
+        {
+          throw new ArezProcessorException( "@ArezComponent target has specified at least one @PerInstance " +
+                                            "parameter on the constructor but has set inject parameter to PROVIDE. " +
+                                            "The component cannot be provided to other components if the invoker " +
+                                            "must supply per-instance parameters so either change the inject " +
+                                            "parameter to CONSUME or remove the @PerInstance parameter.",
+                                            ctor );
+        }
+        generatesFactoryToInject = true;
+      }
+    }
+
     final List<ExecutableElement> methods =
       ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream().
@@ -366,6 +390,7 @@ public final class ArezProcessor
                                disposeOnDeactivate,
                                injectMode,
                                dagger,
+                               generatesFactoryToInject,
                                nonConstructorInjections,
                                requireEquals,
                                requireVerify,

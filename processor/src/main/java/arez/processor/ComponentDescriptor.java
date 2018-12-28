@@ -93,6 +93,7 @@ final class ComponentDescriptor
   @Nonnull
   private final InjectMode _injectMode;
   private final boolean _dagger;
+  private final boolean _generatesFactoryToInject;
   /**
    * Is there any @Inject annotated fields or methods? If so we need to do a dance when generating Dagger support.
    */
@@ -173,6 +174,7 @@ final class ComponentDescriptor
                        final boolean disposeOnDeactivate,
                        @Nonnull final String injectMode,
                        final boolean dagger,
+                       final boolean generatesFactoryToInject,
                        final boolean nonConstructorInjections,
                        final boolean requireEquals,
                        final boolean verify,
@@ -193,6 +195,7 @@ final class ComponentDescriptor
     _disposeOnDeactivate = disposeOnDeactivate;
     _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
+    _generatesFactoryToInject = generatesFactoryToInject;
     _nonConstructorInjections = nonConstructorInjections;
     _requireEquals = requireEquals;
     _verify = verify;
@@ -1939,6 +1942,16 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private List<? extends VariableElement> getInjectedParameters( @Nonnull final ExecutableElement constructor )
+  {
+    return constructor
+      .getParameters()
+      .stream()
+      .filter( f -> null == ProcessorUtil.findAnnotationByType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+      .collect( Collectors.toList() );
+  }
+
+  @Nonnull
   private String getReferenceName( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
   {
     final String declaredName = getAnnotationParameter( annotation, "name" );
@@ -2636,6 +2649,10 @@ final class ComponentDescriptor
       builder.addSuperinterface( Generator.LINKABLE_CLASSNAME );
     }
 
+    if ( _generatesFactoryToInject )
+    {
+      builder.addType( buildFactoryClass().build() );
+    }
     if ( needsEnhancer() )
     {
       final TypeSpec.Builder enhancer =
@@ -2726,6 +2743,143 @@ final class ComponentDescriptor
     }
 
     return builder.build();
+  }
+
+  @Nonnull
+  private TypeSpec.Builder buildFactoryClass()
+  {
+    final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
+      .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
+
+    final ExecutableElement constructor = getConstructors( _element ).get( 0 );
+    assert null != constructor;
+
+    final boolean needsEnhancer = needsEnhancer();
+    if ( needsEnhancer )
+    {
+      factory.addField( FieldSpec
+                          .builder( ClassName.bestGuess( "Enhancer" ),
+                                    Generator.FRAMEWORK_PREFIX + "enhancer",
+                                    Modifier.PRIVATE,
+                                    Modifier.FINAL )
+                          .addAnnotation( Generator.NONNULL_CLASSNAME )
+                          .build() );
+    }
+
+    final List<? extends VariableElement> injectedParameters = getInjectedParameters( constructor );
+    for ( final VariableElement perInstanceParameter : injectedParameters )
+    {
+      final FieldSpec.Builder field = FieldSpec
+        .builder( TypeName.get( perInstanceParameter.asType() ),
+                  perInstanceParameter.getSimpleName().toString(),
+                  Modifier.PRIVATE,
+                  Modifier.FINAL );
+      ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, field );
+      factory.addField( field.build() );
+    }
+
+    final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
+    if ( needsEnhancer )
+    {
+      final String name = Generator.FRAMEWORK_PREFIX + "enhancer";
+      ctor.addParameter( ParameterSpec
+                           .builder( ClassName.bestGuess( "Enhancer" ), name, Modifier.FINAL )
+                           .addAnnotation( Generator.NONNULL_CLASSNAME )
+                           .build() );
+      ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
+    }
+
+    for ( final VariableElement perInstanceParameter : injectedParameters )
+    {
+      final String name = perInstanceParameter.getSimpleName().toString();
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( perInstanceParameter.asType() ), name, Modifier.FINAL );
+      ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, param );
+      ctor.addParameter( param.build() );
+      final boolean isNonNull =
+        null != findAnnotationByType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
+      if ( isNonNull )
+      {
+        ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
+      }
+      else
+      {
+        ctor.addStatement( "this.$N = $N", name, name );
+      }
+    }
+
+    factory.addMethod( ctor.build() );
+
+    {
+      final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
+      creator.addAnnotation( Generator.NONNULL_CLASSNAME );
+      creator.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      creator.returns( getEnhancedClassName() );
+
+      final StringBuilder sb = new StringBuilder();
+      final ArrayList<Object> params = new ArrayList<>();
+      sb.append( "return new $T(" );
+      params.add( getEnhancedClassName() );
+
+      boolean firstParam = true;
+
+      for ( final VariableElement parameter : constructor.getParameters() )
+      {
+        final boolean perInstance =
+          null != findAnnotationByType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
+
+        final String name = parameter.getSimpleName().toString();
+
+        if ( perInstance )
+        {
+          final ParameterSpec.Builder param =
+            ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
+          ProcessorUtil.copyWhitelistedAnnotations( parameter, param );
+          creator.addParameter( param.build() );
+        }
+
+        if ( firstParam )
+        {
+          sb.append( " " );
+        }
+        else
+        {
+          sb.append( ", " );
+        }
+        firstParam = false;
+        if ( perInstance && null != findAnnotationByType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        {
+          sb.append( "$T.requireNonNull( $N )" );
+          params.add( Objects.class );
+        }
+        else
+        {
+          sb.append( "$N" );
+        }
+        params.add( name );
+      }
+
+      if ( needsEnhancer )
+      {
+        assert !firstParam;
+        sb.append( ", " );
+        firstParam = false;
+        sb.append( "$N" );
+        params.add( Generator.FRAMEWORK_PREFIX + "enhancer" );
+      }
+
+      if ( !firstParam )
+      {
+        sb.append( " " );
+      }
+
+      sb.append( ")" );
+      creator.addStatement( sb.toString(), params.toArray() );
+
+      factory.addMethod( creator.build() );
+    }
+
+    return factory;
   }
 
   private boolean needsExplicitLink()
@@ -3420,8 +3574,13 @@ final class ComponentDescriptor
                                        final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
-         getElement().getModifiers().contains( Modifier.PUBLIC ) )
+    if ( _generatesFactoryToInject )
+    {
+      // The constructor is private as the factory is responsible for creating component.
+      builder.addModifiers( Modifier.PRIVATE );
+    }
+    else if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+              getElement().getModifiers().contains( Modifier.PUBLIC ) )
     {
       /*
        * The constructor MUST be public if annotated class is public as that implies that we expect
@@ -3429,7 +3588,6 @@ final class ComponentDescriptor
        */
       builder.addModifiers( Modifier.PUBLIC );
     }
-
     ProcessorUtil.copyExceptions( constructorType, builder );
     ProcessorUtil.copyTypeParameters( constructorType, builder );
 
@@ -3440,7 +3598,7 @@ final class ComponentDescriptor
                                .build() );
     }
 
-    if ( InjectMode.NONE != _injectMode )
+    if ( InjectMode.NONE != _injectMode && !_generatesFactoryToInject )
     {
       builder.addAnnotation( Generator.INJECT_CLASSNAME );
     }
@@ -3748,6 +3906,11 @@ final class ComponentDescriptor
   boolean needsDaggerIntegration()
   {
     return _dagger;
+  }
+
+  boolean shouldGenerateFactoryToInject()
+  {
+    return _generatesFactoryToInject;
   }
 
   @Nonnull

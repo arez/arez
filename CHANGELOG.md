@@ -23,6 +23,10 @@
   but when this is not possible Arez will generate additional infrastructure that will require the application
   developer explicitly invoke methods on the dagger component prior to creating the arez component. See the javadocs
   in the `arez.annotations.InjectMode` class for further details.
+* **\[core\]** Introduce a `@PerInstance` annotation that can be applied to constructor parameters to indicate that
+  these parameters must be supplied at the time that the component is created. For components where construction
+  occurs through a dependency injection framework, this means that a factory is created that accepts parameters
+  annotated with the `@PerInstance` annotation when creating the component instance.
 * Add some basic documentation to FAQ about the Incremental project and how it compares to Arez.
 
 ### [v0.121](https://github.com/arez/arez/tree/v0.121) (2018-12-11)

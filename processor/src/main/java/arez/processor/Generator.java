@@ -170,9 +170,17 @@ final class Generator
     }
 
     builder.addType( buildInjectSupport( descriptor ) );
-    builder.addType( buildConsumerDaggerModule( descriptor ) );
-    builder.addType( buildEnhancerDaggerModule( descriptor ) );
-    builder.addType( buildConsumerDaggerSubcomponent( descriptor ) );
+    if ( descriptor.shouldGenerateFactoryToInject() )
+    {
+      builder.addType( buildFactoryBasedDaggerModule( descriptor ) );
+      builder.addType( buildFactoryBasedDaggerSubcomponent( descriptor ) );
+    }
+    else
+    {
+      builder.addType( buildConsumerDaggerModule( descriptor ) );
+      builder.addType( buildEnhancerDaggerModule( descriptor ) );
+      builder.addType( buildConsumerDaggerSubcomponent( descriptor ) );
+    }
 
     return builder.build();
   }
@@ -210,6 +218,35 @@ final class Generator
                       PROVIDER_CLASSNAME ).
         build() );
     }
+
+    builder.addMethod( MethodSpec
+                         .methodBuilder( "inject" )
+                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
+                         .addParameter( ParameterSpec
+                                          .builder( descriptor.getEnhancedClassName(), "component" )
+                                          .addAnnotation( NONNULL_CLASSNAME )
+                                          .build() )
+                         .build() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static TypeSpec buildFactoryBasedDaggerSubcomponent( @Nonnull final ComponentDescriptor descriptor )
+  {
+    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerSubcomponent" );
+
+    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
+    builder.addAnnotation( AnnotationSpec
+                             .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
+                             .addMember( "modules", "DaggerModule.class" )
+                             .build() );
+
+    builder.addMethod( MethodSpec
+                         .methodBuilder( "createFactory" )
+                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
+                         .returns( descriptor.getEnhancedClassName().nestedClass( "Factory" ) )
+                         .build() );
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "inject" )
@@ -289,6 +326,38 @@ final class Generator
     // we synthesize a separate module and it include it in main component to achieve the same
     // goal. In an ideal world this static method would be merged into above class
     final TypeSpec.Builder builder = TypeSpec.classBuilder( "EnhancerDaggerModule" );
+
+    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
+    builder.addAnnotation( DAGGER_MODULE_CLASSNAME );
+
+    final MethodSpec.Builder method = MethodSpec
+      .methodBuilder( "provideEnhancer" )
+      .addAnnotation( DAGGER_PROVIDES_CLASSNAME )
+      .addModifiers( Modifier.STATIC )
+      .returns( descriptor.getEnhancerClassName() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != InjectSupport.c_enhancer, " +
+                        "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
+                        "the dependency injection provider has been initialized. Please see " +
+                        "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
+                        "directions how to configure dependency injection.\" )",
+                        GUARDS_CLASSNAME,
+                        descriptor.getType() );
+    block.endControlFlow();
+
+    method.addCode( block.build() );
+
+    method.addStatement( "return InjectSupport.c_enhancer" );
+    builder.addMethod( method.build() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static TypeSpec buildFactoryBasedDaggerModule( @Nonnull final ComponentDescriptor descriptor )
+  {
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( "DaggerModule" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
     builder.addAnnotation( DAGGER_MODULE_CLASSNAME );
