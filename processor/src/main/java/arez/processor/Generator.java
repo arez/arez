@@ -549,4 +549,61 @@ final class Generator
     codeBlock.endControlFlow();
     builder.add( codeBlock.build() );
   }
+
+  static void buildInverseDisposer( @Nonnull final InverseDescriptor inverse,
+                                    @Nonnull final MethodSpec.Builder builder )
+  {
+    final ObservableDescriptor observable = inverse.getObservable();
+    final String delinkMethodName = getDelinkMethodName( inverse.getReferenceName() );
+    final ClassName arezClassName = getArezClassName( inverse );
+    if ( Multiplicity.MANY == inverse.getMultiplicity() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "for ( final $T other : new $T<>( $N ) )",
+                              inverse.getTargetType(),
+                              TypeName.get( ArrayList.class ),
+                              observable.getDataFieldName() );
+      block.addStatement( "( ($T) other ).$N()", arezClassName, delinkMethodName );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+    else
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( null != $N )", observable.getDataFieldName() );
+      block.addStatement( "( ($T) $N ).$N()",
+                          arezClassName,
+                          observable.getDataFieldName(),
+                          delinkMethodName );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+  }
+
+  @Nonnull
+  private static ClassName getArezClassName( @Nonnull final InverseDescriptor inverseDescriptor )
+  {
+    final TypeName typeName = TypeName.get( inverseDescriptor.getObservable().getGetter().getReturnType() );
+    final ClassName other = typeName instanceof ClassName ?
+                            (ClassName) typeName :
+                            (ClassName) ( (ParameterizedTypeName) typeName ).typeArguments.get( 0 );
+    final StringBuilder sb = new StringBuilder();
+    final String packageName = other.packageName();
+    if ( null != packageName )
+    {
+      sb.append( packageName );
+      sb.append( "." );
+    }
+
+    final List<String> simpleNames = other.simpleNames();
+    final int end = simpleNames.size() - 1;
+    for ( int i = 0; i < end; i++ )
+    {
+      sb.append( simpleNames.get( i ) );
+      sb.append( "_" );
+    }
+    sb.append( "Arez_" );
+    sb.append( simpleNames.get( end ) );
+    return ClassName.bestGuess( sb.toString() );
+  }
 }

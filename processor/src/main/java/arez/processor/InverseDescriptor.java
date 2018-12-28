@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -326,64 +325,5 @@ final class InverseDescriptor
 
     builder.endControlFlow();
     code.add( builder.build() );
-  }
-
-  void buildDisposer( @Nonnull final MethodSpec.Builder builder )
-  {
-    if ( _multiplicity == Multiplicity.MANY )
-    {
-      final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "for ( final $T other : new $T<>( $N ) )",
-                              _targetType,
-                              TypeName.get( ArrayList.class ),
-                              _observable.getDataFieldName() );
-      block.addStatement( "( ($T) other ).$N()", getArezClassName(), getDelinkMethodName() );
-      block.endControlFlow();
-      builder.addCode( block.build() );
-    }
-    else
-    {
-      final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( null != $N )", _observable.getDataFieldName() );
-      block.addStatement( "( ($T) $N ).$N()",
-                          getArezClassName(),
-                          _observable.getDataFieldName(),
-                          getDelinkMethodName() );
-      block.endControlFlow();
-      builder.addCode( block.build() );
-    }
-  }
-
-  @Nonnull
-  private ClassName getArezClassName()
-  {
-    final TypeName typeName = TypeName.get( _observable.getGetter().getReturnType() );
-    final ClassName other = typeName instanceof ClassName ?
-                            (ClassName) typeName :
-                            (ClassName) ( (ParameterizedTypeName) typeName ).typeArguments.get( 0 );
-    final StringBuilder sb = new StringBuilder();
-    final String packageName = other.packageName();
-    if ( null != packageName )
-    {
-      sb.append( packageName );
-      sb.append( "." );
-    }
-
-    final List<String> simpleNames = other.simpleNames();
-    final int end = simpleNames.size() - 1;
-    for ( int i = 0; i < end; i++ )
-    {
-      sb.append( simpleNames.get( i ) );
-      sb.append( "_" );
-    }
-    sb.append( "Arez_" );
-    sb.append( simpleNames.get( end ) );
-    return ClassName.bestGuess( sb.toString() );
-  }
-
-  @Nonnull
-  private String getDelinkMethodName()
-  {
-    return Generator.getDelinkMethodName( _referenceName );
   }
 }

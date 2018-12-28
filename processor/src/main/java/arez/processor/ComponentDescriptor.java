@@ -3271,7 +3271,7 @@ final class ComponentDescriptor
     }
     _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
     _roReferences.forEach( r -> r.buildDisposer( builder ) );
-    _roInverses.forEach( r -> r.buildDisposer( builder ) );
+    _roInverses.forEach( r -> Generator.buildInverseDisposer( r, builder ) );
     if ( _disposeTrackable )
     {
       for ( final DependencyDescriptor dependency : _roDependencies )
