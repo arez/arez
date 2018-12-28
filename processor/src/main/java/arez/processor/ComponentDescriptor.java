@@ -3510,7 +3510,8 @@ final class ComponentDescriptor
     {
       sb.append( "0, " );
     }
-    sb.append( "$N, " );
+    sb.append( "$T.areNativeComponentsEnabled() ? $N : null, " );
+    params.add( GeneratorUtil.AREZ_CLASSNAME );
     params.add( GeneratorUtil.COMPONENT_VAR_NAME );
 
     if ( hasInternalPreDispose() )
