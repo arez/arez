@@ -3729,11 +3729,12 @@ final class ComponentDescriptor
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> params = new ArrayList<>();
 
-    sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $N, " );
+    sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $T.areNamesEnabled() ? $N : null, " );
     params.add( Generator.KERNEL_FIELD_NAME );
     params.add( Generator.KERNEL_CLASSNAME );
     params.add( Generator.AREZ_CLASSNAME );
     params.add( Generator.CONTEXT_VAR_NAME );
+    params.add( Generator.AREZ_CLASSNAME );
     params.add( Generator.NAME_VAR_NAME );
     if ( null == _componentId )
     {
@@ -3744,7 +3745,8 @@ final class ComponentDescriptor
     {
       sb.append( "0, " );
     }
-    sb.append( "$N, " );
+    sb.append( "$T.areNativeComponentsEnabled() ? $N : null, " );
+    params.add( Generator.AREZ_CLASSNAME );
     params.add( Generator.COMPONENT_VAR_NAME );
 
     if ( hasInternalPreDispose() )

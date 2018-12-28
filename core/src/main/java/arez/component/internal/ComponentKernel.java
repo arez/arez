@@ -80,7 +80,7 @@ public final class ComponentKernel
    * <li>the component's name includes the id (i.e. {@link ArezComponent#nameIncludesId()} is <code>true</code>
    * and {@link Arez#areNamesEnabled()} returns <code>true</code>.</li>
    * <li>the component declared it requires an id (i.e. {@link ArezComponent#requireId()} is <code>true</code>) but
-   * no method annotated with {@link arez.annotations.ComponentId} is present on the components type..</li>
+   * no method annotated with {@link arez.annotations.ComponentId} is present on the components type.</li>
    * <li>The runtime requires an id as part of debugging infrastructure. (i.e. {@link Arez#areRegistriesEnabled()}
    * or {@link Arez#areNativeComponentsEnabled()} returns <code>true</code>.</li>
    * </ul>
