@@ -118,7 +118,7 @@ final class Generator
 
     builder.addModifiers( Modifier.PUBLIC );
 
-    builder.addMethod( MethodSpec.methodBuilder( "createProvider" ).
+    builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Provider" ).
       addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
       returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
 

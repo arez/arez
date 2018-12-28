@@ -11,7 +11,8 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 public interface InjectViaAnnotationWithPostConstructModelDaggerComponentExtension {
-  Provider<InjectViaAnnotationWithPostConstructModel> createProvider();
+  Provider<InjectViaAnnotationWithPostConstructModel> createInjectViaAnnotationWithPostConstructModelProvider(
+      );
 
   void inject(@Nonnull Arez_InjectViaAnnotationWithPostConstructModel component);
 
