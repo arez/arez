@@ -187,6 +187,8 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
   cares about. Maybe `@Singleton`, (Component) `TreeLocal` and per code-split. This may be hierarchical scopes
   for statically determinable scopes and some other construct for dynamic `TreeLocal` dependencies or maybe these
   are pushed to the web-application framework ala react4j and can only appear there.
+* It is unclear how easy it is or even if it is possible to have per-instance dispose invocations for components
+  when their scopes are closed.
 * Code-splitting is complex ... if at all possible.
 * Dagger includes a lot more complex support code for Android and friends which seems less useful for web.
 * Dagger often does not detect errors at annotation processing time (particularly wrt visibility of code)
