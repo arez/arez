@@ -247,6 +247,13 @@ via the spy API.
   page in javadocs. Thus the README == the project documentation. We would need to link from README to the specific
   deployed page. Could do this by using qualified url in README and gsubing when converting to html.
 
+## Extracted Component API
+
+Over time the Arez component API has grown to be more than just a thin veneer ontop of core arez primitives. It
+is also expected that as more capabilities are added to the API such as deeper integration with a reactive streaming
+API, an injection API, a transport and/or serialization API that this API may be better extracted into a separate
+project?
+
 ## Mobx State Tree
 
 * We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
