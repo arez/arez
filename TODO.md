@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add react4j-sithtracker to website and testing regime
+
 * Decommission `arez-idlestatus` repository as copied into `arez-dom`. Update documentation to
   reflect move - actually add documentation for `arez-dom`. Remove from downstream builds.
 
