@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/arez/arez-dom.svg?branch=master)](http://travis-ci.org/arez/arez-dom)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.dom/arez-dom.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.dom%22)
 
-This library provides a collection of Arez browser components that expose various aspects of browser object
+This library provides a collection of Arez browser components that expose various aspects of the browser object
 model as observable properties. Each Arez component will listen to changes from the browser if and only if the
 observable provided by the component is observed. However if there is no observer for the state, the component will
 not listen to to the browser events so as not to have any significant performance impact.
