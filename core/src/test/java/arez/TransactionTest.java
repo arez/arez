@@ -2103,18 +2103,10 @@ public class TransactionTest
     observer.getDependencies().add( observable );
 
     assertInvariantFailure( () -> transaction.invariantObserverIsTracker( observable, observer ),
-                            "Arez-0151: Transaction named '" +
-                            transaction.getName() +
-                            "' attempted to call " +
-                            "reportChangeConfirmed for ObservableValue named '" +
-                            observable.getName() +
-                            "' and found a " +
-                            "dependency named '" +
-                            observer.getName() +
-                            "' that is UP_TO_DATE but is not the tracker of " +
-                            "any transactions in the hierarchy: [" +
-                            transaction.getName() +
-                            "]." );
+                            "Arez-0151: Transaction named '" + transaction.getName() + "' attempted " +
+                            "to call reportChangeConfirmed for ObservableValue named '" + observable.getName() +
+                            "' and found a dependency named '" + observer.getName() + "' that is UP_TO_DATE but is " +
+                            "not the tracker of any transactions in the hierarchy: [" + transaction.getName() + "]." );
   }
 
   @Test

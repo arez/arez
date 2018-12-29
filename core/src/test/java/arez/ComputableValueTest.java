@@ -1035,4 +1035,55 @@ public class ComputableValueTest
     assertInvariantFailure( computableValue::keepAlive,
                             "Arez-0223: ComputableValue.keepAlive() was invoked on computable value named 'ComputableValue@2' but invoking this method when the computable value has been configured with the KEEPALIVE flag is invalid as the computable is always activated." );
   }
+
+  @Test
+  public void leastStaleObserverStateMaintainedCorrectly()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger value = new AtomicInteger();
+    value.set( 1 );
+    final ComputableValue<Integer> computable1 = context.computable( value::get, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+
+    final ComputableValue<Integer> computable2 =
+      context.computable( () -> {
+                            computable1.get();
+                            return 22;
+                          },
+                          Flags.PRIORITY_HIGH |
+                          Flags.KEEPALIVE |
+                          Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+
+    value.set( 2 );
+
+    context.safeAction( computable1::reportPossiblyChanged );
+    handler.assertEventCount( 15 );
+
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObserveScheduleEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), computable2.getName() ) );
+    handler.assertNextEvent( ObserveScheduleEvent.class,
+                             e -> assertEquals( e.getObserver().getName(), computable1.getName() ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+
+    handler.assertNextEvent( ComputeStartEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
+    handler.assertNextEvent( ComputeCompleteEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
+    handler.assertNextEvent( ComputeStartEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
+    handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable1.getName() ) );
+    handler.assertNextEvent( ObservableValueChangeEvent.class,
+                             e -> assertEquals( e.getObservableValue().getName(), computable1.getName() ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable1.getName() ) );
+    handler.assertNextEvent( ComputeCompleteEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
+  }
 }
