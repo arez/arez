@@ -5,6 +5,7 @@
 ### Unreleased
 
 * Add the `arez-dom` project into the set of projects that are built and tested during the build and release process.
+* Remove references to `arez-idlestatus` as it has been subsumed by `arez-dom`.
 * Add some basic documentation to FAQ about the Incremental project and how it compares to Arez.
 * **\[core\]** Fix incorrect invariant failure when maintaining `leastStaleObserverState` on chained
   `ComputableValue` instances.

@@ -58,7 +58,6 @@ public final class BuildDownstream
                  "arez-promise",
                  "arez-mediaquery",
                  "arez-networkstatus",
-                 "arez-idlestatus",
                  "arez-spytools",
                  "arez-ticker",
                  "arez-timeddisposer",
