@@ -9,6 +9,16 @@ to this page.
 * [arez-browserlocation](https://github.com/arez/arez-browserlocation) A browser-based Arez component
   that makes the hash component of the browser location reactive.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/browserlocation) · [GitHub Project](https://github.com/arez/arez-browserlocation)**</span>
+* [arez-dom](https://github.com/arez/arez-dom) A collection of Arez components that expose various aspects of
+  the browser object model as observable properties.
+  <span style="font-size: smaller">**[API Docs](https://arez.github.io/dom) · [GitHub Project](https://github.com/arez/arez-dom)**</span>
+  
+  These include but are not limited to the following components:  
+  - [DocumentVisibility](https://arez.github.io/dom/index.html?arez/dom/DocumentVisibility.html): Exposes `document.visibilityState` as an observable property for specified documents.
+  - [EventDrivenValue](https://arez.github.io/dom/index.html?arez/dom/EventDrivenValue.html): Generic component that exposes a property as observable where changes to the variable are signalled using an event.
+  - [GeoPosition](https://arez.github.io/dom/index.html?arez/dom/GeoPosition.html): A component that exposes the current geo position as an observable property.
+  - [IdleStatus](https://arez.github.io/dom/index.html?arez/dom/IdleStatus.html): An Arez browser component that tracks when the user is idle. A user is considered idle if they have not interacted with the browser for a specified amount of time.
+  - [WindowSize](https://arez.github.io/dom/index.html?arez/dom/WindowSize.html): Factory for creating observables for dimensions of a window. (i.e. `window.(inner|outer)(Width|Height)`)
 * [arez-idlestatus](https://github.com/arez/arez-idlestatus) A browser-based Arez component that tracks
   when the user is idle. A user is considered idle if they have not interacted with the browser for a
   specified amount of time.
