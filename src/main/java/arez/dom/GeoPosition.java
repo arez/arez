@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import jsinterop.base.Js;
 
 /**
- * A component that exposes the current geo position asn observable property. This component relies on the
+ * A component that exposes the current geo position as an observable property. This component relies on the
  * underlying <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API">Geolocation API</a> and
  * it's usage is restricted in the same way as the underlying API (i.e. it is only available in secure contexts
  * and it asks user permission before providing data.).
