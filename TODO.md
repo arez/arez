@@ -6,6 +6,9 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Decommission `arez-idlestatus` repository as copied into `arez-dom`. Update documentation to
+  reflect move - actually add documentation for `arez-dom`. Remove from downstream builds.
+
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
