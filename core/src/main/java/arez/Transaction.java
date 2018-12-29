@@ -698,8 +698,15 @@ final class Transaction
            * This happens when the observer is reacting to the change and this
            * has a ComputableValue dependency has recalculated as part of the reaction.
            * So make sure we keep _leastStaleObserverState up to date.
+           *
+           * It can also happen if there is multiple ComputedValue instances that have
+           * been marked as possibly stale and the scheduler has started to compute() the
+           * ComputedValue instances. However an instance that is marked as possiblyStale
+           * turned out to not be stale but was changed back to UP_TO_DATE but this
+           * ComputedValue depends on the "observableValue" parameter that is being
+           * processed now. For this reason we skip the next check for ComputableValue instances.
            */
-          if ( Arez.shouldCheckInvariants() )
+          if ( Arez.shouldCheckInvariants() && !observer.isComputableValue()  )
           {
             invariantObserverIsTracker( observableValue, observer );
           }
