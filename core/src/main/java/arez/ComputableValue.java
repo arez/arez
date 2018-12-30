@@ -88,6 +88,30 @@ public final class ComputableValue<T>
    */
   @Nullable
   private ComputableValueInfo _info;
+  /**
+   * The number of times that the value from the ComputableValue has been read.
+   * This should not be set unless {@link Arez#areSpiesEnabled()} returns true.
+   */
+  private int _readCount;
+  /**
+   * The number of times that the value from the ComputableValue has been computed.
+   * This may different from the changeCount if the same value was recalculated.
+   * This should not be set unless {@link Arez#areSpiesEnabled()} returns true.
+   */
+  private int _computeCount;
+  /**
+   * The number of times that the value from the ComputableValue has actually changed.
+   * This is incremented each time the computedValue is activated and each time it is changed.
+   * This should not be set unless {@link Arez#areSpiesEnabled()} returns true.
+   */
+  private int _changeCount;
+  /**
+   * The number of times that the ComputableValue has deactivated.
+   * This helps identify problems where the ComputableValue is repeatedly accessed inside
+   * actions without also being observed.
+   * This should not be set unless {@link Arez#areSpiesEnabled()} returns true.
+   */
+  private int _deactivateCount;
 
   ComputableValue( @Nullable final ArezContext context,
                    @Nullable final Component component,
@@ -127,6 +151,13 @@ public final class ComputableValue<T>
                              _observer,
                              Arez.arePropertyIntrospectorsEnabled() ? this::getValue : null,
                              null );
+    if ( Arez.areSpiesEnabled() )
+    {
+      _readCount = 0;
+      _computeCount = 0;
+      _changeCount = 0;
+      _deactivateCount = 0;
+    }
     if ( null != _component )
     {
       _component.addComputableValue( this );
@@ -161,6 +192,10 @@ public final class ComputableValue<T>
                     () -> "Arez-0050: ComputableValue named '" + getName() + "' accessed after it has been disposed." );
     }
     getObservableValue().reportObserved();
+    if ( Arez.areSpiesEnabled() )
+    {
+      _readCount++;
+    }
     if ( _observer.shouldCompute() )
     {
       _observer.invokeReaction();
@@ -454,6 +489,10 @@ public final class ComputableValue<T>
    */
   void compute()
   {
+    if ( Arez.areSpiesEnabled() )
+    {
+      _computeCount++;
+    }
     final T oldValue = _value;
     try
     {
@@ -462,6 +501,10 @@ public final class ComputableValue<T>
       {
         _value = newValue;
         _error = null;
+        if ( Arez.areSpiesEnabled() )
+        {
+          _changeCount++;
+        }
         getObservableValue().reportChangeConfirmed();
       }
       if ( Arez.shouldCheckApiInvariants() )
@@ -480,6 +523,10 @@ public final class ComputableValue<T>
     {
       if ( null == _error )
       {
+        if ( Arez.areSpiesEnabled() )
+        {
+          _changeCount++;
+        }
         /*
          * This handles the scenario where the computable generates an exception. The observers should still be
          * marked as STALE. When they react to this the computable will throw the exception that was caught.
@@ -540,6 +587,10 @@ public final class ComputableValue<T>
   void completeDeactivate()
   {
     _value = null;
+    if ( Arez.areSpiesEnabled() )
+    {
+      _deactivateCount++;
+    }
   }
 
   @Nullable
