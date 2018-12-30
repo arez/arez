@@ -862,10 +862,12 @@ public class ComputableValueTest
     };
     final ComputableValue<String> computableValue = context.computable( function );
 
-    computableValue.setKeepAliveRefCount( -1 );
+    final int keepAliveRefCount = -Math.abs( ValueUtil.randomInt() );
+    computableValue.setKeepAliveRefCount( keepAliveRefCount );
 
     assertInvariantFailure( computableValue::incrementKeepAliveRefCount,
-                            "Arez-0165: KeepAliveRefCount on ComputableValue named 'ComputableValue@2' has an invalid value -1" );
+                            "Arez-0165: KeepAliveRefCount on ComputableValue named 'ComputableValue@2' " +
+                            "has an invalid value " + keepAliveRefCount );
   }
 
   @Test
