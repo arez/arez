@@ -133,12 +133,17 @@ complete as there is too much un-said.
   - User Blocking Tasks: input handlers + requestAnimationFrame + microTasks
   - Default tasks: (i.e scheduled tasks via `setTimeout()` and `postMessage()`)
   - Idle tasks: (i.e tasks scheduled but will only use time if any left before next render i.e. `requestIdleTimeout()`)
+  - also consider a microtask executor (i.e. `Promise.resovle().then( () -> doStuff() )`). Micro tasks run after
+    current javascript task stack returns to runtime.
 
 * Once the scheduler is in play it is likely we will want to implement code using `idle-until-urgent` strategy.
   Useful to delay some of the expensive setup for off screen stuff.
   - https://philipwalton.com/articles/idle-until-urgent/
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
+
+* Consider a mechanisms such that the priority and scheduler of tasks created within a particular task inherit
+  the values from the task.
 
 ## Reactive-Streaming integration
 
