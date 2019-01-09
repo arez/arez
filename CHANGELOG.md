@@ -10,6 +10,7 @@
 * **\[core\]** Fix incorrect invariant failure when maintaining `leastStaleObserverState` on chained
   `ComputableValue` instances.
 * **\[core\]** Remove return from `Transaction.processPendingDeactivations()` as it is not used outside of tests.
+* Post-process the javadocs so that `@Nonnull` and `@Nullable` annotations are not followed by excessive whitespace.
 
 ### [v0.121](https://github.com/arez/arez/tree/v0.121) (2018-12-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.120...v0.121)
