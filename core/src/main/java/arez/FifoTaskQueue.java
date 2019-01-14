@@ -76,11 +76,12 @@ final class FifoTaskQueue
   public Collection<Task> clear()
   {
     final ArrayList<Task> tasks = new ArrayList<>();
-    _buffer.stream().forEach( task -> {
+    Task task;
+    while ( null != ( task = _buffer.pop() ) )
+    {
       tasks.add( task );
       task.markAsIdle();
-    } );
-    _buffer.clear();
+    }
     return tasks;
   }
 
