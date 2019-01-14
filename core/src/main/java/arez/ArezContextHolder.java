@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 
 /**
  * A utility class that contains reference to singleton context when zones are disabled.
- * This is extracted to a separate class to eliminate the <clinit> from Arez and thus
+ * This is extracted to a separate class to eliminate the <clinit> from {@link Arez} and thus
  * make it much easier for GWT to optimize out code based on build time compilation parameters.
  */
 final class ArezContextHolder
