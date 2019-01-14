@@ -91,6 +91,7 @@ final class FifoTaskQueue
   @Override
   public Stream<Task> getOrderedTasks()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return _buffer.stream();
   }
 
