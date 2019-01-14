@@ -36,7 +36,7 @@ complete as there is too much un-said.
 
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()`
-  is stripped if names not enabled.
+  is stripped if names not enabled. Should also include annotations for classes that should have clinits stripped.
 
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
