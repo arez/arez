@@ -139,6 +139,7 @@ complete as there is too much un-said.
   - Current - queue in current Execution and will invoke before exiting runtime and returning to invoking application/system code
   - Mircotask - in next microtask execution. == Current if current execution in microtask
   - Animation - in next animation frame
+  - AfterFrame - after next render frame completes
   - Idle - in idle frame
 
 * Once the scheduler is in play it is likely we will want to implement code using `idle-until-urgent` strategy.
@@ -146,6 +147,13 @@ complete as there is too much un-said.
   - https://philipwalton.com/articles/idle-until-urgent/
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
+
+* Also incorporate functionality such as `afterframe` which schedules action after the next render. A sample
+  implementation is at [afterframe](https://github.com/andrewiggins/afterframe/blob/master/README.md) which was
+  initially described in a [blog](https://nolanlawson.com/2018/09/25/accurately-measuring-layout-on-the-web/)
+  but has been enhanced by using a `MessageChannel` rather than `setTimeout` as experiments with the react scheduler
+  indicate that this is more consistent behaviour with no jitter due to clamping in `setTimeout`. Note that this was
+  also tweeted about by [developit](https://mobile.twitter.com/_developit/status/1081681351122829325)
 
 * Consider a mechanisms such that the priority and scheduler of tasks created within a particular task inherit
   the values from the task.
