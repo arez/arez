@@ -18,7 +18,7 @@ final class ArezContextHolder
   }
 
   /**
-   * Return the ArezContext from the provider.
+   * Return the ArezContext.
    *
    * @return the ArezContext.
    */
