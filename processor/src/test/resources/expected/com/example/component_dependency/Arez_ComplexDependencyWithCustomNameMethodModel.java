@@ -94,7 +94,6 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value3.dispose();
   }
 

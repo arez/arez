@@ -71,7 +71,6 @@ public final class Arez_ComponentDependencyModel extends ComponentDependencyMode
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

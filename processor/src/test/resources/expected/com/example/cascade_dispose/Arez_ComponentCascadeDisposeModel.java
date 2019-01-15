@@ -64,7 +64,6 @@ public final class Arez_ComponentCascadeDisposeModel extends ComponentCascadeDis
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

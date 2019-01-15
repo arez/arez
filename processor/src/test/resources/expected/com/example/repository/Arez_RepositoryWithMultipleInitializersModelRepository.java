@@ -59,7 +59,6 @@ final class Arez_RepositoryWithMultipleInitializersModelRepository extends Repos
   }
 
   private void $$arezi$$_dispose() {
-    super.preDispose();
     this.$$arez$$_entities.dispose();
   }
 

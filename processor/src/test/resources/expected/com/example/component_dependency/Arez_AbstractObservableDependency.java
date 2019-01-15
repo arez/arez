@@ -76,7 +76,6 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value.dispose();
   }
 

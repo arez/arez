@@ -91,7 +91,6 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_zap.dispose();
   }
 

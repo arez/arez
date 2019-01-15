@@ -81,7 +81,6 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2 imp
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

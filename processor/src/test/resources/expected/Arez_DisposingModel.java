@@ -66,9 +66,7 @@ public final class Arez_DisposingModel extends DisposingModel implements Disposa
   }
 
   private void $$arezi$$_dispose() {
-    super.preDispose();
     this.$$arez$$_someValue.dispose();
-    super.postDispose();
   }
 
   @Override

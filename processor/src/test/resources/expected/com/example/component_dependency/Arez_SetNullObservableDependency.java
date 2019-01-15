@@ -76,7 +76,6 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value.dispose();
   }
 

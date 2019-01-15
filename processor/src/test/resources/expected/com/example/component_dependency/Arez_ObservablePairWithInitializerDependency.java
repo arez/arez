@@ -81,7 +81,6 @@ public final class Arez_ObservablePairWithInitializerDependency extends Observab
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value.dispose();
   }
 

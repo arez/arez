@@ -77,7 +77,6 @@ final class Arez_ScheduleDeferredDependencyModel extends ScheduleDeferredDepende
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

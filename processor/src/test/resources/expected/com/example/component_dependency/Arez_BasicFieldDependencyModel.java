@@ -69,7 +69,6 @@ public final class Arez_BasicFieldDependencyModel extends BasicFieldDependencyMo
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

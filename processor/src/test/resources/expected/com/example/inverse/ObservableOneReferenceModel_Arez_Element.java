@@ -89,7 +89,6 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_observableOneReferenceModelId.dispose();
   }
 

@@ -78,7 +78,6 @@ public final class Arez_ObservableDependency extends ObservableDependency implem
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value.dispose();
   }
 

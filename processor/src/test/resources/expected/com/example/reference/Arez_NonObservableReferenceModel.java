@@ -81,7 +81,6 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

@@ -90,7 +90,6 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_elements.dispose();
   }
 

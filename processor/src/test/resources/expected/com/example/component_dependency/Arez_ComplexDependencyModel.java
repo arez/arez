@@ -86,7 +86,6 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value3.dispose();
   }
 

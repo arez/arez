@@ -73,9 +73,7 @@ final class Arez_RepositoryPreDisposeHook extends RepositoryPreDisposeHook imple
   }
 
   private void $$arezi$$_dispose() {
-    super.myPreDispose();
     this.$$arez$$_name.dispose();
-    super.myPostDispose();
   }
 
   @Nonnull

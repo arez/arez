@@ -82,7 +82,6 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

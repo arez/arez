@@ -71,7 +71,6 @@ public final class Arez_NonStandardNameDependencyModel extends NonStandardNameDe
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

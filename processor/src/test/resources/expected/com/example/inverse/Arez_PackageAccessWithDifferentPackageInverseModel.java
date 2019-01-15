@@ -92,7 +92,6 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_elements.dispose();
   }
 

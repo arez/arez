@@ -71,7 +71,6 @@ public final class Arez_BasicDependencyModel extends BasicDependencyModel implem
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

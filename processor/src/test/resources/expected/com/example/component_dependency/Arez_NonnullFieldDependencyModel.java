@@ -65,7 +65,6 @@ public final class Arez_NonnullFieldDependencyModel extends NonnullFieldDependen
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

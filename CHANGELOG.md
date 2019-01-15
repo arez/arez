@@ -11,6 +11,8 @@
   `ComputableValue` instances.
 * **\[core\]** Remove return from `Transaction.processPendingDeactivations()` as it is not used outside of tests.
 * Post-process the javadocs so that `@Nonnull` and `@Nullable` annotations are not followed by excessive whitespace.
+* **\[processor\]** Fix bug in generated code where any `@PreDispose` or `@PostDispose` method would be invoked twice
+  if native components are disabled.
 
 ### [v0.121](https://github.com/arez/arez/tree/v0.121) (2018-12-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.120...v0.121)

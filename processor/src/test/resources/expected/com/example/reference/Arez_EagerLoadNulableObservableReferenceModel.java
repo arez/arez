@@ -89,7 +89,6 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_myEntityId.dispose();
   }
 

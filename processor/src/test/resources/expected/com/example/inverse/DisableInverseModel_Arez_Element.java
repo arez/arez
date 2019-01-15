@@ -81,7 +81,6 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

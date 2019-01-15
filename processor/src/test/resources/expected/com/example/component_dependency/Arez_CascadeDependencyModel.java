@@ -71,7 +71,6 @@ public final class Arez_CascadeDependencyModel extends CascadeDependencyModel im
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

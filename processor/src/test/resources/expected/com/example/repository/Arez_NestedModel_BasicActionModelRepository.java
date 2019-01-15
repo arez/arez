@@ -59,7 +59,6 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
   }
 
   private void $$arezi$$_dispose() {
-    super.preDispose();
     this.$$arez$$_entities.dispose();
   }
 

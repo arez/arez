@@ -59,7 +59,6 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
   }
 
   private void $$arezi$$_dispose() {
-    super.preDispose();
     this.$$arez$$_entities.dispose();
   }
 

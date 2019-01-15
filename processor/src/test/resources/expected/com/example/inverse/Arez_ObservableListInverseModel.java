@@ -90,7 +90,6 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_elements.dispose();
   }
 

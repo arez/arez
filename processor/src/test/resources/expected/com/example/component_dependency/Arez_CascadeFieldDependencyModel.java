@@ -69,7 +69,6 @@ public final class Arez_CascadeFieldDependencyModel extends CascadeFieldDependen
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override
