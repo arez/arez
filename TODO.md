@@ -109,6 +109,8 @@ complete as there is too much un-said.
 * Complete the `arez-devtools` project.
   - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
   - Embers DevTools is truly magical -  https://egghead.io/lessons/javascript-debug-ember-applications-using-ember-inspector
+  - https://reactlucid.io/ is a DevTool that combines GraphQL/Apollo and React. Can see the list of requests etc
+    and where they are bound.
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
