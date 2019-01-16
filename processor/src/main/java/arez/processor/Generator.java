@@ -278,13 +278,12 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerSubcomponent" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
+    final AnnotationSpec.Builder annotation = AnnotationSpec.builder( DAGGER_SUBCOMPONENT_CLASSNAME );
     if ( descriptor.needsEnhancer() )
     {
-      builder.addAnnotation( AnnotationSpec
-                               .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
-                               .addMember( "modules", "DaggerModule.class" )
-                               .build() );
+      annotation.addMember( "modules", "DaggerModule.class" );
     }
+    builder.addAnnotation( annotation.build() );
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "createFactory" )
