@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.122'
 * Restructure `ReactArezSpyUtil` so that it will be completely optimized away
   if `Arez.areSpiesEnabled()` returns false.
 * Restructure `BrowserSpyUtil` so that it will be completely optimized away
