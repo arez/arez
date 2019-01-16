@@ -81,7 +81,6 @@ final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDepe
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_value.dispose();
   }
 
