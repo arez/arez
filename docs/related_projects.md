@@ -12,8 +12,8 @@ to this page.
 * [arez-dom](https://github.com/arez/arez-dom) A collection of Arez components that expose various aspects of
   the browser object model as observable properties.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/dom) · [GitHub Project](https://github.com/arez/arez-dom)**</span>
-  
-  These include but are not limited to the following components:  
+
+  These include but are not limited to the following components:
   - [DocumentVisibility](https://arez.github.io/dom/index.html?arez/dom/DocumentVisibility.html): Exposes `document.visibilityState` as an observable property for specified documents.
   - [EventDrivenValue](https://arez.github.io/dom/index.html?arez/dom/EventDrivenValue.html): Generic component that exposes a property as observable where changes to the variable are signalled using an event.
   - [GeoPosition](https://arez.github.io/dom/index.html?arez/dom/GeoPosition.html): A component that exposes the current geo position as an observable property.

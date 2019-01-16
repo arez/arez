@@ -145,7 +145,7 @@ complete as there is too much un-said.
   - also consider a microtask executor (i.e. `Promise.resovle().then( () -> doStuff() )`). Micro tasks run after
     current javascript task stack returns to runtime.
 
-* Candidate scheduler types: 
+* Candidate scheduler types:
   - Immediate - directly invoke now
   - Current - queue in current Execution and will invoke before exiting runtime and returning to invoking application/system code
   - Mircotask - in next microtask execution. == Current if current execution in microtask
