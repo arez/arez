@@ -152,7 +152,7 @@ public final class ArezProcessor
         sw.flush();
 
         final String message =
-          "Unexpected error will running the " + getClass().getName() + " processor. This has " +
+          "Unexpected error running the " + getClass().getName() + " processor. This has " +
           "resulted in a failure to process the code and has left the compiler in an invalid " +
           "state. Please report the failure to the developers so that it can be fixed.\n" +
           " Report the error at: https://github.com/arez/arez/issues\n" +
