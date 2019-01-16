@@ -63,7 +63,6 @@ public class DaggerFactoryAndCtorInjectionIntegrationTest
   {
     final TestDaggerComponent daggerComponent =
       DaggerDaggerFactoryAndCtorInjectionIntegrationTest_TestDaggerComponent.create();
-    daggerComponent.bindTestComponent();
     final HashMap<String, String> props = new HashMap<>();
     final TestComponent component =
       daggerComponent.getTestComponentDaggerSubcomponent().createFactory().create( props );
