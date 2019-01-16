@@ -1,5 +1,6 @@
 package com.example.inject;
 
+import dagger.Subcomponent;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
@@ -7,6 +8,7 @@ import javax.annotation.Nonnull;
 public interface FactoryConsumer7ModelDaggerComponentExtension {
   DaggerSubcomponent getFactoryConsumer7ModelDaggerSubcomponent();
 
+  @Subcomponent
   interface DaggerSubcomponent {
     Arez_FactoryConsumer7Model.Factory createFactory();
 
