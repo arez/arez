@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.122'
 * Merge the [arez-idlestatus](https://github.com/arez/arez-idlestatus) version `0.48` into `arez-dom`.
 
 ### [v0.02](https://github.com/arez/arez-dom/tree/v0.02) (2018-12-20)
