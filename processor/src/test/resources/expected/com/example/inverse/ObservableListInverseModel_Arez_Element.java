@@ -82,7 +82,6 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

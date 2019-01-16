@@ -89,7 +89,6 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_observableManyReferenceModelId.dispose();
   }
 

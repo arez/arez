@@ -2,8 +2,6 @@
 
 ### Unreleased
 
-### Unreleased
-
 * Add the `arez-dom` project into the set of projects that are built and tested during the build and release process.
 * **\[core\]** Change the `inject` parameter on the `@ArezComponent` annotation from a `Feature` enum to `InjectMode`.
   The mapping of the enums are as follows:
@@ -27,8 +25,14 @@
   these parameters must be supplied at the time that the component is created. For components where construction
   occurs through a dependency injection framework, this means that a factory is created that accepts parameters
   annotated with the `@PerInstance` annotation when creating the component instance.
+* Remove references to `arez-idlestatus` as it has been subsumed by `arez-dom`.
 * Add some basic documentation to FAQ about the Incremental project and how it compares to Arez.
-* Fix incorrect invariant failure when maintaining `leastStaleObserverState` on chained `ComputableValue` instances.
+* **\[core\]** Fix incorrect invariant failure when maintaining `leastStaleObserverState` on chained
+  `ComputableValue` instances.
+* **\[core\]** Remove return from `Transaction.processPendingDeactivations()` as it is not used outside of tests.
+* Post-process the javadocs so that `@Nonnull` and `@Nullable` annotations are not followed by excessive whitespace.
+* **\[processor\]** Fix bug in generated code where any `@PreDispose` or `@PostDispose` method would be invoked twice
+  if native components are disabled.
 
 ### [v0.121](https://github.com/arez/arez/tree/v0.121) (2018-12-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.120...v0.121)

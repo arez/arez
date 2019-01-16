@@ -1085,8 +1085,9 @@ public class TransactionTest
     assertTrue( observableValue.isActive() );
     assertTrue( observableValue.isPendingDeactivation() );
 
-    final int deactivationCount = transaction.processPendingDeactivations();
-    assertEquals( deactivationCount, 1 );
+    transaction.processPendingDeactivations();
+
+    assertEquals( transaction.getPendingDeactivations().size(), 0 );
 
     assertFalse( observableValue.isPendingDeactivation() );
     assertFalse( observableValue.isActive() );
@@ -1103,8 +1104,7 @@ public class TransactionTest
 
     assertNull( transaction.getPendingDeactivations() );
 
-    final int deactivationCount = transaction.processPendingDeactivations();
-    assertEquals( deactivationCount, 0 );
+    transaction.processPendingDeactivations();
 
     assertNull( transaction.getPendingDeactivations() );
   }
@@ -1135,8 +1135,9 @@ public class TransactionTest
     assertTrue( observableValue.isActive() );
     assertTrue( observableValue.isPendingDeactivation() );
 
-    final int deactivationCount = transaction.processPendingDeactivations();
-    assertEquals( deactivationCount, 0 );
+    transaction.processPendingDeactivations();
+
+    assertEquals( transaction.getPendingDeactivations().size(), 0 );
 
     assertFalse( observableValue.isPendingDeactivation() );
     assertTrue( observableValue.isActive() );
@@ -1209,10 +1210,9 @@ public class TransactionTest
     assertTrue( observableValue3.isActive() );
     assertTrue( observableValue3.isPendingDeactivation() );
 
-    final int deactivationCount = transaction.processPendingDeactivations();
+    transaction.processPendingDeactivations();
 
-    //Chained calculated derivation is deactivated
-    assertEquals( deactivationCount, 2 );
+    assertEquals( transaction.getPendingDeactivations().size(), 0 );
 
     assertFalse( observableValue3.isPendingDeactivation() );
     assertFalse( observableValue3.isActive() );
@@ -1257,10 +1257,9 @@ public class TransactionTest
     assertTrue( derivedObservableValue.isActive() );
     assertTrue( derivedObservableValue.isPendingDeactivation() );
 
-    final int deactivationCount = transaction.processPendingDeactivations();
+    transaction.processPendingDeactivations();
 
-    //baseObservableValue is not active so it needs deactivation
-    assertEquals( deactivationCount, 1 );
+    assertEquals( transaction.getPendingDeactivations().size(), 0 );
 
     assertFalse( derivedObservableValue.isPendingDeactivation() );
     assertFalse( derivedObservableValue.isActive() );

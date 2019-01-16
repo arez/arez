@@ -164,7 +164,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_myWatcher.dispose();
     this.$$arez$$_render.dispose();
     this.$$arez$$_time.dispose();

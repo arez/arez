@@ -82,7 +82,6 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

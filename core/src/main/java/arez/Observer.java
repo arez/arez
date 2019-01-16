@@ -480,7 +480,7 @@ public final class Observer
         {
           final ComputableValue<?> computableValue = getComputableValue();
           runHook( computableValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
-          computableValue.setValue( null );
+          computableValue.completeDeactivate();
         }
         clearDependencies();
       }

@@ -84,7 +84,6 @@ final class Arez_ObservableZeroOrOneReferenceModel extends ObservableZeroOrOneRe
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_element.dispose();
   }
 

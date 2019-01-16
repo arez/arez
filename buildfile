@@ -281,6 +281,8 @@ define 'arez' do
           }
     )
 
+  cleanup_javadocs(project, 'arez')
+
   iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')

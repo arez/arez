@@ -88,7 +88,6 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_myEntityId.dispose();
   }
 

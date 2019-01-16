@@ -81,7 +81,6 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

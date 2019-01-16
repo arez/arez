@@ -87,7 +87,6 @@ final class Arez_LazyLoadObservableReferenceModel extends LazyLoadObservableRefe
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_myEntityId.dispose();
   }
 

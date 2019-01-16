@@ -81,7 +81,6 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

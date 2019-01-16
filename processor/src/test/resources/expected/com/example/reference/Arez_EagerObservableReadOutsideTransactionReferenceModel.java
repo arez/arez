@@ -88,7 +88,6 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_myEntityId.dispose();
   }
 

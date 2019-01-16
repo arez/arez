@@ -91,7 +91,6 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_elements.dispose();
   }
 

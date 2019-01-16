@@ -82,7 +82,6 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

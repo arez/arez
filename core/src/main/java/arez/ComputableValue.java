@@ -537,6 +537,11 @@ public final class ComputableValue<T>
     return Arez.areSpiesEnabled() ? _info : null;
   }
 
+  void completeDeactivate()
+  {
+    _value = null;
+  }
+
   @Nullable
   Component getComponent()
   {

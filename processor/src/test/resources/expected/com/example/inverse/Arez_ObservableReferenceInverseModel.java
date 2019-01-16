@@ -91,7 +91,6 @@ final class Arez_ObservableReferenceInverseModel extends ObservableReferenceInve
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_elements.dispose();
   }
 

@@ -82,7 +82,6 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

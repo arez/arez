@@ -14,6 +14,8 @@ complete as there is too much un-said.
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
+* Add react4j-sithtracker to website and testing regime
+
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
@@ -23,7 +25,8 @@ complete as there is too much un-said.
 
 * Should we add hooks that allow components to customize flags passed to created elements. The goal is to allow the
   component to dynamically customize configuration of a reactive element without defining a new class. i.e. Using
-  the same class but allowing
+  the same class but allowing parameters passed into the constructor to influence the value of flags. The flags that
+  can be specified will be restricted and at least in development mode this will be checked and enforced.
 
 * Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
 
@@ -39,7 +42,7 @@ complete as there is too much un-said.
 
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()`
-  is stripped if names not enabled.
+  is stripped if names not enabled. Should also include annotations for classes that should have clinits stripped.
 
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
@@ -48,9 +51,6 @@ complete as there is too much un-said.
 
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
-
-* Investigate simplifying types via
-  `public <T extends Throwable> void throwMeConditional(boolean conditional, T exception) throws T {`
 
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
@@ -140,12 +140,32 @@ complete as there is too much un-said.
   - User Blocking Tasks: input handlers + requestAnimationFrame + microTasks
   - Default tasks: (i.e scheduled tasks via `setTimeout()` and `postMessage()`)
   - Idle tasks: (i.e tasks scheduled but will only use time if any left before next render i.e. `requestIdleTimeout()`)
+  - also consider a microtask executor (i.e. `Promise.resovle().then( () -> doStuff() )`). Micro tasks run after
+    current javascript task stack returns to runtime.
+
+* Candidate scheduler types: 
+  - Immediate - directly invoke now
+  - Current - queue in current Execution and will invoke before exiting runtime and returning to invoking application/system code
+  - Mircotask - in next microtask execution. == Current if current execution in microtask
+  - Animation - in next animation frame
+  - AfterFrame - after next render frame completes
+  - Idle - in idle frame
 
 * Once the scheduler is in play it is likely we will want to implement code using `idle-until-urgent` strategy.
   Useful to delay some of the expensive setup for off screen stuff.
   - https://philipwalton.com/articles/idle-until-urgent/
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs
   - https://github.com/GoogleChromeLabs/idlize/blob/master/IdleValue.mjs
+
+* Also incorporate functionality such as `afterframe` which schedules action after the next render. A sample
+  implementation is at [afterframe](https://github.com/andrewiggins/afterframe/blob/master/README.md) which was
+  initially described in a [blog](https://nolanlawson.com/2018/09/25/accurately-measuring-layout-on-the-web/)
+  but has been enhanced by using a `MessageChannel` rather than `setTimeout` as experiments with the react scheduler
+  indicate that this is more consistent behaviour with no jitter due to clamping in `setTimeout`. Note that this was
+  also tweeted about by [developit](https://mobile.twitter.com/_developit/status/1081681351122829325)
+
+* Consider a mechanisms such that the priority and scheduler of tasks created within a particular task inherit
+  the values from the task.
 
 ## Reactive-Streaming integration
 

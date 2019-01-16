@@ -248,6 +248,7 @@ final class CircularBuffer<T>
    */
   Stream<T> stream()
   {
+    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     final int size = size();
     @SuppressWarnings( "unchecked" )
     final T[] elements = (T[]) new Object[ size ];

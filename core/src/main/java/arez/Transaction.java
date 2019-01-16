@@ -423,7 +423,7 @@ final class Transaction
     return Arez.shouldCheckInvariants() && _transactionUsed;
   }
 
-  int processPendingDeactivations()
+  void processPendingDeactivations()
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -431,7 +431,6 @@ final class Transaction
                  () -> "Arez-0138: Invoked processPendingDeactivations on transaction named '" + getName() +
                        "' which is not the root transaction." );
     }
-    int count = 0;
     if ( null != _pendingDeactivations )
     {
       // Deactivations can be enqueued during the deactivation process so we always pop the last
@@ -452,11 +451,9 @@ final class Transaction
         if ( !observableValue.hasObservers() )
         {
           observableValue.deactivate();
-          count++;
         }
       }
     }
-    return count;
   }
 
   void queueForDeactivation( @Nonnull final ObservableValue observableValue )

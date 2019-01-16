@@ -82,7 +82,6 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

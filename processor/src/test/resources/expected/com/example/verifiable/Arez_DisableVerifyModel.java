@@ -87,7 +87,6 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_myEntityId.dispose();
   }
 

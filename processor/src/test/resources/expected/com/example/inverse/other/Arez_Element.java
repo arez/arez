@@ -84,7 +84,6 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

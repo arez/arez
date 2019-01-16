@@ -59,7 +59,6 @@ final class Arez_RepositoryWithProtectedConstructorRepository extends Repository
   }
 
   private void $$arezi$$_dispose() {
-    super.preDispose();
     this.$$arez$$_entities.dispose();
   }
 

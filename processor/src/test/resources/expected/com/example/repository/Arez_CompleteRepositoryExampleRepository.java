@@ -59,7 +59,6 @@ final class Arez_CompleteRepositoryExampleRepository extends CompleteRepositoryE
   }
 
   private void $$arezi$$_dispose() {
-    super.preDispose();
     this.$$arez$$_entities.dispose();
   }
 

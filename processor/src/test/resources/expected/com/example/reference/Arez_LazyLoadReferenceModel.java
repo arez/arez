@@ -80,7 +80,6 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

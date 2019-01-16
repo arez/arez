@@ -82,7 +82,6 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

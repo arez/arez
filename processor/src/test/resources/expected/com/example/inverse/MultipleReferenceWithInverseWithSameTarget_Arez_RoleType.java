@@ -100,7 +100,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
     this.$$arez$$_childGeneralisations.dispose();
     this.$$arez$$_parentGeneralisation.dispose();
   }

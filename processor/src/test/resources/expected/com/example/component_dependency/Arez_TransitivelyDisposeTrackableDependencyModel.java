@@ -71,7 +71,6 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arezi$$_preDispose();
   }
 
   @Override

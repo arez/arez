@@ -3324,21 +3324,9 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( Generator.INTERNAL_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
-    if ( hasInternalPreDispose() )
-    {
-      builder.addStatement( "this.$N()", Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME );
-    }
-    else if ( null != _preDispose )
-    {
-      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
-    }
     _roObserves.forEach( observe -> observe.buildDisposer( builder ) );
     _roMemoizes.forEach( memoize -> memoize.buildDisposer( builder ) );
     _roObservables.forEach( observable -> observable.buildDisposer( builder ) );
-    if ( null != _postDispose )
-    {
-      builder.addStatement( "super.$N()", _postDispose.getSimpleName() );
-    }
 
     return builder.build();
   }
