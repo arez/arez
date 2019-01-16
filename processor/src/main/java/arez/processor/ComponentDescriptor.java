@@ -48,6 +48,13 @@ import static arez.processor.ProcessorUtil.*;
 @SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
+  enum InjectMode
+  {
+    NONE,
+    CONSUME,
+    PROVIDE
+  }
+
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
   private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
@@ -69,7 +76,7 @@ final class ComponentDescriptor
   /**
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
-  private String _repositoryInjectConfig = "AUTODETECT";
+  private String _repositoryInjectMode = "AUTODETECT";
   @Nonnull
   private final SourceVersion _sourceVersion;
   @Nonnull
@@ -83,9 +90,14 @@ final class ComponentDescriptor
   private final boolean _observable;
   private final boolean _disposeTrackable;
   private final boolean _disposeOnDeactivate;
-  private final boolean _injectClassesPresent;
-  private final boolean _inject;
+  @Nonnull
+  private final InjectMode _injectMode;
   private final boolean _dagger;
+  private final boolean _generatesFactoryToInject;
+  /**
+   * Is there any @Inject annotated fields or methods? If so we need to do a dance when generating Dagger support.
+   */
+  private final boolean _nonConstructorInjections;
   /**
    * Annotation that indicates whether equals/hashCode should be implemented. See arez.annotations.ArezComponent.requireEquals()
    */
@@ -160,9 +172,10 @@ final class ComponentDescriptor
                        final boolean observable,
                        final boolean disposeTrackable,
                        final boolean disposeOnDeactivate,
-                       final boolean injectClassesPresent,
-                       final boolean inject,
+                       @Nonnull final String injectMode,
                        final boolean dagger,
+                       final boolean generatesFactoryToInject,
+                       final boolean nonConstructorInjections,
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -180,9 +193,10 @@ final class ComponentDescriptor
     _observable = observable;
     _disposeTrackable = disposeTrackable;
     _disposeOnDeactivate = disposeOnDeactivate;
-    _injectClassesPresent = injectClassesPresent;
-    _inject = inject;
+    _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
+    _generatesFactoryToInject = generatesFactoryToInject;
+    _nonConstructorInjections = nonConstructorInjections;
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
@@ -202,6 +216,12 @@ final class ComponentDescriptor
   Elements getElements()
   {
     return _elements;
+  }
+
+  @Nonnull
+  ClassName getClassName()
+  {
+    return ClassName.get( getElement() );
   }
 
   @Nonnull
@@ -1098,6 +1118,32 @@ final class ComponentDescriptor
                                         " but no @ComponentId annotated method. The type is expected to be of " +
                                         "type int.", _element );
     }
+    else if ( InjectMode.NONE != _injectMode )
+    {
+      for ( final ExecutableElement constructor : getConstructors( getElement() ) )
+      {
+        // The annotation processor engine can not distinguish between a "default constructor"
+        // synthesized by the compiler and one written by a user that has the same signature.
+        // So our check just skips scenarios where the constructor could be synthetic.
+        if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+             !( constructor.getParameters().isEmpty() && constructor.getThrownTypes().isEmpty() ) )
+        {
+          throw new ArezProcessorException( "@ArezComponent target has a public constructor but the inject parameter " +
+                                            "does not resolve to NONE. Public constructors are not necessary when " +
+                                            "the instantiation of the component is managed by the injection framework.",
+                                            constructor );
+        }
+      }
+      if ( InjectMode.PROVIDE == _injectMode &&
+           _dagger &&
+           !getElement().getModifiers().contains( Modifier.PUBLIC ) )
+      {
+        throw new ArezProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
+                                          "using the dagger injection framework. Due to constraints within the " +
+                                          "dagger framework the type needs to made public.",
+                                          getElement() );
+      }
+    }
   }
 
   private boolean requiresSchedule()
@@ -1183,10 +1229,10 @@ final class ComponentDescriptor
         throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
                                           "reserved by Arez", method );
       }
-      else if ( methodName.startsWith( GeneratorUtil.FIELD_PREFIX ) ||
-                methodName.startsWith( GeneratorUtil.OBSERVABLE_DATA_FIELD_PREFIX ) ||
-                methodName.startsWith( GeneratorUtil.REFERENCE_FIELD_PREFIX ) ||
-                methodName.startsWith( GeneratorUtil.FRAMEWORK_PREFIX ) )
+      else if ( methodName.startsWith( Generator.FIELD_PREFIX ) ||
+                methodName.startsWith( Generator.OBSERVABLE_DATA_FIELD_PREFIX ) ||
+                methodName.startsWith( Generator.REFERENCE_FIELD_PREFIX ) ||
+                methodName.startsWith( Generator.FRAMEWORK_PREFIX ) )
       {
         throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
                                           "with a prefix reserved by Arez", method );
@@ -1896,6 +1942,16 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  private List<? extends VariableElement> getInjectedParameters( @Nonnull final ExecutableElement constructor )
+  {
+    return constructor
+      .getParameters()
+      .stream()
+      .filter( f -> null == ProcessorUtil.findAnnotationByType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+      .collect( Collectors.toList() );
+  }
+
+  @Nonnull
   private String getReferenceName( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
   {
     final String declaredName = getAnnotationParameter( annotation, "name" );
@@ -2534,10 +2590,17 @@ final class ComponentDescriptor
         build() );
     }
     final boolean publicType =
-      ProcessorUtil.getConstructors( getElement() ).
-        stream().
-        anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) ) &&
-      getElement().getModifiers().contains( Modifier.PUBLIC );
+      (
+        ProcessorUtil.getConstructors( getElement() ).
+          stream().
+          anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) ) &&
+        getElement().getModifiers().contains( Modifier.PUBLIC )
+      ) || (
+        //Ahh dagger.... due the way we actually inject components that have to create a dagger component
+        // extension, this class needs to be public
+        InjectMode.CONSUME == _injectMode &&
+        !getElement().getModifiers().contains( Modifier.PUBLIC )
+      );
     final boolean hasInverseReferencedOutsideClass =
       _roInverses.stream().anyMatch( inverse -> {
         final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( inverse.getTargetType() );
@@ -2567,23 +2630,40 @@ final class ComponentDescriptor
       builder.addAnnotation( ClassName.get( typeElement ) );
     }
 
-    builder.addSuperinterface( GeneratorUtil.DISPOSABLE_CLASSNAME );
-    builder.addSuperinterface( ParameterizedTypeName.get( GeneratorUtil.IDENTIFIABLE_CLASSNAME, getIdType().box() ) );
+    builder.addSuperinterface( Generator.DISPOSABLE_CLASSNAME );
+    builder.addSuperinterface( ParameterizedTypeName.get( Generator.IDENTIFIABLE_CLASSNAME, getIdType().box() ) );
     if ( _observable )
     {
-      builder.addSuperinterface( GeneratorUtil.COMPONENT_OBSERVABLE_CLASSNAME );
+      builder.addSuperinterface( Generator.COMPONENT_OBSERVABLE_CLASSNAME );
     }
     if ( _verify )
     {
-      builder.addSuperinterface( GeneratorUtil.VERIFIABLE_CLASSNAME );
+      builder.addSuperinterface( Generator.VERIFIABLE_CLASSNAME );
     }
     if ( _disposeTrackable )
     {
-      builder.addSuperinterface( GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME );
+      builder.addSuperinterface( Generator.DISPOSE_TRACKABLE_CLASSNAME );
     }
     if ( needsExplicitLink() )
     {
-      builder.addSuperinterface( GeneratorUtil.LINKABLE_CLASSNAME );
+      builder.addSuperinterface( Generator.LINKABLE_CLASSNAME );
+    }
+
+    if ( _generatesFactoryToInject )
+    {
+      builder.addType( buildFactoryClass().build() );
+    }
+    if ( needsEnhancer() )
+    {
+      final TypeSpec.Builder enhancer =
+        TypeSpec.interfaceBuilder( "Enhancer" ).addModifiers( Modifier.STATIC );
+      enhancer.addMethod( MethodSpec
+                            .methodBuilder( "enhance" )
+                            .addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ),
+                                                                  "component" ).build() )
+                            .addModifiers( Modifier.PUBLIC, Modifier.ABSTRACT )
+                            .build() );
+      builder.addType( enhancer.build() );
     }
 
     buildFields( builder );
@@ -2665,6 +2745,144 @@ final class ComponentDescriptor
     return builder.build();
   }
 
+  @Nonnull
+  private TypeSpec.Builder buildFactoryClass()
+  {
+    final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
+      .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
+
+    final ExecutableElement constructor = getConstructors( _element ).get( 0 );
+    assert null != constructor;
+
+    final boolean needsEnhancer = needsEnhancer();
+    if ( needsEnhancer )
+    {
+      factory.addField( FieldSpec
+                          .builder( ClassName.bestGuess( "Enhancer" ),
+                                    Generator.FRAMEWORK_PREFIX + "enhancer",
+                                    Modifier.PRIVATE,
+                                    Modifier.FINAL )
+                          .addAnnotation( Generator.NONNULL_CLASSNAME )
+                          .build() );
+    }
+
+    final List<? extends VariableElement> injectedParameters = getInjectedParameters( constructor );
+    for ( final VariableElement perInstanceParameter : injectedParameters )
+    {
+      final FieldSpec.Builder field = FieldSpec
+        .builder( TypeName.get( perInstanceParameter.asType() ),
+                  perInstanceParameter.getSimpleName().toString(),
+                  Modifier.PRIVATE,
+                  Modifier.FINAL );
+      ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, field );
+      factory.addField( field.build() );
+    }
+
+    final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
+    ctor.addAnnotation( Generator.INJECT_CLASSNAME );
+    if ( needsEnhancer )
+    {
+      final String name = Generator.FRAMEWORK_PREFIX + "enhancer";
+      ctor.addParameter( ParameterSpec
+                           .builder( ClassName.bestGuess( "Enhancer" ), name, Modifier.FINAL )
+                           .addAnnotation( Generator.NONNULL_CLASSNAME )
+                           .build() );
+      ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
+    }
+
+    for ( final VariableElement perInstanceParameter : injectedParameters )
+    {
+      final String name = perInstanceParameter.getSimpleName().toString();
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( perInstanceParameter.asType() ), name, Modifier.FINAL );
+      ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, param );
+      ctor.addParameter( param.build() );
+      final boolean isNonNull =
+        null != findAnnotationByType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
+      if ( isNonNull )
+      {
+        ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
+      }
+      else
+      {
+        ctor.addStatement( "this.$N = $N", name, name );
+      }
+    }
+
+    factory.addMethod( ctor.build() );
+
+    {
+      final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
+      creator.addAnnotation( Generator.NONNULL_CLASSNAME );
+      creator.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      creator.returns( getEnhancedClassName() );
+
+      final StringBuilder sb = new StringBuilder();
+      final ArrayList<Object> params = new ArrayList<>();
+      sb.append( "return new $T(" );
+      params.add( getEnhancedClassName() );
+
+      boolean firstParam = true;
+
+      for ( final VariableElement parameter : constructor.getParameters() )
+      {
+        final boolean perInstance =
+          null != findAnnotationByType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
+
+        final String name = parameter.getSimpleName().toString();
+
+        if ( perInstance )
+        {
+          final ParameterSpec.Builder param =
+            ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
+          ProcessorUtil.copyWhitelistedAnnotations( parameter, param );
+          creator.addParameter( param.build() );
+        }
+
+        if ( firstParam )
+        {
+          sb.append( " " );
+        }
+        else
+        {
+          sb.append( ", " );
+        }
+        firstParam = false;
+        if ( perInstance && null != findAnnotationByType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        {
+          sb.append( "$T.requireNonNull( $N )" );
+          params.add( Objects.class );
+        }
+        else
+        {
+          sb.append( "$N" );
+        }
+        params.add( name );
+      }
+
+      if ( needsEnhancer )
+      {
+        assert !firstParam;
+        sb.append( ", " );
+        firstParam = false;
+        sb.append( "$N" );
+        params.add( Generator.FRAMEWORK_PREFIX + "enhancer" );
+      }
+
+      if ( !firstParam )
+      {
+        sb.append( " " );
+      }
+
+      sb.append( ")" );
+      creator.addStatement( sb.toString(), params.toArray() );
+
+      factory.addMethod( creator.build() );
+    }
+
+    return factory;
+  }
+
   private boolean needsExplicitLink()
   {
     return _roReferences.stream().anyMatch( r -> r.getLinkType().equals( "EXPLICIT" ) );
@@ -2683,10 +2901,10 @@ final class ComponentDescriptor
         returns( TypeName.get( String.class ) );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+    codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", Generator.AREZ_CLASSNAME );
     codeBlock.addStatement( "return $S + this.$N.getName() + $S",
                             "ArezComponent[",
-                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            Generator.KERNEL_FIELD_NAME,
                             "]" );
     codeBlock.nextControlFlow( "else" );
     codeBlock.addStatement( "return super.toString()" );
@@ -2721,7 +2939,7 @@ final class ComponentDescriptor
      * should not match.
      */
     final String prefix = null != _componentId ? "isDisposed() == that.isDisposed() && " : "";
-    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : GeneratorUtil.DEFAULT_ID_KIND;
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : Generator.DEFAULT_ID_KIND;
     if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
     {
       codeBlock.addStatement( "return " + prefix + "null != $N() && $N().equals( that.$N() )",
@@ -2746,7 +2964,7 @@ final class ComponentDescriptor
     else
     {
       final CodeBlock.Builder guardBlock = CodeBlock.builder();
-      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", Generator.AREZ_CLASSNAME );
       guardBlock.add( codeBlock.build() );
       guardBlock.nextControlFlow( "else" );
       guardBlock.addStatement( "return super.equals( o )" );
@@ -2767,7 +2985,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
         addAnnotation( Override.class ).
         returns( TypeName.INT );
-    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : GeneratorUtil.DEFAULT_ID_KIND;
+    final TypeKind kind = null != _componentId ? _componentId.getReturnType().getKind() : Generator.DEFAULT_ID_KIND;
     if ( _requireEquals )
     {
       if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
@@ -2815,7 +3033,7 @@ final class ComponentDescriptor
     else
     {
       final CodeBlock.Builder guardBlock = CodeBlock.builder();
-      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", GeneratorUtil.AREZ_CLASSNAME );
+      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", Generator.AREZ_CLASSNAME );
       if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
       {
         guardBlock.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
@@ -2875,14 +3093,14 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( Override.class ).
-      returns( GeneratorUtil.AREZ_CONTEXT_CLASSNAME );
+      returns( Generator.AREZ_CONTEXT_CLASSNAME );
 
     ProcessorUtil.copyWhitelistedAnnotations( _contextRef, method );
     ProcessorUtil.copyAccessModifiers( _contextRef, method );
 
-    GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
+    Generator.generateNotInitializedInvariant( this, method, methodName );
 
-    method.addStatement( "return this.$N.getContext()", GeneratorUtil.KERNEL_FIELD_NAME );
+    method.addStatement( "return this.$N.getContext()", Generator.KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -2890,14 +3108,14 @@ final class ComponentDescriptor
   private MethodSpec buildLocatorRefMethod()
     throws ArezProcessorException
   {
-    final String methodName = GeneratorUtil.LOCATOR_METHOD_NAME;
+    final String methodName = Generator.LOCATOR_METHOD_NAME;
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
-      returns( GeneratorUtil.LOCATOR_CLASSNAME );
+      returns( Generator.LOCATOR_CLASSNAME );
 
-    GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
+    Generator.generateNotInitializedInvariant( this, method, methodName );
 
-    method.addStatement( "return this.$N.getContext().locator()", GeneratorUtil.KERNEL_FIELD_NAME );
+    method.addStatement( "return this.$N.getContext().locator()", Generator.KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -2910,25 +3128,25 @@ final class ComponentDescriptor
     final String methodName = _componentRef.getSimpleName().toString();
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
-      returns( GeneratorUtil.COMPONENT_CLASSNAME );
+      returns( Generator.COMPONENT_CLASSNAME );
 
-    GeneratorUtil.generateNotInitializedInvariant( this, method, methodName );
-    GeneratorUtil.generateNotConstructedInvariant( method, methodName );
-    GeneratorUtil.generateNotCompleteInvariant( method, methodName );
-    GeneratorUtil.generateNotDisposedInvariant( method, methodName );
+    Generator.generateNotInitializedInvariant( this, method, methodName );
+    Generator.generateNotConstructedInvariant( method, methodName );
+    Generator.generateNotCompleteInvariant( method, methodName );
+    Generator.generateNotDisposedInvariant( method, methodName );
 
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", Generator.AREZ_CLASSNAME );
     block.addStatement( "$T.invariant( () -> $T.areNativeComponentsEnabled(), () -> \"Invoked @ComponentRef " +
                         "method '$N' but Arez.areNativeComponentsEnabled() returned false.\" )",
-                        GeneratorUtil.GUARDS_CLASSNAME,
-                        GeneratorUtil.AREZ_CLASSNAME,
+                        Generator.GUARDS_CLASSNAME,
+                        Generator.AREZ_CLASSNAME,
                         methodName );
     block.endControlFlow();
 
     method.addCode( block.build() );
 
-    method.addStatement( "return this.$N.getComponent()", GeneratorUtil.KERNEL_FIELD_NAME );
+    method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
     ProcessorUtil.copyWhitelistedAnnotations( _componentRef, method );
     ProcessorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
@@ -2958,7 +3176,7 @@ final class ComponentDescriptor
   {
     return MethodSpec.methodBuilder( "getArezId" ).
       addAnnotation( Override.class ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       addModifiers( Modifier.PUBLIC ).
       addModifiers( Modifier.FINAL ).
       returns( getIdType().box() ).
@@ -2971,10 +3189,10 @@ final class ComponentDescriptor
   {
     assert null == _componentId;
 
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( GeneratorUtil.ID_FIELD_NAME ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( Generator.ID_FIELD_NAME ).
       addModifiers( Modifier.FINAL ).
-      returns( GeneratorUtil.DEFAULT_ID_TYPE );
-    return method.addStatement( "return this.$N.getId()", GeneratorUtil.KERNEL_FIELD_NAME ).build();
+      returns( Generator.DEFAULT_ID_TYPE );
+    return method.addStatement( "return this.$N.getId()", Generator.KERNEL_FIELD_NAME ).build();
   }
 
   /**
@@ -2992,8 +3210,8 @@ final class ComponentDescriptor
     ProcessorUtil.copyWhitelistedAnnotations( _componentNameRef, builder );
     ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
 
-    GeneratorUtil.generateNotInitializedInvariant( this, builder, methodName );
-    builder.addStatement( "return this.$N.getName()", GeneratorUtil.KERNEL_FIELD_NAME );
+    Generator.generateNotInitializedInvariant( this, builder, methodName );
+    builder.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3010,7 +3228,7 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
     ProcessorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
     builder.addModifiers( Modifier.FINAL );
-    builder.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
 
     builder.returns( TypeName.get( String.class ) );
     builder.addStatement( "return $S", _type );
@@ -3025,25 +3243,25 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    GeneratorUtil.generateNotDisposedInvariant( builder, "verify" );
+    Generator.generateNotDisposedInvariant( builder, "verify" );
 
     if ( !_roReferences.isEmpty() || !_roInverses.isEmpty() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.isVerifyEnabled() )",
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME );
+                              Generator.AREZ_CLASSNAME,
+                              Generator.AREZ_CLASSNAME );
 
       block.addStatement( "$T.apiInvariant( () -> this == $N().findById( $T.class, $N() ), () -> \"Attempted to " +
                           "lookup self in Locator with type $T and id '\" + $N() + \"' but unable to locate " +
                           "self. Actual value: \" + $N().findById( $T.class, $N() ) )",
-                          GeneratorUtil.GUARDS_CLASSNAME,
-                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          Generator.GUARDS_CLASSNAME,
+                          Generator.LOCATOR_METHOD_NAME,
                           getElement(),
                           getIdMethodName(),
                           getElement(),
                           getIdMethodName(),
-                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          Generator.LOCATOR_METHOD_NAME,
                           getElement(),
                           getIdMethodName() );
       for ( final ReferenceDescriptor reference : _roReferences )
@@ -3070,7 +3288,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    GeneratorUtil.generateNotDisposedInvariant( builder, "link" );
+    Generator.generateNotDisposedInvariant( builder, "link" );
 
     final List<ReferenceDescriptor> explicitReferences =
       _roReferences.stream().filter( r -> r.getLinkType().equals( "EXPLICIT" ) ).collect( Collectors.toList() );
@@ -3093,7 +3311,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    builder.addStatement( "this.$N.dispose()", GeneratorUtil.KERNEL_FIELD_NAME );
+    builder.addStatement( "this.$N.dispose()", Generator.KERNEL_FIELD_NAME );
 
     return builder.build();
   }
@@ -3103,7 +3321,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME ).
+      MethodSpec.methodBuilder( Generator.INTERNAL_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
     _roObserves.forEach( observe -> observe.buildDisposer( builder ) );
@@ -3134,7 +3352,7 @@ final class ComponentDescriptor
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "return this.$N.isDisposed()", GeneratorUtil.KERNEL_FIELD_NAME );
+    builder.addStatement( "return this.$N.isDisposed()", Generator.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3150,7 +3368,7 @@ final class ComponentDescriptor
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
-    builder.addStatement( "return this.$N.observe()", GeneratorUtil.KERNEL_FIELD_NAME );
+    builder.addStatement( "return this.$N.observe()", Generator.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3163,18 +3381,18 @@ final class ComponentDescriptor
   {
     assert _disposeTrackable;
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
+      MethodSpec.methodBuilder( Generator.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
     if ( hasInternalPreDispose() )
     {
-      builder.addStatement( "this.$N()", GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+      builder.addStatement( "this.$N()", Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
     else if ( null != _preDispose )
     {
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
-    builder.addStatement( "this.$N.getDisposeNotifier().dispose()", GeneratorUtil.KERNEL_FIELD_NAME );
+    builder.addStatement( "this.$N.getDisposeNotifier().dispose()", Generator.KERNEL_FIELD_NAME );
 
     return builder.build();
   }
@@ -3187,7 +3405,7 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME ).
+      MethodSpec.methodBuilder( Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
     if ( null != _preDispose )
@@ -3196,7 +3414,7 @@ final class ComponentDescriptor
     }
     _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
     _roReferences.forEach( r -> r.buildDisposer( builder ) );
-    _roInverses.forEach( r -> r.buildDisposer( builder ) );
+    _roInverses.forEach( r -> Generator.buildInverseDisposer( r, builder ) );
     if ( _disposeTrackable )
     {
       for ( final DependencyDescriptor dependency : _roDependencies )
@@ -3212,12 +3430,12 @@ final class ComponentDescriptor
           if ( isNonnull )
           {
             builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
-                                  GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   methodName );
           }
           else
           {
-            final String varName = GeneratorUtil.VARIABLE_PREFIX + methodName + "_dependency";
+            final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
             final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
             if ( abstractObservables )
             {
@@ -3233,7 +3451,7 @@ final class ComponentDescriptor
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", varName );
             listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
-                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         varName );
             listenerBlock.endControlFlow();
             builder.addCode( listenerBlock.build() );
@@ -3246,7 +3464,7 @@ final class ComponentDescriptor
           if ( isNonnull )
           {
             builder.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier().removeOnDisposeListener( this )",
-                                  GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   fieldName );
           }
           else
@@ -3254,7 +3472,7 @@ final class ComponentDescriptor
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
             listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier().removeOnDisposeListener( this )",
-                                        GeneratorUtil.DISPOSE_TRACKABLE_CLASSNAME,
+                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         fieldName );
             listenerBlock.endControlFlow();
             builder.addCode( listenerBlock.build() );
@@ -3277,10 +3495,10 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( "getNotifier" ).
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-        returns( GeneratorUtil.DISPOSE_NOTIFIER_CLASSNAME );
+        addAnnotation( Generator.NONNULL_CLASSNAME ).
+        returns( Generator.DISPOSE_NOTIFIER_CLASSNAME );
 
-    builder.addStatement( "return this.$N.getDisposeNotifier()", GeneratorUtil.KERNEL_FIELD_NAME );
+    builder.addStatement( "return this.$N.getDisposeNotifier()", Generator.KERNEL_FIELD_NAME );
     return builder.build();
   }
 
@@ -3296,8 +3514,8 @@ final class ComponentDescriptor
   {
 
     final FieldSpec.Builder idField =
-      FieldSpec.builder( GeneratorUtil.KERNEL_CLASSNAME,
-                         GeneratorUtil.KERNEL_FIELD_NAME,
+      FieldSpec.builder( Generator.KERNEL_CLASSNAME,
+                         Generator.KERNEL_FIELD_NAME,
                          Modifier.FINAL,
                          Modifier.PRIVATE );
     builder.addField( idField.build() );
@@ -3306,8 +3524,8 @@ final class ComponentDescriptor
     if ( null == _componentId )
     {
       final FieldSpec.Builder nextIdField =
-        FieldSpec.builder( GeneratorUtil.DEFAULT_ID_TYPE,
-                           GeneratorUtil.NEXT_ID_FIELD_NAME,
+        FieldSpec.builder( Generator.DEFAULT_ID_TYPE,
+                           Generator.NEXT_ID_FIELD_NAME,
                            Modifier.VOLATILE,
                            Modifier.STATIC,
                            Modifier.PRIVATE );
@@ -3345,8 +3563,13 @@ final class ComponentDescriptor
                                        final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
-         getElement().getModifiers().contains( Modifier.PUBLIC ) )
+    if ( _generatesFactoryToInject )
+    {
+      // The constructor is private as the factory is responsible for creating component.
+      builder.addModifiers( Modifier.PRIVATE );
+    }
+    else if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+              getElement().getModifiers().contains( Modifier.PUBLIC ) )
     {
       /*
        * The constructor MUST be public if annotated class is public as that implies that we expect
@@ -3354,7 +3577,6 @@ final class ComponentDescriptor
        */
       builder.addModifiers( Modifier.PUBLIC );
     }
-
     ProcessorUtil.copyExceptions( constructorType, builder );
     ProcessorUtil.copyTypeParameters( constructorType, builder );
 
@@ -3365,9 +3587,9 @@ final class ComponentDescriptor
                                .build() );
     }
 
-    if ( _inject )
+    if ( InjectMode.NONE != _injectMode && !_generatesFactoryToInject )
     {
-      builder.addAnnotation( GeneratorUtil.INJECT_CLASSNAME );
+      builder.addAnnotation( Generator.INJECT_CLASSNAME );
     }
 
     final List<ObservableDescriptor> initializers = getInitializers();
@@ -3394,15 +3616,24 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
+
+    if ( needsEnhancer() )
+    {
+      builder.addParameter( ParameterSpec.builder( ClassName.bestGuess( "Enhancer" ),
+                                                   Generator.ENHANCER_PARAM_NAME,
+                                                   Modifier.FINAL )
+                              .addAnnotation( Generator.NONNULL_CLASSNAME ).build() );
+    }
+
     if ( !_references.isEmpty() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
       block.addStatement( "$T.apiInvariant( () -> $T.areReferencesEnabled(), () -> \"Attempted to create instance " +
                           "of component of type '$N' that contains references but Arez.areReferencesEnabled() " +
                           "returns false. References need to be enabled to use this component\" )",
-                          GeneratorUtil.GUARDS_CLASSNAME,
-                          GeneratorUtil.AREZ_CLASSNAME,
+                          Generator.GUARDS_CLASSNAME,
+                          Generator.AREZ_CLASSNAME,
                           getType() );
       block.endControlFlow();
       builder.addCode( block.build() );
@@ -3414,7 +3645,7 @@ final class ComponentDescriptor
     {
       final String candidateName = observable.getName();
       final String name = isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
-                          GeneratorUtil.INITIALIZER_PREFIX + candidateName :
+                          Generator.INITIALIZER_PREFIX + candidateName :
                           candidateName;
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
@@ -3446,13 +3677,17 @@ final class ComponentDescriptor
     _roInverses.forEach( e -> e.buildInitializer( builder ) );
     _roDependencies.forEach( e -> e.buildInitializer( builder ) );
 
-    builder.addStatement( "this.$N.componentConstructed()", GeneratorUtil.KERNEL_FIELD_NAME );
+    builder.addStatement( "this.$N.componentConstructed()", Generator.KERNEL_FIELD_NAME );
 
     final List<ReferenceDescriptor> eagerReferences =
       _roReferences.stream().filter( r -> r.getLinkType().equals( "EAGER" ) ).collect( Collectors.toList() );
     for ( final ReferenceDescriptor reference : eagerReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+    }
+    if ( needsEnhancer() )
+    {
+      builder.addStatement( "$N.enhance( this )", Generator.ENHANCER_PARAM_NAME );
     }
 
     final ExecutableElement postConstruct = getPostConstruct();
@@ -3463,11 +3698,11 @@ final class ComponentDescriptor
 
     if ( !_deferSchedule && requiresSchedule() )
     {
-      builder.addStatement( "this.$N.componentComplete()", GeneratorUtil.KERNEL_FIELD_NAME );
+      builder.addStatement( "this.$N.componentComplete()", Generator.KERNEL_FIELD_NAME );
     }
     else
     {
-      builder.addStatement( "this.$N.componentReady()", GeneratorUtil.KERNEL_FIELD_NAME );
+      builder.addStatement( "this.$N.componentReady()", Generator.KERNEL_FIELD_NAME );
     }
     return builder.build();
   }
@@ -3483,35 +3718,35 @@ final class ComponentDescriptor
     final ArrayList<Object> params = new ArrayList<>();
 
     sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $T.areNamesEnabled() ? $N : null, " );
-    params.add( GeneratorUtil.KERNEL_FIELD_NAME );
-    params.add( GeneratorUtil.KERNEL_CLASSNAME );
-    params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( GeneratorUtil.CONTEXT_VAR_NAME );
-    params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( GeneratorUtil.NAME_VAR_NAME );
+    params.add( Generator.KERNEL_FIELD_NAME );
+    params.add( Generator.KERNEL_CLASSNAME );
+    params.add( Generator.AREZ_CLASSNAME );
+    params.add( Generator.CONTEXT_VAR_NAME );
+    params.add( Generator.AREZ_CLASSNAME );
+    params.add( Generator.NAME_VAR_NAME );
     if ( null == _componentId )
     {
       sb.append( "$N, " );
-      params.add( GeneratorUtil.ID_VAR_NAME );
+      params.add( Generator.ID_VAR_NAME );
     }
     else
     {
       sb.append( "0, " );
     }
     sb.append( "$T.areNativeComponentsEnabled() ? $N : null, " );
-    params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( GeneratorUtil.COMPONENT_VAR_NAME );
+    params.add( Generator.AREZ_CLASSNAME );
+    params.add( Generator.COMPONENT_VAR_NAME );
 
     if ( hasInternalPreDispose() )
     {
       sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
-      params.add( GeneratorUtil.INTERNAL_PRE_DISPOSE_METHOD_NAME );
+      params.add( Generator.AREZ_CLASSNAME );
+      params.add( Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
     else if ( null != _preDispose )
     {
       sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( Generator.AREZ_CLASSNAME );
       params.add( _preDispose.getSimpleName() );
     }
     else
@@ -3519,13 +3754,13 @@ final class ComponentDescriptor
       sb.append( "null, " );
     }
     sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
-    params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( GeneratorUtil.INTERNAL_DISPOSE_METHOD_NAME );
+    params.add( Generator.AREZ_CLASSNAME );
+    params.add( Generator.INTERNAL_DISPOSE_METHOD_NAME );
 
     if ( null != _postDispose )
     {
       sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
-      params.add( GeneratorUtil.AREZ_CLASSNAME );
+      params.add( Generator.AREZ_CLASSNAME );
       params.add( _postDispose.getSimpleName() );
     }
     else
@@ -3546,9 +3781,9 @@ final class ComponentDescriptor
   private void buildContextVar( @Nonnull final MethodSpec.Builder builder )
   {
     builder.addStatement( "final $T $N = $T.context()",
-                          GeneratorUtil.AREZ_CONTEXT_CLASSNAME,
-                          GeneratorUtil.CONTEXT_VAR_NAME,
-                          GeneratorUtil.AREZ_CLASSNAME );
+                          Generator.AREZ_CONTEXT_CLASSNAME,
+                          Generator.CONTEXT_VAR_NAME,
+                          Generator.AREZ_CLASSNAME );
   }
 
   private void buildNameVar( @Nonnull final MethodSpec.Builder builder )
@@ -3558,16 +3793,16 @@ final class ComponentDescriptor
     if ( _nameIncludesId )
     {
       builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S + $N : null",
-                            GeneratorUtil.NAME_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
+                            Generator.NAME_VAR_NAME,
+                            Generator.AREZ_CLASSNAME,
                             _type.isEmpty() ? "" : _type + ".",
-                            GeneratorUtil.ID_VAR_NAME );
+                            Generator.ID_VAR_NAME );
     }
     else
     {
       builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S : null",
-                            GeneratorUtil.NAME_VAR_NAME,
-                            GeneratorUtil.AREZ_CLASSNAME,
+                            Generator.NAME_VAR_NAME,
+                            Generator.AREZ_CLASSNAME,
                             _type );
     }
   }
@@ -3578,31 +3813,31 @@ final class ComponentDescriptor
     {
       if ( _idRequired )
       {
-        builder.addStatement( "final int $N = ++$N", GeneratorUtil.ID_VAR_NAME, GeneratorUtil.NEXT_ID_FIELD_NAME );
+        builder.addStatement( "final int $N = ++$N", Generator.ID_VAR_NAME, Generator.NEXT_ID_FIELD_NAME );
       }
       else if ( _nameIncludesId )
       {
         builder.addStatement( "final int $N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || " +
                               "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
-                              GeneratorUtil.ID_VAR_NAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.NEXT_ID_FIELD_NAME );
+                              Generator.ID_VAR_NAME,
+                              Generator.AREZ_CLASSNAME,
+                              Generator.AREZ_CLASSNAME,
+                              Generator.AREZ_CLASSNAME,
+                              Generator.NEXT_ID_FIELD_NAME );
       }
       else
       {
         builder.addStatement( "final int $N = ( $T.areRegistriesEnabled() || " +
                               "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
-                              GeneratorUtil.ID_VAR_NAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.AREZ_CLASSNAME,
-                              GeneratorUtil.NEXT_ID_FIELD_NAME );
+                              Generator.ID_VAR_NAME,
+                              Generator.AREZ_CLASSNAME,
+                              Generator.AREZ_CLASSNAME,
+                              Generator.NEXT_ID_FIELD_NAME );
       }
     }
     else
     {
-      builder.addStatement( "final Object $N = $N()", GeneratorUtil.ID_VAR_NAME, _componentId.getSimpleName() );
+      builder.addStatement( "final Object $N = $N()", Generator.ID_VAR_NAME, _componentId.getSimpleName() );
     }
   }
 
@@ -3611,20 +3846,20 @@ final class ComponentDescriptor
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> params = new ArrayList<>();
     sb.append( "final $T $N = $T.areNativeComponentsEnabled() ? $N.component( $S, $N, $N" );
-    params.add( GeneratorUtil.COMPONENT_CLASSNAME );
-    params.add( GeneratorUtil.COMPONENT_VAR_NAME );
-    params.add( GeneratorUtil.AREZ_CLASSNAME );
-    params.add( GeneratorUtil.CONTEXT_VAR_NAME );
+    params.add( Generator.COMPONENT_CLASSNAME );
+    params.add( Generator.COMPONENT_VAR_NAME );
+    params.add( Generator.AREZ_CLASSNAME );
+    params.add( Generator.CONTEXT_VAR_NAME );
     params.add( _type );
-    params.add( GeneratorUtil.ID_VAR_NAME );
-    params.add( GeneratorUtil.NAME_VAR_NAME );
+    params.add( Generator.ID_VAR_NAME );
+    params.add( Generator.NAME_VAR_NAME );
     if ( _disposeTrackable || null != _preDispose || null != _postDispose )
     {
       sb.append( ", " );
       if ( _disposeTrackable )
       {
         sb.append( "() -> $N()" );
-        params.add( GeneratorUtil.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
+        params.add( Generator.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
       }
       else if ( null != _preDispose )
       {
@@ -3659,27 +3894,53 @@ final class ComponentDescriptor
            initializers.stream().anyMatch( o -> o.getName().equals( name ) );
   }
 
-  boolean shouldGenerateComponentDaggerModule()
+  boolean needsDaggerIntegration()
   {
     return _dagger;
+  }
+
+  boolean shouldGenerateFactoryToInject()
+  {
+    return _generatesFactoryToInject;
+  }
+
+  @Nonnull
+  InjectMode getInjectMode()
+  {
+    return _injectMode;
+  }
+
+  boolean needsDaggerModule()
+  {
+    return needsDaggerIntegration() && InjectMode.PROVIDE == _injectMode && !needsDaggerComponentExtension();
+  }
+
+  boolean needsDaggerComponentExtension()
+  {
+    return ( needsDaggerIntegration() && _generatesFactoryToInject ) || needsEnhancer();
+  }
+
+  boolean needsEnhancer()
+  {
+    return needsDaggerIntegration() && ( null != _postConstruct || requiresSchedule() ) && _nonConstructorInjections;
   }
 
   @Nonnull
   TypeSpec buildComponentDaggerModule()
     throws ArezProcessorException
   {
-    assert shouldGenerateComponentDaggerModule();
+    assert needsDaggerIntegration();
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     Generator.addOriginatingTypes( getElement(), builder );
 
     Generator.addGeneratedAnnotation( this, builder );
-    builder.addAnnotation( GeneratorUtil.DAGGER_MODULE_CLASSNAME );
+    builder.addAnnotation( Generator.DAGGER_MODULE_CLASSNAME );
     builder.addModifiers( Modifier.PUBLIC );
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "bindComponent" ).
-      addAnnotation( GeneratorUtil.DAGGER_BINDS_CLASSNAME ).
+      addAnnotation( Generator.DAGGER_BINDS_CLASSNAME ).
       addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
       addParameter( ClassName.get( getPackageName(), getArezClassName() ), "component" ).
       returns( ClassName.get( getElement() ) );
@@ -3702,12 +3963,12 @@ final class ComponentDescriptor
   @SuppressWarnings( "ConstantConditions" )
   void configureRepository( @Nonnull final String name,
                             @Nonnull final List<TypeElement> extensions,
-                            @Nonnull final String repositoryInjectConfig,
+                            @Nonnull final String repositoryInjectMode,
                             @Nonnull final String repositoryDaggerConfig )
   {
     assert null != name;
     assert null != extensions;
-    _repositoryInjectConfig = repositoryInjectConfig;
+    _repositoryInjectMode = repositoryInjectMode;
     _repositoryDaggerConfig = repositoryDaggerConfig;
     for ( final TypeElement extension : extensions )
     {
@@ -3755,8 +4016,10 @@ final class ComponentDescriptor
     Generator.addGeneratedAnnotation( this, builder );
 
     final boolean addSingletonAnnotation =
-      "ENABLE".equals( _repositoryInjectConfig ) ||
-      ( "AUTODETECT".equals( _repositoryInjectConfig ) && _injectClassesPresent );
+      "CONSUME".equals( _repositoryInjectMode ) ||
+      "PROVIDE".equals( _repositoryInjectMode ) ||
+      ( "AUTODETECT".equals( _repositoryInjectMode ) &&
+        null != _elements.getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME ) );
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );
@@ -3764,21 +4027,21 @@ final class ComponentDescriptor
     {
       arezComponent.addMember( "nameIncludesId", "false" );
     }
-    if ( !"AUTODETECT".equals( _repositoryInjectConfig ) )
+    if ( !"AUTODETECT".equals( _repositoryInjectMode ) )
     {
-      arezComponent.addMember( "inject", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryInjectConfig );
+      arezComponent.addMember( "inject", "$T.$N", Generator.INJECT_MODE_CLASSNAME, _repositoryInjectMode );
     }
     if ( !"AUTODETECT".equals( _repositoryDaggerConfig ) )
     {
-      arezComponent.addMember( "dagger", "$T.$N", GeneratorUtil.INJECTIBLE_CLASSNAME, _repositoryDaggerConfig );
+      arezComponent.addMember( "dagger", "$T.$N", Generator.FEATURE_CLASSNAME, _repositoryDaggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
     if ( addSingletonAnnotation )
     {
-      builder.addAnnotation( GeneratorUtil.SINGLETON_CLASSNAME );
+      builder.addAnnotation( Generator.SINGLETON_CLASSNAME );
     }
 
-    builder.superclass( ParameterizedTypeName.get( GeneratorUtil.ABSTRACT_REPOSITORY_CLASSNAME,
+    builder.superclass( ParameterizedTypeName.get( Generator.ABSTRACT_REPOSITORY_CLASSNAME,
                                                    getIdType().box(),
                                                    ClassName.get( element ),
                                                    ClassName.get( getPackageName(), getRepositoryName() ) ) );
@@ -3786,6 +4049,18 @@ final class ComponentDescriptor
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
     ProcessorUtil.copyAccessModifiers( element, builder );
+
+    /*
+     * If the repository will be generated as a PROVIDE inject mode when dagger is present
+     * but the type is not public, we still need to generate a public repository due to
+     * constraints imposed by dagger.
+     */
+    if ( addSingletonAnnotation &&
+         !"CONSUME".equals( _repositoryInjectMode ) &&
+         !element.getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
 
     builder.addModifiers( Modifier.ABSTRACT );
 
@@ -3827,6 +4102,24 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  ClassName getEnhancedClassName()
+  {
+    return ClassName.get( getPackageName(), getArezClassName() );
+  }
+
+  @Nonnull
+  ClassName getEnhancerClassName()
+  {
+    return ClassName.get( getPackageName(), getArezClassName(), "Enhancer" );
+  }
+
+  @Nonnull
+  ClassName getClassNameToConstruct()
+  {
+    return getEnhancedClassName();
+  }
+
+  @Nonnull
   private String getArezClassName()
   {
     return getNestedClassPrefix() + "Arez_" + getElement().getSimpleName();
@@ -3836,6 +4129,13 @@ final class ComponentDescriptor
   private String getComponentDaggerModuleName()
   {
     return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
+  }
+
+  @Nonnull
+  ClassName getDaggerComponentExtensionClassName()
+  {
+    return ClassName.get( getPackageName(),
+                          getNestedClassPrefix() + _element.getSimpleName() + "DaggerComponentExtension" );
   }
 
   @Nonnull
@@ -3856,11 +4156,11 @@ final class ComponentDescriptor
     final TypeName entityType = TypeName.get( getElement().asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "attach" ).
       addAnnotation( Override.class ).
-      addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
+      addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
-                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.attach( entity )" );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
@@ -3873,11 +4173,11 @@ final class ComponentDescriptor
     final TypeName entityType = TypeName.get( getElement().asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "detach" ).
       addAnnotation( Override.class ).
-      addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
+      addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
-                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.detach( entity )" );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
@@ -3890,11 +4190,11 @@ final class ComponentDescriptor
     final TypeName entityType = TypeName.get( getElement().asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "destroy" ).
       addAnnotation( Override.class ).
-      addAnnotation( AnnotationSpec.builder( GeneratorUtil.ACTION_CLASSNAME )
+      addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
-                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.destroy( entity )" );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
@@ -3918,7 +4218,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "findBy" + getIdName() ).
       addModifiers( Modifier.FINAL ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
-      addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
+      addAnnotation( Generator.NULLABLE_CLASSNAME ).
       returns( TypeName.get( getElement().asType() ) ).
       addStatement( "return findByArezId( id )" );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
@@ -3931,7 +4231,7 @@ final class ComponentDescriptor
     final TypeName entityType = TypeName.get( getElement().asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "getBy" + getIdName() ).
       addModifiers( Modifier.FINAL ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       returns( entityType ).
       addStatement( "return getByArezId( id )" );
@@ -3944,7 +4244,7 @@ final class ComponentDescriptor
   {
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "newRepository" ).
       addModifiers( Modifier.STATIC ).
-      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
       addStatement( "return new $T()", ClassName.get( getPackageName(), getArezRepositoryName() ) );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
@@ -3965,7 +4265,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "create" ).
         addAnnotation( annotationSpec ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
+        addAnnotation( Generator.NONNULL_CLASSNAME ).
         returns( TypeName.get( asDeclaredType() ) );
 
     ProcessorUtil.copyAccessModifiers( getElement(), builder );
@@ -3998,7 +4298,7 @@ final class ComponentDescriptor
     {
       final String candidateName = observable.getName();
       final String name = isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
-                          GeneratorUtil.INITIALIZER_PREFIX + candidateName :
+                          Generator.INITIALIZER_PREFIX + candidateName :
                           candidateName;
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
@@ -4036,7 +4336,7 @@ final class ComponentDescriptor
      * "normal" case involves converting a long to a Long and it was decided that the slight increase in
      * code size was worth the slightly reduced memory pressure.
      */
-    return null != _componentId ? _componentId.getSimpleName().toString() : GeneratorUtil.ID_FIELD_NAME;
+    return null != _componentId ? _componentId.getSimpleName().toString() : Generator.ID_FIELD_NAME;
   }
 
   @Nonnull
@@ -4058,7 +4358,7 @@ final class ComponentDescriptor
   private TypeName getIdType()
   {
     return null == _componentIdMethodType ?
-           GeneratorUtil.DEFAULT_ID_TYPE :
+           Generator.DEFAULT_ID_TYPE :
            TypeName.get( _componentIdMethodType.getReturnType() );
   }
 

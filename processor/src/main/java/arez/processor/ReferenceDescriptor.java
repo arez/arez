@@ -110,19 +110,19 @@ final class ReferenceDescriptor
   @Nonnull
   String getLinkMethodName()
   {
-    return GeneratorUtil.getLinkMethodName( _name );
+    return Generator.getLinkMethodName( _name );
   }
 
   @Nonnull
   String getDelinkMethodName()
   {
-    return GeneratorUtil.getDelinkMethodName( _name );
+    return Generator.getDelinkMethodName( _name );
   }
 
   @Nonnull
   String getFieldName()
   {
-    return GeneratorUtil.REFERENCE_FIELD_PREFIX + _name;
+    return Generator.REFERENCE_FIELD_PREFIX + _name;
   }
 
   boolean hasInverse()
@@ -151,7 +151,7 @@ final class ReferenceDescriptor
       FieldSpec.builder( TypeName.get( _method.getReturnType() ),
                          getFieldName(),
                          Modifier.PRIVATE ).
-        addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
+        addAnnotation( Generator.NULLABLE_CLASSNAME );
     builder.addField( field.build() );
   }
 
@@ -184,22 +184,22 @@ final class ReferenceDescriptor
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _method.getReturnType() ) );
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
 
     if ( !"LAZY".equals( _linkType ) )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
       if ( isNullable() )
       {
         block.addStatement( "$T.apiInvariant( () -> null != $N || null == $N(), () -> \"Nullable reference method " +
                             "named '$N' invoked on component named '\" + this.$N.getName() + \"' and reference has not been " +
                             "resolved yet is not lazy. Id = \" + $N() )",
-                            GeneratorUtil.GUARDS_CLASSNAME,
+                            Generator.GUARDS_CLASSNAME,
                             getFieldName(),
                             _idMethod.getSimpleName(),
                             _method.getSimpleName(),
-                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            Generator.KERNEL_FIELD_NAME,
                             _idMethod.getSimpleName() );
       }
       else
@@ -207,10 +207,10 @@ final class ReferenceDescriptor
         block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Nonnull reference method named '$N' " +
                             "invoked on component named '\" + this.$N.getName() + \"' but reference has not been resolved yet " +
                             "is not lazy. Id = \" + $N() )",
-                            GeneratorUtil.GUARDS_CLASSNAME,
+                            Generator.GUARDS_CLASSNAME,
                             getFieldName(),
                             _method.getSimpleName(),
-                            GeneratorUtil.KERNEL_FIELD_NAME,
+                            Generator.KERNEL_FIELD_NAME,
                             _idMethod.getSimpleName() );
       }
       block.endControlFlow();
@@ -271,7 +271,7 @@ final class ReferenceDescriptor
     final String methodName = getLinkMethodName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     builder.addModifiers( Modifier.PRIVATE );
-    GeneratorUtil.generateNotDisposedInvariant( builder, methodName );
+    Generator.generateNotDisposedInvariant( builder, methodName );
 
     if ( "EAGER".equals( getLinkType() ) )
     {
@@ -322,17 +322,17 @@ final class ReferenceDescriptor
   {
     builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
                           getFieldName(),
-                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          Generator.LOCATOR_METHOD_NAME,
                           getMethod().getReturnType() );
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
                         "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
                         "and id = \" + $N() )",
-                        GeneratorUtil.GUARDS_CLASSNAME,
+                        Generator.GUARDS_CLASSNAME,
                         getFieldName(),
                         _name,
-                        GeneratorUtil.KERNEL_FIELD_NAME,
+                        Generator.KERNEL_FIELD_NAME,
                         getMethod().getReturnType().toString(),
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
@@ -342,10 +342,10 @@ final class ReferenceDescriptor
       assert null != _inverseName;
       final String linkMethodName =
         _inverseMultiplicity == Multiplicity.MANY ?
-        GeneratorUtil.getInverseAddMethodName( _inverseName ) :
+        Generator.getInverseAddMethodName( _inverseName ) :
         _inverseMultiplicity == Multiplicity.ONE ?
-        GeneratorUtil.getInverseSetMethodName( _inverseName ) :
-        GeneratorUtil.getInverseZSetMethodName( _inverseName );
+        Generator.getInverseSetMethodName( _inverseName ) :
+        Generator.getInverseZSetMethodName( _inverseName );
       builder.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), linkMethodName );
     }
   }
@@ -354,17 +354,17 @@ final class ReferenceDescriptor
   {
     builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
                           getFieldName(),
-                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          Generator.LOCATOR_METHOD_NAME,
                           getMethod().getReturnType() );
     final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", GeneratorUtil.AREZ_CLASSNAME );
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
                         "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
                         "and id = \" + $N() )",
-                        GeneratorUtil.GUARDS_CLASSNAME,
+                        Generator.GUARDS_CLASSNAME,
                         getFieldName(),
                         _name,
-                        GeneratorUtil.KERNEL_FIELD_NAME,
+                        Generator.KERNEL_FIELD_NAME,
                         getMethod().getReturnType().toString(),
                         getIdMethod().getSimpleName() );
     block.endControlFlow();
@@ -374,10 +374,10 @@ final class ReferenceDescriptor
       assert null != _inverseName;
       final String linkMethodName =
         _inverseMultiplicity == Multiplicity.MANY ?
-        GeneratorUtil.getInverseAddMethodName( _inverseName ) :
+        Generator.getInverseAddMethodName( _inverseName ) :
         _inverseMultiplicity == Multiplicity.ONE ?
-        GeneratorUtil.getInverseSetMethodName( _inverseName ) :
-        GeneratorUtil.getInverseZSetMethodName( _inverseName );
+        Generator.getInverseSetMethodName( _inverseName ) :
+        Generator.getInverseZSetMethodName( _inverseName );
       assert null != _method;
       builder.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), linkMethodName );
     }
@@ -422,14 +422,14 @@ final class ReferenceDescriptor
       final CodeBlock.Builder nestedBlock = CodeBlock.builder();
       nestedBlock.beginControlFlow( "if ( null != $N && $T.isNotDisposed( $N ) )",
                                     getFieldName(),
-                                    GeneratorUtil.DISPOSABLE_CLASSNAME,
+                                    Generator.DISPOSABLE_CLASSNAME,
                                     getFieldName() );
       final String delinkMethodName =
         Multiplicity.MANY == _inverseMultiplicity ?
-        GeneratorUtil.getInverseRemoveMethodName( _inverseName ) :
+        Generator.getInverseRemoveMethodName( _inverseName ) :
         Multiplicity.ONE == _inverseMultiplicity ?
-        GeneratorUtil.getInverseUnsetMethodName( _inverseName ) :
-        GeneratorUtil.getInverseZUnsetMethodName( _inverseName );
+        Generator.getInverseUnsetMethodName( _inverseName ) :
+        Generator.getInverseZUnsetMethodName( _inverseName );
       nestedBlock.addStatement( "( ($T) this.$N ).$N( this )", getArezClassName(), getFieldName(), delinkMethodName );
       nestedBlock.endControlFlow();
       builder.addCode( nestedBlock.build() );
@@ -466,8 +466,8 @@ final class ReferenceDescriptor
 
   void buildVerify( @Nonnull final CodeBlock.Builder builder )
   {
-    final String idName = GeneratorUtil.VARIABLE_PREFIX + _name + "Id";
-    final String refName = GeneratorUtil.VARIABLE_PREFIX + _name;
+    final String idName = Generator.VARIABLE_PREFIX + _name + "Id";
+    final String refName = Generator.VARIABLE_PREFIX + _name;
 
     builder.addStatement( "final $T $N = this.$N()",
                           getIdMethod().getReturnType(),
@@ -494,16 +494,16 @@ final class ReferenceDescriptor
     builder.addStatement( "final $T $N = this.$N().findById( $T.class, $N )",
                           getMethod().getReturnType(),
                           refName,
-                          GeneratorUtil.LOCATOR_METHOD_NAME,
+                          Generator.LOCATOR_METHOD_NAME,
                           getMethod().getReturnType(),
                           idName );
     builder.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
                           "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
                           "and id = \" + $N() )",
-                          GeneratorUtil.GUARDS_CLASSNAME,
+                          Generator.GUARDS_CLASSNAME,
                           refName,
                           _name,
-                          GeneratorUtil.KERNEL_FIELD_NAME,
+                          Generator.KERNEL_FIELD_NAME,
                           getMethod().getReturnType().toString(),
                           getIdMethod().getSimpleName() );
   }

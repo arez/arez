@@ -4,7 +4,15 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
+## Next Release
+
+* Update inject documentation
+
+* Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
+
 ## Enhancements
+
+* Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
 * Add react4j-sithtracker to website and testing regime
 
@@ -21,8 +29,6 @@ complete as there is too much un-said.
   can be specified will be restricted and at least in development mode this will be checked and enforced.
 
 * Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
-
-* Injectible components should run injector prior to postConstruct
 
 * Can inverse references be maps. The key would be the component id.
 
@@ -49,6 +55,9 @@ complete as there is too much un-said.
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
   are not useful. We should also include the average amount of time it took to calculate the value?
+
+* Could also record fan out and fan in for each node and rates of change for each node to see what problems could
+  arise and where the potential bottlenecks are located.
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
@@ -100,6 +109,8 @@ complete as there is too much un-said.
 * Complete the `arez-devtools` project.
   - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
   - Embers DevTools is truly magical -  https://egghead.io/lessons/javascript-debug-ember-applications-using-ember-inspector
+  - https://reactlucid.io/ is a DevTool that combines GraphQL/Apollo and React. Can see the list of requests etc
+    and where they are bound.
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
@@ -187,6 +198,47 @@ complete as there is too much un-said.
   consumption by a js application. A component model for javascript applications would also need to be created
   which would most likely draw heavy inspiration from Mobx.
 
+## Better Injection Framework
+
+Dagger2 is not a great injection framework for our context. Some annoyances that have arisen after usage:
+
+* The code size is sub-optimal and even simple changes can significantly decrease code size. See
+  `org.realityforge.dagger:dagger-gwt-lite:jar` for some simple optimizations although there is a lot more
+  possible.
+* The code for the compiler is spread across multiple jars and can collide with other annotation processors.
+  The annotation processor should have dependencies shaded and placed in a single jar.
+* Compile warnings as the code generated uses "unchecked or unsafe" operations and does not suppress them.
+* Scopes do not really make sense in the context of the web application. It is unclear what the web context
+  cares about. Maybe `@Singleton`, (Component) `TreeLocal` and per code-split. This may be hierarchical scopes
+  for statically determinable scopes and some other construct for dynamic `TreeLocal` dependencies or maybe these
+  are pushed to the web-application framework ala react4j and can only appear there.
+* It is unclear how easy it is or even if it is possible to have per-instance dispose invocations for components
+  when their scopes are closed.
+* Code-splitting is complex ... if at all possible.
+* Dagger includes a lot more complex support code for Android and friends which seems less useful for web.
+* Dagger often does not detect errors at annotation processing time (particularly wrt visibility of code)
+  and instead leaves the compiler responsible for failing to compile incorrectly generated code.
+* Arez needs 6 different code paths to handle all the different ways in which we need to generate dagger support
+  code depending on the features we use and this is error prone and complex. These code paths are based around
+  the following features:
+  - Is the component solely a consumer of dependencies or can it be provided to other components.
+    (a.k.a. Should the Arez component be placed in main Dagger component or a Dagger sub-component)
+  - Does the component have schedule-able elements or postConstruct lifecycle steps that requires that
+    the component is injected correctly before the constructor complete or not.
+  - Does the component need to be provided parameters at the time of creation of the component or not.
+* Building the Dagger components is extremely complex. There are many different ways in which the dagger artifacts
+  need to be combined to form a component (i.e. added as a module or not, extending the component or not,
+  explicitly calling bind helper methods or not).
+
+In the future we may have the cycles to address these issues. However a solution seems to be to either replace
+dagger with a better injection framework or build tooling on top of dagger that hides it's complexities.
+
+### An Ideal Injection framework
+
+To integrate with dagger we store data in a bunch of static fields. It may be better to store that data in the
+`ArezContext` somehow. In an ideal world we would also be able to inspect the static injections into components
+via the spy API.
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
@@ -219,6 +271,13 @@ complete as there is too much un-said.
 * Change the documentation for the peer projects so that the `README.md` is converted into a package summary
   page in javadocs. Thus the README == the project documentation. We would need to link from README to the specific
   deployed page. Could do this by using qualified url in README and gsubing when converting to html.
+
+## Extracted Component API
+
+Over time the Arez component API has grown to be more than just a thin veneer ontop of core arez primitives. It
+is also expected that as more capabilities are added to the API such as deeper integration with a reactive streaming
+API, an injection API, a transport and/or serialization API that this API may be better extracted into a separate
+project?
 
 ## Mobx State Tree
 

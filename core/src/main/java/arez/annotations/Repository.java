@@ -78,15 +78,12 @@ public @interface Repository
   Feature dagger() default Feature.AUTODETECT;
 
   /**
-   * Indicate whether an @Inject annotation should be added to constructor of the generated repository.
-   * {@link Feature#ENABLE} will force the addition of an @Inject annotation, {@link Feature#DISABLE}
-   * will result in no @Inject annotation and {@link Feature#AUTODETECT} will add an @Inject
-   * if any it is present on the classpath. Note that this is effectively {@link Feature#ENABLE} if
-   * dagger parameter is true.
+   * Specify how the repository is integrated into the injection framework.
    *
-   * @return enum controlling present of Inject annotation on constructor of repository.
+   * @return enum controlling the integration of the repository into the injection framework.
+   * @see InjectMode
    */
-  Feature inject() default Feature.AUTODETECT;
+  InjectMode inject() default InjectMode.AUTODETECT;
 
   /**
    * Indicate the strategy for attaching entities to the repository.

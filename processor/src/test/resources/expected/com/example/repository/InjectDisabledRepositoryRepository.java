@@ -2,7 +2,7 @@ package com.example.repository;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Feature;
+import arez.annotations.InjectMode;
 import arez.component.internal.AbstractRepository;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
     nameIncludesId = false,
-    inject = Feature.DISABLE
+    inject = InjectMode.NONE
 )
 public abstract class InjectDisabledRepositoryRepository extends AbstractRepository<Integer, InjectDisabledRepository, InjectDisabledRepositoryRepository> {
   InjectDisabledRepositoryRepository() {

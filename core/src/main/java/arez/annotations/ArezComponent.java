@@ -116,22 +116,19 @@ public @interface ArezComponent
   boolean disposeOnDeactivate() default false;
 
   /**
-   * Indicate whether an @Inject annotation should be added to constructor of the generated class.
-   * {@link Feature#ENABLE} will force the addition of an @Inject annotation, {@link Feature#DISABLE}
-   * will result in no @Inject annotation and {@link Feature#AUTODETECT} will add an @Inject
-   * if any fields or methods in the component or any parent type has an @Inject annotation OR the class
-   * has an annotation that is itself annotated with the javax.inject.Scope annotation.
+   * Specify how the component is integrated into the injection framework.
    *
-   * @return enum controlling present of Inject annotation on constructor.
+   * @return enum controlling the integration into the injection framework.
+   * @see InjectMode
    */
-  Feature inject() default Feature.AUTODETECT;
+  InjectMode inject() default InjectMode.AUTODETECT;
 
   /**
-   * Indicate whether a dagger module should be generated for enhanced component class.
-   * {@link Feature#ENABLE} will force the generation of the module, {@link Feature#DISABLE}
-   * will result in no dagger module and {@link Feature#AUTODETECT} will add a dagger
-   * module if the <code>dagger.Module</code> class is present on the classpath AND the class
-   * has an annotation that is itself annotated with the javax.inject.Scope annotation.
+   * Indicate whether dagger artifacts should be generated to support injection.
+   * {@link Feature#ENABLE} will force the generation of the artifacts, {@link Feature#DISABLE}
+   * will result in no dagger artifacts and {@link Feature#AUTODETECT} will add a dagger
+   * artifacts if the <code>dagger.Module</code> class is present on the classpath AND {@link #inject()}
+   * does not resolve to {@link InjectMode#NONE}.
    *
    * @return enum controlling whether a dagger module should be generated for repository.
    */

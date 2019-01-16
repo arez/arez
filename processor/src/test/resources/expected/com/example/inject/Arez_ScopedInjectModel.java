@@ -15,13 +15,13 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-public final class Arez_ScopedInjectModel extends ScopedInjectModel implements Disposable, Identifiable<Integer> {
+final class Arez_ScopedInjectModel extends ScopedInjectModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
   @Inject
-  public Arez_ScopedInjectModel() {
+  Arez_ScopedInjectModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
