@@ -2591,15 +2591,14 @@ final class ComponentDescriptor
     }
     final boolean publicType =
       (
+        getElement().getModifiers().contains( Modifier.PUBLIC ) &&
         ProcessorUtil.getConstructors( getElement() ).
           stream().
-          anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) ) &&
-        getElement().getModifiers().contains( Modifier.PUBLIC )
+          anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) )
       ) || (
         //Ahh dagger.... due the way we actually inject components that have to create a dagger component
         // extension, this class needs to be public
-        InjectMode.CONSUME == _injectMode &&
-        !getElement().getModifiers().contains( Modifier.PUBLIC )
+        needsDaggerComponentExtension()
       );
     final boolean hasInverseReferencedOutsideClass =
       _roInverses.stream().anyMatch( inverse -> {

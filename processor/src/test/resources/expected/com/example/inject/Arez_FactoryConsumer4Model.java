@@ -16,7 +16,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-final class Arez_FactoryConsumer4Model extends FactoryConsumer4Model implements Disposable, Identifiable<Integer> {
+public final class Arez_FactoryConsumer4Model extends FactoryConsumer4Model implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

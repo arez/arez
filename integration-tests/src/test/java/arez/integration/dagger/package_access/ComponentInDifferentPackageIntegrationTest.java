@@ -1,6 +1,7 @@
 package arez.integration.dagger.package_access;
 
 import arez.integration.AbstractArezIntegrationTest;
+import arez.integration.dagger.package_access.other.TestComponent2DaggerComponentExtension;
 import arez.integration.dagger.package_access.other.TestComponentDaggerComponentExtension;
 import dagger.Component;
 import javax.inject.Provider;
@@ -12,9 +13,10 @@ public class ComponentInDifferentPackageIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Singleton
-  @Component
+  @Component( modules = TestComponent2DaggerComponentExtension.DaggerModule.class )
   interface TestDaggerComponent
-    extends TestComponentDaggerComponentExtension
+    extends TestComponentDaggerComponentExtension,
+            TestComponent2DaggerComponentExtension
   {
   }
 
@@ -29,7 +31,8 @@ public class ComponentInDifferentPackageIntegrationTest
 
     // Expect to be a Provider<Object> rather than actual type as the type is not publicly accessible and
     // thus the dagger component can not reference it
-    final TestComponentDaggerComponentExtension.DaggerSubcomponent subcomponent = daggerComponent.getTestComponentDaggerSubcomponent();
+    final TestComponentDaggerComponentExtension.DaggerSubcomponent subcomponent =
+      daggerComponent.getTestComponentDaggerSubcomponent();
     final Provider<Object> rawProvider = subcomponent.createRawProvider();
     final Provider<?> provider = subcomponent.createProvider();
     assertEquals( provider, rawProvider );
