@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.123](https://github.com/arez/arez/tree/v0.123) (2019-01-17)
+[Full Changelog](https://github.com/arez/arez/compare/v0.122...v0.123)
 
 * **\[processor\]** Fix bug where package access, dagger-enabled components with `inject=PROVIDE` parameter
   that generate a `DaggerComponentExtension` interface would have the enhanced components generated that was not
