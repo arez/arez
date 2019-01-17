@@ -14,6 +14,8 @@ complete as there is too much un-said.
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
+* https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
+
 * Add react4j-sithtracker to website and testing regime
 
 * Profile with D8
