@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* **\[core\]** Fix invalid invariant check that produced false positive in `reportChangeConfirmed()` after a
+  `ComputableValue` is marked as changed when it is part of complex dependency tree. See the code change for
+  more details.
+
 ### [v0.123](https://github.com/arez/arez/tree/v0.123) (2019-01-17)
 [Full Changelog](https://github.com/arez/arez/compare/v0.122...v0.123)
 
