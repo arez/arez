@@ -200,6 +200,13 @@ complete as there is too much un-said.
   consumption by a js application. A component model for javascript applications would also need to be created
   which would most likely draw heavy inspiration from Mobx.
 
+## J2CL Integration
+
+* Arez works well under GWT2.x but would work MUCH better under J2CL but the build infrastructure is not quite
+  there yet. Probably this means we need a build tool that sits in front and probably generates Bazel configuration
+  to build our projects. Consider investigating how angular is doing in [Angular CLI](https://github.com/angular/angular/issues/19058).
+  This could be expanded so that we have a J2CL-CLI tool to drive the whole process. 
+
 ## Better Injection Framework
 
 Dagger2 is not a great injection framework for our context. Some annoyances that have arisen after usage:
