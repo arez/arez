@@ -9,7 +9,6 @@ import gir.maven.Maven;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
@@ -39,8 +38,7 @@ public final class CollectBuildStats
       final Path workingDirectory = WorkspaceUtil.setupWorkingDirectory();
 
       final Path path = WorkspaceUtil.getFixtureDirectory().resolve( "statistics.properties" );
-      final OrderedProperties fixtureStatistics = new OrderedProperties();
-      fixtureStatistics.load( Files.newBufferedReader( path ) );
+      final OrderedProperties fixtureStatistics = OrderedProperties.load( path );
 
       FileUtil.inDirectory( workingDirectory, () -> {
         Gir.messenger().info( "Cloning react4j-todomvc into " + workingDirectory );
