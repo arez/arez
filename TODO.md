@@ -174,21 +174,19 @@ complete as there is too much un-said.
 * Consider a mechanisms such that the priority and scheduler of tasks created within a particular task inherit
   the values from the task.
 
-## Reactive-Streaming integration
+## Spritz integration
 
-* Experiment with controlling scheduling/executing of `@Computable`/`@Observe` methods at a later time. This
-  could be in different schedulers (i.e. `requestAnimationFrame`) or via parameters like
+* Use [Spritz](https://github.com/spritz/spritz.git), a reactive streaming library, to stream changes
+  into `ComputableValue` instances. The stream would manually trigger `ComputableValue.reportPossiblyChanged()`
+  when a new value arrives. This would ultimately allow us to add mechanisms to control when reaction tasks
+  occur. Some obvious candidates include:
   - `minimumDelay`: Must wait a minimum time before re-executing
   - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
   - `throttleTime`: Track when executed and reschedule when at least `throttleTime` has passed. This is
     similar to `minimumDelay`, except that the initial run of the function happens immediately.
-  This could probably be done via a reactive streaming library.
 
-* Use a reactive streaming library (i.e. rxjava and ilk) that stream changes into `ComputableValue` instances. It would
-  manually trigger `ComputableValue.reportPossiblyChanged()` when a new value arrives.
-
-  The annotation processor should support a pair of methods. One that returns the stream definition and one that
-  returns the value emitted by the stream.
+  The component model may need built in support for this. Perhaps a `@StreamingValue` could be made up of a
+  stream producing method and a value returning method.
 
 * One useful addition may be the ability to push changes from `ObservableValue` instance and `ComputableValue`
   instances into streams. These changes could either be pushed inline within the `READ_WRITE` transaction or could
