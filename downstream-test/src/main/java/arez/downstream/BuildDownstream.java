@@ -38,9 +38,6 @@ public final class BuildDownstream
       final String version = SystemProperty.get( "arez.next.version" );
       final Path workingDirectory =
         Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();
-
-      final String localRepositoryUrl = SystemProperty.get( "arez.deploy_test.local_repository_url" );
-
       if ( !workingDirectory.toFile().exists() )
       {
         Gir.messenger().info( "Working directory does not exist." );
