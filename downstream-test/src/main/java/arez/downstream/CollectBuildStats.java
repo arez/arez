@@ -75,14 +75,13 @@ public final class CollectBuildStats
     Git.checkout( context.branch );
     Git.clean();
 
-    Gir.messenger().info( "Building branch " + context.branch + " prior to modifications." );
-
     final boolean isMaven = context.branch.contains( "_maven" );
     final boolean isj2cl = context.branch.contains( "_j2cl" );
 
     boolean initialBuildSuccess = false;
     if ( WorkspaceUtil.buildBeforeChanges() )
     {
+      Gir.messenger().info( "Building branch " + context.branch + " prior to modifications." );
       try
       {
         final String prefix = context.branch + ".before";
