@@ -9,13 +9,10 @@ import gir.io.FileUtil;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
 import gir.sys.SystemProperty;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Function;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
 
 @SuppressWarnings( "Duplicates" )
 public final class BuildDownstream
@@ -89,7 +86,7 @@ public final class BuildDownstream
             boolean initialBuildSuccess = false;
             try
             {
-              customizeBuildr( appDirectory, localRepositoryUrl );
+              WorkspaceUtil.customizeBuildr( appDirectory );
               Ruby.buildr( "clean", "package", "PRODUCT_VERSION=", "PREVIOUS_PRODUCT_VERSION=" );
               initialBuildSuccess = true;
             }
@@ -123,7 +120,7 @@ public final class BuildDownstream
               Git.commit( message );
             }
             Gir.messenger().info( "Building branch master after modifications." );
-            customizeBuildr( appDirectory, localRepositoryUrl );
+            WorkspaceUtil.customizeBuildr( appDirectory );
 
             try
             {
@@ -155,18 +152,5 @@ public final class BuildDownstream
           } );
         } ) );
     } );
-  }
-
-  private static void customizeBuildr( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
-  {
-    try
-    {
-      final String content = "repositories.remote.unshift('" + localRepositoryUrl + "')\n";
-      Files.write( appDirectory.resolve( "_buildr.rb" ), content.getBytes() );
-    }
-    catch ( final IOException ioe )
-    {
-      Gir.messenger().error( "Failed to emit _buildr.rb configuration file.", ioe );
-    }
   }
 }
