@@ -3,6 +3,7 @@ package arez.downstream;
 import gir.Gir;
 import gir.GirException;
 import gir.delta.Patch;
+import gir.git.Git;
 import gir.io.FileUtil;
 import gir.sys.SystemProperty;
 import java.io.File;
@@ -11,7 +12,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 final class WorkspaceUtil
@@ -168,6 +172,54 @@ final class WorkspaceUtil
     catch ( final IOException ioe )
     {
       Gir.messenger().error( "Failed to emit _buildr.rb configuration file.", ioe );
+    }
+  }
+
+  static void forEachBranch( @Nonnull final String name,
+                             @Nonnull final String repositoryUrl,
+                             @Nonnull final List<String> branches,
+                             @Nonnull final Consumer<BuildContext> action )
+  {
+    final Path workingDirectory = setupWorkingDirectory();
+    FileUtil.inDirectory( workingDirectory, () -> {
+      Gir.messenger().info( "Cloning " + name + " into " + workingDirectory );
+      Git.clone( repositoryUrl, name );
+      final Path appDirectory = workingDirectory.resolve( name );
+      FileUtil.inDirectory( appDirectory, () -> {
+        Git.fetch();
+        Git.resetBranch();
+        Git.checkout();
+        Git.pull();
+        Git.deleteLocalBranches();
+        branches.forEach( branch -> {
+          Gir.messenger().info( "Processing branch " + branch + "." );
+
+          Git.checkout( branch );
+          Git.clean();
+
+          action.accept( new BuildContext( workingDirectory, appDirectory, branch ) );
+
+        } );
+      } );
+    } );
+  }
+
+  static class BuildContext
+  {
+    @Nonnull
+    final Path workingDirectory;
+    @Nonnull
+    final Path appDirectory;
+    @Nonnull
+    final String branch;
+
+    BuildContext( @Nonnull final Path workingDirectory,
+                  @Nonnull final Path appDirectory,
+                  @Nonnull final String branch )
+    {
+      this.workingDirectory = Objects.requireNonNull( workingDirectory );
+      this.appDirectory = Objects.requireNonNull( appDirectory );
+      this.branch = Objects.requireNonNull( branch );
     }
   }
 }
