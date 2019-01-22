@@ -32,8 +32,6 @@ DAGGER_DEPS =
     :errorprone
   ]
 
-DOC_EXAMPLES = %w().collect {|c| "arez.doc.examples.#{c}"}
-
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
   {
@@ -259,12 +257,6 @@ define 'arez' do
     test.using :testng
     test.compile.with TEST_DEPS
 
-    gwt_modules = {}
-    DOC_EXAMPLES.each do |gwt_module|
-      gwt_modules[gwt_module] = false
-    end
-    iml.add_gwt_facet(gwt_modules, :settings => { :compilerMaxHeapSize => '1024' }, :gwt_dev_artifact => :gwt_dev)
-
     project.jacoco.enabled = false
   end
 
@@ -288,17 +280,6 @@ define 'arez' do
 
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
   ipr.add_component_from_artifact(:idea_codestyle)
-
-  DOC_EXAMPLES.each do |gwt_module|
-    short_name = gwt_module.gsub(/.*\./, '')
-    ipr.add_gwt_configuration(project('doc-examples'),
-                              :name => "Doc Example: #{short_name}",
-                              :gwt_module => gwt_module,
-                              :start_javascript_debugger => false,
-                              :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
-                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
-  end
-
 
   ipr.nonnull_assertions = false
 
