@@ -72,9 +72,6 @@ public final class CollectBuildStats
                                    @Nonnull final OrderedProperties overallStatistics,
                                    @Nonnull final OrderedProperties fixtureStatistics )
   {
-    Git.checkout( context.branch );
-    Git.clean();
-
     final boolean isMaven = context.branch.contains( "_maven" );
     final boolean isj2cl = context.branch.contains( "_j2cl" );
 
