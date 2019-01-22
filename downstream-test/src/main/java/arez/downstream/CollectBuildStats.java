@@ -51,7 +51,7 @@ public final class CollectBuildStats
       WorkspaceUtil.forEachBranch( "react4j-todomvc",
                                    "https://github.com/react4j/react4j-todomvc.git",
                                    branches,
-                                   ctx -> buildBranch( ctx, version, overallStatistics, fixtureStatistics ) );
+                                   context -> buildBranch( context, version, overallStatistics, fixtureStatistics ) );
 
       overallStatistics.keySet().forEach( k -> System.out.println( k + ": " + overallStatistics.get( k ) ) );
 
