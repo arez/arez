@@ -16,8 +16,6 @@ complete as there is too much un-said.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
-* Add react4j-sithtracker to website and testing regime
-
 * Profile with D8
   - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
