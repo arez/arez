@@ -31,7 +31,7 @@ final class WorkspaceUtil
     return System.getProperty( "arez.deploy_test.store_statistics", "false" ).equals( "true" );
   }
 
-  static boolean buildBeforeChanges()
+  private static boolean buildBeforeChanges()
   {
     return System.getProperty( "arez.deploy_test.build_before", "true" ).equals( "true" );
   }
@@ -212,7 +212,7 @@ final class WorkspaceUtil
   }
 
   @Nonnull
-  static String switchToUpgradeBranch( @Nonnull final BuildContext context )
+  private static String switchToUpgradeBranch( @Nonnull final BuildContext context )
   {
     final String version = WorkspaceUtil.getVersion();
     final String newBranch = context.branch + "-ArezUpgrade-" + version;
