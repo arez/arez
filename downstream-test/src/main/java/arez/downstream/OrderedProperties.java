@@ -11,7 +11,7 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 /**
- * A simple customization of Properties that has a stable output order basi on alphabetic ordering of keys.
+ * A simple customization of Properties that has a stable output order based on alphabetic ordering of keys.
  */
 public final class OrderedProperties
   extends Properties
