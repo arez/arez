@@ -46,7 +46,7 @@ public final class CollectBuildStats
                                    "https://github.com/react4j/react4j-todomvc.git",
                                    branches,
                                    context -> buildBranch( context, WorkspaceUtil.getVersion() ) );
-      WorkspaceUtil.collectStatistics( branches, branch -> !branch.endsWith( "_maven" ) );
+      WorkspaceUtil.collectStatistics( branches, branch -> !branch.endsWith( "_maven" ), true );
     } );
   }
 

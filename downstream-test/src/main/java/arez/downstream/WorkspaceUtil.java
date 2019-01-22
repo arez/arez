@@ -281,7 +281,8 @@ final class WorkspaceUtil
   }
 
   static void collectStatistics( @Nonnull final List<String> branches,
-                                 @Nonnull final Predicate<String> includeBranch )
+                                 @Nonnull final Predicate<String> includeBranch,
+                                 final boolean includeBranchInFixtureKey )
     throws IOException
   {
     final String version = getVersion();
@@ -309,8 +310,9 @@ final class WorkspaceUtil
 
         if ( includeBranch.test( branch ) )
         {
-          fixtureStatistics.mergeWithPrefix( properties, version + "." + branch );
-          displayStatistics.mergeWithPrefix( properties, version + "." + branch );
+          final String prefix = version + "." + ( includeBranchInFixtureKey ? branch + "." : "" );
+          fixtureStatistics.mergeWithPrefix( properties, prefix );
+          displayStatistics.mergeWithPrefix( properties, prefix );
         }
       }
     }
