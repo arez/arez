@@ -4,6 +4,7 @@ import gir.Gir;
 import gir.GirException;
 import gir.delta.Patch;
 import gir.git.Git;
+import gir.io.Exec;
 import gir.io.FileUtil;
 import gir.sys.SystemProperty;
 import java.io.File;
@@ -17,6 +18,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 final class WorkspaceUtil
 {
@@ -226,6 +228,80 @@ final class WorkspaceUtil
       Git.checkout( newBranch, true );
     }
     return newBranch;
+  }
+
+  static void runAfterBuild( @Nonnull final BuildContext context,
+                             final boolean initialBuildSuccess,
+                             @Nonnull final Action buildAction,
+                             @Nullable final Runnable cleanupAction )
+  {
+    Gir.messenger().info( "Building branch " + context.branch + " after modifications." );
+    try
+    {
+      final String newBranch = switchToUpgradeBranch( context );
+
+      buildAction.call();
+      Git.checkout( context.branch );
+      Exec.system( "git", "merge", newBranch );
+      Git.deleteBranch( newBranch );
+    }
+    catch ( final Throwable e )
+    {
+      if ( buildBeforeChanges() && !initialBuildSuccess )
+      {
+        Gir.messenger().error( "Failed to build branch '" + context.branch + "' before modifications " +
+                               "but branch also failed prior to modifications.", e );
+      }
+      else
+      {
+        Gir.messenger().error( "Failed to build branch '" + context.branch + "' after modifications.", e );
+      }
+      if ( null != cleanupAction )
+      {
+        cleanupAction.run();
+      }
+      /*
+       * If the build has failed for one of the downstream projects then make sure the command fails.
+       */
+      if ( e instanceof GirException )
+      {
+        throw (GirException) e;
+      }
+      else
+      {
+        throw new GirException( e );
+      }
+    }
+  }
+
+  @FunctionalInterface
+  interface Action
+  {
+    void call()
+      throws Exception;
+  }
+
+  static boolean runBeforeBuild( @Nonnull final BuildContext context,
+                                 @Nonnull final Action action )
+  {
+    boolean initialBuildSuccess = false;
+    if ( buildBeforeChanges() )
+    {
+      Gir.messenger().info( "Building branch " + context.branch + " prior to modifications." );
+      try
+      {
+        action.call();
+        initialBuildSuccess = true;
+      }
+      catch ( final Throwable e )
+      {
+        Gir.messenger().info( "Failed to build branch '" + context.branch + "' before modifications.", e );
+      }
+
+      Git.resetBranch();
+      Git.clean();
+    }
+    return initialBuildSuccess;
   }
 
   static class BuildContext

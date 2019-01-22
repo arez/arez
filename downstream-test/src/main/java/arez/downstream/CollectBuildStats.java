@@ -1,14 +1,12 @@
 package arez.downstream;
 
 import gir.Gir;
-import gir.GirException;
 import gir.git.Git;
 import gir.io.Exec;
 import gir.io.FileUtil;
 import gir.maven.Maven;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -75,48 +73,29 @@ public final class CollectBuildStats
     final boolean isMaven = context.branch.contains( "_maven" );
     final boolean isj2cl = context.branch.contains( "_j2cl" );
 
-    boolean initialBuildSuccess = false;
-    if ( WorkspaceUtil.buildBeforeChanges() )
-    {
-      Gir.messenger().info( "Building branch " + context.branch + " prior to modifications." );
-      try
+    final boolean initialBuildSuccess = WorkspaceUtil.runBeforeBuild( context, () -> {
+      final String prefix = context.branch + ".before";
+      final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
+      buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
+
+      WorkspaceUtil.loadStatistics( overallStatistics, archiveDir, prefix );
+    } );
+
+    WorkspaceUtil.runAfterBuild( context, initialBuildSuccess, () -> {
+      if ( isMaven )
       {
-        final String prefix = context.branch + ".before";
-        final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
-        buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
-
-        WorkspaceUtil.loadStatistics( overallStatistics, archiveDir, prefix );
-        initialBuildSuccess = true;
+        Maven.patchPomProperty( context.appDirectory,
+                                () -> "Update the 'arez' dependencies to version '" + version + "'",
+                                "arez.version",
+                                version );
       }
-      catch ( final GirException | IOException e )
+      else
       {
-        Gir.messenger().info( "Failed to build branch '" + context.branch + "' before modifications.", e );
+        Buildr.patchBuildYmlDependency( context.appDirectory, "org.realityforge.arez", version );
       }
 
-      Git.resetBranch();
-      Git.clean();
-    }
-
-    final String newBranch = WorkspaceUtil.switchToUpgradeBranch( context );
-
-    if ( isMaven )
-    {
-      Maven.patchPomProperty( context.appDirectory,
-                              () -> "Update the 'arez' dependencies to version '" + version + "'",
-                              "arez.version",
-                              version );
-    }
-    else
-    {
-      Buildr.patchBuildYmlDependency( context.appDirectory, "org.realityforge.arez", version );
-    }
-
-    Gir.messenger().info( "Building branch " + context.branch + " after modifications." );
-
-    final String prefix = context.branch + ".after";
-    final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
-    try
-    {
+      final String prefix = context.branch + ".after";
+      final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
       buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
       WorkspaceUtil.loadStatistics( overallStatistics, archiveDir, prefix );
       if ( !isMaven || isj2cl )
@@ -128,34 +107,7 @@ public final class CollectBuildStats
         // Reset is required to remove changes that were made to the pom to add local repository
         Git.resetBranch();
       }
-      Git.checkout( context.branch );
-      Exec.system( "git", "merge", newBranch );
-      Git.deleteBranch( newBranch );
-    }
-    catch ( final GirException | IOException e )
-    {
-      if ( WorkspaceUtil.buildBeforeChanges() && !initialBuildSuccess )
-      {
-        Gir.messenger().error( "Failed to build branch '" + context.branch + "' before modifications " +
-                               "but branch also failed prior to modifications.", e );
-      }
-      else
-      {
-        Gir.messenger().error( "Failed to build branch '" + context.branch + "' after modifications.", e );
-      }
-      FileUtil.deleteDir( archiveDir );
-      /*
-       * If the build has failed for one of the downstream projects then make sure the command fails.
-       */
-      if ( e instanceof GirException )
-      {
-        throw (GirException) e;
-      }
-      else
-      {
-        throw new GirException( e );
-      }
-    }
+    }, () -> FileUtil.deleteDir( WorkspaceUtil.getArchiveDir( context.workingDirectory, context.branch + ".after" ) ) );
   }
 
   private static void buildAndRecordStatistics( @Nonnull final Path appDirectory,
