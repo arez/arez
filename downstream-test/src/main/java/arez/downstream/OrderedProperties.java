@@ -42,4 +42,9 @@ public final class OrderedProperties
   {
     return new TreeSet<>( super.keySet() );
   }
+
+  void mergeWithPrefix( @Nonnull final Properties properties, @Nonnull final String prefix )
+  {
+    properties.forEach( ( key, value ) -> put( prefix + key, value ) );
+  }
 }
