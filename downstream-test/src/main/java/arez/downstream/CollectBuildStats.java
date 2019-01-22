@@ -50,8 +50,7 @@ public final class CollectBuildStats
     } );
   }
 
-  private static void buildBranch( @Nonnull final WorkspaceUtil.BuildContext context,
-                                   @Nonnull final String version )
+  private static void buildBranch( @Nonnull final WorkspaceUtil.BuildContext context, @Nonnull final String version )
   {
     final boolean isMaven = context.branch.contains( "_maven" );
     final boolean isj2cl = context.branch.contains( "_j2cl" );
