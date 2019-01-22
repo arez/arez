@@ -47,7 +47,7 @@ final class WorkspaceUtil
   }
 
   @Nonnull
-  static String getLocalRepositoryUrl()
+  private static String getLocalRepositoryUrl()
   {
     return SystemProperty.get( "arez.deploy_test.local_repository_url" );
   }
@@ -148,7 +148,7 @@ final class WorkspaceUtil
     customizeMaven( appDirectory, getLocalRepositoryUrl() );
   }
 
-  static void customizeMaven( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
+  private static void customizeMaven( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
   {
     final String replacement =
       "<repositories>\n" +
@@ -167,7 +167,7 @@ final class WorkspaceUtil
     customizeBuildr( appDirectory, getLocalRepositoryUrl() );
   }
 
-  static void customizeBuildr( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
+  private static void customizeBuildr( @Nonnull final Path appDirectory, @Nonnull final String localRepositoryUrl )
   {
     try
     {
