@@ -38,14 +38,16 @@ public final class CollectBuildStats
       final OrderedProperties fixtureStatistics = OrderedProperties.load( path );
 
       final OrderedProperties overallStatistics = new OrderedProperties();
-      final List<String> branches = Arrays.asList( "raw", "arez",
-                                                   "dagger",
-                                                   "raw_maven",
-                                                   "arez_maven",
-                                                   "dagger_maven",
-                                                   "raw_maven_j2cl",
-                                                   "arez_maven_j2cl",
-                                                   "dagger_maven_j2cl" );
+      final List<String> branches =
+        Arrays.asList( "raw",
+                       "arez",
+                       "dagger",
+                       "raw_maven",
+                       "arez_maven",
+                       "dagger_maven",
+                       "raw_maven_j2cl",
+                       "arez_maven_j2cl",
+                       "dagger_maven_j2cl" );
       WorkspaceUtil.forEachBranch( "react4j-todomvc",
                                    "https://github.com/react4j/react4j-todomvc.git",
                                    branches,
