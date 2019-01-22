@@ -164,6 +164,8 @@ public class ExternalApiTest
     };
     final ComputableValue<String> computableValue = context.computable( name, function );
 
+    assertEquals( computableValue.getContext(), context );
+
     context.action( () -> {
       assertEquals( computableValue.getName(), name );
       assertEquals( computableValue.get(), "" );
@@ -284,6 +286,7 @@ public class ExternalApiTest
     final ArezContext context = Arez.context();
 
     final ObservableValue observableValue = context.observable();
+    assertEquals( observableValue.getContext(), context );
 
     final AtomicInteger reactionCount = new AtomicInteger();
 

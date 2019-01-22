@@ -62,8 +62,13 @@ public abstract class Node
     return _name;
   }
 
+  /**
+   * Return the context that the node is associated with.
+   *
+   * @return the associated ArezContext.
+   */
   @Nonnull
-  final ArezContext getContext()
+  public final ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
