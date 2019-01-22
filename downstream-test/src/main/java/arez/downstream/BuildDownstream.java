@@ -8,9 +8,7 @@ import gir.io.Exec;
 import gir.io.FileUtil;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
-import gir.sys.SystemProperty;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -35,18 +33,8 @@ public final class BuildDownstream
     throws Exception
   {
     Gir.go( () -> {
-      final String version = SystemProperty.get( "arez.next.version" );
-      final Path workingDirectory =
-        Paths.get( SystemProperty.get( "arez.deploy_test.work_dir" ) ).toAbsolutePath().normalize();
-      if ( !workingDirectory.toFile().exists() )
-      {
-        Gir.messenger().info( "Working directory does not exist." );
-        Gir.messenger().info( "Creating directory: " + workingDirectory );
-        if ( !workingDirectory.toFile().mkdirs() )
-        {
-          Gir.messenger().error( "Failed to create working directory: " + workingDirectory );
-        }
-      }
+      final String version = WorkspaceUtil.getVersion();
+      final Path workingDirectory = WorkspaceUtil.setupWorkingDirectory();
       Stream.of( "arez-browserlocation",
                  "arez-dom",
                  "arez-promise",
