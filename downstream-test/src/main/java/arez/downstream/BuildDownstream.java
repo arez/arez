@@ -60,24 +60,28 @@ public final class BuildDownstream
     }
     Git.clean();
 
-    Gir.messenger().info( "Building branch " + context.branch + " prior to modifications." );
     boolean initialBuildSuccess = false;
-    try
+    if ( WorkspaceUtil.buildBeforeChanges() )
     {
-      WorkspaceUtil.customizeBuildr( context.appDirectory );
-      Ruby.buildr( "clean",
-                   "package",
-                   "PRODUCT_VERSION=",
-                   "PREVIOUS_PRODUCT_VERSION=" );
-      initialBuildSuccess = true;
-    }
-    catch ( final GirException e )
-    {
-      Gir.messenger().info( "Failed to build branch '" + context.branch + "' before modifications.", e );
+      Gir.messenger().info( "Building branch " + context.branch + " prior to modifications." );
+      try
+      {
+        WorkspaceUtil.customizeBuildr( context.appDirectory );
+        Ruby.buildr( "clean",
+                     "package",
+                     "PRODUCT_VERSION=",
+                     "PREVIOUS_PRODUCT_VERSION=" );
+        initialBuildSuccess = true;
+      }
+      catch ( final GirException e )
+      {
+        Gir.messenger().info( "Failed to build branch '" + context.branch + "' before modifications.", e );
+      }
+
+      Git.resetBranch();
+      Git.clean();
     }
 
-    Git.resetBranch();
-    Git.clean();
 
     final String group = "org.realityforge.arez";
     final boolean patched =
@@ -121,7 +125,7 @@ public final class BuildDownstream
     }
     catch ( final GirException e )
     {
-      if ( !initialBuildSuccess )
+      if ( WorkspaceUtil.buildBeforeChanges() && !initialBuildSuccess )
       {
         Gir.messenger().error( "Failed to build branch '" + context.branch + "' before modifications " +
                                "but branch also failed prior to modifications.", e );
