@@ -12,6 +12,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Add `react4j-sithtracker` to `downstream-test` tests and record stats.
+
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
