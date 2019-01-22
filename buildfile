@@ -224,7 +224,7 @@ define 'arez' do
       properties['arez.deploy_test.fixture_dir'] = _('src/test/resources/fixtures').to_s
       properties['arez.deploy_test.local_repository_url'] = local_test_repository_url
       properties['arez.deploy_test.store_statistics'] = ENV['STORE_BUILD_STATISTICS'] == 'true'
-      properties['arez.deploy_test.build_before'] = ENV['STORE_BUILD_STATISTICS'] != 'true'
+      properties['arez.deploy_test.build_before'] = (ENV['STORE_BUILD_STATISTICS'] != 'true' && ENV['BUILD_BEFORE'] != 'no')
 
       Java::Commands.java 'arez.downstream.BuildDownstream', { :classpath => cp, :properties => properties } unless ENV['DOWNSTREAM'] == 'no'
       Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties } unless ENV['BUILD_STATS'] == 'no'
