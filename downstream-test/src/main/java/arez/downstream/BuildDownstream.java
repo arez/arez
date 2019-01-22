@@ -49,8 +49,6 @@ public final class BuildDownstream
 
   private static void buildBranch( @Nonnull final WorkspaceUtil.BuildContext context )
   {
-    final String version = WorkspaceUtil.getVersion();
-
 
     boolean initialBuildSuccess = false;
     if ( WorkspaceUtil.buildBeforeChanges() )
@@ -76,6 +74,7 @@ public final class BuildDownstream
 
     final String newBranch = WorkspaceUtil.switchToUpgradeBranch( context );
 
+    final String version = WorkspaceUtil.getVersion();
     final String group = "org.realityforge.arez";
     final boolean patched =
       Patch.patchAndAddFile( context.appDirectory,
