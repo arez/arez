@@ -31,7 +31,7 @@ final class WorkspaceUtil
 
   static boolean buildBeforeChanges()
   {
-    return System.getProperty( "arez.deploy_test.build_before", "true" ).equals( "false" );
+    return System.getProperty( "arez.deploy_test.build_before", "true" ).equals( "true" );
   }
 
   @Nonnull
