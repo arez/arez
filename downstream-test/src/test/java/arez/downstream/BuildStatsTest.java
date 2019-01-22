@@ -16,26 +16,33 @@ public class BuildStatsTest
   public void arez()
     throws Exception
   {
-    compareSizesForBranch( "arez" );
+    compareSizesForBranch( "arez", true );
   }
 
   @Test
   public void dagger()
     throws Exception
   {
-    compareSizesForBranch( "dagger" );
+    compareSizesForBranch( "dagger", true );
   }
 
-  private void compareSizesForBranch( @Nonnull final String branch )
+  @Test
+  public void sithtracker()
+    throws Exception
+  {
+    compareSizesForBranch( "sithtracker", false );
+  }
+
+  private void compareSizesForBranch( @Nonnull final String branch, final boolean includeBranchInFixtureKey )
     throws Exception
   {
     final Properties buildStatistics = loadBuildStatistics();
     final Properties fixtureStatistics = loadFixtureStatistics();
 
     final long nextVersionFixtureSize =
-      extractSize( fixtureStatistics, getNextVersion() + "." + branch );
+      extractSize( fixtureStatistics, getNextVersion() + ( includeBranchInFixtureKey ? "." + branch : "" ) );
     final long currentVersionFixtureSize =
-      extractSize( fixtureStatistics, getCurrentVersion() + "." + branch );
+      extractSize( fixtureStatistics, getCurrentVersion() + ( includeBranchInFixtureKey ? "." + branch : "" ) );
     final String beforeBuild = branch + "." + "before";
     final String afterBuild = branch + "." + "after";
     final long beforeSize = extractSize( buildStatistics, beforeBuild );
