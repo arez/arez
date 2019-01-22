@@ -224,6 +224,7 @@ define 'arez' do
       properties['arez.deploy_test.fixture_dir'] = _('src/test/resources/fixtures').to_s
       properties['arez.deploy_test.local_repository_url'] = local_test_repository_url
       properties['arez.deploy_test.store_statistics'] = ENV['STORE_BUILD_STATISTICS'] == 'true'
+      properties['arez.deploy_test.build_before'] = ENV['STORE_BUILD_STATISTICS'] != 'true'
 
       Java::Commands.java 'arez.downstream.BuildDownstream', { :classpath => cp, :properties => properties } unless ENV['DOWNSTREAM'] == 'no'
       Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties } unless ENV['BUILD_STATS'] == 'no'
@@ -287,7 +288,7 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   DOC_EXAMPLES.each do |gwt_module|

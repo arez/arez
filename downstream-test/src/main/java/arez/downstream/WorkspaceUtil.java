@@ -29,6 +29,11 @@ final class WorkspaceUtil
     return System.getProperty( "arez.deploy_test.store_statistics", "false" ).equals( "true" );
   }
 
+  static boolean buildBeforeChanges()
+  {
+    return System.getProperty( "arez.deploy_test.build_before", "true" ).equals( "false" );
+  }
+
   @Nonnull
   static String getVersion()
   {

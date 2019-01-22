@@ -81,22 +81,25 @@ public final class CollectBuildStats
     final boolean isj2cl = context.branch.contains( "_j2cl" );
 
     boolean initialBuildSuccess = false;
-    try
+    if ( WorkspaceUtil.buildBeforeChanges() )
     {
-      final String prefix = context.branch + ".before";
-      final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
-      buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
+      try
+      {
+        final String prefix = context.branch + ".before";
+        final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
+        buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
 
-      WorkspaceUtil.loadStatistics( overallStatistics, archiveDir, prefix );
-      initialBuildSuccess = true;
-    }
-    catch ( final GirException | IOException e )
-    {
-      Gir.messenger().info( "Failed to build branch '" + context.branch + "' before modifications.", e );
-    }
+        WorkspaceUtil.loadStatistics( overallStatistics, archiveDir, prefix );
+        initialBuildSuccess = true;
+      }
+      catch ( final GirException | IOException e )
+      {
+        Gir.messenger().info( "Failed to build branch '" + context.branch + "' before modifications.", e );
+      }
 
-    Git.resetBranch();
-    Git.clean();
+      Git.resetBranch();
+      Git.clean();
+    }
 
     final String newBranch = context.branch + "-ArezUpgrade-" + version;
     if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
@@ -146,7 +149,7 @@ public final class CollectBuildStats
     }
     catch ( final GirException | IOException e )
     {
-      if ( !initialBuildSuccess )
+      if ( WorkspaceUtil.buildBeforeChanges() && !initialBuildSuccess )
       {
         Gir.messenger().error( "Failed to build branch '" + context.branch + "' before modifications " +
                                "but branch also failed prior to modifications.", e );
