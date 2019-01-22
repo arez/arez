@@ -97,18 +97,7 @@ public final class CollectBuildStats
       Git.clean();
     }
 
-    final String newBranch = context.branch + "-ArezUpgrade-" + version;
-    if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
-    {
-      Git.checkout( newBranch );
-      Git.resetBranch( "origin/" + newBranch );
-    }
-    else
-    {
-      Git.checkout( context.branch );
-      Git.clean();
-      Git.checkout( newBranch, true );
-    }
+    final String newBranch = WorkspaceUtil.switchToUpgradeBranch( context );
 
     if ( isMaven )
     {

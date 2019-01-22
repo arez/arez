@@ -209,6 +209,25 @@ final class WorkspaceUtil
     } );
   }
 
+  @Nonnull
+  static String switchToUpgradeBranch( @Nonnull final BuildContext context )
+  {
+    final String version = WorkspaceUtil.getVersion();
+    final String newBranch = context.branch + "-ArezUpgrade-" + version;
+    if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
+    {
+      Git.checkout( newBranch );
+      Git.resetBranch( "origin/" + newBranch );
+    }
+    else
+    {
+      Git.checkout( context.branch );
+      Git.clean();
+      Git.checkout( newBranch, true );
+    }
+    return newBranch;
+  }
+
   static class BuildContext
   {
     @Nonnull
