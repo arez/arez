@@ -51,14 +51,6 @@ public final class BuildDownstream
   {
     final String version = WorkspaceUtil.getVersion();
 
-    final String newBranch = context.branch + "-ArezUpgrade-" + version;
-
-    Git.checkout( newBranch, true );
-    if ( Git.remoteTrackingBranches().contains( "origin/" + newBranch ) )
-    {
-      Git.pull();
-    }
-    Git.clean();
 
     boolean initialBuildSuccess = false;
     if ( WorkspaceUtil.buildBeforeChanges() )
@@ -82,6 +74,7 @@ public final class BuildDownstream
       Git.clean();
     }
 
+    final String newBranch = WorkspaceUtil.switchToUpgradeBranch( context );
 
     final String group = "org.realityforge.arez";
     final boolean patched =
