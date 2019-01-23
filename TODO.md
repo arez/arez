@@ -59,6 +59,10 @@ complete as there is too much un-said.
 * Could also record fan out and fan in for each node and rates of change for each node to see what problems could
   arise and where the potential bottlenecks are located.
 
+* Consider support N version of the `@*Ref` annotations on each component. That way if different users or tools are
+  responsible for different layers in inheritance chain, each can still get access to the require elements. We could
+  maintain the restriction that only one `@*Ref` method per resource per class if needed.
+
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
   We could also enhance the tests so that every invariant failure that is generated is written to a file
