@@ -204,7 +204,7 @@ complete as there is too much un-said.
 * Arez works well under GWT2.x but would work MUCH better under J2CL but the build infrastructure is not quite
   there yet. Probably this means we need a build tool that sits in front and probably generates Bazel configuration
   to build our projects. Consider investigating how angular is doing in [Angular CLI](https://github.com/angular/angular/issues/19058).
-  This could be expanded so that we have a J2CL-CLI tool to drive the whole process. 
+  This could be expanded so that we have a J2CL-CLI tool to drive the whole process.
 
 ## Better Injection Framework
 
