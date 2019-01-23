@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.126](https://github.com/arez/arez/tree/v0.126) (2019-01-23)
+[Full Changelog](https://github.com/arez/arez/compare/v0.125...v0.126)
 
 * **\[processor\]** Allow the `allowEmpty` parameter to be set to `true` in an `@ArezComponent`
   annotated class even when there is arez annotated methods if and only if the `@ArezComponent`
