@@ -2,6 +2,13 @@
 
 ### Unreleased
 
+* **\[processor\]** Allow the `allowEmpty` parameter to be set to `true` in an `@ArezComponent`
+  annotated class even when there is arez annotated methods if and only if the `@ArezComponent`
+  annotated class is also annotated with either `@javax.annotation.Generated` or
+  `@javax.annotation.processing.Generated`. Otherwise downstream generators are required to have
+  a deep understanding of the Arez component model to determine whether the parameter is
+  acceptable.
+
 ### [v0.125](https://github.com/arez/arez/tree/v0.125) (2019-01-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.124...v0.125)
 

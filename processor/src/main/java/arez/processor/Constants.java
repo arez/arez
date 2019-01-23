@@ -40,6 +40,8 @@ final class Constants
   static final String NONNULL_ANNOTATION_CLASSNAME = "javax.annotation.Nonnull";
   static final String NULLABLE_ANNOTATION_CLASSNAME = "javax.annotation.Nullable";
   static final String DEPRECATED_ANNOTATION_CLASSNAME = "java.lang.Deprecated";
+  static final String GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.Generated";
+  static final String JAVA9_GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.processing.Generated";
 
   private Constants()
   {

@@ -87,6 +87,13 @@ final class ComponentDescriptor
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
+  /**
+   * Flag indicating that there is a @Generated annotation on arez.
+   * In this scenario we are a little more forgiving with our errors as otherwise the generating tool would need to
+   * have a deep understanding of the component model to generate the code which may be too demanding for downstream
+   * generators.
+   */
+  private final boolean _generated;
   private final boolean _observable;
   private final boolean _disposeTrackable;
   private final boolean _disposeOnDeactivate;
@@ -169,6 +176,7 @@ final class ComponentDescriptor
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
+                       final boolean generated,
                        final boolean observable,
                        final boolean disposeTrackable,
                        final boolean disposeOnDeactivate,
@@ -190,6 +198,7 @@ final class ComponentDescriptor
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
+    _generated = generated;
     _observable = observable;
     _disposeTrackable = disposeTrackable;
     _disposeOnDeactivate = disposeOnDeactivate;
@@ -1089,7 +1098,7 @@ final class ComponentDescriptor
                                         "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
                                         "@Reference, @ComponentDependency or @Observe", _element );
     }
-    else if ( _allowEmpty && !hasReactiveElements )
+    else if ( _allowEmpty && !hasReactiveElements && !_generated )
     {
       throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
                                         "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
