@@ -436,14 +436,6 @@ public class ArezProcessorTest
   }
 
   @Test
-  public void XXX()
-    throws Exception
-  {
-    assertSuccessfulCompile( "com.example.inject.FactoryConsumer7Model", false, true, false, false );
-  }
-  //
-
-  @Test
   public void processSuccessfulMultipleInverseWithSameTarget()
     throws Exception
   {
