@@ -3908,7 +3908,7 @@ final class ComponentDescriptor
     return _dagger;
   }
 
-  boolean shouldGenerateFactoryToInject()
+  boolean shouldGenerateFactory()
   {
     return _injectFactory;
   }
