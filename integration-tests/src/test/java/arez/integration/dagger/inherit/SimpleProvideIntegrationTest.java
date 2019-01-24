@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class BasicInheritInjectionIntegrationTest
+public class SimpleProvideIntegrationTest
   extends AbstractArezIntegrationTest
 {
   static class MyDependency
@@ -27,25 +27,22 @@ public class BasicInheritInjectionIntegrationTest
     MyDependency _myDependency;
   }
 
-  @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
-  static abstract class MyComponent
+  @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.PROVIDE )
+  public static abstract class MyComponent
     extends BaseComponent
   {
   }
 
   @Singleton
-  @Component
+  @Component( modules = SimpleProvideIntegrationTest_MyComponentDaggerModule.class )
   interface TestDaggerComponent
   {
-    BasicInheritInjectionIntegrationTest_Arez_MyComponent component();
+    MyComponent component();
   }
 
   @Test
-  public void useDaggerComponentToGetAccessToComponent()
+  public void scenario()
   {
-    final TestDaggerComponent daggerComponent = DaggerBasicInheritInjectionIntegrationTest_TestDaggerComponent.create();
-    final MyComponent component = daggerComponent.component();
-
-    assertNotNull( component._myDependency );
+    assertNotNull( DaggerSimpleProvideIntegrationTest_TestDaggerComponent.create().component()._myDependency );
   }
 }
