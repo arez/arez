@@ -2724,7 +2724,10 @@ final class ComponentDescriptor
     }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
-    builder.addMethod( buildInternalDispose() );
+    if ( needsInternalDispose() )
+    {
+      builder.addMethod( buildInternalDispose() );
+    }
     if ( _verify )
     {
       builder.addMethod( buildVerify() );
@@ -3794,9 +3797,16 @@ final class ComponentDescriptor
     {
       sb.append( "null, " );
     }
-    sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
-    params.add( Generator.AREZ_CLASSNAME );
-    params.add( Generator.INTERNAL_DISPOSE_METHOD_NAME );
+    if ( needsInternalDispose() )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( Generator.AREZ_CLASSNAME );
+      params.add( Generator.INTERNAL_DISPOSE_METHOD_NAME );
+    }
+    else
+    {
+      sb.append( "null, " );
+    }
 
     if ( null != _postDispose )
     {
@@ -3817,6 +3827,11 @@ final class ComponentDescriptor
     sb.append( " )" );
 
     builder.addStatement( sb.toString(), params.toArray() );
+  }
+
+  private boolean needsInternalDispose()
+  {
+    return !_roObserves.isEmpty() || !_roMemoizes.isEmpty() || !_roObservables.isEmpty();
   }
 
   private void buildContextVar( @Nonnull final MethodSpec.Builder builder )

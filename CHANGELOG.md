@@ -5,6 +5,8 @@
 * **\[processor\]** Fix a bug in the generated component classes that contain `@Observe(executor=EXTERNAL)`
   and no elements that could be scheduled that generated an extra call to `triggerScheduler()`. This increased
   the code size and could trigger the scheduler before expected.
+* **\[processor\]** Optimize the code generator to omit the internal dispose method if it is empty. The internal
+  dispose method was empty if the component had no `@Observe`, `@Memoize` or `@Observable` annotated methods.
 
 ### [v0.126](https://github.com/arez/arez/tree/v0.126) (2019-01-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.125...v0.126)

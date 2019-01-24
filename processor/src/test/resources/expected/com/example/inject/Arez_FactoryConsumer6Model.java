@@ -29,7 +29,7 @@ public final class Arez_FactoryConsumer6Model extends FactoryConsumer6Model impl
     final int $$arezv$$_id = ( Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "FactoryConsumer6Model" : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "FactoryConsumer6Model", $$arezv$$_id, $$arezv$$_name ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, false, false, false );
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, false, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     $$arezi$$_enhancer.enhance( this );
     super.postConstruct();
@@ -54,9 +54,6 @@ public final class Arez_FactoryConsumer6Model extends FactoryConsumer6Model impl
   @Override
   public void dispose() {
     this.$$arezi$$_kernel.dispose();
-  }
-
-  private void $$arezi$$_dispose() {
   }
 
   @Override
