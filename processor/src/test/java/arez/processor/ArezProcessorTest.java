@@ -337,6 +337,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.ObserveLowerPriorityTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.ProtectedAccessTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.TrackedAllTypesModel", false, false, false, false },
+        new Object[]{ "com.example.observe.TrackedAndSchedulableModel", false, false, false, false },
+        new Object[]{ "com.example.observe.TrackedNoOtherSchedulableModel", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel1", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel2", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel3", false, false, false, false },

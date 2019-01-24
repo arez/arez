@@ -145,6 +145,11 @@ final class ObserveDescriptor
     }
   }
 
+  boolean isInternalExecutor()
+  {
+    return _internalExecutor;
+  }
+
   @Nonnull
   ExecutableElement getOnDepsChange()
   {

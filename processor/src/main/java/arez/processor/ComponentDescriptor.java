@@ -1157,7 +1157,7 @@ final class ComponentDescriptor
 
   private boolean requiresSchedule()
   {
-    return !_roObserves.isEmpty() ||
+    return _roObserves.stream().anyMatch( ObserveDescriptor::isInternalExecutor ) ||
            !_roDependencies.isEmpty() ||
            _memoizes.values().stream().anyMatch( MemoizeDescriptor::isKeepAlive );
   }

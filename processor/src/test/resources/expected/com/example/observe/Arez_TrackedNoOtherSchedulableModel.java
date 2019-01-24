@@ -10,28 +10,27 @@ import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import java.text.ParseException;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWithExceptionsModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_TrackedNoOtherSchedulableModel extends TrackedNoOtherSchedulableModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
-  private final Observer $$arez$$_render;
+  private final Observer $$arez$$_render1;
 
-  public Arez_BasicTrackedWithExceptionsModel() {
+  public Arez_TrackedNoOtherSchedulableModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "BasicTrackedWithExceptionsModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "BasicTrackedWithExceptionsModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "TrackedNoOtherSchedulableModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "TrackedNoOtherSchedulableModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_render1 = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render1" : null, () -> super.onRender1DepsChange(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -67,21 +66,15 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arez$$_render.dispose();
+    this.$$arez$$_render1.dispose();
   }
 
   @Override
-  public void render() throws ParseException {
+  public void render1() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    try {
-      this.$$arezi$$_kernel.getContext().observe( this.$$arez$$_render, () -> super.render(), null );
-    } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
-      throw $$arez_exception$$;
-    } catch( final Throwable $$arez_exception$$ ) {
-      throw new IllegalStateException( $$arez_exception$$ );
-    }
+    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render1, () -> super.render1(), null );
   }
 
   @Override
@@ -96,8 +89,8 @@ public final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWith
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_BasicTrackedWithExceptionsModel ) {
-        final Arez_BasicTrackedWithExceptionsModel that = (Arez_BasicTrackedWithExceptionsModel) o;
+      if ( o instanceof Arez_TrackedNoOtherSchedulableModel ) {
+        final Arez_TrackedNoOtherSchedulableModel that = (Arez_TrackedNoOtherSchedulableModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
