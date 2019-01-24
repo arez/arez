@@ -3595,6 +3595,7 @@ final class ComponentDescriptor
                                .build() );
     }
 
+    final boolean needsEnhancer = needsEnhancer();
     if ( InjectMode.NONE != _injectMode && !_generatesFactoryToInject )
     {
       builder.addAnnotation( Generator.INJECT_CLASSNAME );
@@ -3625,7 +3626,7 @@ final class ComponentDescriptor
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
 
-    if ( needsEnhancer() )
+    if ( needsEnhancer )
     {
       builder.addParameter( ParameterSpec.builder( ClassName.bestGuess( "Enhancer" ),
                                                    Generator.ENHANCER_PARAM_NAME,
@@ -3693,7 +3694,7 @@ final class ComponentDescriptor
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
     }
-    if ( needsEnhancer() )
+    if ( needsEnhancer )
     {
       builder.addStatement( "$N.enhance( this )", Generator.ENHANCER_PARAM_NAME );
     }
