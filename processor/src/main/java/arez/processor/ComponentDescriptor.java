@@ -3445,6 +3445,7 @@ final class ComponentDescriptor
   private MethodSpec buildInternalPreDispose()
     throws ArezProcessorException
   {
+    assert hasInternalPreDispose();
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
