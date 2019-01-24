@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Update inject documentation
 
-* Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
-
 * Avoid generation of
 
 ```
