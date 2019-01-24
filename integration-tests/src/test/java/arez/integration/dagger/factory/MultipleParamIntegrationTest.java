@@ -1,4 +1,4 @@
-package arez.integration.dagger;
+package arez.integration.dagger.factory;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class DaggerSupplyParamsViaFactoryIntegrationTest
+public class MultipleParamIntegrationTest
   extends AbstractArezIntegrationTest
 {
   static class MyDependency
@@ -28,13 +28,15 @@ public class DaggerSupplyParamsViaFactoryIntegrationTest
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
   public static abstract class TestComponent
   {
-    private final Map<String, String> _props;
+    final Map<String, String> _props;
+    final int _value;
     @Inject
     MyDependency _myDependency;
 
-    TestComponent( @PerInstance final Map<String, String> props )
+    TestComponent( @PerInstance final Map<String, String> props, @PerInstance final int value )
     {
       _props = props;
+      _value = value;
     }
 
     @PostConstruct
@@ -42,18 +44,14 @@ public class DaggerSupplyParamsViaFactoryIntegrationTest
     {
       assertNotNull( _props );
       assertNotNull( _myDependency );
-    }
-
-    Map<String, String> getProps()
-    {
-      return _props;
+      assertNotEquals( _value, 0 );
     }
   }
 
   @Singleton
   @Component
   interface TestDaggerComponent
-    extends DaggerSupplyParamsViaFactoryIntegrationTest_TestComponentDaggerComponentExtension
+    extends MultipleParamIntegrationTest_TestComponentDaggerComponentExtension
   {
   }
 
@@ -61,12 +59,12 @@ public class DaggerSupplyParamsViaFactoryIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final TestDaggerComponent daggerComponent =
-      DaggerDaggerSupplyParamsViaFactoryIntegrationTest_TestDaggerComponent.create();
-    daggerComponent.bindTestComponent();
+    final TestDaggerComponent dagger = DaggerMultipleParamIntegrationTest_TestDaggerComponent.create();
+    dagger.bindTestComponent();
     final HashMap<String, String> props = new HashMap<>();
-    final TestComponent component =
-      daggerComponent.getTestComponentDaggerSubcomponent().createFactory().create( props );
-    assertEquals( component.getProps(), props );
+    final TestComponent component = dagger.getTestComponentDaggerSubcomponent().createFactory().create( props, 23 );
+    assertEquals( component._props, props );
+    assertEquals( component._value, 23 );
+    assertNotNull( component._myDependency );
   }
 }
