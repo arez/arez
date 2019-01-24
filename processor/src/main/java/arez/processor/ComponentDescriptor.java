@@ -3596,7 +3596,9 @@ final class ComponentDescriptor
     }
 
     final boolean needsEnhancer = needsEnhancer();
-    if ( InjectMode.NONE != _injectMode && !_generatesFactoryToInject )
+    if ( InjectMode.NONE != _injectMode &&
+         !_injectFactory &&
+         !needsEnhancer )
     {
       builder.addAnnotation( Generator.INJECT_CLASSNAME );
     }
