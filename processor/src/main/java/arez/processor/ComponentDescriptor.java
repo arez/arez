@@ -3934,6 +3934,11 @@ final class ComponentDescriptor
     return needsDaggerIntegration() && ( null != _postConstruct || requiresSchedule() ) && _nonConstructorInjections;
   }
 
+  boolean nonConstructorInjections()
+  {
+    return _nonConstructorInjections;
+  }
+
   @Nonnull
   TypeSpec buildComponentDaggerModule()
     throws ArezProcessorException
