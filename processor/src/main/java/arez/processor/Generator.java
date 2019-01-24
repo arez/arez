@@ -12,7 +12,6 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -191,17 +190,20 @@ final class Generator
       builder.addMethod( method.build() );
     }
     final boolean needsEnhancer = descriptor.needsEnhancer();
-    if ( needsEnhancer )
+    if ( descriptor.nonConstructorInjections() )
     {
       final MethodSpec.Builder method =
         MethodSpec.methodBuilder( "bind" + descriptor.getType() ).
           addModifiers( Modifier.PUBLIC, Modifier.DEFAULT );
-      method.addStatement( "InjectSupport.c_enhancer = instance -> $N().inject( instance )",
-                           "get" + descriptor.getType() + "DaggerSubcomponent" );
+      method.addStatement( "InjectSupport.c_subComponent = $N()", "get" + descriptor.getType() + "DaggerSubcomponent" );
+      if ( needsEnhancer )
+      {
+        method.addStatement( "InjectSupport.c_enhancer = instance -> InjectSupport.c_subComponent.inject( instance )" );
+      }
       builder.addMethod( method.build() );
     }
 
-    if ( needsEnhancer )
+    if ( descriptor.nonConstructorInjections() )
     {
       builder.addType( buildInjectSupport( descriptor ) );
     }
@@ -361,9 +363,24 @@ final class Generator
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
 
-    builder.addField( FieldSpec
-                        .builder( descriptor.getEnhancedClassName().nestedClass( "Enhancer" ), "c_enhancer" )
-                        .addModifiers( Modifier.PRIVATE, Modifier.STATIC ).build() );
+    if ( ComponentDescriptor.InjectMode.PROVIDE == descriptor.getInjectMode() )
+    {
+      builder.addField( FieldSpec
+                          .builder( descriptor.getEnhancedClassName().nestedClass( "Enhancer" ), "c_enhancer" )
+                          .addModifiers( Modifier.PRIVATE, Modifier.STATIC ).build() );
+    }
+    else
+    {
+      builder.addField( FieldSpec
+                          .builder( ClassName.bestGuess( "DaggerSubcomponent" ), "c_subComponent" )
+                          .addModifiers( Modifier.STATIC ).build() );
+      if ( descriptor.needsEnhancer() )
+      {
+        builder.addField( FieldSpec
+                            .builder( descriptor.getEnhancedClassName().nestedClass( "Enhancer" ), "c_enhancer" )
+                            .addModifiers( Modifier.PRIVATE, Modifier.STATIC ).build() );
+      }
+    }
 
     return builder.build();
   }

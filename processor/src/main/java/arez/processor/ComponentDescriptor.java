@@ -2827,7 +2827,17 @@ final class ComponentDescriptor
 
       final StringBuilder sb = new StringBuilder();
       final ArrayList<Object> params = new ArrayList<>();
-      sb.append( "return new $T(" );
+      if ( !needsEnhancer && nonConstructorInjections() )
+      {
+        sb.append( "final $T $N = " );
+        params.add( getEnhancedClassName() );
+        params.add( Generator.FRAMEWORK_PREFIX + "component" );
+      }
+      else
+      {
+        sb.append( "return " );
+      }
+      sb.append( "new $T(" );
       params.add( getEnhancedClassName() );
 
       boolean firstParam = true;
@@ -2884,6 +2894,26 @@ final class ComponentDescriptor
 
       sb.append( ")" );
       creator.addStatement( sb.toString(), params.toArray() );
+
+      if ( !needsEnhancer && nonConstructorInjections() )
+      {
+        final CodeBlock.Builder block = CodeBlock.builder();
+        block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
+        block.addStatement( "$T.apiInvariant( () -> null != $T.InjectSupport.c_subComponent, " +
+                            "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
+                            "the dependency injection provider has been initialized. Please see " +
+                            "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
+                            "directions how to configure dependency injection.\" )",
+                            Generator.GUARDS_CLASSNAME,
+                            getDaggerComponentExtensionClassName(),
+                            getType() );
+        block.endControlFlow();
+        creator.addCode( block.build() );
+        creator.addStatement( "$T.InjectSupport.c_subComponent.inject( $N )",
+                              getDaggerComponentExtensionClassName(),
+                              Generator.FRAMEWORK_PREFIX + "component" );
+        creator.addStatement( "return $N", Generator.FRAMEWORK_PREFIX + "component" );
+      }
 
       factory.addMethod( creator.build() );
     }

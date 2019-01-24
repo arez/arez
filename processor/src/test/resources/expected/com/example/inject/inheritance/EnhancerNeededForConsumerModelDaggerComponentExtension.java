@@ -15,10 +15,13 @@ public interface EnhancerNeededForConsumerModelDaggerComponentExtension {
   DaggerSubcomponent getEnhancerNeededForConsumerModelDaggerSubcomponent();
 
   default void bindEnhancerNeededForConsumerModel() {
-    InjectSupport.c_enhancer = instance -> getEnhancerNeededForConsumerModelDaggerSubcomponent().inject( instance );
+    InjectSupport.c_subComponent = getEnhancerNeededForConsumerModelDaggerSubcomponent();
+    InjectSupport.c_enhancer = instance -> InjectSupport.c_subComponent.inject( instance );
   }
 
   final class InjectSupport {
+    static DaggerSubcomponent c_subComponent;
+
     private static Arez_EnhancerNeededForConsumerModel.Enhancer c_enhancer;
   }
 

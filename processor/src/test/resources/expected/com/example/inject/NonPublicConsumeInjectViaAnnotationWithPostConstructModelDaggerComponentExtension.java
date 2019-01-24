@@ -16,10 +16,13 @@ public interface NonPublicConsumeInjectViaAnnotationWithPostConstructModelDagger
       );
 
   default void bindNonPublicConsumeInjectViaAnnotationWithPostConstructModel() {
-    InjectSupport.c_enhancer = instance -> getNonPublicConsumeInjectViaAnnotationWithPostConstructModelDaggerSubcomponent().inject( instance );
+    InjectSupport.c_subComponent = getNonPublicConsumeInjectViaAnnotationWithPostConstructModelDaggerSubcomponent();
+    InjectSupport.c_enhancer = instance -> InjectSupport.c_subComponent.inject( instance );
   }
 
   final class InjectSupport {
+    static DaggerSubcomponent c_subComponent;
+
     private static Arez_NonPublicConsumeInjectViaAnnotationWithPostConstructModel.Enhancer c_enhancer;
   }
 

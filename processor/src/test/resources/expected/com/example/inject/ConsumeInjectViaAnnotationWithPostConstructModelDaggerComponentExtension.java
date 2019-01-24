@@ -15,10 +15,13 @@ public interface ConsumeInjectViaAnnotationWithPostConstructModelDaggerComponent
   DaggerSubcomponent getConsumeInjectViaAnnotationWithPostConstructModelDaggerSubcomponent();
 
   default void bindConsumeInjectViaAnnotationWithPostConstructModel() {
-    InjectSupport.c_enhancer = instance -> getConsumeInjectViaAnnotationWithPostConstructModelDaggerSubcomponent().inject( instance );
+    InjectSupport.c_subComponent = getConsumeInjectViaAnnotationWithPostConstructModelDaggerSubcomponent();
+    InjectSupport.c_enhancer = instance -> InjectSupport.c_subComponent.inject( instance );
   }
 
   final class InjectSupport {
+    static DaggerSubcomponent c_subComponent;
+
     private static Arez_ConsumeInjectViaAnnotationWithPostConstructModel.Enhancer c_enhancer;
   }
 

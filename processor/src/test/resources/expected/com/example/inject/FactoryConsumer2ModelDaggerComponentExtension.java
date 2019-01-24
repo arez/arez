@@ -13,10 +13,13 @@ public interface FactoryConsumer2ModelDaggerComponentExtension {
   DaggerSubcomponent getFactoryConsumer2ModelDaggerSubcomponent();
 
   default void bindFactoryConsumer2Model() {
-    InjectSupport.c_enhancer = instance -> getFactoryConsumer2ModelDaggerSubcomponent().inject( instance );
+    InjectSupport.c_subComponent = getFactoryConsumer2ModelDaggerSubcomponent();
+    InjectSupport.c_enhancer = instance -> InjectSupport.c_subComponent.inject( instance );
   }
 
   final class InjectSupport {
+    static DaggerSubcomponent c_subComponent;
+
     private static Arez_FactoryConsumer2Model.Enhancer c_enhancer;
   }
 
