@@ -10,6 +10,13 @@ complete as there is too much un-said.
 
 * Need to cache subcomponent in InjectSupport when forced to create `*DaggerComponentExtension` interface.
 
+* Avoid generation of
+
+```
+  private void $$arezi$$_dispose() {
+  }
+```
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
