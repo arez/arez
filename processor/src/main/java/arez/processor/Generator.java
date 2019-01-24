@@ -147,7 +147,7 @@ final class Generator
                          .build() );
 
     final boolean needsEnhancer = descriptor.needsEnhancer();
-    if ( needsEnhancer )
+    if ( descriptor.nonConstructorInjections() )
     {
       builder.addType( buildInjectSupport( descriptor ) );
     }
