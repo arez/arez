@@ -12,14 +12,18 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import static arez.processor.ProcessorUtil.*;
 
 @SuppressWarnings( "Duplicates" )
 final class Generator
@@ -367,34 +371,83 @@ final class Generator
   @Nonnull
   private static TypeSpec buildEnhancerDaggerModule( @Nonnull final ComponentDescriptor descriptor )
   {
+    assert descriptor.needsEnhancer();
+
     // Dues to a bug in javapoet that disallows static methods as part of interface classes
     // we synthesize a separate module and it include it in main component to achieve the same
     // goal. In an ideal world this static method would be merged into above class
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( "EnhancerDaggerModule" );
+    final TypeSpec.Builder builder =
+      TypeSpec
+        .classBuilder( "EnhancerDaggerModule" )
+        .addModifiers( Modifier.PUBLIC, Modifier.STATIC )
+        .addAnnotation( DAGGER_MODULE_CLASSNAME );
 
-    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    builder.addAnnotation( DAGGER_MODULE_CLASSNAME );
+    {
+      final MethodSpec.Builder method = MethodSpec
+        .methodBuilder( "getEnhancer" )
+        .addModifiers( Modifier.PRIVATE, Modifier.STATIC )
+        .returns( descriptor.getEnhancerClassName() );
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      block.addStatement( "$T.apiInvariant( () -> null != InjectSupport.c_enhancer, " +
+                          "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
+                          "the dependency injection provider has been initialized. Please see " +
+                          "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
+                          "directions how to configure dependency injection.\" )",
+                          GUARDS_CLASSNAME,
+                          descriptor.getType() );
+      block.endControlFlow();
 
-    final MethodSpec.Builder method = MethodSpec
-      .methodBuilder( "provideEnhancer" )
-      .addAnnotation( DAGGER_PROVIDES_CLASSNAME )
-      .addModifiers( Modifier.STATIC )
-      .returns( descriptor.getEnhancerClassName() );
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> null != InjectSupport.c_enhancer, " +
-                        "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
-                        "the dependency injection provider has been initialized. Please see " +
-                        "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
-                        "directions how to configure dependency injection.\" )",
-                        GUARDS_CLASSNAME,
-                        descriptor.getType() );
-    block.endControlFlow();
+      method.addCode( block.build() );
 
-    method.addCode( block.build() );
+      method.addStatement( "return InjectSupport.c_enhancer" );
+      builder.addMethod( method.build() );
+    }
 
-    method.addStatement( "return InjectSupport.c_enhancer" );
-    builder.addMethod( method.build() );
+    {
+      final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
+      creator.addAnnotation( Generator.NONNULL_CLASSNAME );
+      creator.addModifiers( Modifier.FINAL );
+      creator.addAnnotation( DAGGER_PROVIDES_CLASSNAME );
+      creator.returns( descriptor.getEnhancedClassName() );
+
+      final StringBuilder sb = new StringBuilder();
+      final ArrayList<Object> params = new ArrayList<>();
+      sb.append( "return new $T(" );
+      params.add( descriptor.getEnhancedClassName() );
+
+      boolean firstParam = true;
+
+      final ExecutableElement constructor = getConstructors( descriptor.getElement() ).get( 0 );
+      assert null != constructor;
+      for ( final VariableElement parameter : constructor.getParameters() )
+      {
+        final String name = parameter.getSimpleName().toString();
+
+        final ParameterSpec.Builder param =
+          ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
+        ProcessorUtil.copyWhitelistedAnnotations( parameter, param );
+        creator.addParameter( param.build() );
+
+        if ( firstParam )
+        {
+          sb.append( " " );
+        }
+        else
+        {
+          sb.append( ", " );
+        }
+        firstParam = false;
+        sb.append( "$N" );
+        params.add( name );
+      }
+
+      sb.append( firstParam ? " " : ", " );
+      sb.append( "getEnhancer() )" );
+      creator.addStatement( sb.toString(), params.toArray() );
+
+      builder.addMethod( creator.build() );
+    }
 
     return builder.build();
   }
