@@ -87,7 +87,6 @@ public class NonCtorInjectWithObservePostConstructTest
                   "MyComponent.postConstruct()\n" +
                   "MyComponent._dependency = MyDependency\n" +
                   "MyComponent.run()\n" +
-                  "MyComponent._dependency = MyDependency\n" +
-                  "MyDependency()" );
+                  "MyComponent._dependency = MyDependency" );
   }
 }

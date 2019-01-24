@@ -111,7 +111,6 @@ public class MixedInjectWithObservePostConstructTest
                   "MyComponent._dependency2 = MyDependency2\n" +
                   "MyComponent.run()\n" +
                   "MyComponent._dependency = MyDependency\n" +
-                  "MyComponent._dependency2 = MyDependency2\n" +
-                  "MyDependency()" );
+                  "MyComponent._dependency2 = MyDependency2" );
   }
 }
