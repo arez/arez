@@ -7,6 +7,9 @@
   the code size and could trigger the scheduler before expected.
 * **\[processor\]** Optimize the code generator to omit the internal dispose method if it is empty. The internal
   dispose method was empty if the component had no `@Observe`, `@Memoize` or `@Observable` annotated methods.
+* **\[processor\]** Optimize the code generator to omit the internal pre dispose method if it is empty. The
+  processor already omitted the method in most scenarios but inclusion was triggered when reference without
+  an inverse was present.
 
 ### [v0.126](https://github.com/arez/arez/tree/v0.126) (2019-01-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.125...v0.126)

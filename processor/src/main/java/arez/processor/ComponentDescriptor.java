@@ -3374,10 +3374,10 @@ final class ComponentDescriptor
 
   private boolean hasInternalPreDispose()
   {
-    return !_roReferences.isEmpty() ||
-           !_roInverses.isEmpty() ||
+    return !_roInverses.isEmpty() ||
            !_roCascadeDisposes.isEmpty() ||
-           !_roDependencies.isEmpty();
+           ( _disposeTrackable && !_roDependencies.isEmpty() ) ||
+           _roReferences.stream().anyMatch( ReferenceDescriptor::hasInverse );
   }
 
   /**
