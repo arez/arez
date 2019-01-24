@@ -100,7 +100,7 @@ final class ComponentDescriptor
   @Nonnull
   private final InjectMode _injectMode;
   private final boolean _dagger;
-  private final boolean _generatesFactoryToInject;
+  private final boolean _injectFactory;
   /**
    * Is there any @Inject annotated fields or methods? If so we need to do a dance when generating Dagger support.
    */
@@ -182,7 +182,7 @@ final class ComponentDescriptor
                        final boolean disposeOnDeactivate,
                        @Nonnull final String injectMode,
                        final boolean dagger,
-                       final boolean generatesFactoryToInject,
+                       final boolean injectFactory,
                        final boolean nonConstructorInjections,
                        final boolean requireEquals,
                        final boolean verify,
@@ -204,7 +204,7 @@ final class ComponentDescriptor
     _disposeOnDeactivate = disposeOnDeactivate;
     _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
-    _generatesFactoryToInject = generatesFactoryToInject;
+    _injectFactory = injectFactory;
     _nonConstructorInjections = nonConstructorInjections;
     _requireEquals = requireEquals;
     _verify = verify;
@@ -2657,7 +2657,7 @@ final class ComponentDescriptor
       builder.addSuperinterface( Generator.LINKABLE_CLASSNAME );
     }
 
-    if ( _generatesFactoryToInject )
+    if ( _injectFactory )
     {
       builder.addType( buildFactoryClass().build() );
     }
@@ -3571,7 +3571,7 @@ final class ComponentDescriptor
                                        final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    if ( _generatesFactoryToInject )
+    if ( _injectFactory )
     {
       // The constructor is private as the factory is responsible for creating component.
       builder.addModifiers( Modifier.PRIVATE );
@@ -3910,7 +3910,7 @@ final class ComponentDescriptor
 
   boolean shouldGenerateFactoryToInject()
   {
-    return _generatesFactoryToInject;
+    return _injectFactory;
   }
 
   @Nonnull
@@ -3926,7 +3926,7 @@ final class ComponentDescriptor
 
   boolean needsDaggerComponentExtension()
   {
-    return ( needsDaggerIntegration() && _generatesFactoryToInject ) || needsEnhancer();
+    return ( needsDaggerIntegration() && _injectFactory ) || needsEnhancer();
   }
 
   boolean needsEnhancer()
