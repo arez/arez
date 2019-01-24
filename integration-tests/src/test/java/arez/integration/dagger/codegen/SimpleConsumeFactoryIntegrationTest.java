@@ -39,7 +39,7 @@ public class SimpleConsumeFactoryIntegrationTest
     assertClassNotPresent( "SimpleConsumeFactoryIntegrationTest_Arez_MyComponent$Enhancer" );
     assertClassPresent( "SimpleConsumeFactoryIntegrationTest_Arez_MyComponent$Factory" );
     assertClassPresent( "SimpleConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension" );
-    assertClassNotPresent( "SimpleConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassPresent( "SimpleConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$InjectSupport" );
     assertClassNotPresent( "SimpleConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$DaggerModule" );
     assertClassNotPresent( "SimpleConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
     assertClassPresent( "SimpleConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
