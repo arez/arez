@@ -4130,12 +4130,6 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  ClassName getClassNameToConstruct()
-  {
-    return getEnhancedClassName();
-  }
-
-  @Nonnull
   private String getArezClassName()
   {
     return getNestedClassPrefix() + "Arez_" + getElement().getSimpleName();

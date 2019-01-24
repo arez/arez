@@ -319,7 +319,7 @@ final class Generator
                          .methodBuilder( "bindComponent" )
                          .addAnnotation( DAGGER_BINDS_CLASSNAME )
                          .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( descriptor.getClassNameToConstruct(), "component" )
+                         .addParameter( descriptor.getEnhancedClassName(), "component" )
                          .returns( descriptor.getClassName() )
                          .build() );
 
@@ -343,7 +343,7 @@ final class Generator
                          .methodBuilder( "bindComponent" )
                          .addAnnotation( DAGGER_BINDS_CLASSNAME )
                          .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( descriptor.getClassNameToConstruct(), "component" )
+                         .addParameter( descriptor.getEnhancedClassName(), "component" )
                          .returns( targetType )
                          .build() );
 
