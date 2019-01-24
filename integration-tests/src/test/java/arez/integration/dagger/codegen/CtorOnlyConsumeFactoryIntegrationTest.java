@@ -24,7 +24,6 @@ public class CtorOnlyConsumeFactoryIntegrationTest
     MyComponent( @PerInstance int value, final MyDependency myDependency )
     {
     }
-
   }
 
   @Test
