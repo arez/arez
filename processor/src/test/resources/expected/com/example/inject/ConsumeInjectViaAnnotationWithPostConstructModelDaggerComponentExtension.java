@@ -33,12 +33,17 @@ public interface ConsumeInjectViaAnnotationWithPostConstructModelDaggerComponent
 
   @Module
   class EnhancerDaggerModule {
-    @Provides
-    static Arez_ConsumeInjectViaAnnotationWithPostConstructModel.Enhancer provideEnhancer() {
+    private static Arez_ConsumeInjectViaAnnotationWithPostConstructModel.Enhancer getEnhancer() {
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != InjectSupport.c_enhancer, () -> "Attempted to create an instance of the Arez component named 'ConsumeInjectViaAnnotationWithPostConstructModel' before the dependency injection provider has been initialized. Please see the documentation at https://arez.github.io/docs/dependency_injection.html for directions how to configure dependency injection." );
       }
       return InjectSupport.c_enhancer;
+    }
+
+    @Nonnull
+    @Provides
+    final Arez_ConsumeInjectViaAnnotationWithPostConstructModel create() {
+      return new Arez_ConsumeInjectViaAnnotationWithPostConstructModel( getEnhancer() );
     }
   }
 

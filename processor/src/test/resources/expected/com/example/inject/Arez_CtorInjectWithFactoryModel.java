@@ -7,29 +7,28 @@ import arez.Disposable;
 import arez.Flags;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
+import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-public final class Arez_ConsumeInjectViaAnnotationWithPostConstructModel extends ConsumeInjectViaAnnotationWithPostConstructModel implements Disposable, Identifiable<Integer> {
+public final class Arez_CtorInjectWithFactoryModel extends CtorInjectWithFactoryModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_ConsumeInjectViaAnnotationWithPostConstructModel(
-      @Nonnull final Enhancer $$arezi$$_enhancer) {
-    super();
+  private Arez_CtorInjectWithFactoryModel(@Nonnull final Runnable action, final int count) {
+    super(action,count);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ConsumeInjectViaAnnotationWithPostConstructModel" : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ConsumeInjectViaAnnotationWithPostConstructModel", $$arezv$$_id, $$arezv$$_name ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "CtorInjectWithFactoryModel" : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CtorInjectWithFactoryModel", $$arezv$$_id, $$arezv$$_name ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, false, false, false );
     this.$$arezi$$_kernel.componentConstructed();
-    $$arezi$$_enhancer.enhance( this );
-    super.postConstruct();
     this.$$arezi$$_kernel.componentReady();
   }
 
@@ -76,8 +75,8 @@ public final class Arez_ConsumeInjectViaAnnotationWithPostConstructModel extends
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ConsumeInjectViaAnnotationWithPostConstructModel ) {
-        final Arez_ConsumeInjectViaAnnotationWithPostConstructModel that = (Arez_ConsumeInjectViaAnnotationWithPostConstructModel) o;
+      if ( o instanceof Arez_CtorInjectWithFactoryModel ) {
+        final Arez_CtorInjectWithFactoryModel that = (Arez_CtorInjectWithFactoryModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
@@ -96,7 +95,18 @@ public final class Arez_ConsumeInjectViaAnnotationWithPostConstructModel extends
     }
   }
 
-  interface Enhancer {
-    void enhance(Arez_ConsumeInjectViaAnnotationWithPostConstructModel component);
+  public static final class Factory {
+    @Nonnull
+    private final Runnable action;
+
+    @Inject
+    Factory(@Nonnull final Runnable action) {
+      this.action = Objects.requireNonNull( action );
+    }
+
+    @Nonnull
+    public final Arez_CtorInjectWithFactoryModel create(final int count) {
+      return new Arez_CtorInjectWithFactoryModel( action, count );
+    }
   }
 }

@@ -9,7 +9,6 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -20,7 +19,6 @@ public final class Arez_EnhancerNeededForConsumerModel extends EnhancerNeededFor
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Inject
   Arez_EnhancerNeededForConsumerModel(@Nonnull final Enhancer $$arezi$$_enhancer) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

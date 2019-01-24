@@ -33,13 +33,18 @@ public interface NonPublicConsumeInjectViaAnnotationWithPostConstructModelDagger
 
   @Module
   class EnhancerDaggerModule {
-    @Provides
-    static Arez_NonPublicConsumeInjectViaAnnotationWithPostConstructModel.Enhancer provideEnhancer(
+    private static Arez_NonPublicConsumeInjectViaAnnotationWithPostConstructModel.Enhancer getEnhancer(
         ) {
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != InjectSupport.c_enhancer, () -> "Attempted to create an instance of the Arez component named 'NonPublicConsumeInjectViaAnnotationWithPostConstructModel' before the dependency injection provider has been initialized. Please see the documentation at https://arez.github.io/docs/dependency_injection.html for directions how to configure dependency injection." );
       }
       return InjectSupport.c_enhancer;
+    }
+
+    @Nonnull
+    @Provides
+    final Arez_NonPublicConsumeInjectViaAnnotationWithPostConstructModel create() {
+      return new Arez_NonPublicConsumeInjectViaAnnotationWithPostConstructModel( getEnhancer() );
     }
   }
 
