@@ -4155,7 +4155,7 @@ final class ComponentDescriptor
   @Nonnull
   private String getArezRepositoryName()
   {
-    return "Arez_" + getNestedClassPrefix() + getElement().getSimpleName() + "Repository";
+    return "Arez_" + getRepositoryName();
   }
 
   @Nonnull
