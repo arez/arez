@@ -121,7 +121,8 @@ final class Generator
 
     builder.addModifiers( Modifier.PUBLIC );
 
-    if ( descriptor.shouldGenerateFactory() )
+    final boolean shouldGenerateFactory = descriptor.shouldGenerateFactory();
+    if ( shouldGenerateFactory )
     {
       builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Factory" ).
         addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
@@ -154,7 +155,7 @@ final class Generator
     {
       builder.addType( buildInjectSupport( descriptor ) );
     }
-    if ( descriptor.shouldGenerateFactory() )
+    if ( shouldGenerateFactory )
     {
       if ( needsEnhancer )
       {
