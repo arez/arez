@@ -29,9 +29,14 @@ public class EnhanceConsumeFactoryIntegrationTest
     MyDependency _myDependency;
   }
 
+  static abstract class MidComponent
+    extends BaseComponent
+  {
+  }
+
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
   static abstract class MyComponent
-    extends BaseComponent
+    extends MidComponent
   {
     MyComponent( @PerInstance int value )
     {
