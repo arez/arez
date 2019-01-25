@@ -14,6 +14,11 @@
   behaves as documented. Previously if dagger was set to `AUTODETECT` or not set and the component did not have
   a scoped annotation, then the dagger infrastructure would not be created even if `inject` was not set to
   `NONE` or did not resolve to `NONE`.
+* **\[processor\]** Significantly refactor the injection framework support and add more integration tests to verify
+  the output acts as expected when dagger compiles the output artifacts. The refactor produced a consistent ordering
+  of operations such that the injection points are populated before `@PostConstruct` methods are invoked and before
+  any elements that can be scheduled (i.e. `@Memoize(keepAlive=true)`, `@Observe(executor=INTERNAL)` and/or
+  `@ComponentDependency`) first execute.
 
 ### [v0.126](https://github.com/arez/arez/tree/v0.126) (2019-01-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.125...v0.126)
