@@ -7,14 +7,20 @@ import static org.testng.Assert.*;
 public class AbstractCodegenIntegrationTest
   extends AbstractArezIntegrationTest
 {
-  final void assertClassNotPresent( @Nonnull final String className )
+  protected final void assertClassNotPresent( @Nonnull final String className )
   {
-    assertThrows( ClassNotFoundException.class, () -> Class.forName( "arez.integration.dagger.codegen." + className ) );
+    assertThrows( ClassNotFoundException.class, () -> Class.forName( getPackagePrefix() + className ) );
   }
 
-  final void assertClassPresent( @Nonnull final String className )
+  protected final void assertClassPresent( @Nonnull final String className )
     throws ClassNotFoundException
   {
-    assertNotNull( Class.forName( "arez.integration.dagger.codegen." + className ) );
+    assertNotNull( Class.forName( getPackagePrefix() + className ) );
+  }
+
+  @Nonnull
+  private String getPackagePrefix()
+  {
+    return getClass().getCanonicalName().replaceAll( "^(.*\\.)[^.]+$", "$1" );
   }
 }
