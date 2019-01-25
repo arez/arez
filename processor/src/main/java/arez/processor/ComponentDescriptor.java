@@ -3979,7 +3979,7 @@ final class ComponentDescriptor
 
   boolean needsDaggerComponentExtension()
   {
-    return ( needsDaggerIntegration() && _injectFactory ) || needsEnhancer();
+    return needsDaggerIntegration() && ( _injectFactory || needsEnhancer() );
   }
 
   boolean needsEnhancer()
