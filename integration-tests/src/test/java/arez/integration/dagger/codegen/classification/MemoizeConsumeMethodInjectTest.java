@@ -38,7 +38,7 @@ public class MemoizeConsumeMethodInjectTest
     throws Exception
   {
     assertClassPresent( "Arez_MyComponent" );
-    assertClassPresent( "MyComponentDaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerModule" );
     assertClassNotPresent( "Arez_MyComponent$Enhancer" );
     assertClassNotPresent( "Arez_MyComponent$Factory" );
     assertClassNotPresent( "MyComponentDaggerComponentExtension" );
