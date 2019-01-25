@@ -10,6 +10,10 @@
 * **\[processor\]** Optimize the code generator to omit the internal pre dispose method if it is empty. The
   processor already omitted the method in most scenarios but inclusion was triggered when reference without
   an inverse was present.
+* **\[processor\]** Fix the annotation processor so that the `dagger` parameter on the `@ArezComponent` annotation
+  behaves as documented. Previously if dagger was set to `AUTODETECT` or not set and the component did not have
+  a scoped annotation, then the dagger infrastructure would not be created even if `inject` was not set to
+  `NONE` or did not resolve to `NONE`.
 
 ### [v0.126](https://github.com/arez/arez/tree/v0.126) (2019-01-23)
 [Full Changelog](https://github.com/arez/arez/compare/v0.125...v0.126)

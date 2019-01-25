@@ -282,7 +282,6 @@ public final class ArezProcessor
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
-    final boolean dagger = isDaggerRequired( arezComponent, scopeAnnotation );
     final boolean fieldInjections =
       ProcessorUtil.getFieldElements( typeElement ).stream().anyMatch( this::hasInjectAnnotation );
     final boolean methodInjections =
@@ -290,8 +289,24 @@ public final class ArezProcessor
         .stream()
         .anyMatch( this::hasInjectAnnotation );
     final boolean nonConstructorInjections = fieldInjections || methodInjections;
+    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
+    final String daggerMode = daggerParameter.getSimpleName().toString();
+
     final String injectMode =
-      getInjectMode( arezComponent, typeElement, scopeAnnotation, dagger, fieldInjections, methodInjections );
+      getInjectMode( arezComponent,
+                     typeElement,
+                     scopeAnnotation,
+                     daggerMode,
+                     fieldInjections,
+                     methodInjections );
+    final boolean dagger =
+      "ENABLE".equals( daggerMode ) ||
+      (
+        "AUTODETECT".equals( daggerMode ) &&
+        !"NONE".equals( injectMode ) &&
+        null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME )
+      );
+
     final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
@@ -515,7 +530,7 @@ public final class ArezProcessor
   private String getInjectMode( @Nonnull final AnnotationMirror arezComponent,
                                 @Nonnull final TypeElement typeElement,
                                 @Nullable final AnnotationMirror scopeAnnotation,
-                                final boolean dagger,
+                                final String daggerMode,
                                 final boolean fieldInjections,
                                 final boolean methodInjections )
   {
@@ -523,12 +538,13 @@ public final class ArezProcessor
     final String mode = injectParameter.getSimpleName().toString();
     if ( "AUTODETECT".equals( mode ) )
     {
-      final boolean shouldInject = dagger || null != scopeAnnotation || fieldInjections || methodInjections;
+      final boolean shouldInject =
+        daggerMode.equals( "ENABLE" ) || null != scopeAnnotation || fieldInjections || methodInjections;
       return shouldInject ? "PROVIDE" : "NONE";
     }
     else if ( "NONE".equals( mode ) )
     {
-      if ( dagger )
+      if ( daggerMode.equals( "ENABLE" ) )
       {
         throw new ArezProcessorException( "@ArezComponent target has a dagger parameter that resolved to ENABLE " +
                                           "but the inject parameter is set to NONE and this is not a valid " +
@@ -560,22 +576,6 @@ public final class ArezProcessor
     else
     {
       return mode;
-    }
-  }
-
-  private boolean isDaggerRequired( @Nonnull final AnnotationMirror arezComponent,
-                                    @Nullable final AnnotationMirror scopeAnnotation )
-  {
-    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
-    switch ( daggerParameter.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return null != scopeAnnotation &&
-               null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME );
     }
   }
 
