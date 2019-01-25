@@ -3961,11 +3961,6 @@ final class ComponentDescriptor
     return _injectFactory;
   }
 
-  boolean shouldGenerateProvider()
-  {
-    return !shouldGenerateFactory() && needsEnhancer();
-  }
-
   @Nonnull
   InjectMode getInjectMode()
   {
