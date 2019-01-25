@@ -21,16 +21,16 @@ public class NoInjectionsConsumeFactoryIntegrationTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "NoInjectionsConsumeFactoryIntegrationTest_Arez_MyComponent" );
-    assertClassNotPresent( "NoInjectionsConsumeFactoryIntegrationTest_MyComponentDaggerModule" );
-    assertClassNotPresent( "NoInjectionsConsumeFactoryIntegrationTest_Arez_MyComponent$Enhancer" );
-    assertClassPresent( "NoInjectionsConsumeFactoryIntegrationTest_Arez_MyComponent$Factory" );
-    assertClassPresent( "NoInjectionsConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension" );
-    assertClassNotPresent( "NoInjectionsConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$InjectSupport" );
-    assertClassNotPresent( "NoInjectionsConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$DaggerModule" );
+    assertClassPresent( "Arez_MyComponent" );
+    assertClassNotPresent( "MyComponentDaggerModule" );
+    assertClassNotPresent( "Arez_MyComponent$Enhancer" );
+    assertClassPresent( "Arez_MyComponent$Factory" );
+    assertClassPresent( "MyComponentDaggerComponentExtension" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
     assertClassNotPresent(
-      "NoInjectionsConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
+      "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
     assertClassPresent(
-      "NoInjectionsConsumeFactoryIntegrationTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
+      "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }

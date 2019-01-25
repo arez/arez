@@ -36,14 +36,14 @@ public class MemoizeProvideFieldInjectTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "MemoizeProvideFieldInjectTest_Arez_MyComponent" );
-    assertClassPresent( "MemoizeProvideFieldInjectTest_MyComponentDaggerModule" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_Arez_MyComponent$Enhancer" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_Arez_MyComponent$Factory" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_MyComponentDaggerComponentExtension" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_MyComponentDaggerComponentExtension$InjectSupport" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_MyComponentDaggerComponentExtension$DaggerModule" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
-    assertClassNotPresent( "MemoizeProvideFieldInjectTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
+    assertClassPresent( "Arez_MyComponent" );
+    assertClassPresent( "MyComponentDaggerModule" );
+    assertClassNotPresent( "Arez_MyComponent$Enhancer" );
+    assertClassNotPresent( "Arez_MyComponent$Factory" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }

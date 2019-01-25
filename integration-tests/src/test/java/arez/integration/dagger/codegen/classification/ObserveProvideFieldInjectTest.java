@@ -35,15 +35,15 @@ public class ObserveProvideFieldInjectTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "ObserveProvideFieldInjectTest_Arez_MyComponent" );
-    assertClassNotPresent( "ObserveProvideFieldInjectTest_MyComponentDaggerModule" );
-    assertClassPresent( "ObserveProvideFieldInjectTest_Arez_MyComponent$Enhancer" );
-    assertClassNotPresent( "ObserveProvideFieldInjectTest_Arez_MyComponent$Factory" );
-    assertClassPresent( "ObserveProvideFieldInjectTest_MyComponentDaggerComponentExtension" );
-    assertClassPresent( "ObserveProvideFieldInjectTest_MyComponentDaggerComponentExtension$InjectSupport" );
-    assertClassPresent( "ObserveProvideFieldInjectTest_MyComponentDaggerComponentExtension$DaggerModule" );
+    assertClassPresent( "Arez_MyComponent" );
+    assertClassNotPresent( "MyComponentDaggerModule" );
+    assertClassPresent( "Arez_MyComponent$Enhancer" );
+    assertClassNotPresent( "Arez_MyComponent$Factory" );
+    assertClassPresent( "MyComponentDaggerComponentExtension" );
+    assertClassPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
     assertClassPresent(
-      "ObserveProvideFieldInjectTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
-    assertClassNotPresent( "ObserveProvideFieldInjectTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
+      "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }

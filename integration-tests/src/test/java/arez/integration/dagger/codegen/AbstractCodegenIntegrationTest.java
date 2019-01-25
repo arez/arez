@@ -21,6 +21,6 @@ public class AbstractCodegenIntegrationTest
   @Nonnull
   private String getPackagePrefix()
   {
-    return getClass().getCanonicalName().replaceAll( "^(.*\\.)[^.]+$", "$1" );
+    return getClass().getCanonicalName() + "_";
   }
 }

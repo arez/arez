@@ -43,15 +43,15 @@ public class TrackProvideMethodInjectTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "TrackProvideMethodInjectTest_Arez_MyComponent" );
-    assertClassPresent( "TrackProvideMethodInjectTest_MyComponentDaggerModule" );
-    assertClassNotPresent( "TrackProvideMethodInjectTest_Arez_MyComponent$Enhancer" );
-    assertClassNotPresent( "TrackProvideMethodInjectTest_Arez_MyComponent$Factory" );
-    assertClassNotPresent( "TrackProvideMethodInjectTest_MyComponentDaggerComponentExtension" );
-    assertClassNotPresent( "TrackProvideMethodInjectTest_MyComponentDaggerComponentExtension$InjectSupport" );
-    assertClassNotPresent( "TrackProvideMethodInjectTest_MyComponentDaggerComponentExtension$DaggerModule" );
+    assertClassPresent( "Arez_MyComponent" );
+    assertClassPresent( "MyComponentDaggerModule" );
+    assertClassNotPresent( "Arez_MyComponent$Enhancer" );
+    assertClassNotPresent( "Arez_MyComponent$Factory" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
     assertClassNotPresent(
-      "TrackProvideMethodInjectTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
-    assertClassNotPresent( "TrackProvideMethodInjectTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
+      "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }

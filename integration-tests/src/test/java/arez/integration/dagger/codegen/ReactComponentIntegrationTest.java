@@ -43,18 +43,18 @@ public class ReactComponentIntegrationTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "ReactComponentIntegrationTest_Arez_React4j_BasicReactComponent" );
-    assertClassNotPresent( "ReactComponentIntegrationTest_React4j_BasicReactComponentDaggerModule" );
-    assertClassNotPresent( "ReactComponentIntegrationTest_Arez_React4j_BasicReactComponent$Enhancer" );
-    assertClassPresent( "ReactComponentIntegrationTest_Arez_React4j_BasicReactComponent$Factory" );
-    assertClassPresent( "ReactComponentIntegrationTest_React4j_BasicReactComponentDaggerComponentExtension" );
+    assertClassPresent( "Arez_React4j_BasicReactComponent" );
+    assertClassNotPresent( "React4j_BasicReactComponentDaggerModule" );
+    assertClassNotPresent( "Arez_React4j_BasicReactComponent$Enhancer" );
+    assertClassPresent( "Arez_React4j_BasicReactComponent$Factory" );
+    assertClassPresent( "React4j_BasicReactComponentDaggerComponentExtension" );
     assertClassPresent(
-      "ReactComponentIntegrationTest_React4j_BasicReactComponentDaggerComponentExtension$InjectSupport" );
+      "React4j_BasicReactComponentDaggerComponentExtension$InjectSupport" );
     assertClassNotPresent(
-      "ReactComponentIntegrationTest_React4j_BasicReactComponentDaggerComponentExtension$DaggerModule" );
+      "React4j_BasicReactComponentDaggerComponentExtension$DaggerModule" );
     assertClassNotPresent(
-      "ReactComponentIntegrationTest_React4j_BasicReactComponentDaggerComponentExtension$EnhancerDaggerModule" );
+      "React4j_BasicReactComponentDaggerComponentExtension$EnhancerDaggerModule" );
     assertClassPresent(
-      "ReactComponentIntegrationTest_React4j_BasicReactComponentDaggerComponentExtension$DaggerSubcomponent" );
+      "React4j_BasicReactComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }

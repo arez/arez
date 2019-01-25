@@ -29,14 +29,14 @@ public class CtorOnlyProvideIntegrationTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "CtorOnlyProvideIntegrationTest_Arez_MyComponent" );
-    assertClassPresent( "CtorOnlyProvideIntegrationTest_MyComponentDaggerModule" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_Arez_MyComponent$Enhancer" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_Arez_MyComponent$Factory" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_MyComponentDaggerComponentExtension" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_MyComponentDaggerComponentExtension$InjectSupport" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_MyComponentDaggerComponentExtension$DaggerModule" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
-    assertClassNotPresent( "CtorOnlyProvideIntegrationTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
+    assertClassPresent( "Arez_MyComponent" );
+    assertClassPresent( "MyComponentDaggerModule" );
+    assertClassNotPresent( "Arez_MyComponent$Enhancer" );
+    assertClassNotPresent( "Arez_MyComponent$Factory" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }

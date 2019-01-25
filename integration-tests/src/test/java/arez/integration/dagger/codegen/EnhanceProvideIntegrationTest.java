@@ -34,14 +34,14 @@ public class EnhanceProvideIntegrationTest
   public void scenario()
     throws Exception
   {
-    assertClassPresent( "EnhanceProvideIntegrationTest_Arez_MyComponent" );
-    assertClassNotPresent( "EnhanceProvideIntegrationTest_MyComponentDaggerModule" );
-    assertClassPresent( "EnhanceProvideIntegrationTest_Arez_MyComponent$Enhancer" );
-    assertClassNotPresent( "EnhanceProvideIntegrationTest_Arez_MyComponent$Factory" );
-    assertClassPresent( "EnhanceProvideIntegrationTest_MyComponentDaggerComponentExtension" );
-    assertClassPresent( "EnhanceProvideIntegrationTest_MyComponentDaggerComponentExtension$InjectSupport" );
-    assertClassPresent( "EnhanceProvideIntegrationTest_MyComponentDaggerComponentExtension$DaggerModule" );
-    assertClassPresent( "EnhanceProvideIntegrationTest_MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
-    assertClassNotPresent( "EnhanceProvideIntegrationTest_MyComponentDaggerComponentExtension$DaggerSubcomponent" );
+    assertClassPresent( "Arez_MyComponent" );
+    assertClassNotPresent( "MyComponentDaggerModule" );
+    assertClassPresent( "Arez_MyComponent$Enhancer" );
+    assertClassNotPresent( "Arez_MyComponent$Factory" );
+    assertClassPresent( "MyComponentDaggerComponentExtension" );
+    assertClassPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
+    assertClassPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
+    assertClassPresent( "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
+    assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
   }
 }
