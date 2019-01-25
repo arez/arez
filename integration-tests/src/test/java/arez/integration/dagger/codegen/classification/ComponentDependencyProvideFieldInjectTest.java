@@ -3,7 +3,6 @@ package arez.integration.dagger.codegen.classification;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.InjectMode;
-import arez.annotations.PostConstruct;
 import arez.component.DisposeTrackable;
 import arez.integration.dagger.codegen.AbstractCodegenIntegrationTest;
 import javax.inject.Inject;

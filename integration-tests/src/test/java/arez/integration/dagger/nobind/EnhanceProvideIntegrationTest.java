@@ -9,7 +9,6 @@ import dagger.Component;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class EnhanceProvideIntegrationTest
   extends AbstractArezIntegrationTest

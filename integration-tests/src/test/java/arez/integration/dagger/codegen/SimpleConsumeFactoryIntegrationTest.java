@@ -4,7 +4,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.InjectMode;
 import arez.annotations.PerInstance;
-import arez.annotations.PostConstruct;
 import javax.inject.Inject;
 import org.testng.annotations.Test;
 

@@ -3,11 +3,8 @@ package arez.integration.dagger.codegen;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.InjectMode;
-import dagger.Component;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class SimpleProvideIntegrationTest
   extends AbstractCodegenIntegrationTest

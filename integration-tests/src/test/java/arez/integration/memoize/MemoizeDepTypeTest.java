@@ -2,8 +2,8 @@ package arez.integration.memoize;
 
 import arez.Disposable;
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
 import arez.annotations.DepType;
+import arez.annotations.Memoize;
 import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;

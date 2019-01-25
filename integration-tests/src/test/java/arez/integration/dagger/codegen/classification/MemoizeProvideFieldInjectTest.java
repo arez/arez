@@ -1,7 +1,6 @@
 package arez.integration.dagger.codegen.classification;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Feature;
 import arez.annotations.InjectMode;
 import arez.annotations.Memoize;
 import arez.integration.dagger.codegen.AbstractCodegenIntegrationTest;
