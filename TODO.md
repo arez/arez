@@ -8,6 +8,8 @@ complete as there is too much un-said.
 
 * Update inject documentation
 
+* Remove `@ArezComponent.dagger` configuration as only really supported injection framework is dagger?
+
 ## Enhancements
 
 * Add `react4j-drumloop` into build tests
