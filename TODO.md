@@ -23,6 +23,9 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
+* Is there a way to eliminate code generation in `getArezId()` when there should be no callers
+  (i.e. requireId=false and compile time repositorys etc disabled?)
+
 * Should we add hooks that allow components to customize flags passed to created elements. The goal is to allow the
   component to dynamically customize configuration of a reactive element without defining a new class. i.e. Using
   the same class but allowing parameters passed into the constructor to influence the value of flags. The flags that
