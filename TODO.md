@@ -256,6 +256,11 @@ To integrate with dagger we store data in a bunch of static fields. It may be be
 `ArezContext` somehow. In an ideal world we would also be able to inspect the static injections into components
 via the spy API.
 
+Angular also has an interesting injection framework. The services themselves declared that they are `@Injectable`
+and explicitly declare the module that they are provided to. i.e. `@Injectable({ providedIn: 'root' })`. There
+is also several other interesting ideas that are particularly relevant for code-split web apps.
+See https://angular.io/guide/dependency-injection
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
