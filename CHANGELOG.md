@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.127](https://github.com/arez/arez/tree/v0.127) (2019-01-30)
+[Full Changelog](https://github.com/arez/arez/compare/v0.126...v0.127)
 
 * **\[processor\]** Fix a bug in the generated component classes that contain `@Observe(executor=EXTERNAL)`
   and no elements that could be scheduled that generated an extra call to `triggerScheduler()`. This increased
