@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Update inject documentation
 
-* Remove `@ArezComponent.dagger` configuration as only really supported injection framework is dagger?
-
 ## Enhancements
 
 * Add `react4j-drumloop` into build tests
@@ -127,6 +125,9 @@ complete as there is too much un-said.
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
+
+* Consider removing the `dagger` parameter from the `@ArezComponent` and `@Repository` annotations as we don't
+  seem to support injection frameworks other than these.
 
 * Add `defaultReadOutsideTransaction` and `defaultWriteOutsideTransaction` parameters to `@ArezComponent` that change
   the default value for the `readOutsideTransaction` and `writeOutsideTransaction` parameters on any `@Observable`
