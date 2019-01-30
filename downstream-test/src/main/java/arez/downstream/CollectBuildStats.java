@@ -8,6 +8,7 @@ import gir.maven.Maven;
 import gir.ruby.Buildr;
 import gir.ruby.Ruby;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -32,16 +33,17 @@ public final class CollectBuildStats
     throws Exception
   {
     Gir.go( () -> {
-      final List<String> branches =
-        Arrays.asList( "raw",
-                       "arez",
-                       "dagger",
-                       "raw_maven",
-                       "arez_maven",
-                       "dagger_maven",
-                       "raw_maven_j2cl",
-                       "arez_maven_j2cl",
-                       "dagger_maven_j2cl" );
+      final List<String> baseBranches =
+        Arrays.asList( "raw", "arez", "dagger", "raw_maven", "arez_maven", "dagger_maven" );
+
+      final ArrayList<String> branches = new ArrayList<>( baseBranches );
+      if ( WorkspaceUtil.buildJ2clBuilds() )
+      {
+        branches.add( "raw_maven_j2cl" );
+        branches.add( "arez_maven_j2cl" );
+        branches.add( "dagger_maven_j2cl" );
+      }
+
       WorkspaceUtil.forEachBranch( "react4j-todomvc",
                                    "https://github.com/react4j/react4j-todomvc.git",
                                    branches,
