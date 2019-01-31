@@ -8,6 +8,10 @@ complete as there is too much un-said.
 
 * Update inject documentation
 
+* Should be able to `@CascadeDispose` on abstract `@Observable` properties. The underlying field will be disposed.
+
+* Collect compile errors and push them to last round but compile all the other artifacts?
+
 ## Enhancements
 
 * Add `react4j-drumloop` into build tests
@@ -65,6 +69,9 @@ complete as there is too much un-said.
 * Consider support N version of the `@*Ref` annotations on each component. That way if different users or tools are
   responsible for different layers in inheritance chain, each can still get access to the require elements. We could
   maintain the restriction that only one `@*Ref` method per resource per class if needed.
+
+* Several of the constraints in the annotation processor are stylistic - we should identify those and make them
+  into warning that are only emitted when the annotation processor is configured to emit bad style warnings
 
 * Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
   that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
