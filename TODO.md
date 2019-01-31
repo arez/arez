@@ -103,6 +103,9 @@ complete as there is too much un-said.
   Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
   failure or made so that they are only emitted the first time they are triggered based on compile time
   settings.
+  
+  See https://github.com/Microsoft/TypeScript/blob/fadd95f72b5ad7f7f1cffa2b6ac82f612694462c/src/compiler/diagnosticMessages.json
+  for an example of template file containing all the errors.
 
 * Implement something similar to `getDependencyTree` from mobx
 
@@ -128,6 +131,7 @@ complete as there is too much un-said.
   - Embers DevTools is truly magical -  https://egghead.io/lessons/javascript-debug-ember-applications-using-ember-inspector
   - https://reactlucid.io/ is a DevTool that combines GraphQL/Apollo and React. Can see the list of requests etc
     and where they are bound.
+  - https://github.com/bvaughn/react-devtools-experimental is a simpler place to start learning how to build a DevTool
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
