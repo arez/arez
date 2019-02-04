@@ -19,6 +19,10 @@ complete as there is too much un-said.
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
+* Support `@OnActivate` and `@OnDeactivate` for `@Memoize` methods with parameters. In this scenario the parameters
+  associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
+  is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`
+
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
 * Profile with D8
