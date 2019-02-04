@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* **\[core\]** Upgrade the `com.google.elemental2:*` libraries to version `1.0.0-b14-2f97dbe`
+* **\[core\]** Upgrade the `com.google.elemental2:*` libraries to version `1.0.0-b15-7a28038`
   released under groupId `org.realityforge.com.google.elemental2`.
 
 ### [v0.127](https://github.com/arez/arez/tree/v0.127) (2019-01-30)
