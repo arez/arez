@@ -27,6 +27,26 @@ public class BuildStatsTest
   }
 
   @Test
+  public void arez_j2cl()
+    throws Exception
+  {
+    if ( WorkspaceUtil.buildJ2clBuilds() )
+    {
+      compareSizesForBranch( "arez_maven_j2cl", true );
+    }
+  }
+
+  @Test
+  public void dagger_j2cl()
+    throws Exception
+  {
+    if ( WorkspaceUtil.buildJ2clBuilds() )
+    {
+      compareSizesForBranch( "dagger_maven_j2cl", true );
+    }
+  }
+
+  @Test
   public void sithtracker()
     throws Exception
   {
