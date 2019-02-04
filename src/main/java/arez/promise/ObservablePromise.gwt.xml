@@ -3,4 +3,5 @@
   <inherits name='elemental2.promise.Promise'/>
 
   <source path=''/>
+  <public path='public'/>
 </module>
