@@ -4,6 +4,20 @@
 
 * **\[core\]** Upgrade the `com.google.elemental2:*` libraries to version `1.0.0-b15-7a28038`
   released under groupId `org.realityforge.com.google.elemental2`.
+* **\[processor\]** Changed the way that the annotation processor generates errors. Previously if an error was
+  detected, it was reported as a fatal error and the annotation processor halted the compile after the current
+  processing round. This made development painful where one annotation processor consumed artifacts produced by
+  another annotation processor or used multiple processing rounds to generate the required source as many errors
+  would be produced due to missing artifacts that were completely unrelated to the original problem. Within Arez
+  this scenario was common if dagger injection was enabled and Arez generated artifacts that were expected to be
+  passed into the dagger annotation processor. It could also occur when `@Repository` annotated types generated
+  code that was expected to be processed by the Arez annotation processor in a subsequent round. Due to limitations
+  imposed by the annotation processor framework, issues need to be reported in the round in which they are generated
+  to avoid ommitting diagnostic information about the error such as source location *but* reporting the issue as
+  an error terminates the annotation processing rounds. To work around these limitations, Arez now reports all
+  issues as `MANDATORY_WARNING` issues and adds a flag so that on the last round an error is generated if any of
+  the `MANDATORY_WARNING` issues were generated. This is not ideal but is the best outcome we could find within
+  the current annotation processing framework.
 
 ### [v0.127](https://github.com/arez/arez/tree/v0.127) (2019-01-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.126...v0.127)

@@ -48,6 +48,8 @@ public final class ArezProcessor
 {
   @Nonnull
   private HashSet<TypeElement> _deferred = new HashSet<>();
+  private int _invalidTypeCount;
+  private RoundEnvironment _env;
 
   /**
    * {@inheritDoc}
@@ -63,6 +65,15 @@ public final class ArezProcessor
     final String deferUnresolvedValue = options.get( "arez.defer.unresolved" );
     final boolean deferUnresolved = null == deferUnresolvedValue || "true".equals( deferUnresolvedValue );
 
+    _env = env;
+    if ( _env.processingOver() && 0 != _invalidTypeCount )
+    {
+      processingEnv
+        .getMessager()
+        .printMessage( ERROR, "ArezProcessor failed to process " + _invalidTypeCount +
+                              " types. See earlier warnings for further details." );
+    }
+
     if ( deferUnresolved )
     {
       final Collection<Element> elementsToProcess = getElementsToProcess( elements );
@@ -77,18 +88,32 @@ public final class ArezProcessor
     {
       processElements( new ArrayList<>( elements ), env );
     }
+    if ( _env.processingOver() || _env.errorRaised() )
+    {
+      _invalidTypeCount = 0;
+    }
+    _env = null;
     return true;
   }
 
   private void processingErrorMessage( @Nonnull final TypeElement target )
   {
-    processingEnv
-      .getMessager()
-      .printMessage( ERROR,
-                     "ArezProcessor unable to process " + target.getQualifiedName() +
-                     " because not all of its dependencies could be resolved. Check for " +
-                     "compilation errors or a circular dependency with generated code.",
-                     target );
+    reportError( "ArezProcessor unable to process " + target.getQualifiedName() +
+                 " because not all of its dependencies could be resolved. Check for " +
+                 "compilation errors or a circular dependency with generated code.",
+                 target );
+  }
+
+  private void reportError( @Nonnull final String message, @Nullable final Element element )
+  {
+    if ( _env.errorRaised() || _env.processingOver() )
+    {
+      processingEnv.getMessager().printMessage( ERROR, message, element );
+    }
+    else
+    {
+      processingEnv.getMessager().printMessage( MANDATORY_WARNING, message, element );
+    }
   }
 
   private void processElements( @Nonnull final Collection<Element> elements,
@@ -102,7 +127,7 @@ public final class ArezProcessor
       }
       catch ( final IOException ioe )
       {
-        processingEnv.getMessager().printMessage( ERROR, ioe.getMessage(), element );
+        reportError( ioe.getMessage(), element );
       }
       catch ( final ArezProcessorException e )
       {
@@ -140,10 +165,10 @@ public final class ArezProcessor
             "implemented by the element and may not be highlighted by your tooling or IDE. The " +
             "error occurred at " + location + " and may look like:\n" + sw.toString();
 
-          processingEnv.getMessager().printMessage( ERROR, e.getMessage(), element );
-          processingEnv.getMessager().printMessage( ERROR, message );
+          reportError( e.getMessage(), element );
+          reportError( message, null );
         }
-        processingEnv.getMessager().printMessage( ERROR, e.getMessage(), e.getElement() );
+        reportError( e.getMessage(), e.getElement() );
       }
       catch ( final Throwable e )
       {
@@ -158,7 +183,7 @@ public final class ArezProcessor
           " Report the error at: https://github.com/arez/arez/issues\n" +
           "\n\n" +
           sw.toString();
-        processingEnv.getMessager().printMessage( ERROR, message, element );
+        reportError( message, element );
       }
     }
   }

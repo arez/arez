@@ -11,7 +11,6 @@ complete as there is too much un-said.
 * Should be able to `@CascadeDispose` on abstract `@Observable` properties. The underlying field will be disposed.
   Once this has been done then replicant should be upgraded to remove it's workaround
 
-* Collect compile errors and push them to last round but compile all the other artifacts?
 
 ## Enhancements
 
