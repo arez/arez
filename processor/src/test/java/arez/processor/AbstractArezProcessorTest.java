@@ -269,7 +269,7 @@ abstract class AbstractArezProcessorTest
       that( inputs ).
       processedWith( new ArezProcessor() ).
       failsToCompile().
-      withErrorContaining( errorMessageFragment );
+      withWarningContaining( errorMessageFragment );
   }
 
   @Nonnull
