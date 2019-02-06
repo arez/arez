@@ -66,13 +66,6 @@ public final class ArezProcessor
     final boolean deferUnresolved = null == deferUnresolvedValue || "true".equals( deferUnresolvedValue );
 
     _env = env;
-    if ( _env.processingOver() && 0 != _invalidTypeCount )
-    {
-      processingEnv
-        .getMessager()
-        .printMessage( ERROR, "ArezProcessor failed to process " + _invalidTypeCount +
-                              " types. See earlier warnings for further details." );
-    }
 
     if ( deferUnresolved )
     {
@@ -88,8 +81,15 @@ public final class ArezProcessor
     {
       processElements( new ArrayList<>( elements ), env );
     }
-    if ( _env.processingOver() || _env.errorRaised() )
+    if ( _env.processingOver() )
     {
+      if ( 0 != _invalidTypeCount )
+      {
+        processingEnv
+          .getMessager()
+          .printMessage( ERROR, "ArezProcessor failed to process " + _invalidTypeCount +
+                                " types. See earlier warnings for further details." );
+      }
       _invalidTypeCount = 0;
     }
     _env = null;
@@ -106,6 +106,7 @@ public final class ArezProcessor
 
   private void reportError( @Nonnull final String message, @Nullable final Element element )
   {
+    _invalidTypeCount++;
     if ( _env.errorRaised() || _env.processingOver() )
     {
       processingEnv.getMessager().printMessage( ERROR, message, element );
