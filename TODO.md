@@ -11,6 +11,8 @@ complete as there is too much un-said.
 * Should be able to `@CascadeDispose` on abstract `@Observable` properties. The underlying field will be disposed.
   Once this has been done then replicant should be upgraded to remove it's workaround
 
+* Add annotation and potentially annotation value to `ArezProcessorException` so that they can be emitted during
+  error reporting to get more precise errors.
 
 ## Enhancements
 
