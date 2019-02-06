@@ -109,7 +109,7 @@ complete as there is too much un-said.
   Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
   failure or made so that they are only emitted the first time they are triggered based on compile time
   settings.
-  
+
   See https://github.com/Microsoft/TypeScript/blob/fadd95f72b5ad7f7f1cffa2b6ac82f612694462c/src/compiler/diagnosticMessages.json
   for an example of template file containing all the errors.
 
