@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.128](https://github.com/arez/arez/tree/v0.128) (2019-02-06)
+[Full Changelog](https://github.com/arez/arez/compare/v0.127...v0.128)
 
 * **\[core\]** Upgrade the `com.google.elemental2:*` libraries to version `1.0.0-b15-7a28038`
   released under groupId `org.realityforge.com.google.elemental2`.
