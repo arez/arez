@@ -31,6 +31,7 @@ DAGGER_DEPS =
     :googlejavaformat,
     :errorprone
   ]
+REVAPI_DEPS = [:revapi, :revapi_basic_features, :revapi_java_spi, :revapi_java, :dmr, :cookcc, :slf4j_api, :slf4j_jdk14]
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
@@ -139,6 +140,7 @@ define 'arez' do
                       :javax_json,
                       :jsonassert,
                       :android_json,
+                      REVAPI_DEPS,
                       project('core').package(:jar),
                       project('core').compile.dependencies,
                       project('processor').package(:jar),

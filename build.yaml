@@ -4,6 +4,7 @@ repositories:
    - https://stocksoftware.jfrog.io/stocksoftware/public
    - https://stocksoftware.jfrog.io/stocksoftware/oss
    - https://stocksoftware.jfrog.io/stocksoftware/thirdparty-local
+   - https://repository.jboss.org/
 
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.13
@@ -67,3 +68,12 @@ artifacts:
   testng: org.testng:testng:jar:6.11
 
   jdepend: guru.nidi:jdepend:jar:2.9.5
+
+  revapi: org.revapi:revapi:jar:0.10.2
+  revapi_basic_features: org.revapi:revapi-basic-features:jar:0.7.4
+  revapi_java_spi: org.revapi:revapi-java-spi:jar:0.17.2
+  revapi_java: org.revapi:revapi-java:jar:0.18.2
+  dmr: org.jboss:jboss-dmr:jar:1.2.0.Final
+  cookcc: com.google.code.cookcc:cookcc:jar:0.3.3
+  slf4j_api: org.slf4j:slf4j-api:jar:1.7.5
+  slf4j_jdk14: org.slf4j:slf4j-jdk14:jar:1.7.5
