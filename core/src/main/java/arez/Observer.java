@@ -484,7 +484,8 @@ public final class Observer
         }
         clearDependencies();
       }
-      else if ( Flags.STATE_INACTIVE == originalState )
+      else if ( Flags.STATE_INACTIVE == originalState &&
+                ( ( Flags.STATE_DISPOSED | Flags.STATE_DISPOSING ) & state ) == 0 )
       {
         if ( isComputableValue() )
         {

@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* **\[core\]** Fix bug where the `onActivate` callback for `ComputableValue` instances was when disposing
+  the `ComputableValue` instance while it was in an `INACTIVE` state.
+
 ### [v0.128](https://github.com/arez/arez/tree/v0.128) (2019-02-06)
 [Full Changelog](https://github.com/arez/arez/compare/v0.127...v0.128)
 

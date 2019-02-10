@@ -8,6 +8,7 @@ import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
+import arez.Observer;
 import arez.SafeFunction;
 import arez.SafeProcedure;
 import arez.TestSpyEventHandler;
@@ -19,6 +20,7 @@ import arez.spy.ObservableValueChangeEvent;
 import arez.spy.ObserveScheduleEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.testng.annotations.Test;
@@ -435,5 +437,67 @@ public class ComputableValueApiTest
     keepAliveLock.dispose();
 
     handler.assertEventCount( 0 );
+  }
+
+  @Test
+  public void callbackSequencing()
+  {
+    final ArrayList<String> trace = new ArrayList<>();
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+    final SafeFunction<Double> function = () -> {
+      observable.reportObserved();
+      trace.add( "compute" );
+      return Math.random();
+    };
+    final ComputableValue<Double> computable =
+      context.computable( null,
+                          function,
+                          () -> trace.add( "onActivate" ),
+                          () -> trace.add( "onDeactivate" ),
+                          () -> trace.add( "onStale" ) );
+
+    assertEquals( String.join( " ", trace ), "" );
+
+    final Observer observer = context.observer( computable::get );
+
+    assertEquals( String.join( " ", trace ), "onActivate compute" );
+
+    observer.dispose();
+
+    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate" );
+
+    computable.dispose();
+
+    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate" );
+  }
+
+  @Test
+  public void callbackSequencing_inAction()
+  {
+    final ArrayList<String> trace = new ArrayList<>();
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+    final SafeFunction<Double> function = () -> {
+      observable.reportObserved();
+      trace.add( "compute" );
+      return Math.random();
+    };
+    final ComputableValue<Double> computable =
+      context.computable( null,
+                          function,
+                          () -> trace.add( "onActivate" ),
+                          () -> trace.add( "onDeactivate" ),
+                          () -> trace.add( "onStale" ) );
+
+    assertEquals( String.join( " ", trace ), "" );
+
+    context.safeAction( computable::get );
+
+    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate" );
+
+    computable.dispose();
+
+    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate" );
   }
 }
