@@ -127,7 +127,7 @@ public final class Observer
                       this::invokeReaction,
                       ( flags & Task.Flags.OBSERVER_TASK_FLAGS_MASK ) |
                       Task.Flags.NO_REGISTER_TASK |
-                      Task.Flags. NO_WRAP_TASK );
+                      Task.Flags.NO_WRAP_TASK );
     _flags = ( flags & ~Task.Flags.OBSERVER_TASK_FLAGS_MASK ) | Flags.STATE_INACTIVE;
     if ( Arez.shouldCheckInvariants() )
     {
