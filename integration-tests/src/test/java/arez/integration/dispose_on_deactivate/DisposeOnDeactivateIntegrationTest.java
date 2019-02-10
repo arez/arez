@@ -1,7 +1,5 @@
 package arez.integration.dispose_on_deactivate;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
@@ -18,8 +16,6 @@ public class DisposeOnDeactivateIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model = Model1.create();
