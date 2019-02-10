@@ -204,8 +204,8 @@ final class ComputableValueInfoImpl
     if ( Arez.shouldCheckInvariants() )
     {
       invariant( () -> transaction != null,
-                 () -> "Arez-0106: ComputableValue named '" + _computableValue.getName() + "' is marked as computing but " +
-                       "unable to locate transaction responsible for computing ComputableValue" );
+                 () -> "Arez-0106: ComputableValue named '" + _computableValue.getName() + "' is marked as " +
+                       "computing but unable to locate transaction responsible for computing ComputableValue" );
     }
     assert null != transaction;
     return transaction;
