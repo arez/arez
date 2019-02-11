@@ -3,7 +3,6 @@ package arez.integration.dispose_on_deactivate;
 import arez.Arez;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.Observer;
 import arez.SchedulerLock;
 import arez.annotations.ArezComponent;
