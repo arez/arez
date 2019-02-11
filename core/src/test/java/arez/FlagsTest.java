@@ -237,6 +237,7 @@ public class FlagsTest
     exceptions.put( "VERIFY_ACTION_REQUIRED", "AREZ_DEPENDENCIES" );
     exceptions.put( "NO_VERIFY_ACTION_REQUIRED", "AREZ_OR_NO_DEPENDENCIES" );
     exceptions.put( "DEACTIVATE_ON_UNOBSERVE", "DISPOSE_ON_COMPLETE" );
+    exceptions.put( "KEEPALIVE", "NO_WRAP_TASK" );
 
     final HashMap<String, Integer> flags = extractFlags();
     final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>( flags.entrySet() );
@@ -274,6 +275,7 @@ public class FlagsTest
     exceptions.put( "VERIFY_ACTION_REQUIRED", "AREZ_DEPENDENCIES" );
     exceptions.put( "NO_VERIFY_ACTION_REQUIRED", "AREZ_OR_NO_DEPENDENCIES" );
     exceptions.put( "DISPOSE_ON_COMPLETE", "DEACTIVATE_ON_UNOBSERVE" );
+    exceptions.put( "KEEPALIVE", "NO_WRAP_TASK" );
 
     // Configs with these prefixes may overlap
     final ArrayList<String> exceptionPrefixes = new ArrayList<>();
