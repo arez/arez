@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.gwt.symbolmap.SoycSizeMaps;
 import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 
+@SuppressWarnings( "SameParameterValue" )
 abstract class AbstractDownstreamTest
 {
   @Nonnull
@@ -51,41 +52,41 @@ abstract class AbstractDownstreamTest
   }
 
   @Nonnull
-  final SoycSizeMaps getSoycSizeMaps( @Nonnull final Path archiveDir, @Nonnull final String build )
+  final SoycSizeMaps getSoycSizeMaps( @Nonnull final String moduleName, @Nonnull final String build )
     throws Exception
   {
-    return SoycSizeMaps.readFromGzFile( getStoriesPath( archiveDir, build ) );
+    return SoycSizeMaps.readFromGzFile( getStoriesPath( moduleName, build ) );
   }
 
   @Nonnull
-  private Path getStoriesPath( @Nonnull final Path archiveDir, @Nonnull final String build )
+  private Path getStoriesPath( @Nonnull final String moduleName, @Nonnull final String build )
   {
-    return archiveDir
+    return getArchiveDir()
       .resolve( build )
       .resolve( "compileReports" )
-      .resolve( "todomvc" )
+      .resolve( moduleName )
       .resolve( "soycReport" )
       .resolve( "stories0.xml.gz" );
   }
 
   @Nonnull
-  final SymbolEntryIndex getSymbolMapIndex( @Nonnull final Path archiveDir, @Nonnull final String build )
+  final SymbolEntryIndex getSymbolMapIndex( @Nonnull final String moduleName, @Nonnull final String build )
     throws Exception
   {
-    return SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( archiveDir, build ) );
+    return SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( moduleName, build ) );
   }
 
   @Nonnull
-  private Path getSymbolMapPath( @Nonnull final Path archiveDir, @Nonnull final String build )
+  final Path getSymbolMapPath( @Nonnull final String moduleName, @Nonnull final String build )
     throws IOException
   {
     final Path symbolMapsDir =
-      archiveDir
+      getArchiveDir()
         .resolve( build )
         .resolve( "assets" )
         .resolve( "WEB-INF" )
         .resolve( "deploy" )
-        .resolve( "todomvc" )
+        .resolve( moduleName )
         .resolve( "symbolMaps" );
 
     return Files.list( symbolMapsDir ).findFirst().orElseThrow( AssertionError::new );

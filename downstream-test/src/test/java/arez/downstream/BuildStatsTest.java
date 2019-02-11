@@ -108,8 +108,8 @@ public class BuildStatsTest
     throws Exception
   {
     final SymbolEntryIndexDiff diff =
-      SymbolEntryIndexDiff.diff( getSymbolMapIndex( getArchiveDir(), beforeBuild ),
-                                 getSymbolMapIndex( getArchiveDir(), afterBuild ) );
+      SymbolEntryIndexDiff.diff( getSymbolMapIndex( "todomvc", beforeBuild ),
+                                 getSymbolMapIndex( "todomvc", afterBuild ) );
     if ( diff.hasDifferences() )
     {
       System.out.println( "Differences detected in symbols compiled between the " +
@@ -117,8 +117,8 @@ public class BuildStatsTest
       System.out.println( diff.printToString() );
     }
     final SoycSizeMapsDiff soycDiff =
-      SoycSizeMapsDiff.diff( getSoycSizeMaps( getArchiveDir(), beforeBuild ),
-                             getSoycSizeMaps( getArchiveDir(), afterBuild ) );
+      SoycSizeMapsDiff.diff( getSoycSizeMaps( "todomvc", beforeBuild ),
+                             getSoycSizeMaps( "todomvc", afterBuild ) );
     if ( soycDiff.hasDifferences() )
     {
       System.out.println( "Differences detected in sizes compiled between the " +

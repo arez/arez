@@ -1,10 +1,6 @@
 package arez.downstream;
 
 import arez.gwt.qa.ArezBuildAsserts;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import javax.annotation.Nonnull;
 import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 import org.testng.annotations.Test;
 
@@ -17,7 +13,7 @@ public class BuildOutputTest
   {
     final String build = "arez.after";
 
-    final SymbolEntryIndex index = SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( build ) );
+    final SymbolEntryIndex index = SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( "todomvc", build ) );
 
     ArezBuildAsserts.assertArezOutputs( index,
                                         false,
@@ -40,21 +36,5 @@ public class BuildOutputTest
 
     // Part of a repository so needs an equals
     ArezBuildAsserts.assertEquals( index, "react4j\\.todomvc\\.model\\.Arez_Todo", true );
-  }
-
-  @Nonnull
-  private Path getSymbolMapPath( @Nonnull final String build )
-    throws IOException
-  {
-    final Path symbolMapsDir =
-      getArchiveDir()
-        .resolve( build )
-        .resolve( "assets" )
-        .resolve( "WEB-INF" )
-        .resolve( "deploy" )
-        .resolve( "todomvc" )
-        .resolve( "symbolMaps" );
-
-    return Files.list( symbolMapsDir ).findFirst().orElseThrow( AssertionError::new );
   }
 }
