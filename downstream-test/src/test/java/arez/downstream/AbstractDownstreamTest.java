@@ -91,4 +91,18 @@ abstract class AbstractDownstreamTest
 
     return Files.list( symbolMapsDir ).findFirst().orElseThrow( AssertionError::new );
   }
+
+  @Nonnull
+  final Properties loadBuildStatistics()
+    throws IOException
+  {
+    return loadProperties( getWorkDir().resolve( "statistics.properties" ).toFile() );
+  }
+
+  @Nonnull
+  final Properties loadFixtureStatistics()
+    throws IOException
+  {
+    return loadProperties( getFixtureDir().resolve( "statistics.properties" ).toFile() );
+  }
 }

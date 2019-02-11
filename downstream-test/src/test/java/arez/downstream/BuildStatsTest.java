@@ -144,18 +144,4 @@ public class BuildStatsTest
   {
     return SystemProperty.get( "arez.next.version" );
   }
-
-  @Nonnull
-  private Properties loadBuildStatistics()
-    throws IOException
-  {
-    return loadProperties( getWorkDir().resolve( "statistics.properties" ).toFile() );
-  }
-
-  @Nonnull
-  private Properties loadFixtureStatistics()
-    throws IOException
-  {
-    return loadProperties( getFixtureDir().resolve( "statistics.properties" ).toFile() );
-  }
 }
