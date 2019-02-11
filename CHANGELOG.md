@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11)
+[Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)
 
 * **\[core\]** Fix bug where the `onActivate` callback for `ComputableValue` instances was when disposing
   the `ComputableValue` instance while it was in an `INACTIVE` state.
