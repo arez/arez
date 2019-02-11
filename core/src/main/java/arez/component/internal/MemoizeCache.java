@@ -8,6 +8,7 @@ import arez.Disposable;
 import arez.Flags;
 import arez.Procedure;
 import arez.SafeFunction;
+import arez.Task;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -295,8 +296,9 @@ public final class MemoizeCache<T>
                        " but unable to locate corresponding ComputableValue." );
     }
     assert null != computableValue;
-    getContext().scheduleDispose( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
-                                  computableValue );
+    getContext().task( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
+                       computableValue::dispose,
+                       Flags.PRIORITY_HIGHEST | Flags.DISPOSE_ON_COMPLETE | Flags.NO_WRAP_TASK );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();

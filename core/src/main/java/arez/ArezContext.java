@@ -1228,36 +1228,6 @@ public final class ArezContext
   }
 
   /**
-   * Add the specified disposable to the list of pending disposables.
-   * The disposable must not already be in the list of pending observers.
-   * The disposable will be processed before the next top-level reaction.
-   *
-   * @param disposable the disposable.
-   */
-  public void scheduleDispose( @Nonnull final Disposable disposable )
-  {
-    scheduleDispose( null, disposable );
-  }
-
-  /**
-   * Add the specified disposable to the list of pending disposables.
-   * The disposable must not already be in the list of pending observers.
-   * The disposable will be processed before the next top-level reaction.
-   *
-   * @param name       the name describing the dispose task.
-   * @param disposable the disposable.
-   */
-  public void scheduleDispose( @Nullable final String name, @Nonnull final Disposable disposable )
-  {
-    final Task task =
-      new Task( Arez.areZonesEnabled() ? this : null,
-                generateName( "Dispose", name ),
-                disposable::dispose,
-                Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
-    task.initialSchedule();
-  }
-
-  /**
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *

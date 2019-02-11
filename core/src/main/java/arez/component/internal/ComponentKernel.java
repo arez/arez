@@ -206,7 +206,9 @@ public final class ComponentKernel
     if ( !_disposeScheduled )
     {
       _disposeScheduled = true;
-      getContext().scheduleDispose( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate.task" : null, this );
+      getContext().task( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate.task" : null,
+                         this::dispose,
+                         Flags.PRIORITY_HIGHEST | Flags.DISPOSE_ON_COMPLETE | Flags.NO_WRAP_TASK );
     }
   }
 

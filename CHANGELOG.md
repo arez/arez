@@ -9,6 +9,8 @@
   in production mode.
 * **\[core\]** Expose the flag `Flags.NO_WRAP_TASK` to signal to the framework that it is not necessary to wrap
   a task in exception handling code.
+* **\[core\]** Remove the `ArezContext.scheduleDispose(..)` API as the functionality is available in the more
+  general purpose `ArezContext.task(...)` API.
 
 ### [v0.128](https://github.com/arez/arez/tree/v0.128) (2019-02-06)
 [Full Changelog](https://github.com/arez/arez/compare/v0.127...v0.128)

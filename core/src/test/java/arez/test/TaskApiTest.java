@@ -141,4 +141,18 @@ public class TaskApiTest
 
     assertEquals( callCount.get(), 1 );
   }
+
+  @Test
+  public void schedule_insideObserver()
+  {
+    final AtomicInteger callCount = new AtomicInteger();
+    final ArezContext context = Arez.context();
+    final AtomicReference<Task> taskRef = new AtomicReference<>();
+    context.observer( () -> {
+      taskRef.set( context.task( callCount::incrementAndGet ) );
+      assertEquals( callCount.get(), 0 );
+    }, Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    assertEquals( callCount.get(), 1 );
+  }
 }
