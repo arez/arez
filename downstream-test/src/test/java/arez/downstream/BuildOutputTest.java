@@ -5,7 +5,6 @@ import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 import org.testng.annotations.Test;
 
 public class BuildOutputTest
-  extends AbstractDownstreamTest
 {
   @Test
   public void arezProduction()
@@ -13,7 +12,8 @@ public class BuildOutputTest
   {
     final String build = "arez.after";
 
-    final SymbolEntryIndex index = SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( "todomvc", build ) );
+    final SymbolEntryIndex index =
+      SymbolEntryIndex.readSymbolMapIntoIndex( WorkspaceTestUtil.getSymbolMapPath( "todomvc", build ) );
 
     ArezBuildAsserts.assertArezOutputs( index,
                                         false,

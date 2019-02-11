@@ -13,10 +13,14 @@ import org.realityforge.gwt.symbolmap.SoycSizeMaps;
 import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 
 @SuppressWarnings( "SameParameterValue" )
-abstract class AbstractDownstreamTest
+final class WorkspaceTestUtil
 {
+  private WorkspaceTestUtil()
+  {
+  }
+
   @Nonnull
-  final Properties loadProperties( @Nonnull final File file )
+  private static Properties loadProperties( @Nonnull final File file )
     throws IOException
   {
     final Properties properties = new Properties();
@@ -28,7 +32,7 @@ abstract class AbstractDownstreamTest
   }
 
   @Nonnull
-  final Path getFixtureDir()
+  private static Path getFixtureDir()
   {
     return Paths
       .get( SystemProperty.get( "arez.deploy_test.fixture_dir" ) )
@@ -37,13 +41,13 @@ abstract class AbstractDownstreamTest
   }
 
   @Nonnull
-  final Path getArchiveDir()
+  private static Path getArchiveDir()
   {
     return getWorkDir().resolve( "archive" );
   }
 
   @Nonnull
-  final Path getWorkDir()
+  private static Path getWorkDir()
   {
     return Paths
       .get( SystemProperty.get( "arez.deploy_test.work_dir" ) )
@@ -52,14 +56,14 @@ abstract class AbstractDownstreamTest
   }
 
   @Nonnull
-  final SoycSizeMaps getSoycSizeMaps( @Nonnull final String moduleName, @Nonnull final String build )
+  static SoycSizeMaps getSoycSizeMaps( @Nonnull final String moduleName, @Nonnull final String build )
     throws Exception
   {
     return SoycSizeMaps.readFromGzFile( getStoriesPath( moduleName, build ) );
   }
 
   @Nonnull
-  private Path getStoriesPath( @Nonnull final String moduleName, @Nonnull final String build )
+  private static Path getStoriesPath( @Nonnull final String moduleName, @Nonnull final String build )
   {
     return getArchiveDir()
       .resolve( build )
@@ -70,14 +74,14 @@ abstract class AbstractDownstreamTest
   }
 
   @Nonnull
-  final SymbolEntryIndex getSymbolMapIndex( @Nonnull final String moduleName, @Nonnull final String build )
+  static SymbolEntryIndex getSymbolMapIndex( @Nonnull final String moduleName, @Nonnull final String build )
     throws Exception
   {
     return SymbolEntryIndex.readSymbolMapIntoIndex( getSymbolMapPath( moduleName, build ) );
   }
 
   @Nonnull
-  final Path getSymbolMapPath( @Nonnull final String moduleName, @Nonnull final String build )
+  static Path getSymbolMapPath( @Nonnull final String moduleName, @Nonnull final String build )
     throws IOException
   {
     final Path symbolMapsDir =
@@ -93,14 +97,14 @@ abstract class AbstractDownstreamTest
   }
 
   @Nonnull
-  final Properties loadBuildStatistics()
+  static Properties loadBuildStatistics()
     throws IOException
   {
     return loadProperties( getWorkDir().resolve( "statistics.properties" ).toFile() );
   }
 
   @Nonnull
-  final Properties loadFixtureStatistics()
+  static Properties loadFixtureStatistics()
     throws IOException
   {
     return loadProperties( getFixtureDir().resolve( "statistics.properties" ).toFile() );

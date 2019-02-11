@@ -1,7 +1,6 @@
 package arez.downstream;
 
 import gir.sys.SystemProperty;
-import java.io.IOException;
 import java.util.Properties;
 import javax.annotation.Nonnull;
 import org.realityforge.gwt.symbolmap.SoycSizeMapsDiff;
@@ -10,7 +9,6 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class BuildStatsTest
-  extends AbstractDownstreamTest
 {
   @Test
   public void arez()
@@ -56,8 +54,8 @@ public class BuildStatsTest
   private void compareSizesForBranch( @Nonnull final String branch, final boolean includeBranchInFixtureKey )
     throws Exception
   {
-    final Properties buildStatistics = loadBuildStatistics();
-    final Properties fixtureStatistics = loadFixtureStatistics();
+    final Properties buildStatistics = WorkspaceTestUtil.loadBuildStatistics();
+    final Properties fixtureStatistics = WorkspaceTestUtil.loadFixtureStatistics();
 
     final long nextVersionFixtureSize =
       extractSize( fixtureStatistics, getNextVersion() + ( includeBranchInFixtureKey ? "." + branch : "" ) );
@@ -108,8 +106,8 @@ public class BuildStatsTest
     throws Exception
   {
     final SymbolEntryIndexDiff diff =
-      SymbolEntryIndexDiff.diff( getSymbolMapIndex( "todomvc", beforeBuild ),
-                                 getSymbolMapIndex( "todomvc", afterBuild ) );
+      SymbolEntryIndexDiff.diff( WorkspaceTestUtil.getSymbolMapIndex( "todomvc", beforeBuild ),
+                                 WorkspaceTestUtil.getSymbolMapIndex( "todomvc", afterBuild ) );
     if ( diff.hasDifferences() )
     {
       System.out.println( "Differences detected in symbols compiled between the " +
@@ -117,8 +115,8 @@ public class BuildStatsTest
       System.out.println( diff.printToString() );
     }
     final SoycSizeMapsDiff soycDiff =
-      SoycSizeMapsDiff.diff( getSoycSizeMaps( "todomvc", beforeBuild ),
-                             getSoycSizeMaps( "todomvc", afterBuild ) );
+      SoycSizeMapsDiff.diff( WorkspaceTestUtil.getSoycSizeMaps( "todomvc", beforeBuild ),
+                             WorkspaceTestUtil.getSoycSizeMaps( "todomvc", afterBuild ) );
     if ( soycDiff.hasDifferences() )
     {
       System.out.println( "Differences detected in sizes compiled between the " +
