@@ -3,6 +3,7 @@ package arez.apitest;
 import gir.io.Exec;
 import gir.sys.SystemProperty;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
@@ -29,7 +30,8 @@ public class ApiDiffTest
       {
         final byte[] reportData = Files.readAllBytes( reportFile.toPath() );
         final byte[] expectedData = Files.readAllBytes( fixture.toPath() );
-        assertEquals( reportData, expectedData );
+        assertEquals( new String( reportData, Charset.forName( "UTF-8" ) ),
+                      new String( expectedData, Charset.forName( "UTF-8" ) ) );
       }
     }
     finally
