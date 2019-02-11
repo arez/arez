@@ -76,6 +76,36 @@ define 'arez' do
     test.compile.with TEST_DEPS, :jdepend
   end
 
+  desc 'Test Arez API'
+  define 'api-test' do
+    test.compile.with :javax_annotation,
+                      :gir
+
+    test.options[:properties] =
+      AREZ_TEST_OPTIONS.merge(
+        'arez.api_test.store_api_diff' => ENV['STORE_API_DIFF'] == 'true',
+        'arez.prev.version' => ENV['PREVIOUS_PRODUCT_VERSION'],
+        'arez.prev.jar' => artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}").to_s,
+        'arez.next.version' => ENV['PRODUCT_VERSION'],
+        'arez.next.jar' => project('core').package(:jar).to_s,
+        'arez.api_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
+        'arez.revapi.jar' => artifact(:revapi_diff).to_s
+      )
+    test.options[:java_args] = ['-ea']
+    test.using :testng
+
+    test.compile.enhance do
+      mkdir_p _('src/test/resources/fixtures')
+      artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION']}").invoke
+      project('core').package(:jar).invoke
+      artifact(:revapi_diff).invoke
+    end unless ENV['TEST'] == 'no'
+
+    test.exclude '*ApiDiffTest' if ENV['PRODUCT_VERSION'].nil? || ENV['PREVIOUS_PRODUCT_VERSION'].nil?
+
+    project.jacoco.enabled = false
+  end
+
   desc 'Arez Annotation processor'
   define 'processor' do
     pom.dependency_filter = Proc.new {|_| false}
@@ -173,7 +203,7 @@ define 'arez' do
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge(
-        'arez.current.version' => ENV['PREVIOUS_PRODUCT_VERSION'] || project.version,
+        'arez.prev.version' => ENV['PREVIOUS_PRODUCT_VERSION'] || project.version,
         'arez.next.version' => ENV['PRODUCT_VERSION'] || project.version,
         'arez.build_j2cl_variants' => (ENV['J2CL'] != 'no'),
         'arez.deploy_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
@@ -215,7 +245,7 @@ define 'arez' do
 
       properties = {}
       # Take the version that we are releasing else fallback to project version
-      properties['arez.current.version'] = ENV['PREVIOUS_PRODUCT_VERSION'] || project.version
+      properties['arez.prev.version'] = ENV['PREVIOUS_PRODUCT_VERSION'] || project.version
       properties['arez.next.version'] = ENV['PRODUCT_VERSION'] || project.version
       properties['arez.build_j2cl_variants'] = ENV['J2CL'] != 'no'
       properties['arez.deploy_test.work_dir'] = _(:target, 'deploy_test/workdir').to_s
@@ -281,7 +311,8 @@ define 'arez' do
   iml.excluded_directories << project._('tmp/gwt')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.current.version=X -Darez.next.version=X -Darez.core.compile_target=target/arez_core/idea/classes')
+  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.api_test.fixture_dir=api-test/src/test/resources/fixtures -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.revapi.jar=#{artifact(:revapi_diff)}")
+
   ipr.add_component_from_artifact(:idea_codestyle)
 
   ipr.nonnull_assertions = false

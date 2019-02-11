@@ -11,6 +11,9 @@
   a task in exception handling code.
 * **\[core\]** Remove the `ArezContext.scheduleDispose(..)` API as the functionality is available in the more
   general purpose `ArezContext.task(...)` API.
+* **\[core\]** Add tracking of API changes for the `core` artifact so that breaking changes only occur when
+  explicitly acknowledged. API changes are tracked in reports generated per-release in the
+  `api-test/src/test/resources/fixtures` directory.
 
 ### [v0.128](https://github.com/arez/arez/tree/v0.128) (2019-02-06)
 [Full Changelog](https://github.com/arez/arez/compare/v0.127...v0.128)
