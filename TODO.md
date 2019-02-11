@@ -260,8 +260,11 @@ See https://angular.io/guide/dependency-injection
   publish a release as it indicates that there was some code change required. The other trigger for a release may be
   when the major version of arez changes.
 
-* Setup tool that does comparisons between different versions of the API via a tool such as:
-  - https://github.com/siom79/japicmp
+* Setup test that records API changes against actual API changes. This will use [revapi-diff](https://github.com/realityforge/revapi-diff)
+  and will store the output on the filesystem.
+
+* Generate a report of API differences between different versions of the API. This report should be uploaded to the
+  website and made available via the CHANGELOG.md.
 
 * Consider a tool that creates branches in downstream branches if it does not exist and the build fails. This would
   make it easy to come along and update the branch as required.
