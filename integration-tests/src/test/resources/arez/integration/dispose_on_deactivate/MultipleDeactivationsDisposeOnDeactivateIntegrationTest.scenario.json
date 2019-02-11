@@ -1,0 +1,435 @@
+
+[
+    {
+        "name": "Model1.1",
+        "type": "ComponentCreateStart"
+    },
+    {
+        "name": "Model1.1.isDisposed",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ComputableValueCreate"
+    },
+    {
+        "name": "Model1.1",
+        "type": "ComponentCreateComplete"
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserverCreate"
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "Observer@1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "ObservableValue@2",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model1.1.disposeOnDeactivate",
+        "tracker": "Model1.1.disposeOnDeactivate",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ObservableValueChange",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "name": "Model1.1.disposeOnDeactivate",
+        "tracker": "Model1.1.disposeOnDeactivate",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": true,
+        "name": "Model1.1.disposeOnDeactivate",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Observer@1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "Observer@1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Observer@1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "Observer@1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Observer@1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserverDispose"
+    },
+    {
+        "name": "ComputableValue@3",
+        "type": "ComputableValueCreate"
+    },
+    {
+        "name": "Action@4",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Action@4",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "ComputableValue@3",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "ComputableValue@3",
+        "tracker": "ComputableValue@3",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "Model1.1.disposeOnDeactivate",
+        "tracker": "Model1.1.disposeOnDeactivate",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ObservableValueChange",
+        "value": true
+    },
+    {
+        "mutation": false,
+        "name": "Model1.1.disposeOnDeactivate",
+        "tracker": "Model1.1.disposeOnDeactivate",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": true,
+        "name": "Model1.1.disposeOnDeactivate",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "ComputableValue@3",
+        "type": "ObservableValueChange",
+        "value": 0.3724731095354967
+    },
+    {
+        "mutation": false,
+        "name": "ComputableValue@3",
+        "tracker": "ComputableValue@3",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": 0.3724731095354967,
+        "name": "ComputableValue@3",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "mutation": true,
+        "name": "Action@4",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": 0.3724731095354967,
+        "name": "Action@4",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": true,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "ComputableValue@3.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "ComputableValue@3.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "ComputableValue@3.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "ComputableValue@3.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "ComputableValue@3",
+        "type": "ComputableValueDispose"
+    },
+    {
+        "name": "ComputableValue@3.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "ComputableValue@3.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "ComputableValue@3",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
+        "mutation": true,
+        "name": "ComputableValue@3.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "ComputableValue@3.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "ComputableValue@3.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "ComputableValue@3.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "ComputableValue@3.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "ComputableValue@3.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "Model1.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Model1.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ComputableValueDispose"
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
+        "result": null,
+        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "result": null,
+        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1.isDisposed.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1.isDisposed",
+        "type": "ObservableValueChange",
+        "value": false
+    },
+    {
+        "result": null,
+        "name": "Model1.1.isDisposed.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1.isDisposed",
+        "type": "ObservableValueDispose"
+    },
+    {
+        "mutation": true,
+        "name": "Model1.1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Model1.1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Model1.1",
+        "type": "ComponentDisposeComplete"
+    }
+]

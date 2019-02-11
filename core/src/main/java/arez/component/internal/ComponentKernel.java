@@ -130,6 +130,11 @@ public final class ComponentKernel
    */
   @Nullable
   private final ComputableValue<Boolean> _disposeOnDeactivate;
+  /**
+   * Guard to ensure we never try to schedule a dispose multiple times, otherwise the underlying task
+   * system will detect multiple tasks with the same name and object.
+   */
+  private boolean _disposeScheduled;
 
   public ComponentKernel( @Nullable final ArezContext context,
                           @Nullable final String name,
@@ -188,7 +193,16 @@ public final class ComponentKernel
 
   private void scheduleDispose()
   {
-    getContext().scheduleDispose( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate.task" : null, this );
+    /*
+     * Guard against a scenario where due to interleaving of scheduled tasks a component is disposed due,
+     * to deactivation and then is re-observed and deactivated again prior to the dispose task running.
+     * This scenario was thought to be practically impossible but several applications did the impossible.
+     */
+    if ( !_disposeScheduled )
+    {
+      _disposeScheduled = true;
+      getContext().scheduleDispose( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate.task" : null, this );
+    }
   }
 
   @Nonnull

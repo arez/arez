@@ -4,6 +4,9 @@
 
 * **\[core\]** Fix bug where the `onActivate` callback for `ComputableValue` instances was when disposing
   the `ComputableValue` instance while it was in an `INACTIVE` state.
+* **\[core\]** Fix a bug where a `disposeOnDeactivate=true` component that was deactivated multiple times without
+  the dispose task running could generate an invariant failure in development mode and a runtime exception
+  in production mode.
 
 ### [v0.128](https://github.com/arez/arez/tree/v0.128) (2019-02-06)
 [Full Changelog](https://github.com/arez/arez/compare/v0.127...v0.128)
