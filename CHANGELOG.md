@@ -7,6 +7,8 @@
 * **\[core\]** Fix a bug where a `disposeOnDeactivate=true` component that was deactivated multiple times without
   the dispose task running could generate an invariant failure in development mode and a runtime exception
   in production mode.
+* **\[core\]** Expose the flag `Flags.NO_WRAP_TASK` to signal to the framework that it is not necessary to wrap
+  a task in exception handling code.
 
 ### [v0.128](https://github.com/arez/arez/tree/v0.128) (2019-02-06)
 [Full Changelog](https://github.com/arez/arez/compare/v0.127...v0.128)

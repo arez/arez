@@ -96,6 +96,13 @@ public final class Flags
    */
   private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | APPLICATION_EXECUTOR;
   /**
+   * The flag that can be passed to a task and indicates that task should not be wrapped.
+   * The wrapping is responsible for ensuring the task never generates an exception and for generating
+   * the spy events. If wrapping is disabled it is expected that the task callback supplier is responsible for integrating
+   * with the spy subsystem and catching exceptions if any.
+   */
+  public static final int NO_WRAP_TASK = Task.Flags.NO_WRAP_TASK;
+  /**
    * A flag that can be passed to a Task that indicates that the task should be disposed after it has completed execution.
    */
   public static final int DISPOSE_ON_COMPLETE = Task.Flags.DISPOSE_ON_COMPLETE;
