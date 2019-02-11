@@ -197,6 +197,11 @@ public final class ComponentKernel
      * Guard against a scenario where due to interleaving of scheduled tasks a component is disposed due,
      * to deactivation and then is re-observed and deactivated again prior to the dispose task running.
      * This scenario was thought to be practically impossible but several applications did the impossible.
+     *
+     * There is still a bug or at least an ambiguity where a disposeOnDeactivate component deactivates, schedules
+     * dispose and then activates before the dispose task runs. Should the dispose be aborted or should it go ahead?
+     * Currently the Arez API does not expose a flag indicating whether computableValues are observed and not possible
+     * to implement the first strategy even though it may seem to be the right one.
      */
     if ( !_disposeScheduled )
     {
