@@ -288,7 +288,7 @@ See https://angular.io/guide/dependency-injection
 Over time the Arez component API has grown to be more than just a thin veneer ontop of core arez primitives. It
 is also expected that as more capabilities are added to the API such as deeper integration with a reactive streaming
 API, an injection API, a transport and/or serialization API that this API may be better extracted into a separate
-project?
+project? If so [khumbu](https://github.com/khumbu) looks like a nice vacant name.
 
 ## Mobx State Tree
 
