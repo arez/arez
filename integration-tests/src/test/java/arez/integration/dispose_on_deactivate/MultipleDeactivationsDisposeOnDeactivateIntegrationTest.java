@@ -10,6 +10,7 @@ import arez.annotations.ArezComponent;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -20,6 +21,7 @@ public class MultipleDeactivationsDisposeOnDeactivateIntegrationTest
   public void scenario()
     throws Throwable
   {
+    final AtomicInteger counter = new AtomicInteger();
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model1 model = Model1.create();
@@ -35,9 +37,9 @@ public class MultipleDeactivationsDisposeOnDeactivateIntegrationTest
     // This will trigger scheduleDispose
     Disposable.dispose( observer );
 
-    final ComputableValue<Double> computableValue = Arez.context().computable( () -> {
+    final ComputableValue<Integer> computableValue = Arez.context().computable( () -> {
       ComponentObservable.observe( model );
-      return Math.random();
+      return counter.incrementAndGet();
     } );
 
     // This will re-observe model and re-activate and then deactivate which will trigger another scheduleDispose

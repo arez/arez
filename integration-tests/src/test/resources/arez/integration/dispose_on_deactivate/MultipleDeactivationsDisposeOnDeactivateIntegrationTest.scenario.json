@@ -183,7 +183,7 @@
     {
         "name": "ComputableValue@3",
         "type": "ObservableValueChange",
-        "value": 0.3724731095354967
+        "value": 1
     },
     {
         "mutation": false,
@@ -192,7 +192,7 @@
         "type": "TransactionComplete"
     },
     {
-        "result": 0.3724731095354967,
+        "result": 1,
         "name": "ComputableValue@3",
         "errorMessage": null,
         "type": "ComputeComplete"
@@ -204,7 +204,7 @@
         "type": "TransactionComplete"
     },
     {
-        "result": 0.3724731095354967,
+        "result": 1,
         "name": "Action@4",
         "errorMessage": null,
         "tracked": false,
