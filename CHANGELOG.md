@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add the `react4j-drumloop` sample application into set off used to track code size changes over time.
+
 ### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)
 

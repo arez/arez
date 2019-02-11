@@ -16,8 +16,6 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Add `react4j-drumloop` into build tests
-
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
 * `ArezComponent.requireId` should default to true if there is an `@Inverse` annotation present.
