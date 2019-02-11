@@ -3,9 +3,12 @@ package arez.apitest;
 import gir.io.Exec;
 import gir.sys.SystemProperty;
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import javax.annotation.Nonnull;
+import javax.json.Json;
+import javax.json.JsonArray;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -24,7 +27,12 @@ public class ApiDiffTest
       final File fixture = getFixtureReport();
       if ( !fixture.exists() )
       {
-        fail( "Unable to locate test fixture at " + fixture.getAbsolutePath() );
+        final JsonArray differences = Json.createReader( new FileInputStream( reportFile ) ).readArray();
+        if ( !differences.isEmpty() )
+        {
+          fail( "Unable to locate test fixture describing expected API changes when there is " + differences.size() +
+                " differences detected. Expected fixture file to be located at " + fixture.getAbsolutePath() );
+        }
       }
       else
       {

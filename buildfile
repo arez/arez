@@ -79,6 +79,7 @@ define 'arez' do
   desc 'Test Arez API'
   define 'api-test' do
     test.compile.with :javax_annotation,
+                      :javax_json,
                       :gir
 
     test.options[:properties] =
