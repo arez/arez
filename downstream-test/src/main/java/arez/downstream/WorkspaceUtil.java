@@ -286,20 +286,20 @@ final class WorkspaceUtil
     return getFixtureDirectory().resolve( "statistics.properties" );
   }
 
-  static void collectStatistics( @Nonnull final List<String> branches,
-                                 @Nonnull final Predicate<String> includeBranch,
-                                 final boolean includeBranchInFixtureKey )
+  static void collectStatistics( @Nonnull final List<String> builds,
+                                 @Nonnull final Predicate<String> includeBuild,
+                                 final boolean includeBuildInFixtureKey )
     throws IOException
   {
     final String version = getVersion();
     final OrderedProperties overallStatistics = new OrderedProperties();
     final OrderedProperties displayStatistics = new OrderedProperties();
     final OrderedProperties fixtureStatistics = OrderedProperties.load( getFixtureStatisticsPath() );
-    for ( final String branch : branches )
+    for ( final String build : builds )
     {
       final Path workingDirectory = setupWorkingDirectory();
 
-      final String beforePrefix = branch + ".before";
+      final String beforePrefix = build + ".before";
       final Path beforeArchiveDir = getArchiveDir( workingDirectory, beforePrefix );
       if ( beforeArchiveDir.resolve( "statistics.properties" ).toFile().exists() )
       {
@@ -307,16 +307,16 @@ final class WorkspaceUtil
         overallStatistics.mergeWithPrefix( properties, beforePrefix + "." );
       }
 
-      final String afterPrefix = branch + ".after";
+      final String afterPrefix = build + ".after";
       final Path afterArchiveDir = getArchiveDir( workingDirectory, afterPrefix );
       if ( afterArchiveDir.resolve( "statistics.properties" ).toFile().exists() )
       {
         final Properties properties = loadStatistics( afterArchiveDir );
         overallStatistics.mergeWithPrefix( properties, afterPrefix + "." );
 
-        if ( includeBranch.test( branch ) )
+        if ( includeBuild.test( build ) )
         {
-          final String prefix = version + "." + ( includeBranchInFixtureKey ? branch + "." : "" );
+          final String prefix = version + "." + ( includeBuildInFixtureKey ? build + "." : "" );
           fixtureStatistics.mergeWithPrefix( properties, prefix );
           displayStatistics.mergeWithPrefix( properties, prefix );
         }
