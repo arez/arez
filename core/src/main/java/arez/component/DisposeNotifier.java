@@ -71,7 +71,7 @@ public final class DisposeNotifier
   /**
    * Remove the listener with specified key from the notify list.
    * This method MUST NOT be invoked after {@link #dispose()} has been invoked.
-   * This method should only be invoked when a listener has been added for specific using
+   * This method should only be invoked when a listener has been added for specific key using
    * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
    * call to this method.
    *
