@@ -102,8 +102,10 @@ public class DisposeNotifierTest
 
     notifier.dispose();
 
-    assertInvariantFailure( () -> notifier.removeOnDisposeListener( key ),
-                            "Arez-0169: Attempting to remove OnDispose listener but DisposeNotifier has been disposed." );
+    // Perfectly legitimate to remove after dispose and can occur in certain application sequences
+    notifier.removeOnDisposeListener( key );
+
+    assertEquals( notifier.getListeners().size(), 0 );
   }
 
   @Test

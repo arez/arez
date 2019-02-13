@@ -70,7 +70,6 @@ public final class DisposeNotifier
 
   /**
    * Remove the listener with specified key from the notify list.
-   * This method MUST NOT be invoked after {@link #dispose()} has been invoked.
    * This method should only be invoked when a listener has been added for specific key using
    * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
    * call to this method.
@@ -79,11 +78,10 @@ public final class DisposeNotifier
    */
   public void removeOnDisposeListener( @Nonnull final Object key )
   {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      invariant( this::isNotDisposed,
-                 () -> "Arez-0169: Attempting to remove OnDispose listener but DisposeNotifier has been disposed." );
-    }
+    // This method can be called when the notifier is disposed to avoid the caller (i.e. per-component
+    // generated code) from checking the disposed state of the notifier before invoking this method.
+    // This is necessary in a few rare circumstances but requiring the caller to check before invocation
+    // increases the generated code size.
     final SafeProcedure removed = _listeners.remove( key );
     if ( Arez.shouldCheckApiInvariants() )
     {
