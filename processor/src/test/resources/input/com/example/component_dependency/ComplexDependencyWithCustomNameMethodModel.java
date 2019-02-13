@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.Observable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import javax.annotation.Nonnull;
 
 @ArezComponent
@@ -15,19 +15,19 @@ public abstract class ComplexDependencyWithCustomNameMethodModel
   abstract String getComponentName();
 
   @ComponentDependency
-  final DisposeTrackable getValue1()
+  final DisposeNotifier getValue1()
   {
     return null;
   }
 
   @ComponentDependency( action = ComponentDependency.Action.SET_NULL )
-  DisposeTrackable getValue3()
+  DisposeNotifier getValue3()
   {
     return null;
   }
 
   @Observable
-  void setValue3( DisposeTrackable value )
+  void setValue3( DisposeNotifier value )
   {
   }
 }

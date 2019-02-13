@@ -6,7 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
@@ -15,15 +15,15 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ConcreteObservablePairWithInitializerDependency extends ConcreteObservablePairWithInitializerDependency implements Disposable, Identifiable<Integer>, DisposeTrackable {
+final class Arez_ConcreteObservablePairWithInitializerDependency extends ConcreteObservablePairWithInitializerDependency implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
-  private final ObservableValue<DisposeTrackable> $$arez$$_value;
+  private final ObservableValue<DisposeNotifier> $$arez$$_value;
 
-  Arez_ConcreteObservablePairWithInitializerDependency(final DisposeTrackable value) {
+  Arez_ConcreteObservablePairWithInitializerDependency(final DisposeNotifier value) {
     super(value);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
@@ -31,9 +31,9 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ConcreteObservablePairWithInitializerDependency", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
-    final DisposeTrackable $$arezv$$_getValue_dependency = super.getValue();
+    final DisposeNotifier $$arezv$$_getValue_dependency = super.getValue();
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeTrackable.asDisposeTrackable( super.getValue() ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( super.getValue() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -50,9 +50,9 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
   }
 
   private void $$arezi$$_preDispose() {
-    final DisposeTrackable $$arezv$$_getValue_dependency = super.getValue();
+    final DisposeNotifier $$arezv$$_getValue_dependency = super.getValue();
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
     }
   }
 
@@ -86,7 +86,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
   }
 
   @Override
-  DisposeTrackable getValue() {
+  DisposeNotifier getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -95,19 +95,19 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
   }
 
   @Override
-  void setValue(final DisposeTrackable value) {
+  void setValue(final DisposeNotifier value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arez$$_value.preReportChanged();
-    final DisposeTrackable $$arezv$$_currentValue = super.getValue();
+    final DisposeNotifier $$arezv$$_currentValue = super.getValue();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).removeOnDisposeListener( this );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       }
       super.setValue( value );
       if ( null != value ) {
-        DisposeTrackable.asDisposeTrackable( value ).addOnDisposeListener( this, this::dispose );
+        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose );
       }
       this.$$arez$$_value.reportChanged();
     }

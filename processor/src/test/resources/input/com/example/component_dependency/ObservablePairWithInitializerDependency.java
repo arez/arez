@@ -4,14 +4,14 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 
 @ArezComponent
 public abstract class ObservablePairWithInitializerDependency
 {
   @ComponentDependency
-  abstract DisposeTrackable getValue();
+  abstract DisposeNotifier getValue();
 
   @Observable( initializer = Feature.ENABLE )
-  abstract void setValue( DisposeTrackable value );
+  abstract void setValue( DisposeNotifier value );
 }

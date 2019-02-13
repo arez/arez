@@ -8,7 +8,7 @@ import arez.Disposable;
 import arez.Flags;
 import arez.SafeProcedure;
 import arez.component.CollectionsUtil;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_MemoizeNonnullListModel extends MemoizeNonnullListModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_MemoizeNonnullListModel extends MemoizeNonnullListModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

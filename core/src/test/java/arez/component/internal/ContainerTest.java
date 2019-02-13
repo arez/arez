@@ -7,7 +7,7 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.NoSuchEntityException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -308,7 +308,7 @@ public class ContainerTest
   }
 
   static class MyEntity
-    implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
+    implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeNotifier
   {
     private final ObservableValue<Object> _observableValue = Arez.context().observable();
     private final ComponentKernel _kernel;

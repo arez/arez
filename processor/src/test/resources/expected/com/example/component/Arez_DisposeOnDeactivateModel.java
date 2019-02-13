@@ -7,7 +7,7 @@ import arez.Disposable;
 import arez.Flags;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

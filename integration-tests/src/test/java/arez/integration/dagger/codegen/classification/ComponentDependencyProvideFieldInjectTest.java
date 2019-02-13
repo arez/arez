@@ -3,7 +3,7 @@ package arez.integration.dagger.codegen.classification;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.InjectMode;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.integration.dagger.codegen.AbstractCodegenIntegrationTest;
 import javax.inject.Inject;
 import org.testng.annotations.Test;
@@ -26,7 +26,7 @@ public class ComponentDependencyProvideFieldInjectTest
     MyDependency _myDependency;
 
     @ComponentDependency
-    final DisposeTrackable myDependency()
+    final DisposeNotifier myDependency()
     {
       return null;
     }

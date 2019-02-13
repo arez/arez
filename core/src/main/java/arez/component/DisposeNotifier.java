@@ -15,7 +15,7 @@ import static org.realityforge.braincheck.Guards.*;
  * {@link ComponentObservable} which uses standard Arez observables to track when
  * a component is disposed.
  */
-public interface DisposeTrackable
+public interface DisposeNotifier
 {
   /**
    * Add the listener to notify list under key.
@@ -43,21 +43,21 @@ public interface DisposeTrackable
   void removeOnDisposeListener( @Nonnull Object key );
 
   /**
-   * Cast the specified object to an instance of DisposeTrackable.
+   * Cast the specified object to an instance of DisposeNotifier.
    * Invariant checks will verify that the cast is valid before proceeding.
    *
    * @param object the object.
-   * @return the object cast to DisposeTrackable.
+   * @return the object cast to DisposeNotifier.
    */
   @Nonnull
-  static DisposeTrackable asDisposeTrackable( @Nonnull final Object object )
+  static DisposeNotifier asDisposeNotifier( @Nonnull final Object object )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> object instanceof DisposeTrackable,
-                    () -> "Arez-0178: Object passed to asDisposeTrackable does not implement " +
-                          "DisposeTrackable. Object: " + object );
+      apiInvariant( () -> object instanceof DisposeNotifier,
+                    () -> "Arez-0178: Object passed to asDisposeNotifier does not implement " +
+                          "DisposeNotifier. Object: " + object );
     }
-    return (DisposeTrackable) object;
+    return (DisposeNotifier) object;
   }
 }

@@ -119,7 +119,7 @@ public final class ComponentKernel
   private final SafeProcedure _postDisposeCallback;
   /**
    * The mechanisms to notify downstream elements that the component has been disposed. This should be non-null
-   * if the {@link ArezComponent#disposeTrackable()} is enabled, and <code>null</code> otherwise.
+   * if the {@link ArezComponent#disposeNotifier()} is enabled, and <code>null</code> otherwise.
    */
   @Nullable
   private final Map<Object, SafeProcedure> _onDisposeListeners;

@@ -1,4 +1,4 @@
-package com.example.dispose_trackable;
+package com.example.dispose_notifier;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -6,7 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Flags;
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
@@ -14,17 +14,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DisposeTrackableModel extends DisposeTrackableModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_DisposeNotifierModel extends DisposeNotifierModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_DisposeTrackableModel() {
+  public Arez_DisposeNotifierModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "DisposeTrackableModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DisposeTrackableModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "DisposeNotifierModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DisposeNotifierModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -84,8 +84,8 @@ public final class Arez_DisposeTrackableModel extends DisposeTrackableModel impl
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_DisposeTrackableModel ) {
-        final Arez_DisposeTrackableModel that = (Arez_DisposeTrackableModel) o;
+      if ( o instanceof Arez_DisposeNotifierModel ) {
+        final Arez_DisposeNotifierModel that = (Arez_DisposeNotifierModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

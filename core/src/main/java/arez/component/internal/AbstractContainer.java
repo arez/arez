@@ -7,7 +7,7 @@ import arez.annotations.ObservableValueRef;
 import arez.annotations.PreDispose;
 import arez.component.CollectionsUtil;
 import arez.component.ComponentObservable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.NoSuchEntityException;
 import java.util.HashMap;
@@ -194,8 +194,8 @@ public abstract class AbstractContainer<K, T>
 
   private void attachEntity( @Nonnull final T entity )
   {
-    DisposeTrackable
-      .asDisposeTrackable( entity )
+    DisposeNotifier
+      .asDisposeNotifier( entity )
       .addOnDisposeListener( this, () -> {
         getEntitiesObservableValue().preReportChanged();
         detach( entity, false );
@@ -214,7 +214,7 @@ public abstract class AbstractContainer<K, T>
 
   private void detachEntity( @Nonnull final T entity )
   {
-    DisposeTrackable.asDisposeTrackable( entity ).removeOnDisposeListener( this );
+    DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this );
   }
 
   final HashMap<K, T> entityMap()

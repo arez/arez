@@ -451,7 +451,7 @@ final class ProcessorUtil
       getAnnotationValue( elementUtils,
                           typeElement,
                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                          "disposeTrackable" ).getValue();
+                          "disposeNotifier" ).getValue();
     switch ( variableElement.getSimpleName().toString() )
     {
       case "ENABLE":

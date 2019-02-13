@@ -3,26 +3,26 @@ package com.example.component_dependency;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 
 @ArezComponent
 public abstract class ConcreteObservablePairWithInitializerDependency
 {
-  DisposeTrackable _value;
+  DisposeNotifier _value;
 
-  ConcreteObservablePairWithInitializerDependency( final DisposeTrackable value )
+  ConcreteObservablePairWithInitializerDependency( final DisposeNotifier value )
   {
     _value = value;
   }
 
   @ComponentDependency
-  DisposeTrackable getValue()
+  DisposeNotifier getValue()
   {
     return _value;
   }
 
   @Observable
-  void setValue( DisposeTrackable value )
+  void setValue( DisposeNotifier value )
   {
     _value = value;
   }

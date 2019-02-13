@@ -11,7 +11,7 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.SafeProcedure;
 import arez.component.CollectionsUtil;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
@@ -28,7 +28,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, Verifiable, DisposeTrackable {
+public final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, Verifiable, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull

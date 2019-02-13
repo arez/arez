@@ -5,14 +5,14 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_FloatComponentIdRequireEquals extends FloatComponentIdRequireEquals implements Disposable, Identifiable<Float>, DisposeTrackable {
+public final class Arez_FloatComponentIdRequireEquals extends FloatComponentIdRequireEquals implements Disposable, Identifiable<Float>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
   public Arez_FloatComponentIdRequireEquals() {

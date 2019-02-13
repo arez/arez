@@ -6,7 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Flags;
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
@@ -16,7 +16,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_CustomPriorityModel extends CustomPriorityModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_CustomPriorityModel extends CustomPriorityModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

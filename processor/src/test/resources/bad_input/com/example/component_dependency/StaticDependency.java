@@ -2,13 +2,13 @@ package com.example.component_dependency;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 
 @ArezComponent( allowEmpty = true )
 public abstract class StaticDependency
 {
   @ComponentDependency
-  static DisposeTrackable getTime()
+  static DisposeNotifier getTime()
   {
     return null;
   }

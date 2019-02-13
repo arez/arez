@@ -1,0 +1,40 @@
+package arez.component;
+
+import arez.AbstractArezTest;
+import arez.SafeProcedure;
+import javax.annotation.Nonnull;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
+
+public class DisposeNotifierTest
+  extends AbstractArezTest
+{
+  static class BasicDisposeNotifier
+    implements DisposeNotifier
+  {
+    @Override
+    public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+    {
+    }
+
+    @Override
+    public void removeOnDisposeListener( @Nonnull final Object key )
+    {
+    }
+  }
+
+  @Test
+  public void asDisposeNotifier()
+  {
+    final BasicDisposeNotifier notifier = new BasicDisposeNotifier();
+
+    assertEquals( DisposeNotifier.asDisposeNotifier( notifier ), notifier );
+  }
+
+  @Test
+  public void asDisposeNotifier_whenNotTrackable()
+  {
+    assertInvariantFailure( () -> DisposeNotifier.asDisposeNotifier( "XXXX" ),
+                            "Arez-0178: Object passed to asDisposeNotifier does not implement DisposeNotifier. Object: XXXX" );
+  }
+}

@@ -1,6 +1,7 @@
 package arez.annotations;
 
 import arez.Arez;
+import arez.component.DisposeNotifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -93,18 +94,17 @@ public @interface ArezComponent
   Feature observable() default Feature.AUTODETECT;
 
   /**
-   * Return enum to control whether the component should support implement {@link arez.component.DisposeTrackable}.
+   * Return enum to control whether the component should support implement the {@link DisposeNotifier} interface.
    * This will result in the component invoking dispose listener callbacks during dispose operation
    * within the scope of the disposing transaction.
    *
-   * <p>{@link Feature#ENABLE} will force the implementation of the DisposeTrackable interface,
-   * {@link Feature#DISABLE} will result in not implementing the DisposeTrackable interface and
-   * {@link Feature#AUTODETECT} will cause the component to implement the interface if the component
-   * is not annotated with <tt>javax.inject.Singleton</tt>.</p>
+   * <p>If the value of this parameter is {@link Feature#AUTODETECT} then the component will implement the
+   * interface {@link DisposeNotifier} interface unless the component is annotated with
+   * <tt>javax.inject.Singleton</tt>.</p>
    *
-   * @return Return enum to control whether the component should support implement DisposeTrackable.
+   * @return Return enum to control whether the component should implement DisposeNotifier.
    */
-  Feature disposeTrackable() default Feature.AUTODETECT;
+  Feature disposeNotifier() default Feature.AUTODETECT;
 
   /**
    * Return true if the component should dispose itself once it is no longer "observed".

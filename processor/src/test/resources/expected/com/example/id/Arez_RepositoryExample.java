@@ -6,14 +6,14 @@ import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_RepositoryExample extends RepositoryExample implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+final class Arez_RepositoryExample extends RepositoryExample implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

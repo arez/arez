@@ -1,5 +1,6 @@
 package arez.annotations;
 
+import arez.component.DisposeNotifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -9,14 +10,14 @@ import javax.annotation.Nonnull;
  * Methods and fields marked with this annotation are dependencies of the component.
  * If the dependency is disposed then the component takes an action to cascade the dispose
  * or null the property referencing the dependency. The dependency MUST implement the
- * {@link arez.component.DisposeTrackable} interface.
+ * {@link DisposeNotifier} interface.
  *
  * <p>If the element annotated is a method then the method must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation except {@link Observable}</li>
  * <li>If not annotated with {@link Observable} then must be final</li>
  * <li>Must have 0 parameters</li>
- * <li>Must return a value that implements {@link arez.component.DisposeTrackable} or is annotated with {@link ArezComponent}</li>
+ * <li>Must return a value that implements {@link DisposeNotifier} or is annotated with {@link ArezComponent}</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>
@@ -26,7 +27,7 @@ import javax.annotation.Nonnull;
  * <p>If the element annotated is a field then the field must comply with the additional constraints:</p>
  * <ul>
  * <li>Must be final</li>
- * <li>Must be a type that implements {@link arez.component.DisposeTrackable} or is annotated with {@link ArezComponent}</li>
+ * <li>Must be a type that implements {@link DisposeNotifier} or is annotated with {@link ArezComponent}</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * </ul>

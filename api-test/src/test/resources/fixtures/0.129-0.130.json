@@ -1,48 +1,197 @@
 
 [
     {
-        "name": "method added to interface",
-        "code": "java.method.addedToInterface",
-        "description": "Method was added to an interface.",
-        "newElement": "method void arez.component.DisposeTrackable::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
+        "name": "class kind changed",
+        "code": "java.class.kindChanged",
+        "description": "Class kind changed from 'class' to 'interface'.",
+        "newElement": "interface arez.component.DisposeNotifier",
+        "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
+        "oldElement": "class arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "class",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "newKind": "interface",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "oldKind": "class",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "class no longer final",
+        "code": "java.class.noLongerFinal",
+        "description": "Class is no longer final.",
+        "newElement": "interface arez.component.DisposeNotifier",
+        "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
+        "oldElement": "class arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "EQUIVALENT",
+            "BINARY": "EQUIVALENT"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "class",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "newModifiers": "public abstract",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "oldModifiers": "public final",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "class no longer implements interface",
+        "code": "java.class.noLongerImplementsInterface",
+        "description": "Class no longer implements interface 'arez.Disposable'.",
+        "newElement": "interface arez.component.DisposeNotifier",
+        "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
+        "oldElement": "class arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "class",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "interface": "arez.Disposable",
+            "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "class now abstract",
+        "code": "java.class.nowAbstract",
+        "description": "Class is now abstract.",
+        "newElement": "interface arez.component.DisposeNotifier",
+        "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
+        "oldElement": "class arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "class",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "newModifiers": "public abstract",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "oldModifiers": "public final",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "new attribute with default on annotation",
+        "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+        "description": "The annotation has a new attribute with a default value.",
+        "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::disposeNotifier()",
         "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
         "oldElement": null,
         "oldElementModule": null,
         "classification": {
-            "SOURCE": "BREAKING",
-            "BINARY": "NON_BREAKING",
-            "SEMANTIC": "POTENTIALLY_BREAKING"
+            "SOURCE": "NON_BREAKING",
+            "BINARY": "NON_BREAKING"
         },
         "attachments": {
-            "classQualifiedName": "arez.component.DisposeTrackable",
-            "classSimpleName": "DisposeTrackable",
+            "classQualifiedName": "arez.annotations.ArezComponent",
+            "classSimpleName": "ArezComponent",
             "elementKind": "method",
-            "exampleUseChainInNewApi": "interface arez.component.DisposeTrackable is part of the API",
-            "methodName": "addOnDisposeListener",
+            "exampleUseChainInNewApi": "@interface arez.annotations.ArezComponent is part of the API",
+            "methodName": "disposeNotifier",
+            "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "package": "arez.annotations"
+        }
+    },
+    {
+        "name": "static method added to interface",
+        "code": "java.method.staticMethodAddedToInterface",
+        "description": "A default method has been added to the interface.",
+        "newElement": "method arez.component.DisposeNotifier arez.component.DisposeNotifier::asDisposeNotifier(java.lang.Object)",
+        "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
+        "oldElement": null,
+        "oldElementModule": null,
+        "classification": {
+            "SOURCE": "NON_BREAKING",
+            "BINARY": "NON_BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "methodName": "asDisposeNotifier",
             "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
             "package": "arez.component"
         }
     },
     {
-        "name": "method added to interface",
-        "code": "java.method.addedToInterface",
-        "description": "Method was added to an interface.",
-        "newElement": "method void arez.component.DisposeTrackable::removeOnDisposeListener(java.lang.Object)",
+        "name": "Method now abstract",
+        "code": "java.method.nowAbstract",
+        "description": "Method now abstract",
+        "newElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
         "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
-        "oldElement": null,
-        "oldElementModule": null,
+        "oldElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
         "classification": {
             "SOURCE": "BREAKING",
-            "BINARY": "NON_BREAKING",
-            "SEMANTIC": "POTENTIALLY_BREAKING"
+            "BINARY": "BREAKING"
         },
         "attachments": {
-            "classQualifiedName": "arez.component.DisposeTrackable",
-            "classSimpleName": "DisposeTrackable",
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
             "elementKind": "method",
-            "exampleUseChainInNewApi": "interface arez.component.DisposeTrackable is part of the API",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "addOnDisposeListener",
+            "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "newModifiers": "public abstract",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "oldModifiers": "public",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "Method now abstract",
+        "code": "java.method.nowAbstract",
+        "description": "Method now abstract",
+        "newElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
+        "newElementModule": "org.realityforge.arez:arez-core:jar:0.130",
+        "oldElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInNewApi": "interface arez.component.DisposeNotifier is part of the API",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
             "methodName": "removeOnDisposeListener",
             "newArchive": "org.realityforge.arez:arez-core:jar:0.130",
+            "newModifiers": "public abstract",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "oldModifiers": "public",
             "package": "arez.component"
         }
     },
@@ -118,28 +267,7 @@
         "description": "Class was removed.",
         "newElement": null,
         "newElementModule": null,
-        "oldElement": "class arez.component.DisposeNotifier",
-        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
-        "classification": {
-            "SOURCE": "BREAKING",
-            "BINARY": "BREAKING"
-        },
-        "attachments": {
-            "classQualifiedName": "arez.component.DisposeNotifier",
-            "classSimpleName": "DisposeNotifier",
-            "elementKind": "class",
-            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
-            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
-            "package": "arez.component"
-        }
-    },
-    {
-        "name": "method removed",
-        "code": "java.method.removed",
-        "description": "Method was removed.",
-        "newElement": null,
-        "newElementModule": null,
-        "oldElement": "method arez.component.DisposeNotifier arez.component.DisposeTrackable::getNotifier()",
+        "oldElement": "interface arez.component.DisposeTrackable",
         "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
         "classification": {
             "SOURCE": "BREAKING",
@@ -148,33 +276,32 @@
         "attachments": {
             "classQualifiedName": "arez.component.DisposeTrackable",
             "classSimpleName": "DisposeTrackable",
-            "elementKind": "method",
+            "elementKind": "interface",
             "exampleUseChainInOldApi": "interface arez.component.DisposeTrackable is part of the API",
-            "methodName": "getNotifier",
             "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
             "package": "arez.component"
         }
     },
     {
-        "name": "method removed",
-        "code": "java.method.removed",
-        "description": "Method was removed.",
+        "name": "removed attribute",
+        "code": "java.method.attributeRemovedFromAnnotationType",
+        "description": "The annotation no longer has an attribute.",
         "newElement": null,
         "newElementModule": null,
-        "oldElement": "method arez.component.DisposeNotifier arez.component.DisposeTrackable::getNotifier(java.lang.Object)",
+        "oldElement": "method arez.annotations.Feature arez.annotations.ArezComponent::disposeTrackable()",
         "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
         "classification": {
             "SOURCE": "BREAKING",
             "BINARY": "BREAKING"
         },
         "attachments": {
-            "classQualifiedName": "arez.component.DisposeTrackable",
-            "classSimpleName": "DisposeTrackable",
+            "classQualifiedName": "arez.annotations.ArezComponent",
+            "classSimpleName": "ArezComponent",
             "elementKind": "method",
-            "exampleUseChainInOldApi": "interface arez.component.DisposeTrackable is part of the API",
-            "methodName": "getNotifier",
+            "exampleUseChainInOldApi": "@interface arez.annotations.ArezComponent is part of the API",
+            "methodName": "disposeTrackable",
             "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
-            "package": "arez.component"
+            "package": "arez.annotations"
         }
     },
     {
@@ -197,6 +324,314 @@
             "methodName": "getDisposeNotifier",
             "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
             "package": "arez.component.internal"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method boolean arez.component.DisposeNotifier::isDisposed()",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "isDisposed",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method boolean java.lang.Object::equals(java.lang.Object) @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "equals",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method int java.lang.Object::hashCode() @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "hashCode",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method java.lang.Class<?> java.lang.Object::getClass() @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "getClass",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method java.lang.Object java.lang.Object::clone() throws java.lang.CloneNotSupportedException @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "clone",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method java.lang.String java.lang.Object::toString() @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "toString",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void arez.component.DisposeNotifier::<init>()",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "constructor",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "<init>",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void arez.component.DisposeNotifier::dispose()",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "dispose",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void java.lang.Object::finalize() throws java.lang.Throwable @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "finalize",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void java.lang.Object::notify() @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "notify",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void java.lang.Object::notifyAll() @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "notifyAll",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void java.lang.Object::wait() throws java.lang.InterruptedException @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "wait",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void java.lang.Object::wait(long) throws java.lang.InterruptedException @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "wait",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
+        }
+    },
+    {
+        "name": "method removed",
+        "code": "java.method.removed",
+        "description": "Method was removed.",
+        "newElement": null,
+        "newElementModule": null,
+        "oldElement": "method void java.lang.Object::wait(long, int) throws java.lang.InterruptedException @ arez.component.DisposeNotifier",
+        "oldElementModule": "org.realityforge.arez:arez-core:jar:0.129",
+        "classification": {
+            "SOURCE": "BREAKING",
+            "BINARY": "BREAKING"
+        },
+        "attachments": {
+            "classQualifiedName": "arez.component.DisposeNotifier",
+            "classSimpleName": "DisposeNotifier",
+            "elementKind": "method",
+            "exampleUseChainInOldApi": "class arez.component.DisposeNotifier is part of the API",
+            "methodName": "wait",
+            "oldArchive": "org.realityforge.arez:arez-core:jar:0.129",
+            "package": "arez.component"
         }
     }
 ]

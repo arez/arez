@@ -5,14 +5,14 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NonStandardNameFieldDependencyModel extends NonStandardNameFieldDependencyModel implements Disposable, Identifiable<Integer>, DisposeTrackable {
+public final class Arez_NonStandardNameFieldDependencyModel extends NonStandardNameFieldDependencyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -25,7 +25,7 @@ public final class Arez_NonStandardNameFieldDependencyModel extends NonStandardN
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonStandardNameFieldDependencyModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     if ( null != this.$$time$$ ) {
-      DisposeTrackable.asDisposeTrackable( this.$$time$$ ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( this.$$time$$ ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -43,7 +43,7 @@ public final class Arez_NonStandardNameFieldDependencyModel extends NonStandardN
 
   private void $$arezi$$_preDispose() {
     if ( null != this.$$time$$ ) {
-      DisposeTrackable.asDisposeTrackable( this.$$time$$ ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( this.$$time$$ ).removeOnDisposeListener( this );
     }
   }
 

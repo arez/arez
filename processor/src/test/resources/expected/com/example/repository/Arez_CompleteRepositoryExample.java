@@ -9,7 +9,7 @@ import arez.Flags;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
@@ -20,7 +20,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeTrackable {
+final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull

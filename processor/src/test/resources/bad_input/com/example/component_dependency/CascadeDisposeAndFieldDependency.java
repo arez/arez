@@ -5,14 +5,14 @@ import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentDependency;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import javax.annotation.Nonnull;
 
 @ArezComponent
 public abstract class CascadeDisposeAndFieldDependency
 {
   static class Element
-    implements DisposeTrackable, Disposable
+    implements DisposeNotifier, Disposable
   {
     @Override
     public void dispose()

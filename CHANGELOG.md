@@ -14,6 +14,8 @@
 * **\[core\]** Remove the `DisposeNotifier` class and merge functionality into the `ComponentKernel` class.
   Simplify the `DisposeTrackable` interface by adding the `addOnDisposeListener` and `removeOnDisposeListener`
   methods to the interface.
+* **\[core\]** Rename the `disposeTrackable` parameter to `disposeNotifier` on the `ArezComponent` annotation.
+* **\[core\]** Rename the `DisposeTrackable` interface to `DisposeNotifier`.
 
 ### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)

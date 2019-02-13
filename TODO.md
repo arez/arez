@@ -50,9 +50,6 @@ complete as there is too much un-said.
 
 * Consider moving computable flags, action flags, task flags and observer flags into separate classes
 
-* Consider naming patterns in `DisposeTrackable` and rename this interface. `DisposeNotifer` renamed to
-  `DisposeTracker`? and made into interface with implementation in `internal` package?
-
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()`
   is stripped if names not enabled. Should also include annotations for classes that should have clinits stripped.

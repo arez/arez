@@ -1,4 +1,4 @@
-package com.example.dispose_trackable;
+package com.example.dispose_notifier;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -12,17 +12,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NoDisposeTrackableModel extends NoDisposeTrackableModel implements Disposable, Identifiable<Integer> {
+public final class Arez_NoDisposeNotifierModel extends NoDisposeNotifierModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_NoDisposeTrackableModel() {
+  public Arez_NoDisposeNotifierModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NoDisposeTrackableModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NoDisposeTrackableModel", $$arezv$$_id, $$arezv$$_name ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NoDisposeNotifierModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NoDisposeNotifierModel", $$arezv$$_id, $$arezv$$_name ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, false, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -68,8 +68,8 @@ public final class Arez_NoDisposeTrackableModel extends NoDisposeTrackableModel 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NoDisposeTrackableModel ) {
-        final Arez_NoDisposeTrackableModel that = (Arez_NoDisposeTrackableModel) o;
+      if ( o instanceof Arez_NoDisposeNotifierModel ) {
+        final Arez_NoDisposeNotifierModel that = (Arez_NoDisposeNotifierModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

@@ -301,7 +301,7 @@ public final class ArezProcessor
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
-    final boolean disposeTrackableFlag =
+    final boolean disposeNotifierFlag =
       ProcessorUtil.isDisposableTrackableRequired( processingEnv.getElementUtils(), typeElement );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
@@ -432,7 +432,7 @@ public final class ArezProcessor
                                allowEmpty,
                                generated,
                                observableFlag,
-                               disposeTrackableFlag,
+                               disposeNotifierFlag,
                                disposeOnDeactivate,
                                injectMode,
                                dagger,
@@ -495,11 +495,11 @@ public final class ArezProcessor
                                         "javax.inject.Singleton annotation which is an invalid " +
                                         "combination.", typeElement );
     }
-    if ( !descriptor.isDisposeTrackable() && descriptor.hasRepository() )
+    if ( !descriptor.isDisposeNotifier() && descriptor.hasRepository() )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified the disposeTrackable = DISABLE " +
+      throw new ArezProcessorException( "@ArezComponent target has specified the disposeNotifier = DISABLE " +
                                         "annotation parameter but is also annotated with @Repository that " +
-                                        "requires disposeTrackable = ENABLE.", typeElement );
+                                        "requires disposeNotifier = ENABLE.", typeElement );
     }
 
     final boolean idRequired = isIdRequired( descriptor, arezComponent );

@@ -1,11 +1,11 @@
-package com.example.dispose_trackable;
+package com.example.dispose_notifier;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
-@ArezComponent( disposeTrackable = Feature.DISABLE )
-public abstract class NoDisposeTrackableModel
+@ArezComponent( disposeNotifier = Feature.ENABLE )
+public abstract class DisposeNotifierModel
 {
   @Action
   public void someValue()

@@ -5,14 +5,14 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_CharComponentId extends CharComponentId implements Disposable, Identifiable<Character>, DisposeTrackable {
+public final class Arez_CharComponentId extends CharComponentId implements Disposable, Identifiable<Character>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
   public Arez_CharComponentId() {

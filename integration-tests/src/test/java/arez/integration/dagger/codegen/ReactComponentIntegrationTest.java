@@ -30,7 +30,7 @@ public class ReactComponentIntegrationTest
     String someParam;
   }
 
-  @ArezComponent( disposeTrackable = Feature.DISABLE, allowEmpty = true, inject = InjectMode.CONSUME, dagger = Feature.ENABLE )
+  @ArezComponent( disposeNotifier = Feature.DISABLE, allowEmpty = true, inject = InjectMode.CONSUME, dagger = Feature.ENABLE )
   static abstract class React4j_BasicReactComponent
     extends BasicReactComponent
   {

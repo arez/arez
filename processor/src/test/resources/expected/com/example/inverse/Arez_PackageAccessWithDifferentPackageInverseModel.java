@@ -8,7 +8,7 @@ import arez.Locator;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.CollectionsUtil;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_PackageAccessWithDifferentPackageInverseModel extends PackageAccessWithDifferentPackageInverseModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeTrackable {
+public final class Arez_PackageAccessWithDifferentPackageInverseModel extends PackageAccessWithDifferentPackageInverseModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

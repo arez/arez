@@ -1,11 +1,11 @@
 package com.example.component_dependency;
 
 import arez.SafeProcedure;
-import arez.component.DisposeTrackable;
+import arez.component.DisposeNotifier;
 import javax.annotation.Nonnull;
 
 public class MyDependentValue
-  implements DisposeTrackable
+  implements DisposeNotifier
 {
   @Override
   public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )

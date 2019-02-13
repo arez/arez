@@ -95,7 +95,7 @@ final class ComponentDescriptor
    */
   private final boolean _generated;
   private final boolean _observable;
-  private final boolean _disposeTrackable;
+  private final boolean _disposeNotifier;
   private final boolean _disposeOnDeactivate;
   @Nonnull
   private final InjectMode _injectMode;
@@ -178,7 +178,7 @@ final class ComponentDescriptor
                        final boolean allowEmpty,
                        final boolean generated,
                        final boolean observable,
-                       final boolean disposeTrackable,
+                       final boolean disposeNotifier,
                        final boolean disposeOnDeactivate,
                        @Nonnull final String injectMode,
                        final boolean dagger,
@@ -200,7 +200,7 @@ final class ComponentDescriptor
     _allowEmpty = allowEmpty;
     _generated = generated;
     _observable = observable;
-    _disposeTrackable = disposeTrackable;
+    _disposeNotifier = disposeNotifier;
     _disposeOnDeactivate = disposeOnDeactivate;
     _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
@@ -274,9 +274,9 @@ final class ComponentDescriptor
     return _verify;
   }
 
-  boolean isDisposeTrackable()
+  boolean isDisposeNotifier()
   {
-    return _disposeTrackable;
+    return _disposeNotifier;
   }
 
   private boolean isDeprecated( @Nullable final Element element )
@@ -2028,9 +2028,9 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ComponentDependency target must return a non-primitive value", method );
     }
-    final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
-    assert null != disposeTrackable;
-    if ( !_typeUtils.isAssignable( type, disposeTrackable.asType() ) )
+    final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+    assert null != disposeNotifier;
+    if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
     {
       final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
       final AnnotationMirror value =
@@ -2038,8 +2038,8 @@ final class ComponentDescriptor
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
       {
         throw new ArezProcessorException( "@ComponentDependency target must return an instance compatible with " +
-                                          Constants.DISPOSE_TRACKABLE_CLASSNAME + " or a type annotated " +
-                                          "with @ArezComponent(disposeTrackable=ENABLE)", method );
+                                          Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
+                                          "with @ArezComponent(disposeNotifier=ENABLE)", method );
       }
     }
 
@@ -2058,9 +2058,9 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "@ComponentDependency target must be a non-primitive value", field );
     }
-    final TypeElement disposeTrackable = _elements.getTypeElement( Constants.DISPOSE_TRACKABLE_CLASSNAME );
-    assert null != disposeTrackable;
-    if ( !_typeUtils.isAssignable( type, disposeTrackable.asType() ) )
+    final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+    assert null != disposeNotifier;
+    if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
     {
       final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
       final AnnotationMirror value =
@@ -2068,8 +2068,8 @@ final class ComponentDescriptor
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
       {
         throw new ArezProcessorException( "@ComponentDependency target must be an instance compatible with " +
-                                          Constants.DISPOSE_TRACKABLE_CLASSNAME + " or a type annotated " +
-                                          "with @ArezComponent(disposeTrackable=ENABLE)", field );
+                                          Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
+                                          "with @ArezComponent(disposeNotifier=ENABLE)", field );
       }
     }
 
@@ -2648,7 +2648,7 @@ final class ComponentDescriptor
     {
       builder.addSuperinterface( Generator.VERIFIABLE_CLASSNAME );
     }
-    if ( _disposeTrackable )
+    if ( _disposeNotifier )
     {
       builder.addSuperinterface( Generator.DISPOSE_TRACKABLE_CLASSNAME );
     }
@@ -2717,7 +2717,7 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildInternalPreDispose() );
     }
-    if ( _disposeTrackable )
+    if ( _disposeNotifier )
     {
       builder.addMethod( buildNativeComponentPreDispose() );
       builder.addMethod( buildAddOnDisposeListener() );
@@ -3377,7 +3377,7 @@ final class ComponentDescriptor
   {
     return !_roInverses.isEmpty() ||
            !_roCascadeDisposes.isEmpty() ||
-           ( _disposeTrackable && !_roDependencies.isEmpty() ) ||
+           ( _disposeNotifier && !_roDependencies.isEmpty() ) ||
            _roReferences.stream().anyMatch( ReferenceDescriptor::hasInverse );
   }
 
@@ -3421,7 +3421,7 @@ final class ComponentDescriptor
   private MethodSpec buildNativeComponentPreDispose()
     throws ArezProcessorException
   {
-    assert _disposeTrackable;
+    assert _disposeNotifier;
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( Generator.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
@@ -3458,7 +3458,7 @@ final class ComponentDescriptor
     _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
     _roReferences.forEach( r -> r.buildDisposer( builder ) );
     _roInverses.forEach( r -> Generator.buildInverseDisposer( r, builder ) );
-    if ( _disposeTrackable )
+    if ( _disposeNotifier )
     {
       for ( final DependencyDescriptor dependency : _roDependencies )
       {
@@ -3472,7 +3472,7 @@ final class ComponentDescriptor
           final String methodName = method.getSimpleName().toString();
           if ( isNonnull )
           {
-            builder.addStatement( "$T.asDisposeTrackable( $N() ).removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   methodName );
           }
@@ -3493,7 +3493,7 @@ final class ComponentDescriptor
             }
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-            listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
                                         Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         varName );
             listenerBlock.endControlFlow();
@@ -3506,7 +3506,7 @@ final class ComponentDescriptor
           final String fieldName = field.getSimpleName().toString();
           if ( isNonnull )
           {
-            builder.addStatement( "$T.asDisposeTrackable( this.$N ).removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   fieldName );
           }
@@ -3514,7 +3514,7 @@ final class ComponentDescriptor
           {
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-            listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
                                         Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         fieldName );
             listenerBlock.endControlFlow();
@@ -3838,7 +3838,7 @@ final class ComponentDescriptor
       sb.append( "null, " );
     }
 
-    sb.append( _disposeTrackable );
+    sb.append( _disposeNotifier );
     sb.append( ", " );
     sb.append( _observable );
     sb.append( ", " );
@@ -3928,10 +3928,10 @@ final class ComponentDescriptor
     params.add( _type );
     params.add( Generator.ID_VAR_NAME );
     params.add( Generator.NAME_VAR_NAME );
-    if ( _disposeTrackable || null != _preDispose || null != _postDispose )
+    if ( _disposeNotifier || null != _preDispose || null != _postDispose )
     {
       sb.append( ", " );
-      if ( _disposeTrackable )
+      if ( _disposeNotifier )
       {
         sb.append( "() -> $N()" );
         params.add( Generator.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
