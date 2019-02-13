@@ -3,8 +3,10 @@ package arez.component;
 import arez.Arez;
 import arez.Disposable;
 import arez.SafeProcedure;
+import arez.annotations.CascadeDispose;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Nonnull;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -29,9 +31,20 @@ public final class DisposeNotifier
   {
     if ( isNotDisposed() )
     {
-      for ( final SafeProcedure procedure : new ArrayList<>( _listeners.values() ) )
+      for ( final Map.Entry<Object, SafeProcedure> entry : new ArrayList<>( _listeners.entrySet() ) )
       {
-        procedure.call();
+        final Object key = entry.getKey();
+        /*
+         * There is scenarios where there is multiple elements being simultaneously disposed and
+         * the @CascadeDispose has not triggered so a disposed object is in this list waiting to
+         * be called back. If the callback is triggered and the @CascadeDispose is on an observable
+         * property then the framework will attempt to null field and generate invariant failures
+         * or runtime errors unless we skip the callback and just remove the listener.
+         */
+        if ( !Disposable.isDisposed( key ) )
+        {
+          entry.getValue().call();
+        }
       }
       _disposed = true;
     }
@@ -51,6 +64,10 @@ public final class DisposeNotifier
    * This method MUST NOT be invoked after {@link #dispose()} has been invoked.
    * This method should not be invoked if another listener has been added with the same key without
    * being removed.
+   *
+   * <p>If the key implements {@link Disposable} and {@link Disposable#isDisposed()} returns <code>true</code>
+   * when invoking the calback then the callback will be skipped. This rare situation only occurs when there is
+   * circular dependency in the object model usually involving {@link CascadeDispose}.</p>
    *
    * @param key    the key to uniquely identify listener.
    * @param action the listener callback.

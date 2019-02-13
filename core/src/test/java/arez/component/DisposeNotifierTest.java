@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.AbstractArezTest;
+import arez.Disposable;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -183,5 +184,46 @@ public class DisposeNotifierTest
 
     // No-op
     notifier.dispose();
+  }
+
+  @Test
+  public void disposeWhenAListenerHasDisposedKey()
+  {
+    final DisposeNotifier notifier = new DisposeNotifier();
+    final String key1 = ValueUtil.randomString();
+    final Disposable key2 = new Disposable()
+    {
+      @Override
+      public void dispose()
+      {
+      }
+
+      @Override
+      public boolean isDisposed()
+      {
+        return true;
+      }
+    };
+    final AtomicInteger callCount1 = new AtomicInteger();
+    final AtomicInteger callCount2 = new AtomicInteger();
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+
+    notifier.addOnDisposeListener( key1, callCount1::incrementAndGet );
+    notifier.addOnDisposeListener( key2, callCount2::incrementAndGet );
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+
+    assertFalse( notifier.isDisposed() );
+    notifier.dispose();
+    assertTrue( notifier.isDisposed() );
+
+    assertEquals( callCount1.get(), 1 );
+    assertEquals( callCount2.get(), 0 );
   }
 }

@@ -7,6 +7,10 @@
 * **\[core\]** Allow the invocation of `DisposeNotifier.removeOnDisposeListener(...)` when the
   `DisposeNotifier` has been disposed to avoid per-component generation to check whether `DisposeNotifier`
   has been disposed in the rare circumstances where it is required.
+* **\[core\]** Avoid invoking the `OnDispose` listener when disposing the `DisposeNotifier` if the key
+  used to register the listener is disposed. The key is typically another component and invoking the callback
+  will generate a runtime or invariant failure if attempts to access the disposed component. This works around
+  an extremely rare error when both the listener and the original component are disposed.
 
 ### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)
