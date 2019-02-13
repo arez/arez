@@ -24,14 +24,22 @@ public class ApiDiffTest
     try
     {
       generateReport( reportFile );
+      final JsonArray differences = Json.createReader( new FileInputStream( reportFile ) ).readArray();
       final File fixture = getFixtureReport();
       if ( !fixture.exists() )
       {
-        final JsonArray differences = Json.createReader( new FileInputStream( reportFile ) ).readArray();
         if ( !differences.isEmpty() )
         {
           fail( "Unable to locate test fixture describing expected API changes when there is " + differences.size() +
                 " differences detected. Expected fixture file to be located at " + fixture.getAbsolutePath() );
+        }
+      }
+      else if ( storeApiDiff && differences.isEmpty() )
+      {
+        if ( fixture.exists() )
+        {
+          System.out.println( "Deleting existing fixture file as no API differences detected. Fixture: " + fixture );
+          assertTrue( fixture.delete() );
         }
       }
       else
