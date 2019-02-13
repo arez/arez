@@ -9,9 +9,12 @@ import arez.Flags;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
+import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
 import arez.component.ComponentObservable;
-import arez.component.DisposeNotifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -119,7 +122,7 @@ public final class ComponentKernel
    * if the {@link ArezComponent#disposeTrackable()} is enabled, and <code>null</code> otherwise.
    */
   @Nullable
-  private final DisposeNotifier _disposeNotifier;
+  private final Map<Object, SafeProcedure> _onDisposeListeners;
   /**
    * Mechanism for implementing {@link ComponentObservable} on the component.
    */
@@ -143,7 +146,7 @@ public final class ComponentKernel
                           @Nullable final SafeProcedure preDisposeCallback,
                           @Nullable final SafeProcedure disposeCallback,
                           @Nullable final SafeProcedure postDisposeCallback,
-                          final boolean defineDisposeNotifier,
+                          final boolean notifyOnDispose,
                           final boolean isComponentObservable,
                           final boolean disposeOnDeactivate )
   {
@@ -171,7 +174,7 @@ public final class ComponentKernel
     _context = Arez.areZonesEnabled() ? context : null;
     _component = Arez.areNativeComponentsEnabled() ? Objects.requireNonNull( component ) : null;
     _id = id;
-    _disposeNotifier = defineDisposeNotifier ? new DisposeNotifier() : null;
+    _onDisposeListeners = notifyOnDispose ? new HashMap<>() : null;
     _preDisposeCallback = Arez.areNativeComponentsEnabled() ? null : preDisposeCallback;
     _disposeCallback = Arez.areNativeComponentsEnabled() ? null : disposeCallback;
     _postDisposeCallback = Arez.areNativeComponentsEnabled() ? null : postDisposeCallback;
@@ -311,13 +314,40 @@ public final class ComponentKernel
 
   private void releaseResources()
   {
-    Disposable.dispose( _disposeNotifier );
+    if ( null != _onDisposeListeners )
+    {
+      notifyOnDisposeListeners();
+    }
     // If native components are enabled, these elements are registered with native component
     // and will thus be disposed as part
     if ( !Arez.areNativeComponentsEnabled() )
     {
       Disposable.dispose( _componentObservable );
       Disposable.dispose( _disposeOnDeactivate );
+    }
+  }
+
+  /**
+   * Notify an OnDispose listeners that have been added to the component.
+   * This method MUST onle be called if the component has enabled onDisposeNotify feature.
+   */
+  public void notifyOnDisposeListeners()
+  {
+    assert null != _onDisposeListeners;
+    for ( final Map.Entry<Object, SafeProcedure> entry : new ArrayList<>( _onDisposeListeners.entrySet() ) )
+    {
+      final Object key = entry.getKey();
+        /*
+         * There is scenarios where there is multiple elements being simultaneously disposed and
+         * the @CascadeDispose has not triggered so a disposed object is in this list waiting to
+         * be called back. If the callback is triggered and the @CascadeDispose is on an observable
+         * property then the framework will attempt to null field and generate invariant failures
+         * or runtime errors unless we skip the callback and just remove the listener.
+         */
+      if ( !Disposable.isDisposed( key ) )
+      {
+        entry.getValue().call();
+      }
     }
   }
 
@@ -550,23 +580,66 @@ public final class ComponentKernel
   }
 
   /**
-   * Return the dispose notifier associated with the component.
-   * This method MUST NOT be called if the {@link ArezComponent#disposeTrackable()} parameter to the component is
-   * effectively disabled.
+   * Add the listener to notify list under key.
+   * This method MUST NOT be invoked after {@link #dispose()} has been invoked.
+   * This method should not be invoked if another listener has been added with the same key without
+   * being removed.
    *
-   * @return the dispose notifier associated with the component.
+   * <p>If the key implements {@link Disposable} and {@link Disposable#isDisposed()} returns <code>true</code>
+   * when invoking the calback then the callback will be skipped. This rare situation only occurs when there is
+   * circular dependency in the object model usually involving {@link CascadeDispose}.</p>
+   *
+   * @param key    the key to uniquely identify listener.
+   * @param action the listener callback.
    */
-  @Nonnull
-  public DisposeNotifier getDisposeNotifier()
+  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
   {
+    assert null != _onDisposeListeners;
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> null != _disposeNotifier,
-                    () -> "Arez-0217: ComponentKernel.getDisposeNotifier() invoked when no notifier is associated " +
-                          "with the component named '" + getName() + "'." );
+      invariant( this::isNotDisposed,
+                 () -> "Arez-0170: Attempting to add OnDispose listener but ComponentKernel has been disposed." );
+      invariant( () -> !_onDisposeListeners.containsKey( key ),
+                 () -> "Arez-0166: Attempting to add OnDispose listener with key '" + key +
+                       "' but a listener with that key already exists." );
     }
-    assert null != _disposeNotifier;
-    return _disposeNotifier;
+    _onDisposeListeners.put( key, action );
+  }
+
+  /**
+   * Remove the listener with specified key from the notify list.
+   * This method should only be invoked when a listener has been added for specific key using
+   * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
+   * call to this method.
+   *
+   * @param key the key under which the listener was previously added.
+   */
+  public void removeOnDisposeListener( @Nonnull final Object key )
+  {
+    assert null != _onDisposeListeners;
+    // This method can be called when the notifier is disposed to avoid the caller (i.e. per-component
+    // generated code) from checking the disposed state of the notifier before invoking this method.
+    // This is necessary in a few rare circumstances but requiring the caller to check before invocation
+    // increases the generated code size.
+    final SafeProcedure removed = _onDisposeListeners.remove( key );
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      invariant( () -> null != removed,
+                 () -> "Arez-0167: Attempting to remove OnDispose listener with key '" + key +
+                       "' but no such listener exists." );
+    }
+  }
+
+  boolean hasOnDisposeListeners()
+  {
+    return null != _onDisposeListeners;
+  }
+
+  @Nonnull
+  Map<Object, SafeProcedure> getOnDisposeListeners()
+  {
+    assert null != _onDisposeListeners;
+    return _onDisposeListeners;
   }
 
   /**

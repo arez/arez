@@ -45,6 +45,7 @@ final class Generator
   static final ClassName COMPUTABLE_VALUE_CLASSNAME = ClassName.get( "arez", "ComputableValue" );
   static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "arez", "Disposable" );
   static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
+  static final ClassName SAFE_PROCEDURE_CLASSNAME = ClassName.get( "arez", "SafeProcedure" );
   static final ClassName FEATURE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
   static final ClassName INJECT_MODE_CLASSNAME = ClassName.get( "arez.annotations", "InjectMode" );
   static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
@@ -55,7 +56,7 @@ final class Generator
   static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
   static final ClassName COMPONENT_OBSERVABLE_CLASSNAME = ClassName.get( "arez.component", "ComponentObservable" );
   static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeTrackable" );
-  static final ClassName DISPOSE_NOTIFIER_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
+  static final ClassName DISPOSE_NOTIFIER_CLASSNAME = ClassName.get( "arez.component.internal", "DisposeNotifier" );
   static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
   static final ClassName LOCATOR_CLASSNAME = ClassName.get( "arez", "Locator" );
   static final ClassName LINKABLE_CLASSNAME = ClassName.get( "arez.component", "Linkable" );

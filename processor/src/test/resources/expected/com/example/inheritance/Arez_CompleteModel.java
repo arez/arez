@@ -9,8 +9,8 @@ import arez.Flags;
 import arez.Locator;
 import arez.ObservableValue;
 import arez.Observer;
+import arez.SafeProcedure;
 import arez.component.CollectionsUtil;
-import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
@@ -144,13 +144,17 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
+    this.$$arezi$$_kernel.notifyOnDisposeListeners();
   }
 
   @Override
-  @Nonnull
-  public DisposeNotifier getNotifier() {
-    return this.$$arezi$$_kernel.getDisposeNotifier();
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+  }
+
+  @Override
+  public void removeOnDisposeListener(@Nonnull final Object key) {
+    this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override

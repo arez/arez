@@ -214,10 +214,7 @@ public abstract class AbstractContainer<K, T>
 
   private void detachEntity( @Nonnull final T entity )
   {
-    DisposeTrackable
-      .asDisposeTrackable( entity )
-      .getNotifier()
-      .removeOnDisposeListener( this );
+    DisposeTrackable.asDisposeTrackable( entity ).removeOnDisposeListener( this );
   }
 
   final HashMap<K, T> entityMap()

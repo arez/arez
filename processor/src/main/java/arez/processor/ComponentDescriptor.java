@@ -2720,7 +2720,8 @@ final class ComponentDescriptor
     if ( _disposeTrackable )
     {
       builder.addMethod( buildNativeComponentPreDispose() );
-      builder.addMethod( buildNotifierAccessor() );
+      builder.addMethod( buildAddOnDisposeListener() );
+      builder.addMethod( buildRemoveOnDisposeListener() );
     }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
@@ -3433,7 +3434,7 @@ final class ComponentDescriptor
     {
       builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
     }
-    builder.addStatement( "this.$N.getDisposeNotifier().dispose()", Generator.KERNEL_FIELD_NAME );
+    builder.addStatement( "this.$N.notifyOnDisposeListeners()", Generator.KERNEL_FIELD_NAME );
 
     return builder.build();
   }
@@ -3527,21 +3528,38 @@ final class ComponentDescriptor
   }
 
   /**
-   * Generate the observe method.
+   * Generate the addOnDisposeListener method.
    */
   @Nonnull
-  private MethodSpec buildNotifierAccessor()
+  private MethodSpec buildAddOnDisposeListener()
     throws ArezProcessorException
   {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "getNotifier" ).
-        addModifiers( Modifier.PUBLIC ).
-        addAnnotation( Override.class ).
-        addAnnotation( Generator.NONNULL_CLASSNAME ).
-        returns( Generator.DISPOSE_NOTIFIER_CLASSNAME );
+    return MethodSpec.methodBuilder( "addOnDisposeListener" ).
+      addModifiers( Modifier.PUBLIC ).
+      addAnnotation( Override.class ).
+      addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .build() ).
+      addParameter( ParameterSpec.builder( Generator.SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "this.$N.addOnDisposeListener( key, action )", Generator.KERNEL_FIELD_NAME ).build();
+  }
 
-    builder.addStatement( "return this.$N.getDisposeNotifier()", Generator.KERNEL_FIELD_NAME );
-    return builder.build();
+  /**
+   * Generate the removeOnDisposeListener method.
+   */
+  @Nonnull
+  private MethodSpec buildRemoveOnDisposeListener()
+    throws ArezProcessorException
+  {
+    return MethodSpec.methodBuilder( "removeOnDisposeListener" ).
+      addModifiers( Modifier.PUBLIC ).
+      addAnnotation( Override.class ).
+      addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "this.$N.removeOnDisposeListener( key )", Generator.KERNEL_FIELD_NAME ).build();
   }
 
   /**

@@ -1,10 +1,10 @@
 package com.example.component_dependency;
 
 import arez.Disposable;
+import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentDependency;
-import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import javax.annotation.Nonnull;
 
@@ -25,11 +25,14 @@ public abstract class CascadeDisposeAndFieldDependency
       return false;
     }
 
-    @Nonnull
     @Override
-    public DisposeNotifier getNotifier()
+    public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
     {
-      return null;
+    }
+
+    @Override
+    public void removeOnDisposeListener( @Nonnull final Object key )
+    {
     }
   }
 

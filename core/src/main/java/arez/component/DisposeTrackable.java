@@ -5,7 +5,6 @@ import arez.Disposable;
 import arez.SafeProcedure;
 import arez.annotations.CascadeDispose;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -19,14 +18,6 @@ import static org.realityforge.braincheck.Guards.*;
 public interface DisposeTrackable
 {
   /**
-   * Return the notifier associated with the component.
-   *
-   * @return the notifier associated with the component.
-   */
-  @Nonnull
-  DisposeNotifier getNotifier();
-
-  /**
    * Add the listener to notify list under key.
    * This method MUST NOT be invoked after the component has been disposed.
    * This method should not be invoked if another listener has been added with the same key without
@@ -39,10 +30,7 @@ public interface DisposeTrackable
    * @param key    the key to uniquely identify listener.
    * @param action the listener callback.
    */
-  default void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
-  {
-    getNotifier().addOnDisposeListener( key, action );
-  }
+  void addOnDisposeListener( @Nonnull Object key, @Nonnull SafeProcedure action );
 
   /**
    * Remove the listener with specified key from the notify list.
@@ -52,22 +40,7 @@ public interface DisposeTrackable
    *
    * @param key the key under which the listener was previously added.
    */
-  default void removeOnDisposeListener( @Nonnull final Object key )
-  {
-    getNotifier().removeOnDisposeListener( key );
-  }
-
-  /**
-   * Return the notifier associated with the supplied object if object implements DisposeTrackable.
-   *
-   * @param object the object.
-   * @return the notifier associated with the supplied object if object implements DisposeTrackable.
-   */
-  @Nullable
-  static DisposeNotifier getNotifier( @Nonnull final Object object )
-  {
-    return object instanceof DisposeTrackable ? ( (DisposeTrackable) object ).getNotifier() : null;
-  }
+  void removeOnDisposeListener( @Nonnull Object key );
 
   /**
    * Cast the specified object to an instance of DisposeTrackable.

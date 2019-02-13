@@ -9,9 +9,9 @@ import arez.Disposable;
 import arez.Flags;
 import arez.Observer;
 import arez.SafeFunction;
-import arez.component.DisposeNotifier;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -34,6 +34,7 @@ public class ComponentKernelTest
     assertEquals( kernel.getId(), id );
     assertEquals( kernel.getComponent(), component );
     assertEquals( kernel.toString(), name );
+    assertFalse( kernel.hasOnDisposeListeners() );
 
     assertTrue( kernel.hasBeenInitialized() );
     assertFalse( kernel.hasBeenConstructed() );
@@ -42,10 +43,6 @@ public class ComponentKernelTest
     assertFalse( kernel.isReady() );
     assertFalse( kernel.isDisposed() );
     assertEquals( kernel.describeState(), "initialized" );
-
-    assertInvariantFailure( kernel::getDisposeNotifier,
-                            "Arez-0217: ComponentKernel.getDisposeNotifier() invoked when no notifier is " +
-                            "associated with the component named '" + name + "'." );
 
     kernel.componentConstructed();
 
@@ -424,9 +421,7 @@ public class ComponentKernelTest
 
     kernel.componentConstructed();
     kernel.componentReady();
-    final DisposeNotifier disposeNotifier = kernel.getDisposeNotifier();
-    assertNotNull( disposeNotifier );
-    disposeNotifier.addOnDisposeListener( "X", () -> {
+    kernel.addOnDisposeListener( "X", () -> {
       tasks.add( "OnDisposeListener" );
       assertEquals( kernel.describeState(), "disposing" );
     } );
@@ -436,5 +431,327 @@ public class ComponentKernelTest
     assertEquals( String.join( ",", tasks ),
                   "PreDispose,OnDisposeListener,Dispose,PostDispose" );
     assertTrue( kernel.isDisposed() );
+  }
+
+  @Test
+  public void addOnDisposeListener()
+  {
+    final ArezContext context = Arez.context();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType", 1 ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+
+    final String key = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 0 );
+    assertEquals( callCount.get(), 0 );
+
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 1 );
+    assertEquals( callCount.get(), 0 );
+
+    kernel.getOnDisposeListeners().get( key ).call();
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 1 );
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void addOnDisposeListener_afterDispose()
+  {
+    final ArezContext context = Arez.context();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType", 1 ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+
+    kernel.dispose();
+
+    final String key = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    assertInvariantFailure( () -> kernel.addOnDisposeListener( key, callCount::incrementAndGet ),
+                            "Arez-0170: Attempting to add OnDispose listener but ComponentKernel has been disposed." );
+  }
+
+  @Test
+  public void addOnDisposeListener_duplicate()
+  {
+    final ArezContext context = Arez.context();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType", 1 ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+
+    final String key = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+
+    assertInvariantFailure( () -> kernel.addOnDisposeListener( key, callCount::incrementAndGet ),
+                            "Arez-0166: Attempting to add OnDispose listener with key '" + key +
+                            "' but a listener with that key already exists." );
+  }
+
+  @Test
+  public void removeOnDisposeListener()
+  {
+    final ArezContext context = Arez.context();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType", 1 ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+
+    final String key = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 0 );
+
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 1 );
+
+    kernel.removeOnDisposeListener( key );
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 0 );
+  }
+
+  @Test
+  public void removeOnDisposeListener_after_dispose()
+  {
+    final ArezContext context = Arez.context();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType", 1 ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+
+    final String key = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 1 );
+
+    kernel.dispose();
+
+    // Perfectly legitimate to remove after dispose and can occur in certain application sequences
+    kernel.removeOnDisposeListener( key );
+
+    assertEquals( kernel.getOnDisposeListeners().size(), 0 );
+  }
+
+  @Test
+  public void removeOnDisposeListener_notPresent()
+  {
+    final ArezContext context = Arez.context();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType", 1 ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+
+    final String key = ValueUtil.randomString();
+    assertInvariantFailure( () -> kernel.removeOnDisposeListener( key ),
+                            "Arez-0167: Attempting to remove OnDispose listener with key '" + key +
+                            "' but no such listener exists." );
+  }
+
+  @Test
+  public void dispose()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType",
+                                              1,
+                                              "MyType@1",
+                                              () -> ref.get().notifyOnDisposeListeners() ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+    ref.set( kernel );
+
+    final String key = ValueUtil.randomString();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    assertEquals( callCount.get(), 0 );
+
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+
+    assertEquals( callCount.get(), 0 );
+
+    kernel.dispose();
+
+    assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void notifyOnDisposeOperation()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType",
+                                              1,
+                                              "MyType@1",
+                                              () -> ref.get().notifyOnDisposeListeners() ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+    ref.set( kernel );
+    /*
+     * Three listeners required in test. Two that are disposed
+     * concurrently and one that is disposed ahead of time
+     */
+
+    final String key1 = ValueUtil.randomString();
+    final String key2 = ValueUtil.randomString();
+    final String key3 = ValueUtil.randomString();
+    final AtomicInteger callCount1 = new AtomicInteger();
+    final AtomicInteger callCount2 = new AtomicInteger();
+    final AtomicInteger callCount3 = new AtomicInteger();
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 0 );
+
+    kernel.addOnDisposeListener( key1, callCount1::incrementAndGet );
+    kernel.addOnDisposeListener( key2, callCount2::incrementAndGet );
+    kernel.addOnDisposeListener( key3, callCount3::incrementAndGet );
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 0 );
+
+    kernel.removeOnDisposeListener( key2 );
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 0 );
+
+    assertFalse( kernel.isDisposed() );
+    kernel.dispose();
+    assertTrue( kernel.isDisposed() );
+
+    assertEquals( callCount1.get(), 1 );
+    assertEquals( callCount2.get(), 0 );
+    assertEquals( callCount3.get(), 1 );
+
+    // No-op
+    kernel.dispose();
+  }
+
+  @Test
+  public void disposeWhenAListenerHasDisposedKey()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
+    final ComponentKernel kernel =
+      new ComponentKernel( context,
+                           "MyType",
+                           1,
+                           context.component( "MyType",
+                                              1,
+                                              "MyType@1",
+                                              () -> ref.get().notifyOnDisposeListeners() ),
+                           null,
+                           null,
+                           null,
+                           true,
+                           false,
+                           false );
+    ref.set( kernel );
+
+    final String key1 = ValueUtil.randomString();
+    final Disposable key2 = new Disposable()
+    {
+      @Override
+      public void dispose()
+      {
+      }
+
+      @Override
+      public boolean isDisposed()
+      {
+        return true;
+      }
+    };
+    final AtomicInteger callCount1 = new AtomicInteger();
+    final AtomicInteger callCount2 = new AtomicInteger();
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+
+    kernel.addOnDisposeListener( key1, callCount1::incrementAndGet );
+    kernel.addOnDisposeListener( key2, callCount2::incrementAndGet );
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+
+    assertEquals( callCount1.get(), 0 );
+    assertEquals( callCount2.get(), 0 );
+
+    assertFalse( kernel.isDisposed() );
+    kernel.dispose();
+    assertTrue( kernel.isDisposed() );
+
+    assertEquals( callCount1.get(), 1 );
+    assertEquals( callCount2.get(), 0 );
   }
 }

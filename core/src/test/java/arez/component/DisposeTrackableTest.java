@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.AbstractArezTest;
+import arez.SafeProcedure;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -11,23 +12,15 @@ public class DisposeTrackableTest
   static class BasicDisposeTrackable
     implements DisposeTrackable
   {
-    private final DisposeNotifier _disposeNotifier = new DisposeNotifier();
-
-    @Nonnull
     @Override
-    public DisposeNotifier getNotifier()
+    public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
     {
-      return _disposeNotifier;
     }
-  }
 
-  @Test
-  public void getNotifier()
-  {
-    final BasicDisposeTrackable trackable = new BasicDisposeTrackable();
-
-    assertEquals( DisposeTrackable.getNotifier( trackable ), trackable.getNotifier() );
-    assertNull( DisposeTrackable.getNotifier( new Object() ) );
+    @Override
+    public void removeOnDisposeListener( @Nonnull final Object key )
+    {
+    }
   }
 
   @Test
@@ -36,7 +29,6 @@ public class DisposeTrackableTest
     final BasicDisposeTrackable trackable = new BasicDisposeTrackable();
 
     assertEquals( DisposeTrackable.asDisposeTrackable( trackable ), trackable );
-    assertNull( DisposeTrackable.getNotifier( new Object() ) );
   }
 
   @Test

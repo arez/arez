@@ -5,7 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
-import arez.component.DisposeNotifier;
+import arez.SafeProcedure;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
@@ -52,13 +52,17 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.getDisposeNotifier().dispose();
+    this.$$arezi$$_kernel.notifyOnDisposeListeners();
   }
 
   @Override
-  @Nonnull
-  public DisposeNotifier getNotifier() {
-    return this.$$arezi$$_kernel.getDisposeNotifier();
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+  }
+
+  @Override
+  public void removeOnDisposeListener(@Nonnull final Object key) {
+    this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override

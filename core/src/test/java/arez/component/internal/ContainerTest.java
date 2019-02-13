@@ -4,14 +4,12 @@ import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
-import arez.Flags;
 import arez.ObservableValue;
+import arez.SafeProcedure;
 import arez.component.ComponentObservable;
-import arez.component.DisposeNotifier;
 import arez.component.DisposeTrackable;
 import arez.component.Identifiable;
 import arez.component.NoSuchEntityException;
-import arez.component.internal.AbstractContainer;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
@@ -313,20 +311,43 @@ public class ContainerTest
     implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeTrackable
   {
     private final ObservableValue<Object> _observableValue = Arez.context().observable();
+    private final ComponentKernel _kernel;
     private int _arezId;
-    private boolean _disposed;
-    private final DisposeNotifier _notifier = new DisposeNotifier();
 
     MyEntity( final int arezId )
     {
       _arezId = arezId;
+      final ArezContext context = Arez.context();
+      _kernel = new ComponentKernel( context,
+                                     "MyType",
+                                     arezId,
+                                     context.component( "MyType",
+                                                        arezId,
+                                                        "MyType@" + arezId,
+                                                        this::notifyOnDisposeListeners ),
+                                     null,
+                                     null,
+                                     null,
+                                     true,
+                                     false,
+                                     false );
     }
 
-    @Nonnull
-    @Override
-    public DisposeNotifier getNotifier()
+    private void notifyOnDisposeListeners()
     {
-      return _notifier;
+      _kernel.notifyOnDisposeListeners();
+    }
+
+    @Override
+    public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+    {
+      _kernel.addOnDisposeListener( key, action );
+    }
+
+    @Override
+    public void removeOnDisposeListener( @Nonnull final Object key )
+    {
+      _kernel.removeOnDisposeListener( key );
     }
 
     @Override
@@ -343,17 +364,13 @@ public class ContainerTest
     @Override
     public void dispose()
     {
-      Arez.context().safeAction( () -> {
-        _disposed = true;
-        _notifier.dispose();
-        _observableValue.dispose();
-      }, Flags.NO_VERIFY_ACTION_REQUIRED );
+      _kernel.dispose();
     }
 
     @Override
     public boolean isDisposed()
     {
-      return _disposed;
+      return _kernel.isDisposed();
     }
 
     @Nonnull
