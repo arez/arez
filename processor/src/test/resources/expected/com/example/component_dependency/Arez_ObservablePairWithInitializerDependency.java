@@ -36,7 +36,7 @@ public final class Arez_ObservablePairWithInitializerDependency extends Observab
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_value : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
     final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezd$$_value ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( $$arezd$$_value ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -55,7 +55,7 @@ public final class Arez_ObservablePairWithInitializerDependency extends Observab
   private void $$arezi$$_preDispose() {
     final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
     }
   }
 
@@ -102,11 +102,11 @@ public final class Arez_ObservablePairWithInitializerDependency extends Observab
     final DisposeTrackable $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
+        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       }
       this.$$arezd$$_value = value;
       if ( null != value ) {
-        DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, this::dispose );
+        DisposeTrackable.asDisposeTrackable( value ).addOnDisposeListener( this, this::dispose );
       }
       this.$$arez$$_value.reportChanged();
     }

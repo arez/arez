@@ -25,7 +25,7 @@ public final class Arez_ComponentFieldDependencyModel extends ComponentFieldDepe
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentFieldDependencyModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     if ( null != this.foo ) {
-      DisposeTrackable.asDisposeTrackable( this.foo ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( this.foo ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -43,7 +43,7 @@ public final class Arez_ComponentFieldDependencyModel extends ComponentFieldDepe
 
   private void $$arezi$$_preDispose() {
     if ( null != this.foo ) {
-      DisposeTrackable.asDisposeTrackable( this.foo ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( this.foo ).removeOnDisposeListener( this );
     }
   }
 

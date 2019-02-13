@@ -50,7 +50,7 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
   private void $$arezi$$_preDispose() {
     final DisposeTrackable $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
     }
   }
 
@@ -97,11 +97,11 @@ public final class Arez_AbstractObservableDependency extends AbstractObservableD
     final DisposeTrackable $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
+        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       }
       this.$$arezd$$_value = value;
       if ( null != value ) {
-        DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, this::dispose );
+        DisposeTrackable.asDisposeTrackable( value ).addOnDisposeListener( this, this::dispose );
       }
       this.$$arez$$_value.reportChanged();
     }

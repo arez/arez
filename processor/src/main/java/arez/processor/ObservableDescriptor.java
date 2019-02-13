@@ -531,7 +531,7 @@ final class ObservableDescriptor
       {
         if ( isGetterNonnull() )
         {
-          codeBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+          codeBlock.addStatement( "$T.asDisposeTrackable( $N ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   varName );
         }
@@ -539,7 +539,7 @@ final class ObservableDescriptor
         {
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+          listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).removeOnDisposeListener( this )",
                                       Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                       varName );
           listenerBlock.endControlFlow();
@@ -554,7 +554,7 @@ final class ObservableDescriptor
           if ( isGetterNonnull() )
           {
             codeBlock
-              .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeTrackable( $N ).addOnDisposeListener( this, this::dispose )",
                              Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
           }
@@ -563,7 +563,7 @@ final class ObservableDescriptor
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
-              .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeTrackable( $N ).addOnDisposeListener( this, this::dispose )",
                              Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
             listenerBlock.endControlFlow();
@@ -575,7 +575,7 @@ final class ObservableDescriptor
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
-            .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+            .addStatement( "$T.asDisposeTrackable( $N ).addOnDisposeListener( this, () -> $N( null ) )",
                            Generator.DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
                            _setter.getSimpleName().toString() );
@@ -590,7 +590,7 @@ final class ObservableDescriptor
       {
         if ( isGetterNonnull() )
         {
-          codeBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+          codeBlock.addStatement( "$T.asDisposeTrackable( $N ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   varName );
         }
@@ -598,7 +598,7 @@ final class ObservableDescriptor
         {
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+          listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).removeOnDisposeListener( this )",
                                       Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                       varName );
           listenerBlock.endControlFlow();
@@ -613,7 +613,7 @@ final class ObservableDescriptor
           if ( isGetterNonnull() )
           {
             codeBlock
-              .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeTrackable( $N ).addOnDisposeListener( this, this::dispose )",
                              Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
           }
@@ -622,7 +622,7 @@ final class ObservableDescriptor
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
-              .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeTrackable( $N ).addOnDisposeListener( this, this::dispose )",
                              Generator.DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
             listenerBlock.endControlFlow();
@@ -634,7 +634,7 @@ final class ObservableDescriptor
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
-            .addStatement( "$T.asDisposeTrackable( $N ).getNotifier().addOnDisposeListener( this, () -> $N( null ) )",
+            .addStatement( "$T.asDisposeTrackable( $N ).addOnDisposeListener( this, () -> $N( null ) )",
                            Generator.DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
                            _setter.getSimpleName().toString() );

@@ -1,6 +1,9 @@
 package arez.component;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.SafeProcedure;
+import arez.annotations.CascadeDispose;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
@@ -22,6 +25,37 @@ public interface DisposeTrackable
    */
   @Nonnull
   DisposeNotifier getNotifier();
+
+  /**
+   * Add the listener to notify list under key.
+   * This method MUST NOT be invoked after the component has been disposed.
+   * This method should not be invoked if another listener has been added with the same key without
+   * being removed.
+   *
+   * <p>If the key implements {@link Disposable} and {@link Disposable#isDisposed()} returns <code>true</code>
+   * when invoking the calback then the callback will be skipped. This rare situation only occurs when there is
+   * circular dependency in the object model usually involving {@link CascadeDispose}.</p>
+   *
+   * @param key    the key to uniquely identify listener.
+   * @param action the listener callback.
+   */
+  default void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+  {
+    getNotifier().addOnDisposeListener( key, action );
+  }
+
+  /**
+   * Remove the listener with specified key from the notify list.
+   * This method should only be invoked when a listener has been added for specific key using
+   * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
+   * call to this method.
+   *
+   * @param key the key under which the listener was previously added.
+   */
+  default void removeOnDisposeListener( @Nonnull final Object key )
+  {
+    getNotifier().removeOnDisposeListener( key );
+  }
 
   /**
    * Return the notifier associated with the supplied object if object implements DisposeTrackable.

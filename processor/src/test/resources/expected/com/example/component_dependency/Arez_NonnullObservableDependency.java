@@ -31,7 +31,7 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonnullObservableDependency", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
-    DisposeTrackable.asDisposeTrackable( super.getValue() ).getNotifier().addOnDisposeListener( this, this::dispose );
+    DisposeTrackable.asDisposeTrackable( super.getValue() ).addOnDisposeListener( this, this::dispose );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
   }
@@ -47,7 +47,7 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
   }
 
   private void $$arezi$$_preDispose() {
-    DisposeTrackable.asDisposeTrackable( getValue() ).getNotifier().removeOnDisposeListener( this );
+    DisposeTrackable.asDisposeTrackable( getValue() ).removeOnDisposeListener( this );
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -94,9 +94,9 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
     final DisposeTrackable $$arezv$$_currentValue = super.getValue();
     assert null != value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       super.setValue( value );
-      DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( value ).addOnDisposeListener( this, this::dispose );
       this.$$arez$$_value.reportChanged();
     }
   }

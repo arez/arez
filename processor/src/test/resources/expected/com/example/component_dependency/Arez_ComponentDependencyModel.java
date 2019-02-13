@@ -26,7 +26,7 @@ public final class Arez_ComponentDependencyModel extends ComponentDependencyMode
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     final ComponentDependencyModel.Foo $$arezv$$_getFoo_dependency = super.getFoo();
     if ( null != $$arezv$$_getFoo_dependency ) {
-      DisposeTrackable.asDisposeTrackable( super.getFoo() ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( super.getFoo() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -45,7 +45,7 @@ public final class Arez_ComponentDependencyModel extends ComponentDependencyMode
   private void $$arezi$$_preDispose() {
     final ComponentDependencyModel.Foo $$arezv$$_getFoo_dependency = super.getFoo();
     if ( null != $$arezv$$_getFoo_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getFoo_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getFoo_dependency ).removeOnDisposeListener( this );
     }
   }
 

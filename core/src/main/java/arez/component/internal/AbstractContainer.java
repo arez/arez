@@ -196,7 +196,6 @@ public abstract class AbstractContainer<K, T>
   {
     DisposeTrackable
       .asDisposeTrackable( entity )
-      .getNotifier()
       .addOnDisposeListener( this, () -> {
         getEntitiesObservableValue().preReportChanged();
         detach( entity, false );

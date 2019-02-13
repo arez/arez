@@ -33,11 +33,11 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
     this.$$arez$$_value3 = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getValue3() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     final DisposeTrackable $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
-      DisposeTrackable.asDisposeTrackable( super.getValue1() ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( super.getValue1() ).addOnDisposeListener( this, this::dispose );
     }
     final DisposeTrackable $$arezv$$_getValue3_dependency = super.getValue3();
     if ( null != $$arezv$$_getValue3_dependency ) {
-      DisposeTrackable.asDisposeTrackable( super.getValue3() ).getNotifier().addOnDisposeListener( this, () -> setValue3( null ) );
+      DisposeTrackable.asDisposeTrackable( super.getValue3() ).addOnDisposeListener( this, () -> setValue3( null ) );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -56,11 +56,11 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
   private void $$arezi$$_preDispose() {
     final DisposeTrackable $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue1_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue1_dependency ).removeOnDisposeListener( this );
     }
     final DisposeTrackable $$arezv$$_getValue3_dependency = super.getValue3();
     if ( null != $$arezv$$_getValue3_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue3_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getValue3_dependency ).removeOnDisposeListener( this );
     }
   }
 
@@ -107,11 +107,11 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
     final DisposeTrackable $$arezv$$_currentValue = super.getValue3();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).getNotifier().removeOnDisposeListener( this );
+        DisposeTrackable.asDisposeTrackable( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       }
       super.setValue3( value );
       if ( null != value ) {
-        DisposeTrackable.asDisposeTrackable( value ).getNotifier().addOnDisposeListener( this, () -> setValue3( null ) );
+        DisposeTrackable.asDisposeTrackable( value ).addOnDisposeListener( this, () -> setValue3( null ) );
       }
       this.$$arez$$_value3.reportChanged();
     }

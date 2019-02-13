@@ -3471,7 +3471,7 @@ final class ComponentDescriptor
           final String methodName = method.getSimpleName().toString();
           if ( isNonnull )
           {
-            builder.addStatement( "$T.asDisposeTrackable( $N() ).getNotifier().removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeTrackable( $N() ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   methodName );
           }
@@ -3492,7 +3492,7 @@ final class ComponentDescriptor
             }
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-            listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).getNotifier().removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeTrackable( $N ).removeOnDisposeListener( this )",
                                         Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         varName );
             listenerBlock.endControlFlow();
@@ -3505,7 +3505,7 @@ final class ComponentDescriptor
           final String fieldName = field.getSimpleName().toString();
           if ( isNonnull )
           {
-            builder.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier().removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeTrackable( this.$N ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                   fieldName );
           }
@@ -3513,7 +3513,7 @@ final class ComponentDescriptor
           {
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-            listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).getNotifier().removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeTrackable( this.$N ).removeOnDisposeListener( this )",
                                         Generator.DISPOSE_TRACKABLE_CLASSNAME,
                                         fieldName );
             listenerBlock.endControlFlow();

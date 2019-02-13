@@ -26,7 +26,7 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     final MyDependentValue $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
-      DisposeTrackable.asDisposeTrackable( super.getTime() ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( super.getTime() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -45,7 +45,7 @@ public final class Arez_TransitivelyDisposeTrackableDependencyModel extends Tran
   private void $$arezi$$_preDispose() {
     final MyDependentValue $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_getTime_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_getTime_dependency ).removeOnDisposeListener( this );
     }
   }
 

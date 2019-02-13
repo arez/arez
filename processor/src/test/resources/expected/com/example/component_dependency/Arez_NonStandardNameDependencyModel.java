@@ -26,7 +26,7 @@ public final class Arez_NonStandardNameDependencyModel extends NonStandardNameDe
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     final DisposeTrackable $$arezv$$_$$MYDEP$$_dependency = super.$$MYDEP$$();
     if ( null != $$arezv$$_$$MYDEP$$_dependency ) {
-      DisposeTrackable.asDisposeTrackable( super.$$MYDEP$$() ).getNotifier().addOnDisposeListener( this, this::dispose );
+      DisposeTrackable.asDisposeTrackable( super.$$MYDEP$$() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -45,7 +45,7 @@ public final class Arez_NonStandardNameDependencyModel extends NonStandardNameDe
   private void $$arezi$$_preDispose() {
     final DisposeTrackable $$arezv$$_$$MYDEP$$_dependency = super.$$MYDEP$$();
     if ( null != $$arezv$$_$$MYDEP$$_dependency ) {
-      DisposeTrackable.asDisposeTrackable( $$arezv$$_$$MYDEP$$_dependency ).getNotifier().removeOnDisposeListener( this );
+      DisposeTrackable.asDisposeTrackable( $$arezv$$_$$MYDEP$$_dependency ).removeOnDisposeListener( this );
     }
   }
 

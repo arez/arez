@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.AbstractArezTest;
 import arez.Disposable;
+import arez.component.internal.DisposeNotifier;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
