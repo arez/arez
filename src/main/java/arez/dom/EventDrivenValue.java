@@ -36,7 +36,7 @@ import jsinterop.annotations.JsFunction;
  * @param <SourceType> the type of the DOM element that generates events of interest.
  * @param <ValueType>  the type of the value returned by the "value" observable.
  */
-@ArezComponent( requireEquals = Feature.DISABLE, requireId = Feature.DISABLE, disposeTrackable = Feature.DISABLE )
+@ArezComponent( requireEquals = Feature.DISABLE, requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE )
 public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType>
 {
   /**

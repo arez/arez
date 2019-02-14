@@ -38,7 +38,7 @@ import jsinterop.base.Js;
  * and this listener will not be removed until there is no observers left observing the value. This means
  * that a component that is not being used has very little overhead.</p>
  */
-@ArezComponent( requireEquals = Feature.DISABLE, requireId = Feature.DISABLE, disposeTrackable = Feature.DISABLE )
+@ArezComponent( requireEquals = Feature.DISABLE, requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE )
 public abstract class GeoPosition
 {
   public static final class Status
