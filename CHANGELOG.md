@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.130](https://github.com/arez/arez/tree/v0.130) (2019-02-14)
+[Full Changelog](https://github.com/arez/arez/compare/v0.129...v0.130)
 
 * Add the `react4j-drumloop` sample application into set off used to track code size changes over time.
 * Upgrade the `org.realityforge.com.google.elemental2:*` libraries to version `1.0.0-b16-6897368`.
