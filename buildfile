@@ -39,6 +39,9 @@ AREZ_TEST_OPTIONS =
     'arez.environment' => 'development'
   }
 
+# Disable testing against J2CL until the build infrastructure can be upgraded
+ENV['J2CL'] = 'no'
+
 desc 'Arez: Simple, Scalable State Management Library'
 define 'arez' do
   project.group = 'org.realityforge.arez'
