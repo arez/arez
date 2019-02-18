@@ -45,8 +45,7 @@ public abstract class Node
 
   /**
    * Return the name of the node.
-   * This method should NOT be invoked unless {@link Arez#areNamesEnabled()} returns true and will throw an
-   * exception if invariant checking is enabled.
+   * This method should NOT be invoked unless {@link Arez#areNamesEnabled()} returns <code>true</code>.
    *
    * @return the name of the node.
    */
