@@ -33,7 +33,7 @@ import static org.realityforge.braincheck.Guards.*;
  *   {
  *     final Promise<Response> promise = DomGlobal.fetch( "https://example.com/" );
  *     final ObservablePromise<Response, Object> observablePromise = ObservablePromise.create( promise );
- *     Arez.context().autorun( () -> {
+ *     Arez.context().observer( () -> {
  *       final String message = "Promise Status: " + observablePromise.getState();
  *       DomGlobal.console.log( message );
  *     } );
