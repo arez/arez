@@ -63,7 +63,7 @@ define 'arez-dom' do
                               :name => "GWT Example: #{short_name}",
                               :gwt_module => gwt_module,
                               :start_javascript_debugger => false,
-                              :vm_parameters => "-Xmx3G -Djava.io.tmpdir=#{_("tmp/gwt/#{short_name}")}",
+                              :vm_parameters => '-Xmx2G',
                               :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
   end
 end
