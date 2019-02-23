@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.56](https://github.com/arez/arez-spytools/tree/v0.56) (2019-02-24)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.55...v0.56)
 
 * Upgrade the `org.realityforge.com.google.jsinterop` artifact to version `1.0.0-b2-e6d791f`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b18-f3472e7`.
