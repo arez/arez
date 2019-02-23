@@ -49,7 +49,7 @@ public class StringifyReplacer
       {
         for ( int i = 0; i < _array.getLength(); i++ )
         {
-          if ( Js.isTripleEqual( value, _array.getAnyAt( i ) ) )
+          if ( Js.isTripleEqual( value, _array.getAtAsAny( i ) ) )
           {
             return "[Circular]";
           }
@@ -60,7 +60,7 @@ public class StringifyReplacer
         final JsPropertyMap<Object> map = JsPropertyMap.of();
         for ( final String propertyName : propertyNames )
         {
-          map.set( propertyName, Js.asPropertyMap( value ).getAny( propertyName ) );
+          map.set( propertyName, Js.asPropertyMap( value ).getAsAny( propertyName ) );
         }
         return map;
       }
