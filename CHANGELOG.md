@@ -1,8 +1,54 @@
 # Change Log
 
-### [v0.47](https://github.com/arez/arez-spytools/tree/v0.47) (2018-12-20)
+### Unreleased
+
+* Upgrade the `org.realityforge.com.google.jsinterop` artifact to version `1.0.0-b2-e6d791f`.
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b18-f3472e7`.
+
+### [v0.55](https://github.com/arez/arez-spytools/tree/v0.55) (2019-02-14)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.54...v0.55)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.130'
+
+### [v0.54](https://github.com/arez/arez-spytools/tree/v0.54) (2019-02-11)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.53...v0.54)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.129'
+
+### [v0.53](https://github.com/arez/arez-spytools/tree/v0.53) (2019-02-06)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.52...v0.53)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.128'
+
+### [v0.52](https://github.com/arez/arez-spytools/tree/v0.52) (2019-01-30)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.51...v0.52)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.127'
+
+### [v0.51](https://github.com/arez/arez-spytools/tree/v0.51) (2019-01-23)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.50...v0.51)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.126'
+
+### [v0.50](https://github.com/arez/arez-spytools/tree/v0.50) (2019-01-23)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.49...v0.50)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.125'
+
+### [v0.49](https://github.com/arez/arez-spytools/tree/v0.49) (2019-01-18)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.48...v0.49)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.124'
+
+### [v0.48](https://github.com/arez/arez-spytools/tree/v0.48) (2019-01-17)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.47...v0.48)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.123'
+
+### [v0.47](https://github.com/arez/arez-spytools/tree/v0.47) (2019-01-17)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.46...v0.47)
 
+* Update the 'org.realityforge.arez' dependencies to version '0.122'
 * Restructure `ReactArezSpyUtil` so that it will be completely optimized away
   if `Arez.areSpiesEnabled()` returns false.
 * Restructure `BrowserSpyUtil` so that it will be completely optimized away
