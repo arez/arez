@@ -4,6 +4,7 @@ import gir.io.Exec;
 import gir.sys.SystemProperty;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import javax.annotation.Nonnull;
@@ -60,6 +61,7 @@ public class ApiDiffTest
   }
 
   private void generateReport( @Nonnull final File reportFile )
+    throws IOException
   {
     final String oldApiLabel = "org.realityforge.arez:arez-core:jar:" + SystemProperty.get( "arez.prev.version" );
     final String oldApi = oldApiLabel + "::" + SystemProperty.get( "arez.prev.jar" );
@@ -74,6 +76,7 @@ public class ApiDiffTest
                  newApi,
                  "--output-file",
                  reportFile.toString() );
+    formatJson( reportFile );
   }
 
   @Nonnull
@@ -82,5 +85,27 @@ public class ApiDiffTest
     return new File( SystemProperty.get( "arez.api_test.fixture_dir" ),
                      SystemProperty.get( "arez.prev.version" ) + "-" +
                      SystemProperty.get( "arez.next.version" ) + ".json" );
+  }
+
+  /**
+   * Format the json file.
+   * This is horribly inefficient but it is not called very often so ... meh.
+   */
+  private static void formatJson( @Nonnull final File file )
+    throws IOException
+  {
+    final byte[] data = Files.readAllBytes( file.toPath() );
+    final Charset charset = Charset.forName( "UTF-8" );
+    final String jsonData = new String( data, charset );
+
+    final String output =
+      jsonData
+        .replaceAll( "(?m)^ {4}\\{", "  {" )
+        .replaceAll( "(?m)^ {4}}", "  }" )
+        .replaceAll( "(?m)^ {8}\"", "    \"" )
+        .replaceAll( "(?m)^ {8}}", "    }" )
+        .replaceAll( "(?m)^ {12}\"", "      \"" )
+        .replaceAll( "(?m)^\n\\[\n", "[\n" );
+    Files.write( file.toPath(), output.getBytes( charset ) );
   }
 }
