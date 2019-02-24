@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.131](https://github.com/arez/arez/tree/v0.131) (2019-02-24)
+[Full Changelog](https://github.com/arez/arez/compare/v0.130...v0.131)
 
 * Upgrade the `com.google.jsinterop:base:jar` library to version `1.0.0-b2-e6d791f` released under
   groupId `org.realityforge.com.google.jsinterop`.
