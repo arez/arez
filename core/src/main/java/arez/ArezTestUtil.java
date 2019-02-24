@@ -463,7 +463,16 @@ public final class ArezTestUtil
   @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
   private static void setConstant( @Nonnull final String fieldName, final boolean value )
   {
-    if ( ArezConfig.isDevelopmentMode() )
+    if ( ArezConfig.isProductionMode() )
+    {
+      /*
+       * This should really never happen but if it does add assertion (so code stops in debugger) or
+       * failing that throw an exception.
+       */
+      assert ArezConfig.isDevelopmentMode();
+      throw new IllegalStateException( "Unable to change constant " + fieldName + " as Arez is in production mode" );
+    }
+    else
     {
       try
       {
@@ -475,14 +484,6 @@ public final class ArezTestUtil
       {
         throw new IllegalStateException( "Unable to change constant " + fieldName, e );
       }
-    }
-    else
-    {
-      /*
-       * This should not happen but if it does then just fail with an assertion or error.
-       */
-      assert !ArezConfig.isProductionMode();
-      throw new IllegalStateException( "Unable to change constant " + fieldName + " as Arez is in production mode" );
     }
   }
 }
