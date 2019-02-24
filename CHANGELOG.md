@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* Remove the `org.realityforge.braincheck:braincheck:jar` dependency by reimplementing the invariant
+  checking code in `arez.Guards`. The dependency has been inlined so it can be adapted to specific
+  requirements within Arez.
+
 ### [v0.131](https://github.com/arez/arez/tree/v0.131) (2019-02-24)
 [Full Changelog](https://github.com/arez/arez/compare/v0.130...v0.131)
 
