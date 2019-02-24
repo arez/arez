@@ -33,7 +33,7 @@ public final class Guards
       boolean conditionResult = isConditionTrue( condition, message );
       if ( !conditionResult )
       {
-        fail( message );
+        doFail( message );
       }
     }
   }
@@ -59,7 +59,7 @@ public final class Guards
     {
       if ( !isConditionTrue( condition, message ) )
       {
-        fail( message );
+        doFail( message );
       }
     }
   }
@@ -79,9 +79,9 @@ public final class Guards
     }
     catch ( final Throwable t )
     {
-      fail( () -> "Error checking condition.\n" +
-                  "Message: " + ArezUtil.safeGetString( message ) + "\n" +
-                  "Throwable:\n" + ArezUtil.throwableToString( t ) );
+      doFail( () -> "Error checking condition.\n" +
+                    "Message: " + ArezUtil.safeGetString( message ) + "\n" +
+                    "Throwable:\n" + ArezUtil.throwableToString( t ) );
     }
     return false;
   }
@@ -97,17 +97,22 @@ public final class Guards
   {
     if ( Arez.shouldCheckInvariants() )
     {
-      /*
-       * This flag will only be present and set when GWT is compiling the source code and the relevant
-       * compile time property is defined. Thus this will be false in normal jre runtime environment.
-       * This has to be checked outside of the AssertUtil class otherwise the GWT2.x compiler will not
-       * remove the AssertUtil type.
-       */
-      if ( "ENABLED".equals( System.getProperty( "jre.debugMode" ) ) )
-      {
-        AssertUtil.debugger();
-      }
-      throw new IllegalStateException( ArezUtil.safeGetString( message ) );
+      doFail( message );
     }
+  }
+
+  private static void doFail( @Nonnull final Supplier<String> message )
+  {
+    /*
+     * This flag will only be present and set when GWT is compiling the source code and the relevant
+     * compile time property is defined. Thus this will be false in normal jre runtime environment.
+     * This has to be checked outside of the AssertUtil class otherwise the GWT2.x compiler will not
+     * remove the AssertUtil type.
+     */
+    if ( "ENABLED".equals( System.getProperty( "jre.debugMode" ) ) )
+    {
+      AssertUtil.debugger();
+    }
+    throw new IllegalStateException( ArezUtil.safeGetString( message ) );
   }
 }
