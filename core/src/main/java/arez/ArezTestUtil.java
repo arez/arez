@@ -27,7 +27,7 @@ public final class ArezTestUtil
        * This should really never happen but if it does add assertion (so code stops in debugger) or
        * failing that throw an exception.
        */
-      assert !ArezConfig.isProductionMode();
+      assert ArezConfig.isDevelopmentMode();
       throw new IllegalStateException( "Unable to reset config as Arez is in production mode" );
     }
 
@@ -463,7 +463,7 @@ public final class ArezTestUtil
   @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
   private static void setConstant( @Nonnull final String fieldName, final boolean value )
   {
-    if ( !ArezConfig.isProductionMode() )
+    if ( ArezConfig.isDevelopmentMode() )
     {
       try
       {
