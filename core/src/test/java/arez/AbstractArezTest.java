@@ -27,6 +27,7 @@ public abstract class AbstractArezTest
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
+    Guards.setOnGuardListener( null );
   }
 
   @AfterMethod

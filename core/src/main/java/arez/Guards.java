@@ -2,14 +2,34 @@ package arez;
 
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A utility class used to perform assertions and invariant checks.
  */
 public final class Guards
 {
+  @Nullable
+  private static OnGuardListener c_onGuardListener;
+
   private Guards()
   {
+  }
+
+  /**
+   * Interface used to receive details about an invoked guard.
+   * This is only used internally during development to collect the guards/invariants/etc to ensure
+   * that they comply with patterns and to ensure they are documented appropriately.
+   */
+  interface OnGuardListener
+  {
+    void onGuard( @Nonnull String message, @Nonnull StackTraceElement[] stackTrace );
+  }
+
+  static void setOnGuardListener( @Nullable final OnGuardListener onGuardListener )
+  {
+    assert ArezConfig.isDevelopmentMode();
+    c_onGuardListener = onGuardListener;
   }
 
   /**
@@ -52,9 +72,12 @@ public final class Guards
    * @param message   the message supplier used if verbose messages enabled.
    * @throws IllegalStateException if condition returns false.
    */
-  public static void invariant( @Nonnull final Supplier<Boolean> condition,
-                                @Nonnull final Supplier<String> message )
+  public static void invariant( @Nonnull final Supplier<Boolean> condition, @Nonnull final Supplier<String> message )
   {
+    if ( ArezConfig.isDevelopmentMode() && null != c_onGuardListener )
+    {
+      c_onGuardListener.onGuard( ArezUtil.safeGetString( message ), StackTraceUtil.getStackTrace( 2 ) );
+    }
     if ( Arez.shouldCheckInvariants() )
     {
       if ( !isConditionTrue( condition, message ) )
