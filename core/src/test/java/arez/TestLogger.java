@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 final class TestLogger
-  implements ArezLogger.Logger
+  implements ArezTestUtil.Logger
 {
   static final class LogEntry
   {

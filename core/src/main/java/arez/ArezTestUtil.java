@@ -2,6 +2,7 @@ package arez;
 
 import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for interacting with Arez config settings in tests.
@@ -12,6 +13,14 @@ public final class ArezTestUtil
 {
   private ArezTestUtil()
   {
+  }
+
+  /**
+   * Interface to intercept log messages emitted by Arez runtime..
+   */
+  public interface Logger
+  {
+    void log( @Nonnull String message, @Nullable Throwable throwable );
   }
 
   /**
@@ -69,10 +78,31 @@ public final class ArezTestUtil
    */
   private static void resetState()
   {
-    ( (ArezLogger.ProxyLogger) ArezLogger.getLogger() ).setLogger( null );
+    setLogger( null );
     Transaction.setTransaction( null );
     ArezZoneHolder.reset();
     ArezContextHolder.reset();
+  }
+
+  /**
+   * Specify logger to use to capture logging in tests
+   *
+   * @param logger the logger.
+   */
+  public static void setLogger( @Nullable final Logger logger )
+  {
+    if ( ArezConfig.isProductionMode() )
+    {
+      /*
+       * This should really never happen but if it does add assertion (so code stops in debugger) or
+       * failing that throw an exception.
+       */
+      assert ArezConfig.isDevelopmentMode();
+      throw new IllegalStateException( "Unable to call ArezTestUtil.setLogger()  as Arez is in production mode" );
+    }
+
+    final ArezLogger.ProxyLogger proxyLogger = (ArezLogger.ProxyLogger) ArezLogger.getLogger();
+    proxyLogger.setLogger( null == logger ? null : logger::log );
   }
 
   /**

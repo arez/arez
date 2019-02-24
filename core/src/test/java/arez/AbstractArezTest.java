@@ -12,6 +12,7 @@ import static org.testng.Assert.*;
 
 public abstract class AbstractArezTest
 {
+  private final TestLogger _logger = new TestLogger();
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
 
@@ -21,7 +22,8 @@ public abstract class AbstractArezTest
   {
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
-    getProxyLogger().setLogger( new TestLogger() );
+    _logger.getEntries().clear();
+    ArezTestUtil.setLogger( _logger );
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
@@ -40,7 +42,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final TestLogger getTestLogger()
   {
-    return (TestLogger) getProxyLogger().getLogger();
+    return _logger;
   }
 
   @Nonnull
