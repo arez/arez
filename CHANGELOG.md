@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.131'
 * Upgrade the `org.realityforge.com.google.jsinterop` artifact to version `1.0.0-b2-e6d791f`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b18-f3472e7`.
 
