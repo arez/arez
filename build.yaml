@@ -28,4 +28,4 @@ artifacts:
   arez_core: org.realityforge.arez:arez-core:jar:0.131
   arez_processor: org.realityforge.arez:arez-processor:jar:0.131
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.12.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.13.0
