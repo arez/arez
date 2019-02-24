@@ -1,6 +1,5 @@
 <module>
   <inherits name='arez.Arez'/>
-  <inherits name='org.realityforge.braincheck.BrainCheckDev'/>
 
   <source path='ignored'/>
 

@@ -2,7 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import javax.annotation.Nonnull;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * Interface implemented by components so that observers can observe the component without

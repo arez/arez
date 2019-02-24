@@ -3,7 +3,7 @@ package arez;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * A lock that stops the scheduler from running tasks until the lock is released.

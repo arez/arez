@@ -1,6 +1,4 @@
 <module>
-  <inherits name='org.realityforge.braincheck.BrainCheck'/>
-
   <source path='' includes='*.java'/>
   <source path='spy' includes='*.java'/>
 

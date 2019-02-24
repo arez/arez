@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Stack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * The class responsible for caching

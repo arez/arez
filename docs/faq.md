@@ -148,15 +148,14 @@ method will be invoked.
 
 ### Why guard invariant checks with `Arez.shouldCheckInvariants()`?
 
-The codebase is filled with lots of calls to the `Guards.invariant(...)` and `Guards.apiInvariant(...)` methods
-from the `BrainCheck` library. If the appropriate configuration settings are supplied, these methods will verify
-that invariants and expectations of the Arez library are true at runtime. As these checks can be expensive, they
-should not be run in production mode. If these checks are not run then the code should not be generated in a
-GWT/Browser based application.
+The codebase is filled with lots of calls to the `Guards.invariant(...)` and `Guards.apiInvariant(...)` methods.
+If the appropriate configuration settings are supplied, these methods will verify that invariants and expectations
+of the Arez library are true at runtime. As these checks can be expensive, they should not be run in production mode.
+If these checks are not run then the code should not be generated in a GWT/Browser based application.
 
-The initial design of `BrainCheck` went through several iterations to ensure that the code is not present in
-generated javascript output and this seems to be true when the code complexity is low. However the GWT 2.8.2
-compiler will fail to eliminate the code for the lambdas passed to the the invariant methods, even after the
+The initial design of the invariant checking code went through several iterations to ensure that the code is not
+present in generated javascript output and this seems to be true when the code complexity is low. However the 
+GWT 2.8.2 compiler will fail to eliminate the code for the lambdas passed to the the invariant methods, even after the
 code for invariant methods is eliminated. It is unclear the trigger for this problem as the same sequence of
 code would be optimized in one context but kept in another context within the same application.
 

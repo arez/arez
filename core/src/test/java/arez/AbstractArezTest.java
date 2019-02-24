@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -20,7 +19,6 @@ public abstract class AbstractArezTest
   protected void beforeTest()
     throws Exception
   {
-    BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
     getProxyLogger().setLogger( new TestLogger() );
@@ -32,7 +30,6 @@ public abstract class AbstractArezTest
   @AfterMethod
   protected void afterTest()
   {
-    BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
     if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
     {

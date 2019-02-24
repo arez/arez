@@ -29,11 +29,9 @@ public class JDependTest
     constraint.addPackage( "arez.annotations" );
     final JavaPackage component = constraint.addPackage( "arez.component" );
     final JavaPackage internal = constraint.addPackage( "arez.component.internal" );
-    final JavaPackage braincheck = constraint.addPackage( "org.realityforge.braincheck" );
     final JavaPackage jsinterop = constraint.addPackage( "jsinterop.annotations" );
 
     arez.dependsUpon( jsinterop );
-    arez.dependsUpon( braincheck );
     /*
      * The arez.spy and arez packages form a loop but rather than squashing spy into arez
      * it was decided to keep them separate as everything in arez.spy should be optimized out
@@ -43,10 +41,8 @@ public class JDependTest
     spy.dependsUpon( arez );
     arez.dependsUpon( spy );
 
-    component.dependsUpon( braincheck );
     component.dependsUpon( arez );
 
-    internal.dependsUpon( braincheck );
     internal.dependsUpon( arez );
     internal.dependsUpon( component );
     internal.dependsUpon( spy );

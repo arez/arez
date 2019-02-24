@@ -4,7 +4,7 @@ import arez.Arez;
 import arez.Disposable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * Interface implemented by components so that the underlying identifier can be exposed.

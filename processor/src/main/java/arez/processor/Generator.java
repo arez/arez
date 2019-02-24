@@ -36,7 +36,7 @@ final class Generator
   private static final ClassName DAGGER_PROVIDES_CLASSNAME = ClassName.get( "dagger", "Provides" );
   static final ClassName DAGGER_MODULE_CLASSNAME = ClassName.get( "dagger", "Module" );
   private static final ClassName DAGGER_SUBCOMPONENT_CLASSNAME = ClassName.get( "dagger", "Subcomponent" );
-  static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
+  static final ClassName GUARDS_CLASSNAME = ClassName.get( "arez", "Guards" );
   static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   static final ClassName FLAGS_CLASSNAME = ClassName.get( "arez", "Flags" );
   static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );

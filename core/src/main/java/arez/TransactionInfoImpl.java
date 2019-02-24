@@ -5,7 +5,7 @@ import arez.spy.TransactionInfo;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * Adapter of Transaction to TransactionInfo for spy capabilities.

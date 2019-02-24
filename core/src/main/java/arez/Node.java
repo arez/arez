@@ -4,7 +4,7 @@ import arez.spy.Spy;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * A node within an Arez dependency graph.
