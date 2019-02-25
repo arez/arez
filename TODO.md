@@ -14,6 +14,10 @@ complete as there is too much un-said.
 * Add annotation and potentially annotation value to `ArezProcessorException` so that they can be emitted during
   error reporting to get more precise errors.
 
+* Invariants currently pass in a formatted string. Should pass code and message and let invariant code
+  perform formatting. The `Guards.OnGuardListener` could be updated to accept the code and as a result
+  `GuardPatternMatcher` would essentially disappear as a lambda.
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.

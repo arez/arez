@@ -17,13 +17,23 @@ public final class Guards
   }
 
   /**
+   * The type of the guard.
+   * This is only used during development process and will be optimized out in production mode.
+   */
+  enum Type
+  {
+    INVARIANT,
+    API_INVARIANT
+  }
+
+  /**
    * Interface used to receive details about an invoked guard.
    * This is only used internally during development to collect the guards/invariants/etc to ensure
    * that they comply with patterns and to ensure they are documented appropriately.
    */
   interface OnGuardListener
   {
-    void onGuard( @Nonnull String message, @Nonnull StackTraceElement[] stackTrace );
+    void onGuard( @Nonnull Type type, @Nonnull String message, @Nonnull StackTraceElement[] stackTrace );
   }
 
   static void setOnGuardListener( @Nullable final OnGuardListener onGuardListener )
@@ -48,6 +58,12 @@ public final class Guards
    */
   public static void apiInvariant( @Nonnull final Supplier<Boolean> condition, @Nonnull final Supplier<String> message )
   {
+    if ( ArezConfig.isDevelopmentMode() && null != c_onGuardListener )
+    {
+      c_onGuardListener.onGuard( Type.API_INVARIANT,
+                                 ArezUtil.safeGetString( message ),
+                                 StackTraceUtil.getStackTrace( 2 ) );
+    }
     if ( Arez.shouldCheckApiInvariants() )
     {
       boolean conditionResult = isConditionTrue( condition, message );
@@ -76,7 +92,7 @@ public final class Guards
   {
     if ( ArezConfig.isDevelopmentMode() && null != c_onGuardListener )
     {
-      c_onGuardListener.onGuard( ArezUtil.safeGetString( message ), StackTraceUtil.getStackTrace( 2 ) );
+      c_onGuardListener.onGuard( Type.INVARIANT, ArezUtil.safeGetString( message ), StackTraceUtil.getStackTrace( 2 ) );
     }
     if ( Arez.shouldCheckInvariants() )
     {

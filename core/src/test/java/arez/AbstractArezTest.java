@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
@@ -20,6 +21,7 @@ public abstract class AbstractArezTest
   protected void beforeTest()
     throws Exception
   {
+    DiagnosticMessages.loadIfRequired();
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
     _logger.getEntries().clear();
@@ -27,7 +29,7 @@ public abstract class AbstractArezTest
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
-    Guards.setOnGuardListener( null );
+    Guards.setOnGuardListener( new GuardPatternMatcher() );
   }
 
   @AfterMethod
@@ -38,6 +40,13 @@ public abstract class AbstractArezTest
     {
       fail( "Unexpected Observer Errors: " + String.join( "\n", _observerErrors ) );
     }
+  }
+
+  @AfterSuite
+  protected void afterSuite()
+    throws Exception
+  {
+    DiagnosticMessages.saveIfRequired();
   }
 
   @Nonnull

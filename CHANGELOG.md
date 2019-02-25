@@ -7,6 +7,8 @@
   requirements within Arez.
 * **\[core\]** Implement an `ArezTestUtil.setLogger()` that allows the interception and testing of the
   logger during testing.
+* **\[core\]** Extract the patterns and codes for invariant messages into `diagnostic_messages.json`
+  in preparation for generating documentation for the error messages.
 
 ### [v0.131](https://github.com/arez/arez/tree/v0.131) (2019-02-24)
 [Full Changelog](https://github.com/arez/arez/compare/v0.130...v0.131)
