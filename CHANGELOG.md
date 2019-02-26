@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b19-fb227e3`.
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.13.0`.
 
 ### [v0.12](https://github.com/arez/arez-dom/tree/v0.12) (2019-02-24)
