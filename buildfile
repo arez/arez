@@ -24,7 +24,6 @@ define 'arez-promise' do
                :jsinterop_annotations,
                :elemental2_core,
                :elemental2_promise,
-               :braincheck,
                :arez_core
 
   gwt_enhance(project)
