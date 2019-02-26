@@ -78,6 +78,8 @@ complete as there is too much un-said.
 * Several of the constraints in the annotation processor are stylistic - we should identify those and make them
   into warning that are only emitted when the annotation processor is configured to emit bad style warnings
 
+* Fix downstream that rely on braincheck....
+
 * Change invariant checking code so that it explicitly specifies error code in call.
 
     `Arez-0199: Observer.reportStale() invoked on observer named 'TestComponent1.0.render' but arezOnlyDependencies = true.`
