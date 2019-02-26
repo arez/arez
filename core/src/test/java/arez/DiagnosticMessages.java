@@ -9,6 +9,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
@@ -79,14 +80,26 @@ final class DiagnosticMessages
         throw new IllegalStateException( "Failed to load diagnostic_messages.json as it is incorrectly " +
                                          "formatted with duplicate entries for code " + code );
       }
-      c_messages.put( code, new DiagnosticMessage( code, type, messagePattern, true ) );
+      final HashSet<StackTraceElement> callers = new HashSet<>();
+      final JsonArray callersData = entry.getJsonArray( "callers" );
+      final int callerCount = callersData.size();
+      for ( int j = 0; j < callerCount; j++ )
+      {
+        final JsonObject callerData = callersData.getJsonObject( j );
+        final String className = callerData.getString( "class" );
+        final String methodName = callerData.getString( "method" );
+        final String fileName = callerData.getString( "file" );
+        final int lineNumber = callerData.getInt( "lineNumber" );
+        callers.add( new StackTraceElement( className, methodName, fileName, lineNumber ) );
+      }
+      c_messages.put( code, new DiagnosticMessage( code, type, messagePattern, false, callers ) );
     }
   }
 
   static void saveIfRequired()
     throws Exception
   {
-    if ( c_messages.values().stream().anyMatch( m -> !m.isLoadedFromFixture() ) )
+    if ( c_messages.values().stream().anyMatch( DiagnosticMessage::needsSave ) )
     {
       final File file = getMessageFilename();
       final Map<String, Object> properties = new HashMap<>();
@@ -105,6 +118,20 @@ final class DiagnosticMessages
             g.write( "code", m.getCode() );
             g.write( "type", m.getType().name() );
             g.write( "messagePattern", m.getMessagePattern() );
+
+            g.writeStartArray( "callers" );
+            final StackTraceElement[] callers = m.getCallers().stream().sorted().toArray( StackTraceElement[]::new );
+            for ( final StackTraceElement caller : callers )
+            {
+              g.writeStartObject();
+              g.write( "class", caller.getClassName() );
+              g.write( "method", caller.getMethodName() );
+              g.write( "file", caller.getFileName() );
+              g.write( "lineNumber", caller.getLineNumber() );
+              g.writeEnd();
+            }
+
+            g.writeEnd();
             g.writeEnd();
           } );
         g.writeEnd();
@@ -130,27 +157,34 @@ final class DiagnosticMessages
         .replaceAll( "(?m)^ {4}\\{", "  {" )
         .replaceAll( "(?m)^ {4}}", "  }" )
         .replaceAll( "(?m)^ {8}\"", "    \"" )
+        .replaceAll( "(?m)^ {8}]", "    ]" )
+        .replaceAll( "(?m)^ {12}\\{", "      {" )
+        .replaceAll( "(?m)^ {12}}", "      }" )
+        .replaceAll( "(?m)^ {16}\"", "        \"" )
         .replaceAll( "(?m)^\n\\[\n", "[\n" ) +
       "\n";
     Files.write( file.toPath(), output.getBytes( charset ) );
   }
 
-  private static void recordDiagnosticMessage( final int code,
-                                               @Nonnull final Guards.Type type,
-                                               @Nonnull final String messagePattern )
+  @Nonnull
+  private static DiagnosticMessage recordDiagnosticMessage( final int code,
+                                                            @Nonnull final Guards.Type type,
+                                                            @Nonnull final String messagePattern )
   {
-    c_messages.put( code, new DiagnosticMessage( code, type, messagePattern, false ) );
-
+    final DiagnosticMessage message = new DiagnosticMessage( code, type, messagePattern, true, new HashSet<>() );
+    c_messages.put( code, message );
+    return message;
   }
 
-  static void matchOrRecordDiagnosticMessage( final int code,
-                                              @Nonnull final Guards.Type type,
-                                              @Nonnull final String message )
+  @Nonnull
+  static DiagnosticMessage matchOrRecordDiagnosticMessage( final int code,
+                                                           @Nonnull final Guards.Type type,
+                                                           @Nonnull final String message )
   {
     final DiagnosticMessage m = c_messages.get( code );
     if ( null == m )
     {
-      recordDiagnosticMessage( code, type, message );
+      return recordDiagnosticMessage( code, type, message );
     }
     else
     {
@@ -176,6 +210,7 @@ final class DiagnosticMessages
                                          "Actual Message:\n" + message );
       }
       assertEquals( m.getType(), type, "Failed to match type of diagnostic message with code " + code );
+      return m;
     }
   }
 }

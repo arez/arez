@@ -95,8 +95,7 @@ complete as there is too much un-said.
   expectation is that the error could be linked to via code ala https://arez.github.io/errors.html#Arez-0022
   The documentation would cross-link to the place(s) where the invariant is generated in source code. This may
   be to github repository or it may be to javadocs where source is included (but this may not be possible
-  if not all source gets published to website). We would also need to add files and line numbers etc to the
-  `diagnostic_messages.json` file. 
+  if not all source gets published to website).
 
 * We should also add some error checking within tests to ensure that invariant methods are only invoked from
   within a guard. We may be able to do this by adding a hook to guard methods or it could require a custom rule

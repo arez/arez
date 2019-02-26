@@ -19,7 +19,9 @@ final class GuardPatternMatcher
       final int code = Integer.parseInt( matcher.group( 1 ) );
       final String msg = matcher.group( 2 );
 
-      DiagnosticMessages.matchOrRecordDiagnosticMessage( code, type, msg );
+      DiagnosticMessages
+        .matchOrRecordDiagnosticMessage( code, type, msg )
+        .recordCaller( stackTrace[ 0 ] );
     }
   }
 }
