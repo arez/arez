@@ -39,7 +39,7 @@ public abstract class AbstractSpyEventProcessor
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !_processors.containsKey( type ),
-                    () -> "Arez-0157: Attempting to call AbstractSpyEventProcessor.on() to register a processor " +
+                    () -> "Attempting to call AbstractSpyEventProcessor.on() to register a processor " +
                           "for type " + type + " but an existing processor already exists for type" );
     }
     _processors.put( type, processor );

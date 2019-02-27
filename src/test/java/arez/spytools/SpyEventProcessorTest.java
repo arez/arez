@@ -164,6 +164,6 @@ public class SpyEventProcessorTest
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> processor.on( ObserverCreateEvent.class, handler ) );
     assertEquals( exception.getMessage(),
-                  "Arez-0157: Attempting to call AbstractSpyEventProcessor.on() to register a processor for type class arez.spy.ObserverCreateEvent but an existing processor already exists for type" );
+                  "Attempting to call AbstractSpyEventProcessor.on() to register a processor for type class arez.spy.ObserverCreateEvent but an existing processor already exists for type" );
   }
 }

@@ -5,6 +5,8 @@
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b19-fb227e3`.
 * Remove the `org.realityforge.braincheck` dependency and replace with arez invariants.
 * Update the 'org.realityforge.arez' dependencies to version '0.132'
+* Remove the `Arez-####: ` prefixes from invariant messages as the package is no longer
+  included within the Arez project and thus these error numbers have been re-assigned.
 
 ### [v0.57](https://github.com/arez/arez-spytools/tree/v0.57) (2019-02-24)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.56...v0.57)
