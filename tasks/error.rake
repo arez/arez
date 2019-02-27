@@ -22,12 +22,6 @@ def load_error_codes
   error_map
 end
 
-desc 'Verify that there are no duplicate error numbers'
-task 'error_codes:check_duplicates' do
-  # Scanning them is sufficient to check for duplicates
-  load_error_codes
-end
-
 desc 'Print out a list of all error codes used in codebase'
 task 'error_codes:print' do
   error_codes = load_error_codes
