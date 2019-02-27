@@ -2,7 +2,7 @@ package arez;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * Interface that allows caller to release any resources associated with element.

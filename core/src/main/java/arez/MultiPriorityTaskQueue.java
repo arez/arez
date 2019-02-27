@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * Basic implementation of task queue that supports priority based queuing of tasks.

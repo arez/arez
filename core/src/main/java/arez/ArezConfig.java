@@ -27,6 +27,11 @@ final class ArezConfig
   {
   }
 
+  static boolean isDevelopmentMode()
+  {
+    return !isProductionMode();
+  }
+
   static boolean isProductionMode()
   {
     return PRODUCTION_MODE;

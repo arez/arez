@@ -1,0 +1,2836 @@
+[
+  {
+    "code": 1,
+    "type": "API_INVARIANT",
+    "messagePattern": "Invoked Arez.createZone() but zones are not enabled.",
+    "callers": [
+      {
+        "class": "arez.Arez",
+        "method": "createZone",
+        "file": "Arez.java",
+        "lineNumber": 184
+      }
+    ]
+  },
+  {
+    "code": 2,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked Arez.activateZone() but zones are not enabled.",
+    "callers": [
+      {
+        "class": "arez.ArezZoneHolder",
+        "method": "activateZone",
+        "file": "ArezZoneHolder.java",
+        "lineNumber": 56
+      }
+    ]
+  },
+  {
+    "code": 3,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked Arez.deactivateZone() but zones are not enabled.",
+    "callers": [
+      {
+        "class": "arez.ArezZoneHolder",
+        "method": "deactivateZone",
+        "file": "ArezZoneHolder.java",
+        "lineNumber": 73
+      }
+    ]
+  },
+  {
+    "code": 4,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempted to deactivate zone that is not active.",
+    "callers": [
+      {
+        "class": "arez.ArezZoneHolder",
+        "method": "deactivateZone",
+        "file": "ArezZoneHolder.java",
+        "lineNumber": 77
+      }
+    ]
+  },
+  {
+    "code": 5,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked Arez.currentZone() but zones are not enabled.",
+    "callers": [
+      {
+        "class": "arez.ArezZoneHolder",
+        "method": "currentZone",
+        "file": "ArezZoneHolder.java",
+        "lineNumber": 93
+      }
+    ]
+  },
+  {
+    "code": 6,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterComponent",
+        "file": "ArezContext.java",
+        "lineNumber": 261
+      }
+    ]
+  },
+  {
+    "code": 7,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterComponent() invoked for '%s' but was unable to remove specified component from registry. Actual component removed: %s",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterComponent",
+        "file": "ArezContext.java",
+        "lineNumber": 269
+      }
+    ]
+  },
+  {
+    "code": 8,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.component() invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "component",
+        "file": "ArezContext.java",
+        "lineNumber": 232
+      }
+    ]
+  },
+  {
+    "code": 9,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.component() invoked for type '%s' and id '%s' but a component already exists for specified type+id.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "component",
+        "file": "ArezContext.java",
+        "lineNumber": 238
+      }
+    ]
+  },
+  {
+    "code": 10,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "findComponent",
+        "file": "ArezContext.java",
+        "lineNumber": 292
+      }
+    ]
+  },
+  {
+    "code": 11,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "findAllComponentsByType",
+        "file": "ArezContext.java",
+        "lineNumber": 318
+      }
+    ]
+  },
+  {
+    "code": 12,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.findAllComponentTypes() invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "findAllComponentTypes",
+        "file": "ArezContext.java",
+        "lineNumber": 343
+      }
+    ]
+  },
+  {
+    "code": 13,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' attempted to be scheduled during read-only transaction.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "scheduleReaction",
+        "file": "ArezContext.java",
+        "lineNumber": 974
+      }
+    ]
+  },
+  {
+    "code": 14,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' attempted to schedule itself during read-only tracking transaction. Observers that are supporting ComputableValue instances must not schedule self.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "scheduleReaction",
+        "file": "ArezContext.java",
+        "lineNumber": 977
+      }
+    ]
+  },
+  {
+    "code": 15,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to get current transaction but current transaction is for different context.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "getTransaction",
+        "file": "ArezContext.java",
+        "lineNumber": 1113
+      }
+    ]
+  },
+  {
+    "code": 16,
+    "type": "INVARIANT",
+    "messagePattern": "releaseSchedulerLock() reduced schedulerLockCount below 0.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "releaseSchedulerLock",
+        "file": "ArezContext.java",
+        "lineNumber": 1156
+      }
+    ]
+  },
+  {
+    "code": 17,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempted to invoke observe(..) on observer named '%s' but observer is not configured to use an application executor.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "observe",
+        "file": "ArezContext.java",
+        "lineNumber": 1355
+      }
+    ]
+  },
+  {
+    "code": 18,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempted to invoke safeObserve(..) on observer named '%s' but observer is not configured to use an application executor.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "safeObserve",
+        "file": "ArezContext.java",
+        "lineNumber": 1477
+      }
+    ]
+  },
+  {
+    "code": 19,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempted to invoke observe(..) on observer named '%s' but observer is not configured to use an application executor.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "observe",
+        "file": "ArezContext.java",
+        "lineNumber": 1599
+      }
+    ]
+  },
+  {
+    "code": 20,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempted to invoke safeObserve(..) on observer named '%s' but observer is not configured to use an application executor.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "safeObserve",
+        "file": "ArezContext.java",
+        "lineNumber": 1739
+      }
+    ]
+  },
+  {
+    "code": 21,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to get Spy but spies are not enabled.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "getSpy",
+        "file": "ArezContext.java",
+        "lineNumber": 2116
+      }
+    ]
+  },
+  {
+    "code": 22,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerObservableValue invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerObservableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2138
+      }
+    ]
+  },
+  {
+    "code": 23,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerObservableValue invoked with observableValue named '%s' but an existing observableValue with that name is already registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerObservableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2141
+      }
+    ]
+  },
+  {
+    "code": 24,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterObservableValue invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterObservableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2154
+      }
+    ]
+  },
+  {
+    "code": 25,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterObservableValue invoked with observableValue named '%s' but no observableValue with that name is registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterObservableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2157
+      }
+    ]
+  },
+  {
+    "code": 26,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.getTopLevelObservables() invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "getTopLevelObservables",
+        "file": "ArezContext.java",
+        "lineNumber": 2170
+      }
+    ]
+  },
+  {
+    "code": 27,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerObserver invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerObserver",
+        "file": "ArezContext.java",
+        "lineNumber": 2182
+      }
+    ]
+  },
+  {
+    "code": 28,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerObserver invoked with observer named '%s' but an existing observer with that name is already registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerObserver",
+        "file": "ArezContext.java",
+        "lineNumber": 2185
+      }
+    ]
+  },
+  {
+    "code": 29,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterObserver invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterObserver",
+        "file": "ArezContext.java",
+        "lineNumber": 2198
+      }
+    ]
+  },
+  {
+    "code": 30,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterObserver invoked with observer named '%s' but no observer with that name is registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterObserver",
+        "file": "ArezContext.java",
+        "lineNumber": 2201
+      }
+    ]
+  },
+  {
+    "code": 31,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.getTopLevelObservers() invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "getTopLevelObservers",
+        "file": "ArezContext.java",
+        "lineNumber": 2214
+      }
+    ]
+  },
+  {
+    "code": 32,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerComputableValue invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerComputableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2226
+      }
+    ]
+  },
+  {
+    "code": 33,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerComputableValue invoked with ComputableValue named '%s' but an existing ComputableValue with that name is already registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerComputableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2229
+      }
+    ]
+  },
+  {
+    "code": 34,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterComputableValue invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterComputableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2242
+      }
+    ]
+  },
+  {
+    "code": 35,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterComputableValue invoked with ComputableValue named '%s' but no ComputableValue with that name is registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterComputableValue",
+        "file": "ArezContext.java",
+        "lineNumber": 2245
+      }
+    ]
+  },
+  {
+    "code": 36,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.getTopLevelComputableValues() invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "getTopLevelComputableValues",
+        "file": "ArezContext.java",
+        "lineNumber": 2258
+      }
+    ]
+  },
+  {
+    "code": 37,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component passed a name '%s' but Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "<init>",
+        "file": "Component.java",
+        "lineNumber": 75
+      }
+    ]
+  },
+  {
+    "code": 38,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.getName() invoked when Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "getName",
+        "file": "Component.java",
+        "lineNumber": 122
+      }
+    ]
+  },
+  {
+    "code": 39,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "<init>",
+        "file": "ComputableValue.java",
+        "lineNumber": 110
+      }
+    ]
+  },
+  {
+    "code": 40,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.addObserver invoked on component '%s' specifying observer named '%s' when observer already exists for component.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "addObserver",
+        "file": "Component.java",
+        "lineNumber": 273
+      }
+    ]
+  },
+  {
+    "code": 41,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.removeObserver invoked on component '%s' specifying observer named '%s' when observer does not exist for component.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "removeObserver",
+        "file": "Component.java",
+        "lineNumber": 290
+      }
+    ]
+  },
+  {
+    "code": 42,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.addObservableValue invoked on component '%s' specifying ObservableValue named '%s' when component.complete() has already been called.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "addObservableValue",
+        "file": "Component.java",
+        "lineNumber": 318
+      }
+    ]
+  },
+  {
+    "code": 43,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.addObservableValue invoked on component '%s' specifying ObservableValue named '%s' when ObservableValue already exists for component.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "addObservableValue",
+        "file": "Component.java",
+        "lineNumber": 326
+      }
+    ]
+  },
+  {
+    "code": 44,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.removeObservableValue invoked on component '%s' specifying ObservableValue named '%s' when ObservableValue does not exist for component.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "removeObservableValue",
+        "file": "Component.java",
+        "lineNumber": 348
+      }
+    ]
+  },
+  {
+    "code": 45,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "<init>",
+        "file": "ComputableValue.java",
+        "lineNumber": 112
+      }
+    ]
+  },
+  {
+    "code": 46,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.addComputableValue invoked on component '%s' specifying ComputableValue named '%s' when ComputableValue already exists for component.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "addComputableValue",
+        "file": "Component.java",
+        "lineNumber": 381
+      }
+    ]
+  },
+  {
+    "code": 47,
+    "type": "API_INVARIANT",
+    "messagePattern": "Component.removeComputableValue invoked on component '%s' specifying ComputableValue named '%s' when ComputableValue does not exist for component.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "removeComputableValue",
+        "file": "Component.java",
+        "lineNumber": 399
+      }
+    ]
+  },
+  {
+    "code": 48,
+    "type": "INVARIANT",
+    "messagePattern": "ComputableValue named '%s' has component specified but Arez.areNativeComponentsEnabled() is false.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "<init>",
+        "file": "ComputableValue.java",
+        "lineNumber": 104
+      }
+    ]
+  },
+  {
+    "code": 49,
+    "type": "API_INVARIANT",
+    "messagePattern": "Detected a cycle deriving ComputableValue named '%s'.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "get",
+        "file": "ComputableValue.java",
+        "lineNumber": 158
+      }
+    ]
+  },
+  {
+    "code": 50,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComputableValue named '%s' accessed after it has been disposed.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "get",
+        "file": "ComputableValue.java",
+        "lineNumber": 160
+      }
+    ]
+  },
+  {
+    "code": 51,
+    "type": "INVARIANT",
+    "messagePattern": "ComputableValue generated a value during computation for ComputableValue named '%s' but still has a non-null value.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "get",
+        "file": "ComputableValue.java",
+        "lineNumber": 172
+      }
+    ]
+  },
+  {
+    "code": 52,
+    "type": "API_INVARIANT",
+    "messagePattern": "Node passed a name '%s' but Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Node",
+        "method": "<init>",
+        "file": "Node.java",
+        "lineNumber": 39
+      }
+    ]
+  },
+  {
+    "code": 53,
+    "type": "API_INVARIANT",
+    "messagePattern": "Node.getName() invoked when Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Node",
+        "method": "getName",
+        "file": "Node.java",
+        "lineNumber": 57
+      }
+    ]
+  },
+  {
+    "code": 54,
+    "type": "INVARIANT",
+    "messagePattern": "ObservableValue named '%s' has component specified but Arez.areNativeComponentsEnabled() is false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "<init>",
+        "file": "ObservableValue.java",
+        "lineNumber": 109
+      }
+    ]
+  },
+  {
+    "code": 55,
+    "type": "API_INVARIANT",
+    "messagePattern": "ObservableValue named '%s' has accessor specified but Arez.arePropertyIntrospectorsEnabled() is false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "<init>",
+        "file": "ObservableValue.java",
+        "lineNumber": 115
+      }
+    ]
+  },
+  {
+    "code": 56,
+    "type": "API_INVARIANT",
+    "messagePattern": "ObservableValue named '%s' has mutator specified but Arez.arePropertyIntrospectorsEnabled() is false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "<init>",
+        "file": "ObservableValue.java",
+        "lineNumber": 118
+      }
+    ]
+  },
+  {
+    "code": 57,
+    "type": "INVARIANT",
+    "messagePattern": "ObservableValue named '%s' has observer specified but observer is not part of a ComputableValue.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "<init>",
+        "file": "ObservableValue.java",
+        "lineNumber": 129
+      }
+    ]
+  },
+  {
+    "code": 58,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke getAccessor() on ObservableValue named '%s' when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "getAccessor",
+        "file": "ObservableValue.java",
+        "lineNumber": 210
+      }
+    ]
+  },
+  {
+    "code": 59,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke getMutator() on ObservableValue named '%s' when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "getMutator",
+        "file": "ObservableValue.java",
+        "lineNumber": 222
+      }
+    ]
+  },
+  {
+    "code": 60,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke deactivate on ObservableValue named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "deactivate",
+        "file": "ObservableValue.java",
+        "lineNumber": 320
+      }
+    ]
+  },
+  {
+    "code": 61,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked deactivate on ObservableValue named '%s' but ObservableValue can not be deactivated. Either owner is null or the associated ComputableValue has keepAlive enabled.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "deactivate",
+        "file": "ObservableValue.java",
+        "lineNumber": 323
+      }
+    ]
+  },
+  {
+    "code": 62,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke activate on ObservableValue named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "activate",
+        "file": "ObservableValue.java",
+        "lineNumber": 356
+      }
+    ]
+  },
+  {
+    "code": 63,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked activate on ObservableValue named '%s' when owner is null.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "activate",
+        "file": "ObservableValue.java",
+        "lineNumber": 359
+      }
+    ]
+  },
+  {
+    "code": 64,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked activate on ObservableValue named '%s' when ObservableValue is already active.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "activate",
+        "file": "ObservableValue.java",
+        "lineNumber": 362
+      }
+    ]
+  },
+  {
+    "code": 65,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke addObserver on ObservableValue named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "addObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 394
+      }
+    ]
+  },
+  {
+    "code": 66,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add observer named '%s' to ObservableValue named '%s' when observer is already observing ObservableValue.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "addObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 398
+      }
+    ]
+  },
+  {
+    "code": 67,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add observer named '%s' to ObservableValue named '%s' when ObservableValue is disposed.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "addObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 401
+      }
+    ]
+  },
+  {
+    "code": 68,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add observer named '%s' to ObservableValue named '%s' when observer is disposed.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "addObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 404
+      }
+    ]
+  },
+  {
+    "code": 69,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke removeObserver on ObservableValue named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "removeObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 437
+      }
+    ]
+  },
+  {
+    "code": 70,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to remove observer named '%s' from ObservableValue named '%s' when observer is not observing ObservableValue.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "removeObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 441
+      }
+    ]
+  },
+  {
+    "code": 71,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke queueForDeactivation on ObservableValue named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "queueForDeactivation",
+        "file": "ObservableValue.java",
+        "lineNumber": 461
+      }
+    ]
+  },
+  {
+    "code": 72,
+    "type": "INVARIANT",
+    "messagePattern": "Attempted to invoke queueForDeactivation() on ObservableValue named '%s' but ObservableValue is not able to be deactivated.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "queueForDeactivation",
+        "file": "ObservableValue.java",
+        "lineNumber": 464
+      }
+    ]
+  },
+  {
+    "code": 73,
+    "type": "INVARIANT",
+    "messagePattern": "Attempted to invoke queueForDeactivation() on ObservableValue named '%s' but ObservableValue has observers.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "queueForDeactivation",
+        "file": "ObservableValue.java",
+        "lineNumber": 467
+      }
+    ]
+  },
+  {
+    "code": 74,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke setLeastStaleObserverState on ObservableValue named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "setLeastStaleObserverState",
+        "file": "ObservableValue.java",
+        "lineNumber": 481
+      }
+    ]
+  },
+  {
+    "code": 75,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke setLeastStaleObserverState on ObservableValue named '%s' with invalid value %s.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "setLeastStaleObserverState",
+        "file": "ObservableValue.java",
+        "lineNumber": 484
+      }
+    ]
+  },
+  {
+    "code": 76,
+    "type": "INVARIANT",
+    "messagePattern": "ObservableValue named '%s' has owner specified but owner does not link to ObservableValue as derived value.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "invariantOwner",
+        "file": "ObservableValue.java",
+        "lineNumber": 601
+      }
+    ]
+  },
+  {
+    "code": 77,
+    "type": "INVARIANT",
+    "messagePattern": "ObservableValue named '%s' has observer named '%s' which does not contain ObservableValue as dependency.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "lambda$invariantObserversLinked$46",
+        "file": "ObservableValue.java",
+        "lineNumber": 612
+      }
+    ]
+  },
+  {
+    "code": 78,
+    "type": "INVARIANT",
+    "messagePattern": "Calculated leastStaleObserverState on ObservableValue named '%s' is '%s' which is unexpectedly less than cached value '%s'.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "invariantLeastStaleObserverState",
+        "file": "ObservableValue.java",
+        "lineNumber": 627
+      }
+    ]
+  },
+  {
+    "code": 79,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' incorrectly specified both READ_ONLY and READ_WRITE transaction mode flags.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 136
+      }
+    ]
+  },
+  {
+    "code": 80,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' has invalid priority %s.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 146
+      }
+    ]
+  },
+  {
+    "code": 81,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' incorrectly specified both RUN_NOW and RUN_LATER flags.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 149
+      }
+    ]
+  },
+  {
+    "code": 82,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' specified transaction mode '%s' when Arez.enforceTransactionType() is false.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 142
+      }
+    ]
+  },
+  {
+    "code": 83,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' has component specified but Arez.areNativeComponentsEnabled() is false.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 155
+      }
+    ]
+  },
+  {
+    "code": 84,
+    "type": "INVARIANT",
+    "messagePattern": "Attempted to invoke getObservableValue on disposed ComputableValue named '%s'.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "getObservableValue",
+        "file": "ComputableValue.java",
+        "lineNumber": 411
+      }
+    ]
+  },
+  {
+    "code": 85,
+    "type": "API_INVARIANT",
+    "messagePattern": "The method reportPossiblyChanged() was invoked on ComputableValue named '%s' but the computable value has not specified the AREZ_OR_EXTERNAL_DEPENDENCIES flag.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "reportPossiblyChanged",
+        "file": "ComputableValue.java",
+        "lineNumber": 203
+      }
+    ]
+  },
+  {
+    "code": 86,
+    "type": "INVARIANT",
+    "messagePattern": "Attempt to invoke setState on observer named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "setState",
+        "file": "Observer.java",
+        "lineNumber": 445
+      }
+    ]
+  },
+  {
+    "code": 88,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' is not active but an attempt has been made to schedule observer.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "scheduleReaction",
+        "file": "Observer.java",
+        "lineNumber": 579
+      }
+    ]
+  },
+  {
+    "code": 89,
+    "type": "INVARIANT",
+    "messagePattern": "%s: The set of dependencies in observer named '%s' is not unique. Current list: '%s'.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "invariantDependenciesUnique",
+        "file": "Observer.java",
+        "lineNumber": 812
+      }
+    ]
+  },
+  {
+    "code": 90,
+    "type": "INVARIANT",
+    "messagePattern": "%s: Observer named '%s' has ObservableValue dependency named '%s' which does not contain the observer in the list of observers.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "lambda$invariantDependenciesBackLink$41",
+        "file": "Observer.java",
+        "lineNumber": 830
+      }
+    ]
+  },
+  {
+    "code": 91,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' has ObservableValue dependency named '%s' which is disposed.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "lambda$invariantDependenciesNotDisposed$43",
+        "file": "Observer.java",
+        "lineNumber": 847
+      }
+    ]
+  },
+  {
+    "code": 92,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' is inactive but still has dependencies: [%s].",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "invariantState",
+        "file": "Observer.java",
+        "lineNumber": 864
+      }
+    ]
+  },
+  {
+    "code": 93,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' is associated with an ObservableValue that does not link back to observer.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "invariantState",
+        "file": "Observer.java",
+        "lineNumber": 871
+      }
+    ]
+  },
+  {
+    "code": 94,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' is a ComputableValue and active but the associated ObservableValue has no observers.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "invariantComputableValueObserverState",
+        "file": "Observer.java",
+        "lineNumber": 884
+      }
+    ]
+  },
+  {
+    "code": 95,
+    "type": "INVARIANT",
+    "messagePattern": "Attempted to invoke getComputableValue on observer named '%s' when is not a computable observer.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "getComputableValue",
+        "file": "Observer.java",
+        "lineNumber": 904
+      }
+    ]
+  },
+  {
+    "code": 96,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to add handler %s that is already in the list of error handlers.",
+    "callers": [
+      {
+        "class": "arez.ObserverErrorHandlerSupport",
+        "method": "addObserverErrorHandler",
+        "file": "ObserverErrorHandlerSupport.java",
+        "lineNumber": 30
+      }
+    ]
+  },
+  {
+    "code": 97,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to remove handler %s that is not in the list of error handlers.",
+    "callers": [
+      {
+        "class": "arez.ObserverErrorHandlerSupport",
+        "method": "removeObserverErrorHandler",
+        "file": "ObserverErrorHandlerSupport.java",
+        "lineNumber": 47
+      }
+    ]
+  },
+  {
+    "code": 98,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to queue task named '%s' when task is already queued.",
+    "callers": [
+      {
+        "class": "arez.FifoTaskQueue",
+        "method": "queueTask",
+        "file": "FifoTaskQueue.java",
+        "lineNumber": 54
+      }
+    ]
+  },
+  {
+    "code": 99,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to queue task named '%s' when task is already queued.",
+    "callers": [
+      {
+        "class": "arez.MultiPriorityTaskQueue",
+        "method": "queueTask",
+        "file": "MultiPriorityTaskQueue.java",
+        "lineNumber": 107
+      }
+    ]
+  },
+  {
+    "code": 100,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComponentKernel passed a context but Arez.areZonesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "<init>",
+        "file": "ComponentKernel.java",
+        "lineNumber": 155
+      }
+    ]
+  },
+  {
+    "code": 102,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to add handler %s that is already in the list of spy handlers.",
+    "callers": [
+      {
+        "class": "arez.SpyImpl",
+        "method": "addSpyEventHandler",
+        "file": "SpyImpl.java",
+        "lineNumber": 55
+      }
+    ]
+  },
+  {
+    "code": 103,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to remove handler %s that is not in the list of spy handlers.",
+    "callers": [
+      {
+        "class": "arez.SpyImpl",
+        "method": "removeSpyEventHandler",
+        "file": "SpyImpl.java",
+        "lineNumber": 70
+      }
+    ]
+  },
+  {
+    "code": 104,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() returns false.",
+    "callers": [
+      {
+        "class": "arez.SpyImpl",
+        "method": "reportSpyEvent",
+        "file": "SpyImpl.java",
+        "lineNumber": 85
+      }
+    ]
+  },
+  {
+    "code": 105,
+    "type": "API_INVARIANT",
+    "messagePattern": "Spy.getTransaction() invoked but no transaction active.",
+    "callers": [
+      {
+        "class": "arez.SpyImpl",
+        "method": "getTransaction",
+        "file": "SpyImpl.java",
+        "lineNumber": 138
+      }
+    ]
+  },
+  {
+    "code": 106,
+    "type": "INVARIANT",
+    "messagePattern": "ComputableValue named '%s' is marked as computing but unable to locate transaction responsible for computing ComputableValue",
+    "callers": [
+      {
+        "class": "arez.ComputableValueInfoImpl",
+        "method": "getTransactionComputing",
+        "file": "ComputableValueInfoImpl.java",
+        "lineNumber": 206
+      }
+    ]
+  },
+  {
+    "code": 107,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "getComponent",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 96
+      }
+    ]
+  },
+  {
+    "code": 108,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObserverInfoImpl",
+        "method": "getComponent",
+        "file": "ObserverInfoImpl.java",
+        "lineNumber": 160
+      }
+    ]
+  },
+  {
+    "code": 109,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ComputableValueInfoImpl",
+        "method": "getComponent",
+        "file": "ComputableValueInfoImpl.java",
+        "lineNumber": 129
+      }
+    ]
+  },
+  {
+    "code": 110,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.hasAccessor invoked when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "hasAccessor",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 111
+      }
+    ]
+  },
+  {
+    "code": 111,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "getValue",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 127
+      }
+    ]
+  },
+  {
+    "code": 112,
+    "type": "API_INVARIANT",
+    "messagePattern": "Spy.getValue invoked on ObservableValue named '%s' but ObservableValue has no property accessor.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "getValue",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 133
+      }
+    ]
+  },
+  {
+    "code": 113,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.hasMutator invoked when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "hasMutator",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 149
+      }
+    ]
+  },
+  {
+    "code": 114,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.setValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "setValue",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 165
+      }
+    ]
+  },
+  {
+    "code": 115,
+    "type": "API_INVARIANT",
+    "messagePattern": "Spy.setValue invoked on ObservableValue named '%s' but ObservableValue has no property mutator.",
+    "callers": [
+      {
+        "class": "arez.ObservableValueInfoImpl",
+        "method": "setValue",
+        "file": "ObservableValueInfoImpl.java",
+        "lineNumber": 171
+      }
+    ]
+  },
+  {
+    "code": 116,
+    "type": "INVARIANT",
+    "messagePattern": "Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ComputableValueInfoImpl",
+        "method": "getValue",
+        "file": "ComputableValueInfoImpl.java",
+        "lineNumber": 146
+      }
+    ]
+  },
+  {
+    "code": 117,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to get current transaction but no transaction is active.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "current",
+        "file": "Transaction.java",
+        "lineNumber": 124
+      }
+    ]
+  },
+  {
+    "code": 118,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' completed observed function (executed by application) but is not observing any properties.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "verifyActionDependencies",
+        "file": "ArezContext.java",
+        "lineNumber": 1931
+      }
+    ]
+  },
+  {
+    "code": 119,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to create READ_WRITE transaction named '%s' but it is nested in transaction named '%s' with mode READ_ONLY which is not equal to READ_WRITE.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "begin",
+        "file": "Transaction.java",
+        "lineNumber": 155
+      }
+    ]
+  },
+  {
+    "code": 120,
+    "type": "INVARIANT",
+    "messagePattern": "Zones are not enabled but the transaction named '%s' is nested in a transaction named '%s' from a different context.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "begin",
+        "file": "Transaction.java",
+        "lineNumber": 170
+      }
+    ]
+  },
+  {
+    "code": 121,
+    "type": "API_INVARIANT",
+    "messagePattern": "The method reportPossiblyChanged() was invoked on disposed ComputableValue named '%s'.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "reportPossiblyChanged",
+        "file": "ComputableValue.java",
+        "lineNumber": 200
+      }
+    ]
+  },
+  {
+    "code": 122,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to commit transaction named '%s' but no transaction is active.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "commit",
+        "file": "Transaction.java",
+        "lineNumber": 211
+      }
+    ]
+  },
+  {
+    "code": 123,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to commit transaction named '%s' but this does not match existing transaction named '%s'.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "commit",
+        "file": "Transaction.java",
+        "lineNumber": 215
+      }
+    ]
+  },
+  {
+    "code": 126,
+    "type": "API_INVARIANT",
+    "messagePattern": "Flags passed to action '%s' include both READ_ONLY and READ_WRITE.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "verifyActionFlags",
+        "file": "ArezContext.java",
+        "lineNumber": 1906
+      }
+    ]
+  },
+  {
+    "code": 127,
+    "type": "API_INVARIANT",
+    "messagePattern": "Flags passed to action '%s' include both VERIFY_ACTION_REQUIRED and NO_VERIFY_ACTION_REQUIRED.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "verifyActionFlags",
+        "file": "ArezContext.java",
+        "lineNumber": 1909
+      }
+    ]
+  },
+  {
+    "code": 128,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to queue task named '%s' when task is not idle.",
+    "callers": [
+      {
+        "class": "arez.Task",
+        "method": "markAsQueued",
+        "file": "Task.java",
+        "lineNumber": 239
+      }
+    ]
+  },
+  {
+    "code": 129,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to clear queued flag on task named '%s' but task is not queued.",
+    "callers": [
+      {
+        "class": "arez.Task",
+        "method": "markAsIdle",
+        "file": "Task.java",
+        "lineNumber": 252
+      }
+    ]
+  },
+  {
+    "code": 130,
+    "type": "INVARIANT",
+    "messagePattern": "Task.asInfo() invoked but Arez.areSpiesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.Task",
+        "method": "asInfo",
+        "file": "Task.java",
+        "lineNumber": 221
+      }
+    ]
+  },
+  {
+    "code": 131,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction passed a name '%s' but Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "<init>",
+        "file": "Transaction.java",
+        "lineNumber": 265
+      }
+    ]
+  },
+  {
+    "code": 132,
+    "type": "INVARIANT",
+    "messagePattern": "Attempted to create transaction named '%s' with mode READ_WRITE when ComputableValue tracker specified.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "<init>",
+        "file": "Transaction.java",
+        "lineNumber": 282
+      }
+    ]
+  },
+  {
+    "code": 133,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction.getName() invoked when Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "getName",
+        "file": "Transaction.java",
+        "lineNumber": 318
+      }
+    ]
+  },
+  {
+    "code": 134,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction.getStartedAt() invoked when Arez.areSpiesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "getStartedAt",
+        "file": "Transaction.java",
+        "lineNumber": 335
+      }
+    ]
+  },
+  {
+    "code": 135,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "isComponentPresent",
+        "file": "ArezContext.java",
+        "lineNumber": 147
+      }
+    ]
+  },
+  {
+    "code": 136,
+    "type": "API_INVARIANT",
+    "messagePattern": "Called attach() passing an entity that is already attached to the container. Entity: %s",
+    "callers": [
+      {
+        "class": "arez.component.internal.AbstractContainer",
+        "method": "attach",
+        "file": "AbstractContainer.java",
+        "lineNumber": 50
+      }
+    ]
+  },
+  {
+    "code": 137,
+    "type": "INVARIANT",
+    "messagePattern": "Attempted to invoke getPreviousInSameContext() on transaction named '%s' when zones are not enabled.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "getPreviousInSameContext",
+        "file": "Transaction.java",
+        "lineNumber": 404
+      }
+    ]
+  },
+  {
+    "code": 138,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked processPendingDeactivations on transaction named '%s' which is not the root transaction.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "processPendingDeactivations",
+        "file": "Transaction.java",
+        "lineNumber": 430
+      }
+    ]
+  },
+  {
+    "code": 139,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to deactivate disposed observableValue named '%s' in transaction named '%s' but the observableValue still has observers.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "processPendingDeactivations",
+        "file": "Transaction.java",
+        "lineNumber": 445
+      }
+    ]
+  },
+  {
+    "code": 140,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked queueForDeactivation on transaction named '%s' for observableValue named '%s' when observableValue can not be deactivated.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "queueForDeactivation",
+        "file": "Transaction.java",
+        "lineNumber": 463
+      }
+    ]
+  },
+  {
+    "code": 141,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked queueForDeactivation on transaction named '%s' for observableValue named '%s' when pending deactivation already exists for observableValue.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "queueForDeactivation",
+        "file": "Transaction.java",
+        "lineNumber": 481
+      }
+    ]
+  },
+  {
+    "code": 142,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked observe on transaction named '%s' for observableValue named '%s' where the observableValue is disposed.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "observe",
+        "file": "Transaction.java",
+        "lineNumber": 496
+      }
+    ]
+  },
+  {
+    "code": 143,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked observe on transaction named '%s' for observableValue named '%s' where the observableValue is owned by the tracker.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "observe",
+        "file": "Transaction.java",
+        "lineNumber": 508
+      }
+    ]
+  },
+  {
+    "code": 144,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked reportChanged on transaction named '%s' for ObservableValue named '%s' where the ObservableValue is disposed.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "preReportChanged",
+        "file": "Transaction.java",
+        "lineNumber": 567
+      }
+    ]
+  },
+  {
+    "code": 145,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' has attempted to explicitly change observableValue named '%s' and observableValue is in unexpected state %s.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportChanged",
+        "file": "Transaction.java",
+        "lineNumber": 598
+      }
+    ]
+  },
+  {
+    "code": 146,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked reportPossiblyChanged on transaction named '%s' for ObservableValue named '%s' where the ObservableValue is disposed.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportPossiblyChanged",
+        "file": "Transaction.java",
+        "lineNumber": 626
+      }
+    ]
+  },
+  {
+    "code": 147,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' has attempted to mark ObservableValue named '%s' as potentially changed but ObservableValue is not a derived value.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportPossiblyChanged",
+        "file": "Transaction.java",
+        "lineNumber": 630
+      }
+    ]
+  },
+  {
+    "code": 148,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' attempted to call reportPossiblyChanged in read-only transaction.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportPossiblyChanged",
+        "file": "Transaction.java",
+        "lineNumber": 634
+      }
+    ]
+  },
+  {
+    "code": 149,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked reportChangeConfirmed on transaction named '%s' for ObservableValue named '%s' where the ObservableValue is disposed.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportChangeConfirmed",
+        "file": "Transaction.java",
+        "lineNumber": 671
+      }
+    ]
+  },
+  {
+    "code": 150,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' has attempted to mark ObservableValue named '%s' as potentially changed but ObservableValue is not a derived value.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportChangeConfirmed",
+        "file": "Transaction.java",
+        "lineNumber": 675
+      }
+    ]
+  },
+  {
+    "code": 151,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' attempted to call reportChangeConfirmed for ObservableValue named '%s' and found a dependency named '%s' that is UP_TO_DATE but is not the tracker of any transactions in the hierarchy: [%s].",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "invariantObserverIsTracker",
+        "file": "Transaction.java",
+        "lineNumber": 753
+      }
+    ]
+  },
+  {
+    "code": 153,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' attempted to change ObservableValue named '%s' and the transaction mode is READ_WRITE_OWNED but the ObservableValue has not been created by the transaction.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "verifyWriteAllowed",
+        "file": "Transaction.java",
+        "lineNumber": 769
+      }
+    ]
+  },
+  {
+    "code": 154,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' has no associated tracker so _observableValues should be null but are not.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "completeTracking",
+        "file": "Transaction.java",
+        "lineNumber": 798
+      }
+    ]
+  },
+  {
+    "code": 155,
+    "type": "INVARIANT",
+    "messagePattern": "Transaction named '%s' called completeTracking but _tracker state of INACTIVE is not expected when tracker has not been disposed.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "completeTracking",
+        "file": "Transaction.java",
+        "lineNumber": 807
+      }
+    ]
+  },
+  {
+    "code": 156,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComponentKernel passed a name '%s' but Arez.areNamesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "<init>",
+        "file": "ComponentKernel.java",
+        "lineNumber": 157
+      }
+    ]
+  },
+  {
+    "code": 158,
+    "type": "API_INVARIANT",
+    "messagePattern": "Object passed to asIdentifiable does not implement Identifiable. Object: %s",
+    "callers": [
+      {
+        "class": "arez.component.Identifiable",
+        "method": "asIdentifiable",
+        "file": "Identifiable.java",
+        "lineNumber": 63
+      }
+    ]
+  },
+  {
+    "code": 159,
+    "type": "API_INVARIANT",
+    "messagePattern": "MemoizeCache passed a name '%s' but Arez.areNamesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "<init>",
+        "file": "MemoizeCache.java",
+        "lineNumber": 126
+      }
+    ]
+  },
+  {
+    "code": 160,
+    "type": "API_INVARIANT",
+    "messagePattern": "MemoizeCache constructed with invalid argCount: %s. Expected positive value.",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "<init>",
+        "file": "MemoizeCache.java",
+        "lineNumber": 128
+      }
+    ]
+  },
+  {
+    "code": 161,
+    "type": "API_INVARIANT",
+    "messagePattern": "MemoizeCache named '%s' had get() invoked when disposed.",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "get",
+        "file": "MemoizeCache.java",
+        "lineNumber": 161
+      }
+    ]
+  },
+  {
+    "code": 162,
+    "type": "API_INVARIANT",
+    "messagePattern": "MemoizeCache.getComputableValue called with %s arguments but expected %s arguments.",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "getComputableValue",
+        "file": "MemoizeCache.java",
+        "lineNumber": 229
+      }
+    ]
+  },
+  {
+    "code": 163,
+    "type": "INVARIANT",
+    "messagePattern": "MemoizeCache.disposeComputableValue called with %s argument(s) but expected %s argument(s).",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "disposeComputableValue",
+        "file": "MemoizeCache.java",
+        "lineNumber": 275
+      }
+    ]
+  },
+  {
+    "code": 164,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComponentKernel.getName() invoked when Arez.areNamesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "getName",
+        "file": "ComponentKernel.java",
+        "lineNumber": 538
+      }
+    ]
+  },
+  {
+    "code": 165,
+    "type": "INVARIANT",
+    "messagePattern": "KeepAliveRefCount on ComputableValue named '%s' has an invalid value %s",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "keepAliveInvariants",
+        "file": "ComputableValue.java",
+        "lineNumber": 369
+      }
+    ]
+  },
+  {
+    "code": 166,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add OnDispose listener with key '%s' but a listener with that key already exists.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "addOnDisposeListener",
+        "file": "ComponentKernel.java",
+        "lineNumber": 602
+      }
+    ]
+  },
+  {
+    "code": 167,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to remove OnDispose listener with key '%s' but no such listener exists.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "removeOnDisposeListener",
+        "file": "ComponentKernel.java",
+        "lineNumber": 627
+      }
+    ]
+  },
+  {
+    "code": 168,
+    "type": "API_INVARIANT",
+    "messagePattern": "Called attach() passing an entity that is disposed. Entity: %s",
+    "callers": [
+      {
+        "class": "arez.component.internal.AbstractContainer",
+        "method": "attach",
+        "file": "AbstractContainer.java",
+        "lineNumber": 48
+      }
+    ]
+  },
+  {
+    "code": 170,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add OnDispose listener but ComponentKernel has been disposed.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "addOnDisposeListener",
+        "file": "ComponentKernel.java",
+        "lineNumber": 600
+      }
+    ]
+  },
+  {
+    "code": 171,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to create a tracking transaction named '%s' for the observer named '%s' but the transaction is not a top-level transaction when this is required. This may be a result of nesting a observe() call inside an action or another observer function.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "begin",
+        "file": "Transaction.java",
+        "lineNumber": 159
+      }
+    ]
+  },
+  {
+    "code": 172,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' that does not use an external executor completed observe function but is not observing any properties. As a result the observer will never be rescheduled.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "lambda$runObserveFunction$35",
+        "file": "Observer.java",
+        "lineNumber": 682
+      }
+    ]
+  },
+  {
+    "code": 173,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComputableValue named '%s' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "compute",
+        "file": "ComputableValue.java",
+        "lineNumber": 472
+      }
+    ]
+  },
+  {
+    "code": 174,
+    "type": "INVARIANT",
+    "messagePattern": "SchedulerLock passed a context but Arez.areZonesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.SchedulerLock",
+        "method": "<init>",
+        "file": "SchedulerLock.java",
+        "lineNumber": 25
+      }
+    ]
+  },
+  {
+    "code": 175,
+    "type": "INVARIANT",
+    "messagePattern": "Component passed a context but Arez.areZonesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "<init>",
+        "file": "Component.java",
+        "lineNumber": 77
+      }
+    ]
+  },
+  {
+    "code": 176,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked reportDispose on transaction named '%s' where the element is disposed.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportDispose",
+        "file": "Transaction.java",
+        "lineNumber": 548
+      }
+    ]
+  },
+  {
+    "code": 177,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked reportDispose on transaction named '%s' but the transaction mode is not READ_WRITE but is READ_ONLY.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "reportDispose",
+        "file": "Transaction.java",
+        "lineNumber": 551
+      }
+    ]
+  },
+  {
+    "code": 178,
+    "type": "API_INVARIANT",
+    "messagePattern": "Object passed to asDisposeNotifier does not implement DisposeNotifier. Object: %s",
+    "callers": [
+      {
+        "class": "arez.component.DisposeNotifier",
+        "method": "asDisposeNotifier",
+        "file": "DisposeNotifier.java",
+        "lineNumber": 57
+      }
+    ]
+  },
+  {
+    "code": 179,
+    "type": "API_INVARIANT",
+    "messagePattern": "Object passed to asComponentObservable does not implement ComponentObservable. Object: %s",
+    "callers": [
+      {
+        "class": "arez.component.ComponentObservable",
+        "method": "asComponentObservable",
+        "file": "ComponentObservable.java",
+        "lineNumber": 59
+      }
+    ]
+  },
+  {
+    "code": 180,
+    "type": "API_INVARIANT",
+    "messagePattern": "Node passed a context but Arez.areZonesEnabled() is false",
+    "callers": [
+      {
+        "class": "arez.Node",
+        "method": "<init>",
+        "file": "Node.java",
+        "lineNumber": 37
+      }
+    ]
+  },
+  {
+    "code": 181,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.removeObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "removeObserverErrorHandler",
+        "file": "ArezContext.java",
+        "lineNumber": 2065
+      }
+    ]
+  },
+  {
+    "code": 182,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.addObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "addObserverErrorHandler",
+        "file": "ArezContext.java",
+        "lineNumber": 2047
+      }
+    ]
+  },
+  {
+    "code": 183,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add observer named '%s' to ObservableValue named '%s' where the observer is scheduled at a %s priority but the ObservableValue's owner is scheduled at a %s priority.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "addObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 407
+      }
+    ]
+  },
+  {
+    "code": 184,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' has LOWEST priority but has passed OBSERVE_LOWER_PRIORITY_DEPENDENCIES option which should not be present as the observer has no lower priority.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 158
+      }
+    ]
+  },
+  {
+    "code": 185,
+    "type": "INVARIANT",
+    "messagePattern": "Action named '%s' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "verifyActionRequired",
+        "file": "ArezContext.java",
+        "lineNumber": 1944
+      }
+    ]
+  },
+  {
+    "code": 186,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to create transaction named '%s' nested in ComputableValue transaction named '%s'. ComputableValues must not invoke actions or observe methods as they should derive values from other computeds and observables.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "begin",
+        "file": "Transaction.java",
+        "lineNumber": 150
+      }
+    ]
+  },
+  {
+    "code": 187,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to nest action named '%s' inside transaction named '%s' created by an observer that does not allow nested actions.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "verifyActionNestingAllowed",
+        "file": "ArezContext.java",
+        "lineNumber": 1977
+      }
+    ]
+  },
+  {
+    "code": 188,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to register lookup function for type class %s when a function for type already exists.",
+    "callers": [
+      {
+        "class": "arez.component.TypeBasedLocator",
+        "method": "registerLookup",
+        "file": "TypeBasedLocator.java",
+        "lineNumber": 36
+      }
+    ]
+  },
+  {
+    "code": 189,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to register locator %s when the Locator is already present.",
+    "callers": [
+      {
+        "class": "arez.AggregateLocator",
+        "method": "registerLocator",
+        "file": "AggregateLocator.java",
+        "lineNumber": 34
+      }
+    ]
+  },
+  {
+    "code": 190,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempting to de-register locator %s but the Locator is not present in list.",
+    "callers": [
+      {
+        "class": "arez.AggregateLocator$LocatorEntry",
+        "method": "dispose",
+        "file": "AggregateLocator.java",
+        "lineNumber": 85
+      }
+    ]
+  },
+  {
+    "code": 191,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.registerLocator invoked but Arez.areReferencesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerLocator",
+        "file": "ArezContext.java",
+        "lineNumber": 2011
+      }
+    ]
+  },
+  {
+    "code": 192,
+    "type": "API_INVARIANT",
+    "messagePattern": "ArezContext.locator() invoked but Arez.areReferencesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "locator",
+        "file": "ArezContext.java",
+        "lineNumber": 2029
+      }
+    ]
+  },
+  {
+    "code": 193,
+    "type": "INVARIANT",
+    "messagePattern": "MemoizeCache.disposeComputableValue called with args [%s] but unable to locate corresponding ComputableValue.",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "disposeComputableValue",
+        "file": "MemoizeCache.java",
+        "lineNumber": 293
+      }
+    ]
+  },
+  {
+    "code": 194,
+    "type": "INVARIANT",
+    "messagePattern": "Component.asInfo() invoked but Arez.areSpiesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.Component",
+        "method": "asInfo",
+        "file": "Component.java",
+        "lineNumber": 242
+      }
+    ]
+  },
+  {
+    "code": 195,
+    "type": "INVARIANT",
+    "messagePattern": "ComputableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "asInfo",
+        "file": "ComputableValue.java",
+        "lineNumber": 530
+      }
+    ]
+  },
+  {
+    "code": 196,
+    "type": "INVARIANT",
+    "messagePattern": "ObservableValue.asInfo() invoked but Arez.areSpiesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "asInfo",
+        "file": "ObservableValue.java",
+        "lineNumber": 587
+      }
+    ]
+  },
+  {
+    "code": 197,
+    "type": "INVARIANT",
+    "messagePattern": "Observer.asInfo() invoked but Arez.areSpiesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "asInfo",
+        "file": "Observer.java",
+        "lineNumber": 929
+      }
+    ]
+  },
+  {
+    "code": 198,
+    "type": "INVARIANT",
+    "messagePattern": "TransactionInfo.asInfo() invoked but Arez.areSpiesEnabled() returned false.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "asInfo",
+        "file": "Transaction.java",
+        "lineNumber": 1030
+      }
+    ]
+  },
+  {
+    "code": 199,
+    "type": "API_INVARIANT",
+    "messagePattern": "Observer.reportStale() invoked on observer named '%s' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "reportStale",
+        "file": "Observer.java",
+        "lineNumber": 407
+      }
+    ]
+  },
+  {
+    "code": 200,
+    "type": "API_INVARIANT",
+    "messagePattern": "Observer.reportStale() invoked on observer named '%s' when there is no active transaction.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "reportStale",
+        "file": "Observer.java",
+        "lineNumber": 410
+      }
+    ]
+  },
+  {
+    "code": 201,
+    "type": "API_INVARIANT",
+    "messagePattern": "Observer.reportStale() invoked on observer named '%s' when the active transaction '%s' is READ_ONLY rather than READ_WRITE.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "reportStale",
+        "file": "Observer.java",
+        "lineNumber": 413
+      }
+    ]
+  },
+  {
+    "code": 202,
+    "type": "API_INVARIANT",
+    "messagePattern": "Observer.schedule() invoked on observer named '%s' but supportsManualSchedule() returns false.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "schedule",
+        "file": "Observer.java",
+        "lineNumber": 557
+      }
+    ]
+  },
+  {
+    "code": 203,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to add observer named '%s' to ObservableValue named '%s' but the observer is not the tracker in transaction named '%s'.",
+    "callers": [
+      {
+        "class": "arez.ObservableValue",
+        "method": "addObserver",
+        "file": "ObservableValue.java",
+        "lineNumber": 414
+      }
+    ]
+  },
+  {
+    "code": 204,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' has not supplied a value for either the observe parameter or the onDepsChange parameter.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 163
+      }
+    ]
+  },
+  {
+    "code": 206,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' incorrectly specified RUN_NOW flag but the observe function is null.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 152
+      }
+    ]
+  },
+  {
+    "code": 207,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' specified illegal flags: %s",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 178
+      }
+    ]
+  },
+  {
+    "code": 209,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' incorrectly specified both the NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 172
+      }
+    ]
+  },
+  {
+    "code": 210,
+    "type": "INVARIANT",
+    "messagePattern": "Observer named '%s' incorrectly specified multiple schedule type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, APPLICATION_EXECUTOR).",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "<init>",
+        "file": "Observer.java",
+        "lineNumber": 175
+      }
+    ]
+  },
+  {
+    "code": 211,
+    "type": "API_INVARIANT",
+    "messagePattern": "MemoizeCache passed unsupported flags. Unsupported bits: %s",
+    "callers": [
+      {
+        "class": "arez.component.internal.MemoizeCache",
+        "method": "<init>",
+        "file": "MemoizeCache.java",
+        "lineNumber": 140
+      }
+    ]
+  },
+  {
+    "code": 212,
+    "type": "API_INVARIANT",
+    "messagePattern": "Flags passed to action '%s' include some unexpected flags set: %s",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "verifyActionFlags",
+        "file": "ArezContext.java",
+        "lineNumber": 1903
+      }
+    ]
+  },
+  {
+    "code": 213,
+    "type": "API_INVARIANT",
+    "messagePattern": "Attempted to unexpectedly invoke ComponentKernel.getId() method to access synthetic id on component named '%s'.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "getId",
+        "file": "ComponentKernel.java",
+        "lineNumber": 556
+      }
+    ]
+  },
+  {
+    "code": 214,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerTask invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerTask",
+        "file": "ArezContext.java",
+        "lineNumber": 2270
+      }
+    ]
+  },
+  {
+    "code": 215,
+    "type": "INVARIANT",
+    "messagePattern": "Attempting to queue task named '%s' but passed an invalid priority %s.",
+    "callers": [
+      {
+        "class": "arez.MultiPriorityTaskQueue",
+        "method": "queueTask",
+        "file": "MultiPriorityTaskQueue.java",
+        "lineNumber": 110
+      }
+    ]
+  },
+  {
+    "code": 216,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComponentKernel.getComponent() invoked when Arez.areNativeComponentsEnabled() returns false on component named '%s'.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "getComponent",
+        "file": "ComponentKernel.java",
+        "lineNumber": 574
+      }
+    ]
+  },
+  {
+    "code": 218,
+    "type": "API_INVARIANT",
+    "messagePattern": "Bad state transition from %s to ready on component named '%s'.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "makeComponentReady",
+        "file": "ComponentKernel.java",
+        "lineNumber": 507
+      }
+    ]
+  },
+  {
+    "code": 219,
+    "type": "API_INVARIANT",
+    "messagePattern": "Bad state transition from %s to constructed on component named '%s'.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "componentConstructed",
+        "file": "ComponentKernel.java",
+        "lineNumber": 450
+      }
+    ]
+  },
+  {
+    "code": 220,
+    "type": "API_INVARIANT",
+    "messagePattern": "Bad state transition from %s to complete on component named '%s'.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "componentComplete",
+        "file": "ComponentKernel.java",
+        "lineNumber": 469
+      }
+    ]
+  },
+  {
+    "code": 221,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComponentKernel.observe() invoked on component named '%s' but observing is not enabled for component.",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "observe",
+        "file": "ComponentKernel.java",
+        "lineNumber": 234
+      }
+    ]
+  },
+  {
+    "code": 222,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComponentKernel named '%s' passed an id %s and a component but the component had a different id (%s)",
+    "callers": [
+      {
+        "class": "arez.component.internal.ComponentKernel",
+        "method": "<init>",
+        "file": "ComponentKernel.java",
+        "lineNumber": 160
+      }
+    ]
+  },
+  {
+    "code": 223,
+    "type": "API_INVARIANT",
+    "messagePattern": "ComputableValue.keepAlive() was invoked on computable value named '%s' but invoking this method when the computable value has been configured with the KEEPALIVE flag is invalid as the computable is always activated.",
+    "callers": [
+      {
+        "class": "arez.ComputableValue",
+        "method": "keepAlive",
+        "file": "ComputableValue.java",
+        "lineNumber": 290
+      }
+    ]
+  },
+  {
+    "code": 224,
+    "type": "API_INVARIANT",
+    "messagePattern": "Task named '%s' passed invalid flags: %s",
+    "callers": [
+      {
+        "class": "arez.Task",
+        "method": "<init>",
+        "file": "Task.java",
+        "lineNumber": 42
+      }
+    ]
+  },
+  {
+    "code": 225,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.registerTask invoked with Task named '%s' but an existing Task with that name is already registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "registerTask",
+        "file": "ArezContext.java",
+        "lineNumber": 2273
+      }
+    ]
+  },
+  {
+    "code": 226,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterTask invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterTask",
+        "file": "ArezContext.java",
+        "lineNumber": 2286
+      }
+    ]
+  },
+  {
+    "code": 227,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.deregisterTask invoked with Task named '%s' but no Task with that name is registered.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "deregisterTask",
+        "file": "ArezContext.java",
+        "lineNumber": 2289
+      }
+    ]
+  },
+  {
+    "code": 228,
+    "type": "INVARIANT",
+    "messagePattern": "ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false.",
+    "callers": [
+      {
+        "class": "arez.ArezContext",
+        "method": "getTopLevelTasks",
+        "file": "ArezContext.java",
+        "lineNumber": 2302
+      }
+    ]
+  }
+]

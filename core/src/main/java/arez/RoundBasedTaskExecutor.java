@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
-import org.realityforge.braincheck.BrainCheckConfig;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * This executor runs tasks in rounds.
@@ -137,7 +136,7 @@ final class RoundBasedTaskExecutor
   void onRunawayTasksDetected()
   {
     final List<String> taskNames =
-      Arez.shouldCheckInvariants() && BrainCheckConfig.verboseErrorMessages() ?
+      Arez.shouldCheckInvariants() ?
       _taskQueue.getOrderedTasks().map( Task::getName ).collect( Collectors.toList() ) :
       null;
 

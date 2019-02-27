@@ -6,6 +6,7 @@ import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
+import arez.Guards;
 import arez.Locator;
 import arez.ObservableValue;
 import arez.Observer;
@@ -24,7 +25,6 @@ import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")

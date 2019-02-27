@@ -4,6 +4,7 @@ import gir.io.Exec;
 import gir.sys.SystemProperty;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import javax.annotation.Nonnull;
@@ -60,6 +61,7 @@ public class ApiDiffTest
   }
 
   private void generateReport( @Nonnull final File reportFile )
+    throws IOException
   {
     final String oldApiLabel = "org.realityforge.arez:arez-core:jar:" + SystemProperty.get( "arez.prev.version" );
     final String oldApi = oldApiLabel + "::" + SystemProperty.get( "arez.prev.jar" );

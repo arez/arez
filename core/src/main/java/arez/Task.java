@@ -7,7 +7,7 @@ import arez.spy.TaskStartEvent;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * A task represents an executable element that can be run by the task executor.

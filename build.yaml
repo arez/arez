@@ -39,8 +39,6 @@ artifacts:
   elemental2_dom: org.realityforge.com.google.elemental2:elemental2-dom:jar:1.0.0-b19-fb227e3
   elemental2_promise: org.realityforge.com.google.elemental2:elemental2-promise:jar:1.0.0-b19-fb227e3
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.13.0
-
   javax_json: org.glassfish:javax.json:jar:1.1
 
   jsonassert: org.skyscreamer:jsonassert:jar:1.5.0
@@ -69,4 +67,4 @@ artifacts:
 
   jdepend: guru.nidi:jdepend:jar:2.9.5
 
-  revapi_diff: org.realityforge.revapi.diff:revapi-diff:jar:all:0.04
+  revapi_diff: org.realityforge.revapi.diff:revapi-diff:jar:all:0.05

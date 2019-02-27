@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.braincheck.BrainCheckConfig;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * Class supporting the propagation of errors for ObserverErrorHandler callback to multiple error handlers.
@@ -68,7 +67,7 @@ final class ObserverErrorHandlerSupport
       }
       catch ( final Throwable nestedError )
       {
-        if ( Arez.areNamesEnabled() && BrainCheckConfig.verboseErrorMessages() )
+        if ( Arez.areNamesEnabled() )
         {
           final String message =
             ArezUtil.safeGetString( () -> "Exception when notifying error handler '" + errorHandler + "' of '" +

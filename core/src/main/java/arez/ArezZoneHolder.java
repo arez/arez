@@ -3,7 +3,7 @@ package arez;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
+import static arez.Guards.*;
 
 /**
  * A utility class that contains reference to zone data when zones are enabled.

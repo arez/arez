@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
+import arez.Guards;
 import arez.Locator;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
@@ -15,7 +16,6 @@ import com.example.inverse.PackageAccessWithDifferentPackageInverseModel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_Element extends Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {

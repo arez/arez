@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.braincheck.Guards;
-import static org.realityforge.braincheck.Guards.*;
+import arez.Guards;
+import static arez.Guards.*;
 
 /**
  * Abstract base class for observable Arez components that contain other components.

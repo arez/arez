@@ -4,15 +4,16 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
 public abstract class AbstractArezTest
 {
+  private final TestLogger _logger = new TestLogger();
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
 
@@ -20,19 +21,20 @@ public abstract class AbstractArezTest
   protected void beforeTest()
     throws Exception
   {
-    BrainCheckTestUtil.resetConfig( false );
+    DiagnosticMessages.loadIfRequired();
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
-    getProxyLogger().setLogger( new TestLogger() );
+    _logger.getEntries().clear();
+    ArezTestUtil.setLogger( _logger );
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
+    Guards.setOnGuardListener( new GuardPatternMatcher() );
   }
 
   @AfterMethod
   protected void afterTest()
   {
-    BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
     if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
     {
@@ -40,10 +42,17 @@ public abstract class AbstractArezTest
     }
   }
 
+  @AfterSuite
+  protected void afterSuite()
+    throws Exception
+  {
+    DiagnosticMessages.saveIfRequired();
+  }
+
   @Nonnull
   final TestLogger getTestLogger()
   {
-    return (TestLogger) getProxyLogger().getLogger();
+    return _logger;
   }
 
   @Nonnull

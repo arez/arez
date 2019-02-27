@@ -5,6 +5,7 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Flags;
+import arez.Guards;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
@@ -13,7 +14,6 @@ import arez.component.internal.ComponentKernel;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 final class Arez_InjectDisabledRepositoryRepository extends InjectDisabledRepositoryRepository implements Disposable, Identifiable<Integer>, DisposeNotifier {

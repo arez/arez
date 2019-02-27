@@ -35,7 +35,6 @@ DAGGER_DEPS =
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
   {
-    'braincheck.environment' => 'development',
     'arez.environment' => 'development'
   }
 
@@ -59,14 +58,14 @@ define 'arez' do
   define 'core' do
     pom.include_transitive_dependencies << artifact(:javax_annotation)
     pom.include_transitive_dependencies << artifact(:jsinterop_annotations)
-    pom.include_transitive_dependencies << artifact(:braincheck)
     pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test'}
 
     compile.with :javax_annotation,
-                 :braincheck,
                  :jsinterop_annotations
 
-    test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.core.compile_target' => compile.target.to_s)
+    test.options[:properties] =
+      AREZ_TEST_OPTIONS.merge('arez.core.compile_target' => compile.target.to_s,
+                              'arez.diagnostic_messages_file' => _('src/test/java/arez/diagnostic_messages.json'))
     test.options[:java_args] = ['-ea']
 
     gwt_enhance(project)
@@ -76,7 +75,7 @@ define 'arez' do
     package(:javadoc)
 
     test.using :testng
-    test.compile.with TEST_DEPS, :jdepend
+    test.compile.with TEST_DEPS, :jdepend, :javax_json
   end
 
   desc 'Test Arez API'
@@ -315,7 +314,7 @@ define 'arez' do
   iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.api_test.fixture_dir=api-test/src/test/resources/fixtures -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.revapi.jar=#{artifact(:revapi_diff)}")
+  ipr.add_default_testng_configuration(:jvm_args => "-ea --Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.api_test.fixture_dir=api-test/src/test/resources/fixtures -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.revapi.jar=#{artifact(:revapi_diff)} -Darez.diagnostic_messages_file=core/src/test/java/arez/diagnostic_messages.json")
 
   ipr.add_component_from_artifact(:idea_codestyle)
 

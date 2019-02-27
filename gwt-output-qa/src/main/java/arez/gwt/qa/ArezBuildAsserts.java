@@ -32,6 +32,7 @@ public final class ArezBuildAsserts
 
     // This should be eliminated as only used during invariant checking
     index.assertNoMemberMatches( "arez\\.ObservableValue", "preReportChanged" );
+    index.assertNoClassNameMatches( "arez\\.Guards" );
 
     // No repository should have equals defined
     assertEquals( index, ".*(\\.|_)Arez_[^\\.]Repository", false );

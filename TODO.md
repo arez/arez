@@ -14,6 +14,8 @@ complete as there is too much un-said.
 * Add annotation and potentially annotation value to `ArezProcessorException` so that they can be emitted during
   error reporting to get more precise errors.
 
+* Deprecate arez-ticker
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
@@ -78,10 +80,7 @@ complete as there is too much un-said.
 * Several of the constraints in the annotation processor are stylistic - we should identify those and make them
   into warning that are only emitted when the annotation processor is configured to emit bad style warnings
 
-* Remove dependency on braincheck. Instead bring invariant checking inline and use invariant checking code
-  that explicitly lists error code in call. i.e. `invariant( 213, () -> myCondition, () -> myFailMessage )`.
-  We could also enhance the tests so that every invariant failure that is generated is written to a file
-  and/or checked against a pattern. So a current error message like
+* Change invariant checking code so that it explicitly specifies error code in call.
 
     `Arez-0199: Observer.reportStale() invoked on observer named 'TestComponent1.0.render' but arezOnlyDependencies = true.`
 
@@ -89,28 +88,22 @@ complete as there is too much un-said.
 
   `invariant( 199, () -> !arezOnlyDependencies(), () -> "Observer.reportStale() invoked on observer named '" + getName() + "' but arezOnlyDependencies = true." )`
 
-  and would have a pattern to check against such as the following:
+  The `Guards.OnGuardListener` could be updated to accept the code and as a result `GuardPatternMatcher` would
+  essentially disappear as a lambda.
 
-  `"Observer.reportStale() invoked on observer named '%s' but arezOnlyDependencies = true."`
+* Generate documentation for each invariant error that can occur driven by `diagnostic_messages.json`. The
+  expectation is that the error could be linked to via code ala https://arez.github.io/errors.html#Arez-0022
+  The documentation would cross-link to the place(s) where the invariant is generated in source code. This may
+  be to github repository or it may be to javadocs where source is included (but this may not be possible
+  if not all source gets published to website).
 
-  We could use this explicit modelling to help generate error messages and documentation on website. We could also use some trickery of reflection to extract
-  the source file and line number where the invariant is generated. This would allow cross-linking from the website to the source code (via javadocs source
-  inclusion).
+* We should also add some error checking within tests to ensure that invariant methods are only invoked from
+  within a guard. We may be able to do this by adding a hook to guard methods or it could require a custom rule
+  in error prone.
 
-  Enhance runtime so we link to website documentation for each numbered error. i.e. Arez-0022 could be linked
-  to https://arez.github.io/errors.html#Arez-0022 For this we would need to enhanced the code that generates
-  invariant failure and add documentation to the website.
-
-  Whilst here we should add in an optional compile-time mechanisms by which invariant methods can verify that
-  they are only called from within the appropriate guard. Not sure this is possible. This probably requires a
-  custom rule in error prone.
-
-  Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
+* Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
   failure or made so that they are only emitted the first time they are triggered based on compile time
   settings.
-
-  See https://github.com/Microsoft/TypeScript/blob/fadd95f72b5ad7f7f1cffa2b6ac82f612694462c/src/compiler/diagnosticMessages.json
-  for an example of template file containing all the errors.
 
 * Implement something similar to `getDependencyTree` from mobx
 

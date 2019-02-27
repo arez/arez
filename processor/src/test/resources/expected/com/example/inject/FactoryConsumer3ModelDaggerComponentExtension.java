@@ -1,12 +1,12 @@
 package com.example.inject;
 
 import arez.Arez;
+import arez.Guards;
 import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 public interface FactoryConsumer3ModelDaggerComponentExtension {

@@ -1,6 +1,7 @@
 package com.example.inject.inheritance;
 
 import arez.Arez;
+import arez.Guards;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -8,7 +9,6 @@ import dagger.Subcomponent;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Provider;
-import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 public interface EnhancerNeededForConsumerModelDaggerComponentExtension {
