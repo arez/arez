@@ -61,4 +61,10 @@ final class DiagnosticMessage
   {
     return Collections.unmodifiableSet( _callers );
   }
+
+  @Override
+  public String toString()
+  {
+    return "Arez-" + getCode() + ": " + getMessagePattern();
+  }
 }

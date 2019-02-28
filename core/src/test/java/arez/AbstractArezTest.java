@@ -46,7 +46,7 @@ public abstract class AbstractArezTest
   protected void afterSuite()
     throws Exception
   {
-    DiagnosticMessages.saveIfRequired();
+    DiagnosticMessages.testsComplete();
   }
 
   @Nonnull

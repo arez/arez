@@ -10,8 +10,10 @@ import java.nio.file.Files;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -96,7 +98,29 @@ final class DiagnosticMessages
     }
   }
 
-  static void saveIfRequired()
+  static void testsComplete()
+    throws Exception
+  {
+    if ( needsSave() )
+    {
+      if ( "true".equals( System.getProperty( "arez.output_fixture_data", "false" ) ) )
+      {
+        saveIfRequired();
+      }
+      else
+      {
+        final List<DiagnosticMessage> unsavedMessages =
+          c_messages.values().stream().filter( DiagnosticMessage::needsSave ).collect( Collectors.toList() );
+        throw new IllegalStateException( "Diagnostic messages fixture is out of date. " + unsavedMessages.size() +
+                                         " messages need to be updated including messages:\n" +
+                                         unsavedMessages.stream()
+                                           .map( DiagnosticMessage::toString )
+                                           .collect( Collectors.joining( "\n" ) ) );
+      }
+    }
+  }
+
+  private static void saveIfRequired()
     throws Exception
   {
     if ( needsSave() )

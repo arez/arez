@@ -4,11 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Next Next Release
-
-* Change build so that by default it errors if `diagnostic_messages.json` is not up to date rather than
-  writing out updated file.
-
 ## Next Release
 
 * Update inject documentation
