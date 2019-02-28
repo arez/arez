@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.57](https://github.com/arez/arez-promise/tree/v0.57) (2019-02-28)
+[Full Changelog](https://github.com/arez/arez-promise/compare/v0.56...v0.57)
 
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b19-fb227e3`.
 * Remove the `Arez-####: ` prefixes from invariant messages as `ObservablePromise` is no longer
