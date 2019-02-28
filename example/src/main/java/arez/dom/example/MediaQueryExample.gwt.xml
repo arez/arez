@@ -1,0 +1,9 @@
+<module>
+  <inherits name='com.google.gwt.core.Core'/>
+  <inherits name='arez.ArezDebug'/>
+  <inherits name='arez.dom.Dom'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.dom.example.MediaQueryExample'/>
+</module>

@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-GWT_EXAMPLES=%w(arez.dom.example.WindowSizeExample arez.dom.example.DocumentVisibilityExample arez.dom.example.GeoPositionExample arez.dom.example.IdleStatusExample)
+GWT_EXAMPLES=%w(arez.dom.example.WindowSizeExample arez.dom.example.DocumentVisibilityExample arez.dom.example.GeoPositionExample arez.dom.example.MediaQueryExample arez.dom.example.IdleStatusExample)
 
 desc 'Arez-Dom: Arez browser components that make DOM properties observable'
 define 'arez-dom' do
