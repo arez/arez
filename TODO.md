@@ -21,6 +21,10 @@ complete as there is too much un-said.
   associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
   is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`
 
+* Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
+  OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`. It would also take an
+  instance parameter of `ComputableValue` which it could use to call `reportPossiblyChanged()`
+
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
 * Profile with D8
@@ -47,9 +51,6 @@ complete as there is too much un-said.
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()`
   is stripped if names not enabled. Should also include annotations for classes that should have clinits stripped.
-
-* Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
-  OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
