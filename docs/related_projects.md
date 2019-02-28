@@ -32,9 +32,6 @@ to this page.
 * [arez-spytools](https://github.com/arez/arez-spytools) This library provides additional utilities and
   introspection tools based on the core Arez spy infrastructure.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/spytools) · [GitHub Project](https://github.com/arez/arez-spytools)**</span>
-* [arez-timeddisposer](https://github.com/arez/arez-timeddisposer) This library provides a utility class
-  that will dispose a target object after a time delay.
-  <span style="font-size: smaller">**[API Docs](https://arez.github.io/timeddisposer) · [GitHub Project](https://github.com/arez/arez-timeddisposer)**</span>
 * [arez-when](https://github.com/arez/arez-when) This library provides a when observer. A when observer watches
   a condition until a condition returns true and then invokes an effect action.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/when) · [GitHub Project](https://github.com/arez/arez-when)**</span>

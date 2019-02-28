@@ -36,7 +36,6 @@ public final class BuildDownstream
            "arez-mediaquery",
            "arez-networkstatus",
            "arez-spytools",
-           "arez-timeddisposer",
            "arez-when" )
       .forEach( name -> WorkspaceUtil.forEachBranch( name,
                                                      "https://github.com/arez/" + name + ".git",
