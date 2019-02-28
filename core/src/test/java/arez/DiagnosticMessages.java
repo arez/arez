@@ -99,7 +99,7 @@ final class DiagnosticMessages
   static void saveIfRequired()
     throws Exception
   {
-    if ( c_messages.values().stream().anyMatch( DiagnosticMessage::needsSave ) )
+    if ( needsSave() )
     {
       final File file = getMessageFilename();
       final Map<String, Object> properties = new HashMap<>();
@@ -139,6 +139,11 @@ final class DiagnosticMessages
       }
       formatJson( file );
     }
+  }
+
+  private static boolean needsSave()
+  {
+    return c_messages.values().stream().anyMatch( DiagnosticMessage::needsSave );
   }
 
   /**
