@@ -98,7 +98,7 @@ public final class ArezTestUtil
        * failing that throw an exception.
        */
       assert ArezConfig.isDevelopmentMode();
-      throw new IllegalStateException( "Unable to call ArezTestUtil.setLogger()  as Arez is in production mode" );
+      throw new IllegalStateException( "Unable to call ArezTestUtil.setLogger() as Arez is in production mode" );
     }
 
     final ArezLogger.ProxyLogger proxyLogger = (ArezLogger.ProxyLogger) ArezLogger.getLogger();
