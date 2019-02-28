@@ -16,7 +16,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Interface to intercept log messages emitted by Arez runtime..
+   * Interface to intercept log messages emitted by Arez runtime.
    */
   public interface Logger
   {
