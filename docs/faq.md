@@ -154,7 +154,7 @@ of the Arez library are true at runtime. As these checks can be expensive, they 
 If these checks are not run then the code should not be generated in a GWT/Browser based application.
 
 The initial design of the invariant checking code went through several iterations to ensure that the code is not
-present in generated javascript output and this seems to be true when the code complexity is low. However the 
+present in generated javascript output and this seems to be true when the code complexity is low. However the
 GWT 2.8.2 compiler will fail to eliminate the code for the lambdas passed to the the invariant methods, even after the
 code for invariant methods is eliminated. It is unclear the trigger for this problem as the same sequence of
 code would be optimized in one context but kept in another context within the same application.
