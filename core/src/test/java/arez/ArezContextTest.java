@@ -2214,7 +2214,7 @@ public class ArezContextTest
   @Test
   public void observer_noObservers()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     Arez.context().setNextNodeId( 22 );
     final AtomicInteger callCount = new AtomicInteger();
@@ -2234,7 +2234,7 @@ public class ArezContextTest
   @Test
   public void autorun_noObservers_manualReportStaleAllowed()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final ArezContext context = Arez.context();
     final AtomicInteger callCount = new AtomicInteger();

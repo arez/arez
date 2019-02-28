@@ -124,9 +124,9 @@ public abstract class AbstractArezTest
                                                  false ) );
   }
 
-  protected final void setIgnoreObserverErrors( final boolean ignoreObserverErrors )
+  protected final void ignoreObserverErrors()
   {
-    _ignoreObserverErrors = ignoreObserverErrors;
+    _ignoreObserverErrors = true;
   }
 
   protected static void assertInvariantFailure( @Nonnull final ThrowingRunnable throwingRunnable,

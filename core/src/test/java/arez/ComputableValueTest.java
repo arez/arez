@@ -348,7 +348,7 @@ public class ComputableValueTest
   @Test
   public void compute_noDependencies()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =
@@ -365,7 +365,7 @@ public class ComputableValueTest
   @Test
   public void compute_noDependencies_but_mustAccessArezState_is_false()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =

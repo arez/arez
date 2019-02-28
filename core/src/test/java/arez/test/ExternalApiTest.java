@@ -233,7 +233,7 @@ public class ExternalApiTest
   @Test
   public void observerErrorHandler()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
     final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();

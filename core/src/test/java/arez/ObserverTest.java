@@ -556,7 +556,7 @@ public class ObserverTest
   @Test
   public void runHook_hookThrowsException()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
@@ -1006,7 +1006,7 @@ public class ObserverTest
   @Test
   public void dispose_via_ComputableValue()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final AtomicBoolean hasErrorOccurred = new AtomicBoolean();
     hasErrorOccurred.set( false );
@@ -1115,7 +1115,7 @@ public class ObserverTest
   @Test
   public void invokeReaction()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final ArezContext context = Arez.context();
 
@@ -1306,7 +1306,7 @@ public class ObserverTest
   @Test
   public void invokeReaction_reactionGeneratesError()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final AtomicInteger errorCount = new AtomicInteger();
 
@@ -1445,7 +1445,7 @@ public class ObserverTest
   @Test
   public void shouldCompute_POSSIBLY_STALE_ComputableThrowsException()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final ArezContext context = Arez.context();
     final SafeFunction<String> function1 = () -> {
@@ -1478,7 +1478,7 @@ public class ObserverTest
   @Test
   public void shouldCompute_POSSIBLY_STALE_ComputableReThrowsException()
   {
-    setIgnoreObserverErrors( true );
+    ignoreObserverErrors();
 
     final SafeFunction<String> function1 = () -> {
       observeADependency();
