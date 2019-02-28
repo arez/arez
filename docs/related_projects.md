@@ -32,9 +32,6 @@ to this page.
 * [arez-spytools](https://github.com/arez/arez-spytools) This library provides additional utilities and
   introspection tools based on the core Arez spy infrastructure.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/spytools) · [GitHub Project](https://github.com/arez/arez-spytools)**</span>
-* [arez-ticker](https://github.com/arez/arez-ticker) This library provides an Observable model that "ticks"
-  at a specified interval. The tick is actually updating the "tickTime" observable property.
-  <span style="font-size: smaller">**[API Docs](https://arez.github.io/ticker) · [GitHub Project](https://github.com/arez/arez-ticker)**</span>
 * [arez-timeddisposer](https://github.com/arez/arez-timeddisposer) This library provides a utility class
   that will dispose a target object after a time delay.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/timeddisposer) · [GitHub Project](https://github.com/arez/arez-timeddisposer)**</span>

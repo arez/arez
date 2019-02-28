@@ -19,8 +19,6 @@ complete as there is too much un-said.
 * Add annotation and potentially annotation value to `ArezProcessorException` so that they can be emitted during
   error reporting to get more precise errors.
 
-* Deprecate arez-ticker
-
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
