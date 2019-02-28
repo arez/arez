@@ -33,7 +33,6 @@ public final class BuildDownstream
       .of( "arez-browserlocation",
            "arez-dom",
            "arez-promise",
-           "arez-mediaquery",
            "arez-networkstatus",
            "arez-spytools" )
       .forEach( name -> WorkspaceUtil.forEachBranch( name,

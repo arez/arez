@@ -5,6 +5,7 @@
 * Remove references to `arez-ticker` as it has been deprecated.
 * Remove references to `arez-timeddisposer` as it has been deprecated.
 * Remove references to `arez-when` as it has been deprecated.
+* Remove references to `arez-mediaquery` as it has been merged into `arez-dom`.
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
