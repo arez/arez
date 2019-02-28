@@ -56,12 +56,6 @@ public abstract class AbstractArezTest
   }
 
   @Nonnull
-  private ArezLogger.ProxyLogger getProxyLogger()
-  {
-    return (ArezLogger.ProxyLogger) ArezLogger.getLogger();
-  }
-
-  @Nonnull
   private Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
   {
     Class clazz = type;
