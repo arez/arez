@@ -57,11 +57,6 @@ final class DiagnosticMessage
     _callers.add( caller );
   }
 
-  Set<StackTraceElement> getOriginalCallers()
-  {
-    return Collections.unmodifiableSet( _originalCallers );
-  }
-
   Set<StackTraceElement> getCallers()
   {
     return Collections.unmodifiableSet( _callers );
