@@ -9,7 +9,6 @@ complete as there is too much un-said.
 * Update inject documentation
 
 * Should be able to `@CascadeDispose` on abstract `@Observable` properties. The underlying field will be disposed.
-  Once this has been done then replicant should be upgraded to remove it's workaround
 
 ## Enhancements
 
