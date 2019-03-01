@@ -83,16 +83,12 @@ public final class Arez_WriteOutsideTransactionThrowingObservablesModel extends 
 
   @Override
   public void setTime(final long value) throws Exception {
-    if ( this.$$arezi$$_kernel.getContext().isTransactionActive() ) {
-      this.$$arezi$$_setTime( value );
-    } else {
-      try {
-        this.$$arezi$$_kernel.getContext().action( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
-      } catch( final Exception | Error $$arez_exception$$ ) {
-        throw $$arez_exception$$;
-      } catch( final Throwable $$arez_exception$$ ) {
-        throw new IllegalStateException( $$arez_exception$$ );
-      }
+    try {
+      this.$$arezi$$_kernel.setObservable( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
+    } catch( final Exception | Error $$arez_exception$$ ) {
+      throw $$arez_exception$$;
+    } catch( final Throwable $$arez_exception$$ ) {
+      throw new IllegalStateException( $$arez_exception$$ );
     }
   }
 

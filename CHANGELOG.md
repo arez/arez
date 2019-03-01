@@ -10,6 +10,8 @@
   default to `ENABLE` when the `@ComponentIdRef` annotation is present on a method in the type.
 * **\[core\]** Default the `@ArezComponent.requireId` parameter to `ENABLE` if the type contains a
   method annotated by the `@Inverse` annotation.
+* **\[processor\]** Code used to implement `@Observable( writeOutsideTransaction = true )` setters
+  has been moved from being generated per-observable into `ComponentKernel` to reduce code size.
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)

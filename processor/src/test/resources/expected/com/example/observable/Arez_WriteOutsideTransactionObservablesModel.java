@@ -85,11 +85,7 @@ public final class Arez_WriteOutsideTransactionObservablesModel extends WriteOut
 
   @Override
   public void setTime(final long value) {
-    if ( this.$$arezi$$_kernel.getContext().isTransactionActive() ) {
-      this.$$arezi$$_setTime( value );
-    } else {
-      this.$$arezi$$_kernel.getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
-    }
+    this.$$arezi$$_kernel.safeSetObservable( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
   }
 
   private void $$arezi$$_setTime(final long value) {

@@ -407,27 +407,22 @@ final class ObservableDescriptor
       ProcessorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
 
-      final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( this.$N.getContext().isTransactionActive() )", Generator.KERNEL_FIELD_NAME );
-      block.addStatement( "this.$N( $N )", Generator.FRAMEWORK_PREFIX + methodName, paramName );
-      block.nextControlFlow( "else" );
-
       if ( _setterType.getThrownTypes().isEmpty() )
       {
-        block.addStatement( "this.$N.getContext().safeAction( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
-                            "() -> this.$N( $N ) )",
-                            Generator.KERNEL_FIELD_NAME,
-                            Generator.AREZ_CLASSNAME,
-                            Generator.KERNEL_FIELD_NAME,
-                            "." + methodName,
-                            Generator.FRAMEWORK_PREFIX + methodName,
-                            paramName );
+        builder.addStatement( "this.$N.safeSetObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                              "() -> this.$N( $N ) )",
+                              Generator.KERNEL_FIELD_NAME,
+                              Generator.AREZ_CLASSNAME,
+                              Generator.KERNEL_FIELD_NAME,
+                              "." + methodName,
+                              Generator.FRAMEWORK_PREFIX + methodName,
+                              paramName );
       }
       else
       {
         //noinspection CodeBlock2Expr
-        Generator.generateTryBlock( block, _setterType.getThrownTypes(), b -> {
-          b.addStatement( "this.$N.getContext().action( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+        Generator.generateTryBlock( builder, _setterType.getThrownTypes(), b -> {
+          b.addStatement( "this.$N.setObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
                           "() -> this.$N( $N ) )",
                           Generator.KERNEL_FIELD_NAME,
                           Generator.AREZ_CLASSNAME,
@@ -437,9 +432,6 @@ final class ObservableDescriptor
                           paramName );
         } );
       }
-
-      block.endControlFlow();
-      builder.addCode( block.build() );
     }
     else
     {

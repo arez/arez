@@ -7,6 +7,7 @@ import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
 import arez.ObservableValue;
+import arez.Procedure;
 import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
@@ -521,6 +522,46 @@ public final class ComponentKernel
   public ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
+  }
+
+  /**
+   * Invoke the setter in a transaction.
+   * If a transaction is active then invoke the setter directly, otherwise wrap the setter in an action.
+   *
+   * @param name   the name of the action if it is needed.
+   * @param setter the setter action to invoke.
+   */
+  public void safeSetObservable( @Nullable final String name, @Nonnull final SafeProcedure setter )
+  {
+    if ( getContext().isTransactionActive() )
+    {
+      setter.call();
+    }
+    else
+    {
+      getContext().safeAction( Arez.areNamesEnabled() ? name : null, setter );
+    }
+  }
+
+  /**
+   * Invoke the setter in a transaction.
+   * If a transaction is active then invoke the setter directly, otherwise wrap the setter in an action.
+   *
+   * @param name   the name of the action if it is needed.
+   * @param setter the setter action to invoke.
+   * @throws Throwable if setter throws an exception.
+   */
+  public void setObservable( @Nullable final String name, @Nonnull final Procedure setter )
+    throws Throwable
+  {
+    if ( getContext().isTransactionActive() )
+    {
+      setter.call();
+    }
+    else
+    {
+      getContext().action( Arez.areNamesEnabled() ? name : null, setter );
+    }
   }
 
   /**
