@@ -2690,7 +2690,7 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildComponentIdRefMethod() );
     }
-    if ( !_references.isEmpty() || !_inverses.isEmpty() )
+    if ( !_references.isEmpty() || hasInverses() )
     {
       builder.addMethod( buildLocatorRefMethod() );
     }
@@ -2755,6 +2755,11 @@ final class ComponentDescriptor
     }
 
     return builder.build();
+  }
+
+  boolean hasInverses()
+  {
+    return !_inverses.isEmpty();
   }
 
   @Nonnull

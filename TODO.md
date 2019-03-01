@@ -14,8 +14,6 @@ complete as there is too much un-said.
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
-* `ArezComponent.requireId` should default to true if there is an `@Inverse` annotation present.
-
 * Support `@OnActivate` and `@OnDeactivate` for `@Memoize` methods with parameters. In this scenario the parameters
   associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
   is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`

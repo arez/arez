@@ -6,6 +6,10 @@
 * Remove references to `arez-timeddisposer` as it has been deprecated.
 * Remove references to `arez-when` as it has been deprecated.
 * Remove references to `arez-mediaquery` as it has been merged into `arez-dom`.
+* **\[core\]** Correct the javadocs of `@ArezComponent.requireId` to indicate that the feature will
+  default to `ENABLE` when the `@ComponentIdRef` annotation is present on a method in the type.
+* **\[core\]** Default the `@ArezComponent.requireId` parameter to `ENABLE` if the type contains a
+  method annotated by the `@Inverse` annotation.
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)

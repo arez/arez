@@ -156,14 +156,19 @@ public @interface ArezComponent
 
   /**
    * Indicates whether the component should support access of the id via {@link arez.component.Identifiable#getArezId(Object)}.
-   * This must be supported if the {@link Repository} annotation is present but may be supported in other scenarios.
-   * This feature is present on all components if {@link Arez#areNativeComponentsEnabled()} is true,
-   * {@link Arez#areRegistriesEnabled()} is true or {@link Arez#areNamesEnabled()} is true and {@link #nameIncludesId()}
-   * is true. In other scenarios it can be disabled. This is usually done to decrease code-size.
-   * {@link Feature#ENABLE} will require support, {@link Feature#DISABLE} will remove support and {@link Feature#AUTODETECT}
-   * will add support if the {@link Repository} annotation is present or a method annotated with {@link ComponentId}
-   * is present. If the {@link Repository} annotation is present or a method annotated with {@link ComponentId}
-   * is present then it is an error to set the value to {@link Feature#DISABLE}.
+   * This feature must be enabled and will be enabled when the value of the parameter is {@link Feature#AUTODETECT}
+   * in the following scenarios:
+   *
+   * <ul>
+   * <li>the {@link Repository} annotation is present on the same type.</li>
+   * <li>a method annotated with the {@link Inverse} annotation is present.</li>
+   * <li>a method annotated with the {@link ComponentId} annotation is present.</li>
+   * <li>a method annotated with the {@link ComponentIdRef} annotation is present.</li>
+   * </ul>
+   *
+   * <p>The feature is also enabled on every components if
+   * {@link Arez#areNativeComponentsEnabled()} is true, {@link Arez#areRegistriesEnabled()} is true or
+   * {@link Arez#areNamesEnabled()} is true and {@link #nameIncludesId()} is true.</p>
    *
    * @return enum controlling whether a unique if of the component can be accessed via {@link arez.component.Identifiable#getArezId(Object)}.
    */

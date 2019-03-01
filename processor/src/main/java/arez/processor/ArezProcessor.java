@@ -654,7 +654,10 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return descriptor.hasRepository() || descriptor.hasComponentIdMethod() || descriptor.hasComponentIdRefMethod();
+        return descriptor.hasRepository() ||
+               descriptor.hasComponentIdMethod() ||
+               descriptor.hasComponentIdRefMethod() ||
+               descriptor.hasInverses();
     }
   }
 
