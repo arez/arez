@@ -85,10 +85,6 @@ complete as there is too much un-said.
   be to github repository or it may be to javadocs where source is included (but this may not be possible
   if not all source gets published to website).
 
-* We should also add some error checking within tests to ensure that invariant methods are only invoked from
-  within a guard. We may be able to do this by adding a hook to guard methods or it could require a custom rule
-  in error prone.
-
 * Implement something similar to `getDependencyTree` from mobx
 
 * Consider changing the way `OnDepsChange` is implemented so that the `Observer` is passed in as an (optional) parameter.
