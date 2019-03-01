@@ -89,10 +89,6 @@ complete as there is too much un-said.
   within a guard. We may be able to do this by adding a hook to guard methods or it could require a custom rule
   in error prone.
 
-* Some invariant violations should just generate warnings on console. These warnings could be upgraded to a
-  failure or made so that they are only emitted the first time they are triggered based on compile time
-  settings.
-
 * Implement something similar to `getDependencyTree` from mobx
 
 * Consider changing the way `OnDepsChange` is implemented so that the `Observer` is passed in as an (optional) parameter.
