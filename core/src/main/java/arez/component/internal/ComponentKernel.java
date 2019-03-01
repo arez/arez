@@ -337,13 +337,13 @@ public final class ComponentKernel
     for ( final Map.Entry<Object, SafeProcedure> entry : new ArrayList<>( _onDisposeListeners.entrySet() ) )
     {
       final Object key = entry.getKey();
-        /*
-         * There is scenarios where there is multiple elements being simultaneously disposed and
-         * the @CascadeDispose has not triggered so a disposed object is in this list waiting to
-         * be called back. If the callback is triggered and the @CascadeDispose is on an observable
-         * property then the framework will attempt to null field and generate invariant failures
-         * or runtime errors unless we skip the callback and just remove the listener.
-         */
+      /*
+       * There is scenarios where there is multiple elements being simultaneously disposed and
+       * the @CascadeDispose has not triggered so a disposed object is in this list waiting to
+       * be called back. If the callback is triggered and the @CascadeDispose is on an observable
+       * property then the framework will attempt to null field and generate invariant failures
+       * or runtime errors unless we skip the callback and just remove the listener.
+       */
       if ( !Disposable.isDisposed( key ) )
       {
         entry.getValue().call();
