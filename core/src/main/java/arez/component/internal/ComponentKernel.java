@@ -329,7 +329,7 @@ public final class ComponentKernel
 
   /**
    * Notify an OnDispose listeners that have been added to the component.
-   * This method MUST onle be called if the component has enabled onDisposeNotify feature.
+   * This method MUST only be called if the component has enabled onDisposeNotify feature.
    */
   public void notifyOnDisposeListeners()
   {
