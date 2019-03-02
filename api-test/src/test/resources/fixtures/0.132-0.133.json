@@ -1,0 +1,46 @@
+[
+  {
+    "name": "method added",
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.component.internal.ComponentKernel::safeSetObservable(java.lang.String, arez.SafeProcedure)",
+    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
+    "oldElement": null,
+    "oldElementModule": null,
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
+      "methodName": "safeSetObservable",
+      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "name": "method added",
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.component.internal.ComponentKernel::setObservable(java.lang.String, arez.Procedure) throws java.lang.Throwable",
+    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
+    "oldElement": null,
+    "oldElementModule": null,
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
+      "methodName": "setObservable",
+      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
+      "package": "arez.component.internal"
+    }
+  }
+]
