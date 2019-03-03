@@ -138,6 +138,11 @@ final class CircularBuffer<T>
     return 0 == size();
   }
 
+  boolean isNotEmpty()
+  {
+    return 0 == size();
+  }
+
   /**
    * Insert specified object at tail of the buffer.
    *

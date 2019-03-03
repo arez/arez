@@ -73,7 +73,7 @@ final class MultiPriorityTaskQueue
     //noinspection ForLoopReplaceableByForEach
     for ( int i = 0; i < _buffers.length; i++ )
     {
-      if ( !_buffers[ i ].isEmpty() )
+      if ( _buffers[ i ].isNotEmpty() )
       {
         return true;
       }
@@ -127,7 +127,7 @@ final class MultiPriorityTaskQueue
     for ( int i = 0; i < _buffers.length; i++ )
     {
       final CircularBuffer<Task> taskQueue = _buffers[ i ];
-      if ( !taskQueue.isEmpty() )
+      if ( taskQueue.isNotEmpty() )
       {
         final Task task = taskQueue.pop();
         assert null != task;
