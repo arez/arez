@@ -140,7 +140,7 @@ final class CircularBuffer<T>
 
   boolean isNotEmpty()
   {
-    return 0 == size();
+    return !isEmpty();
   }
 
   /**
