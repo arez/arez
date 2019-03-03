@@ -139,6 +139,15 @@ complete as there is too much un-said.
       Currently the Arez API does not expose a flag indicating whether computableValues are observed and not possible
       to implement the first strategy even though it may seem to be the right one.
 
+## Bazel integration
+
+* A precursor to several tasks is being able to efficiently build and test arez after it has been compiled to javascript.
+  The shortest path to this is to get an effective strategy for building with Bazel+J2CL. Initial steps have been
+  put in place with the `react4j-todomvc` project.
+  - Good training presentation: https://docs.google.com/presentation/d/1OwktccLvV3VvWn3i7H2SuZkBeAQ8z-E5RdJODVLf8SA/preview?slide=id.g26d86d3325_0_0
+  - "Generate bazel dependencies for maven artifacts" - https://github.com/johnynek/bazel-deps
+  - "Generate BUILD files for your Java files" - https://github.com/bazelbuild/BUILD_file_generator
+
 ## Js Core integration
 
 * Consider bringing back `ObservablePromise` into core of library. Should also consider a utility
