@@ -136,6 +136,7 @@ final class DiagnosticMessages
         g.writeStartArray();
         c_messages.values()
           .stream()
+          .filter( m -> !m.getCallers().isEmpty() )
           .sorted( Comparator.comparingInt( DiagnosticMessage::getCode ) )
           .forEachOrdered( m -> {
             g.writeStartObject();

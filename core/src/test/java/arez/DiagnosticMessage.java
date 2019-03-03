@@ -49,7 +49,7 @@ final class DiagnosticMessage
 
   boolean needsSave()
   {
-    return _needsSave || !Objects.equals( _originalCallers, _callers );
+    return _needsSave || !Objects.equals( _originalCallers, _callers ) || _originalCallers.isEmpty();
   }
 
   void recordCaller( @Nonnull final StackTraceElement caller )
