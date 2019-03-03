@@ -12,6 +12,8 @@
   method annotated by the `@Inverse` annotation.
 * **\[processor\]** Code used to implement `@Observable( writeOutsideTransaction = true )` setters
   has been moved from being generated per-observable into `ComponentKernel` to reduce code size.
+* **\[core\]** Simplify the `arez.CircularBuffer` class to eliminate unused methods and extract common
+  code segments.
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
