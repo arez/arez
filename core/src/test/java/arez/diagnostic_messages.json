@@ -1248,19 +1248,6 @@
     ]
   },
   {
-    "code": 98,
-    "type": "INVARIANT",
-    "messagePattern": "Attempting to queue task named '%s' when task is already queued.",
-    "callers": [
-      {
-        "class": "arez.FifoTaskQueue",
-        "method": "queueTask",
-        "file": "FifoTaskQueue.java",
-        "lineNumber": 54
-      }
-    ]
-  },
-  {
     "code": 99,
     "type": "INVARIANT",
     "messagePattern": "Attempting to queue task named '%s' when task is already queued.",

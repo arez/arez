@@ -12,7 +12,7 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void construct()
   {
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final TaskQueue taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     assertEquals( executor.getMaxRounds(), 2 );
@@ -231,7 +231,7 @@ public class RoundBasedTaskExecutorTest
   {
     ArezTestUtil.purgeTasksWhenRunawayDetected();
 
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final TaskQueue taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final Task task1 = Arez.context().task( "A", ValueUtil::randomString );
@@ -250,7 +250,7 @@ public class RoundBasedTaskExecutorTest
   {
     ArezTestUtil.noPurgeTasksWhenRunawayDetected();
 
-    final FifoTaskQueue taskQueue = new FifoTaskQueue( 10 );
+    final TaskQueue taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final Task task1 = Arez.context().task( "A", ValueUtil::randomString );
