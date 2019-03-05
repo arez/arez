@@ -1,0 +1,9 @@
+<module>
+  <inherits name='com.google.gwt.core.Core'/>
+  <inherits name='arez.dom.Dom'/>
+  <inherits name='arez.ArezDev'/>
+
+  <source path=''/>
+
+  <entry-point class='arez.dom.example.NetworkStatusExample'/>
+</module>
