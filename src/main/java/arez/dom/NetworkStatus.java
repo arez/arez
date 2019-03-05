@@ -1,7 +1,10 @@
 package arez.dom;
 
+import arez.ComputableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.ComputableValueRef;
+import arez.annotations.DepType;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
@@ -49,7 +52,6 @@ import javax.annotation.Nullable;
 public abstract class NetworkStatus
 {
   private final EventListener _listener;
-  private boolean _rawOnLine;
   @Nullable
   private Date _lastChangedAt;
 
@@ -67,7 +69,6 @@ public abstract class NetworkStatus
   NetworkStatus()
   {
     _listener = e -> updateOnlineStatus();
-    _rawOnLine = DomGlobal.navigator.onLine;
     _lastChangedAt = new Date();
   }
 
@@ -76,10 +77,10 @@ public abstract class NetworkStatus
    *
    * @return true if the browser is online, false otherwise.
    */
-  @Memoize
+  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public boolean isOnLine()
   {
-    return isRawOnLine();
+    return DomGlobal.navigator.onLine;
   }
 
   /**
@@ -96,6 +97,9 @@ public abstract class NetworkStatus
     return _lastChangedAt;
   }
 
+  @ComputableValueRef
+  abstract ComputableValue<Boolean> getOnLineComputableValue();
+
   @OnActivate
   final void onOnLineActivate()
   {
@@ -110,17 +114,6 @@ public abstract class NetworkStatus
     DomGlobal.window.removeEventListener( "offline", _listener );
   }
 
-  @Observable
-  boolean isRawOnLine()
-  {
-    return _rawOnLine;
-  }
-
-  void setRawOnLine( final boolean rawOnLine )
-  {
-    _rawOnLine = rawOnLine;
-  }
-
   void setLastChangedAt( @Nullable final Date lastChangedAt )
   {
     _lastChangedAt = lastChangedAt;
@@ -129,7 +122,7 @@ public abstract class NetworkStatus
   @Action
   void updateOnlineStatus()
   {
-    setRawOnLine( DomGlobal.navigator.onLine );
+    getOnLineComputableValue().reportPossiblyChanged();
     setLastChangedAt( new Date() );
   }
 }
