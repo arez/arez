@@ -50,7 +50,7 @@ import javax.annotation.Nonnull;
 @ArezComponent( nameIncludesId = false )
 public abstract class NetworkStatus
 {
-  private final EventListener _listener = e -> updateOnlineStatus();
+  private final EventListener _listener = e -> updateOnlineStatus( getOnLineComputableValue() );
 
   /**
    * Create an instance of NetworkStatus.
@@ -109,9 +109,9 @@ public abstract class NetworkStatus
   }
 
   @Action
-  void updateOnlineStatus()
+  void updateOnlineStatus( @Nonnull final ComputableValue<Boolean> computableValue )
   {
-    getOnLineComputableValue().reportPossiblyChanged();
+    computableValue.reportPossiblyChanged();
     setLastChangedAt( new Date() );
   }
 }
