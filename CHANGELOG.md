@@ -6,6 +6,7 @@
 * Remove references to `arez-timeddisposer` as it has been deprecated.
 * Remove references to `arez-when` as it has been deprecated.
 * Remove references to `arez-mediaquery` as it has been merged into `arez-dom`.
+* Remove references to `arez-networkstatus` as it has been merged into `arez-dom`.
 * **\[core\]** Correct the javadocs of `@ArezComponent.requireId` to indicate that the feature will
   default to `ENABLE` when the `@ComponentIdRef` annotation is present on a method in the type.
 * **\[core\]** Default the `@ArezComponent.requireId` parameter to `ENABLE` if the type contains a

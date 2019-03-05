@@ -1,6 +1,6 @@
 WORKSPACE_DIR = File.expand_path(File.dirname(__FILE__) + '/..')
 
-DOWNSTREAM_PROJECTS=%w(arez-browserlocation arez-dom arez-networkstatus arez-promise arez-spytools)
+DOWNSTREAM_PROJECTS=%w(arez-browserlocation arez-dom arez-promise arez-spytools)
 
 # Project -> [Branch1, Branch2, ...]
 DOWNSTREAM_EXAMPLES =
