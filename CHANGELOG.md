@@ -4,6 +4,7 @@
 
 * Merge the [arez-networkstatus](https://github.com/arez/arez-networkstatus) project,
   version `0.57` into `arez-dom`.
+* Remove dependency on `braincheck` as it is no longer used.
 
 ### [v0.14](https://github.com/arez/arez-dom/tree/v0.14) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez-dom/compare/v0.13...v0.14)

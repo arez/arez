@@ -25,7 +25,6 @@ define 'arez-dom' do
                :elemental2_core,
                :elemental2_promise,
                :elemental2_dom,
-               :braincheck,
                :arez_core,
                # gwt_user is present for @DoNotAutobox annotation
                :gwt_user
@@ -36,7 +35,7 @@ define 'arez-dom' do
   package(:sources)
   package(:javadoc)
 
-  test.options[:properties] = { 'braincheck.environment' => 'development', 'arez.environment' => 'development' }
+  test.options[:properties] = { 'arez.environment' => 'development' }
   test.options[:java_args] = ['-ea']
 
   test.using :testng
@@ -53,7 +52,7 @@ define 'arez-dom' do
   iml.excluded_directories << project._('tmp')
   ipr.extra_modules << 'example/example.iml'
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development')
+  ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.environment=development')
   ipr.add_component_from_artifact(:idea_codestyle)
 
   GWT_EXAMPLES.each do |gwt_module|
