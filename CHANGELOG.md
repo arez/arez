@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Merge the [arez-browserlocation](https://github.com/arez/arez-browserlocation) project into `arez-dom`.
 * Merge the [arez-networkstatus](https://github.com/arez/arez-networkstatus) project,
   version `0.57` into `arez-dom`.
 * Remove dependency on `braincheck` as it is no longer used.
