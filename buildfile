@@ -2,7 +2,16 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-GWT_EXAMPLES=%w(BrowserLocationExample DocumentVisibilityExample GeoPositionExample IdleStatusExample MediaQueryExample NetworkStatusExample WindowSizeExample)
+GWT_EXAMPLES =
+  {
+    'BrowserLocationExample' => 'browser_location',
+    'DocumentVisibilityExample' => 'document_visibility',
+    'GeoPositionExample' => 'geo_position',
+    'IdleStatusExample' => 'idle_status',
+    'MediaQueryExample' => 'media_query',
+    'NetworkStatusExample' => 'network_status',
+    'WindowSizeExample' => 'window_size'
+  }
 
 desc 'Arez-Dom: Arez browser components that make DOM properties observable'
 define 'arez-dom' do
@@ -55,7 +64,7 @@ define 'arez-dom' do
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.environment=development')
   ipr.add_component_from_artifact(:idea_codestyle)
 
-  GWT_EXAMPLES.each do |gwt_module|
+  GWT_EXAMPLES.each_pair do |gwt_module, path|
     short_name = gwt_module
     ipr.add_gwt_configuration(project,
                               :iml_name => 'example',
@@ -63,7 +72,8 @@ define 'arez-dom' do
                               :gwt_module => "arez.dom.example.#{gwt_module}",
                               :start_javascript_debugger => false,
                               :vm_parameters => '-Xmx2G',
-                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
+                              :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/",
+                              :launch_page => "http://127.0.0.1:8888/#{path}")
   end
 end
 
