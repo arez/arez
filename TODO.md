@@ -147,6 +147,7 @@ complete as there is too much un-said.
   - Good training presentation: https://docs.google.com/presentation/d/1OwktccLvV3VvWn3i7H2SuZkBeAQ8z-E5RdJODVLf8SA/preview?slide=id.g26d86d3325_0_0
   - "Generate bazel dependencies for maven artifacts" - https://github.com/johnynek/bazel-deps
   - "Generate BUILD files for your Java files" - https://github.com/bazelbuild/BUILD_file_generator
+  - [Bazel Rules for Maven Repositories](https://github.com/square/bazel_maven_repository)
 
 ## Js Core integration
 
