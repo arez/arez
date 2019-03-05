@@ -50,7 +50,7 @@ import javax.annotation.Nonnull;
 @ArezComponent( nameIncludesId = false )
 public abstract class NetworkStatus
 {
-  private final EventListener _listener;
+  private final EventListener _listener = e -> updateOnlineStatus();
 
   /**
    * Create an instance of NetworkStatus.
@@ -65,7 +65,6 @@ public abstract class NetworkStatus
 
   NetworkStatus()
   {
-    _listener = e -> updateOnlineStatus();
   }
 
   /**
