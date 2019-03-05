@@ -97,6 +97,11 @@ public abstract class NetworkStatus
     return _lastChangedAt;
   }
 
+  void setLastChangedAt( @Nullable final Date lastChangedAt )
+  {
+    _lastChangedAt = lastChangedAt;
+  }
+
   @ComputableValueRef
   abstract ComputableValue<Boolean> getOnLineComputableValue();
 
@@ -112,11 +117,6 @@ public abstract class NetworkStatus
   {
     DomGlobal.window.removeEventListener( "online", _listener );
     DomGlobal.window.removeEventListener( "offline", _listener );
-  }
-
-  void setLastChangedAt( @Nullable final Date lastChangedAt )
-  {
-    _lastChangedAt = lastChangedAt;
   }
 
   @Action
