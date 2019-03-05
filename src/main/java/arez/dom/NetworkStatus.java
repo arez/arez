@@ -13,7 +13,6 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import java.util.Date;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * An observable model that declares state that tracks when the user is "online".
@@ -52,8 +51,6 @@ import javax.annotation.Nullable;
 public abstract class NetworkStatus
 {
   private final EventListener _listener;
-  @Nullable
-  private Date _lastChangedAt;
 
   /**
    * Create an instance of NetworkStatus.
@@ -63,13 +60,12 @@ public abstract class NetworkStatus
   @Nonnull
   public static NetworkStatus create()
   {
-    return new Arez_NetworkStatus();
+    return new Arez_NetworkStatus( new Date() );
   }
 
   NetworkStatus()
   {
     _listener = e -> updateOnlineStatus();
-    _lastChangedAt = new Date();
   }
 
   /**
@@ -91,16 +87,10 @@ public abstract class NetworkStatus
    * @return the last time at which online status changed.
    */
   @Observable
-  @Nullable
-  public Date getLastChangedAt()
-  {
-    return _lastChangedAt;
-  }
+  @Nonnull
+  public abstract Date getLastChangedAt();
 
-  void setLastChangedAt( @Nullable final Date lastChangedAt )
-  {
-    _lastChangedAt = lastChangedAt;
-  }
+  abstract void setLastChangedAt( @Nonnull Date lastChangedAt );
 
   @ComputableValueRef
   abstract ComputableValue<Boolean> getOnLineComputableValue();
