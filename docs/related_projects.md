@@ -17,9 +17,9 @@ to this page.
   - [DocumentVisibility](https://arez.github.io/dom/index.html?arez/dom/DocumentVisibility.html): Exposes `document.visibilityState` as an observable property for specified documents.
   - [EventDrivenValue](https://arez.github.io/dom/index.html?arez/dom/EventDrivenValue.html): Generic component that exposes a property as observable where changes to the variable are signalled using an event.
   - [GeoPosition](https://arez.github.io/dom/index.html?arez/dom/GeoPosition.html): A component that exposes the current geo position as an observable property.
-  - [IdleStatus](https://arez.github.io/dom/index.html?arez/dom/IdleStatus.html): An Arez browser component that tracks when the user is idle. A user is considered idle if they have not interacted with the browser for a specified amount of time.
-  - [MediaQuery](https://arez.github.io/dom/index.html?arez/dom/MediaQuery.html): An Arez browser component that exposes a flag indicating whether the browser matches a particular CSS media query.
-  - [NetworkStatus](https://arez.github.io/dom/index.html?arez/dom/NetworkStatus.html): An Arez browser component that tracks when the user is "online".
+  - [IdleStatus](https://arez.github.io/dom/index.html?arez/dom/IdleStatus.html): A component that tracks when the user is idle. A user is considered idle if they have not interacted with the browser for a specified amount of time.
+  - [MediaQuery](https://arez.github.io/dom/index.html?arez/dom/MediaQuery.html): A component that exposes a flag indicating whether the browser matches a particular CSS media query.
+  - [NetworkStatus](https://arez.github.io/dom/index.html?arez/dom/NetworkStatus.html): A component that tracks when the user is "online".
   - [WindowSize](https://arez.github.io/dom/index.html?arez/dom/WindowSize.html): Factory for creating observables for dimensions of a window. (i.e. `window.(inner|outer)(Width|Height)`)
 * [arez-promise](https://github.com/arez/arez-promise) A GWT/Javascript based Arez component that
   wraps a Promise and exposes observable state that tracks the state of the promise.
