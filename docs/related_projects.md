@@ -6,14 +6,12 @@ Arez is a relatively new toolkit but there are some other resources and related 
 This list will hopefully grow over time. Feel free to submit a pull request to add new projects
 to this page.
 
-* [arez-browserlocation](https://github.com/arez/arez-browserlocation) A browser-based Arez component
-  that makes the hash component of the browser location reactive.
-  <span style="font-size: smaller">**[API Docs](https://arez.github.io/browserlocation) · [GitHub Project](https://github.com/arez/arez-browserlocation)**</span>
 * [arez-dom](https://github.com/arez/arez-dom) A collection of Arez components that expose various aspects of
   the browser object model as observable properties.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/dom) · [GitHub Project](https://github.com/arez/arez-dom)**</span>
 
   These include but are not limited to the following components:
+  - [BrowserLocation](https://arez.github.io/dom/index.html?arez/dom/BrowserLocation.html): A component that makes the hash component of the browser's location reactive.
   - [DocumentVisibility](https://arez.github.io/dom/index.html?arez/dom/DocumentVisibility.html): Exposes `document.visibilityState` as an observable property for specified documents.
   - [EventDrivenValue](https://arez.github.io/dom/index.html?arez/dom/EventDrivenValue.html): Generic component that exposes a property as observable where changes to the variable are signalled using an event.
   - [GeoPosition](https://arez.github.io/dom/index.html?arez/dom/GeoPosition.html): A component that exposes the current geo position as an observable property.
