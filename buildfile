@@ -2,7 +2,7 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
-GWT_EXAMPLES=%w(arez.dom.example.WindowSizeExample arez.dom.example.DocumentVisibilityExample arez.dom.example.GeoPositionExample arez.dom.example.MediaQueryExample arez.dom.example.NetworkStatusExample arez.dom.example.IdleStatusExample)
+GWT_EXAMPLES=%w(DocumentVisibilityExample GeoPositionExample IdleStatusExample MediaQueryExample NetworkStatusExample WindowSizeExample)
 
 desc 'Arez-Dom: Arez browser components that make DOM properties observable'
 define 'arez-dom' do
@@ -57,11 +57,11 @@ define 'arez-dom' do
   ipr.add_component_from_artifact(:idea_codestyle)
 
   GWT_EXAMPLES.each do |gwt_module|
-    short_name = gwt_module.gsub(/.*\./, '')
+    short_name = gwt_module
     ipr.add_gwt_configuration(project,
                               :iml_name => 'example',
                               :name => "GWT Example: #{short_name}",
-                              :gwt_module => gwt_module,
+                              :gwt_module => "arez.dom.example.#{gwt_module}",
                               :start_javascript_debugger => false,
                               :vm_parameters => '-Xmx2G',
                               :shell_parameters => "-port 8888 -codeServerPort 8889 -bindAddress 0.0.0.0 -war #{_(:generated, 'gwt-export', short_name)}/")
