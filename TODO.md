@@ -23,7 +23,9 @@ complete as there is too much un-said.
 
 * Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
   OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`. It would also take an
-  instance parameter of `ComputableValue` which it could use to call `reportPossiblyChanged()`
+  instance parameter of `ComputableValue` which it could use to call `reportPossiblyChanged()`. Alternatively
+  it could take a `ComputableValueELement` that has `getComputableValue()` method as well as a `set(value)`
+  method which would dramatically simplify `ComputableValue` instances that were driven by external elements.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
