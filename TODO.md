@@ -61,7 +61,8 @@ complete as there is too much un-said.
 
 * Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
   re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
-  are not useful. We should also include the average amount of time it took to calculate the value?
+  are not useful. We should also include the average amount of time it took to calculate the value? See the
+  `ComputableValueMetrics` branch for the begining of this.
 
 * Could also record fan out and fan in for each node and rates of change for each node to see what problems could
   arise and where the potential bottlenecks are located.
