@@ -222,6 +222,8 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
 * Building the Dagger components is extremely complex. There are many different ways in which the dagger artifacts
   need to be combined to form a component (i.e. added as a module or not, extending the component or not,
   explicitly calling bind helper methods or not).
+* Need to incorporate factory functionality (i.e. [AssistedInject](https://github.com/square/AssistedInject))
+  that has been duplicated through numerous downstream consumers.
 
 In the future we may have the cycles to address these issues. However a solution seems to be to either replace
 dagger with a better injection framework or build tooling on top of dagger that hides it's complexities.
