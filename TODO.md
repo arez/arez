@@ -240,6 +240,8 @@ and explicitly declare the module that they are provided to. i.e. `@Injectable({
 is also several other interesting ideas that are particularly relevant for code-split web apps.
 See https://angular.io/guide/dependency-injection
 
+Another interesting project underway is [crysknife](https://github.com/treblereel/crysknife).
+
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
