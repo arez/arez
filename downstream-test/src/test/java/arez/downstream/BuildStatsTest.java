@@ -11,6 +11,13 @@ import static org.testng.Assert.*;
 public class BuildStatsTest
 {
   @Test
+  public void raw()
+    throws Exception
+  {
+    compareSizesForBranch( "raw", true );
+  }
+
+  @Test
   public void arez()
     throws Exception
   {
