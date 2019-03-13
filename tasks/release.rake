@@ -145,10 +145,10 @@ HEADER
     stage('PushChanges', 'Push changes to git repository') do
       sh 'git push'
       sh 'git push --tags'
+
       # Push the changes that have been made locally in downstream projects.
       # Artifacts have been pushed to staging repository by this time so they should build
       # even if it has not made it through the Maven release process
-
       DOWNSTREAM_EXAMPLES.each_pair do |downstream_example, branches|
         sh "cd archive/downstream/#{downstream_example} && git push --all"
         branches.each do |branch|
