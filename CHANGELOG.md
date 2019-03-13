@@ -16,6 +16,7 @@
   has been moved from being generated per-observable into `ComponentKernel` to reduce code size.
 * **\[core\]** Simplify the `arez.CircularBuffer` class to eliminate unused methods and extract common
   code segments.
+* Start building `spritz` branch in `react4j-todomvc` as part of build and release cycle.
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
