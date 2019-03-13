@@ -25,6 +25,13 @@ public class BuildStatsTest
   }
 
   @Test
+  public void spritz()
+    throws Exception
+  {
+    compareSizesForBranch( "spritz", true );
+  }
+
+  @Test
   public void arez_j2cl()
     throws Exception
   {
