@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b20-bfe6e22`.
 * Remove references to `arez-ticker` as it has been deprecated.
 * Remove references to `arez-timeddisposer` as it has been deprecated.
 * Remove references to `arez-when` as it has been deprecated.
