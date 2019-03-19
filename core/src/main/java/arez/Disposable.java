@@ -52,7 +52,7 @@ public interface Disposable
    * @param object the object to check disposed state.
    * @return true if the parameter is Disposable and has been disposed, else return false.
    */
-  static boolean isDisposed( @Nonnull final Object object )
+  static boolean isDisposed( @Nullable final Object object )
   {
     return object instanceof Disposable && ( (Disposable) object ).isDisposed();
   }
@@ -63,7 +63,7 @@ public interface Disposable
    * @param object the object to check state.
    * @return true if the parameter is not Disposable or has not been disposed, else return false.
    */
-  static boolean isNotDisposed( @Nonnull final Object object )
+  static boolean isNotDisposed( @Nullable final Object object )
   {
     return !isDisposed( object );
   }

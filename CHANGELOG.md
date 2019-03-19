@@ -17,6 +17,9 @@
 * **\[core\]** Simplify the `arez.CircularBuffer` class to eliminate unused methods and extract common
   code segments.
 * Start building `spritz` branch in `react4j-todomvc` as part of build and release cycle.
+* **\[core\]** Annotate parameters of `Disposeable.isDisposed(Object)` and `Disposeable.isNotDisposed(Object)`
+  as `@Nullable` rather than `@Nonnull` as the code already supports passing null parameters. This eliminates
+  unnecessary checks in caller that are not always optimized out.
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
