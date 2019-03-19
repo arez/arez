@@ -6,12 +6,15 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Support `@CascadeDispose` on abstract `@Observable` properties. `SET_NULL` is invalid property is nullable.
+
+* Support `@CascadeDispose` on `@Reference`. `SET_NULL` will null out underlying reference (and then try to
+  relink for EAGER references).
+
 * Update inject documentation
 
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
   they can be assumed to be an `@Observable`.
-
-* Should be able to `@CascadeDispose` on abstract `@Observable` properties. The underlying field will be disposed.
 
 ## Enhancements
 
