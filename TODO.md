@@ -155,6 +155,8 @@ complete as there is too much un-said.
   - [Generate BUILD files for your Java files](https://github.com/bazelbuild/BUILD_file_generator)
   - [Bazel Rules for Maven Repositories](https://github.com/square/bazel_maven_repository)
 
+* Use techniques highlighted in https://github.com/tadeegan/react-closure-sample
+
 ## Js Core integration
 
 * Consider bringing back `ObservablePromise` into core of library. Should also consider a utility
