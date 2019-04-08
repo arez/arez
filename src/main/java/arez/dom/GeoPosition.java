@@ -187,13 +187,7 @@ public abstract class GeoPosition
       context().task( Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
                       () -> setStatus( Status.LOADING ),
                       Flags.DISPOSE_ON_COMPLETE );
-      _watcherId = DomGlobal.navigator.geolocation.watchPosition( e -> {
-        onSuccess( e.getCoords() );
-        return null;
-      }, e -> {
-        onFailure( e );
-        return null;
-      } );
+      _watcherId = DomGlobal.navigator.geolocation.watchPosition( e -> onSuccess( e.getCoords() ), this::onFailure );
     }
     _activateCount++;
   }
