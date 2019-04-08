@@ -1,4 +1,6 @@
 <module>
+  <inherits name='jsinterop.base.Base'/>
+
   <source path='' includes='*.java'/>
   <source path='spy' includes='*.java'/>
 

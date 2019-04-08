@@ -58,9 +58,11 @@ define 'arez' do
   define 'core' do
     pom.include_transitive_dependencies << artifact(:javax_annotation)
     pom.include_transitive_dependencies << artifact(:jsinterop_annotations)
-    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test'}
+    pom.optional_dependencies << artifact(:jsinterop_base)
+    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && dep[:id] != 'jsinterop-annotations'}
 
     compile.with :javax_annotation,
+                 :jsinterop_base,
                  :jsinterop_annotations
 
     test.options[:properties] =

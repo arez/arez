@@ -5,6 +5,8 @@
 * Upgrade the `org.realityforge.gir` artifact to version `0.08`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b21-6a027d2`.
 * **\[core\]** Use `const` rather than `let` for module import to avoid closure compiler warning.
+* Use `Js.debugger()` from the `com.google.jsinterop:base` artifact. This avoids the need to explicitly
+  allow the `debugger` statement when compiled by closure compiler pass after transpiling via J2CL.
 
 ### [v0.133](https://github.com/arez/arez/tree/v0.133) (2019-03-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.132...v0.133)
