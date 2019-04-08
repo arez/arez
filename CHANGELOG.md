@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b21-6a027d2`.
+
 ### [v0.59](https://github.com/arez/arez-spytools/tree/v0.59) (2019-03-19)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.58...v0.59)
 
