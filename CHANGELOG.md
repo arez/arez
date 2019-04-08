@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.135](https://github.com/arez/arez/tree/v0.135) (2019-04-09)
+[Full Changelog](https://github.com/arez/arez/compare/v0.134...v0.135)
 
 * Make sure the maven dependency for `org.realityforge.com.google.jsinterop:base` is transitive so that the necessary dependency on `jsinterop-annotations` is present.
 
