@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b21-6a027d2`.
+
 ### [v0.16](https://github.com/arez/arez-dom/tree/v0.16) (2019-03-19)
 [Full Changelog](https://github.com/arez/arez-dom/compare/v0.15...v0.16)
 
