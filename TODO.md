@@ -16,6 +16,8 @@ complete as there is too much un-said.
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
   they can be assumed to be an `@Observable`.
 
+* Generate arez version diff report ... and consider emailing it out using Email AMP
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
