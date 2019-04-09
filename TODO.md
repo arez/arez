@@ -19,7 +19,9 @@ complete as there is too much un-said.
 * Generate arez version diff report ... and consider emailing it out using Email AMP
 
 * Support generating Arez components from interfaces. The implementation just implements interface and
-  relies on default and abstract methods on the interface to provide functionality.
+  relies on default and abstract methods on the interface to provide functionality. A future version
+  could have dynamic implementations in java using reflection and in javascript using proxies. This may
+  save some bytes at scale but may not given it may restrict the way closure can rename elements.
 
 ## Enhancements
 
