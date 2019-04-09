@@ -18,6 +18,9 @@ complete as there is too much un-said.
 
 * Generate arez version diff report ... and consider emailing it out using Email AMP
 
+* Support generating Arez components from interfaces. The implementation just implements interface and
+  relies on default and abstract methods on the interface to provide functionality.
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
