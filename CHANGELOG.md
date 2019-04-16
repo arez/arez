@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Improve the way defines are handled in closure by assigning the results of `goog.define` to a module local variable.
+
 ### [v0.135](https://github.com/arez/arez/tree/v0.135) (2019-04-09)
 [Full Changelog](https://github.com/arez/arez/compare/v0.134...v0.135)
 
