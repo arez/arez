@@ -87,9 +87,6 @@ public final class ActionCompleteEvent
     return _duration;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

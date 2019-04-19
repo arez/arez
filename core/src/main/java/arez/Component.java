@@ -132,9 +132,6 @@ public final class Component
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void dispose()
   {
@@ -174,18 +171,12 @@ public final class Component
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
     return _disposed;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public final String toString()

@@ -224,9 +224,6 @@ public final class ComponentKernel
                                     Arez.arePropertyIntrospectorsEnabled() ? () -> _state > 0 : null );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean observe()
   {
@@ -260,9 +257,6 @@ public final class ComponentKernel
     return isNotDisposed;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void dispose()
   {
@@ -304,9 +298,6 @@ public final class ComponentKernel
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
@@ -683,9 +674,6 @@ public final class ComponentKernel
     return _onDisposeListeners;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public final String toString()

@@ -39,9 +39,6 @@ final class AggregateLocator
     return new LocatorEntry( locator );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public final <T> T findById( @Nonnull final Class<T> type, @Nonnull final Object id )

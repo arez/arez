@@ -44,9 +44,6 @@ final class SpyImpl
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
@@ -59,9 +56,6 @@ final class SpyImpl
     _spyEventHandlers.add( Objects.requireNonNull( handler ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
@@ -74,9 +68,6 @@ final class SpyImpl
     _spyEventHandlers.remove( Objects.requireNonNull( handler ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void reportSpyEvent( @Nonnull final Object event )
   {
@@ -102,9 +93,6 @@ final class SpyImpl
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean willPropagateSpyEvents()
   {
@@ -117,18 +105,12 @@ final class SpyImpl
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isTransactionActive()
   {
     return getContext().isTransactionActive();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public TransactionInfo getTransaction()
@@ -141,9 +123,6 @@ final class SpyImpl
     return getContext().getTransaction().asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public ComponentInfo findComponent( @Nonnull final String type, @Nonnull final Object id )
@@ -152,9 +131,6 @@ final class SpyImpl
     return null != component ? component.asInfo() : null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Collection<ComponentInfo> findAllComponentsByType( @Nonnull final String type )
@@ -166,9 +142,6 @@ final class SpyImpl
     return Collections.unmodifiableCollection( infos );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Collection<String> findAllComponentTypes()
@@ -176,9 +149,6 @@ final class SpyImpl
     return Collections.unmodifiableCollection( getContext().findAllComponentTypes() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Collection<ObservableValueInfo> findAllTopLevelObservableValues()
@@ -186,9 +156,6 @@ final class SpyImpl
     return ObservableValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelObservables().values() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Collection<ObserverInfo> findAllTopLevelObservers()
@@ -196,9 +163,6 @@ final class SpyImpl
     return ObserverInfoImpl.asUnmodifiableInfos( getContext().getTopLevelObservers().values() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Collection<ComputableValueInfo> findAllTopLevelComputableValues()
@@ -206,9 +170,6 @@ final class SpyImpl
     return ComputableValueInfoImpl.asUnmodifiableInfos( getContext().getTopLevelComputableValues().values() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Collection<TaskInfo> findAllTopLevelTasks()
@@ -216,9 +177,6 @@ final class SpyImpl
     return TaskInfoImpl.asUnmodifiableInfos( getContext().getTopLevelTasks().values() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public ComponentInfo asComponentInfo( @Nonnull final Component component )
@@ -226,9 +184,6 @@ final class SpyImpl
     return component.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public ObserverInfo asObserverInfo( @Nonnull final Observer observer )
@@ -236,9 +191,6 @@ final class SpyImpl
     return observer.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public <T> ObservableValueInfo asObservableValueInfo( @Nonnull final ObservableValue<T> observableValue )
@@ -246,9 +198,6 @@ final class SpyImpl
     return observableValue.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public <T> ComputableValueInfo asComputableValueInfo( @Nonnull final ComputableValue<T> computableValue )
@@ -256,9 +205,6 @@ final class SpyImpl
     return computableValue.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public TaskInfo asTaskInfo( @Nonnull final Task task )

@@ -24,9 +24,6 @@ public final class TaskStartEvent
     return _task;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

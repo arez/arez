@@ -164,9 +164,6 @@ public final class MemoizeCache<T>
     return getComputableValue( args ).get();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {

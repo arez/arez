@@ -182,9 +182,6 @@ public final class Task
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void dispose()
   {
@@ -198,9 +195,6 @@ public final class Task
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {

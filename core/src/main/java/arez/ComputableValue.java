@@ -258,9 +258,6 @@ public final class ComputableValue<T>
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {

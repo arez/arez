@@ -40,9 +40,6 @@ public final class TypeBasedLocator
     _findByIdFunctions.put( type, findByIdFunction );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   @SuppressWarnings( "unchecked" )

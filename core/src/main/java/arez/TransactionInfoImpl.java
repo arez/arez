@@ -21,9 +21,6 @@ final class TransactionInfoImpl
     _transaction = Objects.requireNonNull( transaction );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getName()
@@ -31,18 +28,12 @@ final class TransactionInfoImpl
     return getTransaction().getName();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isReadOnly()
   {
     return Arez.shouldEnforceTransactionType() && !getTransaction().isMutation();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public TransactionInfo getParent()
@@ -51,18 +42,12 @@ final class TransactionInfoImpl
     return null != previous ? previous.asInfo() : null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isTracking()
   {
     return null != getTransaction().getTracker();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public ObserverInfo getTracker()

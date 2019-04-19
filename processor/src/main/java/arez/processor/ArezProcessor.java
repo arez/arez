@@ -51,9 +51,6 @@ public final class ArezProcessor
   private int _invalidTypeCount;
   private RoundEnvironment _env;
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean process( final Set<? extends TypeElement> annotations, final RoundEnvironment env )
   {

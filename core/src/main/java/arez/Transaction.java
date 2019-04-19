@@ -338,9 +338,6 @@ final class Transaction
     return _startedAt;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String toString()

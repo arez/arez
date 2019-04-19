@@ -46,9 +46,6 @@ final class ObservableValueInfoImpl
     return Collections.unmodifiableList( asInfos( observableValues ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getName()
@@ -56,27 +53,18 @@ final class ObservableValueInfoImpl
     return _observableValue.getName();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isComputableValue()
   {
     return _observableValue.isComputableValue();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public ComputableValueInfo asComputableValue()
   {
     return _observableValue.getObserver().getComputableValue().asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public List<ObserverInfo> getObservers()
@@ -84,9 +72,6 @@ final class ObservableValueInfoImpl
     return ObserverInfoImpl.asUnmodifiableInfos( _observableValue.getObservers() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public ComponentInfo getComponent()
@@ -100,9 +85,6 @@ final class ObservableValueInfoImpl
     return null == component ? null : component.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean hasAccessor()
   {
@@ -114,9 +96,6 @@ final class ObservableValueInfoImpl
     return null != _observableValue.getAccessor();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public Object getValue()
@@ -138,9 +117,6 @@ final class ObservableValueInfoImpl
     return accessor.get();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean hasMutator()
   {
@@ -152,9 +128,6 @@ final class ObservableValueInfoImpl
     return null != _observableValue.getMutator();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @SuppressWarnings( "unchecked" )
   @Override
   public void setValue( @Nullable final Object value )
@@ -176,18 +149,12 @@ final class ObservableValueInfoImpl
     mutator.set( value );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
     return _observableValue.isDisposed();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString()
   {

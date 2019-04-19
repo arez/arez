@@ -44,9 +44,6 @@ final class ComputableValueInfoImpl
     return Collections.unmodifiableList( asInfos( computableValues ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getName()
@@ -54,18 +51,12 @@ final class ComputableValueInfoImpl
     return _computableValue.getName();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isComputing()
   {
     return _computableValue.isComputing();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Priority getPriority()
@@ -73,9 +64,6 @@ final class ComputableValueInfoImpl
     return _computableValue.getObserver().getTask().getPriority();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isActive()
   {
@@ -107,9 +95,6 @@ final class ComputableValueInfoImpl
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public List<ObserverInfo> getObservers()
@@ -117,9 +102,6 @@ final class ComputableValueInfoImpl
     return ObserverInfoImpl.asUnmodifiableInfos( _computableValue.getObservableValue().getObservers() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public ComponentInfo getComponent()
@@ -133,9 +115,6 @@ final class ComputableValueInfoImpl
     return null == component ? null : component.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public Object getValue()
@@ -151,18 +130,12 @@ final class ComputableValueInfoImpl
     return accessor.get();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
     return _computableValue.isDisposed();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString()
   {

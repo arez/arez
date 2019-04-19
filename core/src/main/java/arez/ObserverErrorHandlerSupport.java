@@ -51,9 +51,6 @@ final class ObserverErrorHandlerSupport
     _observerErrorHandlers.remove( Objects.requireNonNull( handler ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void onObserverError( @Nonnull final Observer observer,
                                @Nonnull final ObserverError error,

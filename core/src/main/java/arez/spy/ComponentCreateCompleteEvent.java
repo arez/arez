@@ -24,9 +24,6 @@ public final class ComponentCreateCompleteEvent
     return _componentInfo;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

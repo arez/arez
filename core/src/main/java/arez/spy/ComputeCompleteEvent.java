@@ -55,9 +55,6 @@ public final class ComputeCompleteEvent
     return _throwable;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

@@ -26,9 +26,6 @@ final class ComponentInfoImpl
     _computableValues = Collections.unmodifiableList( _component.getComputableValues() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getType()
@@ -36,9 +33,6 @@ final class ComponentInfoImpl
     return _component.getType();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Object getId()
@@ -46,9 +40,6 @@ final class ComponentInfoImpl
     return _component.getId();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getName()
@@ -56,54 +47,36 @@ final class ComponentInfoImpl
     return _component.getName();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public List<ObservableValueInfo> getObservableValues()
   {
     return ObservableValueInfoImpl.asUnmodifiableInfos( _observableValues );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public List<ObserverInfo> getObservers()
   {
     return ObserverInfoImpl.asUnmodifiableInfos( _component.getObservers() );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public List<ComputableValueInfo> getComputableValues()
   {
     return ComputableValueInfoImpl.asUnmodifiableInfos( _computableValues );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
     return _component.isDisposed();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString()
   {
     return _component.toString();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean equals( final Object o )
   {
@@ -122,9 +95,6 @@ final class ComponentInfoImpl
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public int hashCode()
   {

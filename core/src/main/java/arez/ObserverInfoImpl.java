@@ -46,9 +46,6 @@ final class ObserverInfoImpl
     return Collections.unmodifiableList( asInfos( observers ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getName()
@@ -56,54 +53,36 @@ final class ObserverInfoImpl
     return _observer.getName();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isActive()
   {
     return _observer.isActive();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isRunning()
   {
     return _spy.isTransactionActive() && null != getTrackerTransaction();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isScheduled()
   {
     return _observer.getTask().isQueued();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isComputableValue()
   {
     return _observer.isComputableValue();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isReadOnly()
   {
     return Arez.shouldEnforceTransactionType() && !_observer.isMutation();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Priority getPriority()
@@ -111,18 +90,12 @@ final class ObserverInfoImpl
     return _observer.getTask().getPriority();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public ComputableValueInfo asComputableValue()
   {
     return _observer.getComputableValue().asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public List<ObservableValueInfo> getDependencies()
@@ -148,9 +121,6 @@ final class ObserverInfoImpl
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public ComponentInfo getComponent()
@@ -164,18 +134,12 @@ final class ObserverInfoImpl
     return null == component ? null : component.asInfo();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
     return _observer.isDisposed();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString()
   {

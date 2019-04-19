@@ -44,9 +44,6 @@ public final class TaskCompleteEvent
     return _duration;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

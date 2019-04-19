@@ -317,9 +317,6 @@ public final class Observer
     _flags = Flags.setState( _flags, Flags.STATE_DISPOSED );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {

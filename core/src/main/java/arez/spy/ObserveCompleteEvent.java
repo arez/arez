@@ -44,9 +44,6 @@ public final class ObserveCompleteEvent
     return _duration;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

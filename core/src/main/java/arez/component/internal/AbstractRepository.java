@@ -25,18 +25,12 @@ import javax.annotation.Nullable;
 public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T, R>>
   extends AbstractContainer<K, T>
 {
-  /**
-   * {@inheritDoc}
-   */
   @Override
   protected final boolean shouldDisposeEntryOnDispose()
   {
     return true;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public boolean contains( @Nonnull final T entity )
   {
     return super.contains( entity );
@@ -121,18 +115,12 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     return entity;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   public final T findByArezId( @Nonnull final K arezId )
   {
     return super.findByArezId( arezId );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   public final T getByArezId( @Nonnull final K arezId )
     throws NoSuchEntityException

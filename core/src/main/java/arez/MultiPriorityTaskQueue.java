@@ -49,9 +49,6 @@ final class MultiPriorityTaskQueue
     return _buffers.length;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public int getQueueSize()
   {
@@ -64,9 +61,6 @@ final class MultiPriorityTaskQueue
     return count;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean hasTasks()
   {
@@ -115,9 +109,6 @@ final class MultiPriorityTaskQueue
     _buffers[ priority ].add( Objects.requireNonNull( task ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nullable
   @Override
   public Task dequeueTask()
@@ -137,9 +128,6 @@ final class MultiPriorityTaskQueue
     return null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Collection<Task> clear()
   {
@@ -158,9 +146,6 @@ final class MultiPriorityTaskQueue
     return tasks;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Stream<Task> getOrderedTasks()

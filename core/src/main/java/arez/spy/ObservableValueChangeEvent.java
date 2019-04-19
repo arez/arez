@@ -35,9 +35,6 @@ public final class ObservableValueChangeEvent
     return _value;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

@@ -28,9 +28,6 @@ public final class SchedulerLock
     _context = Arez.areZonesEnabled() ? Objects.requireNonNull( context ) : null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void dispose()
   {
@@ -41,9 +38,6 @@ public final class SchedulerLock
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {

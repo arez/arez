@@ -24,9 +24,6 @@ public final class ObserverCreateEvent
     return _observer;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

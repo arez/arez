@@ -37,9 +37,6 @@ final class TaskInfoImpl
     return Collections.unmodifiableList( asInfos( tasks ) );
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public String getName()
@@ -53,18 +50,12 @@ final class TaskInfoImpl
     return _task.isIdle();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isScheduled()
   {
     return _task.isQueued();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   public Priority getPriority()
@@ -72,18 +63,12 @@ final class TaskInfoImpl
     return _task.getPriority();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {
     return _task.isDisposed();
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString()
   {

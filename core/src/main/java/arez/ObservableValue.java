@@ -145,9 +145,6 @@ public final class ObservableValue<T>
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void dispose()
   {
@@ -193,9 +190,6 @@ public final class ObservableValue<T>
     _workState = DISPOSED;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isDisposed()
   {

@@ -24,9 +24,6 @@ public final class ComponentDisposeStartEvent
     return _componentInfo;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {

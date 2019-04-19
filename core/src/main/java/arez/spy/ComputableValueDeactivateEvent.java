@@ -24,9 +24,6 @@ public final class ComputableValueDeactivateEvent
     return _computableValue;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public void toMap( @Nonnull final Map<String, Object> map )
   {
