@@ -12,9 +12,6 @@ import javax.annotation.Nonnull;
 public class ReactArezConsoleSpyEventProcessor
   extends ConsoleSpyEventProcessor
 {
-  /**
-   * {@inheritDoc}
-   */
   @Nonnull
   @Override
   protected StringifyReplacer getStringifyReplacer()

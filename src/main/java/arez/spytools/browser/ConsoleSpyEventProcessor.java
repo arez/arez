@@ -504,9 +504,6 @@ public class ConsoleSpyEventProcessor
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   protected void handleUnhandledEvent( @Nonnull final Object event )
   {

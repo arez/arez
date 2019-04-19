@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove `{@inheritDoc}` as it only explicitly indicates that the default behaviour at the expense of significant visual clutter.
+
 ### [v0.62](https://github.com/arez/arez-spytools/tree/v0.62) (2019-04-16)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.61...v0.62)
 
