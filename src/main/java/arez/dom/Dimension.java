@@ -40,9 +40,6 @@ public final class Dimension
     return _height;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean equals( final Object o )
   {

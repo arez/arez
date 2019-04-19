@@ -110,9 +110,6 @@ public final class Position
     return _speed;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean equals( final Object o )
   {
