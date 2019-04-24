@@ -6,6 +6,13 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
+  Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.
+  It can either collect all types or only types that participate in reference relationships. If injection is
+  enabled, then it will expect to receive the repositories via injection, otherwise it will create the
+  repositories in the constructor.
+  - implementation will assert that references config is enabled? Probably not. Could use locators for other reasons. 
+
 * Support `@CascadeDispose` on abstract `@Observable` properties. `SET_NULL` is invalid property is nullable.
 
 * Support `@CascadeDispose` on `@Reference`. `SET_NULL` will null out underlying reference (and then try to
