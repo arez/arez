@@ -87,7 +87,7 @@ HEADER
       end_index = changelog.index("### [v#{ENV['PREVIOUS_PRODUCT_VERSION']}]", start_index)
 
       filename = "website/blog/#{ENV['RELEASE_DATE']}-version-#{ENV['PRODUCT_VERSION']}-release.md"
-      IO.write(filename, <<CONTENT)
+      content = <<CONTENT
 ---
 title: Arez #{ENV['PRODUCT_VERSION']} released
 author: Arez Project
@@ -95,11 +95,19 @@ authorURL: https://github.com/arez
 ---
 
 [Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
+CONTENT
+      if File.exist?("#{WORKSPACE_DIR}/api-test/src/test/resources/fixtures/#{ENV['PREVIOUS_PRODUCT_VERSION']}-#{ENV['PRODUCT_VERSION']}.json")
+        content += <<CONTENT
+[API Differences](/api-diff/?key=arez&old=#{ENV['PREVIOUS_PRODUCT_VERSION']}&new=#{ENV['PRODUCT_VERSION']})
+CONTENT
+      end
+      content += <<CONTENT
 
 Changes in this release:
 
 #{changelog[start_index, end_index - start_index].gsub('https://arez.github.io', '')}
 CONTENT
+      IO.write(filename, content)
       setup_filename = 'docs/project_setup.md'
       IO.write(setup_filename, IO.read(setup_filename).
         gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>"))
