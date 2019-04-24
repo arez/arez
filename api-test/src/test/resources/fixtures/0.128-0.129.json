@@ -1,12 +1,9 @@
 [
   {
-    "name": "static field added",
     "code": "java.field.addedStaticField",
     "description": "Static field added to class.",
     "newElement": "field arez.Flags.NO_WRAP_TASK",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.129",
     "oldElement": null,
-    "oldElementModule": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -15,20 +12,15 @@
       "classQualifiedName": "arez.Flags",
       "classSimpleName": "Flags",
       "elementKind": "field",
-      "exampleUseChainInNewApi": "class arez.Flags is part of the API",
       "fieldName": "NO_WRAP_TASK",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.129",
       "package": "arez"
     }
   },
   {
-    "name": "method removed",
     "code": "java.method.removed",
     "description": "Method was removed.",
     "newElement": null,
-    "newElementModule": null,
     "oldElement": "method void arez.ArezContext::scheduleDispose(arez.Disposable)",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.128",
     "classification": {
       "SOURCE": "BREAKING",
       "BINARY": "BREAKING"
@@ -37,20 +29,15 @@
       "classQualifiedName": "arez.ArezContext",
       "classSimpleName": "ArezContext",
       "elementKind": "method",
-      "exampleUseChainInOldApi": "class arez.ArezContext is part of the API",
       "methodName": "scheduleDispose",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.128",
       "package": "arez"
     }
   },
   {
-    "name": "method removed",
     "code": "java.method.removed",
     "description": "Method was removed.",
     "newElement": null,
-    "newElementModule": null,
     "oldElement": "method void arez.ArezContext::scheduleDispose(java.lang.String, arez.Disposable)",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.128",
     "classification": {
       "SOURCE": "BREAKING",
       "BINARY": "BREAKING"
@@ -59,9 +46,7 @@
       "classQualifiedName": "arez.ArezContext",
       "classSimpleName": "ArezContext",
       "elementKind": "method",
-      "exampleUseChainInOldApi": "class arez.ArezContext is part of the API",
       "methodName": "scheduleDispose",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.128",
       "package": "arez"
     }
   }

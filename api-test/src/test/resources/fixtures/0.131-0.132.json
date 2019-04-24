@@ -1,12 +1,9 @@
 [
   {
-    "name": "class added",
     "code": "java.class.added",
     "description": "Class was added.",
     "newElement": "class arez.Guards",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "oldElement": null,
-    "oldElementModule": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -15,19 +12,14 @@
       "classQualifiedName": "arez.Guards",
       "classSimpleName": "Guards",
       "elementKind": "class",
-      "exampleUseChainInNewApi": "class arez.Guards is part of the API",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez"
     }
   },
   {
-    "name": "class added",
     "code": "java.class.added",
     "description": "Class was added.",
     "newElement": "interface arez.ArezTestUtil.Logger",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "oldElement": null,
-    "oldElementModule": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -36,19 +28,14 @@
       "classQualifiedName": "arez.ArezTestUtil.Logger",
       "classSimpleName": "Logger",
       "elementKind": "interface",
-      "exampleUseChainInNewApi": "interface arez.ArezTestUtil.Logger is part of the API",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez"
     }
   },
   {
-    "name": "method added",
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.ArezTestUtil::setLogger(arez.ArezTestUtil.Logger)",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "oldElement": null,
-    "oldElementModule": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -57,9 +44,7 @@
       "classQualifiedName": "arez.ArezTestUtil",
       "classSimpleName": "ArezTestUtil",
       "elementKind": "method",
-      "exampleUseChainInNewApi": "class arez.ArezTestUtil is part of the API",
       "methodName": "setLogger",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez"
     }
   }

@@ -1,12 +1,9 @@
 [
   {
-    "name": "method added",
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::safeSetObservable(java.lang.String, arez.SafeProcedure)",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": null,
-    "oldElementModule": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -15,20 +12,15 @@
       "classQualifiedName": "arez.component.internal.ComponentKernel",
       "classSimpleName": "ComponentKernel",
       "elementKind": "method",
-      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
       "methodName": "safeSetObservable",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez.component.internal"
     }
   },
   {
-    "name": "method added",
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::setObservable(java.lang.String, arez.Procedure) throws java.lang.Throwable",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": null,
-    "oldElementModule": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -37,20 +29,15 @@
       "classQualifiedName": "arez.component.internal.ComponentKernel",
       "classSimpleName": "ComponentKernel",
       "elementKind": "method",
-      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
       "methodName": "setObservable",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez.component.internal"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -62,22 +49,16 @@
       "classQualifiedName": "arez.Component",
       "classSimpleName": "Component",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Component is part of the API",
-      "exampleUseChainInOldApi": "class arez.Component is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -89,22 +70,16 @@
       "classQualifiedName": "arez.Component",
       "classSimpleName": "Component",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Component is part of the API",
-      "exampleUseChainInOldApi": "class arez.Component is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -116,22 +91,16 @@
       "classQualifiedName": "arez.ComputableValue",
       "classSimpleName": "ComputableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -143,22 +112,16 @@
       "classQualifiedName": "arez.ComputableValue",
       "classSimpleName": "ComputableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -170,22 +133,16 @@
       "classQualifiedName": "arez.Node",
       "classSimpleName": "Node",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Node is part of the API",
-      "exampleUseChainInOldApi": "class arez.Node is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -197,22 +154,16 @@
       "classQualifiedName": "arez.Node",
       "classSimpleName": "Node",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Node is part of the API",
-      "exampleUseChainInOldApi": "class arez.Node is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -224,22 +175,16 @@
       "classQualifiedName": "arez.ObservableValue",
       "classSimpleName": "ObservableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -251,22 +196,16 @@
       "classQualifiedName": "arez.ObservableValue",
       "classSimpleName": "ObservableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -278,22 +217,16 @@
       "classQualifiedName": "arez.Observer",
       "classSimpleName": "Observer",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Observer is part of the API",
-      "exampleUseChainInOldApi": "class arez.Observer is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -305,22 +238,16 @@
       "classQualifiedName": "arez.Observer",
       "classSimpleName": "Observer",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Observer is part of the API",
-      "exampleUseChainInOldApi": "class arez.Observer is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -332,22 +259,16 @@
       "classQualifiedName": "arez.SchedulerLock",
       "classSimpleName": "SchedulerLock",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.SchedulerLock is part of the API",
-      "exampleUseChainInOldApi": "class arez.SchedulerLock is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -359,22 +280,16 @@
       "classQualifiedName": "arez.SchedulerLock",
       "classSimpleName": "SchedulerLock",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.SchedulerLock is part of the API",
-      "exampleUseChainInOldApi": "class arez.SchedulerLock is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -386,22 +301,16 @@
       "classQualifiedName": "arez.Task",
       "classSimpleName": "Task",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Task is part of the API",
-      "exampleUseChainInOldApi": "class arez.Task is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -413,22 +322,16 @@
       "classQualifiedName": "arez.Task",
       "classSimpleName": "Task",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Task is part of the API",
-      "exampleUseChainInOldApi": "class arez.Task is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -440,22 +343,16 @@
       "classQualifiedName": "arez.component.internal.ComponentKernel",
       "classSimpleName": "ComponentKernel",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.ComponentKernel is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -467,22 +364,16 @@
       "classQualifiedName": "arez.component.internal.ComponentKernel",
       "classSimpleName": "ComponentKernel",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.ComponentKernel is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -494,22 +385,16 @@
       "classQualifiedName": "arez.component.internal.MemoizeCache",
       "classSimpleName": "MemoizeCache",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -521,22 +406,16 @@
       "classQualifiedName": "arez.component.internal.MemoizeCache",
       "classSimpleName": "MemoizeCache",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -548,22 +427,16 @@
       "classQualifiedName": "arez.Disposable",
       "classSimpleName": "Disposable",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "interface arez.Disposable is part of the API",
-      "exampleUseChainInOldApi": "interface arez.Disposable is part of the API",
       "methodName": "isDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -575,22 +448,16 @@
       "classQualifiedName": "arez.Disposable",
       "classSimpleName": "Disposable",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "interface arez.Disposable is part of the API",
-      "exampleUseChainInOldApi": "interface arez.Disposable is part of the API",
       "methodName": "isDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -602,22 +469,16 @@
       "classQualifiedName": "arez.Component",
       "classSimpleName": "Component",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Component is part of the API",
-      "exampleUseChainInOldApi": "class arez.Component is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -629,22 +490,16 @@
       "classQualifiedName": "arez.Component",
       "classSimpleName": "Component",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Component is part of the API",
-      "exampleUseChainInOldApi": "class arez.Component is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -656,22 +511,16 @@
       "classQualifiedName": "arez.ComputableValue",
       "classSimpleName": "ComputableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -683,22 +532,16 @@
       "classQualifiedName": "arez.ComputableValue",
       "classSimpleName": "ComputableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ComputableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -710,22 +553,16 @@
       "classQualifiedName": "arez.Node",
       "classSimpleName": "Node",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Node is part of the API",
-      "exampleUseChainInOldApi": "class arez.Node is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -737,22 +574,16 @@
       "classQualifiedName": "arez.Node",
       "classSimpleName": "Node",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Node is part of the API",
-      "exampleUseChainInOldApi": "class arez.Node is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -764,22 +595,16 @@
       "classQualifiedName": "arez.ObservableValue",
       "classSimpleName": "ObservableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -791,22 +616,16 @@
       "classQualifiedName": "arez.ObservableValue",
       "classSimpleName": "ObservableValue",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.ObservableValue<T extends java.lang.Object> is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -818,22 +637,16 @@
       "classQualifiedName": "arez.Observer",
       "classSimpleName": "Observer",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Observer is part of the API",
-      "exampleUseChainInOldApi": "class arez.Observer is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -845,22 +658,16 @@
       "classQualifiedName": "arez.Observer",
       "classSimpleName": "Observer",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Observer is part of the API",
-      "exampleUseChainInOldApi": "class arez.Observer is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -872,22 +679,16 @@
       "classQualifiedName": "arez.SchedulerLock",
       "classSimpleName": "SchedulerLock",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.SchedulerLock is part of the API",
-      "exampleUseChainInOldApi": "class arez.SchedulerLock is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -899,22 +700,16 @@
       "classQualifiedName": "arez.SchedulerLock",
       "classSimpleName": "SchedulerLock",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.SchedulerLock is part of the API",
-      "exampleUseChainInOldApi": "class arez.SchedulerLock is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -926,22 +721,16 @@
       "classQualifiedName": "arez.Task",
       "classSimpleName": "Task",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Task is part of the API",
-      "exampleUseChainInOldApi": "class arez.Task is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -953,22 +742,16 @@
       "classQualifiedName": "arez.Task",
       "classSimpleName": "Task",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.Task is part of the API",
-      "exampleUseChainInOldApi": "class arez.Task is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -980,22 +763,16 @@
       "classQualifiedName": "arez.component.internal.ComponentKernel",
       "classSimpleName": "ComponentKernel",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.ComponentKernel is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -1007,22 +784,16 @@
       "classQualifiedName": "arez.component.internal.ComponentKernel",
       "classSimpleName": "ComponentKernel",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.ComponentKernel is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.ComponentKernel is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -1034,22 +805,16 @@
       "classQualifiedName": "arez.component.internal.MemoizeCache",
       "classSimpleName": "MemoizeCache",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -1061,22 +826,16 @@
       "classQualifiedName": "arez.component.internal.MemoizeCache",
       "classSimpleName": "MemoizeCache",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
-      "exampleUseChainInOldApi": "class arez.component.internal.MemoizeCache<T extends java.lang.Object> is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez.component.internal",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "new annotation",
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -1088,22 +847,16 @@
       "classQualifiedName": "arez.Disposable",
       "classSimpleName": "Disposable",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "interface arez.Disposable is part of the API",
-      "exampleUseChainInOldApi": "interface arez.Disposable is part of the API",
       "methodName": "isNotDisposed",
-      "newArchive": "org.realityforge.arez:arez-core:jar:0.133",
       "package": "arez",
       "parameterIndex": "0"
     }
   },
   {
-    "name": "removed annotation",
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
     "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
-    "newElementModule": "org.realityforge.arez:arez-core:jar:0.133",
     "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
-    "oldElementModule": "org.realityforge.arez:arez-core:jar:0.132",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -1115,10 +868,7 @@
       "classQualifiedName": "arez.Disposable",
       "classSimpleName": "Disposable",
       "elementKind": "parameter",
-      "exampleUseChainInNewApi": "interface arez.Disposable is part of the API",
-      "exampleUseChainInOldApi": "interface arez.Disposable is part of the API",
       "methodName": "isNotDisposed",
-      "oldArchive": "org.realityforge.arez:arez-core:jar:0.132",
       "package": "arez",
       "parameterIndex": "0"
     }
