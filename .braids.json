@@ -1,0 +1,11 @@
+{
+  "config_version": 1,
+  "mirrors": {
+    "website/static/api-diff": {
+      "url": "https://github.com/realityforge/revapi-viewer.git",
+      "branch": "master",
+      "path": "viewer",
+      "revision": "f38a334615d8295c698df866e0f8014872e16a95"
+    }
+  }
+}
