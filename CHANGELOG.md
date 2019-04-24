@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.22`.
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.23`.
 * Remove `{@inheritDoc}` as it only explicitly indicates that the default behaviour at the expense of significant visual clutter.
 
 ### [v0.136](https://github.com/arez/arez/tree/v0.136) (2019-04-16)
