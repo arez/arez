@@ -74,7 +74,6 @@
     "code": "java.method.attributeWithDefaultAddedToAnnotationType",
     "description": "The annotation has a new attribute with a default value.",
     "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::disposeNotifier()",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -91,7 +90,6 @@
     "code": "java.method.staticMethodAddedToInterface",
     "description": "A default method has been added to the interface.",
     "newElement": "method arez.component.DisposeNotifier arez.component.DisposeNotifier::asDisposeNotifier(java.lang.Object)",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -107,8 +105,7 @@
   {
     "code": "java.method.nowAbstract",
     "description": "Method now abstract",
-    "newElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
-    "oldElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
+    "element": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
     "classification": {
       "SOURCE": "BREAKING",
       "BINARY": "BREAKING"
@@ -126,8 +123,7 @@
   {
     "code": "java.method.nowAbstract",
     "description": "Method now abstract",
-    "newElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
-    "oldElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
+    "element": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
     "classification": {
       "SOURCE": "BREAKING",
       "BINARY": "BREAKING"
@@ -146,7 +142,6 @@
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -163,7 +158,6 @@
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::notifyOnDisposeListeners()",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -180,7 +174,6 @@
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::removeOnDisposeListener(java.lang.Object)",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -196,7 +189,6 @@
   {
     "code": "java.class.removed",
     "description": "Class was removed.",
-    "newElement": null,
     "oldElement": "interface arez.component.DisposeTrackable",
     "classification": {
       "SOURCE": "BREAKING",
@@ -212,7 +204,6 @@
   {
     "code": "java.method.attributeRemovedFromAnnotationType",
     "description": "The annotation no longer has an attribute.",
-    "newElement": null,
     "oldElement": "method arez.annotations.Feature arez.annotations.ArezComponent::disposeTrackable()",
     "classification": {
       "SOURCE": "BREAKING",
@@ -229,7 +220,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method arez.component.DisposeNotifier arez.component.internal.ComponentKernel::getDisposeNotifier()",
     "classification": {
       "SOURCE": "BREAKING",
@@ -246,7 +236,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method boolean arez.component.DisposeNotifier::isDisposed()",
     "classification": {
       "SOURCE": "BREAKING",
@@ -263,7 +252,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method boolean java.lang.Object::equals(java.lang.Object) @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -280,7 +268,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method int java.lang.Object::hashCode() @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -297,7 +284,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method java.lang.Class<?> java.lang.Object::getClass() @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -314,7 +300,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method java.lang.Object java.lang.Object::clone() throws java.lang.CloneNotSupportedException @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -331,7 +316,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method java.lang.String java.lang.Object::toString() @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -348,7 +332,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void arez.component.DisposeNotifier::<init>()",
     "classification": {
       "SOURCE": "BREAKING",
@@ -365,7 +348,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void arez.component.DisposeNotifier::dispose()",
     "classification": {
       "SOURCE": "BREAKING",
@@ -382,7 +364,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void java.lang.Object::finalize() throws java.lang.Throwable @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -399,7 +380,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void java.lang.Object::notify() @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -416,7 +396,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void java.lang.Object::notifyAll() @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -433,7 +412,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void java.lang.Object::wait() throws java.lang.InterruptedException @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -450,7 +428,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void java.lang.Object::wait(long) throws java.lang.InterruptedException @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",
@@ -467,7 +444,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void java.lang.Object::wait(long, int) throws java.lang.InterruptedException @ arez.component.DisposeNotifier",
     "classification": {
       "SOURCE": "BREAKING",

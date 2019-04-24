@@ -3,7 +3,6 @@
     "code": "java.class.added",
     "description": "Class was added.",
     "newElement": "class arez.Guards",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -19,7 +18,6 @@
     "code": "java.class.added",
     "description": "Class was added.",
     "newElement": "interface arez.ArezTestUtil.Logger",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -35,7 +33,6 @@
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.ArezTestUtil::setLogger(arez.ArezTestUtil.Logger)",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"

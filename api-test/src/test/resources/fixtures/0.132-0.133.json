@@ -3,7 +3,6 @@
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::safeSetObservable(java.lang.String, arez.SafeProcedure)",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -20,7 +19,6 @@
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method void arez.component.internal.ComponentKernel::setObservable(java.lang.String, arez.Procedure) throws java.lang.Throwable",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -36,8 +34,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -57,8 +54,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Component",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -78,8 +74,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -99,8 +94,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -120,8 +114,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -141,8 +134,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Node",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -162,8 +154,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -183,8 +174,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -204,8 +194,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -225,8 +214,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Observer",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -246,8 +234,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -267,8 +254,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.SchedulerLock",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -288,8 +274,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -309,8 +294,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.Task",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -330,8 +314,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -351,8 +334,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -372,8 +354,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -393,8 +374,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -414,8 +394,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -435,8 +414,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
-    "oldElement": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
+    "element": "parameter boolean arez.Disposable::isDisposed(===java.lang.Object===)",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -456,8 +434,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -477,8 +454,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Component",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -498,8 +474,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -519,8 +494,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ComputableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -540,8 +514,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -561,8 +534,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Node",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -582,8 +554,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -603,8 +574,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.ObservableValue<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -624,8 +594,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -645,8 +614,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Observer",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -666,8 +634,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -687,8 +654,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.SchedulerLock",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -708,8 +674,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -729,8 +694,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.Task",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -750,8 +714,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -771,8 +734,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.ComponentKernel",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -792,8 +754,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -813,8 +774,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===) @ arez.component.internal.MemoizeCache<T>",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -834,8 +794,7 @@
   {
     "code": "java.annotation.added",
     "description": "Element newly annotated with 'javax.annotation.Nullable'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",
@@ -855,8 +814,7 @@
   {
     "code": "java.annotation.removed",
     "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
-    "newElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
-    "oldElement": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
+    "element": "parameter boolean arez.Disposable::isNotDisposed(===java.lang.Object===)",
     "classification": {
       "SOURCE": "EQUIVALENT",
       "BINARY": "EQUIVALENT",

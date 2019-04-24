@@ -3,7 +3,6 @@
     "code": "java.field.addedStaticField",
     "description": "Static field added to class.",
     "newElement": "field arez.Flags.NO_WRAP_TASK",
-    "oldElement": null,
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
@@ -19,7 +18,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void arez.ArezContext::scheduleDispose(arez.Disposable)",
     "classification": {
       "SOURCE": "BREAKING",
@@ -36,7 +34,6 @@
   {
     "code": "java.method.removed",
     "description": "Method was removed.",
-    "newElement": null,
     "oldElement": "method void arez.ArezContext::scheduleDispose(java.lang.String, arez.Disposable)",
     "classification": {
       "SOURCE": "BREAKING",
