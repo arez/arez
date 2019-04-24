@@ -27,6 +27,7 @@
 
 ### [v0.133](https://github.com/arez/arez/tree/v0.133) (2019-03-19)
 [Full Changelog](https://github.com/arez/arez/compare/v0.132...v0.133)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.132&new=0.133)
 
 * Remove references to `arez-ticker` as it has been deprecated.
 * Remove references to `arez-timeddisposer` as it has been deprecated.
@@ -49,6 +50,7 @@
 
 ### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28)
 [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.131&new=0.132)
 
 * Remove the `org.realityforge.braincheck:braincheck:jar` dependency by reimplementing the invariant
   checking code in `arez.Guards`. The dependency has been inlined so it can be adapted to specific
@@ -68,6 +70,7 @@
 
 ### [v0.130](https://github.com/arez/arez/tree/v0.130) (2019-02-14)
 [Full Changelog](https://github.com/arez/arez/compare/v0.129...v0.130)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.129&new=0.130)
 
 * Add the `react4j-drumloop` sample application into set off used to track code size changes over time.
 * Upgrade the `org.realityforge.com.google.elemental2:*` libraries to version `1.0.0-b16-6897368`.
@@ -86,6 +89,7 @@
 
 ### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11)
 [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.128&new=0.129)
 
 * **\[core\]** Fix bug where the `onActivate` callback for `ComputableValue` instances was when disposing
   the `ComputableValue` instance while it was in an `INACTIVE` state.
