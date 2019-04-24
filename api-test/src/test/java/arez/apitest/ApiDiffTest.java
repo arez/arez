@@ -18,7 +18,6 @@ public class ApiDiffTest
   public void compareApi()
     throws Exception
   {
-
     final boolean storeApiDiff = SystemProperty.get( "arez.api_test.store_api_diff" ).equals( "true" );
     final File reportFile = storeApiDiff ? getFixtureReport() : File.createTempFile( "apidiff", ".json" );
     try
