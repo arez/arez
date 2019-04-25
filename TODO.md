@@ -305,11 +305,3 @@ project? If so [khumbu](https://github.com/khumbu) looks like a nice vacant name
     do we do it late? Is this extracting a part of replicant into core Arez?
   - Interesting way to update and transmit changes via json patches
     https://medium.com/@mweststrate/distributing-state-changes-using-snapshots-patches-and-actions-part-1-2811a2fcd65f
-
-## Incremental
-
-* Incremental suggests that it may be useful to allow `ObservableValue`/`ComputableValue` nodes
-  within Arez to update the list of nodes that depend upon it and select which dependents will be
-  marked as STALE for a particular change. It may also be useful for `ComputableValue`/`Observer`
-  nodes to receive a notification when a change would make it stale so that the node can incrementally
-  update itself.
