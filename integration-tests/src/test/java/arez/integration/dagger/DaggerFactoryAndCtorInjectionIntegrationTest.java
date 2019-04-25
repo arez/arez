@@ -59,7 +59,6 @@ public class DaggerFactoryAndCtorInjectionIntegrationTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final TestDaggerComponent daggerComponent =
       DaggerDaggerFactoryAndCtorInjectionIntegrationTest_TestDaggerComponent.create();

@@ -43,7 +43,6 @@ public class NoInjectionsIntegrationTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final TestDaggerComponent dagger = DaggerNoInjectionsIntegrationTest_TestDaggerComponent.create();
     final HashMap<String, String> props = new HashMap<>();

@@ -349,8 +349,7 @@ final class WorkspaceUtil
   @FunctionalInterface
   interface Action
   {
-    void call()
-      throws Exception;
+    void call();
   }
 
   static boolean runBeforeBuild( @Nonnull final BuildContext context,

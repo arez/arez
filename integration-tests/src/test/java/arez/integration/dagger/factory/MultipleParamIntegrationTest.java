@@ -57,7 +57,6 @@ public class MultipleParamIntegrationTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final TestDaggerComponent dagger = DaggerMultipleParamIntegrationTest_TestDaggerComponent.create();
     dagger.bindTestComponent();

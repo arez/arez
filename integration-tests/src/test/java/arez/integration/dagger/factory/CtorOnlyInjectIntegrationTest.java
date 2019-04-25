@@ -54,7 +54,6 @@ public class CtorOnlyInjectIntegrationTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final TestDaggerComponent dagger = DaggerCtorOnlyInjectIntegrationTest_TestDaggerComponent.create();
     final HashMap<String, String> props = new HashMap<>();

@@ -54,7 +54,6 @@ public class SingleParamIntegrationTest
 
   @Test
   public void scenario()
-    throws Throwable
   {
     final TestDaggerComponent dagger = DaggerSingleParamIntegrationTest_TestDaggerComponent.create();
     dagger.bindTestComponent();
