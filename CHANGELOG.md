@@ -9,6 +9,7 @@
   `@ArezComponent` annotation is now supported on interfaces. The downstream user should not see any
   different behaviour between a class-based and interface-based arez component although the code generated
   for the interface-based component is slightly different.
+* Enhance the release process so each release that results in API changes is accompanied by an associated report that presents the API differences.
 
 ### [v0.136](https://github.com/arez/arez/tree/v0.136) (2019-04-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.135...v0.136)
