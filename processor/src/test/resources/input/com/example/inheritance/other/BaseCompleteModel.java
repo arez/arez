@@ -12,10 +12,10 @@ import arez.annotations.ComponentId;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.ComponentRef;
 import arez.annotations.ComputableValueRef;
-import arez.annotations.Memoize;
 import arez.annotations.ContextRef;
 import arez.annotations.Executor;
 import arez.annotations.Inverse;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import arez.annotations.Observe;
@@ -25,6 +25,8 @@ import arez.annotations.OnDeactivate;
 import arez.annotations.OnDepsChange;
 import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
+import arez.annotations.PostDispose;
+import arez.annotations.PreDispose;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.List;
@@ -34,6 +36,16 @@ public abstract class BaseCompleteModel
 {
   @CascadeDispose
   protected Disposable _myDisposableField;
+
+  @PreDispose
+  protected final void preDispose()
+  {
+  }
+
+  @PostDispose
+  protected final void postDispose()
+  {
+  }
 
   @Action
   public void myAction()
@@ -63,6 +75,12 @@ public abstract class BaseCompleteModel
 
   @Memoize
   protected long getTime()
+  {
+    return 0;
+  }
+
+  @Memoize
+  protected long calcStuff( int i )
   {
     return 0;
   }
