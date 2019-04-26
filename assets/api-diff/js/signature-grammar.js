@@ -19,7 +19,7 @@ var grammar = {
     {"name": "Class$subexpression$1", "symbols": ["Class$subexpression$1$string$4"]},
     {"name": "Class$subexpression$1$string$5", "symbols": [{"literal":"@"}, {"literal":"i"}, {"literal":"n"}, {"literal":"t"}, {"literal":"e"}, {"literal":"r"}, {"literal":"f"}, {"literal":"a"}, {"literal":"c"}, {"literal":"e"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "Class$subexpression$1", "symbols": ["Class$subexpression$1$string$5"]},
-    {"name": "Class", "symbols": ["Class$subexpression$1", "_", "Type"], "postprocess": 
+    {"name": "Class", "symbols": ["Class$subexpression$1", "_", "Type"], "postprocess":
         function (d) {
         	var ret = d[2];
         	ret["elementType"] = d[0][0];
@@ -30,12 +30,12 @@ var grammar = {
     {"name": "Field$ebnf$1$subexpression$1", "symbols": ["_", {"literal":"@"}, "_", "Type"]},
     {"name": "Field$ebnf$1", "symbols": ["Field$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "Field$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Field", "symbols": ["Field$string$1", "_", "Type", {"literal":"."}, "Identifier", "Field$ebnf$1"], "postprocess": 
+    {"name": "Field", "symbols": ["Field$string$1", "_", "Type", {"literal":"."}, "Identifier", "Field$ebnf$1"], "postprocess":
         function(d) {
         	var ret = d[2];
         	ret["elementType"] = "field";
         	ret["fieldName"] = d[4];
-        
+
         	return ret;
         }
         },
@@ -73,7 +73,7 @@ var grammar = {
     {"name": "Method$ebnf$4$subexpression$1", "symbols": ["_", {"literal":"@"}, "_", "Type"]},
     {"name": "Method$ebnf$4", "symbols": ["Method$ebnf$4$subexpression$1"], "postprocess": id},
     {"name": "Method$ebnf$4", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Method", "symbols": ["Method$string$1", "_", "Method$ebnf$1", "Type", "_", "Type", "Method$string$2", "Method$subexpression$1", {"literal":"("}, "Method$ebnf$2", {"literal":")"}, "Method$ebnf$3", "Method$ebnf$4"], "postprocess": 
+    {"name": "Method", "symbols": ["Method$string$1", "_", "Method$ebnf$1", "Type", "_", "Type", "Method$string$2", "Method$subexpression$1", {"literal":"("}, "Method$ebnf$2", {"literal":")"}, "Method$ebnf$3", "Method$ebnf$4"], "postprocess":
         function(d) {
         	var params = [];
         	if (d[9] !== null) {
@@ -82,7 +82,7 @@ var grammar = {
         			params.push(e[3]);
         		});
         	}
-        
+
         	var thrown = [];
         	if (d[11] !== null) {
         		thrown.push(d[11][3]);
@@ -90,7 +90,7 @@ var grammar = {
         			thrown.push(t[3]);
         		});
         	}
-        
+
         	return {
         		"elementType": "method",
         		"typeParameters": d[2] == null ? [] : d[2][0],
@@ -131,8 +131,8 @@ var grammar = {
     {"name": "MethodParameter$ebnf$3$subexpression$1", "symbols": ["_", {"literal":"@"}, "_", "Type"]},
     {"name": "MethodParameter$ebnf$3", "symbols": ["MethodParameter$ebnf$3$subexpression$1"], "postprocess": id},
     {"name": "MethodParameter$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "MethodParameter", "symbols": ["MethodParameter$string$1", "_", "MethodParameter$ebnf$1", "Type", "_", "Type", "MethodParameter$string$2", "Identifier", {"literal":"("}, "MethodParameter$ebnf$2", {"literal":")"}, "MethodParameter$ebnf$3"], "postprocess": 
-        
+    {"name": "MethodParameter", "symbols": ["MethodParameter$string$1", "_", "MethodParameter$ebnf$1", "Type", "_", "Type", "MethodParameter$string$2", "Identifier", {"literal":"("}, "MethodParameter$ebnf$2", {"literal":")"}, "MethodParameter$ebnf$3"], "postprocess":
+
         function(d) {
         	var params = [];
         	if (d[9][1].length === 1) {
@@ -140,9 +140,9 @@ var grammar = {
         	} else {
         		params.push(d[9][1][1]);
         	}
-        
+
         	var selected = 0;
-        
+
         	var idx = 0;
         	d[9][2].forEach(function (e) {
         		var ar = e[3];
@@ -154,7 +154,7 @@ var grammar = {
         		}
         		idx++;
         	});
-        
+
         	return {
         		"elementType": "parameter",
         		"typeParameters": d[2] == null ? [] : d[2][0],
@@ -173,7 +173,7 @@ var grammar = {
     {"name": "Type$ebnf$2", "symbols": []},
     {"name": "Type$ebnf$2$string$1", "symbols": [{"literal":"["}, {"literal":"]"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "Type$ebnf$2", "symbols": ["Type$ebnf$2", "Type$ebnf$2$string$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Type", "symbols": ["ClassName", "Type$ebnf$1", "Type$ebnf$2"], "postprocess": 
+    {"name": "Type", "symbols": ["ClassName", "Type$ebnf$1", "Type$ebnf$2"], "postprocess":
         function(d) {
         	return {
         		"type": d[0],
@@ -185,12 +185,12 @@ var grammar = {
     {"name": "ClassName$ebnf$1", "symbols": []},
     {"name": "ClassName$ebnf$1$subexpression$1", "symbols": [{"literal":"."}, "Identifier"]},
     {"name": "ClassName$ebnf$1", "symbols": ["ClassName$ebnf$1", "ClassName$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "ClassName", "symbols": ["Identifier", "ClassName$ebnf$1"], "postprocess": 
+    {"name": "ClassName", "symbols": ["Identifier", "ClassName$ebnf$1"], "postprocess":
         function(d) { return d[0] + d[1].map(function(e) {return e.join("")}).join(""); }
         },
     {"name": "Identifier$ebnf$1", "symbols": []},
     {"name": "Identifier$ebnf$1", "symbols": ["Identifier$ebnf$1", /[a-zA-Z0-9$_>]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Identifier", "symbols": [/[<a-zA-Z$_]/, "Identifier$ebnf$1"], "postprocess": 
+    {"name": "Identifier", "symbols": [/[<a-zA-Z$_]/, "Identifier$ebnf$1"], "postprocess":
         function(d) { return d[0] + d[1].join(""); }
         },
     {"name": "TypeParameters$ebnf$1", "symbols": ["_"], "postprocess": id},
@@ -204,14 +204,14 @@ var grammar = {
     {"name": "TypeParameters$ebnf$2", "symbols": ["TypeParameters$ebnf$2", "TypeParameters$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "TypeParameters$ebnf$3", "symbols": ["_"], "postprocess": id},
     {"name": "TypeParameters$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "TypeParameters", "symbols": [{"literal":"<"}, "TypeParameters$ebnf$1", "TypeParameter", "TypeParameters$ebnf$2", "TypeParameters$ebnf$3", {"literal":">"}], "postprocess": 
+    {"name": "TypeParameters", "symbols": [{"literal":"<"}, "TypeParameters$ebnf$1", "TypeParameter", "TypeParameters$ebnf$2", "TypeParameters$ebnf$3", {"literal":">"}], "postprocess":
         function (d) {
         	var ret = [d[2]];
-        
+
          		d[3].forEach(function (e) {
          			ret.push(e[3]);
          		});
-        
+
          		return ret;
         }
         },
@@ -220,7 +220,7 @@ var grammar = {
     {"name": "TypeParameter$ebnf$1$subexpression$1", "symbols": ["_", "TypeParameterBound"]},
     {"name": "TypeParameter$ebnf$1", "symbols": ["TypeParameter$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "TypeParameter$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "TypeParameter", "symbols": ["TypeParameter$subexpression$1", "TypeParameter$ebnf$1"], "postprocess": 
+    {"name": "TypeParameter", "symbols": ["TypeParameter$subexpression$1", "TypeParameter$ebnf$1"], "postprocess":
         function (d) {
         	return {
         		"type": d[0][0],
@@ -235,7 +235,7 @@ var grammar = {
     {"name": "TypeParameterBound$ebnf$1", "symbols": []},
     {"name": "TypeParameterBound$ebnf$1$subexpression$1", "symbols": ["_", "TypeParameterBound"]},
     {"name": "TypeParameterBound$ebnf$1", "symbols": ["TypeParameterBound$ebnf$1", "TypeParameterBound$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "TypeParameterBound", "symbols": ["TypeParameterBound$subexpression$1", "_", "Type", "TypeParameterBound$ebnf$1"], "postprocess": 
+    {"name": "TypeParameterBound", "symbols": ["TypeParameterBound$subexpression$1", "_", "Type", "TypeParameterBound$ebnf$1"], "postprocess":
         function (d) {
         	return {
         		"kind": d[0][0],
