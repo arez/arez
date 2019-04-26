@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.137](https://github.com/arez/arez/tree/v0.137) (2019-04-26)
+[Full Changelog](https://github.com/arez/arez/compare/v0.136...v0.137)
 
 * Upgrade the `org.realityforge.revapi.diff` artifact to version `0.08`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.23`.
