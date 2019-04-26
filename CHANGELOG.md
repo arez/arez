@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.20](https://github.com/arez/arez-dom/tree/v0.20) (2019-04-26)
+[Full Changelog](https://github.com/arez/arez-dom/compare/v0.19...v0.20)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.137'
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.23`.
