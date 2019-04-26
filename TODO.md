@@ -23,11 +23,6 @@ complete as there is too much un-said.
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
   they can be assumed to be an `@Observable`.
 
-* Support generating Arez components from interfaces. The implementation just implements interface and
-  relies on default and abstract methods on the interface to provide functionality. A future version
-  could have dynamic implementations in java using reflection and in javascript using proxies. This may
-  save some bytes at scale but may not given it may restrict the way closure can rename elements.
-
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.

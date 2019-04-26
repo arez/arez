@@ -269,9 +269,9 @@ public final class ArezProcessor
                                      @Nonnull final TypeElement typeElement )
     throws ArezProcessorException
   {
-    if ( ElementKind.CLASS != typeElement.getKind() )
+    if ( ElementKind.CLASS != typeElement.getKind() && ElementKind.INTERFACE != typeElement.getKind() )
     {
-      throw new ArezProcessorException( "@ArezComponent target must be a class", typeElement );
+      throw new ArezProcessorException( "@ArezComponent target must be a class or an interface", typeElement );
     }
     else if ( typeElement.getModifiers().contains( Modifier.FINAL ) )
     {

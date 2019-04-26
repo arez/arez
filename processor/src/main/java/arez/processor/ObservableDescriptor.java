@@ -32,6 +32,8 @@ import javax.lang.model.type.TypeMirror;
 final class ObservableDescriptor
 {
   @Nonnull
+  private final ComponentDescriptor _componentDescriptor;
+  @Nonnull
   private final String _name;
   private boolean _expectSetter;
   private boolean _readOutsideTransaction;
@@ -57,8 +59,9 @@ final class ObservableDescriptor
   @Nullable
   private InverseDescriptor _inverseDescriptor;
 
-  ObservableDescriptor( @Nonnull final String name )
+  ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
     setReadOutsideTransaction( false );
@@ -493,7 +496,18 @@ final class ObservableDescriptor
     }
     else
     {
-      builder.addStatement( "final $T $N = super.$N()", type, varName, _getter.getSimpleName() );
+      if ( _componentDescriptor.isClassType() )
+      {
+        builder.addStatement( "final $T $N = super.$N()", type, varName, _getter.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "final $T $N = $T.super.$N()",
+                              type,
+                              varName,
+                              _componentDescriptor.getClassName(),
+                              _getter.getSimpleName() );
+      }
     }
     if ( type.isPrimitive() )
     {
@@ -644,14 +658,35 @@ final class ObservableDescriptor
       final CodeBlock.Builder block = CodeBlock.builder();
       if ( type.isPrimitive() )
       {
-        block.beginControlFlow( "if ( $N != super.$N() )", varName, _getter.getSimpleName() );
+        if ( _componentDescriptor.isClassType() )
+        {
+          block.beginControlFlow( "if ( $N != super.$N() )", varName, _getter.getSimpleName() );
+        }
+        else
+        {
+          block.beginControlFlow( "if ( $N != $T.super.$N() )",
+                                  varName,
+                                  _componentDescriptor.getClassName(),
+                                  _getter.getSimpleName() );
+        }
       }
       else
       {
-        block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
-                                Objects.class,
-                                varName,
-                                _getter.getSimpleName() );
+        if ( _componentDescriptor.isClassType() )
+        {
+          block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
+                                  Objects.class,
+                                  varName,
+                                  _getter.getSimpleName() );
+        }
+        else
+        {
+          block.beginControlFlow( "if ( !$T.equals( $N, $T.super.$N() ) )",
+                                  Objects.class,
+                                  varName,
+                                  _componentDescriptor.getClassName(),
+                                  _getter.getSimpleName() );
+        }
       }
       block.addStatement( "this.$N.reportChanged()", getFieldName() );
       block.endControlFlow();
@@ -795,17 +830,34 @@ final class ObservableDescriptor
 
           final CodeBlock.Builder guard = CodeBlock.builder();
           guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
-          guard.addStatement( "this.$N = $T.wrap( super.$N() )",
-                              getCollectionCacheDataFieldName(),
-                              Generator.COLLECTIONS_UTIL_CLASSNAME,
-                              _getter.getSimpleName() );
+          if ( _componentDescriptor.isClassType() )
+          {
+            guard.addStatement( "this.$N = $T.wrap( super.$N() )",
+                                getCollectionCacheDataFieldName(),
+                                Generator.COLLECTIONS_UTIL_CLASSNAME,
+                                _getter.getSimpleName() );
+          }
+          else
+          {
+            guard.addStatement( "this.$N = $T.wrap( $T.super.$N() )",
+                                getCollectionCacheDataFieldName(),
+                                Generator.COLLECTIONS_UTIL_CLASSNAME,
+                                _componentDescriptor.getClassName(),
+                                _getter.getSimpleName() );
+          }
           guard.endControlFlow();
           block.add( guard.build() );
           block.addStatement( "return $N", getCollectionCacheDataFieldName() );
 
           block.nextControlFlow( "else" );
-
-          block.addStatement( "return super.$N()", _getter.getSimpleName() );
+          if ( _componentDescriptor.isClassType() )
+          {
+            block.addStatement( "return super.$N()", _getter.getSimpleName() );
+          }
+          else
+          {
+            block.addStatement( "return $T.super.$N()", _componentDescriptor.getClassName(), _getter.getSimpleName() );
+          }
           block.endControlFlow();
 
           builder.addCode( block.build() );
@@ -816,10 +868,21 @@ final class ObservableDescriptor
           block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
 
           final String result = "$$ar$$_result";
-          block.addStatement( "final $T $N = super.$N()",
-                              TypeName.get( getGetterType().getReturnType() ),
-                              result,
-                              _getter.getSimpleName() );
+          if ( _componentDescriptor.isClassType() )
+          {
+            block.addStatement( "final $T $N = super.$N()",
+                                TypeName.get( getGetterType().getReturnType() ),
+                                result,
+                                _getter.getSimpleName() );
+          }
+          else
+          {
+            block.addStatement( "final $T $N = $T.super.$N()",
+                                TypeName.get( getGetterType().getReturnType() ),
+                                result,
+                                _componentDescriptor.getClassName(),
+                                _getter.getSimpleName() );
+          }
           final CodeBlock.Builder guard = CodeBlock.builder();
           guard.beginControlFlow( "if ( null == this.$N && null != $N )",
                                   getCollectionCacheDataFieldName(),
@@ -834,7 +897,14 @@ final class ObservableDescriptor
 
           block.nextControlFlow( "else" );
 
-          block.addStatement( "return super.$N()", _getter.getSimpleName() );
+          if ( _componentDescriptor.isClassType() )
+          {
+            block.addStatement( "return super.$N()", _getter.getSimpleName() );
+          }
+          else
+          {
+            block.addStatement( "return $T.super.$N()", _componentDescriptor.getClassName(), _getter.getSimpleName() );
+          }
           block.endControlFlow();
 
           builder.addCode( block.build() );
@@ -842,7 +912,14 @@ final class ObservableDescriptor
       }
       else
       {
-        builder.addStatement( "return super.$N()", _getter.getSimpleName() );
+        if ( _componentDescriptor.isClassType() )
+        {
+          builder.addStatement( "return super.$N()", _getter.getSimpleName() );
+        }
+        else
+        {
+          builder.addStatement( "return $T.super.$N()", _componentDescriptor.getClassName(), _getter.getSimpleName() );
+        }
       }
     }
     return builder.build();

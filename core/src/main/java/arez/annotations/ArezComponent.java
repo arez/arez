@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Annotation that marks classes to be processed by Arez annotation processor.
- * Classes with this annotation can contain {@link Observable} properties,
+ * Annotation that marks classes or interfaces to be processed by Arez annotation processor.
+ * Classes or interfaces with this annotation can contain {@link Observable} properties,
  * {@link Memoize} properties, {@link Observe} methods and {@link Action} methods.
  *
  * <p>The annotation controls the way that contained actions and observables are
@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
  *
  * <p>The type that is annotated with <tt>@ArezComponent</tt> annotation must comply with the additional constraints:</p>
  * <ul>
- * <li>Must be a class, not an interface or enum</li>
+ * <li>Must be a class or an interface</li>
  * <li>Must be concrete, not abstract</li>
  * <li>Must not be final</li>
  * <li>Must not be a non-static nested class</li>

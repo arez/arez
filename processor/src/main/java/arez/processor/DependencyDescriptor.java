@@ -16,6 +16,8 @@ import javax.lang.model.element.VariableElement;
  */
 final class DependencyDescriptor
 {
+  @Nonnull
+  private final ComponentDescriptor _componentDescriptor;
   @Nullable
   private final ExecutableElement _method;
   @Nullable
@@ -24,15 +26,19 @@ final class DependencyDescriptor
   @Nullable
   private ObservableDescriptor _observable;
 
-  DependencyDescriptor( @Nonnull final ExecutableElement method, final boolean cascade )
+  DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
+                        @Nonnull final ExecutableElement method,
+                        final boolean cascade )
   {
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _method = Objects.requireNonNull( method );
     _field = null;
     _cascade = cascade;
   }
 
-  DependencyDescriptor( @Nonnull final VariableElement field )
+  DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final VariableElement field )
   {
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _method = null;
     _field = Objects.requireNonNull( field );
     _cascade = true;
@@ -155,33 +161,77 @@ final class DependencyDescriptor
         if ( isNonnull )
         {
           assert _cascade;
-          builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose )",
-                                Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                method.getSimpleName().toString() );
+          if ( _componentDescriptor.isClassType() )
+          {
+            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose )",
+                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
+                                  method.getSimpleName().toString() );
+          }
+          else
+          {
+            builder.addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( this, this::dispose )",
+                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
+                                  _componentDescriptor.getClassName(),
+                                  method.getSimpleName().toString() );
+          }
         }
         else
         {
           final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
-          builder.addStatement( "final $T $N = super.$N()",
-                                getMethod().getReturnType(),
-                                varName,
-                                method.getSimpleName().toString() );
+          if ( _componentDescriptor.isClassType() )
+          {
+            builder.addStatement( "final $T $N = super.$N()",
+                                  getMethod().getReturnType(),
+                                  varName,
+                                  method.getSimpleName().toString() );
+          }
+          else
+          {
+            builder.addStatement( "final $T $N = $T.super.$N()",
+                                  getMethod().getReturnType(),
+                                  varName,
+                                  _componentDescriptor.getClassName(),
+                                  method.getSimpleName().toString() );
+          }
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
           if ( _cascade )
           {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                        "addOnDisposeListener( this, this::dispose )",
-                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                        method.getSimpleName() );
+            if ( _componentDescriptor.isClassType() )
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
+                                          "addOnDisposeListener( this, this::dispose )",
+                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
+                                          method.getSimpleName() );
+            }
+            else
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
+                                          "addOnDisposeListener( this, this::dispose )",
+                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
+                                          _componentDescriptor.getClassName(),
+                                          method.getSimpleName() );
+            }
           }
           else
           {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                        "addOnDisposeListener( this, () -> $N( null ) )",
-                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                        method.getSimpleName(),
-                                        getObservable().getSetter().getSimpleName().toString() );
+            if ( _componentDescriptor.isClassType() )
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
+                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
+                                          method.getSimpleName(),
+                                          getObservable().getSetter().getSimpleName().toString() );
+            }
+            else
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
+                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
+                                          _componentDescriptor.getClassName(),
+                                          method.getSimpleName(),
+                                          getObservable().getSetter().getSimpleName().toString() );
+            }
           }
           listenerBlock.endControlFlow();
           builder.addCode( listenerBlock.build() );

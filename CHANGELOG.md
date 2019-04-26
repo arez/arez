@@ -5,6 +5,10 @@
 * Upgrade the `org.realityforge.revapi.diff` artifact to version `0.08`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.23`.
 * Remove `{@inheritDoc}` as it only explicitly indicates that the default behaviour at the expense of significant visual clutter.
+* Add support for marking java interfaces as arez components. The effective impact is that the
+  `@ArezComponent` annotation is now supported on interfaces. The downstream user should not see any
+  different behaviour between a class-based and interface-based arez component although the code generated
+  for the interface-based component is slightly different.
 
 ### [v0.136](https://github.com/arez/arez/tree/v0.136) (2019-04-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.135...v0.136)

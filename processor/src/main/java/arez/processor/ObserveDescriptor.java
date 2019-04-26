@@ -109,7 +109,7 @@ final class ObserveDescriptor
       {
         throw new ArezProcessorException( "@Observe target must not return a value when executor=INTERNAL", method );
       }
-      if ( method.getModifiers().contains( Modifier.PUBLIC ) )
+      if ( _componentDescriptor.isClassType() && method.getModifiers().contains( Modifier.PUBLIC ) )
       {
         throw new ArezProcessorException( "@Observe target must not be public when executor=INTERNAL", method );
       }
@@ -240,7 +240,7 @@ final class ObserveDescriptor
     final ArrayList<Object> parameters = new ArrayList<>();
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
-               "$T.areNamesEnabled() ? $N + $S : null, () -> super.$N(), " );
+               "$T.areNamesEnabled() ? $N + $S : null, " );
     parameters.add( getFieldName() );
     parameters.add( Generator.CONTEXT_VAR_NAME );
     parameters.add( Generator.AREZ_CLASSNAME );
@@ -248,11 +248,30 @@ final class ObserveDescriptor
     parameters.add( Generator.AREZ_CLASSNAME );
     parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
-    parameters.add( getObserve().getSimpleName().toString() );
-    if ( null != _onDepsChange )
+    if ( _componentDescriptor.isClassType() )
     {
       sb.append( "() -> super.$N(), " );
-      parameters.add( _onDepsChange.getSimpleName().toString() );
+      parameters.add( getObserve().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "() -> $T.super.$N(), " );
+      parameters.add( _componentDescriptor.getClassName() );
+      parameters.add( getObserve().getSimpleName().toString() );
+    }
+    if ( null != _onDepsChange )
+    {
+      if ( _componentDescriptor.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( _onDepsChange.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( _componentDescriptor.getClassName() );
+        parameters.add( _onDepsChange.getSimpleName().toString() );
+      }
     }
 
     appendFlags( parameters, sb );
@@ -269,7 +288,7 @@ final class ObserveDescriptor
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = $N.tracker( " +
                "$T.areNativeComponentsEnabled() ? $N : null, " +
-               "$T.areNamesEnabled() ? $N + $S : null, () -> super.$N(), " );
+               "$T.areNamesEnabled() ? $N + $S : null, " );
     parameters.add( getFieldName() );
     parameters.add( Generator.CONTEXT_VAR_NAME );
     parameters.add( Generator.AREZ_CLASSNAME );
@@ -277,8 +296,18 @@ final class ObserveDescriptor
     parameters.add( Generator.AREZ_CLASSNAME );
     parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
-    parameters.add( _onDepsChange.getSimpleName().toString() );
 
+    if ( _componentDescriptor.isClassType() )
+    {
+      sb.append( "() -> super.$N(), " );
+      parameters.add( _onDepsChange.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "() -> $T.super.$N(), " );
+      parameters.add( _componentDescriptor.getClassName() );
+      parameters.add( _onDepsChange.getSimpleName().toString() );
+    }
     appendFlags( parameters, sb );
 
     sb.append( " )" );
@@ -437,8 +466,17 @@ final class ObserveDescriptor
     statement.append( "( this.$N, " );
     params.add( getFieldName() );
 
-    statement.append( "() -> super.$N(" );
-    params.add( _observe.getSimpleName() );
+    if ( _componentDescriptor.isClassType() )
+    {
+      statement.append( "() -> super.$N(" );
+      params.add( _observe.getSimpleName() );
+    }
+    else
+    {
+      statement.append( "() -> $T.super.$N(" );
+      params.add( _componentDescriptor.getClassName() );
+      params.add( _observe.getSimpleName() );
+    }
 
     final List<? extends VariableElement> parameters = _observe.getParameters();
     final int paramCount = parameters.size();
@@ -502,7 +540,7 @@ final class ObserveDescriptor
     {
       Generator.generateTryBlock( builder,
                                   thrownTypes,
-                                      b -> b.addStatement( statement.toString(), params.toArray() ) );
+                                  b -> b.addStatement( statement.toString(), params.toArray() ) );
     }
 
     return builder.build();
@@ -541,7 +579,14 @@ final class ObserveDescriptor
     // that only contains a super invocation and will thus inline it. If the body is left empty then the
     // GWT compiler will be required to keep the empty method present because it can not determine that the
     // empty method will never be invoked.
-    builder.addStatement( "super.$N()", _observe.getSimpleName() );
+    if ( _componentDescriptor.isClassType() )
+    {
+      builder.addStatement( "super.$N()", _observe.getSimpleName() );
+    }
+    else
+    {
+      builder.addStatement( "$T.super.$N()", _componentDescriptor.getClassName(), _observe.getSimpleName() );
+    }
 
     return builder.build();
   }

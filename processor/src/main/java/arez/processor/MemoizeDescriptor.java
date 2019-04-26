@@ -424,8 +424,7 @@ final class MemoizeDescriptor
       sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
                  "$N.computable( " +
                  "$T.areNativeComponentsEnabled() ? $N : null, " +
-                 "$T.areNamesEnabled() ? $N + $S : null, " +
-                 "() -> super.$N(), " );
+                 "$T.areNamesEnabled() ? $N + $S : null, " );
       parameters.add( getFieldName() );
       parameters.add( Generator.AREZ_CLASSNAME );
       parameters.add( Generator.CONTEXT_VAR_NAME );
@@ -434,29 +433,48 @@ final class MemoizeDescriptor
       parameters.add( Generator.AREZ_CLASSNAME );
       parameters.add( Generator.NAME_VAR_NAME );
       parameters.add( "." + getName() );
-      parameters.add( _method.getSimpleName().toString() );
+
+      if ( _componentDescriptor.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( _method.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( _componentDescriptor.getClassName() );
+        parameters.add( _method.getSimpleName().toString() );
+      }
       appendInitializerSuffix( parameters, sb, true );
 
       // Else part of ternary
       sb.append( " : $N.computable( " +
                  "$T.areNativeComponentsEnabled() ? $N : null, " +
-                 "$T.areNamesEnabled() ? $N + $S : null, " +
-                 "() -> super.$N(), " );
+                 "$T.areNamesEnabled() ? $N + $S : null, " );
       parameters.add( Generator.CONTEXT_VAR_NAME );
       parameters.add( Generator.AREZ_CLASSNAME );
       parameters.add( Generator.COMPONENT_VAR_NAME );
       parameters.add( Generator.AREZ_CLASSNAME );
       parameters.add( Generator.NAME_VAR_NAME );
       parameters.add( "." + getName() );
-      parameters.add( _method.getSimpleName().toString() );
+      if ( _componentDescriptor.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( _method.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( _componentDescriptor.getClassName() );
+        parameters.add( _method.getSimpleName().toString() );
+      }
       appendInitializerSuffix( parameters, sb, false );
     }
     else // hasHooks()
     {
       sb.append( "this.$N = $N.computable( " +
                  "$T.areNativeComponentsEnabled() ? $N : null, " +
-                 "$T.areNamesEnabled() ? $N + $S : null, " +
-                 "() -> super.$N(), " );
+                 "$T.areNamesEnabled() ? $N + $S : null, " );
       parameters.add( getFieldName() );
       parameters.add( Generator.CONTEXT_VAR_NAME );
       parameters.add( Generator.AREZ_CLASSNAME );
@@ -464,7 +482,18 @@ final class MemoizeDescriptor
       parameters.add( Generator.AREZ_CLASSNAME );
       parameters.add( Generator.NAME_VAR_NAME );
       parameters.add( "." + getName() );
-      parameters.add( _method.getSimpleName().toString() );
+
+      if ( _componentDescriptor.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( _method.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( _componentDescriptor.getClassName() );
+        parameters.add( _method.getSimpleName().toString() );
+      }
       appendInitializerSuffix( parameters, sb, true );
     }
     builder.addStatement( sb.toString(), parameters.toArray() );
@@ -478,7 +507,7 @@ final class MemoizeDescriptor
     final StringBuilder sb = new StringBuilder();
     sb.append( "this.$N = new $T<>( $T.areZonesEnabled() ? $N : null, " +
                "$T.areNativeComponentsEnabled() ? $N : null, " +
-               "$T.areNamesEnabled() ? $N + $S : null, args -> super.$N(" );
+               "$T.areNamesEnabled() ? $N + $S : null, " );
     parameters.add( getFieldName() );
     parameters.add( Generator.MEMOIZE_CACHE_CLASSNAME );
     parameters.add( Generator.AREZ_CLASSNAME );
@@ -488,7 +517,18 @@ final class MemoizeDescriptor
     parameters.add( Generator.AREZ_CLASSNAME );
     parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
-    parameters.add( _method.getSimpleName().toString() );
+
+    if ( _componentDescriptor.isClassType() )
+    {
+      sb.append( "args -> super.$N(" );
+      parameters.add( _method.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "args -> $T.super.$N(" );
+      parameters.add( _componentDescriptor.getClassName() );
+      parameters.add( _method.getSimpleName().toString() );
+    }
 
     int index = 0;
     for ( final TypeMirror arg : _methodType.getParameterTypes() )

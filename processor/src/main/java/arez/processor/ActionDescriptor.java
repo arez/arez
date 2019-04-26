@@ -23,6 +23,8 @@ import javax.lang.model.type.TypeMirror;
 final class ActionDescriptor
 {
   @Nonnull
+  private final ComponentDescriptor _componentDescriptor;
+  @Nonnull
   private final String _name;
   private final boolean _requireNewTransaction;
   private final boolean _mutation;
@@ -34,7 +36,8 @@ final class ActionDescriptor
   @Nonnull
   private final ExecutableType _actionType;
 
-  ActionDescriptor( @Nonnull final String name,
+  ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
+                    @Nonnull final String name,
                     final boolean requireNewTransaction,
                     final boolean mutation,
                     final boolean verifyRequired,
@@ -43,6 +46,7 @@ final class ActionDescriptor
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
+    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _name = Objects.requireNonNull( name );
     _requireNewTransaction = requireNewTransaction;
     _mutation = mutation;
@@ -127,7 +131,13 @@ final class ActionDescriptor
     params.add( Generator.KERNEL_FIELD_NAME );
     params.add( "." + getName() );
 
-    statement.append( ", () -> super.$N(" );
+    statement.append( ", () -> " );
+    if ( _componentDescriptor.isInterfaceType() )
+    {
+      statement.append( "$T." );
+      params.add( _componentDescriptor.getClassName() );
+    }
+    statement.append( "super.$N(" );
     params.add( _action.getSimpleName().toString() );
 
     final List<? extends VariableElement> parameters = _action.getParameters();

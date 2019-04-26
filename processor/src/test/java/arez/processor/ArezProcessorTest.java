@@ -509,6 +509,20 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulBaseInterfaceInDifferentPackage()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      fixture( "input/com/example/inheritance/CompleteInterfaceModel.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/inheritance/other/BaseCompleteInterfaceModel.java" );
+    final JavaFileObject source3 =
+      fixture( "input/com/example/inheritance/other/OtherElement.java" );
+    final String output = "expected/com/example/inheritance/Arez_CompleteInterfaceModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulBaseClassInDifferentPackage()
     throws Exception
   {
@@ -787,9 +801,8 @@ public class ArezProcessorTest
                       "@ArezComponent target has no methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
         new Object[]{ "com.example.component.EmptyTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
-        new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class" },
+        new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class or an interface" },
         new Object[]{ "com.example.component.FinalModel", "@ArezComponent target must not be final" },
-        new Object[]{ "com.example.component.InterfaceModel", "@ArezComponent target must be a class" },
         new Object[]{ "com.example.component.NonObservableWithDisposeOnDeactivateModel",
                       "@ArezComponent target has specified observable = DISABLE and disposeOnDeactivate = true which is not a valid combination" },
         new Object[]{ "com.example.component.NonStaticNestedModel",

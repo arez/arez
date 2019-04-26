@@ -311,7 +311,7 @@ final class ComponentDescriptor
   @Nonnull
   private ObservableDescriptor findOrCreateObservable( @Nonnull final String name )
   {
-    return _observables.computeIfAbsent( name, ObservableDescriptor::new );
+    return _observables.computeIfAbsent( name, n -> new ObservableDescriptor( this, n ) );
   }
 
   @Nonnull
@@ -540,7 +540,8 @@ final class ComponentDescriptor
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean verifyRequired = getAnnotationParameter( annotation, "verifyRequired" );
     final ActionDescriptor action =
-      new ActionDescriptor( name,
+      new ActionDescriptor( this,
+                            name,
                             requireNewTransaction,
                             mutation,
                             verifyRequired,
@@ -1390,7 +1391,10 @@ final class ComponentDescriptor
     MethodChecks.mustNotHaveAnyParameters( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    if ( isClassType() )
+    {
+      MethodChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    }
     mustBeCascadeDisposeTypeCompatible( method );
     _cascadeDisposes.put( method, new CascadeDisposableDescriptor( method ) );
   }
@@ -2044,7 +2048,7 @@ final class ComponentDescriptor
     }
 
     final boolean cascade = isActionCascade( method );
-    return new DependencyDescriptor( method, cascade );
+    return new DependencyDescriptor( this, method, cascade );
   }
 
   @Nonnull
@@ -2080,7 +2084,7 @@ final class ComponentDescriptor
 
     }
 
-    return new DependencyDescriptor( field );
+    return new DependencyDescriptor( this, field );
   }
 
   private boolean isActionCascade( @Nonnull final Element method )
@@ -2586,10 +2590,18 @@ final class ComponentDescriptor
     throws ArezProcessorException
   {
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getArezClassName() ).
-      superclass( TypeName.get( getElement().asType() ) ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     Generator.addOriginatingTypes( getElement(), builder );
+
+    if ( isClassType() )
+    {
+      builder.superclass( TypeName.get( getElement().asType() ) );
+    }
+    else
+    {
+      builder.addSuperinterface( TypeName.get( getElement().asType() ) );
+    }
 
     Generator.addGeneratedAnnotation( this, builder );
     if ( !_roMemoizes.isEmpty() )
@@ -2676,7 +2688,14 @@ final class ComponentDescriptor
 
     buildFields( builder );
 
-    buildConstructors( builder, typeUtils );
+    if ( isClassType() )
+    {
+      buildConstructors( builder, typeUtils );
+    }
+    else
+    {
+      builder.addMethod( buildConstructor( null, null, hasDeprecatedElements() ) );
+    }
 
     if ( null != _contextRef )
     {
@@ -2755,6 +2774,16 @@ final class ComponentDescriptor
     }
 
     return builder.build();
+  }
+
+  boolean isClassType()
+  {
+    return ElementKind.CLASS == getElement().getKind();
+  }
+
+  boolean isInterfaceType()
+  {
+    return !isClassType();
   }
 
   boolean hasInverses()
@@ -2954,7 +2983,14 @@ final class ComponentDescriptor
                             Generator.KERNEL_FIELD_NAME,
                             "]" );
     codeBlock.nextControlFlow( "else" );
-    codeBlock.addStatement( "return super.toString()" );
+    if ( isInterfaceType() )
+    {
+      codeBlock.addStatement( "return $T.super.toString()", getClassName() );
+    }
+    else
+    {
+      codeBlock.addStatement( "return super.toString()" );
+    }
     codeBlock.endControlFlow();
     method.addCode( codeBlock.build() );
     return method.build();
@@ -3014,7 +3050,14 @@ final class ComponentDescriptor
       guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", Generator.AREZ_CLASSNAME );
       guardBlock.add( codeBlock.build() );
       guardBlock.nextControlFlow( "else" );
-      guardBlock.addStatement( "return super.equals( o )" );
+      if ( isClassType() )
+      {
+        guardBlock.addStatement( "return super.equals( o )" );
+      }
+      else
+      {
+        guardBlock.addStatement( "return $T.super.equals( o )", getClassName() );
+      }
       guardBlock.endControlFlow();
       method.addCode( guardBlock.build() );
     }
@@ -3123,7 +3166,14 @@ final class ComponentDescriptor
         guardBlock.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
       }
       guardBlock.nextControlFlow( "else" );
-      guardBlock.addStatement( "return super.hashCode()" );
+      if ( isClassType() )
+      {
+        guardBlock.addStatement( "return super.hashCode()" );
+      }
+      else
+      {
+        guardBlock.addStatement( "return $T.super.hashCode()", getClassName() );
+      }
       guardBlock.endControlFlow();
       method.addCode( guardBlock.build() );
     }
@@ -3437,7 +3487,14 @@ final class ComponentDescriptor
     }
     else if ( null != _preDispose )
     {
-      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+      if ( isClassType() )
+      {
+        builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.super.$N()", getClassName(), _preDispose.getSimpleName() );
+      }
     }
     builder.addStatement( "this.$N.notifyOnDisposeListeners()", Generator.KERNEL_FIELD_NAME );
 
@@ -3458,7 +3515,14 @@ final class ComponentDescriptor
 
     if ( null != _preDispose )
     {
-      builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+      if ( isClassType() )
+      {
+        builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.super.$N()", getClassName(), _preDispose.getSimpleName() );
+      }
     }
     _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
     _roReferences.forEach( r -> r.buildDisposer( builder ) );
@@ -3494,7 +3558,18 @@ final class ComponentDescriptor
             }
             else
             {
-              builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+              if ( isClassType() )
+              {
+                builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+              }
+              else
+              {
+                builder.addStatement( "final $T $N = $T.super.$N()",
+                                      method.getReturnType(),
+                                      varName,
+                                      getClassName(),
+                                      methodName );
+              }
             }
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", varName );
@@ -3623,8 +3698,8 @@ final class ComponentDescriptor
    * Build a constructor based on the supplied constructor
    */
   @Nonnull
-  private MethodSpec buildConstructor( @Nonnull final ExecutableElement constructor,
-                                       @Nonnull final ExecutableType constructorType,
+  private MethodSpec buildConstructor( @Nullable final ExecutableElement constructor,
+                                       @Nullable final ExecutableType constructorType,
                                        final boolean requiresDeprecatedSuppress )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
@@ -3633,7 +3708,8 @@ final class ComponentDescriptor
       // The constructor is private as the factory is responsible for creating component.
       builder.addModifiers( Modifier.PRIVATE );
     }
-    else if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+    else if ( null != constructor &&
+              constructor.getModifiers().contains( Modifier.PUBLIC ) &&
               getElement().getModifiers().contains( Modifier.PUBLIC ) )
     {
       /*
@@ -3642,8 +3718,11 @@ final class ComponentDescriptor
        */
       builder.addModifiers( Modifier.PUBLIC );
     }
-    ProcessorUtil.copyExceptions( constructorType, builder );
-    ProcessorUtil.copyTypeParameters( constructorType, builder );
+    if ( null != constructorType )
+    {
+      ProcessorUtil.copyExceptions( constructorType, builder );
+      ProcessorUtil.copyTypeParameters( constructorType, builder );
+    }
 
     if ( requiresDeprecatedSuppress )
     {
@@ -3667,19 +3746,22 @@ final class ComponentDescriptor
     final ArrayList<String> parameterNames = new ArrayList<>();
 
     boolean firstParam = true;
-    for ( final VariableElement element : constructor.getParameters() )
+    if ( null != constructor )
     {
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( element, param );
-      builder.addParameter( param.build() );
-      parameterNames.add( element.getSimpleName().toString() );
-      if ( !firstParam )
+      for ( final VariableElement element : constructor.getParameters() )
       {
-        superCall.append( "," );
+        final ParameterSpec.Builder param =
+          ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+        ProcessorUtil.copyWhitelistedAnnotations( element, param );
+        builder.addParameter( param.build() );
+        parameterNames.add( element.getSimpleName().toString() );
+        if ( !firstParam )
+        {
+          superCall.append( "," );
+        }
+        firstParam = false;
+        superCall.append( "$N" );
       }
-      firstParam = false;
-      superCall.append( "$N" );
     }
 
     superCall.append( ")" );
@@ -3712,9 +3794,10 @@ final class ComponentDescriptor
     for ( final ObservableDescriptor observable : initializers )
     {
       final String candidateName = observable.getName();
-      final String name = isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
-                          Generator.INITIALIZER_PREFIX + candidateName :
-                          candidateName;
+      final String name =
+        null != constructor && isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
+        Generator.INITIALIZER_PREFIX + candidateName :
+        candidateName;
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                name,
@@ -3761,7 +3844,14 @@ final class ComponentDescriptor
     final ExecutableElement postConstruct = getPostConstruct();
     if ( null != postConstruct )
     {
-      builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+      if ( isClassType() )
+      {
+        builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+      }
+      else
+      {
+        builder.addStatement( "$T.super.$N()", getClassName(), postConstruct.getSimpleName().toString() );
+      }
     }
 
     if ( !_deferSchedule && requiresSchedule() )
@@ -3813,9 +3903,19 @@ final class ComponentDescriptor
     }
     else if ( null != _preDispose )
     {
-      sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
-      params.add( Generator.AREZ_CLASSNAME );
-      params.add( _preDispose.getSimpleName() );
+      if ( isClassType() )
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+        params.add( Generator.AREZ_CLASSNAME );
+        params.add( _preDispose.getSimpleName() );
+      }
+      else
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> $T.super.$N(), " );
+        params.add( Generator.AREZ_CLASSNAME );
+        params.add( getClassName() );
+        params.add( _preDispose.getSimpleName() );
+      }
     }
     else
     {
@@ -3834,9 +3934,19 @@ final class ComponentDescriptor
 
     if ( null != _postDispose )
     {
-      sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
-      params.add( Generator.AREZ_CLASSNAME );
-      params.add( _postDispose.getSimpleName() );
+      if ( isClassType() )
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+        params.add( Generator.AREZ_CLASSNAME );
+        params.add( _postDispose.getSimpleName() );
+      }
+      else
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> $T.super.$N(), " );
+        params.add( Generator.AREZ_CLASSNAME );
+        params.add( getClassName() );
+        params.add( _postDispose.getSimpleName() );
+      }
     }
     else
     {
@@ -3943,14 +4053,32 @@ final class ComponentDescriptor
       }
       else if ( null != _preDispose )
       {
-        sb.append( "() -> super.$N()" );
-        params.add( _preDispose.getSimpleName().toString() );
+        if ( isClassType() )
+        {
+          sb.append( "() -> super.$N()" );
+          params.add( _preDispose.getSimpleName().toString() );
+        }
+        else
+        {
+          sb.append( "() -> $T.super.$N()" );
+          params.add( getClassName() );
+          params.add( _preDispose.getSimpleName().toString() );
+        }
       }
 
       if ( null != _postDispose )
       {
-        sb.append( ",  () -> super.$N()" );
-        params.add( _postDispose.getSimpleName().toString() );
+        if ( isClassType() )
+        {
+          sb.append( ",  () -> super.$N()" );
+          params.add( _postDispose.getSimpleName().toString() );
+        }
+        else
+        {
+          sb.append( ",  () -> $T.super.$N()" );
+          params.add( getClassName() );
+          params.add( _postDispose.getSimpleName().toString() );
+        }
       }
     }
     sb.append( " ) : null" );
