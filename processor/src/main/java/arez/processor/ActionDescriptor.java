@@ -198,7 +198,7 @@ final class ActionDescriptor
     {
       Generator.generateTryBlock( builder,
                                   thrownTypes,
-                                      b -> b.addStatement( statement.toString(), params.toArray() ) );
+                                  b -> b.addStatement( statement.toString(), params.toArray() ) );
     }
 
     return builder.build();
