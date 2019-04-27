@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27)
+[Full Changelog](https://github.com/arez/arez/compare/v0.137...v0.138)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.137&new=0.138)
 
 * Change nullability annotation on the `object` parameter in `Identifiable.getArezId(object)` to `@Nullable` as the code already handles null scenario.
 
