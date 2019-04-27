@@ -35,7 +35,7 @@ public interface Identifiable<K>
    * @return the arez id if the object is Identifiable, otherwise null.
    */
   @Nullable
-  static <K> K getArezId( @Nonnull final Object object )
+  static <K> K getArezId( @Nullable final Object object )
   {
     if ( object instanceof Identifiable )
     {
