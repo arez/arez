@@ -1,0 +1,42 @@
+[
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nullable'.",
+    "element": "parameter <K> K arez.component.Identifiable<K>::getArezId(===java.lang.Object===)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.component.Identifiable",
+      "classSimpleName": "Identifiable",
+      "elementKind": "parameter",
+      "methodName": "getArezId",
+      "package": "arez.component",
+      "parameterIndex": "0"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
+    "element": "parameter <K> K arez.component.Identifiable<K>::getArezId(===java.lang.Object===)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.component.Identifiable",
+      "classSimpleName": "Identifiable",
+      "elementKind": "parameter",
+      "methodName": "getArezId",
+      "package": "arez.component",
+      "parameterIndex": "0"
+    }
+  }
+]
