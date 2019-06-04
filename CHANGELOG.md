@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.gir` artifact to version `0.10`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.24`.
 
 ### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27)
