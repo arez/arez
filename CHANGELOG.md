@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add the `org.realityforge.braincheck` artifact as it is required by the latest version of arez.
+
 ### [v0.64](https://github.com/arez/arez-promise/tree/v0.64) (2019-06-30)
 [Full Changelog](https://github.com/arez/arez-promise/compare/v0.63...v0.64)
 
