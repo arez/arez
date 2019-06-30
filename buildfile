@@ -29,6 +29,7 @@ define 'arez-dom' do
   project.processorpath << :arez_processor
 
   compile.with :javax_annotation,
+               :braincheck,
                :jsinterop_base,
                :jsinterop_annotations,
                :elemental2_core,
