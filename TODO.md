@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Move enhanced Guards functionality back into `braincheck`.
+
 * Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
   Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.
   It can either collect all types or only types that participate in reference relationships. If injection is
