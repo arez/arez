@@ -30,10 +30,8 @@ public class JDependTest
     final JavaPackage component = constraint.addPackage( "arez.component" );
     final JavaPackage internal = constraint.addPackage( "arez.component.internal" );
     final JavaPackage jsinterop = constraint.addPackage( "jsinterop.annotations" );
-    final JavaPackage jsinteropBase = constraint.addPackage( "jsinterop.base" );
 
     arez.dependsUpon( jsinterop );
-    arez.dependsUpon( jsinteropBase );
     /*
      * The arez.spy and arez packages form a loop but rather than squashing spy into arez
      * it was decided to keep them separate as everything in arez.spy should be optimized out

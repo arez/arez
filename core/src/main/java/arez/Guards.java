@@ -3,7 +3,6 @@ package arez;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jsinterop.base.Js;
 
 /**
  * A utility class used to perform assertions and invariant checks.
@@ -149,7 +148,7 @@ public final class Guards
      */
     if ( "ENABLED".equals( System.getProperty( "jre.debugMode" ) ) )
     {
-      Js.debugger();
+      DebuggerUtil.debugger();
     }
     throw new IllegalStateException( ArezUtil.safeGetString( message ) );
   }

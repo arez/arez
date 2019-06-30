@@ -1,5 +1,5 @@
 <module>
-  <inherits name='jsinterop.base.Base'/>
+  <inherits name='jsinterop.annotations.Annotations'/>
 
   <source path='' includes='*.java'/>
   <source path='spy' includes='*.java'/>

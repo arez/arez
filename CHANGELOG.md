@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.gir` artifact to version `0.10`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.24`.
+* Decouple from the `com.google.jsinterop:base` artifact, re-add dependency on `com.google.jsinterop:jsinterop-annotations` and implement the `debugger` javascript statement locally. This reduces the number of upstream dependencies for the project.
 
 ### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27)
 [Full Changelog](https://github.com/arez/arez/compare/v0.137...v0.138)
