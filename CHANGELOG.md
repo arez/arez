@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.139](https://github.com/arez/arez/tree/v0.139) (2019-06-30)
+[Full Changelog](https://github.com/arez/arez/compare/v0.138...v0.139)
 
 * Upgrade the `org.realityforge.gir` artifact to version `0.10`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.24`.
