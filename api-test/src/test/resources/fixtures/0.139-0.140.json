@@ -1,0 +1,17 @@
+[
+  {
+    "code": "java.class.removed",
+    "description": "Class was removed.",
+    "oldElement": "class arez.Guards",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Guards",
+      "classSimpleName": "Guards",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  }
+]

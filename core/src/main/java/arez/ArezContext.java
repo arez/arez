@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static arez.Guards.*;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The ArezContext defines the top level container of interconnected observables and observers.

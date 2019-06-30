@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static arez.Guards.*;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The ComputableValue represents an ObservableValue derived from other ObservableValues within

@@ -4,7 +4,6 @@ import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.Flags;
-import arez.Guards;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.component.Identifiable;
@@ -13,6 +12,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")

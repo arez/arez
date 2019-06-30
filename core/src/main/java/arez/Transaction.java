@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static arez.Guards.*;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Representation of transactions within an Arez system.

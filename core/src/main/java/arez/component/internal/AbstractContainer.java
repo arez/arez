@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import arez.Guards;
-import static arez.Guards.*;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Abstract base class for observable Arez components that contain other components.
@@ -126,8 +125,8 @@ public abstract class AbstractContainer<K, T>
     }
     else
     {
-      Guards.fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
-                         entity );
+      fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
+                  entity );
     }
   }
 

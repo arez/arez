@@ -5,7 +5,7 @@ import arez.Disposable;
 import arez.SafeProcedure;
 import arez.annotations.CascadeDispose;
 import javax.annotation.Nonnull;
-import static arez.Guards.*;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Interface implemented by a component if it supports notifying listeners

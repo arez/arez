@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.braincheck.BrainCheckTestUtil;
+import org.realityforge.braincheck.Guards;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -29,7 +31,7 @@ public abstract class AbstractArezTest
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
-    Guards.setOnGuardListener( new GuardPatternMatcher() );
+    BrainCheckTestUtil.setOnGuardListener( new GuardPatternMatcher() );
   }
 
   @AfterMethod

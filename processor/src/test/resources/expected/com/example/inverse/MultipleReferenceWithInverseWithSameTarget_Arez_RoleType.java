@@ -4,7 +4,6 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Guards;
 import arez.Locator;
 import arez.ObservableValue;
 import arez.SafeProcedure;
@@ -18,6 +17,7 @@ import java.util.List;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends MultipleReferenceWithInverseWithSameTarget.RoleType implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {

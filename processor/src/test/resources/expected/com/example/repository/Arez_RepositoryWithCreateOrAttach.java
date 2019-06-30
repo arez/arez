@@ -4,7 +4,6 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Guards;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
@@ -14,6 +13,7 @@ import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 final class Arez_RepositoryWithCreateOrAttach extends RepositoryWithCreateOrAttach implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {

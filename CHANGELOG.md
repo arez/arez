@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove `arez.Guards` and replace with the equivalent functionality in the `org.realityforge.braincheck:braincheck:jar` artifact. The dependency was originally used by Arez but was inlined in version `0.96` so that the behaviour could customized for Arez. Now that these customizations have been back-ported to `braincheck` there is no longer any valid reason to keep them. Removing the code also means that the `j2cl_library` definition in Bazel can be simplified as it no longer needs to suppress the `checkDebuggerStatement` warning.
+
 ### [v0.139](https://github.com/arez/arez/tree/v0.139) (2019-06-30)
 [Full Changelog](https://github.com/arez/arez/compare/v0.138...v0.139)
 

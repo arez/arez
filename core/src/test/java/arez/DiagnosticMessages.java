@@ -21,6 +21,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
+import org.realityforge.braincheck.BrainCheckTestUtil;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
@@ -75,7 +76,7 @@ final class DiagnosticMessages
     {
       final JsonObject entry = top.getJsonObject( i );
       final int code = entry.getInt( "code" );
-      final Guards.Type type = Guards.Type.valueOf( entry.getString( "type" ) );
+      final BrainCheckTestUtil.GuardType type = BrainCheckTestUtil.GuardType.valueOf( entry.getString( "type" ) );
       final String messagePattern = entry.getString( "messagePattern" );
       if ( c_messages.containsKey( code ) )
       {
@@ -198,7 +199,7 @@ final class DiagnosticMessages
 
   @Nonnull
   private static DiagnosticMessage recordDiagnosticMessage( final int code,
-                                                            @Nonnull final Guards.Type type,
+                                                            @Nonnull final BrainCheckTestUtil.GuardType type,
                                                             @Nonnull final String messagePattern )
   {
     final DiagnosticMessage message = new DiagnosticMessage( code, type, messagePattern, true, new HashSet<>() );
@@ -208,7 +209,7 @@ final class DiagnosticMessages
 
   @Nonnull
   static DiagnosticMessage matchOrRecordDiagnosticMessage( final int code,
-                                                           @Nonnull final Guards.Type type,
+                                                           @Nonnull final BrainCheckTestUtil.GuardType type,
                                                            @Nonnull final String message )
   {
     final DiagnosticMessage m = c_messages.get( code );

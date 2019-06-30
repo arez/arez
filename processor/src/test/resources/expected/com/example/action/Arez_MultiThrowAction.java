@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Flags;
-import arez.Guards;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
@@ -14,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_MultiThrowAction extends MultiThrowAction implements Disposable, Identifiable<Integer>, DisposeNotifier {

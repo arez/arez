@@ -2,7 +2,8 @@ package arez;
 
 import arez.component.Verifiable;
 import javax.annotation.Nonnull;
-import static arez.Guards.*;
+import org.realityforge.braincheck.BrainCheckConfig;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Provide access to an instance of ArezContext and Arez global configuration settings.
@@ -136,7 +137,7 @@ public final class Arez
    */
   public static boolean shouldCheckInvariants()
   {
-    return ArezConfig.checkInvariants();
+    return ArezConfig.checkInvariants() && BrainCheckConfig.checkInvariants();
   }
 
   /**
@@ -146,7 +147,7 @@ public final class Arez
    */
   public static boolean shouldCheckApiInvariants()
   {
-    return ArezConfig.checkApiInvariants();
+    return ArezConfig.checkApiInvariants() && BrainCheckConfig.checkApiInvariants();
   }
 
   /**

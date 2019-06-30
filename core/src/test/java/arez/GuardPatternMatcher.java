@@ -3,13 +3,14 @@ package arez;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.BrainCheckTestUtil;
 
 @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
 final class GuardPatternMatcher
-  implements Guards.OnGuardListener
+  implements BrainCheckTestUtil.OnGuardListener
 {
   @Override
-  public void onGuard( @Nonnull final Guards.Type type,
+  public void onGuard( @Nonnull final BrainCheckTestUtil.GuardType type,
                        @Nonnull final String message,
                        @Nonnull final StackTraceElement[] stackTrace )
   {

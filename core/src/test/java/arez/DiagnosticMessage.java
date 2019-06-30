@@ -5,12 +5,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.BrainCheckTestUtil;
 
 final class DiagnosticMessage
 {
   private final int _code;
   @Nonnull
-  private final Guards.Type _type;
+  private final BrainCheckTestUtil.GuardType _type;
   @Nonnull
   private final String _messagePattern;
   private final boolean _needsSave;
@@ -18,7 +19,7 @@ final class DiagnosticMessage
   private final Set<StackTraceElement> _callers = new HashSet<>();
 
   DiagnosticMessage( final int code,
-                     @Nonnull final Guards.Type type,
+                     @Nonnull final BrainCheckTestUtil.GuardType type,
                      @Nonnull final String messagePattern,
                      final boolean needsSave,
                      @Nonnull final Set<StackTraceElement> callers )
@@ -36,7 +37,7 @@ final class DiagnosticMessage
   }
 
   @Nonnull
-  Guards.Type getType()
+  BrainCheckTestUtil.GuardType getType()
   {
     return _type;
   }
