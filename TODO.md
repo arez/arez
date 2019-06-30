@@ -13,6 +13,8 @@ complete as there is too much un-said.
   repositories in the constructor.
   - implementation will assert that references config is enabled? Probably not. Could use locators for other reasons.
 
+* Refactor `DiagnosticMessages` so that the majority of the logic can be migrated back to `braincheck`
+
 * Support `@CascadeDispose` on abstract `@Observable` properties. `SET_NULL` is invalid property is nullable.
 
 * Support `@CascadeDispose` on `@Reference`. `SET_NULL` will null out underlying reference (and then try to
