@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add the `org.realityforge.braincheck` artifact as it is required by the latest version of arez.
+
 ### [v0.65](https://github.com/arez/arez-spytools/tree/v0.65) (2019-06-30)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.64...v0.65)
 

@@ -22,6 +22,7 @@ define 'arez-spytools' do
   project.processorpath << :arez_processor
 
   compile.with :javax_annotation,
+               :braincheck,
                :jetbrains_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
