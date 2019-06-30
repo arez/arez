@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.65](https://github.com/arez/arez-spytools/tree/v0.65) (2019-06-30)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.64...v0.65)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.139'
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.24`.
