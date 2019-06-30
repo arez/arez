@@ -9,7 +9,7 @@ import elemental2.promise.Promise;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import jsinterop.base.Js;
-import static arez.Guards.*;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * An observable model that wraps a Promise and exposes observable state that track
