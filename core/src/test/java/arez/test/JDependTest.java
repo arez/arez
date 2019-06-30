@@ -109,7 +109,7 @@ public class JDependTest
         newEfferents.forEach( p -> sb
           .append( "Package " )
           .append( expected.getName() )
-          .append( " now upon " )
+          .append( " now depends upon " )
           .append( p.getName() )
           .append( "\n" )
         );
