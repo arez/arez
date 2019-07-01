@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.66](https://github.com/arez/arez-spytools/tree/v0.66) (2019-07-01)
+[Full Changelog](https://github.com/arez/arez-spytools/compare/v0.65...v0.66)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.140'
 * Add the `org.realityforge.braincheck` artifact as it is required by the latest version of arez.
