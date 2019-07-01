@@ -1,20 +1,23 @@
 package arez;
 
+import arez.testutil.GuardMessageCollector;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
-import org.realityforge.braincheck.Guards;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import static org.testng.Assert.*;
 
 public abstract class AbstractArezTest
 {
+  private static final GuardMessageCollector c_messages = createCollector();
   private final TestLogger _logger = new TestLogger();
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
@@ -23,7 +26,7 @@ public abstract class AbstractArezTest
   protected void beforeTest()
     throws Exception
   {
-    DiagnosticMessages.loadIfRequired();
+    BrainCheckTestUtil.resetConfig( false );
     ArezTestUtil.resetConfig( false );
     ArezTestUtil.enableZones();
     _logger.getEntries().clear();
@@ -31,12 +34,14 @@ public abstract class AbstractArezTest
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
-    BrainCheckTestUtil.setOnGuardListener( new GuardPatternMatcher() );
+    c_messages.onTestStart();
   }
 
   @AfterMethod
   protected void afterTest()
   {
+    c_messages.onTestComplete();
+    BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
     if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
     {
@@ -44,11 +49,26 @@ public abstract class AbstractArezTest
     }
   }
 
+  @BeforeSuite
+  protected void beforeSuite()
+  {
+    c_messages.onTestSuiteStart();
+  }
+
+  @Nonnull
+  private static GuardMessageCollector createCollector()
+  {
+    final boolean saveIfChanged = "true".equals( System.getProperty( "arez.output_fixture_data", "false" ) );
+    final String fixtureDir = System.getProperty( "arez.diagnostic_messages_file" );
+    assertNotNull( fixtureDir,
+                   "Expected System.getProperty( \"arez.diagnostic_messages_file\" ) to return location of diagnostic messages file" );
+    return new GuardMessageCollector( "Arez", new File( fixtureDir ), saveIfChanged );
+  }
+
   @AfterSuite
   protected void afterSuite()
-    throws Exception
   {
-    DiagnosticMessages.testsComplete();
+    c_messages.onTestSuiteComplete();
   }
 
   @Nonnull
