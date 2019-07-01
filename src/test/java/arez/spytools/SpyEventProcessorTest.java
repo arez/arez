@@ -157,9 +157,8 @@ public class SpyEventProcessorTest
   {
     final TestSpyEventProcessor processor = new TestSpyEventProcessor();
 
-    final BiConsumer<SpyUtil.NestingDelta, ObserverCreateEvent> handler =
-      ( delta, e ) -> {
-      };
+    final BiConsumer<SpyUtil.NestingDelta, ObserverCreateEvent> handler = ( delta, e ) -> {
+    };
     processor.on( ObserverCreateEvent.class, handler );
     final IllegalStateException exception =
       expectThrows( IllegalStateException.class, () -> processor.on( ObserverCreateEvent.class, handler ) );
