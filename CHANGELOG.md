@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.23](https://github.com/arez/arez-dom/tree/v0.23) (2019-07-01)
+[Full Changelog](https://github.com/arez/arez-dom/compare/v0.22...v0.23)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.140'
 * Add the `org.realityforge.braincheck` artifact as it is required by the latest version of arez.
