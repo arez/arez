@@ -1,12 +1,12 @@
 package arez;
 
-import arez.testutil.GuardMessageCollector;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
+import org.realityforge.braincheck.GuardMessageCollector;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
