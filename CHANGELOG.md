@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.braincheck` artifact to version `1.20.0`.
+
 ### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140)
 [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.139&new=0.140)

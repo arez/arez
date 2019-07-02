@@ -9,7 +9,7 @@ repositories:
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.13
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.19.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.20.0
 
   shade_task: org.realityforge.ant.shade:ant-shade-task:jar:0.1
 
