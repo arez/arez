@@ -158,9 +158,7 @@ complete as there is too much un-said.
   The shortest path to this is to get an effective strategy for building with Bazel+J2CL. Initial steps have been
   put in place with the `react4j-todomvc` project.
   - [Bazel training presentation](https://docs.google.com/presentation/d/1OwktccLvV3VvWn3i7H2SuZkBeAQ8z-E5RdJODVLf8SA/preview?slide=id.g26d86d3325_0_0)
-  - [Generate bazel dependencies for maven artifacts](https://github.com/johnynek/bazel-deps)
   - [Generate BUILD files for your Java files](https://github.com/bazelbuild/BUILD_file_generator)
-  - [Bazel Rules for Maven Repositories](https://github.com/square/bazel_maven_repository)
 
 * Use techniques highlighted in https://github.com/tadeegan/react-closure-sample
 
