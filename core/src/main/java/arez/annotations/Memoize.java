@@ -97,7 +97,7 @@ public @interface Memoize
   DepType depType() default DepType.AREZ;
 
   /**
-   * Return true if the return value of the comptable value should be reported to the Arez spy subsystem.
+   * Return true if the return value of the memoized value should be reported to the Arez spy subsystem.
    * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
    *
    * @return true to report the return value, false otherwise.
