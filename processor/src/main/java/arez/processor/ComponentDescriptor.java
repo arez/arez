@@ -1320,7 +1320,7 @@ final class ComponentDescriptor
     autodetectObservableInitializers();
 
     /*
-     * ALl of the maps will have called remove() for all matching candidates.
+     * All of the maps will have called remove() for all matching candidates.
      * Thus any left are the non-arez methods.
      */
 
