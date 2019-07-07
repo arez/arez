@@ -60,6 +60,9 @@ complete as there is too much un-said.
 
 * Consider moving computable flags, action flags, task flags and observer flags into separate classes
 
+* Consider adding flags to `Observable` object and move configuration of `readOutsideTransaction` and `writeOutsideTransaction`
+  into this field. This will hopefully result in a smaller API surface and reduced code size.
+
 * Rework the way `ArezBuildAsserts` is built by annotating fields in source code and generating assertions
   based on appropriate annotation magic. Should also be able to add annotations to methods. i.e. To ensure `toString()`
   is stripped if names not enabled. Should also include annotations for classes that should have clinits stripped.
