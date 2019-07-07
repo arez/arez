@@ -242,7 +242,7 @@
         "class": "arez.ArezContext",
         "method": "observe",
         "file": "ArezContext.java",
-        "lineNumber": 1599
+        "lineNumber": 1600
       }
     ]
   },
@@ -255,7 +255,7 @@
         "class": "arez.ArezContext",
         "method": "safeObserve",
         "file": "ArezContext.java",
-        "lineNumber": 1739
+        "lineNumber": 1751
       }
     ]
   },
@@ -268,7 +268,7 @@
         "class": "arez.ArezContext",
         "method": "getSpy",
         "file": "ArezContext.java",
-        "lineNumber": 2116
+        "lineNumber": 2130
       }
     ]
   },
@@ -281,7 +281,7 @@
         "class": "arez.ArezContext",
         "method": "registerObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2138
+        "lineNumber": 2152
       }
     ]
   },
@@ -294,7 +294,7 @@
         "class": "arez.ArezContext",
         "method": "registerObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2141
+        "lineNumber": 2155
       }
     ]
   },
@@ -307,7 +307,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2154
+        "lineNumber": 2168
       }
     ]
   },
@@ -320,7 +320,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2157
+        "lineNumber": 2171
       }
     ]
   },
@@ -333,7 +333,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelObservables",
         "file": "ArezContext.java",
-        "lineNumber": 2170
+        "lineNumber": 2184
       }
     ]
   },
@@ -346,7 +346,7 @@
         "class": "arez.ArezContext",
         "method": "registerObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2182
+        "lineNumber": 2196
       }
     ]
   },
@@ -359,7 +359,7 @@
         "class": "arez.ArezContext",
         "method": "registerObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2185
+        "lineNumber": 2199
       }
     ]
   },
@@ -372,7 +372,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2198
+        "lineNumber": 2212
       }
     ]
   },
@@ -385,7 +385,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2201
+        "lineNumber": 2215
       }
     ]
   },
@@ -398,7 +398,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelObservers",
         "file": "ArezContext.java",
-        "lineNumber": 2214
+        "lineNumber": 2228
       }
     ]
   },
@@ -411,7 +411,7 @@
         "class": "arez.ArezContext",
         "method": "registerComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2226
+        "lineNumber": 2240
       }
     ]
   },
@@ -424,7 +424,7 @@
         "class": "arez.ArezContext",
         "method": "registerComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2229
+        "lineNumber": 2243
       }
     ]
   },
@@ -437,7 +437,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2242
+        "lineNumber": 2256
       }
     ]
   },
@@ -450,7 +450,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2245
+        "lineNumber": 2259
       }
     ]
   },
@@ -463,7 +463,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelComputableValues",
         "file": "ArezContext.java",
-        "lineNumber": 2258
+        "lineNumber": 2272
       }
     ]
   },
@@ -502,7 +502,7 @@
         "class": "arez.ComputableValue",
         "method": "<init>",
         "file": "ComputableValue.java",
-        "lineNumber": 110
+        "lineNumber": 114
       }
     ]
   },
@@ -580,7 +580,7 @@
         "class": "arez.ComputableValue",
         "method": "<init>",
         "file": "ComputableValue.java",
-        "lineNumber": 112
+        "lineNumber": 116
       }
     ]
   },
@@ -619,7 +619,7 @@
         "class": "arez.ComputableValue",
         "method": "<init>",
         "file": "ComputableValue.java",
-        "lineNumber": 104
+        "lineNumber": 108
       }
     ]
   },
@@ -632,7 +632,7 @@
         "class": "arez.ComputableValue",
         "method": "get",
         "file": "ComputableValue.java",
-        "lineNumber": 158
+        "lineNumber": 163
       }
     ]
   },
@@ -645,7 +645,7 @@
         "class": "arez.ComputableValue",
         "method": "get",
         "file": "ComputableValue.java",
-        "lineNumber": 160
+        "lineNumber": 165
       }
     ]
   },
@@ -656,9 +656,9 @@
     "callers": [
       {
         "class": "arez.ComputableValue",
-        "method": "get",
+        "method": "returnResult",
         "file": "ComputableValue.java",
-        "lineNumber": 172
+        "lineNumber": 199
       }
     ]
   },
@@ -1087,7 +1087,7 @@
         "class": "arez.ComputableValue",
         "method": "getObservableValue",
         "file": "ComputableValue.java",
-        "lineNumber": 408
+        "lineNumber": 435
       }
     ]
   },
@@ -1100,7 +1100,7 @@
         "class": "arez.ComputableValue",
         "method": "reportPossiblyChanged",
         "file": "ComputableValue.java",
-        "lineNumber": 203
+        "lineNumber": 230
       }
     ]
   },
@@ -1490,7 +1490,7 @@
         "class": "arez.ArezContext",
         "method": "verifyActionDependencies",
         "file": "ArezContext.java",
-        "lineNumber": 1931
+        "lineNumber": 1945
       }
     ]
   },
@@ -1529,7 +1529,7 @@
         "class": "arez.ComputableValue",
         "method": "reportPossiblyChanged",
         "file": "ComputableValue.java",
-        "lineNumber": 200
+        "lineNumber": 227
       }
     ]
   },
@@ -1568,7 +1568,7 @@
         "class": "arez.ArezContext",
         "method": "verifyActionFlags",
         "file": "ArezContext.java",
-        "lineNumber": 1906
+        "lineNumber": 1920
       }
     ]
   },
@@ -1581,7 +1581,7 @@
         "class": "arez.ArezContext",
         "method": "verifyActionFlags",
         "file": "ArezContext.java",
-        "lineNumber": 1909
+        "lineNumber": 1923
       }
     ]
   },
@@ -2049,7 +2049,7 @@
         "class": "arez.ComputableValue",
         "method": "keepAliveInvariants",
         "file": "ComputableValue.java",
-        "lineNumber": 366
+        "lineNumber": 393
       }
     ]
   },
@@ -2140,7 +2140,7 @@
         "class": "arez.ComputableValue",
         "method": "compute",
         "file": "ComputableValue.java",
-        "lineNumber": 469
+        "lineNumber": 496
       }
     ]
   },
@@ -2244,7 +2244,7 @@
         "class": "arez.ArezContext",
         "method": "removeObserverErrorHandler",
         "file": "ArezContext.java",
-        "lineNumber": 2065
+        "lineNumber": 2079
       }
     ]
   },
@@ -2257,7 +2257,7 @@
         "class": "arez.ArezContext",
         "method": "addObserverErrorHandler",
         "file": "ArezContext.java",
-        "lineNumber": 2047
+        "lineNumber": 2061
       }
     ]
   },
@@ -2296,7 +2296,7 @@
         "class": "arez.ArezContext",
         "method": "verifyActionRequired",
         "file": "ArezContext.java",
-        "lineNumber": 1944
+        "lineNumber": 1958
       }
     ]
   },
@@ -2322,7 +2322,7 @@
         "class": "arez.ArezContext",
         "method": "verifyActionNestingAllowed",
         "file": "ArezContext.java",
-        "lineNumber": 1977
+        "lineNumber": 1991
       }
     ]
   },
@@ -2374,7 +2374,7 @@
         "class": "arez.ArezContext",
         "method": "registerLocator",
         "file": "ArezContext.java",
-        "lineNumber": 2011
+        "lineNumber": 2025
       }
     ]
   },
@@ -2387,7 +2387,7 @@
         "class": "arez.ArezContext",
         "method": "locator",
         "file": "ArezContext.java",
-        "lineNumber": 2029
+        "lineNumber": 2043
       }
     ]
   },
@@ -2426,7 +2426,7 @@
         "class": "arez.ComputableValue",
         "method": "asInfo",
         "file": "ComputableValue.java",
-        "lineNumber": 527
+        "lineNumber": 554
       }
     ]
   },
@@ -2621,7 +2621,7 @@
         "class": "arez.ArezContext",
         "method": "verifyActionFlags",
         "file": "ArezContext.java",
-        "lineNumber": 1903
+        "lineNumber": 1917
       }
     ]
   },
@@ -2647,7 +2647,7 @@
         "class": "arez.ArezContext",
         "method": "registerTask",
         "file": "ArezContext.java",
-        "lineNumber": 2270
+        "lineNumber": 2284
       }
     ]
   },
@@ -2751,7 +2751,7 @@
         "class": "arez.ComputableValue",
         "method": "keepAlive",
         "file": "ComputableValue.java",
-        "lineNumber": 287
+        "lineNumber": 314
       }
     ]
   },
@@ -2777,7 +2777,7 @@
         "class": "arez.ArezContext",
         "method": "registerTask",
         "file": "ArezContext.java",
-        "lineNumber": 2273
+        "lineNumber": 2287
       }
     ]
   },
@@ -2790,7 +2790,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterTask",
         "file": "ArezContext.java",
-        "lineNumber": 2286
+        "lineNumber": 2300
       }
     ]
   },
@@ -2803,7 +2803,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterTask",
         "file": "ArezContext.java",
-        "lineNumber": 2289
+        "lineNumber": 2303
       }
     ]
   },
@@ -2816,7 +2816,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelTasks",
         "file": "ArezContext.java",
-        "lineNumber": 2302
+        "lineNumber": 2316
       }
     ]
   }

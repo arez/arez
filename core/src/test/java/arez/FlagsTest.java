@@ -270,7 +270,6 @@ public class FlagsTest
   {
     // Configs with these prefixes may overlap
     final HashMap<String, String> exceptions = new HashMap<>();
-    exceptions.put( "KEEPALIVE", "APPLICATION_EXECUTOR" );
     exceptions.put( "DEACTIVATE_ON_UNOBSERVE", "APPLICATION_EXECUTOR" );
     exceptions.put( "VERIFY_ACTION_REQUIRED", "AREZ_DEPENDENCIES" );
     exceptions.put( "NO_VERIFY_ACTION_REQUIRED", "AREZ_OR_NO_DEPENDENCIES" );
@@ -320,7 +319,10 @@ public class FlagsTest
       final String name = entry.getKey();
       final int value = entry.getValue();
       if ( !name.startsWith( "UNUSED" ) &&
-           ( ( Flags.CONFIG_FLAGS_MASK | Flags.RUNTIME_FLAGS_MASK | Flags.ACTION_FLAGS_MASK ) & value ) != value )
+           ( ( Flags.CONFIG_FLAGS_MASK |
+               Flags.COMPUTABLE_VALUE_FLAGS_MASK |
+               Flags.RUNTIME_FLAGS_MASK |
+               Flags.ACTION_FLAGS_MASK ) & value ) != value )
       {
         fail( "Flag named " + name + " in class " + Flags.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );

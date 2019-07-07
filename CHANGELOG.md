@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.20.0`.
+* Add a parameter named `readOutsideTransaction` to the `@Memoize` annotation that controls whether it is valid to read the memoized value outside of an existing transaction.
 
 ### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140)

@@ -1439,7 +1439,7 @@ public final class ArezContext
                            final int flags,
                            @Nullable final Object[] parameters )
   {
-    return _safeAction( name, executable, flags, null, parameters, true );
+    return _safeAction( name, executable, flags, null, parameters, true, true );
   }
 
   /**
@@ -1483,6 +1483,7 @@ public final class ArezContext
                         trackerObserveFlags( observer ),
                         observer,
                         parameters,
+                        true,
                         true );
   }
 
@@ -1616,6 +1617,17 @@ public final class ArezContext
              false );
   }
 
+  <T> T rawCompute( @Nonnull final ComputableValue<T> computableValue, @Nonnull final SafeFunction<T> action )
+  {
+    return _safeAction( computableValue.getName() + ".wrapper",
+                        action,
+                        Flags.REQUIRE_NEW_TRANSACTION | Flags.NO_VERIFY_ACTION_REQUIRED | Flags.READ_ONLY,
+                        null,
+                        null,
+                        false,
+                        false );
+  }
+
   /**
    * Convert the specified procedure to a function.
    * This is done purely to reduce the compiled code-size under js.
@@ -1705,7 +1717,7 @@ public final class ArezContext
                           final int flags,
                           @Nullable final Object[] parameters )
   {
-    _safeAction( name, safeProcedureToFunction( executable ), flags, null, parameters, false );
+    _safeAction( name, safeProcedureToFunction( executable ), flags, null, parameters, false, true );
   }
 
   /**
@@ -1745,7 +1757,8 @@ public final class ArezContext
                  trackerObserveFlags( observer ),
                  observer,
                  parameters,
-                 false );
+                 false,
+                 true );
   }
 
   private <T> T _safeAction( @Nullable final String specifiedName,
@@ -1753,7 +1766,8 @@ public final class ArezContext
                              final int flags,
                              @Nullable final Observer observer,
                              @Nullable final Object[] parameters,
-                             final boolean expectResult )
+                             final boolean expectResult,
+                             final boolean generateActionEvents )
   {
     final String name = generateName( "Action", specifiedName );
 
@@ -1766,7 +1780,7 @@ public final class ArezContext
     T result;
     try
     {
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && generateActionEvents )
       {
         startedAt = System.currentTimeMillis();
         reportActionStarted( name, parameters, observe );
@@ -1789,7 +1803,7 @@ public final class ArezContext
           Transaction.commit( transaction );
         }
       }
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && generateActionEvents )
       {
         completed = true;
         final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
@@ -1810,7 +1824,7 @@ public final class ArezContext
     }
     finally
     {
-      if ( willPropagateSpyEvents() )
+      if ( willPropagateSpyEvents() && generateActionEvents )
       {
         if ( !completed )
         {

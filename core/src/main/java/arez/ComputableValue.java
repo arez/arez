@@ -42,6 +42,10 @@ public final class ComputableValue<T>
   @Nonnull
   private final ObservableValue<T> _observableValue;
   /**
+   * Flag set to true if computable value can be read outside of a transaction.
+   */
+  private final boolean _readOutsideTransaction;
+  /**
    * The cached value of the computation.
    */
   private T _value;
@@ -119,7 +123,8 @@ public final class ComputableValue<T>
     _onStale = onStale;
     _value = null;
     _computing = false;
-    _observer = new Observer( this, flags );
+    _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == ( flags & Flags.READ_OUTSIDE_TRANSACTION );
+    _observer = new Observer( this, flags & ~Flags.READ_OUTSIDE_TRANSACTION );
     _observableValue =
       new ObservableValue<>( context,
                              null,
@@ -160,11 +165,33 @@ public final class ComputableValue<T>
       apiInvariant( _observer::isNotDisposed,
                     () -> "Arez-0050: ComputableValue named '" + getName() + "' accessed after it has been disposed." );
     }
-    getObservableValue().reportObserved();
+    if ( _readOutsideTransaction )
+    {
+      getObservableValue().reportObservedIfTrackingTransactionActive();
+    }
+    else
+    {
+      getObservableValue().reportObserved();
+    }
     if ( _observer.shouldCompute() )
     {
-      _observer.invokeReaction();
+      if ( _readOutsideTransaction && !getContext().isTrackingTransactionActive() )
+      {
+        return getContext().rawCompute( this, () -> {
+          _observer.invokeReaction();
+          return returnResult();
+        } );
+      }
+      else
+      {
+        _observer.invokeReaction();
+      }
     }
+    return returnResult();
+  }
+
+  private T returnResult()
+  {
     if ( null != _error )
     {
       if ( Arez.shouldCheckInvariants() )

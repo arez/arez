@@ -139,14 +139,9 @@ complete as there is too much un-said.
 
 * Add `defaultReadOutsideTransaction` and `defaultWriteOutsideTransaction` parameters to `@ArezComponent` that change
   the default value for the `readOutsideTransaction` and `writeOutsideTransaction` parameters on any `@Observable`
-  properties on the component. The `default*` properties should not be specified unless there is actually `@Observable`
-  properties in the component.
-
-* Add a `readOutsideTransaction` parameter to `@Memoize` that controls whether it is valid to read value outside of
-  an existing transaction. The default value for this will be impacted by the `defaultReadOutsideTransaction` parameter
-  as defined above. The `writeOutsideTransaction` can also be set for `@Memoize` annotated methods that have external
-  dependencies, in which case the `reportPossiblyChanged()` will not require an existing transaction? Or maybe will
-  create an action on demand.
+  properties on the component and the `readOutsideTransaction` parameter on any `@Memoize` properties in the component.
+  The `default*` properties should not be specified unless there is actually `@Observable` or `@Memoize` properties
+  in the component.
 
 * BUG described in `ComponentKernel.scheduleDispose()`
 

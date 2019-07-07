@@ -1,0 +1,34 @@
+[
+  {
+    "code": "java.field.addedStaticField",
+    "description": "Static field added to class.",
+    "newElement": "field arez.Flags.READ_OUTSIDE_TRANSACTION",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "READ_OUTSIDE_TRANSACTION",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method boolean arez.annotations.Memoize::readOutsideTransaction()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Memoize",
+      "classSimpleName": "Memoize",
+      "elementKind": "method",
+      "methodName": "readOutsideTransaction",
+      "package": "arez.annotations"
+    }
+  }
+]

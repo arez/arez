@@ -103,4 +103,13 @@ public @interface Memoize
    * @return true to report the return value, false otherwise.
    */
   boolean reportResult() default true;
+
+  /**
+   * Return true if the memoized value can be read outside a transaction.
+   * It should be noted that if there is no Observer tracking the memoized value, then the value will be
+   * calculated each time it is accessed.
+   *
+   * @return true to allow reads outside a transaction, false to require a transaction to read memoized value.
+   */
+  boolean readOutsideTransaction() default false;
 }

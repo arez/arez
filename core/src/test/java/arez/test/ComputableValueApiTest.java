@@ -500,4 +500,40 @@ public class ComputableValueApiTest
 
     assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate" );
   }
+
+  @Test
+  public void readOutsideTransaction()
+  {
+    final AtomicInteger computedCallCount = new AtomicInteger();
+    final AtomicInteger result = new AtomicInteger();
+
+    result.set( 42 );
+
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observable = context.observable();
+    final ComputableValue<Integer> computableValue = context.computable( () -> {
+      computedCallCount.incrementAndGet();
+      observable.reportObserved();
+      return result.get();
+    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.READ_OUTSIDE_TRANSACTION );
+
+    assertEquals( computedCallCount.get(), 0 );
+
+    final TestSpyEventHandler handler = new TestSpyEventHandler();
+    context.getSpy().addSpyEventHandler( handler );
+    assertEquals( computableValue.get().intValue(), 42 );
+
+    assertEquals( computedCallCount.get(), 1 );
+
+    assertFalse( context.getSpy().asComputableValueInfo( computableValue ).isActive() );
+
+    handler.assertEventCount( 7 );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ComputeStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( ObservableValueChangeEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+  }
 }

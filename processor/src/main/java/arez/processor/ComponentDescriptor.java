@@ -711,6 +711,7 @@ final class ComponentDescriptor
     final boolean reportResult = getAnnotationParameter( annotation, "reportResult" );
     final boolean observeLowerPriorityDependencies =
       getAnnotationParameter( annotation, "observeLowerPriorityDependencies" );
+    final boolean readOutsideTransaction = getAnnotationParameter( annotation, "readOutsideTransaction" );
     final VariableElement priority = getAnnotationParameter( annotation, "priority" );
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
     final String depTypeAsString = depType.getSimpleName().toString();
@@ -720,6 +721,7 @@ final class ComponentDescriptor
                                             priority.getSimpleName().toString(),
                                             reportResult,
                                             observeLowerPriorityDependencies,
+                                            readOutsideTransaction,
                                             depTypeAsString );
   }
 

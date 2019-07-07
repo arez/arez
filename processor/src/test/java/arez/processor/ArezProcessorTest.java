@@ -140,6 +140,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.OnActivateModel", false, false, false, false },
         new Object[]{ "com.example.memoize.OnDeactivateModel", false, false, false, false },
         new Object[]{ "com.example.memoize.OnStaleModel", false, false, false, false },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ScheduleDeferredKeepAliveModel", false, false, false, false },
         new Object[]{ "com.example.memoize.TypeParametersModel", false, false, false, false },
         new Object[]{ "com.example.computable_value_ref.DefaultRefNameModel", false, false, false, false },

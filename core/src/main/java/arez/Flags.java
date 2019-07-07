@@ -96,6 +96,10 @@ public final class Flags
    */
   private static final int SCHEDULE_TYPE_MASK = KEEPALIVE | DEACTIVATE_ON_UNOBSERVE | APPLICATION_EXECUTOR;
   /**
+   * The flag is valid on computable values.
+   */
+  public static final int READ_OUTSIDE_TRANSACTION = 1 << 14;
+  /**
    * The flag that can be passed to a task and indicates that task should not be wrapped.
    * The wrapping is responsible for ensuring the task never generates an exception and for generating
    * the spy events. If wrapping is disabled it is expected that the task callback supplier is responsible for integrating
@@ -209,10 +213,10 @@ public final class Flags
   static final int ACTION_FLAGS_MASK =
     TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
   /**
-   * The flag is currently unused.
+   * Mask that identifies the bits associated with configuration of ComputableValue instances.
    */
-  @SuppressWarnings( "unused" )
-  static final int UNUSED1 = 1 << 14;
+  static final int COMPUTABLE_VALUE_FLAGS_MASK =
+    READ_OUTSIDE_TRANSACTION | ( CONFIG_FLAGS_MASK & ~APPLICATION_EXECUTOR );
   /**
    * The flag is currently unused.
    */

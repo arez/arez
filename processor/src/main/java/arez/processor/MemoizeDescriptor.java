@@ -50,6 +50,7 @@ final class MemoizeDescriptor
   private String _priority;
   private boolean _reportResult;
   private boolean _observeLowerPriorityDependencies;
+  private boolean _readOutsideTransaction;
   private String _depType;
   @Nullable
   private ExecutableElement _onActivate;
@@ -126,6 +127,7 @@ final class MemoizeDescriptor
                    @Nonnull final String priority,
                    final boolean reportResult,
                    final boolean observeLowerPriorityDependencies,
+                   final boolean readOutsideTransaction,
                    @Nonnull final String depType )
     throws ArezProcessorException
   {
@@ -143,6 +145,7 @@ final class MemoizeDescriptor
     _priority = Objects.requireNonNull( priority );
     _reportResult = reportResult;
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
+    _readOutsideTransaction = readOutsideTransaction;
     _depType = Objects.requireNonNull( depType );
 
     if ( isMethodReturnType( Stream.class ) )
@@ -644,6 +647,10 @@ final class MemoizeDescriptor
     if ( _observeLowerPriorityDependencies )
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( _readOutsideTransaction )
+    {
+      flags.add( "READ_OUTSIDE_TRANSACTION" );
     }
     switch ( _depType )
     {
