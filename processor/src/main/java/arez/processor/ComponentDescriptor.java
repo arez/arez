@@ -2488,33 +2488,39 @@ final class ComponentDescriptor
       throw new ArezProcessorException( "@PriorityOverride target must return an int value", method );
     }
 
+    final String name = derivePriorityOverrideName( method, annotation );
+    _priorityOverrides.put( name, new CandidateMethod( method, methodType ) );
+  }
+
+  @Nonnull
+  private String derivePriorityOverrideName( @Nonnull final ExecutableElement method,
+                                             @Nonnull final AnnotationMirror annotation )
+  {
     final String declaredName = getAnnotationParameter( annotation, "name" );
-    final String name;
     if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, PRIORITY_OVERRIDE_PATTERN, declaredName );
+      final String name = ProcessorUtil.deriveName( method, PRIORITY_OVERRIDE_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ArezProcessorException( "Method annotated with @PriorityOverride should specify name or be " +
                                           "named according to the convention [name]Priority", method );
       }
+      return name;
     }
     else
     {
-      name = declaredName;
-      if ( !SourceVersion.isIdentifier( name ) )
+      if ( !SourceVersion.isIdentifier( declaredName ) )
       {
-        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + declaredName +
+                                          "'. The name must be a valid java identifier.", method );
       }
-      else if ( SourceVersion.isKeyword( name ) )
+      else if ( SourceVersion.isKeyword( declaredName ) )
       {
-        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + declaredName +
+                                          "'. The name must not be a java keyword.", method );
       }
+      return declaredName;
     }
-
-    _priorityOverrides.put( name, new CandidateMethod( method, methodType ) );
   }
 
   @Nullable
