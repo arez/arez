@@ -62,6 +62,8 @@ final class MemoizeDescriptor
   private ExecutableElement _refMethod;
   @Nullable
   private ExecutableType _refMethodType;
+  @Nullable
+  private CandidateMethod _priorityOverride;
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -557,6 +559,25 @@ final class MemoizeDescriptor
       parameters.add( Generator.FLAGS_CLASSNAME );
     }
 
+    if ( null != _priorityOverride )
+    {
+      final int parameterCount = _priorityOverride.getMethod().getParameters().size();
+      if ( 0 == parameterCount )
+      {
+        sb.append( " | ($T.PRIORITY_MASK & $N())" );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( _priorityOverride.getMethod().getSimpleName() );
+      }
+      else
+      {
+        sb.append( " | ($T.PRIORITY_MASK & $N( $T.$N ))" );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( _priorityOverride.getMethod().getSimpleName() );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( "PRIORITY_" + _priority );
+      }
+    }
+
     sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
@@ -631,6 +652,25 @@ final class MemoizeDescriptor
       parameters.add( Generator.FLAGS_CLASSNAME );
     }
 
+    if ( null != _priorityOverride )
+    {
+      final int parameterCount = _priorityOverride.getMethod().getParameters().size();
+      if ( 0 == parameterCount )
+      {
+        sb.append( " | ($T.PRIORITY_MASK & $N())" );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( _priorityOverride.getMethod().getSimpleName() );
+      }
+      else
+      {
+        sb.append( " | ($T.PRIORITY_MASK & $N( $T.$N ))" );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( _priorityOverride.getMethod().getSimpleName() );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( "PRIORITY_" + _priority );
+      }
+    }
+
     sb.append( " )" );
   }
 
@@ -638,7 +678,10 @@ final class MemoizeDescriptor
   private ArrayList<String> generateFlags()
   {
     final ArrayList<String> flags = new ArrayList<>();
-    flags.add( "PRIORITY_" + _priority );
+    if ( null == _priorityOverride && !"NORMAL".equals( _priority ) )
+    {
+      flags.add( "PRIORITY_" + _priority );
+    }
 
     if ( !_reportResult )
     {
@@ -1050,5 +1093,10 @@ final class MemoizeDescriptor
     builder.addStatement( sb.toString(), parameters.toArray() );
 
     return builder.build();
+  }
+
+  void setPriorityOverride( @Nonnull final CandidateMethod priorityOverride )
+  {
+    _priorityOverride = priorityOverride;
   }
 }

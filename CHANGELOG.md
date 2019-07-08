@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.20.0`.
 * Add a parameter named `readOutsideTransaction` to the `@Memoize` annotation that controls whether it is valid to read the memoized value outside of an existing transaction.
+* Add the `@PriorityOverride` annotation that allows a component to override the priority of either an `@Observe` annotated method or a `@Memoize` annotated method when constructing the components. This is (very occasionally) useful when creating components where the priority is dependent on the context but it provides a useful hook for downstream frameworks such as [React4j](https://react4j.github.io/) that need to manipulate priorities to interact with external scheduling constraints.
 
 ### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01)
 [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140)

@@ -164,6 +164,10 @@ public final class Flags
    */
   public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
   /**
+   * Mask used to extract priority bits.
+   */
+  public static final int PRIORITY_MASK = Task.Flags.PRIORITY_MASK;
+  /**
    * The flag can be passed to actions or observers to force the action to not report result to spy infrastructure.
    */
   public static final int NO_REPORT_RESULT = 1 << 12;

@@ -1,5 +1,36 @@
 [
   {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.PriorityOverride",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.PriorityOverride",
+      "classSimpleName": "PriorityOverride",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.field.addedStaticField",
+    "description": "Static field added to class.",
+    "newElement": "field arez.Flags.PRIORITY_MASK",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "PRIORITY_MASK",
+      "package": "arez"
+    }
+  },
+  {
     "code": "java.field.addedStaticField",
     "description": "Static field added to class.",
     "newElement": "field arez.Flags.READ_OUTSIDE_TRANSACTION",

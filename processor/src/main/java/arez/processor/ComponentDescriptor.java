@@ -58,6 +58,7 @@ final class ComponentDescriptor
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
   private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
+  private static final Pattern PRIORITY_OVERRIDE_PATTERN = Pattern.compile( "^(.*)Priority$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   private static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ID_GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)Id$" );
@@ -169,6 +170,7 @@ final class ComponentDescriptor
   private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
   private final Collection<InverseDescriptor> _roInverses =
     Collections.unmodifiableCollection( _inverses.values() );
+  private final Map<String, CandidateMethod> _priorityOverrides = new LinkedHashMap<>();
 
   ComponentDescriptor( @Nonnull final SourceVersion sourceVersion,
                        @Nonnull final Elements elements,
@@ -1319,6 +1321,8 @@ final class ComponentDescriptor
 
     autodetectObservableInitializers();
 
+    linkPriorityOverrideMethods();
+
     /*
      * All of the maps will have called remove() for all matching candidates.
      * Thus any left are the non-arez methods.
@@ -2222,6 +2226,34 @@ final class ComponentDescriptor
     }
   }
 
+  private void linkPriorityOverrideMethods()
+    throws ArezProcessorException
+  {
+    for ( final Map.Entry<String, CandidateMethod> entry : _priorityOverrides.entrySet() )
+    {
+      final String name = entry.getKey();
+      final CandidateMethod method = entry.getValue();
+      final MemoizeDescriptor memoize = _memoizes.get( name );
+      if ( null != memoize )
+      {
+        memoize.setPriorityOverride( method );
+      }
+      else
+      {
+        final ObserveDescriptor observe = _observes.get( name );
+        if ( null != observe )
+        {
+          observe.setPriorityOverride( method );
+        }
+        else
+        {
+          throw new ArezProcessorException( "@PriorityOverride target has no corresponding @Memoize or " +
+                                            "@Observe methods", method.getMethod() );
+        }
+      }
+    }
+  }
+
   private boolean analyzeMethod( @Nonnull final ExecutableElement method,
                                  @Nonnull final ExecutableType methodType )
     throws ArezProcessorException
@@ -2254,6 +2286,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
       ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
+    final AnnotationMirror priorityOverride =
+      ProcessorUtil.findAnnotationByType( method, Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME );
     final AnnotationMirror ejbPostConstruct =
       ProcessorUtil.findAnnotationByType( method, Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror preDispose =
@@ -2364,6 +2398,11 @@ final class ComponentDescriptor
       setComponentTypeNameRef( method );
       return true;
     }
+    else if ( null != priorityOverride )
+    {
+      addPriorityOverride( priorityOverride, method, methodType );
+      return true;
+    }
     else if ( null != ejbPostConstruct )
     {
       throw new ArezProcessorException( "@" + Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation " +
@@ -2425,6 +2464,57 @@ final class ComponentDescriptor
     {
       return false;
     }
+  }
+
+  private void addPriorityOverride( @Nonnull final AnnotationMirror annotation,
+                                    @Nonnull final ExecutableElement method,
+                                    @Nonnull final ExecutableType methodType )
+  {
+    MethodChecks.mustNotBeAbstract( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( getElement(), Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+
+    final List<? extends VariableElement> parameters = method.getParameters();
+    if ( !( parameters.isEmpty() || 1 == parameters.size() && parameters.get( 0 ).asType().getKind() == TypeKind.INT ) )
+    {
+      throw new ArezProcessorException( "@PriorityOverride target must have no parameters or a " +
+                                        "single int parameter", method );
+    }
+
+    final TypeMirror type = method.getReturnType();
+    if ( TypeKind.INT != type.getKind() )
+    {
+      throw new ArezProcessorException( "@PriorityOverride target must return an int value", method );
+    }
+
+    final String declaredName = getAnnotationParameter( annotation, "name" );
+    final String name;
+    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    {
+      name = ProcessorUtil.deriveName( method, PRIORITY_OVERRIDE_PATTERN, declaredName );
+      if ( null == name )
+      {
+        throw new ArezProcessorException( "Method annotated with @PriorityOverride should specify name or be " +
+                                          "named according to the convention [name]Priority", method );
+      }
+    }
+    else
+    {
+      name = declaredName;
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + name + "'. The " +
+                                          "name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + name + "'. The " +
+                                          "name must not be a java keyword.", method );
+      }
+    }
+
+    _priorityOverrides.put( name, new CandidateMethod( method, methodType ) );
   }
 
   @Nullable

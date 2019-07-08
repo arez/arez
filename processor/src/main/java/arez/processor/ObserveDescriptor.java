@@ -49,6 +49,8 @@ final class ObserveDescriptor
   private ExecutableElement _refMethod;
   @Nullable
   private ExecutableType _refMethodType;
+  @Nullable
+  private CandidateMethod _priorityOverride;
 
   ObserveDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -352,7 +354,7 @@ final class ObserveDescriptor
     {
       flags.add( "READ_WRITE" );
     }
-    if ( !"NORMAL".equals( _priority ) )
+    if ( null == _priorityOverride && !"NORMAL".equals( _priority ) )
     {
       flags.add( "PRIORITY_" + _priority );
     }
@@ -361,6 +363,25 @@ final class ObserveDescriptor
     for ( int i = 0; i < flags.size(); i++ )
     {
       parameters.add( Generator.FLAGS_CLASSNAME );
+    }
+
+    if ( null != _priorityOverride )
+    {
+      final int parameterCount = _priorityOverride.getMethod().getParameters().size();
+      if ( 0 == parameterCount )
+      {
+        expression.append( " | ($T.PRIORITY_MASK & $N())" );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( _priorityOverride.getMethod().getSimpleName() );
+      }
+      else
+      {
+        expression.append( " | ($T.PRIORITY_MASK & $N( $T.$N ))" );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( _priorityOverride.getMethod().getSimpleName() );
+        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( "PRIORITY_" + _priority );
+      }
     }
   }
 
@@ -589,5 +610,10 @@ final class ObserveDescriptor
     }
 
     return builder.build();
+  }
+
+  void setPriorityOverride( @Nonnull final CandidateMethod priorityOverride )
+  {
+    _priorityOverride = priorityOverride;
   }
 }
