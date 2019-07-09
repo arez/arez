@@ -450,7 +450,7 @@ public class ComputableValueTest
 
     final ObservableValue<Object> observableValue = context.observable( "Y" );
 
-    assertInvariantFailure( () -> context.action( "X", (Procedure) observableValue::dispose, Flags.READ_ONLY ),
+    assertInvariantFailure( () -> context.action( "X", (Procedure) observableValue::dispose, ActionFlags.READ_ONLY ),
                             "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
   }
 
