@@ -57,9 +57,6 @@ public class VerifyZeroOrOneInverseIntegrationTest
   public void verifySuccessNullReference()
     throws Throwable
   {
-    final VerifyZeroOrOneInverseIntegrationTest_Model2Repository repository =
-      VerifyZeroOrOneInverseIntegrationTest_Model2Repository.newRepository();
-
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
 
