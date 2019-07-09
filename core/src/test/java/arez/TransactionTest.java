@@ -2188,8 +2188,7 @@ public class TransactionTest
     assertFalse( context.isTransactionActive() );
 
     final String name = ValueUtil.randomString();
-    final Observer tracker = null;
-    final Transaction transaction = Transaction.begin( context, name, false, tracker );
+    final Transaction transaction = Transaction.begin( context, name, false, null );
 
     assertTrue( context.isTransactionActive() );
 
@@ -2197,7 +2196,7 @@ public class TransactionTest
     assertEquals( transaction.getContext(), context );
     assertEquals( transaction.getName(), name );
     assertFalse( transaction.isMutation() );
-    assertEquals( transaction.getTracker(), tracker );
+    assertNull( transaction.getTracker() );
     assertNull( transaction.getPrevious() );
     assertNull( transaction.getPreviousInSameContext() );
     assertFalse( transaction.isMutation() );
