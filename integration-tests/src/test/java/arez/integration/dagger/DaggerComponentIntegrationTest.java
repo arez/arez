@@ -1,8 +1,8 @@
 package arez.integration.dagger;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
@@ -47,8 +47,8 @@ public class DaggerComponentIntegrationTest
     final TestComponent component = daggerComponent.component();
 
     final ArezContext context = Arez.context();
-    context.action( () -> assertEquals( component.getValue(), "" ), Flags.READ_ONLY );
+    context.action( () -> assertEquals( component.getValue(), "" ), ActionFlags.READ_ONLY );
     context.action( () -> component.setValue( "X" ) );
-    context.action( () -> assertEquals( component.getValue(), "X" ), Flags.READ_ONLY );
+    context.action( () -> assertEquals( component.getValue(), "X" ), ActionFlags.READ_ONLY );
   }
 }

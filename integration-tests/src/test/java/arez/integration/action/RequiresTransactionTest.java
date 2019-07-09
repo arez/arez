@@ -3,7 +3,6 @@ package arez.integration.action;
 import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
@@ -125,7 +124,7 @@ public class RequiresTransactionTest
     final TestSpyEventHandler recorder = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( recorder );
 
-    assertInvariant( () -> context.safeAction( "MyWrapperAction", component::myAction, Flags.READ_ONLY ),
+    assertInvariant( () -> context.safeAction( "MyWrapperAction", component::myAction, ActionFlags.READ_ONLY ),
                      "Arez-0119: Attempting to create READ_WRITE transaction named 'MyComponent3.1.myAction' but it is nested in transaction named 'MyWrapperAction' with mode READ_ONLY which is not equal to READ_WRITE." );
 
     recorder.assertEventCount( 6 );

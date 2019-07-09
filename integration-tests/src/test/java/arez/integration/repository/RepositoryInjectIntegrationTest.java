@@ -1,8 +1,8 @@
 package arez.integration.repository;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
 import arez.Procedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.InjectMode;
@@ -77,12 +77,12 @@ public class RepositoryInjectIntegrationTest
     final ArezContext context = Arez.context();
 
     final Procedure executable3 = () -> assertEquals( repository.findAll().size(), 3 );
-    context.action( executable3, Flags.READ_ONLY );
+    context.action( executable3, ActionFlags.READ_ONLY );
     final Procedure executable2 = () -> assertTrue( repository.findAll().contains( component1 ) );
-    context.action( executable2, Flags.READ_ONLY );
+    context.action( executable2, ActionFlags.READ_ONLY );
     final Procedure executable1 = () -> assertTrue( repository.findAll().contains( component2 ) );
-    context.action( executable1, Flags.READ_ONLY );
+    context.action( executable1, ActionFlags.READ_ONLY );
     final Procedure executable = () -> assertTrue( repository.findAll().contains( component3 ) );
-    context.action( executable, Flags.READ_ONLY );
+    context.action( executable, ActionFlags.READ_ONLY );
   }
 }
