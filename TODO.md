@@ -46,11 +46,6 @@ complete as there is too much un-said.
 
 * Add ErrorProne to build
 
-* Should we add hooks that allow components to customize flags passed to created elements. The goal is to allow the
-  component to dynamically customize configuration of a reactive element without defining a new class. i.e. Using
-  the same class but allowing parameters passed into the constructor to influence the value of flags. The flags that
-  can be specified will be restricted and at least in development mode this will be checked and enforced.
-
 * Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
 
 * Can inverse references be maps. The key would be the component id.
