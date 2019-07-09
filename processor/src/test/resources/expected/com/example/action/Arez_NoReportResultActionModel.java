@@ -1,10 +1,10 @@
 package com.example.action;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Flags;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
@@ -69,7 +69,7 @@ public final class Arez_NoReportResultActionModel extends NoReportResultActionMo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff(), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED | Flags.NO_REPORT_RESULT, null );
+    return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff(), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED | ActionFlags.NO_REPORT_RESULT, null );
   }
 
   @Override

@@ -1,5 +1,6 @@
 package arez.component.internal;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -273,7 +274,7 @@ public final class ComponentKernel
       {
         getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                  this::performDispose,
-                                 Flags.NO_VERIFY_ACTION_REQUIRED );
+                                 ActionFlags.NO_VERIFY_ACTION_REQUIRED );
       }
       if ( Arez.shouldCheckApiInvariants() )
       {

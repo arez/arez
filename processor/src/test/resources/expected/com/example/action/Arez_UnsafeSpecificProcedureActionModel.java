@@ -1,10 +1,10 @@
 package com.example.action;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Flags;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
@@ -71,7 +71,7 @@ public final class Arez_UnsafeSpecificProcedureActionModel extends UnsafeSpecifi
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     try {
-      this.$$arezi$$_kernel.getContext().action(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time ), Flags.READ_WRITE | Flags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time } : null );
+      this.$$arezi$$_kernel.getContext().action(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time } : null );
     } catch( final ParseException | RuntimeException | Error $$arez_exception$$ ) {
       throw $$arez_exception$$;
     } catch( final Throwable $$arez_exception$$ ) {

@@ -177,16 +177,6 @@ public class FlagsTest
   }
 
   @Test
-  public void isVerifyActionRuleValid()
-  {
-    assertTrue( Flags.isVerifyActionRuleValid( Flags.VERIFY_ACTION_REQUIRED ) );
-    assertTrue( Flags.isVerifyActionRuleValid( Flags.NO_VERIFY_ACTION_REQUIRED ) );
-    assertFalse( Flags.isVerifyActionRuleValid( 0 ) );
-    assertFalse( Flags.isVerifyActionRuleValid( Flags.PRIORITY_LOWEST ) );
-    assertFalse( Flags.isVerifyActionRuleValid( Flags.VERIFY_ACTION_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED ) );
-  }
-
-  @Test
   public void defaultNestedActionRuleUnlessSpecified()
   {
     assertEquals( Flags.nestedActionRule( Flags.NESTED_ACTIONS_ALLOWED ), 0 );
@@ -208,15 +198,6 @@ public class FlagsTest
 
     ArezTestUtil.noEnforceTransactionType();
     assertEquals( Flags.transactionMode( 0 ), 0 );
-  }
-
-  @Test
-  public void verifyActionRule()
-  {
-    assertEquals( Flags.verifyActionRule( Flags.VERIFY_ACTION_REQUIRED ), 0 );
-    assertEquals( Flags.verifyActionRule( Flags.NO_VERIFY_ACTION_REQUIRED ), 0 );
-    assertEquals( Flags.verifyActionRule( 0 ), Flags.VERIFY_ACTION_REQUIRED );
-    assertEquals( Flags.verifyActionRule( Flags.REQUIRE_NEW_TRANSACTION ), Flags.VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -322,7 +303,7 @@ public class FlagsTest
            ( ( Flags.CONFIG_FLAGS_MASK |
                Flags.COMPUTABLE_VALUE_FLAGS_MASK |
                Flags.RUNTIME_FLAGS_MASK |
-               Flags.ACTION_FLAGS_MASK ) & value ) != value )
+               ActionFlags.ACTION_FLAGS_MASK ) & value ) != value )
       {
         fail( "Flag named " + name + " in class " + Flags.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );

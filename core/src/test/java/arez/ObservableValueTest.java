@@ -520,7 +520,7 @@ public class ObservableValueTest
                               "Arez-0203: Attempting to add observer named '" + observer.getName() + "' to " +
                               "ObservableValue named '" + observableValue.getName() + "' but the observer is not the " +
                               "tracker in transaction named '" + context.getTransaction().getName() + "'." );
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -1326,7 +1326,7 @@ public class ObservableValueTest
 
     // This action does not verify that reads occurred so should not
     // fail but will not actually observe
-    context.safeAction( observableValue::reportObservedIfTrackingTransactionActive, Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( observableValue::reportObservedIfTrackingTransactionActive, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     // This action will raise an exception as no reads or writes occurred
     // within scope and we asked to verify that reads or writes occurred

@@ -1,6 +1,7 @@
 package arez.test;
 
 import arez.AbstractArezTest;
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
@@ -423,7 +424,7 @@ public class ComputableValueApiTest
 
     handler.reset();
 
-    context.safeAction( "MyAction", (SafeProcedure) keepAliveLock::dispose, Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( "MyAction", (SafeProcedure) keepAliveLock::dispose, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     handler.assertEventCount( 4 );
     handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), "MyAction" ) );

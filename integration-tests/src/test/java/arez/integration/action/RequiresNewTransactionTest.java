@@ -1,5 +1,6 @@
 package arez.integration.action;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Flags;
@@ -85,7 +86,7 @@ public class RequiresNewTransactionTest
     final TestSpyEventHandler recorder = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( recorder );
 
-    context.safeAction( "MyWrapperAction", component::myAction, Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( "MyWrapperAction", component::myAction, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     recorder.assertEventCount( 9 );
     recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );

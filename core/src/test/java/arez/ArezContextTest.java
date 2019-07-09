@@ -206,38 +206,39 @@ public class ArezContextTest
       final Transaction transaction = context.getTransaction();
 
       context.action( () -> assertNotEquals( context.getTransaction(), transaction ),
-                      Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+                      ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       final int result1 = context.action( () -> {
         assertNotEquals( context.getTransaction(), transaction );
         return 0;
-      }, Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       context.safeAction( () -> assertNotEquals( context.getTransaction(), transaction ),
-                          Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+                          ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       final int result2 =
         context.safeAction( () -> {
           assertNotEquals( context.getTransaction(), transaction );
           return 0;
-        }, Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+        }, ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
-      context.action( () -> assertEquals( context.getTransaction(), transaction ), Flags.NO_VERIFY_ACTION_REQUIRED );
+      context.action( () -> assertEquals( context.getTransaction(), transaction ),
+                      ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
       final int result3 = context.action( () -> {
         assertEquals( context.getTransaction(), transaction );
         return 0;
-      }, Flags.NO_VERIFY_ACTION_REQUIRED );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
       context.safeAction( () -> assertEquals( context.getTransaction(), transaction ),
-                          Flags.NO_VERIFY_ACTION_REQUIRED );
+                          ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
       final int result4 =
         context.safeAction( () -> {
           assertEquals( context.getTransaction(), transaction );
           return 0;
-        }, Flags.NO_VERIFY_ACTION_REQUIRED );
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+        }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @SuppressWarnings( "unused" )
@@ -258,22 +259,23 @@ public class ArezContextTest
       final Transaction transaction = context.getTransaction();
 
       context.action( () -> assertNotEquals( context.getTransaction(), transaction ),
-                      Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+                      ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       final int result1 = context.action( () -> {
         assertNotEquals( context.getTransaction(), transaction );
         return 0;
-      }, Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       context.safeAction( () -> assertNotEquals( context.getTransaction(), transaction ),
-                          Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+                          ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       final int result2 = context.safeAction( () -> {
         assertNotEquals( context.getTransaction(), transaction );
         return 0;
-      }, Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.REQUIRE_NEW_TRANSACTION );
 
-      context.action( () -> assertEquals( context.getTransaction(), transaction ), Flags.NO_VERIFY_ACTION_REQUIRED );
+      context.action( () -> assertEquals( context.getTransaction(), transaction ),
+                      ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     } );
   }
 
@@ -293,24 +295,26 @@ public class ArezContextTest
       observeADependency();
       assertInvariantFailure( () -> context.action( "A1",
                                                     AbstractArezTest::observeADependency,
-                                                    Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION ),
+                                                    ActionFlags.NO_VERIFY_ACTION_REQUIRED |
+                                                    ActionFlags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       assertInvariantFailure( () -> context.action( "A2",
                                                     () -> 1,
-                                                    Flags.NO_VERIFY_ACTION_REQUIRED | Flags.REQUIRE_NEW_TRANSACTION ),
+                                                    ActionFlags.NO_VERIFY_ACTION_REQUIRED |
+                                                    ActionFlags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       assertInvariantFailure( () -> context.safeAction( "A3",
                                                         AbstractArezTest::observeADependency,
-                                                        Flags.NO_VERIFY_ACTION_REQUIRED |
-                                                        Flags.REQUIRE_NEW_TRANSACTION ),
+                                                        ActionFlags.NO_VERIFY_ACTION_REQUIRED |
+                                                        ActionFlags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       assertInvariantFailure( () -> context.safeAction( "A4",
                                                         () -> 1,
-                                                        Flags.NO_VERIFY_ACTION_REQUIRED |
-                                                        Flags.REQUIRE_NEW_TRANSACTION ),
+                                                        ActionFlags.NO_VERIFY_ACTION_REQUIRED |
+                                                        ActionFlags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A4' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
     } );
   }
@@ -331,7 +335,7 @@ public class ArezContextTest
     final Procedure executable = () -> {
     };
     assertInvariantFailure( () -> Arez.context()
-                              .action( executable, Flags.READ_ONLY | Flags.READ_WRITE ),
+                              .action( executable, ActionFlags.READ_ONLY | ActionFlags.READ_WRITE ),
                             "Arez-0126: Flags passed to action 'Action@1' include both READ_ONLY and READ_WRITE." );
   }
 
@@ -341,7 +345,7 @@ public class ArezContextTest
     final Procedure executable = () -> {
     };
     assertInvariantFailure( () -> Arez.context()
-                              .action( executable, Flags.VERIFY_ACTION_REQUIRED | Flags.NO_VERIFY_ACTION_REQUIRED ),
+                              .action( executable, ActionFlags.VERIFY_ACTION_REQUIRED | ActionFlags.NO_VERIFY_ACTION_REQUIRED ),
                             "Arez-0127: Flags passed to action 'Action@1' include both VERIFY_ACTION_REQUIRED and NO_VERIFY_ACTION_REQUIRED." );
   }
 
@@ -568,7 +572,7 @@ public class ArezContextTest
     throws Throwable
   {
     final Procedure executable = ValueUtil::randomString;
-    Arez.context().action( executable, Flags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context().action( executable, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -579,7 +583,7 @@ public class ArezContextTest
     ArezTestUtil.noCheckInvariants();
 
     final Procedure executable = ValueUtil::randomString;
-    Arez.context().action( executable, Flags.VERIFY_ACTION_REQUIRED );
+    Arez.context().action( executable, ActionFlags.VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -587,7 +591,7 @@ public class ArezContextTest
   public void action_procedure_verifyActionRequired_true()
   {
     final Procedure procedure = ValueUtil::randomString;
-    assertInvariantFailure( () -> Arez.context().action( "X", procedure, Flags.VERIFY_ACTION_REQUIRED ),
+    assertInvariantFailure( () -> Arez.context().action( "X", procedure, ActionFlags.VERIFY_ACTION_REQUIRED ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
@@ -602,7 +606,7 @@ public class ArezContextTest
   public void action_function_verifyActionRequired_false()
     throws Throwable
   {
-    Arez.context().action( (Function<String>) ValueUtil::randomString, Flags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context().action( (Function<String>) ValueUtil::randomString, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -612,7 +616,7 @@ public class ArezContextTest
   {
     ArezTestUtil.noCheckInvariants();
 
-    Arez.context().action( (Function<String>) ValueUtil::randomString, Flags.VERIFY_ACTION_REQUIRED );
+    Arez.context().action( (Function<String>) ValueUtil::randomString, ActionFlags.VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -620,7 +624,7 @@ public class ArezContextTest
   public void action_function_verifyActionRequired_true()
   {
     final Function<String> function = ValueUtil::randomString;
-    assertInvariantFailure( () -> Arez.context().action( "X", function, Flags.VERIFY_ACTION_REQUIRED ),
+    assertInvariantFailure( () -> Arez.context().action( "X", function, ActionFlags.VERIFY_ACTION_REQUIRED ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
@@ -636,7 +640,7 @@ public class ArezContextTest
   public void safeAction_procedure_verifyActionRequired_false()
   {
     final SafeProcedure procedure = ValueUtil::randomString;
-    Arez.context().safeAction( ValueUtil.randomString(), procedure, Flags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context().safeAction( ValueUtil.randomString(), procedure, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -646,7 +650,7 @@ public class ArezContextTest
     ArezTestUtil.noCheckInvariants();
 
     final SafeProcedure executable = ValueUtil::randomString;
-    Arez.context().safeAction( ValueUtil.randomString(), executable, Flags.VERIFY_ACTION_REQUIRED );
+    Arez.context().safeAction( ValueUtil.randomString(), executable, ActionFlags.VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -654,7 +658,7 @@ public class ArezContextTest
   public void safeAction_procedure_verifyActionRequired_true()
   {
     final SafeProcedure procedure = ValueUtil::randomString;
-    assertInvariantFailure( () -> Arez.context().safeAction( "X", procedure, Flags.VERIFY_ACTION_REQUIRED ),
+    assertInvariantFailure( () -> Arez.context().safeAction( "X", procedure, ActionFlags.VERIFY_ACTION_REQUIRED ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
@@ -668,7 +672,7 @@ public class ArezContextTest
   @Test
   public void safeAction_function_verifyActionRequired_false()
   {
-    Arez.context().safeAction( (SafeFunction<String>) ValueUtil::randomString, Flags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context().safeAction( (SafeFunction<String>) ValueUtil::randomString, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -677,7 +681,7 @@ public class ArezContextTest
   {
     ArezTestUtil.noCheckInvariants();
 
-    Arez.context().safeAction( (SafeFunction<String>) ValueUtil::randomString, Flags.VERIFY_ACTION_REQUIRED );
+    Arez.context().safeAction( (SafeFunction<String>) ValueUtil::randomString, ActionFlags.VERIFY_ACTION_REQUIRED );
     // If we get to here then we performed an action where no read or write occurred
   }
 
@@ -685,7 +689,7 @@ public class ArezContextTest
   public void safeAction_function_verifyActionRequired_true()
   {
     final SafeFunction<String> function = ValueUtil::randomString;
-    assertInvariantFailure( () -> Arez.context().safeAction( "X", function, Flags.VERIFY_ACTION_REQUIRED ),
+    assertInvariantFailure( () -> Arez.context().safeAction( "X", function, ActionFlags.VERIFY_ACTION_REQUIRED ),
                             "Arez-0185: Action named 'X' completed but no reads, writes, schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
   }
 
@@ -1751,7 +1755,7 @@ public class ArezContextTest
         assertEquals( transaction2.getId(), nextNodeId + 1 );
         assertFalse( transaction2.isRootTransaction() );
         assertEquals( transaction2.getRootTransaction(), transaction1 );
-      }, Flags.REQUIRE_NEW_TRANSACTION );
+      }, ActionFlags.REQUIRE_NEW_TRANSACTION );
 
       final Transaction transaction1b = context.getTransaction();
       assertEquals( transaction1b.getName(), name );

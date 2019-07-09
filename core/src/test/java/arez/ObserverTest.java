@@ -429,7 +429,7 @@ public class ObserverTest
 
     observer.invariantComputableValueObserverState();
 
-    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     assertInvariantFailure( () -> context.safeAction( observer::invariantComputableValueObserverState ),
                             "Arez-0094: Observer named '" + observer.getName() + "' is a ComputableValue and " +
@@ -476,7 +476,7 @@ public class ObserverTest
       assertEquals( observer.getDependencies().size(), 1 );
       assertNotSame( observer.getDependencies(), originalDependencies );
       assertTrue( observer.getDependencies().contains( observable ) );
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -526,7 +526,7 @@ public class ObserverTest
     assertEquals( observableValue1.getObservers().size(), 1 );
     assertEquals( observableValue2.getObservers().size(), 1 );
 
-    context.safeAction( observer::clearDependencies, Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( observer::clearDependencies, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     assertEquals( observer.getDependencies().size(), 0 );
     assertEquals( observableValue1.getObservers().size(), 0 );
@@ -847,7 +847,7 @@ public class ObserverTest
       observer.scheduleReaction();
 
       assertFalse( observer.getTask().isQueued() );
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -856,9 +856,9 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    context.safeAction( () -> observer.setState( Flags.STATE_INACTIVE ), Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( () -> observer.setState( Flags.STATE_INACTIVE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
-    assertInvariantFailure( () -> context.safeAction( observer::scheduleReaction, Flags.NO_VERIFY_ACTION_REQUIRED ),
+    assertInvariantFailure( () -> context.safeAction( observer::scheduleReaction, ActionFlags.NO_VERIFY_ACTION_REQUIRED ),
                             "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
                             "been made to schedule observer." );
   }
@@ -1198,7 +1198,7 @@ public class ObserverTest
 
     context.getSpy().addSpyEventHandler( handler );
 
-    Arez.context().safeAction( () -> computableValue.getObserver().invokeReaction(), Flags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context().safeAction( () -> computableValue.getObserver().invokeReaction(), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     handler.assertEventCount( 9 );
 
@@ -1407,7 +1407,7 @@ public class ObserverTest
     context.safeAction( () -> {
       observer.setState( Flags.STATE_STALE );
       assertTrue( observer.shouldCompute() );
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -1627,7 +1627,7 @@ public class ObserverTest
       assertFalse( observer.getTask().isQueued() );
       assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
       assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @Test
@@ -1662,7 +1662,7 @@ public class ObserverTest
 
     final Observer observer = context.observer( new CountingProcedure(), Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
-    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), Flags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     assertFalse( observer.getTask().isQueued() );
 
     assertInvariantFailure( () -> context.safeAction( "MyAction", observer::reportStale, Flags.READ_ONLY ),
@@ -1693,7 +1693,7 @@ public class ObserverTest
 
       // reset the scheduling that occurred due to setState
       context.getTaskQueue().clear();
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     assertFalse( observer.getTask().isQueued() );
     assertEquals( observed.getCallCount(), 0 );
@@ -1811,7 +1811,7 @@ public class ObserverTest
 
       // reset the scheduling that occurred due to setState
       context.getTaskQueue().clear();
-    }, Flags.NO_VERIFY_ACTION_REQUIRED );
+    }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     assertFalse( observer.getTask().isQueued() );
 

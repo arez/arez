@@ -1621,7 +1621,7 @@ public final class ArezContext
   {
     return _safeAction( computableValue.getName() + ".wrapper",
                         action,
-                        Flags.REQUIRE_NEW_TRANSACTION | Flags.NO_VERIFY_ACTION_REQUIRED | Flags.READ_ONLY,
+                        ActionFlags.REQUIRE_NEW_TRANSACTION | ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.READ_ONLY,
                         null,
                         null,
                         false,
@@ -1913,14 +1913,14 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      final int nonActionFlags = flags & ~Flags.ACTION_FLAGS_MASK;
+      final int nonActionFlags = flags & ~ActionFlags.ACTION_FLAGS_MASK;
       apiInvariant( () -> 0 == nonActionFlags,
                     () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
                           "flags set: " + nonActionFlags );
       apiInvariant( () -> !Arez.shouldEnforceTransactionType() ||
                           Flags.isTransactionModeValid( flags | Flags.transactionMode( flags ) ),
                     () -> "Arez-0126: Flags passed to action '" + name + "' include both READ_ONLY and READ_WRITE." );
-      apiInvariant( () -> Flags.isVerifyActionRuleValid( flags | Flags.verifyActionRule( flags ) ),
+      apiInvariant( () -> ActionFlags.isVerifyActionRuleValid( flags | ActionFlags.verifyActionRule( flags ) ),
                     () -> "Arez-0127: Flags passed to action '" + name + "' include both VERIFY_ACTION_REQUIRED " +
                           "and NO_VERIFY_ACTION_REQUIRED." );
     }
@@ -1953,7 +1953,7 @@ public final class ArezContext
   private void verifyActionRequired( @Nonnull final Transaction transaction, final int flags )
   {
     if ( Arez.shouldCheckInvariants() &&
-         Flags.NO_VERIFY_ACTION_REQUIRED != ( flags & Flags.NO_VERIFY_ACTION_REQUIRED ) )
+         ActionFlags.NO_VERIFY_ACTION_REQUIRED != ( flags & ActionFlags.NO_VERIFY_ACTION_REQUIRED ) )
     {
       invariant( transaction::hasTransactionUseOccured,
                  () -> "Arez-0185: Action named '" + transaction.getName() + "' completed but no reads, writes, " +
@@ -1973,9 +1973,9 @@ public final class ArezContext
    */
   private boolean canImmediatelyInvokeAction( final int flags )
   {
-    return 0 == ( flags & Flags.REQUIRE_NEW_TRANSACTION ) &&
+    return 0 == ( flags & ActionFlags.REQUIRE_NEW_TRANSACTION ) &&
            ( Arez.shouldEnforceTransactionType() &&
-             ( Flags.READ_ONLY == ( flags & Flags.READ_ONLY ) ) ?
+             ( ActionFlags.READ_ONLY == ( flags & ActionFlags.READ_ONLY ) ) ?
              isReadOnlyTransactionActive() :
              isReadWriteTransactionActive() );
   }

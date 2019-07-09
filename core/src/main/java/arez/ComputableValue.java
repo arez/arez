@@ -260,7 +260,7 @@ public final class ComputableValue<T>
         // we can elide this transaction if invariants are disabled
         getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".dispose" : null,
                                  () -> getContext().getTransaction().reportDispose( this ),
-                                 Flags.NO_VERIFY_ACTION_REQUIRED );
+                                 ActionFlags.NO_VERIFY_ACTION_REQUIRED );
       }
       _disposed = true;
       _value = null;
@@ -381,7 +381,7 @@ public final class ComputableValue<T>
       {
         getContext().safeAction( Arez.areNamesEnabled() ? getName() + ".deactivate" : null,
                                  observableValue::deactivate,
-                                 Flags.NO_VERIFY_ACTION_REQUIRED );
+                                 ActionFlags.NO_VERIFY_ACTION_REQUIRED );
       }
     }
   }

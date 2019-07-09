@@ -1,7 +1,7 @@
 package arez.integration.verify;
 
+import arez.ActionFlags;
 import arez.Arez;
-import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Inverse;
@@ -118,7 +118,7 @@ public class VerifyZeroOrOneInverseIntegrationTest
   private void verify( @Nonnull final Object object )
     throws Throwable
   {
-    Arez.context().action( () -> Verifiable.verify( object ), Flags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context().action( () -> Verifiable.verify( object ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
 
   @ArezComponent

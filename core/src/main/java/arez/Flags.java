@@ -186,7 +186,7 @@ public final class Flags
   /**
    * The flag can be passed to actions to force the action to create a new transaction.
    */
-  public static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
+  static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
   /**
    * The flag can be passed to actions to force the action to verify that an action performed an activity
    * that required an action. These activities include:
@@ -201,21 +201,12 @@ public final class Flags
    * VERIFY_ACTION_REQUIRED nor {@link #NO_VERIFY_ACTION_REQUIRED} is specified then VERIFY_ACTION_REQUIRED
    * is assumed.</p>
    */
-  public static final int VERIFY_ACTION_REQUIRED = AREZ_DEPENDENCIES;
+  static final int VERIFY_ACTION_REQUIRED = AREZ_DEPENDENCIES;
   /**
    * This flag can be passed to skip verification that action was required.
    * This flag must not be present if {@link #VERIFY_ACTION_REQUIRED} is present.
    */
-  public static final int NO_VERIFY_ACTION_REQUIRED = AREZ_OR_NO_DEPENDENCIES;
-  /**
-   * Mask used to extract verify action bits.
-   */
-  private static final int VERIFY_ACTION_MASK = VERIFY_ACTION_REQUIRED | NO_VERIFY_ACTION_REQUIRED;
-  /**
-   * Mask containing flags that can be applied to an action.
-   */
-  static final int ACTION_FLAGS_MASK =
-    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
+  static final int NO_VERIFY_ACTION_REQUIRED = AREZ_OR_NO_DEPENDENCIES;
   /**
    * Mask that identifies the bits associated with configuration of ComputableValue instances.
    */
@@ -279,25 +270,6 @@ public final class Flags
     return Arez.shouldCheckInvariants() ?
            defaultFlagUnlessSpecified( flags, NESTED_ACTIONS_MASK, NESTED_ACTIONS_DISALLOWED ) :
            0;
-  }
-
-  static int verifyActionRule( final int flags )
-  {
-    return Arez.shouldCheckApiInvariants() ?
-           defaultFlagUnlessSpecified( flags, VERIFY_ACTION_MASK, VERIFY_ACTION_REQUIRED ) :
-           0;
-  }
-
-  /**
-   * Return true if flags contains a valid verify action rule.
-   *
-   * @param flags the flags.
-   * @return true if flags contains verify action rule.
-   */
-  static boolean isVerifyActionRuleValid( final int flags )
-  {
-    return VERIFY_ACTION_REQUIRED == ( flags & VERIFY_ACTION_MASK ) ||
-           NO_VERIFY_ACTION_REQUIRED == ( flags & VERIFY_ACTION_MASK );
   }
 
   /**

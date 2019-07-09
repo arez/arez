@@ -1,0 +1,71 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.ActionFlags",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ActionFlags",
+      "classSimpleName": "ActionFlags",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityReduced",
+    "description": "Visibility was reduced from 'public' to 'package'.",
+    "element": "field arez.Flags.NO_VERIFY_ACTION_REQUIRED",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "NO_VERIFY_ACTION_REQUIRED",
+      "newVisibility": "package",
+      "oldVisibility": "public",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityReduced",
+    "description": "Visibility was reduced from 'public' to 'package'.",
+    "element": "field arez.Flags.REQUIRE_NEW_TRANSACTION",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "REQUIRE_NEW_TRANSACTION",
+      "newVisibility": "package",
+      "oldVisibility": "public",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityReduced",
+    "description": "Visibility was reduced from 'public' to 'package'.",
+    "element": "field arez.Flags.VERIFY_ACTION_REQUIRED",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "VERIFY_ACTION_REQUIRED",
+      "newVisibility": "package",
+      "oldVisibility": "public",
+      "package": "arez"
+    }
+  }
+]

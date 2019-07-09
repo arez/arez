@@ -246,7 +246,7 @@ final class ActionDescriptor
     expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
     for ( int i = 0; i < flags.size(); i++ )
     {
-      parameters.add( Generator.FLAGS_CLASSNAME );
+      parameters.add( Generator.ACTION_FLAGS_CLASSNAME );
     }
   }
 }

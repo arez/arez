@@ -1,6 +1,7 @@
 package arez.component.internal;
 
 import arez.AbstractArezTest;
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
@@ -344,7 +345,7 @@ public class ComponentKernelTest
 
     Disposable.dispose( kernel );
 
-    assertFalse( context.safeAction( (SafeFunction<Boolean>) kernel::observe, Flags.NO_VERIFY_ACTION_REQUIRED ) );
+    assertFalse( context.safeAction( (SafeFunction<Boolean>) kernel::observe, ActionFlags.NO_VERIFY_ACTION_REQUIRED ) );
 
     assertEquals( notDisposedCallCount.get(), 1 );
     assertEquals( disposedCallCount.get(), 1 );
@@ -388,7 +389,7 @@ public class ComponentKernelTest
     // Dispose the observer - this should trigger the dispose of the ComponentKernel
     Disposable.dispose( observer );
 
-    assertFalse( context.safeAction( (SafeFunction<Boolean>) kernel::observe, Flags.NO_VERIFY_ACTION_REQUIRED ) );
+    assertFalse( context.safeAction( (SafeFunction<Boolean>) kernel::observe, ActionFlags.NO_VERIFY_ACTION_REQUIRED ) );
 
     assertEquals( notDisposedCallCount.get(), 1 );
 

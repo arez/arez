@@ -1,5 +1,6 @@
 package arez.component.internal;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -179,7 +180,7 @@ public final class MemoizeCache<T>
       getContext().safeAction( Arez.areNamesEnabled() ? _name : null, () -> {
         disposeMap( _cache, _argCount );
         _cache.clear();
-      }, Flags.NO_VERIFY_ACTION_REQUIRED );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     }
   }
 

@@ -162,7 +162,7 @@ public final class Component
         {
           _postDispose.call();
         }
-      }, Flags.NO_VERIFY_ACTION_REQUIRED );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
       if ( Arez.areSpiesEnabled() && getContext().getSpy().willPropagateSpyEvents() )
       {
         final ComponentInfo info = getContext().getSpy().asComponentInfo( this );

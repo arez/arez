@@ -1,6 +1,7 @@
 package arez.test;
 
 import arez.AbstractArezTest;
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
@@ -525,7 +526,7 @@ public class ExternalApiTest
       context.safeAction( () -> {
         assertEquals( context, Arez.context() );
         assertNotEquals( zone.getContext(), Arez.context() );
-      }, Flags.NO_VERIFY_ACTION_REQUIRED );
+      }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     } );
     assertEquals( context, Arez.context() );
   }
