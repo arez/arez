@@ -1,7 +1,7 @@
 package arez.doc.examples.observe;
 
+import arez.ActionFlags;
 import arez.Arez;
-import arez.Flags;
 
 public class ObserverExample2
 {
@@ -12,6 +12,6 @@ public class ObserverExample2
       // and any time these changed this function will be re-run.
       //DOC ELIDE START
       //DOC ELIDE END
-    }, Flags.READ_WRITE );
+    }, ActionFlags.READ_WRITE );
   }
 }
