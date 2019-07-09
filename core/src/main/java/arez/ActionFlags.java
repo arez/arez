@@ -8,15 +8,11 @@ public final class ActionFlags
   /**
    * The action can only read arez state.
    */
-  public static final int READ_ONLY = Flags.READ_ONLY;
+  public static final int READ_ONLY = Transaction.Flags.READ_ONLY;
   /**
    * The action can read or write arez state.
    */
-  public static final int READ_WRITE = Flags.READ_WRITE;
-  /**
-   * Mask used to extract transaction mode bits.
-   */
-  private static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
+  public static final int READ_WRITE = Transaction.Flags.READ_WRITE;
   /**
    * Do not report result to spy infrastructure.
    */
@@ -53,7 +49,7 @@ public final class ActionFlags
    * Mask containing flags that can be applied to an action.
    */
   static final int ACTION_FLAGS_MASK =
-    TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
+    Transaction.Flags.TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
 
   private ActionFlags()
   {

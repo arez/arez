@@ -1621,7 +1621,9 @@ public final class ArezContext
   {
     return _safeAction( computableValue.getName() + ".wrapper",
                         action,
-                        ActionFlags.REQUIRE_NEW_TRANSACTION | ActionFlags.NO_VERIFY_ACTION_REQUIRED | ActionFlags.READ_ONLY,
+                        ActionFlags.REQUIRE_NEW_TRANSACTION |
+                        ActionFlags.NO_VERIFY_ACTION_REQUIRED |
+                        ActionFlags.READ_ONLY,
                         null,
                         null,
                         false,
@@ -1918,7 +1920,8 @@ public final class ArezContext
                     () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
                           "flags set: " + nonActionFlags );
       apiInvariant( () -> !Arez.shouldEnforceTransactionType() ||
-                          Flags.isTransactionModeValid( flags | Flags.transactionMode( flags ) ),
+                          Transaction.Flags.isTransactionModeValid( Transaction.Flags.transactionMode( flags ) |
+                                                                    flags ),
                     () -> "Arez-0126: Flags passed to action '" + name + "' include both READ_ONLY and READ_WRITE." );
       apiInvariant( () -> ActionFlags.isVerifyActionRuleValid( flags | ActionFlags.verifyActionRule( flags ) ),
                     () -> "Arez-0127: Flags passed to action '" + name + "' include both VERIFY_ACTION_REQUIRED " +
@@ -1964,7 +1967,7 @@ public final class ArezContext
   @Nonnull
   private Transaction newTransaction( @Nullable final String name, final int flags, @Nullable final Observer observer )
   {
-    final boolean mutation = Arez.shouldEnforceTransactionType() && 0 == ( flags & Flags.READ_ONLY );
+    final boolean mutation = Arez.shouldEnforceTransactionType() && 0 == ( flags & Transaction.Flags.READ_ONLY );
     return Transaction.begin( this, generateName( "Transaction", name ), mutation, observer );
   }
 

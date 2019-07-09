@@ -12,6 +12,43 @@ public class TransactionTest
   extends AbstractArezTest
 {
   @Test
+  public void defaultObserverTransactionModeUnlessSpecified()
+  {
+    assertEquals( Transaction.Flags.transactionMode( Transaction.Flags.READ_ONLY ), 0 );
+    assertEquals( Transaction.Flags.transactionMode( Transaction.Flags.READ_WRITE ), 0 );
+    assertEquals( Transaction.Flags.transactionMode( 0 ), Transaction.Flags.READ_ONLY );
+
+    ArezTestUtil.noEnforceTransactionType();
+    assertEquals( Transaction.Flags.transactionMode( 0 ), 0 );
+  }
+
+  @Test
+  public void isTransactionModeSpecified()
+  {
+    assertTrue( Transaction.Flags.isTransactionModeSpecified( Transaction.Flags.READ_ONLY ) );
+    assertTrue( Transaction.Flags.isTransactionModeSpecified( Transaction.Flags.READ_WRITE ) );
+    assertFalse( Transaction.Flags.isTransactionModeSpecified( 0 ) );
+  }
+
+  @Test
+  public void isTransactionModeValid()
+  {
+    assertTrue( Transaction.Flags.isTransactionModeValid( Transaction.Flags.READ_ONLY ) );
+    assertTrue( Transaction.Flags.isTransactionModeValid( Transaction.Flags.READ_WRITE ) );
+    assertFalse( Transaction.Flags.isTransactionModeValid( 0 ) );
+    assertFalse( Transaction.Flags.isTransactionModeValid( Transaction.Flags.READ_ONLY |
+                                                           Transaction.Flags.READ_WRITE ) );
+  }
+
+  @Test
+  public void getTransactionModeName()
+  {
+    assertEquals( Transaction.Flags.getTransactionModeName( Transaction.Flags.READ_ONLY ), "READ_ONLY" );
+    assertEquals( Transaction.Flags.getTransactionModeName( Transaction.Flags.READ_WRITE ), "READ_WRITE" );
+    assertEquals( Transaction.Flags.getTransactionModeName( 0 ), "UNKNOWN(0)" );
+  }
+
+  @Test
   public void construction()
   {
     final ArezContext context = Arez.context();

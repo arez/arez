@@ -116,33 +116,6 @@ public class FlagsTest
   }
 
   @Test
-  public void isTransactionModeSpecified()
-  {
-    assertTrue( Flags.isTransactionModeSpecified( Flags.READ_ONLY ) );
-    assertTrue( Flags.isTransactionModeSpecified( Flags.READ_WRITE ) );
-    assertFalse( Flags.isTransactionModeSpecified( 0 ) );
-    assertFalse( Flags.isTransactionModeSpecified( Flags.PRIORITY_LOWEST ) );
-  }
-
-  @Test
-  public void isTransactionModeValid()
-  {
-    assertTrue( Flags.isTransactionModeValid( Flags.READ_ONLY ) );
-    assertTrue( Flags.isTransactionModeValid( Flags.READ_WRITE ) );
-    assertFalse( Flags.isTransactionModeValid( 0 ) );
-    assertFalse( Flags.isTransactionModeValid( Flags.PRIORITY_LOWEST ) );
-    assertFalse( Flags.isTransactionModeValid( Flags.READ_ONLY | Flags.READ_WRITE ) );
-  }
-
-  @Test
-  public void getTransactionModeName()
-  {
-    assertEquals( Flags.getTransactionModeName( Flags.READ_ONLY ), "READ_ONLY" );
-    assertEquals( Flags.getTransactionModeName( Flags.READ_WRITE ), "READ_WRITE" );
-    assertEquals( Flags.getTransactionModeName( 0 ), "UNKNOWN(0)" );
-  }
-
-  @Test
   public void isNestedActionsModeValid()
   {
     assertTrue( Flags.isNestedActionsModeValid( Flags.NESTED_ACTIONS_ALLOWED ) );
@@ -182,22 +155,9 @@ public class FlagsTest
     assertEquals( Flags.nestedActionRule( Flags.NESTED_ACTIONS_ALLOWED ), 0 );
     assertEquals( Flags.nestedActionRule( Flags.NESTED_ACTIONS_DISALLOWED ), 0 );
     assertEquals( Flags.nestedActionRule( 0 ), Flags.NESTED_ACTIONS_DISALLOWED );
-    assertEquals( Flags.nestedActionRule( Flags.READ_ONLY ), Flags.NESTED_ACTIONS_DISALLOWED );
 
     ArezTestUtil.noCheckInvariants();
     assertEquals( Flags.nestedActionRule( 0 ), 0 );
-  }
-
-  @Test
-  public void defaultObserverTransactionModeUnlessSpecified()
-  {
-    assertEquals( Flags.transactionMode( Flags.READ_ONLY ), 0 );
-    assertEquals( Flags.transactionMode( Flags.READ_WRITE ), 0 );
-    assertEquals( Flags.transactionMode( 0 ), Flags.READ_ONLY );
-    assertEquals( Flags.transactionMode( Flags.NESTED_ACTIONS_DISALLOWED ), Flags.READ_ONLY );
-
-    ArezTestUtil.noEnforceTransactionType();
-    assertEquals( Flags.transactionMode( 0 ), 0 );
   }
 
   @Test

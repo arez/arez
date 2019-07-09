@@ -52,15 +52,11 @@ public final class Flags
   /**
    * The observer can only read arez state.
    */
-  public static final int READ_ONLY = 1 << 24;
+  public static final int READ_ONLY = Transaction.Flags.READ_ONLY;
   /**
    * The observer can read or write arez state.
    */
-  public static final int READ_WRITE = 1 << 23;
-  /**
-   * Mask used to extract transaction mode bits.
-   */
-  private static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
+  public static final int READ_WRITE = Transaction.Flags.READ_WRITE;
   /**
    * The scheduler will be triggered when the observer is created to immediately invoke the
    * {@link Observer#_observe} function. This configuration should not be specified if there
@@ -178,7 +174,7 @@ public final class Flags
     OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
     NESTED_ACTIONS_MASK |
     DEPENDENCIES_TYPE_MASK |
-    TRANSACTION_MASK |
+    Transaction.Flags.TRANSACTION_MASK |
     Task.Flags.RUN_TYPE_MASK |
     SCHEDULE_TYPE_MASK |
     Task.Flags.PRIORITY_MASK |
@@ -285,35 +281,6 @@ public final class Flags
   }
 
   /**
-   * Return true if flags contains transaction mode.
-   *
-   * @param flags the flags.
-   * @return true if flags contains transaction mode.
-   */
-  static boolean isTransactionModeSpecified( final int flags )
-  {
-    return 0 != ( flags & TRANSACTION_MASK );
-  }
-
-  static int transactionMode( final int flags )
-  {
-    return Arez.shouldEnforceTransactionType() ?
-           defaultFlagUnlessSpecified( flags, TRANSACTION_MASK, READ_ONLY ) :
-           0;
-  }
-
-  /**
-   * Return true if flags contains a valid transaction mode.
-   *
-   * @param flags the flags.
-   * @return true if flags contains transaction mode.
-   */
-  static boolean isTransactionModeValid( final int flags )
-  {
-    return 0 != ( flags & READ_ONLY ) ^ 0 != ( flags & READ_WRITE );
-  }
-
-  /**
    * Return the default dependency type flag if dependency type not specified.
    *
    * @param flags the flags.
@@ -324,30 +291,6 @@ public final class Flags
     return Arez.shouldCheckInvariants() ?
            defaultFlagUnlessSpecified( flags, DEPENDENCIES_TYPE_MASK, AREZ_DEPENDENCIES ) :
            0;
-  }
-
-  /**
-   * Return name of transaction mode.
-   *
-   * @param flags the flags.
-   * @return true if flags contains transaction mode.
-   */
-  @Nonnull
-  static String getTransactionModeName( final int flags )
-  {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
-    if ( 0 != ( flags & READ_ONLY ) )
-    {
-      return "READ_ONLY";
-    }
-    else if ( 0 != ( flags & READ_WRITE ) )
-    {
-      return "READ_WRITE";
-    }
-    else
-    {
-      return "UNKNOWN(" + flags + ")";
-    }
   }
 
   /**

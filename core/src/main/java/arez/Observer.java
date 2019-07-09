@@ -110,7 +110,7 @@ public final class Observer
           Task.Flags.runType( flags, null == observe ? Task.Flags.RUN_LATER : Task.Flags.RUN_NOW ) |
           Flags.nestedActionRule( flags ) |
           Flags.dependencyType( flags ) |
-          Flags.transactionMode( flags ) );
+          Transaction.Flags.transactionMode( flags ) );
   }
 
   private Observer( @Nullable final ArezContext context,
@@ -133,15 +133,15 @@ public final class Observer
     {
       if ( Arez.shouldEnforceTransactionType() )
       {
-        invariant( () -> Flags.isTransactionModeValid( flags ),
+        invariant( () -> Transaction.Flags.isTransactionModeValid( flags ),
                    () -> "Arez-0079: Observer named '" + getName() + "' incorrectly specified both READ_ONLY " +
                          "and READ_WRITE transaction mode flags." );
       }
       else
       {
-        invariant( () -> !Flags.isTransactionModeSpecified( flags ),
+        invariant( () -> !Transaction.Flags.isTransactionModeSpecified( flags ),
                    () -> "Arez-0082: Observer named '" + getName() + "' specified transaction mode '" +
-                         Flags.getTransactionModeName( flags ) + "' when Arez.enforceTransactionType() is false." );
+                         Transaction.Flags.getTransactionModeName( flags ) + "' when Arez.enforceTransactionType() is false." );
       }
       invariant( () -> Task.Flags.isPriorityValid( _task.getFlags() ),
                  () -> "Arez-0080: Observer named '" + getName() + "' has invalid priority " +
