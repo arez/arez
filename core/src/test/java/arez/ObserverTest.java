@@ -1665,7 +1665,7 @@ public class ObserverTest
     context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     assertFalse( observer.getTask().isQueued() );
 
-    assertInvariantFailure( () -> context.safeAction( "MyAction", observer::reportStale, Flags.READ_ONLY ),
+    assertInvariantFailure( () -> context.safeAction( "MyAction", observer::reportStale, ActionFlags.READ_ONLY ),
                             "Arez-0201: Observer.reportStale() invoked on observer named '" + observer.getName() +
                             "' when the active transaction 'MyAction' is READ_ONLY rather " +
                             "than READ_WRITE." );

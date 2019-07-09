@@ -382,7 +382,7 @@ public class ObservableValueTest
     @SuppressWarnings( "CodeBlock2Expr" )
     final IllegalStateException exception = expectThrows( IllegalStateException.class, () -> context.safeAction( () -> {
       context.safeAction( name, (SafeProcedure) ValueUtil::randomString );
-    }, Flags.READ_ONLY ) );
+    }, ActionFlags.READ_ONLY ) );
 
     assertTrue( exception.getMessage().startsWith( "Arez-0119: Attempting to create READ_WRITE transaction named '" +
                                                    name + "' but it is nested in transaction named '" ) );

@@ -706,7 +706,7 @@ public class ComputableValueTest
     assertEquals( autorunCallCount.get(), 1 );
     assertEquals( computedCallCount.get(), 1 );
 
-    assertInvariantFailure( () -> context.safeAction( computableValue::reportPossiblyChanged, Flags.READ_ONLY ),
+    assertInvariantFailure( () -> context.safeAction( computableValue::reportPossiblyChanged, ActionFlags.READ_ONLY ),
                             "Arez-0152: Transaction named 'Action@4' attempted to change ObservableValue named '" +
                             computableValue.getName() + "' but the transaction mode is READ_ONLY." );
 

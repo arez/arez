@@ -130,7 +130,7 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         assertTrue( context.isReadOnlyTransactionActive() );
         observeADependency();
-      }, Flags.READ_ONLY );
+      }, ActionFlags.READ_ONLY );
     } );
 
     assertFalse( context.isTransactionActive() );
@@ -154,7 +154,7 @@ public class ArezContextTest
         assertTrue( context.isTransactionActive() );
         assertFalse( context.isReadWriteTransactionActive() );
         observeADependency();
-      }, Flags.READ_ONLY );
+      }, ActionFlags.READ_ONLY );
     } );
 
     assertFalse( context.isTransactionActive() );
@@ -395,7 +395,7 @@ public class ArezContextTest
         assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
         return expectedValue;
-      }, Flags.READ_ONLY, new Object[]{ param1, param2, param3 } );
+      }, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } );
 
     assertFalse( context.isTransactionActive() );
 
@@ -1002,7 +1002,7 @@ public class ArezContextTest
         assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
 
         return expectedValue;
-      }, Flags.READ_ONLY, new Object[]{ param1, param2, param3 } );
+      }, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } );
 
     assertFalse( context.isTransactionActive() );
 
@@ -1071,7 +1071,7 @@ public class ArezContextTest
     assertThrows( AccessControlException.class, () ->
       context.safeAction( name, () -> {
         throw secException;
-      }, Flags.READ_ONLY, new Object[]{ param1, param2, param3 } ) );
+      }, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } ) );
 
     assertFalse( context.isTransactionActive() );
 
@@ -1528,7 +1528,7 @@ public class ArezContextTest
       //Not tracking so no state updated
       assertEquals( observableValue.getObservers().size(), 0 );
       assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
-    }, Flags.READ_ONLY, new Object[]{ param1, param2, param3 } );
+    }, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } );
 
     assertFalse( context.isTransactionActive() );
 
@@ -1613,7 +1613,7 @@ public class ArezContextTest
       //Not tracking so no state updated
       assertEquals( observableValue.getObservers().size(), 0 );
       assertNotEquals( nextNodeId, observableValue.getLastTrackerTransactionId() );
-    }, Flags.READ_ONLY, new Object[]{ param1, param2, param3 } );
+    }, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } );
 
     assertFalse( context.isTransactionActive() );
 
@@ -1683,7 +1683,7 @@ public class ArezContextTest
       throw ioException;
     };
     assertThrows( IOException.class,
-                  () -> context.action( name, procedure, Flags.READ_ONLY, new Object[]{ param1, param2, param3 } ) );
+                  () -> context.action( name, procedure, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } ) );
 
     assertFalse( context.isTransactionActive() );
 
@@ -1960,7 +1960,7 @@ public class ArezContextTest
 
     assertInvariantFailure( () -> {
                               final Procedure executable = () -> context.scheduleReaction( observer );
-                              context.action( executable, Flags.READ_ONLY );
+                              context.action( executable, ActionFlags.READ_ONLY );
                             },
                             "Arez-0013: Observer named '" + observer.getName() + "' attempted to be scheduled " +
                             "during read-only transaction." );
