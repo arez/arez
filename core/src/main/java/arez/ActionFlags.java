@@ -62,21 +62,8 @@ public final class ActionFlags
   static int verifyActionRule( final int flags )
   {
     return Arez.shouldCheckApiInvariants() ?
-           defaultFlagUnlessSpecified( flags, VERIFY_ACTION_MASK, VERIFY_ACTION_REQUIRED ) :
+           0 != ( flags & VERIFY_ACTION_MASK ) ? 0 : VERIFY_ACTION_REQUIRED :
            0;
-  }
-
-  /**
-   * Return the default flag unless a value in mask is specified.
-   *
-   * @param flags       the flags.
-   * @param mask        the mask.
-   * @param defaultFlag the default flag to apply
-   * @return the default flag unless flag has value.
-   */
-  private static int defaultFlagUnlessSpecified( final int flags, final int mask, final int defaultFlag )
-  {
-    return 0 != ( flags & mask ) ? 0 : defaultFlag;
   }
 
   /**
