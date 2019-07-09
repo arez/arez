@@ -1,5 +1,6 @@
 package arez.doc.examples.actions;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.Flags;
 
@@ -14,6 +15,6 @@ public class ActionExample4
       int value = 0;
       //DOC ELIDE END
       return value;
-    }, Flags.READ_ONLY );
+    }, ActionFlags.READ_ONLY );
   }
 }
