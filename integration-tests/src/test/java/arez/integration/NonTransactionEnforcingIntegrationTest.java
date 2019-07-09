@@ -1,9 +1,9 @@
 package arez.integration;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
-import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
@@ -51,13 +51,13 @@ public class NonTransactionEnforcingIntegrationTest
                       person.setFirstName( "Fred" );
                       action1ReadOnly.set( context.getSpy().getTransaction().isReadOnly() );
                     },
-                    Flags.READ_ONLY );
+                    ActionFlags.READ_ONLY );
     context.action( "Last Name Update",
                     () -> {
                       person.setLastName( "Donaldo" );
                       action2ReadOnly.set( context.getSpy().getTransaction().isReadOnly() );
                     },
-                    Flags.READ_ONLY );
+                    ActionFlags.READ_ONLY );
 
     // When transactions are not enforced, everything is effectively a write transaction!!!
     assertFalse( action1ReadOnly.get() );
