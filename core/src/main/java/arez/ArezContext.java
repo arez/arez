@@ -1248,7 +1248,7 @@ public final class ArezContext
    *
    * @param <T>        the type of return value.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
    * @throws Exception if the executable throws an an exception.
    */
@@ -1283,7 +1283,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
    * @throws Exception if the executable throws an an exception.
    */
@@ -1302,7 +1302,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the executable.
    * @throws Exception if the executable throws an an exception.
@@ -1413,7 +1413,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
    */
   public <T> T safeAction( @Nullable final String name,
@@ -1430,7 +1430,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the executable.
    */
@@ -1505,7 +1505,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nonnull final Procedure executable, final int flags )
@@ -1535,7 +1535,7 @@ public final class ArezContext
    *
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @throws Throwable if the procedure throws an an exception.
    */
   public void action( @Nullable final String name,
@@ -1552,7 +1552,7 @@ public final class ArezContext
    *
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @throws Throwable if the procedure throws an an exception.
    */
@@ -1676,7 +1676,7 @@ public final class ArezContext
    * Execute the supplied executable in a transaction.
    *
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    */
   public void safeAction( @Nonnull final SafeProcedure executable, final int flags )
   {
@@ -1699,7 +1699,7 @@ public final class ArezContext
    *
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    */
   public void safeAction( @Nullable final String name, @Nonnull final SafeProcedure executable, final int flags )
   {
@@ -1711,7 +1711,7 @@ public final class ArezContext
    *
    * @param name       the name of the action.
    * @param executable the executable.
-   * @param flags      the flags for the action.
+   * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    */
   public void safeAction( @Nullable final String name,
