@@ -222,7 +222,7 @@ public class ComputableValueInfoImplTest
 
     assertFalse( spy.asComputableValueInfo( computableValue ).isActive() );
     setupReadOnlyTransaction( context );
-    computableValue.getObserver().setState( Flags.STATE_UP_TO_DATE );
+    computableValue.getObserver().setState( Observer.Flags.STATE_UP_TO_DATE );
     assertTrue( spy.asComputableValueInfo( computableValue ).isActive() );
   }
 

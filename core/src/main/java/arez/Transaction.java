@@ -20,15 +20,19 @@ final class Transaction
     /**
      * The transaction can only read arez state.
      */
-    public static final int READ_ONLY = 1 << 24;
+    static final int READ_ONLY = 1 << 24;
     /**
      * The transaction can read or write arez state.
      */
-    public static final int READ_WRITE = 1 << 23;
+    static final int READ_WRITE = 1 << 23;
     /**
      * Mask used to extract transaction mode bits.
      */
     static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
+    /**
+     * The flag means that the element must create a new transaction.
+     */
+    static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
 
     /**
      * Return true if flags contains transaction mode.
@@ -447,7 +451,7 @@ final class Transaction
         // Mark the tracker as up to date at the start of the transaction.
         // If it is made stale during the transaction then completeTracking() will fix the
         // state of the _tracker.
-        _tracker.setState( arez.Flags.STATE_UP_TO_DATE );
+        _tracker.setState( Observer.Flags.STATE_UP_TO_DATE );
       }
       // Ensure dependencies "LeastStaleObserverState" state is kept up to date.
       _tracker.markDependenciesLeastStaleObserverAsUpToDate();
@@ -650,23 +654,23 @@ final class Transaction
       observableValue.invariantLeastStaleObserverState();
     }
 
-    if ( observableValue.hasObservers() && arez.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
+    if ( observableValue.hasObservers() && Observer.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
-      observableValue.setLeastStaleObserverState( arez.Flags.STATE_STALE );
+      observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
       final ArrayList<Observer> observers = observableValue.getObservers();
       for ( final Observer observer : observers )
       {
         final int state = observer.getState();
         if ( Arez.shouldCheckInvariants() )
         {
-          invariant( () -> arez.Flags.STATE_INACTIVE != state,
+          invariant( () -> Observer.Flags.STATE_INACTIVE != state,
                      () -> "Arez-0145: Transaction named '" + getName() + "' has attempted to explicitly " +
                            "change observableValue named '" + observableValue.getName() + "' and observableValue " +
-                           "is in unexpected state " + arez.Flags.getStateName( state ) + "." );
+                           "is in unexpected state " + Observer.Flags.getStateName( state ) + "." );
         }
-        if ( arez.Flags.STATE_STALE != state )
+        if ( Observer.Flags.STATE_STALE != state )
         {
-          observer.setState( arez.Flags.STATE_STALE );
+          observer.setState( Observer.Flags.STATE_STALE );
         }
       }
     }
@@ -701,19 +705,20 @@ final class Transaction
       observableValue.invariantLeastStaleObserverState();
     }
 
-    if ( observableValue.hasObservers() && arez.Flags.STATE_UP_TO_DATE == observableValue.getLeastStaleObserverState() )
+    if ( observableValue.hasObservers() &&
+         Observer.Flags.STATE_UP_TO_DATE == observableValue.getLeastStaleObserverState() )
     {
-      observableValue.setLeastStaleObserverState( arez.Flags.STATE_POSSIBLY_STALE );
+      observableValue.setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
       for ( final Observer observer : observableValue.getObservers() )
       {
         final int state = observer.getState();
-        if ( arez.Flags.STATE_UP_TO_DATE == state )
+        if ( Observer.Flags.STATE_UP_TO_DATE == state )
         {
-          observer.setState( arez.Flags.STATE_POSSIBLY_STALE );
+          observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
         }
         else
         {
-          assert arez.Flags.STATE_STALE == state || arez.Flags.STATE_POSSIBLY_STALE == state;
+          assert Observer.Flags.STATE_STALE == state || Observer.Flags.STATE_POSSIBLY_STALE == state;
         }
       }
     }
@@ -743,17 +748,17 @@ final class Transaction
       observableValue.invariantLeastStaleObserverState();
     }
     verifyWriteAllowed( observableValue );
-    if ( observableValue.hasObservers() && arez.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
+    if ( observableValue.hasObservers() && Observer.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
-      observableValue.setLeastStaleObserverState( arez.Flags.STATE_STALE );
+      observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
 
       for ( final Observer observer : observableValue.getObservers() )
       {
-        if ( arez.Flags.STATE_POSSIBLY_STALE == observer.getState() )
+        if ( Observer.Flags.STATE_POSSIBLY_STALE == observer.getState() )
         {
-          observer.setState( arez.Flags.STATE_STALE );
+          observer.setState( Observer.Flags.STATE_STALE );
         }
-        else if ( arez.Flags.STATE_UP_TO_DATE == observer.getState() )
+        else if ( Observer.Flags.STATE_UP_TO_DATE == observer.getState() )
         {
           /*
            * This happens when the observer is reacting to the change and this
@@ -779,7 +784,7 @@ final class Transaction
           {
             invariantObserverIsTracker( observableValue, observer );
           }
-          observableValue.setLeastStaleObserverState( arez.Flags.STATE_UP_TO_DATE );
+          observableValue.setLeastStaleObserverState( Observer.Flags.STATE_UP_TO_DATE );
         }
       }
     }
@@ -868,7 +873,7 @@ final class Transaction
     if ( Arez.shouldCheckInvariants() )
     {
       _tracker.invariantDependenciesUnique( "Pre completeTracking" );
-      invariant( () -> _tracker.getState() != arez.Flags.STATE_INACTIVE || _tracker.isDisposed(),
+      invariant( () -> _tracker.getState() != Observer.Flags.STATE_INACTIVE || _tracker.isDisposed(),
                  () -> "Arez-0155: Transaction named '" + getName() + "' called completeTracking but _tracker state " +
                        "of INACTIVE is not expected when tracker has not been disposed." );
     }
@@ -905,7 +910,7 @@ final class Transaction
           {
             final Observer owner = observableValue.getObserver();
             final int dependenciesState = owner.getState();
-            if ( dependenciesState == arez.Flags.STATE_STALE )
+            if ( dependenciesState == Observer.Flags.STATE_STALE )
             {
               newDerivationState = dependenciesState;
             }
@@ -936,7 +941,7 @@ final class Transaction
     // tracking operation but they have had no chance to propagate staleness to this
     // observer so rectify this. This should NOT reschedule tracker.
     // NOTE: This must occur before subsequent observable.addObserver() calls
-    if ( _tracker.isNotDisposedOrDisposing() && arez.Flags.STATE_UP_TO_DATE != newDerivationState )
+    if ( _tracker.isNotDisposedOrDisposing() && Observer.Flags.STATE_UP_TO_DATE != newDerivationState )
     {
       if ( _tracker.getState() < newDerivationState )
       {
@@ -960,7 +965,7 @@ final class Transaction
           if ( Arez.shouldCheckInvariants() )
           {
             final int leastStaleObserverState = observableValue.getLeastStaleObserverState();
-            assert !( arez.Flags.isNotActive( leastStaleObserverState ) ||
+            assert !( Observer.Flags.isNotActive( leastStaleObserverState ) ||
                       leastStaleObserverState > newDerivationState );
           }
         }

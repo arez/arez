@@ -362,7 +362,7 @@ final class ObserveDescriptor
     expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
     for ( int i = 0; i < flags.size(); i++ )
     {
-      parameters.add( Generator.FLAGS_CLASSNAME );
+      parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
     }
 
     if ( null != _priorityOverride )
@@ -371,15 +371,15 @@ final class ObserveDescriptor
       if ( 0 == parameterCount )
       {
         expression.append( " | ($T.PRIORITY_MASK & $N())" );
-        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
         parameters.add( _priorityOverride.getMethod().getSimpleName() );
       }
       else
       {
         expression.append( " | ($T.PRIORITY_MASK & $N( $T.$N ))" );
-        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
         parameters.add( _priorityOverride.getMethod().getSimpleName() );
-        parameters.add( Generator.FLAGS_CLASSNAME );
+        parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
         parameters.add( "PRIORITY_" + _priority );
       }
     }

@@ -4,7 +4,6 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.Flags;
 import arez.Observer;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
@@ -32,7 +31,7 @@ final class Arez_CtorInjectWithObserveModel extends CtorInjectWithObserveModel i
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "CtorInjectWithObserveModel" : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CtorInjectWithObserveModel", $$arezv$$_id, $$arezv$$_name ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, false, false, false );
-    this.$$arez$$_autorun = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".autorun" : null, () -> super.autorun(), Flags.RUN_LATER | Flags.NESTED_ACTIONS_DISALLOWED | Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_autorun = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".autorun" : null, () -> super.autorun(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
   }

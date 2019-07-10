@@ -7,7 +7,6 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.SafeFunction;
@@ -43,7 +42,7 @@ public class ComputableValueApiTest
     final ComputableValue<Integer> computableValue = context.computable( () -> {
       computedCallCount.incrementAndGet();
       return result.get();
-    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    }, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( computedCallCount.get(), 0 );
     assertEquals( observerCallCount.get(), 0 );
@@ -87,7 +86,7 @@ public class ComputableValueApiTest
     final ComputableValue<Integer> computableValue = context.computable( () -> {
       computedCallCount.incrementAndGet();
       return result.get();
-    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    }, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( computedCallCount.get(), 0 );
 
@@ -136,7 +135,7 @@ public class ComputableValueApiTest
     final ComputableValue<Integer> computableValue = context.computable( () -> {
       computedCallCount.incrementAndGet();
       return 1;
-    }, Flags.AREZ_OR_NO_DEPENDENCIES );
+    }, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertEquals( computedCallCount.get(), 0 );
     assertEquals( observerCallCount.get(), 0 );
@@ -166,7 +165,7 @@ public class ComputableValueApiTest
       return result.get();
     };
     final ComputableValue<String> computableValue =
-      context.computable( "TestComputableValue", action, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.KEEPALIVE );
+      context.computable( "TestComputableValue", action, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Observer.Flags.KEEPALIVE );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
     context.observer( () -> {
@@ -212,7 +211,7 @@ public class ComputableValueApiTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( action, Flags.KEEPALIVE );
+      context.computable( action, Observer.Flags.KEEPALIVE );
 
     assertEquals( calls.get(), 1 );
 
@@ -516,7 +515,7 @@ public class ComputableValueApiTest
       computedCallCount.incrementAndGet();
       observable.reportObserved();
       return result.get();
-    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Flags.READ_OUTSIDE_TRANSACTION );
+    }, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.READ_OUTSIDE_TRANSACTION );
 
     assertEquals( computedCallCount.get(), 0 );
 

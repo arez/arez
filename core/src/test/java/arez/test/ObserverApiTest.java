@@ -3,7 +3,6 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
 import arez.Function;
 import arez.ObservableValue;
 import arez.Observer;
@@ -46,7 +45,7 @@ public class ObserverApiTest
   {
     final AtomicInteger callCount = new AtomicInteger();
 
-    Arez.context().observer( callCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+    Arez.context().observer( callCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
   }
@@ -83,7 +82,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    }, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
 
@@ -103,7 +102,7 @@ public class ObserverApiTest
     final Observer observer = context.observer( () -> {
       observable.reportObserved();
       callCount.incrementAndGet();
-    }, onDepsChangeCallCount::incrementAndGet, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    }, onDepsChangeCallCount::incrementAndGet, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( onDepsChangeCallCount.get(), 0 );
@@ -125,7 +124,7 @@ public class ObserverApiTest
     final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Observer.Flags.AREZ_DEPENDENCIES );
 
     final Function<String> observed = ValueUtil::randomString;
     assertInvariantFailure( () -> context.observe( observer, observed ),
@@ -139,7 +138,7 @@ public class ObserverApiTest
     final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     final Function<String> observed = ValueUtil::randomString;
 
@@ -153,7 +152,7 @@ public class ObserverApiTest
     final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Observer.Flags.AREZ_DEPENDENCIES );
 
     final Procedure observed = ValueUtil::randomString;
     assertInvariantFailure( () -> context.observe( observer, observed ),
@@ -167,7 +166,7 @@ public class ObserverApiTest
     final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
 
     final ArezContext context = Arez.context();
-    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Flags.AREZ_OR_NO_DEPENDENCIES );
+    final Observer observer = context.tracker( onDepsChangeCallCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     final Procedure observed = ValueUtil::randomString;
 

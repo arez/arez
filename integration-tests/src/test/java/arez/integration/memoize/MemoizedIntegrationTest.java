@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
-import arez.Flags;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
@@ -136,7 +135,7 @@ public class MemoizedIntegrationTest
                         {
                           recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
                         }
-                      }, Flags.AREZ_OR_NO_DEPENDENCIES );
+                      }, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     Disposable.dispose( person );
 
@@ -161,7 +160,7 @@ public class MemoizedIntegrationTest
                         {
                           recorder.mark( "doesSearchMatch - red", person.doesFullSearchMatch( "red", 20 ) );
                         }
-                      }, Flags.AREZ_OR_NO_DEPENDENCIES );
+                      }, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     Disposable.dispose( person );
 

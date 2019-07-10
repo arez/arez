@@ -53,9 +53,6 @@ complete as there is too much un-said.
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
   wrapper around underling collections.
 
-* Remove `arez.Task` and create separate classes to contain flag for specific elements. i.e.
-  `Observer.Flags` and `ComputableValue.Flags`. Ensure `Action`, `Task`, `Observer`, and
-  `ComputableValue` flags are unique and non-overlapping.
 
 * Consider adding flags to `Observable` object and move configuration of `readOutsideTransaction` and `writeOutsideTransaction`
   into this field. This will hopefully result in a smaller API surface and reduced code size.

@@ -33,7 +33,7 @@ public class ObserverTest
     final String name = ValueUtil.randomString();
     final CountAndObserveProcedure observed = new CountAndObserveProcedure();
     final CountingProcedure onDepsChange = new CountingProcedure();
-    final Observer observer = new Observer( context, null, name, observed, onDepsChange, Flags.RUN_LATER );
+    final Observer observer = new Observer( context, null, name, observed, onDepsChange, Observer.Flags.RUN_LATER );
 
     // Verify all "Node" behaviour
     assertEquals( observer.getContext(), context );
@@ -43,7 +43,7 @@ public class ObserverTest
     assertTrue( observer.shouldExecuteObserveNext() );
 
     // Starts out inactive and inactive means no dependencies
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
     assertFalse( observer.isActive() );
     assertTrue( observer.isInactive() );
     assertEquals( observer.getDependencies().size(), 0 );
@@ -119,7 +119,7 @@ public class ObserverTest
                                                 name,
                                                 new CountAndObserveProcedure(),
                                                 null,
-                                                Flags.PRIORITY_LOWEST + Flags.PRIORITY_HIGHEST ),
+                                                Observer.Flags.PRIORITY_LOWEST + Observer.Flags.PRIORITY_HIGHEST ),
                             "Arez-0080: Observer named '" + name + "' has invalid priority 5." );
   }
 
@@ -133,7 +133,8 @@ public class ObserverTest
                                                 name,
                                                 new CountingProcedure(),
                                                 new CountingProcedure(),
-                                                Flags.PRIORITY_LOWEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
+                                                Observer.Flags.PRIORITY_LOWEST |
+                                                Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES ),
                             "Arez-0184: Observer named '" +
                             name +
                             "' has LOWEST priority but has passed " +
@@ -151,7 +152,7 @@ public class ObserverTest
                                                 name,
                                                 new CountAndObserveProcedure(),
                                                 null,
-                                                Flags.READ_ONLY | Flags.READ_WRITE ),
+                                                Observer.Flags.READ_ONLY | Observer.Flags.READ_WRITE ),
                             "Arez-0079: Observer named '" + name + "' incorrectly specified both " +
                             "READ_ONLY and READ_WRITE transaction mode flags." );
   }
@@ -166,7 +167,7 @@ public class ObserverTest
                                                 name,
                                                 new CountAndObserveProcedure(),
                                                 null,
-                                                Flags.RUN_NOW | Flags.RUN_LATER ),
+                                                Observer.Flags.RUN_NOW | Observer.Flags.RUN_LATER ),
                             "Arez-0081: Observer named '" + name + "' incorrectly specified both " +
                             "RUN_NOW and RUN_LATER flags." );
   }
@@ -181,7 +182,7 @@ public class ObserverTest
                                                 name,
                                                 null,
                                                 new CountingProcedure(),
-                                                Flags.RUN_NOW ),
+                                                Observer.Flags.RUN_NOW ),
                             "Arez-0206: Observer named '" + name + "' incorrectly specified RUN_NOW " +
                             "flag but the observe function is null." );
   }
@@ -196,7 +197,7 @@ public class ObserverTest
                                                 name,
                                                 new CountAndObserveProcedure(),
                                                 new CountingProcedure(),
-                                                Flags.KEEPALIVE | Flags.DEACTIVATE_ON_UNOBSERVE ),
+                                                Observer.Flags.KEEPALIVE | Observer.Flags.DEACTIVATE_ON_UNOBSERVE ),
                             "Arez-0210: Observer named '" + name + "' incorrectly specified multiple schedule " +
                             "type flags (KEEPALIVE, DEACTIVATE_ON_UNOBSERVE, APPLICATION_EXECUTOR)." );
   }
@@ -209,9 +210,9 @@ public class ObserverTest
                                                 "MyObserver",
                                                 new CountAndObserveProcedure(),
                                                 new CountingProcedure(),
-                                                Flags.REQUIRE_NEW_TRANSACTION ),
+                                                ActionFlags.REQUIRE_NEW_TRANSACTION ),
                             "Arez-0207: Observer named 'MyObserver' specified illegal flags: " +
-                            Flags.REQUIRE_NEW_TRANSACTION );
+                            ActionFlags.REQUIRE_NEW_TRANSACTION );
   }
 
   @Test
@@ -224,7 +225,8 @@ public class ObserverTest
                                                 name,
                                                 new CountAndObserveProcedure(),
                                                 new CountingProcedure(),
-                                                Flags.NESTED_ACTIONS_ALLOWED | Flags.NESTED_ACTIONS_DISALLOWED ),
+                                                Observer.Flags.NESTED_ACTIONS_ALLOWED |
+                                                Observer.Flags.NESTED_ACTIONS_DISALLOWED ),
                             "Arez-0209: Observer named '" + name + "' incorrectly specified both the " +
                             "NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag." );
   }
@@ -241,7 +243,7 @@ public class ObserverTest
                                                 name,
                                                 new CountingProcedure(),
                                                 new CountingProcedure(),
-                                                Flags.READ_ONLY ),
+                                                Observer.Flags.READ_ONLY ),
                             "Arez-0082: Observer named '" + name + "' specified transaction mode 'READ_ONLY' " +
                             "when Arez.enforceTransactionType() is false." );
   }
@@ -393,7 +395,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( new CountingProcedure(), Flags.RUN_LATER );
+    final Observer observer = context.observer( new CountingProcedure(), Observer.Flags.RUN_LATER );
 
     observer.invariantState();
 
@@ -429,7 +431,8 @@ public class ObserverTest
 
     observer.invariantComputableValueObserverState();
 
-    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( () -> observer.setState( Observer.Flags.STATE_UP_TO_DATE ),
+                        ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     assertInvariantFailure( () -> context.safeAction( observer::invariantComputableValueObserverState ),
                             "Arez-0094: Observer named '" + observer.getName() + "' is a ComputableValue and " +
@@ -449,7 +452,7 @@ public class ObserverTest
 
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     observer.invariantComputableValueObserverState();
   }
@@ -459,7 +462,7 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( new CountingProcedure(), Flags.AREZ_OR_NO_DEPENDENCIES );
+    final Observer observer = context.observer( new CountingProcedure(), Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
@@ -591,27 +594,27 @@ public class ObserverTest
 
     setupReadWriteTransaction();
 
-    observer.setState( Flags.STATE_INACTIVE );
+    observer.setState( Observer.Flags.STATE_INACTIVE );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_STALE );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertTrue( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
-    observer.setState( Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE );
 
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertTrue( observer.getTask().isQueued() );
 
     final ObservableValue<?> observableValue1 = Arez.context().observable();
@@ -626,9 +629,9 @@ public class ObserverTest
     assertEquals( observableValue1.getObservers().size(), 1 );
     assertEquals( observableValue2.getObservers().size(), 1 );
 
-    observer.setState( Flags.STATE_INACTIVE );
+    observer.setState( Observer.Flags.STATE_INACTIVE );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
 
     assertEquals( observer.getDependencies().size(), 0 );
     assertEquals( observableValue1.getObservers().size(), 0 );
@@ -642,34 +645,34 @@ public class ObserverTest
 
     final Observer observer = Arez.context().computable( () -> "" ).getObserver();
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
 
-    observer.setState( Flags.STATE_INACTIVE, false );
+    observer.setState( Observer.Flags.STATE_INACTIVE, false );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_UP_TO_DATE, false );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE, false );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE, false );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE, false );
 
-    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_STALE, false );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE, false );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_UP_TO_DATE, false );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE, false );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
-    observer.setState( Flags.STATE_STALE, false );
+    observer.setState( Observer.Flags.STATE_STALE, false );
 
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertFalse( observer.getTask().isQueued() );
 
     final ObservableValue<?> observableValue1 = Arez.context().observable();
@@ -684,9 +687,9 @@ public class ObserverTest
     assertEquals( observableValue1.getObservers().size(), 1 );
     assertEquals( observableValue2.getObservers().size(), 1 );
 
-    observer.setState( Flags.STATE_INACTIVE, false );
+    observer.setState( Observer.Flags.STATE_INACTIVE, false );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
 
     assertEquals( observer.getDependencies().size(), 0 );
     assertEquals( observableValue1.getObservers().size(), 0 );
@@ -709,71 +712,71 @@ public class ObserverTest
 
     setupReadWriteTransaction();
 
-    watcher.setState( Flags.STATE_UP_TO_DATE );
+    watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
     observer.getComputableValue().getObservableValue().rawAddObserver( watcher );
     watcher.getDependencies().add( observer.getComputableValue().getObservableValue() );
 
-    watcher.setState( Flags.STATE_UP_TO_DATE );
+    watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
 
-    observer.setState( Flags.STATE_INACTIVE );
+    observer.setState( Observer.Flags.STATE_INACTIVE );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
     assertFalse( observer.getTask().isQueued() );
     assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 0 );
 
     computableValue.setValue( ValueUtil.randomString() );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 0 );
     assertNotNull( computableValue.getValue() );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
 
-    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertTrue( observer.getTask().isQueued() );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
-    assertEquals( watcher.getState(), Flags.STATE_POSSIBLY_STALE );
-    assertEquals( derivedValue.getLeastStaleObserverState(), Flags.STATE_POSSIBLY_STALE );
+    assertEquals( watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
+    assertEquals( derivedValue.getLeastStaleObserverState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertNotNull( computableValue.getValue() );
 
     Arez.context().getTaskQueue().clear();
     assertFalse( observer.getTask().isQueued() );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 1 );
     assertNotNull( computableValue.getValue() );
 
-    watcher.setState( Flags.STATE_UP_TO_DATE );
-    derivedValue.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
+    watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
+    derivedValue.setLeastStaleObserverState( Observer.Flags.STATE_UP_TO_DATE );
 
-    observer.setState( Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE );
 
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertTrue( observer.getTask().isQueued() );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( onStale.getCalls(), 2 );
 
-    assertEquals( watcher.getState(), Flags.STATE_POSSIBLY_STALE );
-    assertEquals( derivedValue.getLeastStaleObserverState(), Flags.STATE_POSSIBLY_STALE );
+    assertEquals( watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
+    assertEquals( derivedValue.getLeastStaleObserverState(), Observer.Flags.STATE_POSSIBLY_STALE );
 
-    observer.setState( Flags.STATE_INACTIVE );
+    observer.setState( Observer.Flags.STATE_INACTIVE );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
     assertEquals( onActivate.getCalls(), 1 );
     assertEquals( onDeactivate.getCalls(), 1 );
     assertEquals( onStale.getCalls(), 2 );
@@ -786,11 +789,11 @@ public class ObserverTest
     final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     setCurrentTransaction( observer );
 
-    assertEquals( observer.getState(), Flags.STATE_INACTIVE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
 
     observer.markAsDisposed();
 
-    assertInvariantFailure( () -> observer.setState( Flags.STATE_UP_TO_DATE ),
+    assertInvariantFailure( () -> observer.setState( Observer.Flags.STATE_UP_TO_DATE ),
                             "Arez-0087: Attempted to activate disposed observer named '" + observer.getName() + "'." );
   }
 
@@ -799,7 +802,7 @@ public class ObserverTest
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
-    assertInvariantFailure( () -> observer.setState( Flags.STATE_UP_TO_DATE ),
+    assertInvariantFailure( () -> observer.setState( Observer.Flags.STATE_UP_TO_DATE ),
                             "Arez-0086: Attempt to invoke setState on observer named '" +
                             observer.getName() +
                             "' when " +
@@ -812,7 +815,7 @@ public class ObserverTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
 
     setupReadWriteTransaction();
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     assertFalse( observer.getTask().isQueued() );
 
@@ -839,8 +842,8 @@ public class ObserverTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     context.safeAction( () -> {
-      observer.setState( Flags.STATE_INACTIVE );
-      observer.setState( Flags.STATE_DISPOSED );
+      observer.setState( Observer.Flags.STATE_INACTIVE );
+      observer.setState( Observer.Flags.STATE_DISPOSED );
 
       assertFalse( observer.getTask().isQueued() );
 
@@ -856,9 +859,11 @@ public class ObserverTest
     final ArezContext context = Arez.context();
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
-    context.safeAction( () -> observer.setState( Flags.STATE_INACTIVE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( () -> observer.setState( Observer.Flags.STATE_INACTIVE ),
+                        ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
-    assertInvariantFailure( () -> context.safeAction( observer::scheduleReaction, ActionFlags.NO_VERIFY_ACTION_REQUIRED ),
+    assertInvariantFailure( () -> context.safeAction( observer::scheduleReaction,
+                                                      ActionFlags.NO_VERIFY_ACTION_REQUIRED ),
                             "Arez-0088: Observer named '" + observer.getName() + "' is not active but an attempt has " +
                             "been made to schedule observer." );
   }
@@ -868,18 +873,18 @@ public class ObserverTest
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertTrue( observer.isNotDisposed() );
     assertFalse( observer.isDisposed() );
     assertFalse( observer.getTask().isDisposed() );
 
     observer.dispose();
 
-    assertEquals( observer.getState(), Flags.STATE_DISPOSED );
+    assertEquals( observer.getState(), Observer.Flags.STATE_DISPOSED );
     assertFalse( observer.isNotDisposed() );
     assertTrue( observer.isDisposed() );
     assertTrue( observer.getTask().isDisposed() );
@@ -899,27 +904,27 @@ public class ObserverTest
   {
     final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE );
 
     final ObservableValue<?> observableValue = Arez.context().observable();
-    observableValue.setLeastStaleObserverState( Flags.STATE_STALE );
+    observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
     observableValue.getObservers().add( observer );
     observer.getDependencies().add( observableValue );
 
     Transaction.setTransaction( null );
 
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertTrue( observer.isNotDisposed() );
     assertFalse( observer.isDisposed() );
     assertEquals( observableValue.getObservers().size(), 1 );
 
     observer.dispose();
 
-    assertEquals( observer.getState(), Flags.STATE_DISPOSED );
+    assertEquals( observer.getState(), Observer.Flags.STATE_DISPOSED );
     assertFalse( observer.isNotDisposed() );
     assertTrue( observer.isDisposed() );
     assertEquals( observableValue.getObservers().size(), 0 );
-    assertEquals( observableValue.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
 
     final ArezContext context = Arez.context();
 
@@ -936,7 +941,7 @@ public class ObserverTest
   {
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
@@ -965,7 +970,7 @@ public class ObserverTest
     final ComputableValue<?> computableValue = observer.getComputableValue();
     final ObservableValue<?> derivedValue = computableValue.getObservableValue();
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
@@ -1017,7 +1022,7 @@ public class ObserverTest
     final Observer observer = Arez.context().computable( () -> "" ).getObserver();
     final ComputableValue<?> computableValue = observer.getComputableValue();
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     Transaction.setTransaction( null );
 
@@ -1101,15 +1106,15 @@ public class ObserverTest
     observableValue2.addObserver( observer );
     observableValue3.addObserver( observer );
 
-    observableValue1.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
-    observableValue2.setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
-    observableValue3.setLeastStaleObserverState( Flags.STATE_STALE );
+    observableValue1.setLeastStaleObserverState( Observer.Flags.STATE_UP_TO_DATE );
+    observableValue2.setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
+    observableValue3.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
 
     observer.markDependenciesLeastStaleObserverAsUpToDate();
 
-    assertEquals( observableValue1.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observableValue2.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
-    assertEquals( observableValue3.getLeastStaleObserverState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observableValue1.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( observableValue2.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( observableValue3.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1198,7 +1203,8 @@ public class ObserverTest
 
     context.getSpy().addSpyEventHandler( handler );
 
-    Arez.context().safeAction( () -> computableValue.getObserver().invokeReaction(), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+    Arez.context()
+      .safeAction( () -> computableValue.getObserver().invokeReaction(), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     handler.assertEventCount( 9 );
 
@@ -1263,7 +1269,7 @@ public class ObserverTest
 
     assertEquals( observed.getCallCount(), 1 );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
     //Invoke reaction - observer is uptodate
     observer.invokeReaction();
@@ -1289,7 +1295,7 @@ public class ObserverTest
 
     assertEquals( observed.getCallCount(), 1 );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
     observer.executeObserveNextIfPresent();
 
@@ -1331,7 +1337,7 @@ public class ObserverTest
       }
     };
 
-    final Observer observer = context.observer( observed, Flags.RUN_LATER );
+    final Observer observer = context.observer( observed, Observer.Flags.RUN_LATER );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );
@@ -1370,7 +1376,7 @@ public class ObserverTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_DISPOSING );
+    observer.setState( Observer.Flags.STATE_DISPOSING );
 
     assertInvariantFailure( observer::shouldCompute,
                             "Arez-0205: Observer.shouldCompute() invoked on observer named 'Observer@1' but observer is in state DISPOSING" );
@@ -1382,7 +1388,7 @@ public class ObserverTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     assertFalse( observer.shouldCompute() );
   }
@@ -1393,7 +1399,7 @@ public class ObserverTest
     final Observer observer = Arez.context().observer( new CountAndObserveProcedure() );
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_INACTIVE );
+    observer.setState( Observer.Flags.STATE_INACTIVE );
 
     assertTrue( observer.shouldCompute() );
   }
@@ -1405,7 +1411,7 @@ public class ObserverTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 
     context.safeAction( () -> {
-      observer.setState( Flags.STATE_STALE );
+      observer.setState( Observer.Flags.STATE_STALE );
       assertTrue( observer.shouldCompute() );
     }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
@@ -1423,7 +1429,7 @@ public class ObserverTest
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     final SafeFunction<String> function2 = () -> {
       observeADependency();
@@ -1439,7 +1445,7 @@ public class ObserverTest
 
     assertTrue( observer.shouldCompute() );
 
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
   }
 
   @Test
@@ -1456,7 +1462,7 @@ public class ObserverTest
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     final SafeFunction<String> function = () -> {
       observeADependency();
@@ -1472,7 +1478,7 @@ public class ObserverTest
 
     assertTrue( observer.shouldCompute() );
 
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
   }
 
   @Test
@@ -1489,7 +1495,7 @@ public class ObserverTest
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     final SafeFunction<String> function = () -> {
       observeADependency();
@@ -1505,7 +1511,7 @@ public class ObserverTest
 
     assertFalse( observer.shouldCompute() );
 
-    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -1521,7 +1527,7 @@ public class ObserverTest
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     final ComputableValue<String> computableValue2 = context.computable( function );
 
@@ -1533,7 +1539,7 @@ public class ObserverTest
 
     assertFalse( observer.shouldCompute() );
 
-    assertEquals( computableValue2.getObserver().getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( computableValue2.getObserver().getState(), Observer.Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -1549,7 +1555,7 @@ public class ObserverTest
     final Observer observer = computableValue.getObserver();
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     final ObservableValue<?> observableValue = context.observable();
     observer.getDependencies().add( observableValue );
@@ -1588,17 +1594,17 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+                                            Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
     context.triggerScheduler();
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
     context.safeAction( () -> {
       observer.reportStale();
 
       assertTrue( observer.getTask().isQueued() );
-      assertEquals( observer.getState(), Flags.STATE_STALE );
+      assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
       assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
       assertTrue( context.getTaskQueue().getOrderedTasks().anyMatch( o -> o == observer.getTask() ) );
     } );
@@ -1617,7 +1623,7 @@ public class ObserverTest
                                             0 );
     context.triggerScheduler();
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
     context.safeAction( () -> {
@@ -1625,7 +1631,7 @@ public class ObserverTest
                               "Arez-0199: Observer.reportStale() invoked on observer named '" + observer.getName() +
                               "' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
       assertFalse( observer.getTask().isQueued() );
-      assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+      assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
       assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
     }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }
@@ -1640,18 +1646,18 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             new CountingProcedure(),
                                             new CountingProcedure(),
-                                            Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+                                            Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     context.triggerScheduler();
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
     assertInvariantFailure( observer::reportStale,
                             "Arez-0200: Observer.reportStale() invoked on observer named '" + observer.getName() +
                             "' when there is no active transaction." );
     assertFalse( observer.getTask().isQueued() );
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
   }
 
@@ -1660,9 +1666,10 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.observer( new CountingProcedure(), Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final Observer observer = context.observer( new CountingProcedure(), Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
-    context.safeAction( () -> observer.setState( Flags.STATE_UP_TO_DATE ), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( () -> observer.setState( Observer.Flags.STATE_UP_TO_DATE ),
+                        ActionFlags.NO_VERIFY_ACTION_REQUIRED );
     assertFalse( observer.getTask().isQueued() );
 
     assertInvariantFailure( () -> context.safeAction( "MyAction", observer::reportStale, ActionFlags.READ_ONLY ),
@@ -1670,7 +1677,7 @@ public class ObserverTest
                             "' when the active transaction 'MyAction' is READ_ONLY rather " +
                             "than READ_WRITE." );
     assertFalse( observer.getTask().isQueued() );
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
   }
 
@@ -1686,10 +1693,10 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             observed,
                                             onDepsChange,
-                                            Flags.RUN_LATER );
+                                            Observer.Flags.RUN_LATER );
 
     context.safeAction( () -> {
-      observer.setState( Flags.STATE_STALE );
+      observer.setState( Observer.Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
       context.getTaskQueue().clear();
@@ -1728,7 +1735,7 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             observed,
                                             onDepsChange,
-                                            Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+                                            Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertFalse( observer.getTask().isQueued() );
     assertEquals( observed.getCallCount(), 1 );
@@ -1775,7 +1782,7 @@ public class ObserverTest
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( onDepsChange.getCallCount(), 0 );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
 
     final SchedulerLock schedulerLock = context.pauseScheduler();
@@ -1805,9 +1812,9 @@ public class ObserverTest
                                             ValueUtil.randomString(),
                                             observed,
                                             null,
-                                            Flags.RUN_LATER );
+                                            Observer.Flags.RUN_LATER );
     context.safeAction( () -> {
-      observer.setState( Flags.STATE_STALE );
+      observer.setState( Observer.Flags.STATE_STALE );
 
       // reset the scheduling that occurred due to setState
       context.getTaskQueue().clear();
@@ -1821,11 +1828,185 @@ public class ObserverTest
                             "Arez-0202: Observer.schedule() invoked on observer named '" + observer.getName() +
                             "' but supportsManualSchedule() returns false." );
     assertFalse( observer.getTask().isQueued() );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
 
     schedulerLock.dispose();
 
     assertEquals( observed.getCallCount(), 0 );
+  }
+
+  @Test
+  public void Flags_isActive()
+  {
+    assertFalse( Observer.Flags.isActive( Observer.Flags.STATE_DISPOSED ) );
+    assertFalse( Observer.Flags.isActive( Observer.Flags.STATE_DISPOSING ) );
+    assertFalse( Observer.Flags.isActive( Observer.Flags.STATE_INACTIVE ) );
+    assertTrue( Observer.Flags.isActive( Observer.Flags.STATE_UP_TO_DATE ) );
+    assertTrue( Observer.Flags.isActive( Observer.Flags.STATE_POSSIBLY_STALE ) );
+    assertTrue( Observer.Flags.isActive( Observer.Flags.STATE_STALE ) );
+  }
+
+  @Test
+  public void Flags_isNotActive()
+  {
+    assertTrue( Observer.Flags.isNotActive( Observer.Flags.STATE_DISPOSED ) );
+    assertTrue( Observer.Flags.isNotActive( Observer.Flags.STATE_DISPOSING ) );
+    assertTrue( Observer.Flags.isNotActive( Observer.Flags.STATE_INACTIVE ) );
+    assertFalse( Observer.Flags.isNotActive( Observer.Flags.STATE_UP_TO_DATE ) );
+    assertFalse( Observer.Flags.isNotActive( Observer.Flags.STATE_POSSIBLY_STALE ) );
+    assertFalse( Observer.Flags.isNotActive( Observer.Flags.STATE_STALE ) );
+  }
+
+  @Test
+  public void Flags_getState()
+  {
+    assertEquals( Observer.Flags.getState( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_DISPOSED ),
+                  Observer.Flags.STATE_DISPOSED );
+    assertEquals( Observer.Flags.getState( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_DISPOSING ),
+                  Observer.Flags.STATE_DISPOSING );
+    assertEquals( Observer.Flags.getState( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_INACTIVE ),
+                  Observer.Flags.STATE_INACTIVE );
+    assertEquals( Observer.Flags.getState( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_UP_TO_DATE ),
+                  Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( Observer.Flags.getState( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_POSSIBLY_STALE ),
+                  Observer.Flags.STATE_POSSIBLY_STALE );
+    assertEquals( Observer.Flags.getState( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_STALE ),
+                  Observer.Flags.STATE_STALE );
+  }
+
+  @Test
+  public void Flags_setState()
+  {
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_DISPOSED ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_DISPOSED );
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_DISPOSING ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_DISPOSING );
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_DISPOSING ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_DISPOSING );
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_INACTIVE ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_INACTIVE );
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_UP_TO_DATE ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_POSSIBLY_STALE ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_POSSIBLY_STALE );
+    assertEquals( Observer.Flags.setState( Observer.Flags.PRIORITY_NORMAL |
+                                           Observer.Flags.READ_WRITE |
+                                           Observer.Flags.STATE_UP_TO_DATE,
+                                           Observer.Flags.STATE_STALE ),
+                  Observer.Flags.PRIORITY_NORMAL | Observer.Flags.READ_WRITE | Observer.Flags.STATE_STALE );
+  }
+
+  @Test
+  public void Flags_getLeastStaleObserverState()
+  {
+    assertEquals( Observer.Flags.getLeastStaleObserverState( Observer.Flags.PRIORITY_NORMAL |
+                                                             Observer.Flags.STATE_DISPOSED ),
+                  Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( Observer.Flags.getLeastStaleObserverState( Observer.Flags.PRIORITY_NORMAL |
+                                                             Observer.Flags.STATE_DISPOSING ),
+                  Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( Observer.Flags.getLeastStaleObserverState( Observer.Flags.PRIORITY_NORMAL |
+                                                             Observer.Flags.STATE_INACTIVE ),
+                  Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( Observer.Flags.getLeastStaleObserverState( Observer.Flags.PRIORITY_NORMAL |
+                                                             Observer.Flags.STATE_UP_TO_DATE ),
+                  Observer.Flags.STATE_UP_TO_DATE );
+    assertEquals( Observer.Flags.getLeastStaleObserverState( Observer.Flags.PRIORITY_NORMAL |
+                                                             Observer.Flags.STATE_POSSIBLY_STALE ),
+                  Observer.Flags.STATE_POSSIBLY_STALE );
+    assertEquals( Observer.Flags.getLeastStaleObserverState( Observer.Flags.PRIORITY_NORMAL |
+                                                             Observer.Flags.STATE_STALE ), Observer.Flags.STATE_STALE );
+  }
+
+  @Test
+  public void Flags_getStateName()
+  {
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.STATE_DISPOSED ), "DISPOSED" );
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.STATE_DISPOSING ), "DISPOSING" );
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.STATE_INACTIVE ), "INACTIVE" );
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.STATE_UP_TO_DATE ), "UP_TO_DATE" );
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.STATE_POSSIBLY_STALE ), "POSSIBLY_STALE" );
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.STATE_STALE ), "STALE" );
+    // State value should have been passed in
+    assertEquals( Observer.Flags.getStateName( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_STALE ),
+                  "UNKNOWN(" + ( Observer.Flags.PRIORITY_NORMAL | Observer.Flags.STATE_STALE ) + ")" );
+  }
+
+  @Test
+  public void Flags_isNestedActionsModeValid()
+  {
+    assertTrue( Observer.Flags.isNestedActionsModeValid( Observer.Flags.NESTED_ACTIONS_ALLOWED ) );
+    assertTrue( Observer.Flags.isNestedActionsModeValid( Observer.Flags.NESTED_ACTIONS_DISALLOWED ) );
+    assertFalse( Observer.Flags.isNestedActionsModeValid( 0 ) );
+    assertFalse( Observer.Flags.isNestedActionsModeValid( Observer.Flags.PRIORITY_LOWEST ) );
+    assertFalse( Observer.Flags.isNestedActionsModeValid( Observer.Flags.NESTED_ACTIONS_ALLOWED |
+                                                          Observer.Flags.NESTED_ACTIONS_DISALLOWED ) );
+  }
+
+  @Test
+  public void Flags_getScheduleType()
+  {
+    assertEquals( Observer.Flags.getScheduleType( Observer.Flags.PRIORITY_HIGHEST | Observer.Flags.KEEPALIVE ),
+                  Observer.Flags.KEEPALIVE );
+    assertEquals( Observer.Flags.getScheduleType( Observer.Flags.PRIORITY_HIGH | Observer.Flags.APPLICATION_EXECUTOR ),
+                  Observer.Flags.APPLICATION_EXECUTOR );
+    assertEquals( Observer.Flags.getScheduleType( Observer.Flags.PRIORITY_NORMAL |
+                                                  Observer.Flags.DEACTIVATE_ON_UNOBSERVE ),
+                  Observer.Flags.DEACTIVATE_ON_UNOBSERVE );
+    assertEquals( Observer.Flags.getScheduleType( Observer.Flags.PRIORITY_NORMAL ), 0 );
+  }
+
+  @Test
+  public void Flags_isScheduleTypeValid()
+  {
+    assertTrue( Observer.Flags.isScheduleTypeValid( Observer.Flags.KEEPALIVE ) );
+    assertTrue( Observer.Flags.isScheduleTypeValid( Observer.Flags.DEACTIVATE_ON_UNOBSERVE ) );
+    assertTrue( Observer.Flags.isScheduleTypeValid( Observer.Flags.APPLICATION_EXECUTOR ) );
+    assertFalse( Observer.Flags.isScheduleTypeValid( 0 ) );
+    assertFalse( Observer.Flags.isScheduleTypeValid( Observer.Flags.PRIORITY_LOWEST ) );
+    assertFalse( Observer.Flags.isScheduleTypeValid( Observer.Flags.KEEPALIVE |
+                                                     Observer.Flags.DEACTIVATE_ON_UNOBSERVE ) );
+    assertFalse( Observer.Flags.isScheduleTypeValid( Observer.Flags.KEEPALIVE | Observer.Flags.APPLICATION_EXECUTOR ) );
+    assertFalse( Observer.Flags.isScheduleTypeValid( Observer.Flags.DEACTIVATE_ON_UNOBSERVE |
+                                                     Observer.Flags.APPLICATION_EXECUTOR ) );
+  }
+
+  @Test
+  public void Flags_defaultNestedActionRuleUnlessSpecified()
+  {
+    assertEquals( Observer.Flags.nestedActionRule( Observer.Flags.NESTED_ACTIONS_ALLOWED ), 0 );
+    assertEquals( Observer.Flags.nestedActionRule( Observer.Flags.NESTED_ACTIONS_DISALLOWED ), 0 );
+    assertEquals( Observer.Flags.nestedActionRule( 0 ), Observer.Flags.NESTED_ACTIONS_DISALLOWED );
+
+    ArezTestUtil.noCheckInvariants();
+    assertEquals( Observer.Flags.nestedActionRule( 0 ), 0 );
+  }
+
+  @Test
+  public void Flags_dependencyType()
+  {
+    assertEquals( Observer.Flags.dependencyType( Observer.Flags.AREZ_DEPENDENCIES ), 0 );
+    assertEquals( Observer.Flags.dependencyType( Observer.Flags.AREZ_OR_NO_DEPENDENCIES ), 0 );
+    assertEquals( Observer.Flags.dependencyType( Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES ), 0 );
+    assertEquals( Observer.Flags.dependencyType( 0 ), Observer.Flags.AREZ_DEPENDENCIES );
   }
 }

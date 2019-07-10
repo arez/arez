@@ -67,7 +67,7 @@ public class ActionFlagsTest
     for ( final Map.Entry<String, Integer> entry : new ArrayList<>( extractFlags().entrySet() ) )
     {
       final int value = entry.getValue();
-      if ( ( ( ActionFlags.ACTION_FLAGS_MASK ) & value ) != value )
+      if ( ( ( ActionFlags.CONFIG_FLAGS_MASK ) & value ) != value )
       {
         fail( "Flag named " + entry.getKey() + " in class " + ActionFlags.class.getName() + " is not within " +
               "expected configuration mask. Update mask or configuration value." );

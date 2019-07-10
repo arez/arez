@@ -7,7 +7,6 @@ import arez.ArezTestUtil;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.Observer;
 import arez.spy.ComponentInfo;
 import java.util.Map;
@@ -42,12 +41,12 @@ public class MemoizeCacheTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( null, null, name, function, 2, Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      new MemoizeCache<>( null, null, name, function, 2, ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     assertFalse( cache.isDisposed() );
     assertEquals( cache.getNextIndex(), 0 );
 
-    assertEquals( cache.getFlags(), Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    assertEquals( cache.getFlags(), ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     final Observer observer1 = context.observer( () -> {
       observeADependency();
@@ -299,7 +298,7 @@ public class MemoizeCacheTest
   @Test
   public void constructorPassedBadFlags()
   {
-    assertInvariantFailure( () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Flags.KEEPALIVE ),
-                            "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + Flags.KEEPALIVE );
+    assertInvariantFailure( () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Observer.Flags.KEEPALIVE ),
+                            "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + Observer.Flags.KEEPALIVE );
   }
 }

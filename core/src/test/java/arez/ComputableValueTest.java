@@ -51,7 +51,7 @@ public class ComputableValueTest
     assertTrue( computableValue.getObserver().isComputableValue() );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertEquals( computableValue.getObserver().getComputableValue(), computableValue );
-    assertEquals( computableValue.getObserver().getState(), Flags.STATE_INACTIVE );
+    assertEquals( computableValue.getObserver().getState(), Observer.Flags.STATE_INACTIVE );
     assertEquals( computableValue.getObservableValue().getName(), name );
     assertTrue( computableValue.getObservableValue().isComputableValue() );
     assertEquals( computableValue.getObservableValue().getObserver(), computableValue.getObserver() );
@@ -72,7 +72,9 @@ public class ComputableValueTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( name, function, Flags.KEEPALIVE | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      context.computable( name,
+                          function,
+                          ComputableValue.Flags.KEEPALIVE | ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     computableValue.getObserver().invokeReaction();
 
@@ -90,7 +92,7 @@ public class ComputableValueTest
     assertTrue( computableValue.getObserver().isComputableValue() );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertEquals( computableValue.getObserver().getComputableValue(), computableValue );
-    assertEquals( computableValue.getObserver().getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( computableValue.getObserver().getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertEquals( computableValue.getObservableValue().getName(), name );
     assertTrue( computableValue.getObservableValue().isComputableValue() );
     assertEquals( computableValue.getObservableValue().getObserver(), computableValue.getObserver() );
@@ -103,7 +105,8 @@ public class ComputableValueTest
   @Test
   public void highPriorityComputableValue()
   {
-    final ComputableValue<String> computableValue = Arez.context().computable( () -> "", Flags.PRIORITY_HIGH );
+    final ComputableValue<String> computableValue =
+      Arez.context().computable( () -> "", ComputableValue.Flags.PRIORITY_HIGH );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.HIGH );
   }
 
@@ -168,7 +171,7 @@ public class ComputableValueTest
     final Procedure action = () -> {
     };
 
-    assertInvariantFailure( () -> context.computable( null, () -> "", action, null, null, Flags.KEEPALIVE ),
+    assertInvariantFailure( () -> context.computable( null, () -> "", action, null, null, Observer.Flags.KEEPALIVE ),
                             "Arez-0039: ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate." );
   }
 
@@ -179,7 +182,7 @@ public class ComputableValueTest
 
     final Procedure action = () -> {
     };
-    assertInvariantFailure( () -> context.computable( null, () -> "", null, action, null, Flags.KEEPALIVE ),
+    assertInvariantFailure( () -> context.computable( null, () -> "", null, action, null, Observer.Flags.KEEPALIVE ),
                             "Arez-0045: ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate." );
   }
 
@@ -223,11 +226,11 @@ public class ComputableValueTest
     final Observer observer = context.observer( new CountAndObserveProcedure() );
     setCurrentTransaction( computableValue.getObserver() );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
     computableValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computableValue.getObservableValue() );
 
-    computableValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     computableValue.setValue( value1 );
 
@@ -238,7 +241,7 @@ public class ComputableValueTest
 
     assertEquals( computableValue.getValue(), value2 );
     assertNull( computableValue.getError() );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
   }
 
   @Test
@@ -257,11 +260,11 @@ public class ComputableValueTest
 
     setCurrentTransaction( computableValue.getObserver() );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
     computableValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computableValue.getObservableValue() );
 
-    computableValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     computableValue.setValue( null );
     computableValue.setError( new IllegalStateException() );
@@ -274,7 +277,7 @@ public class ComputableValueTest
 
     assertEquals( computableValue.getValue(), value2 );
     assertNull( computableValue.getError() );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
   }
 
   @Test
@@ -293,11 +296,11 @@ public class ComputableValueTest
 
     setCurrentTransaction( computableValue.getObserver() );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
     computableValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computableValue.getObservableValue() );
 
-    computableValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     value.set( value1 );
     computableValue.setValue( value1 );
@@ -308,7 +311,7 @@ public class ComputableValueTest
 
     assertEquals( computableValue.getValue(), value1 );
     // Verify state does not change
-    assertEquals( observer.getState(), Flags.STATE_POSSIBLY_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
   }
 
   @Test
@@ -327,11 +330,11 @@ public class ComputableValueTest
 
     setCurrentTransaction( computableValue.getObserver() );
 
-    observer.setState( Flags.STATE_POSSIBLY_STALE );
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
     computableValue.getObservableValue().rawAddObserver( observer );
     observer.getDependencies().add( computableValue.getObservableValue() );
 
-    computableValue.getObservableValue().setLeastStaleObserverState( Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     computableValue.setValue( value1 );
 
@@ -342,7 +345,7 @@ public class ComputableValueTest
 
     assertNull( computableValue.getValue() );
     assertEquals( computableValue.getError(), exception );
-    assertEquals( observer.getState(), Flags.STATE_STALE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
   }
 
   @Test
@@ -352,7 +355,9 @@ public class ComputableValueTest
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =
-      context.computable( "XYZ", ValueUtil::randomString, Flags.KEEPALIVE | Flags.RUN_LATER );
+      context.computable( "XYZ",
+                          ValueUtil::randomString,
+                          ComputableValue.Flags.KEEPALIVE | ComputableValue.Flags.RUN_LATER );
 
     assertInvariantFailure( () -> Arez.context().safeAction( computableValue::get ),
                             "Arez-0173: ComputableValue named 'XYZ' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
@@ -369,7 +374,7 @@ public class ComputableValueTest
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =
-      context.computable( ValueUtil::randomString, Flags.AREZ_OR_NO_DEPENDENCIES );
+      context.computable( ValueUtil::randomString, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertNotNull( context.safeAction( computableValue::get ) );
   }
@@ -383,7 +388,7 @@ public class ComputableValueTest
     final Observer observer = computableValue.getObserver();
 
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     assertFalse( observer.isDisposed() );
 
@@ -392,7 +397,7 @@ public class ComputableValueTest
     computableValue.dispose();
 
     assertTrue( observer.isDisposed() );
-    assertEquals( observer.getState(), Flags.STATE_DISPOSED );
+    assertEquals( observer.getState(), Observer.Flags.STATE_DISPOSED );
   }
 
   @Test
@@ -404,7 +409,7 @@ public class ComputableValueTest
     final Observer observer = computableValue.getObserver();
 
     setCurrentTransaction( observer );
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     assertFalse( observer.isDisposed() );
 
@@ -416,7 +421,7 @@ public class ComputableValueTest
     computableValue.dispose();
 
     assertTrue( observer.isDisposed() );
-    assertEquals( observer.getState(), Flags.STATE_DISPOSED );
+    assertEquals( observer.getState(), Observer.Flags.STATE_DISPOSED );
 
     handler.assertEventCount( 14 );
 
@@ -464,11 +469,11 @@ public class ComputableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
     computableValue.setValue( "XXX" );
 
     assertEquals( computableValue.get(), "XXX" );
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -481,14 +486,14 @@ public class ComputableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
     computableValue.setError( error );
 
     final IllegalStateException exception = expectThrows( IllegalStateException.class, computableValue::get );
     assertEquals( exception, error );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
     // Get again produces the same exception again
     final IllegalStateException exception2 = expectThrows( IllegalStateException.class, computableValue::get );
@@ -505,14 +510,14 @@ public class ComputableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
     final Error error = new Error();
     computableValue.setError( error );
 
     final Error exception = expectThrows( Error.class, computableValue::get );
     assertEquals( exception, error );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
     // Get again produces the same exception again
     final Error exception2 = expectThrows( Error.class, computableValue::get );
@@ -529,7 +534,7 @@ public class ComputableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
     final IllegalStateException error = new IllegalStateException();
 
     computableValue.setValue( "" );
@@ -539,7 +544,7 @@ public class ComputableValueTest
                             "Arez-0051: ComputableValue generated a value during computation for ComputableValue named '" +
                             computableValue.getName() + "' but still has a non-null value." );
 
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -556,11 +561,11 @@ public class ComputableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE );
     computableValue.setValue( "XXX" );
 
     assertEquals( computableValue.get(), "" );
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -573,7 +578,7 @@ public class ComputableValueTest
 
     setCurrentTransaction( observer );
 
-    observer.setState( Flags.STATE_STALE );
+    observer.setState( Observer.Flags.STATE_STALE );
     computableValue.setValue( "XXX" );
 
     observer.markAsDisposed();
@@ -593,7 +598,7 @@ public class ComputableValueTest
 
     setupReadOnlyTransaction( context );
 
-    observer.setState( Flags.STATE_UP_TO_DATE );
+    observer.setState( Observer.Flags.STATE_UP_TO_DATE );
     computableValue.setValue( "XXX" );
 
     computableValue.setComputing( true );
@@ -606,7 +611,7 @@ public class ComputableValueTest
     computableValue.setComputing( false );
 
     assertEquals( computableValue.get(), "XXX" );
-    assertEquals( observer.getState(), Flags.STATE_UP_TO_DATE );
+    assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
   }
 
   @Test
@@ -642,7 +647,8 @@ public class ComputableValueTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue =
+      context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -693,7 +699,8 @@ public class ComputableValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue =
+      context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -748,7 +755,8 @@ public class ComputableValueTest
       computedCallCount.incrementAndGet();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue =
+      context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -1032,7 +1040,7 @@ public class ComputableValueTest
       observable.reportObserved();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computable( function, Flags.KEEPALIVE );
+    final ComputableValue<String> computableValue = context.computable( function, Observer.Flags.KEEPALIVE );
 
     assertInvariantFailure( computableValue::keepAlive,
                             "Arez-0223: ComputableValue.keepAlive() was invoked on computable value named 'ComputableValue@2' but invoking this method when the computable value has been configured with the KEEPALIVE flag is invalid as the computable is always activated." );
@@ -1045,16 +1053,17 @@ public class ComputableValueTest
 
     final AtomicInteger value = new AtomicInteger();
     value.set( 1 );
-    final ComputableValue<Integer> computable1 = context.computable( value::get, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<Integer> computable1 =
+      context.computable( value::get, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     final ComputableValue<Integer> computable2 =
       context.computable( () -> {
                             computable1.get();
                             return 22;
                           },
-                          Flags.PRIORITY_HIGH |
-                          Flags.KEEPALIVE |
-                          Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                          ComputableValue.Flags.PRIORITY_HIGH |
+                          ComputableValue.Flags.KEEPALIVE |
+                          ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     final TestSpyEventHandler handler = new TestSpyEventHandler();
     context.getSpy().addSpyEventHandler( handler );

@@ -2,7 +2,7 @@ package arez.integration.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
@@ -20,11 +20,11 @@ public class MemoizedPriorityOverrideIntegrationTest
   public void scenario()
     throws Throwable
   {
-    searchTest( Flags.PRIORITY_LOWEST, "search(b),dynamicPrioritySearch(b)" );
-    searchTest( Flags.PRIORITY_LOW, "search(b),dynamicPrioritySearch(b)" );
-    searchTest( Flags.PRIORITY_NORMAL, "search(b),dynamicPrioritySearch(b)" );
-    searchTest( Flags.PRIORITY_HIGH, "dynamicPrioritySearch(b),search(b)" );
-    searchTest( Flags.PRIORITY_HIGHEST, "dynamicPrioritySearch(b),search(b)" );
+    searchTest( ComputableValue.Flags.PRIORITY_LOWEST, "search(b),dynamicPrioritySearch(b)" );
+    searchTest( ComputableValue.Flags.PRIORITY_LOW, "search(b),dynamicPrioritySearch(b)" );
+    searchTest( ComputableValue.Flags.PRIORITY_NORMAL, "search(b),dynamicPrioritySearch(b)" );
+    searchTest( ComputableValue.Flags.PRIORITY_HIGH, "dynamicPrioritySearch(b),search(b)" );
+    searchTest( ComputableValue.Flags.PRIORITY_HIGHEST, "dynamicPrioritySearch(b),search(b)" );
   }
 
   private void searchTest( final int priority, @Nonnull final String expected )
@@ -43,7 +43,8 @@ public class MemoizedPriorityOverrideIntegrationTest
                           searches.add( "NOT(search(b))" );
                         }
                       },
-                      Flags.PRIORITY_HIGHEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                      ComputableValue.Flags.PRIORITY_HIGHEST |
+                      ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     context.observer( () -> {
                         if ( model.dynamicPrioritySearch( "b" ) )
                         {
@@ -54,7 +55,8 @@ public class MemoizedPriorityOverrideIntegrationTest
                           searches.add( "NOT(dynamicPrioritySearch(b))" );
                         }
                       },
-                      Flags.PRIORITY_HIGHEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                      ComputableValue.Flags.PRIORITY_HIGHEST |
+                      ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     searches.clear();
 
     model.setName( "bl" );

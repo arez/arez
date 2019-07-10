@@ -6,7 +6,6 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputableValue;
-import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
@@ -39,7 +38,7 @@ public class ExternalApiTest
       observeADependency();
       callCount.incrementAndGet();
     };
-    context.observer( action, Flags.RUN_LATER );
+    context.observer( action, Observer.Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
 
@@ -148,7 +147,7 @@ public class ExternalApiTest
     final ArezContext context = Arez.context();
 
     assertFalse( context.isSchedulerActive() );
-    context.observer( () -> assertTrue( context.isSchedulerActive() ), Flags.AREZ_OR_NO_DEPENDENCIES );
+    context.observer( () -> assertTrue( context.isSchedulerActive() ), Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
     assertFalse( context.isSchedulerActive() );
   }
 
@@ -195,7 +194,7 @@ public class ExternalApiTest
       computedCallCount.incrementAndGet();
       return String.valueOf( result.get() );
     };
-    final ComputableValue<String> computableValue = context.computable( function, Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+    final ComputableValue<String> computableValue = context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -624,7 +623,7 @@ public class ExternalApiTest
     context.observer( () -> {
       observeADependency();
       callCount.incrementAndGet();
-    }, Flags.RUN_LATER );
+    }, Observer.Flags.RUN_LATER );
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 0 );

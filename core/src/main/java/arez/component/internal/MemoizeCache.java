@@ -6,9 +6,9 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.Procedure;
 import arez.SafeFunction;
+import arez.Task;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,7 +111,7 @@ public final class MemoizeCache<T>
    * @param name      a human consumable prefix for computable values.
    * @param function  the memoized function.
    * @param argCount  the number of arguments expected to be passed to memoized function.
-   * @param flags     the flags that are used when creating ComputableValue instances. The only flags supported are the PRIORITY_* flags and {@link Flags#OBSERVE_LOWER_PRIORITY_DEPENDENCIES}.
+   * @param flags     the flags that are used when creating ComputableValue instances. The only flags supported are flags defined in {@link ComputableValue.Flags} except for {@link ComputableValue.Flags#KEEPALIVE}, {@link ComputableValue.Flags#RUN_NOW} and {@link ComputableValue.Flags#RUN_LATER}.
    */
   public MemoizeCache( @Nullable final ArezContext context,
                        @Nullable final Component component,
@@ -129,15 +129,18 @@ public final class MemoizeCache<T>
       apiInvariant( () -> argCount > 0,
                     () -> "Arez-0160: MemoizeCache constructed with invalid argCount: " + argCount +
                           ". Expected positive value." );
-      final int mask = Flags.PRIORITY_HIGHEST |
-                       Flags.PRIORITY_HIGH |
-                       Flags.PRIORITY_NORMAL |
-                       Flags.PRIORITY_LOW |
-                       Flags.PRIORITY_LOWEST |
-                       Flags.AREZ_DEPENDENCIES |
-                       Flags.AREZ_OR_NO_DEPENDENCIES |
-                       Flags.AREZ_OR_EXTERNAL_DEPENDENCIES |
-                       Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES;
+      final int mask = ComputableValue.Flags.PRIORITY_HIGHEST |
+                       ComputableValue.Flags.PRIORITY_HIGH |
+                       ComputableValue.Flags.PRIORITY_NORMAL |
+                       ComputableValue.Flags.PRIORITY_LOW |
+                       ComputableValue.Flags.PRIORITY_LOWEST |
+                       ComputableValue.Flags.NO_REPORT_RESULT |
+                       ComputableValue.Flags.AREZ_DEPENDENCIES |
+                       ComputableValue.Flags.AREZ_OR_NO_DEPENDENCIES |
+                       ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES |
+                       ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
+                       ComputableValue.Flags.READ_OUTSIDE_TRANSACTION;
+
       apiInvariant( () -> ( ~mask & flags ) == 0,
                     () -> "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + ( ~mask & flags ) );
     }
@@ -295,7 +298,7 @@ public final class MemoizeCache<T>
     assert null != computableValue;
     getContext().task( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
                        computableValue::dispose,
-                       Flags.PRIORITY_HIGHEST | Flags.DISPOSE_ON_COMPLETE | Flags.NO_WRAP_TASK );
+                       Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
     while ( stack.size() > 1 )
     {
       final Map map = stack.pop();

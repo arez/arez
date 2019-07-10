@@ -39,9 +39,9 @@ public final class Task
     super( context, name );
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> ( ~Flags.TASK_FLAGS_MASK & flags ) == 0,
+      apiInvariant( () -> ( ~Flags.CONFIG_FLAGS_MASK & flags ) == 0,
                     () -> "Arez-0224: Task named '" + name + "' passed invalid flags: " +
-                          ( ~Flags.TASK_FLAGS_MASK & flags ) );
+                          ( ~Flags.CONFIG_FLAGS_MASK & flags ) );
     }
 
     _work = Objects.requireNonNull( work );
@@ -270,7 +270,7 @@ public final class Task
     return Flags.STATE_QUEUED == Flags.getState( _flags );
   }
 
-  static final class Flags
+  public static final class Flags
   {
     /**
      * Highest priority.
@@ -282,7 +282,7 @@ public final class Task
      * @see arez.annotations.Priority#HIGHEST
      * @see Priority#HIGHEST
      */
-    static final int PRIORITY_HIGHEST = 0b001 << 15;
+    public static final int PRIORITY_HIGHEST = 0b001 << 15;
     /**
      * High priority.
      * To reduce the chance that downstream elements will react multiple times within a single
@@ -293,7 +293,7 @@ public final class Task
      * @see arez.annotations.Priority#HIGH
      * @see Priority#HIGH
      */
-    static final int PRIORITY_HIGH = 0b010 << 15;
+    public static final int PRIORITY_HIGH = 0b010 << 15;
     /**
      * Normal priority if no other priority otherwise specified.
      *
@@ -302,7 +302,7 @@ public final class Task
      * @see arez.annotations.Priority#NORMAL
      * @see Priority#NORMAL
      */
-    static final int PRIORITY_NORMAL = 0b011 << 15;
+    public static final int PRIORITY_NORMAL = 0b011 << 15;
     /**
      * Low priority.
      * Usually used to schedule observers that reflect state onto non-reactive
@@ -316,7 +316,7 @@ public final class Task
      * @see arez.annotations.Priority#LOW
      * @see Priority#LOW
      */
-    static final int PRIORITY_LOW = 0b100 << 15;
+    public static final int PRIORITY_LOW = 0b100 << 15;
     /**
      * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
      * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -327,7 +327,7 @@ public final class Task
      * @see arez.annotations.Priority#LOWEST
      * @see Priority#LOWEST
      */
-    static final int PRIORITY_LOWEST = 0b101 << 15;
+    public static final int PRIORITY_LOWEST = 0b101 << 15;
     /**
      * Mask used to extract priority bits.
      */
@@ -344,13 +344,13 @@ public final class Task
      * The scheduler will be triggered when the task is created to immediately invoke the task.
      * This should not be specified if {@link #RUN_LATER} is specified.
      */
-    static final int RUN_NOW = 1 << 22;
+    public static final int RUN_NOW = 1 << 22;
     /**
      * The scheduler will not be triggered when the task is created. The application is responsible
      * for ensuring thatthe  {@link ArezContext#triggerScheduler()} method is invoked at a later time.
      * This should not be specified if {@link #RUN_NOW} is specified.
      */
-    static final int RUN_LATER = 1 << 21;
+    public static final int RUN_LATER = 1 << 21;
     /**
      * Mask used to extract run type bits.
      */
@@ -361,11 +361,11 @@ public final class Task
      * the spy events. If wrapping is disabled it is expected that the caller is responsible for integrating
      * with the spy subsystem and catching exceptions if any.
      */
-    static final int NO_WRAP_TASK = 1 << 20;
+    public static final int NO_WRAP_TASK = 1 << 20;
     /**
      * The flag that specifies that the task should be disposed after it has completed execution.
      */
-    static final int DISPOSE_ON_COMPLETE = 1 << 19;
+    public static final int DISPOSE_ON_COMPLETE = 1 << 19;
     /**
      * The flag that indicates that task should not be registered in top level registry.
      * This is used when Observers etc create tasks and do not need them exposed to the spy framework.
@@ -374,7 +374,7 @@ public final class Task
     /**
      * Mask containing flags that can be applied to a task.
      */
-    static final int TASK_FLAGS_MASK =
+    static final int CONFIG_FLAGS_MASK =
       PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE | NO_REGISTER_TASK | NO_WRAP_TASK;
     /**
      * Mask containing flags that can be applied to a task representing an observer.
@@ -401,6 +401,10 @@ public final class Task
      * Mask used to extract state bits.
      */
     private static final int STATE_MASK = STATE_IDLE | STATE_QUEUED | STATE_DISPOSED;
+    /**
+     * Mask containing flags that are used to track runtime state.
+     */
+    static final int RUNTIME_FLAGS_MASK = STATE_MASK;
 
     /**
      * Return true if flags contains valid priority.

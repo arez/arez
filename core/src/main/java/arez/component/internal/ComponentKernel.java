@@ -6,10 +6,10 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.ObservableValue;
 import arez.Procedure;
 import arez.SafeProcedure;
+import arez.Task;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
@@ -193,7 +193,7 @@ public final class ComponentKernel
                                     null,
                                     this::scheduleDispose,
                                     null,
-                                    Flags.PRIORITY_HIGHEST );
+                                    ComputableValue.Flags.PRIORITY_HIGHEST );
   }
 
   private void scheduleDispose()
@@ -213,7 +213,7 @@ public final class ComponentKernel
       _disposeScheduled = true;
       getContext().task( Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate.task" : null,
                          this::dispose,
-                         Flags.PRIORITY_HIGHEST | Flags.DISPOSE_ON_COMPLETE | Flags.NO_WRAP_TASK );
+                         Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
     }
   }
 

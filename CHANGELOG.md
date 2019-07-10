@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Introduce `arez.ActionFlags` class and move or copy all flags from `arez.Flags` that are relevant to actions to the new class. The intent is to make it easier for end users to understand which flags can be used when invoking actions.
+* Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevent elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 
 ### [v0.141](https://github.com/arez/arez/tree/v0.141) (2019-07-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.140...v0.141)

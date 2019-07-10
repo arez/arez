@@ -3,7 +3,7 @@ package arez.test;
 import arez.AbstractArezTest;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
+import arez.Observer;
 import arez.SchedulerLock;
 import arez.Task;
 import arez.TestSpyEventHandler;
@@ -81,7 +81,7 @@ public class TaskApiTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final Task task = context.task( callCount::incrementAndGet, Flags.DISPOSE_ON_COMPLETE );
+    final Task task = context.task( callCount::incrementAndGet, Task.Flags.DISPOSE_ON_COMPLETE );
 
     assertEquals( callCount.get(), 1 );
     assertNotNull( task );
@@ -151,7 +151,7 @@ public class TaskApiTest
     context.observer( () -> {
       taskRef.set( context.task( callCount::incrementAndGet ) );
       assertEquals( callCount.get(), 0 );
-    }, Flags.AREZ_OR_NO_DEPENDENCIES );
+    }, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertEquals( callCount.get(), 1 );
   }

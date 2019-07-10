@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.SafeProcedure;
 import arez.component.CollectionsUtil;
 import arez.component.DisposeNotifier;
@@ -37,7 +36,7 @@ public final class Arez_MemoizeMapModel extends MemoizeMapModel implements Dispo
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "MemoizeMapModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "MemoizeMapModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), this::$$arezi$$_onActivate_myValue, this::$$arezi$$_onDeactivate_myValue, this::$$arezi$$_onStale_myValue, Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
+    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), this::$$arezi$$_onActivate_myValue, this::$$arezi$$_onDeactivate_myValue, this::$$arezi$$_onStale_myValue, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

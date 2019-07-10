@@ -16,11 +16,12 @@ public final class ActionFlags
   /**
    * Do not report result to spy infrastructure.
    */
-  public static final int NO_REPORT_RESULT = Flags.NO_REPORT_RESULT;
+  public static final int NO_REPORT_RESULT = 1 << 12;
   /**
    * The action must create a new transaction and will not use containing transaction.
    */
-  public static final int REQUIRE_NEW_TRANSACTION = Flags.REQUIRE_NEW_TRANSACTION;
+  @SuppressWarnings( "WeakerAccess" )
+  public static final int REQUIRE_NEW_TRANSACTION = Transaction.Flags.REQUIRE_NEW_TRANSACTION;
   /**
    * If passed to an action, the the action must verify that an action performed an activity
    * that required a transaction. These activities include:
@@ -35,12 +36,12 @@ public final class ActionFlags
    * VERIFY_ACTION_REQUIRED nor {@link #NO_VERIFY_ACTION_REQUIRED} is specified then VERIFY_ACTION_REQUIRED
    * is assumed.</p>
    */
-  public static final int VERIFY_ACTION_REQUIRED = Flags.VERIFY_ACTION_REQUIRED;
+  public static final int VERIFY_ACTION_REQUIRED = 1 << 27;
   /**
    * This flag can be passed to skip verification that action was required.
    * This flag must not be present if {@link #VERIFY_ACTION_REQUIRED} is present.
    */
-  public static final int NO_VERIFY_ACTION_REQUIRED = Flags.NO_VERIFY_ACTION_REQUIRED;
+  public static final int NO_VERIFY_ACTION_REQUIRED = 1 << 26;
   /**
    * Mask used to extract verify action bits.
    */
@@ -48,7 +49,7 @@ public final class ActionFlags
   /**
    * Mask containing flags that can be applied to an action.
    */
-  static final int ACTION_FLAGS_MASK =
+  static final int CONFIG_FLAGS_MASK =
     Transaction.Flags.TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
 
   private ActionFlags()

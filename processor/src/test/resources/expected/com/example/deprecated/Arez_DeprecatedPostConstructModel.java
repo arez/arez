@@ -5,7 +5,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Flags;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
@@ -32,7 +31,7 @@ public final class Arez_DeprecatedPostConstructModel extends DeprecatedPostConst
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DeprecatedPostConstructModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeprecatedPostConstructModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_someValue = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".someValue" : null, () -> super.someValue(), Flags.AREZ_DEPENDENCIES | Flags.RUN_LATER );
+    this.$$arez$$_someValue = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".someValue" : null, () -> super.someValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     super.postConstruct();
     this.$$arezi$$_kernel.componentReady();

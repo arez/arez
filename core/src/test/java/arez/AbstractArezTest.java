@@ -109,7 +109,7 @@ public abstract class AbstractArezTest
   @Nonnull
   final Observer newReadWriteObserver( @Nonnull final ArezContext context )
   {
-    return context.observer( new CountAndObserveProcedure(), Flags.READ_WRITE );
+    return context.observer( new CountAndObserveProcedure(), Observer.Flags.READ_WRITE );
   }
 
   final void setupReadOnlyTransaction()

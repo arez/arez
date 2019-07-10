@@ -7,7 +7,6 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
-import arez.Flags;
 import arez.Observer;
 import arez.SafeFunction;
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class ComponentKernelTest
       assertFalse( kernel.isReady() );
       assertFalse( kernel.isDisposed() );
       assertEquals( kernel.describeState(), "complete" );
-    }, Flags.RUN_LATER );
+    }, Observer.Flags.RUN_LATER );
 
     kernel.componentComplete();
 
@@ -114,7 +113,7 @@ public class ComponentKernelTest
     context.observer( () -> {
       context.observable().reportObserved();
       callCount.incrementAndGet();
-    }, Flags.RUN_LATER );
+    }, Observer.Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
 

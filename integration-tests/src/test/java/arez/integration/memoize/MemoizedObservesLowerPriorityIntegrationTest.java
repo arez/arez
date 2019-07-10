@@ -2,7 +2,7 @@ package arez.integration.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
+import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
@@ -28,7 +28,8 @@ public class MemoizedObservesLowerPriorityIntegrationTest
     final ArezContext context = Arez.context();
     context.observer( "search1(b)",
                       () -> searches.add( model.search1( "b" ) ? "search1(b)" : "NOT(search1(b))" ),
-                      Flags.PRIORITY_HIGHEST | Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                      ComputableValue.Flags.PRIORITY_HIGHEST |
+                      ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     searches.clear();
     safeAction( () -> model.setName( "bl" ) );

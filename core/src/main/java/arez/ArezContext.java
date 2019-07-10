@@ -365,7 +365,7 @@ public final class ArezContext
    *
    * @param <T>      the type of the computable value.
    * @param function the function that computes the value.
-   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags    the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -394,7 +394,7 @@ public final class ArezContext
    * @param <T>      the type of the computable value.
    * @param name     the name of the ComputableValue.
    * @param function the function that computes the value.
-   * @param flags    the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags    the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -429,7 +429,7 @@ public final class ArezContext
    * @param component the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
    * @param name      the name of the ComputableValue.
    * @param function  the function that computes the value.
-   * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags     the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -494,7 +494,7 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -518,7 +518,7 @@ public final class ArezContext
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -573,7 +573,7 @@ public final class ArezContext
    * Create an "autorun" observer that reschedules observed procedure when dependency updates occur.
    *
    * @param observe the executable observed by the observer.
-   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -600,7 +600,7 @@ public final class ArezContext
    *
    * @param name    the name of the observer.
    * @param observe the executable observed by the observer.
-   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -631,7 +631,7 @@ public final class ArezContext
    * @param component the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name      the name of the observer.
    * @param observe   the executable observed by the observer.
-   * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -682,7 +682,7 @@ public final class ArezContext
    *
    * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -717,7 +717,7 @@ public final class ArezContext
    * @param name         the name of the observer.
    * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -737,7 +737,7 @@ public final class ArezContext
    * @param name         the name of the observer.
    * @param observe      the executable observed by the observer. May be null if observer is externally scheduled.
    * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -775,7 +775,7 @@ public final class ArezContext
    * observe function by invoking a observe method such as {@link #observe(Observer, Function)}.
    *
    * @param onDepsChange the hook invoked when dependencies changed.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -806,7 +806,7 @@ public final class ArezContext
    *
    * @param name         the name of the observer.
    * @param onDepsChange the hook invoked when dependencies changed.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -841,7 +841,7 @@ public final class ArezContext
    * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
    * @param onDepsChange the hook invoked when dependencies changed.
-   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Flags}.
+   * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
    * @return the new Observer.
    */
   @Nonnull
@@ -1012,7 +1012,7 @@ public final class ArezContext
 
   /**
    * Create and queue a task to be executed by the runtime.
-   * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
+   * If the scheduler is not running and the {@link Task.Flags#RUN_LATER} flag has not been supplied then the
    * scheduler will be triggered.
    *
    * @param work  the representation of the task to execute.
@@ -1027,7 +1027,7 @@ public final class ArezContext
 
   /**
    * Create and queue a task to be executed by the runtime.
-   * If the scheduler is not running and the {@link Flags#RUN_LATER} flag has not been supplied then the
+   * If the scheduler is not running and the {@link Task.Flags#RUN_LATER} flag has not been supplied then the
    * scheduler will be triggered.
    *
    * @param name  the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
@@ -1808,7 +1808,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() && generateActionEvents )
       {
         completed = true;
-        final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
+        final boolean noReportResults = ( flags & ActionFlags.NO_REPORT_RESULT ) == ActionFlags.NO_REPORT_RESULT;
         reportActionCompleted( name,
                                parameters,
                                observe,
@@ -1882,7 +1882,7 @@ public final class ArezContext
       if ( willPropagateSpyEvents() && generateActionEvents )
       {
         completed = true;
-        final boolean noReportResults = ( flags & Flags.NO_REPORT_RESULT ) == Flags.NO_REPORT_RESULT;
+        final boolean noReportResults = ( flags & ActionFlags.NO_REPORT_RESULT ) == ActionFlags.NO_REPORT_RESULT;
         reportActionCompleted( name,
                                parameters,
                                observed,
@@ -1915,7 +1915,7 @@ public final class ArezContext
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      final int nonActionFlags = flags & ~ActionFlags.ACTION_FLAGS_MASK;
+      final int nonActionFlags = flags & ~ActionFlags.CONFIG_FLAGS_MASK;
       apiInvariant( () -> 0 == nonActionFlags,
                     () -> "Arez-0212: Flags passed to action '" + name + "' include some unexpected " +
                           "flags set: " + nonActionFlags );
@@ -1940,7 +1940,7 @@ public final class ArezContext
       {
         verifyActionRequired( transaction, flags );
       }
-      else if ( Flags.AREZ_DEPENDENCIES == ( flags & Flags.AREZ_DEPENDENCIES ) )
+      else if ( Observer.Flags.AREZ_DEPENDENCIES == ( flags & Observer.Flags.AREZ_DEPENDENCIES ) )
       {
         final Transaction current = Transaction.current();
 
@@ -2345,12 +2345,16 @@ public final class ArezContext
 
   private int trackerObserveFlags( @Nonnull final Observer observer )
   {
-    return Flags.REQUIRE_NEW_TRANSACTION |
+    return Transaction.Flags.REQUIRE_NEW_TRANSACTION |
            ( Arez.shouldCheckInvariants() ?
-             observer.areArezDependenciesRequired() ? Flags.AREZ_DEPENDENCIES : Flags.AREZ_OR_NO_DEPENDENCIES :
+             observer.areArezDependenciesRequired() ?
+             Observer.Flags.AREZ_DEPENDENCIES :
+             Observer.Flags.AREZ_OR_NO_DEPENDENCIES :
              0 ) |
-           ( Arez.areSpiesEnabled() && observer.noReportResults() ? Flags.NO_REPORT_RESULT : 0 ) |
-           ( Arez.shouldEnforceTransactionType() ? ( observer.isMutation() ? Flags.READ_WRITE : Flags.READ_ONLY ) : 0 );
+           ( Arez.areSpiesEnabled() && observer.noReportResults() ? Observer.Flags.NO_REPORT_RESULT : 0 ) |
+           ( Arez.shouldEnforceTransactionType() ?
+             ( observer.isMutation() ? Observer.Flags.READ_WRITE : Observer.Flags.READ_ONLY ) :
+             0 );
   }
 
   private void reportActionStarted( @Nullable final String name,

@@ -81,7 +81,7 @@ public class ObserverInfoImplTest
       assertTrue( ref.get().isRunning() );
       callCount.incrementAndGet();
       observeADependency();
-    }, Flags.RUN_LATER );
+    }, Observer.Flags.RUN_LATER );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
     ref.set( info );
 
@@ -98,7 +98,7 @@ public class ObserverInfoImplTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue = context.observable();
-    final Observer observer = context.observer( observableValue::reportObserved, Flags.READ_WRITE );
+    final Observer observer = context.observer( observableValue::reportObserved, Observer.Flags.READ_WRITE );
 
     assertFalse( observer.asInfo().isReadOnly() );
   }

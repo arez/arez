@@ -58,7 +58,7 @@ public final class ObservableValue<T>
    * The state of the observer that is least stale.
    * This cached value is used to avoid redundant propagations.
    */
-  private int _leastStaleObserverState = Flags.STATE_UP_TO_DATE;
+  private int _leastStaleObserverState = Observer.Flags.STATE_UP_TO_DATE;
   /**
    * The observer that created this observable if any.
    */
@@ -331,7 +331,7 @@ public final class ObservableValue<T>
        * It is possible for the owner to already be deactivated if dispose() is explicitly
        * called within the transaction.
        */
-      _observer.setState( Flags.STATE_INACTIVE );
+      _observer.setState( Observer.Flags.STATE_INACTIVE );
       if ( willPropagateSpyEvents() && shouldPropagateDeactivateEvent )
       {
         reportSpyEvent( new ComputableValueDeactivateEvent( _observer.getComputableValue().asInfo() ) );
@@ -358,7 +358,7 @@ public final class ObservableValue<T>
                        "ObservableValue is already active." );
     }
     assert null != _observer;
-    _observer.setState( Flags.STATE_UP_TO_DATE );
+    _observer.setState( Observer.Flags.STATE_UP_TO_DATE );
     if ( willPropagateSpyEvents() )
     {
       reportSpyEvent( new ComputableValueActivateEvent( _observer.getComputableValue().asInfo() ) );
@@ -475,9 +475,9 @@ public final class ObservableValue<T>
       invariant( () -> getContext().isTransactionActive(),
                  () -> "Arez-0074: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
                        getName() + "' when there is no active transaction." );
-      invariant( () -> Flags.isActive( leastStaleObserverState ),
+      invariant( () -> Observer.Flags.isActive( leastStaleObserverState ),
                  () -> "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
-                       getName() + "' with invalid value " + Flags.getStateName( leastStaleObserverState ) + "." );
+                       getName() + "' with invalid value " + Observer.Flags.getStateName( leastStaleObserverState ) + "." );
     }
     _leastStaleObserverState = leastStaleObserverState;
   }
@@ -617,11 +617,11 @@ public final class ObservableValue<T>
       final int leastStaleObserverState =
         getObservers().stream().
           map( Observer::getLeastStaleObserverState ).
-          min( Comparator.naturalOrder() ).orElse( Flags.STATE_UP_TO_DATE );
+          min( Comparator.naturalOrder() ).orElse( Observer.Flags.STATE_UP_TO_DATE );
       invariant( () -> leastStaleObserverState >= _leastStaleObserverState,
                  () -> "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" + getName() +
-                       "' is '" + Flags.getStateName( leastStaleObserverState ) + "' which is unexpectedly less " +
-                       "than cached value '" + Flags.getStateName( _leastStaleObserverState ) + "'." );
+                       "' is '" + Observer.Flags.getStateName( leastStaleObserverState ) + "' which is unexpectedly less " +
+                       "than cached value '" + Observer.Flags.getStateName( _leastStaleObserverState ) + "'." );
     }
   }
 
