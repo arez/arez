@@ -1927,7 +1927,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionDependencies( final String name,
+  private void verifyActionDependencies( @Nullable final String name,
                                          @Nullable final Observer observer,
                                          final int flags,
                                          @Nonnull final Transaction transaction )
