@@ -1252,8 +1252,7 @@ public final class ArezContext
    * @return the value returned from the executable.
    * @throws Exception if the executable throws an an exception.
    */
-  public <T> T action( @Nonnull final Function<T> executable,
-                       int flags )
+  public <T> T action( @Nonnull final Function<T> executable, final int flags )
     throws Throwable
   {
     return action( null, executable, flags );
@@ -1522,8 +1521,7 @@ public final class ArezContext
    * @param executable the executable.
    * @throws Throwable if the procedure throws an an exception.
    */
-  public void action( @Nullable final String name,
-                      @Nonnull final Procedure executable )
+  public void action( @Nullable final String name, @Nonnull final Procedure executable )
     throws Throwable
   {
     action( name, executable, 0 );
