@@ -1288,7 +1288,7 @@ public final class ArezContext
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable,
-                       int flags )
+                       final int flags )
     throws Throwable
   {
     return action( name, executable, flags, null );
@@ -1308,7 +1308,7 @@ public final class ArezContext
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable,
-                       int flags,
+                       final int flags,
                        @Nullable final Object[] parameters )
     throws Throwable
   {
