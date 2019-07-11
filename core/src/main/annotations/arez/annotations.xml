@@ -1,0 +1,167 @@
+<root>
+  <item name='arez.ArezContext T action(arez.Function&lt;T&gt;, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext T action(java.lang.String, arez.Function&lt;T&gt;, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext T action(java.lang.String, arez.Function&lt;T&gt;, int, java.lang.Object[]) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext T safeAction(arez.SafeFunction&lt;T&gt;, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext T safeAction(java.lang.String, arez.SafeFunction&lt;T&gt;, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext T safeAction(java.lang.String, arez.SafeFunction&lt;T&gt;, int, java.lang.Object[]) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.ComputableValue&lt;T&gt; computable(arez.Component, java.lang.String, arez.SafeFunction&lt;T&gt;, arez.Procedure, arez.Procedure, arez.Procedure, int) 6'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ComputableValue.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.ComputableValue&lt;T&gt; computable(arez.Component, java.lang.String, arez.SafeFunction&lt;T&gt;, int) 3'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ComputableValue.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.ComputableValue&lt;T&gt; computable(arez.SafeFunction&lt;T&gt;, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ComputableValue.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.ComputableValue&lt;T&gt; computable(java.lang.String, arez.SafeFunction&lt;T&gt;, arez.Procedure, arez.Procedure, arez.Procedure, int) 5'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ComputableValue.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.ComputableValue&lt;T&gt; computable(java.lang.String, arez.SafeFunction&lt;T&gt;, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ComputableValue.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer observer(arez.Component, java.lang.String, arez.Procedure, arez.Procedure, int) 4'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer observer(arez.Component, java.lang.String, arez.Procedure, int) 3'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer observer(arez.Procedure, arez.Procedure, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer observer(arez.Procedure, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer observer(java.lang.String, arez.Procedure, arez.Procedure, int) 3'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer observer(java.lang.String, arez.Procedure, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer tracker(arez.Component, java.lang.String, arez.Procedure, int) 3'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer tracker(arez.Procedure, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Observer tracker(java.lang.String, arez.Procedure, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Observer.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Task task(arez.SafeProcedure, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Task.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext arez.Task task(java.lang.String, arez.SafeProcedure, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="Task.Flags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext boolean canImmediatelyInvokeAction(int) 0'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void action(arez.Procedure, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void action(java.lang.String, arez.Procedure, int) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void action(java.lang.String, arez.Procedure, int, java.lang.Object[]) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name="arez.ArezContext void safeAction(arez.SafeProcedure, int) 1">
+    <annotation name="org.intellij.lang.annotations.MagicConstant">
+      <val name="flagsFromClass" val="arez.ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name="arez.ArezContext void safeAction(java.lang.String, arez.SafeProcedure, int) 2">
+    <annotation name="org.intellij.lang.annotations.MagicConstant">
+      <val name="flagsFromClass" val="arez.ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name="arez.ArezContext void safeAction(java.lang.String, arez.SafeProcedure, int, java.lang.Object[] 2">
+    <annotation name="org.intellij.lang.annotations.MagicConstant">
+      <val name="flagsFromClass" val="arez.ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void safeAction(java.lang.String, arez.SafeProcedure, int, java.lang.Object[]) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void verifyActionDependencies(java.lang.String, arez.Observer, int, arez.Transaction) 2'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void verifyActionFlags(java.lang.String, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+  <item name='arez.ArezContext void verifyActionRequired(arez.Transaction, int) 1'>
+    <annotation name='org.intellij.lang.annotations.MagicConstant'>
+      <val name="flagsFromClass" val="ActionFlags.class"/>
+    </annotation>
+  </item>
+</root>
