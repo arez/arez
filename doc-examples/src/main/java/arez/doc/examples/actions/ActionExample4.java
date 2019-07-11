@@ -2,7 +2,6 @@ package arez.doc.examples.actions;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.Flags;
 
 public class ActionExample4
 {
