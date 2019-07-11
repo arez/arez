@@ -1932,7 +1932,7 @@ public final class ArezContext
   private void verifyActionDependencies( final String name,
                                          final @Nullable Observer observer,
                                          final int flags,
-                                         final Transaction transaction )
+                                         @Nonnull final Transaction transaction )
   {
     if ( Arez.shouldCheckInvariants() )
     {
