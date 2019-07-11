@@ -1061,7 +1061,6 @@ public final class Observer
     /**
      * Indicates that the an action can be created from within the Observers observed function.
      */
-    @SuppressWarnings( "WeakerAccess" )
     public static final int NESTED_ACTIONS_ALLOWED = 1 << 29;
     /**
      * Indicates that the an action must not be created from within the Observers observed function.
