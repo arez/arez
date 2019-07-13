@@ -1,6 +1,6 @@
 package com.example.priority_override;
 
-import arez.Flags;
+import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.PriorityOverride;
@@ -18,6 +18,6 @@ public abstract class ThrowsModel
   int doStuffPriority()
     throws IOException
   {
-    return Flags.PRIORITY_LOW;
+    return Observer.Flags.PRIORITY_LOW;
   }
 }

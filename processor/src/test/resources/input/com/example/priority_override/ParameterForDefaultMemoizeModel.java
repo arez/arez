@@ -1,6 +1,6 @@
 package com.example.priority_override;
 
-import arez.Flags;
+import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.PriorityOverride;
@@ -17,6 +17,6 @@ public abstract class ParameterForDefaultMemoizeModel
   @PriorityOverride
   final int timePriority()
   {
-    return Flags.PRIORITY_LOW;
+    return Observer.Flags.PRIORITY_LOW;
   }
 }

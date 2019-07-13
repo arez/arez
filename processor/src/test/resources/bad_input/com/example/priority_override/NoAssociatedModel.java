@@ -1,6 +1,6 @@
 package com.example.priority_override;
 
-import arez.Flags;
+import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.PriorityOverride;
 
@@ -10,6 +10,6 @@ public abstract class NoAssociatedModel
   @PriorityOverride
   final int doStuffPriority()
   {
-    return Flags.PRIORITY_LOW;
+    return Observer.Flags.PRIORITY_LOW;
   }
 }
