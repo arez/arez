@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
+
 ### [v0.24](https://github.com/arez/arez-dom/tree/v0.24) (2019-07-08)
 [Full Changelog](https://github.com/arez/arez-dom/compare/v0.23...v0.24)
 
