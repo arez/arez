@@ -616,7 +616,7 @@ public final class ComputableValue<T>
      * The scheduler will be triggered when the ComputableValue is created to immediately invoke the
      * compute function. This should not be specified if {@link #RUN_LATER} is specified.
      */
-    @SuppressWarnings( { "WeakerAccess", "unused" } )
+    @SuppressWarnings( "unused" )
     public static final int RUN_NOW = Task.Flags.RUN_NOW;
     /**
      * The scheduler will not be triggered when the ComputableValue is created. The ComputableValue
