@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
+
 ### [v0.67](https://github.com/arez/arez-spytools/tree/v0.67) (2019-07-08)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.66...v0.67)
 
