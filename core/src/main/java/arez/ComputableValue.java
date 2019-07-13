@@ -717,6 +717,10 @@ public final class ComputableValue<T>
      */
     public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
     /**
+     * Mask used to extract priority bits.
+     */
+    public static final int PRIORITY_MASK = Task.Flags.PRIORITY_MASK;
+    /**
      * The flag is valid on computable values.
      */
     public static final int READ_OUTSIDE_TRANSACTION = 1 << 14;

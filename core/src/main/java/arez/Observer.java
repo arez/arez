@@ -1032,6 +1032,10 @@ public final class Observer
      */
     public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
     /**
+     * Mask used to extract priority bits.
+     */
+    public static final int PRIORITY_MASK = Task.Flags.PRIORITY_MASK;
+    /**
      * The observer can only read arez state.
      */
     public static final int READ_ONLY = Transaction.Flags.READ_ONLY;
