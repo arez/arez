@@ -1,6 +1,5 @@
 package com.example.priority_override;
 
-import arez.Flags;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.PriorityOverride;

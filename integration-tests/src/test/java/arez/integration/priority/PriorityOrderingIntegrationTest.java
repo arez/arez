@@ -2,7 +2,6 @@ package arez.integration.priority;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.Procedure;

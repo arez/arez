@@ -2,7 +2,6 @@ package arez.integration.observe;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
