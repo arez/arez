@@ -28,7 +28,7 @@ final class Transaction
     /**
      * Mask used to extract transaction mode bits.
      */
-    static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
+    private static final int TRANSACTION_MASK = READ_ONLY | READ_WRITE;
     /**
      * The flag means that the element must create a new transaction.
      */

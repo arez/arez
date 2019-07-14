@@ -13,6 +13,51 @@ public class FlagsTest
   extends AbstractArezTest
 {
   @Test
+  public void flagsWithTheSameNameHaveTheSameValue()
+    throws Exception
+  {
+    // IntelliJ IDEA annotation @MagicConstant(flagsFromClass=Observer.Flags.class) will not generate an error
+    // if ComputableValue.Flags.PRIORITY_LOW is passed rather than Observer.Flags.PRIORITY_LOW if
+    // ComputableValue.Flags.PRIORITY_LOW is aliased (i.e. assigned) to Observer.Flags.PRIORITY_LOW. So we
+    // ensure both variables are assigned the underlying value. However we have to then ensure that the values
+    // stay consistent over time which is what this test is doing.
+    final Map<Class<?>, Map<String, Integer>> valueMap = new HashMap<>();
+    valueMap.put( Observer.Flags.class, extractFlags( Observer.Flags.class ) );
+    valueMap.put( ComputableValue.Flags.class, extractFlags( ComputableValue.Flags.class ) );
+    valueMap.put( Transaction.Flags.class, extractFlags( Transaction.Flags.class ) );
+    valueMap.put( Task.Flags.class, extractFlags( Task.Flags.class ) );
+    valueMap.put( ActionFlags.class, extractFlags( ActionFlags.class ) );
+
+    for ( final Map.Entry<Class<?>, Map<String, Integer>> typeEntry : valueMap.entrySet() )
+    {
+      final Class<?> type = typeEntry.getKey();
+      for ( final Map.Entry<String, Integer> flagEntry : typeEntry.getValue().entrySet() )
+      {
+        final String flag = flagEntry.getKey();
+        if( flag.startsWith( "STATE_" ) || flag.endsWith( "_MASK" ) )
+        {
+          continue;
+        }
+        for ( final Map.Entry<Class<?>, Map<String, Integer>> te : valueMap.entrySet() )
+        {
+          final Class<?> otherType = te.getKey();
+          if ( otherType != type )
+          {
+            final Integer value = te.getValue().get( flag );
+            if ( null != value )
+            {
+              assertEquals( value,
+                            flagEntry.getValue(),
+                            "Expected flag named " + flag + " to have the same value in " +
+                            type.getName() + "  and " + otherType.getName() + " flag classes." );
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @Test
   public void flagsAreUnique()
     throws Exception
   {

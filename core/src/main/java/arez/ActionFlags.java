@@ -8,11 +8,11 @@ public final class ActionFlags
   /**
    * The action can only read arez state.
    */
-  public static final int READ_ONLY = Transaction.Flags.READ_ONLY;
+  public static final int READ_ONLY = 1 << 24;
   /**
    * The action can read or write arez state.
    */
-  public static final int READ_WRITE = Transaction.Flags.READ_WRITE;
+  public static final int READ_WRITE = 1 << 23;
   /**
    * Do not report result to spy infrastructure.
    */
@@ -20,8 +20,7 @@ public final class ActionFlags
   /**
    * The action must create a new transaction and will not use containing transaction.
    */
-  @SuppressWarnings( "WeakerAccess" )
-  public static final int REQUIRE_NEW_TRANSACTION = Transaction.Flags.REQUIRE_NEW_TRANSACTION;
+  public static final int REQUIRE_NEW_TRANSACTION = 1 << 11;
   /**
    * If passed to an action, the the action must verify that an action performed an activity
    * that required a transaction. These activities include:
@@ -50,7 +49,7 @@ public final class ActionFlags
    * Mask containing flags that can be applied to an action.
    */
   static final int CONFIG_FLAGS_MASK =
-    Transaction.Flags.TRANSACTION_MASK | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
+    READ_ONLY | READ_WRITE | REQUIRE_NEW_TRANSACTION | VERIFY_ACTION_MASK | NO_REPORT_RESULT;
 
   private ActionFlags()
   {

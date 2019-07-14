@@ -987,7 +987,7 @@ public final class Observer
      * @see arez.annotations.Priority#HIGHEST
      * @see arez.spy.Priority#HIGHEST
      */
-    public static final int PRIORITY_HIGHEST = Task.Flags.PRIORITY_HIGHEST;
+    public static final int PRIORITY_HIGHEST = 0b001 << 15;
     /**
      * High priority.
      * To reduce the chance that downstream elements will react multiple times within a single
@@ -998,7 +998,7 @@ public final class Observer
      * @see arez.annotations.Priority#HIGH
      * @see arez.spy.Priority#HIGH
      */
-    public static final int PRIORITY_HIGH = Task.Flags.PRIORITY_HIGH;
+    public static final int PRIORITY_HIGH = 0b010 << 15;
     /**
      * Normal priority if no other priority otherwise specified.
      * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
@@ -1006,7 +1006,7 @@ public final class Observer
      * @see arez.annotations.Priority#NORMAL
      * @see arez.spy.Priority#NORMAL
      */
-    public static final int PRIORITY_NORMAL = Task.Flags.PRIORITY_NORMAL;
+    public static final int PRIORITY_NORMAL = 0b011 << 15;
     /**
      * Low priority.
      * Usually used to schedule observers that reflect state onto non-reactive
@@ -1019,7 +1019,7 @@ public final class Observer
      * @see arez.annotations.Priority#LOW
      * @see arez.spy.Priority#LOW
      */
-    public static final int PRIORITY_LOW = Task.Flags.PRIORITY_LOW;
+    public static final int PRIORITY_LOW = 0b100 << 15;
     /**
      * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
      * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -1030,19 +1030,19 @@ public final class Observer
      * @see arez.annotations.Priority#LOWEST
      * @see arez.spy.Priority#LOWEST
      */
-    public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
+    public static final int PRIORITY_LOWEST = 0b101 << 15;
     /**
      * Mask used to extract priority bits.
      */
-    public static final int PRIORITY_MASK = Task.Flags.PRIORITY_MASK;
+    public static final int PRIORITY_MASK = 0b111 << 15;
     /**
      * The observer can only read arez state.
      */
-    public static final int READ_ONLY = Transaction.Flags.READ_ONLY;
+    public static final int READ_ONLY = 1 << 24;
     /**
      * The observer can read or write arez state.
      */
-    public static final int READ_WRITE = Transaction.Flags.READ_WRITE;
+    public static final int READ_WRITE = 1 << 23;
     /**
      * The scheduler will be triggered when the observer is created to immediately invoke the
      * {@link Observer#_observe} function. This configuration should not be specified if there
@@ -1050,14 +1050,14 @@ public final class Observer
      * specified if {@link #RUN_LATER} is specified.
      */
     @SuppressWarnings( "WeakerAccess" )
-    public static final int RUN_NOW = Task.Flags.RUN_NOW;
+    public static final int RUN_NOW = 1 << 22;
     /**
      * The scheduler will not be triggered when the observer is created. The observer either
      * has no {@link Observer#_observe} function or is responsible for ensuring that
      * {@link ArezContext#triggerScheduler()} is invoked at a later time. This should not be
      * specified if {@link #RUN_NOW} is specified.
      */
-    public static final int RUN_LATER = Task.Flags.RUN_LATER;
+    public static final int RUN_LATER = 1 << 21;
     /**
      * Flag indicating that the Observer is allowed to observe {@link ComputableValue} instances with a lower priority.
      */
@@ -1099,12 +1099,12 @@ public final class Observer
     /**
      * Mask used to extract dependency type bits.
      */
-    static final int DEPENDENCIES_TYPE_MASK =
+    private static final int DEPENDENCIES_TYPE_MASK =
       AREZ_DEPENDENCIES | AREZ_OR_NO_DEPENDENCIES | AREZ_OR_EXTERNAL_DEPENDENCIES;
     /**
      * Mask to extract "NESTED_ACTIONS" option so can derive default value if required.
      */
-    static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
+    private static final int NESTED_ACTIONS_MASK = NESTED_ACTIONS_ALLOWED | NESTED_ACTIONS_DISALLOWED;
     /**
      * Flag indicating whether next scheduled invocation of {@link Observer} should invoke {@link Observer#_observe} or {@link Observer#_onDepsChange}.
      */
@@ -1164,9 +1164,9 @@ public final class Observer
      * Mask that identifies the bits associated with static configuration.
      */
     static final int CONFIG_FLAGS_MASK =
-      Task.Flags.PRIORITY_MASK |
-      Task.Flags.RUN_TYPE_MASK |
-      Transaction.Flags.TRANSACTION_MASK |
+      PRIORITY_MASK |
+      RUN_NOW | RUN_LATER |
+      READ_ONLY | READ_WRITE |
       OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
       NESTED_ACTIONS_MASK |
       DEPENDENCIES_TYPE_MASK |

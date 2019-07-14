@@ -617,17 +617,17 @@ public final class ComputableValue<T>
      * compute function. This should not be specified if {@link #RUN_LATER} is specified.
      */
     @SuppressWarnings( "unused" )
-    public static final int RUN_NOW = Task.Flags.RUN_NOW;
+    public static final int RUN_NOW = 1 << 22;
     /**
      * The scheduler will not be triggered when the ComputableValue is created. The ComputableValue
      * is responsible for ensuring that {@link ArezContext#triggerScheduler()} is invoked at a later
      * time. This should not be specified if {@link #RUN_NOW} is specified.
      */
-    public static final int RUN_LATER = Task.Flags.RUN_LATER;
+    public static final int RUN_LATER = 1 << 21;
     /**
      * If passed, then the computable value should not report result to the spy infrastructure.
      */
-    public static final int NO_REPORT_RESULT = Observer.Flags.NO_REPORT_RESULT;
+    public static final int NO_REPORT_RESULT = 1 << 12;
     /**
      * Indicates that application code can not invoke {@link ComputableValue#reportPossiblyChanged()}
      * and the {@link ComputableValue} is only recalculated if a dependency is updated.
@@ -635,14 +635,14 @@ public final class ComputableValue<T>
      * @see arez.annotations.DepType#AREZ
      * @see arez.Observer.Flags#AREZ_DEPENDENCIES
      */
-    public static final int AREZ_DEPENDENCIES = Observer.Flags.AREZ_DEPENDENCIES;
+    public static final int AREZ_DEPENDENCIES = 1 << 27;
     /**
      * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to
      * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
      *
      * @see arez.annotations.DepType#AREZ_OR_NONE
      */
-    public static final int AREZ_OR_NO_DEPENDENCIES = Observer.Flags.AREZ_OR_NO_DEPENDENCIES;
+    public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
     /**
      * Indicates that application code can invoke {@link ComputableValue#reportPossiblyChanged()} to
      * indicate some dependency has changed and that the {@link ComputableValue} should recompute.
@@ -650,19 +650,19 @@ public final class ComputableValue<T>
      * @see arez.annotations.DepType#AREZ_OR_EXTERNAL
      * @see arez.Observer.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES
      */
-    public static final int AREZ_OR_EXTERNAL_DEPENDENCIES = Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES;
+    public static final int AREZ_OR_EXTERNAL_DEPENDENCIES = 1 << 25;
     /**
      * Flag indicating that the Observer is allowed to observe {@link ComputableValue} instances with a lower priority.
      *
      * @see arez.Observer.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES
      */
-    public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES;
+    public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 1 << 30;
     /**
      * The runtime will keep the observer reacting to dependencies until disposed. This is the default value for
      * observers that supply a observed function but may be explicitly supplied when creating {@link ComputableValue}
      * instances.
      */
-    public static final int KEEPALIVE =  Observer.Flags.KEEPALIVE;
+    public static final int KEEPALIVE = 1 << 20;
     /**
      * Highest priority.
      * This priority should be used when the observer will dispose or release other reactive elements
@@ -672,7 +672,7 @@ public final class ComputableValue<T>
      * @see arez.annotations.Priority#HIGHEST
      * @see arez.spy.Priority#HIGHEST
      */
-    public static final int PRIORITY_HIGHEST = Task.Flags.PRIORITY_HIGHEST;
+    public static final int PRIORITY_HIGHEST = 0b001 << 15;
     /**
      * High priority.
      * To reduce the chance that downstream elements will react multiple times within a single
@@ -683,7 +683,7 @@ public final class ComputableValue<T>
      * @see arez.annotations.Priority#HIGH
      * @see arez.spy.Priority#HIGH
      */
-    public static final int PRIORITY_HIGH = Task.Flags.PRIORITY_HIGH;
+    public static final int PRIORITY_HIGH = 0b010 << 15;
     /**
      * Normal priority if no other priority otherwise specified.
      * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
@@ -691,7 +691,7 @@ public final class ComputableValue<T>
      * @see arez.annotations.Priority#NORMAL
      * @see arez.spy.Priority#NORMAL
      */
-    public static final int PRIORITY_NORMAL = Task.Flags.PRIORITY_NORMAL;
+    public static final int PRIORITY_NORMAL = 0b011 << 15;
     /**
      * Low priority.
      * Usually used to schedule observers that reflect state onto non-reactive
@@ -704,7 +704,7 @@ public final class ComputableValue<T>
      * @see arez.annotations.Priority#LOW
      * @see arez.spy.Priority#LOW
      */
-    public static final int PRIORITY_LOW = Task.Flags.PRIORITY_LOW;
+    public static final int PRIORITY_LOW = 0b100 << 15;
     /**
      * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
      * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
@@ -715,11 +715,11 @@ public final class ComputableValue<T>
      * @see arez.annotations.Priority#LOWEST
      * @see arez.spy.Priority#LOWEST
      */
-    public static final int PRIORITY_LOWEST = Task.Flags.PRIORITY_LOWEST;
+    public static final int PRIORITY_LOWEST = 0b101 << 15;
     /**
      * Mask used to extract priority bits.
      */
-    public static final int PRIORITY_MASK = Task.Flags.PRIORITY_MASK;
+    public static final int PRIORITY_MASK = 0b111 << 15;
     /**
      * The flag is valid on computable values.
      */
@@ -728,6 +728,12 @@ public final class ComputableValue<T>
      * Mask that identifies the bits associated with configuration of ComputableValue instances.
      */
     static final int CONFIG_FLAGS_MASK =
-      READ_OUTSIDE_TRANSACTION | ( Observer.Flags.CONFIG_FLAGS_MASK & ~Observer.Flags.APPLICATION_EXECUTOR );
+      READ_OUTSIDE_TRANSACTION |
+      PRIORITY_MASK |
+      (RUN_NOW | RUN_LATER) |
+      OBSERVE_LOWER_PRIORITY_DEPENDENCIES |
+      (AREZ_DEPENDENCIES | AREZ_OR_NO_DEPENDENCIES | AREZ_OR_EXTERNAL_DEPENDENCIES) |
+      KEEPALIVE |
+      NO_REPORT_RESULT;
   }
 }
