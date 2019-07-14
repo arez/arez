@@ -4,6 +4,8 @@
 
 * Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevant elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 * Generate an additional artifact with classifier `annotations` for the core module. This artifact contains the [external annotations](https://www.jetbrains.com/help/idea/external-annotations.html) compatible with Intellij IDEA. The annotations specify which flag constants are compatible with which method parameters. This makes it possible for IDEA to generate a warning or an error if incompatible flags are passed to a method. i.e. Passing `ComputableValue.Flags.PRIORITY_LOW` rather than `Observer.Flags.PRIORITY_LOW` to an `ArezContext.observe(...)` method.
+* Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
+* Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevent elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 
 ### [v0.141](https://github.com/arez/arez/tree/v0.141) (2019-07-08)
 [Full Changelog](https://github.com/arez/arez/compare/v0.140...v0.141)
