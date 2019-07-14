@@ -68,7 +68,10 @@ public abstract class AbstractArezTest
   @AfterSuite
   protected void afterSuite()
   {
-    c_messages.onTestSuiteComplete();
+    if ( !System.getProperty( "arez.check_diagnostic_messages", "true" ).equals( "false" ) )
+    {
+      c_messages.onTestSuiteComplete();
+    }
   }
 
   @Nonnull
