@@ -15,45 +15,218 @@
     }
   },
   {
-    "code": "java.field.visibilityReduced",
-    "description": "Visibility was reduced from 'public' to 'package'.",
-    "element": "field arez.Flags.NO_VERIFY_ACTION_REQUIRED",
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.ComputableValue.Flags",
     "classification": {
-      "SOURCE": "BREAKING",
-      "BINARY": "BREAKING"
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
     },
     "attachments": {
-      "classQualifiedName": "arez.Flags",
+      "classQualifiedName": "arez.ComputableValue.Flags",
       "classSimpleName": "Flags",
-      "elementKind": "field",
-      "fieldName": "NO_VERIFY_ACTION_REQUIRED",
-      "newVisibility": "package",
-      "oldVisibility": "public",
+      "elementKind": "class",
       "package": "arez"
     }
   },
   {
-    "code": "java.field.visibilityReduced",
-    "description": "Visibility was reduced from 'public' to 'package'.",
-    "element": "field arez.Flags.REQUIRE_NEW_TRANSACTION",
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.Observer.Flags",
     "classification": {
-      "SOURCE": "BREAKING",
-      "BINARY": "BREAKING"
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
     },
     "attachments": {
-      "classQualifiedName": "arez.Flags",
+      "classQualifiedName": "arez.Observer.Flags",
       "classSimpleName": "Flags",
-      "elementKind": "field",
-      "fieldName": "REQUIRE_NEW_TRANSACTION",
-      "newVisibility": "package",
-      "oldVisibility": "public",
+      "elementKind": "class",
       "package": "arez"
     }
   },
   {
-    "code": "java.field.visibilityReduced",
-    "description": "Visibility was reduced from 'public' to 'package'.",
-    "element": "field arez.Flags.VERIFY_ACTION_REQUIRED",
+    "code": "java.class.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "class arez.Task.Flags",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "class",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.DISPOSE_ON_COMPLETE",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "DISPOSE_ON_COMPLETE",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.NO_WRAP_TASK",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "NO_WRAP_TASK",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.PRIORITY_HIGH",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "PRIORITY_HIGH",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.PRIORITY_HIGHEST",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "PRIORITY_HIGHEST",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.PRIORITY_LOW",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "PRIORITY_LOW",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.PRIORITY_LOWEST",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "PRIORITY_LOWEST",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.PRIORITY_NORMAL",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "PRIORITY_NORMAL",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.RUN_LATER",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "RUN_LATER",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.field.visibilityIncreased",
+    "description": "Visibility increased from 'package' to 'public'.",
+    "element": "field arez.Task.Flags.RUN_NOW",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Task.Flags",
+      "classSimpleName": "Flags",
+      "elementKind": "field",
+      "fieldName": "RUN_NOW",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.class.removed",
+    "description": "Class was removed.",
+    "oldElement": "class arez.Flags",
     "classification": {
       "SOURCE": "BREAKING",
       "BINARY": "BREAKING"
@@ -61,10 +234,7 @@
     "attachments": {
       "classQualifiedName": "arez.Flags",
       "classSimpleName": "Flags",
-      "elementKind": "field",
-      "fieldName": "VERIFY_ACTION_REQUIRED",
-      "newVisibility": "package",
-      "oldVisibility": "public",
+      "elementKind": "class",
       "package": "arez"
     }
   }
