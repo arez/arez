@@ -13,6 +13,10 @@ define 'arez-promise' do
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
+  pom.add_apache_v2_license
+  pom.add_github_project('arez/arez-promise')
+  pom.add_developer('realityforge', 'Peter Donald')
+
   dom_artifact = artifact(:arez_core)
   pom.include_transitive_dependencies << dom_artifact
   pom.dependency_filter = Proc.new {|dep| dom_artifact == dep[:artifact]}
