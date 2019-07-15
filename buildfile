@@ -11,6 +11,10 @@ define 'arez-spytools' do
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
+  pom.add_apache_v2_license
+  pom.add_github_project('arez/arez-spytools')
+  pom.add_developer('realityforge', 'Peter Donald')
+
   jetbrains_annotations_artifact = artifact(:jetbrains_annotations)
   core_artifact = artifact(:arez_core)
   dom_artifact = artifact(:elemental2_dom)
