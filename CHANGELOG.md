@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.25](https://github.com/arez/arez-dom/tree/v0.25) (2019-07-15)
+[Full Changelog](https://github.com/arez/arez-dom/compare/v0.24...v0.25)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.142'
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
