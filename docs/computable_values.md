@@ -75,4 +75,4 @@ integrate with event based systems or event-driven reactive frameworks such as [
 
 It should be noted that the {@api_url: ComputableValue.reportPossiblyChanged()::ComputableValue::reportPossiblyChanged()}
 can only be invoked if the {@api_url: ComputableValue} was created with the flag
-{@api_url: Flags.NON_AREZ_DEPENDENCIES::Flags::NON_AREZ_DEPENDENCIES}.
+{@api_url: ComputableValue.Flags.NON_AREZ_DEPENDENCIES::ComputableValue.Flags::NON_AREZ_DEPENDENCIES}.

@@ -30,7 +30,7 @@ to read the computable value in which case the computable value will be re-calcu
 will still appear in the pending observers list but the task will be skipped by the scheduler.
 
 The API allows applications to create observers that will not run immediately by passing the
-{@api_url: Flags.RUN_LATER::Flags::RUN_LATER} flag. This is sometimes necessary when creating complex components
+{@api_url: Observer.Flags.RUN_LATER::Observer.Flags::RUN_LATER} flag. This is sometimes necessary when creating complex components
 that need to be completely constructed prior to executing the observed function. To support this use-case the the
 Arez api also provides the {@api_url: ArezContext.triggerScheduler()::ArezContext::triggerScheduler()} method that
 will start the scheduler if there are pending tasks and the scheduler is not currently running.
