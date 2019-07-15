@@ -2,7 +2,7 @@ package arez.dom.example;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Flags;
+import arez.Observer;
 import arez.dom.BrowserLocation;
 import com.google.gwt.core.client.EntryPoint;
 import elemental2.dom.DomGlobal;
@@ -17,7 +17,8 @@ public class BrowserLocationExample
     final BrowserLocation browserLocation = BrowserLocation.create();
 
     final ArezContext context = Arez.context();
-    context.observer( () -> cleanLocation( browserLocation ), Flags.READ_WRITE | Flags.NESTED_ACTIONS_ALLOWED );
+    context.observer( () -> cleanLocation( browserLocation ),
+                      Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_ALLOWED );
     context.observer( () -> printBrowserLocation( browserLocation ) );
 
     DomGlobal.document.querySelector( "#route_base" ).

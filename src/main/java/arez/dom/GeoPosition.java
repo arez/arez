@@ -3,7 +3,7 @@ package arez.dom;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
-import arez.Flags;
+import arez.Task;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
@@ -186,7 +186,7 @@ public abstract class GeoPosition
     {
       context().task( Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
                       () -> setStatus( Status.LOADING ),
-                      Flags.DISPOSE_ON_COMPLETE );
+                      Task.Flags.DISPOSE_ON_COMPLETE );
       _watcherId = DomGlobal.navigator.geolocation.watchPosition( e -> onSuccess( e.getCoords() ), this::onFailure );
     }
     _activateCount++;
