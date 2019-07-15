@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.142'
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
 
 ### [v0.66](https://github.com/arez/arez-promise/tree/v0.66) (2019-07-08)
