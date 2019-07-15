@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.67](https://github.com/arez/arez-promise/tree/v0.67) (2019-07-15)
+[Full Changelog](https://github.com/arez/arez-promise/compare/v0.66...v0.67)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.142'
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
