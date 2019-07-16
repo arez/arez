@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.143'
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.102`.
 
 ### [v0.68](https://github.com/arez/arez-spytools/tree/v0.68) (2019-07-15)
