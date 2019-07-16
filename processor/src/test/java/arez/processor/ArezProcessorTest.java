@@ -357,6 +357,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
         new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.PostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_dispose.PostDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.post_dispose.PostDisposeWithDisabledDisposeNotifierModel", false, false, false, false },
         new Object[]{ "com.example.priority_override.CustomNameModel", false, false, false, false },
         new Object[]{ "com.example.priority_override.MemoizeModel", false, false, false, false },
         new Object[]{ "com.example.priority_override.ObserveModel", false, false, false, false },

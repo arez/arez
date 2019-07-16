@@ -4163,6 +4163,10 @@ final class ComponentDescriptor
           params.add( _preDispose.getSimpleName().toString() );
         }
       }
+      else
+      {
+        sb.append( "null" );
+      }
 
       if ( null != _postDispose )
       {
