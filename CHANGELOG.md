@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Fixed a code generation compilation error where a component contains a `@PostDispose` annotated method, no `@PreDispose` annotated method and is annotated with `@ArezComponent( disposeNotifier = Feature.DISABLE )`.
+* Upgrade the `org.realityforge.guiceyloops` artifact to version `0.102`.
 
 ### [v0.142](https://github.com/arez/arez/tree/v0.142) (2019-07-15)
 [Full Changelog](https://github.com/arez/arez/compare/v0.141...v0.142)
