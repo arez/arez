@@ -53,3 +53,4 @@ Arez is licensed under [Apache License, Version 2.0](LICENSE).
   - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
   -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
   - [GlimmerJS Tracked Properties](https://glimmerjs.com/guides/tracked-properties)
+  - [Observable](https://observablehq.com/@observablehq/observables-not-javascript) is a javascript-like language that uses a similar model and bakes it into the language. It uses `cell`s as the primitive which can either be mutable values or react to changes in other cells (i.e. Arez's `ComputableValue` instances).
