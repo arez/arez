@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.26`.
+* Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.25`.
 
 ### [v0.68](https://github.com/arez/arez-promise/tree/v0.68) (2019-07-16)
 [Full Changelog](https://github.com/arez/arez-promise/compare/v0.67...v0.68)
