@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.25`.
 
 ### [v0.143](https://github.com/arez/arez/tree/v0.143) (2019-07-16)
