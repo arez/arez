@@ -11,7 +11,7 @@ artifacts:
 
   guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.102
 
-  javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.0
+  javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.1
 
   # GWT deps
   gwt_user: com.google.gwt:gwt-user:jar:2.8.2
