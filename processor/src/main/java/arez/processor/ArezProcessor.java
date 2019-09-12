@@ -677,6 +677,7 @@ public final class ArezProcessor
     return null != ProcessorUtil.findAnnotationByType( method, Constants.INJECT_ANNOTATION_CLASSNAME );
   }
 
+  @Nonnull
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
