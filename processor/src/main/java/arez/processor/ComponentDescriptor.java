@@ -1017,12 +1017,6 @@ final class ComponentDescriptor
     }
   }
 
-  @Nullable
-  ExecutableElement getPostConstruct()
-  {
-    return _postConstruct;
-  }
-
   private void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ArezProcessorException
   {
@@ -3939,16 +3933,15 @@ final class ComponentDescriptor
       builder.addStatement( "$N.enhance( this )", Generator.ENHANCER_PARAM_NAME );
     }
 
-    final ExecutableElement postConstruct = getPostConstruct();
-    if ( null != postConstruct )
+    if ( null != _postConstruct )
     {
       if ( isClassType() )
       {
-        builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+        builder.addStatement( "super.$N()", _postConstruct.getSimpleName().toString() );
       }
       else
       {
-        builder.addStatement( "$T.super.$N()", getClassName(), postConstruct.getSimpleName().toString() );
+        builder.addStatement( "$T.super.$N()", getClassName(), _postConstruct.getSimpleName().toString() );
       }
     }
 
