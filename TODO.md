@@ -4,10 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-* Change `@ComponentDependency` to remove constraint that `must implement {@link DisposeNotifier} or be annotated with {@link ArezComponent}`. Sometimes we want to annotate interfaces where all implementations comply with this constraint. Removing this constraint move it from being a compile time error to being a runtime error but so be it. Maybe we could add a parameter ala `@ComponentDependency(runtimeValidate=true)` that makes the move to runtime checks explicit.
-
-  Fix `iris.rose.client.model.PositionModel#_issueDetailsSupplier` when this is addressed.
-
 * Add a compile time check to components that will detect when one of the fields is an Arez component (or
   `DisposeNotifier`?) that is NOT marked with `@CascadeDispose` or `@ComponentDependency` and generate a warning
   that can be upgraded to an error. Potentially we can disable the check at either the field level or at the
