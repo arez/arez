@@ -1023,7 +1023,7 @@ final class ComponentDescriptor
     return _postConstruct;
   }
 
-  void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
+  private void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ArezProcessorException
   {
     MethodChecks.mustBeLifecycleHook( getElement(), Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME, postConstruct );
