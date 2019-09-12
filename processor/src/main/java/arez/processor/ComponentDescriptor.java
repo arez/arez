@@ -2027,28 +2027,37 @@ final class ComponentDescriptor
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
+    final boolean validateTypeAtRuntime =
+      (Boolean) getAnnotationValue( getElements(),
+                                    method,
+                                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                    "validateTypeAtRuntime" ).getValue();
+
     final TypeMirror type = method.getReturnType();
     if ( TypeKind.DECLARED != type.getKind() )
     {
       throw new ArezProcessorException( "@ComponentDependency target must return a non-primitive value", method );
     }
-    final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-    assert null != disposeNotifier;
-    if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
+    if ( !validateTypeAtRuntime )
     {
-      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
-      final AnnotationMirror value =
-        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
-      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+      assert null != disposeNotifier;
+      if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
       {
-        throw new ArezProcessorException( "@ComponentDependency target must return an instance compatible with " +
-                                          Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                          "with @ArezComponent(disposeNotifier=ENABLE)", method );
+        final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
+        final AnnotationMirror value =
+          ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+        if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+        {
+          throw new ArezProcessorException( "@ComponentDependency target must return an instance compatible with " +
+                                            Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
+                                            "with @ArezComponent(disposeNotifier=ENABLE)", method );
+        }
       }
     }
 
     final boolean cascade = isActionCascade( method );
-    return new DependencyDescriptor( this, method, cascade );
+    return new DependencyDescriptor( this, method, cascade, validateTypeAtRuntime );
   }
 
   @Nonnull
@@ -2057,23 +2066,32 @@ final class ComponentDescriptor
     MethodChecks.mustBeSubclassCallable( getElement(), Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
     MethodChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
 
+    final boolean validateTypeAtRuntime =
+      (Boolean) getAnnotationValue( getElements(),
+                                    field,
+                                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                    "validateTypeAtRuntime" ).getValue();
+
     final TypeMirror type = field.asType();
     if ( TypeKind.DECLARED != type.getKind() )
     {
       throw new ArezProcessorException( "@ComponentDependency target must be a non-primitive value", field );
     }
-    final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-    assert null != disposeNotifier;
-    if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
+    if ( !validateTypeAtRuntime )
     {
-      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
-      final AnnotationMirror value =
-        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
-      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+      assert null != disposeNotifier;
+      if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
       {
-        throw new ArezProcessorException( "@ComponentDependency target must be an instance compatible with " +
-                                          Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                          "with @ArezComponent(disposeNotifier=ENABLE)", field );
+        final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
+        final AnnotationMirror value =
+          ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+        if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+        {
+          throw new ArezProcessorException( "@ComponentDependency target must be an instance compatible with " +
+                                            Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
+                                            "with @ArezComponent(disposeNotifier=ENABLE)", field );
+        }
       }
     }
 
@@ -2084,7 +2102,7 @@ final class ComponentDescriptor
 
     }
 
-    return new DependencyDescriptor( this, field );
+    return new DependencyDescriptor( this, field, validateTypeAtRuntime );
   }
 
   private boolean isActionCascade( @Nonnull final Element method )

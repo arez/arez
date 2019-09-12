@@ -17,7 +17,10 @@ import javax.annotation.Nonnull;
  * <li>Must not be annotated with any other arez annotation except {@link Observable}</li>
  * <li>If not annotated with {@link Observable} then must be final</li>
  * <li>Must have 0 parameters</li>
- * <li>Must return a value that implements {@link DisposeNotifier} or is annotated with {@link ArezComponent}</li>
+ * <li>
+ *   Must return a value that implements {@link DisposeNotifier} or is annotated with {@link ArezComponent}.
+ *   This will be checked at compile-time unless {@link #validateTypeAtRuntime()} set to <code>true</code>.
+ * </li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>
@@ -62,4 +65,13 @@ public @interface ComponentDependency
    */
   @Nonnull
   Action action() default Action.CASCADE;
+
+  /**
+   * Return true and the value of the annotated field will be validated at runtime rather than at compile time.
+   * This is useful when the field is defined by an interface but the underlying field is guaranteed to implement
+   * {@link DisposeNotifier} at runtime.
+   *
+   * @return true to defer validation of types until runtime.
+   */
+  boolean validateTypeAtRuntime() default false;
 }

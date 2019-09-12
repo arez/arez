@@ -195,6 +195,8 @@ public class ArezProcessorTest
                       false,
                       false,
                       false },
+        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateDependency", false, false, false, false },
+        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateFieldDependency", false, false, false, false },
         new Object[]{ "com.example.component_dependency.ScheduleDeferredDependencyModel", false, false, false, false },
         new Object[]{ "com.example.component_dependency.SetNullObservableDependency", false, false, false, false },
         new Object[]{ "com.example.deprecated.DeprecatedActionModel", false, false, false, false },

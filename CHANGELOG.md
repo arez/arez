@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.25`.
+* Add the `validateTypeAtRuntime` parameter to the annotation `@ComponentDependency` to defer the checking of the annotated field type or the annotated method return type till runtime. This makes it possible to add this annotation to fields defined by an interface and have the member treated as a dependency. The type is still checked at runtime and will generate an invariant failure if invariants are enabled, otherwise will generate a `ClassCastException`.
 
 ### [v0.143](https://github.com/arez/arez/tree/v0.143) (2019-07-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.142...v0.143)
