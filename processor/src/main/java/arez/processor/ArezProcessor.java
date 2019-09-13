@@ -523,7 +523,72 @@ public final class ArezProcessor
       }
     }
 
+    warnOnUnmanagedComponentReferences( descriptor, fields );
+
     return descriptor;
+  }
+
+  private void warnOnUnmanagedComponentReferences( @Nonnull final ComponentDescriptor descriptor,
+                                                   @Nonnull final List<VariableElement> fields )
+  {
+    final TypeElement disposeNotifier =
+      processingEnv.getElementUtils().getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+    assert null != disposeNotifier;
+
+    for ( final VariableElement field : fields )
+    {
+      if ( !field.getModifiers().contains( Modifier.STATIC ) && SuperficialValidation.validateElement( field ) )
+      {
+        final boolean isDisposeNotifier =
+          processingEnv.getTypeUtils().isAssignable( field.asType(), disposeNotifier.asType() );
+        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation( field ) )
+        {
+          if ( !descriptor.isDependencyDefined( field ) &&
+               !descriptor.isCascadeDisposeDefined( field ) &&
+               !isUnmanagedComponentReferenceSuppressed( field ) )
+          {
+            final String message =
+              "Field named '" + field.getSimpleName().toString() + "' has a type that is an " +
+              ( isDisposeNotifier ? "implementation of DisposeNotifier" : "Arez component" ) +
+              " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
+              "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + " can cause errors. Please annotate the " +
+              "field as appropriate or suppress the warning by annotating the field with " +
+              "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
+            processingEnv.getMessager().printMessage( WARNING, message, field );
+          }
+        }
+      }
+    }
+  }
+
+  private boolean isUnmanagedComponentReferenceSuppressed( @Nonnull final Element element )
+  {
+    return isWarningSuppressed( element, Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION );
+  }
+
+  private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
+  {
+    final SuppressWarnings annotation = element.getAnnotation( SuppressWarnings.class );
+    if ( null != annotation )
+    {
+      for ( final String suppression : annotation.value() )
+      {
+        if ( warning.equals( suppression ) )
+        {
+          return true;
+        }
+      }
+    }
+    final Element enclosingElement = element.getEnclosingElement();
+    return null != enclosingElement && isWarningSuppressed( enclosingElement, warning );
+  }
+
+  private boolean isTypeAnnotatedByComponentAnnotation( @Nonnull final VariableElement field )
+  {
+    final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
+    return null != element &&
+           SuperficialValidation.validateElement( element ) &&
+           null != ProcessorUtil.findAnnotationByType( element, Constants.COMPONENT_ANNOTATION_CLASSNAME );
   }
 
   private boolean isScopeAnnotation( @Nonnull final AnnotationMirror a )

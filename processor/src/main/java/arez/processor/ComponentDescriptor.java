@@ -1363,6 +1363,11 @@ final class ComponentDescriptor
     _cascadeDisposes.put( field, new CascadeDisposableDescriptor( field ) );
   }
 
+  boolean isCascadeDisposeDefined( @Nonnull final Element element )
+  {
+    return _cascadeDisposes.containsKey( element );
+  }
+
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement field )
   {
     final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
@@ -2017,6 +2022,11 @@ final class ComponentDescriptor
   private void addDependency( @Nonnull final VariableElement field )
   {
     _dependencies.put( field, createFieldDependencyDescriptor( field ) );
+  }
+
+  boolean isDependencyDefined( @Nonnull final Element element )
+  {
+    return _dependencies.containsKey( element );
   }
 
   @Nonnull

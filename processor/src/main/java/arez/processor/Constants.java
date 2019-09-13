@@ -43,6 +43,7 @@ final class Constants
   static final String DEPRECATED_ANNOTATION_CLASSNAME = "java.lang.Deprecated";
   static final String GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.Generated";
   static final String JAVA9_GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.processing.Generated";
+  static final String UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION = "Arez:UnmanagedComponentReference";
 
   private Constants()
   {

@@ -1,11 +1,13 @@
 package arez.processor;
 
+import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static com.google.common.truth.Truth.*;
 
 public class ArezProcessorTest
   extends AbstractArezProcessorTest
@@ -1469,6 +1471,60 @@ public class ArezProcessorTest
   public void processFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
   {
     assertFailedCompile( classname, errorMessageFragment );
+  }
+
+  @Test
+  public void unmanagedDisposeNotifierReference()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedDisposeNotifierReference" );
+    final String messageFragment =
+      "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency can cause errors. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 2 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void unmanagedComponentReference()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReference" );
+    final String messageFragment =
+      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency can cause errors. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 2 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void unmanagedComponentReferenceSuppressed()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressed" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 );
+  }
+
+  @Test
+  public void unmanagedComponentReferenceSuppressedAtClass()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 );
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
