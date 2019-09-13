@@ -541,16 +541,25 @@ public final class ArezProcessor
       {
         final boolean isDisposeNotifier =
           processingEnv.getTypeUtils().isAssignable( field.asType(), disposeNotifier.asType() );
-        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation( field ) )
+        final boolean isTypeAnnotatedByComponentAnnotation =
+          !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( field );
+        final boolean isTypeAnnotatedActAsComponent =
+          !isDisposeNotifier &&
+          !isTypeAnnotatedByComponentAnnotation &&
+          isTypeAnnotatedByActAsComponentAnnotation( field );
+        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
         {
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
                !isUnmanagedComponentReferenceSuppressed( field ) &&
-               ( isDisposeNotifier || verifyReferencesToComponent( field ) ) )
+               ( isDisposeNotifier || isTypeAnnotatedActAsComponent || verifyReferencesToComponent( field ) ) )
           {
+            final String label =
+              isDisposeNotifier ? "an implementation of DisposeNotifier" :
+              isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
+              "annotated with @ActAsComponent";
             final String message =
-              "Field named '" + field.getSimpleName().toString() + "' has a type that is an " +
-              ( isDisposeNotifier ? "implementation of DisposeNotifier" : "Arez component" ) +
+              "Field named '" + field.getSimpleName().toString() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
               "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + " can cause errors. Please annotate the " +
               "field as appropriate or suppress the warning by annotating the field with " +
@@ -603,6 +612,14 @@ public final class ArezProcessor
     }
     final Element enclosingElement = element.getEnclosingElement();
     return null != enclosingElement && isWarningSuppressed( enclosingElement, warning );
+  }
+
+  private boolean isTypeAnnotatedByActAsComponentAnnotation( @Nonnull final VariableElement field )
+  {
+    final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
+    return null != element &&
+           SuperficialValidation.validateElement( element ) &&
+           null != ProcessorUtil.findAnnotationByType( element, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
   }
 
   private boolean isTypeAnnotatedByComponentAnnotation( @Nonnull final VariableElement field )
