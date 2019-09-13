@@ -182,4 +182,16 @@ public @interface ArezComponent
    * @return enum that indicates whether the component should implement the interface {@link arez.component.Verifiable}.
    */
   Feature verify() default Feature.AUTODETECT;
+
+  /**
+   * Indicate whether references to the component should also be annotated with {@link CascadeDispose} or {@link ComponentDependency}.
+   * This is used to ensure that when a component is disposed that any reference to the component from another
+   * component is rectified. The annotation processor will warn if the above rules are violated.
+   * {@link Feature#ENABLE} will tell the annotation to warn if references to component are invalid.
+   * {@link Feature#DISABLE} disables the warning. {@link Feature#AUTODETECT} will enable the warning if
+   * the {@link #disposeNotifier()} resolves to {@link Feature#ENABLE}.
+   *
+   * @return enum controlling whether a references to components should be explicitly managed.
+   */
+  Feature verifyReferencesToComponent() default Feature.AUTODETECT;
 }

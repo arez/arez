@@ -545,7 +545,8 @@ public final class ArezProcessor
         {
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
-               !isUnmanagedComponentReferenceSuppressed( field ) )
+               !isUnmanagedComponentReferenceSuppressed( field ) &&
+               ( isDisposeNotifier || verifyReferencesToComponent( field ) ) )
           {
             final String message =
               "Field named '" + field.getSimpleName().toString() + "' has a type that is an " +
@@ -558,6 +559,27 @@ public final class ArezProcessor
           }
         }
       }
+    }
+  }
+
+  private boolean verifyReferencesToComponent( @Nonnull final VariableElement field )
+  {
+    final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
+    assert null != element && SuperficialValidation.validateElement( element );
+
+    final VariableElement verifyReferencesToComponent = (VariableElement)
+      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
+                                        element,
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                        "verifyReferencesToComponent" ).getValue();
+    switch ( verifyReferencesToComponent.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return ProcessorUtil.isDisposableTrackableRequired( processingEnv.getElementUtils(), element );
     }
   }
 

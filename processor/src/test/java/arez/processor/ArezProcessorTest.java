@@ -1531,6 +1531,32 @@ public class ArezProcessorTest
       withWarningCount( 0 );
   }
 
+  @Test
+  public void unmanagedComponentReferenceToNonDisposeNotifier()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
+  public void unmanagedComponentReferenceToSingleton()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReferenceToSingleton" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
   public Object[][] packageAccessElementInDifferentPackage()
   {
