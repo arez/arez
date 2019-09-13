@@ -1545,6 +1545,19 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void unmanagedComponentReferenceToNonVerify()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonVerify" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
   public void unmanagedComponentReferenceToSingleton()
   {
     final String filename =
