@@ -4,14 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to co
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-* Add a compile time check to components that will detect when one of the fields is an Arez component (or
-  `DisposeNotifier`?) that is NOT marked with `@CascadeDispose` or `@ComponentDependency` and generate a warning
-  that can be upgraded to an error. Potentially we can disable the check at either the field level or at the
-  type level with `@SuppressWarnings()`. We could also add another annotation like `@BehavesAsComponent`
-  that could be applied to interfaces and Arez would treat it as a component and require `@CascadeDispose` or
-  `@ComponentDependency` annotation. `@BehavesAsComponent` may also have `optional` boolean parameter which means
-  that at runtime the code will check whether field is instance of `DisposeNotifier` and act accordingly.
-
 ## Next Release
 
 * Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
