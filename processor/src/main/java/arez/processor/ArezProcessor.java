@@ -305,8 +305,8 @@ public final class ArezProcessor
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
-    final boolean fieldInjections =
-      ProcessorUtil.getFieldElements( typeElement ).stream().anyMatch( this::hasInjectAnnotation );
+    final List<VariableElement> fields = ProcessorUtil.getFieldElements( typeElement );
+    final boolean fieldInjections = fields.stream().anyMatch( this::hasInjectAnnotation );
     final boolean methodInjections =
       ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
         .stream()
