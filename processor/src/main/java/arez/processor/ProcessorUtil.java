@@ -445,11 +445,11 @@ final class ProcessorUtil
   }
 
   static boolean isDisposableTrackableRequired( @Nonnull final Elements elementUtils,
-                                                @Nonnull final TypeElement typeElement )
+                                                @Nonnull final Element element )
   {
     final VariableElement variableElement = (VariableElement)
       getAnnotationValue( elementUtils,
-                          typeElement,
+                          element,
                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
                           "disposeNotifier" ).getValue();
     switch ( variableElement.getSimpleName().toString() )
@@ -459,7 +459,7 @@ final class ProcessorUtil
       case "DISABLE":
         return false;
       default:
-        return null == findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME );
+        return null == findAnnotationByType( element, Constants.SINGLETON_ANNOTATION_CLASSNAME );
     }
   }
 }
