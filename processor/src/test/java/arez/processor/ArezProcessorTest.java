@@ -1482,9 +1482,10 @@ public class ArezProcessorTest
       "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency can cause errors. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
-      withWarningCount( 2 ).
+      withWarningCount( 1 ).
       withWarningContaining( messageFragment );
   }
 
@@ -1497,9 +1498,10 @@ public class ArezProcessorTest
       "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency can cause errors. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
-      withWarningCount( 2 ).
+      withWarningCount( 1 ).
       withWarningContaining( messageFragment );
   }
 
@@ -1510,9 +1512,10 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressed" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
-      withWarningCount( 1 );
+      withWarningCount( 0 );
   }
 
   @Test
@@ -1522,9 +1525,10 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
-      withWarningCount( 1 );
+      withWarningCount( 0 );
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
