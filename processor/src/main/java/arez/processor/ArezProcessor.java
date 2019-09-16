@@ -561,8 +561,8 @@ public final class ArezProcessor
             final String message =
               "Field named '" + field.getSimpleName().toString() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
-              "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + " can cause errors. Please annotate the " +
-              "field as appropriate or suppress the warning by annotating the field with " +
+              "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause Please " +
+              "annotate the field as appropriate or suppress the warning by annotating the field with " +
               "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
             processingEnv.getMessager().printMessage( WARNING, message, field );
           }
