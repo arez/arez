@@ -243,7 +243,7 @@ final class ObservableDescriptor
                          Modifier.PRIVATE ).
         addAnnotation( Generator.NONNULL_CLASSNAME );
     builder.addField( field.build() );
-    if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    if ( isAbstract() )
     {
       final TypeName type = TypeName.get( _getterType.getReturnType() );
       final FieldSpec.Builder dataField =
@@ -298,7 +298,7 @@ final class ObservableDescriptor
     parameters.add( "." + getName() );
     parameters.add( Generator.AREZ_CLASSNAME );
 
-    final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
+    final boolean abstractObservables = isAbstract();
     if ( abstractObservables )
     {
       sb.append( "this.$N" );
@@ -335,6 +335,11 @@ final class ObservableDescriptor
 
     sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  boolean isAbstract()
+  {
+    return getGetter().getModifiers().contains( Modifier.ABSTRACT );
   }
 
   void buildDisposer( @Nonnull final MethodSpec.Builder codeBlock )
@@ -489,7 +494,7 @@ final class ObservableDescriptor
     final String varName = Generator.VARIABLE_PREFIX + "currentValue";
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
-    final boolean abstractObservables = getGetter().getModifiers().contains( Modifier.ABSTRACT );
+    final boolean abstractObservables = isAbstract();
     if ( abstractObservables )
     {
       builder.addStatement( "final $T $N = this.$N", type, varName, getDataFieldName() );
@@ -758,7 +763,7 @@ final class ObservableDescriptor
       builder.addStatement( "this.$N.reportObserved()", getFieldName() );
     }
 
-    if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    if ( isAbstract() )
     {
       if ( shouldGenerateUnmodifiableCollectionVariant() )
       {
@@ -1001,7 +1006,7 @@ final class ObservableDescriptor
         }
       }
     }
-    if ( getGetter().getModifiers().contains( Modifier.ABSTRACT ) )
+    if ( isAbstract() )
     {
       if ( !getGetter().getThrownTypes().isEmpty() )
       {
