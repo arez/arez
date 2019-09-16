@@ -2057,13 +2057,11 @@ final class ComponentDescriptor
       if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
       {
         final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
-        final AnnotationMirror value =
-          ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
-        if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+        if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
           throw new ArezProcessorException( "@ComponentDependency target must return an instance compatible with " +
                                             Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                            "with @ArezComponent(disposeNotifier=ENABLE)", method );
+                                            "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", method );
         }
       }
     }
@@ -2096,13 +2094,11 @@ final class ComponentDescriptor
       if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
       {
         final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
-        final AnnotationMirror value =
-          ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
-        if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+        if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
           throw new ArezProcessorException( "@ComponentDependency target must be an instance compatible with " +
                                             Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                            "with @ArezComponent(disposeNotifier=ENABLE)", field );
+                                            "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", field );
         }
       }
     }
@@ -2115,6 +2111,19 @@ final class ComponentDescriptor
     }
 
     return new DependencyDescriptor( this, field );
+  }
+
+  @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
+  private boolean isActAsComponentAnnotated( @Nonnull final TypeElement typeElement )
+  {
+    return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
+  }
+
+  @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
+  private boolean isDisposeTrackableComponent( @Nonnull final TypeElement typeElement )
+  {
+    return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
+           ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement );
   }
 
   private boolean isActionCascade( @Nonnull final Element method )
