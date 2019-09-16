@@ -1,23 +1,20 @@
 package arez;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
-import org.realityforge.braincheck.GuardMessageCollector;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import static org.testng.Assert.*;
 
+@Listeners( MessageCollector.class )
 public abstract class AbstractTest
 {
-  private static final GuardMessageCollector c_messages = createCollector();
   private final TestLogger _logger = new TestLogger();
   private final ArrayList<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
@@ -34,43 +31,16 @@ public abstract class AbstractTest
     _ignoreObserverErrors = false;
     _observerErrors.clear();
     Arez.context().addObserverErrorHandler( this::onObserverError );
-    c_messages.onTestStart();
   }
 
   @AfterMethod
   protected void afterTest()
   {
-    c_messages.onTestComplete();
     BrainCheckTestUtil.resetConfig( true );
     ArezTestUtil.resetConfig( true );
     if ( !_ignoreObserverErrors && !_observerErrors.isEmpty() )
     {
       fail( "Unexpected Observer Errors: " + String.join( "\n", _observerErrors ) );
-    }
-  }
-
-  @BeforeSuite
-  protected void beforeSuite()
-  {
-    c_messages.onTestSuiteStart();
-  }
-
-  @Nonnull
-  private static GuardMessageCollector createCollector()
-  {
-    final boolean saveIfChanged = "true".equals( System.getProperty( "arez.output_fixture_data", "false" ) );
-    final String fixtureDir = System.getProperty( "arez.diagnostic_messages_file" );
-    assertNotNull( fixtureDir,
-                   "Expected System.getProperty( \"arez.diagnostic_messages_file\" ) to return location of diagnostic messages file" );
-    return new GuardMessageCollector( "Arez", new File( fixtureDir ), saveIfChanged );
-  }
-
-  @AfterSuite
-  protected void afterSuite()
-  {
-    if ( !System.getProperty( "arez.check_diagnostic_messages", "true" ).equals( "false" ) )
-    {
-      c_messages.onTestSuiteComplete();
     }
   }
 
