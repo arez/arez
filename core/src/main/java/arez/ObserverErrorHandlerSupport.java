@@ -16,7 +16,7 @@ final class ObserverErrorHandlerSupport
   /**
    * The list of error handlers to call when an error is received.
    */
-  private final ArrayList<ObserverErrorHandler> _handlers = new ArrayList<>();
+  private final List<ObserverErrorHandler> _handlers = new ArrayList<>();
 
   /**
    * Add error handler to the list of error handlers called.
