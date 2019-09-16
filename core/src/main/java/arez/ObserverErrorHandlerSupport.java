@@ -1,6 +1,7 @@
 package arez;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -80,7 +81,7 @@ final class ObserverErrorHandlerSupport
   }
 
   @Nonnull
-  ArrayList<ObserverErrorHandler> getHandlers()
+  List<ObserverErrorHandler> getHandlers()
   {
     return _handlers;
   }
