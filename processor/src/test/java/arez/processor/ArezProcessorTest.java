@@ -1602,6 +1602,123 @@ public class ArezProcessorTest
       withWarningCount( 0 );
   }
 
+  @Test
+  public void unmanagedObservableComponentReference()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableComponentReference" );
+    final String messageFragment =
+      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void unmanagedObservableActAsComponentReference()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReference" );
+    final String messageFragment =
+      "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void unmanagedObservableDisposeNotifierReference()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableDisposeNotifierReference" );
+    final String messageFragment =
+      "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+
+  @Test
+  public void unmanagedObservableComponentReferenceVaiInheritance()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceVaiInheritance" );
+    final String messageFragment =
+      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void unmanagedObservableActAsComponentReferenceSuppressed()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
+  public void unmanagedObservableActAsComponentReferenceSuppressedOnClass()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
+  public void unmanagedObservableActAsComponentReferenceSuppressedOnSetter()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
+  public void unmanagedObservableComponentReferenceToNonVerify()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
   public Object[][] packageAccessElementInDifferentPackage()
   {

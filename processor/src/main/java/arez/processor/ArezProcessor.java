@@ -569,6 +569,50 @@ public final class ArezProcessor
         }
       }
     }
+
+    for ( final ObservableDescriptor observable : descriptor.getObservables() )
+    {
+      if ( observable.isAbstract() )
+      {
+        final ExecutableElement getter = observable.getGetter();
+        if ( SuperficialValidation.validateElement( getter ) )
+        {
+          final TypeMirror returnType = getter.getReturnType();
+          final Element returnElement = processingEnv.getTypeUtils().asElement( returnType );
+          final boolean isDisposeNotifier =
+            processingEnv.getTypeUtils().isAssignable( returnType, disposeNotifier.asType() );
+          final boolean isTypeAnnotatedByComponentAnnotation =
+            !isDisposeNotifier && isElementAnnotatedBy( returnElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+          final boolean isTypeAnnotatedActAsComponent =
+            !isDisposeNotifier &&
+            !isTypeAnnotatedByComponentAnnotation &&
+            isElementAnnotatedBy( returnElement, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
+          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+          {
+            if ( !descriptor.isDependencyDefined( getter ) &&
+                 !descriptor.isCascadeDisposeDefined( getter ) &&
+                 !isUnmanagedComponentReferenceSuppressed( getter ) &&
+                 ( observable.hasSetter() && !isUnmanagedComponentReferenceSuppressed( observable.getSetter() ) ) &&
+                 ( isDisposeNotifier ||
+                   isTypeAnnotatedActAsComponent ||
+                   verifyReferencesToComponent( returnElement ) ) )
+            {
+              final String label =
+                isDisposeNotifier ? "an implementation of DisposeNotifier" :
+                isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
+                "annotated with @ActAsComponent";
+              final String message =
+                "Method named '" + getter.getSimpleName().toString() + "' has a return type that is " + label +
+                " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
+                "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause errors. " +
+                "Please annotate the method as appropriate or suppress the warning by annotating the method with " +
+                "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
+              processingEnv.getMessager().printMessage( WARNING, message, getter );
+            }
+          }
+        }
+      }
+    }
   }
 
   private boolean verifyReferencesToComponent( @Nonnull final VariableElement field )
