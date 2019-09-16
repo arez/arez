@@ -41,7 +41,7 @@ arez.enable_native_components = goog.define('arez.enable_native_components', 'fa
 arez.enable_registries = goog.define('arez.enable_registries', 'false');
 
 /** @define {string} */
-arez.enable_observer_error_handlers = goog.define('arez.enable_observer_error_handlers', 'false');
+arez.enable_observer_error_handlers = goog.define('arez.enable_observer_error_handlers', 'true');
 
 /** @define {string} */
 arez.check_invariants = goog.define('arez.check_invariants', 'false');
