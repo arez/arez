@@ -209,8 +209,7 @@ final class ArezConfig
     @Override
     boolean areObserverErrorHandlersEnabled()
     {
-      return "true".equals( System.getProperty( "arez.enable_observer_error_handlers",
-                                                PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.enable_observer_error_handlers", "true" ) );
     }
 
     @GwtIncompatible

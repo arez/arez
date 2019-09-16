@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Ensure that the default value for the `arez.enable_observer_error_handlers` compile time configuration setting is the same value (i.e. `true`) in both J2CL compiled code and GWT compiled code.
+* Ensure that the default value for the `arez.enable_observer_error_handlers` compile time configuration setting is the same value (i.e. `true`) in J2CL compiled code, GWT compiled code and in the JRE environment.
 
 ### [v0.145](https://github.com/arez/arez/tree/v0.145) (2019-09-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.144...v0.145)
