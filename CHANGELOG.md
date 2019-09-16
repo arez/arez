@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.145](https://github.com/arez/arez/tree/v0.145) (2019-09-16)
+[Full Changelog](https://github.com/arez/arez/compare/v0.144...v0.145)
 
 * Avoid issuing a warning when the `@ComponentDependency` annotation is applied to a field with a type annotated by `@ActAsComponent` or to a method with a return type annotated by `@ActAsComponent`.
 
