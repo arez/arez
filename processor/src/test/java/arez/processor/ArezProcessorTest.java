@@ -1482,7 +1482,7 @@ public class ArezProcessorTest
       "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1498,7 +1498,7 @@ public class ArezProcessorTest
       "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1514,7 +1514,7 @@ public class ArezProcessorTest
       "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1530,7 +1530,7 @@ public class ArezProcessorTest
       "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1544,7 +1544,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressed" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1556,7 +1556,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1568,7 +1568,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1580,7 +1580,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonVerify" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1592,7 +1592,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceToSingleton" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1606,7 +1606,7 @@ public class ArezProcessorTest
       "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1622,7 +1622,7 @@ public class ArezProcessorTest
       "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1638,7 +1638,7 @@ public class ArezProcessorTest
       "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1654,7 +1654,7 @@ public class ArezProcessorTest
       "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       withWarningCount( 1 ).
@@ -1668,7 +1668,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1680,7 +1680,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1692,7 +1692,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1705,7 +1705,7 @@ public class ArezProcessorTest
                   "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1717,7 +1717,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
@@ -1729,7 +1729,7 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing" ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
   }
