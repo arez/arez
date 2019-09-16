@@ -15,6 +15,21 @@
     }
   },
   {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.SuppressArezWarnings",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.SuppressArezWarnings",
+      "classSimpleName": "SuppressArezWarnings",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
     "code": "java.method.attributeWithDefaultAddedToAnnotationType",
     "description": "The annotation has a new attribute with a default value.",
     "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::verifyReferencesToComponent()",

@@ -8,6 +8,7 @@
 * Enhance the annotation processor to detect when an `@ArezComponent` annotated class or a `DisposeNotifier` implementation is declared as a field or an abstract `@Observable` property in a class annotated with `@ArezComponent` but does not have a `@CascadeDispose` nor a `@ComponentDependency` annotation. If this scenario is detected then issue a warning as it is possible that there exists a scenario where a disposed component continues to be referenced by a non-disposed component. This warning can be suppressed by using `@SuppressWarnings( "Arez:UnmanagedComponentReference" )`.
 * Add the `verifyReferencesToComponent` parameter to the `@ArezComponent` annotation to control whether the `UnmanagedComponentReference` warning should be generated when referencing the component defined by the `@ArezComponent` annotation. If `verifyReferencesToComponent` is set to `DISABLE` then references to the component will no generate warnings.
 * Add the `@ActAsComponent` annotation that can be used to mark a type as one that can generate `UnmanagedComponentReference` warnings.
+* Add the `@arez.annotations.SuppressArezWarnings` annotation as an alternative to `@java.lang.SuppressWarnings` if the suppression occurs on a base class that is present in library and not necessarily compiled in the same compiler instances as the Arez component.
 
 ### [v0.143](https://github.com/arez/arez/tree/v0.143) (2019-07-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.142...v0.143)

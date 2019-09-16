@@ -2,6 +2,7 @@ package arez.processor;
 
 final class Constants
 {
+  static final String SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME = "arez.annotations.SuppressArezWarnings";
   static final String ACTION_ANNOTATION_CLASSNAME = "arez.annotations.Action";
   static final String COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ArezComponent";
   static final String ACT_AS_COMPONENT_ANNOTATION_CLASSNAME = "arez.annotations.ActAsComponent";

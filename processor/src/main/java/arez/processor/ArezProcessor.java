@@ -563,7 +563,8 @@ public final class ArezProcessor
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
               "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause Please " +
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
-              "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
+              "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" ) or " +
+              "@SuppressArezWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
             processingEnv.getMessager().printMessage( WARNING, message, field );
           }
         }
@@ -606,7 +607,8 @@ public final class ArezProcessor
                 " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
                 "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause errors. " +
                 "Please annotate the method as appropriate or suppress the warning by annotating the method with " +
-                "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
+                "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" ) or " +
+                "@SuppressArezWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
               processingEnv.getMessager().printMessage( WARNING, message, getter );
             }
           }
@@ -647,6 +649,20 @@ public final class ArezProcessor
 
   private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
   {
+    final AnnotationMirror suppress = ProcessorUtil.findAnnotationByType( element, warning );
+    if ( null != suppress )
+    {
+      final List<String> warnings =
+        ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(), suppress, "value" );
+      for ( final String suppression : warnings )
+      {
+        if ( warning.equals( suppression ) )
+        {
+          return true;
+        }
+      }
+    }
+
     final SuppressWarnings annotation = element.getAnnotation( SuppressWarnings.class );
     if ( null != annotation )
     {
