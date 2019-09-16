@@ -1230,7 +1230,7 @@
         "class": "arez.ObserverErrorHandlerSupport",
         "method": "addObserverErrorHandler",
         "file": "ObserverErrorHandlerSupport.java",
-        "lineNumber": 30
+        "lineNumber": 32
       }
     ]
   },
@@ -1243,7 +1243,7 @@
         "class": "arez.ObserverErrorHandlerSupport",
         "method": "removeObserverErrorHandler",
         "file": "ObserverErrorHandlerSupport.java",
-        "lineNumber": 47
+        "lineNumber": 49
       }
     ]
   },
