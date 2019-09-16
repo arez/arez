@@ -23,36 +23,25 @@ final class DependencyDescriptor
   @Nullable
   private final VariableElement _field;
   private final boolean _cascade;
-  private final boolean _validateAtRuntime;
   @Nullable
   private ObservableDescriptor _observable;
 
   DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
                         @Nonnull final ExecutableElement method,
-                        final boolean cascade,
-                        final boolean validateAtRuntime )
+                        final boolean cascade )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _method = Objects.requireNonNull( method );
     _field = null;
     _cascade = cascade;
-    _validateAtRuntime = validateAtRuntime;
   }
 
-  DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
-                        @Nonnull final VariableElement field,
-                        final boolean validateAtRuntime )
+  DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final VariableElement field )
   {
     _componentDescriptor = Objects.requireNonNull( componentDescriptor );
     _method = null;
     _field = Objects.requireNonNull( field );
     _cascade = true;
-    _validateAtRuntime = validateAtRuntime;
-  }
-
-  boolean shouldValidateAtRuntime()
-  {
-    return _validateAtRuntime;
   }
 
   boolean shouldCascadeDispose()

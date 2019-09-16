@@ -2067,7 +2067,7 @@ final class ComponentDescriptor
     }
 
     final boolean cascade = isActionCascade( method );
-    return new DependencyDescriptor( this, method, cascade, validateTypeAtRuntime );
+    return new DependencyDescriptor( this, method, cascade );
   }
 
   @Nonnull
@@ -2112,7 +2112,7 @@ final class ComponentDescriptor
 
     }
 
-    return new DependencyDescriptor( this, field, validateTypeAtRuntime );
+    return new DependencyDescriptor( this, field );
   }
 
   private boolean isActionCascade( @Nonnull final Element method )
