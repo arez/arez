@@ -1,5 +1,7 @@
 package arez;
 
+import javax.annotation.Nonnull;
+
 /**
  * Location of all compile time configuration settings for framework.
  */
@@ -21,6 +23,7 @@ final class ArezConfig
   private static boolean ENABLE_OBSERVER_ERROR_HANDLERS = PROVIDER.areObserverErrorHandlersEnabled();
   private static boolean CHECK_INVARIANTS = PROVIDER.checkInvariants();
   private static boolean CHECK_API_INVARIANTS = PROVIDER.checkApiInvariants();
+  @Nonnull
   private static final String LOGGER_TYPE = PROVIDER.loggerType();
 
   private ArezConfig()
@@ -107,6 +110,7 @@ final class ArezConfig
     return CHECK_API_INVARIANTS;
   }
 
+  @Nonnull
   static String loggerType()
   {
     return LOGGER_TYPE;
@@ -225,6 +229,7 @@ final class ArezConfig
 
     @GwtIncompatible
     @Override
+    @Nonnull
     String loggerType()
     {
       return System.getProperty( "arez.logger", PRODUCTION_MODE ? "basic" : "proxy" );
@@ -309,6 +314,7 @@ final class ArezConfig
       return "true" == System.getProperty( "arez.check_api_invariants" );
     }
 
+    @Nonnull
     String loggerType()
     {
       /*
