@@ -649,14 +649,15 @@ public final class ArezProcessor
 
   private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
   {
-    final AnnotationMirror suppress = ProcessorUtil.findAnnotationByType( element, warning );
+    final AnnotationMirror suppress =
+      ProcessorUtil.findAnnotationByType( element, Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
     if ( null != suppress )
     {
-      final List<String> warnings =
+      final List<AnnotationValue> warnings =
         ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(), suppress, "value" );
-      for ( final String suppression : warnings )
+      for ( final AnnotationValue suppression : warnings )
       {
-        if ( warning.equals( suppression ) )
+        if ( warning.equals( suppression.getValue() ) )
         {
           return true;
         }
