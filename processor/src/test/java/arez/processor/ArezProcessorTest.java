@@ -1694,6 +1694,33 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void unmanagedObservableComponentReferenceViaInheritanceSuppressed()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
+  public void unmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass()
+  {
+    final String filename =
+      toFilename( "input",
+                  "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" );
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 0 );
+  }
+
+  @Test
   public void unmanagedObservableActAsComponentReferenceSuppressedOnSetter()
   {
     final String filename =
