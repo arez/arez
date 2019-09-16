@@ -1,6 +1,7 @@
 # Change Log
 
-### Unreleased
+### [v0.27](https://github.com/arez/arez-dom/tree/v0.27) (2019-09-16)
+[Full Changelog](https://github.com/arez/arez-dom/compare/v0.26...v0.27)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.144'
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
