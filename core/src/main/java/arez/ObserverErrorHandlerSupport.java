@@ -16,6 +16,7 @@ final class ObserverErrorHandlerSupport
   /**
    * The list of error handlers to call when an error is received.
    */
+  @Nonnull
   private final List<ObserverErrorHandler> _handlers = new ArrayList<>();
 
   /**
