@@ -1650,7 +1650,6 @@ public class ArezProcessorTest
       withWarningContaining( messageFragment );
   }
 
-
   @Test
   public void unmanagedObservableComponentReferenceViaInheritance()
   {
