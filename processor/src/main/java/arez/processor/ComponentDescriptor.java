@@ -1363,6 +1363,7 @@ final class ComponentDescriptor
     _cascadeDisposes.put( field, new CascadeDisposableDescriptor( field ) );
   }
 
+  @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   boolean isCascadeDisposeDefined( @Nonnull final Element element )
   {
     return _cascadeDisposes.containsKey( element );
@@ -2024,6 +2025,7 @@ final class ComponentDescriptor
     _dependencies.put( field, createFieldDependencyDescriptor( field ) );
   }
 
+  @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   boolean isDependencyDefined( @Nonnull final Element element )
   {
     return _dependencies.containsKey( element );
