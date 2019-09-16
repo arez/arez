@@ -1546,8 +1546,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1559,8 +1558,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1572,8 +1570,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1585,8 +1582,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1598,8 +1594,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1675,8 +1670,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1688,8 +1682,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1701,8 +1694,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1715,8 +1707,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1728,8 +1719,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @Test
@@ -1741,8 +1731,7 @@ public class ArezProcessorTest
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:-processing" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 0 );
+      compilesWithoutWarnings();
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
