@@ -1522,6 +1522,22 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void unmanagedComponentReferenceViaInheritance()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnmanagedComponentReferenceViaInheritance" );
+    final String messageFragment =
+      "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency can cause errors. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
   public void unmanagedComponentReferenceSuppressed()
   {
     final String filename =
