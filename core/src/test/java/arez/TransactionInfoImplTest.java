@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class TransactionInfoImplTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void nonTracking_READ_WRITE()

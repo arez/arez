@@ -1,6 +1,6 @@
 package arez.component;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.ArezTestUtil;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class CollectionsUtilTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void wrap_when_areRepositoryResultsModifiable_isTrue()

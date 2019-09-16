@@ -1,13 +1,13 @@
 package arez.spy;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import java.util.HashMap;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ActionStartEventTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

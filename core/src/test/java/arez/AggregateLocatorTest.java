@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "SuspiciousMethodCalls" )
 public class AggregateLocatorTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void registerThenDeregister()

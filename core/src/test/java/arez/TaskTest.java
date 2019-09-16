@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class TaskTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

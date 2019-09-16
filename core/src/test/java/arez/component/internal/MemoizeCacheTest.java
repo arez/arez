@@ -1,6 +1,6 @@
 package arez.component.internal;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
@@ -18,7 +18,7 @@ import static org.testng.Assert.*;
 
 @SuppressWarnings( "unchecked" )
 public class MemoizeCacheTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @BeforeMethod
   @Override

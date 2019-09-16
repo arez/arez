@@ -1,11 +1,11 @@
 package arez.component;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentObservableTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   static class TestElement
     implements ComponentObservable

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ZoneTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void zone_safeRun_Function()

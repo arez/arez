@@ -1,13 +1,13 @@
 package arez.component;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.SafeProcedure;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class DisposeNotifierTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   static class BasicDisposeNotifier
     implements DisposeNotifier

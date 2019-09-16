@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentInfoImplTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()
@@ -17,7 +17,7 @@ public class ComponentInfoImplTest
     final String type = ValueUtil.randomString();
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
-    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractTest::observeADependency );
     final ObservableValue observableValue = context.observable();
     final ComputableValue computableValue = context.computable( () -> "" );
 

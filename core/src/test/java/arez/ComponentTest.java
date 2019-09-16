@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComponentTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void constructorPassedContext_whenZonesDisabled()
@@ -99,7 +99,7 @@ public class ComponentTest
 
     final ObservableValue observableValue1 = context.observable();
     final ComputableValue computableValue1 = context.computable( () -> "" );
-    final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer1 = context.observer( AbstractTest::observeADependency );
 
     component.addObservableValue( observableValue1 );
     component.addComputableValue( computableValue1 );
@@ -146,8 +146,8 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
-    final Observer observer2 = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer1 = context.observer( AbstractTest::observeADependency );
+    final Observer observer2 = context.observer( AbstractTest::observeADependency );
 
     assertEquals( component.getObservers().size(), 0 );
 
@@ -181,7 +181,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer1 = context.observer( AbstractTest::observeADependency );
 
     component.addObserver( observer1 );
 
@@ -205,7 +205,7 @@ public class ComponentTest
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
     component.complete();
 
-    final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer1 = context.observer( AbstractTest::observeADependency );
 
     assertEquals( component.getObservers().size(), 0 );
 
@@ -227,7 +227,7 @@ public class ComponentTest
     final Component component =
       new Component( context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null );
 
-    final Observer observer1 = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer1 = context.observer( AbstractTest::observeADependency );
 
     assertInvariantFailure( () -> component.removeObserver( observer1 ),
                             "Arez-0041: Component.removeObserver invoked on component '" + name +
@@ -425,7 +425,7 @@ public class ComponentTest
                                                                  null,
                                                                  null,
                                                                  null );
-    final Procedure action = AbstractArezTest::observeADependency;
+    final Procedure action = AbstractTest::observeADependency;
     final Observer observer1 = context.observer( component, null, action, Observer.Flags.RUN_LATER );
     final Observer observer2 = context.observer( component, null, action, Observer.Flags.RUN_LATER );
 

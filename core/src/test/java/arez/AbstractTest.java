@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import static org.testng.Assert.*;
 
-public abstract class AbstractArezTest
+public abstract class AbstractTest
 {
   private static final GuardMessageCollector c_messages = createCollector();
   private final TestLogger _logger = new TestLogger();

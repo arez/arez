@@ -1,6 +1,6 @@
 package arez.spy;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Observer;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ObserveScheduleEventTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

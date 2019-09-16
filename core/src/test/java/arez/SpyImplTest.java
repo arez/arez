@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class SpyImplTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void constructorPassedContext_whenZonesDisabled()
@@ -391,7 +391,7 @@ public class SpyImplTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractTest::observeADependency );
 
     final Spy spy = context.getSpy();
 
@@ -440,7 +440,7 @@ public class SpyImplTest
   public void asObserverInfo()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractTest::observeADependency );
     final ObserverInfo info = context.getSpy().asObserverInfo( observer );
 
     assertEquals( info.getName(), observer.getName() );

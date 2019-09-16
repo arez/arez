@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArezContextTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void zoneEnabledConstruction()
@@ -296,7 +296,7 @@ public class ArezContextTest
     context.observe( tracker, () -> {
       observeADependency();
       assertInvariantFailure( () -> context.action( "A1",
-                                                    AbstractArezTest::observeADependency,
+                                                    AbstractTest::observeADependency,
                                                     ActionFlags.NO_VERIFY_ACTION_REQUIRED |
                                                     ActionFlags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A1' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
@@ -308,7 +308,7 @@ public class ArezContextTest
                               "Arez-0187: Attempting to nest action named 'A2' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
 
       assertInvariantFailure( () -> context.safeAction( "A3",
-                                                        AbstractArezTest::observeADependency,
+                                                        AbstractTest::observeADependency,
                                                         ActionFlags.NO_VERIFY_ACTION_REQUIRED |
                                                         ActionFlags.REQUIRE_NEW_TRANSACTION ),
                               "Arez-0187: Attempting to nest action named 'A3' inside transaction named 'Observer@1' created by an observer that does not allow nested actions." );
@@ -2295,7 +2295,7 @@ public class ArezContextTest
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final String name = ValueUtil.randomString();
-    final Observer observer = context.observer( component, name, AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( component, name, AbstractTest::observeADependency );
 
     assertEquals( observer.getName(), name );
     assertEquals( observer.getComponent(), component );
@@ -2395,7 +2395,7 @@ public class ArezContextTest
   public void autorun_highPriority()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.observer( AbstractArezTest::observeADependency, Observer.Flags.PRIORITY_HIGH );
+    final Observer observer = context.observer( AbstractTest::observeADependency, Observer.Flags.PRIORITY_HIGH );
     assertEquals( observer.getTask().getPriority(), Priority.HIGH );
   }
 
@@ -2404,7 +2404,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     final Observer observer =
-      context.observer( AbstractArezTest::observeADependency, Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      context.observer( AbstractTest::observeADependency, Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     assertTrue( observer.canObserveLowerPriorityDependencies() );
   }
 
@@ -2413,7 +2413,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     final Observer observer =
-      context.observer( AbstractArezTest::observeADependency, Observer.Flags.NESTED_ACTIONS_ALLOWED );
+      context.observer( AbstractTest::observeADependency, Observer.Flags.NESTED_ACTIONS_ALLOWED );
 
     assertTrue( observer.nestedActionsAllowed() );
   }
@@ -2422,7 +2422,7 @@ public class ArezContextTest
   public void observer_areArezDependenciesRequired()
   {
     final ArezContext context = Arez.context();
-    final Procedure observe = AbstractArezTest::observeADependency;
+    final Procedure observe = AbstractTest::observeADependency;
     assertFalse( context.observer( observe, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
                    .areArezDependenciesRequired() );
     assertFalse( context.observer( observe, Observer.Flags.AREZ_OR_NO_DEPENDENCIES ).areArezDependenciesRequired() );
@@ -2433,7 +2433,7 @@ public class ArezContextTest
   public void autorun_supportsManualSchedule()
   {
     final ArezContext context = Arez.context();
-    final Observer observer = context.observer( AbstractArezTest::observeADependency, ValueUtil::randomString );
+    final Observer observer = context.observer( AbstractTest::observeADependency, ValueUtil::randomString );
     assertTrue( observer.supportsManualSchedule() );
   }
 
@@ -2993,7 +2993,7 @@ public class ArezContextTest
 
     final ObservableValue<Object> observableValue = context.observable();
     final ComputableValue<String> computableValue = context.computable( () -> "" );
-    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractTest::observeADependency );
     final Task task = context.task( ValueUtil::randomString );
 
     assertInvariantFailure( () -> context.registerObservableValue( observableValue ),
@@ -3051,7 +3051,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractTest::observeADependency );
 
     assertEquals( context.getTopLevelObservers().size(), 1 );
     assertEquals( context.getTopLevelObservers().get( observer.getName() ), observer );

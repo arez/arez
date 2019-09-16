@@ -1,12 +1,12 @@
 package arez.component;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.ArezTestUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NoSuchEntityExceptionTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

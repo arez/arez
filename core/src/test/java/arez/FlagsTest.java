@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class FlagsTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void flagsWithTheSameNameHaveTheSameValue()

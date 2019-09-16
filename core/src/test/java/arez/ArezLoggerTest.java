@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArezLoggerTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void log()

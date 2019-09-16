@@ -1,13 +1,13 @@
 package arez.component;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.ArezTestUtil;
 import java.io.IOException;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class VerifiableTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   static class TestElement
     implements Verifiable

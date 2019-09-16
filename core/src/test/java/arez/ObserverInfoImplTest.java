@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ObserverInfoImplTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()
@@ -182,8 +182,8 @@ public class ObserverInfoImplTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
     final Observer observer1 =
-      context.observer( component, null, AbstractArezTest::observeADependency );
-    final Observer observer2 = context.observer( AbstractArezTest::observeADependency );
+      context.observer( component, null, AbstractTest::observeADependency );
+    final Observer observer2 = context.observer( AbstractTest::observeADependency );
 
     final ComponentInfo info = spy.asObserverInfo( observer1 ).getComponent();
     assertNotNull( info );
@@ -199,7 +199,7 @@ public class ObserverInfoImplTest
     final ArezContext context = Arez.context();
     final Spy spy = context.getSpy();
 
-    final Observer observer = context.observer( AbstractArezTest::observeADependency );
+    final Observer observer = context.observer( AbstractTest::observeADependency );
 
     assertInvariantFailure( () -> spy.asObserverInfo( observer ).getComponent(),
                             "Arez-0108: Spy.getComponent invoked when Arez.areNativeComponentsEnabled() returns false." );

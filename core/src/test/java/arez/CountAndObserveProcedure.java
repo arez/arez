@@ -8,6 +8,6 @@ class CountAndObserveProcedure
     throws Throwable
   {
     super.call();
-    AbstractArezTest.observeADependency();
+    AbstractTest.observeADependency();
   }
 }

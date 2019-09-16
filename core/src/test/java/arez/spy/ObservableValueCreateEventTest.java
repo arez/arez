@@ -1,6 +1,6 @@
 package arez.spy;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ObservableValue;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ObservableValueCreateEventTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

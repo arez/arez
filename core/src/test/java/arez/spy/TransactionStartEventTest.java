@@ -1,12 +1,12 @@
 package arez.spy;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class TransactionStartEventTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

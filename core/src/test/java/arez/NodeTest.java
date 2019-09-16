@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class NodeTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   static class TestNode
     extends Node

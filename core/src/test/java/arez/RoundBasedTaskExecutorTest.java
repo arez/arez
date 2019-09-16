@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class RoundBasedTaskExecutorTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void construct()

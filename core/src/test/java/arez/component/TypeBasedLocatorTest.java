@@ -1,13 +1,13 @@
 package arez.component;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "SuspiciousMethodCalls" )
 public class TypeBasedLocatorTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

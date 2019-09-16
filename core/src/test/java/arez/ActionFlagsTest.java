@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ActionFlagsTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void isVerifyActionRuleValid()

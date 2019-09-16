@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArezTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void context_when_zones_disabled()

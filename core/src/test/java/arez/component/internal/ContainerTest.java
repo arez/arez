@@ -1,6 +1,6 @@
 package arez.component.internal;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Disposable;
@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ContainerTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void entityLifecycles()

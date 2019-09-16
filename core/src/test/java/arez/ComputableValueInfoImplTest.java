@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ComputableValueInfoImplTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void basicOperation()

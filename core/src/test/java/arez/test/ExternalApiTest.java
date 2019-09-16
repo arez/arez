@@ -1,6 +1,6 @@
 package arez.test;
 
-import arez.AbstractArezTest;
+import arez.AbstractTest;
 import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
@@ -26,7 +26,7 @@ import static org.testng.Assert.*;
  * the elements that should be visible outside package.
  */
 public class ExternalApiTest
-  extends AbstractArezTest
+  extends AbstractTest
 {
   @Test
   public void triggerScheduler()
