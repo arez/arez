@@ -573,7 +573,11 @@ public final class ArezProcessor
 
   private boolean verifyReferencesToComponent( @Nonnull final VariableElement field )
   {
-    final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
+    return verifyReferencesToComponent( processingEnv.getTypeUtils().asElement( field.asType() ) );
+  }
+
+  private boolean verifyReferencesToComponent( final Element element )
+  {
     assert null != element && SuperficialValidation.validateElement( element );
 
     final VariableElement verifyReferencesToComponent = (VariableElement)
@@ -617,17 +621,20 @@ public final class ArezProcessor
   private boolean isTypeAnnotatedByActAsComponentAnnotation( @Nonnull final VariableElement field )
   {
     final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
-    return null != element &&
-           SuperficialValidation.validateElement( element ) &&
-           null != ProcessorUtil.findAnnotationByType( element, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
+    return isElementAnnotatedBy( element, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
   }
 
   private boolean isTypeAnnotatedByComponentAnnotation( @Nonnull final VariableElement field )
   {
     final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
+    return isElementAnnotatedBy( element, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isElementAnnotatedBy( @Nullable final Element element, @Nonnull final String annotation )
+  {
     return null != element &&
            SuperficialValidation.validateElement( element ) &&
-           null != ProcessorUtil.findAnnotationByType( element, Constants.COMPONENT_ANNOTATION_CLASSNAME );
+           null != ProcessorUtil.findAnnotationByType( element, annotation );
   }
 
   private boolean isScopeAnnotation( @Nonnull final AnnotationMirror a )
