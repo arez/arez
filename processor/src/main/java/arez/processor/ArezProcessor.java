@@ -551,8 +551,8 @@ public final class ArezProcessor
         {
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
-               !isUnmanagedComponentReferenceSuppressed( field ) &&
-               ( isDisposeNotifier || isTypeAnnotatedActAsComponent || verifyReferencesToComponent( field ) ) )
+               ( isDisposeNotifier || isTypeAnnotatedActAsComponent || verifyReferencesToComponent( field ) ) &&
+               isUnmanagedComponentReferenceNotSuppressed( field ) )
           {
             final String label =
               isDisposeNotifier ? "an implementation of DisposeNotifier" :
@@ -591,11 +591,11 @@ public final class ArezProcessor
           {
             if ( !descriptor.isDependencyDefined( getter ) &&
                  !descriptor.isCascadeDisposeDefined( getter ) &&
-                 !isUnmanagedComponentReferenceSuppressed( getter ) &&
-                 ( observable.hasSetter() && !isUnmanagedComponentReferenceSuppressed( observable.getSetter() ) ) &&
                  ( isDisposeNotifier ||
                    isTypeAnnotatedActAsComponent ||
-                   verifyReferencesToComponent( returnElement ) ) )
+                   verifyReferencesToComponent( returnElement ) ) &&
+                 isUnmanagedComponentReferenceNotSuppressed( getter ) &&
+                 ( observable.hasSetter() && isUnmanagedComponentReferenceNotSuppressed( observable.getSetter() ) ) )
             {
               final String label =
                 isDisposeNotifier ? "an implementation of DisposeNotifier" :
@@ -640,9 +640,9 @@ public final class ArezProcessor
     }
   }
 
-  private boolean isUnmanagedComponentReferenceSuppressed( @Nonnull final Element element )
+  private boolean isUnmanagedComponentReferenceNotSuppressed( @Nonnull final Element element )
   {
-    return isWarningSuppressed( element, Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION );
+    return !isWarningSuppressed( element, Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION );
   }
 
   private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
