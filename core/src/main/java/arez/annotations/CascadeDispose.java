@@ -8,6 +8,11 @@ import java.lang.annotation.Target;
  * Methods and fields annotated by this annotation should be disposed when the component is disposed.
  * The dispose occurs after the {@link PreDispose} method.
  *
+ * <p>It should be noted that it is preferable for the field that defines the contained component is marked
+ * with this annotation rather than the method accessor. The reason is that the annotation processor
+ * will issue a warning if a field that the processor identifies as a potential contained component if it is
+ * not annotated with {@link ComponentDependency} or {@link CascadeDispose}.</p>
+ *
  * <p>If the element annotated is a method then the method must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
