@@ -1842,7 +1842,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     // Clear out handler added as part of test infrastructure
-    context.getObserverErrorHandlerSupport().getObserverErrorHandlers().clear();
+    context.getObserverErrorHandlerSupport().getHandlers().clear();
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();
@@ -1860,8 +1860,8 @@ public class ArezContextTest
 
     context.addObserverErrorHandler( handler );
 
-    assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 1 );
-    assertTrue( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().contains( handler ) );
+    assertEquals( context.getObserverErrorHandlerSupport().getHandlers().size(), 1 );
+    assertTrue( context.getObserverErrorHandlerSupport().getHandlers().contains( handler ) );
 
     assertEquals( callCount.get(), 0 );
 
@@ -1871,7 +1871,7 @@ public class ArezContextTest
 
     context.removeObserverErrorHandler( handler );
 
-    assertEquals( context.getObserverErrorHandlerSupport().getObserverErrorHandlers().size(), 0 );
+    assertEquals( context.getObserverErrorHandlerSupport().getHandlers().size(), 0 );
 
     context.reportObserverError( observer, observerError, throwable );
 
@@ -1883,7 +1883,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
     // Clear out handler added as part of test infrastructure
-    context.getObserverErrorHandlerSupport().getObserverErrorHandlers().clear();
+    context.getObserverErrorHandlerSupport().getHandlers().clear();
 
     final ObserverError observerError = ObserverError.REACTION_ERROR;
     final Throwable throwable = new Throwable();

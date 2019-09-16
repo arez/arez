@@ -15,7 +15,7 @@ final class ObserverErrorHandlerSupport
   /**
    * The list of error handlers to call when an error is received.
    */
-  private final ArrayList<ObserverErrorHandler> _observerErrorHandlers = new ArrayList<>();
+  private final ArrayList<ObserverErrorHandler> _handlers = new ArrayList<>();
 
   /**
    * Add error handler to the list of error handlers called.
@@ -27,11 +27,11 @@ final class ObserverErrorHandlerSupport
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> !_observerErrorHandlers.contains( handler ),
+      apiInvariant( () -> !_handlers.contains( handler ),
                     () -> "Arez-0096: Attempting to add handler " + handler + " that is already in " +
                           "the list of error handlers." );
     }
-    _observerErrorHandlers.add( Objects.requireNonNull( handler ) );
+    _handlers.add( Objects.requireNonNull( handler ) );
   }
 
   /**
@@ -44,11 +44,11 @@ final class ObserverErrorHandlerSupport
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> _observerErrorHandlers.contains( handler ),
+      apiInvariant( () -> _handlers.contains( handler ),
                     () -> "Arez-0097: Attempting to remove handler " + handler + " that is not in " +
                           "the list of error handlers." );
     }
-    _observerErrorHandlers.remove( Objects.requireNonNull( handler ) );
+    _handlers.remove( Objects.requireNonNull( handler ) );
   }
 
   @Override
@@ -56,7 +56,7 @@ final class ObserverErrorHandlerSupport
                                @Nonnull final ObserverError error,
                                @Nullable final Throwable throwable )
   {
-    for ( final ObserverErrorHandler errorHandler : _observerErrorHandlers )
+    for ( final ObserverErrorHandler errorHandler : _handlers )
     {
       try
       {
@@ -80,8 +80,8 @@ final class ObserverErrorHandlerSupport
   }
 
   @Nonnull
-  ArrayList<ObserverErrorHandler> getObserverErrorHandlers()
+  ArrayList<ObserverErrorHandler> getHandlers()
   {
-    return _observerErrorHandlers;
+    return _handlers;
   }
 }
