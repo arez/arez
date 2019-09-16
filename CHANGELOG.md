@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.144](https://github.com/arez/arez/tree/v0.144) (2019-09-16)
+[Full Changelog](https://github.com/arez/arez/compare/v0.143...v0.144)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.143&new=0.144)
 
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.25`.
