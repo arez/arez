@@ -1652,10 +1652,10 @@ public class ArezProcessorTest
 
 
   @Test
-  public void unmanagedObservableComponentReferenceVaiInheritance()
+  public void unmanagedObservableComponentReferenceViaInheritance()
   {
     final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceVaiInheritance" );
+      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritance" );
     final String messageFragment =
       "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
