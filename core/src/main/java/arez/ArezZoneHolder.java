@@ -1,6 +1,7 @@
 package arez;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
@@ -27,7 +28,7 @@ final class ArezZoneHolder
    * If there is no zones in the stack and a zone is deactivated then the default zone is made current.
    */
   @Nullable
-  private static ArrayList<Zone> c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
+  private static List<Zone> c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
 
   private ArezZoneHolder()
   {
@@ -115,7 +116,7 @@ final class ArezZoneHolder
   }
 
   @Nonnull
-  static ArrayList<Zone> getZoneStack()
+  static List<Zone> getZoneStack()
   {
     assert null != c_zoneStack;
     return c_zoneStack;
