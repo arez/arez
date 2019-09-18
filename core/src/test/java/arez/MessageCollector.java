@@ -2,63 +2,22 @@ package arez;
 
 import java.io.File;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.AbstractTestNGMessageCollector;
 import org.realityforge.braincheck.GuardMessageCollector;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
 import static org.testng.Assert.*;
 
 public final class MessageCollector
-  extends TestListenerAdapter
-  implements ITestListener
+  extends AbstractTestNGMessageCollector
 {
-  @Nonnull
-  private final GuardMessageCollector _messages = createCollector();
-
   @Override
-  public void onTestStart( @Nonnull final ITestResult result )
-  {
-    if ( shouldCheckDiagnosticMessages() )
-    {
-      _messages.onTestStart();
-    }
-  }
-
-  @Override
-  public void onTestSuccess( @Nonnull final ITestResult result )
-  {
-    if ( shouldCheckDiagnosticMessages() )
-    {
-      _messages.onTestComplete();
-    }
-  }
-
-  @Override
-  public void onStart( @Nonnull final ITestContext context )
-  {
-    if ( shouldCheckDiagnosticMessages() )
-    {
-      _messages.onTestSuiteStart();
-    }
-  }
-
-  @Override
-  public void onFinish( @Nonnull final ITestContext context )
-  {
-    if ( 0 == context.getFailedTests().size() && shouldCheckDiagnosticMessages() )
-    {
-      _messages.onTestSuiteComplete();
-    }
-  }
-
-  private boolean shouldCheckDiagnosticMessages()
+  protected boolean shouldCheckDiagnosticMessages()
   {
     return System.getProperty( "arez.check_diagnostic_messages", "true" ).equals( "true" );
   }
 
   @Nonnull
-  private GuardMessageCollector createCollector()
+  @Override
+  protected GuardMessageCollector createCollector()
   {
     final boolean saveIfChanged = "true".equals( System.getProperty( "arez.output_fixture_data", "false" ) );
     final String fixtureDir = System.getProperty( "arez.diagnostic_messages_file" );
