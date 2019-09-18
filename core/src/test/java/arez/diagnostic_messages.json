@@ -21,7 +21,7 @@
         "class": "arez.ArezZoneHolder",
         "method": "activateZone",
         "file": "ArezZoneHolder.java",
-        "lineNumber": 56
+        "lineNumber": 57
       }
     ]
   },
@@ -34,7 +34,7 @@
         "class": "arez.ArezZoneHolder",
         "method": "deactivateZone",
         "file": "ArezZoneHolder.java",
-        "lineNumber": 73
+        "lineNumber": 74
       }
     ]
   },
@@ -47,7 +47,7 @@
         "class": "arez.ArezZoneHolder",
         "method": "deactivateZone",
         "file": "ArezZoneHolder.java",
-        "lineNumber": 77
+        "lineNumber": 78
       }
     ]
   },
@@ -60,7 +60,7 @@
         "class": "arez.ArezZoneHolder",
         "method": "currentZone",
         "file": "ArezZoneHolder.java",
-        "lineNumber": 93
+        "lineNumber": 94
       }
     ]
   },
