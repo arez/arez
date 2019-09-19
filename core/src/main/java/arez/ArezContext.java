@@ -2062,8 +2062,7 @@ public final class ArezContext
       invariant( Arez::areObserverErrorHandlersEnabled,
                  () -> "Arez-0182: ArezContext.addObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
     }
-    assert null != _observerErrorHandlerSupport;
-    _observerErrorHandlerSupport.addObserverErrorHandler( handler );
+    getObserverErrorHandlerSupport().addObserverErrorHandler( handler );
   }
 
   /**
@@ -2080,8 +2079,7 @@ public final class ArezContext
       invariant( Arez::areObserverErrorHandlersEnabled,
                  () -> "Arez-0181: ArezContext.removeObserverErrorHandler() invoked when Arez.areObserverErrorHandlersEnabled() returns false." );
     }
-    assert null != _observerErrorHandlerSupport;
-    _observerErrorHandlerSupport.removeObserverErrorHandler( handler );
+    getObserverErrorHandlerSupport().removeObserverErrorHandler( handler );
   }
 
   /**
@@ -2101,8 +2099,7 @@ public final class ArezContext
     }
     if ( Arez.areObserverErrorHandlersEnabled() )
     {
-      assert null != _observerErrorHandlerSupport;
-      _observerErrorHandlerSupport.onObserverError( observer, error, throwable );
+      getObserverErrorHandlerSupport().onObserverError( observer, error, throwable );
     }
   }
 
