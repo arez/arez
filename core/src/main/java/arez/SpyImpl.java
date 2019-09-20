@@ -101,7 +101,7 @@ final class SpyImpl
   }
 
   @Nonnull
-  ArezContext getContext()
+  private ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
