@@ -214,7 +214,7 @@ final class SpyImpl
   }
 
   @Nonnull
-  ArrayList<SpyEventHandler> getSpyEventHandlers()
+  List<SpyEventHandler> getSpyEventHandlers()
   {
     return _spyEventHandlers;
   }
