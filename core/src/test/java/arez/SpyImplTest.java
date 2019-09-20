@@ -7,7 +7,6 @@ import arez.spy.ObserverInfo;
 import arez.spy.Spy;
 import arez.spy.SpyEventHandler;
 import arez.spy.TaskInfo;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
@@ -47,9 +46,6 @@ public class SpyImplTest
 
     assertTrue( spy.willPropagateSpyEvents() );
 
-    assertEquals( spy.getSpyEventHandlers().size(), 1 );
-    assertTrue( spy.getSpyEventHandlers().contains( handler ) );
-
     assertEquals( callCount.get(), 0 );
 
     spy.reportSpyEvent( event );
@@ -60,120 +56,11 @@ public class SpyImplTest
 
     assertFalse( spy.willPropagateSpyEvents() );
 
-    assertEquals( spy.getSpyEventHandlers().size(), 0 );
-  }
+    assertInvariantFailure( () -> spy.reportSpyEvent( event ),
+                            "Arez-0104: Attempting to report SpyEvent '" + event +
+                            "' but willPropagateSpyEvents() returns false." );
 
-  @Test
-  public void reportSpyEvent_whenNoListeners()
-  {
-    final Spy spy = Arez.context().getSpy();
-
-    assertFalse( spy.willPropagateSpyEvents() );
-
-    final Object event = new Object();
-
-    assertInvariantFailure( () -> spy.reportSpyEvent( event ), "Arez-0104: Attempting to report SpyEvent '" + event +
-                                                               "' but willPropagateSpyEvents() returns false." );
-  }
-
-  @Test
-  public void addSpyEventHandler_alreadyExists()
-  {
-    final Spy spy = Arez.context().getSpy();
-
-    final SpyEventHandler handler = new TestSpyEventHandler();
-    spy.addSpyEventHandler( handler );
-
-    assertInvariantFailure( () -> spy.addSpyEventHandler( handler ),
-                            "Arez-0102: Attempting to add handler " + handler + " that is already " +
-                            "in the list of spy handlers." );
-
-  }
-
-  @Test
-  public void removeSpyEventHandler_noExists()
-  {
-    final Spy spy = Arez.context().getSpy();
-
-    final SpyEventHandler handler = new TestSpyEventHandler();
-
-    assertInvariantFailure( () -> spy.removeSpyEventHandler( handler ),
-                            "Arez-0103: Attempting to remove handler " + handler +
-                            " that is not in the list of spy handlers." );
-  }
-
-  @Test
-  public void multipleHandlers()
-  {
-    final SpyImpl spy = (SpyImpl) Arez.context().getSpy();
-
-    final Object event = new Object();
-
-    final AtomicInteger callCount1 = new AtomicInteger();
-    final AtomicInteger callCount2 = new AtomicInteger();
-    final AtomicInteger callCount3 = new AtomicInteger();
-
-    final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
-    final SpyEventHandler handler2 = e -> callCount2.incrementAndGet();
-    final SpyEventHandler handler3 = e -> callCount3.incrementAndGet();
-    spy.addSpyEventHandler( handler1 );
-    spy.addSpyEventHandler( handler2 );
-    spy.addSpyEventHandler( handler3 );
-
-    assertEquals( spy.getSpyEventHandlers().size(), 3 );
-
-    spy.reportSpyEvent( event );
-
-    assertEquals( callCount1.get(), 1 );
-    assertEquals( callCount2.get(), 1 );
-    assertEquals( callCount3.get(), 1 );
-
-    spy.reportSpyEvent( event );
-
-    assertEquals( callCount1.get(), 2 );
-    assertEquals( callCount2.get(), 2 );
-    assertEquals( callCount3.get(), 2 );
-  }
-
-  @Test
-  public void onSpyEvent_whereOneHandlerGeneratesError()
-  {
-    final Spy spy = Arez.context().getSpy();
-
-    final Object event = new Object();
-
-    final AtomicInteger callCount1 = new AtomicInteger();
-    final AtomicInteger callCount3 = new AtomicInteger();
-
-    final RuntimeException exception = new RuntimeException( "X" );
-
-    final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
-    final SpyEventHandler handler2 = e -> {
-      throw exception;
-    };
-    final SpyEventHandler handler3 = e -> callCount3.incrementAndGet();
-    spy.addSpyEventHandler( handler1 );
-    spy.addSpyEventHandler( handler2 );
-    spy.addSpyEventHandler( handler3 );
-
-    spy.reportSpyEvent( event );
-
-    assertEquals( callCount1.get(), 1 );
-    assertEquals( callCount3.get(), 1 );
-
-    final ArrayList<TestLogger.LogEntry> entries = getTestLogger().getEntries();
-    assertEquals( entries.size(), 1 );
-    final TestLogger.LogEntry entry1 = entries.get( 0 );
-    assertEquals( entry1.getMessage(),
-                  "Exception when notifying spy handler '" + handler2 + "' of '" + event + "' event." );
-    assertEquals( entry1.getThrowable(), exception );
-
-    spy.reportSpyEvent( event );
-
-    assertEquals( callCount1.get(), 2 );
-    assertEquals( callCount3.get(), 2 );
-
-    assertEquals( getTestLogger().getEntries().size(), 2 );
+    assertEquals( callCount.get(), 1 );
   }
 
   @Test

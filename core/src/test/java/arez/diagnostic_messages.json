@@ -268,7 +268,7 @@
         "class": "arez.ArezContext",
         "method": "getSpy",
         "file": "ArezContext.java",
-        "lineNumber": 2131
+        "lineNumber": 2128
       }
     ]
   },
@@ -281,7 +281,7 @@
         "class": "arez.ArezContext",
         "method": "registerObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2153
+        "lineNumber": 2150
       }
     ]
   },
@@ -294,7 +294,7 @@
         "class": "arez.ArezContext",
         "method": "registerObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2156
+        "lineNumber": 2153
       }
     ]
   },
@@ -307,7 +307,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2169
+        "lineNumber": 2166
       }
     ]
   },
@@ -320,7 +320,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObservableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2172
+        "lineNumber": 2169
       }
     ]
   },
@@ -333,7 +333,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelObservables",
         "file": "ArezContext.java",
-        "lineNumber": 2185
+        "lineNumber": 2182
       }
     ]
   },
@@ -346,7 +346,7 @@
         "class": "arez.ArezContext",
         "method": "registerObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2197
+        "lineNumber": 2194
       }
     ]
   },
@@ -359,7 +359,7 @@
         "class": "arez.ArezContext",
         "method": "registerObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2200
+        "lineNumber": 2197
       }
     ]
   },
@@ -372,7 +372,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2213
+        "lineNumber": 2210
       }
     ]
   },
@@ -385,7 +385,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterObserver",
         "file": "ArezContext.java",
-        "lineNumber": 2216
+        "lineNumber": 2213
       }
     ]
   },
@@ -398,7 +398,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelObservers",
         "file": "ArezContext.java",
-        "lineNumber": 2229
+        "lineNumber": 2226
       }
     ]
   },
@@ -411,7 +411,7 @@
         "class": "arez.ArezContext",
         "method": "registerComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2241
+        "lineNumber": 2238
       }
     ]
   },
@@ -424,7 +424,7 @@
         "class": "arez.ArezContext",
         "method": "registerComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2244
+        "lineNumber": 2241
       }
     ]
   },
@@ -437,7 +437,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2257
+        "lineNumber": 2254
       }
     ]
   },
@@ -450,7 +450,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterComputableValue",
         "file": "ArezContext.java",
-        "lineNumber": 2260
+        "lineNumber": 2257
       }
     ]
   },
@@ -463,7 +463,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelComputableValues",
         "file": "ArezContext.java",
-        "lineNumber": 2273
+        "lineNumber": 2270
       }
     ]
   },
@@ -1279,10 +1279,10 @@
     "messagePattern": "Attempting to add handler %s that is already in the list of spy handlers.",
     "callers": [
       {
-        "class": "arez.SpyImpl",
+        "class": "arez.SpyEventHandlerSupport",
         "method": "addSpyEventHandler",
-        "file": "SpyImpl.java",
-        "lineNumber": 52
+        "file": "SpyEventHandlerSupport.java",
+        "lineNumber": 25
       }
     ]
   },
@@ -1292,10 +1292,10 @@
     "messagePattern": "Attempting to remove handler %s that is not in the list of spy handlers.",
     "callers": [
       {
-        "class": "arez.SpyImpl",
+        "class": "arez.SpyEventHandlerSupport",
         "method": "removeSpyEventHandler",
-        "file": "SpyImpl.java",
-        "lineNumber": 64
+        "file": "SpyEventHandlerSupport.java",
+        "lineNumber": 36
       }
     ]
   },
@@ -1305,10 +1305,10 @@
     "messagePattern": "Attempting to report SpyEvent '%s' but willPropagateSpyEvents() returns false.",
     "callers": [
       {
-        "class": "arez.SpyImpl",
+        "class": "arez.SpyEventHandlerSupport",
         "method": "reportSpyEvent",
-        "file": "SpyImpl.java",
-        "lineNumber": 76
+        "file": "SpyEventHandlerSupport.java",
+        "lineNumber": 47
       }
     ]
   },
@@ -1321,7 +1321,7 @@
         "class": "arez.SpyImpl",
         "method": "getTransaction",
         "file": "SpyImpl.java",
-        "lineNumber": 120
+        "lineNumber": 89
       }
     ]
   },
@@ -2244,7 +2244,7 @@
         "class": "arez.ArezContext",
         "method": "removeObserverErrorHandler",
         "file": "ArezContext.java",
-        "lineNumber": 2080
+        "lineNumber": 2079
       }
     ]
   },
@@ -2647,7 +2647,7 @@
         "class": "arez.ArezContext",
         "method": "registerTask",
         "file": "ArezContext.java",
-        "lineNumber": 2285
+        "lineNumber": 2282
       }
     ]
   },
@@ -2777,7 +2777,7 @@
         "class": "arez.ArezContext",
         "method": "registerTask",
         "file": "ArezContext.java",
-        "lineNumber": 2288
+        "lineNumber": 2285
       }
     ]
   },
@@ -2790,7 +2790,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterTask",
         "file": "ArezContext.java",
-        "lineNumber": 2301
+        "lineNumber": 2298
       }
     ]
   },
@@ -2803,7 +2803,7 @@
         "class": "arez.ArezContext",
         "method": "deregisterTask",
         "file": "ArezContext.java",
-        "lineNumber": 2304
+        "lineNumber": 2301
       }
     ]
   },
@@ -2816,7 +2816,7 @@
         "class": "arez.ArezContext",
         "method": "getTopLevelTasks",
         "file": "ArezContext.java",
-        "lineNumber": 2317
+        "lineNumber": 2314
       }
     ]
   }

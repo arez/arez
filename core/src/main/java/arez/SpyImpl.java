@@ -8,7 +8,6 @@ import arez.spy.Spy;
 import arez.spy.SpyEventHandler;
 import arez.spy.TaskInfo;
 import arez.spy.TransactionInfo;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -30,10 +29,10 @@ final class SpyImpl
   @Nullable
   private final ArezContext _context;
   /**
-   * The list of spy handlers to call when an event is received.
+   * Support infrastructure for interacting with spy event handlers..
    */
   @Nonnull
-  private final List<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
+  private final SpyEventHandlerSupport _spyEventHandlerSupport = new SpyEventHandlerSupport();
 
   SpyImpl( @Nullable final ArezContext context )
   {
@@ -48,56 +47,25 @@ final class SpyImpl
   @Override
   public void addSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> !_spyEventHandlers.contains( handler ),
-                    () -> "Arez-0102: Attempting to add handler " + handler + " that is already " +
-                          "in the list of spy handlers." );
-    }
-    _spyEventHandlers.add( Objects.requireNonNull( handler ) );
+    _spyEventHandlerSupport.addSpyEventHandler( handler );
   }
 
   @Override
   public void removeSpyEventHandler( @Nonnull final SpyEventHandler handler )
   {
-    if ( Arez.shouldCheckApiInvariants() )
-    {
-      apiInvariant( () -> _spyEventHandlers.contains( handler ),
-                    () -> "Arez-0103: Attempting to remove handler " + handler + " that is not " +
-                          "in the list of spy handlers." );
-    }
-    _spyEventHandlers.remove( Objects.requireNonNull( handler ) );
+    _spyEventHandlerSupport.removeSpyEventHandler( handler );
   }
 
   @Override
   public void reportSpyEvent( @Nonnull final Object event )
   {
-    if ( Arez.shouldCheckInvariants() )
-    {
-      invariant( this::willPropagateSpyEvents,
-                 () -> "Arez-0104: Attempting to report SpyEvent '" + event + "' but " +
-                       "willPropagateSpyEvents() returns false." );
-    }
-    for ( final SpyEventHandler handler : _spyEventHandlers )
-    {
-      try
-      {
-        handler.onSpyEvent( event );
-      }
-      catch ( final Throwable error )
-      {
-        final String message =
-          ArezUtil.safeGetString( () -> "Exception when notifying spy handler '" + handler + "' of '" +
-                                        event + "' event." );
-        ArezLogger.log( message, error );
-      }
-    }
+    _spyEventHandlerSupport.reportSpyEvent( event );
   }
 
   @Override
   public boolean willPropagateSpyEvents()
   {
-    return Arez.areSpiesEnabled() && !getSpyEventHandlers().isEmpty();
+    return _spyEventHandlerSupport.willPropagateSpyEvents();
   }
 
   @Nonnull
@@ -211,11 +179,5 @@ final class SpyImpl
   public TaskInfo asTaskInfo( @Nonnull final Task task )
   {
     return task.asInfo();
-  }
-
-  @Nonnull
-  List<SpyEventHandler> getSpyEventHandlers()
-  {
-    return _spyEventHandlers;
   }
 }
