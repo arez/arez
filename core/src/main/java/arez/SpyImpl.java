@@ -32,7 +32,7 @@ final class SpyImpl
   /**
    * The list of spy handlers to call when an event is received.
    */
-  private final ArrayList<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
+  private final List<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
 
   SpyImpl( @Nullable final ArezContext context )
   {
