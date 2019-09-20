@@ -2,6 +2,7 @@ package arez;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
@@ -16,7 +17,7 @@ import static org.testng.Assert.*;
 public abstract class AbstractTest
 {
   private final TestLogger _logger = new TestLogger();
-  private final ArrayList<String> _observerErrors = new ArrayList<>();
+  private final List<String> _observerErrors = new ArrayList<>();
   private boolean _ignoreObserverErrors;
 
   @BeforeMethod
@@ -152,7 +153,7 @@ public abstract class AbstractTest
   }
 
   @Nonnull
-  final ArrayList<String> getObserverErrors()
+  final List<String> getObserverErrors()
   {
     return _observerErrors;
   }
