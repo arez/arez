@@ -244,8 +244,7 @@ public class ComputableValueApiTest
     final ComputableValue<String> computableValue = context.computable( "MyComputable", action );
     assertEquals( calls.get(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     context.action( computableValue::get );
     assertEquals( calls.get(), 1 );
@@ -349,8 +348,7 @@ public class ComputableValueApiTest
     final ComputableValue<String> computableValue = context.computable( "MyComputable", action );
     assertEquals( calls.get(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     context.action( computableValue::get );
     assertEquals( calls.get(), 1 );
@@ -519,8 +517,7 @@ public class ComputableValueApiTest
 
     assertEquals( computedCallCount.get(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
     assertEquals( computableValue.get().intValue(), 42 );
 
     assertEquals( computedCallCount.get(), 1 );

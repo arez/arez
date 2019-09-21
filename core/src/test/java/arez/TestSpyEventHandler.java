@@ -3,6 +3,7 @@ package arez;
 import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,11 +13,37 @@ public final class TestSpyEventHandler
   implements SpyEventHandler
 {
   @Nonnull
+  private final ArezContext _context;
+  @Nonnull
   private final List<Object> _events = new ArrayList<>();
   /**
    * When using assertNextEvent this tracks the index that we are up to.
    */
   private int _currentAssertIndex;
+
+  TestSpyEventHandler( @Nonnull final ArezContext context )
+  {
+    _context = Objects.requireNonNull( context );
+  }
+
+  @Nonnull
+  public static TestSpyEventHandler subscribe()
+  {
+    return subscribe( Arez.context() );
+  }
+
+  @Nonnull
+  static TestSpyEventHandler subscribe( @Nonnull final ArezContext context )
+  {
+    final TestSpyEventHandler handler = new TestSpyEventHandler( context );
+    context.getSpy().addSpyEventHandler( handler );
+    return handler;
+  }
+
+  public void unsubscribe()
+  {
+    _context.getSpy().removeSpyEventHandler( this );
+  }
 
   @Override
   public void onSpyEvent( @Nonnull final Object event )

@@ -64,7 +64,7 @@ public class SpyEventHandlerSupportTest
   {
     final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
 
-    final SpyEventHandler handler = new TestSpyEventHandler();
+    final SpyEventHandler handler = new TestSpyEventHandler( Arez.context() );
     support.addSpyEventHandler( handler );
 
     assertInvariantFailure( () -> support.addSpyEventHandler( handler ),
@@ -77,7 +77,7 @@ public class SpyEventHandlerSupportTest
   {
     final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
 
-    final SpyEventHandler handler = new TestSpyEventHandler();
+    final SpyEventHandler handler = new TestSpyEventHandler( Arez.context() );
 
     assertInvariantFailure( () -> support.removeSpyEventHandler( handler ),
                             "Arez-0103: Attempting to remove handler " + handler +

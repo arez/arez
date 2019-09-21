@@ -25,8 +25,7 @@ public class TaskApiTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String name = ValueUtil.randomString();
     final Task task = context.task( name, callCount::incrementAndGet, 0 );
@@ -51,8 +50,7 @@ public class TaskApiTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String name = ValueUtil.randomString();
     final Task task = context.task( name, () -> {
@@ -63,6 +61,8 @@ public class TaskApiTest
     assertEquals( callCount.get(), 1 );
     assertNotNull( task );
     assertFalse( task.isDisposed() );
+
+    handler.unsubscribe();
 
     handler.assertEventCount( 2 );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );

@@ -126,8 +126,7 @@ public class ComponentTest
 
     assertFalse( component.isComplete() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     component.complete();
 
@@ -504,8 +503,7 @@ public class ComponentTest
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     component.dispose();
 

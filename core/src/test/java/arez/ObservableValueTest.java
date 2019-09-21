@@ -237,8 +237,7 @@ public class ObservableValueTest
     // Need to pause schedule so that observer reaction does not pollute the spy events
     context.pauseScheduler();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.dispose();
 
@@ -286,8 +285,7 @@ public class ObservableValueTest
     // Have to pause schedule otherwise will Observer will react to dispose and change message sequencing below
     context.pauseScheduler();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.dispose();
 
@@ -1117,8 +1115,7 @@ public class ObservableValueTest
 
     observableValue.addObserver( randomObserver );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.deactivate();
 
@@ -1232,8 +1229,7 @@ public class ObservableValueTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.activate();
 
@@ -1326,7 +1322,8 @@ public class ObservableValueTest
 
     // This action does not verify that reads occurred so should not
     // fail but will not actually observe
-    context.safeAction( observableValue::reportObservedIfTrackingTransactionActive, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+    context.safeAction( observableValue::reportObservedIfTrackingTransactionActive,
+                        ActionFlags.NO_VERIFY_ACTION_REQUIRED );
 
     // This action will raise an exception as no reads or writes occurred
     // within scope and we asked to verify that reads or writes occurred
@@ -1419,8 +1416,7 @@ public class ObservableValueTest
     assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChanged();
 
@@ -1449,8 +1445,7 @@ public class ObservableValueTest
       new ObservableValue<>( context, null, ValueUtil.randomString(), null, () -> currentValue, null );
     observableValue.setLeastStaleObserverState( Observer.Flags.STATE_UP_TO_DATE );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChanged();
     handler.assertEventCount( 1 );
@@ -1484,8 +1479,7 @@ public class ObservableValueTest
     assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChanged();
 
@@ -1519,8 +1513,7 @@ public class ObservableValueTest
     assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChanged();
     observableValue.reportChanged();
@@ -1617,8 +1610,7 @@ public class ObservableValueTest
     assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChangeConfirmed();
 
@@ -1659,8 +1651,7 @@ public class ObservableValueTest
     assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChangeConfirmed();
 
@@ -1700,8 +1691,7 @@ public class ObservableValueTest
     assertNotEquals( observableValue.getLastTrackerTransactionId(), context.getTransaction().getId() );
     assertEquals( context.getTransaction().safeGetObservables().size(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observableValue.reportChangeConfirmed();
     observableValue.reportChangeConfirmed();

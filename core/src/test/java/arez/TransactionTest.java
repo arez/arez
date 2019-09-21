@@ -2352,8 +2352,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String name = ValueUtil.randomString();
     Transaction.begin( context, name, false, null );
@@ -2562,8 +2561,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String name = ValueUtil.randomString();
     final Transaction transaction = new Transaction( context, null, name, false, null, false );

@@ -415,8 +415,7 @@ public class ComputableValueTest
 
     Transaction.setTransaction( null );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     computableValue.dispose();
 
@@ -829,8 +828,7 @@ public class ComputableValueTest
     assertFalse( computableValue.getObserver().isActive() );
     assertEquals( computableValue.getKeepAliveRefCount(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     assertEquals( calls.get(), 0 );
 
@@ -903,8 +901,7 @@ public class ComputableValueTest
     assertTrue( computableValue.getObserver().isActive() );
     assertEquals( computableValue.getKeepAliveRefCount(), 1 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     computableValue.decrementKeepAliveRefCount();
 
@@ -954,8 +951,7 @@ public class ComputableValueTest
 
     assertEquals( calls.get(), 0 );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final Disposable keepAliveLock1 = computableValue.keepAlive();
 
@@ -1065,8 +1061,7 @@ public class ComputableValueTest
                           ComputableValue.Flags.KEEPALIVE |
                           ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     value.set( 2 );
 

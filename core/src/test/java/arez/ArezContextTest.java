@@ -374,8 +374,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String v0 =
       context.action( name, () -> {
@@ -450,8 +449,7 @@ public class ArezContextTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     context.action( () -> {
       observableValue.reportObserved();
@@ -474,8 +472,7 @@ public class ArezContextTest
 
     final ObservableValue<?> observableValue = context.observable();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     context.safeAction( () -> {
       observableValue.reportObserved();
@@ -509,8 +506,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     assertThrows( IOException.class, () ->
       context.action( name, () -> {
@@ -715,8 +711,7 @@ public class ArezContextTest
     final ObservableValue<Object> observableValue = context.observable();
     final int nextNodeId = context.getNextNodeId();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String v0 =
       context.action( () -> {
@@ -781,8 +776,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String v0 =
       context.observe( tracker, () -> {
@@ -873,8 +867,7 @@ public class ArezContextTest
     final Observer observer =
       context.tracker( callCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES | Observer.Flags.READ_WRITE );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final int result =
       context.observe( observer, () -> {
@@ -926,8 +919,7 @@ public class ArezContextTest
 
     assertTrue( observer.noReportResults() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final int result = context.observe( observer, () -> 23 );
 
@@ -982,8 +974,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final String v0 =
       context.safeAction( name, () -> {
@@ -1068,8 +1059,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     assertThrows( AccessControlException.class, () ->
       context.safeAction( name, () -> {
@@ -1277,8 +1267,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final SafeProcedure procedure = () -> {
       throw secException;
@@ -1512,8 +1501,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     context.safeAction( name, () -> {
       assertTrue( context.isTransactionActive() );
@@ -1596,8 +1584,7 @@ public class ArezContextTest
 
     final ObservableValue<Object> observableValue1 = Arez.context().observable();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     context.action( name, () -> {
       observableValue1.reportObserved();
@@ -1678,8 +1665,7 @@ public class ArezContextTest
 
     final ObservableValue observableValue = Arez.context().observable();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final Procedure procedure = () -> {
       observableValue.reportObserved();
@@ -1890,8 +1876,7 @@ public class ArezContextTest
     final Procedure action = new NoopProcedure();
     final Observer observer = context.observer( action );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     context.reportObserverError( observer, observerError, throwable );
 
@@ -1998,8 +1983,7 @@ public class ArezContextTest
 
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 0L );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
     context.scheduleReaction( observer );
 
     assertEquals( context.getTaskQueue().getOrderedTasks().count(), 1L );
@@ -2059,8 +2043,7 @@ public class ArezContextTest
 
     assertTrue( computableValue.getObserver().noReportResults() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     context.safeAction( computableValue::get );
 
@@ -2208,8 +2191,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final ComputableValue<String> computableValue =
       context.computable( ValueUtil.randomString(), () -> {
@@ -2328,8 +2310,7 @@ public class ArezContextTest
     final ArezContext context = Arez.context();
 
     final ObservableValue<Object> observableValue = Arez.context().observable();
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
@@ -2369,8 +2350,7 @@ public class ArezContextTest
 
     final Observer observer3 = context.observer( "O3", observableValue::reportObserved );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     schedulerLock.dispose();
 
@@ -2442,8 +2422,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
@@ -2472,8 +2451,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final String name = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
@@ -2527,8 +2505,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final int nextNodeId = context.getNextNodeId();
 
@@ -2557,8 +2534,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     context.pauseScheduler();
 
@@ -2636,8 +2612,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final String name = ValueUtil.randomString();
     final ObservableValue<?> observableValue = context.observable( name );
@@ -2785,8 +2760,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final Component component =
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
@@ -3216,8 +3190,7 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final Task task = context.task( name, callCount::incrementAndGet, 0 );
 
@@ -3254,8 +3227,7 @@ public class ArezContextTest
     final AtomicInteger callCount = new AtomicInteger();
     final String name = ValueUtil.randomString();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final String errorMessage = "Blah Error!";
     final SafeProcedure work = () -> {
@@ -3286,8 +3258,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
     final Task task = context.task( callCount::incrementAndGet );
 
@@ -3310,8 +3281,7 @@ public class ArezContextTest
 
     final AtomicInteger callCount = new AtomicInteger();
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final Task task = context.task( null, callCount::incrementAndGet, Observer.Flags.RUN_LATER );
 

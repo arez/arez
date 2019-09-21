@@ -947,8 +947,7 @@ public class ObserverTest
 
     assertFalse( observer.isDisposed() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    Arez.context().getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observer.dispose();
 
@@ -976,8 +975,7 @@ public class ObserverTest
 
     assertFalse( observer.isDisposed() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    Arez.context().getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     observer.dispose();
 
@@ -1028,8 +1026,7 @@ public class ObserverTest
 
     assertFalse( observer.isDisposed() );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    Arez.context().getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     computableValue.dispose();
 
@@ -1141,7 +1138,6 @@ public class ObserverTest
   @Test
   public void invokeReaction_Observer_SpyEventHandlerPresent()
   {
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
     final ArezContext context = Arez.context();
 
     final ObservableValue<Object> observable = context.observable();
@@ -1157,7 +1153,7 @@ public class ObserverTest
         Thread.sleep( 1 );
       }
     };
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     final Observer observer =
       new Observer( context,
@@ -1193,7 +1189,6 @@ public class ObserverTest
   {
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observableValue = context.observable();
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
 
     final SafeFunction<Integer> function = () -> {
       observableValue.reportObserved();
@@ -1201,7 +1196,7 @@ public class ObserverTest
     };
     final ComputableValue<Integer> computableValue = context.computable( function );
 
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     Arez.context()
       .safeAction( () -> computableValue.getObserver().invokeReaction(), ActionFlags.NO_VERIFY_ACTION_REQUIRED );
@@ -1339,8 +1334,7 @@ public class ObserverTest
 
     final Observer observer = context.observer( observed, Observer.Flags.RUN_LATER );
 
-    final TestSpyEventHandler handler = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( handler );
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
     context.triggerScheduler();
 
