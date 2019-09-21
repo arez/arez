@@ -11,6 +11,7 @@ import static org.testng.Assert.*;
 public final class TestSpyEventHandler
   implements SpyEventHandler
 {
+  @Nonnull
   private final List<Object> _events = new ArrayList<>();
   /**
    * When using assertNextEvent this tracks the index that we are up to.
