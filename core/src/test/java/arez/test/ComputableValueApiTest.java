@@ -165,7 +165,9 @@ public class ComputableValueApiTest
       return result.get();
     };
     final ComputableValue<String> computableValue =
-      context.computable( "TestComputableValue", action, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Observer.Flags.KEEPALIVE );
+      context.computable( "TestComputableValue",
+                          action,
+                          Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | Observer.Flags.KEEPALIVE );
 
     final AtomicInteger observerCallCount = new AtomicInteger();
     context.observer( () -> {
