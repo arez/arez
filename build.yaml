@@ -19,7 +19,7 @@ artifacts:
 
   jsinterop_annotations: com.google.jsinterop:jsinterop-annotations:jar:1.0.2
 
-  jsinterop_base: org.realityforge.com.google.jsinterop:base:jar:1.0.0-b2-e6d791f
+  jsinterop_base: com.google.jsinterop:base:jar:1.0.0
 
   braincheck: org.realityforge.braincheck:braincheck:jar:1.21.0
 
