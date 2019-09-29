@@ -1118,6 +1118,19 @@
     ]
   },
   {
+    "code": 87,
+    "type": "FAIL",
+    "messagePattern": "Attempted to activate disposed observer named '%s'.",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "setState",
+        "file": "Observer.java",
+        "lineNumber": 454
+      }
+    ]
+  },
+  {
     "code": 88,
     "type": "INVARIANT",
     "messagePattern": "Observer named '%s' is not active but an attempt has been made to schedule observer.",
@@ -1270,6 +1283,19 @@
         "method": "<init>",
         "file": "ComponentKernel.java",
         "lineNumber": 157
+      }
+    ]
+  },
+  {
+    "code": 101,
+    "type": "FAIL",
+    "messagePattern": "Runaway task(s) detected. Tasks still running after %s rounds. Current tasks include: [%s]",
+    "callers": [
+      {
+        "class": "arez.RoundBasedTaskExecutor",
+        "method": "onRunawayTasksDetected",
+        "file": "RoundBasedTaskExecutor.java",
+        "lineNumber": 150
       }
     ]
   },
@@ -1894,6 +1920,19 @@
         "method": "invariantObserverIsTracker",
         "file": "Transaction.java",
         "lineNumber": 822
+      }
+    ]
+  },
+  {
+    "code": 152,
+    "type": "FAIL",
+    "messagePattern": "Transaction named '%s' attempted to change ObservableValue named '%s' but the transaction mode is READ_ONLY.",
+    "callers": [
+      {
+        "class": "arez.Transaction",
+        "method": "verifyWriteAllowed",
+        "file": "Transaction.java",
+        "lineNumber": 848
       }
     ]
   },
@@ -2544,6 +2583,19 @@
         "method": "<init>",
         "file": "Observer.java",
         "lineNumber": 164
+      }
+    ]
+  },
+  {
+    "code": 205,
+    "type": "FAIL",
+    "messagePattern": "Observer.shouldCompute() invoked on observer named '%s' but observer is in state %s",
+    "callers": [
+      {
+        "class": "arez.Observer",
+        "method": "shouldCompute",
+        "file": "Observer.java",
+        "lineNumber": 757
       }
     ]
   },
