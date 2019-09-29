@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.braincheck` artifact to version `1.22.0`.
+* Upgrade the `org.realityforge.braincheck` artifact to version `1.23.0`.
 
 ### [v0.71](https://github.com/arez/arez-spytools/tree/v0.71) (2019-09-16)
 [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.70...v0.71)
