@@ -9,7 +9,7 @@ repositories:
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.14
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.21.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.22.0
 
   guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.102
 
