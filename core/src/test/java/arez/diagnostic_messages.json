@@ -1989,6 +1989,19 @@
     ]
   },
   {
+    "code": 157,
+    "type": "FAIL",
+    "messagePattern": "Called detach() passing an entity that was not attached to the container. Entity: %s",
+    "callers": [
+      {
+        "class": "arez.component.internal.AbstractContainer",
+        "method": "detach",
+        "file": "AbstractContainer.java",
+        "lineNumber": 128
+      }
+    ]
+  },
+  {
     "code": 158,
     "type": "API_INVARIANT",
     "messagePattern": "Object passed to asIdentifiable does not implement Identifiable. Object: %s",
