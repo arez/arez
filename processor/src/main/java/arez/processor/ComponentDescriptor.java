@@ -145,6 +145,8 @@ final class ComponentDescriptor
   private ExecutableElement _preDispose;
   @Nullable
   private ExecutableElement _postDispose;
+  private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
+  private final List<ComponentStateRefDescriptor> _roStateRefs = Collections.unmodifiableList( _componentStateRefs );
   private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
@@ -858,6 +860,29 @@ final class ComponentDescriptor
     {
       return value;
     }
+  }
+
+  private void addComponentStateRef( @Nonnull final AnnotationMirror annotation,
+                                     @Nonnull final ExecutableElement method,
+                                     @Nonnull final ExecutableType methodType )
+    throws ArezProcessorException
+  {
+    MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeAbstract( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustReturnAValue( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+
+    final TypeMirror returnType = method.getReturnType();
+    if ( TypeKind.BOOLEAN != returnType.getKind() )
+    {
+      throw new ArezProcessorException( "Method annotated with @ComponentStateRef must return a boolean", method );
+    }
+    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( _elements, annotation, "value" );
+    final ComponentStateRefDescriptor.State state =
+      ComponentStateRefDescriptor.State.valueOf( variableElement.getSimpleName().toString() );
+
+    _componentStateRefs.add( new ComponentStateRefDescriptor( method, state ) );
   }
 
   private void setContextRef( @Nonnull final ExecutableElement method )
@@ -2307,6 +2332,8 @@ final class ComponentDescriptor
       ProcessorUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror contextRef =
       ProcessorUtil.findAnnotationByType( method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
+    final AnnotationMirror stateRef =
+      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentRef =
       ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentId =
@@ -2389,6 +2416,11 @@ final class ComponentDescriptor
     else if ( null != contextRef )
     {
       setContextRef( method );
+      return true;
+    }
+    else if ( null != stateRef )
+    {
+      addComponentStateRef( stateRef, method, methodType );
       return true;
     }
     else if ( null != memoize )
@@ -2889,6 +2921,7 @@ final class ComponentDescriptor
       builder.addMethod( buildLink() );
     }
 
+    _roStateRefs.forEach( e -> e.buildMethods( builder ) );
     _roObservables.forEach( e -> e.buildMethods( builder ) );
     _roObserves.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );

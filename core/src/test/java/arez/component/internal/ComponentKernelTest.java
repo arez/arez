@@ -41,6 +41,7 @@ public class ComponentKernelTest
     assertFalse( kernel.hasBeenCompleted() );
     assertFalse( kernel.isActive() );
     assertFalse( kernel.isReady() );
+    assertFalse( kernel.isDisposing() );
     assertFalse( kernel.isDisposed() );
     assertEquals( kernel.describeState(), "initialized" );
 
