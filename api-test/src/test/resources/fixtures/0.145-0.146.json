@@ -1,0 +1,98 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.ComponentStateRef",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ComponentStateRef",
+      "classSimpleName": "ComponentStateRef",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "enum arez.annotations.State",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.State",
+      "classSimpleName": "State",
+      "elementKind": "enum",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.component.internal.ComponentKernel::isComplete()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "isComplete",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.component.internal.ComponentKernel::isConstructed()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "isConstructed",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.component.internal.ComponentKernel::isDisposing()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "isDisposing",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.visibilityIncreased",
+    "description": "visibility increased",
+    "element": "method boolean arez.component.internal.ComponentKernel::isReady()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "isReady",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez.component.internal"
+    }
+  }
+]
