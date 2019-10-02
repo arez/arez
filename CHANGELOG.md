@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02)
+[Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146)
+[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.23.0`.
 * Ensure that the default value for the `arez.enable_observer_error_handlers` compile time configuration setting is the same value (i.e. `true`) in J2CL compiled code, GWT compiled code and in the JRE environment.
