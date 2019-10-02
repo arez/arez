@@ -8,7 +8,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
 /**
- * Declaration of a field that must be cascade disposed.
+ * Declaration of a method or field that must be cascade disposed.
  */
 final class CascadeDisposableDescriptor
 {

@@ -378,14 +378,43 @@ public final class ComponentKernel
   }
 
   /**
+   * Return true if the component is in COMPONENT_CONSTRUCTED state.
+   *
+   * @return true if the component is in COMPONENT_CONSTRUCTED state.
+   */
+  public boolean isConstructed()
+  {
+    return COMPONENT_CONSTRUCTED == _state;
+  }
+
+  /**
+   * Return true if the component is in COMPONENT_COMPLETE state.
+   *
+   * @return true if the component is in COMPONENT_COMPLETE state.
+   */
+  public boolean isComplete()
+  {
+    return COMPONENT_COMPLETE == _state;
+  }
+
+  /**
    * Return true if the component is ready.
    *
    * @return true if the component is ready.
    */
-  boolean isReady()
+  public boolean isReady()
   {
-    assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return COMPONENT_READY == _state;
+  }
+
+  /**
+   * Return true if the component is disposing.
+   *
+   * @return true if the component is disposing.
+   */
+  public boolean isDisposing()
+  {
+    return COMPONENT_DISPOSING == _state;
   }
 
   /**

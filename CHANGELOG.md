@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.23.0`.
 * Ensure that the default value for the `arez.enable_observer_error_handlers` compile time configuration setting is the same value (i.e. `true`) in J2CL compiled code, GWT compiled code and in the JRE environment.
+* Introduce the `@ComponentStateRef` annotation to enable component authors to get access to the underlying state of the component from within the component.
 
 ### [v0.145](https://github.com/arez/arez/tree/v0.145) (2019-09-16)
 [Full Changelog](https://github.com/arez/arez/compare/v0.144...v0.145)
