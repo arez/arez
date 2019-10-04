@@ -60,7 +60,7 @@ public final class Observer
   private final Procedure _onDepsChange;
   /**
    * Cached info object associated with element.
-   * This should be null if {@link Arez#areSpiesEnabled()} is false;
+   * This should be null if {@link Arez#areSpiesEnabled()} is false.
    */
   @Nullable
   private ObserverInfo _info;
