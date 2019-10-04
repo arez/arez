@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 final class TaskInfoImpl
   implements TaskInfo
 {
+  @Nonnull
   private final Task _task;
 
   TaskInfoImpl( @Nonnull final Task task )
