@@ -22,7 +22,9 @@ import static org.realityforge.braincheck.Guards.*;
 final class ObserverInfoImpl
   implements ObserverInfo
 {
+  @Nonnull
   private final Spy _spy;
+  @Nonnull
   private final Observer _observer;
 
   ObserverInfoImpl( @Nonnull final Spy spy, @Nonnull final Observer observer )
