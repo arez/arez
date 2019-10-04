@@ -2,8 +2,7 @@
 
 ### Unreleased
 
-### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
+### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.23.0`.
 * Ensure that the default value for the `arez.enable_observer_error_handlers` compile time configuration setting is the same value (i.e. `true`) in J2CL compiled code, GWT compiled code and in the JRE environment.
@@ -13,8 +12,7 @@
 
 * Avoid issuing a warning when the `@ComponentDependency` annotation is applied to a field with a type annotated by `@ActAsComponent` or to a method with a return type annotated by `@ActAsComponent`.
 
-### [v0.144](https://github.com/arez/arez/tree/v0.144) (2019-09-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.143...v0.144)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.143&new=0.144)
+### [v0.144](https://github.com/arez/arez/tree/v0.144) (2019-09-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.143...v0.144) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.143&new=0.144)
 
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.25`.
@@ -29,23 +27,20 @@
 * Fixed a code generation compilation error where a component contains a `@PostDispose` annotated method, no `@PreDispose` annotated method and is annotated with `@ArezComponent( disposeNotifier = Feature.DISABLE )`.
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.102`.
 
-### [v0.142](https://github.com/arez/arez/tree/v0.142) (2019-07-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.141...v0.142)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.141&new=0.142)
+### [v0.142](https://github.com/arez/arez/tree/v0.142) (2019-07-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.141...v0.142) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.141&new=0.142)
 
 * Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevant elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 * Generate an additional artifact with classifier `annotations` for the core module. This artifact contains the [external annotations](https://www.jetbrains.com/help/idea/external-annotations.html) compatible with Intellij IDEA. The annotations specify which flag constants are compatible with which method parameters. This makes it possible for IDEA to generate a warning or an error if incompatible flags are passed to a method. i.e. Passing `ComputableValue.Flags.PRIORITY_LOW` rather than `Observer.Flags.PRIORITY_LOW` to an `ArezContext.observe(...)` method.
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
 * Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevent elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 
-### [v0.141](https://github.com/arez/arez/tree/v0.141) (2019-07-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.140...v0.141)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.140&new=0.141)
+### [v0.141](https://github.com/arez/arez/tree/v0.141) (2019-07-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.140...v0.141) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.140&new=0.141)
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.20.0`.
 * Add a parameter named `readOutsideTransaction` to the `@Memoize` annotation that controls whether it is valid to read the memoized value outside of an existing transaction.
 * Add the `@PriorityOverride` annotation that allows a component to override the priority of either an `@Observe` annotated method or a `@Memoize` annotated method when constructing the components. This is (very occasionally) useful when creating components where the priority is dependent on the context but it provides a useful hook for downstream frameworks such as [React4j](https://react4j.github.io/) that need to manipulate priorities to interact with external scheduling constraints.
 
-### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01) · [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.139&new=0.140)
+### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01) · [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.139&new=0.140)
 
 * Remove `arez.Guards` and replace with the equivalent functionality in the `org.realityforge.braincheck:braincheck:jar` artifact. The dependency was originally used by Arez but was inlined in version `0.96` so that the behaviour could customized for Arez. Now that these customizations have been back-ported to `braincheck` there is no longer any valid reason to keep them. Removing the code also means that the `j2cl_library` definition in Bazel can be simplified as it no longer needs to suppress the `checkDebuggerStatement` warning.
 
@@ -55,8 +50,7 @@
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.24`.
 * Decouple from the `com.google.jsinterop:base` artifact, re-add dependency on `com.google.jsinterop:jsinterop-annotations` and implement the `debugger` javascript statement locally. This reduces the number of upstream dependencies for the project.
 
-### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.137...v0.138)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.137&new=0.138)
+### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.137...v0.138) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.137&new=0.138)
 
 * Change nullability annotation on the `object` parameter in `Identifiable.getArezId(object)` to `@Nullable` as the code already handles null scenario.
 
@@ -87,8 +81,7 @@
 * Use `Js.debugger()` from the `com.google.jsinterop:base` artifact. This avoids the need to explicitly
   allow the `debugger` statement when compiled by closure compiler pass after transpiling via J2CL.
 
-### [v0.133](https://github.com/arez/arez/tree/v0.133) (2019-03-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.132...v0.133)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.132&new=0.133)
+### [v0.133](https://github.com/arez/arez/tree/v0.133) (2019-03-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.132...v0.133) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.132&new=0.133)
 
 * Remove references to `arez-ticker` as it has been deprecated.
 * Remove references to `arez-timeddisposer` as it has been deprecated.
@@ -109,8 +102,7 @@
   as `@Nullable` rather than `@Nonnull` as the code already supports passing null parameters. This eliminates
   unnecessary checks in caller that are not always optimized out.
 
-### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.131&new=0.132)
+### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.131&new=0.132)
 
 * Remove the `org.realityforge.braincheck:braincheck:jar` dependency by reimplementing the invariant
   checking code in `arez.Guards`. The dependency has been inlined so it can be adapted to specific
@@ -127,8 +119,7 @@
   groupId `org.realityforge.com.google.jsinterop`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b18-f3472e7`.
 
-### [v0.130](https://github.com/arez/arez/tree/v0.130) (2019-02-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.129...v0.130)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.129&new=0.130)
+### [v0.130](https://github.com/arez/arez/tree/v0.130) (2019-02-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.129...v0.130) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.129&new=0.130)
 
 * Add the `react4j-drumloop` sample application into set off used to track code size changes over time.
 * Upgrade the `org.realityforge.com.google.elemental2:*` libraries to version `1.0.0-b16-6897368`.
@@ -145,8 +136,7 @@
 * **\[core\]** Rename the `disposeTrackable` parameter to `disposeNotifier` on the `ArezComponent` annotation.
 * **\[core\]** Rename the `DisposeTrackable` interface to `DisposeNotifier`.
 
-### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=0.128&new=0.129)
+### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.128&new=0.129)
 
 * **\[core\]** Fix bug where the `onActivate` callback for `ComputableValue` instances was when disposing
   the `ComputableValue` instance while it was in an `INACTIVE` state.

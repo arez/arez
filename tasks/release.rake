@@ -67,14 +67,13 @@ task 'perform_release' do
 
     stage('PatchChangelog', 'Patch the changelog to update from previous release') do
       changelog = IO.read('CHANGELOG.md')
-      header = <<HEADER
-### [v#{ENV['PRODUCT_VERSION']}](https://github.com/arez/arez/tree/v#{ENV['PRODUCT_VERSION']}) (#{ENV['RELEASE_DATE']}) · [Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})
-HEADER
+      header = "### [v#{ENV['PRODUCT_VERSION']}](https://github.com/arez/arez/tree/v#{ENV['PRODUCT_VERSION']}) (#{ENV['RELEASE_DATE']}) · [Full Changelog](https://github.com/arez/arez/compare/v#{ENV['PREVIOUS_PRODUCT_VERSION']}...v#{ENV['PRODUCT_VERSION']})"
+
       if File.exist?("#{WORKSPACE_DIR}/api-test/src/test/resources/fixtures/#{ENV['PREVIOUS_PRODUCT_VERSION']}-#{ENV['PRODUCT_VERSION']}.json")
-        header += <<HEADER
-[API Differences](https://arez.github.io/api-diff/?key=arez&old=#{ENV['PREVIOUS_PRODUCT_VERSION']}&new=#{ENV['PRODUCT_VERSION']})
-HEADER
+        header += " · [API Differences](https://arez.github.io/api-diff/?key=arez&old=#{ENV['PREVIOUS_PRODUCT_VERSION']}&new=#{ENV['PRODUCT_VERSION']})"
       end
+
+      header += "\n"
 
       changelog = changelog.gsub("### Unreleased\n", header)
       IO.write('CHANGELOG.md', changelog)
