@@ -622,9 +622,9 @@ public final class ArezProcessor
     return verifyReferencesToComponent( processingEnv.getTypeUtils().asElement( field.asType() ) );
   }
 
-  private boolean verifyReferencesToComponent( final Element element )
+  private boolean verifyReferencesToComponent( @Nonnull final Element element )
   {
-    assert null != element && SuperficialValidation.validateElement( element );
+    assert SuperficialValidation.validateElement( element );
 
     final VariableElement verifyReferencesToComponent = (VariableElement)
       ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
