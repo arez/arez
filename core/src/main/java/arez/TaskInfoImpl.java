@@ -79,18 +79,14 @@ final class TaskInfoImpl
   @Override
   public boolean equals( final Object o )
   {
-    if ( this == o )
-    {
-      return true;
-    }
-    else if ( o == null || getClass() != o.getClass() )
-    {
-      return false;
-    }
-    else
+    if ( o instanceof TaskInfoImpl )
     {
       final TaskInfoImpl that = (TaskInfoImpl) o;
       return _task.equals( that._task );
+    }
+    else
+    {
+      return false;
     }
   }
 
