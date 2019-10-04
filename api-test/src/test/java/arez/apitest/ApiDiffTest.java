@@ -4,7 +4,7 @@ import gir.io.Exec;
 import gir.sys.SystemProperty;
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import javax.annotation.Nonnull;
 import javax.json.Json;
@@ -45,8 +45,8 @@ public class ApiDiffTest
       {
         final byte[] reportData = Files.readAllBytes( reportFile.toPath() );
         final byte[] expectedData = Files.readAllBytes( fixture.toPath() );
-        assertEquals( new String( reportData, Charset.forName( "UTF-8" ) ),
-                      new String( expectedData, Charset.forName( "UTF-8" ) ) );
+        assertEquals( new String( reportData, StandardCharsets.UTF_8 ),
+                      new String( expectedData, StandardCharsets.UTF_8 ) );
       }
     }
     finally
