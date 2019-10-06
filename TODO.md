@@ -265,6 +265,13 @@ Another interesting project underway is [crysknife](https://github.com/trebleree
 * Consider a tool that creates branches in downstream branches if it does not exist and the build fails. This would
   make it easy to come along and update the branch as required.
 
+## On Stable Release
+
+When we get to a stable release candidate we need to action the following items:
+
+* Change Braincheck so that it does not delete invariant messages that are no longer emitted by the framework.
+  Instead add a way to mark error as obsolete.
+
 ## Documentation
 
 * The Overview page is terrible - improve it so people would want to use the product.
