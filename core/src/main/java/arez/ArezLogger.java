@@ -14,7 +14,6 @@ final class ArezLogger
 {
   private static final Logger c_logger =
     "console".equals( ArezConfig.loggerType() ) ? new ConsoleLogger() :
-    "jul".equals( ArezConfig.loggerType() ) ? new JavaUtilLogger() :
     "proxy".equals( ArezConfig.loggerType() ) ? new ProxyLogger() :
     new NoopLogger();
 
@@ -97,21 +96,6 @@ final class ArezLogger
       {
         NativeJsLoggerUtil.log( throwable );
       }
-    }
-  }
-
-  /**
-   * The normal log provider implementation.
-   */
-  private static final class JavaUtilLogger
-    implements Logger
-  {
-    private final java.util.logging.Logger _logger = java.util.logging.Logger.getLogger( ArezLogger.class.getName() );
-
-    @Override
-    public void log( @Nonnull final String message, @Nullable final Throwable throwable )
-    {
-      _logger.log( Level.INFO, message, throwable );
     }
   }
 

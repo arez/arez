@@ -317,7 +317,7 @@ final class ArezConfig
     String loggerType()
     {
       /*
-       * Valid values are: "none", "basic", "jul" (java.util.logging) and "proxy" (for testing)
+       * Valid values are: "none", "console" and "proxy" (for testing)
        */
       return System.getProperty( "arez.logger" );
     }
