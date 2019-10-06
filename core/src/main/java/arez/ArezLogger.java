@@ -13,8 +13,7 @@ import jsinterop.annotations.JsType;
 final class ArezLogger
 {
   private static final Logger c_logger =
-    "console".equals( ArezConfig.loggerType() ) ? new BasicLogger() :
-    "console_js".equals( ArezConfig.loggerType() ) ? new BasicJsLogger() :
+    "console".equals( ArezConfig.loggerType() ) ? new ConsoleLogger() :
     "jul".equals( ArezConfig.loggerType() ) ? new JavaUtilLogger() :
     "proxy".equals( ArezConfig.loggerType() ) ? new ProxyLogger() :
     new NoopLogger();
@@ -60,11 +59,12 @@ final class ArezLogger
   }
 
   /**
-   * The basic log provider implementation.
+   * The console log provider implementation.
    */
-  private static final class BasicLogger
-    implements Logger
+  private static final class ConsoleLogger
+    extends AbstractConsoleLogger
   {
+    @GwtIncompatible
     @Override
     public void log( @Nonnull final String message, @Nullable final Throwable throwable )
     {
@@ -84,9 +84,9 @@ final class ArezLogger
   }
 
   /**
-   * The basic log provider implementation.
+   * The console log provider implementation providing javascript based console logging.
    */
-  private static final class BasicJsLogger
+  private static abstract class AbstractConsoleLogger
     implements Logger
   {
     @Override
