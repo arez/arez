@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * The PostDispose method is the last method invoked during dispose operation and it occurs within the scope
  * of the transaction that dispose is occurring within.
  *
- * <p>The method that is annotated with @PostDispose must comply with the additional constraints:</p>
+ * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>

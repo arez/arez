@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 /**
  * Marks a template method that returns the {@link arez.Component} instance for the component.
  *
- * <p>The method that is annotated with @ComponentRef must also comply with the following constraints:</p>
+ * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>

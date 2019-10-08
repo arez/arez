@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  * <p>The method should only invoked within the scope of a transaction.
  * The mutation method requires that the transaction be READ_WRITE.</p>
  *
- * <p>The method that is annotated with @Observable must also comply with the following constraints:</p>
+ * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>

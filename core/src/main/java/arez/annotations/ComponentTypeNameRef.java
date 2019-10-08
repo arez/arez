@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * <p>This annotation should appear at most once on a component. The annotation should be on a method that
  * can be overridden, accepts no parameters and returns a String.</p>
  *
- * <p>The method that is annotated with @ComponentTypeNameRef must comply with the additional constraints:</p>
+ * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>

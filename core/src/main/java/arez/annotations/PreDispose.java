@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * The PreDispose method is the first method invoked during dispose operation and it occurs at the start
  * of the transaction that dispose is occurring within.
  *
- * <p>The method that is annotated with @PreDispose must comply with the additional constraints:</p>
+ * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>
