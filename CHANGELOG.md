@@ -5,6 +5,7 @@
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.25.0`.
 * Rework the way `ArezLogger` is implemented to consolidate the JRE and javascript based console loggers into the class `ConsoleLogger`. The involved renaming the `console_js` value to `console` for the compile-time property `arez.logger`.
 * Remove the `jul` (a.k.a. `java.util.logging`) strategy available when configuring the `ArezLogger` via the compile-time property `arez.logger`. This strategy was never used in practice.
+* Improve the javadocs in the `arez.annotations` package to reflect current behaviour of Arez.
 
 ### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
 
