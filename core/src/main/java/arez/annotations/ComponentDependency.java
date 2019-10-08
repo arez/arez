@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  * </li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
- * <li>Must not be abstract</li>
+ * <li>If not annotated with {@link Observable} then must not be abstract</li>
  * <li>Must not throw exceptions</li>
  * </ul>
  *
