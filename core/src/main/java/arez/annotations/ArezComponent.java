@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
  * <p>The type that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must be a class or an interface</li>
- * <li>Must be concrete, not abstract</li>
+ * <li>Must be abstract unless {@link #allowConcrete()} is set to <code>true</code></li>
  * <li>Must not be final</li>
  * <li>Must not be a non-static nested class</li>
  * <li>Must have at least one method annotated with {@link Action}, {@link Observe}, {@link Memoize} or {@link Observable}</li>
