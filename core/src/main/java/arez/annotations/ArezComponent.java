@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
  * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #nameIncludesId()}
  * is false then the "<tt>[ArezComponent.id].</tt>" element of the name will be elided.</p>
  *
- * <p>The type that is annotated with <tt>@ArezComponent</tt> annotation must comply with the additional constraints:</p>
+ * <p>The type that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must be a class or an interface</li>
  * <li>Must be concrete, not abstract</li>
