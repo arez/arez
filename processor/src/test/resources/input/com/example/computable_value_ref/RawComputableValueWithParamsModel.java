@@ -6,15 +6,15 @@ import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public abstract class RawComputableValueModel
+public abstract class RawComputableValueWithParamsModel
 {
   @Memoize
-  public long getTime()
+  public long getTime( final int zone )
   {
     return 0;
   }
 
   @SuppressWarnings( "rawtypes" )
   @ComputableValueRef
-  abstract ComputableValue getTimeComputableValue();
+  abstract ComputableValue getTimeComputableValue( int zone );
 }

@@ -160,6 +160,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.computable_value_ref.NonStandardNameModel", false, false, false, false },
         new Object[]{ "com.example.computable_value_ref.ParametersComputableValueModel", false, false, false, false },
         new Object[]{ "com.example.computable_value_ref.RawComputableValueModel", false, false, false, false },
+        new Object[]{ "com.example.computable_value_ref.RawComputableValueWithParamsModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.AnnotatedComponent", false, false, false, false },
         new Object[]{ "com.example.context_ref.NonStandardNameComponent", false, false, false, false },
         new Object[]{ "com.example.context_ref.SimpleComponent", false, false, false, false },
