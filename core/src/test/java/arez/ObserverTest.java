@@ -17,6 +17,7 @@ import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -464,13 +465,13 @@ public class ObserverTest
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( new CountingProcedure(), Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
-    final ArrayList<ObservableValue<?>> originalDependencies = observer.getDependencies();
+    final List<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
     assertTrue( originalDependencies.isEmpty() );
 
     context.safeAction( () -> {
 
-      final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
+      final List<ObservableValue<?>> newDependencies = new ArrayList<>();
       newDependencies.add( observable );
       observable.rawAddObserver( observer );
 
@@ -489,7 +490,7 @@ public class ObserverTest
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( observable::reportObserved );
 
-    final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
+    final List<ObservableValue<?>> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
     newDependencies.add( observable );
 
@@ -505,7 +506,7 @@ public class ObserverTest
     final ObservableValue<Object> observable2 = context.observable();
     final Observer observer = context.observer( observable::reportObserved );
 
-    final ArrayList<ObservableValue<?>> newDependencies = new ArrayList<>();
+    final List<ObservableValue<?>> newDependencies = new ArrayList<>();
     newDependencies.add( observable );
     newDependencies.add( observable2 );
 
