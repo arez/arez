@@ -21,7 +21,7 @@ public abstract class StaticModel
 
   @Nonnull
   @ObservableValueRef
-  static ObservableValue getTimeObservableValue()
+  static ObservableValue<Long> getTimeObservableValue()
   {
     throw new IllegalStateException();
   }

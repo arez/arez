@@ -21,7 +21,7 @@ public abstract class NonAbstractModel
 
   @Nonnull
   @ObservableValueRef
-  ObservableValue getTimeObservableValue()
+  ObservableValue<Long> getTimeObservableValue()
   {
     throw new IllegalStateException();
   }

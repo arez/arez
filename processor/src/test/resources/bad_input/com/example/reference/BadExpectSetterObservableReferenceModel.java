@@ -21,7 +21,7 @@ abstract class BadExpectSetterObservableReferenceModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue getMyEntityIdObservableValue();
+  protected abstract ObservableValue<Integer> getMyEntityIdObservableValue();
 
   static class MyEntity
   {

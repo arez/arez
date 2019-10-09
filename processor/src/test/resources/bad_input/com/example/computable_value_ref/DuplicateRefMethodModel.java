@@ -17,8 +17,8 @@ public abstract class DuplicateRefMethodModel
 
   @Nonnull
   @ComputableValueRef
-  public abstract ComputableValue getTimeComputableValue();
+  public abstract ComputableValue<Long> getTimeComputableValue();
 
   @ComputableValueRef( name = "time" )
-  public abstract ComputableValue getTimeComputableValue2();
+  public abstract ComputableValue<Long> getTimeComputableValue2();
 }

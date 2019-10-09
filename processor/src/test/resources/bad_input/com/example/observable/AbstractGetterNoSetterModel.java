@@ -14,5 +14,5 @@ public abstract class AbstractGetterNoSetterModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue getFieldObservableValue();
+  public abstract ObservableValue<Long> getFieldObservableValue();
 }

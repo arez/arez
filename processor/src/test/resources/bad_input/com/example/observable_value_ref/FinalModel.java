@@ -21,7 +21,7 @@ public abstract class FinalModel
 
   @Nonnull
   @ObservableValueRef
-  final ObservableValue getTimeObservableValue()
+  final ObservableValue<Long> getTimeObservableValue()
   {
     throw new IllegalStateException();
   }

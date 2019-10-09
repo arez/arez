@@ -21,9 +21,9 @@ public abstract class DuplicateRefMethodModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue getTimeObservableValue();
+  public abstract ObservableValue<Long> getTimeObservableValue();
 
   @Nonnull
   @ObservableValueRef( name = "time" )
-  public abstract ObservableValue getTimeObservable2Value();
+  public abstract ObservableValue<Long> getTimeObservable2Value();
 }

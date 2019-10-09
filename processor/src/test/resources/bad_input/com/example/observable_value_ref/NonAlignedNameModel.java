@@ -21,5 +21,5 @@ public abstract class NonAlignedNameModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue timeObservableValue();
+  public abstract ObservableValue<Long> timeObservableValue();
 }

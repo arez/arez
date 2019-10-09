@@ -17,5 +17,5 @@ public abstract class NonAlignedNameModel
 
   @Nonnull
   @ComputableValueRef
-  public abstract ComputableValue timeComputableValue();
+  public abstract ComputableValue<Long> timeComputableValue();
 }

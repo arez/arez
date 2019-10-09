@@ -23,6 +23,6 @@ public abstract class ThrowsExceptionModel
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue getTimeObservableValue()
+  public abstract ObservableValue<Long> getTimeObservableValue()
     throws ParseException;
 }

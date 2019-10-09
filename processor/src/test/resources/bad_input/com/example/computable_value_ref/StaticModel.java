@@ -15,7 +15,7 @@ public abstract class StaticModel
   }
 
   @ComputableValueRef
-  static ComputableValue getTimeComputableValue()
+  static ComputableValue<Long> getTimeComputableValue()
   {
     throw new IllegalStateException();
   }

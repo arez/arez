@@ -17,7 +17,7 @@ public abstract class FinalModel
 
   @Nonnull
   @ComputableValueRef
-  final ComputableValue getTimeComputableValue()
+  final ComputableValue<Long> getTimeComputableValue()
   {
     throw new IllegalStateException();
   }

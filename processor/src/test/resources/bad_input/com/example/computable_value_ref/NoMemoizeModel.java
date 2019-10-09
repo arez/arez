@@ -10,5 +10,5 @@ public abstract class NoMemoizeModel
 {
   @Nonnull
   @ComputableValueRef
-  public abstract ComputableValue getTimeComputableValue();
+  public abstract ComputableValue<Long> getTimeComputableValue();
 }

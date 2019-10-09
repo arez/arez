@@ -15,5 +15,5 @@ public abstract class MemoizeHasDifferentParameters4Model
   }
 
   @ComputableValueRef
-  abstract ComputableValue getTimeComputableValue( int i, String s, String o );
+  abstract ComputableValue<Long> getTimeComputableValue( int i, String s, String o );
 }

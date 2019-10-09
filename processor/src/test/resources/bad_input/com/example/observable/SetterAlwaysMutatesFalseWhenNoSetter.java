@@ -15,6 +15,6 @@ public abstract class SetterAlwaysMutatesFalseWhenNoSetter
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue getTimeObservableValue();
+  protected abstract ObservableValue<Long> getTimeObservableValue();
 
 }

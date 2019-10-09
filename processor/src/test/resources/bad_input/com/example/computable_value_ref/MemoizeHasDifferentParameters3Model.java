@@ -15,5 +15,5 @@ public abstract class MemoizeHasDifferentParameters3Model
   }
 
   @ComputableValueRef
-  abstract ComputableValue getTimeComputableValue( Integer i );
+  abstract ComputableValue<Long> getTimeComputableValue( Integer i );
 }

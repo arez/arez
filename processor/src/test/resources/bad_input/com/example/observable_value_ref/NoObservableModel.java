@@ -10,5 +10,5 @@ public abstract class NoObservableModel
 {
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue getTimeObservableValue();
+  public abstract ObservableValue<Long> getTimeObservableValue();
 }

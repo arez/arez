@@ -21,7 +21,7 @@ public abstract class PrivateModel
 
   @Nonnull
   @ObservableValueRef
-  private ObservableValue getTimeObservableValue()
+  private ObservableValue<Long> getTimeObservableValue()
   {
     throw new IllegalStateException();
   }

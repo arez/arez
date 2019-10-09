@@ -21,5 +21,5 @@ public abstract class BadNameModel
 
   @Nonnull
   @ObservableValueRef( name = "-ace" )
-  public abstract ObservableValue getTimeObservableValue();
+  public abstract ObservableValue<Long> getTimeObservableValue();
 }

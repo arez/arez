@@ -9,7 +9,7 @@ public abstract class BadType3MethodComponent
 {
   // Class does not implement Disposable
   @CascadeDispose
-  final List myField()
+  final List<?> myField()
   {
     return null;
   }

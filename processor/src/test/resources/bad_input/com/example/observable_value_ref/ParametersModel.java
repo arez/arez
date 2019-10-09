@@ -21,5 +21,5 @@ public abstract class ParametersModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue getTimeObservableValue( int i );
+  public abstract ObservableValue<Long> getTimeObservableValue( int i );
 }

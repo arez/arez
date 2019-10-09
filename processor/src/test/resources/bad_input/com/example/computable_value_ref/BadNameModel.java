@@ -17,5 +17,5 @@ public abstract class BadNameModel
 
   @Nonnull
   @ComputableValueRef( name = "-ace" )
-  abstract ComputableValue getTimeComputableValue();
+  abstract ComputableValue<Long> getTimeComputableValue();
 }

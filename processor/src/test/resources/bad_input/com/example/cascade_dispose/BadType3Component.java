@@ -9,5 +9,5 @@ public abstract class BadType3Component
 {
   // Class does not implement Disposable
   @CascadeDispose
-  List _myField;
+  List<?> _myField;
 }

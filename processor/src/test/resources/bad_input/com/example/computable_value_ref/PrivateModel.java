@@ -15,7 +15,7 @@ public abstract class PrivateModel
   }
 
   @ComputableValueRef
-  private ComputableValue getTimeComputableValue()
+  private ComputableValue<Long> getTimeComputableValue()
   {
     throw new IllegalStateException();
   }
