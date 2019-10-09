@@ -100,9 +100,8 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getCollection();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  protected ObservableValue getCollectionObservableValue() {
+  protected ObservableValue<Collection<String>> getCollectionObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollectionObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -118,9 +117,8 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getSet();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  protected ObservableValue getSetObservableValue() {
+  protected ObservableValue<Set<String>> getSetObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSetObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -136,9 +134,8 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getList();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  protected ObservableValue getListObservableValue() {
+  protected ObservableValue<List<String>> getListObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getListObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -154,9 +151,8 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getMap();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  protected ObservableValue getMapObservableValue() {
+  protected ObservableValue<Map<String, String>> getMapObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMapObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
