@@ -15,5 +15,5 @@ public abstract class NonStandardNameModel
   }
 
   @ComputableValueRef( name = "time" )
-  abstract ComputableValue timeComputableValue();
+  abstract ComputableValue<Long> timeComputableValue();
 }

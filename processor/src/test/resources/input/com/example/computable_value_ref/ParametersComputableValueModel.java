@@ -15,5 +15,5 @@ public abstract class ParametersComputableValueModel
   }
 
   @ComputableValueRef
-  abstract ComputableValue getTimeComputableValue( int i, String s, Object o );
+  abstract ComputableValue<Long> getTimeComputableValue( int i, String s, Object o );
 }
