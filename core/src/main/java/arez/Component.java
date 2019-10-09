@@ -302,7 +302,7 @@ public final class Component
    *
    * @param observableValue the observableValue.
    */
-  void addObservableValue( @Nonnull final ObservableValue observableValue )
+  void addObservableValue( @Nonnull final ObservableValue<?> observableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -332,7 +332,7 @@ public final class Component
    *
    * @param observableValue the observableValue.
    */
-  void removeObservableValue( @Nonnull final ObservableValue observableValue )
+  void removeObservableValue( @Nonnull final ObservableValue<?> observableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -365,7 +365,7 @@ public final class Component
    *
    * @param computableValue the computableValue.
    */
-  void addComputableValue( @Nonnull final ComputableValue computableValue )
+  void addComputableValue( @Nonnull final ComputableValue<?> computableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
