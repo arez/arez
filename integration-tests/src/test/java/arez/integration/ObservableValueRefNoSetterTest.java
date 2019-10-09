@@ -22,7 +22,7 @@ public class ObservableValueRefNoSetterTest
     private String _other;
 
     @ObservableValueRef
-    abstract ObservableValue getOtherIDObservableValue();
+    abstract ObservableValue<Integer> getOtherIDObservableValue();
 
     String getOther()
     {
