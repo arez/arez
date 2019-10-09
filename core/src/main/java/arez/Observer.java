@@ -698,7 +698,7 @@ public final class Observer
    */
   void markDependenciesLeastStaleObserverAsUpToDate()
   {
-    for ( final ObservableValue dependency : getDependencies() )
+    for ( final ObservableValue<?> dependency : getDependencies() )
     {
       dependency.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     }
@@ -730,12 +730,12 @@ public final class Observer
         return true;
       case Flags.STATE_POSSIBLY_STALE:
       {
-        for ( final ObservableValue observableValue : getDependencies() )
+        for ( final ObservableValue<?> observableValue : getDependencies() )
         {
           if ( observableValue.isComputableValue() )
           {
             final Observer owner = observableValue.getObserver();
-            final ComputableValue computableValue = owner.getComputableValue();
+            final ComputableValue<?> computableValue = owner.getComputableValue();
             try
             {
               computableValue.get();
