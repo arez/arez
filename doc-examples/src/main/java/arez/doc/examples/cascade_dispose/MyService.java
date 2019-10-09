@@ -10,7 +10,7 @@ import arez.annotations.PreDispose;
 public abstract class MyService
 {
   @CascadeDispose
-  private final MySubService _subService = MySubService.create();
+  final MySubService _subService = MySubService.create();
 
   @PreDispose
   final void preDispose()
