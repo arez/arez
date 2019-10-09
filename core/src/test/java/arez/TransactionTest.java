@@ -2,7 +2,7 @@ package arez;
 
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -214,7 +214,7 @@ public class TransactionTest
     assertTrue( observableValue2.isPendingDeactivation() );
 
     transaction.safeGetObservables().add( observableValue1 );
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.commit();
 
@@ -453,7 +453,7 @@ public class TransactionTest
 
     assertNull( transaction.getObservableValues() );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -528,12 +528,12 @@ public class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue3 );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_DISPOSED );
-    final ArrayList<ObservableValue<?>> dependencies1 = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies1 = tracker.getDependencies();
     assertNotSame( dependencies1, dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -565,7 +565,7 @@ public class TransactionTest
     observableValue.getObservers().add( observer2 );
     observableValue.setLeastStaleObserverState( observer2.getState() );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.observe( observableValue );
 
@@ -597,7 +597,7 @@ public class TransactionTest
     tracker.getDependencies().add( observableValue1 );
     observableValue1.getObservers().add( tracker );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -625,7 +625,7 @@ public class TransactionTest
 
     transaction.safeGetObservables().add( observableValue );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -659,7 +659,7 @@ public class TransactionTest
     transaction.safeGetObservables().add( observableValue3 );
     transaction.safeGetObservables().add( observableValue4 );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -693,7 +693,7 @@ public class TransactionTest
     transaction.safeGetObservables().add( observableValue );
     transaction.safeGetObservables().add( observableValue );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -728,7 +728,7 @@ public class TransactionTest
     transaction.safeGetObservables().add( observableValue2 );
     transaction.safeGetObservables().add( observableValue1 );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -766,7 +766,7 @@ public class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue2 );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -808,7 +808,7 @@ public class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue3 );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -843,7 +843,7 @@ public class TransactionTest
     observableValue.getObservers().add( tracker );
     transaction.safeGetObservables().add( observableValue );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -875,7 +875,7 @@ public class TransactionTest
     observableValue.getObservers().add( tracker );
     transaction.safeGetObservables().add( observableValue );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -953,7 +953,7 @@ public class TransactionTest
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -964,7 +964,7 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
-    final ArrayList<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
+    final List<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertTrue( pendingDeactivations.contains( tracker.getComputableValue().getObservableValue() ) );
 
@@ -990,7 +990,7 @@ public class TransactionTest
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
 
-    final ArrayList<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -1001,7 +1001,7 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
-    final ArrayList<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
+    final List<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertFalse( pendingDeactivations.contains( tracker.getComputableValue().getObservableValue() ) );
 
