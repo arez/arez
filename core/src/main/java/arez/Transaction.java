@@ -121,7 +121,7 @@ final class Transaction
    * non-root transactions that attempt to deactivate an observable.
    */
   @Nullable
-  private ArrayList<ObservableValue> _pendingDeactivations;
+  private ArrayList<ObservableValue<?>> _pendingDeactivations;
   /**
    * Reference to the transaction that was active when this transaction began. When this
    * transaction commits, the previous transaction will be restored.
@@ -505,7 +505,7 @@ final class Transaction
       // Deactivations can be enqueued during the deactivation process so we always pop the last
       while ( !_pendingDeactivations.isEmpty() )
       {
-        final ObservableValue observableValue = _pendingDeactivations.remove( _pendingDeactivations.size() - 1 );
+        final ObservableValue<?> observableValue = _pendingDeactivations.remove( _pendingDeactivations.size() - 1 );
         observableValue.resetPendingDeactivation();
         if ( Arez.shouldCheckInvariants() )
         {
@@ -525,7 +525,7 @@ final class Transaction
     }
   }
 
-  void queueForDeactivation( @Nonnull final ObservableValue observableValue )
+  void queueForDeactivation( @Nonnull final ObservableValue<?> observableValue )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -557,7 +557,7 @@ final class Transaction
     _pendingDeactivations.add( Objects.requireNonNull( observableValue ) );
   }
 
-  void observe( @Nonnull final ObservableValue observableValue )
+  void observe( @Nonnull final ObservableValue<?> observableValue )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -802,7 +802,7 @@ final class Transaction
    * @param observableValue the observableValue which the observer is observing. Used when constructing invariant message.
    * @param observer        the observer.
    */
-  void invariantObserverIsTracker( @Nonnull final ObservableValue observableValue, @Nonnull final Observer observer )
+  void invariantObserverIsTracker( @Nonnull final ObservableValue<?> observableValue, @Nonnull final Observer observer )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -828,7 +828,7 @@ final class Transaction
     }
   }
 
-  void verifyWriteAllowed( @Nonnull final ObservableValue observableValue )
+  void verifyWriteAllowed( @Nonnull final ObservableValue<?> observableValue )
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
@@ -897,7 +897,7 @@ final class Transaction
       final int size = _observableValues.size();
       for ( int i = 0; i < size; i++ )
       {
-        final ObservableValue observableValue = _observableValues.get( i );
+        final ObservableValue<?> observableValue = _observableValues.get( i );
         if ( !observableValue.isInCurrentTracking() && observableValue.isNotDisposed() )
         {
           observableValue.putInCurrentTracking();
@@ -925,7 +925,7 @@ final class Transaction
     final List<ObservableValue<?>> dependencies = _tracker.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
-      final ObservableValue observableValue = dependencies.get( i );
+      final ObservableValue<?> observableValue = dependencies.get( i );
       if ( !observableValue.isInCurrentTracking() )
       {
         // Old dependency was not part of current tracking and needs to be unobserved
@@ -956,7 +956,7 @@ final class Transaction
       // new dependencies and need to be observed by the observer
       for ( int i = currentIndex - 1; i >= 0; i-- )
       {
-        final ObservableValue observableValue = _observableValues.get( i );
+        final ObservableValue<?> observableValue = _observableValues.get( i );
         if ( observableValue.isInCurrentTracking() )
         {
           observableValue.removeFromCurrentTracking();
@@ -1015,7 +1015,7 @@ final class Transaction
     {
       if ( null != _observableValues )
       {
-        for ( final ObservableValue observableValue : _observableValues )
+        for ( final ObservableValue<?> observableValue : _observableValues )
         {
           observableValue.invariantLeastStaleObserverState();
           observableValue.invariantObserversLinked();
@@ -1082,7 +1082,7 @@ final class Transaction
   }
 
   @Nullable
-  ArrayList<ObservableValue> getPendingDeactivations()
+  ArrayList<ObservableValue<?>> getPendingDeactivations()
   {
     return _pendingDeactivations;
   }

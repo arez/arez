@@ -285,7 +285,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
     assertEquals( observableValue.getContext(), context );
 
     final AtomicInteger reactionCount = new AtomicInteger();
@@ -319,7 +319,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -345,10 +345,10 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue1 = context.observable();
-    final ObservableValue observableValue2 = context.observable();
-    final ObservableValue observableValue3 = context.observable();
-    final ObservableValue observableValue4 = context.observable();
+    final ObservableValue<?> observableValue1 = context.observable();
+    final ObservableValue<?> observableValue2 = context.observable();
+    final ObservableValue<?> observableValue3 = context.observable();
+    final ObservableValue<?> observableValue4 = context.observable();
 
     final AtomicInteger reactionCount = new AtomicInteger();
 
@@ -402,7 +402,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
 
     assertNotInTransaction( context, observableValue );
 
@@ -424,7 +424,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
 
     assertNotInTransaction( context, observableValue );
 
@@ -446,7 +446,7 @@ public class ExternalApiTest
     throws Throwable
   {
     final ArezContext context = Arez.context();
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
 
     assertNotInTransaction( context, observableValue );
 
@@ -475,7 +475,7 @@ public class ExternalApiTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
 
     assertNotInTransaction( context, observableValue );
 
@@ -539,8 +539,8 @@ public class ExternalApiTest
 
     final ArezContext context1 = zone1.getContext();
     final ArezContext context2 = zone2.getContext();
-    final ObservableValue observableValue1 = context1.observable();
-    final ObservableValue observableValue2 = context2.observable();
+    final ObservableValue<?> observableValue1 = context1.observable();
+    final ObservableValue<?> observableValue2 = context2.observable();
 
     final AtomicInteger observerCallCount1 = new AtomicInteger();
     final AtomicInteger observerCallCount2 = new AtomicInteger();
@@ -648,7 +648,7 @@ public class ExternalApiTest
   /**
    * Test we are in a transaction by trying to observe an observableValue.
    */
-  private void assertInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue observableValue )
+  private void assertInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue<?> observableValue )
   {
     assertTrue( context.isTransactionActive() );
     observableValue.reportObserved();
@@ -658,7 +658,7 @@ public class ExternalApiTest
    * Test we are not in a transaction by trying to observe an observableValue.
    */
   private void assertNotInTransaction( @Nonnull final ArezContext context,
-                                       @Nonnull final ObservableValue observableValue )
+                                       @Nonnull final ObservableValue<?> observableValue )
   {
     assertFalse( context.isTransactionActive() );
     assertThrows( observableValue::reportObserved );

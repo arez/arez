@@ -384,7 +384,7 @@ public final class Component
    *
    * @param computableValue the computableValue.
    */
-  void removeComputableValue( @Nonnull final ComputableValue computableValue )
+  void removeComputableValue( @Nonnull final ComputableValue<?> computableValue )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {

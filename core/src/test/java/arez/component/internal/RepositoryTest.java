@@ -403,7 +403,7 @@ public class RepositoryTest
   static class MyRepository
     extends AbstractRepository<Integer, MyEntity, MyRepository>
   {
-    private final ObservableValue<Object> _observableValue = Arez.context().observable();
+    private final ObservableValue<Stream<MyEntity>> _observableValue = Arez.context().observable();
 
     static MyRepository create()
     {
@@ -412,7 +412,7 @@ public class RepositoryTest
 
     @Nonnull
     @Override
-    protected ObservableValue getEntitiesObservableValue()
+    protected ObservableValue<Stream<MyEntity>> getEntitiesObservableValue()
     {
       return _observableValue;
     }

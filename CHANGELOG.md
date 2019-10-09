@@ -13,6 +13,7 @@
 * Explicitly suppress `rawtypes` warning when overriding `@ObservableValueRef` annotated methods if the return type is a raw type.
 * Eliminate unnecessary cast when `@Memoize` annotated methods contain a parameter of type `java.lang.Object` 
 * Explicitly suppress `rawtypes` warning when overriding `@ComputableValueValueRef` annotated methods if the return type is a raw type.
+* Explicitly lint warnings in `core` library.
 
 ### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
 

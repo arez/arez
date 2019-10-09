@@ -128,7 +128,7 @@ final class ObservableValueInfoImpl
     return null != _observableValue.getMutator();
   }
 
-  @SuppressWarnings( "unchecked" )
+  @SuppressWarnings( { "unchecked", "rawtypes" } )
   @Override
   public void setValue( @Nullable final Object value )
     throws Throwable

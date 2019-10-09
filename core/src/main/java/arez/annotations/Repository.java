@@ -65,7 +65,7 @@ public @interface Repository
    *
    * @return the list of extension interfaces that the repository will implement.
    */
-  Class[] extensions() default {};
+  Class<?>[] extensions() default {};
 
   /**
    * Indicate whether a dagger module should be generated for repository.

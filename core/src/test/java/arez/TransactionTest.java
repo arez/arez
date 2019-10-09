@@ -964,7 +964,7 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
-    final List<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
+    final List<ObservableValue<?>> pendingDeactivations = transaction.getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertTrue( pendingDeactivations.contains( tracker.getComputableValue().getObservableValue() ) );
 
@@ -1001,7 +1001,7 @@ public class TransactionTest
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
-    final List<ObservableValue> pendingDeactivations = transaction.getPendingDeactivations();
+    final List<ObservableValue<?>> pendingDeactivations = transaction.getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertFalse( pendingDeactivations.contains( tracker.getComputableValue().getObservableValue() ) );
 
@@ -1284,7 +1284,7 @@ public class TransactionTest
     derivation.getDependencies().add( baseObservableValue );
     baseObservableValue.getObservers().add( derivation );
 
-    final ObservableValue derivedObservableValue = derivation.getComputableValue().getObservableValue();
+    final ObservableValue<?> derivedObservableValue = derivation.getComputableValue().getObservableValue();
 
     derivedObservableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( derivedObservableValue );

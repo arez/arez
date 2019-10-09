@@ -11,6 +11,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.NoSuchEntityException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -384,7 +385,7 @@ public class ContainerTest
   static class MyContainer
     extends AbstractContainer<Integer, MyEntity>
   {
-    private final ObservableValue<Object> _observableValue = Arez.context().observable();
+    private final ObservableValue<Stream<MyEntity>> _observableValue = Arez.context().observable();
 
     static MyContainer create()
     {
@@ -399,7 +400,7 @@ public class ContainerTest
 
     @Nonnull
     @Override
-    protected ObservableValue getEntitiesObservableValue()
+    protected ObservableValue<Stream<MyEntity>> getEntitiesObservableValue()
     {
       return _observableValue;
     }

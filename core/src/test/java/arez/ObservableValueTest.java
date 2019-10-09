@@ -14,6 +14,7 @@ import arez.spy.PropertyMutator;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -468,7 +469,7 @@ public class ObservableValueTest
   public void addObserver_updatesLestStaleObserverState()
   {
     final ArezContext context = Arez.context();
-    final ComputableValue computable = context.computable( () -> 1 );
+    final ComputableValue<?> computable = context.computable( () -> 1 );
     setCurrentTransaction( computable.getObserver() );
 
     final ObservableValue<?> observableValue = context.observable();
@@ -698,7 +699,7 @@ public class ObservableValueTest
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
 
     assertTrue( observableValue.isPendingDeactivation() );
-    final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
+    final List<ObservableValue<?>> pendingDeactivations = context.getTransaction().getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertEquals( pendingDeactivations.size(), 1 );
     assertTrue( pendingDeactivations.contains( observableValue ) );
@@ -933,7 +934,7 @@ public class ObservableValueTest
     observableValue.queueForDeactivation();
 
     assertTrue( observableValue.isPendingDeactivation() );
-    final ArrayList<ObservableValue> pendingDeactivations = context.getTransaction().getPendingDeactivations();
+    final List<ObservableValue<?>> pendingDeactivations = context.getTransaction().getPendingDeactivations();
     assertNotNull( pendingDeactivations );
     assertEquals( pendingDeactivations.size(), 1 );
     assertTrue( pendingDeactivations.contains( observableValue ) );

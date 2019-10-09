@@ -18,8 +18,8 @@ public class ComponentInfoImplTest
     final String id = ValueUtil.randomString();
     final String name = ValueUtil.randomString();
     final Observer observer = context.observer( AbstractTest::observeADependency );
-    final ObservableValue observableValue = context.observable();
-    final ComputableValue computableValue = context.computable( () -> "" );
+    final ObservableValue<?> observableValue = context.observable();
+    final ComputableValue<?> computableValue = context.computable( () -> "" );
 
     final Component component = context.component( type, id, name );
     component.addObserver( observer );

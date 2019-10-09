@@ -1663,7 +1663,7 @@ public class ArezContextTest
     final Object param2 = null;
     final int param3 = 3;
 
-    final ObservableValue observableValue = Arez.context().observable();
+    final ObservableValue<?> observableValue = Arez.context().observable();
 
     final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
@@ -3049,7 +3049,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue computableValue = context.computable( () -> "" );
+    final ComputableValue<?> computableValue = context.computable( () -> "" );
 
     assertEquals( context.getTopLevelComputableValues().size(), 1 );
     assertEquals( context.getTopLevelComputableValues().get( computableValue.getName() ), computableValue );
@@ -3097,7 +3097,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final ComputableValue computableValue = context.computable( () -> "" );
+    final ComputableValue<?> computableValue = context.computable( () -> "" );
 
     assertEquals( context.getTopLevelComputableValues().size(), 1 );
     assertEquals( context.getTopLevelComputableValues().get( computableValue.getName() ), computableValue );

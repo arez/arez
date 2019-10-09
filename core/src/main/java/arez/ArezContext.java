@@ -2142,7 +2142,7 @@ public final class ArezContext
     return _taskQueue;
   }
 
-  void registerObservableValue( @Nonnull final ObservableValue observableValue )
+  void registerObservableValue( @Nonnull final ObservableValue<?> observableValue )
   {
     final String name = observableValue.getName();
     if ( Arez.shouldCheckInvariants() )
@@ -2158,7 +2158,7 @@ public final class ArezContext
     _observableValues.put( name, observableValue );
   }
 
-  void deregisterObservableValue( @Nonnull final ObservableValue observableValue )
+  void deregisterObservableValue( @Nonnull final ObservableValue<?> observableValue )
   {
     final String name = observableValue.getName();
     if ( Arez.shouldCheckInvariants() )
@@ -2230,7 +2230,7 @@ public final class ArezContext
     return _observers;
   }
 
-  void registerComputableValue( @Nonnull final ComputableValue computableValue )
+  void registerComputableValue( @Nonnull final ComputableValue<?> computableValue )
   {
     final String name = computableValue.getName();
     if ( Arez.shouldCheckInvariants() )
@@ -2246,7 +2246,7 @@ public final class ArezContext
     _computableValues.put( name, computableValue );
   }
 
-  void deregisterComputableValue( @Nonnull final ComputableValue computableValue )
+  void deregisterComputableValue( @Nonnull final ComputableValue<?> computableValue )
   {
     final String name = computableValue.getName();
     if ( Arez.shouldCheckInvariants() )

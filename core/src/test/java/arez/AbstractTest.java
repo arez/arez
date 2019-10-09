@@ -56,7 +56,7 @@ public abstract class AbstractTest
   @Nonnull
   private Field getField( @Nonnull final Class<?> type, @Nonnull final String fieldName )
   {
-    Class clazz = type;
+    Class<?> clazz = type;
     while ( null != clazz && Object.class != clazz )
     {
       try

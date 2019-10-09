@@ -27,7 +27,7 @@ final class MultiPriorityTaskQueue
    * @param priorityCount   the number of priorities supported.
    * @param initialCapacity the initial size of buffer for each priority.
    */
-  @SuppressWarnings( "unchecked" )
+  @SuppressWarnings( { "unchecked", "rawtypes" } )
   MultiPriorityTaskQueue( final int priorityCount, final int initialCapacity )
   {
     assert priorityCount > 0;
