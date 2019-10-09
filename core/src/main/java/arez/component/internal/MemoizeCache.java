@@ -188,7 +188,7 @@ public final class MemoizeCache<T>
   }
 
   @Nonnull
-  final ArezContext getContext()
+  private ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
