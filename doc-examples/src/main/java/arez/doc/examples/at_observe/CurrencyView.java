@@ -1,6 +1,7 @@
 package arez.doc.examples.at_observe;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
@@ -8,6 +9,7 @@ import elemental2.dom.Element;
 @ArezComponent
 public abstract class CurrencyView
 {
+  @CascadeDispose
   private final Currency bitcoin = new Arez_Currency();
 
   @Observe
