@@ -865,8 +865,7 @@ final class ComponentDescriptor
   }
 
   private void addComponentStateRef( @Nonnull final AnnotationMirror annotation,
-                                     @Nonnull final ExecutableElement method,
-                                     @Nonnull final ExecutableType methodType )
+                                     @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(), Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
@@ -2422,7 +2421,7 @@ final class ComponentDescriptor
     }
     else if ( null != stateRef )
     {
-      addComponentStateRef( stateRef, method, methodType );
+      addComponentStateRef( stateRef, method );
       return true;
     }
     else if ( null != memoize )
