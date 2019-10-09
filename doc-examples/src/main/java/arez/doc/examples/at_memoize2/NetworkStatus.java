@@ -25,7 +25,7 @@ public abstract class NetworkStatus
   }
 
   @ComputableValueRef
-  abstract ComputableValue getOnLineComputableValue();
+  abstract ComputableValue<Boolean> getOnLineComputableValue();
 
   @OnActivate
   final void onOnLineActivate()
