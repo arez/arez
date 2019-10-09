@@ -15,6 +15,7 @@ public abstract class TypeArgumentsOnObservableGetterModel
     return null;
   }
 
+  @SuppressWarnings( "rawtypes" )
   @Nonnull
   @ObservableValueRef
   public abstract ObservableValue getFieldObservableValue();
