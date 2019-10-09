@@ -242,7 +242,7 @@ abstract class AbstractArezProcessorTest
       outputs.stream().skip( 1 ).map( this::fixture ).toArray( JavaFileObject[]::new );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( inputs ).
-      withCompilerOptions( "-Aarez.defer.errors=false" ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       and().
