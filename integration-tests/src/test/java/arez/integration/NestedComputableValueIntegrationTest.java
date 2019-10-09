@@ -257,7 +257,6 @@ public class NestedComputableValueIntegrationTest
     assertMatchesFixture( recorder );
   }
 
-  @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
   public static abstract class FilterContext
   {
