@@ -3,7 +3,6 @@ package arez.integration.priority;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
-import arez.Observer;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;

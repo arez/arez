@@ -7,8 +7,6 @@ import arez.annotations.DepType;
 import arez.annotations.Memoize;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
-import arez.spy.ActionCompleteEvent;
-import arez.spy.ActionStartEvent;
 import arez.spy.ComputeCompleteEvent;
 import arez.spy.ComputeStartEvent;
 import arez.spy.ObservableValueChangeEvent;
@@ -16,7 +14,6 @@ import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class MemoizeReadOutsideTransactionTest
   extends AbstractArezIntegrationTest
