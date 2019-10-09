@@ -244,7 +244,7 @@ abstract class AbstractArezProcessorTest
       that( inputs ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
       processedWith( new ArezProcessor() ).
-      compilesWithoutError().
+      compilesWithoutWarnings().
       and().
       generatesSources( firstExpected, restExpected );
   }
