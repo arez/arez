@@ -4,6 +4,7 @@ import arez.Observer;
 import arez.SafeProcedure;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
@@ -14,6 +15,7 @@ import javax.annotation.Nonnull;
 @ArezComponent
 public abstract class CurrencyView
 {
+  @CascadeDispose
   private final Currency bitcoin = new Arez_Currency();
 
   @Observe
