@@ -105,10 +105,11 @@ final class Arez_UnresolvedModel<X extends Number> extends UnresolvedModel<X> im
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_UnresolvedModel ) {
-        final Arez_UnresolvedModel that = (Arez_UnresolvedModel) o;
+        final Arez_UnresolvedModel<X> that = (Arez_UnresolvedModel<X>) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

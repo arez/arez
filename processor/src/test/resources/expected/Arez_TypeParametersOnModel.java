@@ -80,10 +80,11 @@ public final class Arez_TypeParametersOnModel<T extends Integer> extends TypePar
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_TypeParametersOnModel ) {
-        final Arez_TypeParametersOnModel that = (Arez_TypeParametersOnModel) o;
+        final Arez_TypeParametersOnModel<T> that = (Arez_TypeParametersOnModel<T>) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

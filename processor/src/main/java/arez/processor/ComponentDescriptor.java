@@ -9,6 +9,7 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -33,6 +34,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
@@ -3174,10 +3176,24 @@ final class ComponentDescriptor
         returns( TypeName.BOOLEAN );
 
     final ClassName generatedClass = ClassName.get( getPackageName(), getArezClassName() );
+    final List<? extends TypeParameterElement> typeParameters = _element.getTypeParameters();
+
+    if ( !typeParameters.isEmpty() )
+    {
+      method.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
+        addMember( "value", "$S", "unchecked" ).
+        build() );
+    }
+
+    final TypeName typeName =
+      typeParameters.isEmpty() ?
+      generatedClass :
+      ParameterizedTypeName.get( generatedClass,
+                                 typeParameters.stream().map( TypeVariableName::get ).toArray( TypeName[]::new ) );
 
     final CodeBlock.Builder codeBlock = CodeBlock.builder();
     codeBlock.beginControlFlow( "if ( o instanceof $T )", generatedClass );
-    codeBlock.addStatement( "final $T that = ($T) o", generatedClass, generatedClass );
+    codeBlock.addStatement( "final $T that = ($T) o", typeName, typeName );
     /*
      * If componentId is null then it is using synthetic id which is monotonically increasing and
      * thus if the id matches then the instance match. As a result no need to check isDisposed as

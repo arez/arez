@@ -82,10 +82,11 @@ public final class Arez_ActionTypeParametersModel<T extends Integer> extends Act
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ActionTypeParametersModel ) {
-        final Arez_ActionTypeParametersModel that = (Arez_ActionTypeParametersModel) o;
+        final Arez_ActionTypeParametersModel<T> that = (Arez_ActionTypeParametersModel<T>) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

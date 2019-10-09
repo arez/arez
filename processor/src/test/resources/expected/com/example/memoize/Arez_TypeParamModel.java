@@ -92,10 +92,11 @@ public final class Arez_TypeParamModel<T> extends TypeParamModel<T> implements D
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_TypeParamModel ) {
-        final Arez_TypeParamModel that = (Arez_TypeParamModel) o;
+        final Arez_TypeParamModel<T> that = (Arez_TypeParamModel<T>) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

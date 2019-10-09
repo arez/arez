@@ -103,10 +103,11 @@ public final class Arez_ObservableTypeParametersModel<T extends Integer> extends
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableTypeParametersModel ) {
-        final Arez_ObservableTypeParametersModel that = (Arez_ObservableTypeParametersModel) o;
+        final Arez_ObservableTypeParametersModel<T> that = (Arez_ObservableTypeParametersModel<T>) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

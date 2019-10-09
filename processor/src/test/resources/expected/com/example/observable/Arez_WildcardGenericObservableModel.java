@@ -105,10 +105,11 @@ public final class Arez_WildcardGenericObservableModel<T> extends WildcardGeneri
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_WildcardGenericObservableModel ) {
-        final Arez_WildcardGenericObservableModel that = (Arez_WildcardGenericObservableModel) o;
+        final Arez_WildcardGenericObservableModel<T> that = (Arez_WildcardGenericObservableModel<T>) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
