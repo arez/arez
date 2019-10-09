@@ -9,8 +9,13 @@ import javax.annotation.Nullable;
 @ArezComponent
 public abstract class PersonViewModel
 {
+  // This reference is immutable and the network replication
+  // layer is responsible for managing the lifecycle of person
+  // component and may dispose it when the Person entity is deleted
+  // on the server which should trigger this view model being disposed.
+  @ComponentDependency
   @Nonnull
-  private final Person _person;
+  final Person _person;
   //DOC ELIDE START
 
   public PersonViewModel( @Nonnull final Person person )
@@ -24,14 +29,9 @@ public abstract class PersonViewModel
   // to justify it's existence rather than just having view layer directly
   // accessing underlying entities
 
-  @ComponentDependency
   @Nonnull
   public final Person getPerson()
   {
-    // This reference is immutable and the network replication
-    // layer is responsible for managing the lifecycle of person
-    // component and may dispose it when the Person entity is deleted
-    // on the server which should trigger this view model being disposed.
     return _person;
   }
 
