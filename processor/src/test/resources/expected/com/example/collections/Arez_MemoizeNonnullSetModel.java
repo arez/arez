@@ -87,14 +87,14 @@ public final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel im
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       if ( null == this.$$arezd$$_$$cache$$_myValue ) {
-        this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( (Set<String>) this.$$arez$$_myValue.get() );
+        this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( this.$$arez$$_myValue.get() );
       } else {
         // Make sure that we are observing computable value
         this.$$arez$$_myValue.get();
       }
       return $$arezd$$_$$cache$$_myValue;
     } else {
-      return (Set<String>) this.$$arez$$_myValue.get();
+      return this.$$arez$$_myValue.get();
     }
   }
 

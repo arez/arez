@@ -72,7 +72,7 @@ final class MemoizeDescriptor
   }
 
   @Nonnull
-  String getName()
+  private String getName()
   {
     return _name;
   }
@@ -862,10 +862,9 @@ final class MemoizeDescriptor
 
         final CodeBlock.Builder guard = CodeBlock.builder();
         guard.beginControlFlow( "if ( null == this.$N )", getCollectionCacheDataFieldName() );
-        guard.addStatement( "this.$N = $T.wrap( ($T) this.$N.get() )",
+        guard.addStatement( "this.$N = $T.wrap( this.$N.get() )",
                             getCollectionCacheDataFieldName(),
                             Generator.COLLECTIONS_UTIL_CLASSNAME,
-                            returnType.box(),
                             getFieldName() );
         guard.nextControlFlow( "else" );
         guard.add( "// Make sure that we are observing computable value\n" );
@@ -876,7 +875,7 @@ final class MemoizeDescriptor
 
         block.nextControlFlow( "else" );
 
-        block.addStatement( "return ($T) this.$N.get()", returnType.box(), getFieldName() );
+        block.addStatement( "return this.$N.get()", getFieldName() );
         block.endControlFlow();
 
         builder.addCode( block.build() );
@@ -887,7 +886,18 @@ final class MemoizeDescriptor
         block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
 
         final String result = "$$ar$$_result";
-        block.addStatement( "final $T $N = ($T) this.$N.get()", returnType, result, returnType.box(), getFieldName() );
+        if ( returnType.isPrimitive() )
+        {
+          block.addStatement( "final $T $N = ($T) this.$N.get()",
+                              returnType,
+                              result,
+                              returnType.box(),
+                              getFieldName() );
+        }
+        else
+        {
+          block.addStatement( "final $T $N = this.$N.get()", returnType, result, getFieldName() );
+        }
         final CodeBlock.Builder guard = CodeBlock.builder();
         guard.beginControlFlow( "if ( null == this.$N && null != $N )",
                                 getCollectionCacheDataFieldName(),
@@ -902,7 +912,7 @@ final class MemoizeDescriptor
 
         block.nextControlFlow( "else" );
 
-        block.addStatement( "return ($T) this.$N.get()", returnType.box(), getFieldName() );
+        block.addStatement( "return this.$N.get()", getFieldName() );
         block.endControlFlow();
 
         builder.addCode( block.build() );

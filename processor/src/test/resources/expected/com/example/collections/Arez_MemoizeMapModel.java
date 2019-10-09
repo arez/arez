@@ -85,13 +85,13 @@ public final class Arez_MemoizeMapModel extends MemoizeMapModel implements Dispo
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Map<String, String> $$ar$$_result = (Map<String, String>) this.$$arez$$_myValue.get();
+      final Map<String, String> $$ar$$_result = this.$$arez$$_myValue.get();
       if ( null == this.$$arezd$$_$$cache$$_myValue && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$cache$$_myValue;
     } else {
-      return (Map<String, String>) this.$$arez$$_myValue.get();
+      return this.$$arez$$_myValue.get();
     }
   }
 

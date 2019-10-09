@@ -7,6 +7,7 @@
 * Remove the `jul` (a.k.a. `java.util.logging`) strategy available when configuring the `ArezLogger` via the compile-time property `arez.logger`. This strategy was never used in practice.
 * Improve the javadocs in the `arez.annotations` package to reflect current behaviour of Arez.
 * Add the option `arez.defer.errors` to the annotation processor. If explicitly set to false by passing the argument `-Aarez.defer.errors=false` during compiles then errors will be displayed as immediately as errors and halt the compiler. Otherwise the default behaviour of issuing error messages as `MANDATORY_WARNINGS` and then an error in the last round will be used.
+* Avoid unnecessary casts in code generated for `@Memoize` methods that don't return a primitive value.
 
 ### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
 

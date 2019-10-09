@@ -85,13 +85,13 @@ public final class Arez_MemoizeListModel extends MemoizeListModel implements Dis
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final List<String> $$ar$$_result = (List<String>) this.$$arez$$_myValue.get();
+      final List<String> $$ar$$_result = this.$$arez$$_myValue.get();
       if ( null == this.$$arezd$$_$$cache$$_myValue && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$cache$$_myValue;
     } else {
-      return (List<String>) this.$$arez$$_myValue.get();
+      return this.$$arez$$_myValue.get();
     }
   }
 

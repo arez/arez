@@ -85,13 +85,13 @@ public final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectio
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Collection<Long> $$ar$$_result = (Collection<Long>) this.$$arez$$_time.get();
+      final Collection<Long> $$ar$$_result = this.$$arez$$_time.get();
       if ( null == this.$$arezd$$_$$cache$$_time && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_time = CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$cache$$_time;
     } else {
-      return (Collection<Long>) this.$$arez$$_time.get();
+      return this.$$arez$$_time.get();
     }
   }
 
