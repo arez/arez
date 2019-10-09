@@ -81,9 +81,8 @@ public final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter im
     return super.getTime();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  protected ObservableValue getTimeObservableValue() {
+  protected ObservableValue<Long> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -15,5 +15,5 @@ public abstract class ObservableWithNoSetter
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue getTimeObservableValue();
+  protected abstract ObservableValue<Long> getTimeObservableValue();
 }
