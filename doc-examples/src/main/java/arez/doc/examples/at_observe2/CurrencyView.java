@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public abstract class CurrencyView
 {
   @CascadeDispose
-  private final Currency bitcoin = new Arez_Currency();
+  final Currency bitcoin = new Arez_Currency();
 
   @Observe
   void render()
