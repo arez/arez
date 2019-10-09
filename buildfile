@@ -337,6 +337,10 @@ define 'arez' do
 
   ipr.nonnull_assertions = false
 
+  ipr.add_component('JavacSettings') do |xml|
+    xml.option(:name => 'ADDITIONAL_OPTIONS_STRING', :value => '-Xlint:all,-processing,-serial')
+  end
+
   ipr.add_component('JavaProjectCodeInsightSettings') do |xml|
     xml.tag!('excluded-names') do
       xml << '<name>com.sun.istack.internal.NotNull</name>'
