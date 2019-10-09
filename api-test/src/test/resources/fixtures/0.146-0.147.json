@@ -17,5 +17,24 @@
       "oldType": "arez.ObservableValue",
       "package": "arez.component.internal"
     }
+  },
+  {
+    "code": "java.method.returnTypeTypeParametersChanged",
+    "description": "The return type changed from 'java.lang.Class[]' to 'java.lang.Class<?>[]'.",
+    "newElement": "method java.lang.Class<?>[] arez.annotations.Repository::extensions()",
+    "oldElement": "method java.lang.Class[] arez.annotations.Repository::extensions()",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Repository",
+      "classSimpleName": "Repository",
+      "elementKind": "method",
+      "methodName": "extensions",
+      "newType": "java.lang.Class<?>[]",
+      "oldType": "java.lang.Class[]",
+      "package": "arez.annotations"
+    }
   }
 ]
