@@ -5,6 +5,7 @@ import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionInfo;
 import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -921,7 +922,7 @@ final class Transaction
 
     // Look through the old dependencies and any that are no longer tracked
     // should no longer be observed.
-    final ArrayList<ObservableValue<?>> dependencies = _tracker.getDependencies();
+    final List<ObservableValue<?>> dependencies = _tracker.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final ObservableValue observableValue = dependencies.get( i );
