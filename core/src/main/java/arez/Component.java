@@ -5,6 +5,7 @@ import arez.spy.ComponentDisposeCompleteEvent;
 import arez.spy.ComponentDisposeStartEvent;
 import arez.spy.ComponentInfo;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,9 +41,9 @@ public final class Component
    */
   @Nullable
   private final String _name;
-  private final ArrayList<ObservableValue<?>> _observableValues = new ArrayList<>();
-  private final ArrayList<Observer> _observers = new ArrayList<>();
-  private final ArrayList<ComputableValue<?>> _computableValues = new ArrayList<>();
+  private final List<ObservableValue<?>> _observableValues = new ArrayList<>();
+  private final List<Observer> _observers = new ArrayList<>();
+  private final List<ComputableValue<?>> _computableValues = new ArrayList<>();
   /**
    * Hook action called just before the Component is disposed.
    * Occurs inside the dispose transaction.
@@ -246,7 +247,7 @@ public final class Component
    * @return the observers associated with the component.
    */
   @Nonnull
-  ArrayList<Observer> getObservers()
+  List<Observer> getObservers()
   {
     return _observers;
   }
@@ -291,7 +292,7 @@ public final class Component
    * @return the observables associated with the component.
    */
   @Nonnull
-  ArrayList<ObservableValue<?>> getObservableValues()
+  List<ObservableValue<?>> getObservableValues()
   {
     return _observableValues;
   }
@@ -354,7 +355,7 @@ public final class Component
    * @return the {@link ComputableValue} instances associated with the component.
    */
   @Nonnull
-  ArrayList<ComputableValue<?>> getComputableValues()
+  List<ComputableValue<?>> getComputableValues()
   {
     return _computableValues;
   }
