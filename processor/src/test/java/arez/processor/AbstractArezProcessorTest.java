@@ -174,7 +174,10 @@ abstract class AbstractArezProcessorTest
     if ( outputFiles() )
     {
       final Compilation compilation =
-        Compiler.javac().withProcessors( new ArezProcessor() ).compile( inputs );
+        Compiler.javac()
+          .withProcessors( new ArezProcessor() )
+          .withOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" )
+          .compile( inputs );
 
       final Compilation.Status status = compilation.status();
       if ( Compilation.Status.SUCCESS != status )
