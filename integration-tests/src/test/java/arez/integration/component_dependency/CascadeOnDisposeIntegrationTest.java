@@ -83,6 +83,7 @@ public class CascadeOnDisposeIntegrationTest
   @ArezComponent
   static abstract class Model2
   {
+    @SuppressWarnings( "Arez:UnmanagedComponentReference" )
     private final Model1 _reference;
     private String _name;
 

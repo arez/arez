@@ -79,6 +79,7 @@ public class ComplexComponentDependencyIntegrationTest
   }
 
   @ArezComponent
+  @SuppressWarnings( "Arez:UnmanagedComponentReference" )
   static abstract class Model2
   {
     private Model1 _reference1;

@@ -85,6 +85,7 @@ public class SetNullOnDisposeIntegrationTest
   @ArezComponent
   static abstract class Model2
   {
+    @SuppressWarnings( "Arez:UnmanagedComponentReference" )
     private Model1 _reference;
 
     static Model2 create( final Model1 reference )

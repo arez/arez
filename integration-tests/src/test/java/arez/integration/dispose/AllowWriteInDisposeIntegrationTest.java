@@ -57,6 +57,7 @@ public class AllowWriteInDisposeIntegrationTest
   @ArezComponent( allowEmpty = true )
   static abstract class Model2
   {
+    @SuppressWarnings( "Arez:UnmanagedComponentReference" )
     @Nonnull
     private Model1 _other;
 

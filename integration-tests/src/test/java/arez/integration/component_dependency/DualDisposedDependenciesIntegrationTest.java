@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "Arez:UnmanagedComponentReference" )
 public class DualDisposedDependenciesIntegrationTest
   extends AbstractArezIntegrationTest
 {

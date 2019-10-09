@@ -280,7 +280,7 @@ public class NestedComputableValueIntegrationTest
     }
   }
 
-  @SuppressWarnings( "WeakerAccess" )
+  @SuppressWarnings( { "WeakerAccess", "Arez:UnmanagedComponentReference" } )
   @ArezComponent
   public static abstract class Node
   {
