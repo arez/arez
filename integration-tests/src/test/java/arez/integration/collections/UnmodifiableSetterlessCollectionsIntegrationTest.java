@@ -80,7 +80,7 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
   static abstract class Model1
   {
     @Nonnull
-    private HashSet<String> _value = new HashSet<>();
+    private Collection<String> _value = new HashSet<>();
 
     @Nonnull
     static Model1 create()
@@ -95,7 +95,7 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
       return _value;
     }
 
-    void setValue( @Nonnull final HashSet<String> value )
+    void setValue( @Nonnull final Collection<String> value )
     {
       getValueObservableValue().preReportChanged();
       _value = value;
@@ -103,6 +103,6 @@ public class UnmodifiableSetterlessCollectionsIntegrationTest
     }
 
     @ObservableValueRef
-    abstract ObservableValue getValueObservableValue();
+    abstract ObservableValue<Collection<String>> getValueObservableValue();
   }
 }
