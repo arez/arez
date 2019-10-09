@@ -8,5 +8,5 @@ import arez.annotations.CascadeDispose;
 public abstract class AbstractMethodComponent
 {
   @CascadeDispose
-  abstract Disposable myField();
+  abstract Disposable getField();
 }

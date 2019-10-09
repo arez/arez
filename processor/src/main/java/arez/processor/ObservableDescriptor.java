@@ -58,6 +58,8 @@ final class ObservableDescriptor
   private ReferenceDescriptor _referenceDescriptor;
   @Nullable
   private InverseDescriptor _inverseDescriptor;
+  @Nullable
+  private CascadeDisposableDescriptor _cascadeDisposableDescriptor;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -228,6 +230,17 @@ final class ObservableDescriptor
     assert null == _referenceDescriptor;
     _inverseDescriptor = inverseDescriptor;
     setExpectSetter( false );
+  }
+
+  @Nullable
+  CascadeDisposableDescriptor getCascadeDisposableDescriptor()
+  {
+    return _cascadeDisposableDescriptor;
+  }
+
+  void setCascadeDisposableDescriptor( @Nonnull final CascadeDisposableDescriptor cascadeDisposableDescriptor )
+  {
+    _cascadeDisposableDescriptor = Objects.requireNonNull( cascadeDisposableDescriptor );
   }
 
   void buildFields( @Nonnull final TypeSpec.Builder builder )

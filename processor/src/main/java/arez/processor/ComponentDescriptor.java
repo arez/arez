@@ -1100,6 +1100,7 @@ final class ComponentDescriptor
   void validate()
     throws ArezProcessorException
   {
+    _cascadeDisposes.values().forEach( CascadeDisposableDescriptor::validate );
     _roObservables.forEach( ObservableDescriptor::validate );
     _roMemoizes.forEach( MemoizeDescriptor::validate );
     _roObserves.forEach( ObserveDescriptor::validate );
@@ -1336,6 +1337,18 @@ final class ComponentDescriptor
     linkUnAnnotatedObservables( getters, setters );
     linkUnAnnotatedObserves( observes, onDepsChanges );
     linkObserverRefs();
+    linkCascadeDisposeObservables();
+
+    // CascadeDispose returned false but it was actually processed so lets remove them from getters set
+    _cascadeDisposes.keySet().forEach( method -> {
+      for ( final Map.Entry<String, CandidateMethod> entry : new HashMap<>( getters ).entrySet() )
+      {
+        if ( method.equals( entry.getValue().getMethod() ) )
+        {
+          getters.remove( entry.getKey() );
+        }
+      }
+    } );
 
     linkDependencies( getters.values() );
 
@@ -1417,18 +1430,14 @@ final class ComponentDescriptor
     }
   }
 
-  private void addCascadeDisposeMethod( @Nonnull final ExecutableElement method )
+  private void addCascadeDisposeMethod( @Nonnull final ExecutableElement method,
+                                        @Nullable final ObservableDescriptor observable )
   {
-    MethodChecks.mustNotBeAbstract( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotHaveAnyParameters( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeSubclassCallable( _element, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
-    if ( isClassType() )
-    {
-      MethodChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
-    }
     mustBeCascadeDisposeTypeCompatible( method );
-    _cascadeDisposes.put( method, new CascadeDisposableDescriptor( method ) );
+    _cascadeDisposes.put( method, new CascadeDisposableDescriptor( method, observable ) );
   }
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
@@ -2181,6 +2190,24 @@ final class ComponentDescriptor
       } );
   }
 
+  private void linkCascadeDisposeObservables()
+  {
+    for ( final ObservableDescriptor observable : _observables.values() )
+    {
+      final CascadeDisposableDescriptor cascadeDisposableDescriptor = observable.getCascadeDisposableDescriptor();
+      if ( null == cascadeDisposableDescriptor )
+      {
+        //@CascadeDisposable can only occur on getter so if we don't have it then we look in
+        // cascadeDisposableDescriptor list to see if we can match getter
+        final CascadeDisposableDescriptor descriptor = _cascadeDisposes.get( observable.getGetter() );
+        if ( null != descriptor )
+        {
+          descriptor.setObservable( observable );
+        }
+      }
+    }
+  }
+
   private void linkObserverRefs()
   {
     for ( final Map.Entry<String, CandidateMethod> entry : _observerRefs.entrySet() )
@@ -2387,6 +2414,10 @@ final class ComponentDescriptor
       {
         addInverse( inverse, descriptor, method );
       }
+      if ( null != cascadeDispose )
+      {
+        addCascadeDisposeMethod( method, descriptor );
+      }
       return true;
     }
     else if ( null != observableValueRef )
@@ -2436,8 +2467,9 @@ final class ComponentDescriptor
     }
     else if ( null != cascadeDispose )
     {
-      addCascadeDisposeMethod( method );
-      return true;
+      addCascadeDisposeMethod( method, null );
+      // Return false so that it can be picked as the getter of an @Observable
+      return false;
     }
     else if ( null != componentIdRef )
     {
@@ -2666,10 +2698,13 @@ final class ComponentDescriptor
           final boolean observableDependency =
             type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
             type2.equals( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
+          final boolean observableCascade =
+            type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
+            type2.equals( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
           final boolean observableReferenceId =
             type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
             type2.equals( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
-          if ( !observableDependency && !observableReferenceId )
+          if ( !observableDependency && !observableReferenceId && !observableCascade )
           {
             final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
             if ( null != annotation2 )
