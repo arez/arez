@@ -9,6 +9,7 @@
 * Add the option `arez.defer.errors` to the annotation processor. If explicitly set to false by passing the argument `-Aarez.defer.errors=false` during compiles then errors will be displayed as immediately as errors and halt the compiler. Otherwise the default behaviour of issuing error messages as `MANDATORY_WARNINGS` and then an error in the last round will be used.
 * Avoid unnecessary casts in code generated for `@Memoize` methods that don't return a primitive value.
 * Eliminate warnings in generated code due to accessing raw types and unchecked types in components that have type parameters.
+* Avoid use of raw type for return value of `arez.component.internal.AbstractContainer.getEntitiesObservableValue()` to eliminate warnings in generated code.
 * Explicitly suppress `rawtypes` warning when overriding `@ObservableValueRef` annotated methods if the return type is a raw type.
 
 ### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)

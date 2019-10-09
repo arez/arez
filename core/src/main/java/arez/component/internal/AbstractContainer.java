@@ -177,7 +177,7 @@ public abstract class AbstractContainer<K, T>
    */
   @ObservableValueRef
   @Nonnull
-  protected abstract ObservableValue getEntitiesObservableValue();
+  protected abstract ObservableValue<Stream<T>> getEntitiesObservableValue();
 
   /**
    * Return a stream of all entities in the container.

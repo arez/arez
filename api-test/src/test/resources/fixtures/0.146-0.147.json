@@ -1,0 +1,21 @@
+[
+  {
+    "code": "java.method.returnTypeTypeParametersChanged",
+    "description": "The return type changed from 'arez.ObservableValue' to 'arez.ObservableValue<java.util.stream.Stream<T extends java.lang.Object>>'.",
+    "newElement": "method arez.ObservableValue<java.util.stream.Stream<T>> arez.component.internal.AbstractContainer<K, T>::getEntitiesObservableValue()",
+    "oldElement": "method arez.ObservableValue arez.component.internal.AbstractContainer<K, T>::getEntitiesObservableValue()",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractContainer",
+      "classSimpleName": "AbstractContainer",
+      "elementKind": "method",
+      "methodName": "getEntitiesObservableValue",
+      "newType": "arez.ObservableValue<java.util.stream.Stream<T extends java.lang.Object>>",
+      "oldType": "arez.ObservableValue",
+      "package": "arez.component.internal"
+    }
+  }
+]

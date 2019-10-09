@@ -74,7 +74,7 @@ final class Arez_RepositoryExampleRepository extends RepositoryExampleRepository
 
   @Nonnull
   @Override
-  protected ObservableValue getEntitiesObservableValue() {
+  protected ObservableValue<Stream<RepositoryExample>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }

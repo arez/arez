@@ -74,7 +74,7 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
 
   @Nonnull
   @Override
-  protected ObservableValue getEntitiesObservableValue() {
+  protected ObservableValue<Stream<NestedModel.BasicActionModel>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }

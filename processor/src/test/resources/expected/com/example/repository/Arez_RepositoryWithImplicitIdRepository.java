@@ -74,7 +74,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
 
   @Nonnull
   @Override
-  protected ObservableValue getEntitiesObservableValue() {
+  protected ObservableValue<Stream<RepositoryWithImplicitId>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
