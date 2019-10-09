@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public abstract class Wallet
 {
   @CascadeDispose
-  private final Currency aud = new Arez_Currency();
+  final Currency aud = new Arez_Currency();
 
   // A read-write action that updates observable value
   @Action
