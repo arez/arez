@@ -16,8 +16,6 @@ complete as there is too much un-said.
 * Support `@CascadeDispose` on `@Reference`. `SET_NULL` will null out underlying reference (and then try to
   relink for EAGER references).
 
-* Consider merging `@CascadeDispose` and `@ComponentDependency`. Both indicate dependencies but just specify which direction disposes cascade. There may be some circumstances where both annotations apply ... but no application in development has currently experienced this.
-
 * Update inject documentation
 
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
