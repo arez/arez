@@ -542,8 +542,15 @@ final class MemoizeDescriptor
       {
         sb.append( ", " );
       }
-      sb.append( "($T) args[ " ).append( index ).append( " ]" );
-      parameters.add( arg );
+      if ( TypeName.get( arg ).equals( TypeName.OBJECT ) )
+      {
+        sb.append( "args[ " ).append( index ).append( " ]" );
+      }
+      else
+      {
+        sb.append( "($T) args[ " ).append( index ).append( " ]" );
+        parameters.add( arg );
+      }
       index++;
     }
 
