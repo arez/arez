@@ -81,6 +81,6 @@ public class MemoizeNonArezDependenciesComponentTest
     }
 
     @ComputableValueRef
-    abstract ComputableValue getMemoizedComputableValue();
+    abstract ComputableValue<String> getMemoizedComputableValue();
   }
 }

@@ -21,7 +21,7 @@ public class PriorityOrderingIntegrationTest
   {
     final ArezContext context = Arez.context();
 
-    final ObservableValue observableValue = context.observable();
+    final ObservableValue<?> observableValue = context.observable();
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final ArrayList<String> runOrder = new ArrayList<>();

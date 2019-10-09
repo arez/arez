@@ -88,6 +88,6 @@ public class MemoizeMultipleParamsNonArezDependenciesComponentTest
     }
 
     @ComputableValueRef
-    abstract ComputableValue getMemoizedComputableValue( int index );
+    abstract ComputableValue<String> getMemoizedComputableValue( int index );
   }
 }
