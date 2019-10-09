@@ -516,6 +516,21 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulRepositoryIncludingMultipleExtensions()
+    throws Exception
+  {
+    final JavaFileObject source1 = fixture( "input/com/example/repository/MultiExtensionRepositoryExample.java" );
+    final JavaFileObject source2 = fixture( "input/com/example/repository/Extension1.java" );
+    final JavaFileObject source3 = fixture( "input/com/example/repository/Extension2.java" );
+    final String output1 = "expected/com/example/repository/Arez_MultiExtensionRepositoryExample.java";
+    final String output2 = "expected/com/example/repository/Arez_MultiExtensionRepositoryExampleRepository.java";
+    final String output3 = "expected/com/example/repository/MultiExtensionRepositoryExampleRepository.java";
+    final String output4 = "expected/com/example/repository/MultiExtensionRepositoryExampleRepositoryDaggerModule.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ),
+                             Arrays.asList( output1, output2, output3, output4 ) );
+  }
+
+  @Test
   public void processSuccessfulPackageAccessRepositoryIncludingExtension()
     throws Exception
   {
