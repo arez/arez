@@ -19,7 +19,7 @@ abstract class NoSetterObservableReferenceModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue getMyEntityIdObservableValue();
+  protected abstract ObservableValue<Long> getMyEntityIdObservableValue();
 
   static class MyEntity
   {
