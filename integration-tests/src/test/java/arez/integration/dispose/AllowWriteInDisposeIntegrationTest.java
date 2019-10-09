@@ -3,7 +3,6 @@ package arez.integration.dispose;
 import arez.Arez;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
-import arez.annotations.CascadeDispose;
 import arez.annotations.Observable;
 import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
@@ -55,12 +54,11 @@ public class AllowWriteInDisposeIntegrationTest
     abstract void setName( @Nonnull String name );
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class Model2
   {
-    @CascadeDispose
     @Nonnull
-    final Model1 _other;
+    private Model1 _other;
 
     @Nonnull
     static Model2 create( @Nonnull final Model1 other )
