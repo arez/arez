@@ -9,6 +9,7 @@ import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -42,7 +43,7 @@ public final class Observer
    * This list should contain no duplicates.
    */
   @Nonnull
-  private ArrayList<ObservableValue<?>> _dependencies = new ArrayList<>();
+  private List<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
    * Observe function to invoke if any.
    * This may be null if external executor is responsible for executing the observe function via
@@ -771,7 +772,7 @@ public final class Observer
    * @return the dependencies.
    */
   @Nonnull
-  ArrayList<ObservableValue<?>> getDependencies()
+  List<ObservableValue<?>> getDependencies()
   {
     return _dependencies;
   }
@@ -782,7 +783,7 @@ public final class Observer
    *
    * @param dependencies the new set of dependencies.
    */
-  void replaceDependencies( @Nonnull final ArrayList<ObservableValue<?>> dependencies )
+  void replaceDependencies( @Nonnull final List<ObservableValue<?>> dependencies )
   {
     if ( Arez.shouldCheckInvariants() )
     {
