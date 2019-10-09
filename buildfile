@@ -326,6 +326,9 @@ define 'arez' do
   ipr.add_testng_configuration('core - update invariant messages',
                                :module => 'core',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.core.compile_target=../target/arez_core/idea/classes -Darez.check_diagnostic_messages=true -Darez.diagnostic_messages_file=src/test/java/arez/diagnostic_messages.json')
+  ipr.add_testng_configuration('processor',
+                               :module => 'processor',
+                               :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.fixture_dir=processor/src/test/resources')
   ipr.add_testng_configuration('integration-tests',
                                :module => 'integration-tests',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.integration_fixture_dir=src/test/resources')
