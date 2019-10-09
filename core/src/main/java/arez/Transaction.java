@@ -658,8 +658,7 @@ final class Transaction
     if ( observableValue.hasObservers() && Observer.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
-      final ArrayList<Observer> observers = observableValue.getObservers();
-      for ( final Observer observer : observers )
+      for ( final Observer observer : observableValue.getObservers() )
       {
         final int state = observer.getState();
         if ( Arez.shouldCheckInvariants() )

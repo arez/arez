@@ -9,6 +9,7 @@ import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +35,7 @@ public final class ObservableValue<T>
    * to derivation.
    */
   static final int NOT_IN_CURRENT_TRACKING = 0;
-  private final ArrayList<Observer> _observers = new ArrayList<>();
+  private final List<Observer> _observers = new ArrayList<>();
   /**
    * True if deactivation has been requested.
    * Used to avoid adding duplicates to pending deactivation list.
@@ -366,7 +367,7 @@ public final class ObservableValue<T>
   }
 
   @Nonnull
-  ArrayList<Observer> getObservers()
+  List<Observer> getObservers()
   {
     return _observers;
   }
@@ -436,7 +437,7 @@ public final class ObservableValue<T>
                  () -> "Arez-0070: Attempting to remove observer named '" + observer.getName() + "' from " +
                        "ObservableValue named '" + getName() + "' when observer is not observing ObservableValue." );
     }
-    final ArrayList<Observer> observers = getObservers();
+    final List<Observer> observers = getObservers();
     observers.remove( observer );
     if ( canDeactivateNow() )
     {
