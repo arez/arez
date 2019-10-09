@@ -10,7 +10,7 @@ import elemental2.dom.Element;
 public abstract class CurrencyView
 {
   @CascadeDispose
-  private final Currency bitcoin = new Arez_Currency();
+  final Currency bitcoin = new Arez_Currency();
 
   @Observe
   void renderView()
