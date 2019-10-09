@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 public abstract class MyArezReactComponent
-  extends ArezReactComponent<ArrayList>
+  extends ArezReactComponent<ArrayList<?>>
 {
   @Override
-  protected void reportPropsChanged( @Nullable final ArrayList nextProps )
+  protected void reportPropsChanged( @Nullable final ArrayList<?> nextProps )
   {
   }
 }
