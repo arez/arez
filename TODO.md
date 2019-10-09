@@ -16,8 +16,6 @@ complete as there is too much un-said.
 * Support `@CascadeDispose` on `@Reference`. `SET_NULL` will null out underlying reference (and then try to
   relink for EAGER references).
 
-* Update inject documentation
-
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
   they can be assumed to be an `@Observable`.
 
@@ -86,12 +84,6 @@ complete as there is too much un-said.
 
 * Several of the constraints in the annotation processor are stylistic - we should identify those and make them
   into warning that are only emitted when the annotation processor is configured to emit bad style warnings
-
-* Generate documentation for each invariant error that can occur driven by `diagnostic_messages.json`. The
-  expectation is that the error could be linked to via code ala https://arez.github.io/errors.html#Arez-0022
-  The documentation would cross-link to the place(s) where the invariant is generated in source code. This may
-  be to github repository or it may be to javadocs where source is included (but this may not be possible
-  if not all source gets published to website).
 
 * Implement something similar to `getDependencyTree` from mobx
 
@@ -258,6 +250,14 @@ When we get to a stable release candidate we need to action the following items:
   Instead add a way to mark error as obsolete.
 
 ## Documentation
+
+* Update inject documentation
+
+* Generate documentation for each invariant error that can occur driven by `diagnostic_messages.json`. The
+  expectation is that the error could be linked to via code ala https://arez.github.io/errors.html#Arez-0022
+  The documentation would cross-link to the place(s) where the invariant is generated in source code. This may
+  be to github repository or it may be to javadocs where source is included (but this may not be possible
+  if not all source gets published to website).
 
 * The Overview page is terrible - improve it so people would want to use the product.
 
