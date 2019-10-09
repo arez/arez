@@ -1,7 +1,5 @@
 package arez.integration.component_dependency;
 
-import arez.Arez;
-import arez.ArezContext;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
@@ -19,8 +17,6 @@ public class DualDisposedDependenciesIntegrationTest
   public void scenario()
     throws Throwable
   {
-    final ArezContext context = Arez.context();
-
     final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
     final Model0 model0a = Model0.create( "Model1A" );
