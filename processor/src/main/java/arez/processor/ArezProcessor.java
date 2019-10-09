@@ -42,7 +42,7 @@ import static javax.tools.Diagnostic.Kind.*;
 @AutoService( Processor.class )
 @SupportedAnnotationTypes( { "arez.annotations.*" } )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
-@SupportedOptions( "arez.defer.unresolved" )
+@SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors" } )
 public final class ArezProcessor
   extends AbstractProcessor
 {
@@ -103,8 +103,10 @@ public final class ArezProcessor
 
   private void reportError( @Nonnull final String message, @Nullable final Element element )
   {
+    final String deferErrorsValue = processingEnv.getOptions().get( "arez.defer.errors" );
+    final boolean deferErrors = null == deferErrorsValue || "true".equals( deferErrorsValue );
     _invalidTypeCount++;
-    if ( _env.errorRaised() || _env.processingOver() )
+    if ( !deferErrors || _env.errorRaised() || _env.processingOver() )
     {
       processingEnv.getMessager().printMessage( ERROR, message, element );
     }

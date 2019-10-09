@@ -227,8 +227,14 @@ abstract class AbstractArezProcessorTest
         field.set( compilation, status );
 
         // This next line will generate an error
-        //noinspection ResultOfMethodCallIgnored
-        compilation.generatedSourceFiles();
+        try
+        {
+          //noinspection ResultOfMethodCallIgnored
+          compilation.generatedSourceFiles();
+        }
+        catch ( final Exception ignored )
+        {
+        }
       }
     }
     final JavaFileObject firstExpected = fixture( outputs.get( 0 ) );
@@ -236,6 +242,7 @@ abstract class AbstractArezProcessorTest
       outputs.stream().skip( 1 ).map( this::fixture ).toArray( JavaFileObject[]::new );
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( inputs ).
+      withCompilerOptions( "-Aarez.defer.errors=false" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutError().
       and().
