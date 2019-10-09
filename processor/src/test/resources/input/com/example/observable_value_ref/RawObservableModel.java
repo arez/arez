@@ -19,6 +19,7 @@ public abstract class RawObservableModel
   {
   }
 
+  @SuppressWarnings( "rawtypes" )
   @Nonnull
   @ObservableValueRef
   public abstract ObservableValue getTimeObservableValue();

@@ -100,6 +100,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getCollection();
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   protected ObservableValue getCollectionObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -117,6 +118,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getSet();
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   protected ObservableValue getSetObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -134,6 +136,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getList();
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   protected ObservableValue getListObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -151,6 +154,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
     return super.getMap();
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   protected ObservableValue getMapObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {

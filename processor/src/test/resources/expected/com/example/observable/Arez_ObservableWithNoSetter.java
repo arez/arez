@@ -81,6 +81,7 @@ public final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter im
     return super.getTime();
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   protected ObservableValue getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {

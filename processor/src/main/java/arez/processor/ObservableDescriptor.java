@@ -380,6 +380,14 @@ final class ObservableDescriptor
     ProcessorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
+    final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
+    if ( !( typeName instanceof ParameterizedTypeName ) )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
+        addMember( "value", "$S", "rawtypes" ).
+        build() );
+    }
+
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
