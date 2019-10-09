@@ -8,6 +8,7 @@ import arez.component.DisposeNotifier;
 @ArezComponent
 public abstract class ConcreteObservablePairWithInitializerDependency
 {
+  @SuppressWarnings( "Arez:UnmanagedComponentReference" )
   DisposeNotifier _value;
 
   ConcreteObservablePairWithInitializerDependency( final DisposeNotifier value )
