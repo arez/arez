@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.147](https://github.com/arez/arez/tree/v0.147) (2019-10-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.146...v0.147) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.146&new=0.147)
+
+The release includes 2 breaking API changes.
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.25.0`.
 * Rework the way `ArezLogger` is implemented to consolidate the JRE and javascript based console loggers into the class `ConsoleLogger`. The involved renaming the `console_js` value to `console` for the compile-time property `arez.logger`.
