@@ -11,7 +11,7 @@
 * Eliminate warnings in generated code due to accessing raw types and unchecked types in components that have type parameters.
 * Avoid use of raw type for return value of `arez.component.internal.AbstractContainer.getEntitiesObservableValue()` to eliminate warnings in generated code.
 * Explicitly suppress `rawtypes` warning when overriding `@ObservableValueRef` annotated methods if the return type is a raw type.
-* Eliminate unnecessary cast when `@Memoize` annotated methods contain a parameter of type `java.lang.Object` 
+* Eliminate unnecessary cast when `@Memoize` annotated methods contain a parameter of type `java.lang.Object`
 * Explicitly suppress `rawtypes` warning when overriding `@ComputableValueValueRef` annotated methods if the return type is a raw type.
 * Explicitly lint warnings in `core` library.
 * Support `@CascadeDispose` on abstract `@Observable` properties.
