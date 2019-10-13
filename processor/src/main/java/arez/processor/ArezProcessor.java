@@ -56,7 +56,8 @@ public final class ArezProcessor
   {
     final TypeElement annotation =
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
-    final Set<? extends Element> elements = env.getElementsAnnotatedWith( annotation );
+    @SuppressWarnings( "unchecked" )
+    final Set<TypeElement> elements = (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
 
     final Map<String, String> options = processingEnv.getOptions();
     final String deferUnresolvedValue = options.get( "arez.defer.unresolved" );
@@ -66,7 +67,7 @@ public final class ArezProcessor
 
     if ( deferUnresolved )
     {
-      final Collection<Element> elementsToProcess = getElementsToProcess( elements );
+      final Collection<TypeElement> elementsToProcess = getElementsToProcess( elements );
       processElements( elementsToProcess, env );
       if ( env.getRootElements().isEmpty() && !_deferred.isEmpty() )
       {
@@ -116,10 +117,10 @@ public final class ArezProcessor
     }
   }
 
-  private void processElements( @Nonnull final Collection<Element> elements,
+  private void processElements( @Nonnull final Collection<TypeElement> elements,
                                 @Nonnull final RoundEnvironment env )
   {
-    for ( final Element element : elements )
+    for ( final TypeElement element : elements )
     {
       try
       {
@@ -189,7 +190,7 @@ public final class ArezProcessor
   }
 
   @Nonnull
-  private Collection<Element> getElementsToProcess( @Nonnull final Set<? extends Element> elements )
+  private Collection<TypeElement> getElementsToProcess( @Nonnull final Collection<TypeElement> elements )
   {
     final List<TypeElement> deferred = _deferred
       .stream()
@@ -197,16 +198,16 @@ public final class ArezProcessor
       .collect( Collectors.toList() );
     _deferred = new HashSet<>();
 
-    final ArrayList<Element> elementsToProcess = new ArrayList<>();
+    final List<TypeElement> elementsToProcess = new ArrayList<>();
     collectElementsToProcess( elements, elementsToProcess );
     collectElementsToProcess( deferred, elementsToProcess );
     return elementsToProcess;
   }
 
-  private void collectElementsToProcess( @Nonnull final Collection<? extends Element> elements,
-                                         @Nonnull final ArrayList<Element> elementsToProcess )
+  private void collectElementsToProcess( @Nonnull final Collection<TypeElement> elements,
+                                         @Nonnull final List<TypeElement> elementsToProcess )
   {
-    for ( final Element element : elements )
+    for ( final TypeElement element : elements )
     {
       if ( SuperficialValidation.validateElement( element ) )
       {
@@ -214,7 +215,7 @@ public final class ArezProcessor
       }
       else
       {
-        _deferred.add( (TypeElement) element );
+        _deferred.add( element );
       }
     }
   }
@@ -235,12 +236,11 @@ public final class ArezProcessor
     return result;
   }
 
-  private void process( @Nonnull final Element element )
+  private void process( @Nonnull final TypeElement element )
     throws IOException, ArezProcessorException
   {
     final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
-    final TypeElement typeElement = (TypeElement) element;
-    final ComponentDescriptor descriptor = parse( packageElement, typeElement );
+    final ComponentDescriptor descriptor = parse( packageElement, element );
     emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
     if ( descriptor.needsDaggerIntegration() )
     {
