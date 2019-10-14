@@ -6,7 +6,6 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
-import arez.spy.Spy;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -22,12 +21,10 @@ import static org.realityforge.braincheck.Guards.*;
 final class ObservableValueInfoImpl
   implements ObservableValueInfo
 {
-  private final Spy _spy;
   private final ObservableValue<?> _observableValue;
 
-  ObservableValueInfoImpl( @Nonnull final Spy spy, @Nonnull final ObservableValue<?> observableValue )
+  ObservableValueInfoImpl( @Nonnull final ObservableValue<?> observableValue )
   {
-    _spy = Objects.requireNonNull( spy );
     _observableValue = Objects.requireNonNull( observableValue );
   }
 

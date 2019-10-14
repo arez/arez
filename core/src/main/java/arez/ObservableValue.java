@@ -584,7 +584,7 @@ public final class ObservableValue<T>
     }
     if ( Arez.areSpiesEnabled() && null == _info )
     {
-      _info = new ObservableValueInfoImpl( getContext().getSpy(), this );
+      _info = new ObservableValueInfoImpl( this );
     }
     return Arez.areSpiesEnabled() ? _info : null;
   }
