@@ -45,7 +45,7 @@ public final class SchedulerLock
   }
 
   @Nonnull
-  ArezContext getContext()
+  private ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }
