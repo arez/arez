@@ -17,6 +17,7 @@ final class AggregateLocator
   /**
    * A list of Locator instances.
    */
+  @Nonnull
   private final ArrayList<Locator> _locators = new ArrayList<>();
 
   /**
@@ -63,6 +64,7 @@ final class AggregateLocator
   private class LocatorEntry
     implements Disposable
   {
+    @Nonnull
     private final Locator _locator;
     private boolean _disposed;
 
