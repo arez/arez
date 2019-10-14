@@ -149,6 +149,7 @@ final class MultiPriorityTaskQueue
    *
    * @return tasks removed from the queue.
    */
+  @Nonnull
   @Override
   public Collection<Task> clear()
   {
