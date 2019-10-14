@@ -47,7 +47,7 @@ public final class ArezContext
    * Tasks scheduled but  yet to be run.
    */
   @Nonnull
-  private final MultiPriorityTaskQueue _taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 100 );
+  private final TaskQueue _taskQueue = new TaskQueue( Task.Flags.PRIORITY_COUNT, 100 );
   /**
    * Executor responsible for executing tasks.
    */
@@ -2137,7 +2137,7 @@ public final class ArezContext
    * @return the task queue associated with the context.
    */
   @Nonnull
-  MultiPriorityTaskQueue getTaskQueue()
+  TaskQueue getTaskQueue()
   {
     return _taskQueue;
   }

@@ -12,7 +12,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * A queue of "pending" or "scheduled" tasks that supports priority based queuing of tasks.
  */
-final class MultiPriorityTaskQueue
+final class TaskQueue
 {
   /**
    * A buffer per priority containing tasks that have been scheduled but are not executing.
@@ -27,7 +27,7 @@ final class MultiPriorityTaskQueue
    * @param initialCapacity the initial size of buffer for each priority.
    */
   @SuppressWarnings( { "unchecked", "rawtypes" } )
-  MultiPriorityTaskQueue( final int priorityCount, final int initialCapacity )
+  TaskQueue( final int priorityCount, final int initialCapacity )
   {
     assert priorityCount > 0;
     assert initialCapacity > 0;

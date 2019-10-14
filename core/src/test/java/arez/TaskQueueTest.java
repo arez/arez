@@ -7,13 +7,13 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class MultiPriorityTaskQueueTest
+public class TaskQueueTest
   extends AbstractTest
 {
   @Test
   public void construct()
   {
-    final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 22 );
+    final TaskQueue queue = new TaskQueue( 3, 22 );
 
     assertEquals( queue.getPriorityCount(), 3 );
     assertEquals( queue.getBufferByPriority( 0 ).getCapacity(), 22 );
@@ -22,7 +22,7 @@ public class MultiPriorityTaskQueueTest
   @Test
   public void queueTask_badPriority()
   {
-    final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 10 );
+    final TaskQueue queue = new TaskQueue( 3, 10 );
 
     final ArezContext context = Arez.context();
     assertInvariantFailure( () -> queue.queueTask( -1, context.task( "A", ValueUtil::randomString ) ),
@@ -34,7 +34,7 @@ public class MultiPriorityTaskQueueTest
   @Test
   public void queueTask_direct_alreadyQueued()
   {
-    final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 10 );
+    final TaskQueue queue = new TaskQueue( 3, 10 );
 
     final ArezContext context = Arez.context();
     final Task task = context.task( "A", ValueUtil::randomString, Task.Flags.RUN_LATER );
@@ -48,7 +48,7 @@ public class MultiPriorityTaskQueueTest
   @Test
   public void queueTask_alreadyQueued()
   {
-    final MultiPriorityTaskQueue queue = new MultiPriorityTaskQueue( 3, 10 );
+    final TaskQueue queue = new TaskQueue( 3, 10 );
 
     final ArezContext context = Arez.context();
     final Task task = context.task( "A", ValueUtil::randomString, Task.Flags.RUN_LATER );
@@ -61,7 +61,7 @@ public class MultiPriorityTaskQueueTest
   {
     final ArezContext context = Arez.context();
 
-    final MultiPriorityTaskQueue queue = context.getTaskQueue();
+    final TaskQueue queue = context.getTaskQueue();
 
     assertFalse( queue.hasTasks() );
     assertEquals( queue.getQueueSize(), 0 );
@@ -123,7 +123,7 @@ public class MultiPriorityTaskQueueTest
   public void clear()
   {
     final ArezContext context = Arez.context();
-    final MultiPriorityTaskQueue queue = context.getTaskQueue();
+    final TaskQueue queue = context.getTaskQueue();
 
     context.task( "A", ValueUtil::randomString, Task.Flags.RUN_LATER | Task.Flags.PRIORITY_HIGHEST );
     context.task( "B", ValueUtil::randomString, Task.Flags.RUN_LATER | Task.Flags.PRIORITY_HIGH );
@@ -141,7 +141,7 @@ public class MultiPriorityTaskQueueTest
     assertEquals( tasks.stream().map( Task::getName ).collect( Collectors.joining( "," ) ), "A,B,F,E,C,D" );
   }
 
-  private void assertDequeue( @Nonnull final MultiPriorityTaskQueue queue, @Nonnull final String name )
+  private void assertDequeue( @Nonnull final TaskQueue queue, @Nonnull final String name )
   {
     final Task task = queue.dequeueTask();
     assertNotNull( task );
@@ -149,7 +149,7 @@ public class MultiPriorityTaskQueueTest
   }
 
   @Nonnull
-  private Task getTask( @Nonnull final MultiPriorityTaskQueue queue, final int priority, final int index )
+  private Task getTask( @Nonnull final TaskQueue queue, final int priority, final int index )
   {
     final Task task = queue.getBufferByPriority( priority ).get( index );
     assertNotNull( task );

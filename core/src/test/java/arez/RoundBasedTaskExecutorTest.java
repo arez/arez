@@ -12,7 +12,7 @@ public class RoundBasedTaskExecutorTest
   @Test
   public void construct()
   {
-    final MultiPriorityTaskQueue taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
+    final TaskQueue taskQueue = new TaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     assertEquals( executor.getMaxRounds(), 2 );
@@ -25,7 +25,7 @@ public class RoundBasedTaskExecutorTest
   public void runNextTask()
   {
     final ArezContext context = Arez.context();
-    final MultiPriorityTaskQueue taskQueue = context.getTaskQueue();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
@@ -122,7 +122,7 @@ public class RoundBasedTaskExecutorTest
   public void runTasks()
   {
     final ArezContext context = Arez.context();
-    final MultiPriorityTaskQueue taskQueue = context.getTaskQueue();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
@@ -166,7 +166,7 @@ public class RoundBasedTaskExecutorTest
     ArezTestUtil.purgeTasksWhenRunawayDetected();
 
     final ArezContext context = Arez.context();
-    final MultiPriorityTaskQueue taskQueue = context.getTaskQueue();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
@@ -200,7 +200,7 @@ public class RoundBasedTaskExecutorTest
     ArezTestUtil.noCheckInvariants();
 
     final ArezContext context = Arez.context();
-    final MultiPriorityTaskQueue taskQueue = context.getTaskQueue();
+    final TaskQueue taskQueue = context.getTaskQueue();
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final AtomicInteger task1CallCount = new AtomicInteger();
@@ -231,7 +231,7 @@ public class RoundBasedTaskExecutorTest
   {
     ArezTestUtil.purgeTasksWhenRunawayDetected();
 
-    final MultiPriorityTaskQueue taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
+    final TaskQueue taskQueue = new TaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final Task task1 = Arez.context().task( "A", ValueUtil::randomString );
@@ -250,7 +250,7 @@ public class RoundBasedTaskExecutorTest
   {
     ArezTestUtil.noPurgeTasksWhenRunawayDetected();
 
-    final MultiPriorityTaskQueue taskQueue = new MultiPriorityTaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
+    final TaskQueue taskQueue = new TaskQueue( Task.Flags.PRIORITY_COUNT, 10 );
     final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor( taskQueue, 2 );
 
     final Task task1 = Arez.context().task( "A", ValueUtil::randomString );
