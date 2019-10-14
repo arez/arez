@@ -31,6 +31,7 @@ public abstract class AbstractContainer<K, T>
   /**
    * A map of all the entities ArezId to entity.
    */
+  @Nonnull
   private final HashMap<K, T> _entities = new HashMap<>();
 
   /**
@@ -216,6 +217,7 @@ public abstract class AbstractContainer<K, T>
     DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this );
   }
 
+  @Nonnull
   final HashMap<K, T> entityMap()
   {
     return _entities;
