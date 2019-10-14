@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Remove unused `arez.StackTraceUtil` class.
 * Upgrade the `org.realityforge.gwt.symbolmap` artifact to version `0.09`.
 
 ### [v0.147](https://github.com/arez/arez/tree/v0.147) (2019-10-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.146...v0.147) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.146&new=0.147)
