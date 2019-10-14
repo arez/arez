@@ -281,12 +281,12 @@ public final class MemoizeCache<T>
     {
       return;
     }
-    final Stack<Map<Object,?>> stack = new Stack<>();
+    final Stack<Map<Object, ?>> stack = new Stack<>();
     stack.push( _cache );
     final int size = args.length - 1;
     for ( int i = 0; i < size; i++ )
     {
-      stack.push( (Map<Object,?>) stack.peek().get( args[ i ] ) );
+      stack.push( (Map<Object, ?>) stack.peek().get( args[ i ] ) );
     }
     final ComputableValue<T> computableValue = (ComputableValue<T>) stack.peek().remove( args[ size ] );
     if ( Arez.shouldCheckInvariants() )
@@ -301,7 +301,7 @@ public final class MemoizeCache<T>
                        Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
     while ( stack.size() > 1 )
     {
-      final Map<Object,?> map = stack.pop();
+      final Map<Object, ?> map = stack.pop();
       if ( map.isEmpty() )
       {
         stack.peek().remove( args[ stack.size() - 1 ] );
