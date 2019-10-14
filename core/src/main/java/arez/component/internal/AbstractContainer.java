@@ -3,6 +3,7 @@ package arez.component.internal;
 import arez.Arez;
 import arez.Disposable;
 import arez.ObservableValue;
+import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import arez.annotations.PreDispose;
 import arez.component.CollectionsUtil;
@@ -186,7 +187,7 @@ public abstract class AbstractContainer<K, T>
    *
    * @return the underlying entities.
    */
-  @arez.annotations.Observable( expectSetter = false )
+  @Observable( expectSetter = false )
   @Nonnull
   public Stream<T> entities()
   {
