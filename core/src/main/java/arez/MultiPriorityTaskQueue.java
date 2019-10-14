@@ -49,6 +49,11 @@ final class MultiPriorityTaskQueue
     return _buffers.length;
   }
 
+  /**
+   * Return the number of tasks inside the queue.
+   *
+   * @return the number of tasks inside the queue.
+   */
   @Override
   public int getQueueSize()
   {
@@ -61,6 +66,11 @@ final class MultiPriorityTaskQueue
     return count;
   }
 
+  /**
+   * Return true if queue has any tasks in it.
+   *
+   * @return true if queue has any tasks in it.
+   */
   @Override
   public boolean hasTasks()
   {
@@ -109,6 +119,12 @@ final class MultiPriorityTaskQueue
     _buffers[ priority ].add( Objects.requireNonNull( task ) );
   }
 
+  /**
+   * Remove and return the next task in queue.
+   * This may return null if there is no tasks in the quue.
+   *
+   * @return the next task in queue.
+   */
   @Nullable
   @Override
   public Task dequeueTask()
@@ -128,6 +144,11 @@ final class MultiPriorityTaskQueue
     return null;
   }
 
+  /**
+   * Clear all tasks from queue and return any tasks removed.
+   *
+   * @return tasks removed from the queue.
+   */
   @Override
   public Collection<Task> clear()
   {
@@ -146,6 +167,13 @@ final class MultiPriorityTaskQueue
     return tasks;
   }
 
+  /**
+   * Return a stream containing tasks ordered as they would be executed.
+   * This method may be very slow and should not be invoked during production compiles.
+   * It is only expected to be called from invariant checking code.
+   *
+   * @return a stream containing tasks ordered as they would be executed.
+   */
   @Nonnull
   @Override
   public Stream<Task> getOrderedTasks()
