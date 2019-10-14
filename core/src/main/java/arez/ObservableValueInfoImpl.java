@@ -21,6 +21,7 @@ import static org.realityforge.braincheck.Guards.*;
 final class ObservableValueInfoImpl
   implements ObservableValueInfo
 {
+  @Nonnull
   private final ObservableValue<?> _observableValue;
 
   ObservableValueInfoImpl( @Nonnull final ObservableValue<?> observableValue )
