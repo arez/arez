@@ -1,6 +1,7 @@
 package arez;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,7 +19,7 @@ final class AggregateLocator
    * A list of Locator instances.
    */
   @Nonnull
-  private final ArrayList<Locator> _locators = new ArrayList<>();
+  private final List<Locator> _locators = new ArrayList<>();
 
   /**
    * Register an entity locator to be searched.
@@ -56,7 +57,7 @@ final class AggregateLocator
   }
 
   @Nonnull
-  ArrayList<Locator> getLocators()
+  List<Locator> getLocators()
   {
     return _locators;
   }

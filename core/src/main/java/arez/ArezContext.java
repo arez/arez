@@ -9,10 +9,10 @@ import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.Spy;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -1942,7 +1942,7 @@ public final class ArezContext
       {
         final Transaction current = Transaction.current();
 
-        final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
+        final List<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0118: Observer named '" + name + "' completed observed function (executed by " +

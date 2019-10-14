@@ -3,6 +3,7 @@ package arez;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
@@ -147,7 +148,7 @@ final class TaskQueue
   @Nonnull
   Collection<Task> clear()
   {
-    final ArrayList<Task> tasks = new ArrayList<>();
+    final List<Task> tasks = new ArrayList<>();
     //noinspection ForLoopReplaceableByForEach
     for ( int i = 0; i < _buffers.length; i++ )
     {

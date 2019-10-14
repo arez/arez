@@ -6,7 +6,6 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.Spy;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -105,7 +104,7 @@ final class ObserverInfoImpl
     final Transaction transaction = _spy.isTransactionActive() ? getTrackerTransaction() : null;
     if ( null != transaction )
     {
-      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
       if ( null == observableValues )
       {
         return Collections.emptyList();

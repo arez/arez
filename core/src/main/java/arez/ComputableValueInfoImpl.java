@@ -6,7 +6,6 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -77,7 +76,7 @@ final class ComputableValueInfoImpl
     if ( _computableValue.isComputing() )
     {
       final Transaction transaction = getTransactionComputing();
-      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
       if ( null == observableValues )
       {
         return Collections.emptyList();

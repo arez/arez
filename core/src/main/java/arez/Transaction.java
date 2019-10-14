@@ -121,7 +121,7 @@ final class Transaction
    * non-root transactions that attempt to deactivate an observable.
    */
   @Nullable
-  private ArrayList<ObservableValue<?>> _pendingDeactivations;
+  private List<ObservableValue<?>> _pendingDeactivations;
   /**
    * Reference to the transaction that was active when this transaction began. When this
    * transaction commits, the previous transaction will be restored.
@@ -152,7 +152,7 @@ final class Transaction
    * This should be null unless the _tracker is non null.
    */
   @Nullable
-  private ArrayList<ObservableValue<?>> _observableValues;
+  private List<ObservableValue<?>> _observableValues;
   /**
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
@@ -807,7 +807,7 @@ final class Transaction
     {
       boolean found = false;
       Transaction t = this;
-      final ArrayList<String> names = new ArrayList<>();
+      final List<String> names = new ArrayList<>();
       while ( null != t )
       {
         if ( t.getTracker() == observer )
@@ -1027,7 +1027,7 @@ final class Transaction
   }
 
   @Nullable
-  ArrayList<ObservableValue<?>> getObservableValues()
+  List<ObservableValue<?>> getObservableValues()
   {
     return _observableValues;
   }
@@ -1060,7 +1060,7 @@ final class Transaction
    * Return the observables, initializing the array if necessary.
    */
   @Nonnull
-  ArrayList<ObservableValue<?>> safeGetObservables()
+  List<ObservableValue<?>> safeGetObservables()
   {
     if ( null == _observableValues )
     {
@@ -1081,7 +1081,7 @@ final class Transaction
   }
 
   @Nullable
-  ArrayList<ObservableValue<?>> getPendingDeactivations()
+  List<ObservableValue<?>> getPendingDeactivations()
   {
     return _pendingDeactivations;
   }

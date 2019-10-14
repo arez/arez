@@ -3,7 +3,7 @@ package arez;
 import arez.spy.ComputableValueCreateEvent;
 import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -492,7 +492,7 @@ public final class ComputableValue<T>
       {
         if ( getObserver().areArezDependenciesRequired() )
         {
-          final ArrayList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
+          final List<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
           apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),
                         () -> "Arez-0173: ComputableValue named '" + getName() + "' completed compute but is not " +
                               "observing any properties. As a result compute will never be rescheduled. " +

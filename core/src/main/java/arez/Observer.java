@@ -677,7 +677,7 @@ public final class Observer
         _observe.call();
         final Transaction current = Transaction.current();
 
-        final ArrayList<ObservableValue<?>> observableValues = current.getObservableValues();
+        final List<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +

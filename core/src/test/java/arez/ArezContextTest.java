@@ -26,6 +26,7 @@ import arez.spy.TransactionStartEvent;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -791,7 +792,7 @@ public class ArezContextTest
         observableValue.reportObserved();
 
         // Tracking so state updated
-        final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
         assertNotNull( observableValues );
         assertEquals( observableValues.size(), 1 );
         assertEquals( observableValue.getObservers().size(), 0 );
@@ -1175,7 +1176,7 @@ public class ArezContextTest
         observableValue.reportObserved();
 
         // Tracking so state updated
-        final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
         assertNotNull( observableValues );
         assertEquals( observableValues.size(), 1 );
         assertEquals( observableValue.getObservers().size(), 0 );
@@ -1341,7 +1342,7 @@ public class ArezContextTest
       observableValue.reportObserved();
 
       // Tracking so state updated
-      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
       assertNotNull( observableValues );
       assertEquals( observableValues.size(), 1 );
       assertEquals( observableValue.getObservers().size(), 0 );
@@ -1460,7 +1461,7 @@ public class ArezContextTest
       observableValue.reportObserved();
 
       // Tracking so state updated
-      final ArrayList<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
       assertNotNull( observableValues );
       assertEquals( observableValues.size(), 1 );
       assertEquals( observableValue.getObservers().size(), 0 );
@@ -3311,7 +3312,7 @@ public class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    final ArrayList<String> calls = new ArrayList<>();
+    final List<String> calls = new ArrayList<>();
 
     context.task( null, () -> calls.add( "1" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_LOW );
     context.task( null, () -> calls.add( "2" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_HIGH );
