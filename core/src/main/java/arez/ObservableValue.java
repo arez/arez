@@ -478,7 +478,8 @@ public final class ObservableValue<T>
                        getName() + "' when there is no active transaction." );
       invariant( () -> Observer.Flags.isActive( leastStaleObserverState ),
                  () -> "Arez-0075: Attempt to invoke setLeastStaleObserverState on ObservableValue named '" +
-                       getName() + "' with invalid value " + Observer.Flags.getStateName( leastStaleObserverState ) + "." );
+                       getName() + "' with invalid value " + Observer.Flags.getStateName( leastStaleObserverState ) +
+                       "." );
     }
     _leastStaleObserverState = leastStaleObserverState;
   }
@@ -620,9 +621,10 @@ public final class ObservableValue<T>
           map( Observer::getLeastStaleObserverState ).
           min( Comparator.naturalOrder() ).orElse( Observer.Flags.STATE_UP_TO_DATE );
       invariant( () -> leastStaleObserverState >= _leastStaleObserverState,
-                 () -> "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" + getName() +
-                       "' is '" + Observer.Flags.getStateName( leastStaleObserverState ) + "' which is unexpectedly less " +
-                       "than cached value '" + Observer.Flags.getStateName( _leastStaleObserverState ) + "'." );
+                 () -> "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
+                       getName() + "' is '" + Observer.Flags.getStateName( leastStaleObserverState ) +
+                       "' which is unexpectedly less than cached value '" +
+                       Observer.Flags.getStateName( _leastStaleObserverState ) + "'." );
     }
   }
 
