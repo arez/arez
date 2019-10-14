@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * Basic implementation of task queue that supports priority based queuing of tasks.
+ * A queue of "pending" or "scheduled" tasks that supports priority based queuing of tasks.
  */
 final class MultiPriorityTaskQueue
   implements TaskQueue
