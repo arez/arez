@@ -12,6 +12,7 @@ import arez.component.Identifiable;
 import arez.component.NoSuchEntityException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,7 +33,7 @@ public abstract class AbstractContainer<K, T>
    * A map of all the entities ArezId to entity.
    */
   @Nonnull
-  private final HashMap<K, T> _entities = new HashMap<>();
+  private final Map<K, T> _entities = new HashMap<>();
 
   /**
    * Attach specified entity to the set of entities managed by the container.
@@ -218,7 +219,7 @@ public abstract class AbstractContainer<K, T>
   }
 
   @Nonnull
-  final HashMap<K, T> entityMap()
+  final Map<K, T> entityMap()
   {
     return _entities;
   }

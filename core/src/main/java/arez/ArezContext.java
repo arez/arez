@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -68,33 +69,33 @@ public final class ArezContext
    * Support infrastructure for components.
    */
   @Nullable
-  private final HashMap<String, HashMap<Object, Component>> _components =
+  private final Map<String, Map<Object, Component>> _components =
     Arez.areNativeComponentsEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level observables.
    * These are all the Observables instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, ObservableValue<?>> _observableValues =
+  private final Map<String, ObservableValue<?>> _observableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level computable values.
    * These are all the ComputableValue instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, ComputableValue<?>> _computableValues =
+  private final Map<String, ComputableValue<?>> _computableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of all active tasks.
    */
   @Nullable
-  private final HashMap<String, Task> _tasks = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  private final Map<String, Task> _tasks = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level observers.
    * These are all the Observer instances not contained within a component.
    */
   @Nullable
-  private final HashMap<String, Observer> _observers = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
+  private final Map<String, Observer> _observers = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Locator used to resolve references.
    */
@@ -129,7 +130,7 @@ public final class ArezContext
    * @return the map for components of specified type.
    */
   @Nonnull
-  private HashMap<Object, Component> getComponentByTypeMap( @Nonnull final String type )
+  private Map<Object, Component> getComponentByTypeMap( @Nonnull final String type )
   {
     assert null != _components;
     return _components.computeIfAbsent( type, t -> new HashMap<>() );
@@ -232,7 +233,7 @@ public final class ArezContext
       apiInvariant( Arez::areNativeComponentsEnabled,
                     () -> "Arez-0008: ArezContext.component() invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
-    final HashMap<Object, Component> map = getComponentByTypeMap( type );
+    final Map<Object, Component> map = getComponentByTypeMap( type );
     if ( Arez.shouldCheckApiInvariants() )
     {
       apiInvariant( () -> !map.containsKey( id ),
@@ -262,7 +263,7 @@ public final class ArezContext
                  () -> "Arez-0006: ArezContext.deregisterComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     final String type = component.getType();
-    final HashMap<Object, Component> map = getComponentByTypeMap( type );
+    final Map<Object, Component> map = getComponentByTypeMap( type );
     final Component removed = map.remove( component.getId() );
     if ( Arez.shouldCheckInvariants() )
     {
@@ -293,7 +294,7 @@ public final class ArezContext
                  () -> "Arez-0010: ArezContext.findComponent() invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     assert null != _components;
-    final HashMap<Object, Component> map = _components.get( type );
+    final Map<Object, Component> map = _components.get( type );
     if ( null != map )
     {
       return map.get( id );
@@ -319,7 +320,7 @@ public final class ArezContext
                  () -> "Arez-0011: ArezContext.findAllComponentsByType() invoked when Arez.areNativeComponentsEnabled() returns false." );
     }
     assert null != _components;
-    final HashMap<Object, Component> map = _components.get( type );
+    final Map<Object, Component> map = _components.get( type );
     if ( null != map )
     {
       return map.values();
@@ -2175,7 +2176,7 @@ public final class ArezContext
   }
 
   @Nonnull
-  HashMap<String, ObservableValue<?>> getTopLevelObservables()
+  Map<String, ObservableValue<?>> getTopLevelObservables()
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -2219,7 +2220,7 @@ public final class ArezContext
   }
 
   @Nonnull
-  HashMap<String, Observer> getTopLevelObservers()
+  Map<String, Observer> getTopLevelObservers()
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -2263,7 +2264,7 @@ public final class ArezContext
   }
 
   @Nonnull
-  HashMap<String, ComputableValue<?>> getTopLevelComputableValues()
+  Map<String, ComputableValue<?>> getTopLevelComputableValues()
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -2307,7 +2308,7 @@ public final class ArezContext
   }
 
   @Nonnull
-  HashMap<String, Task> getTopLevelTasks()
+  Map<String, Task> getTopLevelTasks()
   {
     if ( Arez.shouldCheckInvariants() )
     {
