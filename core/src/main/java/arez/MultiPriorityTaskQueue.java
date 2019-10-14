@@ -13,7 +13,6 @@ import static org.realityforge.braincheck.Guards.*;
  * A queue of "pending" or "scheduled" tasks that supports priority based queuing of tasks.
  */
 final class MultiPriorityTaskQueue
-  implements TaskQueue
 {
   /**
    * A buffer per priority containing tasks that have been scheduled but are not executing.
@@ -54,8 +53,7 @@ final class MultiPriorityTaskQueue
    *
    * @return the number of tasks inside the queue.
    */
-  @Override
-  public int getQueueSize()
+  int getQueueSize()
   {
     int count = 0;
     //noinspection ForLoopReplaceableByForEach
@@ -71,8 +69,7 @@ final class MultiPriorityTaskQueue
    *
    * @return true if queue has any tasks in it.
    */
-  @Override
-  public boolean hasTasks()
+  boolean hasTasks()
   {
     //noinspection ForLoopReplaceableByForEach
     for ( int i = 0; i < _buffers.length; i++ )
@@ -91,8 +88,7 @@ final class MultiPriorityTaskQueue
    *
    * @param task the task.
    */
-  @Override
-  public void queueTask( @Nonnull final Task task )
+  void queueTask( @Nonnull final Task task )
   {
     queueTask( task.getPriorityIndex(), task );
   }
@@ -126,8 +122,7 @@ final class MultiPriorityTaskQueue
    * @return the next task in queue.
    */
   @Nullable
-  @Override
-  public Task dequeueTask()
+  Task dequeueTask()
   {
     // Return the highest priority taskQueue that has tasks in it and return task.
     //noinspection ForLoopReplaceableByForEach
@@ -150,8 +145,7 @@ final class MultiPriorityTaskQueue
    * @return tasks removed from the queue.
    */
   @Nonnull
-  @Override
-  public Collection<Task> clear()
+  Collection<Task> clear()
   {
     final ArrayList<Task> tasks = new ArrayList<>();
     //noinspection ForLoopReplaceableByForEach
@@ -176,8 +170,7 @@ final class MultiPriorityTaskQueue
    * @return a stream containing tasks ordered as they would be executed.
    */
   @Nonnull
-  @Override
-  public Stream<Task> getOrderedTasks()
+  Stream<Task> getOrderedTasks()
   {
     assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     return Stream.of( _buffers ).flatMap( CircularBuffer::stream );

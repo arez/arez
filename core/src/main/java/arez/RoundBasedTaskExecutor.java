@@ -19,7 +19,7 @@ final class RoundBasedTaskExecutor
    * The task queue.
    */
   @Nonnull
-  private final TaskQueue _taskQueue;
+  private final MultiPriorityTaskQueue _taskQueue;
   /**
    * The maximum number of iterations that can be triggered in sequence without triggering an error. Set this
    * to 0 to disable check, otherwise trigger
@@ -34,7 +34,7 @@ final class RoundBasedTaskExecutor
    */
   private int _remainingTasksInCurrentRound;
 
-  RoundBasedTaskExecutor( @Nonnull final TaskQueue taskQueue, final int maxRounds )
+  RoundBasedTaskExecutor( @Nonnull final MultiPriorityTaskQueue taskQueue, final int maxRounds )
   {
     assert maxRounds > 0;
     _taskQueue = Objects.requireNonNull( taskQueue );
