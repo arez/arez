@@ -116,7 +116,7 @@ public class ObservableValueInfoImplTest
     final ObservableValue<Object> observableValue2 = context.observable();
 
     final ObservableValueInfo info1a = observableValue1.asInfo();
-    final ObservableValueInfo info1b = new ObservableValueInfoImpl( context.getSpy(), observableValue1 );
+    final ObservableValueInfo info1b = new ObservableValueInfoImpl( observableValue1 );
     final ObservableValueInfo info2 = observableValue2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
