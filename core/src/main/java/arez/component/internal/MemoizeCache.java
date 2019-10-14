@@ -223,6 +223,7 @@ public final class MemoizeCache<T>
    * @return the computable value instance for the specified args.
    */
   @SuppressWarnings( "unchecked" )
+  @Nonnull
   public ComputableValue<T> getComputableValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -252,6 +253,7 @@ public final class MemoizeCache<T>
    *
    * @param args the arguments passed to the memoized function.
    */
+  @Nonnull
   private ComputableValue<T> createComputableValue( @Nonnull final Object... args )
   {
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
