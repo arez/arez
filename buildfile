@@ -60,7 +60,7 @@ define 'arez' do
     pom.include_transitive_dependencies << artifact(:javax_annotation)
     pom.include_transitive_dependencies << artifact(:jsinterop_annotations)
     pom.include_transitive_dependencies << artifact(:braincheck)
-    pom.dependency_filter = Proc.new {|dep| dep[:scope].to_s != 'test' && dep[:group] != 'org.realityforge.org.jetbrains.annotations'}
+    pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && dep[:group] != 'org.realityforge.org.jetbrains.annotations' }
 
     compile.with :javax_annotation,
                  :braincheck,
@@ -116,7 +116,7 @@ define 'arez' do
 
   desc 'Arez Annotation processor'
   define 'processor' do
-    pom.dependency_filter = Proc.new {|_| false}
+    pom.dependency_filter = Proc.new { |_| false }
 
     compile.with :javax_annotation,
                  :autoservice,
