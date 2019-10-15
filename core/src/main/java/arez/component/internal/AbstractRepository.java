@@ -31,6 +31,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     return true;
   }
 
+  @Override
   public boolean contains( @Nonnull final T entity )
   {
     return super.contains( entity );
@@ -115,12 +116,14 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     return entity;
   }
 
+  @Override
   @Nullable
   public final T findByArezId( @Nonnull final K arezId )
   {
     return super.findByArezId( arezId );
   }
 
+  @Override
   @Nonnull
   public final T getByArezId( @Nonnull final K arezId )
     throws NoSuchEntityException
