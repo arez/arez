@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -90,7 +89,7 @@ public final class SpyEventRecorder
       }
       Files.write( file, ( json + "\n" ).getBytes() );
     }
-    final String expected = Files.readAllLines( file ).stream().collect( Collectors.joining( "\n" ) );
+    final String expected = String.join( "\n", Files.readAllLines( file ) );
     JSONAssert.assertEquals( expected, json, new DefaultComparator( JSONCompareMode.STRICT ) );
   }
 
