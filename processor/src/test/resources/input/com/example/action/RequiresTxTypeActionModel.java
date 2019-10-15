@@ -6,6 +6,7 @@ import arez.annotations.ArezComponent;
 @ArezComponent
 public abstract class RequiresTxTypeActionModel
 {
+  @SuppressWarnings( "DefaultAnnotationParam" )
   @Action( requireNewTransaction = false )
   public void doStuff( final long time, float someOtherParameter )
   {

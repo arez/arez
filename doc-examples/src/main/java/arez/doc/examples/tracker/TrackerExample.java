@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.Observer;
 import arez.Procedure;
 
+@SuppressWarnings( "Convert2MethodRef" )
 public class TrackerExample
 {
   public static void main( String[] args )

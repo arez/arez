@@ -23,6 +23,7 @@ public class RequiresTransactionTest
   @ArezComponent
   static abstract class MyComponent
   {
+    @SuppressWarnings( "DefaultAnnotationParam" )
     @Action( requireNewTransaction = false )
     void myAction()
     {
@@ -62,6 +63,7 @@ public class RequiresTransactionTest
   @ArezComponent
   static abstract class MyComponent2
   {
+    @SuppressWarnings( "DefaultAnnotationParam" )
     @Action( requireNewTransaction = false )
     void myAction()
     {
@@ -101,6 +103,7 @@ public class RequiresTransactionTest
   @ArezComponent
   static abstract class MyComponent3
   {
+    @SuppressWarnings( "DefaultAnnotationParam" )
     @Action( requireNewTransaction = false )
     void myAction()
     {
