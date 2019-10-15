@@ -11,6 +11,8 @@ artifacts:
 
   braincheck: org.realityforge.braincheck:braincheck:jar:1.25.0
 
+  grim_annotations: org.realityforge.grim:grim-annotations:jar:0.01
+
   javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.1
 
   # GWT deps
