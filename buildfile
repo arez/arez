@@ -198,6 +198,7 @@ define 'arez' do
       AREZ_TEST_OPTIONS.merge(
         'arez.prev.version' => ENV['PREVIOUS_PRODUCT_VERSION'] || project.version,
         'arez.next.version' => ENV['PRODUCT_VERSION'] || project.version,
+        'arez.next.jar' => project('core').package(:jar).to_s,
         'arez.build_j2cl_variants' => (ENV['J2CL'] != 'no'),
         'arez.deploy_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
         'arez.deploy_test.work_dir' => _(:target, 'deploy_test/workdir').to_s
