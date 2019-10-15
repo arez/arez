@@ -7,6 +7,7 @@ import arez.annotations.Observable;
 @ArezComponent
 public abstract class ComponentIdNotStaticModel
 {
+  @SuppressWarnings( "FinalStaticMethod" )
   @ComponentId
   static final long getId()
   {
