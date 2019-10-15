@@ -836,14 +836,19 @@ final class Transaction
 
   void verifyWriteAllowed( @Nonnull final ObservableValue<?> observableValue )
   {
-    if ( Arez.shouldEnforceTransactionType() )
+    if ( Arez.shouldEnforceTransactionType() && Arez.shouldCheckInvariants() )
     {
-      if ( Arez.shouldCheckInvariants() && isComputableValueTracker() )
+      if ( isComputableValueTracker() )
       {
         invariant( () -> observableValue.isComputableValue() && observableValue.getObserver() == _tracker,
                    () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
                          " ObservableValue named '" + observableValue.getName() + "' and the transaction mode is " +
                          "READ_WRITE_OWNED but the ObservableValue has not been created by the transaction." );
+      }
+      else if ( !isMutation() )
+      {
+        fail( () -> "Arez-0152: Transaction named '" + getName() + "' attempted to change ObservableValue named '" +
+                    observableValue.getName() + "' but the transaction mode is READ_ONLY." );
       }
     }
   }
