@@ -34,6 +34,7 @@ define 'arez-dom' do
 
   compile.with :javax_annotation,
                :braincheck,
+               :grim_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
                :elemental2_core,
