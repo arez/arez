@@ -27,6 +27,7 @@ define 'arez-spytools' do
 
   compile.with :javax_annotation,
                :braincheck,
+               :grim_annotations,
                :jetbrains_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
