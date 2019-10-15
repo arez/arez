@@ -22,7 +22,7 @@ public class MemoizeConsumeMethodInjectTest
   public static abstract class MyComponent
   {
     @Inject
-    void setDep( MyDependency myDependency )
+    void setDep( @SuppressWarnings( "unused" ) MyDependency myDependency )
     {
     }
 

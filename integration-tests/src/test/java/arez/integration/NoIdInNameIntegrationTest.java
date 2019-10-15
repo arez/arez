@@ -43,9 +43,8 @@ public class NoIdInNameIntegrationTest
     assertMatchesFixture( recorder );
   }
 
-  @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( nameIncludesId = false )
-  public static abstract class PersonModel
+  static abstract class PersonModel
   {
     @Nonnull
     private String _firstName;
@@ -53,7 +52,7 @@ public class NoIdInNameIntegrationTest
     private String _lastName;
 
     @Nonnull
-    public static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
+    static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
     {
       return new NoIdInNameIntegrationTest_Arez_PersonModel( firstName, lastName );
     }
@@ -66,31 +65,31 @@ public class NoIdInNameIntegrationTest
 
     @Observable
     @Nonnull
-    public String getFirstName()
+    String getFirstName()
     {
       return _firstName;
     }
 
-    public void setFirstName( @Nonnull final String firstName )
+    void setFirstName( @Nonnull final String firstName )
     {
       _firstName = firstName;
     }
 
     @Observable
     @Nonnull
-    public String getLastName()
+    String getLastName()
     {
       return _lastName;
     }
 
-    public void setLastName( @Nonnull final String lastName )
+    void setLastName( @Nonnull final String lastName )
     {
       _lastName = lastName;
     }
 
     @Memoize
     @Nonnull
-    public String getFullName()
+    String getFullName()
     {
       return getFirstName() + " " + getLastName();
     }

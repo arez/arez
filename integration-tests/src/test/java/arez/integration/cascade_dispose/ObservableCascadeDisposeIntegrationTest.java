@@ -56,6 +56,7 @@ public class ObservableCascadeDisposeIntegrationTest
       return new ObservableCascadeDisposeIntegrationTest_Arez_Model1( name );
     }
 
+    @SuppressWarnings( "unused" )
     @CascadeDispose
     @Nonnull
     abstract Model2 getModel2();

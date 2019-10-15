@@ -17,6 +17,7 @@ public class ContextRefReferencedInCtorTest
       getContext();
     }
 
+    @SuppressWarnings( "UnusedReturnValue" )
     @ContextRef
     abstract ArezContext getContext();
   }

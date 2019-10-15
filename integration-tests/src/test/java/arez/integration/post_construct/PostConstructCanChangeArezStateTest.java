@@ -12,7 +12,7 @@ public class PostConstructCanChangeArezStateTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent
+  static abstract class TestComponent
   {
     boolean _postConstructCalled;
 

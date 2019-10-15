@@ -19,6 +19,7 @@ public class ComponentRefCalledInPostConstructTest
       getComponent();
     }
 
+    @SuppressWarnings( "UnusedReturnValue" )
     @ComponentRef
     abstract Component getComponent();
   }

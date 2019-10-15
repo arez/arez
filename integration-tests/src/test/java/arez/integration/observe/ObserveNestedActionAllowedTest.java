@@ -13,7 +13,7 @@ public class ObserveNestedActionAllowedTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent1
+  static abstract class TestComponent1
   {
     int _renderCallCount;
     int _actionCallCount;
@@ -33,6 +33,7 @@ public class ObserveNestedActionAllowedTest
       _actionCallCount++;
     }
 
+    @SuppressWarnings( "UnusedReturnValue" )
     @Observable
     abstract long getTime();
 

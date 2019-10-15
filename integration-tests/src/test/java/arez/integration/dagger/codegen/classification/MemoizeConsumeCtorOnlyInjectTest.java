@@ -21,7 +21,7 @@ public class MemoizeConsumeCtorOnlyInjectTest
   @ArezComponent( inject = InjectMode.CONSUME )
   public static abstract class MyComponent
   {
-    MyComponent( MyDependency myDependency )
+    MyComponent( @SuppressWarnings( "unused" ) MyDependency myDependency )
     {
     }
 

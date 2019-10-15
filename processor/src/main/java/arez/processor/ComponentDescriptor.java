@@ -47,7 +47,6 @@ import static arez.processor.ProcessorUtil.*;
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
  */
-@SuppressWarnings( "Duplicates" )
 final class ComponentDescriptor
 {
   enum InjectMode

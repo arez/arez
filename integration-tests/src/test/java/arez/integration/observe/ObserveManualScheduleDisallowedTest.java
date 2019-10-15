@@ -13,7 +13,7 @@ public class ObserveManualScheduleDisallowedTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent1
+  static abstract class TestComponent1
   {
     int _renderCallCount;
 
@@ -31,6 +31,7 @@ public class ObserveManualScheduleDisallowedTest
     @Observable
     abstract long getValue();
 
+    @SuppressWarnings( "unused" )
     abstract void setValue( long value );
   }
 

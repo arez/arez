@@ -9,7 +9,6 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( { "WeakerAccess" } )
 public class ObserversMutationParameterIntegrationTest
   extends AbstractArezIntegrationTest
 {
@@ -110,13 +109,13 @@ public class ObserversMutationParameterIntegrationTest
   }
 
   @ArezComponent( deferSchedule = true )
-  public static abstract class Model1
+  static abstract class Model1
   {
     String _name = "Initial";
     int _observerRunCount;
 
     @Nonnull
-    public static Model1 create()
+    static Model1 create()
     {
       return new ObserversMutationParameterIntegrationTest_Arez_Model1();
     }
@@ -130,25 +129,25 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }
   }
 
   @ArezComponent( deferSchedule = true )
-  public static abstract class Model2
+  static abstract class Model2
   {
     String _name = "Initial";
     int _observerRunCount;
 
     @Nonnull
-    public static Model2 create()
+    static Model2 create()
     {
       return new ObserversMutationParameterIntegrationTest_Arez_Model2();
     }
@@ -162,25 +161,25 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }
   }
 
   @ArezComponent( deferSchedule = true )
-  public static abstract class Model3
+  static abstract class Model3
   {
     String _name = "Initial";
     int _observerRunCount;
 
     @Nonnull
-    public static Model3 create()
+    static Model3 create()
     {
       return new ObserversMutationParameterIntegrationTest_Arez_Model3();
     }
@@ -194,31 +193,31 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }
   }
 
   @ArezComponent
-  public static abstract class Model4
+  static abstract class Model4
   {
     String _name = "Initial";
     int _observerRunCount;
 
     @Nonnull
-    public static Model4 create()
+    static Model4 create()
     {
       return new ObserversMutationParameterIntegrationTest_Arez_Model4();
     }
 
     @Observe( executor = Executor.EXTERNAL )
-    public void myObserveReaction()
+    void myObserveReaction()
     {
       setName( "Changed" );
       _observerRunCount += 1;
@@ -229,32 +228,32 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }
   }
 
   @ArezComponent
-  public static abstract class Model5
+  static abstract class Model5
   {
     String _name = "Initial";
     int _observerRunCount;
 
     @Nonnull
-    public static Model5 create()
+    static Model5 create()
     {
       return new ObserversMutationParameterIntegrationTest_Arez_Model5();
     }
 
     @SuppressWarnings( "ResultOfMethodCallIgnored" )
     @Observe( executor = Executor.EXTERNAL )
-    public void myObserveReaction()
+    void myObserveReaction()
     {
       getName();
       _observerRunCount += 1;
@@ -265,31 +264,31 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }
   }
 
   @ArezComponent
-  public static abstract class Model6
+  static abstract class Model6
   {
     String _name = "Initial";
     int _observerRunCount;
 
     @Nonnull
-    public static Model6 create()
+    static Model6 create()
     {
       return new ObserversMutationParameterIntegrationTest_Arez_Model6();
     }
 
     @Observe( executor = Executor.EXTERNAL, mutation = true )
-    public void myObserveReaction()
+    void myObserveReaction()
     {
       observeADependency();
       setName( "Changed" );
@@ -301,12 +300,12 @@ public class ObserversMutationParameterIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }

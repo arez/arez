@@ -43,9 +43,8 @@ public class ObserveRequireActionTest
     safeAction( component::getQualifiedName );
   }
 
-  @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static abstract class CodeModel
+  static abstract class CodeModel
   {
     @Nonnull
     private String _name;
@@ -55,7 +54,7 @@ public class ObserveRequireActionTest
     private String _qualifiedName;
 
     @Nonnull
-    public static CodeModel create( @Nonnull final String packageName, @Nonnull final String name )
+    static CodeModel create( @Nonnull final String packageName, @Nonnull final String name )
     {
       return new ObserveRequireActionTest_Arez_CodeModel( packageName, name );
     }
@@ -68,31 +67,31 @@ public class ObserveRequireActionTest
 
     @Observable
     @Nonnull
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( @Nonnull final String name )
+    void setName( @Nonnull final String name )
     {
       _name = name;
     }
 
     @Observable
     @Nonnull
-    public String getPackageName()
+    String getPackageName()
     {
       return _packageName;
     }
 
-    public void setPackageName( @Nonnull final String packageName )
+    void setPackageName( @Nonnull final String packageName )
     {
       _packageName = packageName;
     }
 
     @Memoize
     @Nonnull
-    public String getQualifiedName()
+    String getQualifiedName()
     {
       final String rawQualifiedName = getRawQualifiedName();
       if ( null == rawQualifiedName )
@@ -107,13 +106,13 @@ public class ObserveRequireActionTest
 
     @Nullable
     @Observable
-    public String getRawQualifiedName()
+    String getRawQualifiedName()
     {
       return _qualifiedName;
     }
 
     @Observable( name = "rawQualifiedName" )
-    public void setQualifiedName( @Nullable final String qualifiedName )
+    void setQualifiedName( @Nullable final String qualifiedName )
     {
       _qualifiedName = qualifiedName;
     }

@@ -22,7 +22,7 @@ public class ComponentDependencyProvideCtorOnlyInjectTest
   @ArezComponent( inject = InjectMode.PROVIDE )
   public static abstract class MyComponent
   {
-    MyComponent( MyDependency myDependency )
+    MyComponent( @SuppressWarnings( "unused" ) MyDependency myDependency )
     {
     }
 

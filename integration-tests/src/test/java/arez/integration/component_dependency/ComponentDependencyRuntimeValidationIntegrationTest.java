@@ -3,7 +3,6 @@ package arez.integration.component_dependency;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
-import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -46,7 +45,7 @@ public class ComponentDependencyRuntimeValidationIntegrationTest
   {
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class Model1
     implements MyInterface
   {
@@ -54,11 +53,6 @@ public class ComponentDependencyRuntimeValidationIntegrationTest
     {
       return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model1();
     }
-
-    @Observable
-    abstract String getName();
-
-    abstract void setName( String name );
   }
 
   @ArezComponent

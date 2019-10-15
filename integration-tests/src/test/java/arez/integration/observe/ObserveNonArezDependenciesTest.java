@@ -16,7 +16,7 @@ public class ObserveNonArezDependenciesTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent1
+  static abstract class TestComponent1
   {
     int _renderCallCount;
 

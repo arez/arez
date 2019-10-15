@@ -16,6 +16,7 @@ public class ComponentNameRefInvokedInCtorTest
       getName();
     }
 
+    @SuppressWarnings( "UnusedReturnValue" )
     @ComponentNameRef
     abstract String getName();
   }

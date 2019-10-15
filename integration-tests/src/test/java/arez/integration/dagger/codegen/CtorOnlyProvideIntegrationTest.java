@@ -20,7 +20,7 @@ public class CtorOnlyProvideIntegrationTest
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.PROVIDE )
   public static abstract class MyComponent
   {
-    MyComponent( final MyDependency myDependency )
+    MyComponent( @SuppressWarnings( "unused" ) final MyDependency myDependency )
     {
     }
   }

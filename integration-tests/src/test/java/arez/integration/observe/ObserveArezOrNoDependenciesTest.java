@@ -17,7 +17,7 @@ public class ObserveArezOrNoDependenciesTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent1
+  static abstract class TestComponent1
   {
     final ObservableValue<?> _observableValue = Arez.context().observable();
     int _renderCallCount;
@@ -48,7 +48,7 @@ public class ObserveArezOrNoDependenciesTest
     assertEquals( info.getDependencies().size(), 1 );
 
     // should result in re-render invocation but dependencies will go to zero
-    context.safeAction( () -> component._observableValue.reportChanged() );
+    context.safeAction( component._observableValue::reportChanged );
 
     assertEquals( component._renderCallCount, 2 );
     assertEquals( info.getDependencies().size(), 0 );

@@ -26,7 +26,7 @@ public class DaggerFactoryAndCtorInjectionIntegrationTest
   }
 
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
-  public static abstract class TestComponent
+  static abstract class TestComponent
   {
     private final Map<String, String> _props;
     private final MyDependency _myDependency;

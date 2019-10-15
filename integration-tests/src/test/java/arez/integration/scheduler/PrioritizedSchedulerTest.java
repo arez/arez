@@ -17,7 +17,7 @@ public class PrioritizedSchedulerTest
 {
   @SuppressWarnings( "SameParameterValue" )
   @ArezComponent
-  public static abstract class TestComponent
+  static abstract class TestComponent
   {
     final ArrayList<String> _calls = new ArrayList<>();
 

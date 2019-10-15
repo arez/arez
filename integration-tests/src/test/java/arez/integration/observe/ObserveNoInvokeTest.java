@@ -10,7 +10,7 @@ public class ObserveNoInvokeTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent
+  static abstract class TestComponent
   {
     int _observerCallCount;
 

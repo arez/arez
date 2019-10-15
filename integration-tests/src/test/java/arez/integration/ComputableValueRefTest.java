@@ -32,7 +32,7 @@ public class ComputableValueRefTest
       return _otherID;
     }
 
-    void setOtherID( final int otherID )
+    void setOtherID( @SuppressWarnings( "SameParameterValue" ) final int otherID )
     {
       _otherID = otherID;
     }

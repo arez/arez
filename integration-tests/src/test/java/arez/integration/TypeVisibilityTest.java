@@ -11,7 +11,6 @@ import static org.testng.Assert.*;
 public class TypeVisibilityTest
   extends AbstractArezIntegrationTest
 {
-  @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( dagger = Feature.ENABLE )
   public static abstract class PersonModel
   {
@@ -21,28 +20,27 @@ public class TypeVisibilityTest
 
     @Observable
     @Nonnull
-    public String getFirstName()
+    String getFirstName()
     {
       return "";
     }
 
-    public void setFirstName( @Nonnull final String firstName )
+    void setFirstName( @Nonnull final String firstName )
     {
     }
   }
 
-  @SuppressWarnings( "WeakerAccess" )
   @ArezComponent( dagger = Feature.ENABLE )
   public static abstract class PersonModel2
   {
     @Observable
     @Nonnull
-    public String getFirstName()
+    String getFirstName()
     {
       return "";
     }
 
-    public void setFirstName( @Nonnull final String firstName )
+    void setFirstName( @Nonnull final String firstName )
     {
     }
   }

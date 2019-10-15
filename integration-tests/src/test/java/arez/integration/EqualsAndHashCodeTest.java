@@ -10,15 +10,14 @@ import static org.testng.Assert.*;
 public class EqualsAndHashCodeTest
   extends AbstractArezIntegrationTest
 {
-  @SuppressWarnings( "WeakerAccess" )
   @ArezComponent
-  public static abstract class PersonModel
+  static abstract class PersonModel
   {
     @Nonnull
     private String _firstName;
 
     @Nonnull
-    public static PersonModel create( @Nonnull final String firstName )
+    static PersonModel create( @Nonnull final String firstName )
     {
       return new EqualsAndHashCodeTest_Arez_PersonModel( firstName );
     }
@@ -30,12 +29,12 @@ public class EqualsAndHashCodeTest
 
     @Observable
     @Nonnull
-    public String getFirstName()
+    String getFirstName()
     {
       return _firstName;
     }
 
-    public void setFirstName( @Nonnull final String firstName )
+    void setFirstName( @Nonnull final String firstName )
     {
       _firstName = firstName;
     }

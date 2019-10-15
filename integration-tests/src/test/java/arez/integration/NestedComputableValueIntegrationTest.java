@@ -258,23 +258,23 @@ public class NestedComputableValueIntegrationTest
   }
 
   @ArezComponent
-  public static abstract class FilterContext
+  static abstract class FilterContext
   {
     private String _filter = "";
 
     @Nonnull
-    public static FilterContext create()
+    static FilterContext create()
     {
       return new NestedComputableValueIntegrationTest_Arez_FilterContext();
     }
 
     @Observable
-    public String getFilter()
+    String getFilter()
     {
       return _filter;
     }
 
-    public void setFilter( final String filter )
+    void setFilter( final String filter )
     {
       _filter = filter;
     }
@@ -282,7 +282,7 @@ public class NestedComputableValueIntegrationTest
 
   @SuppressWarnings( { "WeakerAccess", "Arez:UnmanagedComponentReference" } )
   @ArezComponent
-  public static abstract class Node
+  static abstract class Node
   {
     private final FilterContext _context;
     private final ArrayList<Node> _children = new ArrayList<>();
@@ -291,9 +291,9 @@ public class NestedComputableValueIntegrationTest
     private boolean _isVisibleResult;
 
     @Nonnull
-    public static Node create( @Nonnull final FilterContext context,
-                               @Nullable final Node parent,
-                               @Nonnull final String name )
+    static Node create( @Nonnull final FilterContext context,
+                        @Nullable final Node parent,
+                        @Nonnull final String name )
     {
       return new NestedComputableValueIntegrationTest_Arez_Node( context, parent, name );
     }
@@ -309,7 +309,7 @@ public class NestedComputableValueIntegrationTest
     }
 
     @Memoize
-    public boolean isVisible()
+    boolean isVisible()
     {
       return getChildren().isEmpty() ?
              getName().contains( getContext().getFilter() ) :
@@ -317,32 +317,32 @@ public class NestedComputableValueIntegrationTest
     }
 
     @Observable
-    public String getName()
+    String getName()
     {
       return _name;
     }
 
-    public void setName( final String name )
+    void setName( final String name )
     {
       _name = name;
     }
 
-    public FilterContext getContext()
+    FilterContext getContext()
     {
       return _context;
     }
 
-    public ArrayList<Node> getChildren()
+    ArrayList<Node> getChildren()
     {
       return _children;
     }
 
-    public boolean getIsVisibleResult()
+    boolean getIsVisibleResult()
     {
       return _isVisibleResult;
     }
 
-    public void cacheIsVisibleResult()
+    void cacheIsVisibleResult()
     {
       observeADependency();
       _isVisibleResult = isVisible();

@@ -26,7 +26,7 @@ public class DaggerComponentIntegrationTest
       return _value;
     }
 
-    void setValue( final String value )
+    void setValue( @SuppressWarnings( "SameParameterValue" ) final String value )
     {
       _value = value;
     }

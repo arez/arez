@@ -16,10 +16,10 @@ public class TrackButNoSchedulableTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class Model
+  static abstract class Model
   {
     @Observe( executor = Executor.EXTERNAL )
-    public int render()
+    int render()
     {
       return 23;
     }
