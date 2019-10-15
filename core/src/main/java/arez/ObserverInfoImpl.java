@@ -91,6 +91,7 @@ final class ObserverInfoImpl
     return _observer.getTask().getPriority();
   }
 
+  @Nonnull
   @Override
   public ComputableValueInfo asComputableValue()
   {
