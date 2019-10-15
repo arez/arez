@@ -4,7 +4,6 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.InjectMode;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
