@@ -42,7 +42,7 @@ define 'arez-spytools' do
   package(:sources)
   package(:javadoc)
 
-  test.options[:properties] = { 'arez.environment' => 'development' }
+  test.options[:properties] = { 'braincheck.environment' => 'development', 'arez.environment' => 'development' }
   test.options[:java_args] = ['-ea']
 
   test.using :testng
