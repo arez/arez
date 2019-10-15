@@ -38,7 +38,7 @@ public class BasicCascadeDisposeIntegrationTest
       return new BasicCascadeDisposeIntegrationTest_Arez_Model1( name );
     }
 
-    public Model1( @Nonnull final Model2 model2 )
+    Model1( @Nonnull final Model2 model2 )
     {
       _model2 = model2;
     }
