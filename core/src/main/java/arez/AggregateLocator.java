@@ -1,5 +1,6 @@
 package arez;
 
+import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import static org.realityforge.braincheck.Guards.*;
  * This implementation will search through the list of registered locators whenever the query method
  * {@link #findById(Class, Object)} is invoked.
  */
+@OmitType( unless = "arez.enable_references" )
 final class AggregateLocator
   implements Locator
 {

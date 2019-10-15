@@ -14,6 +14,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
 import arez.component.ComponentObservable;
+import grim.annotations.OmitClinit;
+import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,7 @@ import static org.realityforge.braincheck.Guards.*;
  * This class exists so that code common across multiple components is not present in every
  * generated class but is instead in a single location. This results in smaller, faster code.
  */
+@OmitClinit
 public final class ComponentKernel
   implements Disposable, ComponentObservable
 {
@@ -67,6 +70,7 @@ public final class ComponentKernel
   /**
    * Reference to the context to which this component belongs.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -74,6 +78,7 @@ public final class ComponentKernel
    * <code>true</code> and <tt>null</tt> otherwise.
    */
   @Nullable
+  @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
   /**
    * The runtime managed synthetic id for component. This will be 0 if the component has supplied a custom
@@ -102,6 +107,7 @@ public final class ComponentKernel
    * The native component associated with the component. This should be non-null if {@link Arez#areNativeComponentsEnabled()}
    * returns <code>true</code> and <tt>null</tt> otherwise.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Component _component;
   /**
@@ -628,6 +634,7 @@ public final class ComponentKernel
    *
    * @return the native component associated with the component.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   public final Component getComponent()
   {

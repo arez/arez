@@ -3,6 +3,7 @@ package arez;
 import arez.spy.ComputableValueCreateEvent;
 import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
+import grim.annotations.OmitSymbol;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -26,6 +27,7 @@ public final class ComputableValue<T>
    * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
    * the ComputableValue is a "top-level" ComputableValue.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Component _component;
   /**
@@ -90,6 +92,7 @@ public final class ComputableValue<T>
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private ComputableValueInfo _info;
 
@@ -546,6 +549,7 @@ public final class ComputableValue<T>
    * @return the info associated with this class.
    */
   @SuppressWarnings( "ConstantConditions" )
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nonnull
   ComputableValueInfo asInfo()
   {
@@ -566,6 +570,7 @@ public final class ComputableValue<T>
     _value = null;
   }
 
+  @OmitSymbol
   @Nullable
   Component getComponent()
   {
@@ -577,6 +582,7 @@ public final class ComputableValue<T>
     return _value;
   }
 
+  @OmitSymbol
   void setValue( final T value )
   {
     _value = value;
@@ -587,21 +593,25 @@ public final class ComputableValue<T>
     return _error;
   }
 
+  @OmitSymbol
   void setError( final Throwable error )
   {
     _error = error;
   }
 
+  @OmitSymbol
   void setDisposed( final boolean disposed )
   {
     _disposed = disposed;
   }
 
+  @OmitSymbol
   void setComputing( final boolean computing )
   {
     _computing = computing;
   }
 
+  @OmitSymbol
   void setKeepAliveRefCount( final int keepAliveRefCount )
   {
     _keepAliveRefCount = keepAliveRefCount;

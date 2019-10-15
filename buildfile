@@ -63,9 +63,12 @@ define 'arez' do
     pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && dep[:group] != 'org.realityforge.org.jetbrains.annotations' }
 
     compile.with :javax_annotation,
+                 :grim_annotations,
                  :braincheck,
                  :jetbrains_annotations,
                  :jsinterop_annotations
+
+    project.processorpath << artifacts(:grim_processor, :javax_json)
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge('arez.core.compile_target' => compile.target.to_s,
@@ -186,24 +189,6 @@ define 'arez' do
     iml.test_source_directories << _('generated/processors/test/java')
   end
 
-  desc 'Utilities to output of GWT when compiling Arez applications'
-  define 'gwt-output-qa' do
-    pom.include_transitive_dependencies << artifact(:gwt_symbolmap)
-    pom.dependency_filter = Proc.new {|dep| %w(org.realityforge.gwt.symbolmap).include?(dep[:group].to_s)}
-
-    compile.with :javax_annotation,
-                 :javacsv,
-                 :jetbrains_annotations,
-                 :gwt_symbolmap,
-                 :testng
-
-    package(:jar)
-    package(:sources)
-    package(:javadoc)
-
-    project.jacoco.enabled = false
-  end
-
   desc 'Test Arez in downstream projects'
   define 'downstream-test' do
     compile.with :gir,
@@ -214,6 +199,7 @@ define 'arez' do
         'arez.prev.version' => ENV['PREVIOUS_PRODUCT_VERSION'] || project.version,
         'arez.next.version' => ENV['PRODUCT_VERSION'] || project.version,
         'arez.build_j2cl_variants' => (ENV['J2CL'] != 'no'),
+        'arez.core.archive' => project('core').package(:jar).to_s,
         'arez.deploy_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
         'arez.deploy_test.work_dir' => _(:target, 'deploy_test/workdir').to_s
       )
@@ -273,8 +259,12 @@ define 'arez' do
     test.exclude '*BuildOutputTest' if ENV['BUILD_STATS'] == 'no'
 
     test.using :testng
-    test.compile.with project('gwt-output-qa').package(:jar),
-                      project('gwt-output-qa').compile.dependencies
+    test.compile.with :javax_annotation,
+                      :javacsv,
+                      :grim_asserts,
+                      :javax_json,
+                      :gwt_symbolmap,
+                      :testng
 
     project.jacoco.enabled = false
   end

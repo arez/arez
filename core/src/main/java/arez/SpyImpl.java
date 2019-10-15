@@ -8,6 +8,8 @@ import arez.spy.Spy;
 import arez.spy.SpyEventHandler;
 import arez.spy.TaskInfo;
 import arez.spy.TransactionInfo;
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -20,12 +22,14 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
  */
+@OmitType( unless = "arez.enable_spies" )
 final class SpyImpl
   implements Spy
 {
   /**
    * The containing context.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**

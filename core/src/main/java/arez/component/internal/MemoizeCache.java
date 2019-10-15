@@ -9,6 +9,7 @@ import arez.Disposable;
 import arez.Procedure;
 import arez.SafeFunction;
 import arez.Task;
+import grim.annotations.OmitSymbol;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,7 @@ public final class MemoizeCache<T>
   /**
    * Reference to the system to which this node belongs.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -51,11 +53,13 @@ public final class MemoizeCache<T>
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
+  @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
   /**
    * The component that this memoize cache is contained within.
    * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but can be null even if this is true.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Component _component;
   /**
@@ -315,16 +319,19 @@ public final class MemoizeCache<T>
     }
   }
 
+  @OmitSymbol
   Map<Object, Object> getCache()
   {
     return _cache;
   }
 
+  @OmitSymbol
   int getNextIndex()
   {
     return _nextIndex;
   }
 
+  @OmitSymbol
   int getFlags()
   {
     return _flags;

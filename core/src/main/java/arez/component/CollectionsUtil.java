@@ -1,6 +1,7 @@
 package arez.component;
 
 import arez.Arez;
+import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.annotation.Nonnull;
 /**
  * Utility methods used when returning results from repositories.
  */
+@OmitType( unless = "arez.collections_properties_unmodifiable" )
 public final class CollectionsUtil
 {
   private CollectionsUtil()

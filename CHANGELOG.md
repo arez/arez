@@ -5,6 +5,7 @@
 * Remove unused `arez.StackTraceUtil` class.
 * Remove unused `arez.DebuggerUtil` class.
 * Upgrade the `org.realityforge.gwt.symbolmap` artifact to version `0.09`.
+* Use the `org.realityforge.grim` library to perform validation that output emitted by the GWT compiler has stripped the symbols that are not expected to be present. This annotating the symbols in the `core` module that should be omitted in different contexts and removing the `gwt-output-qa` module. The `core` module now ships with the required grim rules/metadata as part of the jar. See the `META-INF/grim/*` files included in the `arez-core` archive for more details.
 
 ### [v0.147](https://github.com/arez/arez/tree/v0.147) (2019-10-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.146...v0.147) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.146&new=0.147)
 

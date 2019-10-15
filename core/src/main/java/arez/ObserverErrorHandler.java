@@ -1,5 +1,6 @@
 package arez;
 
+import grim.annotations.OmitType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -7,6 +8,7 @@ import javax.annotation.Nullable;
  * Interface for handling errors in observers.
  */
 @FunctionalInterface
+@OmitType( unless = "arez.enable_observer_error_handlers" )
 public interface ObserverErrorHandler
 {
   /**

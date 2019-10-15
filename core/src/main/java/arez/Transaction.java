@@ -4,6 +4,7 @@ import arez.spy.ObserverInfo;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionInfo;
 import arez.spy.TransactionStartEvent;
+import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -96,6 +97,7 @@ final class Transaction
   /**
    * Reference to the system to which this transaction belongs.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -103,6 +105,7 @@ final class Transaction
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
+  @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
   /**
    * Uniquely identifies the transaction within the system.
@@ -133,6 +136,7 @@ final class Transaction
    * To determine this transaction, the code walks back the chain of _previous transactions looking for
    * one with the same context.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final Transaction _previousInSameContext;
   /**
@@ -162,11 +166,13 @@ final class Transaction
    * The flag set if transaction changed zones.
    * This should only be accessed when {@link Arez#areZonesEnabled()} returns true.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   private boolean _zoneActivated;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private TransactionInfoImpl _info;
 
@@ -831,23 +837,12 @@ final class Transaction
   {
     if ( Arez.shouldEnforceTransactionType() )
     {
-      if ( isComputableValueTracker() )
+      if ( Arez.shouldCheckInvariants() && isComputableValueTracker() )
       {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          invariant( () -> observableValue.isComputableValue() && observableValue.getObserver() == _tracker,
-                     () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
-                           " ObservableValue named '" + observableValue.getName() + "' and the transaction mode is " +
-                           "READ_WRITE_OWNED but the ObservableValue has not been created by the transaction." );
-        }
-      }
-      else if ( !isMutation() )
-      {
-        if ( Arez.shouldCheckInvariants() )
-        {
-          fail( () -> "Arez-0152: Transaction named '" + getName() + "' attempted to change ObservableValue named '" +
-                      observableValue.getName() + "' but the transaction mode is READ_ONLY." );
-        }
+        invariant( () -> observableValue.isComputableValue() && observableValue.getObserver() == _tracker,
+                   () -> "Arez-0153: Transaction named '" + getName() + "' attempted to change" +
+                         " ObservableValue named '" + observableValue.getName() + "' and the transaction mode is " +
+                         "READ_WRITE_OWNED but the ObservableValue has not been created by the transaction." );
       }
     }
   }
@@ -1075,11 +1070,13 @@ final class Transaction
     return _tracker;
   }
 
+  @OmitSymbol( unless = "arez.enforce_transaction_type" )
   boolean isComputableValueTracker()
   {
     return null != _tracker && _tracker.isComputableValue();
   }
 
+  @OmitSymbol
   @Nullable
   List<ObservableValue<?>> getPendingDeactivations()
   {
@@ -1092,6 +1089,7 @@ final class Transaction
    * @return the info associated with this class.
    */
   @SuppressWarnings( "ConstantConditions" )
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nonnull
   TransactionInfo asInfo()
   {
@@ -1107,6 +1105,7 @@ final class Transaction
     return Arez.areSpiesEnabled() ? _info : null;
   }
 
+  @OmitSymbol
   static void setTransaction( @Nullable final Transaction transaction )
   {
     c_transaction = transaction;

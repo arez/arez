@@ -4,6 +4,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
+import grim.annotations.OmitType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,8 @@ import javax.annotation.Nonnull;
 /**
  * A implementation of {@link ComponentInfo} that proxies to a {@link Component}.
  */
+@OmitType( unless = "arez.enable_spies" )
+@OmitType( unless = "arez.enable_native_components" )
 final class ComponentInfoImpl
   implements ComponentInfo
 {

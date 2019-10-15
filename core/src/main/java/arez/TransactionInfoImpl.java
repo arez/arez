@@ -2,6 +2,7 @@ package arez;
 
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
+import grim.annotations.OmitType;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,6 +11,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * Adapter of Transaction to TransactionInfo for spy capabilities.
  */
+@OmitType( unless = "arez.enable_spies" )
 final class TransactionInfoImpl
   implements TransactionInfo
 {

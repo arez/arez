@@ -1,5 +1,7 @@
 package arez;
 
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -11,6 +13,7 @@ import static org.realityforge.braincheck.Guards.*;
  * This is extracted to a separate class to eliminate the <clinit> from Arez and thus
  * make it much easier for GWT to optimize out code based on build time compilation parameters.
  */
+@OmitType( unless = "arez.enable_zones" )
 final class ArezZoneHolder
 {
   /**
@@ -101,6 +104,7 @@ final class ArezZoneHolder
    * Clear the state to cleanup .
    * This is dangerous as it may leave dangling references and should only be done in tests.
    */
+  @OmitSymbol
   static void reset()
   {
     c_defaultZone = Arez.areZonesEnabled() ? new Zone() : null;
@@ -108,6 +112,7 @@ final class ArezZoneHolder
     c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
   }
 
+  @OmitSymbol
   @Nonnull
   static Zone getDefaultZone()
   {
@@ -115,6 +120,7 @@ final class ArezZoneHolder
     return c_defaultZone;
   }
 
+  @OmitSymbol
   @Nonnull
   static List<Zone> getZoneStack()
   {

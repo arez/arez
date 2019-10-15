@@ -7,6 +7,7 @@ import arez.spy.ObservableValueDisposeEvent;
 import arez.spy.ObservableValueInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -70,6 +71,7 @@ public final class ObservableValue<T>
    * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
    * the observable is a "top-level" observable.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Component _component;
   /**
@@ -77,6 +79,7 @@ public final class ObservableValue<T>
    * This should only be set if {@link Arez#arePropertyIntrospectorsEnabled()} is true but may also be elided if the
    * value should not be accessed even by DevTools.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   private final PropertyAccessor<T> _accessor;
   /**
@@ -84,12 +87,14 @@ public final class ObservableValue<T>
    * This should only be set if {@link Arez#arePropertyIntrospectorsEnabled()} is true but may also be elided if the
    * value should not be mutated even by DevTools.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   private final PropertyMutator<T> _mutator;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private ObservableValueInfo _info;
 
@@ -197,6 +202,7 @@ public final class ObservableValue<T>
     return DISPOSED == _workState;
   }
 
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   PropertyAccessor<T> getAccessor()
   {
@@ -209,6 +215,7 @@ public final class ObservableValue<T>
     return _accessor;
   }
 
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   PropertyMutator<T> getMutator()
   {
@@ -514,6 +521,7 @@ public final class ObservableValue<T>
    * In production mode this will typically be a no-op. This method should be invoked
    * before state is modified. Before invoking this method, a read-write transaction <b>MUST</b> be active.
    */
+  @OmitSymbol( unless = "arez.check_invariants" )
   public void preReportChanged()
   {
     if ( Arez.shouldCheckInvariants() )
@@ -575,6 +583,7 @@ public final class ObservableValue<T>
    * @return the info associated with this class.
    */
   @SuppressWarnings( "ConstantConditions" )
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nonnull
   ObservableValueInfo asInfo()
   {
@@ -634,6 +643,7 @@ public final class ObservableValue<T>
     return _component;
   }
 
+  @OmitSymbol
   int getWorkState()
   {
     return _workState;

@@ -1,10 +1,12 @@
 package arez;
 
+import grim.annotations.OmitType;
 import javax.annotation.Nonnull;
 
 /**
  * Location of all compile time configuration settings for framework.
  */
+@OmitType
 final class ArezConfig
 {
   private static final ConfigProvider PROVIDER = new ConfigProvider();

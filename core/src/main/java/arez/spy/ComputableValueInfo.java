@@ -2,6 +2,7 @@ package arez.spy;
 
 import arez.Arez;
 import arez.ComputableValue;
+import grim.annotations.OmitSymbol;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,6 +75,7 @@ public interface ComputableValueInfo
    * @return the value of the ComputableValue.
    * @throws Throwable if the property accessor throws an exception.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   Object getValue()
     throws Throwable;
