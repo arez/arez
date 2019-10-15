@@ -7,6 +7,7 @@ import arez.annotations.Observable;
 @ArezComponent
 public abstract class ComponentIdNotPrivateModel
 {
+  @SuppressWarnings( "FinalPrivateMethod" )
   @ComponentId
   private final long getId()
   {
