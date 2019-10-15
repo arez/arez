@@ -333,7 +333,7 @@ public class RepositoryTest
   static class MyEntity
     implements Identifiable<Integer>, Disposable, ComponentObservable, DisposeNotifier
   {
-    private int _arezId;
+    private final int _arezId;
     private final ObservableValue<Object> _observableValue = Arez.context().observable();
     private final ComponentKernel _kernel;
 

@@ -19,7 +19,7 @@ public class PrioritizedSchedulerTest
   @ArezComponent
   public static abstract class TestComponent
   {
-    ArrayList<String> _calls = new ArrayList<>();
+    final ArrayList<String> _calls = new ArrayList<>();
 
     @Observable
     abstract String getValue1();

@@ -19,7 +19,7 @@ public class ObserveArezOrNoDependenciesTest
   @ArezComponent
   public static abstract class TestComponent1
   {
-    ObservableValue<?> _observableValue = Arez.context().observable();
+    final ObservableValue<?> _observableValue = Arez.context().observable();
     int _renderCallCount;
 
     @Observe( depType = DepType.AREZ_OR_NONE )

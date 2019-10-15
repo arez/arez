@@ -168,7 +168,7 @@ final class Transaction
    * This should only be accessed when {@link Arez#areZonesEnabled()} returns true.
    */
   @OmitSymbol( unless = "arez.enable_zones" )
-  private boolean _zoneActivated;
+  private final boolean _zoneActivated;
   /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;

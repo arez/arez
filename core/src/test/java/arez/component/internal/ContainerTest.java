@@ -313,7 +313,7 @@ public class ContainerTest
   {
     private final ObservableValue<Object> _observableValue = Arez.context().observable();
     private final ComponentKernel _kernel;
-    private int _arezId;
+    private final int _arezId;
 
     MyEntity( final int arezId )
     {
