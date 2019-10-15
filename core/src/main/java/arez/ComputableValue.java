@@ -610,7 +610,7 @@ public final class ComputableValue<T>
   /**
    * Flags that can configure ComputableValue instances during creation.
    */
-  public final class Flags
+  public static final class Flags
   {
     /**
      * The scheduler will be triggered when the ComputableValue is created to immediately invoke the
