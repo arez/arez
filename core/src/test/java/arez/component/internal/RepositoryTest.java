@@ -132,7 +132,7 @@ public class RepositoryTest
     entity.dispose();
 
     final Set<Integer> ids =
-      context.safeAction( () -> repository.findAll().stream().map( e -> e.getArezId() ).collect( Collectors.toSet() ) );
+      context.safeAction( () -> repository.findAll().stream().map( MyEntity::getArezId ).collect( Collectors.toSet() ) );
     assertEquals( ids.size(), 3 );
     assertTrue( ids.contains( 302 ) );
     assertTrue( ids.contains( 303 ) );
@@ -154,7 +154,7 @@ public class RepositoryTest
 
     final int[] ids =
       context.safeAction( () -> repository.findAll( Comparator.comparing( e -> -e.getArezId() ) )
-        .stream().mapToInt( e -> e.getArezId() ).toArray() );
+        .stream().mapToInt( MyEntity::getArezId ).toArray() );
     assertEquals( ids.length, 3 );
     assertEquals( ids[ 0 ], 304 );
     assertEquals( ids[ 1 ], 303 );
@@ -176,7 +176,7 @@ public class RepositoryTest
 
     final Set<Integer> ids =
       context.safeAction( () -> repository.findAllByQuery( e -> e.getArezId() <= 303 )
-        .stream().map( e -> e.getArezId() ).collect( Collectors.toSet() ) );
+        .stream().map( MyEntity::getArezId ).collect( Collectors.toSet() ) );
     assertEquals( ids.size(), 2 );
     assertTrue( ids.contains( 302 ) );
     assertTrue( ids.contains( 303 ) );
@@ -200,7 +200,7 @@ public class RepositoryTest
     final int[] ids =
       context.safeAction( () -> repository.findAllByQuery( e -> e.getArezId() <= 303,
                                                            Comparator.comparing( e -> -e.getArezId() ) )
-        .stream().mapToInt( e -> e.getArezId() ).toArray() );
+        .stream().mapToInt( MyEntity::getArezId ).toArray() );
     assertEquals( ids.length, 4 );
     assertEquals( ids[ 0 ], 303 );
     assertEquals( ids[ 1 ], 302 );
@@ -306,7 +306,7 @@ public class RepositoryTest
     context.safeAction( () -> repository.attach( new MyEntity( 302 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
-    final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
+    final int[] ids = context.safeAction( () -> repository.entities().mapToInt( MyEntity::getArezId ).toArray() );
     assertEquals( ids.length, 2 );
     assertEquals( ids[ 0 ], 302 );
     assertEquals( ids[ 1 ], 303 );
@@ -325,7 +325,7 @@ public class RepositoryTest
 
     Disposable.dispose( entity );
 
-    final int[] ids = context.safeAction( () -> repository.entities().mapToInt( e -> e.getArezId() ).toArray() );
+    final int[] ids = context.safeAction( () -> repository.entities().mapToInt( MyEntity::getArezId ).toArray() );
     assertEquals( ids.length, 1 );
     assertEquals( ids[ 0 ], 303 );
   }

@@ -286,7 +286,7 @@ public class ContainerTest
     context.safeAction( () -> repository.attach( new MyEntity( 302 ) ) );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
-    final int[] ids = repository.entities().mapToInt( e -> e.getArezId() ).toArray();
+    final int[] ids = repository.entities().mapToInt( MyEntity::getArezId ).toArray();
     assertEquals( ids.length, 2 );
     assertEquals( ids[ 0 ], 302 );
     assertEquals( ids[ 1 ], 303 );
@@ -303,7 +303,7 @@ public class ContainerTest
     Disposable.dispose( entity );
     context.safeAction( () -> repository.attach( new MyEntity( 303 ) ) );
 
-    final int[] ids = repository.entities().mapToInt( e -> e.getArezId() ).toArray();
+    final int[] ids = repository.entities().mapToInt( MyEntity::getArezId ).toArray();
     assertEquals( ids.length, 1 );
     assertEquals( ids[ 0 ], 303 );
   }
