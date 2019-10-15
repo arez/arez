@@ -5,6 +5,7 @@ import arez.annotations.Observable;
 
 public final class NonStaticNestedModel
 {
+  @SuppressWarnings( "InnerClassMayBeStatic" )
   @ArezComponent
   public abstract class NestedModel
   {
