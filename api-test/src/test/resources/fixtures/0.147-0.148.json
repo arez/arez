@@ -1,0 +1,771 @@
+[
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitClinit'.",
+    "element": "class arez.Arez",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitClinit",
+      "annotationType": "grim.annotations.OmitClinit",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "class arez.Component",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.Component",
+      "classSimpleName": "Component",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "class arez.Zone",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_zones\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.Zone",
+      "classSimpleName": "Zone",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "class arez.component.CollectionsUtil",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.collections_properties_unmodifiable\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.component.CollectionsUtil",
+      "classSimpleName": "CollectionsUtil",
+      "elementKind": "class",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "class arez.component.TypeBasedLocator",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_references\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.component.TypeBasedLocator",
+      "classSimpleName": "TypeBasedLocator",
+      "elementKind": "class",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitClinit'.",
+    "element": "class arez.component.internal.ComponentKernel",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitClinit",
+      "annotationType": "grim.annotations.OmitClinit",
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "class",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "enum arez.ObserverError",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_observer_error_handlers\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.ObserverError",
+      "classSimpleName": "ObserverError",
+      "elementKind": "enum",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "interface arez.Locator",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_references\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.Locator",
+      "classSimpleName": "Locator",
+      "elementKind": "interface",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "interface arez.ObserverErrorHandler",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_observer_error_handlers\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.ObserverErrorHandler",
+      "classSimpleName": "ObserverErrorHandler",
+      "elementKind": "interface",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitType'.",
+    "element": "interface arez.spy.PropertyAccessor<T extends java.lang.Object>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitType(unless = \"arez.enable_property_introspection\")",
+      "annotationType": "grim.annotations.OmitType",
+      "classQualifiedName": "arez.spy.PropertyAccessor",
+      "classSimpleName": "PropertyAccessor",
+      "elementKind": "interface",
+      "package": "arez.spy"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Component arez.ArezContext::component(java.lang.String, java.lang.Object)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "component",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Component arez.ArezContext::component(java.lang.String, java.lang.Object, java.lang.String)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "component",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Component arez.ArezContext::component(java.lang.String, java.lang.Object, java.lang.String, arez.SafeProcedure)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "component",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Component arez.ArezContext::component(java.lang.String, java.lang.Object, java.lang.String, arez.SafeProcedure, arez.SafeProcedure)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "component",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Component arez.component.internal.ComponentKernel::getComponent()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "getComponent",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nonnull'.",
+    "element": "method arez.ComputableValue<T> arez.component.internal.MemoizeCache<T>::getComputableValue(java.lang.Object[])",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.component.internal.MemoizeCache",
+      "classSimpleName": "MemoizeCache",
+      "elementKind": "method",
+      "methodName": "getComputableValue",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Disposable arez.ArezContext::registerLocator(arez.Locator)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_references\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "registerLocator",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Locator arez.ArezContext::locator()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_references\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "locator",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method arez.Zone arez.Arez::createZone()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_zones\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "createZone",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areCollectionsPropertiesUnmodifiable()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areCollectionsPropertiesUnmodifiable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areNamesEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areNamesEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areNativeComponentsEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areNativeComponentsEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areObserverErrorHandlersEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areObserverErrorHandlersEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::arePropertyIntrospectorsEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "arePropertyIntrospectorsEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areReferencesEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areReferencesEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areRegistriesEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areRegistriesEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areSpiesEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areSpiesEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::areZonesEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "areZonesEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::isVerifyEnabled()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "isVerifyEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::purgeTasksWhenRunawayDetected()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "purgeTasksWhenRunawayDetected",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::shouldCheckApiInvariants()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "shouldCheckApiInvariants",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.Arez::shouldCheckInvariants()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "shouldCheckInvariants",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.ArezContext::isComponentPresent(java.lang.String, java.lang.Object)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_native_components\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "isComponentPresent",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.spy.ObservableValueInfo::hasAccessor()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_property_introspection\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.spy.ObservableValueInfo",
+      "classSimpleName": "ObservableValueInfo",
+      "elementKind": "method",
+      "methodName": "hasAccessor",
+      "package": "arez.spy"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method boolean arez.spy.ObservableValueInfo::hasMutator()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_property_introspection\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.spy.ObservableValueInfo",
+      "classSimpleName": "ObservableValueInfo",
+      "elementKind": "method",
+      "methodName": "hasMutator",
+      "package": "arez.spy"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method java.lang.Object arez.spy.ComputableValueInfo::getValue() throws java.lang.Throwable",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_property_introspection\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.spy.ComputableValueInfo",
+      "classSimpleName": "ComputableValueInfo",
+      "elementKind": "method",
+      "methodName": "getValue",
+      "package": "arez.spy"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method java.lang.Object arez.spy.ObservableValueInfo::getValue() throws java.lang.Throwable",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_property_introspection\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.spy.ObservableValueInfo",
+      "classSimpleName": "ObservableValueInfo",
+      "elementKind": "method",
+      "methodName": "getValue",
+      "package": "arez.spy"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method void arez.ArezContext::addObserverErrorHandler(arez.ObserverErrorHandler)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_observer_error_handlers\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "addObserverErrorHandler",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method void arez.ArezContext::removeObserverErrorHandler(arez.ObserverErrorHandler)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_observer_error_handlers\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "removeObserverErrorHandler",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method void arez.ObservableValue<T>::preReportChanged()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.check_invariants\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.ObservableValue",
+      "classSimpleName": "ObservableValue",
+      "elementKind": "method",
+      "methodName": "preReportChanged",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'grim.annotations.OmitSymbol'.",
+    "element": "method void arez.spy.ObservableValueInfo::setValue(java.lang.Object) throws java.lang.Throwable",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@grim.annotations.OmitSymbol(unless = \"arez.enable_property_introspection\")",
+      "annotationType": "grim.annotations.OmitSymbol",
+      "classQualifiedName": "arez.spy.ObservableValueInfo",
+      "classSimpleName": "ObservableValueInfo",
+      "elementKind": "method",
+      "methodName": "setValue",
+      "package": "arez.spy"
+    }
+  }
+]
