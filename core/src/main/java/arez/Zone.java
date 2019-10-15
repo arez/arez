@@ -1,10 +1,12 @@
 package arez;
 
+import grim.annotations.OmitType;
 import javax.annotation.Nonnull;
 
 /**
  * An isolated Arez context.
  */
+@OmitType( unless = "arez.enable_zones" )
 public final class Zone
 {
   /**

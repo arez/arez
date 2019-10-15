@@ -1,5 +1,6 @@
 package arez;
 
+import grim.annotations.OmitType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -7,6 +8,7 @@ import javax.annotation.Nullable;
  * The interface used to look up components by type and id.
  * This is primarily used by components that represent entities that relate to other entities.
  */
+@OmitType( unless = "arez.enable_references" )
 public interface Locator
 {
   /**

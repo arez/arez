@@ -9,6 +9,7 @@ import arez.Disposable;
 import arez.Procedure;
 import arez.SafeFunction;
 import arez.Task;
+import grim.annotations.OmitSymbol;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,7 @@ public final class MemoizeCache<T>
   /**
    * Reference to the system to which this node belongs.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -51,11 +53,13 @@ public final class MemoizeCache<T>
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
+  @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
   /**
    * The component that this memoize cache is contained within.
    * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but can be null even if this is true.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Component _component;
   /**
@@ -223,6 +227,7 @@ public final class MemoizeCache<T>
    * @return the computable value instance for the specified args.
    */
   @SuppressWarnings( "unchecked" )
+  @Nonnull
   public ComputableValue<T> getComputableValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
@@ -252,6 +257,7 @@ public final class MemoizeCache<T>
    *
    * @param args the arguments passed to the memoized function.
    */
+  @Nonnull
   private ComputableValue<T> createComputableValue( @Nonnull final Object... args )
   {
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
@@ -281,12 +287,12 @@ public final class MemoizeCache<T>
     {
       return;
     }
-    final Stack<Map<Object,?>> stack = new Stack<>();
+    final Stack<Map<Object, ?>> stack = new Stack<>();
     stack.push( _cache );
     final int size = args.length - 1;
     for ( int i = 0; i < size; i++ )
     {
-      stack.push( (Map<Object,?>) stack.peek().get( args[ i ] ) );
+      stack.push( (Map<Object, ?>) stack.peek().get( args[ i ] ) );
     }
     final ComputableValue<T> computableValue = (ComputableValue<T>) stack.peek().remove( args[ size ] );
     if ( Arez.shouldCheckInvariants() )
@@ -301,7 +307,7 @@ public final class MemoizeCache<T>
                        Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
     while ( stack.size() > 1 )
     {
-      final Map<Object,?> map = stack.pop();
+      final Map<Object, ?> map = stack.pop();
       if ( map.isEmpty() )
       {
         stack.peek().remove( args[ stack.size() - 1 ] );
@@ -313,16 +319,19 @@ public final class MemoizeCache<T>
     }
   }
 
+  @OmitSymbol
   Map<Object, Object> getCache()
   {
     return _cache;
   }
 
+  @OmitSymbol
   int getNextIndex()
   {
     return _nextIndex;
   }
 
+  @OmitSymbol
   int getFlags()
   {
     return _flags;

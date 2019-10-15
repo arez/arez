@@ -2,6 +2,7 @@ package arez.spy;
 
 import arez.Arez;
 import arez.ObservableValue;
+import grim.annotations.OmitSymbol;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,6 +52,7 @@ public interface ObservableValueInfo
    *
    * @return true if an accessor is available.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   boolean hasAccessor();
 
   /**
@@ -61,6 +63,7 @@ public interface ObservableValueInfo
    * @return the value of the observable.
    * @throws Throwable if the property accessor throws an exception.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   Object getValue()
     throws Throwable;
@@ -71,6 +74,7 @@ public interface ObservableValueInfo
    *
    * @return true if a mutator is available.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   boolean hasMutator();
 
   /**
@@ -81,6 +85,7 @@ public interface ObservableValueInfo
    * @param value the value to set
    * @throws Throwable if the property accessor throws an exception.
    */
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   void setValue( @Nullable Object value )
     throws Throwable;
 }

@@ -2,6 +2,7 @@ package arez.component;
 
 import arez.Arez;
 import arez.Locator;
+import grim.annotations.OmitType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,6 +13,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * An Locator implementation where you can register a function-per type to be resolved.
  */
+@OmitType( unless = "arez.enable_references" )
 public final class TypeBasedLocator
   implements Locator
 {

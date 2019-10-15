@@ -1,5 +1,7 @@
 package arez;
 
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +12,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * Class supporting the propagation of errors for ObserverErrorHandler callback to multiple error handlers.
  */
+@OmitType( unless = "arez.enable_observer_error_handlers" )
 final class ObserverErrorHandlerSupport
   implements ObserverErrorHandler
 {
@@ -81,6 +84,7 @@ final class ObserverErrorHandlerSupport
     }
   }
 
+  @OmitSymbol
   @Nonnull
   List<ObserverErrorHandler> getHandlers()
   {

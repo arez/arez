@@ -6,6 +6,10 @@ complete as there is too much un-said.
 
 ## Next Release
 
+* Figure out a way how to use Some sort of Constant string lookup for all `@Omit*`. Maybe down the track we could
+  generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
+  from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
+
 * Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
   Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.
   It can either collect all types or only types that participate in reference relationships. If injection is

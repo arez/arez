@@ -7,6 +7,7 @@ import arez.spy.ObserveStartEvent;
 import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
+import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +28,7 @@ public final class Observer
    * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
    * the observer is a "top-level" observer.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Component _component;
   /**
@@ -63,6 +65,7 @@ public final class Observer
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false.
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private ObserverInfo _info;
   /**
@@ -920,6 +923,7 @@ public final class Observer
    * @return the info associated with this class.
    */
   @SuppressWarnings( "ConstantConditions" )
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nonnull
   ObserverInfo asInfo()
   {

@@ -1,5 +1,7 @@
 package arez;
 
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -8,6 +10,7 @@ import javax.annotation.Nullable;
  * This is extracted to a separate class to eliminate the <clinit> from {@link Arez} and thus
  * make it much easier for GWT to optimize out code based on build time compilation parameters.
  */
+@OmitType( when = "arez.enable_zones" )
 final class ArezContextHolder
 {
   @Nullable
@@ -33,6 +36,7 @@ final class ArezContextHolder
    * cleanup context.
    * This is dangerous as it may leave dangling references and should only be done in tests.
    */
+  @OmitSymbol
   static void reset()
   {
     c_context = Arez.areZonesEnabled() ? null : new ArezContext( null );

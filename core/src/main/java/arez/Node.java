@@ -1,6 +1,7 @@
 package arez;
 
 import arez.spy.Spy;
+import grim.annotations.OmitSymbol;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,6 +22,7 @@ public abstract class Node
   /**
    * Reference to the context to which this node belongs.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -28,6 +30,7 @@ public abstract class Node
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
+  @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
 
   Node( @Nullable final ArezContext context, @Nullable final String name )

@@ -6,6 +6,8 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +20,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * A implementation of {@link ComputableValueInfo} that proxies to a {@link ComputableValue}.
  */
+@OmitType( unless = "arez.enable_spies" )
 final class ComputableValueInfoImpl
   implements ComputableValueInfo
 {
@@ -114,6 +117,7 @@ final class ComputableValueInfoImpl
     return null == component ? null : component.asInfo();
   }
 
+  @OmitSymbol( unless = "arez.enable_property_introspection" )
   @Nullable
   @Override
   public Object getValue()

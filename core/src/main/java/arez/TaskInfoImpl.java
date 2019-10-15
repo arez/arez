@@ -2,6 +2,7 @@ package arez;
 
 import arez.spy.Priority;
 import arez.spy.TaskInfo;
+import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.annotation.Nonnull;
 /**
  * A implementation of {@link TaskInfo} that proxies to a {@link Task}.
  */
+@OmitType( unless = "arez.enable_spies" )
 final class TaskInfoImpl
   implements TaskInfo
 {

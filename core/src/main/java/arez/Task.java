@@ -4,6 +4,7 @@ import arez.spy.Priority;
 import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskInfo;
 import arez.spy.TaskStartEvent;
+import grim.annotations.OmitSymbol;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,6 +29,7 @@ public final class Task
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private TaskInfo _info;
 
@@ -207,6 +209,7 @@ public final class Task
    * @return the info associated with this class.
    */
   @SuppressWarnings( "ConstantConditions" )
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nonnull
   TaskInfo asInfo()
   {

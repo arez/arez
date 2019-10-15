@@ -1,5 +1,6 @@
 package arez;
 
+import grim.annotations.OmitSymbol;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -11,6 +12,7 @@ import static org.realityforge.braincheck.Guards.*;
 public final class SchedulerLock
   implements Disposable
 {
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -45,7 +47,7 @@ public final class SchedulerLock
   }
 
   @Nonnull
-  ArezContext getContext()
+  private ArezContext getContext()
   {
     return Arez.areZonesEnabled() ? Objects.requireNonNull( _context ) : Arez.context();
   }

@@ -9,6 +9,7 @@ import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.Spy;
+import grim.annotations.OmitSymbol;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public final class ArezContext
   /**
    * Zone associated with the context. This should be null unless {@link Arez#areZonesEnabled()} returns <code>true</code>.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final Zone _zone;
   /**
@@ -57,17 +59,20 @@ public final class ArezContext
   /**
    * Support infrastructure for propagating observer errors.
    */
+  @OmitSymbol( unless = "arez.enable_observer_error_handlers" )
   @Nullable
   private final ObserverErrorHandlerSupport _observerErrorHandlerSupport =
     Arez.areObserverErrorHandlersEnabled() ? new ObserverErrorHandlerSupport() : null;
   /**
    * Support infrastructure for spy events.
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private final SpyImpl _spy = Arez.areSpiesEnabled() ? new SpyImpl( Arez.areZonesEnabled() ? this : null ) : null;
   /**
    * Support infrastructure for components.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   private final Map<String, Map<Object, Component>> _components =
     Arez.areNativeComponentsEnabled() ? new HashMap<>() : null;
@@ -75,6 +80,7 @@ public final class ArezContext
    * Registry of top level observables.
    * These are all the Observables instances not contained within a component.
    */
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nullable
   private final Map<String, ObservableValue<?>> _observableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
@@ -82,23 +88,27 @@ public final class ArezContext
    * Registry of top level computable values.
    * These are all the ComputableValue instances not contained within a component.
    */
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nullable
   private final Map<String, ComputableValue<?>> _computableValues =
     Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of all active tasks.
    */
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nullable
   private final Map<String, Task> _tasks = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Registry of top level observers.
    * These are all the Observer instances not contained within a component.
    */
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nullable
   private final Map<String, Observer> _observers = Arez.areRegistriesEnabled() ? new HashMap<>() : null;
   /**
    * Locator used to resolve references.
    */
+  @OmitSymbol( unless = "arez.enable_references" )
   @Nullable
   private final AggregateLocator _locator = Arez.areReferencesEnabled() ? new AggregateLocator() : null;
   /**
@@ -143,6 +153,7 @@ public final class ArezContext
    * @param id   the component id.
    * @return true if component is defined in context.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   public boolean isComponentPresent( @Nonnull final String type, @Nonnull final Object id )
   {
     apiInvariant( Arez::areNativeComponentsEnabled,
@@ -161,6 +172,7 @@ public final class ArezContext
    * @param id   the component id.
    * @return true if component is defined in context.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   public Component component( @Nonnull final String type, @Nonnull final Object id )
   {
@@ -179,6 +191,7 @@ public final class ArezContext
    * @param name the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
    * @return true if component is defined in context.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   public Component component( @Nonnull final String type, @Nonnull final Object id, @Nullable final String name )
   {
@@ -198,6 +211,7 @@ public final class ArezContext
    * @param preDispose the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
    * @return true if component is defined in context.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   public Component component( @Nonnull final String type,
                               @Nonnull final Object id,
@@ -221,6 +235,7 @@ public final class ArezContext
    * @param postDispose the hook action called just after the Component is disposed. The hook method is called from within the dispose transaction.
    * @return true if component is defined in context.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   public Component component( @Nonnull final String type,
                               @Nonnull final Object id,
@@ -255,6 +270,7 @@ public final class ArezContext
    *
    * @param component the component.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   void deregisterComponent( @Nonnull final Component component )
   {
     if ( Arez.shouldCheckInvariants() )
@@ -285,6 +301,7 @@ public final class ArezContext
    * @param id   the component id.
    * @return the component or null.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable
   Component findComponent( @Nonnull final String type, @Nonnull final Object id )
   {
@@ -311,6 +328,7 @@ public final class ArezContext
    * @param type the component type.
    * @return the components for type.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   Collection<Component> findAllComponentsByType( @Nonnull final String type )
   {
@@ -336,6 +354,7 @@ public final class ArezContext
    *
    * @return the component types.
    */
+  @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
   Collection<String> findAllComponentTypes()
   {
@@ -2019,6 +2038,7 @@ public final class ArezContext
    * @param locator the Locator to register.
    * @return the disposable to dispose to deregister locator.
    */
+  @OmitSymbol( unless = "arez.enable_references" )
   @Nonnull
   public Disposable registerLocator( @Nonnull final Locator locator )
   {
@@ -2037,6 +2057,7 @@ public final class ArezContext
    *
    * @return the Locator.
    */
+  @OmitSymbol( unless = "arez.enable_references" )
   @Nonnull
   public Locator locator()
   {
@@ -2056,6 +2077,7 @@ public final class ArezContext
    *
    * @param handler the error handler.
    */
+  @OmitSymbol( unless = "arez.enable_observer_error_handlers" )
   public void addObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
     if ( Arez.shouldCheckInvariants() )
@@ -2073,6 +2095,7 @@ public final class ArezContext
    *
    * @param handler the error handler.
    */
+  @OmitSymbol( unless = "arez.enable_observer_error_handlers" )
   public void removeObserverErrorHandler( @Nonnull final ObserverErrorHandler handler )
   {
     if ( Arez.shouldCheckInvariants() )
@@ -2143,6 +2166,7 @@ public final class ArezContext
     return _taskQueue;
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void registerObservableValue( @Nonnull final ObservableValue<?> observableValue )
   {
     final String name = observableValue.getName();
@@ -2159,6 +2183,7 @@ public final class ArezContext
     _observableValues.put( name, observableValue );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void deregisterObservableValue( @Nonnull final ObservableValue<?> observableValue )
   {
     final String name = observableValue.getName();
@@ -2175,6 +2200,7 @@ public final class ArezContext
     _observableValues.remove( name );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nonnull
   Map<String, ObservableValue<?>> getTopLevelObservables()
   {
@@ -2187,6 +2213,7 @@ public final class ArezContext
     return _observableValues;
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void registerObserver( @Nonnull final Observer observer )
   {
     final String name = observer.getName();
@@ -2203,6 +2230,7 @@ public final class ArezContext
     _observers.put( name, observer );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void deregisterObserver( @Nonnull final Observer observer )
   {
     final String name = observer.getName();
@@ -2219,6 +2247,7 @@ public final class ArezContext
     _observers.remove( name );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nonnull
   Map<String, Observer> getTopLevelObservers()
   {
@@ -2231,6 +2260,7 @@ public final class ArezContext
     return _observers;
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void registerComputableValue( @Nonnull final ComputableValue<?> computableValue )
   {
     final String name = computableValue.getName();
@@ -2247,6 +2277,7 @@ public final class ArezContext
     _computableValues.put( name, computableValue );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void deregisterComputableValue( @Nonnull final ComputableValue<?> computableValue )
   {
     final String name = computableValue.getName();
@@ -2263,6 +2294,7 @@ public final class ArezContext
     _computableValues.remove( name );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nonnull
   Map<String, ComputableValue<?>> getTopLevelComputableValues()
   {
@@ -2275,6 +2307,7 @@ public final class ArezContext
     return _computableValues;
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void registerTask( @Nonnull final Task task )
   {
     final String name = task.getName();
@@ -2291,6 +2324,7 @@ public final class ArezContext
     _tasks.put( name, task );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   void deregisterTask( @Nonnull final Task task )
   {
     final String name = task.getName();
@@ -2307,6 +2341,7 @@ public final class ArezContext
     _tasks.remove( name );
   }
 
+  @OmitSymbol( unless = "arez.enable_registries" )
   @Nonnull
   Map<String, Task> getTopLevelTasks()
   {
@@ -2326,6 +2361,7 @@ public final class ArezContext
     return _zone;
   }
 
+  @OmitSymbol( unless = "arez.enable_observer_error_handlers" )
   @Nonnull
   ObserverErrorHandlerSupport getObserverErrorHandlerSupport()
   {
@@ -2382,32 +2418,38 @@ public final class ArezContext
                                                       (int) duration ) );
   }
 
+  @OmitSymbol
   int currentNextTransactionId()
   {
     return _nextTransactionId;
   }
 
+  @OmitSymbol
   void setNextNodeId( final int nextNodeId )
   {
     _nextNodeId = nextNodeId;
   }
 
+  @OmitSymbol
   int getNextNodeId()
   {
     return _nextNodeId;
   }
 
+  @OmitSymbol
   int getSchedulerLockCount()
   {
     return _schedulerLockCount;
   }
 
   @SuppressWarnings( "SameParameterValue" )
+  @OmitSymbol
   void setSchedulerLockCount( final int schedulerLockCount )
   {
     _schedulerLockCount = schedulerLockCount;
   }
 
+  @OmitSymbol
   void markSchedulerAsActive()
   {
     _schedulerActive = true;

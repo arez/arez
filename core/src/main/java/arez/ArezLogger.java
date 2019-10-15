@@ -1,5 +1,7 @@
 package arez;
 
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import jsinterop.annotations.JsMethod;
@@ -28,6 +30,7 @@ final class ArezLogger
     c_logger.log( message, throwable );
   }
 
+  @OmitSymbol
   @Nonnull
   static Logger getLogger()
   {
@@ -47,6 +50,7 @@ final class ArezLogger
   /**
    * The noop log provider implementation.
    */
+  @OmitType
   private static final class NoopLogger
     implements Logger
   {
@@ -59,6 +63,7 @@ final class ArezLogger
   /**
    * The console log provider implementation.
    */
+  @OmitType( unless = "arez.logger=console" )
   private static final class ConsoleLogger
     extends AbstractConsoleLogger
   {
@@ -101,6 +106,7 @@ final class ArezLogger
   /**
    * The log provider implementation that forwards to another logger if present.
    */
+  @OmitType( unless = "arez.logger=proxy" )
   static final class ProxyLogger
     implements Logger
   {

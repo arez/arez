@@ -4,6 +4,8 @@ import arez.spy.ComponentCreateCompleteEvent;
 import arez.spy.ComponentDisposeCompleteEvent;
 import arez.spy.ComponentDisposeStartEvent;
 import arez.spy.ComponentInfo;
+import grim.annotations.OmitSymbol;
+import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,12 +18,14 @@ import static org.realityforge.braincheck.Guards.*;
  * Each component is made up of one or more of the core Arez reactive elements: {@link ObservableValue}s,
  * {@link Observer}s or {@link ComputableValue}s.
  */
+@OmitType( unless = "arez.enable_native_components" )
 public final class Component
   implements Disposable
 {
   /**
    * Reference to the system to which this node belongs.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nullable
   private final ArezContext _context;
   /**
@@ -40,6 +44,7 @@ public final class Component
    * true and <tt>null</tt> otherwise.
    */
   @Nullable
+  @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
   private final List<ObservableValue<?>> _observableValues = new ArrayList<>();
   private final List<Observer> _observers = new ArrayList<>();
@@ -61,6 +66,7 @@ public final class Component
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nullable
   private ComponentInfo _info;
 
@@ -226,6 +232,7 @@ public final class Component
    * @return the info associated with this class.
    */
   @SuppressWarnings( "ConstantConditions" )
+  @OmitSymbol( unless = "arez.enable_spies" )
   @Nonnull
   ComponentInfo asInfo()
   {
@@ -396,12 +403,14 @@ public final class Component
     _computableValues.remove( computableValue );
   }
 
+  @OmitSymbol
   @Nullable
   SafeProcedure getPreDispose()
   {
     return _preDispose;
   }
 
+  @OmitSymbol
   @Nullable
   SafeProcedure getPostDispose()
   {

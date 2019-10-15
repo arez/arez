@@ -6,6 +6,7 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.realityforge.braincheck.Guards.*;
 /**
  * A implementation of {@link ObservableValueInfo} that proxies to a {@link ObservableValue}.
  */
+@OmitType( unless = "arez.enable_spies" )
 final class ObservableValueInfoImpl
   implements ObservableValueInfo
 {

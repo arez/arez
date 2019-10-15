@@ -1,8 +1,11 @@
 package arez;
 
+import grim.annotations.OmitType;
+
 /**
  * The types of errors that observers can generated.
  */
+@OmitType( unless = "arez.enable_observer_error_handlers" )
 public enum ObserverError
 {
   /**

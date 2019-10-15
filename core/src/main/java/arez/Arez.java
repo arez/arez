@@ -1,6 +1,8 @@
 package arez;
 
 import arez.component.Verifiable;
+import grim.annotations.OmitClinit;
+import grim.annotations.OmitSymbol;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
@@ -11,6 +13,7 @@ import static org.realityforge.braincheck.Guards.*;
  * is false it will return a singleton otherwise the appropriate context for the zone will be
  * invoked.
  */
+@OmitClinit
 public final class Arez
 {
   private Arez()
@@ -22,6 +25,7 @@ public final class Arez
    *
    * @return true if zones are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean areZonesEnabled()
   {
     return ArezConfig.areZonesEnabled();
@@ -32,6 +36,7 @@ public final class Arez
    *
    * @return true if user should pass names into API methods, false if should pass null.
    */
+  @OmitSymbol
   public static boolean areNamesEnabled()
   {
     return ArezConfig.areNamesEnabled();
@@ -42,6 +47,7 @@ public final class Arez
    *
    * @return true if {@link Verifiable} will verify components be used, false if not.
    */
+  @OmitSymbol
   public static boolean isVerifyEnabled()
   {
     return ArezConfig.isVerifyEnabled();
@@ -52,6 +58,7 @@ public final class Arez
    *
    * @return true if spies are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean areSpiesEnabled()
   {
     /*
@@ -65,6 +72,7 @@ public final class Arez
    *
    * @return true if references are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean areReferencesEnabled()
   {
     return ArezConfig.areReferencesEnabled();
@@ -75,6 +83,7 @@ public final class Arez
    *
    * @return true if observable properties, computable properties or query results that are of type collection are wrapped in unmodifiable variant prior to returning.
    */
+  @OmitSymbol
   public static boolean areCollectionsPropertiesUnmodifiable()
   {
     return ArezConfig.areCollectionsPropertiesUnmodifiable();
@@ -85,6 +94,7 @@ public final class Arez
    *
    * @return true if property introspectors for Observables are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean arePropertyIntrospectorsEnabled()
   {
     return areSpiesEnabled() && ArezConfig.arePropertyIntrospectorsEnabled();
@@ -95,6 +105,7 @@ public final class Arez
    *
    * @return true if registries for top level reactive components are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean areRegistriesEnabled()
   {
     return areNamesEnabled() && ArezConfig.areRegistriesEnabled();
@@ -105,6 +116,7 @@ public final class Arez
    *
    * @return true if native components are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean areNativeComponentsEnabled()
   {
     return ArezConfig.areNativeComponentsEnabled();
@@ -115,6 +127,7 @@ public final class Arez
    *
    * @return true if observer error handlers are enabled, false otherwise.
    */
+  @OmitSymbol
   public static boolean areObserverErrorHandlersEnabled()
   {
     return ArezConfig.areObserverErrorHandlersEnabled();
@@ -125,6 +138,7 @@ public final class Arez
    *
    * @return true if Arez should enforce transaction modes.
    */
+  @OmitSymbol
   static boolean shouldEnforceTransactionType()
   {
     return ArezConfig.enforceTransactionType();
@@ -135,6 +149,7 @@ public final class Arez
    *
    * @return true if invariants will be checked.
    */
+  @OmitSymbol
   public static boolean shouldCheckInvariants()
   {
     return ArezConfig.checkInvariants() && BrainCheckConfig.checkInvariants();
@@ -145,6 +160,7 @@ public final class Arez
    *
    * @return true if apiInvariants will be checked.
    */
+  @OmitSymbol
   public static boolean shouldCheckApiInvariants()
   {
     return ArezConfig.checkApiInvariants() && BrainCheckConfig.checkApiInvariants();
@@ -155,6 +171,7 @@ public final class Arez
    *
    * @return true if active tasks will be purged if the scheduler is still running after 100 rounds.
    */
+  @OmitSymbol
   public static boolean purgeTasksWhenRunawayDetected()
   {
     return ArezConfig.purgeTasksWhenRunawayDetected();
@@ -177,6 +194,7 @@ public final class Arez
    *
    * @return the new zone.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nonnull
   public static Zone createZone()
   {
@@ -190,6 +208,7 @@ public final class Arez
   /**
    * Save the old zone and make the specified zone the current zone.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   static void activateZone( @Nonnull final Zone zone )
   {
     ArezZoneHolder.activateZone( zone );
@@ -200,6 +219,7 @@ public final class Arez
    * This takes the zone that was current when {@link #activateZone(Zone)} was called for the active zone
    * and restores it to being the current zone.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   static void deactivateZone( @Nonnull final Zone zone )
   {
     ArezZoneHolder.deactivateZone( zone );
@@ -210,6 +230,7 @@ public final class Arez
    *
    * @return the current zone.
    */
+  @OmitSymbol( unless = "arez.enable_zones" )
   @Nonnull
   static Zone currentZone()
   {

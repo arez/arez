@@ -13,7 +13,6 @@ import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
