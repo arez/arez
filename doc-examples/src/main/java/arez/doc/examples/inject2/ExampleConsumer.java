@@ -16,8 +16,6 @@ public class ExampleConsumer
 
   public void performSomeAction()
   {
-    _repository.findAll().forEach( e -> {
-      _myService.performAction( e.getValue() );
-    } );
+    _repository.findAll().forEach( e -> _myService.performAction( e.getValue() ) );
   }
 }
