@@ -161,6 +161,7 @@ final class Transaction
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
    */
+  @OmitSymbol( unless = "arez.check_invariants" )
   private boolean _transactionUsed;
   /**
    * The flag set if transaction changed zones.
