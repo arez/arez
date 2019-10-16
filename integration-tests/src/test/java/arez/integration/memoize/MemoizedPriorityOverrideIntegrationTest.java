@@ -92,7 +92,7 @@ public class MemoizedPriorityOverrideIntegrationTest
     @Nonnull
     abstract String getName();
 
-    abstract void setName( @Nonnull String name );
+    abstract void setName( @SuppressWarnings( "SameParameterValue" ) @Nonnull String name );
 
     @Memoize
     boolean search( @Nonnull final String value )
