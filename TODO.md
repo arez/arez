@@ -93,8 +93,10 @@ complete as there is too much un-said.
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
 
-* Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
-  build types.
+* Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
+  expectations. This is easier to maintain and makes it possible to verify each variant we build with all
+  grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
+  but with different compile time settings.
 
 * Complete the `arez-devtools` project.
   - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
