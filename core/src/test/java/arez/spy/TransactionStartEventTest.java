@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "ConstantConditions" )
 public class TransactionStartEventTest
   extends AbstractTest
 {

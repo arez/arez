@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "ConstantConditions" )
 public class ObserverErrorHandlerSupportTest
   extends AbstractTest
 {

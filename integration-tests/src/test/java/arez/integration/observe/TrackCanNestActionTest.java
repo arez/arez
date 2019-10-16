@@ -15,14 +15,14 @@ public class TrackCanNestActionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  public static abstract class TestComponent1
+  static abstract class TestComponent1
   {
     int _renderCallCount;
     int _depsChangedCallCount;
     int _actionCallCount;
 
     @Observe( executor = Executor.EXTERNAL, nestedActionsAllowed = true )
-    public void render()
+    void render()
     {
       getTime2();
       _renderCallCount++;
@@ -42,15 +42,17 @@ public class TrackCanNestActionTest
       _actionCallCount++;
     }
 
+    @SuppressWarnings( "UnusedReturnValue" )
     @Observable
     abstract long getTime();
 
-    abstract void setTime( long value );
+    abstract void setTime( @SuppressWarnings( "SameParameterValue" ) long value );
 
+    @SuppressWarnings( "UnusedReturnValue" )
     @Observable
     abstract long getTime2();
 
-    abstract void setTime2( long value );
+    abstract void setTime2( @SuppressWarnings( "SameParameterValue" ) long value );
   }
 
   @Test

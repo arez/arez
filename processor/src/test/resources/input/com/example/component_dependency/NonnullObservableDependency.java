@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 @ArezComponent
 abstract class NonnullObservableDependency
 {
+  @SuppressWarnings( "ConstantConditions" )
   @Observable
   @ComponentDependency
   @Nonnull

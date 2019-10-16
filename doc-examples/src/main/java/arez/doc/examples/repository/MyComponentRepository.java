@@ -14,6 +14,7 @@ public class MyComponentRepository
   public static MyComponentRepository newRepository()
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -22,6 +23,7 @@ public class MyComponentRepository
   public MyComponent create( final int id, @Nonnull final String name )
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -44,6 +46,7 @@ public class MyComponentRepository
   public final List<MyComponent> findAll()
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -52,6 +55,7 @@ public class MyComponentRepository
   public final List<MyComponent> findAll( @Nonnull final Comparator<MyComponent> sorter )
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -60,6 +64,7 @@ public class MyComponentRepository
   public final List<MyComponent> findAllByQuery( @Nonnull final Predicate<MyComponent> query )
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -69,6 +74,7 @@ public class MyComponentRepository
                                                  @Nonnull final Comparator<MyComponent> sorter )
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -86,6 +92,7 @@ public class MyComponentRepository
     throws NoResultException
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
@@ -102,6 +109,7 @@ public class MyComponentRepository
   public final MyComponent getById( final int id )
   {
     ////DOC ELIDE START
+    //noinspection ConstantConditions
     return null;
     ////DOC ELIDE END
   }
