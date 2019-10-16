@@ -80,7 +80,7 @@ public final class ArezTestUtil
   {
     setLogger( null );
     Transaction.setTransaction( null );
-    ArezZoneHolder.reset();
+    ZoneHolder.reset();
     ArezContextHolder.reset();
   }
 

@@ -22,23 +22,23 @@ public class ArezTest
   {
     ArezTestUtil.enableZones();
 
-    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
-    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( ZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ZoneHolder.getZoneStack().size(), 0 );
 
     final Zone zone1 = Arez.createZone();
 
-    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
-    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( ZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ZoneHolder.getZoneStack().size(), 0 );
     assertFalse( zone1.isActive() );
 
     zone1.safeRun( () -> {
       assertEquals( zone1.getContext(), Arez.context() );
-      assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
+      assertEquals( ZoneHolder.getZoneStack().size(), 1 );
       assertTrue( zone1.isActive() );
     } );
 
-    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
-    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( ZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ZoneHolder.getZoneStack().size(), 0 );
   }
 
   @Test
@@ -46,15 +46,15 @@ public class ArezTest
   {
     ArezTestUtil.enableZones();
 
-    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
-    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( ZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ZoneHolder.getZoneStack().size(), 0 );
 
     final Zone zone1 = Arez.createZone();
     final Zone zone2 = Arez.createZone();
     final Zone zone3 = Arez.createZone();
 
-    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
-    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( ZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ZoneHolder.getZoneStack().size(), 0 );
     assertFalse( zone1.isActive() );
     assertFalse( zone2.isActive() );
     assertFalse( zone3.isActive() );
@@ -62,7 +62,7 @@ public class ArezTest
     zone1.safeRun( () -> {
 
       assertEquals( zone1.getContext(), Arez.context() );
-      assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
+      assertEquals( ZoneHolder.getZoneStack().size(), 1 );
       assertTrue( zone1.isActive() );
       assertFalse( zone2.isActive() );
       assertFalse( zone3.isActive() );
@@ -70,9 +70,9 @@ public class ArezTest
       zone2.safeRun( () -> {
 
         assertEquals( zone2.getContext(), Arez.context() );
-        assertEquals( ArezZoneHolder.getZoneStack().size(), 2 );
-        assertEquals( ArezZoneHolder.getZoneStack().get( 0 ), ArezZoneHolder.getDefaultZone() );
-        assertEquals( ArezZoneHolder.getZoneStack().get( 1 ), zone1 );
+        assertEquals( ZoneHolder.getZoneStack().size(), 2 );
+        assertEquals( ZoneHolder.getZoneStack().get( 0 ), ZoneHolder.getDefaultZone() );
+        assertEquals( ZoneHolder.getZoneStack().get( 1 ), zone1 );
         assertFalse( zone1.isActive() );
         assertTrue( zone2.isActive() );
         assertFalse( zone3.isActive() );
@@ -80,10 +80,10 @@ public class ArezTest
         zone1.safeRun( () -> {
 
           assertEquals( zone1.getContext(), Arez.context() );
-          assertEquals( ArezZoneHolder.getZoneStack().size(), 3 );
-          assertEquals( ArezZoneHolder.getZoneStack().get( 0 ), ArezZoneHolder.getDefaultZone() );
-          assertEquals( ArezZoneHolder.getZoneStack().get( 1 ), zone1 );
-          assertEquals( ArezZoneHolder.getZoneStack().get( 2 ), zone2 );
+          assertEquals( ZoneHolder.getZoneStack().size(), 3 );
+          assertEquals( ZoneHolder.getZoneStack().get( 0 ), ZoneHolder.getDefaultZone() );
+          assertEquals( ZoneHolder.getZoneStack().get( 1 ), zone1 );
+          assertEquals( ZoneHolder.getZoneStack().get( 2 ), zone2 );
           assertTrue( zone1.isActive() );
           assertFalse( zone2.isActive() );
           assertFalse( zone3.isActive() );
@@ -91,11 +91,11 @@ public class ArezTest
           zone3.safeRun( () -> {
 
             assertEquals( zone3.getContext(), Arez.context() );
-            assertEquals( ArezZoneHolder.getZoneStack().size(), 4 );
-            assertEquals( ArezZoneHolder.getZoneStack().get( 0 ), ArezZoneHolder.getDefaultZone() );
-            assertEquals( ArezZoneHolder.getZoneStack().get( 1 ), zone1 );
-            assertEquals( ArezZoneHolder.getZoneStack().get( 2 ), zone2 );
-            assertEquals( ArezZoneHolder.getZoneStack().get( 3 ), zone1 );
+            assertEquals( ZoneHolder.getZoneStack().size(), 4 );
+            assertEquals( ZoneHolder.getZoneStack().get( 0 ), ZoneHolder.getDefaultZone() );
+            assertEquals( ZoneHolder.getZoneStack().get( 1 ), zone1 );
+            assertEquals( ZoneHolder.getZoneStack().get( 2 ), zone2 );
+            assertEquals( ZoneHolder.getZoneStack().get( 3 ), zone1 );
             assertFalse( zone1.isActive() );
             assertFalse( zone2.isActive() );
             assertTrue( zone3.isActive() );
@@ -103,10 +103,10 @@ public class ArezTest
           } );
 
           assertEquals( zone1.getContext(), Arez.context() );
-          assertEquals( ArezZoneHolder.getZoneStack().size(), 3 );
-          assertEquals( ArezZoneHolder.getZoneStack().get( 0 ), ArezZoneHolder.getDefaultZone() );
-          assertEquals( ArezZoneHolder.getZoneStack().get( 1 ), zone1 );
-          assertEquals( ArezZoneHolder.getZoneStack().get( 2 ), zone2 );
+          assertEquals( ZoneHolder.getZoneStack().size(), 3 );
+          assertEquals( ZoneHolder.getZoneStack().get( 0 ), ZoneHolder.getDefaultZone() );
+          assertEquals( ZoneHolder.getZoneStack().get( 1 ), zone1 );
+          assertEquals( ZoneHolder.getZoneStack().get( 2 ), zone2 );
           assertTrue( zone1.isActive() );
           assertFalse( zone2.isActive() );
           assertFalse( zone3.isActive() );
@@ -114,9 +114,9 @@ public class ArezTest
         } );
 
         assertEquals( zone2.getContext(), Arez.context() );
-        assertEquals( ArezZoneHolder.getZoneStack().size(), 2 );
-        assertEquals( ArezZoneHolder.getZoneStack().get( 0 ), ArezZoneHolder.getDefaultZone() );
-        assertEquals( ArezZoneHolder.getZoneStack().get( 1 ), zone1 );
+        assertEquals( ZoneHolder.getZoneStack().size(), 2 );
+        assertEquals( ZoneHolder.getZoneStack().get( 0 ), ZoneHolder.getDefaultZone() );
+        assertEquals( ZoneHolder.getZoneStack().get( 1 ), zone1 );
         assertFalse( zone1.isActive() );
         assertTrue( zone2.isActive() );
         assertFalse( zone3.isActive() );
@@ -124,16 +124,16 @@ public class ArezTest
       } );
 
       assertEquals( zone1.getContext(), Arez.context() );
-      assertEquals( ArezZoneHolder.getZoneStack().size(), 1 );
-      assertEquals( ArezZoneHolder.getZoneStack().get( 0 ), ArezZoneHolder.getDefaultZone() );
+      assertEquals( ZoneHolder.getZoneStack().size(), 1 );
+      assertEquals( ZoneHolder.getZoneStack().get( 0 ), ZoneHolder.getDefaultZone() );
       assertTrue( zone1.isActive() );
       assertFalse( zone2.isActive() );
       assertFalse( zone3.isActive() );
 
     } );
 
-    assertEquals( ArezZoneHolder.getDefaultZone().getContext(), Arez.context() );
-    assertEquals( ArezZoneHolder.getZoneStack().size(), 0 );
+    assertEquals( ZoneHolder.getDefaultZone().getContext(), Arez.context() );
+    assertEquals( ZoneHolder.getZoneStack().size(), 0 );
     assertFalse( zone1.isActive() );
     assertFalse( zone2.isActive() );
     assertFalse( zone3.isActive() );

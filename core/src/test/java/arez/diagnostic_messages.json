@@ -18,9 +18,9 @@
     "messagePattern": "Invoked Arez.activateZone() but zones are not enabled.",
     "callers": [
       {
-        "class": "arez.ArezZoneHolder",
+        "class": "arez.ZoneHolder",
         "method": "activateZone",
-        "file": "ArezZoneHolder.java",
+        "file": "ZoneHolder.java",
         "lineNumber": 60
       }
     ]
@@ -31,9 +31,9 @@
     "messagePattern": "Invoked Arez.deactivateZone() but zones are not enabled.",
     "callers": [
       {
-        "class": "arez.ArezZoneHolder",
+        "class": "arez.ZoneHolder",
         "method": "deactivateZone",
-        "file": "ArezZoneHolder.java",
+        "file": "ZoneHolder.java",
         "lineNumber": 77
       }
     ]
@@ -44,9 +44,9 @@
     "messagePattern": "Attempted to deactivate zone that is not active.",
     "callers": [
       {
-        "class": "arez.ArezZoneHolder",
+        "class": "arez.ZoneHolder",
         "method": "deactivateZone",
-        "file": "ArezZoneHolder.java",
+        "file": "ZoneHolder.java",
         "lineNumber": 81
       }
     ]
@@ -57,9 +57,9 @@
     "messagePattern": "Invoked Arez.currentZone() but zones are not enabled.",
     "callers": [
       {
-        "class": "arez.ArezZoneHolder",
+        "class": "arez.ZoneHolder",
         "method": "currentZone",
-        "file": "ArezZoneHolder.java",
+        "file": "ZoneHolder.java",
         "lineNumber": 97
       }
     ]

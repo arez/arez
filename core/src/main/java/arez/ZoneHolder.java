@@ -14,7 +14,7 @@ import static org.realityforge.braincheck.Guards.*;
  * make it much easier for GWT to optimize out code based on build time compilation parameters.
  */
 @OmitType( unless = "arez.enable_zones" )
-final class ArezZoneHolder
+final class ZoneHolder
 {
   /**
    * Default zone if zones are enabled.
@@ -33,7 +33,7 @@ final class ArezZoneHolder
   @Nullable
   private static List<Zone> c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
 
-  private ArezZoneHolder()
+  private ZoneHolder()
   {
   }
 

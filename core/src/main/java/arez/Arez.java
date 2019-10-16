@@ -185,7 +185,7 @@ public final class Arez
   @Nonnull
   public static ArezContext context()
   {
-    return areZonesEnabled() ? ArezZoneHolder.context() : ArezContextHolder.context();
+    return areZonesEnabled() ? ZoneHolder.context() : ArezContextHolder.context();
   }
 
   /**
@@ -211,7 +211,7 @@ public final class Arez
   @OmitSymbol( unless = "arez.enable_zones" )
   static void activateZone( @Nonnull final Zone zone )
   {
-    ArezZoneHolder.activateZone( zone );
+    ZoneHolder.activateZone( zone );
   }
 
   /**
@@ -222,7 +222,7 @@ public final class Arez
   @OmitSymbol( unless = "arez.enable_zones" )
   static void deactivateZone( @Nonnull final Zone zone )
   {
-    ArezZoneHolder.deactivateZone( zone );
+    ZoneHolder.deactivateZone( zone );
   }
 
   /**
@@ -234,6 +234,6 @@ public final class Arez
   @Nonnull
   static Zone currentZone()
   {
-    return ArezZoneHolder.currentZone();
+    return ZoneHolder.currentZone();
   }
 }

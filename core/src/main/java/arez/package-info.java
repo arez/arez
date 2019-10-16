@@ -10,7 +10,7 @@
 @OmitPattern( type = "^.*(\\.|_)Arez_[^\\.]Repository$", symbol = "^\\$\\$arezi\\$\\$_nextId$", unless = "arez.enable_native_components" )
 @OmitPattern( symbol = "^\\$clinit$" )
 @KeepPattern( type = "^arez\\.ArezContextHolder$", symbol = "^\\$clinit$", unless = "arez.enable_zones" )
-@KeepPattern( type = "^arez\\.ArezZoneHolder$", symbol = "^\\$clinit$", when = "arez.enable_zones" )
+@KeepPattern( type = "^arez\\.ZoneHolder$", symbol = "^\\$clinit$", when = "arez.enable_zones" )
 package arez;
 
 import grim.annotations.KeepPattern;
