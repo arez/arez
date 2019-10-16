@@ -649,7 +649,8 @@ public class ExternalApiTest
   /**
    * Test we are in a transaction by trying to observe an observableValue.
    */
-  private void assertInTransaction( @Nonnull final ArezContext context, @Nonnull final ObservableValue<?> observableValue )
+  private void assertInTransaction( @Nonnull final ArezContext context,
+                                    @Nonnull final ObservableValue<?> observableValue )
   {
     assertTrue( context.isTransactionActive() );
     observableValue.reportObserved();
