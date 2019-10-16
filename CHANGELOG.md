@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.149](https://github.com/arez/arez/tree/v0.149) (2019-10-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.148...v0.149)
+
+Changes in this release:
 
 * Stop using external annotations in the `core` artifact as IntelliJ no longer seems to detect `@MagicConstant` problems when the annotations are stored externally. This resulted in IDE specific annotations being added to the Arez source which means that downstream applications MUST have these annotations present during GWT and J2CL compiles which is an unfortunate side-effect. The `core` module will no longer ship an `annotations` classifier artifact containing external annotations. This change had the positive side-effect that it detected several places in the source example source code where the incorrect approach was being demonstrated.
 * Upgrade the `org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:jar` artifact to version `1.1.0`.
