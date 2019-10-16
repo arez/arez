@@ -91,6 +91,9 @@ final class Transaction
   /**
    * All changes in a context must occur within the scope of a transaction.
    * This references the current active transaction.
+   *
+   * <p>Note: Despite being a mutable static field, this does not trigger a clinit as no assignment
+   * occurs here. Thus we do not a separate TransactionHolder class.</p>
    */
   @Nullable
   private static Transaction c_transaction;
