@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.150](https://github.com/arez/arez/tree/v0.150) (2019-10-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.149...v0.150)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.03`.
 
