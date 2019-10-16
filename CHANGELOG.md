@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.149'
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.1.0`.
 
 ### [v0.74](https://github.com/arez/arez-spytools/tree/v0.74) (2019-10-15) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.73...v0.74)
