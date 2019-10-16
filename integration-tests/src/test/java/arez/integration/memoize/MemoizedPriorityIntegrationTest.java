@@ -2,7 +2,7 @@ package arez.integration.memoize;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.ComputableValue;
+import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
@@ -94,8 +94,8 @@ public class MemoizedPriorityIntegrationTest
                             searches.add( "NOT(" + observerName + ")" );
                           }
                         },
-                        ComputableValue.Flags.PRIORITY_HIGHEST |
-                        ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                        Observer.Flags.PRIORITY_HIGHEST |
+                        Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
     {
       final String observerName = "search2(" + key + ")";
@@ -110,8 +110,8 @@ public class MemoizedPriorityIntegrationTest
                             searches.add( "NOT(" + observerName + ")" );
                           }
                         },
-                        ComputableValue.Flags.PRIORITY_HIGHEST |
-                        ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                        Observer.Flags.PRIORITY_HIGHEST |
+                        Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
     {
       final String observerName = "search3(" + key + ")";
@@ -126,8 +126,8 @@ public class MemoizedPriorityIntegrationTest
                             searches.add( "NOT(" + observerName + ")" );
                           }
                         },
-                        ComputableValue.Flags.PRIORITY_HIGHEST |
-                        ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                        Observer.Flags.PRIORITY_HIGHEST |
+                        Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     }
   }
 

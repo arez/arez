@@ -3,6 +3,7 @@ package arez.integration.memoize;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
+import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
@@ -43,8 +44,8 @@ public class MemoizedPriorityOverrideIntegrationTest
                           searches.add( "NOT(search(b))" );
                         }
                       },
-                      ComputableValue.Flags.PRIORITY_HIGHEST |
-                      ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                      Observer.Flags.PRIORITY_HIGHEST |
+                      Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     context.observer( () -> {
                         if ( model.dynamicPrioritySearch( "b" ) )
                         {
@@ -55,8 +56,8 @@ public class MemoizedPriorityOverrideIntegrationTest
                           searches.add( "NOT(dynamicPrioritySearch(b))" );
                         }
                       },
-                      ComputableValue.Flags.PRIORITY_HIGHEST |
-                      ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+                      Observer.Flags.PRIORITY_HIGHEST |
+                      Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
     searches.clear();
 
     model.setName( "bl" );

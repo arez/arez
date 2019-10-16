@@ -58,10 +58,6 @@ complete as there is too much un-said.
 
 - Update documentation for each of the separate Flags constants to use correct terminology. Also add `@see` tags for all linked values
 
-- External annotations for flag validation:
-  - Upgrade intention from warning to error if bad flags passed violation `@MagicConstant`
-  - Fix `buildr idea`
-
 * Consider adding flags to `Observable` object and move configuration of `readOutsideTransaction` and `writeOutsideTransaction`
   into this field. This will hopefully result in a smaller API surface and reduced code size.
 

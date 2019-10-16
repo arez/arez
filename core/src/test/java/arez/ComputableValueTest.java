@@ -171,7 +171,12 @@ public class ComputableValueTest
     final Procedure action = () -> {
     };
 
-    assertInvariantFailure( () -> context.computable( null, () -> "", action, null, null, Observer.Flags.KEEPALIVE ),
+    assertInvariantFailure( () -> context.computable( null,
+                                                      () -> "",
+                                                      action,
+                                                      null,
+                                                      null,
+                                                      ComputableValue.Flags.KEEPALIVE ),
                             "Arez-0039: ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate." );
   }
 
@@ -182,7 +187,12 @@ public class ComputableValueTest
 
     final Procedure action = () -> {
     };
-    assertInvariantFailure( () -> context.computable( null, () -> "", null, action, null, Observer.Flags.KEEPALIVE ),
+    assertInvariantFailure( () -> context.computable( null,
+                                                      () -> "",
+                                                      null,
+                                                      action,
+                                                      null,
+                                                      ComputableValue.Flags.KEEPALIVE ),
                             "Arez-0045: ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate." );
   }
 
@@ -374,7 +384,7 @@ public class ComputableValueTest
     final ArezContext context = Arez.context();
 
     final ComputableValue<String> computableValue =
-      context.computable( ValueUtil::randomString, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
+      context.computable( ValueUtil::randomString, ComputableValue.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertNotNull( context.safeAction( computableValue::get ) );
   }
@@ -647,7 +657,7 @@ public class ComputableValueTest
       return String.valueOf( result.get() );
     };
     final ComputableValue<String> computableValue =
-      context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+      context.computable( function, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -699,7 +709,7 @@ public class ComputableValueTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+      context.computable( function, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -755,7 +765,7 @@ public class ComputableValueTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( function, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+      context.computable( function, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     assertEquals( autorunCallCount.get(), 0 );
     assertEquals( computedCallCount.get(), 0 );
@@ -1036,7 +1046,7 @@ public class ComputableValueTest
       observable.reportObserved();
       return "";
     };
-    final ComputableValue<String> computableValue = context.computable( function, Observer.Flags.KEEPALIVE );
+    final ComputableValue<String> computableValue = context.computable( function, ComputableValue.Flags.KEEPALIVE );
 
     assertInvariantFailure( computableValue::keepAlive,
                             "Arez-0223: ComputableValue.keepAlive() was invoked on computable value named 'ComputableValue@2' but invoking this method when the computable value has been configured with the KEEPALIVE flag is invalid as the computable is always activated." );
@@ -1050,7 +1060,7 @@ public class ComputableValueTest
     final AtomicInteger value = new AtomicInteger();
     value.set( 1 );
     final ComputableValue<Integer> computable1 =
-      context.computable( value::get, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
+      context.computable( value::get, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES );
 
     final ComputableValue<Integer> computable2 =
       context.computable( () -> {

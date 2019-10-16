@@ -976,7 +976,7 @@ public class TransactionTest
   {
     final ArezContext context = Arez.context();
     final Observer tracker =
-      context.computable( () -> "", Observer.Flags.KEEPALIVE | Observer.Flags.RUN_LATER ).getObserver();
+      context.computable( () -> "", ComputableValue.Flags.KEEPALIVE | ComputableValue.Flags.RUN_LATER ).getObserver();
 
     final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker, false );
     Transaction.setTransaction( transaction );

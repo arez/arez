@@ -78,7 +78,6 @@ define 'arez' do
     gwt_enhance(project)
 
     package(:jar)
-    package(:jar, :classifier => 'annotations').clean.include(_(:source, :main, :annotations, '*'))
     package(:sources)
     package(:javadoc)
 

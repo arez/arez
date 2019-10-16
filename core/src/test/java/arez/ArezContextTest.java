@@ -322,6 +322,7 @@ public class ArezContextTest
     } );
   }
 
+  @SuppressWarnings( "MagicConstant" )
   @Test
   public void verifyActionFlags()
   {
@@ -2093,10 +2094,10 @@ public class ArezContextTest
   public void computableValue_mayNotAccessArezState()
   {
     final ArezContext context = Arez.context();
-    assertFalse( context.computable( () -> "", Observer.Flags.AREZ_OR_NO_DEPENDENCIES )
+    assertFalse( context.computable( () -> "", ComputableValue.Flags.AREZ_OR_NO_DEPENDENCIES )
                    .getObserver()
                    .areArezDependenciesRequired() );
-    assertFalse( context.computable( () -> "", Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
+    assertFalse( context.computable( () -> "", ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES )
                    .getObserver()
                    .areArezDependenciesRequired() );
   }
@@ -2113,7 +2114,7 @@ public class ArezContextTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( action, Observer.Flags.KEEPALIVE | Observer.Flags.RUN_NOW );
+      context.computable( action, ComputableValue.Flags.KEEPALIVE | ComputableValue.Flags.RUN_NOW );
 
     assertTrue( computableValue.getObserver().isKeepAlive() );
     assertEquals( calls.get(), 1 );
@@ -2131,7 +2132,7 @@ public class ArezContextTest
       return "";
     };
     final ComputableValue<String> computableValue =
-      context.computable( action, Observer.Flags.KEEPALIVE | Observer.Flags.RUN_LATER );
+      context.computable( action, ComputableValue.Flags.KEEPALIVE | ComputableValue.Flags.RUN_LATER );
 
     assertTrue( computableValue.getObserver().isKeepAlive() );
     assertEquals( calls.get(), 0 );
@@ -3284,7 +3285,7 @@ public class ArezContextTest
 
     final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
-    final Task task = context.task( null, callCount::incrementAndGet, Observer.Flags.RUN_LATER );
+    final Task task = context.task( null, callCount::incrementAndGet, Task.Flags.RUN_LATER );
 
     final String name = "Task@1";
     assertEquals( task.getName(), name );
@@ -3314,13 +3315,13 @@ public class ArezContextTest
 
     final List<String> calls = new ArrayList<>();
 
-    context.task( null, () -> calls.add( "1" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_LOW );
-    context.task( null, () -> calls.add( "2" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_HIGH );
-    context.task( null, () -> calls.add( "3" ), Observer.Flags.RUN_LATER );
-    context.task( null, () -> calls.add( "4" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_HIGH );
-    context.task( null, () -> calls.add( "5" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_HIGHEST );
-    context.task( null, () -> calls.add( "6" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_LOWEST );
-    context.task( null, () -> calls.add( "7" ), Observer.Flags.RUN_LATER | Observer.Flags.PRIORITY_NORMAL );
+    context.task( null, () -> calls.add( "1" ), Task.Flags.RUN_LATER | Task.Flags.PRIORITY_LOW );
+    context.task( null, () -> calls.add( "2" ), Task.Flags.RUN_LATER | Task.Flags.PRIORITY_HIGH );
+    context.task( null, () -> calls.add( "3" ), Task.Flags.RUN_LATER );
+    context.task( null, () -> calls.add( "4" ), Task.Flags.RUN_LATER | Task.Flags.PRIORITY_HIGH );
+    context.task( null, () -> calls.add( "5" ), Task.Flags.RUN_LATER | Task.Flags.PRIORITY_HIGHEST );
+    context.task( null, () -> calls.add( "6" ), Task.Flags.RUN_LATER | Task.Flags.PRIORITY_LOWEST );
+    context.task( null, () -> calls.add( "7" ), Task.Flags.RUN_LATER | Task.Flags.PRIORITY_NORMAL );
 
     // Trigger scheduler and allow tasks to run according to priority
     context.triggerScheduler();
@@ -3328,6 +3329,7 @@ public class ArezContextTest
     assertEquals( String.join( ",", calls ), "5,2,4,3,7,1,6" );
   }
 
+  @SuppressWarnings( "MagicConstant" )
   @Test
   public void task_bad_flags()
   {

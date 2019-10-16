@@ -298,7 +298,13 @@ public class MemoizeCacheTest
   @Test
   public void constructorPassedBadFlags()
   {
-    assertInvariantFailure( () -> new MemoizeCache<>( null, null, "X", args -> args[ 0 ], 1, Observer.Flags.KEEPALIVE ),
-                            "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + Observer.Flags.KEEPALIVE );
+    assertInvariantFailure( () -> new MemoizeCache<>( null,
+                                                      null,
+                                                      "X",
+                                                      args -> args[ 0 ],
+                                                      1,
+                                                      ComputableValue.Flags.KEEPALIVE ),
+                            "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " +
+                            Observer.Flags.KEEPALIVE );
   }
 }

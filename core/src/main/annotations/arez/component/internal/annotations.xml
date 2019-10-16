@@ -1,7 +1,0 @@
-<root>
-  <item name='arez.component.internal.MemoizeCache MemoizeCache(arez.ArezContext, arez.Component, java.lang.String, arez.component.internal.MemoizeCache.Function&lt;T&gt;, int, int) 5'>
-    <annotation name='org.intellij.lang.annotations.MagicConstant'>
-      <val name="flagsFromClass" val="ComputableValue.class"/>
-    </annotation>
-  </item>
-</root>

@@ -1187,7 +1187,7 @@ public class ObservableValueTest
     final ObservableValue<?> observableValue = context.computable( () -> {
       observable.reportObserved();
       return "";
-    }, Observer.Flags.KEEPALIVE ).getObservableValue();
+    }, ComputableValue.Flags.KEEPALIVE ).getObservableValue();
 
     assertInvariantFailure( () -> context.safeAction( observableValue::deactivate ),
                             "Arez-0061: Invoked deactivate on ObservableValue named '" +

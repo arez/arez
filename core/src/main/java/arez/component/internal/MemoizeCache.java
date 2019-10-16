@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Stack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.intellij.lang.annotations.MagicConstant;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
@@ -122,7 +123,7 @@ public final class MemoizeCache<T>
                        @Nullable final String name,
                        @Nonnull final Function<T> function,
                        final int argCount,
-                       final int flags )
+                       @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {

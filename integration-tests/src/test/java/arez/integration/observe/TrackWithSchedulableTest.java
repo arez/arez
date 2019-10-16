@@ -2,7 +2,7 @@ package arez.integration.observe;
 
 import arez.Arez;
 import arez.ArezContext;
-import arez.Observer;
+import arez.Task;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
@@ -42,7 +42,7 @@ public class TrackWithSchedulableTest
     final ArezContext context = Arez.context();
 
     final AtomicInteger callCount = new AtomicInteger();
-    context.task( callCount::incrementAndGet, Observer.Flags.RUN_LATER );
+    context.task( callCount::incrementAndGet, Task.Flags.RUN_LATER );
 
     assertEquals( callCount.get(), 0 );
 
