@@ -93,8 +93,6 @@ complete as there is too much un-said.
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
 
-* Should it be possible to suspend arbitrary observers?
-
 * Enhance `BuildOutputTest` test to test multiple variants where we patch the build time constants for different
   build types.
 
