@@ -339,7 +339,6 @@ final class ReferenceDescriptor
     builder.addCode( block.build() );
     if ( hasInverse() )
     {
-      assert null != _inverseName;
       final String linkMethodName =
         _inverseMultiplicity == Multiplicity.MANY ?
         Generator.getInverseAddMethodName( _inverseName ) :
@@ -371,7 +370,6 @@ final class ReferenceDescriptor
     builder.add( block.build() );
     if ( hasInverse() )
     {
-      assert null != _inverseName;
       final String linkMethodName =
         _inverseMultiplicity == Multiplicity.MANY ?
         Generator.getInverseAddMethodName( _inverseName ) :
