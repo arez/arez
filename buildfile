@@ -59,8 +59,9 @@ define 'arez' do
   define 'core' do
     pom.include_transitive_dependencies << artifact(:javax_annotation)
     pom.include_transitive_dependencies << artifact(:jsinterop_annotations)
+    pom.include_transitive_dependencies << artifact(:jetbrains_annotations)
     pom.include_transitive_dependencies << artifact(:braincheck)
-    pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && dep[:group] != 'org.realityforge.org.jetbrains.annotations' }
+    pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' }
 
     compile.with :javax_annotation,
                  :grim_annotations,
