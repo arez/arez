@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.149'
+
 ### [v0.73](https://github.com/arez/arez-promise/tree/v0.73) (2019-10-15) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.72...v0.73)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.148'
