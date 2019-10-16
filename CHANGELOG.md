@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.grim` artifacts to version `0.02`.
+* Upgrade the `org.realityforge.grim` artifacts to version `0.03`.
 
 ### [v0.75](https://github.com/arez/arez-spytools/tree/v0.75) (2019-10-16) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.74...v0.75)
 
