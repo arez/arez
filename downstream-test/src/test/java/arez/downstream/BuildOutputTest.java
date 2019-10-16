@@ -26,10 +26,8 @@ public class BuildOutputTest
 
     final OmitRuleSet ruleSet = OmitRuleSet.loadFromArchive( Paths.get( SystemProperty.get( "arez.next.jar" ) ) );
 
-    //TODO: Use compile time constants constants file here
-    //TODO: Figure out how to source these values from the build. That way all things like
-    // Braincheck and friends can also add rules. I wonder if we should be moving this validation
-    // into the actual application?
+    // Figure out how to source these values from the build and push these tests into downstream applications.
+    // That way all other libraries such as Braincheck, react4j, spritz etc can also be validated.
     final Map<String, String> compileTimeProperties = new TreeMap<>();
     compileTimeProperties.put( "arez.environment", "production" );
     compileTimeProperties.put( "arez.enable_names", "false" );
