@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.grim` artifacts to version `0.02`.
+* Upgrade the `org.realityforge.grim` artifacts to version `0.03`.
 
 ### [v0.149](https://github.com/arez/arez/tree/v0.149) (2019-10-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.148...v0.149)
 
