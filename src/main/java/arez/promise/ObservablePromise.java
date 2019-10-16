@@ -85,6 +85,7 @@ public abstract class ObservablePromise<T, E>
    * @param promise the promise to wrap.
    * @return the ObservablePromise
    */
+  @Nonnull
   public static <T, E> ObservablePromise<T, E> create( @Nonnull final Promise<T> promise )
   {
     return new Arez_ObservablePromise<>( promise );
