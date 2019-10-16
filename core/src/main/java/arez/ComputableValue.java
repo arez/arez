@@ -625,17 +625,22 @@ public final class ComputableValue<T>
     /**
      * The scheduler will be triggered when the ComputableValue is created to immediately invoke the
      * compute function. This should not be specified if {@link #RUN_LATER} is specified.
+     *
+     * @see Task.Flags#RUN_NOW
      */
-    @SuppressWarnings( "unused" )
     public static final int RUN_NOW = 1 << 22;
     /**
      * The scheduler will not be triggered when the ComputableValue is created. The ComputableValue
      * is responsible for ensuring that {@link ArezContext#triggerScheduler()} is invoked at a later
      * time. This should not be specified if {@link #RUN_NOW} is specified.
+     *
+     * @see Task.Flags#RUN_LATER
      */
     public static final int RUN_LATER = 1 << 21;
     /**
      * If passed, then the computable value should not report result to the spy infrastructure.
+     *
+     * @see Observer.Flags#NO_REPORT_RESULT
      */
     public static final int NO_REPORT_RESULT = 1 << 12;
     /**
@@ -643,14 +648,15 @@ public final class ComputableValue<T>
      * and the {@link ComputableValue} is only recalculated if a dependency is updated.
      *
      * @see arez.annotations.DepType#AREZ
-     * @see arez.Observer.Flags#AREZ_DEPENDENCIES
+     * @see Observer.Flags#AREZ_DEPENDENCIES
      */
     public static final int AREZ_DEPENDENCIES = 1 << 27;
     /**
-     * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to
-     * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
+     * Flag set set if the application code can not invoke {@link ComputableValue#reportPossiblyChanged()} to
+     * indicate that a dependency has changed.
      *
      * @see arez.annotations.DepType#AREZ_OR_NONE
+     * @see Observer.Flags#AREZ_OR_NO_DEPENDENCIES
      */
     public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
     /**
@@ -658,72 +664,76 @@ public final class ComputableValue<T>
      * indicate some dependency has changed and that the {@link ComputableValue} should recompute.
      *
      * @see arez.annotations.DepType#AREZ_OR_EXTERNAL
-     * @see arez.Observer.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES
+     * @see Observer.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES
      */
     public static final int AREZ_OR_EXTERNAL_DEPENDENCIES = 1 << 25;
     /**
-     * Flag indicating that the Observer is allowed to observe {@link ComputableValue} instances with a lower priority.
+     * Flag indicating that the ComputableValue is allowed to observe {@link ComputableValue} instances with a lower priority.
      *
-     * @see arez.Observer.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES
+     * @see Observer.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES
      */
     public static final int OBSERVE_LOWER_PRIORITY_DEPENDENCIES = 1 << 30;
     /**
-     * The runtime will keep the observer reacting to dependencies until disposed. This is the default value for
-     * observers that supply a observed function but may be explicitly supplied when creating {@link ComputableValue}
-     * instances.
+     * The runtime will keep the ComputableValue reacting to dependencies until disposed.
+     *
+     * @see Observer.Flags#KEEPALIVE
      */
     public static final int KEEPALIVE = 1 << 20;
     /**
      * Highest priority.
-     * This priority should be used when the observer will dispose or release other reactive elements
+     * This priority should be used when the ComputableValue will dispose or release other reactive elements
      * (and thus remove elements from being scheduled).
-     * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+     * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
      *
      * @see arez.annotations.Priority#HIGHEST
      * @see arez.spy.Priority#HIGHEST
+     * @see Task.Flags#PRIORITY_HIGHEST
      */
     public static final int PRIORITY_HIGHEST = 0b001 << 15;
     /**
      * High priority.
      * To reduce the chance that downstream elements will react multiple times within a single
-     * reaction round, this priority should be used when the observer may trigger many downstream
-     * reactions.
-     * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+     * reaction round, this priority should be used when the ComputableValue may trigger many downstream
+     * tasks.
+     * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
      *
      * @see arez.annotations.Priority#HIGH
      * @see arez.spy.Priority#HIGH
+     * @see Task.Flags#PRIORITY_HIGH
      */
     public static final int PRIORITY_HIGH = 0b010 << 15;
     /**
      * Normal priority if no other priority otherwise specified.
-     * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+     * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
      *
      * @see arez.annotations.Priority#NORMAL
      * @see arez.spy.Priority#NORMAL
+     * @see Task.Flags#PRIORITY_NORMAL
      */
     public static final int PRIORITY_NORMAL = 0b011 << 15;
     /**
      * Low priority.
-     * Usually used to schedule observers that reflect state onto non-reactive
-     * application components. i.e. Observers that are used to build html views,
-     * perform network operations etc. These reactions are often at low priority
+     * Usually used to schedule ComputableValues that support reflecting state onto non-reactive
+     * application components. i.e. ComputableValue that are used to build html views,
+     * perform network operations etc. These ComputableValues are often at low priority
      * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
-     * this reaction multiple times within a single reaction round.
-     * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+     * this ComputableValue multiple times within a single reaction round.
+     * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
      *
      * @see arez.annotations.Priority#LOW
      * @see arez.spy.Priority#LOW
+     * @see Task.Flags#PRIORITY_LOW
      */
     public static final int PRIORITY_LOW = 0b100 << 15;
     /**
-     * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
-     * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
-     * recomputing state that is likely to either be unobserved or recomputed as part of
-     * another observers reaction.
-     * <p>Only one of the PRIORITY_* flags should be applied to observer.</p>
+     * Lowest priority. Use this priority if the ComputableValue may be unobserved when
+     * a {@link #PRIORITY_LOW} element reacts. This is used to avoid recomputing state that is
+     * likely to either be unobserved or recomputed as part of another elements reaction.
+     * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
      *
      * @see arez.annotations.Priority#LOWEST
      * @see arez.spy.Priority#LOWEST
+     * @see Task.Flags#PRIORITY_LOWEST
      */
     public static final int PRIORITY_LOWEST = 0b101 << 15;
     /**
@@ -731,7 +741,7 @@ public final class ComputableValue<T>
      */
     public static final int PRIORITY_MASK = 0b111 << 15;
     /**
-     * The flag is valid on computable values.
+     * Can the ComputableValue be accessed outside a transaction.
      */
     public static final int READ_OUTSIDE_TRANSACTION = 1 << 14;
     /**

@@ -991,6 +991,7 @@ public final class Observer
      *
      * @see arez.annotations.Priority#HIGHEST
      * @see arez.spy.Priority#HIGHEST
+     * @see Task.Flags#PRIORITY_HIGHEST
      */
     public static final int PRIORITY_HIGHEST = 0b001 << 15;
     /**
@@ -1002,6 +1003,7 @@ public final class Observer
      *
      * @see arez.annotations.Priority#HIGH
      * @see arez.spy.Priority#HIGH
+     * @see Task.Flags#PRIORITY_HIGH
      */
     public static final int PRIORITY_HIGH = 0b010 << 15;
     /**
@@ -1010,6 +1012,7 @@ public final class Observer
      *
      * @see arez.annotations.Priority#NORMAL
      * @see arez.spy.Priority#NORMAL
+     * @see Task.Flags#PRIORITY_NORMAL
      */
     public static final int PRIORITY_NORMAL = 0b011 << 15;
     /**
@@ -1023,6 +1026,7 @@ public final class Observer
      *
      * @see arez.annotations.Priority#LOW
      * @see arez.spy.Priority#LOW
+     * @see Task.Flags#PRIORITY_LOW
      */
     public static final int PRIORITY_LOW = 0b100 << 15;
     /**
@@ -1034,6 +1038,7 @@ public final class Observer
      *
      * @see arez.annotations.Priority#LOWEST
      * @see arez.spy.Priority#LOWEST
+     * @see Task.Flags#PRIORITY_LOWEST
      */
     public static final int PRIORITY_LOWEST = 0b101 << 15;
     /**
@@ -1076,29 +1081,28 @@ public final class Observer
      */
     public static final int NESTED_ACTIONS_DISALLOWED = 1 << 28;
     /**
-     * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to
-     * indicate dependency has changed and the observer.
+     * Flag set set if the application code can not invoke the {@link Observer#reportStale()} method.
      *
      * @see arez.annotations.DepType#AREZ
      */
     public static final int AREZ_DEPENDENCIES = 1 << 27;
     /**
-     * Flag set set if the application code can not invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to
-     * indicate dependency has changed. It is not necessary for the observer to invoke  {@link ObservableValue#reportObserved()} on any dependency.
+     * Flag set set if the application code can not invokethe  {@link Observer#reportStale()} method to indicate
+     * that a dependency has changed. In this scenario it is not an error if the observer does not invoke the
+     * {@link ObservableValue#reportObserved()} on a dependency during it's reaction.
      *
      * @see arez.annotations.DepType#AREZ_OR_NONE
      */
     public static final int AREZ_OR_NO_DEPENDENCIES = 1 << 26;
     /**
-     * Flag set if the application code can invoke {@link Observer#reportStale()} or {@link ComputableValue#reportPossiblyChanged()} to indicate non-arez dependency has changed.
+     * Flag set if the application code can invoke the {@link Observer#reportStale()} method to indicate that a non-arez dependency has changed.
      *
      * @see arez.annotations.DepType#AREZ_OR_EXTERNAL
      */
     public static final int AREZ_OR_EXTERNAL_DEPENDENCIES = 1 << 25;
     /**
      * The runtime will keep the observer reacting to dependencies until disposed. This is the default value for
-     * observers that supply a observed function but may be explicitly supplied when creating {@link ComputableValue}
-     * instances.
+     * observers that supply a observed function.
      */
     public static final int KEEPALIVE = 1 << 20;
     /**

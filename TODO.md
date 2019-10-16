@@ -56,8 +56,6 @@ complete as there is too much un-said.
 * Add ability to explicitly activate/deactivate non `ComputableValue` observers. Perhaps we should return an
   `ActivationLock` that is disposed when no longer care for Observer to be activated.
 
-- Update documentation for each of the separate Flags constants to use correct terminology. Also add `@see` tags for all linked values
-
 * Consider adding flags to `Observable` object and move configuration of `readOutsideTransaction` and `writeOutsideTransaction`
   into this field. This will hopefully result in a smaller API surface and reduced code size.
 

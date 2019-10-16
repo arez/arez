@@ -289,8 +289,7 @@ public final class Task
     /**
      * High priority.
      * To reduce the chance that downstream elements will react multiple times within a single
-     * reaction round, this priority should be used when the observer or task may trigger many
-     * downstream task.
+     * reaction round, this priority should be used when the task may trigger many downstream tasks.
      * <p>Only one of the PRIORITY_* flags should be applied to a task.</p>
      *
      * @see arez.annotations.Priority#HIGH
@@ -308,8 +307,8 @@ public final class Task
     public static final int PRIORITY_NORMAL = 0b011 << 15;
     /**
      * Low priority.
-     * Usually used to schedule observers that reflect state onto non-reactive
-     * application components. i.e. Observers that are used to build html views,
+     * Usually used to schedule tasks that reflect state onto non-reactive
+     * application components. i.e. Tasks that are used to build html views,
      * perform network operations etc. These reactions are often at low priority
      * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
      * this reaction multiple times within a single reaction round.
@@ -321,7 +320,7 @@ public final class Task
      */
     public static final int PRIORITY_LOW = 0b100 << 15;
     /**
-     * Lowest priority. Use this priority if the observer is a {@link ComputableValue} that
+     * Lowest priority. Use this priority if the task is a {@link ComputableValue} that
      * may be unobserved when a {@link #PRIORITY_LOW} observer reacts. This is used to avoid
      * recomputing state that is likely to either be unobserved or recomputed as part of
      * another observers reaction.
