@@ -71,7 +71,8 @@ public class MemoizedPriorityOverrideIntegrationTest
     private final int _dynamicPrioritySearchPriority;
 
     @Nonnull
-    static Model create( final int dynamicPrioritySearchPriority, @Nonnull final String name )
+    static Model create( final int dynamicPrioritySearchPriority,
+                         @SuppressWarnings( "SameParameterValue" ) @Nonnull final String name )
     {
       return new MemoizedPriorityOverrideIntegrationTest_Arez_Model( dynamicPrioritySearchPriority, name );
     }
