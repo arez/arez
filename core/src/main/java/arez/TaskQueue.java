@@ -27,7 +27,7 @@ final class TaskQueue
    * @param priorityCount   the number of priorities supported.
    * @param initialCapacity the initial size of buffer for each priority.
    */
-  @SuppressWarnings( { "unchecked", "rawtypes" } )
+  @SuppressWarnings( { "unchecked", "rawtypes", "RedundantSuppression" } )
   TaskQueue( final int priorityCount, final int initialCapacity )
   {
     assert priorityCount > 0;
