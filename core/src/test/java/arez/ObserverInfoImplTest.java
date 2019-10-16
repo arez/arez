@@ -219,19 +219,19 @@ public class ObserverInfoImplTest
     final ObserverInfo info2 = observer2.asInfo();
 
     //noinspection EqualsBetweenInconvertibleTypes
-    assertFalse( info1a.equals( "" ) );
+    assertNotEquals( info1a, "" );
 
-    assertTrue( info1a.equals( info1a ) );
-    assertTrue( info1a.equals( info1b ) );
-    assertFalse( info1a.equals( info2 ) );
+    assertEquals( info1a, info1a );
+    assertEquals( info1b, info1a );
+    assertNotEquals( info2, info1a );
 
-    assertTrue( info1b.equals( info1a ) );
-    assertTrue( info1b.equals( info1b ) );
-    assertFalse( info1b.equals( info2 ) );
+    assertEquals( info1a, info1b );
+    assertEquals( info1b, info1b );
+    assertNotEquals( info2, info1b );
 
-    assertFalse( info2.equals( info1a ) );
-    assertFalse( info2.equals( info1b ) );
-    assertTrue( info2.equals( info2 ) );
+    assertNotEquals( info1a, info2 );
+    assertNotEquals( info1b, info2 );
+    assertEquals( info2, info2 );
 
     assertEquals( info1a.hashCode(), observer1.hashCode() );
     assertEquals( info1a.hashCode(), info1b.hashCode() );
