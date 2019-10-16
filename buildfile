@@ -25,6 +25,7 @@ define 'arez-promise' do
 
   compile.with :javax_annotation,
                :braincheck,
+               :jetbrains_annotations,
                :grim_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
