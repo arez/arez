@@ -19,6 +19,8 @@ artifacts:
 
   jsinterop_annotations: com.google.jsinterop:jsinterop-annotations:jar:1.0.2
 
+  jetbrains_annotations: org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:jar:1.1.0
+
   jsinterop_base: com.google.jsinterop:base:jar:1.0.0
 
   braincheck: org.realityforge.braincheck:braincheck:jar:1.25.0
