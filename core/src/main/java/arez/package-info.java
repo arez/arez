@@ -1,6 +1,8 @@
 /**
  * Core Arez primitives.
  */
+@OmitPattern( type = "^.*\\.Arez_[^\\.]+$", symbol = "^\\$clinit$" )
+@KeepPattern( type = "^.*\\.Arez_[^\\.]+_Factory$", symbol = "^\\$clinit$" )
 @OmitPattern( type = "^.*\\.Arez_[^\\.]+$", symbol = "^toString$", unless = "arez.enable_names" )
 @OmitPattern( type = "^.*(\\.|_)Arez_[^\\.]+Repository$", symbol = "^getRepositoryName$", unless = "arez.enable_names" )
 // No repository should have equals defined
