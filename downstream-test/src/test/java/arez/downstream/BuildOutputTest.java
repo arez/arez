@@ -1,13 +1,14 @@
 package arez.downstream;
 
 import gir.sys.SystemProperty;
-import grim.asserts.OmitRuleSet;
+import grim.asserts.RuleSet;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
 import org.realityforge.gwt.symbolmap.SymbolEntry;
 import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 import org.testng.annotations.Test;
@@ -21,10 +22,7 @@ public class BuildOutputTest
   {
     final String build = "arez.after";
 
-    final SymbolEntryIndex index =
-      SymbolEntryIndex.readSymbolMapIntoIndex( WorkspaceTestUtil.getSymbolMapPath( "todomvc", build ) );
-
-    final OmitRuleSet ruleSet = OmitRuleSet.loadFromArchive( Paths.get( SystemProperty.get( "arez.next.jar" ) ) );
+    final RuleSet ruleSet = RuleSet.loadFromArchive( Paths.get( SystemProperty.get( "arez.next.jar" ) ) );
 
     // Figure out how to source these values from the build and push these tests into downstream applications.
     // That way all other libraries such as Braincheck, react4j, spritz etc can also be validated.
@@ -46,14 +44,9 @@ public class BuildOutputTest
     compileTimeProperties.put( "arez.check_api_invariants", "false" );
     compileTimeProperties.put( "arez.logger", "none" );
 
-    final List<SymbolEntry> symbols = new ArrayList<>();
-    for ( final SymbolEntry entry : index.getSymbolEntries() )
-    {
-      if ( ruleSet.matches( compileTimeProperties, entry.getClassName(), entry.getMemberName() ) )
-      {
-        symbols.add( entry );
-      }
-    }
+    final SymbolEntryIndex index =
+      SymbolEntryIndex.readSymbolMapIntoIndex( WorkspaceTestUtil.getSymbolMapPath( "todomvc", build ) );
+    final List<SymbolEntry> symbols = getInvalidSymbolEntries( index, ruleSet, compileTimeProperties );
     if ( !symbols.isEmpty() )
     {
       final String message =
@@ -74,5 +67,21 @@ public class BuildOutputTest
 
     // Part of a repository so needs an equals
     index.assertSymbol( "react4j\\.todomvc\\.model\\.Arez_Todo", "\\$equals", true );
+  }
+
+  @Nonnull
+  private List<SymbolEntry> getInvalidSymbolEntries( @Nonnull final SymbolEntryIndex index,
+                                                     @Nonnull final RuleSet ruleSet,
+                                                     @Nonnull final Map<String, String> compileTimeProperties )
+  {
+    final List<SymbolEntry> symbols = new ArrayList<>();
+    for ( final SymbolEntry entry : index.getSymbolEntries() )
+    {
+      if ( ruleSet.shouldOmitSymbol( compileTimeProperties, entry.getClassName(), entry.getMemberName() ) )
+      {
+        symbols.add( entry );
+      }
+    }
+    return symbols;
   }
 }
