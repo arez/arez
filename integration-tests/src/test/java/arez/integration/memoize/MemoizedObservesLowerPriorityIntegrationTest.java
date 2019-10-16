@@ -46,7 +46,7 @@ public class MemoizedObservesLowerPriorityIntegrationTest
   public static abstract class Model
   {
     @Nonnull
-    static Model create( @Nonnull final String name )
+    static Model create( @SuppressWarnings( "SameParameterValue" ) @Nonnull final String name )
     {
       return new MemoizedObservesLowerPriorityIntegrationTest_Arez_Model( name );
     }
