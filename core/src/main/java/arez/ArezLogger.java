@@ -79,6 +79,7 @@ final class ArezLogger
     }
   }
 
+  @OmitType( unless = "arez.logger=console" )
   @JsType( isNative = true, name = "window.console", namespace = JsPackage.GLOBAL )
   private static final class NativeJsLoggerUtil
   {
@@ -89,6 +90,7 @@ final class ArezLogger
   /**
    * The console log provider implementation providing javascript based console logging.
    */
+  @OmitType( unless = "arez.logger=console" )
   private static abstract class AbstractConsoleLogger
     implements Logger
   {

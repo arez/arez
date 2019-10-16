@@ -49,6 +49,7 @@ final class ArezUtil
    * @return the stack trace.
    */
   @Nonnull
+  @OmitSymbol( unless = "arez.enable_names" )
   static String throwableToString( @Nonnull final Throwable throwable )
   {
     final StringBuilder sb = new StringBuilder();
@@ -67,6 +68,7 @@ final class ArezUtil
     return sb.toString();
   }
 
+  @OmitSymbol( unless = "arez.enable_names" )
   private static void addCausedByPrefix( @Nonnull final StringBuilder sb )
   {
     if ( 0 != sb.length() )
