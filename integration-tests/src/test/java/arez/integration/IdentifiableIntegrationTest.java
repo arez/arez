@@ -11,7 +11,7 @@ public class IdentifiableIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test
-  public void arezManagerdArezId()
+  public void arezManagedArezId()
   {
     final Model1 model = new IdentifiableIntegrationTest_Arez_Model1();
 
@@ -21,7 +21,7 @@ public class IdentifiableIntegrationTest
   }
 
   @Test
-  public void componentManagerdArezId()
+  public void componentManagedArezId()
   {
     final Model2 model = new IdentifiableIntegrationTest_Arez_Model2( 33 );
 
