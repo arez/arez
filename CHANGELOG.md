@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.151](https://github.com/arez/arez/tree/v0.151) (2019-10-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.150...v0.151) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.150&new=0.151)
+
+The release includes 1 breaking API change.
+
+Changes in this release:
 
 * Add support for adding `@CascadeDispose` on the same method as the `@Reference` annotation.
 * Remove unused method `CollectionsUtil.asSet()`.
