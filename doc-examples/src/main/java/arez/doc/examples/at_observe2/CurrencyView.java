@@ -2,12 +2,9 @@ package arez.doc.examples.at_observe2;
 
 import arez.Observer;
 import arez.SafeProcedure;
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
-import arez.annotations.ObserverRef;
-import arez.annotations.OnDepsChange;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import javax.annotation.Nonnull;
@@ -25,21 +22,9 @@ public abstract class CurrencyView
     element.innerHTML = "1 BTC = $" + bitcoin.getAmount() + "AUD";
   }
 
-  @OnDepsChange
-  void onRenderDepsChange()
+  void onRenderDepsChange( @Nonnull final Observer observer )
   {
-    debounce( this::scheduleRender, 2000 );
-  }
-
-  @ObserverRef
-  abstract Observer getRenderObserver();
-
-  @Action( verifyRequired = false )
-  void scheduleRender()
-  {
-    // Actually schedule the re-render. Has to occur within
-    // an action or inside a read-write transaction
-    getRenderObserver().schedule();
+    debounce( observer::schedule, 2000 );
   }
 
   private void debounce( @Nonnull final SafeProcedure action, final long timeInMillis )
