@@ -164,8 +164,7 @@ final class MethodChecks
     }
   }
 
-  static void mustNotHaveAnyParameters( @Nonnull final String annotationName,
-                                        @Nonnull final ExecutableElement method )
+  static void mustNotHaveAnyParameters( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( !method.getParameters().isEmpty() )
