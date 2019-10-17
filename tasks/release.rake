@@ -179,6 +179,24 @@ HEADER
       sh 'git commit -m "Update CHANGELOG.md in preparation for next development iteration"'
     end
 
+    stage('PatchStatisticsPostRelease', 'Copy the statistics forward to prepare for next development iteration') do
+      filename = 'downstream-test/src/test/resources/fixtures/statistics.properties'
+      current_version = ENV['PRODUCT_VERSION']
+      next_version = calc_next_version(ENV['PRODUCT_VERSION'])
+      pattern = /^#{current_version}\./
+
+      lines = IO.read(filename).split("\n")
+      lines +=
+        lines
+          .select{|line| line =~ pattern}
+          .collect{|line| line.gsub("#{current_version}.","#{next_version}.")}
+
+      IO.write(filename, lines.sort.uniq.join("\n") + "\n")
+
+      sh "git add #{filename}"
+      sh 'git commit -m "Update statistics in preparation for next development iteration"'
+    end
+
     stage('PushChanges', 'Push changes to git repository') do
       sh 'git push'
       sh 'git push --tags'
