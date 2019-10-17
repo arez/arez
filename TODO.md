@@ -78,9 +78,6 @@ complete as there is too much un-said.
 
 * Implement something similar to `getDependencyTree` from mobx
 
-* Consider changing the way `OnDepsChange` is implemented so that the `Observer` is passed in as an (optional) parameter.
-  This would significantly decrease the complexity of user code as you would rarely need to use `@ObserverRef`.
-
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Consider adding per-task error handler and a global task error handler. Observer error handlers should

@@ -381,7 +381,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.ProtectedAccessTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.TrackedAllTypesModel", false, false, false, false },
         new Object[]{ "com.example.observe.TrackedAndSchedulableModel", false, false, false, false },
+        new Object[]{ "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel", false, false, false, false },
         new Object[]{ "com.example.observe.TrackedNoOtherSchedulableModel", false, false, false, false },
+        new Object[]{ "com.example.observe.TrackedOnDepsChangeAcceptsObserverModel", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel1", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel2", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel3", false, false, false, false },
@@ -488,6 +490,17 @@ public class ArezProcessorTest
                              daggerComponentExtensionExpected,
                              repositoryEnabled,
                              repositoryDaggerEnabled );
+  }
+
+  @Test
+  public void XXXX()
+    throws Exception
+  {
+    assertSuccessfulCompile( "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel",
+                             false,
+                             false,
+                             false,
+                             false );
   }
 
   @Test
@@ -796,7 +809,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
                       "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method." },
         new Object[]{ "com.example.observe.ArezExecutorOnDepsChangeButNoObserverRefModel",
-                      "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange method but has not defined an @ObserverRef method and thus can neverschedule observer." },
+                      "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange method but has not defined an @ObserverRef method nor does the @OnDepsChange annotated method have an arez.Observer parameter. This results in an impossible to schedule observer." },
         new Object[]{ "com.example.observe.NonArezDependenciesButNoObserverRefModel",
                       "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not defined an @ObserverRef method and thus can not invoke reportStale()." },
         new Object[]{ "com.example.observe.ObserveAbstractModel", "@Observe target must not be abstract" },

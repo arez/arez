@@ -166,9 +166,24 @@ final class ObserveDescriptor
 
   void setOnDepsChange( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
-                                      Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
-                                      method );
+    MethodChecks.mustNotBeAbstract( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+                                         Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
+                                         method );
+    final List<? extends VariableElement> parameters = method.getParameters();
+    if (
+      !(
+        parameters.isEmpty() ||
+        ( 1 == parameters.size() && Constants.OBSERVER_CLASSNAME.equals( parameters.get( 0 ).asType().toString() ) )
+      )
+    )
+    {
+      throw new ArezProcessorException( "@OnDepsChange target must not have any parameters or must have a single " +
+                                        "parameter of type arez.Observer", method );
+    }
+
+    MethodChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     if ( null != _onDepsChange )
     {
       throw new ArezProcessorException( "@OnDepsChange target duplicates existing method named " +
@@ -200,12 +215,13 @@ final class ObserveDescriptor
 
   void validate()
   {
-    if ( _internalExecutor && null != _onDepsChange && null == _refMethod )
+    if ( _internalExecutor && null != _onDepsChange && null == _refMethod && _onDepsChange.getParameters().isEmpty() )
     {
       assert null != _observe;
       throw new ArezProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
-                                        "method but has not defined an @ObserverRef method and thus can never" +
-                                        "schedule observer.", _observe );
+                                        "method but has not defined an @ObserverRef method nor does the " +
+                                        "@OnDepsChange annotated method have an arez.Observer parameter. This results " +
+                                        "in an impossible to schedule observer.", _observe );
     }
     if ( !_internalExecutor && null == _onDepsChange )
     {
@@ -263,7 +279,12 @@ final class ObserveDescriptor
     }
     if ( null != _onDepsChange )
     {
-      if ( _componentDescriptor.isClassType() )
+      if ( !_onDepsChange.getParameters().isEmpty() )
+      {
+        sb.append( "this::$N, " );
+        parameters.add( Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString() );
+      }
+      else if ( _componentDescriptor.isClassType() )
       {
         sb.append( "() -> super.$N(), " );
         parameters.add( _onDepsChange.getSimpleName().toString() );
@@ -299,7 +320,12 @@ final class ObserveDescriptor
     parameters.add( Generator.NAME_VAR_NAME );
     parameters.add( "." + getName() );
 
-    if ( _componentDescriptor.isClassType() )
+    if ( !_onDepsChange.getParameters().isEmpty() )
+    {
+      sb.append( "this::$N, " );
+      parameters.add( Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString() );
+    }
+    else if ( _componentDescriptor.isClassType() )
     {
       sb.append( "() -> super.$N(), " );
       parameters.add( _onDepsChange.getSimpleName().toString() );
@@ -405,6 +431,35 @@ final class ObserveDescriptor
     {
       builder.addMethod( buildObserverRefMethod() );
     }
+    if ( null != _onDepsChange && !_onDepsChange.getParameters().isEmpty() )
+    {
+      builder.addMethod( buildNativeOnDepsChangeMethod() );
+    }
+  }
+
+  @Nonnull
+  private MethodSpec buildNativeOnDepsChangeMethod()
+    throws ArezProcessorException
+  {
+    assert null != _onDepsChange;
+    final String methodName = Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    Generator.generateNotDisposedInvariant( builder, methodName );
+    if ( _componentDescriptor.isClassType() )
+    {
+      builder.addStatement( "super.$N( $N )", _onDepsChange.getSimpleName().toString(), getFieldName() );
+    }
+    else
+    {
+      builder.addStatement( "$T.super.$N( $N )",
+                            _componentDescriptor.getClassName(),
+                            _onDepsChange.getSimpleName().toString(),
+                            getFieldName() );
+    }
+
+    return builder.build();
   }
 
   /**

@@ -1319,10 +1319,19 @@ final class ComponentDescriptor
         }
         name =
           ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGE_PATTERN, ProcessorUtil.SENTINEL_NAME );
-        if ( voidReturn && 0 == parameterCount && null != name )
+        if ( voidReturn && null != name )
         {
-          onDepsChanges.put( name, candidateMethod );
-          continue;
+          if (
+            0 == parameterCount ||
+            (
+              1 == parameterCount &&
+              Constants.OBSERVER_CLASSNAME.equals( method.getParameters().get( 0 ).asType().toString() )
+            )
+          )
+          {
+            onDepsChanges.put( name, candidateMethod );
+            continue;
+          }
         }
 
         final String methodName = method.getSimpleName().toString();

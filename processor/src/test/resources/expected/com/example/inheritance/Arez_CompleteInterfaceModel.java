@@ -63,6 +63,12 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   @Nonnull
   private final Observer $$arez$$_render;
 
+  @Nonnull
+  private final Observer $$arez$$_render2;
+
+  @Nonnull
+  private final Observer $$arez$$_render3;
+
   @Nullable
   private BaseCompleteInterfaceModel.MyEntity $$arezr$$_myEntity;
 
@@ -83,6 +89,8 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_calcStuff = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".calcStuff" : null, args -> CompleteInterfaceModel.super.calcStuff((int) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_myWatcher = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myWatcher" : null, () -> CompleteInterfaceModel.super.myWatcher(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> CompleteInterfaceModel.super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_render2 = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render2" : null, this::$$arezi$$_onRender2DepsChange, Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_render3 = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render3" : null, () -> CompleteInterfaceModel.super.render3(), this::$$arezi$$_onRender3DepsChange, Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arezd$$_otherElements = new ArrayList<>();
     this.$$arezd$$_$$cache$$_otherElements = null;
     this.$$arezi$$_kernel.componentConstructed();
@@ -183,6 +191,8 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   private void $$arezi$$_dispose() {
     this.$$arez$$_myWatcher.dispose();
     this.$$arez$$_render.dispose();
+    this.$$arez$$_render2.dispose();
+    this.$$arez$$_render3.dispose();
     this.$$arez$$_time.dispose();
     this.$$arez$$_calcStuff.dispose();
     this.$$arez$$_myValue.dispose();
@@ -291,6 +301,36 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> CompleteInterfaceModel.super.render( time, someOtherParameter ), Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+  }
+
+  @Override
+  public void render2(final long time, final float someOtherParameter) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render2, () -> CompleteInterfaceModel.super.render2( time, someOtherParameter ), Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+  }
+
+  private void $$arezi$$_onRender2DepsChange() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_onRender2DepsChange' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    CompleteInterfaceModel.super.onRender2DepsChange( $$arez$$_render2 );
+  }
+
+  @Override
+  public void render3() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.fail( () -> "Observe method named 'render3' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
+    }
+    CompleteInterfaceModel.super.render3();
+  }
+
+  private void $$arezi$$_onRender3DepsChange() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_onRender3DepsChange' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    CompleteInterfaceModel.super.onRender3DepsChange( $$arez$$_render3 );
   }
 
   @Override

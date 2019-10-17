@@ -14,10 +14,14 @@ import javax.annotation.Nonnull;
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must not be abstract</li>
- * <li>Must have no parameters</li>
+ * <li>Must have either no parameters or a single parameter of type {@link arez.Observer}</li>
  * <li>Must not return a value</li>
  * <li>Must not throw an exception</li>
  * </ul>
+ *
+ * <p>If the annotated method has a parameter of type {@link arez.Observer} then the underlying {@link arez.Observer}
+ * instance associated with the {@link Observe}/{@link OnDepsChange} annotated method is passed to the method when
+ * dependencies change. This is extremely useful when implementing asynchronous callbacks.</p>
  */
 @Documented
 @Target( ElementType.METHOD )

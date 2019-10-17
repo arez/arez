@@ -122,6 +122,26 @@ public interface BaseCompleteInterfaceModel
   {
   }
 
+  @Observe( executor = Executor.EXTERNAL )
+  default void render2( final long time, float someOtherParameter )
+  {
+  }
+
+  @OnDepsChange
+  default void onRender2DepsChange( @Nonnull final Observer observer )
+  {
+  }
+
+  @Observe
+  default void render3()
+  {
+  }
+
+  @OnDepsChange
+  default void onRender3DepsChange( @Nonnull final Observer observer )
+  {
+  }
+
   @PostConstruct
   default void postConstruct()
   {
