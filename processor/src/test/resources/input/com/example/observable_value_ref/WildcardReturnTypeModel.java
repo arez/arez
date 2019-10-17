@@ -7,7 +7,7 @@ import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class BadReturnTypeParameter2Model
+public abstract class WildcardReturnTypeModel
 {
   @Observable
   public long getTime()

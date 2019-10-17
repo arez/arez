@@ -8,6 +8,7 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.WildcardTypeName;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -1017,13 +1018,16 @@ final class ObservableDescriptor
       {
         final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
         final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
-        assert null != _getterType;
-        final TypeName actual = TypeName.get( _getterType.getReturnType() );
-        if ( !actual.box().toString().equals( expectedType.toString() ) )
+        if ( !( expectedType instanceof WildcardTypeName ) )
         {
-          assert null != _refMethod;
-          throw new ArezProcessorException( "@ObservableValueRef target has a type parameter of " + expectedType +
-                                            " but @Observable method returns type of " + actual, _refMethod );
+          assert null != _getterType;
+          final TypeName actual = TypeName.get( _getterType.getReturnType() );
+          if ( !actual.box().toString().equals( expectedType.toString() ) )
+          {
+            assert null != _refMethod;
+            throw new ArezProcessorException( "@ObservableValueRef target has a type parameter of " + expectedType +
+                                              " but @Observable method returns type of " + actual, _refMethod );
+          }
         }
       }
     }

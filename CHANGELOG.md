@@ -5,6 +5,7 @@
 * Add support for adding `@CascadeDispose` on the same method as the `@Reference` annotation.
 * Remove unused method `CollectionsUtil.asSet()`.
 * Enhance the `@OnDepsChange` annotation so that methods annotated with this can optionally take an instance of the associated `Observer`. This reduces the complexity of implementing some asynchronous reactions. 
+* Support a wildcard type parameter in the return type of methods annotated with the `@ObservableValueRef` annotation.
 
 ### [v0.150](https://github.com/arez/arez/tree/v0.150) (2019-10-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.149...v0.150)
 

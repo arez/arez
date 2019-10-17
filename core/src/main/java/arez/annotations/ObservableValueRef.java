@@ -20,7 +20,11 @@ import javax.annotation.Nonnull;
  * <li>Must not be final</li>
  * <li>Must be abstract</li>
  * <li>Must not throw any exceptions</li>
- * <li>Must return an instance of {@link ObservableValue}.</li>
+ * <li>
+ *   Must return an instance of {@link ObservableValue} and the type parameter must be the
+ *   wildcard {@link ?} or the type of the corresponding {@link Observable} method. The value
+ *   may also be "raw" (i.e. without a type parameter).
+ * </li>
  * </ul>
  */
 @Documented
