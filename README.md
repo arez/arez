@@ -16,7 +16,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.promise</groupId>
    <artifactId>arez-promise</artifactId>
-   <version>0.75</version>
+   <version>0.76</version>
 </dependency>
 ```
 
