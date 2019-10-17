@@ -229,15 +229,9 @@ abstract class AbstractArezProcessorTest
         field.setAccessible( true );
         field.set( compilation, status );
 
-        // This next line will generate an error
-        try
-        {
-          //noinspection ResultOfMethodCallIgnored
-          compilation.generatedSourceFiles();
-        }
-        catch ( final Exception ignored )
-        {
-        }
+        // This next line will generate an error and fail the test
+        //noinspection ResultOfMethodCallIgnored
+        compilation.generatedSourceFiles();
       }
     }
     final JavaFileObject firstExpected = fixture( outputs.get( 0 ) );
