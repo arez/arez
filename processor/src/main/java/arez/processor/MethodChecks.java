@@ -175,8 +175,7 @@ final class MethodChecks
     }
   }
 
-  private static void mustNotReturnAnyValue( @Nonnull final String annotationName,
-                                             @Nonnull final ExecutableElement method )
+  static void mustNotReturnAnyValue( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )
