@@ -1337,6 +1337,7 @@ final class ComponentDescriptor
     linkUnAnnotatedObserves( observes, onDepsChanges );
     linkObserverRefs();
     linkCascadeDisposeObservables();
+    linkCascadeDisposeReferences();
 
     // CascadeDispose returned false but it was actually processed so lets remove them from getters set
     _cascadeDisposes.keySet().forEach( method -> {
@@ -2207,6 +2208,22 @@ final class ComponentDescriptor
     }
   }
 
+  private void linkCascadeDisposeReferences()
+  {
+    for ( final ReferenceDescriptor reference : _references.values() )
+    {
+      final CascadeDisposableDescriptor cascadeDisposableDescriptor = reference.getCascadeDisposableDescriptor();
+      if ( null == cascadeDisposableDescriptor && reference.hasMethod() )
+      {
+        final CascadeDisposableDescriptor descriptor = _cascadeDisposes.get( reference.getMethod() );
+        if ( null != descriptor )
+        {
+          descriptor.setReference( reference );
+        }
+      }
+    }
+  }
+
   private void linkObserverRefs()
   {
     for ( final Map.Entry<String, CandidateMethod> entry : _observerRefs.entrySet() )
@@ -2464,10 +2481,19 @@ final class ComponentDescriptor
       addComputableValueRef( computableValueRef, method, methodType );
       return true;
     }
+    else if ( null != reference )
+    {
+      if ( null != cascadeDispose )
+      {
+        addCascadeDisposeMethod( method, null );
+      }
+      addReference( reference, method, methodType );
+      return true;
+    }
     else if ( null != cascadeDispose )
     {
       addCascadeDisposeMethod( method, null );
-      // Return false so that it can be picked as the getter of an @Observable
+      // Return false so that it can be picked as the getter of an @Observable or linked to a @Reference
       return false;
     }
     else if ( null != componentIdRef )
@@ -2541,11 +2567,6 @@ final class ComponentDescriptor
     {
       addDependency( method );
       return false;
-    }
-    else if ( null != reference )
-    {
-      addReference( reference, method, methodType );
-      return true;
     }
     else if ( null != referenceId )
     {
@@ -2700,10 +2721,13 @@ final class ComponentDescriptor
           final boolean observableCascade =
             type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
             type2.equals( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
+          final boolean referenceCascade =
+            type1.equals( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) &&
+            type2.equals( Constants.REFERENCE_ANNOTATION_CLASSNAME );
           final boolean observableReferenceId =
             type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
             type2.equals( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
-          if ( !observableDependency && !observableReferenceId && !observableCascade )
+          if ( !observableDependency && !observableReferenceId && !observableCascade && !referenceCascade )
           {
             final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
             if ( null != annotation2 )

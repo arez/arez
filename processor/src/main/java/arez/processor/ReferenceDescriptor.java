@@ -43,6 +43,8 @@ final class ReferenceDescriptor
   private String _inverseName;
   @Nullable
   private Multiplicity _inverseMultiplicity;
+  @Nullable
+  private CascadeDisposableDescriptor _cascadeDisposableDescriptor;
 
   ReferenceDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -91,6 +93,22 @@ final class ReferenceDescriptor
   {
     assert null != _linkType;
     return _linkType;
+  }
+
+  @Nullable
+  CascadeDisposableDescriptor getCascadeDisposableDescriptor()
+  {
+    return _cascadeDisposableDescriptor;
+  }
+
+  void setCascadeDisposableDescriptor( @Nonnull final CascadeDisposableDescriptor cascadeDisposableDescriptor )
+  {
+    _cascadeDisposableDescriptor = Objects.requireNonNull( cascadeDisposableDescriptor );
+  }
+
+  boolean hasMethod()
+  {
+    return null != _method;
   }
 
   @Nonnull

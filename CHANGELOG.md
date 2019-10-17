@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add support for adding `@CascadeDispose` on the same method as the `@Reference` annotation.
+
 ### [v0.150](https://github.com/arez/arez/tree/v0.150) (2019-10-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.149...v0.150)
 
 Changes in this release:
