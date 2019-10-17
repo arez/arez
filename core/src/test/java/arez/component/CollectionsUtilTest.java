@@ -109,20 +109,6 @@ public class CollectionsUtilTest
     assertEquals( output.get( 0 ), entity );
   }
 
-  @Test
-  public void asSet()
-  {
-    final ArrayList<MyEntity> input = new ArrayList<>();
-    final MyEntity entity = new MyEntity();
-    input.add( entity );
-    final Set<MyEntity> output = CollectionsUtil.asSet( input.stream() );
-
-    assertUnmodifiable( output, MyEntity::new );
-
-    assertEquals( output.size(), 1 );
-    assertEquals( output.iterator().next(), entity );
-  }
-
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> list, @Nonnull final Supplier<T> creator )
   {
     assertNotNull( list.iterator().next() );

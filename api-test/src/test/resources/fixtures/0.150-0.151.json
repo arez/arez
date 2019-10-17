@@ -1,0 +1,18 @@
+[
+  {
+    "code": "java.method.removed",
+    "description": "Method was removed.",
+    "oldElement": "method <T> java.util.Set<T> arez.component.CollectionsUtil::asSet(java.util.stream.Stream<T>)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.CollectionsUtil",
+      "classSimpleName": "CollectionsUtil",
+      "elementKind": "method",
+      "methodName": "asSet",
+      "package": "arez.component"
+    }
+  }
+]

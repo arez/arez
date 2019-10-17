@@ -83,20 +83,6 @@ public final class CollectionsUtil
   }
 
   /**
-   * Convert specified stream to a set, wrapping as an unmodifiable set if required.
-   * This method should be called by repository extensions when returning set results.
-   *
-   * @param <T>    the type of elements in stream.
-   * @param stream the input stream.
-   * @return the output set
-   */
-  @Nonnull
-  public static <T> Set<T> asSet( @Nonnull final Stream<T> stream )
-  {
-    return wrap( stream.collect( Collectors.toSet() ) );
-  }
-
-  /**
    * Convert specified stream to a list, wrapping as an unmodifiable list if required.
    * This method should be called by repository extensions when returning list results.
    *
