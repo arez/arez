@@ -119,6 +119,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     return this.$$arezi$$_kernel.getComponent();
   }
 
+  @Nonnull
   final Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'CompleteInterfaceModel'" );

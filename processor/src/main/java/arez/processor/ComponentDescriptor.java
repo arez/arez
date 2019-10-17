@@ -3420,6 +3420,7 @@ final class ComponentDescriptor
   {
     final String methodName = Generator.LOCATOR_METHOD_NAME;
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       addModifiers( Modifier.FINAL ).
       returns( Generator.LOCATOR_CLASSNAME );
 

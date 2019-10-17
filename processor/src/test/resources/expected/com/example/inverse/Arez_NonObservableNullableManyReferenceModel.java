@@ -45,6 +45,7 @@ final class Arez_NonObservableNullableManyReferenceModel extends NonObservableNu
     this.$$arezi$$_kernel.componentReady();
   }
 
+  @Nonnull
   final Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'NonObservableNullableManyReferenceModel'" );
