@@ -493,17 +493,6 @@ public class ArezProcessorTest
   }
 
   @Test
-  public void XXXX()
-    throws Exception
-  {
-    assertSuccessfulCompile( "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel",
-                             false,
-                             false,
-                             false,
-                             false );
-  }
-
-  @Test
   public void processSuccessfulMultipleInverseWithSameTarget()
     throws Exception
   {
