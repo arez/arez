@@ -394,6 +394,7 @@ final class MemoizeDescriptor
     }
     else if ( _depType.equals( "AREZ_OR_EXTERNAL" ) )
     {
+      assert null != _method;
       throw new ArezProcessorException( "@Memoize target specified depType = AREZ_OR_EXTERNAL but " +
                                         "there is no associated @ComputableValueRef method.", _method );
     }
