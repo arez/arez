@@ -28,11 +28,12 @@ complete as there is too much un-said.
   associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
   is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`
 
-* Consider merging OnActivate/OnDeactivate into mechanism like reacts new hooks where there is a single
-  OnActivate method that that returns a `Disposable` which is call as `OnDeactivate`. It would also take an
-  instance parameter of `ComputableValue` which it could use to call `reportPossiblyChanged()`. Alternatively
-  it could take a `ComputableValueELement` that has `getComputableValue()` method as well as a `set(value)`
-  method which would dramatically simplify `ComputableValue` instances that were driven by external elements.
+* Enhance `@OnActivate` so that it can optionally return a `SafeProcedure` that will be used in place of an
+  `@OnDeactivate` method. Perhaps at this point `@OnActivate` could be renamed and `@OnDeactivate` removed.
+
+* Further enhance `@OnActivate` so it takes a small utility such as `ComputableValueElement` that has
+  `getComputableValue()` method as well as a `set(value)`. This would dramatically simplify writing
+  `ComputableValue` instances that were driven by external elements.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 

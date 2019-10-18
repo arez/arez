@@ -178,21 +178,52 @@ final class MemoizeDescriptor
     }
   }
 
-  void setOnActivate( @Nonnull final ExecutableElement onActivate )
+  void setOnActivate( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
-                                      Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
-                                      onActivate );
+    MethodChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+                                         Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
+                                         method );
+    final List<? extends VariableElement> parameters = method.getParameters();
+
+    if (
+      !(
+        parameters.isEmpty() ||
+        ( 1 == parameters.size() &&
+          Constants.COMPUTABLE_VALUE_CLASSNAME.equals( toRawType( parameters.get( 0 ).asType() ).toString() ) )
+      )
+    )
+    {
+      throw new ArezProcessorException( "@OnActivate target must not have any parameters or must have a single " +
+                                        "parameter of type arez.ComputableValue", method );
+    }
+
+    MethodChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
 
     if ( null != _onActivate )
     {
       throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
-                                        _onActivate.getSimpleName(), onActivate );
+                                        _onActivate.getSimpleName(), method );
     }
     else
     {
-      _onActivate = Objects.requireNonNull( onActivate );
+      _onActivate = Objects.requireNonNull( method );
+    }
+  }
+
+  @Nonnull
+  private TypeName toRawType( @Nonnull final TypeMirror type )
+  {
+    final TypeName typeName = TypeName.get( type );
+    if ( typeName instanceof ParameterizedTypeName )
+    {
+      return ( (ParameterizedTypeName) typeName ).rawType;
+    }
+    else
+    {
+      return typeName;
     }
   }
 
@@ -293,6 +324,30 @@ final class MemoizeDescriptor
       {
         throw new ArezProcessorException( "@OnStale target associated with @Memoize method that has parameters.",
                                           _onStale );
+      }
+    }
+
+    if ( null != _onActivate && null != _method )
+    {
+      final List<? extends VariableElement> parameters = _onActivate.getParameters();
+      if ( 1 == parameters.size() )
+      {
+        final TypeName typeName = TypeName.get( parameters.get( 0 ).asType() );
+        if ( typeName instanceof ParameterizedTypeName )
+        {
+          final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
+          final TypeName paramType = parameterizedTypeName.typeArguments.get( 0 );
+          if ( !( paramType instanceof WildcardTypeName ) )
+          {
+            final TypeName actual = TypeName.get( _method.getReturnType() );
+            if ( !actual.box().toString().equals( paramType.toString() ) )
+            {
+              throw new ArezProcessorException( "@OnActivate target has a parameter of type ComputableValue with a " +
+                                                "type parameter of " + paramType + " but the @Memoize method " +
+                                                "returns a type of " + actual, _onActivate );
+            }
+          }
+        }
       }
     }
 
@@ -603,8 +658,16 @@ final class MemoizeDescriptor
       }
       else if ( null != _onActivate )
       {
-        sb.append( "this::$N" );
-        parameters.add( _onActivate.getSimpleName().toString() );
+        if ( _onActivate.getParameters().isEmpty() )
+        {
+          sb.append( "this::$N" );
+          parameters.add( _onActivate.getSimpleName().toString() );
+        }
+        else
+        {
+          sb.append( "this::$N" );
+          parameters.add( getOnActivateHookMethodName() );
+        }
       }
       else
       {
@@ -752,9 +815,13 @@ final class MemoizeDescriptor
     if ( _method.getParameters().isEmpty() )
     {
       builder.addMethod( buildNoParamsMemoize() );
-      if ( isCollectionType() )
+      if ( ( null != _onActivate && !_onActivate.getParameters().isEmpty() ) || isCollectionType() )
       {
         builder.addMethod( buildOnActivateWrapperHook() );
+      }
+
+      if ( isCollectionType() )
+      {
         builder.addMethod( buildOnDeactivateWrapperHook() );
         builder.addMethod( buildOnStaleWrapperHook() );
       }
@@ -777,20 +844,29 @@ final class MemoizeDescriptor
   private MethodSpec buildOnActivateWrapperHook()
     throws ArezProcessorException
   {
-    assert isCollectionType();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName() );
     builder.addModifiers( Modifier.PRIVATE );
 
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
-    block.addStatement( "this.$N = true", getCollectionCacheDataActiveFieldName() );
-    block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
-    block.endControlFlow();
-    builder.addCode( block.build() );
+    if ( isCollectionType() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
+      block.addStatement( "this.$N = true", getCollectionCacheDataActiveFieldName() );
+      block.addStatement( "this.$N = null", getCollectionCacheDataFieldName() );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
 
     if ( null != _onActivate )
     {
-      builder.addStatement( "$N()", _onActivate.getSimpleName().toString() );
+      if ( _onActivate.getParameters().isEmpty() )
+      {
+        builder.addStatement( "$N()", _onActivate.getSimpleName().toString() );
+      }
+      else
+      {
+        builder.addStatement( "$N( $N )", _onActivate.getSimpleName().toString(), getFieldName() );
+      }
     }
     return builder.build();
   }
