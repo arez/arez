@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.2.0`.
 * Enhance the `@OnActivate` annotation so that it can be defined with an optional parameter of type `ComputableValue`.
 
 ### [v0.151](https://github.com/arez/arez/tree/v0.151) (2019-10-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.150...v0.151) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.150&new=0.151)
