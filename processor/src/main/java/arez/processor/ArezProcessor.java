@@ -1,7 +1,6 @@
 package arez.processor;
 
 import com.google.auto.common.SuperficialValidation;
-import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
@@ -39,7 +37,6 @@ import static javax.tools.Diagnostic.Kind.*;
 /**
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
  */
-@AutoService( Processor.class )
 @SupportedAnnotationTypes( { "arez.annotations.*" } )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
 @SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors" } )

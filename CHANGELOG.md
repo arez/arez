@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Enhance the `@OnActivate` annotation so that it can be defined with an optional parameter of type `ComputableValue`.
+* Remove the `com.google.auto.service:auto-service` dependency as it offers little value given that it only automates the generation of a single 1 line file that has been stable over the entire lifetime of the product.
 
 ### [v0.151](https://github.com/arez/arez/tree/v0.151) (2019-10-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.150...v0.151) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.150&new=0.151)
 

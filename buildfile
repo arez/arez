@@ -122,7 +122,6 @@ define 'arez' do
     pom.dependency_filter = Proc.new { |_| false }
 
     compile.with :javax_annotation,
-                 :autoservice,
                  :autocommon,
                  :javapoet,
                  :guava
