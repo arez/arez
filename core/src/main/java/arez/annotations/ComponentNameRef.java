@@ -5,7 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * Annotate the method that will be overridden to provider the debug name for the Arez component.
+ * Annotate the method that will be overridden to provide the "name" of the Arez component.
  * This is useful when the user wants to manually create Arez elements (i.e. {@link arez.ObservableValue} instances,
  * {@link arez.Observer} instances or {@link arez.ComputableValue} instances etc) and wants to use the same naming
  * convention as the generated Arez subclass. If not specified Arez will generate a private method (currently named
