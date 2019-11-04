@@ -1,6 +1,7 @@
 package arez.processor;
 
 import com.google.auto.common.AnnotationMirrors;
+import com.google.auto.common.MoreElements;
 import com.google.common.collect.ImmutableMap;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
@@ -70,20 +71,11 @@ final class ProcessorUtil
     }
   }
 
+  @SuppressWarnings( "UnstableApiUsage" )
   @Nonnull
   static PackageElement getPackageElement( @Nonnull final TypeElement element )
   {
-    Element enclosingElement = element.getEnclosingElement();
-    while ( null != enclosingElement )
-    {
-      if ( enclosingElement instanceof PackageElement )
-      {
-        return (PackageElement) enclosingElement;
-      }
-      enclosingElement = enclosingElement.getEnclosingElement();
-    }
-    assert false;
-    return null;
+    return MoreElements.getPackage( element );
   }
 
   @Nonnull
