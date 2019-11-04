@@ -105,7 +105,8 @@ complete as there is too much un-said.
   date.
 
 * Consider removing the `dagger` parameter from the `@ArezComponent` and `@Repository` annotations as we don't
-  seem to support injection frameworks other than these.
+  seem to support injection frameworks other than these. Actually our documentation still includes GIN examples
+  but we could probably remove them and then remove this setting.
 
 * Add `defaultReadOutsideTransaction` and `defaultWriteOutsideTransaction` parameters to `@ArezComponent` that change
   the default value for the `readOutsideTransaction` and `writeOutsideTransaction` parameters on any `@Observable`
