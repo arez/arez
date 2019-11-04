@@ -159,12 +159,12 @@ define 'arez' do
     end
 
     test.using :testng
-    test.options[:properties] = { 'arez.fixture_dir' => _('src/test/resources') }
+    test.options[:properties] = { 'arez.fixture_dir' => _('src/test/fixtures') }
     test.compile.with TEST_DEPS
 
-    iml.test_source_directories << _('src/test/resources/input')
-    iml.test_source_directories << _('src/test/resources/expected')
-    iml.test_source_directories << _('src/test/resources/bad_input')
+    iml.test_source_directories << _('src/test/fixtures/input')
+    iml.test_source_directories << _('src/test/fixtures/expected')
+    iml.test_source_directories << _('src/test/fixtures/bad_input')
   end
 
   desc 'Arez Integration Tests'
@@ -317,7 +317,7 @@ define 'arez' do
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.core.compile_target=../target/arez_core/idea/classes -Darez.check_diagnostic_messages=true -Darez.diagnostic_messages_file=src/test/java/arez/diagnostic_messages.json')
   ipr.add_testng_configuration('processor',
                                :module => 'processor',
-                               :jvm_args => '-ea -Darez.output_fixture_data=true -Darez.fixture_dir=src/test/resources')
+                               :jvm_args => '-ea -Darez.output_fixture_data=true -Darez.fixture_dir=src/test/fixtures')
   ipr.add_testng_configuration('integration-tests',
                                :module => 'integration-tests',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.integration_fixture_dir=src/test/resources')
