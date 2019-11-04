@@ -42,7 +42,6 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import static arez.processor.ProcessorUtil.*;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -1154,7 +1153,7 @@ final class ComponentDescriptor
     }
     else if ( InjectMode.NONE != _injectMode )
     {
-      for ( final ExecutableElement constructor : getConstructors( getElement() ) )
+      for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( getElement() ) )
       {
         // The annotation processor engine can not distinguish between a "default constructor"
         // synthesized by the compiler and one written by a user that has the same signature.
@@ -2850,7 +2849,7 @@ final class ComponentDescriptor
     final boolean hasInverseReferencedOutsideClass =
       _roInverses.stream().anyMatch( inverse -> {
         final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( inverse.getTargetType() );
-        final PackageElement selfPackageElement = getPackageElement( getElement() );
+        final PackageElement selfPackageElement = ProcessorUtil.getPackageElement( getElement() );
         return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
       } );
     final boolean hasReferenceWithInverseOutsidePackage =
@@ -2862,7 +2861,7 @@ final class ComponentDescriptor
             (TypeElement) _typeUtils.asElement( reference.getMethod().getReturnType() );
 
           final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( typeElement );
-          final PackageElement selfPackageElement = getPackageElement( getElement() );
+          final PackageElement selfPackageElement = ProcessorUtil.getPackageElement( getElement() );
           return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
         } );
     if ( publicType || hasInverseReferencedOutsideClass || hasReferenceWithInverseOutsidePackage )
@@ -3024,7 +3023,7 @@ final class ComponentDescriptor
     final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
       .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
 
-    final ExecutableElement constructor = getConstructors( _element ).get( 0 );
+    final ExecutableElement constructor = ProcessorUtil.getConstructors( _element ).get( 0 );
     assert null != constructor;
 
     final boolean needsEnhancer = needsEnhancer();
@@ -3071,7 +3070,7 @@ final class ComponentDescriptor
       ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, param );
       ctor.addParameter( param.build() );
       final boolean isNonNull =
-        null != findAnnotationByType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
+        null != ProcessorUtil.findAnnotationByType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
       if ( isNonNull )
       {
         ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
@@ -3110,7 +3109,7 @@ final class ComponentDescriptor
       for ( final VariableElement parameter : constructor.getParameters() )
       {
         final boolean perInstance =
-          null != findAnnotationByType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
+          null != ProcessorUtil.findAnnotationByType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
 
         final String name = parameter.getSimpleName().toString();
 
@@ -3131,7 +3130,8 @@ final class ComponentDescriptor
           sb.append( ", " );
         }
         firstParam = false;
-        if ( perInstance && null != findAnnotationByType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        if ( perInstance &&
+             null != ProcessorUtil.findAnnotationByType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
         {
           sb.append( "$T.requireNonNull( $N )" );
           params.add( Objects.class );
