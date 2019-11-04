@@ -28,6 +28,10 @@ DAGGER_DEPS =
     :dagger_producers,
     :dagger_spi,
     :dagger_compiler,
+    :guava_failureaccess,
+    :kotlinx_metadata_jvm,
+    :kotlin_stdlib,
+    :kotlin_stdlib_common,
     :googlejavaformat,
     :errorprone
   ]
