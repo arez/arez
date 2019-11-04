@@ -1,5 +1,7 @@
 package arez.processor;
 
+import com.google.auto.common.AnnotationMirrors;
+import com.google.common.collect.ImmutableMap;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -353,46 +355,42 @@ final class ProcessorUtil
 
   @SuppressWarnings( { "unchecked", "SameParameterValue" } )
   @Nonnull
-  static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final Elements elements,
-                                                             @Nonnull final TypeElement typeElement,
+  static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final TypeElement typeElement,
                                                              @Nonnull final String annotationClassName,
                                                              @Nonnull final String parameterName )
   {
     final AnnotationValue annotationValue =
-      getAnnotationValue( elements, typeElement, annotationClassName, parameterName );
+      getAnnotationValue( typeElement, annotationClassName, parameterName );
     return ( (List<AnnotationValue>) annotationValue.getValue() )
       .stream()
       .map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
   }
 
   @Nonnull
-  static AnnotationValue getAnnotationValue( @Nonnull final Elements elements,
-                                             @Nonnull final AnnotatedConstruct annotated,
+  static AnnotationValue getAnnotationValue( @Nonnull final AnnotatedConstruct annotated,
                                              @Nonnull final String annotationClassName,
                                              @Nonnull final String parameterName )
   {
-    final AnnotationValue value = findAnnotationValue( elements, annotated, annotationClassName, parameterName );
+    final AnnotationValue value = findAnnotationValue( annotated, annotationClassName, parameterName );
     assert null != value;
     return value;
   }
 
   @Nullable
-  private static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
-                                                      @Nonnull final AnnotatedConstruct annotated,
+  private static AnnotationValue findAnnotationValue( @Nonnull final AnnotatedConstruct annotated,
                                                       @Nonnull final String annotationClassName,
                                                       @Nonnull final String parameterName )
   {
     final AnnotationMirror mirror = findAnnotationByType( annotated, annotationClassName );
-    return null == mirror ? null : findAnnotationValue( elements, mirror, parameterName );
+    return null == mirror ? null : findAnnotationValue( mirror, parameterName );
   }
 
   @Nullable
-  private static AnnotationValue findAnnotationValue( @Nonnull final Elements elements,
-                                                      @Nonnull final AnnotationMirror annotation,
+  private static AnnotationValue findAnnotationValue( @Nonnull final AnnotationMirror annotation,
                                                       @Nonnull final String parameterName )
   {
-    final Map<? extends ExecutableElement, ? extends AnnotationValue> values =
-      elements.getElementValuesWithDefaults( annotation );
+    final ImmutableMap<ExecutableElement, AnnotationValue> values =
+      AnnotationMirrors.getAnnotationValuesWithDefaults( annotation );
     final ExecutableElement annotationKey = values.keySet().stream().
       filter( k -> parameterName.equals( k.getSimpleName().toString() ) ).findFirst().orElse( null );
     return values.get( annotationKey );
@@ -411,11 +409,9 @@ final class ProcessorUtil
 
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  static <T> T getAnnotationValue( @Nonnull final Elements elements,
-                                   @Nonnull final AnnotationMirror annotation,
-                                   @Nonnull final String parameterName )
+  static <T> T getAnnotationValue( @Nonnull final AnnotationMirror annotation, @Nonnull final String parameterName )
   {
-    final AnnotationValue value = findAnnotationValue( elements, annotation, parameterName );
+    final AnnotationValue value = findAnnotationValue( annotation, parameterName );
     assert null != value;
     return (T) value.getValue();
   }
@@ -444,12 +440,10 @@ final class ProcessorUtil
     return annotationName.replaceAll( ".*\\.", "" );
   }
 
-  static boolean isDisposableTrackableRequired( @Nonnull final Elements elementUtils,
-                                                @Nonnull final Element element )
+  static boolean isDisposableTrackableRequired( @Nonnull final Element element )
   {
     final VariableElement variableElement = (VariableElement)
-      getAnnotationValue( elementUtils,
-                          element,
+      getAnnotationValue( element,
                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
                           "disposeNotifier" ).getValue();
     switch ( variableElement.getSimpleName().toString() )

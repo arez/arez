@@ -297,8 +297,7 @@ public final class ArezProcessor
       null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
-    final boolean disposeNotifierFlag =
-      ProcessorUtil.isDisposableTrackableRequired( processingEnv.getElementUtils(), typeElement );
+    final boolean disposeNotifierFlag = ProcessorUtil.isDisposableTrackableRequired( typeElement );
     final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
@@ -466,8 +465,7 @@ public final class ArezProcessor
     if ( null != repository )
     {
       final List<TypeElement> extensions =
-        ProcessorUtil.getTypeMirrorsAnnotationParameter( processingEnv.getElementUtils(),
-                                                         typeElement,
+        ProcessorUtil.getTypeMirrorsAnnotationParameter( typeElement,
                                                          Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                                          "extensions" ).stream().
           map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
@@ -626,8 +624,7 @@ public final class ArezProcessor
     assert SuperficialValidation.validateElement( element );
 
     final VariableElement verifyReferencesToComponent = (VariableElement)
-      ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(),
-                                        element,
+      ProcessorUtil.getAnnotationValue( element,
                                         Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                         "verifyReferencesToComponent" ).getValue();
     switch ( verifyReferencesToComponent.getSimpleName().toString() )
@@ -637,7 +634,7 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return ProcessorUtil.isDisposableTrackableRequired( processingEnv.getElementUtils(), element );
+        return ProcessorUtil.isDisposableTrackableRequired( element );
     }
   }
 
@@ -652,8 +649,7 @@ public final class ArezProcessor
       ProcessorUtil.findAnnotationByType( element, Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
     if ( null != suppress )
     {
-      final List<AnnotationValue> warnings =
-        ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(), suppress, "value" );
+      final List<AnnotationValue> warnings = ProcessorUtil.getAnnotationValue( suppress, "value" );
       for ( final AnnotationValue suppression : warnings )
       {
         if ( warning.equals( suppression.getValue() ) )
@@ -852,7 +848,7 @@ public final class ArezProcessor
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
-    return ProcessorUtil.getAnnotationValue( processingEnv.getElementUtils(), annotation, parameterName );
+    return ProcessorUtil.getAnnotationValue( annotation, parameterName );
   }
 
   private void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )

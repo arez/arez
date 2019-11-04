@@ -878,7 +878,7 @@ final class ComponentDescriptor
     {
       throw new ArezProcessorException( "Method annotated with @ComponentStateRef must return a boolean", method );
     }
-    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( _elements, annotation, "value" );
+    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "value" );
     final ComponentStateRefDescriptor.State state =
       ComponentStateRefDescriptor.State.valueOf( variableElement.getSimpleName().toString() );
 
@@ -1429,7 +1429,7 @@ final class ComponentDescriptor
         null != typeElement ?
         ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
         null;
-      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ArezProcessorException( "@CascadeDispose target must be assignable to " +
@@ -1461,7 +1461,7 @@ final class ComponentDescriptor
         null != typeElement ?
         ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
         null;
-      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement ) )
+      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ArezProcessorException( "@CascadeDispose target must return a type assignable to " +
@@ -1766,8 +1766,7 @@ final class ComponentDescriptor
   private String getInverseReferenceNameParameter( @Nonnull final ExecutableElement method )
   {
     final String declaredName =
-      (String) ProcessorUtil.getAnnotationValue( _elements,
-                                                 method,
+      (String) ProcessorUtil.getAnnotationValue( method,
                                                  Constants.INVERSE_ANNOTATION_CLASSNAME,
                                                  "referenceName" ).getValue();
     final String name;
@@ -1945,7 +1944,7 @@ final class ComponentDescriptor
 
   private boolean hasInverse( @Nonnull final AnnotationMirror annotation )
   {
-    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( _elements, annotation, "inverse" );
+    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "inverse" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -1963,8 +1962,7 @@ final class ComponentDescriptor
                                           @Nonnull final ExecutableElement method,
                                           @Nonnull final Multiplicity multiplicity )
   {
-    final String declaredName =
-      ProcessorUtil.getAnnotationValue( _elements, annotation, "inverseName" );
+    final String declaredName = ProcessorUtil.getAnnotationValue( annotation, "inverseName" );
     final String name;
     if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
@@ -1991,8 +1989,7 @@ final class ComponentDescriptor
   @Nonnull
   private Multiplicity getReferenceInverseMultiplicity( @Nonnull final AnnotationMirror annotation )
   {
-    final VariableElement variableElement =
-      ProcessorUtil.getAnnotationValue( _elements, annotation, "inverseMultiplicity" );
+    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "inverseMultiplicity" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "MANY":
@@ -2052,8 +2049,7 @@ final class ComponentDescriptor
   private String getLinkType( @Nonnull final ExecutableElement method )
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( _elements,
-                                        method,
+      ProcessorUtil.getAnnotationValue( method,
                                         Constants.REFERENCE_ANNOTATION_CLASSNAME,
                                         "load" ).getValue();
     return injectParameter.getSimpleName().toString();
@@ -2084,10 +2080,9 @@ final class ComponentDescriptor
     MethodChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
     final boolean validateTypeAtRuntime =
-      (Boolean) getAnnotationValue( getElements(),
-                                    method,
-                                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                                    "validateTypeAtRuntime" ).getValue();
+      (Boolean) ProcessorUtil.getAnnotationValue( method,
+                                                  Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                                  "validateTypeAtRuntime" ).getValue();
 
     final TypeMirror type = method.getReturnType();
     if ( TypeKind.DECLARED != type.getKind() )
@@ -2121,10 +2116,9 @@ final class ComponentDescriptor
     MethodChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
 
     final boolean validateTypeAtRuntime =
-      (Boolean) getAnnotationValue( getElements(),
-                                    field,
-                                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                                    "validateTypeAtRuntime" ).getValue();
+      (Boolean) ProcessorUtil.getAnnotationValue( field,
+                                                  Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                                  "validateTypeAtRuntime" ).getValue();
 
     final TypeMirror type = field.asType();
     if ( TypeKind.DECLARED != type.getKind() )
@@ -2167,14 +2161,13 @@ final class ComponentDescriptor
   private boolean isDisposeTrackableComponent( @Nonnull final TypeElement typeElement )
   {
     return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
-           ProcessorUtil.isDisposableTrackableRequired( _elements, typeElement );
+           ProcessorUtil.isDisposableTrackableRequired( typeElement );
   }
 
   private boolean isActionCascade( @Nonnull final Element method )
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( _elements,
-                                        method,
+      ProcessorUtil.getAnnotationValue( method,
                                         Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
                                         "action" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
@@ -4822,14 +4815,13 @@ final class ComponentDescriptor
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
-    return ProcessorUtil.getAnnotationValue( _elements, annotation, parameterName );
+    return ProcessorUtil.getAnnotationValue( annotation, parameterName );
   }
 
   private boolean shouldRepositoryDefineCreate()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( _elements,
-                                        getElement(),
+      ProcessorUtil.getAnnotationValue( getElement(),
                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                         "attach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
@@ -4845,8 +4837,7 @@ final class ComponentDescriptor
   private boolean shouldRepositoryDefineAttach()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( _elements,
-                                        getElement(),
+      ProcessorUtil.getAnnotationValue( getElement(),
                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                         "attach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
@@ -4862,8 +4853,7 @@ final class ComponentDescriptor
   private boolean shouldRepositoryDefineDestroy()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( _elements,
-                                        getElement(),
+      ProcessorUtil.getAnnotationValue( getElement(),
                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                         "detach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
@@ -4879,8 +4869,7 @@ final class ComponentDescriptor
   private boolean shouldRepositoryDefineDetach()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( _elements,
-                                        getElement(),
+      ProcessorUtil.getAnnotationValue( getElement(),
                                         Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                         "detach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
