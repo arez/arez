@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.2.0`.
 * Enhance the `@OnActivate` annotation so that it can be defined with an optional parameter of type `ComputableValue`.
 * Remove the `com.google.auto.service:auto-service` dependency as it offers little value given that it only automates the generation of a single 1 line file that has been stable over the entire lifetime of the product.
 * Upgrade dagger to version `2.25.2`.
