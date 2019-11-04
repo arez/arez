@@ -7,29 +7,33 @@ import javax.annotation.Nonnull;
 @ArezComponent
 public abstract class AnnotationsOnModel
 {
+  public @interface DoNotCopyThisAnnotation
+  {
+  }
+
   @Observable
   @Nonnull
-  @SuppressWarnings( "ThisANnotationShouldNotBeCopied" )
+  @DoNotCopyThisAnnotation
   public String getTime()
   {
     return "";
   }
 
   @Observable
-  @SuppressWarnings( "ThisANnotationShouldNotBeCopied" )
-  public void setTime( @Nonnull @SuppressWarnings( "ThisANnotationShouldNotBeCopied" ) final String time )
+  @DoNotCopyThisAnnotation
+  public void setTime( @Nonnull @DoNotCopyThisAnnotation final String time )
   {
   }
 
   @Action
-  @SuppressWarnings( "ThisANnotationShouldNotBeCopied" )
-  public void doStuff( @Nonnull @SuppressWarnings( "ThisANnotationShouldNotBeCopied" ) final String time )
+  @DoNotCopyThisAnnotation
+  public void doStuff( @Nonnull @DoNotCopyThisAnnotation final String time )
   {
   }
 
   @Memoize
   @Nonnull
-  @SuppressWarnings( "ThisANnotationShouldNotBeCopied" )
+  @DoNotCopyThisAnnotation
   public Integer someValue()
   {
     return 0;
