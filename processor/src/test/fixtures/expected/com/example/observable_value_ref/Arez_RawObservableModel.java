@@ -94,8 +94,8 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
     }
   }
 
-  @Nonnull
   @SuppressWarnings("rawtypes")
+  @Nonnull
   @Override
   public ObservableValue getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {

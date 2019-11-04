@@ -6,8 +6,12 @@ import javax.annotation.Nonnull;
 @ArezComponent
 public abstract class ObservableWithAnnotatedCtorModel
 {
+  @interface DoNotCopyThisAnnotation
+  {
+  }
+
   public ObservableWithAnnotatedCtorModel( final long time,
-                                           @SuppressWarnings( "" ) final long other,
+                                           @DoNotCopyThisAnnotation final long other,
                                            @Nonnull final String foo )
   {
   }

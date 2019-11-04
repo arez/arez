@@ -1026,7 +1026,8 @@ final class MemoizeDescriptor
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
-    if ( !( typeName instanceof ParameterizedTypeName ) )
+    if ( !( typeName instanceof ParameterizedTypeName ) &&
+         null == ProcessorUtil.findAnnotationByType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).
@@ -1093,7 +1094,8 @@ final class MemoizeDescriptor
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
-    if ( !( typeName instanceof ParameterizedTypeName ) )
+    if ( !( typeName instanceof ParameterizedTypeName ) &&
+         null == ProcessorUtil.findAnnotationByType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).

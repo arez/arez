@@ -395,7 +395,8 @@ final class ObservableDescriptor
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
-    if ( !( typeName instanceof ParameterizedTypeName ) )
+    if ( !( typeName instanceof ParameterizedTypeName ) &&
+         null == ProcessorUtil.findAnnotationByType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).

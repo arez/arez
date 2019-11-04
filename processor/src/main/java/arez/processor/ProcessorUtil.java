@@ -289,6 +289,7 @@ final class ProcessorUtil
   {
     return Constants.NONNULL_ANNOTATION_CLASSNAME.equals( classname ) ||
            Constants.NULLABLE_ANNOTATION_CLASSNAME.equals( classname ) ||
+           SuppressWarnings.class.getName().equals( classname ) ||
            Constants.DEPRECATED_ANNOTATION_CLASSNAME.equals( classname );
   }
 
