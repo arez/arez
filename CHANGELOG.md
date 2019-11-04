@@ -7,6 +7,7 @@
 * Upgrade dagger to version `2.25.2`.
 * Add `@java.lang.SuppressWarnings` to the list of whitelisted annotations that are copied to the generated methods, the generated constructors, the generated method parameters and the generated constructor parameters. This enables suppression of deprecation and raw type warnings to propagate to the generated code.
 * Copy whitelisted annotations from types to generated subtype and from the constructors to the paired constructor in the generated subtype. This makes it possible to suppress certain type errors in generated subclasses.
+* Re-enable compilation against j2cl to ensure that the library stays compatible going forward.
 
 ### [v0.151](https://github.com/arez/arez/tree/v0.151) (2019-10-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.150...v0.151) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.150&new=0.151)
 

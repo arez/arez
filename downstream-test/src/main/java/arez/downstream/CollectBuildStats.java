@@ -114,31 +114,19 @@ public final class CollectBuildStats
 
       archiveBuildrOutput( archiveDir );
     }
-    else if ( isj2cl )
-    {
-      // Clean any artifacts hanging around that are not cleaned by clean maven action
-      final Path currentDirectory = FileUtil.getCurrentDirectory();
-      FileUtil.inDirectory( currentDirectory, () -> {
-        final Path appJs = currentDirectory.resolve( "out" ).resolve( "app.js" );
-        if ( appJs.toFile().exists() )
-        {
-          //noinspection ResultOfMethodCallIgnored
-          appJs.toFile().delete();
-        }
-        FileUtil.deleteDirIfExists( currentDirectory.resolve( "jsZipCache" ) );
-        FileUtil.deleteDirIfExists( currentDirectory.resolve( "out" ).resolve( "sources" ) );
-      } );
-      // Assume maven
-      Exec.system( "mvn", "clean", "package", "-Pdevmode" );
-
-      archivej2clOutput( archiveDir );
-    }
     else
     {
       // Assume maven
       Exec.system( "mvn", "clean", "package" );
 
-      archiveMavenOutput( archiveDir );
+      if ( isj2cl )
+      {
+        archivej2clOutput( archiveDir );
+      }
+      else
+      {
+        archiveMavenOutput( archiveDir );
+      }
     }
     archiveStatistics( archiveDir );
   }
@@ -169,12 +157,10 @@ public final class CollectBuildStats
 
   private static void archivej2clOutput( @Nonnull final Path archiveDir )
   {
-    WorkspaceUtil.archiveDirectory( FileUtil.getCurrentDirectory().resolve( "out/sources" ),
-                                    archiveDir.resolve( "sources" ) );
-    WorkspaceUtil.archiveFile( FileUtil.getCurrentDirectory().resolve( "out/app.js" ),
+    final Path currentDirectory = FileUtil.getCurrentDirectory();
+    WorkspaceUtil.archiveDirectory( currentDirectory.resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT" ), archiveDir.resolve( "sources" ) );
+    WorkspaceUtil.archiveFile( currentDirectory.resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT/react4j-todomvc/react4j-todomvc.js" ),
                                archiveDir.resolve( "assets/todomvc/todomvc.nocache.js" ) );
-    WorkspaceUtil.archiveFile( FileUtil.getCurrentDirectory().resolve( "out/app.map" ),
-                               archiveDir.resolve( "assets/todomvc/todomvc.nocache.map" ) );
   }
 
   private static void archiveMavenOutput( @Nonnull final Path archiveDir )
