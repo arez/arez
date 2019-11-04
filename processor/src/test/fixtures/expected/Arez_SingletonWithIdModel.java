@@ -14,8 +14,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
+@SuppressWarnings("DefaultAnnotationParam")
 @Generated("arez.processor.ArezProcessor")
-@SuppressWarnings("unchecked")
 @Singleton
 public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;

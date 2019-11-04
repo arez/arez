@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
+@SuppressWarnings("WeakerAccess")
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_ObservableWithAnnotatedCtorModel extends ObservableWithAnnotatedCtorModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;

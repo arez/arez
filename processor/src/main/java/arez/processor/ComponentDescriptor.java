@@ -2817,6 +2817,7 @@ final class ComponentDescriptor
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     Generator.addOriginatingTypes( getElement(), builder );
+    ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
 
     if ( isClassType() )
     {
@@ -2828,7 +2829,8 @@ final class ComponentDescriptor
     }
 
     Generator.addGeneratedAnnotation( this, builder );
-    if ( !_roMemoizes.isEmpty() )
+    if ( !_roMemoizes.isEmpty() &&
+         null == ProcessorUtil.findAnnotationByType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "unchecked" ).
@@ -3963,8 +3965,12 @@ final class ComponentDescriptor
       ProcessorUtil.copyExceptions( constructorType, builder );
       ProcessorUtil.copyTypeParameters( constructorType, builder );
     }
-
-    if ( requiresDeprecatedSuppress )
+    if ( null != constructor )
+    {
+      ProcessorUtil.copyWhitelistedAnnotations( constructor, builder );
+    }
+    if ( requiresDeprecatedSuppress &&
+         null == ProcessorUtil.findAnnotationByType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
                                .addMember( "value", "$S", "deprecation" )
@@ -4389,6 +4395,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+    ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( getElement(), builder );
 
     Generator.addGeneratedAnnotation( this, builder );
@@ -4467,6 +4474,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+    ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( element, builder );
 
     Generator.addGeneratedAnnotation( this, builder );

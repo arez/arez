@@ -118,6 +118,7 @@ final class Generator
   static TypeSpec buildProviderDaggerComponentExtension( @Nonnull final ComponentDescriptor descriptor )
   {
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
+    ProcessorUtil.copyWhitelistedAnnotations( descriptor.getElement(), builder );
     addGeneratedAnnotation( descriptor, builder );
     addOriginatingTypes( descriptor.getElement(), builder );
 
@@ -180,6 +181,7 @@ final class Generator
   static TypeSpec buildConsumerDaggerComponentExtension( @Nonnull final ComponentDescriptor descriptor )
   {
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
+    ProcessorUtil.copyWhitelistedAnnotations( descriptor.getElement(), builder );
     addGeneratedAnnotation( descriptor, builder );
     addOriginatingTypes( descriptor.getElement(), builder );
 

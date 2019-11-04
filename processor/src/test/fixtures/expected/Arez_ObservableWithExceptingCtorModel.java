@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
+@SuppressWarnings("WeakerAccess")
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithExceptingCtorModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -20,6 +21,7 @@ public final class Arez_ObservableWithExceptingCtorModel extends ObservableWithE
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
+  @SuppressWarnings("RedundantThrows")
   public Arez_ObservableWithExceptingCtorModel() throws Exception {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
