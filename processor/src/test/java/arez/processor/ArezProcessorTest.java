@@ -285,6 +285,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.FactoryConsumer5Model", false, true, false, false },
         new Object[]{ "com.example.inject.FactoryConsumer6Model", false, true, false, false },
         new Object[]{ "com.example.inject.FactoryConsumer7Model", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumer8Model", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumer10Model", false, true, false, false },
         new Object[]{ "com.example.inject.InjectViaAnnotationModel", false, false, false, false },
         new Object[]{ "com.example.inject.InjectViaAnnotationWithPostConstructModel", false, true, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false, false },
