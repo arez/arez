@@ -194,6 +194,7 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
   eliminated from dagger with no ill effect.
 * We also add lots of dagger modules to replicate the behaviour of `@javax.enterprise.inject.Typed`. This could be
   baked into a the DI.
+* `@dagger.Provides` is used but only in smallest degree.
 * It is unclear how easy it is or even if it is possible to have per-instance dispose invocations for components
   when their scopes are closed.
 * Code-splitting is complex ... if at all possible.
