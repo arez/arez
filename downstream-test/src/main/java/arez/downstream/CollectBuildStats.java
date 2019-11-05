@@ -158,8 +158,9 @@ public final class CollectBuildStats
   private static void archivej2clOutput( @Nonnull final Path archiveDir )
   {
     final Path currentDirectory = FileUtil.getCurrentDirectory();
-    WorkspaceUtil.archiveDirectory( currentDirectory.resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT" ), archiveDir.resolve( "sources" ) );
-    WorkspaceUtil.archiveFile( currentDirectory.resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT/react4j-todomvc/react4j-todomvc.js" ),
+    final Path webAppDir = currentDirectory.resolve( "target/react4j-todomvc-1.0.0-SNAPSHOT" );
+    WorkspaceUtil.archiveDirectory( webAppDir, archiveDir.resolve( "sources" ) );
+    WorkspaceUtil.archiveFile( webAppDir.resolve( "react4j-todomvc/react4j-todomvc.js" ),
                                archiveDir.resolve( "assets/todomvc/todomvc.nocache.js" ) );
   }
 
