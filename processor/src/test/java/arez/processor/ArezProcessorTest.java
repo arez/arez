@@ -261,11 +261,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.id.RequireIdDisable", false, false, false, false },
         new Object[]{ "com.example.id.RequireIdEnable", false, false, false, false },
         new Object[]{ "com.example.inject.BasicInjectModel", false, false, false, false },
-        new Object[]{ "com.example.inject.ConsumeInjectViaAnnotationWithPostConstructModel",
-                      false,
-                      true,
-                      false,
-                      false },
         new Object[]{ "com.example.inject.CtorInjectModel", false, false, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtClassModel", false, false, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtCtorModel", false, false, false, false },
@@ -278,29 +273,14 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.CtorInjectWithTrackingObserveAndFactoryModel", false, false, false, false },
         new Object[]{ "com.example.inject.CtorInjectWithTrackingObserveModel", false, false, false, false },
         new Object[]{ "com.example.inject.DefaultCtorModel", false, false, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer1Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer2Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer3Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer4Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer5Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer6Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer7Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer8Model", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumer10Model", false, true, false, false },
-        new Object[]{ "com.example.inject.InjectViaAnnotationModel", false, false, false, false },
-        new Object[]{ "com.example.inject.InjectViaAnnotationWithPostConstructModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerBasicModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerWithInjectedModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerWithAnnotatedInjectedModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerAnnotatedPerInstanceModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerWithRawTypeInjectedModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel", false, true, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false, false },
-        new Object[]{ "com.example.inject.NonPublicConsumeInjectViaAnnotationWithPostConstructModel",
-                      false,
-                      true,
-                      false,
-                      false },
-        new Object[]{ "com.example.inject.ProvideInjectViaAnnotationWithPostConstructModel",
-                      false,
-                      true,
-                      false,
-                      false },
         new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false, false },
         new Object[]{ "com.example.inject.ScopedInjectModel", true, false, false, false },
         new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false, false },
@@ -771,19 +751,6 @@ public class ArezProcessorTest
                              Collections.singletonList( output1 ) );
   }
 
-  @Test
-  public void processSuccessfulWithInjectViaInheritance()
-    throws Exception
-  {
-    final JavaFileObject source1 = fixture( "input/com/example/inject/inheritance/other/BaseInjectModel.java" );
-    final JavaFileObject source2 =
-      fixture( "input/com/example/inject/inheritance/EnhancerNeededForConsumerModel.java" );
-    final String output1 = "expected/com/example/inject/inheritance/Arez_EnhancerNeededForConsumerModel.java";
-    final String output2 =
-      "expected/com/example/inject/inheritance/EnhancerNeededForConsumerModelDaggerComponentExtension.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2 ) );
-  }
-
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
@@ -1067,8 +1034,8 @@ public class ArezProcessorTest
                       "@ArezComponent target is not public but is configured as inject = PROVIDE using the dagger injection framework. Due to constraints within the dagger framework the type needs to made public." },
         new Object[]{ "com.example.inject.DaggerEnableInjectDisabledModel",
                       "@ArezComponent target has a dagger parameter that resolved to ENABLE but the inject parameter is set to NONE and this is not a valid combination of parameters." },
-        new Object[]{ "com.example.inject.InjectFieldsInjectDisabledModel",
-                      "@ArezComponent target has fields annotated with the javax.inject.Inject annotation but the inject parameter is set to NONE and this is not a valid scenario. Remove the @Inject annotation(s) or change the inject parameter to a value other than NONE." },
+        new Object[]{ "com.example.inject.FieldInjectionModel",
+                      "@Inject is not supported on fields in an Arez component. Use constructor injection instead." },
         new Object[]{ "com.example.inject.InjectMethodsInjectDisabledModel",
                       "@ArezComponent target has methods annotated with the javax.inject.Inject annotation but the inject parameter is set to NONE and this is not a valid scenario. Remove the @Inject annotation(s) or change the inject parameter to a value other than NONE." },
         new Object[]{ "com.example.inject.MultipleConstructorsScopedModel",

@@ -304,12 +304,12 @@ public final class ArezProcessor
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
     final List<VariableElement> fields = ProcessorUtil.getFieldElements( typeElement );
-    final boolean fieldInjections = fields.stream().anyMatch( this::hasInjectAnnotation );
+    ensureNoFieldInjections( fields );
     final boolean methodInjections =
       ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
         .stream()
         .anyMatch( this::hasInjectAnnotation );
-    final boolean nonConstructorInjections = fieldInjections || methodInjections;
+    final boolean nonConstructorInjections = methodInjections;
     final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
     final String daggerMode = daggerParameter.getSimpleName().toString();
 
@@ -318,7 +318,6 @@ public final class ArezProcessor
                      typeElement,
                      scopeAnnotation,
                      daggerMode,
-                     fieldInjections,
                      methodInjections );
     final boolean dagger =
       "ENABLE".equals( daggerMode ) ||
@@ -525,6 +524,18 @@ public final class ArezProcessor
     return descriptor;
   }
 
+  private void ensureNoFieldInjections( final List<VariableElement> fields )
+  {
+    for ( final VariableElement field : fields )
+    {
+      if ( hasInjectAnnotation( field ) )
+      {
+        throw new ArezProcessorException( "@Inject is not supported on fields in an Arez component. " +
+                                          "Use constructor injection instead.", field );
+      }
+    }
+  }
+
   private void warnOnUnmanagedComponentReferences( @Nonnull final ComponentDescriptor descriptor,
                                                    @Nonnull final List<VariableElement> fields )
   {
@@ -721,7 +732,6 @@ public final class ArezProcessor
                                 @Nonnull final TypeElement typeElement,
                                 @Nullable final AnnotationMirror scopeAnnotation,
                                 final String daggerMode,
-                                final boolean fieldInjections,
                                 final boolean methodInjections )
   {
     final VariableElement injectParameter = getAnnotationParameter( arezComponent, "inject" );
@@ -729,7 +739,7 @@ public final class ArezProcessor
     if ( "AUTODETECT".equals( mode ) )
     {
       final boolean shouldInject =
-        daggerMode.equals( "ENABLE" ) || null != scopeAnnotation || fieldInjections || methodInjections;
+        daggerMode.equals( "ENABLE" ) || null != scopeAnnotation || methodInjections;
       return shouldInject ? "PROVIDE" : "NONE";
     }
     else if ( "NONE".equals( mode ) )
@@ -739,13 +749,6 @@ public final class ArezProcessor
         throw new ArezProcessorException( "@ArezComponent target has a dagger parameter that resolved to ENABLE " +
                                           "but the inject parameter is set to NONE and this is not a valid " +
                                           "combination of parameters.", typeElement );
-      }
-      if ( fieldInjections )
-      {
-        throw new ArezProcessorException( "@ArezComponent target has fields annotated with the javax.inject.Inject " +
-                                          "annotation but the inject parameter is set to NONE and this is not a " +
-                                          "valid scenario. Remove the @Inject annotation(s) or change the inject " +
-                                          "parameter to a value other than NONE.", typeElement );
       }
       if ( methodInjections )
       {
