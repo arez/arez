@@ -232,6 +232,10 @@ HEADER
       end
     end
 
+    # TODO: Add a wait here until maven central publish has occurred. This way we can remove
+    #  the staging repository from these downstream builds and they can just use Maven Central.
+    #  This is particularly useful
+
     stage('PushDownstreamChanges', 'Push downstream changes to git repository') do
       # Push the changes that have been made locally in downstream projects.
       # Artifacts have been pushed to staging repository by this time so they should build

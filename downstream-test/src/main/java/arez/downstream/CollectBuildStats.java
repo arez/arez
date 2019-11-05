@@ -1,6 +1,8 @@
 package arez.downstream;
 
 import gir.Gir;
+import gir.bazel.Bazel;
+import gir.delta.Patch;
 import gir.git.Git;
 import gir.io.Exec;
 import gir.io.FileUtil;
@@ -15,6 +17,13 @@ import javax.annotation.Nonnull;
 
 public final class CollectBuildStats
 {
+  enum BuildSystem
+  {
+    BUILDR,
+    BAZEL,
+    MAVEN
+  }
+
   public static void main( final String[] args )
   {
     try
@@ -34,7 +43,7 @@ public final class CollectBuildStats
   {
     Gir.go( () -> {
       final List<String> baseBranches =
-        Arrays.asList( "raw", "arez", "dagger", "spritz", "raw_maven", "arez_maven", "dagger_maven" );
+        Arrays.asList( "raw", "arez", "dagger", "spritz", "raw_bazel", "raw_maven", "arez_maven", "dagger_maven" );
 
       final ArrayList<String> branches = new ArrayList<>( baseBranches );
       if ( WorkspaceUtil.buildJ2clBuilds() )
@@ -54,22 +63,37 @@ public final class CollectBuildStats
 
   private static void buildBranch( @Nonnull final WorkspaceUtil.BuildContext context, @Nonnull final String version )
   {
-    final boolean isMaven = context.branch.contains( "_maven" );
     final boolean isj2cl = context.branch.contains( "_j2cl" );
+
+    final BuildSystem buildSystem =
+      context.branch.contains( "_maven" ) ? BuildSystem.MAVEN :
+      context.branch.contains( "_bazel" ) ? BuildSystem.BAZEL :
+      BuildSystem.BUILDR;
 
     final boolean initialBuildSuccess = WorkspaceUtil.runBeforeBuild( context, () -> {
       final String prefix = context.branch + ".before";
       final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
-      buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
+      buildAndRecordStatistics( context.appDirectory, archiveDir, buildSystem, isj2cl );
     } );
 
     WorkspaceUtil.runAfterBuild( context, initialBuildSuccess, () -> {
-      if ( isMaven )
+      if ( BuildSystem.MAVEN == buildSystem )
       {
         Maven.patchPomProperty( context.appDirectory,
                                 () -> "Update the 'arez' dependencies to version '" + version + "'",
                                 "arez.version",
                                 version );
+      }
+      else if ( BuildSystem.BAZEL == buildSystem )
+      {
+        final Path thirdpartyDir = context.appDirectory.resolve( "thirdparty" );
+        Patch.patchAndAddFile( context.appDirectory,
+                               thirdpartyDir.resolve( "dependencies.yml" ),
+                               c -> Bazel.patchMavenCoordinates( c, "org.realityforge.arez", version ) );
+        Exec.system( "bazel", "run", "//thirdparty:regenerate_depgen_extension", "--", "--reset-cached-metadata" );
+        FileUtil.inDirectory( context.appDirectory,
+                              () -> Git.add( thirdpartyDir.resolve( "dependencies.bzl" ).toString() ) );
+        Git.commit( "Update the 'arez' dependencies to version '" + version + "'" );
       }
       else
       {
@@ -78,26 +102,26 @@ public final class CollectBuildStats
 
       final String prefix = context.branch + ".after";
       final Path archiveDir = WorkspaceUtil.getArchiveDir( context.workingDirectory, prefix );
-      buildAndRecordStatistics( context.appDirectory, archiveDir, !isMaven, isj2cl );
-      if ( isMaven )
-      {
-        // Reset is required to remove changes that were made to the pom to add local repository
-        Git.resetBranch();
-      }
+      buildAndRecordStatistics( context.appDirectory, archiveDir, buildSystem, isj2cl );
     }, () -> FileUtil.deleteDir( WorkspaceUtil.getArchiveDir( context.workingDirectory, context.branch + ".after" ) ) );
   }
 
   private static void buildAndRecordStatistics( @Nonnull final Path appDirectory,
                                                 @Nonnull final Path archiveDir,
-                                                final boolean isBuildr,
+                                                @Nonnull final BuildSystem buildSystem,
                                                 final boolean isj2cl )
   {
-    if ( isBuildr )
+    if ( BuildSystem.BUILDR == buildSystem )
     {
       WorkspaceUtil.customizeBuildr( appDirectory );
     }
+    else if ( BuildSystem.BAZEL == buildSystem )
+    {
+      //TODO: Customize Bazel to add local repository
+    }
     else
     {
+      assert BuildSystem.MAVEN == buildSystem;
       WorkspaceUtil.customizeMaven( appDirectory );
     }
 
@@ -107,12 +131,18 @@ public final class CollectBuildStats
       Gir.messenger().error( message );
     }
 
-    if ( isBuildr )
+    if ( BuildSystem.BUILDR == buildSystem )
     {
       // Perform the build
       Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
 
       archiveBuildrOutput( archiveDir );
+    }
+    else if ( BuildSystem.BAZEL == buildSystem )
+    {
+      Exec.system( "bazel", "build", ":all" );
+
+      archiveBazelOutput( archiveDir );
     }
     else
     {
@@ -129,6 +159,15 @@ public final class CollectBuildStats
       }
     }
     archiveStatistics( archiveDir );
+    if ( BuildSystem.BAZEL == buildSystem )
+    {
+      //TODO: Patch dependencies.bzl to replace local repository url with maven central
+    }
+    else if ( BuildSystem.MAVEN == buildSystem )
+    {
+      // Reset is required to remove changes that were made to the pom to add local repository
+      Git.resetBranch();
+    }
   }
 
   private static void archiveStatistics( @Nonnull final Path archiveDir )
@@ -153,6 +192,12 @@ public final class CollectBuildStats
     WorkspaceUtil.archiveDirectory( currentDirectory.resolve( "target/assets" ), archiveDir.resolve( "assets" ) );
     WorkspaceUtil.archiveDirectory( currentDirectory.resolve( "target/gwt_compile_reports/react4j.todomvc.TodomvcProd" ),
                                     archiveDir.resolve( "compileReports" ) );
+  }
+
+  private static void archiveBazelOutput( @Nonnull final Path archiveDir )
+  {
+    final Path currentDirectory = FileUtil.getCurrentDirectory();
+    //TODO: Archive the appropriate files
   }
 
   private static void archivej2clOutput( @Nonnull final Path archiveDir )
