@@ -185,6 +185,8 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
   cares about. Maybe `@Singleton`, (Component) `TreeLocal` and per code-split. This may be hierarchical scopes
   for statically determinable scopes and some other construct for dynamic `TreeLocal` dependencies or maybe these
   are pushed to the web-application framework ala react4j and can only appear there.
+* There has been zero use of qualifier annotations in the downstream projects. So qualifiers could potentially be
+  eliminated from dagger with no ill effect.
 * It is unclear how easy it is or even if it is possible to have per-instance dispose invocations for components
   when their scopes are closed.
 * Code-splitting is complex ... if at all possible.
