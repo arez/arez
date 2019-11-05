@@ -89,10 +89,10 @@ public final class CollectBuildStats
 
   private static void buildAndRecordStatistics( @Nonnull final Path appDirectory,
                                                 @Nonnull final Path archiveDir,
-                                                final boolean useBuildr,
+                                                final boolean isBuildr,
                                                 final boolean isj2cl )
   {
-    if ( useBuildr )
+    if ( isBuildr )
     {
       WorkspaceUtil.customizeBuildr( appDirectory );
     }
@@ -107,7 +107,7 @@ public final class CollectBuildStats
       Gir.messenger().error( message );
     }
 
-    if ( useBuildr )
+    if ( isBuildr )
     {
       // Perform the build
       Ruby.buildr( "clean", "package", "EXCLUDE_GWT_DEV_MODULE=true", "GWT=react4j-todomvc" );
