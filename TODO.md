@@ -20,6 +20,8 @@ complete as there is too much un-said.
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
   they can be assumed to be an `@Observable`.
 
+* Consider eliminating field and method based injection support and generating an error if field injection is used.
+
 ## Enhancements
 
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
@@ -185,6 +187,9 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
   cares about. Maybe `@Singleton`, (Component) `TreeLocal` and per code-split. This may be hierarchical scopes
   for statically determinable scopes and some other construct for dynamic `TreeLocal` dependencies or maybe these
   are pushed to the web-application framework ala react4j and can only appear there.
+* Applications have been refactored to use constructor based injection rather than field or method based injection.
+  We could probably enforce this in Arez and thus eliminate a lot of overhead in our generator. If only we could
+  lock this down at dagger level it would be better.
 * There has been zero use of qualifier annotations in the downstream projects. So qualifiers could potentially be
   eliminated from dagger with no ill effect.
 * It is unclear how easy it is or even if it is possible to have per-instance dispose invocations for components
