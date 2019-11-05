@@ -20,6 +20,7 @@ public final class TypeBasedLocator
   /**
    * Factory methods for looking entities up by type.
    */
+  @Nonnull
   private final Map<Class<?>, Function<Object, ?>> _findByIdFunctions = new HashMap<>();
 
   /**
