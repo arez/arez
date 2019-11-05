@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.153](https://github.com/arez/arez/tree/v0.153) (2019-11-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.152...v0.153)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.gir` artifact to version `0.11`.
 * Remove documentation and examples using the [GIN](https://code.google.com/archive/p/google-gin/) injection framework. Gin is no longer under active development, has problems in modern JVMs and is unlikely to be supported in GWT3.x so it's use is not recommended for modern GWT applications.
