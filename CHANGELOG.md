@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.153'
+
 ### [v0.35](https://github.com/arez/arez-dom/tree/v0.35) (2019-11-04) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.34...v0.35)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.152'
