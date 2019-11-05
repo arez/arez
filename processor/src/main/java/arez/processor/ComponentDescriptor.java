@@ -103,10 +103,6 @@ final class ComponentDescriptor
   private final boolean _dagger;
   private final boolean _injectFactory;
   /**
-   * Is there any @Inject annotated fields or methods? If so we need to do a dance when generating Dagger support.
-   */
-  private final boolean _nonConstructorInjections;
-  /**
    * Annotation that indicates whether equals/hashCode should be implemented. See arez.annotations.ArezComponent.requireEquals()
    */
   private final boolean _requireEquals;
@@ -187,7 +183,6 @@ final class ComponentDescriptor
                        @Nonnull final String injectMode,
                        final boolean dagger,
                        final boolean injectFactory,
-                       final boolean nonConstructorInjections,
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -209,7 +204,6 @@ final class ComponentDescriptor
     _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
     _injectFactory = injectFactory;
-    _nonConstructorInjections = nonConstructorInjections;
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
@@ -2898,18 +2892,6 @@ final class ComponentDescriptor
     {
       builder.addType( buildFactoryClass().build() );
     }
-    if ( needsEnhancer() )
-    {
-      final TypeSpec.Builder enhancer =
-        TypeSpec.interfaceBuilder( "Enhancer" ).addModifiers( Modifier.STATIC );
-      enhancer.addMethod( MethodSpec
-                            .methodBuilder( "enhance" )
-                            .addParameter( ParameterSpec.builder( ClassName.bestGuess( getArezClassName() ),
-                                                                  "component" ).build() )
-                            .addModifiers( Modifier.PUBLIC, Modifier.ABSTRACT )
-                            .build() );
-      builder.addType( enhancer.build() );
-    }
 
     buildFields( builder );
 
@@ -3026,18 +3008,6 @@ final class ComponentDescriptor
     final ExecutableElement constructor = ProcessorUtil.getConstructors( _element ).get( 0 );
     assert null != constructor;
 
-    final boolean needsEnhancer = needsEnhancer();
-    if ( needsEnhancer )
-    {
-      factory.addField( FieldSpec
-                          .builder( ClassName.bestGuess( "Enhancer" ),
-                                    Generator.FRAMEWORK_PREFIX + "enhancer",
-                                    Modifier.PRIVATE,
-                                    Modifier.FINAL )
-                          .addAnnotation( Generator.NONNULL_CLASSNAME )
-                          .build() );
-    }
-
     final List<? extends VariableElement> injectedParameters = getInjectedParameters( constructor );
     for ( final VariableElement perInstanceParameter : injectedParameters )
     {
@@ -3053,15 +3023,6 @@ final class ComponentDescriptor
     final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
     ctor.addAnnotation( Generator.INJECT_CLASSNAME );
     ProcessorUtil.copyWhitelistedAnnotations( constructor, ctor );
-    if ( needsEnhancer )
-    {
-      final String name = Generator.FRAMEWORK_PREFIX + "enhancer";
-      ctor.addParameter( ParameterSpec
-                           .builder( ClassName.bestGuess( "Enhancer" ), name, Modifier.FINAL )
-                           .addAnnotation( Generator.NONNULL_CLASSNAME )
-                           .build() );
-      ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
-    }
 
     for ( final VariableElement perInstanceParameter : injectedParameters )
     {
@@ -3092,17 +3053,7 @@ final class ComponentDescriptor
 
       final StringBuilder sb = new StringBuilder();
       final ArrayList<Object> params = new ArrayList<>();
-      if ( !needsEnhancer && nonConstructorInjections() )
-      {
-        sb.append( "final $T $N = " );
-        params.add( getEnhancedClassName() );
-        params.add( Generator.FRAMEWORK_PREFIX + "component" );
-      }
-      else
-      {
-        sb.append( "return " );
-      }
-      sb.append( "new $T(" );
+      sb.append( "return new $T(" );
       params.add( getEnhancedClassName() );
 
       boolean firstParam = true;
@@ -3144,15 +3095,6 @@ final class ComponentDescriptor
         params.add( name );
       }
 
-      if ( needsEnhancer )
-      {
-        assert !firstParam;
-        sb.append( ", " );
-        firstParam = false;
-        sb.append( "$N" );
-        params.add( Generator.FRAMEWORK_PREFIX + "enhancer" );
-      }
-
       if ( !firstParam )
       {
         sb.append( " " );
@@ -3160,27 +3102,6 @@ final class ComponentDescriptor
 
       sb.append( ")" );
       creator.addStatement( sb.toString(), params.toArray() );
-
-      if ( !needsEnhancer && nonConstructorInjections() )
-      {
-        final CodeBlock.Builder block = CodeBlock.builder();
-        block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
-        block.addStatement( "$T.apiInvariant( () -> null != $T.InjectSupport.c_subComponent, " +
-                            "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
-                            "the dependency injection provider has been initialized. Please see " +
-                            "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
-                            "directions how to configure dependency injection.\" )",
-                            Generator.GUARDS_CLASSNAME,
-                            getDaggerComponentExtensionClassName(),
-                            getType() );
-        block.endControlFlow();
-        creator.addCode( block.build() );
-        creator.addStatement( "$T.InjectSupport.c_subComponent.inject( $N )",
-                              getDaggerComponentExtensionClassName(),
-                              Generator.FRAMEWORK_PREFIX + "component" );
-        creator.addStatement( "return $N", Generator.FRAMEWORK_PREFIX + "component" );
-      }
-
       factory.addMethod( creator.build() );
     }
 
@@ -3978,10 +3899,7 @@ final class ComponentDescriptor
                                .build() );
     }
 
-    final boolean needsEnhancer = needsEnhancer();
-    if ( InjectMode.NONE != _injectMode &&
-         !_injectFactory &&
-         !needsEnhancer )
+    if ( InjectMode.NONE != _injectMode && !_injectFactory )
     {
       builder.addAnnotation( Generator.INJECT_CLASSNAME );
     }
@@ -4013,14 +3931,6 @@ final class ComponentDescriptor
 
     superCall.append( ")" );
     builder.addStatement( superCall.toString(), parameterNames.toArray() );
-
-    if ( needsEnhancer )
-    {
-      builder.addParameter( ParameterSpec.builder( ClassName.bestGuess( "Enhancer" ),
-                                                   Generator.ENHANCER_PARAM_NAME,
-                                                   Modifier.FINAL )
-                              .addAnnotation( Generator.NONNULL_CLASSNAME ).build() );
-    }
 
     if ( !_references.isEmpty() )
     {
@@ -4082,10 +3992,6 @@ final class ComponentDescriptor
     for ( final ReferenceDescriptor reference : eagerReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
-    }
-    if ( needsEnhancer )
-    {
-      builder.addStatement( "$N.enhance( this )", Generator.ENHANCER_PARAM_NAME );
     }
 
     if ( null != _postConstruct )
@@ -4375,17 +4281,7 @@ final class ComponentDescriptor
 
   boolean needsDaggerComponentExtension()
   {
-    return needsDaggerIntegration() && ( _injectFactory || needsEnhancer() );
-  }
-
-  boolean needsEnhancer()
-  {
-    return needsDaggerIntegration() && ( null != _postConstruct || requiresSchedule() ) && _nonConstructorInjections;
-  }
-
-  boolean nonConstructorInjections()
-  {
-    return _nonConstructorInjections;
+    return needsDaggerIntegration() && _injectFactory;
   }
 
   @Nonnull
@@ -4570,12 +4466,6 @@ final class ComponentDescriptor
   ClassName getEnhancedClassName()
   {
     return ClassName.get( getPackageName(), getArezClassName() );
-  }
-
-  @Nonnull
-  ClassName getEnhancerClassName()
-  {
-    return ClassName.get( getPackageName(), getArezClassName(), "Enhancer" );
   }
 
   @Nonnull

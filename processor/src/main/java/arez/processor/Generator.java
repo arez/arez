@@ -4,7 +4,6 @@ import com.google.auto.common.GeneratedAnnotationSpecs;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -16,13 +15,10 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import static arez.processor.ProcessorUtil.*;
 
 @SuppressWarnings( "Duplicates" )
 final class Generator
@@ -33,7 +29,6 @@ final class Generator
   static final ClassName SINGLETON_CLASSNAME = ClassName.get( "javax.inject", "Singleton" );
   private static final ClassName PROVIDER_CLASSNAME = ClassName.get( "javax.inject", "Provider" );
   static final ClassName DAGGER_BINDS_CLASSNAME = ClassName.get( "dagger", "Binds" );
-  private static final ClassName DAGGER_PROVIDES_CLASSNAME = ClassName.get( "dagger", "Provides" );
   static final ClassName DAGGER_MODULE_CLASSNAME = ClassName.get( "dagger", "Module" );
   private static final ClassName DAGGER_SUBCOMPONENT_CLASSNAME = ClassName.get( "dagger", "Subcomponent" );
   static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
@@ -82,7 +77,6 @@ final class Generator
   static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME =
     FRAMEWORK_PREFIX + "nativeComponentPreDispose";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
-  static final String ENHANCER_PARAM_NAME = FRAMEWORK_PREFIX + "enhancer";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
@@ -153,25 +147,9 @@ final class Generator
                          .addStatement( "InjectSupport.c_enhancer = this::inject" )
                          .build() );
 
-    final boolean needsEnhancer = descriptor.needsEnhancer();
-    if ( descriptor.nonConstructorInjections() )
-    {
-      builder.addType( buildInjectSupport( descriptor ) );
-    }
-    if ( shouldGenerateFactory )
-    {
-      if ( needsEnhancer )
-      {
-        builder.addType( buildFactoryBasedDaggerModule( descriptor ) );
-      }
-    }
-    else
+    if ( !shouldGenerateFactory )
     {
       builder.addType( buildProviderDaggerModule( descriptor ) );
-      if ( needsEnhancer )
-      {
-        builder.addType( buildEnhancerDaggerModule( descriptor ) );
-      }
     }
 
     return builder.build();
@@ -194,39 +172,13 @@ final class Generator
           returns( ClassName.bestGuess( "DaggerSubcomponent" ) );
       builder.addMethod( method.build() );
     }
-    final boolean needsEnhancer = descriptor.needsEnhancer();
-    if ( descriptor.nonConstructorInjections() )
-    {
-      final MethodSpec.Builder method =
-        MethodSpec.methodBuilder( "bind" + descriptor.getType() ).
-          addModifiers( Modifier.PUBLIC, Modifier.DEFAULT );
-      method.addStatement( "InjectSupport.c_subComponent = $N()", "get" + descriptor.getType() + "DaggerSubcomponent" );
-      if ( needsEnhancer )
-      {
-        method.addStatement( "InjectSupport.c_enhancer = instance -> InjectSupport.c_subComponent.inject( instance )" );
-      }
-      builder.addMethod( method.build() );
-    }
-
-    if ( descriptor.nonConstructorInjections() )
-    {
-      builder.addType( buildInjectSupport( descriptor ) );
-    }
     if ( descriptor.shouldGenerateFactory() )
     {
-      if ( needsEnhancer )
-      {
-        builder.addType( buildFactoryBasedDaggerModule( descriptor ) );
-      }
       builder.addType( buildFactoryBasedDaggerSubcomponent( descriptor ) );
     }
     else
     {
       builder.addType( buildConsumerDaggerModule( descriptor ) );
-      if ( needsEnhancer )
-      {
-        builder.addType( buildEnhancerDaggerModule( descriptor ) );
-      }
       builder.addType( buildConsumerDaggerSubcomponent( descriptor ) );
     }
 
@@ -239,13 +191,6 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerSubcomponent" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    if ( descriptor.needsEnhancer() )
-    {
-      builder.addAnnotation( AnnotationSpec
-                               .builder( DAGGER_SUBCOMPONENT_CLASSNAME )
-                               .addMember( "modules", "DaggerModule.class" )
-                               .build() );
-    }
 
     if ( descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) )
     {
@@ -289,10 +234,6 @@ final class Generator
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
     final AnnotationSpec.Builder annotation = AnnotationSpec.builder( DAGGER_SUBCOMPONENT_CLASSNAME );
-    if ( descriptor.needsEnhancer() )
-    {
-      annotation.addMember( "modules", "DaggerModule.class" );
-    }
     builder.addAnnotation( annotation.build() );
 
     builder.addMethod( MethodSpec
@@ -319,12 +260,6 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerModule" );
 
     builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    if ( descriptor.needsEnhancer() )
-    {
-      builder.addAnnotation( AnnotationSpec.builder( DAGGER_MODULE_CLASSNAME )
-                               .addMember( "includes", "EnhancerDaggerModule.class" )
-                               .build() );
-    }
 
     builder.addMethod( MethodSpec
                          .methodBuilder( "bindComponent" )
@@ -357,151 +292,6 @@ final class Generator
                          .addParameter( descriptor.getEnhancedClassName(), "component" )
                          .returns( targetType )
                          .build() );
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private static TypeSpec buildInjectSupport( @Nonnull final ComponentDescriptor descriptor )
-  {
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( "InjectSupport" );
-
-    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
-
-    if ( ComponentDescriptor.InjectMode.PROVIDE == descriptor.getInjectMode() )
-    {
-      builder.addField( FieldSpec
-                          .builder( descriptor.getEnhancedClassName().nestedClass( "Enhancer" ), "c_enhancer" )
-                          .addModifiers( Modifier.PRIVATE, Modifier.STATIC ).build() );
-    }
-    else
-    {
-      builder.addField( FieldSpec
-                          .builder( ClassName.bestGuess( "DaggerSubcomponent" ), "c_subComponent" )
-                          .addModifiers( Modifier.STATIC ).build() );
-      if ( descriptor.needsEnhancer() )
-      {
-        builder.addField( FieldSpec
-                            .builder( descriptor.getEnhancedClassName().nestedClass( "Enhancer" ), "c_enhancer" )
-                            .addModifiers( Modifier.PRIVATE, Modifier.STATIC ).build() );
-      }
-    }
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private static TypeSpec buildEnhancerDaggerModule( @Nonnull final ComponentDescriptor descriptor )
-  {
-    assert descriptor.needsEnhancer();
-
-    // Dues to a bug in javapoet that disallows static methods as part of interface classes
-    // we synthesize a separate module and it include it in main component to achieve the same
-    // goal. In an ideal world this static method would be merged into above class
-    final TypeSpec.Builder builder =
-      TypeSpec
-        .classBuilder( "EnhancerDaggerModule" )
-        .addModifiers( Modifier.PUBLIC, Modifier.STATIC )
-        .addAnnotation( DAGGER_MODULE_CLASSNAME );
-
-    {
-      final MethodSpec.Builder method = MethodSpec
-        .methodBuilder( "getEnhancer" )
-        .addModifiers( Modifier.PRIVATE, Modifier.STATIC )
-        .returns( descriptor.getEnhancerClassName() );
-      final CodeBlock.Builder block = CodeBlock.builder();
-      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-      block.addStatement( "$T.apiInvariant( () -> null != InjectSupport.c_enhancer, " +
-                          "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
-                          "the dependency injection provider has been initialized. Please see " +
-                          "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
-                          "directions how to configure dependency injection.\" )",
-                          GUARDS_CLASSNAME,
-                          descriptor.getType() );
-      block.endControlFlow();
-
-      method.addCode( block.build() );
-
-      method.addStatement( "return InjectSupport.c_enhancer" );
-      builder.addMethod( method.build() );
-    }
-
-    {
-      final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
-      creator.addAnnotation( Generator.NONNULL_CLASSNAME );
-      creator.addModifiers( Modifier.FINAL );
-      creator.addAnnotation( DAGGER_PROVIDES_CLASSNAME );
-      creator.returns( descriptor.getEnhancedClassName() );
-
-      final StringBuilder sb = new StringBuilder();
-      final ArrayList<Object> params = new ArrayList<>();
-      sb.append( "return new $T(" );
-      params.add( descriptor.getEnhancedClassName() );
-
-      boolean firstParam = true;
-
-      final ExecutableElement constructor = getConstructors( descriptor.getElement() ).get( 0 );
-      assert null != constructor;
-      for ( final VariableElement parameter : constructor.getParameters() )
-      {
-        final String name = parameter.getSimpleName().toString();
-
-        final ParameterSpec.Builder param =
-          ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
-        ProcessorUtil.copyWhitelistedAnnotations( parameter, param );
-        creator.addParameter( param.build() );
-
-        if ( firstParam )
-        {
-          sb.append( " " );
-        }
-        else
-        {
-          sb.append( ", " );
-        }
-        firstParam = false;
-        sb.append( "$N" );
-        params.add( name );
-      }
-
-      sb.append( firstParam ? " " : ", " );
-      sb.append( "getEnhancer() )" );
-      creator.addStatement( sb.toString(), params.toArray() );
-
-      builder.addMethod( creator.build() );
-    }
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private static TypeSpec buildFactoryBasedDaggerModule( @Nonnull final ComponentDescriptor descriptor )
-  {
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( "DaggerModule" );
-
-    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    builder.addAnnotation( DAGGER_MODULE_CLASSNAME );
-
-    final MethodSpec.Builder method = MethodSpec
-      .methodBuilder( "provideEnhancer" )
-      .addAnnotation( DAGGER_PROVIDES_CLASSNAME )
-      .addModifiers( Modifier.STATIC )
-      .returns( descriptor.getEnhancerClassName() );
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.apiInvariant( () -> null != InjectSupport.c_enhancer, " +
-                        "() -> \"Attempted to create an instance of the Arez component named '$N' before " +
-                        "the dependency injection provider has been initialized. Please see " +
-                        "the documentation at https://arez.github.io/docs/dependency_injection.html for " +
-                        "directions how to configure dependency injection.\" )",
-                        GUARDS_CLASSNAME,
-                        descriptor.getType() );
-    block.endControlFlow();
-
-    method.addCode( block.build() );
-
-    method.addStatement( "return InjectSupport.c_enhancer" );
-    builder.addMethod( method.build() );
 
     return builder.build();
   }

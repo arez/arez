@@ -305,20 +305,11 @@ public final class ArezProcessor
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
     final List<VariableElement> fields = ProcessorUtil.getFieldElements( typeElement );
     ensureNoFieldInjections( fields );
-    final boolean methodInjections =
-      ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
-        .stream()
-        .anyMatch( this::hasInjectAnnotation );
-    final boolean nonConstructorInjections = methodInjections;
+    ensureNoMethodInjections( typeElement );
     final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
     final String daggerMode = daggerParameter.getSimpleName().toString();
 
-    final String injectMode =
-      getInjectMode( arezComponent,
-                     typeElement,
-                     scopeAnnotation,
-                     daggerMode,
-                     methodInjections );
+    final String injectMode = getInjectMode( arezComponent, typeElement, scopeAnnotation, daggerMode );
     final boolean dagger =
       "ENABLE".equals( daggerMode ) ||
       (
@@ -431,7 +422,6 @@ public final class ArezProcessor
                                injectMode,
                                dagger,
                                generatesFactoryToInject,
-                               nonConstructorInjections,
                                requireEquals,
                                requireVerify,
                                scopeAnnotation,
@@ -524,7 +514,7 @@ public final class ArezProcessor
     return descriptor;
   }
 
-  private void ensureNoFieldInjections( final List<VariableElement> fields )
+  private void ensureNoFieldInjections( @Nonnull final List<VariableElement> fields )
   {
     for ( final VariableElement field : fields )
     {
@@ -534,6 +524,19 @@ public final class ArezProcessor
                                           "Use constructor injection instead.", field );
       }
     }
+  }
+
+  private void ensureNoMethodInjections( @Nonnull final TypeElement typeElement )
+  {
+    ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
+      .stream()
+      .filter( this::hasInjectAnnotation )
+      .forEach( method ->
+                {
+                  throw new ArezProcessorException( "@Inject is not supported on methods in an Arez component. " +
+                                                    "Use constructor injection instead.", method );
+
+                } );
   }
 
   private void warnOnUnmanagedComponentReferences( @Nonnull final ComponentDescriptor descriptor,
@@ -731,15 +734,13 @@ public final class ArezProcessor
   private String getInjectMode( @Nonnull final AnnotationMirror arezComponent,
                                 @Nonnull final TypeElement typeElement,
                                 @Nullable final AnnotationMirror scopeAnnotation,
-                                final String daggerMode,
-                                final boolean methodInjections )
+                                final String daggerMode )
   {
     final VariableElement injectParameter = getAnnotationParameter( arezComponent, "inject" );
     final String mode = injectParameter.getSimpleName().toString();
     if ( "AUTODETECT".equals( mode ) )
     {
-      final boolean shouldInject =
-        daggerMode.equals( "ENABLE" ) || null != scopeAnnotation || methodInjections;
+      final boolean shouldInject = daggerMode.equals( "ENABLE" ) || null != scopeAnnotation;
       return shouldInject ? "PROVIDE" : "NONE";
     }
     else if ( "NONE".equals( mode ) )
@@ -749,13 +750,6 @@ public final class ArezProcessor
         throw new ArezProcessorException( "@ArezComponent target has a dagger parameter that resolved to ENABLE " +
                                           "but the inject parameter is set to NONE and this is not a valid " +
                                           "combination of parameters.", typeElement );
-      }
-      if ( methodInjections )
-      {
-        throw new ArezProcessorException( "@ArezComponent target has methods annotated with the javax.inject.Inject " +
-                                          "annotation but the inject parameter is set to NONE and this is not a " +
-                                          "valid scenario. Remove the @Inject annotation(s) or change the inject " +
-                                          "parameter to a value other than NONE.", typeElement );
       }
       if ( null != scopeAnnotation )
       {

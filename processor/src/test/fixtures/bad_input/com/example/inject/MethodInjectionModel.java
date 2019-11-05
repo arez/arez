@@ -5,8 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.InjectMode;
 import javax.inject.Inject;
 
-@ArezComponent( inject = InjectMode.NONE )
-public abstract class InjectMethodsInjectDisabledModel
+@ArezComponent
+public abstract class MethodInjectionModel
 {
   @Inject
   void setService( Runnable myService )
