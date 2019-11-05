@@ -27,7 +27,6 @@ final class Generator
   static final ClassName NULLABLE_CLASSNAME = ClassName.get( "javax.annotation", "Nullable" );
   static final ClassName INJECT_CLASSNAME = ClassName.get( "javax.inject", "Inject" );
   static final ClassName SINGLETON_CLASSNAME = ClassName.get( "javax.inject", "Singleton" );
-  private static final ClassName PROVIDER_CLASSNAME = ClassName.get( "javax.inject", "Provider" );
   static final ClassName DAGGER_BINDS_CLASSNAME = ClassName.get( "dagger", "Binds" );
   static final ClassName DAGGER_MODULE_CLASSNAME = ClassName.get( "dagger", "Module" );
   private static final ClassName DAGGER_SUBCOMPONENT_CLASSNAME = ClassName.get( "dagger", "Subcomponent" );
@@ -109,55 +108,9 @@ final class Generator
   }
 
   @Nonnull
-  static TypeSpec buildProviderDaggerComponentExtension( @Nonnull final ComponentDescriptor descriptor )
-  {
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
-    ProcessorUtil.copyWhitelistedAnnotations( descriptor.getElement(), builder );
-    addGeneratedAnnotation( descriptor, builder );
-    addOriginatingTypes( descriptor.getElement(), builder );
-
-    builder.addModifiers( Modifier.PUBLIC );
-
-    final boolean shouldGenerateFactory = descriptor.shouldGenerateFactory();
-    if ( shouldGenerateFactory )
-    {
-      builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Factory" ).
-        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-        returns( descriptor.getClassName().nestedClass( "Factory" ) ).build() );
-    }
-    else
-    {
-      builder.addMethod( MethodSpec.methodBuilder( "create" + descriptor.getType() + "Provider" ).
-        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
-    }
-
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "inject" )
-                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( ParameterSpec
-                                          .builder( descriptor.getEnhancedClassName(), "component" )
-                                          .addAnnotation( NONNULL_CLASSNAME )
-                                          .build() )
-                         .build() );
-
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "bind" + descriptor.getType() )
-                         .addModifiers( Modifier.PUBLIC, Modifier.DEFAULT )
-                         .addStatement( "InjectSupport.c_enhancer = this::inject" )
-                         .build() );
-
-    if ( !shouldGenerateFactory )
-    {
-      builder.addType( buildProviderDaggerModule( descriptor ) );
-    }
-
-    return builder.build();
-  }
-
-  @Nonnull
   static TypeSpec buildConsumerDaggerComponentExtension( @Nonnull final ComponentDescriptor descriptor )
   {
+    assert descriptor.shouldGenerateFactory();
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
     ProcessorUtil.copyWhitelistedAnnotations( descriptor.getElement(), builder );
     addGeneratedAnnotation( descriptor, builder );
@@ -172,57 +125,7 @@ final class Generator
           returns( ClassName.bestGuess( "DaggerSubcomponent" ) );
       builder.addMethod( method.build() );
     }
-    if ( descriptor.shouldGenerateFactory() )
-    {
-      builder.addType( buildFactoryBasedDaggerSubcomponent( descriptor ) );
-    }
-    else
-    {
-      builder.addType( buildConsumerDaggerModule( descriptor ) );
-      builder.addType( buildConsumerDaggerSubcomponent( descriptor ) );
-    }
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private static TypeSpec buildConsumerDaggerSubcomponent( @Nonnull final ComponentDescriptor descriptor )
-  {
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerSubcomponent" );
-
-    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-
-    if ( descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) )
-    {
-      builder.addMethod( MethodSpec.methodBuilder( "createProvider" ).
-        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).build() );
-    }
-    else
-    {
-      builder.addMethod( MethodSpec.methodBuilder( "createRawProvider" ).
-        addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, ClassName.get( Object.class ) ) ).build() );
-      builder.addMethod( MethodSpec.methodBuilder( "createProvider" ).
-        addModifiers( Modifier.DEFAULT, Modifier.PUBLIC ).
-        addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
-                         .addMember( "value", "$S", "unchecked" )
-                         .build() ).
-        returns( ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ) ).
-        addStatement( "return ($T) ($T) createRawProvider()",
-                      ParameterizedTypeName.get( PROVIDER_CLASSNAME, descriptor.getClassName() ),
-                      PROVIDER_CLASSNAME ).
-        build() );
-    }
-
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "inject" )
-                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( ParameterSpec
-                                          .builder( descriptor.getEnhancedClassName(), "component" )
-                                          .addAnnotation( NONNULL_CLASSNAME )
-                                          .build() )
-                         .build() );
+    builder.addType( buildFactoryBasedDaggerSubcomponent( descriptor ) );
 
     return builder.build();
   }
@@ -249,48 +152,6 @@ final class Generator
                                           .builder( descriptor.getEnhancedClassName(), "component" )
                                           .addAnnotation( NONNULL_CLASSNAME )
                                           .build() )
-                         .build() );
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private static TypeSpec buildProviderDaggerModule( @Nonnull final ComponentDescriptor descriptor )
-  {
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerModule" );
-
-    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "bindComponent" )
-                         .addAnnotation( DAGGER_BINDS_CLASSNAME )
-                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( descriptor.getEnhancedClassName(), "component" )
-                         .returns( descriptor.getClassName() )
-                         .build() );
-
-    return builder.build();
-  }
-
-  @Nonnull
-  private static TypeSpec buildConsumerDaggerModule( @Nonnull final ComponentDescriptor descriptor )
-  {
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( "DaggerModule" );
-
-    builder.addModifiers( Modifier.PUBLIC, Modifier.STATIC );
-    builder.addAnnotation( AnnotationSpec.builder( DAGGER_MODULE_CLASSNAME )
-                             .addMember( "includes", "EnhancerDaggerModule.class" )
-                             .build() );
-
-    final ClassName targetType = descriptor.getElement().getModifiers().contains( Modifier.PUBLIC ) ?
-                                 descriptor.getClassName() :
-                                 ClassName.get( Object.class );
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "bindComponent" )
-                         .addAnnotation( DAGGER_BINDS_CLASSNAME )
-                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( descriptor.getEnhancedClassName(), "component" )
-                         .returns( targetType )
                          .build() );
 
     return builder.build();

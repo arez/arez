@@ -243,14 +243,8 @@ public final class ArezProcessor
     {
       if ( descriptor.needsDaggerComponentExtension() )
       {
-        if ( ComponentDescriptor.InjectMode.PROVIDE == descriptor.getInjectMode() )
-        {
-          emitTypeSpec( descriptor.getPackageName(), Generator.buildProviderDaggerComponentExtension( descriptor ) );
-        }
-        else
-        {
-          emitTypeSpec( descriptor.getPackageName(), Generator.buildConsumerDaggerComponentExtension( descriptor ) );
-        }
+        assert ComponentDescriptor.InjectMode.CONSUME == descriptor.getInjectMode();
+        emitTypeSpec( descriptor.getPackageName(), Generator.buildConsumerDaggerComponentExtension( descriptor ) );
       }
       else if ( descriptor.needsDaggerModule() )
       {
