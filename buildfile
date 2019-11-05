@@ -13,14 +13,6 @@ GWT_DEPS =
     :elemental2_promise,
     :jsinterop_base
   ]
-GIN_DEPS =
-  [
-    :javax_inject,
-    :gin,
-    :aopalliance,
-    :guice,
-    :guice_assistedinject
-  ]
 DAGGER_DEPS =
   [
     :javax_inject,
@@ -279,8 +271,7 @@ define 'arez' do
                  project('core').compile.dependencies,
                  :gwt_user,
                  DAGGER_DEPS,
-                 GWT_DEPS,
-                 GIN_DEPS
+                 GWT_DEPS
 
     test.options[:properties] = AREZ_TEST_OPTIONS
     test.options[:java_args] = ['-ea']

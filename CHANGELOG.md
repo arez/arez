@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.gir` artifact to version `0.11`.
+* Remove documentation and examples using the [GIN](https://code.google.com/archive/p/google-gin/) injection framework. Gin is no longer under active development, has problems in modern JVMs and is unlikely to be supported in GWT3.x so it's use is not recommended for modern GWT applications.
 
 ### [v0.152](https://github.com/arez/arez/tree/v0.152) (2019-11-04) · [Full Changelog](https://github.com/arez/arez/compare/v0.151...v0.152)
 

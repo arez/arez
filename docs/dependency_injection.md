@@ -40,29 +40,8 @@ is present.
 
 This would be sufficient if the consumer code always consumed the enhanced classes but as this is rarely the
 case, each injection framework has mechanisms that allow the framework to supply an instance of the enhanced
-sub-class when the base class is requested. The way this is done is framework specific and is covered in the
-following sections.
-
-## GIN
-
-[GIN](https://code.google.com/archive/p/google-gin/) is a extension of Guice 3.0 that runs under GWT. The root
-objects in the object graph are accessed via a `Ginjector` and the injection rules can be customized by
-supplying `GinModule` classes to the `Ginjector`. A `GinModule` that would expose the base classes in the
-injection the framework is as simple as:
-
-{@file_content: file=arez/doc/examples/inject2/ExampleGinModule.java "start_line=public class"}
-
-Which could be linked up to a `Ginjector` like:
-
-{@file_content: file=arez/doc/examples/inject2/ExampleGinjector.java "start_line=public interface"}
-
-And used in code like:
-
-{@file_content: file=arez/doc/examples/inject2/Example.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false strip_block=true}
-
-Gin was the injection framework of choice for GWT applications for a very long time and thus is present in
-many existing GWT applications. However it is no longer under active development, has problems in modern
-JVMs and is unlikely to be supported in GWT3.x so it's use is not recommended for modern GWT applications.
+sub-class when the base class is requested. The way this is done is framework specific and Dagger integration
+is covered in the following section.
 
 ## Dagger2
 
@@ -71,12 +50,10 @@ processors and statically checks the object graph at compilation time. The root 
 a component which is an interface annotated by the `@dagger.Component` annotation. The injection rules are customized
 via `@dagger.Module` annotated classes.
 
-Arez has greater support for the dagger injection framework than GIN. The {@api_url: annotations.ArezComponent}
-and {@api_url: annotations.Repository} annotations have a `dagger` parameter that controls whether the Arez
-annotation processor generates dagger modules.
-
-If the value of the `dagger` parameter is `ENABLE` or `AUTODETECT` and the `dagger.Component` class is on the
-classpath then a module will be generated for each base component and base repository that looks like:
+The {@api_url: annotations.ArezComponent} and {@api_url: annotations.Repository} annotations have a `dagger`
+parameter that controls whether the Arez annotation processor generates dagger modules. If the value of the
+`dagger` parameter is `ENABLE` or `AUTODETECT` and the `dagger.Component` class is on the classpath then a
+module will be generated for each base component and base repository that looks like:
 
 {@file_content: path=generated/processors/main/java file=arez/doc/examples/inject2/MyServiceDaggerModule.java "start_line=@Generated"}
 
