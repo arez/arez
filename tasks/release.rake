@@ -200,29 +200,6 @@ HEADER
     stage('PushChanges', 'Push changes to git repository') do
       sh 'git push'
       sh 'git push --tags'
-
-      # Push the changes that have been made locally in downstream projects.
-      # Artifacts have been pushed to staging repository by this time so they should build
-      # even if it has not made it through the Maven release process
-      DOWNSTREAM_EXAMPLES.each_pair do |downstream_example, branches|
-        sh "cd archive/downstream/#{downstream_example} && git push --all"
-        branches.each do |branch|
-          full_branch = "#{branch}-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
-          `cd archive/downstream/#{downstream_example} && git push origin :#{full_branch} 2>&1`
-          puts "Completed remote branch #{downstream_example}/#{full_branch}. Removed." if 0 == $?.exitstatus
-        end
-      end
-
-      DOWNSTREAM_PROJECTS.each do |downstream|
-        # Need to extract the version from that project
-        downstream_version = IO.read("archive/downstream/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
-        sh "cd archive/downstream/#{downstream} && bundle exec buildr perform_release STAGE=StageRelease PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
-        full_branch = "master-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
-        `cd archive/downstream/#{downstream} && git push origin :#{full_branch} 2>&1`
-        puts "Completed remote branch #{downstream}/#{full_branch}. Removed." if 0 == $?.exitstatus
-      end
-
-      FileUtils.rm_rf 'archive'
     end
 
     stage('GithubRelease', 'Create a Release on GitHub') do
@@ -253,6 +230,31 @@ HEADER
           client.update_milestone('arez/arez', milestone[:number], :state => 'closed')
         end
       end
+    end
+
+    stage('PushDownstreamChanges', 'Push downstream changes to git repository') do
+      # Push the changes that have been made locally in downstream projects.
+      # Artifacts have been pushed to staging repository by this time so they should build
+      # even if it has not made it through the Maven release process
+      DOWNSTREAM_EXAMPLES.each_pair do |downstream_example, branches|
+        sh "cd archive/downstream/#{downstream_example} && git push --all"
+        branches.each do |branch|
+          full_branch = "#{branch}-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
+          `cd archive/downstream/#{downstream_example} && git push origin :#{full_branch} 2>&1`
+          puts "Completed remote branch #{downstream_example}/#{full_branch}. Removed." if 0 == $?.exitstatus
+        end
+      end
+
+      DOWNSTREAM_PROJECTS.each do |downstream|
+        # Need to extract the version from that project
+        downstream_version = IO.read("archive/downstream/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
+        sh "cd archive/downstream/#{downstream} && bundle exec buildr perform_release STAGE=StageRelease PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
+        full_branch = "master-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
+        `cd archive/downstream/#{downstream} && git push origin :#{full_branch} 2>&1`
+        puts "Completed remote branch #{downstream}/#{full_branch}. Removed." if 0 == $?.exitstatus
+      end
+
+      FileUtils.rm_rf 'archive'
     end
   end
 
