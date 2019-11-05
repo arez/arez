@@ -4,7 +4,7 @@
 
 * Upgrade the `org.realityforge.gir` artifact to version `0.11`.
 * Remove documentation and examples using the [GIN](https://code.google.com/archive/p/google-gin/) injection framework. Gin is no longer under active development, has problems in modern JVMs and is unlikely to be supported in GWT3.x so it's use is not recommended for modern GWT applications.
-* Remove support for annotating fields and/or method of Arez components with `@Inject`. The annotation processor has been updated to generate an error when field or method injections are present. The recommended approach is to use constructor injection instead. 
+* Remove support for annotating fields and/or method of Arez components with `@Inject`. The annotation processor has been updated to generate an error when field or method injections are present. The recommended approach is to use constructor injection instead.
 
 ### [v0.152](https://github.com/arez/arez/tree/v0.152) (2019-11-04) · [Full Changelog](https://github.com/arez/arez/compare/v0.151...v0.152)
 
