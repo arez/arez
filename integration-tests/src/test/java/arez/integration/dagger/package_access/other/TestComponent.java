@@ -6,13 +6,13 @@ import arez.annotations.Feature;
 import arez.annotations.InjectMode;
 import arez.annotations.Observable;
 import arez.annotations.PostConstruct;
-import javax.inject.Inject;
 
 @ArezComponent( dagger = Feature.ENABLE, inject = InjectMode.CONSUME )
 abstract class TestComponent
 {
-  @Inject
-  MyDependency _myDependency;
+  TestComponent( final MyDependency myDependency )
+  {
+  }
 
   @PostConstruct
   final void postConstruct()

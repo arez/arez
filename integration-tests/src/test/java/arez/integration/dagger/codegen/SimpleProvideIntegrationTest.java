@@ -20,8 +20,9 @@ public class SimpleProvideIntegrationTest
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.PROVIDE )
   public static abstract class MyComponent
   {
-    @Inject
-    MyDependency _myDependency;
+    MyComponent( MyDependency myDependency )
+    {
+    }
   }
 
   @Test

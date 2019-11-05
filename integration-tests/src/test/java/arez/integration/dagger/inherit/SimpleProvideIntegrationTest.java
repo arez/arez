@@ -21,16 +21,15 @@ public class SimpleProvideIntegrationTest
     }
   }
 
-  static abstract class BaseComponent
-  {
-    @Inject
-    MyDependency _myDependency;
-  }
-
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.PROVIDE )
   public static abstract class MyComponent
-    extends BaseComponent
   {
+    private final MyDependency _myDependency;
+
+    MyComponent( MyDependency myDependency )
+    {
+      _myDependency = myDependency;
+    }
   }
 
   @Singleton

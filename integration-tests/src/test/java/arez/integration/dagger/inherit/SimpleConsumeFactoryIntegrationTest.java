@@ -22,18 +22,14 @@ public class SimpleConsumeFactoryIntegrationTest
     }
   }
 
-  static abstract class BaseComponent
-  {
-    @Inject
-    MyDependency _myDependency;
-  }
-
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
   static abstract class MyComponent
-    extends BaseComponent
   {
-    MyComponent( @PerInstance int value )
+    final MyDependency _myDependency;
+
+    MyComponent( @PerInstance int value, MyDependency myDependency )
     {
+      _myDependency = myDependency;
     }
   }
 
@@ -49,7 +45,6 @@ public class SimpleConsumeFactoryIntegrationTest
   public void scenario()
   {
     final TestDaggerComponent dagger = DaggerSimpleConsumeFactoryIntegrationTest_TestDaggerComponent.create();
-    dagger.bindMyComponent();
     assertNotNull( dagger.factory().create( 2 )._myDependency );
   }
 }

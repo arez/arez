@@ -30,11 +30,11 @@ public class MultipleParamIntegrationTest
   {
     final Map<String, String> _props;
     final int _value;
-    @Inject
-    MyDependency _myDependency;
+    final MyDependency _myDependency;
 
-    TestComponent( @PerInstance final Map<String, String> props, @PerInstance final int value )
+    TestComponent( final MyDependency myDependency, @PerInstance final Map<String, String> props, @PerInstance final int value )
     {
+      _myDependency = myDependency;
       _props = props;
       _value = value;
     }
@@ -59,7 +59,6 @@ public class MultipleParamIntegrationTest
   public void scenario()
   {
     final TestDaggerComponent dagger = DaggerMultipleParamIntegrationTest_TestDaggerComponent.create();
-    dagger.bindTestComponent();
     final HashMap<String, String> props = new HashMap<>();
     final TestComponent component = dagger.getTestComponentDaggerSubcomponent().createFactory().create( props, 23 );
     assertEquals( component._props, props );

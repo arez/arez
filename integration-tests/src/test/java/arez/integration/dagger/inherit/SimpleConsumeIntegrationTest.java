@@ -21,16 +21,15 @@ public class SimpleConsumeIntegrationTest
     }
   }
 
-  static abstract class BaseComponent
-  {
-    @Inject
-    MyDependency _myDependency;
-  }
-
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
   static abstract class MyComponent
-    extends BaseComponent
   {
+    final MyDependency _myDependency;
+
+    MyComponent( MyDependency myDependency )
+    {
+      _myDependency = myDependency;
+    }
   }
 
   @Singleton

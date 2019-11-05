@@ -21,10 +21,7 @@ public class SimpleConsumeFactoryIntegrationTest
   @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.CONSUME )
   static abstract class MyComponent
   {
-    @Inject
-    MyDependency _myDependency;
-
-    MyComponent( @PerInstance int value )
+    MyComponent( MyDependency myDependency, @PerInstance int value )
     {
     }
   }

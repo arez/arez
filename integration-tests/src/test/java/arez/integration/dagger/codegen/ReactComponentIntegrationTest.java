@@ -19,22 +19,10 @@ public class ReactComponentIntegrationTest
     }
   }
 
-  static abstract class Component
-  {
-  }
-
-  static abstract class BasicReactComponent
-    extends Component
-  {
-    @Inject
-    String someParam;
-  }
-
   @ArezComponent( disposeNotifier = Feature.DISABLE, allowEmpty = true, inject = InjectMode.CONSUME, dagger = Feature.ENABLE )
   static abstract class React4j_BasicReactComponent
-    extends BasicReactComponent
   {
-    React4j_BasicReactComponent( @Nonnull @PerInstance final String someValue )
+    React4j_BasicReactComponent( @Nonnull @PerInstance final String someValue, final String someParam )
     {
     }
   }
@@ -48,7 +36,7 @@ public class ReactComponentIntegrationTest
     assertClassNotPresent( "Arez_React4j_BasicReactComponent$Enhancer" );
     assertClassPresent( "Arez_React4j_BasicReactComponent$Factory" );
     assertClassPresent( "React4j_BasicReactComponentDaggerComponentExtension" );
-    assertClassPresent(
+    assertClassNotPresent(
       "React4j_BasicReactComponentDaggerComponentExtension$InjectSupport" );
     assertClassNotPresent(
       "React4j_BasicReactComponentDaggerComponentExtension$DaggerModule" );

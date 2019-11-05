@@ -29,11 +29,11 @@ public class SingleParamIntegrationTest
   public static abstract class TestComponent
   {
     private final Map<String, String> _props;
-    @Inject
-    MyDependency _myDependency;
+    private final MyDependency _myDependency;
 
-    TestComponent( @PerInstance final Map<String, String> props )
+    TestComponent( MyDependency myDependency, @PerInstance final Map<String, String> props )
     {
+      _myDependency = myDependency;
       _props = props;
     }
 
@@ -56,7 +56,6 @@ public class SingleParamIntegrationTest
   public void scenario()
   {
     final TestDaggerComponent dagger = DaggerSingleParamIntegrationTest_TestDaggerComponent.create();
-    dagger.bindTestComponent();
     final HashMap<String, String> props = new HashMap<>();
     final TestComponent component = dagger.getTestComponentDaggerSubcomponent().createFactory().create( props );
     assertEquals( component._props, props );
