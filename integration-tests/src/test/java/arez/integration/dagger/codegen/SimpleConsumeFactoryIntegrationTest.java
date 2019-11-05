@@ -35,7 +35,6 @@ public class SimpleConsumeFactoryIntegrationTest
     assertClassNotPresent( "Arez_MyComponent$Enhancer" );
     assertClassPresent( "Arez_MyComponent$Factory" );
     assertClassPresent( "MyComponentDaggerComponentExtension" );
-    assertClassPresent( "MyComponentDaggerComponentExtension$InjectSupport" );
     assertClassNotPresent( "MyComponentDaggerComponentExtension$DaggerModule" );
     assertClassNotPresent( "MyComponentDaggerComponentExtension$EnhancerDaggerModule" );
     assertClassPresent( "MyComponentDaggerComponentExtension$DaggerSubcomponent" );
