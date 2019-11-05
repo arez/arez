@@ -192,6 +192,8 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
   lock this down at dagger level it would be better.
 * There has been zero use of qualifier annotations in the downstream projects. So qualifiers could potentially be
   eliminated from dagger with no ill effect.
+* We also add lots of dagger modules to replicate the behaviour of `@javax.enterprise.inject.Typed`. This could be
+  baked into a the DI.
 * It is unclear how easy it is or even if it is possible to have per-instance dispose invocations for components
   when their scopes are closed.
 * Code-splitting is complex ... if at all possible.
