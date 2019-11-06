@@ -6,6 +6,21 @@ complete as there is too much un-said.
 
 ## Next Release
 
+See https://github.com/arez/arez/issues/91
+
+* Enhance `@OnActivate` so that it can optionally return a `SafeProcedure` that will be used in place of an
+  `@OnDeactivate` method. Perhaps at this point `@OnActivate` could be renamed and `@OnDeactivate` removed.
+
+* Further enhance `@OnActivate` so it takes a small utility such as `ComputableValueElement` that has
+  `getComputableValue()` method as well as a `set(value)`. This would dramatically simplify writing
+  `ComputableValue` instances that were driven by external elements.
+
+* Support `@OnActivate` and `@OnDeactivate` for `@Memoize` methods with parameters. In this scenario the parameters
+  associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
+  is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`
+
+## Enhancements
+
 * Figure out a way how to use Some sort of Constant string lookup for all `@Omit*`. Maybe down the track we could
   generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
   from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
@@ -20,20 +35,7 @@ complete as there is too much un-said.
 * If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
   they can be assumed to be an `@Observable`.
 
-## Enhancements
-
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
-
-* Support `@OnActivate` and `@OnDeactivate` for `@Memoize` methods with parameters. In this scenario the parameters
-  associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
-  is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`
-
-* Enhance `@OnActivate` so that it can optionally return a `SafeProcedure` that will be used in place of an
-  `@OnDeactivate` method. Perhaps at this point `@OnActivate` could be renamed and `@OnDeactivate` removed.
-
-* Further enhance `@OnActivate` so it takes a small utility such as `ComputableValueElement` that has
-  `getComputableValue()` method as well as a `set(value)`. This would dramatically simplify writing
-  `ComputableValue` instances that were driven by external elements.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
