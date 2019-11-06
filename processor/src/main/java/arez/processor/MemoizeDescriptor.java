@@ -1027,7 +1027,7 @@ final class MemoizeDescriptor
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
-         null == ProcessorUtil.findAnnotationByType( _refMethod, SuppressWarnings.class.getName() ) )
+         !ProcessorUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).
@@ -1095,7 +1095,7 @@ final class MemoizeDescriptor
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
-         null == ProcessorUtil.findAnnotationByType( _refMethod, SuppressWarnings.class.getName() ) )
+         !ProcessorUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).
@@ -1111,7 +1111,7 @@ final class MemoizeDescriptor
 
   private boolean isMemoizeNonnull()
   {
-    return null != ProcessorUtil.findAnnotationByType( getMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( getMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   private boolean isCollectionType()

@@ -439,6 +439,11 @@ final class ProcessorUtil
       filter( a -> a.getAnnotationType().toString().equals( annotationClassName ) ).findFirst().orElse( null );
   }
 
+  static boolean hasAnnotationOfType( @Nonnull final Element typeElement, @Nonnull final String annotationClassName )
+  {
+    return null != findAnnotationByType( typeElement, annotationClassName );
+  }
+
   @Nonnull
   static String toSimpleName( @Nonnull final String annotationName )
   {
@@ -458,7 +463,7 @@ final class ProcessorUtil
       case "DISABLE":
         return false;
       default:
-        return null == findAnnotationByType( element, Constants.SINGLETON_ANNOTATION_CLASSNAME );
+        return !hasAnnotationOfType( element, Constants.SINGLETON_ANNOTATION_CLASSNAME );
     }
   }
 }

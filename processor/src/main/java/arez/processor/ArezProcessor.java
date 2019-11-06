@@ -277,8 +277,8 @@ public final class ArezProcessor
     }
     // Is the component marked as generated
     final boolean generated =
-      null != ProcessorUtil.findAnnotationByType( typeElement, Constants.GENERATED_ANNOTATION_CLASSNAME ) ||
-      null != ProcessorUtil.findAnnotationByType( typeElement, Constants.JAVA9_GENERATED_ANNOTATION_CLASSNAME );
+      ProcessorUtil.hasAnnotationOfType( typeElement, Constants.GENERATED_ANNOTATION_CLASSNAME ) ||
+      ProcessorUtil.hasAnnotationOfType( typeElement, Constants.JAVA9_GENERATED_ANNOTATION_CLASSNAME );
     final AnnotationMirror arezComponent =
       ProcessorUtil.getAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final String declaredType = getAnnotationParameter( arezComponent, "name" );
@@ -376,7 +376,7 @@ public final class ArezProcessor
       assert null != ctor;
       final List<? extends VariableElement> perInstanceParameters = ctor.getParameters()
         .stream()
-        .filter( f -> null != ProcessorUtil.findAnnotationByType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+        .filter( f -> ProcessorUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
         .collect( Collectors.toList() );
       if ( !perInstanceParameters.isEmpty() )
       {
@@ -465,7 +465,7 @@ public final class ArezProcessor
                                         "that the observable != DISABLE.", typeElement );
     }
     if ( descriptor.hasRepository() &&
-         null != ProcessorUtil.findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME ) )
+         ProcessorUtil.hasAnnotationOfType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME ) )
     {
       throw new ArezProcessorException( "@ArezComponent target is annotated with both the " +
                                         "@arez.annotations.Repository annotation and the " +
@@ -698,13 +698,13 @@ public final class ArezProcessor
   {
     return null != element &&
            SuperficialValidation.validateElement( element ) &&
-           null != ProcessorUtil.findAnnotationByType( element, annotation );
+           ProcessorUtil.hasAnnotationOfType( element, annotation );
   }
 
   private boolean isScopeAnnotation( @Nonnull final AnnotationMirror a )
   {
     final Element element = processingEnv.getTypeUtils().asElement( a.getAnnotationType() );
-    return null != ProcessorUtil.findAnnotationByType( element, Constants.SCOPE_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( element, Constants.SCOPE_ANNOTATION_CLASSNAME );
   }
 
   private boolean isComponentObservableRequired( @Nonnull final AnnotationMirror arezComponent,
@@ -720,7 +720,7 @@ public final class ArezProcessor
         return false;
       default:
         return disposeOnDeactivate ||
-               null != ProcessorUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
+               ProcessorUtil.hasAnnotationOfType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
     }
   }
 
@@ -778,9 +778,9 @@ public final class ArezProcessor
 
   private boolean hasReferenceAnnotations( @Nonnull final Element method )
   {
-    return null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME ) ||
-           null != ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME ) ||
-           null != ProcessorUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME ) ||
+           ProcessorUtil.hasAnnotationOfType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME ) ||
+           ProcessorUtil.hasAnnotationOfType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
   }
 
   private boolean isEqualsRequired( @Nonnull final AnnotationMirror arezComponent,
@@ -794,7 +794,7 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
+        return ProcessorUtil.hasAnnotationOfType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
     }
   }
 
@@ -832,7 +832,7 @@ public final class ArezProcessor
 
   private boolean hasInjectAnnotation( @Nonnull final Element method )
   {
-    return null != ProcessorUtil.findAnnotationByType( method, Constants.INJECT_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( method, Constants.INJECT_ANNOTATION_CLASSNAME );
   }
 
   @Nonnull

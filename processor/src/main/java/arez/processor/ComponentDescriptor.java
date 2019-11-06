@@ -1376,8 +1376,7 @@ final class ComponentDescriptor
   {
     ProcessorUtil.getFieldElements( _element )
       .stream()
-      .filter( f -> null !=
-                    ProcessorUtil.findAnnotationByType( f, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME ) )
+      .filter( f -> ProcessorUtil.hasAnnotationOfType( f, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME ) )
       .forEach( this::processComponentDependencyField );
   }
 
@@ -1392,7 +1391,7 @@ final class ComponentDescriptor
   {
     ProcessorUtil.getFieldElements( _element )
       .stream()
-      .filter( f -> null != ProcessorUtil.findAnnotationByType( f, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) )
+      .filter( f -> ProcessorUtil.hasAnnotationOfType( f, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) )
       .forEach( this::processCascadeDisposeField );
   }
 
@@ -1509,7 +1508,7 @@ final class ComponentDescriptor
 
   private boolean hasDependencyAnnotation( @Nonnull final ExecutableElement method )
   {
-    return null != ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
   }
 
   private void addOrUpdateDependency( @Nonnull final ExecutableElement method,
@@ -1637,18 +1636,18 @@ final class ComponentDescriptor
       else
       {
         if ( !( type instanceof DeclaredType ) ||
-             null == ProcessorUtil.findAnnotationByType( ( (DeclaredType) type ).asElement(),
-                                                         Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+             !ProcessorUtil.hasAnnotationOfType( ( (DeclaredType) type ).asElement(),
+                                                 Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
           throw new ArezProcessorException( "@Inverse target expected to return a type annotated with " +
                                             Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
         }
         targetType = (TypeElement) ( (DeclaredType) type ).asElement();
-        if ( null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        if ( ProcessorUtil.hasAnnotationOfType( method, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
         {
           multiplicity = Multiplicity.ONE;
         }
-        else if ( null != ProcessorUtil.findAnnotationByType( method, Constants.NULLABLE_ANNOTATION_CLASSNAME ) )
+        else if ( ProcessorUtil.hasAnnotationOfType( method, Constants.NULLABLE_ANNOTATION_CLASSNAME ) )
         {
           multiplicity = Multiplicity.ZERO_OR_ONE;
         }
@@ -1734,7 +1733,7 @@ final class ComponentDescriptor
       if ( isSupportedInverseCollectionType( type.rawType.toString() ) && !type.typeArguments.isEmpty() )
       {
         final TypeElement typeElement = _elements.getTypeElement( type.typeArguments.get( 0 ).toString() );
-        if ( null != ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+        if ( ProcessorUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
           return typeElement;
         }
@@ -1832,8 +1831,8 @@ final class ComponentDescriptor
       inverseName = getReferenceInverseName( annotation, method, inverseMultiplicity );
       final TypeMirror returnType = method.getReturnType();
       if ( !( returnType instanceof DeclaredType ) ||
-           null == ProcessorUtil.findAnnotationByType( ( (DeclaredType) returnType ).asElement(),
-                                                       Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+           !ProcessorUtil.hasAnnotationOfType( ( (DeclaredType) returnType ).asElement(),
+                                               Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
       {
         throw new ArezProcessorException( "@Reference target expected to return a type annotated with " +
                                           Constants.COMPONENT_ANNOTATION_CLASSNAME + " if there is an " +
@@ -1886,7 +1885,7 @@ final class ComponentDescriptor
             else
             {
               ensureTargetTypeAligns( descriptor, m.getReturnType() );
-              if ( null != ProcessorUtil.findAnnotationByType( m, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+              if ( ProcessorUtil.hasAnnotationOfType( m, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
               {
                 return Multiplicity.ONE;
               }
@@ -2000,7 +1999,7 @@ final class ComponentDescriptor
     return constructor
       .getParameters()
       .stream()
-      .filter( f -> null == ProcessorUtil.findAnnotationByType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+      .filter( f -> !ProcessorUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
       .collect( Collectors.toList() );
   }
 
@@ -2147,13 +2146,13 @@ final class ComponentDescriptor
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   private boolean isActAsComponentAnnotated( @Nonnull final TypeElement typeElement )
   {
-    return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( typeElement, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
   }
 
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   private boolean isDisposeTrackableComponent( @Nonnull final TypeElement typeElement )
   {
-    return null != ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
+    return ProcessorUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
            ProcessorUtil.isDisposableTrackableRequired( typeElement );
   }
 
@@ -2662,14 +2661,14 @@ final class ComponentDescriptor
              (
                // Getter
                element.getReturnType().getKind() != TypeKind.VOID &&
-               null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME ) &&
-               null == ProcessorUtil.findAnnotationByType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
+               ProcessorUtil.hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME ) &&
+               !ProcessorUtil.hasAnnotationOfType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
              ) ||
              (
                // Setter
                1 == element.getParameters().size() &&
-               null != ProcessorUtil.findAnnotationByType( element.getParameters().get( 0 ),
-                                                           Constants.NONNULL_ANNOTATION_CLASSNAME )
+               ProcessorUtil.hasAnnotationOfType( element.getParameters().get( 0 ),
+                                                  Constants.NONNULL_ANNOTATION_CLASSNAME )
              )
            );
   }
@@ -2823,7 +2822,7 @@ final class ComponentDescriptor
 
     Generator.addGeneratedAnnotation( this, builder );
     if ( !_roMemoizes.isEmpty() &&
-         null == ProcessorUtil.findAnnotationByType( getElement(), SuppressWarnings.class.getName() ) )
+         !ProcessorUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "unchecked" ).
@@ -3032,7 +3031,7 @@ final class ComponentDescriptor
       ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, param );
       ctor.addParameter( param.build() );
       final boolean isNonNull =
-        null != ProcessorUtil.findAnnotationByType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
+        ProcessorUtil.hasAnnotationOfType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
       if ( isNonNull )
       {
         ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
@@ -3061,7 +3060,7 @@ final class ComponentDescriptor
       for ( final VariableElement parameter : constructor.getParameters() )
       {
         final boolean perInstance =
-          null != ProcessorUtil.findAnnotationByType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
+          ProcessorUtil.hasAnnotationOfType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
 
         final String name = parameter.getSimpleName().toString();
 
@@ -3082,8 +3081,7 @@ final class ComponentDescriptor
           sb.append( ", " );
         }
         firstParam = false;
-        if ( perInstance &&
-             null != ProcessorUtil.findAnnotationByType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        if ( perInstance && ProcessorUtil.hasAnnotationOfType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
         {
           sb.append( "$T.requireNonNull( $N )" );
           params.add( Objects.class );
@@ -3697,7 +3695,7 @@ final class ComponentDescriptor
       {
         final Element element = dependency.getElement();
         final boolean isNonnull =
-          null != ProcessorUtil.findAnnotationByType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
+          ProcessorUtil.hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
 
         if ( dependency.isMethodDependency() )
         {
@@ -3892,7 +3890,7 @@ final class ComponentDescriptor
       ProcessorUtil.copyWhitelistedAnnotations( constructor, builder );
     }
     if ( requiresDeprecatedSuppress &&
-         null == ProcessorUtil.findAnnotationByType( getElement(), SuppressWarnings.class.getName() ) )
+         !ProcessorUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
                                .addMember( "value", "$S", "deprecation" )

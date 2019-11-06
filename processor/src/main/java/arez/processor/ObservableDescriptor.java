@@ -396,7 +396,7 @@ final class ObservableDescriptor
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
-         null == ProcessorUtil.findAnnotationByType( _refMethod, SuppressWarnings.class.getName() ) )
+         !ProcessorUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).
@@ -984,14 +984,14 @@ final class ObservableDescriptor
 
   boolean isGetterNonnull()
   {
-    return null != ProcessorUtil.findAnnotationByType( getGetter(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasAnnotationOfType( getGetter(), Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   private boolean isSetterNonnull()
   {
     return hasSetter() &&
-           null != ProcessorUtil.findAnnotationByType( getSetter().getParameters().get( 0 ),
-                                                       Constants.NONNULL_ANNOTATION_CLASSNAME );
+           ProcessorUtil.hasAnnotationOfType( getSetter().getParameters().get( 0 ),
+                                              Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   void validate()

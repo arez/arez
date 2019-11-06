@@ -94,7 +94,7 @@ final class DependencyDescriptor
       assert _cascade;
       final String fieldName = _field.getSimpleName().toString();
       final boolean isNonnull =
-        null != ProcessorUtil.findAnnotationByType( _field, Constants.NONNULL_ANNOTATION_CLASSNAME );
+        ProcessorUtil.hasAnnotationOfType( _field, Constants.NONNULL_ANNOTATION_CLASSNAME );
       if ( isNonnull )
       {
         builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
@@ -118,7 +118,7 @@ final class DependencyDescriptor
       final String methodName = method.getSimpleName().toString();
       final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
       final boolean isNonnull =
-        null != ProcessorUtil.findAnnotationByType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
+        ProcessorUtil.hasAnnotationOfType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
       if ( abstractObservables )
       {
         if ( isNonnull )
@@ -261,8 +261,8 @@ final class DependencyDescriptor
                                           "dependency is an observable with no setter defined so the annotation " +
                                           "processor does not know how to set the value to null.", _method );
       }
-      else if ( null != ProcessorUtil.findAnnotationByType( _observable.getSetter().getParameters().get( 0 ),
-                                                            Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+      else if ( ProcessorUtil.hasAnnotationOfType( _observable.getSetter().getParameters().get( 0 ),
+                                                   Constants.NONNULL_ANNOTATION_CLASSNAME ) )
       {
         throw new ArezProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
                                           "setter is annotated with @javax.annotation.Nonnull.", _method );
