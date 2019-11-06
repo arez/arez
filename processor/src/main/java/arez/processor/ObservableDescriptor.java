@@ -984,14 +984,12 @@ final class ObservableDescriptor
 
   boolean isGetterNonnull()
   {
-    return ProcessorUtil.hasAnnotationOfType( getGetter(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+    return ProcessorUtil.hasNonnullAnnotation( getGetter() );
   }
 
   private boolean isSetterNonnull()
   {
-    return hasSetter() &&
-           ProcessorUtil.hasAnnotationOfType( getSetter().getParameters().get( 0 ),
-                                              Constants.NONNULL_ANNOTATION_CLASSNAME );
+    return hasSetter() && ProcessorUtil.hasNonnullAnnotation( getSetter().getParameters().get( 0 ) );
   }
 
   void validate()

@@ -279,7 +279,7 @@ final class ReferenceDescriptor
   private boolean isNullable()
   {
     return !getIdMethod().getReturnType().getKind().isPrimitive() &&
-           !ProcessorUtil.hasAnnotationOfType( getIdMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
+           !ProcessorUtil.hasNonnullAnnotation( getIdMethod() );
   }
 
   @Nonnull

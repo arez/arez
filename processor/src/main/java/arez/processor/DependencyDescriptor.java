@@ -93,9 +93,7 @@ final class DependencyDescriptor
     {
       assert _cascade;
       final String fieldName = _field.getSimpleName().toString();
-      final boolean isNonnull =
-        ProcessorUtil.hasAnnotationOfType( _field, Constants.NONNULL_ANNOTATION_CLASSNAME );
-      if ( isNonnull )
+      if ( ProcessorUtil.hasNonnullAnnotation( _field ) )
       {
         builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
                               Generator.DISPOSE_TRACKABLE_CLASSNAME,
@@ -117,11 +115,9 @@ final class DependencyDescriptor
       final ExecutableElement method = getMethod();
       final String methodName = method.getSimpleName().toString();
       final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
-      final boolean isNonnull =
-        ProcessorUtil.hasAnnotationOfType( method, Constants.NONNULL_ANNOTATION_CLASSNAME );
       if ( abstractObservables )
       {
-        if ( isNonnull )
+        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
         {
           assert _cascade;
           builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
@@ -158,7 +154,7 @@ final class DependencyDescriptor
       }
       else
       {
-        if ( isNonnull )
+        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
         {
           assert _cascade;
           if ( _componentDescriptor.isClassType() )

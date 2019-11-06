@@ -939,7 +939,7 @@ final class MemoizeDescriptor
 
     if ( isCollectionType() )
     {
-      if ( isMemoizeNonnull() )
+      if ( ProcessorUtil.hasNonnullAnnotation( getMethod() ) )
       {
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", Generator.AREZ_CLASSNAME );
@@ -1107,11 +1107,6 @@ final class MemoizeDescriptor
     builder.addStatement( "return $N", getFieldName() );
 
     return builder.build();
-  }
-
-  private boolean isMemoizeNonnull()
-  {
-    return ProcessorUtil.hasAnnotationOfType( getMethod(), Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   private boolean isCollectionType()

@@ -1643,11 +1643,11 @@ final class ComponentDescriptor
                                             Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
         }
         targetType = (TypeElement) ( (DeclaredType) type ).asElement();
-        if ( ProcessorUtil.hasAnnotationOfType( method, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
         {
           multiplicity = Multiplicity.ONE;
         }
-        else if ( ProcessorUtil.hasAnnotationOfType( method, Constants.NULLABLE_ANNOTATION_CLASSNAME ) )
+        else if ( ProcessorUtil.hasNullableAnnotation( method ) )
         {
           multiplicity = Multiplicity.ZERO_OR_ONE;
         }
@@ -1885,14 +1885,7 @@ final class ComponentDescriptor
             else
             {
               ensureTargetTypeAligns( descriptor, m.getReturnType() );
-              if ( ProcessorUtil.hasAnnotationOfType( m, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
-              {
-                return Multiplicity.ONE;
-              }
-              else
-              {
-                return Multiplicity.ZERO_OR_ONE;
-              }
+              return ProcessorUtil.hasNonnullAnnotation( m ) ? Multiplicity.ONE : Multiplicity.ZERO_OR_ONE;
             }
           }
           else
@@ -2661,7 +2654,7 @@ final class ComponentDescriptor
              (
                // Getter
                element.getReturnType().getKind() != TypeKind.VOID &&
-               ProcessorUtil.hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME ) &&
+               ProcessorUtil.hasNonnullAnnotation( element ) &&
                !ProcessorUtil.hasAnnotationOfType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
              ) ||
              (
@@ -3030,9 +3023,7 @@ final class ComponentDescriptor
         ParameterSpec.builder( TypeName.get( perInstanceParameter.asType() ), name, Modifier.FINAL );
       ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, param );
       ctor.addParameter( param.build() );
-      final boolean isNonNull =
-        ProcessorUtil.hasAnnotationOfType( perInstanceParameter, Constants.NONNULL_ANNOTATION_CLASSNAME );
-      if ( isNonNull )
+      if ( ProcessorUtil.hasNonnullAnnotation( perInstanceParameter ) )
       {
         ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
       }
@@ -3081,7 +3072,7 @@ final class ComponentDescriptor
           sb.append( ", " );
         }
         firstParam = false;
-        if ( perInstance && ProcessorUtil.hasAnnotationOfType( parameter, Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+        if ( perInstance && ProcessorUtil.hasNonnullAnnotation( parameter ) )
         {
           sb.append( "$T.requireNonNull( $N )" );
           params.add( Objects.class );
@@ -3694,14 +3685,12 @@ final class ComponentDescriptor
       for ( final DependencyDescriptor dependency : _roDependencies )
       {
         final Element element = dependency.getElement();
-        final boolean isNonnull =
-          ProcessorUtil.hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
 
         if ( dependency.isMethodDependency() )
         {
           final ExecutableElement method = dependency.getMethod();
           final String methodName = method.getSimpleName().toString();
-          if ( isNonnull )
+          if ( ProcessorUtil.hasNonnullAnnotation( element ) )
           {
             builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,
@@ -3746,7 +3735,7 @@ final class ComponentDescriptor
         {
           final VariableElement field = dependency.getField();
           final String fieldName = field.getSimpleName().toString();
-          if ( isNonnull )
+          if ( ProcessorUtil.hasNonnullAnnotation( element ) )
           {
             builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
                                   Generator.DISPOSE_TRACKABLE_CLASSNAME,

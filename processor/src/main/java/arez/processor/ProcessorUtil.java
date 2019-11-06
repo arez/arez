@@ -444,6 +444,16 @@ final class ProcessorUtil
     return null != findAnnotationByType( typeElement, annotationClassName );
   }
 
+  static boolean hasNonnullAnnotation( @Nonnull final Element element )
+  {
+    return hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
+  }
+
+  static boolean hasNullableAnnotation( @Nonnull final Element element )
+  {
+    return hasAnnotationOfType( element, Constants.NULLABLE_ANNOTATION_CLASSNAME );
+  }
+
   @Nonnull
   static String toSimpleName( @Nonnull final String annotationName )
   {
