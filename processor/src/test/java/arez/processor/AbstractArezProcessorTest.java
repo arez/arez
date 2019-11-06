@@ -250,7 +250,6 @@ abstract class AbstractArezProcessorTest
     assertFailedCompileResource( toFilename( "bad_input", classname ), errorMessageFragment );
   }
 
-  @SuppressWarnings( "SameParameterValue" )
   @Nonnull
   final String toFilename( @Nonnull final String dir, @Nonnull final String classname )
   {
