@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Optimize the code generated for constructors of components that contain a `@ComponentId` annotated method.
+
 ### [v0.153](https://github.com/arez/arez/tree/v0.153) (2019-11-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.152...v0.153)
 
 Changes in this release:
