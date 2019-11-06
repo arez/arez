@@ -830,7 +830,7 @@ public final class ArezProcessor
     return daggerParameter.getSimpleName().toString();
   }
 
-  private boolean hasInjectAnnotation( final Element method )
+  private boolean hasInjectAnnotation( @Nonnull final Element method )
   {
     return null != ProcessorUtil.findAnnotationByType( method, Constants.INJECT_ANNOTATION_CLASSNAME );
   }
