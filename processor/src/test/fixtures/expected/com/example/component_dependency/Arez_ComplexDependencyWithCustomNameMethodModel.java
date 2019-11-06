@@ -53,6 +53,7 @@ public final class Arez_ComplexDependencyWithCustomNameMethodModel extends Compl
     return $$arezi$$_id();
   }
 
+  @Override
   @Nonnull
   final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {

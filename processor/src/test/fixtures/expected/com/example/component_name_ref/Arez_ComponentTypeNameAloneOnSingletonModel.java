@@ -40,6 +40,7 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
     return $$arezi$$_id();
   }
 
+  @Override
   @Nonnull
   public final String getTypeName() {
     return "ComponentTypeNameAloneOnSingletonModel";

@@ -90,6 +90,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
+  @Nonnull
   protected final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'CompleteModel'" );
@@ -97,6 +98,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     return this.$$arezi$$_kernel.getContext();
   }
 
+  @Override
   @Nonnull
   protected final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -131,6 +133,8 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     return getId();
   }
 
+  @Override
+  @Nonnull
   protected final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'CompleteModel'" );

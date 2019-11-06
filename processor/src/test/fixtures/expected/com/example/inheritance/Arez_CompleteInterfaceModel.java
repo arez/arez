@@ -100,6 +100,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
+  @Nonnull
   public final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'CompleteInterfaceModel'" );
@@ -107,6 +108,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     return this.$$arezi$$_kernel.getContext();
   }
 
+  @Override
   @Nonnull
   public final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -145,6 +147,8 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     return $$arezi$$_id();
   }
 
+  @Override
+  @Nonnull
   public final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'CompleteInterfaceModel'" );

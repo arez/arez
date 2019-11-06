@@ -29,6 +29,8 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
     this.$$arezi$$_kernel.componentReady();
   }
 
+  @Override
+  @Nonnull
   final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'SimpleComponent'" );

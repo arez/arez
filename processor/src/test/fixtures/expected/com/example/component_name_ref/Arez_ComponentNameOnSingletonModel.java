@@ -40,6 +40,8 @@ public final class Arez_ComponentNameOnSingletonModel extends ComponentNameOnSin
     return $$arezi$$_id();
   }
 
+  @Override
+  @Nonnull
   final String getTypeName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getTypeName' invoked on uninitialized component of type 'ComponentNameOnSingletonModel'" );

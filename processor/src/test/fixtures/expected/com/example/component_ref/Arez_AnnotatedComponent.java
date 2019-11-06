@@ -29,6 +29,7 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
     this.$$arezi$$_kernel.componentReady();
   }
 
+  @Override
   @Nonnull
   public final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {

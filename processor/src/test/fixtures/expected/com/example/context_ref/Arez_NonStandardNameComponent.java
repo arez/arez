@@ -30,6 +30,7 @@ final class Arez_NonStandardNameComponent extends NonStandardNameComponent imple
   }
 
   @Override
+  @Nonnull
   final ArezContext $$$getContext$$$() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$$getContext$$$' invoked on uninitialized component of type 'NonStandardNameComponent'" );

@@ -40,6 +40,8 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
     return $$arezi$$_id();
   }
 
+  @Override
+  @Nonnull
   public final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'ComponentTypeNameModel'" );
@@ -47,6 +49,7 @@ public final class Arez_ComponentTypeNameModel extends ComponentTypeNameModel im
     return this.$$arezi$$_kernel.getName();
   }
 
+  @Override
   @Nonnull
   public final String getTypeName() {
     return "ComponentTypeNameModel";

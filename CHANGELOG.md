@@ -3,6 +3,8 @@
 ### Unreleased
 
 * Optimize the code generated for constructors of components that contain a `@ComponentId` annotated method.
+* Ensure that whitelisted annotations on `@*Ref` annotated methods are copied to the implementations.
+* Ensure the `@*Ref` annotated methods are annotated with `@Nonnull` and `@Override` where appropriate.
 
 ### [v0.153](https://github.com/arez/arez/tree/v0.153) (2019-11-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.152...v0.153)
 
