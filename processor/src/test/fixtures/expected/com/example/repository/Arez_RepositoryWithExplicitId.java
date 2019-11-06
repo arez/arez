@@ -25,7 +25,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   Arez_RepositoryWithExplicitId(@Nonnull final String packageName, @Nonnull final String name) {
     super(packageName,name);
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getId();
+    final int $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "RepositoryWithExplicitId." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RepositoryWithExplicitId", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, true, false );

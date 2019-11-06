@@ -18,7 +18,7 @@ public final class Arez_CombinedWithComponentIdModel extends CombinedWithCompone
   public Arez_CombinedWithComponentIdModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = id();
+    final int $$arezv$$_id = id();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "CombinedWithComponentIdModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CombinedWithComponentIdModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );

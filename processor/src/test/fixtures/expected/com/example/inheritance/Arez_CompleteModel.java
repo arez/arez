@@ -70,7 +70,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'CompleteModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getId();
+    final byte $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "CompleteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CompleteModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose(),  () -> super.postDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, Arez.areNativeComponentsEnabled() ? null : () -> super.postDispose(), true, false, false );

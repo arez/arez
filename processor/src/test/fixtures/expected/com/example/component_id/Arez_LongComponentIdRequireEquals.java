@@ -18,7 +18,7 @@ public final class Arez_LongComponentIdRequireEquals extends LongComponentIdRequ
   public Arez_LongComponentIdRequireEquals() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getId();
+    final long $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "LongComponentIdRequireEquals." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "LongComponentIdRequireEquals", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );

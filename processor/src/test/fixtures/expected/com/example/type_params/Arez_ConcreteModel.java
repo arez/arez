@@ -30,7 +30,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public Arez_ConcreteModel(final W writer) {
     super(writer);
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getComponentId();
+    final IOException $$arezv$$_id = getComponentId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ConcreteModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -43,7 +43,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public Arez_ConcreteModel(final IOException error) {
     super(error);
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getComponentId();
+    final IOException $$arezv$$_id = getComponentId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ConcreteModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -56,7 +56,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   public Arez_ConcreteModel(final IOException error, final W writer, final int i) {
     super(error,writer,i);
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getComponentId();
+    final IOException $$arezv$$_id = getComponentId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ConcreteModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );

@@ -18,7 +18,7 @@ final class Arez_ComponentIdExample extends ComponentIdExample implements Dispos
   Arez_ComponentIdExample() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getId();
+    final int $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ComponentIdExample." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentIdExample", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );

@@ -26,7 +26,7 @@ final class Arez_RepositoryWithExplicitNonStandardId extends RepositoryWithExpli
       @Nonnull final String name) {
     super(packageName,name);
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = object_id();
+    final int $$arezv$$_id = object_id();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "RepositoryWithExplicitNonStandardId." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RepositoryWithExplicitNonStandardId", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, true, false );

@@ -18,7 +18,7 @@ public final class Arez_DoubleComponentIdRequireEquals extends DoubleComponentId
   public Arez_DoubleComponentIdRequireEquals() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getId();
+    final double $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DoubleComponentIdRequireEquals." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DoubleComponentIdRequireEquals", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );

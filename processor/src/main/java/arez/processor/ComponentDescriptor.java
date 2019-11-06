@@ -4179,7 +4179,12 @@ final class ComponentDescriptor
     }
     else
     {
-      builder.addStatement( "final Object $N = $N()", Generator.ID_VAR_NAME, _componentId.getSimpleName() );
+      final ExecutableType methodType =
+        (ExecutableType) _typeUtils.asMemberOf( (DeclaredType) _element.asType(), _componentId );
+      builder.addStatement( "final $T $N = $N()",
+                            methodType.getReturnType(),
+                            Generator.ID_VAR_NAME,
+                            _componentId.getSimpleName() );
     }
   }
 

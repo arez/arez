@@ -18,7 +18,7 @@ public final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequ
   public Arez_CharComponentIdRequireEquals() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final Object $$arezv$$_id = getId();
+    final char $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "CharComponentIdRequireEquals." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CharComponentIdRequireEquals", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
