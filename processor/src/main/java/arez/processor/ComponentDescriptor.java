@@ -4369,7 +4369,7 @@ final class ComponentDescriptor
 
     final ClassName arezType = getEnhancedClassName();
 
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryName() ).
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryClassName().simpleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( element, builder );
@@ -4405,7 +4405,7 @@ final class ComponentDescriptor
     builder.superclass( ParameterizedTypeName.get( Generator.ABSTRACT_REPOSITORY_CLASSNAME,
                                                    getIdType().box(),
                                                    ClassName.get( element ),
-                                                   ClassName.get( getPackageName(), getRepositoryName() ) ) );
+                                                   getRepositoryClassName() ) );
 
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
@@ -4481,15 +4481,9 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private String getArezRepositoryName()
+  private ClassName getRepositoryClassName()
   {
-    return "Arez_" + getRepositoryName();
-  }
-
-  @Nonnull
-  private String getRepositoryName()
-  {
-    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "Repository" );
+    return GeneratorUtil.getGeneratedClassName( getElement(), "", "Repository" );
   }
 
   @Nonnull
@@ -4587,8 +4581,9 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "newRepository" ).
       addModifiers( Modifier.STATIC ).
       addAnnotation( Generator.NONNULL_CLASSNAME ).
-      returns( ClassName.get( getPackageName(), getRepositoryName() ) ).
-      addStatement( "return new $T()", ClassName.get( getPackageName(), getArezRepositoryName() ) );
+      returns( getRepositoryClassName() ).
+      addStatement( "return new $T()",
+                    ClassName.get( getPackageName(), "Arez_" + getRepositoryClassName().simpleName() ) );
     ProcessorUtil.copyAccessModifiers( getElement(), method );
     return method.build();
   }
