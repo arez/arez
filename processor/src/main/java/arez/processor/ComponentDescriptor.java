@@ -4488,7 +4488,7 @@ final class ComponentDescriptor
   @Nonnull
   private String getArezRepositoryName()
   {
-    return "Arez_" + getRepositoryName();
+    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "Arez_", "Repository" );
   }
 
   @Nonnull
