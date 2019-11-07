@@ -2784,7 +2784,7 @@ final class ComponentDescriptor
   TypeSpec buildType( @Nonnull final Types typeUtils )
     throws ArezProcessorException
   {
-    final TypeSpec.Builder builder = TypeSpec.classBuilder( getArezClassName() ).
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( getEnhancedClassName().simpleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     Generator.addOriginatingTypes( getElement(), builder );
@@ -3133,7 +3133,7 @@ final class ComponentDescriptor
         addParameter( Object.class, "o", Modifier.FINAL ).
         returns( TypeName.BOOLEAN );
 
-    final ClassName generatedClass = ClassName.get( getPackageName(), getArezClassName() );
+    final ClassName generatedClass = getEnhancedClassName();
     final List<? extends TypeParameterElement> typeParameters = _element.getTypeParameters();
 
     if ( !typeParameters.isEmpty() )
@@ -4306,7 +4306,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "bindComponent" ).
       addAnnotation( Generator.DAGGER_BINDS_CLASSNAME ).
       addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC ).
-      addParameter( ClassName.get( getPackageName(), getArezClassName() ), "component" ).
+      addParameter( getEnhancedClassName(), "component" ).
       returns( ClassName.get( getElement() ) );
     if ( null != _scopeAnnotation )
     {
@@ -4371,7 +4371,7 @@ final class ComponentDescriptor
     assert null != _repositoryExtensions;
     final TypeElement element = getElement();
 
-    final ClassName arezType = ClassName.get( getPackageName(), getArezClassName() );
+    final ClassName arezType = getEnhancedClassName();
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
@@ -4469,13 +4469,7 @@ final class ComponentDescriptor
   @Nonnull
   ClassName getEnhancedClassName()
   {
-    return ClassName.get( getPackageName(), getArezClassName() );
-  }
-
-  @Nonnull
-  private String getArezClassName()
-  {
-    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "Arez_", "" );
+    return ClassName.get( getPackageName(), GeneratorUtil.getGeneratedSimpleClassName( getElement(), "Arez_", "" ) );
   }
 
   @Nonnull
