@@ -1,5 +1,8 @@
 package arez.processor;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -204,5 +207,53 @@ final class MethodChecks
       throw new ArezProcessorException( "@" + ProcessorUtil.toSimpleName( annotationName ) +
                                         " target must not throw any exceptions", method );
     }
+  }
+
+  /**
+   * Ensure that the element is not annotated with multiple annotations from the specified set.
+   * The exceptions map exists to allow exceptions to this rule.
+   *
+   * @param element     the element to check.
+   * @param annotations the set of annotation names that must not overlap.
+   * @param exceptions  the annotations names that are allowed to overlap.
+   */
+  static void verifyNoOverlappingAnnotations( @Nonnull final Element element,
+                                              @Nonnull final Collection<String> annotations,
+                                              @Nonnull final Map<String, Collection<String>> exceptions )
+    throws ArezProcessorException
+  {
+    final String[] annotationTypes = annotations.toArray( new String[ 0 ] );
+
+    for ( int i = 0; i < annotationTypes.length; i++ )
+    {
+      final String type1 = annotationTypes[ i ];
+      final Object annotation1 = ProcessorUtil.findAnnotationByType( element, type1 );
+      if ( null != annotation1 )
+      {
+        for ( int j = i + 1; j < annotationTypes.length; j++ )
+        {
+          final String type2 = annotationTypes[ j ];
+          if ( !isException( exceptions, type1, type2 ) )
+          {
+            final Object annotation2 = ProcessorUtil.findAnnotationByType( element, type2 );
+            if ( null != annotation2 )
+            {
+              final String message =
+                "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
+                " and @" + ProcessorUtil.toSimpleName( type2 );
+              throw new ArezProcessorException( message, element );
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private static boolean isException( @Nonnull final Map<String, Collection<String>> exceptions,
+                                      @Nonnull final String type1,
+                                      @Nonnull final String type2 )
+  {
+    return ( exceptions.containsKey( type1 ) && exceptions.get( type1 ).contains( type2 ) ) ||
+           exceptions.containsKey( type2 ) && exceptions.get( type2 ).contains( type1 );
   }
 }

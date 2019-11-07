@@ -2664,93 +2664,48 @@ final class ComponentDescriptor
   private void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
     throws ArezProcessorException
   {
-    final String[] annotationTypes =
-      new String[]{ Constants.ACTION_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVE_ANNOTATION_CLASSNAME,
-                    Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
-                    Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
-                    Constants.MEMOIZE_ANNOTATION_CLASSNAME,
-                    Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
-                    Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
-                    Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
-                    Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
-                    Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
-                    Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
-                    Constants.REFERENCE_ANNOTATION_CLASSNAME,
-                    Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
-                    Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
-                    Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
-                    Constants.ON_STALE_ANNOTATION_CLASSNAME,
-                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME };
-    for ( int i = 0; i < annotationTypes.length; i++ )
-    {
-      final String type1 = annotationTypes[ i ];
-      final Object annotation1 = ProcessorUtil.findAnnotationByType( method, type1 );
-      if ( null != annotation1 )
-      {
-        for ( int j = i + 1; j < annotationTypes.length; j++ )
-        {
-          final String type2 = annotationTypes[ j ];
-          final boolean observableDependency =
-            type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
-            type2.equals( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
-          final boolean observableCascade =
-            type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
-            type2.equals( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
-          final boolean referenceCascade =
-            type1.equals( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) &&
-            type2.equals( Constants.REFERENCE_ANNOTATION_CLASSNAME );
-          final boolean observableReferenceId =
-            type1.equals( Constants.OBSERVABLE_ANNOTATION_CLASSNAME ) &&
-            type2.equals( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
-          if ( !observableDependency && !observableReferenceId && !observableCascade && !referenceCascade )
-          {
-            final Object annotation2 = ProcessorUtil.findAnnotationByType( method, type2 );
-            if ( null != annotation2 )
-            {
-              final String message =
-                "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
-                " and @" + ProcessorUtil.toSimpleName( type2 );
-              throw new ArezProcessorException( message, method );
-            }
-          }
-        }
-      }
-    }
+    final List<String> annotations =
+      Arrays.asList( Constants.ACTION_ANNOTATION_CLASSNAME,
+                     Constants.OBSERVE_ANNOTATION_CLASSNAME,
+                     Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
+                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
+                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
+                     Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
+                     Constants.MEMOIZE_ANNOTATION_CLASSNAME,
+                     Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
+                     Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
+                     Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
+                     Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
+                     Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
+                     Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
+                     Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
+                     Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
+                     Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
+                     Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
+                     Constants.REFERENCE_ANNOTATION_CLASSNAME,
+                     Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
+                     Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
+                     Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
+                     Constants.ON_STALE_ANNOTATION_CLASSNAME,
+                     Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
+    final Map<String, Collection<String>> exceptions = new HashMap<>();
+    exceptions.put( Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
+                    Arrays.asList( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                   Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
+                                   Constants.REFERENCE_ID_ANNOTATION_CLASSNAME ) );
+    exceptions.put( Constants.REFERENCE_ANNOTATION_CLASSNAME,
+                    Collections.singletonList( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) );
+
+    MethodChecks.verifyNoOverlappingAnnotations( method, annotations, exceptions );
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final VariableElement field )
     throws ArezProcessorException
   {
-    final String[] annotationTypes =
-      new String[]{ Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                    Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME };
-    for ( int i = 0; i < annotationTypes.length; i++ )
-    {
-      final String type1 = annotationTypes[ i ];
-      final Object annotation1 = ProcessorUtil.findAnnotationByType( field, type1 );
-      if ( null != annotation1 )
-      {
-        for ( int j = i + 1; j < annotationTypes.length; j++ )
-        {
-          final String type2 = annotationTypes[ j ];
-          final Object annotation2 = ProcessorUtil.findAnnotationByType( field, type2 );
-          if ( null != annotation2 )
-          {
-            final String message =
-              "Method can not be annotated with both @" + ProcessorUtil.toSimpleName( type1 ) +
-              " and @" + ProcessorUtil.toSimpleName( type2 );
-            throw new ArezProcessorException( message, field );
-          }
-        }
-      }
-    }
+    MethodChecks.verifyNoOverlappingAnnotations( field,
+                                                 Arrays.asList( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                                                Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ),
+                                                 Collections.emptyMap() );
   }
 
   @Nonnull
