@@ -2777,12 +2777,6 @@ final class ComponentDescriptor
     return method.getSimpleName().toString();
   }
 
-  @Nonnull
-  private String getNestedClassPrefix()
-  {
-    return GeneratorUtil.getNestedClassPrefix( getElement() );
-  }
-
   /**
    * Build the enhanced class for the component.
    */
@@ -4481,20 +4475,20 @@ final class ComponentDescriptor
   @Nonnull
   private String getArezClassName()
   {
-    return getNestedClassPrefix() + "Arez_" + getElement().getSimpleName();
+    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "Arez_", "" );
   }
 
   @Nonnull
   private String getComponentDaggerModuleName()
   {
-    return getNestedClassPrefix() + getElement().getSimpleName() + "DaggerModule";
+    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "DaggerModule" );
   }
 
   @Nonnull
   ClassName getDaggerComponentExtensionClassName()
   {
     return ClassName.get( getPackageName(),
-                          getNestedClassPrefix() + _element.getSimpleName() + "DaggerComponentExtension" );
+                          GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "DaggerComponentExtension" ) );
   }
 
   @Nonnull
@@ -4506,7 +4500,7 @@ final class ComponentDescriptor
   @Nonnull
   private String getRepositoryName()
   {
-    return getNestedClassPrefix() + getElement().getSimpleName() + "Repository";
+    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "Repository" );
   }
 
   @Nonnull

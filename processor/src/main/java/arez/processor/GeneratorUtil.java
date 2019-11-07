@@ -11,7 +11,15 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static String getNestedClassPrefix( @Nonnull final TypeElement element )
+  static String getGeneratedSimpleClassName( @Nonnull final TypeElement element,
+                                             @Nonnull final String prefix,
+                                             @Nonnull final String postfix )
+  {
+    return getNestedClassPrefix( element ) + prefix + element.getSimpleName() + postfix;
+  }
+
+  @Nonnull
+  private static String getNestedClassPrefix( @Nonnull final TypeElement element )
   {
     final StringBuilder name = new StringBuilder();
     TypeElement t = element;
