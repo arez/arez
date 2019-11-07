@@ -4469,7 +4469,7 @@ final class ComponentDescriptor
   @Nonnull
   ClassName getEnhancedClassName()
   {
-    return ClassName.get( getPackageName(), GeneratorUtil.getGeneratedSimpleClassName( getElement(), "Arez_", "" ) );
+    return GeneratorUtil.getGeneratedClassName( getElement(), "Arez_", "" );
   }
 
   @Nonnull
@@ -4481,8 +4481,7 @@ final class ComponentDescriptor
   @Nonnull
   ClassName getDaggerComponentExtensionClassName()
   {
-    return ClassName.get( getPackageName(),
-                          GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "DaggerComponentExtension" ) );
+    return GeneratorUtil.getGeneratedClassName( getElement(), "", "DaggerComponentExtension" );
   }
 
   @Nonnull

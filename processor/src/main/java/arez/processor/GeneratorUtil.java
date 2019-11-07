@@ -1,6 +1,7 @@
 package arez.processor;
 
 import com.google.auto.common.MoreElements;
+import com.squareup.javapoet.ClassName;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
@@ -10,6 +11,15 @@ final class GeneratorUtil
 {
   private GeneratorUtil()
   {
+  }
+
+  @Nonnull
+  static ClassName getGeneratedClassName( @Nonnull final TypeElement element,
+                                          @Nonnull final String prefix,
+                                          @Nonnull final String postfix )
+  {
+    return ClassName.get( getPackageElement( element ).getQualifiedName().toString(),
+                          getGeneratedSimpleClassName( element, prefix, postfix ) );
   }
 
   @Nonnull
