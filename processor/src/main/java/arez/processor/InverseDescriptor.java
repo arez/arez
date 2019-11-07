@@ -14,7 +14,6 @@ import javax.annotation.Nonnull;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
-import static arez.processor.ProcessorUtil.*;
 
 /**
  * Declaration of an inverse.
@@ -272,8 +271,8 @@ final class InverseDescriptor
 
   private boolean isReferenceInDifferentPackage()
   {
-    final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( _targetType );
-    final PackageElement selfPackageElement = getPackageElement( _componentDescriptor.getElement() );
+    final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( _targetType );
+    final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( _componentDescriptor.getElement() );
     return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
   }
 

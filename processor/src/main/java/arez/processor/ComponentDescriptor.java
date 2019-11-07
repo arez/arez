@@ -2820,8 +2820,8 @@ final class ComponentDescriptor
       );
     final boolean hasInverseReferencedOutsideClass =
       _roInverses.stream().anyMatch( inverse -> {
-        final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( inverse.getTargetType() );
-        final PackageElement selfPackageElement = ProcessorUtil.getPackageElement( getElement() );
+        final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( inverse.getTargetType() );
+        final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( getElement() );
         return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
       } );
     final boolean hasReferenceWithInverseOutsidePackage =
@@ -2832,8 +2832,8 @@ final class ComponentDescriptor
           final TypeElement typeElement =
             (TypeElement) _typeUtils.asElement( reference.getMethod().getReturnType() );
 
-          final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( typeElement );
-          final PackageElement selfPackageElement = ProcessorUtil.getPackageElement( getElement() );
+          final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( typeElement );
+          final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( getElement() );
           return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
         } );
     if ( publicType || hasInverseReferencedOutsideClass || hasReferenceWithInverseOutsidePackage )

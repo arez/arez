@@ -1,7 +1,9 @@
 package arez.processor;
 
+import com.google.auto.common.MoreElements;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.NestingKind;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
 final class GeneratorUtil
@@ -29,5 +31,12 @@ final class GeneratorUtil
       name.insert( 0, t.getSimpleName() + "_" );
     }
     return name.toString();
+  }
+
+  @SuppressWarnings( "UnstableApiUsage" )
+  @Nonnull
+  static PackageElement getPackageElement( @Nonnull final TypeElement element )
+  {
+    return MoreElements.getPackage( element );
   }
 }

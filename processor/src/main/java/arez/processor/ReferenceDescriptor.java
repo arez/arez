@@ -15,7 +15,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ExecutableType;
-import static arez.processor.ProcessorUtil.*;
 
 /**
  * Declaration of a reference.
@@ -412,8 +411,8 @@ final class ReferenceDescriptor
     assert null != _method;
     final TypeElement typeElement =
       (TypeElement) _componentDescriptor.getTypeUtils().asElement( _method.getReturnType() );
-    final PackageElement targetPackageElement = ProcessorUtil.getPackageElement( typeElement );
-    final PackageElement selfPackageElement = getPackageElement( _componentDescriptor.getElement() );
+    final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( typeElement );
+    final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( _componentDescriptor.getElement() );
     return Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
   }
 
