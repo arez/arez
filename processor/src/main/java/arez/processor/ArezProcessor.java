@@ -421,7 +421,6 @@ public final class ArezProcessor
                                scopeAnnotation,
                                deferSchedule,
                                generateToString,
-                               packageElement,
                                typeElement );
 
     descriptor.analyzeCandidateMethods( methods, processingEnv.getTypeUtils() );

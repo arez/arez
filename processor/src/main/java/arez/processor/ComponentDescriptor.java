@@ -117,8 +117,6 @@ final class ComponentDescriptor
   private final boolean _generateToString;
   private boolean _idRequired;
   @Nonnull
-  private final PackageElement _packageElement;
-  @Nonnull
   private final TypeElement _element;
   @Nullable
   private ExecutableElement _postConstruct;
@@ -187,7 +185,6 @@ final class ComponentDescriptor
                        @Nullable final AnnotationMirror scopeAnnotation,
                        final boolean deferSchedule,
                        final boolean generateToString,
-                       @Nonnull final PackageElement packageElement,
                        @Nonnull final TypeElement element )
   {
     _sourceVersion = Objects.requireNonNull( sourceVersion );
@@ -208,7 +205,6 @@ final class ComponentDescriptor
     _scopeAnnotation = scopeAnnotation;
     _deferSchedule = deferSchedule;
     _generateToString = generateToString;
-    _packageElement = Objects.requireNonNull( packageElement );
     _element = Objects.requireNonNull( element );
   }
 
@@ -4671,7 +4667,7 @@ final class ComponentDescriptor
   @Nonnull
   String getPackageName()
   {
-    return _packageElement.getQualifiedName().toString();
+    return GeneratorUtil.getPackageElement( _element ).getQualifiedName().toString();
   }
 
   @Nonnull
