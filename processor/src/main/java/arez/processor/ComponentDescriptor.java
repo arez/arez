@@ -31,7 +31,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
@@ -2781,14 +2780,7 @@ final class ComponentDescriptor
   @Nonnull
   private String getNestedClassPrefix()
   {
-    final StringBuilder name = new StringBuilder();
-    TypeElement t = getElement();
-    while ( NestingKind.TOP_LEVEL != t.getNestingKind() )
-    {
-      t = (TypeElement) t.getEnclosingElement();
-      name.insert( 0, t.getSimpleName() + "_" );
-    }
-    return name.toString();
+    return GeneratorUtil.getNestedClassPrefix( getElement() );
   }
 
   /**
