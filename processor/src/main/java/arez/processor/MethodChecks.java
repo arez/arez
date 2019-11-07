@@ -10,7 +10,6 @@ import javax.lang.model.element.Name;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
-import static arez.processor.ProcessorUtil.*;
 
 @SuppressWarnings( "SameParameterValue" )
 final class MethodChecks
@@ -131,8 +130,9 @@ final class MethodChecks
 
     if ( isPackageAccess )
     {
-      final PackageElement packageElement = getPackageElement( component );
-      final PackageElement methodPackageElement = getPackageElement( (TypeElement) element.getEnclosingElement() );
+      final PackageElement packageElement = ProcessorUtil.getPackageElement( component );
+      final PackageElement methodPackageElement =
+        ProcessorUtil.getPackageElement( (TypeElement) element.getEnclosingElement() );
       final Name componentPackageName = packageElement.getQualifiedName();
       final Name methodPackageName = methodPackageElement.getQualifiedName();
       if ( !Objects.equals( componentPackageName, methodPackageName ) )
