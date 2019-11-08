@@ -1,7 +1,6 @@
 package arez.processor;
 
 import com.google.auto.common.SuperficialValidation;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -238,22 +237,23 @@ public final class ArezProcessor
   {
     final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
     final ComponentDescriptor descriptor = parse( packageElement, element );
-    emitTypeSpec( descriptor.getPackageName(), descriptor.buildType( processingEnv.getTypeUtils() ) );
+    final String packageName = descriptor.getPackageName();
+    emitTypeSpec( packageName, descriptor.buildType( processingEnv.getTypeUtils() ) );
     if ( descriptor.needsDaggerIntegration() )
     {
       if ( descriptor.needsDaggerComponentExtension() )
       {
         assert ComponentDescriptor.InjectMode.CONSUME == descriptor.getInjectMode();
-        emitTypeSpec( descriptor.getPackageName(), Generator.buildConsumerDaggerComponentExtension( descriptor ) );
+        emitTypeSpec( packageName, Generator.buildConsumerDaggerComponentExtension( descriptor ) );
       }
       else if ( descriptor.needsDaggerModule() )
       {
-        emitTypeSpec( descriptor.getPackageName(), descriptor.buildComponentDaggerModule() );
+        emitTypeSpec( packageName, descriptor.buildComponentDaggerModule() );
       }
     }
     if ( descriptor.hasRepository() )
     {
-      emitTypeSpec( descriptor.getPackageName(), descriptor.buildRepository( processingEnv.getTypeUtils() ) );
+      emitTypeSpec( packageName, descriptor.buildRepository( processingEnv.getTypeUtils() ) );
     }
   }
 
@@ -844,9 +844,6 @@ public final class ArezProcessor
   private void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
     throws IOException
   {
-    JavaFile.builder( packageName, typeSpec ).
-      skipJavaLangImports( true ).
-      build().
-      writeTo( processingEnv.getFiler() );
+    GeneratorUtil.emitJavaType( packageName, typeSpec, processingEnv.getFiler() );
   }
 }
