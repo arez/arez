@@ -3,19 +3,10 @@ package arez.processor;
 import com.google.auto.common.SuperficialValidation;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -27,7 +18,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
@@ -40,199 +30,31 @@ import static javax.tools.Diagnostic.Kind.*;
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
 @SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors" } )
 public final class ArezProcessor
-  extends AbstractProcessor
+  extends AbstractStandardProcessor
 {
   @Nonnull
-  private HashSet<TypeElement> _deferred = new HashSet<>();
-  private int _invalidTypeCount;
-  private RoundEnvironment _env;
+  @Override
+  String getRootAnnotationClassname()
+  {
+    return Constants.COMPONENT_ANNOTATION_CLASSNAME;
+  }
 
   @Override
-  public boolean process( final Set<? extends TypeElement> annotations, final RoundEnvironment env )
+  @Nonnull
+  final String getIssueTrackerURL()
   {
-    final TypeElement annotation =
-      processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
-    @SuppressWarnings( "unchecked" )
-    final Set<TypeElement> elements = (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
-
-    final Map<String, String> options = processingEnv.getOptions();
-    final String deferUnresolvedValue = options.get( "arez.defer.unresolved" );
-    final boolean deferUnresolved = null == deferUnresolvedValue || "true".equals( deferUnresolvedValue );
-
-    _env = env;
-
-    if ( deferUnresolved )
-    {
-      final Collection<TypeElement> elementsToProcess = getElementsToProcess( elements );
-      processElements( elementsToProcess, env );
-      if ( env.getRootElements().isEmpty() && !_deferred.isEmpty() )
-      {
-        _deferred.forEach( this::processingErrorMessage );
-        _deferred.clear();
-      }
-    }
-    else
-    {
-      processElements( new ArrayList<>( elements ), env );
-    }
-    if ( _env.processingOver() )
-    {
-      if ( 0 != _invalidTypeCount )
-      {
-        processingEnv
-          .getMessager()
-          .printMessage( ERROR, "ArezProcessor failed to process " + _invalidTypeCount +
-                                " types. See earlier warnings for further details." );
-      }
-      _invalidTypeCount = 0;
-    }
-    _env = null;
-    return true;
-  }
-
-  private void processingErrorMessage( @Nonnull final TypeElement target )
-  {
-    reportError( "ArezProcessor unable to process " + target.getQualifiedName() +
-                 " because not all of its dependencies could be resolved. Check for " +
-                 "compilation errors or a circular dependency with generated code.",
-                 target );
-  }
-
-  private void reportError( @Nonnull final String message, @Nullable final Element element )
-  {
-    final String deferErrorsValue = processingEnv.getOptions().get( "arez.defer.errors" );
-    final boolean deferErrors = null == deferErrorsValue || "true".equals( deferErrorsValue );
-    _invalidTypeCount++;
-    if ( !deferErrors || _env.errorRaised() || _env.processingOver() )
-    {
-      processingEnv.getMessager().printMessage( ERROR, message, element );
-    }
-    else
-    {
-      processingEnv.getMessager().printMessage( MANDATORY_WARNING, message, element );
-    }
-  }
-
-  private void processElements( @Nonnull final Collection<TypeElement> elements,
-                                @Nonnull final RoundEnvironment env )
-  {
-    for ( final TypeElement element : elements )
-    {
-      try
-      {
-        process( element );
-      }
-      catch ( final IOException ioe )
-      {
-        reportError( ioe.getMessage(), element );
-      }
-      catch ( final ProcessorException e )
-      {
-        final Element errorLocation = e.getElement();
-        final Element outerElement = getOuterElement( errorLocation );
-        if ( !env.getRootElements().contains( outerElement ) )
-        {
-          final String location;
-          if ( errorLocation instanceof ExecutableElement )
-          {
-            final ExecutableElement executableElement = (ExecutableElement) errorLocation;
-            final TypeElement typeElement = (TypeElement) executableElement.getEnclosingElement();
-            location = typeElement.getQualifiedName() + "." + executableElement.getSimpleName();
-          }
-          else if ( errorLocation instanceof VariableElement )
-          {
-            final VariableElement variableElement = (VariableElement) errorLocation;
-            final TypeElement typeElement = (TypeElement) variableElement.getEnclosingElement();
-            location = typeElement.getQualifiedName() + "." + variableElement.getSimpleName();
-          }
-          else
-          {
-            assert errorLocation instanceof TypeElement;
-            final TypeElement typeElement = (TypeElement) errorLocation;
-            location = typeElement.getQualifiedName().toString();
-          }
-
-          final StringWriter sw = new StringWriter();
-          processingEnv.getElementUtils().printElements( sw, errorLocation );
-          sw.flush();
-
-          final String message =
-            "An error was generated processing the element " + element.getSimpleName() +
-            " but the error was triggered by code not currently being compiled but inherited or " +
-            "implemented by the element and may not be highlighted by your tooling or IDE. The " +
-            "error occurred at " + location + " and may look like:\n" + sw.toString();
-
-          reportError( e.getMessage(), element );
-          reportError( message, null );
-        }
-        reportError( e.getMessage(), e.getElement() );
-      }
-      catch ( final Throwable e )
-      {
-        final StringWriter sw = new StringWriter();
-        e.printStackTrace( new PrintWriter( sw ) );
-        sw.flush();
-
-        final String message =
-          "Unexpected error running the " + getClass().getName() + " processor. This has " +
-          "resulted in a failure to process the code and has left the compiler in an invalid " +
-          "state. Please report the failure to the developers so that it can be fixed.\n" +
-          " Report the error at: https://github.com/arez/arez/issues\n" +
-          "\n\n" +
-          sw.toString();
-        reportError( message, element );
-      }
-    }
+    return "https://github.com/arez/arez/issues";
   }
 
   @Nonnull
-  private Collection<TypeElement> getElementsToProcess( @Nonnull final Collection<TypeElement> elements )
+  @Override
+  String getOptionPrefix()
   {
-    final List<TypeElement> deferred = _deferred
-      .stream()
-      .map( e -> processingEnv.getElementUtils().getTypeElement( e.getQualifiedName() ) )
-      .collect( Collectors.toList() );
-    _deferred = new HashSet<>();
-
-    final List<TypeElement> elementsToProcess = new ArrayList<>();
-    collectElementsToProcess( elements, elementsToProcess );
-    collectElementsToProcess( deferred, elementsToProcess );
-    return elementsToProcess;
+    return "arez";
   }
 
-  private void collectElementsToProcess( @Nonnull final Collection<TypeElement> elements,
-                                         @Nonnull final List<TypeElement> elementsToProcess )
-  {
-    for ( final TypeElement element : elements )
-    {
-      if ( SuperficialValidation.validateElement( element ) )
-      {
-        elementsToProcess.add( element );
-      }
-      else
-      {
-        _deferred.add( element );
-      }
-    }
-  }
-
-  /**
-   * Return the outer enclosing element.
-   * This is either the top-level class, interface, enum, etc within a package.
-   * This helps identify the top level compilation units.
-   */
-  @Nonnull
-  private Element getOuterElement( @Nonnull final Element element )
-  {
-    Element result = element;
-    while ( !( result.getEnclosingElement() instanceof PackageElement ) )
-    {
-      result = result.getEnclosingElement();
-    }
-    return result;
-  }
-
-  private void process( @Nonnull final TypeElement element )
+  @Override
+  protected void process( @Nonnull final TypeElement element )
     throws IOException, ProcessorException
   {
     final ComponentDescriptor descriptor = parse( element );
