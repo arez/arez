@@ -34,21 +34,21 @@ public final class ArezProcessor
 {
   @Nonnull
   @Override
-  String getRootAnnotationClassname()
+  protected String getRootAnnotationClassname()
   {
     return Constants.COMPONENT_ANNOTATION_CLASSNAME;
   }
 
   @Override
   @Nonnull
-  final String getIssueTrackerURL()
+  protected final String getIssueTrackerURL()
   {
     return "https://github.com/arez/arez/issues";
   }
 
   @Nonnull
   @Override
-  String getOptionPrefix()
+  protected String getOptionPrefix()
   {
     return "arez";
   }
