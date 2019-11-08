@@ -93,7 +93,10 @@ final class ObserveDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(), Constants.OBSERVE_ANNOTATION_CLASSNAME, method );
+    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
+                                  Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                  Constants.OBSERVE_ANNOTATION_CLASSNAME,
+                                  method );
 
     if ( internalExecutor )
     {
@@ -168,6 +171,7 @@ final class ObserveDescriptor
   {
     MethodChecks.mustNotBeAbstract( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+                                         Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
                                          method );
     final List<? extends VariableElement> parameters = method.getParameters();

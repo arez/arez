@@ -136,6 +136,7 @@ final class MemoizeDescriptor
     //The caller already verified that no duplicate computable have been defined
     assert null == _method;
     MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
+                                  Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                   Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                                   method );
     MethodChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
@@ -162,6 +163,7 @@ final class MemoizeDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+                                         Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                          method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
@@ -183,6 +185,7 @@ final class MemoizeDescriptor
   {
     MethodChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+                                         Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                                          method );
     final List<? extends VariableElement> parameters = method.getParameters();
@@ -231,6 +234,7 @@ final class MemoizeDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                                       onDeactivate );
     if ( null != _onDeactivate )
@@ -249,6 +253,7 @@ final class MemoizeDescriptor
     throws ArezProcessorException
   {
     MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+                                      Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_STALE_ANNOTATION_CLASSNAME,
                                       onStale );
     if ( null != _onStale )

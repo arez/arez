@@ -278,7 +278,11 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inject.FactoryConsumerWithAnnotatedInjectedModel", false, true, false, false },
         new Object[]{ "com.example.inject.FactoryConsumerAnnotatedPerInstanceModel", false, true, false, false },
         new Object[]{ "com.example.inject.FactoryConsumerWithRawTypeInjectedModel", false, true, false, false },
-        new Object[]{ "com.example.inject.FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel", false, true, false, false },
+        new Object[]{ "com.example.inject.FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel",
+                      false,
+                      true,
+                      false,
+                      false },
         new Object[]{ "com.example.inject.MultipleArgsModel", false, false, false, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false, false },
         new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false, false },
@@ -1784,7 +1788,6 @@ public class ArezProcessorTest
       {
         new Object[]{ "Action", "Action" },
         new Object[]{ "Observe", "Observe" },
-        new Object[]{ "CascadeDispose", "CascadeDispose" },
         new Object[]{ "CascadeDispose", "CascadeDisposeMethod" },
         new Object[]{ "ComponentId", "ComponentId" },
         new Object[]{ "ComponentNameRef", "ComponentNameRef" },
@@ -1814,7 +1817,31 @@ public class ArezProcessorTest
       fixture( "bad_input/com/example/package_access/" + name + "Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@" + annotation + " target must not be package access if " +
-                                 "the method is in a different package from the @ArezComponent" );
+                                 "the method is in a different package from the type annotated with the " +
+                                 "@ArezComponent annotation" );
+  }
+
+  @DataProvider( name = "packageAccessFieldInDifferentPackage" )
+  public Object[][] packageAccessFieldInDifferentPackage()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "CascadeDispose", "CascadeDispose" }
+      };
+  }
+
+  @Test( dataProvider = "packageAccessFieldInDifferentPackage" )
+  public void processFailedCompileInheritedPackageAccessFieldInDifferentPackage( @Nonnull final String annotation,
+                                                                                 @Nonnull final String name )
+  {
+    final JavaFileObject source1 =
+      fixture( "bad_input/com/example/package_access/other/Base" + name + "Model.java" );
+    final JavaFileObject source2 =
+      fixture( "bad_input/com/example/package_access/" + name + "Model.java" );
+    assertFailedCompileResource( Arrays.asList( source1, source2 ),
+                                 "@" + annotation + " target must not be package access if " +
+                                 "the field is in a different package from the type annotated with the " +
+                                 "@ArezComponent annotation" );
   }
 
   @Test
@@ -1826,7 +1853,8 @@ public class ArezProcessorTest
       fixture( "bad_input/PackageAccessActionModel.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Action target must not be package access if " +
-                                 "the method is in a different package from the @ArezComponent" );
+                                 "the method is in a different package from the type annotated with the " +
+                                 "@ArezComponent annotation" );
   }
 
   @Test
@@ -1838,7 +1866,8 @@ public class ArezProcessorTest
       fixture( "bad_input/com/example/package_access/Observable2Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Observable target must not be package access if " +
-                                 "the method is in a different package from the @ArezComponent" );
+                                 "the method is in a different package from the type annotated with the " +
+                                 "@ArezComponent annotation" );
   }
 
   @Test
@@ -1850,6 +1879,7 @@ public class ArezProcessorTest
       fixture( "bad_input/com/example/package_access/Observable3Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Observable target must not be package access if " +
-                                 "the method is in a different package from the @ArezComponent" );
+                                 "the method is in a different package from the type annotated with the " +
+                                 "@ArezComponent annotation" );
   }
 }
