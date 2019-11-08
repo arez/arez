@@ -235,8 +235,7 @@ public final class ArezProcessor
   private void process( @Nonnull final TypeElement element )
     throws IOException, ProcessorException
   {
-    final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
-    final ComponentDescriptor descriptor = parse( packageElement, element );
+    final ComponentDescriptor descriptor = parse( element );
     final String packageName = descriptor.getPackageName();
     emitTypeSpec( packageName, descriptor.buildType( processingEnv.getTypeUtils() ) );
     if ( descriptor.needsDaggerIntegration() )
@@ -258,8 +257,7 @@ public final class ArezProcessor
   }
 
   @Nonnull
-  private ComponentDescriptor parse( @Nonnull final PackageElement packageElement,
-                                     @Nonnull final TypeElement typeElement )
+  private ComponentDescriptor parse( @Nonnull final TypeElement typeElement )
     throws ProcessorException
   {
     if ( ElementKind.CLASS != typeElement.getKind() && ElementKind.INTERFACE != typeElement.getKind() )
