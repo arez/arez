@@ -241,7 +241,7 @@ final class DependencyDescriptor
     assert null == _observable || null == _field;
     if ( null == _observable && null != _method )
     {
-      MethodChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, _method );
+      MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, _method );
     }
     if ( !_cascade && null != _method )
     {

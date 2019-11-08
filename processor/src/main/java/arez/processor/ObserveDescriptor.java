@@ -93,7 +93,7 @@ final class ObserveDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
+    MemberChecks.mustBeWrappable( _componentDescriptor.getElement(),
                                   Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                   Constants.OBSERVE_ANNOTATION_CLASSNAME,
                                   method );
@@ -169,8 +169,8 @@ final class ObserveDescriptor
 
   void setOnDepsChange( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustNotBeAbstract( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+    MemberChecks.mustNotBeAbstract( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
                                          method );
@@ -186,8 +186,8 @@ final class ObserveDescriptor
                                     "parameter of type arez.Observer", method );
     }
 
-    MethodChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     if ( null != _onDepsChange )
     {
       throw new ProcessorException( "@OnDepsChange target duplicates existing method named " +

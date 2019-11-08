@@ -319,7 +319,7 @@ final class ComponentDescriptor
                                               @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                                     method );
@@ -458,13 +458,13 @@ final class ComponentDescriptor
                                       @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -529,7 +529,7 @@ final class ComponentDescriptor
                           @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MethodChecks.mustBeWrappable( getElement(),
+    MemberChecks.mustBeWrappable( getElement(),
                                   Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                   Constants.ACTION_ANNOTATION_CLASSNAME,
                                   method );
@@ -650,13 +650,13 @@ final class ComponentDescriptor
                                @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.OBSERVER_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -735,12 +735,12 @@ final class ComponentDescriptor
                                       @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -870,14 +870,14 @@ final class ComponentDescriptor
                                      @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.BOOLEAN != returnType.getKind() )
@@ -894,14 +894,14 @@ final class ComponentDescriptor
   private void setContextRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.CONTEXT_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.CONTEXT_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -929,14 +929,14 @@ final class ComponentDescriptor
 
   private void setComponentIdRef( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
 
     if ( null != _componentIdRef )
     {
@@ -952,14 +952,14 @@ final class ComponentDescriptor
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
                                     method );
-    MethodChecks.mustBeAbstract( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -989,15 +989,15 @@ final class ComponentDescriptor
                                @Nonnull final ExecutableType componentIdMethodType )
     throws ProcessorException
   {
-    MethodChecks.mustNotBeAbstract( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotBeAbstract( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.COMPONENT_ID_ANNOTATION_CLASSNAME,
                                          componentId );
-    MethodChecks.mustBeFinal( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MemberChecks.mustBeFinal( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
 
     if ( null != _componentId )
     {
@@ -1014,14 +1014,14 @@ final class ComponentDescriptor
   private void setComponentTypeNameRef( @Nonnull final ExecutableElement componentTypeName )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
                                     componentTypeName );
-    MethodChecks.mustBeAbstract( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MemberChecks.mustBeAbstract( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
 
     final TypeMirror returnType = componentTypeName.getReturnType();
     if ( !( TypeKind.DECLARED == returnType.getKind() &&
@@ -1044,14 +1044,14 @@ final class ComponentDescriptor
   private void setComponentNameRef( @Nonnull final ExecutableElement componentName )
     throws ProcessorException
   {
-    MethodChecks.mustBeOverridable( getElement(),
+    MemberChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                     Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
                                     componentName );
-    MethodChecks.mustBeAbstract( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MemberChecks.mustBeAbstract( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
 
     if ( null != _componentNameRef )
     {
@@ -1067,7 +1067,7 @@ final class ComponentDescriptor
   private void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
     throws ProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( getElement(),
+    MemberChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                                       postConstruct );
@@ -1086,7 +1086,7 @@ final class ComponentDescriptor
   private void setPreDispose( @Nonnull final ExecutableElement preDispose )
     throws ProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( getElement(),
+    MemberChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
                                       preDispose );
@@ -1105,7 +1105,7 @@ final class ComponentDescriptor
   private void setPostDispose( @Nonnull final ExecutableElement postDispose )
     throws ProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( getElement(),
+    MemberChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
                                       postDispose );
@@ -1421,7 +1421,7 @@ final class ComponentDescriptor
   private void processComponentDependencyField( @Nonnull final VariableElement field )
   {
     verifyNoDuplicateAnnotations( field );
-    MethodChecks.mustBeSubclassCallable( _element,
+    MemberChecks.mustBeSubclassCallable( _element,
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
                                          field );
@@ -1439,7 +1439,7 @@ final class ComponentDescriptor
   private void processCascadeDisposeField( @Nonnull final VariableElement field )
   {
     verifyNoDuplicateAnnotations( field );
-    MethodChecks.mustBeSubclassCallable( _element,
+    MemberChecks.mustBeSubclassCallable( _element,
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
                                          field );
@@ -1478,9 +1478,9 @@ final class ComponentDescriptor
   private void addCascadeDisposeMethod( @Nonnull final ExecutableElement method,
                                         @Nullable final ObservableDescriptor observable )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( _element,
+    MemberChecks.mustNotHaveAnyParameters( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( _element,
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME,
                                          method );
@@ -1570,13 +1570,13 @@ final class ComponentDescriptor
                                @Nonnull final ObservableDescriptor observable,
                                @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
 
     findOrCreateReference( getReferenceIdName( annotation, method ) ).setObservable( observable );
   }
@@ -1585,13 +1585,13 @@ final class ComponentDescriptor
                                @Nonnull final ExecutableElement method,
                                @Nonnull final ExecutableType methodType )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.REFERENCE_ID_ANNOTATION_CLASSNAME, method );
 
     final String name = getReferenceIdName( annotation, method );
     findOrCreateReference( name ).setIdMethod( method, methodType );
@@ -1645,14 +1645,14 @@ final class ComponentDescriptor
                            @Nonnull final ExecutableElement method,
                            @Nonnull final ExecutableType methodType )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotHaveAnyParameters( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.INVERSE_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
 
     final String name = getInverseName( annotation, method );
     final ObservableDescriptor observable = findOrCreateObservable( name );
@@ -1665,14 +1665,14 @@ final class ComponentDescriptor
                            @Nonnull final ObservableDescriptor observable,
                            @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotHaveAnyParameters( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.INVERSE_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.INVERSE_ANNOTATION_CLASSNAME, method );
 
     final String name = getInverseName( annotation, method );
     final InverseDescriptor existing = _inverses.get( name );
@@ -1874,14 +1874,14 @@ final class ComponentDescriptor
                              @Nonnull final ExecutableElement method,
                              @Nonnull final ExecutableType methodType )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotHaveAnyParameters( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.REFERENCE_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeAbstract( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeAbstract( Constants.REFERENCE_ANNOTATION_CLASSNAME, method );
 
     final String name = getReferenceName( annotation, method );
     final String linkType = getLinkType( method );
@@ -2121,13 +2121,13 @@ final class ComponentDescriptor
   @Nonnull
   private DependencyDescriptor createMethodDependencyDescriptor( @Nonnull final ExecutableElement method )
   {
-    MethodChecks.mustNotHaveAnyParameters( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
     final boolean validateTypeAtRuntime =
       (Boolean) ProcessorUtil.getAnnotationValue( method,
@@ -2162,11 +2162,11 @@ final class ComponentDescriptor
   @Nonnull
   private DependencyDescriptor createFieldDependencyDescriptor( @Nonnull final VariableElement field )
   {
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
                                          field );
-    MethodChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
+    MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
 
     final boolean validateTypeAtRuntime =
       (Boolean) ProcessorUtil.getAnnotationValue( field,
@@ -2314,7 +2314,7 @@ final class ComponentDescriptor
         final CandidateMethod candidate = setters.remove( observable.getName() );
         if ( null != candidate )
         {
-          MethodChecks.mustBeOverridable( getElement(),
+          MemberChecks.mustBeOverridable( getElement(),
                                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                           Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                                           candidate.getMethod() );
@@ -2331,7 +2331,7 @@ final class ComponentDescriptor
         final CandidateMethod candidate = getters.remove( observable.getName() );
         if ( null != candidate )
         {
-          MethodChecks.mustBeOverridable( getElement(),
+          MemberChecks.mustBeOverridable( getElement(),
                                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                           Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                                           candidate.getMethod() );
@@ -2645,13 +2645,13 @@ final class ComponentDescriptor
                                     @Nonnull final ExecutableElement method,
                                     @Nonnull final ExecutableType methodType )
   {
-    MethodChecks.mustNotBeAbstract( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( getElement(),
+    MemberChecks.mustNotBeAbstract( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustReturnAValue( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME, method );
 
     final List<? extends VariableElement> parameters = method.getParameters();
     if ( !( parameters.isEmpty() || 1 == parameters.size() && parameters.get( 0 ).asType().getKind() == TypeKind.INT ) )
@@ -2774,13 +2774,13 @@ final class ComponentDescriptor
     exceptions.put( Constants.REFERENCE_ANNOTATION_CLASSNAME,
                     Collections.singletonList( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) );
 
-    MethodChecks.verifyNoOverlappingAnnotations( method, annotations, exceptions );
+    MemberChecks.verifyNoOverlappingAnnotations( method, annotations, exceptions );
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final VariableElement field )
     throws ProcessorException
   {
-    MethodChecks.verifyNoOverlappingAnnotations( field,
+    MemberChecks.verifyNoOverlappingAnnotations( field,
                                                  Arrays.asList( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
                                                                 Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ),
                                                  Collections.emptyMap() );

@@ -135,12 +135,12 @@ final class MemoizeDescriptor
   {
     //The caller already verified that no duplicate computable have been defined
     assert null == _method;
-    MethodChecks.mustBeWrappable( _componentDescriptor.getElement(),
+    MemberChecks.mustBeWrappable( _componentDescriptor.getElement(),
                                   Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                   Constants.MEMOIZE_ANNOTATION_CLASSNAME,
                                   method );
-    MethodChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
 
     _method = Objects.requireNonNull( method );
     _methodType = Objects.requireNonNull( methodType );
@@ -162,11 +162,11 @@ final class MemoizeDescriptor
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+    MemberChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                          method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
 
     if ( null != _refMethod )
     {
@@ -183,8 +183,8 @@ final class MemoizeDescriptor
   void setOnActivate( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MethodChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
+    MemberChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                          Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                                          method );
@@ -202,8 +202,8 @@ final class MemoizeDescriptor
                                     "parameter of type arez.ComputableValue", method );
     }
 
-    MethodChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
-    MethodChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
 
     if ( null != _onActivate )
     {
@@ -233,7 +233,7 @@ final class MemoizeDescriptor
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
     throws ProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+    MemberChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                                       onDeactivate );
@@ -252,7 +252,7 @@ final class MemoizeDescriptor
   void setOnStale( @Nonnull final ExecutableElement onStale )
     throws ProcessorException
   {
-    MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
+    MemberChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_STALE_ANNOTATION_CLASSNAME,
                                       onStale );
