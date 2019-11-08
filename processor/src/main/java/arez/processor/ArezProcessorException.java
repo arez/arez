@@ -10,10 +10,6 @@ final class ArezProcessorException
   @Nonnull
   private final Element _element;
 
-  /**
-   * Private constructor to restrict the types that can be passed into exception. If any other types
-   * are passed into this constructor then the error handling in {@link ArezProcessor} needs to be updated.
-   */
   ArezProcessorException( @Nonnull final String message, @Nonnull final Element element )
   {
     super( message );
