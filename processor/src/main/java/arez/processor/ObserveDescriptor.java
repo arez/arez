@@ -102,38 +102,38 @@ final class ObserveDescriptor
     {
       if ( !method.getParameters().isEmpty() )
       {
-        throw new ArezProcessorException( "@Observe target must not have any parameters when executor=INTERNAL",
-                                          method );
+        throw new ProcessorException( "@Observe target must not have any parameters when executor=INTERNAL",
+                                      method );
       }
       if ( !method.getThrownTypes().isEmpty() )
       {
-        throw new ArezProcessorException( "@Observe target must not throw any exceptions when executor=INTERNAL",
-                                          method );
+        throw new ProcessorException( "@Observe target must not throw any exceptions when executor=INTERNAL",
+                                      method );
       }
       if ( TypeKind.VOID != method.getReturnType().getKind() )
       {
-        throw new ArezProcessorException( "@Observe target must not return a value when executor=INTERNAL", method );
+        throw new ProcessorException( "@Observe target must not return a value when executor=INTERNAL", method );
       }
       if ( _componentDescriptor.isClassType() && method.getModifiers().contains( Modifier.PUBLIC ) )
       {
-        throw new ArezProcessorException( "@Observe target must not be public when executor=INTERNAL", method );
+        throw new ProcessorException( "@Observe target must not be public when executor=INTERNAL", method );
       }
       if ( !reportParameters )
       {
-        throw new ArezProcessorException( "@Observe target must not specify reportParameters parameter " +
-                                          "when executor=INTERNAL", method );
+        throw new ProcessorException( "@Observe target must not specify reportParameters parameter " +
+                                      "when executor=INTERNAL", method );
       }
       if ( !reportResult )
       {
-        throw new ArezProcessorException( "@Observe target must not specify reportResult parameter " +
-                                          "when executor=INTERNAL", method );
+        throw new ProcessorException( "@Observe target must not specify reportResult parameter " +
+                                      "when executor=INTERNAL", method );
       }
     }
 
     if ( null != _observe )
     {
-      throw new ArezProcessorException( "@Observe target duplicates existing method named " +
-                                        _observe.getSimpleName(), method );
+      throw new ProcessorException( "@Observe target duplicates existing method named " +
+                                    _observe.getSimpleName(), method );
     }
     else
     {
@@ -182,16 +182,16 @@ final class ObserveDescriptor
       )
     )
     {
-      throw new ArezProcessorException( "@OnDepsChange target must not have any parameters or must have a single " +
-                                        "parameter of type arez.Observer", method );
+      throw new ProcessorException( "@OnDepsChange target must not have any parameters or must have a single " +
+                                    "parameter of type arez.Observer", method );
     }
 
     MethodChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     if ( null != _onDepsChange )
     {
-      throw new ArezProcessorException( "@OnDepsChange target duplicates existing method named " +
-                                        _onDepsChange.getSimpleName(), method );
+      throw new ProcessorException( "@OnDepsChange target duplicates existing method named " +
+                                    _onDepsChange.getSimpleName(), method );
 
     }
     else
@@ -222,23 +222,23 @@ final class ObserveDescriptor
     if ( _internalExecutor && null != _onDepsChange && null == _refMethod && _onDepsChange.getParameters().isEmpty() )
     {
       assert null != _observe;
-      throw new ArezProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
-                                        "method but has not defined an @ObserverRef method nor does the " +
-                                        "@OnDepsChange annotated method have an arez.Observer parameter. This results " +
-                                        "in an impossible to schedule observer.", _observe );
+      throw new ProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
+                                    "method but has not defined an @ObserverRef method nor does the " +
+                                    "@OnDepsChange annotated method have an arez.Observer parameter. This results " +
+                                    "in an impossible to schedule observer.", _observe );
     }
     if ( !_internalExecutor && null == _onDepsChange )
     {
       assert null != _observe;
-      throw new ArezProcessorException( "@Observe target defined parameter executor=EXTERNAL but does not " +
-                                        "specify an @OnDepsChange method.", _observe );
+      throw new ProcessorException( "@Observe target defined parameter executor=EXTERNAL but does not " +
+                                    "specify an @OnDepsChange method.", _observe );
     }
     if ( "AREZ_OR_EXTERNAL".equals( _depType ) && null == _refMethod )
     {
       assert null != _observe;
-      throw new ArezProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
-                                        "defined an @ObserverRef method and thus can not invoke reportStale().",
-                                        _observe );
+      throw new ProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
+                                    "defined an @ObserverRef method and thus can not invoke reportStale().",
+                                    _observe );
     }
   }
 
@@ -421,7 +421,7 @@ final class ObserveDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( _internalExecutor )
     {
@@ -443,7 +443,7 @@ final class ObserveDescriptor
 
   @Nonnull
   private MethodSpec buildNativeOnDepsChangeMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _onDepsChange;
     final String methodName = Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString();
@@ -471,7 +471,7 @@ final class ObserveDescriptor
    */
   @Nonnull
   private MethodSpec buildObserverRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _refMethod;
     assert null != _refMethodType;
@@ -496,7 +496,7 @@ final class ObserveDescriptor
    */
   @Nonnull
   private MethodSpec buildTracked()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _observe;
     assert null != _observedType;
@@ -632,7 +632,7 @@ final class ObserveDescriptor
    */
   @Nonnull
   private MethodSpec buildObserve()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _observe;
     assert null != _observedType;

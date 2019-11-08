@@ -34,14 +34,14 @@ final class ComponentStateRefDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     builder.addMethod( buildComponentStateRefMethod() );
   }
 
   @Nonnull
   private MethodSpec buildComponentStateRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName = _method.getSimpleName().toString();
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).

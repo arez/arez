@@ -78,9 +78,9 @@ final class InverseDescriptor
   {
     if ( _observable.requireInitializer() )
     {
-      throw new ArezProcessorException( "@Inverse target also specifies @Observable(initializer=ENABLE) but " +
-                                        "it is not valid to define an initializer for an inverse.",
-                                        _observable.getGetter() );
+      throw new ProcessorException( "@Inverse target also specifies @Observable(initializer=ENABLE) but " +
+                                    "it is not valid to define an initializer for an inverse.",
+                                    _observable.getGetter() );
     }
   }
 
@@ -100,7 +100,7 @@ final class InverseDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( Multiplicity.MANY == _multiplicity )
     {
@@ -116,7 +116,7 @@ final class InverseDescriptor
 
   @Nonnull
   private MethodSpec buildAddMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName = Generator.getInverseAddMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
@@ -161,7 +161,7 @@ final class InverseDescriptor
 
   @Nonnull
   private MethodSpec buildRemoveMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName = Generator.getInverseRemoveMethodName( _observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
@@ -205,7 +205,7 @@ final class InverseDescriptor
 
   @Nonnull
   private MethodSpec buildSetMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName =
       Multiplicity.ONE == _multiplicity ?
@@ -238,7 +238,7 @@ final class InverseDescriptor
 
   @Nonnull
   private MethodSpec buildUnsetMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName =
       Multiplicity.ONE == _multiplicity ?

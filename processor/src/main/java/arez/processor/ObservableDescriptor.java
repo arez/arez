@@ -137,7 +137,7 @@ final class ObservableDescriptor
 
   @Nonnull
   ExecutableElement getRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _refMethod;
     return _refMethod;
@@ -156,7 +156,7 @@ final class ObservableDescriptor
 
   @Nonnull
   ExecutableElement getGetter()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _getter;
     return _getter;
@@ -182,7 +182,7 @@ final class ObservableDescriptor
 
   @Nonnull
   ExecutableElement getSetter()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _setter;
     return _setter;
@@ -362,7 +362,7 @@ final class ObservableDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     builder.addMethod( buildObservableGetter() );
     if ( expectSetter() )
@@ -384,7 +384,7 @@ final class ObservableDescriptor
    */
   @Nonnull
   private MethodSpec buildRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _refMethod;
     assert null != _refMethodType;
@@ -415,7 +415,7 @@ final class ObservableDescriptor
 
   @Nonnull
   private MethodSpec buildObservableSetter()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _setter;
     assert null != _setterType;
@@ -478,7 +478,7 @@ final class ObservableDescriptor
    */
   @Nonnull
   private MethodSpec buildObservableInternalSetter()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _setter;
     assert null != _setterType;
@@ -762,7 +762,7 @@ final class ObservableDescriptor
    */
   @Nonnull
   private MethodSpec buildObservableGetter()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _getter;
     assert null != _getterType;
@@ -998,15 +998,15 @@ final class ObservableDescriptor
     {
       if ( !_setterAlwaysMutates )
       {
-        throw new ArezProcessorException( "@Observable target defines expectSetter = false " +
-                                          "setterAlwaysMutates = false but this is an invalid configuration.",
-                                          getGetter() );
+        throw new ProcessorException( "@Observable target defines expectSetter = false " +
+                                      "setterAlwaysMutates = false but this is an invalid configuration.",
+                                      getGetter() );
       }
       if ( !hasRefMethod() && null == _inverseDescriptor )
       {
-        throw new ArezProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
-                                          "method for observable and thus never possible to report it as changed " +
-                                          "and thus should not be observable.", getGetter() );
+        throw new ProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
+                                      "method for observable and thus never possible to report it as changed " +
+                                      "and thus should not be observable.", getGetter() );
       }
     }
 
@@ -1024,8 +1024,8 @@ final class ObservableDescriptor
           if ( !actual.box().toString().equals( expectedType.toString() ) )
           {
             assert null != _refMethod;
-            throw new ArezProcessorException( "@ObservableValueRef target has a type parameter of " + expectedType +
-                                              " but @Observable method returns type of " + actual, _refMethod );
+            throw new ProcessorException( "@ObservableValueRef target has a type parameter of " + expectedType +
+                                          " but @Observable method returns type of " + actual, _refMethod );
           }
         }
       }
@@ -1034,16 +1034,16 @@ final class ObservableDescriptor
     {
       if ( !getGetter().getThrownTypes().isEmpty() )
       {
-        throw new ArezProcessorException( "@Observable property is abstract but the getter declares an exception.",
-                                          getSetter() );
+        throw new ProcessorException( "@Observable property is abstract but the getter declares an exception.",
+                                      getSetter() );
       }
       if ( !hasSetter() )
       {
         if ( null == _inverseDescriptor )
         {
-          throw new ArezProcessorException( "@Observable target defines expectSetter = false but is abstract. This " +
-                                            "is not compatible as there is no opportunity for the processor to " +
-                                            "generate the setter.", getGetter() );
+          throw new ProcessorException( "@Observable target defines expectSetter = false but is abstract. This " +
+                                        "is not compatible as there is no opportunity for the processor to " +
+                                        "generate the setter.", getGetter() );
         }
       }
       else
@@ -1051,38 +1051,38 @@ final class ObservableDescriptor
         final ExecutableElement setter = getSetter();
         if ( !setter.getModifiers().contains( Modifier.ABSTRACT ) )
         {
-          throw new ArezProcessorException( "@Observable property defines an abstract getter but a concrete setter. " +
-                                            "Both getter and setter must be concrete or both must be abstract.",
-                                            getGetter() );
+          throw new ProcessorException( "@Observable property defines an abstract getter but a concrete setter. " +
+                                        "Both getter and setter must be concrete or both must be abstract.",
+                                        getGetter() );
         }
 
         if ( !setter.getThrownTypes().isEmpty() )
         {
-          throw new ArezProcessorException( "@Observable property is abstract but the setter declares an exception.",
-                                            getSetter() );
+          throw new ProcessorException( "@Observable property is abstract but the setter declares an exception.",
+                                        getSetter() );
         }
       }
       if ( !_setterAlwaysMutates )
       {
-        throw new ArezProcessorException( "@Observable target defines setterAlwaysMutates = false but but has " +
-                                          "defined abstract getters and setters.", getGetter() );
+        throw new ProcessorException( "@Observable target defines setterAlwaysMutates = false but but has " +
+                                      "defined abstract getters and setters.", getGetter() );
       }
     }
     else if ( hasSetter() && getSetter().getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( "@Observable property defines an abstract setter but a concrete getter. " +
-                                        "Both getter and setter must be concrete or both must be abstract.",
-                                        getSetter() );
+      throw new ProcessorException( "@Observable property defines an abstract setter but a concrete getter. " +
+                                    "Both getter and setter must be concrete or both must be abstract.",
+                                    getSetter() );
     }
     if ( expectSetter() && !getSetterType().getTypeVariables().isEmpty() )
     {
-      throw new ArezProcessorException( "@Observable target defines type variables. Method level type parameters " +
-                                        "are not supported for observable values.", getSetter() );
+      throw new ProcessorException( "@Observable target defines type variables. Method level type parameters " +
+                                    "are not supported for observable values.", getSetter() );
     }
     if ( !getGetterType().getTypeVariables().isEmpty() )
     {
-      throw new ArezProcessorException( "@Observable target defines type variables. Method level type parameters " +
-                                        "are not supported for observable values.", getGetter() );
+      throw new ProcessorException( "@Observable target defines type variables. Method level type parameters " +
+                                    "are not supported for observable values.", getGetter() );
     }
   }
 }

@@ -70,7 +70,7 @@ final class ActionDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     builder.addMethod( buildAction() );
   }
@@ -80,7 +80,7 @@ final class ActionDescriptor
    */
   @Nonnull
   private MethodSpec buildAction()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName = _action.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );

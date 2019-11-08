@@ -27,7 +27,7 @@ final class MethodChecks
                                @Nonnull final String scopeAnnotationName,
                                @Nonnull final String annotationName,
                                @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     mustBeOverridable( targetType, scopeAnnotationName, annotationName, element );
     mustNotBeAbstract( annotationName, element );
@@ -41,7 +41,7 @@ final class MethodChecks
                                  @Nonnull final String scopeAnnotationName,
                                  @Nonnull final String annotationName,
                                  @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     mustNotBeFinal( annotationName, element );
     mustBeSubclassCallable( targetType, scopeAnnotationName, annotationName, element );
@@ -55,7 +55,7 @@ final class MethodChecks
                                       @Nonnull final String scopeAnnotationName,
                                       @Nonnull final String annotationName,
                                       @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     mustNotBeStatic( annotationName, element );
     mustNotBePrivate( annotationName, element );
@@ -72,7 +72,7 @@ final class MethodChecks
                                    @Nonnull final String scopeAnnotationName,
                                    @Nonnull final String annotationName,
                                    @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     mustNotBeAbstract( annotationName, method );
     mustBeSubclassCallable( targetType, scopeAnnotationName, annotationName, method );
@@ -82,74 +82,74 @@ final class MethodChecks
   }
 
   static void mustBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.STATIC ) )
     {
-      throw new ArezProcessorException( must( annotationName, "be static" ), element );
+      throw new ProcessorException( must( annotationName, "be static" ), element );
     }
   }
 
   static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.STATIC ) )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "be static" ), element );
+      throw new ProcessorException( mustNot( annotationName, "be static" ), element );
     }
   }
 
   static void mustBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( must( annotationName, "be abstract" ), element );
+      throw new ProcessorException( must( annotationName, "be abstract" ), element );
     }
   }
 
   static void mustNotBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "be abstract" ), element );
+      throw new ProcessorException( mustNot( annotationName, "be abstract" ), element );
     }
   }
 
   static void mustBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( must( annotationName, "be final" ), element );
+      throw new ProcessorException( must( annotationName, "be final" ), element );
     }
   }
 
   static void mustNotBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "be final" ), element );
+      throw new ProcessorException( mustNot( annotationName, "be final" ), element );
     }
   }
 
   static void mustBePrivate( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.PRIVATE ) )
     {
-      throw new ArezProcessorException( must( annotationName, "be private" ), element );
+      throw new ProcessorException( must( annotationName, "be private" ), element );
     }
   }
 
   static void mustNotBePrivate( @Nonnull final String annotationName, @Nonnull final Element element )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.PRIVATE ) )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "be private" ), element );
+      throw new ProcessorException( mustNot( annotationName, "be private" ), element );
     }
   }
 
@@ -157,7 +157,7 @@ final class MethodChecks
                                                         @Nonnull final String scopeAnnotationName,
                                                         @Nonnull final String annotationName,
                                                         @Nonnull final Element other )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final Set<Modifier> modifiers = other.getModifiers();
     final boolean isPackageAccess =
@@ -172,50 +172,50 @@ final class MethodChecks
         GeneratorUtil.getPackageElement( (TypeElement) other.getEnclosingElement() );
       if ( !Objects.equals( packageElement.getQualifiedName(), otherPackageElement.getQualifiedName() ) )
       {
-        throw new ArezProcessorException( mustNot( annotationName,
-                                                   "be package access if the " +
-                                                   ( other instanceof ExecutableElement ? "method" : "field" ) +
-                                                   " is in a different package from the type annotated with the " +
-                                                   toSimpleName( scopeAnnotationName ) + " annotation" ),
-                                          other );
+        throw new ProcessorException( mustNot( annotationName,
+                                               "be package access if the " +
+                                               ( other instanceof ExecutableElement ? "method" : "field" ) +
+                                               " is in a different package from the type annotated with the " +
+                                               toSimpleName( scopeAnnotationName ) + " annotation" ),
+                                      other );
       }
     }
   }
 
   static void mustNotHaveAnyParameters( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( !method.getParameters().isEmpty() )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "have any parameters" ), method );
+      throw new ProcessorException( mustNot( annotationName, "have any parameters" ), method );
     }
   }
 
   static void mustNotReturnAnyValue( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "return a value" ), method );
+      throw new ProcessorException( mustNot( annotationName, "return a value" ), method );
     }
   }
 
   static void mustReturnAValue( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( TypeKind.VOID == method.getReturnType().getKind() )
     {
-      throw new ArezProcessorException( must( annotationName, "return a value" ), method );
+      throw new ProcessorException( must( annotationName, "return a value" ), method );
     }
   }
 
   static void mustNotThrowAnyExceptions( @Nonnull final String annotationName,
                                          @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( !method.getThrownTypes().isEmpty() )
     {
-      throw new ArezProcessorException( mustNot( annotationName, "throw any exceptions" ), method );
+      throw new ProcessorException( mustNot( annotationName, "throw any exceptions" ), method );
     }
   }
 
@@ -230,7 +230,7 @@ final class MethodChecks
   static void verifyNoOverlappingAnnotations( @Nonnull final Element element,
                                               @Nonnull final Collection<String> annotations,
                                               @Nonnull final Map<String, Collection<String>> exceptions )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String[] annotationTypes = annotations.toArray( new String[ 0 ] );
 
@@ -250,7 +250,7 @@ final class MethodChecks
             {
               final String message =
                 "Method can not be annotated with both " + toSimpleName( type1 ) + " and " + toSimpleName( type2 );
-              throw new ArezProcessorException( message, element );
+              throw new ProcessorException( message, element );
             }
           }
         }

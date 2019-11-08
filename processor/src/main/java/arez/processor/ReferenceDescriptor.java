@@ -173,7 +173,7 @@ final class ReferenceDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     builder.addMethod( buildReferenceMethod() );
     builder.addMethod( buildLinkMethod() );
@@ -185,7 +185,7 @@ final class ReferenceDescriptor
 
   @Nonnull
   private MethodSpec buildReferenceMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _method;
     assert null != _methodType;
@@ -283,7 +283,7 @@ final class ReferenceDescriptor
 
   @Nonnull
   private MethodSpec buildLinkMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName = getLinkMethodName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
@@ -418,7 +418,7 @@ final class ReferenceDescriptor
 
   @Nonnull
   private MethodSpec buildDelinkMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _method;
     final String methodName = getDelinkMethodName();
@@ -524,21 +524,21 @@ final class ReferenceDescriptor
   }
 
   void validate()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( null == _idMethod )
     {
       assert null != _method;
-      throw new ArezProcessorException( "@Reference exists but there is no corresponding @ReferenceId", _method );
+      throw new ProcessorException( "@Reference exists but there is no corresponding @ReferenceId", _method );
     }
     else if ( null == _method )
     {
-      throw new ArezProcessorException( "@ReferenceId exists but there is no corresponding @Reference", _idMethod );
+      throw new ProcessorException( "@ReferenceId exists but there is no corresponding @Reference", _idMethod );
     }
     else if ( null != _observable && !_observable.hasSetter() )
     {
-      throw new ArezProcessorException( "@ReferenceId added to @Observable method but expectSetter = false on " +
-                                        "property which is not compatible with @ReferenceId", _idMethod );
+      throw new ProcessorException( "@ReferenceId added to @Observable method but expectSetter = false on " +
+                                    "property which is not compatible with @ReferenceId", _idMethod );
     }
   }
 }

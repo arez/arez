@@ -86,9 +86,9 @@ final class CascadeDisposableDescriptor
       {
         if ( _method.getModifiers().contains( Modifier.ABSTRACT ) )
         {
-          throw new ArezProcessorException( "@CascadeDispose target must not be abstract unless the method is " +
-                                            "also annotated with the @Observable or @Reference annotation.",
-                                            _method );
+          throw new ProcessorException( "@CascadeDispose target must not be abstract unless the method is " +
+                                        "also annotated with the @Observable or @Reference annotation.",
+                                        _method );
         }
         if ( ElementKind.CLASS == _method.getEnclosingElement().getKind() )
         {
@@ -99,9 +99,9 @@ final class CascadeDisposableDescriptor
       {
         if ( !_method.getModifiers().contains( Modifier.ABSTRACT ) )
         {
-          throw new ArezProcessorException( "@CascadeDispose target must be abstract if the method is " +
-                                            "also annotated with the @Observable or @Reference annotation.",
-                                            _method );
+          throw new ProcessorException( "@CascadeDispose target must be abstract if the method is " +
+                                        "also annotated with the @Observable or @Reference annotation.",
+                                        _method );
         }
       }
     }

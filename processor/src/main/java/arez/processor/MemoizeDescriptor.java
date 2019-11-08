@@ -131,7 +131,7 @@ final class MemoizeDescriptor
                    final boolean observeLowerPriorityDependencies,
                    final boolean readOutsideTransaction,
                    @Nonnull final String depType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     //The caller already verified that no duplicate computable have been defined
     assert null == _method;
@@ -153,14 +153,14 @@ final class MemoizeDescriptor
 
     if ( isMethodReturnType( Stream.class ) )
     {
-      throw new ArezProcessorException( "@Memoize target must not return a value of type java.util.stream.Stream " +
-                                        "as the type is single use and thus does not make sense to cache as a " +
-                                        "computable value", method );
+      throw new ProcessorException( "@Memoize target must not return a value of type java.util.stream.Stream " +
+                                    "as the type is single use and thus does not make sense to cache as a " +
+                                    "computable value", method );
     }
   }
 
   void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -170,8 +170,8 @@ final class MemoizeDescriptor
 
     if ( null != _refMethod )
     {
-      throw new ArezProcessorException( "@ComputableValueRef target duplicates existing method named " +
-                                        _refMethod.getSimpleName(), method );
+      throw new ProcessorException( "@ComputableValueRef target duplicates existing method named " +
+                                    _refMethod.getSimpleName(), method );
     }
     else
     {
@@ -181,7 +181,7 @@ final class MemoizeDescriptor
   }
 
   void setOnActivate( @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
     MethodChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
@@ -198,8 +198,8 @@ final class MemoizeDescriptor
       )
     )
     {
-      throw new ArezProcessorException( "@OnActivate target must not have any parameters or must have a single " +
-                                        "parameter of type arez.ComputableValue", method );
+      throw new ProcessorException( "@OnActivate target must not have any parameters or must have a single " +
+                                    "parameter of type arez.ComputableValue", method );
     }
 
     MethodChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
@@ -207,8 +207,8 @@ final class MemoizeDescriptor
 
     if ( null != _onActivate )
     {
-      throw new ArezProcessorException( "@OnActivate target duplicates existing method named " +
-                                        _onActivate.getSimpleName(), method );
+      throw new ProcessorException( "@OnActivate target duplicates existing method named " +
+                                    _onActivate.getSimpleName(), method );
     }
     else
     {
@@ -231,7 +231,7 @@ final class MemoizeDescriptor
   }
 
   void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -239,9 +239,9 @@ final class MemoizeDescriptor
                                       onDeactivate );
     if ( null != _onDeactivate )
     {
-      throw new ArezProcessorException( "@OnDeactivate target duplicates existing method named " +
-                                        _onDeactivate.getSimpleName(),
-                                        onDeactivate );
+      throw new ProcessorException( "@OnDeactivate target duplicates existing method named " +
+                                    _onDeactivate.getSimpleName(),
+                                    onDeactivate );
     }
     else
     {
@@ -250,7 +250,7 @@ final class MemoizeDescriptor
   }
 
   void setOnStale( @Nonnull final ExecutableElement onStale )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -258,9 +258,9 @@ final class MemoizeDescriptor
                                       onStale );
     if ( null != _onStale )
     {
-      throw new ArezProcessorException( "@OnStale target duplicates existing method named " +
-                                        _onStale.getSimpleName(),
-                                        onStale );
+      throw new ProcessorException( "@OnStale target duplicates existing method named " +
+                                    _onStale.getSimpleName(),
+                                    onStale );
     }
     else
     {
@@ -269,66 +269,66 @@ final class MemoizeDescriptor
   }
 
   void validate()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( null == _method )
     {
       if ( null != _onActivate )
       {
-        throw new ArezProcessorException( "@OnActivate exists but there is no corresponding @Memoize",
-                                          _onActivate );
+        throw new ProcessorException( "@OnActivate exists but there is no corresponding @Memoize",
+                                      _onActivate );
       }
       else if ( null != _onDeactivate )
       {
-        throw new ArezProcessorException( "@OnDeactivate exists but there is no corresponding @Memoize",
-                                          _onDeactivate );
+        throw new ProcessorException( "@OnDeactivate exists but there is no corresponding @Memoize",
+                                      _onDeactivate );
       }
       else if ( null != _refMethod )
       {
-        throw new ArezProcessorException( "@ComputableValueRef exists but there is no corresponding @Memoize",
-                                          _refMethod );
+        throw new ProcessorException( "@ComputableValueRef exists but there is no corresponding @Memoize",
+                                      _refMethod );
       }
       else
       {
         final ExecutableElement onStale = _onStale;
         assert null != onStale;
-        throw new ArezProcessorException( "@OnStale exists but there is no corresponding @Memoize", onStale );
+        throw new ProcessorException( "@OnStale exists but there is no corresponding @Memoize", onStale );
       }
     }
     if ( _keepAlive )
     {
       if ( !_method.getParameters().isEmpty() )
       {
-        throw new ArezProcessorException( "@Memoize target specified parameter keepAlive as true but has parameters.",
-                                          _method );
+        throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has parameters.",
+                                      _method );
       }
       else if ( null != _onActivate )
       {
-        throw new ArezProcessorException( "@OnActivate exists for @Memoize property that specified parameter " +
-                                          "keepAlive as true.", _onActivate );
+        throw new ProcessorException( "@OnActivate exists for @Memoize property that specified parameter " +
+                                      "keepAlive as true.", _onActivate );
       }
       else if ( null != _onDeactivate )
       {
-        throw new ArezProcessorException( "@OnDeactivate exists for @Memoize property that specified parameter " +
-                                          "keepAlive as true.", _onDeactivate );
+        throw new ProcessorException( "@OnDeactivate exists for @Memoize property that specified parameter " +
+                                      "keepAlive as true.", _onDeactivate );
       }
     }
     if ( !_method.getParameters().isEmpty() )
     {
       if ( null != _onActivate )
       {
-        throw new ArezProcessorException( "@OnActivate target associated with @Memoize method that has parameters.",
-                                          _onActivate );
+        throw new ProcessorException( "@OnActivate target associated with @Memoize method that has parameters.",
+                                      _onActivate );
       }
       else if ( null != _onDeactivate )
       {
-        throw new ArezProcessorException( "@OnDeactivate target associated with @Memoize method that has parameters.",
-                                          _onDeactivate );
+        throw new ProcessorException( "@OnDeactivate target associated with @Memoize method that has parameters.",
+                                      _onDeactivate );
       }
       else if ( null != _onStale )
       {
-        throw new ArezProcessorException( "@OnStale target associated with @Memoize method that has parameters.",
-                                          _onStale );
+        throw new ProcessorException( "@OnStale target associated with @Memoize method that has parameters.",
+                                      _onStale );
       }
     }
 
@@ -347,9 +347,9 @@ final class MemoizeDescriptor
             final TypeName actual = TypeName.get( _method.getReturnType() );
             if ( !actual.box().toString().equals( paramType.toString() ) )
             {
-              throw new ArezProcessorException( "@OnActivate target has a parameter of type ComputableValue with a " +
-                                                "type parameter of " + paramType + " but the @Memoize method " +
-                                                "returns a type of " + actual, _onActivate );
+              throw new ProcessorException( "@OnActivate target has a parameter of type ComputableValue with a " +
+                                            "type parameter of " + paramType + " but the @Memoize method " +
+                                            "returns a type of " + actual, _onActivate );
             }
           }
         }
@@ -366,8 +366,8 @@ final class MemoizeDescriptor
         final TypeName actual = TypeName.get( _method.getReturnType() );
         if ( !actual.box().toString().equals( expectedType.toString() ) )
         {
-          throw new ArezProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
-                                            " but @Memoize method returns type of " + actual, _refMethod );
+          throw new ProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
+                                        " but @Memoize method returns type of " + actual, _refMethod );
         }
       }
 
@@ -393,15 +393,15 @@ final class MemoizeDescriptor
       }
       if ( !sizeMatch || !typesMatch )
       {
-        throw new ArezProcessorException( "@ComputableValueRef target and the associated @Memoize " +
-                                          "target do not have the same parameters.", _method );
+        throw new ProcessorException( "@ComputableValueRef target and the associated @Memoize " +
+                                      "target do not have the same parameters.", _method );
       }
     }
     else if ( _depType.equals( "AREZ_OR_EXTERNAL" ) )
     {
       assert null != _method;
-      throw new ArezProcessorException( "@Memoize target specified depType = AREZ_OR_EXTERNAL but " +
-                                        "there is no associated @ComputableValueRef method.", _method );
+      throw new ProcessorException( "@Memoize target specified depType = AREZ_OR_EXTERNAL but " +
+                                    "there is no associated @ComputableValueRef method.", _method );
     }
   }
 
@@ -815,7 +815,7 @@ final class MemoizeDescriptor
   }
 
   void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _method;
     if ( _method.getParameters().isEmpty() )
@@ -848,7 +848,7 @@ final class MemoizeDescriptor
 
   @Nonnull
   private MethodSpec buildOnActivateWrapperHook()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName() );
     builder.addModifiers( Modifier.PRIVATE );
@@ -879,7 +879,7 @@ final class MemoizeDescriptor
 
   @Nonnull
   private MethodSpec buildOnDeactivateWrapperHook()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert isCollectionType();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName() );
@@ -901,7 +901,7 @@ final class MemoizeDescriptor
 
   @Nonnull
   private MethodSpec buildOnStaleWrapperHook()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert isCollectionType();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnStaleHookMethodName() );
@@ -927,7 +927,7 @@ final class MemoizeDescriptor
    */
   @Nonnull
   private MethodSpec buildNoParamsMemoize()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _method;
     assert null != _methodType;
@@ -1020,7 +1020,7 @@ final class MemoizeDescriptor
 
   @Nonnull
   private MethodSpec buildParamsRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _refMethod;
     assert null != _refMethodType;
@@ -1085,7 +1085,7 @@ final class MemoizeDescriptor
    */
   @Nonnull
   private MethodSpec buildNoParamsRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _refMethod;
     assert null != _refMethodType;
@@ -1140,7 +1140,7 @@ final class MemoizeDescriptor
 
   @Nonnull
   private MethodSpec buildParamsMemoize()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _method;
     assert null != _methodType;

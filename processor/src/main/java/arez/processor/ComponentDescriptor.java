@@ -317,7 +317,7 @@ final class ComponentDescriptor
   private ObservableDescriptor addObservable( @Nonnull final AnnotationMirror annotation,
                                               @Nonnull final ExecutableElement method,
                                               @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -341,7 +341,7 @@ final class ComponentDescriptor
       //Should be a setter
       if ( 1 != method.getParameters().size() )
       {
-        throw new ArezProcessorException( "@Observable target should be a setter or getter", method );
+        throw new ProcessorException( "@Observable target should be a setter or getter", method );
       }
 
       name = ProcessorUtil.deriveName( method, SETTER_PATTERN, declaredName );
@@ -356,7 +356,7 @@ final class ComponentDescriptor
       //Must be a getter
       if ( 0 != method.getParameters().size() )
       {
-        throw new ArezProcessorException( "@Observable target should be a setter or getter", method );
+        throw new ProcessorException( "@Observable target should be a setter or getter", method );
       }
       name = getPropertyAccessorName( method, declaredName );
     }
@@ -366,21 +366,21 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Observable target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Observable target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Observable target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Observable target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
     checkNameUnique( name, method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
 
     if ( setter && !expectSetter )
     {
-      throw new ArezProcessorException( "Method annotated with @Observable is a setter but defines " +
-                                        "expectSetter = false for observable named " + name, method );
+      throw new ProcessorException( "Method annotated with @Observable is a setter but defines " +
+                                    "expectSetter = false for observable named " + name, method );
     }
 
     final ObservableDescriptor observable = findOrCreateObservable( name );
@@ -404,22 +404,22 @@ final class ComponentDescriptor
     {
       if ( observable.hasSetter() )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable defines expectSetter = false but a " +
-                                          "setter exists named " + observable.getSetter().getSimpleName() +
-                                          "for observable named " + name, method );
+        throw new ProcessorException( "Method annotated with @Observable defines expectSetter = false but a " +
+                                      "setter exists named " + observable.getSetter().getSimpleName() +
+                                      "for observable named " + name, method );
       }
     }
     if ( setter )
     {
       if ( observable.hasSetter() )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable defines duplicate setter for " +
-                                          "observable named " + name, method );
+        throw new ProcessorException( "Method annotated with @Observable defines duplicate setter for " +
+                                      "observable named " + name, method );
       }
       if ( !observable.expectSetter() )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable defines expectSetter = false but a " +
-                                          "setter exists for observable named " + name, method );
+        throw new ProcessorException( "Method annotated with @Observable defines expectSetter = false but a " +
+                                      "setter exists for observable named " + name, method );
       }
       observable.setSetter( method, methodType );
     }
@@ -427,8 +427,8 @@ final class ComponentDescriptor
     {
       if ( observable.hasGetter() )
       {
-        throw new ArezProcessorException( "Method annotated with @Observable defines duplicate getter for " +
-                                          "observable named " + name, method );
+        throw new ProcessorException( "Method annotated with @Observable defines duplicate getter for " +
+                                      "observable named " + name, method );
       }
       observable.setGetter( method, methodType );
     }
@@ -436,8 +436,8 @@ final class ComponentDescriptor
     {
       if ( !method.getModifiers().contains( Modifier.ABSTRACT ) )
       {
-        throw new ArezProcessorException( "@Observable target set initializer parameter to ENABLED but " +
-                                          "method is not abstract.", method );
+        throw new ProcessorException( "@Observable target set initializer parameter to ENABLED but " +
+                                      "method is not abstract.", method );
       }
       final Boolean existing = observable.getInitializer();
       if ( null == existing )
@@ -446,8 +446,8 @@ final class ComponentDescriptor
       }
       else if ( existing != requireInitializer )
       {
-        throw new ArezProcessorException( "@Observable target set initializer parameter to value that differs from " +
-                                          "the paired observable method.", method );
+        throw new ProcessorException( "@Observable target set initializer parameter to value that differs from " +
+                                      "the paired observable method.", method );
       }
     }
     return observable;
@@ -456,7 +456,7 @@ final class ComponentDescriptor
   private void addObservableValueRef( @Nonnull final AnnotationMirror annotation,
                                       @Nonnull final ExecutableElement method,
                                       @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -470,8 +470,8 @@ final class ComponentDescriptor
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !toRawType( returnType ).toString().equals( "arez.ObservableValue" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ObservableValueRef must return an instance of " +
-                                        "arez.ObservableValue", method );
+      throw new ProcessorException( "Method annotated with @ObservableValueRef must return an instance of " +
+                                    "arez.ObservableValue", method );
     }
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
@@ -481,8 +481,8 @@ final class ComponentDescriptor
       name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @ObservableValueRef should specify name or be " +
-                                          "named according to the convention get[Name]ObservableValue", method );
+        throw new ProcessorException( "Method annotated with @ObservableValueRef should specify name or be " +
+                                      "named according to the convention get[Name]ObservableValue", method );
       }
     }
     else
@@ -490,13 +490,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@ObservableValueRef target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
 
@@ -504,8 +504,8 @@ final class ComponentDescriptor
 
     if ( observable.hasRefMethod() )
     {
-      throw new ArezProcessorException( "Method annotated with @ObservableValueRef defines duplicate ref " +
-                                        "accessor for observable named " + name, method );
+      throw new ProcessorException( "Method annotated with @ObservableValueRef defines duplicate ref " +
+                                    "accessor for observable named " + name, method );
     }
     observable.setRefMethod( method, methodType );
   }
@@ -527,7 +527,7 @@ final class ComponentDescriptor
   private void addAction( @Nonnull final AnnotationMirror annotation,
                           @Nonnull final ExecutableElement method,
                           @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeWrappable( getElement(),
                                   Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -556,7 +556,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private String deriveActionName( @Nonnull final ExecutableElement method, @Nonnull final AnnotationMirror annotation )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
     if ( ProcessorUtil.isSentinelName( name ) )
@@ -567,13 +567,13 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
       return name;
     }
@@ -582,7 +582,7 @@ final class ComponentDescriptor
   private void addObserve( @Nonnull final AnnotationMirror annotation,
                            @Nonnull final ExecutableElement method,
                            @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name = deriveObserveName( method, annotation );
     checkNameUnique( name, method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
@@ -611,7 +611,7 @@ final class ComponentDescriptor
   @Nonnull
   private String deriveObserveName( @Nonnull final ExecutableElement method,
                                     @Nonnull final AnnotationMirror annotation )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
     if ( ProcessorUtil.isSentinelName( name ) )
@@ -622,20 +622,20 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Observe target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Observe target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Observe target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Observe target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
       return name;
     }
   }
 
   private void addOnDepsChange( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name =
       deriveHookName( method,
@@ -648,7 +648,7 @@ final class ComponentDescriptor
   private void addObserverRef( @Nonnull final AnnotationMirror annotation,
                                @Nonnull final ExecutableElement method,
                                @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -662,8 +662,8 @@ final class ComponentDescriptor
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !returnType.toString().equals( "arez.Observer" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ObserverRef must return an instance of " +
-                                        "arez.Observer", method );
+      throw new ProcessorException( "Method annotated with @ObserverRef must return an instance of " +
+                                    "arez.Observer", method );
     }
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
@@ -673,8 +673,8 @@ final class ComponentDescriptor
       name = ProcessorUtil.deriveName( method, OBSERVER_REF_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @ObserverRef should specify name or be " +
-                                          "named according to the convention get[Name]Observer", method );
+        throw new ProcessorException( "Method annotated with @ObserverRef should specify name or be " +
+                                      "named according to the convention get[Name]Observer", method );
       }
     }
     else
@@ -682,19 +682,19 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ObserverRef target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@ObserverRef target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ObserverRef target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@ObserverRef target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
     if ( _observerRefs.containsKey( name ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ObserverRef defines duplicate ref accessor for " +
-                                        "observer named " + name, method );
+      throw new ProcessorException( "Method annotated with @ObserverRef defines duplicate ref accessor for " +
+                                    "observer named " + name, method );
     }
     _observerRefs.put( name, new CandidateMethod( method, methodType ) );
   }
@@ -708,7 +708,7 @@ final class ComponentDescriptor
   private void addMemoize( @Nonnull final AnnotationMirror annotation,
                            @Nonnull final ExecutableElement method,
                            @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name = deriveMemoizeName( method, annotation );
     checkNameUnique( name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
@@ -733,7 +733,7 @@ final class ComponentDescriptor
   private void addComputableValueRef( @Nonnull final AnnotationMirror annotation,
                                       @Nonnull final ExecutableElement method,
                                       @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -746,8 +746,8 @@ final class ComponentDescriptor
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !toRawType( returnType ).toString().equals( "arez.ComputableValue" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ComputableValueRef must return an instance of " +
-                                        "arez.ComputableValue", method );
+      throw new ProcessorException( "Method annotated with @ComputableValueRef must return an instance of " +
+                                    "arez.ComputableValue", method );
     }
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
@@ -757,8 +757,8 @@ final class ComponentDescriptor
       name = ProcessorUtil.deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @ComputableValueRef should specify name or be " +
-                                          "named according to the convention get[Name]ComputableValue", method );
+        throw new ProcessorException( "Method annotated with @ComputableValueRef should specify name or be " +
+                                      "named according to the convention get[Name]ComputableValue", method );
       }
     }
     else
@@ -766,13 +766,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ComputableValueRef target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@ComputableValueRef target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ComputableValueRef target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@ComputableValueRef target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
 
@@ -782,7 +782,7 @@ final class ComponentDescriptor
   @Nonnull
   private String deriveMemoizeName( @Nonnull final ExecutableElement method,
                                     @Nonnull final AnnotationMirror annotation )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
     if ( ProcessorUtil.isSentinelName( name ) )
@@ -793,20 +793,20 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Memoize target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
       return name;
     }
   }
 
   private void addOnActivate( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name = deriveHookName( method,
                                         MemoizeDescriptor.ON_ACTIVATE_PATTERN,
@@ -816,7 +816,7 @@ final class ComponentDescriptor
   }
 
   private void addOnDeactivate( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name =
       deriveHookName( method,
@@ -827,7 +827,7 @@ final class ComponentDescriptor
   }
 
   private void addOnStale( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String name =
       deriveHookName( method,
@@ -842,23 +842,23 @@ final class ComponentDescriptor
                                  @Nonnull final Pattern pattern,
                                  @Nonnull final String type,
                                  @Nonnull final String name )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String value = ProcessorUtil.deriveName( method, pattern, name );
     if ( null == value )
     {
-      throw new ArezProcessorException( "Unable to derive name for @On" + type + " as does not match " +
-                                        "on[Name]" + type + " pattern. Please specify name.", method );
+      throw new ProcessorException( "Unable to derive name for @On" + type + " as does not match " +
+                                    "on[Name]" + type + " pattern. Please specify name.", method );
     }
     else if ( !SourceVersion.isIdentifier( value ) )
     {
-      throw new ArezProcessorException( "@On" + type + " target specified an invalid name '" + value + "'. The " +
-                                        "name must be a valid java identifier.", _element );
+      throw new ProcessorException( "@On" + type + " target specified an invalid name '" + value + "'. The " +
+                                    "name must be a valid java identifier.", _element );
     }
     else if ( SourceVersion.isKeyword( value ) )
     {
-      throw new ArezProcessorException( "@On" + type + " target specified an invalid name '" + value + "'. The " +
-                                        "name must not be a java keyword.", _element );
+      throw new ProcessorException( "@On" + type + " target specified an invalid name '" + value + "'. The " +
+                                    "name must not be a java keyword.", _element );
     }
     else
     {
@@ -868,7 +868,7 @@ final class ComponentDescriptor
 
   private void addComponentStateRef( @Nonnull final AnnotationMirror annotation,
                                      @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -882,7 +882,7 @@ final class ComponentDescriptor
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.BOOLEAN != returnType.getKind() )
     {
-      throw new ArezProcessorException( "Method annotated with @ComponentStateRef must return a boolean", method );
+      throw new ProcessorException( "Method annotated with @ComponentStateRef must return a boolean", method );
     }
     final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "value" );
     final ComponentStateRefDescriptor.State state =
@@ -892,7 +892,7 @@ final class ComponentDescriptor
   }
 
   private void setContextRef( @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -907,14 +907,14 @@ final class ComponentDescriptor
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !returnType.toString().equals( "arez.ArezContext" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ContextRef must return an instance of " +
-                                        "arez.ArezContext", method );
+      throw new ProcessorException( "Method annotated with @ContextRef must return an instance of " +
+                                    "arez.ArezContext", method );
     }
 
     if ( null != _contextRef )
     {
-      throw new ArezProcessorException( "@ContextRef target duplicates existing method named " +
-                                        _contextRef.getSimpleName(), method );
+      throw new ProcessorException( "@ContextRef target duplicates existing method named " +
+                                    _contextRef.getSimpleName(), method );
     }
     else
     {
@@ -940,8 +940,8 @@ final class ComponentDescriptor
 
     if ( null != _componentIdRef )
     {
-      throw new ArezProcessorException( "@ComponentIdRef target duplicates existing method named " +
-                                        _componentIdRef.getSimpleName(), method );
+      throw new ProcessorException( "@ComponentIdRef target duplicates existing method named " +
+                                    _componentIdRef.getSimpleName(), method );
     }
     else
     {
@@ -950,7 +950,7 @@ final class ComponentDescriptor
   }
 
   private void setComponentRef( @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -965,14 +965,14 @@ final class ComponentDescriptor
     if ( TypeKind.DECLARED != returnType.getKind() ||
          !returnType.toString().equals( "arez.Component" ) )
     {
-      throw new ArezProcessorException( "Method annotated with @ComponentRef must return an instance of " +
-                                        "arez.Component", method );
+      throw new ProcessorException( "Method annotated with @ComponentRef must return an instance of " +
+                                    "arez.Component", method );
     }
 
     if ( null != _componentRef )
     {
-      throw new ArezProcessorException( "@ComponentRef target duplicates existing method named " +
-                                        _componentRef.getSimpleName(), method );
+      throw new ProcessorException( "@ComponentRef target duplicates existing method named " +
+                                    _componentRef.getSimpleName(), method );
     }
     else
     {
@@ -987,7 +987,7 @@ final class ComponentDescriptor
 
   private void setComponentId( @Nonnull final ExecutableElement componentId,
                                @Nonnull final ExecutableType componentIdMethodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustNotBeAbstract( Constants.COMPONENT_ID_ANNOTATION_CLASSNAME, componentId );
     MethodChecks.mustBeSubclassCallable( getElement(),
@@ -1001,8 +1001,8 @@ final class ComponentDescriptor
 
     if ( null != _componentId )
     {
-      throw new ArezProcessorException( "@ComponentId target duplicates existing method named " +
-                                        _componentId.getSimpleName(), componentId );
+      throw new ProcessorException( "@ComponentId target duplicates existing method named " +
+                                    _componentId.getSimpleName(), componentId );
     }
     else
     {
@@ -1012,7 +1012,7 @@ final class ComponentDescriptor
   }
 
   private void setComponentTypeNameRef( @Nonnull final ExecutableElement componentTypeName )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -1027,13 +1027,13 @@ final class ComponentDescriptor
     if ( !( TypeKind.DECLARED == returnType.getKind() &&
             returnType.toString().equals( String.class.getName() ) ) )
     {
-      throw new ArezProcessorException( "@ComponentTypeNameRef target must return a String", componentTypeName );
+      throw new ProcessorException( "@ComponentTypeNameRef target must return a String", componentTypeName );
     }
 
     if ( null != _componentTypeNameRef )
     {
-      throw new ArezProcessorException( "@ComponentTypeNameRef target duplicates existing method named " +
-                                        _componentTypeNameRef.getSimpleName(), componentTypeName );
+      throw new ProcessorException( "@ComponentTypeNameRef target duplicates existing method named " +
+                                    _componentTypeNameRef.getSimpleName(), componentTypeName );
     }
     else
     {
@@ -1042,7 +1042,7 @@ final class ComponentDescriptor
   }
 
   private void setComponentNameRef( @Nonnull final ExecutableElement componentName )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeOverridable( getElement(),
                                     Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -1055,8 +1055,8 @@ final class ComponentDescriptor
 
     if ( null != _componentNameRef )
     {
-      throw new ArezProcessorException( "@ComponentNameRef target duplicates existing method named " +
-                                        _componentNameRef.getSimpleName(), componentName );
+      throw new ProcessorException( "@ComponentNameRef target duplicates existing method named " +
+                                    _componentNameRef.getSimpleName(), componentName );
     }
     else
     {
@@ -1065,7 +1065,7 @@ final class ComponentDescriptor
   }
 
   private void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -1074,8 +1074,8 @@ final class ComponentDescriptor
 
     if ( null != _postConstruct )
     {
-      throw new ArezProcessorException( "@PostConstruct target duplicates existing method named " +
-                                        _postConstruct.getSimpleName(), postConstruct );
+      throw new ProcessorException( "@PostConstruct target duplicates existing method named " +
+                                    _postConstruct.getSimpleName(), postConstruct );
     }
     else
     {
@@ -1084,7 +1084,7 @@ final class ComponentDescriptor
   }
 
   private void setPreDispose( @Nonnull final ExecutableElement preDispose )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -1093,8 +1093,8 @@ final class ComponentDescriptor
 
     if ( null != _preDispose )
     {
-      throw new ArezProcessorException( "@PreDispose target duplicates existing method named " +
-                                        _preDispose.getSimpleName(), preDispose );
+      throw new ProcessorException( "@PreDispose target duplicates existing method named " +
+                                    _preDispose.getSimpleName(), preDispose );
     }
     else
     {
@@ -1103,7 +1103,7 @@ final class ComponentDescriptor
   }
 
   private void setPostDispose( @Nonnull final ExecutableElement postDispose )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -1112,8 +1112,8 @@ final class ComponentDescriptor
 
     if ( null != _postDispose )
     {
-      throw new ArezProcessorException( "@PostDispose target duplicates existing method named " +
-                                        _postDispose.getSimpleName(), postDispose );
+      throw new ProcessorException( "@PostDispose target duplicates existing method named " +
+                                    _postDispose.getSimpleName(), postDispose );
     }
     else
     {
@@ -1128,7 +1128,7 @@ final class ComponentDescriptor
   }
 
   void validate()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     _cascadeDisposes.values().forEach( CascadeDisposableDescriptor::validate );
     _roObservables.forEach( ObservableDescriptor::validate );
@@ -1150,38 +1150,38 @@ final class ComponentDescriptor
 
     if ( !_allowEmpty && hasReactiveElements )
     {
-      throw new ArezProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                        "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @ComponentDependency or @Observe", _element );
+      throw new ProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
+                                    "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
+                                    "@Reference, @ComponentDependency or @Observe", _element );
     }
     else if ( _allowEmpty && !hasReactiveElements && !_generated )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
-                                        "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
-                                        "@Reference, @ComponentDependency or @Observe", _element );
+      throw new ProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
+                                    "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
+                                    "@Reference, @ComponentDependency or @Observe", _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
-                                        "annotation parameter but has no methods annotated with @Observe, " +
-                                        "@ComponentDependency or @Memoize(keepAlive=true)", _element );
+      throw new ProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
+                                    "annotation parameter but has no methods annotated with @Observe, " +
+                                    "@ComponentDependency or @Memoize(keepAlive=true)", _element );
     }
     if ( null != _componentIdRef &&
          null != _componentId &&
          !_typeUtils.isSameType( _componentId.getReturnType(), _componentIdRef.getReturnType() ) )
     {
-      throw new ArezProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
-                                        " and a @ComponentId annotated method with a return type " +
-                                        _componentIdRef.getReturnType() + ". The types must match.", _element );
+      throw new ProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
+                                    " and a @ComponentId annotated method with a return type " +
+                                    _componentIdRef.getReturnType() + ". The types must match.", _element );
     }
     else if ( null != _componentIdRef &&
               null == _componentId &&
               !_typeUtils.isSameType( _typeUtils.getPrimitiveType( TypeKind.INT ), _componentIdRef.getReturnType() ) )
     {
-      throw new ArezProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
-                                        " but no @ComponentId annotated method. The type is expected to be of " +
-                                        "type int.", _element );
+      throw new ProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
+                                    " but no @ComponentId annotated method. The type is expected to be of " +
+                                    "type int.", _element );
     }
     else if ( InjectMode.NONE != _injectMode )
     {
@@ -1193,20 +1193,20 @@ final class ComponentDescriptor
         if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
              !( constructor.getParameters().isEmpty() && constructor.getThrownTypes().isEmpty() ) )
         {
-          throw new ArezProcessorException( "@ArezComponent target has a public constructor but the inject parameter " +
-                                            "does not resolve to NONE. Public constructors are not necessary when " +
-                                            "the instantiation of the component is managed by the injection framework.",
-                                            constructor );
+          throw new ProcessorException( "@ArezComponent target has a public constructor but the inject parameter " +
+                                        "does not resolve to NONE. Public constructors are not necessary when " +
+                                        "the instantiation of the component is managed by the injection framework.",
+                                        constructor );
         }
       }
       if ( InjectMode.PROVIDE == _injectMode &&
            _dagger &&
            !getElement().getModifiers().contains( Modifier.PUBLIC ) )
       {
-        throw new ArezProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
-                                          "using the dagger injection framework. Due to constraints within the " +
-                                          "dagger framework the type needs to made public.",
-                                          getElement() );
+        throw new ProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
+                                      "using the dagger injection framework. Due to constraints within the " +
+                                      "dagger framework the type needs to made public.",
+                                      getElement() );
       }
     }
   }
@@ -1221,7 +1221,7 @@ final class ComponentDescriptor
   private void checkNameUnique( @Nonnull final String name,
                                 @Nonnull final ExecutableElement sourceMethod,
                                 @Nonnull final String sourceAnnotationName )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final ActionDescriptor action = _actions.get( name );
     if ( null != action )
@@ -1270,37 +1270,37 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private ArezProcessorException toException( @Nonnull final String name,
-                                              @Nonnull final String sourceAnnotationName,
-                                              @Nonnull final ExecutableElement sourceMethod,
-                                              @Nonnull final String targetAnnotationName,
-                                              @Nonnull final ExecutableElement targetElement )
+  private ProcessorException toException( @Nonnull final String name,
+                                          @Nonnull final String sourceAnnotationName,
+                                          @Nonnull final ExecutableElement sourceMethod,
+                                          @Nonnull final String targetAnnotationName,
+                                          @Nonnull final ExecutableElement targetElement )
   {
-    return new ArezProcessorException( "Method annotated with @" + ProcessorUtil.toSimpleName( sourceAnnotationName ) +
-                                       " specified name " + name + " that duplicates @" +
-                                       ProcessorUtil.toSimpleName( targetAnnotationName ) + " defined by method " +
-                                       targetElement.getSimpleName(), sourceMethod );
+    return new ProcessorException( "Method annotated with @" + ProcessorUtil.toSimpleName( sourceAnnotationName ) +
+                                   " specified name " + name + " that duplicates @" +
+                                   ProcessorUtil.toSimpleName( targetAnnotationName ) + " defined by method " +
+                                   targetElement.getSimpleName(), sourceMethod );
   }
 
   void analyzeCandidateMethods( @Nonnull final List<ExecutableElement> methods,
                                 @Nonnull final Types typeUtils )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     for ( final ExecutableElement method : methods )
     {
       final String methodName = method.getSimpleName().toString();
       if ( AREZ_SPECIAL_METHODS.contains( methodName ) && method.getParameters().isEmpty() )
       {
-        throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
-                                          "reserved by Arez", method );
+        throw new ProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
+                                      "reserved by Arez", method );
       }
       else if ( methodName.startsWith( Generator.FIELD_PREFIX ) ||
                 methodName.startsWith( Generator.OBSERVABLE_DATA_FIELD_PREFIX ) ||
                 methodName.startsWith( Generator.REFERENCE_FIELD_PREFIX ) ||
                 methodName.startsWith( Generator.FRAMEWORK_PREFIX ) )
       {
-        throw new ArezProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
-                                          "with a prefix reserved by Arez", method );
+        throw new ProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
+                                      "with a prefix reserved by Arez", method );
       }
     }
     final Map<String, CandidateMethod> getters = new HashMap<>();
@@ -1468,9 +1468,9 @@ final class ComponentDescriptor
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
-        throw new ArezProcessorException( "@CascadeDispose target must be assignable to " +
-                                          Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
-                                          field );
+        throw new ProcessorException( "@CascadeDispose target must be assignable to " +
+                                      Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
+                                      field );
       }
     }
   }
@@ -1503,9 +1503,9 @@ final class ComponentDescriptor
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
-        throw new ArezProcessorException( "@CascadeDispose target must return a type assignable to " +
-                                          Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
-                                          method );
+        throw new ProcessorException( "@CascadeDispose target must return a type assignable to " +
+                                      Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
+                                      method );
       }
     }
   }
@@ -1611,8 +1611,8 @@ final class ComponentDescriptor
         final String candidate2 = ProcessorUtil.deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
         if ( null == candidate2 )
         {
-          throw new ArezProcessorException( "@ReferenceId target has not specified a name and does not follow " +
-                                            "the convention \"get[Name]Id\" or \"[name]Id\"", method );
+          throw new ProcessorException( "@ReferenceId target has not specified a name and does not follow " +
+                                        "the convention \"get[Name]Id\" or \"[name]Id\"", method );
         }
         else
         {
@@ -1629,13 +1629,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@ReferenceId target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@ReferenceId target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@ReferenceId target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@ReferenceId target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
     return name;
@@ -1678,9 +1678,9 @@ final class ComponentDescriptor
     final InverseDescriptor existing = _inverses.get( name );
     if ( null != existing )
     {
-      throw new ArezProcessorException( "@Inverse target defines duplicate inverse for name '" + name +
-                                        "'. The other inverse is " + existing.getObservable().getGetter(),
-                                        method );
+      throw new ProcessorException( "@Inverse target defines duplicate inverse for name '" + name +
+                                    "'. The other inverse is " + existing.getObservable().getGetter(),
+                                    method );
     }
     else
     {
@@ -1698,8 +1698,8 @@ final class ComponentDescriptor
              !ProcessorUtil.hasAnnotationOfType( ( (DeclaredType) type ).asElement(),
                                                  Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
-          throw new ArezProcessorException( "@Inverse target expected to return a type annotated with " +
-                                            Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
+          throw new ProcessorException( "@Inverse target expected to return a type annotated with " +
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
         }
         targetType = (TypeElement) ( (DeclaredType) type ).asElement();
         if ( ProcessorUtil.hasNonnullAnnotation( method ) )
@@ -1712,9 +1712,9 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@Inverse target expected to be annotated with either " +
-                                            Constants.NULLABLE_ANNOTATION_CLASSNAME + " or " +
-                                            Constants.NONNULL_ANNOTATION_CLASSNAME, method );
+          throw new ProcessorException( "@Inverse target expected to be annotated with either " +
+                                        Constants.NULLABLE_ANNOTATION_CLASSNAME + " or " +
+                                        Constants.NONNULL_ANNOTATION_CLASSNAME, method );
         }
       }
       final String referenceName = getInverseReferenceNameParameter( method );
@@ -1739,11 +1739,11 @@ final class ComponentDescriptor
                  null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseName" ) &&
                  null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseMultiplicity" ) )
             {
-              throw new ArezProcessorException( "@Inverse target found an associated @Reference on the method '" +
-                                                m.getSimpleName() + "' on type '" +
-                                                descriptor.getTargetType().getQualifiedName() + "' but the " +
-                                                "annotation has not configured an inverse.",
-                                                descriptor.getObservable().getGetter() );
+              throw new ProcessorException( "@Inverse target found an associated @Reference on the method '" +
+                                            m.getSimpleName() + "' on type '" +
+                                            descriptor.getTargetType().getQualifiedName() + "' but the " +
+                                            "annotation has not configured an inverse.",
+                                            descriptor.getObservable().getGetter() );
             }
             ensureTargetTypeAligns( descriptor, m.getReturnType() );
             return getReferenceInverseMultiplicity( a );
@@ -1758,17 +1758,17 @@ final class ComponentDescriptor
         .orElse( null );
     if ( null == multiplicity )
     {
-      throw new ArezProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
-                                        "a name parameter equal to '" + descriptor.getReferenceName() + "' on class " +
-                                        descriptor.getTargetType().getQualifiedName() + " but is unable to " +
-                                        "locate a matching method.", descriptor.getObservable().getGetter() );
+      throw new ProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
+                                    "a name parameter equal to '" + descriptor.getReferenceName() + "' on class " +
+                                    descriptor.getTargetType().getQualifiedName() + " but is unable to " +
+                                    "locate a matching method.", descriptor.getObservable().getGetter() );
     }
 
     if ( descriptor.getMultiplicity() != multiplicity )
     {
-      throw new ArezProcessorException( "@Inverse target has a multiplicity of " + descriptor.getMultiplicity() +
-                                        " but that associated @Reference has a multiplicity of " + multiplicity +
-                                        ". The multiplicity must align.", descriptor.getObservable().getGetter() );
+      throw new ProcessorException( "@Inverse target has a multiplicity of " + descriptor.getMultiplicity() +
+                                    " but that associated @Reference has a multiplicity of " + multiplicity +
+                                    ". The multiplicity must align.", descriptor.getObservable().getGetter() );
     }
   }
 
@@ -1776,9 +1776,9 @@ final class ComponentDescriptor
   {
     if ( !_typeUtils.isSameType( target, getElement().asType() ) )
     {
-      throw new ArezProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
-                                        "a target type equal to " + descriptor.getTargetType() + " but the actual " +
-                                        "target type is " + target, descriptor.getObservable().getGetter() );
+      throw new ProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
+                                    "a target type equal to " + descriptor.getTargetType() + " but the actual " +
+                                    "target type is " + target, descriptor.getObservable().getGetter() );
     }
   }
 
@@ -1798,8 +1798,8 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@Inverse target expected to return a type annotated with " +
-                                            Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
+          throw new ProcessorException( "@Inverse target expected to return a type annotated with " +
+                                        Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
         }
       }
     }
@@ -1830,13 +1830,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Inverse target specified an invalid referenceName '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Inverse target specified an invalid referenceName '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Inverse target specified an invalid referenceName '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Inverse target specified an invalid referenceName '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
     return name;
@@ -1858,13 +1858,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Inverse target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Inverse target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Inverse target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Inverse target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
     return name;
@@ -1896,9 +1896,9 @@ final class ComponentDescriptor
            !ProcessorUtil.hasAnnotationOfType( ( (DeclaredType) returnType ).asElement(),
                                                Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
       {
-        throw new ArezProcessorException( "@Reference target expected to return a type annotated with " +
-                                          Constants.COMPONENT_ANNOTATION_CLASSNAME + " if there is an " +
-                                          "inverse reference.", method );
+        throw new ProcessorException( "@Reference target expected to return a type annotated with " +
+                                      Constants.COMPONENT_ANNOTATION_CLASSNAME + " if there is an " +
+                                      "inverse reference.", method );
       }
     }
     else
@@ -1931,10 +1931,10 @@ final class ComponentDescriptor
           final String inverseName = getInverseName( a, m );
           if ( !descriptor.hasInverse() && inverseName.equals( defaultInverseName ) )
           {
-            throw new ArezProcessorException( "@Reference target has not configured an inverse but there is an " +
-                                              "associated @Inverse annotated method named '" + m.getSimpleName() +
-                                              "' on type '" + element.getQualifiedName() + "'.",
-                                              descriptor.getMethod() );
+            throw new ProcessorException( "@Reference target has not configured an inverse but there is an " +
+                                          "associated @Inverse annotated method named '" + m.getSimpleName() +
+                                          "' on type '" + element.getQualifiedName() + "'.",
+                                          descriptor.getMethod() );
           }
           if ( descriptor.hasInverse() && inverseName.equals( descriptor.getInverseName() ) )
           {
@@ -1963,18 +1963,18 @@ final class ComponentDescriptor
     {
       if ( null == multiplicity )
       {
-        throw new ArezProcessorException( "@Reference target expected to find an associated @Inverse annotation " +
-                                          "with a name parameter equal to '" + descriptor.getInverseName() + "' on " +
-                                          "class " + descriptor.getMethod().getReturnType() + " but is unable to " +
-                                          "locate a matching method.", descriptor.getMethod() );
+        throw new ProcessorException( "@Reference target expected to find an associated @Inverse annotation " +
+                                      "with a name parameter equal to '" + descriptor.getInverseName() + "' on " +
+                                      "class " + descriptor.getMethod().getReturnType() + " but is unable to " +
+                                      "locate a matching method.", descriptor.getMethod() );
       }
 
       final Multiplicity inverseMultiplicity = descriptor.getInverseMultiplicity();
       if ( inverseMultiplicity != multiplicity )
       {
-        throw new ArezProcessorException( "@Reference target has an inverseMultiplicity of " + inverseMultiplicity +
-                                          " but that associated @Inverse has a multiplicity of " + multiplicity +
-                                          ". The multiplicity must align.", descriptor.getMethod() );
+        throw new ProcessorException( "@Reference target has an inverseMultiplicity of " + inverseMultiplicity +
+                                      " but that associated @Inverse has a multiplicity of " + multiplicity +
+                                      ". The multiplicity must align.", descriptor.getMethod() );
       }
     }
   }
@@ -1983,9 +1983,9 @@ final class ComponentDescriptor
   {
     if ( !_typeUtils.isSameType( target, getElement().asType() ) )
     {
-      throw new ArezProcessorException( "@Reference target expected to find an associated @Inverse annotation with " +
-                                        "a target type equal to " + getElement().getQualifiedName() + " but " +
-                                        "the actual target type is " + target, descriptor.getMethod() );
+      throw new ProcessorException( "@Reference target expected to find an associated @Inverse annotation with " +
+                                    "a target type equal to " + getElement().getQualifiedName() + " but " +
+                                    "the actual target type is " + target, descriptor.getMethod() );
     }
   }
 
@@ -2021,13 +2021,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Reference target specified an invalid inverseName '" + name + "'. The " +
-                                          "inverseName must be a valid java identifier.", method );
+        throw new ProcessorException( "@Reference target specified an invalid inverseName '" + name + "'. The " +
+                                      "inverseName must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Reference target specified an invalid inverseName '" + name + "'. The " +
-                                          "inverseName must not be a java keyword.", method );
+        throw new ProcessorException( "@Reference target specified an invalid inverseName '" + name + "'. The " +
+                                      "inverseName must not be a java keyword.", method );
       }
     }
     return name;
@@ -2080,13 +2080,13 @@ final class ComponentDescriptor
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
       {
-        throw new ArezProcessorException( "@Reference target specified an invalid name '" + name + "'. The " +
-                                          "name must be a valid java identifier.", method );
+        throw new ProcessorException( "@Reference target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( name ) )
       {
-        throw new ArezProcessorException( "@Reference target specified an invalid name '" + name + "'. The " +
-                                          "name must not be a java keyword.", method );
+        throw new ProcessorException( "@Reference target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword.", method );
       }
     }
     return name;
@@ -2137,7 +2137,7 @@ final class ComponentDescriptor
     final TypeMirror type = method.getReturnType();
     if ( TypeKind.DECLARED != type.getKind() )
     {
-      throw new ArezProcessorException( "@ComponentDependency target must return a non-primitive value", method );
+      throw new ProcessorException( "@ComponentDependency target must return a non-primitive value", method );
     }
     if ( !validateTypeAtRuntime )
     {
@@ -2148,9 +2148,9 @@ final class ComponentDescriptor
         final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
         if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
-          throw new ArezProcessorException( "@ComponentDependency target must return an instance compatible with " +
-                                            Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                            "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", method );
+          throw new ProcessorException( "@ComponentDependency target must return an instance compatible with " +
+                                        Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
+                                        "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", method );
         }
       }
     }
@@ -2176,7 +2176,7 @@ final class ComponentDescriptor
     final TypeMirror type = field.asType();
     if ( TypeKind.DECLARED != type.getKind() )
     {
-      throw new ArezProcessorException( "@ComponentDependency target must be a non-primitive value", field );
+      throw new ProcessorException( "@ComponentDependency target must be a non-primitive value", field );
     }
     if ( !validateTypeAtRuntime )
     {
@@ -2187,17 +2187,17 @@ final class ComponentDescriptor
         final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
         if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
-          throw new ArezProcessorException( "@ComponentDependency target must be an instance compatible with " +
-                                            Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                            "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", field );
+          throw new ProcessorException( "@ComponentDependency target must be an instance compatible with " +
+                                        Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
+                                        "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", field );
         }
       }
     }
 
     if ( !isActionCascade( field ) )
     {
-      throw new ArezProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
-                                        "dependency is on a final field and can not be set to null.", field );
+      throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
+                                    "dependency is on a final field and can not be set to null.", field );
 
     }
 
@@ -2240,8 +2240,8 @@ final class ComponentDescriptor
       .map( CandidateMethod::getMethod )
       .filter( m -> m.getModifiers().contains( Modifier.ABSTRACT ) )
       .forEach( m -> {
-        throw new ArezProcessorException( "@ArezComponent target has an abstract method not implemented by " +
-                                          "framework. The method is named " + m.getSimpleName(), getElement() );
+        throw new ProcessorException( "@ArezComponent target has an abstract method not implemented by " +
+                                      "framework. The method is named " + m.getSimpleName(), getElement() );
       } );
   }
 
@@ -2292,22 +2292,22 @@ final class ComponentDescriptor
       }
       else
       {
-        throw new ArezProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
-                                          "@Observe method with that name exists", method.getMethod() );
+        throw new ProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
+                                      "@Observe method with that name exists", method.getMethod() );
       }
     }
   }
 
   private void linkUnAnnotatedObservables( @Nonnull final Map<String, CandidateMethod> getters,
                                            @Nonnull final Map<String, CandidateMethod> setters )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     for ( final ObservableDescriptor observable : _roObservables )
     {
       if ( !observable.hasSetter() && !observable.hasGetter() )
       {
-        throw new ArezProcessorException( "@ObservableValueRef target unable to be associated with an " +
-                                          "Observable property", observable.getRefMethod() );
+        throw new ProcessorException( "@ObservableValueRef target unable to be associated with an " +
+                                      "Observable property", observable.getRefMethod() );
       }
       else if ( !observable.hasSetter() && observable.expectSetter() )
       {
@@ -2322,8 +2322,8 @@ final class ComponentDescriptor
         }
         else if ( observable.hasGetter() )
         {
-          throw new ArezProcessorException( "@Observable target defined getter but no setter was defined and no " +
-                                            "setter could be automatically determined", observable.getGetter() );
+          throw new ProcessorException( "@Observable target defined getter but no setter was defined and no " +
+                                        "setter could be automatically determined", observable.getGetter() );
         }
       }
       else if ( !observable.hasGetter() )
@@ -2339,8 +2339,8 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@Observable target defined setter but no getter was defined and no " +
-                                            "getter could be automatically determined", observable.getSetter() );
+          throw new ProcessorException( "@Observable target defined setter but no getter was defined and no " +
+                                        "getter could be automatically determined", observable.getSetter() );
         }
       }
     }
@@ -2348,7 +2348,7 @@ final class ComponentDescriptor
 
   private void linkUnAnnotatedObserves( @Nonnull final Map<String, CandidateMethod> observes,
                                         @Nonnull final Map<String, CandidateMethod> onDepsChanges )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     for ( final ObserveDescriptor observe : _roObserves )
     {
@@ -2370,8 +2370,8 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@OnDepsChange target has no corresponding @Observe that could " +
-                                            "be automatically determined", observe.getOnDepsChange() );
+          throw new ProcessorException( "@OnDepsChange target has no corresponding @Observe that could " +
+                                        "be automatically determined", observe.getOnDepsChange() );
         }
       }
       else if ( !observe.hasOnDepsChange() )
@@ -2386,7 +2386,7 @@ final class ComponentDescriptor
   }
 
   private void linkPriorityOverrideMethods()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     for ( final Map.Entry<String, CandidateMethod> entry : _priorityOverrides.entrySet() )
     {
@@ -2406,8 +2406,8 @@ final class ComponentDescriptor
         }
         else
         {
-          throw new ArezProcessorException( "@PriorityOverride target has no corresponding @Memoize or " +
-                                            "@Observe methods", method.getMethod() );
+          throw new ProcessorException( "@PriorityOverride target has no corresponding @Memoize or " +
+                                        "@Observe methods", method.getMethod() );
         }
       }
     }
@@ -2415,7 +2415,7 @@ final class ComponentDescriptor
 
   private boolean analyzeMethod( @Nonnull final ExecutableElement method,
                                  @Nonnull final ExecutableType methodType )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     verifyNoDuplicateAnnotations( method );
 
@@ -2585,10 +2585,10 @@ final class ComponentDescriptor
     }
     else if ( null != ejbPostConstruct )
     {
-      throw new ArezProcessorException( "@" + Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation " +
-                                        "not supported in components annotated with @ArezComponent, use the @" +
-                                        Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation instead.",
-                                        method );
+      throw new ProcessorException( "@" + Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation " +
+                                    "not supported in components annotated with @ArezComponent, use the @" +
+                                    Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME + " annotation instead.",
+                                    method );
     }
     else if ( null != postConstruct )
     {
@@ -2656,14 +2656,14 @@ final class ComponentDescriptor
     final List<? extends VariableElement> parameters = method.getParameters();
     if ( !( parameters.isEmpty() || 1 == parameters.size() && parameters.get( 0 ).asType().getKind() == TypeKind.INT ) )
     {
-      throw new ArezProcessorException( "@PriorityOverride target must have no parameters or a " +
-                                        "single int parameter", method );
+      throw new ProcessorException( "@PriorityOverride target must have no parameters or a " +
+                                    "single int parameter", method );
     }
 
     final TypeMirror type = method.getReturnType();
     if ( TypeKind.INT != type.getKind() )
     {
-      throw new ArezProcessorException( "@PriorityOverride target must return an int value", method );
+      throw new ProcessorException( "@PriorityOverride target must return an int value", method );
     }
 
     final String name = derivePriorityOverrideName( method, annotation );
@@ -2680,8 +2680,8 @@ final class ComponentDescriptor
       final String name = ProcessorUtil.deriveName( method, PRIORITY_OVERRIDE_PATTERN, declaredName );
       if ( null == name )
       {
-        throw new ArezProcessorException( "Method annotated with @PriorityOverride should specify name or be " +
-                                          "named according to the convention [name]Priority", method );
+        throw new ProcessorException( "Method annotated with @PriorityOverride should specify name or be " +
+                                      "named according to the convention [name]Priority", method );
       }
       return name;
     }
@@ -2689,13 +2689,13 @@ final class ComponentDescriptor
     {
       if ( !SourceVersion.isIdentifier( declaredName ) )
       {
-        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + declaredName +
-                                          "'. The name must be a valid java identifier.", method );
+        throw new ProcessorException( "@PriorityOverride target specified an invalid name '" + declaredName +
+                                      "'. The name must be a valid java identifier.", method );
       }
       else if ( SourceVersion.isKeyword( declaredName ) )
       {
-        throw new ArezProcessorException( "@PriorityOverride target specified an invalid name '" + declaredName +
-                                          "'. The name must not be a java keyword.", method );
+        throw new ProcessorException( "@PriorityOverride target specified an invalid name '" + declaredName +
+                                      "'. The name must not be a java keyword.", method );
       }
       return declaredName;
     }
@@ -2740,7 +2740,7 @@ final class ComponentDescriptor
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final List<String> annotations =
       Arrays.asList( Constants.ACTION_ANNOTATION_CLASSNAME,
@@ -2778,7 +2778,7 @@ final class ComponentDescriptor
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final VariableElement field )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     MethodChecks.verifyNoOverlappingAnnotations( field,
                                                  Arrays.asList( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
@@ -2788,7 +2788,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private String getPropertyAccessorName( @Nonnull final ExecutableElement method, @Nonnull final String specifiedName )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     String name = ProcessorUtil.deriveName( method, GETTER_PATTERN, specifiedName );
     if ( null != name )
@@ -2811,7 +2811,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   TypeSpec buildType( @Nonnull final Types typeUtils )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getEnhancedClassName().simpleName() ).
       addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
@@ -3119,7 +3119,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildToStringMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert _generateToString;
 
@@ -3151,7 +3151,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildEqualsMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String idMethod = getIdMethodName();
 
@@ -3233,7 +3233,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildHashcodeMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String idMethod = getIdMethodName();
 
@@ -3350,7 +3350,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildContextRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _contextRef;
     final String methodName = _contextRef.getSimpleName().toString();
@@ -3375,7 +3375,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildLocatorRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final String methodName = Generator.LOCATOR_METHOD_NAME;
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
@@ -3391,7 +3391,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildComponentRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _componentRef;
 
@@ -3430,7 +3430,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildComponentIdRefMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _componentIdRef;
 
@@ -3448,7 +3448,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildArezIdMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     return MethodSpec.methodBuilder( "getArezId" ).
       addAnnotation( Override.class ).
@@ -3461,7 +3461,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildComponentIdMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null == _componentId;
 
@@ -3476,7 +3476,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildComponentNameMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _componentNameRef;
     final String methodName = _componentNameRef.getSimpleName().toString();
@@ -3502,7 +3502,7 @@ final class ComponentDescriptor
 
   @Nullable
   private MethodSpec buildComponentTypeNameMethod()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( null == _componentTypeNameRef )
     {
@@ -3595,7 +3595,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildDispose()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "dispose" ).
@@ -3609,7 +3609,7 @@ final class ComponentDescriptor
 
   @Nonnull
   private MethodSpec buildInternalDispose()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( Generator.INTERNAL_DISPOSE_METHOD_NAME ).
@@ -3635,7 +3635,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildIsDisposed()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "isDisposed" ).
@@ -3652,7 +3652,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildObserve()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "observe" ).
@@ -3668,7 +3668,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildNativeComponentPreDispose()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert _disposeNotifier;
     final MethodSpec.Builder builder =
@@ -3700,7 +3700,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildInternalPreDispose()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert hasInternalPreDispose();
     final MethodSpec.Builder builder =
@@ -3804,7 +3804,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildAddOnDisposeListener()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     return MethodSpec.methodBuilder( "addOnDisposeListener" ).
       addModifiers( Modifier.PUBLIC ).
@@ -3823,7 +3823,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   private MethodSpec buildRemoveOnDisposeListener()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     return MethodSpec.methodBuilder( "removeOnDisposeListener" ).
       addModifiers( Modifier.PUBLIC ).
@@ -4319,7 +4319,7 @@ final class ComponentDescriptor
 
   @Nonnull
   TypeSpec buildComponentDaggerModule()
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert needsDaggerIntegration();
 
@@ -4367,9 +4367,9 @@ final class ComponentDescriptor
     {
       if ( ElementKind.INTERFACE != extension.getKind() )
       {
-        throw new ArezProcessorException( "Class annotated with @Repository defined an extension that is " +
-                                          "not an interface. Extension: " + extension.getQualifiedName(),
-                                          getElement() );
+        throw new ProcessorException( "Class annotated with @Repository defined an extension that is " +
+                                      "not an interface. Extension: " + extension.getQualifiedName(),
+                                      getElement() );
       }
 
       for ( final Element enclosedElement : extension.getEnclosedElements() )
@@ -4380,9 +4380,9 @@ final class ComponentDescriptor
           if ( !method.isDefault() &&
                !( method.getSimpleName().toString().equals( "self" ) && 0 == method.getParameters().size() ) )
           {
-            throw new ArezProcessorException( "Class annotated with @Repository defined an extension that has " +
-                                              "a non default method. Extension: " + extension.getQualifiedName() +
-                                              " Method: " + method, getElement() );
+            throw new ProcessorException( "Class annotated with @Repository defined an extension that has " +
+                                          "a non default method. Extension: " + extension.getQualifiedName() +
+                                          " Method: " + method, getElement() );
           }
         }
       }
@@ -4395,7 +4395,7 @@ final class ComponentDescriptor
    */
   @Nonnull
   TypeSpec buildRepository( @Nonnull final Types typeUtils )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     assert null != _repositoryExtensions;
     final TypeElement element = getElement();

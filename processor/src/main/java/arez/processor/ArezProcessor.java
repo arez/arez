@@ -127,7 +127,7 @@ public final class ArezProcessor
       {
         reportError( ioe.getMessage(), element );
       }
-      catch ( final ArezProcessorException e )
+      catch ( final ProcessorException e )
       {
         final Element errorLocation = e.getElement();
         final Element outerElement = getOuterElement( errorLocation );
@@ -234,7 +234,7 @@ public final class ArezProcessor
   }
 
   private void process( @Nonnull final TypeElement element )
-    throws IOException, ArezProcessorException
+    throws IOException, ProcessorException
   {
     final PackageElement packageElement = processingEnv.getElementUtils().getPackageOf( element );
     final ComponentDescriptor descriptor = parse( packageElement, element );
@@ -260,20 +260,20 @@ public final class ArezProcessor
   @Nonnull
   private ComponentDescriptor parse( @Nonnull final PackageElement packageElement,
                                      @Nonnull final TypeElement typeElement )
-    throws ArezProcessorException
+    throws ProcessorException
   {
     if ( ElementKind.CLASS != typeElement.getKind() && ElementKind.INTERFACE != typeElement.getKind() )
     {
-      throw new ArezProcessorException( "@ArezComponent target must be a class or an interface", typeElement );
+      throw new ProcessorException( "@ArezComponent target must be a class or an interface", typeElement );
     }
     else if ( typeElement.getModifiers().contains( Modifier.FINAL ) )
     {
-      throw new ArezProcessorException( "@ArezComponent target must not be final", typeElement );
+      throw new ProcessorException( "@ArezComponent target must not be final", typeElement );
     }
     else if ( NestingKind.TOP_LEVEL != typeElement.getNestingKind() &&
               !typeElement.getModifiers().contains( Modifier.STATIC ) )
     {
-      throw new ArezProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
+      throw new ProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
     }
     // Is the component marked as generated
     final boolean generated =
@@ -319,13 +319,13 @@ public final class ArezProcessor
     final boolean isClassAbstract = typeElement.getModifiers().contains( Modifier.ABSTRACT );
     if ( !isClassAbstract && !allowConcrete )
     {
-      throw new ArezProcessorException( "@ArezComponent target must be abstract unless the allowConcrete " +
-                                        "parameter is set to true", typeElement );
+      throw new ProcessorException( "@ArezComponent target must be abstract unless the allowConcrete " +
+                                    "parameter is set to true", typeElement );
     }
     else if ( isClassAbstract && allowConcrete )
     {
-      throw new ArezProcessorException( "@ArezComponent target must be concrete if the allowConcrete " +
-                                        "parameter is set to true", typeElement );
+      throw new ProcessorException( "@ArezComponent target must be concrete if the allowConcrete " +
+                                    "parameter is set to true", typeElement );
     }
 
     final String type =
@@ -333,26 +333,26 @@ public final class ArezProcessor
 
     if ( !SourceVersion.isIdentifier( type ) )
     {
-      throw new ArezProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
-                                        "type must be a valid java identifier.", typeElement );
+      throw new ProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
+                                    "type must be a valid java identifier.", typeElement );
     }
     else if ( SourceVersion.isKeyword( type ) )
     {
-      throw new ArezProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
-                                        "type must not be a java keyword.", typeElement );
+      throw new ProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
+                                    "type must not be a java keyword.", typeElement );
     }
 
     if ( !scopeAnnotations.isEmpty() && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified a scope annotation but has more than " +
-                                        "one constructor and thus is not a candidate for injection",
-                                        typeElement );
+      throw new ProcessorException( "@ArezComponent target has specified a scope annotation but has more than " +
+                                    "one constructor and thus is not a candidate for injection",
+                                    typeElement );
     }
 
     if ( !"NONE".equals( injectMode ) && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
     {
-      throw new ArezProcessorException( "@ArezComponent specified inject parameter but has more than one constructor",
-                                        typeElement );
+      throw new ProcessorException( "@ArezComponent specified inject parameter but has more than one constructor",
+                                    typeElement );
     }
 
     if ( scopeAnnotations.size() > 1 )
@@ -360,13 +360,13 @@ public final class ArezProcessor
       final List<String> scopes = scopeAnnotations.stream()
         .map( a -> processingEnv.getTypeUtils().asElement( a.getAnnotationType() ).asType().toString() )
         .collect( Collectors.toList() );
-      throw new ArezProcessorException( "@ArezComponent target has specified multiple scope annotations: " + scopes,
-                                        typeElement );
+      throw new ProcessorException( "@ArezComponent target has specified multiple scope annotations: " + scopes,
+                                    typeElement );
     }
     if ( !observableFlag && disposeOnDeactivate )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
-                                        "disposeOnDeactivate = true which is not a valid combination", typeElement );
+      throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
+                                    "disposeOnDeactivate = true which is not a valid combination", typeElement );
     }
 
     boolean generatesFactoryToInject = false;
@@ -382,12 +382,12 @@ public final class ArezProcessor
       {
         if ( "PROVIDE".equals( injectMode ) )
         {
-          throw new ArezProcessorException( "@ArezComponent target has specified at least one @PerInstance " +
-                                            "parameter on the constructor but has set inject parameter to PROVIDE. " +
-                                            "The component cannot be provided to other components if the invoker " +
-                                            "must supply per-instance parameters so either change the inject " +
-                                            "parameter to CONSUME or remove the @PerInstance parameter.",
-                                            ctor );
+          throw new ProcessorException( "@ArezComponent target has specified at least one @PerInstance " +
+                                        "parameter on the constructor but has set inject parameter to PROVIDE. " +
+                                        "The component cannot be provided to other components if the invoker " +
+                                        "must supply per-instance parameters so either change the inject " +
+                                        "parameter to CONSUME or remove the @PerInstance parameter.",
+                                        ctor );
         }
         generatesFactoryToInject = true;
       }
@@ -435,9 +435,9 @@ public final class ArezProcessor
         if ( !processingEnv.getTypeUtils().isSameType( parameterType, returnType ) &&
              !parameterType.toString().equals( returnType.toString() ) )
         {
-          throw new ArezProcessorException( "@Observable property defines a setter and getter with different types." +
-                                            " Getter type: " + returnType + " Setter type: " + parameterType + ".",
-                                            observable.getGetter() );
+          throw new ProcessorException( "@Observable property defines a setter and getter with different types." +
+                                        " Getter type: " + returnType + " Setter type: " + parameterType + ".",
+                                        observable.getGetter() );
         }
       }
     }
@@ -459,23 +459,23 @@ public final class ArezProcessor
     }
     if ( !observableFlag && descriptor.hasRepository() )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
-                                        "but is also annotated with the @Repository annotation which requires " +
-                                        "that the observable != DISABLE.", typeElement );
+      throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
+                                    "but is also annotated with the @Repository annotation which requires " +
+                                    "that the observable != DISABLE.", typeElement );
     }
     if ( descriptor.hasRepository() &&
          ProcessorUtil.hasAnnotationOfType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME ) )
     {
-      throw new ArezProcessorException( "@ArezComponent target is annotated with both the " +
-                                        "@arez.annotations.Repository annotation and the " +
-                                        "javax.inject.Singleton annotation which is an invalid " +
-                                        "combination.", typeElement );
+      throw new ProcessorException( "@ArezComponent target is annotated with both the " +
+                                    "@arez.annotations.Repository annotation and the " +
+                                    "javax.inject.Singleton annotation which is an invalid " +
+                                    "combination.", typeElement );
     }
     if ( !descriptor.isDisposeNotifier() && descriptor.hasRepository() )
     {
-      throw new ArezProcessorException( "@ArezComponent target has specified the disposeNotifier = DISABLE " +
-                                        "annotation parameter but is also annotated with @Repository that " +
-                                        "requires disposeNotifier = ENABLE.", typeElement );
+      throw new ProcessorException( "@ArezComponent target has specified the disposeNotifier = DISABLE " +
+                                    "annotation parameter but is also annotated with @Repository that " +
+                                    "requires disposeNotifier = ENABLE.", typeElement );
     }
 
     final boolean idRequired = isIdRequired( descriptor, arezComponent );
@@ -484,21 +484,21 @@ public final class ArezProcessor
     {
       if ( descriptor.hasRepository() )
       {
-        throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
-                                          "annotation parameter but is also annotated with @Repository that " +
-                                          "requires idRequired = ENABLE.", typeElement );
+        throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                      "annotation parameter but is also annotated with @Repository that " +
+                                      "requires idRequired = ENABLE.", typeElement );
       }
       if ( descriptor.hasComponentIdMethod() )
       {
-        throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
-                                          "annotation parameter but also has annotated a method with @ComponentId " +
-                                          "that requires idRequired = ENABLE.", typeElement );
+        throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                      "annotation parameter but also has annotated a method with @ComponentId " +
+                                      "that requires idRequired = ENABLE.", typeElement );
       }
       if ( descriptor.hasComponentIdRefMethod() )
       {
-        throw new ArezProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
-                                          "annotation parameter but also has annotated a method with @ComponentIdRef " +
-                                          "that requires idRequired = ENABLE.", typeElement );
+        throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                      "annotation parameter but also has annotated a method with @ComponentIdRef " +
+                                      "that requires idRequired = ENABLE.", typeElement );
       }
     }
 
@@ -513,8 +513,8 @@ public final class ArezProcessor
     {
       if ( hasInjectAnnotation( field ) )
       {
-        throw new ArezProcessorException( "@Inject is not supported on fields in an Arez component. " +
-                                          "Use constructor injection instead.", field );
+        throw new ProcessorException( "@Inject is not supported on fields in an Arez component. " +
+                                      "Use constructor injection instead.", field );
       }
     }
   }
@@ -526,8 +526,8 @@ public final class ArezProcessor
       .filter( this::hasInjectAnnotation )
       .forEach( method ->
                 {
-                  throw new ArezProcessorException( "@Inject is not supported on methods in an Arez component. " +
-                                                    "Use constructor injection instead.", method );
+                  throw new ProcessorException( "@Inject is not supported on methods in an Arez component. " +
+                                                "Use constructor injection instead.", method );
 
                 } );
   }
@@ -740,16 +740,16 @@ public final class ArezProcessor
     {
       if ( daggerMode.equals( "ENABLE" ) )
       {
-        throw new ArezProcessorException( "@ArezComponent target has a dagger parameter that resolved to ENABLE " +
-                                          "but the inject parameter is set to NONE and this is not a valid " +
-                                          "combination of parameters.", typeElement );
+        throw new ProcessorException( "@ArezComponent target has a dagger parameter that resolved to ENABLE " +
+                                      "but the inject parameter is set to NONE and this is not a valid " +
+                                      "combination of parameters.", typeElement );
       }
       if ( null != scopeAnnotation )
       {
-        throw new ArezProcessorException( "@ArezComponent target is annotated with scope annotation " +
-                                          scopeAnnotation + " but the inject parameter is set to NONE and this " +
-                                          "is not a valid scenario. Remove the scope annotation or change the " +
-                                          "inject parameter to a value other than NONE.", typeElement );
+        throw new ProcessorException( "@ArezComponent target is annotated with scope annotation " +
+                                      scopeAnnotation + " but the inject parameter is set to NONE and this " +
+                                      "is not a valid scenario. Remove the scope annotation or change the " +
+                                      "inject parameter to a value other than NONE.", typeElement );
       }
       return mode;
     }
