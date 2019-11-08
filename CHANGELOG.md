@@ -6,6 +6,7 @@
 * Ensure that whitelisted annotations on `@*Ref` annotated methods are copied to the implementations.
 * Ensure the `@*Ref` annotated methods are annotated with `@Nonnull` and `@Override` where appropriate.
 * Restrict the annotation processor to only processing classes annotated by `@ArezComponent` for a minor performance improvement.
+* Fix several error messages that reported an error about an annotation on a "method" when the annotation was actually attached to a field.
 
 ### [v0.153](https://github.com/arez/arez/tree/v0.153) (2019-11-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.152...v0.153)
 
