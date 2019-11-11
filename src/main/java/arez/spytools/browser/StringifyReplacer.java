@@ -76,6 +76,7 @@ public class StringifyReplacer
   @Nonnull
   protected String[] getPropertyNames( @Nonnull final Object object )
   {
-    return JsObject.getOwnPropertyNames( Js.uncheckedCast( object ) );
+    final JsArray<String> names = JsObject.getOwnPropertyNames( Js.uncheckedCast( object ) );
+    return names.asArray( new String[ names.length ] );
   }
 }
