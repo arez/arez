@@ -7,6 +7,7 @@
 * Ensure the `@*Ref` annotated methods are annotated with `@Nonnull` and `@Override` where appropriate.
 * Restrict the annotation processor to only processing classes annotated by `@ArezComponent` for a minor performance improvement.
 * Fix several error messages that reported an error about an annotation on a "method" when the annotation was actually attached to a field.
+* Change the format of expressions used inside some invariant messages from `"MyString" + (mycondition ? '?' : "SomeString")` to avoid the use of character expression as the later version of JDT used by GWT post-2.8.2 attempts to treat this as an intersection type in some parts of the code which triggers an internal compiler error.
 
 ### [v0.153](https://github.com/arez/arez/tree/v0.153) (2019-11-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.152...v0.153)
 

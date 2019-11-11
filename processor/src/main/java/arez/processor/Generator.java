@@ -247,7 +247,7 @@ final class Generator
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenConstructed(), " +
                         "() -> \"Method named '$N' invoked on un-constructed component named '\" + " +
-                        "( null == this.$N ? '?' : this.$N.getName() ) + \"'\" )",
+                        "( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
                         GUARDS_CLASSNAME,
                         KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME,
@@ -266,7 +266,7 @@ final class Generator
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenCompleted(), " +
                         "() -> \"Method named '$N' invoked on incomplete component named '\" + " +
-                        "( null == this.$N ? '?' : this.$N.getName() ) + \"'\" )",
+                        "( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
                         GUARDS_CLASSNAME,
                         KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME,
@@ -285,7 +285,7 @@ final class Generator
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.isActive(), " +
                         "() -> \"Method named '$N' invoked on \" + this.$N.describeState() + \" component " +
-                        "named '\" + ( null == this.$N ? '?' : this.$N.getName() ) + \"'\" )",
+                        "named '\" + ( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
                         GUARDS_CLASSNAME,
                         KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME,

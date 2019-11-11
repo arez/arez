@@ -75,7 +75,7 @@ public final class Arez_NonStandardNameTrackedModel extends NonStandardNameTrack
   @Override
   public void ren$$$der(final long $$time, final float $$someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'ren$$$der' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? '?' : this.$$arezi$$_kernel.getName() ) + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'ren$$$der' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.ren$$$der( $$time, $$someOtherParameter ), Arez.areSpiesEnabled() ? new Object[] { $$time, $$someOtherParameter } : null );
   }
