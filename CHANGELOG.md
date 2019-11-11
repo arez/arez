@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.37](https://github.com/arez/arez-dom/tree/v0.37) (2019-11-11) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.36...v0.37)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.154'
 
