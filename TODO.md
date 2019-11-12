@@ -122,14 +122,6 @@ See https://github.com/arez/arez/issues/91
       Currently the Arez API does not expose a flag indicating whether computableValues are observed and not possible
       to implement the first strategy even though it may seem to be the right one.
 
-## Bazel integration
-
-* A precursor to several tasks is being able to efficiently build and test arez after it has been compiled to javascript.
-  The shortest path to this is to get an effective strategy for building with Bazel+J2CL. Initial steps have been
-  put in place with the `react4j-todomvc` project.
-  - [Bazel training presentation](https://docs.google.com/presentation/d/1OwktccLvV3VvWn3i7H2SuZkBeAQ8z-E5RdJODVLf8SA/preview?slide=id.g26d86d3325_0_0)
-  - [Generate BUILD files for your Java files](https://github.com/bazelbuild/BUILD_file_generator)
-
 ## Js Core integration
 
 * Consider bringing back `ObservablePromise` into core of library. Should also consider a utility
@@ -166,9 +158,15 @@ See https://github.com/arez/arez/issues/91
 ## J2CL Integration
 
 * Arez works well under GWT2.x but would work MUCH better under J2CL but the build infrastructure is not quite
-  there yet. Probably this means we need a build tool that sits in front and probably generates Bazel configuration
-  to build our projects. Consider investigating how angular is doing in [Angular CLI](https://github.com/angular/angular/issues/19058).
-  This could be expanded so that we have a J2CL-CLI tool to drive the whole process.
+  there yet. We have created [bazel-depgen](https://github.com/realityforge/bazel-depgen) to manage dependencies
+  from maven but it would be nice to have a tool that automatically created fine-grain `java_library` rules from
+  maven-ish modules. We could even hava J2CL-CLI project that drives this whole process similar to how
+  [Angular CLI](https://github.com/angular/angular/issues/19058) works.
+
+Other tools to look at:
+
+  - [Generate BUILD files for your Java files](https://github.com/bazelbuild/BUILD_file_generator)
+  - [Automatic Dependency Management Tools for JVM Languages](https://github.com/cgrushko/tools_jvm_autodeps)
 
 ## Better Injection Framework
 
