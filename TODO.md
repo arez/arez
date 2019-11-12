@@ -106,9 +106,6 @@ See https://github.com/arez/arez/issues/91
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
   date.
 
-* Consider removing the `dagger` parameter from the `@ArezComponent` and `@Repository` annotations as we don't
-  seem to support injection frameworks other than these.
-
 * Add `defaultReadOutsideTransaction` and `defaultWriteOutsideTransaction` parameters to `@ArezComponent` that change
   the default value for the `readOutsideTransaction` and `writeOutsideTransaction` parameters on any `@Observable`
   properties on the component and the `readOutsideTransaction` parameter on any `@Memoize` properties in the component.
