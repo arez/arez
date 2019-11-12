@@ -130,8 +130,6 @@ See https://github.com/arez/arez/issues/91
   - [Bazel training presentation](https://docs.google.com/presentation/d/1OwktccLvV3VvWn3i7H2SuZkBeAQ8z-E5RdJODVLf8SA/preview?slide=id.g26d86d3325_0_0)
   - [Generate BUILD files for your Java files](https://github.com/bazelbuild/BUILD_file_generator)
 
-* Use techniques highlighted in https://github.com/tadeegan/react-closure-sample
-
 ## Js Core integration
 
 * Consider bringing back `ObservablePromise` into core of library. Should also consider a utility
