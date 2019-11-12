@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
  * <p>The type that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must be a class or an interface</li>
- * <li>Must be abstract unless {@link #allowConcrete()} is set to <code>true</code></li>
+ * <li>Must be abstract</li>
  * <li>Must not be final</li>
  * <li>Must not be a non-static nested class</li>
  * <li>Must have at least one method annotated with {@link Action}, {@link Observe}, {@link Memoize} or {@link Observable}</li>
@@ -71,14 +71,6 @@ public @interface ArezComponent
    * @return true if the component does not need to explicitly declare elements, false otherwise.
    */
   boolean allowEmpty() default false;
-
-  /**
-   * Return true if the component type does not need to be abstract.
-   * Otherwise an error will be generated if this annotation is added to a concrete type.
-   *
-   * @return true if the component type does not need to be abstract.
-   */
-  boolean allowConcrete() default false;
 
   /**
    * Return the enum to control whether the component should support being "observed" by

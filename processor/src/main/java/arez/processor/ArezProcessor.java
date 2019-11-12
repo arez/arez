@@ -112,7 +112,6 @@ public final class ArezProcessor
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
     final boolean disposeNotifierFlag = ProcessorUtil.isDisposableTrackableRequired( typeElement );
-    final boolean allowConcrete = getAnnotationParameter( arezComponent, "allowConcrete" );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
@@ -136,16 +135,9 @@ public final class ArezProcessor
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
     final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
-    final boolean isClassAbstract = typeElement.getModifiers().contains( Modifier.ABSTRACT );
-    if ( !isClassAbstract && !allowConcrete )
+    if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) )
     {
-      throw new ProcessorException( "@ArezComponent target must be abstract unless the allowConcrete " +
-                                    "parameter is set to true", typeElement );
-    }
-    else if ( isClassAbstract && allowConcrete )
-    {
-      throw new ProcessorException( "@ArezComponent target must be concrete if the allowConcrete " +
-                                    "parameter is set to true", typeElement );
+      throw new ProcessorException( "@ArezComponent target must be abstract", typeElement );
     }
 
     final String type =

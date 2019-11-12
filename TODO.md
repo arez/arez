@@ -21,8 +21,6 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
-* Remove support for concrete components. It was initially present as transition mechanism.
-
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`

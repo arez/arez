@@ -51,7 +51,6 @@ public class ArezProcessorTest
                       false,
                       false },
         new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.component.AnnotatedConcreteModel", false, false, false, false },
         new Object[]{ "com.example.component.DeprecatedModel", false, false, false, false },
         new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false, false },
         new Object[]{ "com.example.collections.AbstractCollectionObservableModel", false, false, false, false },
@@ -841,8 +840,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.cascade_dispose.ThrowsMethodComponent",
                       "@CascadeDispose target must not throw any exceptions" },
 
-        new Object[]{ "com.example.component.ConcreteComponent",
-                      "@ArezComponent target must be abstract unless the allowConcrete parameter is set to true" },
+        new Object[]{ "com.example.component.ConcreteComponent", "@ArezComponent target must be abstract" },
         new Object[]{ "com.example.component.DeferredButNoObserveModel",
                       "@ArezComponent target has specified the deferSchedule = true annotation parameter but has no methods annotated with @Observe" },
         new Object[]{ "com.example.component.ModelWithAbstractMethod",
@@ -863,8 +861,6 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified observable = DISABLE and disposeOnDeactivate = true which is not a valid combination" },
         new Object[]{ "com.example.component.NonStaticNestedModel",
                       "@ArezComponent target must not be a non-static nested class" },
-        new Object[]{ "com.example.component.UnexpectedAbstractComponent",
-                      "@ArezComponent target must be concrete if the allowConcrete parameter is set to true" },
 
         new Object[]{ "com.example.component_id.ComponentIdDuplicatedModel",
                       "@ComponentId target duplicates existing method named getId" },
