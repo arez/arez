@@ -21,6 +21,13 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Generate a suppressable warning if any `@*Ref` method or lifecycle method is public
+
+* Generate a suppressable warning if any `@*Ref` method or lifecycle method is protected and in class
+  annotated with `@ArezComponent`
+
+* Rework lots of assertions for `@*Ref` methods so that they just assert that they are abstract
+
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
