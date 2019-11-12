@@ -21,6 +21,11 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
+  expectations. This is easier to maintain and makes it possible to verify each variant we build with all
+  grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
+  but with different compile time settings.
+
 * Figure out a way how to use Some sort of Constant string lookup for all `@Omit*`. Maybe down the track we could
   generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
   from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
@@ -89,11 +94,6 @@ See https://github.com/arez/arez/issues/91
 * Setup testing with browser. Headless Chrome via selenium? GWT test case?
   - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
   - Perhaps by the latest kid in town - https://www.cypress.io/
-
-* Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
-  expectations. This is easier to maintain and makes it possible to verify each variant we build with all
-  grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
-  but with different compile time settings.
 
 * Complete the `arez-devtools` project.
   - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
