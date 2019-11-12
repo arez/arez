@@ -162,11 +162,6 @@ See https://github.com/arez/arez/issues/91
   maven-ish modules. We could even hava J2CL-CLI project that drives this whole process similar to how
   [Angular CLI](https://github.com/angular/angular/issues/19058) works.
 
-Other tools to look at:
-
-  - [Generate BUILD files for your Java files](https://github.com/bazelbuild/BUILD_file_generator)
-  - [Automatic Dependency Management Tools for JVM Languages](https://github.com/cgrushko/tools_jvm_autodeps)
-
 ## Better Injection Framework
 
 Dagger2 is not a great injection framework for our context. Some annoyances that have arisen after usage:
