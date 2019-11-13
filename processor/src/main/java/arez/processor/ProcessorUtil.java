@@ -2,12 +2,12 @@ package arez.processor;
 
 import com.google.auto.common.AnnotationMirrors;
 import com.google.common.collect.ImmutableMap;
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,6 +36,12 @@ import javax.lang.model.util.Types;
 final class ProcessorUtil
 {
   static final String SENTINEL_NAME = "<default>";
+  @Nonnull
+  private static final List<String> ANNOTATION_WHITELIST =
+    Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
+                   Constants.NULLABLE_ANNOTATION_CLASSNAME,
+                   SuppressWarnings.class.getName(),
+                   Constants.DEPRECATED_ANNOTATION_CLASSNAME );
 
   private ProcessorUtil()
   {
@@ -199,59 +205,27 @@ final class ProcessorUtil
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final MethodSpec.Builder builder )
   {
-    for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
-    {
-      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
-      {
-        builder.addAnnotation( AnnotationSpec.get( annotation ) );
-      }
-    }
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final ParameterSpec.Builder builder )
   {
-    for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
-    {
-      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
-      {
-        builder.addAnnotation( AnnotationSpec.get( annotation ) );
-      }
-    }
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final FieldSpec.Builder builder )
   {
-    for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
-    {
-      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
-      {
-        builder.addAnnotation( AnnotationSpec.get( annotation ) );
-      }
-    }
-  }
-
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final TypeSpec.Builder builder )
-  {
-    for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
-    {
-      if ( shouldCopyAnnotation( annotation.getAnnotationType().toString() ) )
-      {
-        builder.addAnnotation( AnnotationSpec.get( annotation ) );
-      }
-    }
-  }
-
-  private static boolean shouldCopyAnnotation( @Nonnull final String classname )
-  {
-    return Constants.NONNULL_ANNOTATION_CLASSNAME.equals( classname ) ||
-           Constants.NULLABLE_ANNOTATION_CLASSNAME.equals( classname ) ||
-           SuppressWarnings.class.getName().equals( classname ) ||
-           Constants.DEPRECATED_ANNOTATION_CLASSNAME.equals( classname );
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
   @Nullable
