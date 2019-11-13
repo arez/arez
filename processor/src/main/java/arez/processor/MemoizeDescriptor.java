@@ -933,9 +933,9 @@ final class MemoizeDescriptor
     assert null != _methodType;
     final String methodName = _method.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _method, builder );
-    ProcessorUtil.copyExceptions( _methodType, builder );
-    ProcessorUtil.copyTypeParameters( _methodType, builder );
+    GeneratorUtil.copyAccessModifiers( _method, builder );
+    GeneratorUtil.copyExceptions( _methodType, builder );
+    GeneratorUtil.copyTypeParameters( _methodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _methodType.getReturnType() );
@@ -1026,8 +1026,8 @@ final class MemoizeDescriptor
     assert null != _refMethodType;
     final String methodName = _refMethod.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
-    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
+    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
@@ -1091,8 +1091,8 @@ final class MemoizeDescriptor
     assert null != _refMethodType;
     final String methodName = _refMethod.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
-    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
+    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
@@ -1146,9 +1146,9 @@ final class MemoizeDescriptor
     assert null != _methodType;
     final String methodName = _method.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _method, builder );
-    ProcessorUtil.copyExceptions( _methodType, builder );
-    ProcessorUtil.copyTypeParameters( _methodType, builder );
+    GeneratorUtil.copyAccessModifiers( _method, builder );
+    GeneratorUtil.copyExceptions( _methodType, builder );
+    GeneratorUtil.copyTypeParameters( _methodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _methodType.getReturnType() );

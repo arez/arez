@@ -2814,7 +2814,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getEnhancedClassName().simpleName() ).
-      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
+      addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     Generator.addOriginatingTypes( getElement(), builder );
     ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
@@ -3360,7 +3360,7 @@ final class ComponentDescriptor
       returns( Generator.AREZ_CONTEXT_CLASSNAME );
 
     ProcessorUtil.copyWhitelistedAnnotations( _contextRef, method );
-    ProcessorUtil.copyAccessModifiers( _contextRef, method );
+    GeneratorUtil.copyAccessModifiers( _contextRef, method );
 
     if ( !ProcessorUtil.hasNonnullAnnotation( _contextRef ) )
     {
@@ -3424,7 +3424,7 @@ final class ComponentDescriptor
 
     method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
     ProcessorUtil.copyWhitelistedAnnotations( _componentRef, method );
-    ProcessorUtil.copyAccessModifiers( _componentRef, method );
+    GeneratorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
 
@@ -3442,7 +3442,7 @@ final class ComponentDescriptor
 
     method.addStatement( "return this.$N()", getIdMethodName() );
     ProcessorUtil.copyWhitelistedAnnotations( _componentIdRef, method );
-    ProcessorUtil.copyAccessModifiers( _componentIdRef, method );
+    GeneratorUtil.copyAccessModifiers( _componentIdRef, method );
     return method.build();
   }
 
@@ -3488,7 +3488,7 @@ final class ComponentDescriptor
         .returns( TypeName.get( String.class ) );
 
     ProcessorUtil.copyWhitelistedAnnotations( _componentNameRef, builder );
-    ProcessorUtil.copyAccessModifiers( _componentNameRef, builder );
+    GeneratorUtil.copyAccessModifiers( _componentNameRef, builder );
 
     if ( !ProcessorUtil.hasNonnullAnnotation( _componentNameRef ) )
     {
@@ -3512,7 +3512,7 @@ final class ComponentDescriptor
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
     ProcessorUtil.copyWhitelistedAnnotations( _componentTypeNameRef, builder );
-    ProcessorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
+    GeneratorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
     builder.addModifiers( Modifier.FINAL );
     builder.addAnnotation( Override.class );
 
@@ -3912,8 +3912,8 @@ final class ComponentDescriptor
     }
     if ( null != constructorType )
     {
-      ProcessorUtil.copyExceptions( constructorType, builder );
-      ProcessorUtil.copyTypeParameters( constructorType, builder );
+      GeneratorUtil.copyExceptions( constructorType, builder );
+      GeneratorUtil.copyTypeParameters( constructorType, builder );
     }
     if ( null != constructor )
     {
@@ -4324,7 +4324,7 @@ final class ComponentDescriptor
     assert needsDaggerIntegration();
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
-      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+      addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( getElement(), builder );
 
@@ -4403,7 +4403,7 @@ final class ComponentDescriptor
     final ClassName arezType = getEnhancedClassName();
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryClassName().simpleName() ).
-      addTypeVariables( ProcessorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
+      addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( element, builder );
 
@@ -4442,7 +4442,7 @@ final class ComponentDescriptor
 
     _repositoryExtensions.forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
-    ProcessorUtil.copyAccessModifiers( element, builder );
+    GeneratorUtil.copyAccessModifiers( element, builder );
 
     /*
      * If the repository will be generated as a PROVIDE inject mode when dagger is present
@@ -4532,7 +4532,7 @@ final class ComponentDescriptor
                       .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.attach( entity )" );
-    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    GeneratorUtil.copyAccessModifiers( getElement(), method );
     return method.build();
   }
 
@@ -4549,7 +4549,7 @@ final class ComponentDescriptor
                       .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.detach( entity )" );
-    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    GeneratorUtil.copyAccessModifiers( getElement(), method );
     return method.build();
   }
 
@@ -4566,7 +4566,7 @@ final class ComponentDescriptor
                       .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.destroy( entity )" );
-    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    GeneratorUtil.copyAccessModifiers( getElement(), method );
     final Set<Modifier> modifiers = getElement().getModifiers();
     if ( !modifiers.contains( Modifier.PUBLIC ) && !modifiers.contains( Modifier.PROTECTED ) )
     {
@@ -4590,7 +4590,7 @@ final class ComponentDescriptor
       addAnnotation( Generator.NULLABLE_CLASSNAME ).
       returns( TypeName.get( getElement().asType() ) ).
       addStatement( "return findByArezId( id )" );
-    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    GeneratorUtil.copyAccessModifiers( getElement(), method );
     return method.build();
   }
 
@@ -4604,7 +4604,7 @@ final class ComponentDescriptor
       addParameter( ParameterSpec.builder( getIdType(), "id", Modifier.FINAL ).build() ).
       returns( entityType ).
       addStatement( "return getByArezId( id )" );
-    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    GeneratorUtil.copyAccessModifiers( getElement(), method );
     return method.build();
   }
 
@@ -4617,7 +4617,7 @@ final class ComponentDescriptor
       returns( getRepositoryClassName() ).
       addStatement( "return new $T()",
                     ClassName.get( getPackageName(), "Arez_" + getRepositoryClassName().simpleName() ) );
-    ProcessorUtil.copyAccessModifiers( getElement(), method );
+    GeneratorUtil.copyAccessModifiers( getElement(), method );
     return method.build();
   }
 
@@ -4638,9 +4638,9 @@ final class ComponentDescriptor
         addAnnotation( Generator.NONNULL_CLASSNAME ).
         returns( TypeName.get( asDeclaredType() ) );
 
-    ProcessorUtil.copyAccessModifiers( getElement(), builder );
-    ProcessorUtil.copyExceptions( methodType, builder );
-    ProcessorUtil.copyTypeParameters( methodType, builder );
+    GeneratorUtil.copyAccessModifiers( getElement(), builder );
+    GeneratorUtil.copyExceptions( methodType, builder );
+    GeneratorUtil.copyTypeParameters( methodType, builder );
 
     final StringBuilder newCall = new StringBuilder();
     newCall.append( "final $T entity = new $T(" );

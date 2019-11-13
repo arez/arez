@@ -195,8 +195,8 @@ final class ReferenceDescriptor
 
     final String methodName = _method.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _method, builder );
-    ProcessorUtil.copyTypeParameters( _methodType, builder );
+    GeneratorUtil.copyAccessModifiers( _method, builder );
+    GeneratorUtil.copyTypeParameters( _methodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _method, builder );
 
     builder.addAnnotation( Override.class );

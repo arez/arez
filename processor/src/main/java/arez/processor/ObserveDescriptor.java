@@ -477,8 +477,8 @@ final class ObserveDescriptor
     assert null != _refMethodType;
     final String methodName = _refMethod.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
-    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
+    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
@@ -503,9 +503,9 @@ final class ObserveDescriptor
 
     final String methodName = _observe.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _observe, builder );
-    ProcessorUtil.copyExceptions( _observedType, builder );
-    ProcessorUtil.copyTypeParameters( _observedType, builder );
+    GeneratorUtil.copyAccessModifiers( _observe, builder );
+    GeneratorUtil.copyExceptions( _observedType, builder );
+    GeneratorUtil.copyTypeParameters( _observedType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _observe, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _observedType.getReturnType();
@@ -638,9 +638,9 @@ final class ObserveDescriptor
     assert null != _observedType;
     final String methodName = _observe.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _observe, builder );
-    ProcessorUtil.copyExceptions( _observedType, builder );
-    ProcessorUtil.copyTypeParameters( _observedType, builder );
+    GeneratorUtil.copyAccessModifiers( _observe, builder );
+    GeneratorUtil.copyExceptions( _observedType, builder );
+    GeneratorUtil.copyTypeParameters( _observedType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _observe, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _observe.getReturnType();

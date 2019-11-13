@@ -390,8 +390,8 @@ final class ObservableDescriptor
     assert null != _refMethodType;
     final String methodName = _refMethod.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _refMethod, builder );
-    ProcessorUtil.copyTypeParameters( _refMethodType, builder );
+    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
+    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
@@ -422,9 +422,9 @@ final class ObservableDescriptor
     assert null != _getter;
     final String methodName = _setter.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _setter, builder );
-    ProcessorUtil.copyExceptions( _setterType, builder );
-    ProcessorUtil.copyTypeParameters( _setterType, builder );
+    GeneratorUtil.copyAccessModifiers( _setter, builder );
+    GeneratorUtil.copyExceptions( _setterType, builder );
+    GeneratorUtil.copyTypeParameters( _setterType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
 
     builder.addAnnotation( Override.class );
@@ -486,8 +486,8 @@ final class ObservableDescriptor
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( Generator.FRAMEWORK_PREFIX + _setter.getSimpleName().toString() );
     builder.addModifiers( Modifier.PRIVATE );
-    ProcessorUtil.copyExceptions( _setterType, builder );
-    ProcessorUtil.copyTypeParameters( _setterType, builder );
+    GeneratorUtil.copyExceptions( _setterType, builder );
+    GeneratorUtil.copyTypeParameters( _setterType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
     addDeprecationIfRequired( builder );
 
@@ -768,9 +768,9 @@ final class ObservableDescriptor
     assert null != _getterType;
     final String methodName = _getter.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _getter, builder );
-    ProcessorUtil.copyExceptions( _getterType, builder );
-    ProcessorUtil.copyTypeParameters( _getterType, builder );
+    GeneratorUtil.copyAccessModifiers( _getter, builder );
+    GeneratorUtil.copyExceptions( _getterType, builder );
+    GeneratorUtil.copyTypeParameters( _getterType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _getter, builder );
 
     builder.addAnnotation( Override.class );

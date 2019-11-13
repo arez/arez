@@ -6,9 +6,7 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -32,7 +30,6 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
@@ -67,17 +64,6 @@ final class ProcessorUtil
       final TypeElement interfaceElement = (TypeElement) ( (DeclaredType) interfaceType ).asElement();
       enumerateSuperTypes( interfaceElement, superTypes );
     }
-  }
-
-  @Nonnull
-  static List<TypeVariableName> getTypeArgumentsAsNames( @Nonnull final DeclaredType declaredType )
-  {
-    final List<TypeVariableName> variables = new ArrayList<>();
-    for ( final TypeMirror argument : declaredType.getTypeArguments() )
-    {
-      variables.add( TypeVariableName.get( (TypeVariable) argument ) );
-    }
-    return variables;
   }
 
   @Nonnull
@@ -212,34 +198,6 @@ final class ProcessorUtil
       collect( Collectors.toList() );
   }
 
-  static void copyAccessModifiers( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
-  {
-    if ( element.getModifiers().contains( Modifier.PUBLIC ) )
-    {
-      builder.addModifiers( Modifier.PUBLIC );
-    }
-  }
-
-  static void copyAccessModifiers( @Nonnull final TypeElement element, @Nonnull final MethodSpec.Builder builder )
-  {
-    if ( element.getModifiers().contains( Modifier.PUBLIC ) )
-    {
-      builder.addModifiers( Modifier.PUBLIC );
-    }
-  }
-
-  static void copyAccessModifiers( @Nonnull final ExecutableElement element, @Nonnull final MethodSpec.Builder builder )
-  {
-    if ( element.getModifiers().contains( Modifier.PUBLIC ) )
-    {
-      builder.addModifiers( Modifier.PUBLIC );
-    }
-    else if ( element.getModifiers().contains( Modifier.PROTECTED ) )
-    {
-      builder.addModifiers( Modifier.PROTECTED );
-    }
-  }
-
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final MethodSpec.Builder builder )
   {
@@ -294,22 +252,6 @@ final class ProcessorUtil
            Constants.NULLABLE_ANNOTATION_CLASSNAME.equals( classname ) ||
            SuppressWarnings.class.getName().equals( classname ) ||
            Constants.DEPRECATED_ANNOTATION_CLASSNAME.equals( classname );
-  }
-
-  static void copyExceptions( @Nonnull final ExecutableType method, @Nonnull final MethodSpec.Builder builder )
-  {
-    for ( final TypeMirror thrownType : method.getThrownTypes() )
-    {
-      builder.addException( TypeName.get( thrownType ) );
-    }
-  }
-
-  static void copyTypeParameters( @Nonnull final ExecutableType action, @Nonnull final MethodSpec.Builder builder )
-  {
-    for ( final TypeVariable typeParameter : action.getTypeVariables() )
-    {
-      builder.addTypeVariable( TypeVariableName.get( typeParameter ) );
-    }
   }
 
   @Nullable

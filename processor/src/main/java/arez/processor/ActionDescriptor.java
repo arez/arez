@@ -84,9 +84,9 @@ final class ActionDescriptor
   {
     final String methodName = _action.getSimpleName().toString();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    ProcessorUtil.copyAccessModifiers( _action, builder );
-    ProcessorUtil.copyExceptions( _actionType, builder );
-    ProcessorUtil.copyTypeParameters( _actionType, builder );
+    GeneratorUtil.copyAccessModifiers( _action, builder );
+    GeneratorUtil.copyExceptions( _actionType, builder );
+    GeneratorUtil.copyTypeParameters( _actionType, builder );
     ProcessorUtil.copyWhitelistedAnnotations( _action, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _actionType.getReturnType();

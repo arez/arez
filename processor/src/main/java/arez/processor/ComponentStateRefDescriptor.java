@@ -50,7 +50,7 @@ final class ComponentStateRefDescriptor
       returns( TypeName.BOOLEAN );
 
     ProcessorUtil.copyWhitelistedAnnotations( _method, method );
-    ProcessorUtil.copyAccessModifiers( _method, method );
+    GeneratorUtil.copyAccessModifiers( _method, method );
 
     final String stateMethodName =
       State.READY == _state ? "isReady" :
