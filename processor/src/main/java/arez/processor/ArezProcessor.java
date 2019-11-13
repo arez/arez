@@ -458,38 +458,9 @@ public final class ArezProcessor
 
   private boolean isUnmanagedComponentReferenceNotSuppressed( @Nonnull final Element element )
   {
-    return !isWarningSuppressed( element, Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION );
-  }
-
-  private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
-  {
-    final AnnotationMirror suppress =
-      ProcessorUtil.findAnnotationByType( element, Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
-    if ( null != suppress )
-    {
-      final List<AnnotationValue> warnings = ProcessorUtil.getAnnotationValue( suppress, "value" );
-      for ( final AnnotationValue suppression : warnings )
-      {
-        if ( warning.equals( suppression.getValue() ) )
-        {
-          return true;
-        }
-      }
-    }
-
-    final SuppressWarnings annotation = element.getAnnotation( SuppressWarnings.class );
-    if ( null != annotation )
-    {
-      for ( final String suppression : annotation.value() )
-      {
-        if ( warning.equals( suppression ) )
-        {
-          return true;
-        }
-      }
-    }
-    final Element enclosingElement = element.getEnclosingElement();
-    return null != enclosingElement && isWarningSuppressed( enclosingElement, warning );
+    return !ProcessorUtil.isWarningSuppressed( element,
+                                               Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION,
+                                               Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
   private boolean isTypeAnnotatedByActAsComponentAnnotation( @Nonnull final VariableElement field )

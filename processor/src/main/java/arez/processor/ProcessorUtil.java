@@ -36,6 +36,46 @@ final class ProcessorUtil
   {
   }
 
+  @SuppressWarnings( "unchecked" )
+  static boolean isWarningSuppressed( @Nonnull final Element element,
+                                      @Nonnull final String warning,
+                                      @Nullable final String alternativeSuppressWarnings )
+  {
+    if ( null != alternativeSuppressWarnings )
+    {
+      final AnnotationMirror suppress = findAnnotationByType( element, alternativeSuppressWarnings );
+      if ( null != suppress )
+      {
+        final AnnotationValue value = findAnnotationValueNoDefaults( suppress, "value" );
+        if ( null != value )
+        {
+          final List<AnnotationValue> warnings = (List<AnnotationValue>) value.getValue();
+          for ( final AnnotationValue suppression : warnings )
+          {
+            if ( warning.equals( suppression.getValue() ) )
+            {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    final SuppressWarnings annotation = element.getAnnotation( SuppressWarnings.class );
+    if ( null != annotation )
+    {
+      for ( final String suppression : annotation.value() )
+      {
+        if ( warning.equals( suppression ) )
+        {
+          return true;
+        }
+      }
+    }
+    final Element enclosingElement = element.getEnclosingElement();
+    return null != enclosingElement && isWarningSuppressed( enclosingElement, warning, alternativeSuppressWarnings );
+  }
+
   @Nonnull
   static List<TypeElement> getSuperTypes( @Nonnull final TypeElement element )
   {
