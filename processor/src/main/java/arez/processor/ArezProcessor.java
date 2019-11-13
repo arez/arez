@@ -332,15 +332,16 @@ public final class ArezProcessor
 
   private void ensureNoMethodInjections( @Nonnull final TypeElement typeElement )
   {
-    ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
-      .stream()
-      .filter( this::hasInjectAnnotation )
-      .forEach( method ->
-                {
-                  throw new ProcessorException( "@Inject is not supported on methods in an Arez component. " +
-                                                "Use constructor injection instead.", method );
-
-                } );
+    final List<ExecutableElement> methods =
+      ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
+    for ( final ExecutableElement method : methods )
+    {
+      if ( hasInjectAnnotation( method ) )
+      {
+        throw new ProcessorException( "@Inject is not supported on methods in an Arez component. " +
+                                      "Use constructor injection instead.", method );
+      }
+    }
   }
 
   private void warnOnUnmanagedComponentReferences( @Nonnull final ComponentDescriptor descriptor,
