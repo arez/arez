@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -77,8 +78,6 @@ final class ComponentDescriptor
    * Flag controlling whether Inject annotation is added to repository constructor.
    */
   private String _repositoryInjectMode = "AUTODETECT";
-  @Nonnull
-  private final SourceVersion _sourceVersion;
   @Nonnull
   private final Elements _elements;
   @Nonnull
@@ -167,8 +166,7 @@ final class ComponentDescriptor
     Collections.unmodifiableCollection( _inverses.values() );
   private final Map<String, CandidateMethod> _priorityOverrides = new LinkedHashMap<>();
 
-  ComponentDescriptor( @Nonnull final SourceVersion sourceVersion,
-                       @Nonnull final Elements elements,
+  ComponentDescriptor( @Nonnull final Elements elements,
                        @Nonnull final Types typeUtils,
                        @Nonnull final String type,
                        final boolean nameIncludesId,
@@ -187,7 +185,6 @@ final class ComponentDescriptor
                        final boolean generateToString,
                        @Nonnull final TypeElement element )
   {
-    _sourceVersion = Objects.requireNonNull( sourceVersion );
     _elements = Objects.requireNonNull( elements );
     _typeUtils = Objects.requireNonNull( typeUtils );
     _type = Objects.requireNonNull( type );
@@ -206,18 +203,6 @@ final class ComponentDescriptor
     _deferSchedule = deferSchedule;
     _generateToString = generateToString;
     _element = Objects.requireNonNull( element );
-  }
-
-  @Nonnull
-  SourceVersion getSourceVersion()
-  {
-    return _sourceVersion;
-  }
-
-  @Nonnull
-  Elements getElements()
-  {
-    return _elements;
   }
 
   @Nonnull
@@ -2810,7 +2795,7 @@ final class ComponentDescriptor
    * Build the enhanced class for the component.
    */
   @Nonnull
-  TypeSpec buildType( @Nonnull final Types typeUtils )
+  TypeSpec buildType( @Nonnull final ProcessingEnvironment processingEnv )
     throws ProcessorException
   {
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getEnhancedClassName().simpleName() ).
@@ -2828,7 +2813,7 @@ final class ComponentDescriptor
       builder.addSuperinterface( TypeName.get( getElement().asType() ) );
     }
 
-    Generator.addGeneratedAnnotation( this, builder );
+    Generator.addGeneratedAnnotation( processingEnv, builder );
     if ( !_roMemoizes.isEmpty() &&
          !ProcessorUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
     {
@@ -2904,7 +2889,7 @@ final class ComponentDescriptor
 
     if ( isClassType() )
     {
-      buildConstructors( builder, typeUtils );
+      buildConstructors( builder, processingEnv.getTypeUtils() );
     }
     else
     {
@@ -4318,7 +4303,7 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  TypeSpec buildComponentDaggerModule()
+  TypeSpec buildComponentDaggerModule(@Nonnull final ProcessingEnvironment processingEnv)
     throws ProcessorException
   {
     assert needsDaggerIntegration();
@@ -4328,7 +4313,7 @@ final class ComponentDescriptor
     Generator.copyWhitelistedAnnotations( getElement(), builder );
     GeneratorUtil.addOriginatingTypes( getElement(), builder );
 
-    Generator.addGeneratedAnnotation( this, builder );
+    Generator.addGeneratedAnnotation( processingEnv, builder );
     builder.addAnnotation( Generator.DAGGER_MODULE_CLASSNAME );
     builder.addModifiers( Modifier.PUBLIC );
 
@@ -4394,7 +4379,7 @@ final class ComponentDescriptor
    * Build the enhanced class for the component.
    */
   @Nonnull
-  TypeSpec buildRepository( @Nonnull final Types typeUtils )
+  TypeSpec buildRepository( @Nonnull final ProcessingEnvironment processingEnv )
     throws ProcessorException
   {
     assert null != _repositoryExtensions;
@@ -4407,7 +4392,7 @@ final class ComponentDescriptor
     Generator.copyWhitelistedAnnotations( getElement(), builder );
     GeneratorUtil.addOriginatingTypes( element, builder );
 
-    Generator.addGeneratedAnnotation( this, builder );
+    Generator.addGeneratedAnnotation( processingEnv, builder );
 
     final boolean addSingletonAnnotation =
       "CONSUME".equals( _repositoryInjectMode ) ||
@@ -4469,7 +4454,7 @@ final class ComponentDescriptor
       for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
       {
         final ExecutableType methodType =
-          (ExecutableType) typeUtils.asMemberOf( (DeclaredType) _element.asType(), constructor );
+          (ExecutableType) processingEnv.getTypeUtils().asMemberOf( (DeclaredType) _element.asType(), constructor );
         builder.addMethod( buildRepositoryCreate( constructor, methodType, arezType ) );
       }
     }

@@ -59,22 +59,22 @@ public final class ArezProcessor
   {
     final ComponentDescriptor descriptor = parse( element );
     final String packageName = descriptor.getPackageName();
-    emitTypeSpec( packageName, descriptor.buildType( processingEnv.getTypeUtils() ) );
+    emitTypeSpec( packageName, descriptor.buildType( processingEnv ) );
     if ( descriptor.needsDaggerIntegration() )
     {
       if ( descriptor.needsDaggerComponentExtension() )
       {
         assert ComponentDescriptor.InjectMode.CONSUME == descriptor.getInjectMode();
-        emitTypeSpec( packageName, Generator.buildConsumerDaggerComponentExtension( descriptor ) );
+        emitTypeSpec( packageName, Generator.buildConsumerDaggerComponentExtension( processingEnv, descriptor ) );
       }
       else if ( descriptor.needsDaggerModule() )
       {
-        emitTypeSpec( packageName, descriptor.buildComponentDaggerModule() );
+        emitTypeSpec( packageName, descriptor.buildComponentDaggerModule( processingEnv ) );
       }
     }
     if ( descriptor.hasRepository() )
     {
-      emitTypeSpec( packageName, descriptor.buildRepository( processingEnv.getTypeUtils() ) );
+      emitTypeSpec( packageName, descriptor.buildRepository( processingEnv ) );
     }
   }
 
@@ -215,8 +215,7 @@ public final class ArezProcessor
                            getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( processingEnv.getSourceVersion(),
-                               processingEnv.getElementUtils(),
+      new ComponentDescriptor( processingEnv.getElementUtils(),
                                processingEnv.getTypeUtils(),
                                type,
                                nameIncludesId,

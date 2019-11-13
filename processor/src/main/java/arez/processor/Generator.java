@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.google.auto.common.GeneratedAnnotationSpecs;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
@@ -17,6 +16,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeKind;
@@ -116,12 +116,13 @@ final class Generator
   }
 
   @Nonnull
-  static TypeSpec buildConsumerDaggerComponentExtension( @Nonnull final ComponentDescriptor descriptor )
+  static TypeSpec buildConsumerDaggerComponentExtension( @Nonnull final ProcessingEnvironment processingEnv,
+                                                         @Nonnull final ComponentDescriptor descriptor )
   {
     assert descriptor.shouldGenerateFactory();
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
     copyWhitelistedAnnotations( descriptor.getElement(), builder );
-    addGeneratedAnnotation( descriptor, builder );
+    addGeneratedAnnotation( processingEnv, builder );
     GeneratorUtil.addOriginatingTypes( descriptor.getElement(), builder );
 
     builder.addModifiers( Modifier.PUBLIC );
@@ -165,12 +166,10 @@ final class Generator
     return builder.build();
   }
 
-  static void addGeneratedAnnotation( @Nonnull final ComponentDescriptor descriptor,
+  static void addGeneratedAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
                                       @Nonnull final TypeSpec.Builder builder )
   {
-    GeneratedAnnotationSpecs
-      .generatedAnnotationSpec( descriptor.getElements(), descriptor.getSourceVersion(), ArezProcessor.class )
-      .ifPresent( builder::addAnnotation );
+    GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
   }
 
   @Nonnull
