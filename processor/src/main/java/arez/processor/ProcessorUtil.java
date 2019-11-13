@@ -2,12 +2,7 @@ package arez.processor;
 
 import com.google.auto.common.AnnotationMirrors;
 import com.google.common.collect.ImmutableMap;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
