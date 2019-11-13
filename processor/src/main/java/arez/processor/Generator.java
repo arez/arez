@@ -19,7 +19,6 @@ import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
@@ -123,7 +122,7 @@ final class Generator
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
     copyWhitelistedAnnotations( descriptor.getElement(), builder );
     addGeneratedAnnotation( descriptor, builder );
-    addOriginatingTypes( descriptor.getElement(), builder );
+    GeneratorUtil.addOriginatingTypes( descriptor.getElement(), builder );
 
     builder.addModifiers( Modifier.PUBLIC );
 
@@ -164,12 +163,6 @@ final class Generator
                          .build() );
 
     return builder.build();
-  }
-
-  static void addOriginatingTypes( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
-  {
-    builder.addOriginatingElement( element );
-    ProcessorUtil.getSuperTypes( element ).forEach( builder::addOriginatingElement );
   }
 
   static void addGeneratedAnnotation( @Nonnull final ComponentDescriptor descriptor,

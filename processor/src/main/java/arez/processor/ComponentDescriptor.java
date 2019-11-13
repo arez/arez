@@ -2816,7 +2816,7 @@ final class ComponentDescriptor
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getEnhancedClassName().simpleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
-    Generator.addOriginatingTypes( getElement(), builder );
+    GeneratorUtil.addOriginatingTypes( getElement(), builder );
     Generator.copyWhitelistedAnnotations( getElement(), builder );
 
     if ( isClassType() )
@@ -4326,7 +4326,7 @@ final class ComponentDescriptor
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     Generator.copyWhitelistedAnnotations( getElement(), builder );
-    Generator.addOriginatingTypes( getElement(), builder );
+    GeneratorUtil.addOriginatingTypes( getElement(), builder );
 
     Generator.addGeneratedAnnotation( this, builder );
     builder.addAnnotation( Generator.DAGGER_MODULE_CLASSNAME );
@@ -4405,7 +4405,7 @@ final class ComponentDescriptor
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryClassName().simpleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
     Generator.copyWhitelistedAnnotations( getElement(), builder );
-    Generator.addOriginatingTypes( element, builder );
+    GeneratorUtil.addOriginatingTypes( element, builder );
 
     Generator.addGeneratedAnnotation( this, builder );
 
