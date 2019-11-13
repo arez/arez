@@ -936,7 +936,7 @@ final class MemoizeDescriptor
     GeneratorUtil.copyAccessModifiers( _method, builder );
     GeneratorUtil.copyExceptions( _methodType, builder );
     GeneratorUtil.copyTypeParameters( _methodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _method, builder );
+    Generator.copyWhitelistedAnnotations( _method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _methodType.getReturnType() );
     builder.returns( returnType );
@@ -1028,7 +1028,7 @@ final class MemoizeDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
+    Generator.copyWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
@@ -1051,7 +1051,7 @@ final class MemoizeDescriptor
         final TypeName parameterType = TypeName.get( _refMethodType.getParameterTypes().get( i ) );
         final ParameterSpec.Builder param =
           ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-        ProcessorUtil.copyWhitelistedAnnotations( element, param );
+        Generator.copyWhitelistedAnnotations( element, param );
         builder.addParameter( param.build() );
       }
     }
@@ -1093,7 +1093,7 @@ final class MemoizeDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
+    Generator.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
@@ -1149,7 +1149,7 @@ final class MemoizeDescriptor
     GeneratorUtil.copyAccessModifiers( _method, builder );
     GeneratorUtil.copyExceptions( _methodType, builder );
     GeneratorUtil.copyTypeParameters( _methodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _method, builder );
+    Generator.copyWhitelistedAnnotations( _method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( _methodType.getReturnType() );
     builder.returns( returnType );
@@ -1171,7 +1171,7 @@ final class MemoizeDescriptor
         final TypeName parameterType = TypeName.get( _methodType.getParameterTypes().get( i ) );
         final ParameterSpec.Builder param =
           ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-        ProcessorUtil.copyWhitelistedAnnotations( element, param );
+        Generator.copyWhitelistedAnnotations( element, param );
         builder.addParameter( param.build() );
       }
     }

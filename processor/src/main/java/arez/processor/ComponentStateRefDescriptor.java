@@ -49,7 +49,7 @@ final class ComponentStateRefDescriptor
       addAnnotation( Override.class ).
       returns( TypeName.BOOLEAN );
 
-    ProcessorUtil.copyWhitelistedAnnotations( _method, method );
+    Generator.copyWhitelistedAnnotations( _method, method );
     GeneratorUtil.copyAccessModifiers( _method, method );
 
     final String stateMethodName =

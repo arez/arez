@@ -2817,7 +2817,7 @@ final class ComponentDescriptor
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     Generator.addOriginatingTypes( getElement(), builder );
-    ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
+    Generator.copyWhitelistedAnnotations( getElement(), builder );
 
     if ( isClassType() )
     {
@@ -3023,20 +3023,20 @@ final class ComponentDescriptor
                   perInstanceParameter.getSimpleName().toString(),
                   Modifier.PRIVATE,
                   Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, field );
+      Generator.copyWhitelistedAnnotations( perInstanceParameter, field );
       factory.addField( field.build() );
     }
 
     final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
     ctor.addAnnotation( Generator.INJECT_CLASSNAME );
-    ProcessorUtil.copyWhitelistedAnnotations( constructor, ctor );
+    Generator.copyWhitelistedAnnotations( constructor, ctor );
 
     for ( final VariableElement perInstanceParameter : injectedParameters )
     {
       final String name = perInstanceParameter.getSimpleName().toString();
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( perInstanceParameter.asType() ), name, Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( perInstanceParameter, param );
+      Generator.copyWhitelistedAnnotations( perInstanceParameter, param );
       ctor.addParameter( param.build() );
       if ( ProcessorUtil.hasNonnullAnnotation( perInstanceParameter ) )
       {
@@ -3074,7 +3074,7 @@ final class ComponentDescriptor
         {
           final ParameterSpec.Builder param =
             ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
-          ProcessorUtil.copyWhitelistedAnnotations( parameter, param );
+          Generator.copyWhitelistedAnnotations( parameter, param );
           creator.addParameter( param.build() );
         }
 
@@ -3359,7 +3359,7 @@ final class ComponentDescriptor
       addAnnotation( Override.class ).
       returns( Generator.AREZ_CONTEXT_CLASSNAME );
 
-    ProcessorUtil.copyWhitelistedAnnotations( _contextRef, method );
+    Generator.copyWhitelistedAnnotations( _contextRef, method );
     GeneratorUtil.copyAccessModifiers( _contextRef, method );
 
     if ( !ProcessorUtil.hasNonnullAnnotation( _contextRef ) )
@@ -3423,7 +3423,7 @@ final class ComponentDescriptor
     method.addCode( block.build() );
 
     method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
-    ProcessorUtil.copyWhitelistedAnnotations( _componentRef, method );
+    Generator.copyWhitelistedAnnotations( _componentRef, method );
     GeneratorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
@@ -3441,7 +3441,7 @@ final class ComponentDescriptor
       returns( TypeName.get( _componentIdRef.getReturnType() ) );
 
     method.addStatement( "return this.$N()", getIdMethodName() );
-    ProcessorUtil.copyWhitelistedAnnotations( _componentIdRef, method );
+    Generator.copyWhitelistedAnnotations( _componentIdRef, method );
     GeneratorUtil.copyAccessModifiers( _componentIdRef, method );
     return method.build();
   }
@@ -3487,7 +3487,7 @@ final class ComponentDescriptor
         .addAnnotation( Override.class )
         .returns( TypeName.get( String.class ) );
 
-    ProcessorUtil.copyWhitelistedAnnotations( _componentNameRef, builder );
+    Generator.copyWhitelistedAnnotations( _componentNameRef, builder );
     GeneratorUtil.copyAccessModifiers( _componentNameRef, builder );
 
     if ( !ProcessorUtil.hasNonnullAnnotation( _componentNameRef ) )
@@ -3511,7 +3511,7 @@ final class ComponentDescriptor
 
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
-    ProcessorUtil.copyWhitelistedAnnotations( _componentTypeNameRef, builder );
+    Generator.copyWhitelistedAnnotations( _componentTypeNameRef, builder );
     GeneratorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
     builder.addModifiers( Modifier.FINAL );
     builder.addAnnotation( Override.class );
@@ -3917,7 +3917,7 @@ final class ComponentDescriptor
     }
     if ( null != constructor )
     {
-      ProcessorUtil.copyWhitelistedAnnotations( constructor, builder );
+      Generator.copyWhitelistedAnnotations( constructor, builder );
     }
     if ( requiresDeprecatedSuppress &&
          !ProcessorUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
@@ -3945,7 +3945,7 @@ final class ComponentDescriptor
       {
         final ParameterSpec.Builder param =
           ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-        ProcessorUtil.copyWhitelistedAnnotations( element, param );
+        Generator.copyWhitelistedAnnotations( element, param );
         builder.addParameter( param.build() );
         parameterNames.add( element.getSimpleName().toString() );
         if ( !firstParam )
@@ -3987,7 +3987,7 @@ final class ComponentDescriptor
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                name,
                                Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
+      Generator.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
       if ( isPrimitive )
@@ -4325,7 +4325,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( getComponentDaggerModuleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
-    ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
+    Generator.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( getElement(), builder );
 
     Generator.addGeneratedAnnotation( this, builder );
@@ -4404,7 +4404,7 @@ final class ComponentDescriptor
 
     final TypeSpec.Builder builder = TypeSpec.classBuilder( getRepositoryClassName().simpleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( asDeclaredType() ) );
-    ProcessorUtil.copyWhitelistedAnnotations( getElement(), builder );
+    Generator.copyWhitelistedAnnotations( getElement(), builder );
     Generator.addOriginatingTypes( element, builder );
 
     Generator.addGeneratedAnnotation( this, builder );
@@ -4653,7 +4653,7 @@ final class ComponentDescriptor
     {
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( element, param );
+      Generator.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameters.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -4674,7 +4674,7 @@ final class ComponentDescriptor
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                name,
                                Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
+      Generator.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       parameters.add( name );
       if ( !firstParam )

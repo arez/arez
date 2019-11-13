@@ -4,17 +4,20 @@ import com.google.auto.common.GeneratedAnnotationSpecs;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
+import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
@@ -102,6 +105,12 @@ final class Generator
    * The name of exceptions when caught by Arez infrastructure.
    */
   private static final String CAUGHT_THROWABLE_NAME = "$$arez_exception$$";
+  @Nonnull
+  private static final List<String> ANNOTATION_WHITELIST =
+    Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
+                   Constants.NULLABLE_ANNOTATION_CLASSNAME,
+                   SuppressWarnings.class.getName(),
+                   Constants.DEPRECATED_ANNOTATION_CLASSNAME );
 
   private Generator()
   {
@@ -112,7 +121,7 @@ final class Generator
   {
     assert descriptor.shouldGenerateFactory();
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
-    ProcessorUtil.copyWhitelistedAnnotations( descriptor.getElement(), builder );
+    copyWhitelistedAnnotations( descriptor.getElement(), builder );
     addGeneratedAnnotation( descriptor, builder );
     addOriginatingTypes( descriptor.getElement(), builder );
 
@@ -399,5 +408,29 @@ final class Generator
     sb.append( "Arez_" );
     sb.append( simpleNames.get( end ) );
     return ClassName.bestGuess( sb.toString() );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final MethodSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final ParameterSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final FieldSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 }

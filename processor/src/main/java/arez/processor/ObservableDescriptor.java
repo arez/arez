@@ -392,7 +392,7 @@ final class ObservableDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
+    Generator.copyWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
@@ -425,7 +425,7 @@ final class ObservableDescriptor
     GeneratorUtil.copyAccessModifiers( _setter, builder );
     GeneratorUtil.copyExceptions( _setterType, builder );
     GeneratorUtil.copyTypeParameters( _setterType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
+    Generator.copyWhitelistedAnnotations( _setter, builder );
 
     builder.addAnnotation( Override.class );
 
@@ -435,7 +435,7 @@ final class ObservableDescriptor
       final String paramName = element.getSimpleName().toString();
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( _setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( element, param );
+      Generator.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
 
       if ( _setterType.getThrownTypes().isEmpty() )
@@ -488,7 +488,7 @@ final class ObservableDescriptor
     builder.addModifiers( Modifier.PRIVATE );
     GeneratorUtil.copyExceptions( _setterType, builder );
     GeneratorUtil.copyTypeParameters( _setterType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _setter, builder );
+    Generator.copyWhitelistedAnnotations( _setter, builder );
     addDeprecationIfRequired( builder );
 
     buildSetterImpl( builder );
@@ -509,7 +509,7 @@ final class ObservableDescriptor
     final TypeName type = TypeName.get( parameterType );
     final ParameterSpec.Builder param =
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
-    ProcessorUtil.copyWhitelistedAnnotations( element, param );
+    Generator.copyWhitelistedAnnotations( element, param );
     builder.addParameter( param.build() );
     Generator.generateNotDisposedInvariant( builder, methodName );
     builder.addStatement( "this.$N.preReportChanged()", getFieldName() );
@@ -771,7 +771,7 @@ final class ObservableDescriptor
     GeneratorUtil.copyAccessModifiers( _getter, builder );
     GeneratorUtil.copyExceptions( _getterType, builder );
     GeneratorUtil.copyTypeParameters( _getterType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _getter, builder );
+    Generator.copyWhitelistedAnnotations( _getter, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _getterType.getReturnType() ) );

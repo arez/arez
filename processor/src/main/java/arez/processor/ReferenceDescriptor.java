@@ -197,7 +197,7 @@ final class ReferenceDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _method, builder );
     GeneratorUtil.copyTypeParameters( _methodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _method, builder );
+    Generator.copyWhitelistedAnnotations( _method, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _method.getReturnType() ) );

@@ -36,12 +36,6 @@ import javax.lang.model.util.Types;
 final class ProcessorUtil
 {
   static final String SENTINEL_NAME = "<default>";
-  @Nonnull
-  private static final List<String> ANNOTATION_WHITELIST =
-    Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
-                   Constants.NULLABLE_ANNOTATION_CLASSNAME,
-                   SuppressWarnings.class.getName(),
-                   Constants.DEPRECATED_ANNOTATION_CLASSNAME );
 
   private ProcessorUtil()
   {
@@ -202,30 +196,6 @@ final class ProcessorUtil
       filter( m -> m.getKind() == ElementKind.CONSTRUCTOR ).
       map( m -> (ExecutableElement) m ).
       collect( Collectors.toList() );
-  }
-
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final TypeSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final MethodSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final ParameterSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final FieldSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
   @Nullable

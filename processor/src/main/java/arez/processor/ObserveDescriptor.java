@@ -479,7 +479,7 @@ final class ObserveDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _refMethod, builder );
+    Generator.copyWhitelistedAnnotations( _refMethod, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
@@ -506,7 +506,7 @@ final class ObserveDescriptor
     GeneratorUtil.copyAccessModifiers( _observe, builder );
     GeneratorUtil.copyExceptions( _observedType, builder );
     GeneratorUtil.copyTypeParameters( _observedType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _observe, builder );
+    Generator.copyWhitelistedAnnotations( _observe, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _observedType.getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -572,7 +572,7 @@ final class ObserveDescriptor
       final TypeName parameterType = TypeName.get( _observedType.getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      ProcessorUtil.copyWhitelistedAnnotations( element, param );
+      Generator.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       params.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -641,7 +641,7 @@ final class ObserveDescriptor
     GeneratorUtil.copyAccessModifiers( _observe, builder );
     GeneratorUtil.copyExceptions( _observedType, builder );
     GeneratorUtil.copyTypeParameters( _observedType, builder );
-    ProcessorUtil.copyWhitelistedAnnotations( _observe, builder );
+    Generator.copyWhitelistedAnnotations( _observe, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = _observe.getReturnType();
     builder.returns( TypeName.get( returnType ) );
