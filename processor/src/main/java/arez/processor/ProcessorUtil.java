@@ -272,11 +272,6 @@ final class ProcessorUtil
     return AnnotationsUtil.hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
   }
 
-  static boolean hasNullableAnnotation( @Nonnull final Element element )
-  {
-    return AnnotationsUtil.hasAnnotationOfType( element, Constants.NULLABLE_ANNOTATION_CLASSNAME );
-  }
-
   static boolean isDisposableTrackableRequired( @Nonnull final Element element )
   {
     final VariableElement variableElement = (VariableElement)

@@ -1691,7 +1691,7 @@ final class ComponentDescriptor
         {
           multiplicity = Multiplicity.ONE;
         }
-        else if ( ProcessorUtil.hasNullableAnnotation( method ) )
+        else if ( AnnotationsUtil.hasAnnotationOfType( method, Constants.NULLABLE_ANNOTATION_CLASSNAME ) )
         {
           multiplicity = Multiplicity.ZERO_OR_ONE;
         }
