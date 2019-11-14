@@ -396,7 +396,7 @@ final class ObservableDescriptor
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
-         !ProcessorUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
+         !AnnotationsUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "rawtypes" ).

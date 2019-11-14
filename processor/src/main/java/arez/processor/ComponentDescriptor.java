@@ -869,7 +869,7 @@ final class ComponentDescriptor
     {
       throw new ProcessorException( "Method annotated with @ComponentStateRef must return a boolean", method );
     }
-    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "value" );
+    final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "value" );
     final ComponentStateRefDescriptor.State state =
       ComponentStateRefDescriptor.State.valueOf( variableElement.getSimpleName().toString() );
 
@@ -1399,7 +1399,7 @@ final class ComponentDescriptor
   {
     ProcessorUtil.getFieldElements( _element )
       .stream()
-      .filter( f -> ProcessorUtil.hasAnnotationOfType( f, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME ) )
+      .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME ) )
       .forEach( this::processComponentDependencyField );
   }
 
@@ -1417,7 +1417,7 @@ final class ComponentDescriptor
   {
     ProcessorUtil.getFieldElements( _element )
       .stream()
-      .filter( f -> ProcessorUtil.hasAnnotationOfType( f, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) )
+      .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) )
       .forEach( this::processCascadeDisposeField );
   }
 
@@ -1448,7 +1448,7 @@ final class ComponentDescriptor
       final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
       final AnnotationMirror value =
         null != typeElement ?
-        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
+        AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
         null;
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
       {
@@ -1483,7 +1483,7 @@ final class ComponentDescriptor
       final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
       final AnnotationMirror value =
         null != typeElement ?
-        ProcessorUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
+        AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
         null;
       if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
       {
@@ -1540,7 +1540,7 @@ final class ComponentDescriptor
 
   private boolean hasDependencyAnnotation( @Nonnull final ExecutableElement method )
   {
-    return ProcessorUtil.hasAnnotationOfType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
+    return AnnotationsUtil.hasAnnotationOfType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
   }
 
   private void addOrUpdateDependency( @Nonnull final ExecutableElement method,
@@ -1680,8 +1680,8 @@ final class ComponentDescriptor
       else
       {
         if ( !( type instanceof DeclaredType ) ||
-             !ProcessorUtil.hasAnnotationOfType( ( (DeclaredType) type ).asElement(),
-                                                 Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+             !AnnotationsUtil.hasAnnotationOfType( ( (DeclaredType) type ).asElement(),
+                                                   Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
           throw new ProcessorException( "@Inverse target expected to return a type annotated with " +
                                         Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
@@ -1717,12 +1717,12 @@ final class ComponentDescriptor
         .getMethods( descriptor.getTargetType(), _elements, _typeUtils )
         .stream()
         .map( m -> {
-          final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
+          final AnnotationMirror a = AnnotationsUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
           if ( null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) )
           {
-            if ( null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverse" ) &&
-                 null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseName" ) &&
-                 null == ProcessorUtil.findAnnotationValueNoDefaults( a, "inverseMultiplicity" ) )
+            if ( null == AnnotationsUtil.findAnnotationValueNoDefaults( a, "inverse" ) &&
+                 null == AnnotationsUtil.findAnnotationValueNoDefaults( a, "inverseName" ) &&
+                 null == AnnotationsUtil.findAnnotationValueNoDefaults( a, "inverseMultiplicity" ) )
             {
               throw new ProcessorException( "@Inverse target found an associated @Reference on the method '" +
                                             m.getSimpleName() + "' on type '" +
@@ -1777,7 +1777,7 @@ final class ComponentDescriptor
       if ( isSupportedInverseCollectionType( type.rawType.toString() ) && !type.typeArguments.isEmpty() )
       {
         final TypeElement typeElement = _elements.getTypeElement( type.typeArguments.get( 0 ).toString() );
-        if ( ProcessorUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+        if ( AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
           return typeElement;
         }
@@ -1802,9 +1802,9 @@ final class ComponentDescriptor
   private String getInverseReferenceNameParameter( @Nonnull final ExecutableElement method )
   {
     final String declaredName =
-      (String) ProcessorUtil.getAnnotationValue( method,
-                                                 Constants.INVERSE_ANNOTATION_CLASSNAME,
-                                                 "referenceName" ).getValue();
+      (String) AnnotationsUtil.getAnnotationValue( method,
+                                                   Constants.INVERSE_ANNOTATION_CLASSNAME,
+                                                   "referenceName" ).getValue();
     final String name;
     if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
@@ -1878,8 +1878,8 @@ final class ComponentDescriptor
       inverseName = getReferenceInverseName( annotation, method, inverseMultiplicity );
       final TypeMirror returnType = method.getReturnType();
       if ( !( returnType instanceof DeclaredType ) ||
-           !ProcessorUtil.hasAnnotationOfType( ( (DeclaredType) returnType ).asElement(),
-                                               Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
+           !AnnotationsUtil.hasAnnotationOfType( ( (DeclaredType) returnType ).asElement(),
+                                                 Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
       {
         throw new ProcessorException( "@Reference target expected to return a type annotated with " +
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME + " if there is an " +
@@ -1908,7 +1908,7 @@ final class ComponentDescriptor
         .getMethods( element, _elements, _typeUtils )
         .stream()
         .map( m -> {
-          final AnnotationMirror a = ProcessorUtil.findAnnotationByType( m, Constants.INVERSE_ANNOTATION_CLASSNAME );
+          final AnnotationMirror a = AnnotationsUtil.findAnnotationByType( m, Constants.INVERSE_ANNOTATION_CLASSNAME );
           if ( null == a )
           {
             return null;
@@ -1976,7 +1976,7 @@ final class ComponentDescriptor
 
   private boolean hasInverse( @Nonnull final AnnotationMirror annotation )
   {
-    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "inverse" );
+    final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "inverse" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -1984,8 +1984,8 @@ final class ComponentDescriptor
       case "DISABLE":
         return false;
       default:
-        return null != ProcessorUtil.findAnnotationValueNoDefaults( annotation, "inverseName" ) ||
-               null != ProcessorUtil.findAnnotationValueNoDefaults( annotation, "inverseMultiplicity" );
+        return null != AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "inverseName" ) ||
+               null != AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "inverseMultiplicity" );
     }
   }
 
@@ -1994,7 +1994,7 @@ final class ComponentDescriptor
                                           @Nonnull final ExecutableElement method,
                                           @Nonnull final Multiplicity multiplicity )
   {
-    final String declaredName = ProcessorUtil.getAnnotationValue( annotation, "inverseName" );
+    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "inverseName" );
     final String name;
     if ( ProcessorUtil.isSentinelName( declaredName ) )
     {
@@ -2021,7 +2021,7 @@ final class ComponentDescriptor
   @Nonnull
   private Multiplicity getReferenceInverseMultiplicity( @Nonnull final AnnotationMirror annotation )
   {
-    final VariableElement variableElement = ProcessorUtil.getAnnotationValue( annotation, "inverseMultiplicity" );
+    final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "inverseMultiplicity" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "MANY":
@@ -2039,7 +2039,7 @@ final class ComponentDescriptor
     return constructor
       .getParameters()
       .stream()
-      .filter( f -> !ProcessorUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+      .filter( f -> !AnnotationsUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
       .collect( Collectors.toList() );
   }
 
@@ -2081,9 +2081,9 @@ final class ComponentDescriptor
   private String getLinkType( @Nonnull final ExecutableElement method )
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( method,
-                                        Constants.REFERENCE_ANNOTATION_CLASSNAME,
-                                        "load" ).getValue();
+      AnnotationsUtil.getAnnotationValue( method,
+                                          Constants.REFERENCE_ANNOTATION_CLASSNAME,
+                                          "load" ).getValue();
     return injectParameter.getSimpleName().toString();
   }
 
@@ -2115,9 +2115,9 @@ final class ComponentDescriptor
     MemberChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, method );
 
     final boolean validateTypeAtRuntime =
-      (Boolean) ProcessorUtil.getAnnotationValue( method,
-                                                  Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                                                  "validateTypeAtRuntime" ).getValue();
+      (Boolean) AnnotationsUtil.getAnnotationValue( method,
+                                                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                                    "validateTypeAtRuntime" ).getValue();
 
     final TypeMirror type = method.getReturnType();
     if ( TypeKind.DECLARED != type.getKind() )
@@ -2154,9 +2154,9 @@ final class ComponentDescriptor
     MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, field );
 
     final boolean validateTypeAtRuntime =
-      (Boolean) ProcessorUtil.getAnnotationValue( field,
-                                                  Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                                                  "validateTypeAtRuntime" ).getValue();
+      (Boolean) AnnotationsUtil.getAnnotationValue( field,
+                                                    Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                                    "validateTypeAtRuntime" ).getValue();
 
     final TypeMirror type = field.asType();
     if ( TypeKind.DECLARED != type.getKind() )
@@ -2192,22 +2192,22 @@ final class ComponentDescriptor
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   private boolean isActAsComponentAnnotated( @Nonnull final TypeElement typeElement )
   {
-    return ProcessorUtil.hasAnnotationOfType( typeElement, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
+    return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.ACT_AS_COMPONENT_ANNOTATION_CLASSNAME );
   }
 
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   private boolean isDisposeTrackableComponent( @Nonnull final TypeElement typeElement )
   {
-    return ProcessorUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
+    return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
            ProcessorUtil.isDisposableTrackableRequired( typeElement );
   }
 
   private boolean isActionCascade( @Nonnull final Element method )
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( method,
-                                        Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                                        "action" ).getValue();
+      AnnotationsUtil.getAnnotationValue( method,
+                                          Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                          "action" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "CASCADE":
@@ -2405,61 +2405,61 @@ final class ComponentDescriptor
     verifyNoDuplicateAnnotations( method );
 
     final AnnotationMirror action =
-      ProcessorUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
     final AnnotationMirror observed =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observable =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observableValueRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror memoize =
-      ProcessorUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
     final AnnotationMirror computableValueRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror contextRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror stateRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentId =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_ID_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentIdRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentTypeName =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentName =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
-      ProcessorUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror priorityOverride =
-      ProcessorUtil.findAnnotationByType( method, Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME );
     final AnnotationMirror ejbPostConstruct =
-      ProcessorUtil.findAnnotationByType( method, Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     final AnnotationMirror preDispose =
-      ProcessorUtil.findAnnotationByType( method, Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
     final AnnotationMirror postDispose =
-      ProcessorUtil.findAnnotationByType( method, Constants.POST_DISPOSE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.POST_DISPOSE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onActivate =
-      ProcessorUtil.findAnnotationByType( method, Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onDeactivate =
-      ProcessorUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onStale =
-      ProcessorUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onDepsChange =
-      ProcessorUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observerRef =
-      ProcessorUtil.findAnnotationByType( method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror dependency =
-      ProcessorUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
     final AnnotationMirror reference =
-      ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_ANNOTATION_CLASSNAME );
     final AnnotationMirror referenceId =
-      ProcessorUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
     final AnnotationMirror inverse =
-      ProcessorUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
     final AnnotationMirror cascadeDispose =
-      ProcessorUtil.findAnnotationByType( method, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( method, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
 
     if ( null != observable )
     {
@@ -2690,9 +2690,9 @@ final class ComponentDescriptor
   private Boolean isInitializerRequired( @Nonnull final ExecutableElement element )
   {
     final AnnotationMirror annotation =
-      ProcessorUtil.findAnnotationByType( element, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
+      AnnotationsUtil.findAnnotationByType( element, Constants.OBSERVABLE_ANNOTATION_CLASSNAME );
     final AnnotationValue v =
-      null == annotation ? null : ProcessorUtil.findAnnotationValueNoDefaults( annotation, "initializer" );
+      null == annotation ? null : AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "initializer" );
     final String value = null == v ? "AUTODETECT" : ( (VariableElement) v.getValue() ).getSimpleName().toString();
     switch ( value )
     {
@@ -2713,13 +2713,13 @@ final class ComponentDescriptor
                // Getter
                element.getReturnType().getKind() != TypeKind.VOID &&
                ProcessorUtil.hasNonnullAnnotation( element ) &&
-               !ProcessorUtil.hasAnnotationOfType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
+               !AnnotationsUtil.hasAnnotationOfType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
              ) ||
              (
                // Setter
                1 == element.getParameters().size() &&
-               ProcessorUtil.hasAnnotationOfType( element.getParameters().get( 0 ),
-                                                  Constants.NONNULL_ANNOTATION_CLASSNAME )
+               AnnotationsUtil.hasAnnotationOfType( element.getParameters().get( 0 ),
+                                                    Constants.NONNULL_ANNOTATION_CLASSNAME )
              )
            );
   }
@@ -2815,7 +2815,7 @@ final class ComponentDescriptor
 
     Generator.addGeneratedAnnotation( processingEnv, builder );
     if ( !_roMemoizes.isEmpty() &&
-         !ProcessorUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
+         !AnnotationsUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
         addMember( "value", "$S", "unchecked" ).
@@ -3051,7 +3051,7 @@ final class ComponentDescriptor
       for ( final VariableElement parameter : constructor.getParameters() )
       {
         final boolean perInstance =
-          ProcessorUtil.hasAnnotationOfType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
+          AnnotationsUtil.hasAnnotationOfType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
 
         final String name = parameter.getSimpleName().toString();
 
@@ -3905,7 +3905,7 @@ final class ComponentDescriptor
       Generator.copyWhitelistedAnnotations( constructor, builder );
     }
     if ( requiresDeprecatedSuppress &&
-         !ProcessorUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
+         !AnnotationsUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
                                .addMember( "value", "$S", "deprecation" )
@@ -4720,15 +4720,15 @@ final class ComponentDescriptor
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
-    return ProcessorUtil.getAnnotationValue( annotation, parameterName );
+    return AnnotationsUtil.getAnnotationValue( annotation, parameterName );
   }
 
   private boolean shouldRepositoryDefineCreate()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( getElement(),
-                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
-                                        "attach" ).getValue();
+      AnnotationsUtil.getAnnotationValue( getElement(),
+                                          Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                          "attach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "CREATE_ONLY":
@@ -4742,9 +4742,9 @@ final class ComponentDescriptor
   private boolean shouldRepositoryDefineAttach()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( getElement(),
-                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
-                                        "attach" ).getValue();
+      AnnotationsUtil.getAnnotationValue( getElement(),
+                                          Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                          "attach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "ATTACH_ONLY":
@@ -4758,9 +4758,9 @@ final class ComponentDescriptor
   private boolean shouldRepositoryDefineDestroy()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( getElement(),
-                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
-                                        "detach" ).getValue();
+      AnnotationsUtil.getAnnotationValue( getElement(),
+                                          Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                          "detach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "DESTROY_ONLY":
@@ -4774,9 +4774,9 @@ final class ComponentDescriptor
   private boolean shouldRepositoryDefineDetach()
   {
     final VariableElement injectParameter = (VariableElement)
-      ProcessorUtil.getAnnotationValue( getElement(),
-                                        Constants.REPOSITORY_ANNOTATION_CLASSNAME,
-                                        "detach" ).getValue();
+      AnnotationsUtil.getAnnotationValue( getElement(),
+                                          Constants.REPOSITORY_ANNOTATION_CLASSNAME,
+                                          "detach" ).getValue();
     switch ( injectParameter.getSimpleName().toString() )
     {
       case "DETACH_ONLY":
