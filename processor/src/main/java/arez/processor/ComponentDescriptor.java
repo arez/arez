@@ -346,7 +346,7 @@ final class ComponentDescriptor
       name = getPropertyAccessorName( method, declaredName );
     }
     // Override name if supplied by user
-    if ( !ProcessorUtil.isSentinelName( declaredName ) )
+    if ( !Constants.SENTINEL.equals( declaredName ) )
     {
       name = declaredName;
       if ( !SourceVersion.isIdentifier( name ) )
@@ -461,7 +461,7 @@ final class ComponentDescriptor
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
@@ -544,7 +544,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
-    if ( ProcessorUtil.isSentinelName( name ) )
+    if ( Constants.SENTINEL.equals( name ) )
     {
       return method.getSimpleName().toString();
     }
@@ -599,7 +599,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
-    if ( ProcessorUtil.isSentinelName( name ) )
+    if ( Constants.SENTINEL.equals( name ) )
     {
       return method.getSimpleName().toString();
     }
@@ -653,7 +653,7 @@ final class ComponentDescriptor
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       name = ProcessorUtil.deriveName( method, OBSERVER_REF_PATTERN, declaredName );
       if ( null == name )
@@ -737,7 +737,7 @@ final class ComponentDescriptor
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       name = ProcessorUtil.deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
@@ -770,7 +770,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     final String name = getAnnotationParameter( annotation, "name" );
-    if ( ProcessorUtil.isSentinelName( name ) )
+    if ( Constants.SENTINEL.equals( name ) )
     {
       return getPropertyAccessorName( method, name );
     }
@@ -1314,19 +1314,19 @@ final class ComponentDescriptor
 
         if ( !method.getModifiers().contains( Modifier.FINAL ) )
         {
-          name = ProcessorUtil.deriveName( method, SETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          name = ProcessorUtil.deriveName( method, SETTER_PATTERN, Constants.SENTINEL );
           if ( voidReturn && 1 == parameterCount && null != name )
           {
             setters.put( name, candidateMethod );
             continue;
           }
-          name = ProcessorUtil.deriveName( method, ISSER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          name = ProcessorUtil.deriveName( method, ISSER_PATTERN, Constants.SENTINEL );
           if ( !voidReturn && 0 == parameterCount && null != name )
           {
             getters.put( name, candidateMethod );
             continue;
           }
-          name = ProcessorUtil.deriveName( method, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          name = ProcessorUtil.deriveName( method, GETTER_PATTERN, Constants.SENTINEL );
           if ( !voidReturn && 0 == parameterCount && null != name )
           {
             getters.put( name, candidateMethod );
@@ -1334,7 +1334,7 @@ final class ComponentDescriptor
           }
         }
         name =
-          ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGE_PATTERN, ProcessorUtil.SENTINEL_NAME );
+          ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
         if ( voidReturn && null != name )
         {
           if (
@@ -1588,7 +1588,7 @@ final class ComponentDescriptor
   {
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String candidate = ProcessorUtil.deriveName( method, ID_GETTER_PATTERN, declaredName );
       if ( null == candidate )
@@ -1806,7 +1806,7 @@ final class ComponentDescriptor
                                                    Constants.INVERSE_ANNOTATION_CLASSNAME,
                                                    "referenceName" ).getValue();
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       name = ProcessorUtil.firstCharacterToLowerCase( getElement().getSimpleName().toString() );
     }
@@ -1833,7 +1833,7 @@ final class ComponentDescriptor
   {
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String candidate = ProcessorUtil.deriveName( method, GETTER_PATTERN, declaredName );
       name = null == candidate ? method.getSimpleName().toString() : candidate;
@@ -1996,7 +1996,7 @@ final class ComponentDescriptor
   {
     final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "inverseName" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String baseName = getElement().getSimpleName().toString();
       return ProcessorUtil.firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
@@ -2048,7 +2048,7 @@ final class ComponentDescriptor
   {
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String candidate = ProcessorUtil.deriveName( method, GETTER_PATTERN, declaredName );
       if ( null == candidate )
@@ -2660,7 +2660,7 @@ final class ComponentDescriptor
                                              @Nonnull final AnnotationMirror annotation )
   {
     final String declaredName = getAnnotationParameter( annotation, "name" );
-    if ( ProcessorUtil.isSentinelName( declaredName ) )
+    if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String name = ProcessorUtil.deriveName( method, PRIORITY_OVERRIDE_PATTERN, declaredName );
       if ( null == name )
@@ -4698,7 +4698,7 @@ final class ComponentDescriptor
   private String getIdName()
   {
     assert null != _componentId;
-    final String name = ProcessorUtil.deriveName( _componentId, GETTER_PATTERN, ProcessorUtil.SENTINEL_NAME );
+    final String name = ProcessorUtil.deriveName( _componentId, GETTER_PATTERN, Constants.SENTINEL );
     if ( null != name )
     {
       return Character.toUpperCase( name.charAt( 0 ) ) + ( name.length() > 1 ? name.substring( 1 ) : "" );

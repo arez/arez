@@ -141,7 +141,7 @@ public final class ArezProcessor
     }
 
     final String type =
-      ProcessorUtil.isSentinelName( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
+      Constants.SENTINEL.equals( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
 
     if ( !SourceVersion.isIdentifier( type ) )
     {

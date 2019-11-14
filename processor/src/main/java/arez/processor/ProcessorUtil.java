@@ -27,8 +27,6 @@ import javax.lang.model.util.Types;
 
 final class ProcessorUtil
 {
-  static final String SENTINEL_NAME = "<default>";
-
   private ProcessorUtil()
   {
   }
@@ -236,7 +234,7 @@ final class ProcessorUtil
                             @Nonnull final String name )
     throws ProcessorException
   {
-    if ( isSentinelName( name ) )
+    if ( Constants.SENTINEL.equals( name ) )
     {
       final String methodName = method.getSimpleName().toString();
       final Matcher matcher = pattern.matcher( methodName );
@@ -260,11 +258,6 @@ final class ProcessorUtil
   static String firstCharacterToLowerCase( @Nonnull final String name )
   {
     return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
-  }
-
-  static boolean isSentinelName( @Nonnull final String name )
-  {
-    return SENTINEL_NAME.equals( name );
   }
 
   static boolean hasNonnullAnnotation( @Nonnull final Element element )

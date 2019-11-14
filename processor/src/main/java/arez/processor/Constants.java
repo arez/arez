@@ -1,5 +1,7 @@
 package arez.processor;
 
+import javax.annotation.Nonnull;
+
 final class Constants
 {
   static final String SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME = "arez.annotations.SuppressArezWarnings";
@@ -49,6 +51,7 @@ final class Constants
   static final String GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.Generated";
   static final String JAVA9_GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.processing.Generated";
   static final String UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION = "Arez:UnmanagedComponentReference";
+  static final String SENTINEL = "<default>";
 
   private Constants()
   {
