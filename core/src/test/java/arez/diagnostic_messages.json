@@ -1503,7 +1503,7 @@
         "class": "arez.Transaction",
         "method": "current",
         "file": "Transaction.java",
-        "lineNumber": 203
+        "lineNumber": 206
       }
     ]
   },
@@ -1529,7 +1529,7 @@
         "class": "arez.Transaction",
         "method": "begin",
         "file": "Transaction.java",
-        "lineNumber": 234
+        "lineNumber": 237
       }
     ]
   },
@@ -1542,7 +1542,7 @@
         "class": "arez.Transaction",
         "method": "begin",
         "file": "Transaction.java",
-        "lineNumber": 249
+        "lineNumber": 252
       }
     ]
   },
@@ -1568,7 +1568,7 @@
         "class": "arez.Transaction",
         "method": "commit",
         "file": "Transaction.java",
-        "lineNumber": 290
+        "lineNumber": 293
       }
     ]
   },
@@ -1581,7 +1581,7 @@
         "class": "arez.Transaction",
         "method": "commit",
         "file": "Transaction.java",
-        "lineNumber": 294
+        "lineNumber": 297
       }
     ]
   },
@@ -1659,7 +1659,7 @@
         "class": "arez.Transaction",
         "method": "<init>",
         "file": "Transaction.java",
-        "lineNumber": 344
+        "lineNumber": 347
       }
     ]
   },
@@ -1672,7 +1672,7 @@
         "class": "arez.Transaction",
         "method": "<init>",
         "file": "Transaction.java",
-        "lineNumber": 361
+        "lineNumber": 364
       }
     ]
   },
@@ -1685,7 +1685,7 @@
         "class": "arez.Transaction",
         "method": "getName",
         "file": "Transaction.java",
-        "lineNumber": 397
+        "lineNumber": 400
       }
     ]
   },
@@ -1698,7 +1698,7 @@
         "class": "arez.Transaction",
         "method": "getStartedAt",
         "file": "Transaction.java",
-        "lineNumber": 414
+        "lineNumber": 417
       }
     ]
   },
@@ -1737,7 +1737,7 @@
         "class": "arez.Transaction",
         "method": "getPreviousInSameContext",
         "file": "Transaction.java",
-        "lineNumber": 480
+        "lineNumber": 483
       }
     ]
   },
@@ -1750,7 +1750,7 @@
         "class": "arez.Transaction",
         "method": "processPendingDeactivations",
         "file": "Transaction.java",
-        "lineNumber": 506
+        "lineNumber": 509
       }
     ]
   },
@@ -1763,7 +1763,7 @@
         "class": "arez.Transaction",
         "method": "processPendingDeactivations",
         "file": "Transaction.java",
-        "lineNumber": 521
+        "lineNumber": 524
       }
     ]
   },
@@ -1776,7 +1776,7 @@
         "class": "arez.Transaction",
         "method": "queueForDeactivation",
         "file": "Transaction.java",
-        "lineNumber": 539
+        "lineNumber": 542
       }
     ]
   },
@@ -1789,7 +1789,7 @@
         "class": "arez.Transaction",
         "method": "queueForDeactivation",
         "file": "Transaction.java",
-        "lineNumber": 557
+        "lineNumber": 560
       }
     ]
   },
@@ -1802,7 +1802,7 @@
         "class": "arez.Transaction",
         "method": "observe",
         "file": "Transaction.java",
-        "lineNumber": 572
+        "lineNumber": 575
       }
     ]
   },
@@ -1815,7 +1815,7 @@
         "class": "arez.Transaction",
         "method": "observe",
         "file": "Transaction.java",
-        "lineNumber": 584
+        "lineNumber": 587
       }
     ]
   },
@@ -1828,7 +1828,7 @@
         "class": "arez.Transaction",
         "method": "preReportChanged",
         "file": "Transaction.java",
-        "lineNumber": 643
+        "lineNumber": 646
       }
     ]
   },
@@ -1841,7 +1841,7 @@
         "class": "arez.Transaction",
         "method": "reportChanged",
         "file": "Transaction.java",
-        "lineNumber": 673
+        "lineNumber": 676
       }
     ]
   },
@@ -1854,7 +1854,7 @@
         "class": "arez.Transaction",
         "method": "reportPossiblyChanged",
         "file": "Transaction.java",
-        "lineNumber": 701
+        "lineNumber": 704
       }
     ]
   },
@@ -1867,7 +1867,7 @@
         "class": "arez.Transaction",
         "method": "reportPossiblyChanged",
         "file": "Transaction.java",
-        "lineNumber": 705
+        "lineNumber": 708
       }
     ]
   },
@@ -1880,7 +1880,7 @@
         "class": "arez.Transaction",
         "method": "reportPossiblyChanged",
         "file": "Transaction.java",
-        "lineNumber": 709
+        "lineNumber": 712
       }
     ]
   },
@@ -1893,7 +1893,7 @@
         "class": "arez.Transaction",
         "method": "reportChangeConfirmed",
         "file": "Transaction.java",
-        "lineNumber": 747
+        "lineNumber": 750
       }
     ]
   },
@@ -1906,7 +1906,7 @@
         "class": "arez.Transaction",
         "method": "reportChangeConfirmed",
         "file": "Transaction.java",
-        "lineNumber": 751
+        "lineNumber": 754
       }
     ]
   },
@@ -1919,7 +1919,7 @@
         "class": "arez.Transaction",
         "method": "invariantObserverIsTracker",
         "file": "Transaction.java",
-        "lineNumber": 829
+        "lineNumber": 832
       }
     ]
   },
@@ -1932,7 +1932,7 @@
         "class": "arez.Transaction",
         "method": "verifyWriteAllowed",
         "file": "Transaction.java",
-        "lineNumber": 850
+        "lineNumber": 853
       }
     ]
   },
@@ -1945,7 +1945,7 @@
         "class": "arez.Transaction",
         "method": "verifyWriteAllowed",
         "file": "Transaction.java",
-        "lineNumber": 843
+        "lineNumber": 846
       }
     ]
   },
@@ -1958,7 +1958,7 @@
         "class": "arez.Transaction",
         "method": "completeTracking",
         "file": "Transaction.java",
-        "lineNumber": 868
+        "lineNumber": 871
       }
     ]
   },
@@ -1971,7 +1971,7 @@
         "class": "arez.Transaction",
         "method": "completeTracking",
         "file": "Transaction.java",
-        "lineNumber": 877
+        "lineNumber": 880
       }
     ]
   },
@@ -2166,7 +2166,7 @@
         "class": "arez.Transaction",
         "method": "begin",
         "file": "Transaction.java",
-        "lineNumber": 238
+        "lineNumber": 241
       }
     ]
   },
@@ -2231,7 +2231,7 @@
         "class": "arez.Transaction",
         "method": "reportDispose",
         "file": "Transaction.java",
-        "lineNumber": 624
+        "lineNumber": 627
       }
     ]
   },
@@ -2244,7 +2244,7 @@
         "class": "arez.Transaction",
         "method": "reportDispose",
         "file": "Transaction.java",
-        "lineNumber": 627
+        "lineNumber": 630
       }
     ]
   },
@@ -2361,7 +2361,7 @@
         "class": "arez.Transaction",
         "method": "begin",
         "file": "Transaction.java",
-        "lineNumber": 229
+        "lineNumber": 232
       }
     ]
   },
@@ -2387,7 +2387,7 @@
         "class": "arez.component.TypeBasedLocator",
         "method": "registerLookup",
         "file": "TypeBasedLocator.java",
-        "lineNumber": 38
+        "lineNumber": 39
       }
     ]
   },
@@ -2517,7 +2517,7 @@
         "class": "arez.Transaction",
         "method": "asInfo",
         "file": "Transaction.java",
-        "lineNumber": 1104
+        "lineNumber": 1107
       }
     ]
   },
