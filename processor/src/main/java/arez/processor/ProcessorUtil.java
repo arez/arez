@@ -366,12 +366,6 @@ final class ProcessorUtil
     return hasAnnotationOfType( element, Constants.NULLABLE_ANNOTATION_CLASSNAME );
   }
 
-  @Nonnull
-  static String toSimpleName( @Nonnull final String annotationName )
-  {
-    return annotationName.replaceAll( ".*\\.", "" );
-  }
-
   static boolean isDisposableTrackableRequired( @Nonnull final Element element )
   {
     final VariableElement variableElement = (VariableElement)

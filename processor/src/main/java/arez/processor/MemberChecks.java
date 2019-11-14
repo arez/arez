@@ -308,7 +308,7 @@ final class MemberChecks
   }
 
   @Nonnull
-  private static String toSimpleName( @Nonnull final String annotationName )
+  static String toSimpleName( @Nonnull final String annotationName )
   {
     return "@" + annotationName.replaceAll( ".*\\.", "" );
   }
