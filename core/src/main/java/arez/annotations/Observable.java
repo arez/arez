@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be static</li>
  * <li>Must not be final</li>
  * <li>May be abstract but if abstract then the paired setter or getter must also be abstract</li>
+ * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
  * </ul>
  */
 @Documented

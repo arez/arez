@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
  * <li>Must be abstract</li>
  * <li>Must not throw any exceptions</li>
  * <li>Must return an instance of {@link ComputableValue}.</li>
+ * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
  * </ul>
  */
 @Documented

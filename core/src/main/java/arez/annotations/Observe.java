@@ -31,6 +31,7 @@ import javax.annotation.Nonnull;
  * <li>Must have 0 parameters</li>
  * <li>Must not return a value</li>
  * <li>Must not throw exceptions</li>
+ * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
  * </ul>
  */
 @Documented
