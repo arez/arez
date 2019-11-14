@@ -5,12 +5,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
+import javax.tools.Diagnostic;
 
 @SuppressWarnings( { "SameParameterValue", "WeakerAccess", "unused" } )
 final class MemberChecks
@@ -311,5 +314,32 @@ final class MemberChecks
   static String toSimpleName( @Nonnull final String annotationName )
   {
     return "@" + annotationName.replaceAll( ".*\\.", "" );
+  }
+
+  @Nonnull
+  static String suppressedBy( @Nonnull final String warning,
+                              @Nullable final String alternativeSuppressWarnings )
+  {
+    return "This warning can be suppressed by annotating the element with " +
+           "@SuppressWarnings( \\\"" + warning + "\\\" )" +
+           ( null == alternativeSuppressWarnings ?
+             "" :
+             " or " + toSimpleName( alternativeSuppressWarnings ) + "( \\\"" + warning + "\\\" )" );
+
+  }
+
+  static void shouldNotBePublic( @Nonnull final ProcessingEnvironment processingEnv,
+                                 @Nonnull final ExecutableElement method,
+                                 @Nonnull final String annotationName,
+                                 @Nullable final String alternativeSuppressWarnings )
+  {
+    if ( method.getModifiers().contains( Modifier.PUBLIC ) &&
+         !ProcessorUtil.isWarningSuppressed( method, annotationName, alternativeSuppressWarnings ) )
+    {
+      final String message =
+        toSimpleName( annotationName ) + " target should not be public. " +
+        suppressedBy( annotationName, alternativeSuppressWarnings );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
+    }
   }
 }
