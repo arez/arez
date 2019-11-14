@@ -1261,8 +1261,8 @@ final class ComponentDescriptor
                                           @Nonnull final String targetAnnotationName,
                                           @Nonnull final ExecutableElement targetElement )
   {
-    return new ProcessorException( "Method annotated with @" + MemberChecks.toSimpleName( sourceAnnotationName ) +
-                                   " specified name " + name + " that duplicates @" +
+    return new ProcessorException( "Method annotated with " + MemberChecks.toSimpleName( sourceAnnotationName ) +
+                                   " specified name " + name + " that duplicates " +
                                    MemberChecks.toSimpleName( targetAnnotationName ) + " defined by method " +
                                    targetElement.getSimpleName(), sourceMethod );
   }
