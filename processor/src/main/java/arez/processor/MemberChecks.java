@@ -299,7 +299,7 @@ final class MemberChecks
   }
 
   @Nonnull
-  private static String must( @Nonnull final String annotationName, @Nonnull final String message )
+  static String must( @Nonnull final String annotationName, @Nonnull final String message )
   {
     return toSimpleName( annotationName ) + " target must " + message;
   }
