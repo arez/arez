@@ -13,17 +13,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_AnnotatedComponent extends AnnotatedComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_NonStandardNameComponentRefModel extends NonStandardNameComponentRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_AnnotatedComponent() {
+  Arez_NonStandardNameComponentRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "AnnotatedComponent." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "AnnotatedComponent", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NonStandardNameComponentRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonStandardNameComponentRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -31,9 +31,9 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
 
   @Override
   @Nonnull
-  public final Component getComponent() {
+  final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'AnnotatedComponent'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'NonStandardNameComponentRefModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'getComponent' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -96,8 +96,8 @@ final class Arez_AnnotatedComponent extends AnnotatedComponent implements Dispos
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_AnnotatedComponent ) {
-        final Arez_AnnotatedComponent that = (Arez_AnnotatedComponent) o;
+      if ( o instanceof Arez_NonStandardNameComponentRefModel ) {
+        final Arez_NonStandardNameComponentRefModel that = (Arez_NonStandardNameComponentRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

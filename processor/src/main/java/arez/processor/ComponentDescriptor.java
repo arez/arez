@@ -923,14 +923,7 @@ final class ComponentDescriptor
   private void setComponentRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MemberChecks.mustBeOverridable( getElement(),
-                                    Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                    Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
-                                    method );
-    MemberChecks.mustBeAbstract( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustReturnAValue( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_REF_ANNOTATION_CLASSNAME, method );
+    ArezUtils.mustBeStandardRefMethod( _processingEnv, this, method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||

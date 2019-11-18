@@ -13,17 +13,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_SimpleComponent extends SimpleComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_PublicAccessViaInterfaceComponentRefModel extends PublicAccessViaInterfaceComponentRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_SimpleComponent() {
+  Arez_PublicAccessViaInterfaceComponentRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "SimpleComponent." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "SimpleComponent", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PublicAccessViaInterfaceComponentRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PublicAccessViaInterfaceComponentRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -31,9 +31,9 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
 
   @Override
   @Nonnull
-  final Component getComponent() {
+  public final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'SimpleComponent'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'PublicAccessViaInterfaceComponentRefModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'getComponent' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -96,8 +96,8 @@ final class Arez_SimpleComponent extends SimpleComponent implements Disposable, 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_SimpleComponent ) {
-        final Arez_SimpleComponent that = (Arez_SimpleComponent) o;
+      if ( o instanceof Arez_PublicAccessViaInterfaceComponentRefModel ) {
+        final Arez_PublicAccessViaInterfaceComponentRefModel that = (Arez_PublicAccessViaInterfaceComponentRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

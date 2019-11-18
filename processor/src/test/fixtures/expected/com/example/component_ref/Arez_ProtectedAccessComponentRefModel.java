@@ -13,12 +13,14 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ProtectedAccessComponentRefModel
+  extends ProtectedAccessComponentRefModel
+  implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_ProtectedAccessComponent() {
+  Arez_ProtectedAccessComponentRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
@@ -96,8 +98,8 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ProtectedAccessComponent ) {
-        final Arez_ProtectedAccessComponent that = (Arez_ProtectedAccessComponent) o;
+      if ( o instanceof Arez_ProtectedAccessComponentRefModel ) {
+        final Arez_ProtectedAccessComponentRefModel that = (Arez_ProtectedAccessComponentRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

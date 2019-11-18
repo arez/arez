@@ -124,10 +124,31 @@ public class ArezProcessorTest
                       false,
                       false },
         new Object[]{ "com.example.component_name_ref.NonStandardNameModel", false, false, false, false },
-        new Object[]{ "com.example.component_ref.AnnotatedComponent", false, false, false, false },
-        new Object[]{ "com.example.component_ref.NonStandardNameComponent", false, false, false, false },
-        new Object[]{ "com.example.component_ref.SimpleComponent", false, false, false, false },
-        new Object[]{ "com.example.component_ref.ProtectedAccessComponent", false, false, false, false },
+
+        new Object[]{ "com.example.component_ref.AnnotatedComponentRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_ref.BasicComponentRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_ref.Suppressed1ProtectedAccessComponentRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_ref.Suppressed1PublicAccessComponentRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_ref.Suppressed2ProtectedAccessComponentRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_ref.Suppressed2PublicAccessComponentRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
 
         new Object[]{ "com.example.component_state_ref.CompleteComponentStateRefModel", false, false, false, false },
         new Object[]{ "com.example.component_state_ref.ConstructedComponentStateRefModel", false, false, false, false },
@@ -552,6 +573,51 @@ public class ArezProcessorTest
                              daggerComponentExtensionExpected,
                              repositoryEnabled,
                              repositoryDaggerEnabled );
+  }
+
+  @Test
+  public void protectedAccessComponentRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component_ref.ProtectedAccessComponentRefModel" );
+    final String messageFragment =
+      "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessComponentRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.component_ref.ProtectedAccessFromBaseComponentRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.component_ref.other.BaseProtectedAccessComponentRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.component_ref.Arez_ProtectedAccessFromBaseComponentRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceComponentRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.component_ref.PublicAccessViaInterfaceComponentRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.component_ref.ComponentRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.component_ref.Arez_PublicAccessViaInterfaceComponentRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
   }
 
   @Test
@@ -1093,9 +1159,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.StaticModel", "@Memoize target must not be static" },
         new Object[]{ "com.example.memoize.ReturnVoidModel", "@Memoize target must return a value" },
 
-        new Object[]{ "com.example.component_ref.FinalModel", "@ComponentRef target must not be final" },
-        new Object[]{ "com.example.component_ref.StaticModel", "@ComponentRef target must not be static" },
-        new Object[]{ "com.example.component_ref.PrivateModel", "@ComponentRef target must not be private" },
+        new Object[]{ "com.example.component_ref.FinalModel", "@ComponentRef target must be abstract" },
+        new Object[]{ "com.example.component_ref.StaticModel", "@ComponentRef target must be abstract" },
+        new Object[]{ "com.example.component_ref.PrivateModel", "@ComponentRef target must be abstract" },
         new Object[]{ "com.example.component_ref.VoidModel", "@ComponentRef target must return a value" },
         new Object[]{ "com.example.component_ref.BadTypeModel",
                       "Method annotated with @ComponentRef must return an instance of arez.Component" },

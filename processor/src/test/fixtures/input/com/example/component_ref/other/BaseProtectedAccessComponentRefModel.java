@@ -1,11 +1,10 @@
-package com.example.component_ref;
+package com.example.component_ref.other;
 
 import arez.Component;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
-@ArezComponent( allowEmpty = true )
-abstract class ProtectedAccessComponent
+public abstract class BaseProtectedAccessComponentRefModel
 {
   @ComponentRef
   protected abstract Component getComponent();

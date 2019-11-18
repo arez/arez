@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-abstract class SimpleComponent
+abstract class PackageAccessComponentRefModel
 {
   @ComponentRef
   abstract Component getComponent();
