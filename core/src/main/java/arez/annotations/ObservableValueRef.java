@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be final</li>
  * <li>Must be abstract</li>
  * <li>Must not throw any exceptions</li>
- * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
+ * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * <li>
  *   Must return an instance of {@link ObservableValue} and the type parameter must be the
  *   wildcard {@code ?} or the type of the corresponding {@link Observable} method. The value

@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
  * <li>Must not be static</li>
  * <li>Must not be final</li>
  * <li>Must not be abstract</li>
+ * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
  */
 @Documented

@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
  * <li>Must not be static</li>
  * <li>Must not be abstract unless the method is annotated with {@link Reference} or {@link Observable} in which case it MUST be abstract</li>
  * <li>Must not throw exceptions</li>
- * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
+ * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
  *
  * <p>If the element annotated is a field then the field must comply with the additional constraints:</p>

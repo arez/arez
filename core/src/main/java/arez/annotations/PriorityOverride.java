@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
  * <li>Must not throw any exceptions</li>
  * <li>Must return an int priority.</li>
  * <li>May accept zero parameters or a single int parameter that indicates default priority.</li>
- * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
+ * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
  */
 @Documented

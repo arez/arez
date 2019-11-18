@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
  * <li>Must have either no parameters or a single parameter of type {@link arez.Observer}</li>
  * <li>Must not return a value</li>
  * <li>Must not throw an exception</li>
- * <li>The method must be accessible to the component subclass which means it must not be package access unless it is in the same package as the arez component.</li>
+ * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
  *
  * <p>If the annotated method has a parameter of type {@link arez.Observer} then the underlying {@link arez.Observer}
