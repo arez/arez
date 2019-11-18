@@ -331,14 +331,15 @@ final class MemberChecks
   static void shouldNotBePublic( @Nonnull final ProcessingEnvironment processingEnv,
                                  @Nonnull final ExecutableElement method,
                                  @Nonnull final String annotationName,
+                                 @Nonnull final String warning,
                                  @Nullable final String alternativeSuppressWarnings )
   {
     if ( method.getModifiers().contains( Modifier.PUBLIC ) &&
-         !ProcessorUtil.isWarningSuppressed( method, annotationName, alternativeSuppressWarnings ) )
+         !ProcessorUtil.isWarningSuppressed( method, warning, alternativeSuppressWarnings ) )
     {
       final String message =
         toSimpleName( annotationName ) + " target should not be public. " +
-        suppressedBy( annotationName, alternativeSuppressWarnings );
+        suppressedBy( warning, alternativeSuppressWarnings );
       processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
     }
   }
