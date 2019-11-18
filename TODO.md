@@ -26,7 +26,8 @@ See https://github.com/arez/arez/issues/91
 * Generate a suppressable warning if any `@*Ref` method or lifecycle method is protected and in class
   annotated with `@ArezComponent`
 
-* Rework lots of assertions for `@*Ref` methods so that they just assert that they are abstract
+* Rework lots of assertions for `@*Ref` methods so that they just assert that they are abstract. Update
+  constraints in javadocs.
 
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
