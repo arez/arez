@@ -715,12 +715,7 @@ final class ComponentDescriptor
                                       @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    MemberChecks.mustBeOverridable( getElement(),
-                                    Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                    Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
-                                    method );
-    MemberChecks.mustBeAbstract( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
+    ArezUtils.mustBeRefMethod( _processingEnv, this, method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||

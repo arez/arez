@@ -187,11 +187,48 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.ScheduleDeferredKeepAliveModel", false, false, false, false },
         new Object[]{ "com.example.memoize.TypeParametersModel", false, false, false, false },
         new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.NonStandardName2ComputableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.ParametersComputableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.NonStandardName2ComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.PackageAccessComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.ParametersComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
         new Object[]{ "com.example.computable_value_ref.RawComputableValueRefModel", false, false, false, false },
         new Object[]{ "com.example.computable_value_ref.RawWithParamsComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.Suppressed1ProtectedAccessComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.Suppressed1PublicAccessComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.Suppressed2ProtectedAccessComputableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.computable_value_ref.Suppressed2PublicAccessComputableValueRefModel",
                       false,
                       false,
                       false,
@@ -558,6 +595,51 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component_state_ref.ComponentStateRefInterface" );
     final String output =
       toFilename( "expected", "com.example.component_state_ref.Arez_PublicAccessViaInterfaceComponentStateRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessComputableValueRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.computable_value_ref.ProtectedAccessComputableValueRefModel" );
+    final String messageFragment =
+      "@ComputableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessComputableValueRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.computable_value_ref.ProtectedAccessFromBaseComputableValueRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.computable_value_ref.other.BaseProtectedAccessComputableValueRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.computable_value_ref.Arez_ProtectedAccessFromBaseComputableValueRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceComputableValueRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.computable_value_ref.PublicAccessViaInterfaceComputableValueRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.computable_value_ref.ComputableValueRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.computable_value_ref.Arez_PublicAccessViaInterfaceComputableValueRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1227,7 +1309,7 @@ public class ArezProcessorTest
                       "@ComputableValueRef target has a type parameter of java.lang.String but @Memoize method returns type of long" },
         new Object[]{ "com.example.computable_value_ref.DuplicateRefMethodModel",
                       "@ComputableValueRef target duplicates existing method named getTimeComputableValue" },
-        new Object[]{ "com.example.computable_value_ref.FinalModel", "@ComputableValueRef target must not be final" },
+        new Object[]{ "com.example.computable_value_ref.FinalModel", "@ComputableValueRef target must be abstract" },
         new Object[]{ "com.example.computable_value_ref.MemoizeHasDifferentParameters1Model",
                       "@ComputableValueRef target and the associated @Memoize target do not have the same parameters." },
         new Object[]{ "com.example.computable_value_ref.MemoizeHasDifferentParameters2Model",
@@ -1240,9 +1322,8 @@ public class ArezProcessorTest
                       "@ComputableValueRef exists but there is no corresponding @Memoize" },
         new Object[]{ "com.example.computable_value_ref.NonAlignedNameModel",
                       "Method annotated with @ComputableValueRef should specify name or be named according to the convention get[Name]ComputableValue" },
-        new Object[]{ "com.example.computable_value_ref.PrivateModel",
-                      "@ComputableValueRef target must not be private" },
-        new Object[]{ "com.example.computable_value_ref.StaticModel", "@ComputableValueRef target must not be static" },
+        new Object[]{ "com.example.computable_value_ref.PrivateModel", "@ComputableValueRef target must be abstract" },
+        new Object[]{ "com.example.computable_value_ref.StaticModel", "@ComputableValueRef target must be abstract" },
         new Object[]{ "com.example.computable_value_ref.ThrowsExceptionModel",
                       "@ComputableValueRef target must not throw any exceptions" },
 
