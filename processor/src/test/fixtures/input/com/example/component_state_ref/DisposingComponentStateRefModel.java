@@ -5,8 +5,8 @@ import arez.annotations.ComponentStateRef;
 import arez.annotations.State;
 
 @ArezComponent( allowEmpty = true )
-public abstract class ConstructedStateRefModel
+abstract class DisposingComponentStateRefModel
 {
-  @ComponentStateRef( State.CONSTRUCTED )
-  protected abstract boolean isConstructed();
+  @ComponentStateRef( State.DISPOSING )
+  abstract boolean isDisposing();
 }

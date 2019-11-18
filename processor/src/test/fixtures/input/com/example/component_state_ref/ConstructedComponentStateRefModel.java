@@ -2,10 +2,11 @@ package com.example.component_state_ref;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentStateRef;
+import arez.annotations.State;
 
 @ArezComponent( allowEmpty = true )
-public abstract class PackageAccessStateRefModel
+abstract class ConstructedComponentStateRefModel
 {
-  @ComponentStateRef
-  abstract boolean isReady();
+  @ComponentStateRef( State.CONSTRUCTED )
+  abstract boolean isConstructed();
 }

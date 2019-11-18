@@ -79,9 +79,7 @@ final class ComponentDescriptor
    */
   private String _repositoryInjectMode = "AUTODETECT";
   @Nonnull
-  private final Elements _elements;
-  @Nonnull
-  private final Types _typeUtils;
+  private final ProcessingEnvironment _processingEnv;
   @Nonnull
   private final String _type;
   private final boolean _nameIncludesId;
@@ -166,8 +164,7 @@ final class ComponentDescriptor
     Collections.unmodifiableCollection( _inverses.values() );
   private final Map<String, CandidateMethod> _priorityOverrides = new LinkedHashMap<>();
 
-  ComponentDescriptor( @Nonnull final Elements elements,
-                       @Nonnull final Types typeUtils,
+  ComponentDescriptor( @Nonnull final ProcessingEnvironment processingEnv,
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
@@ -185,8 +182,7 @@ final class ComponentDescriptor
                        final boolean generateToString,
                        @Nonnull final TypeElement element )
   {
-    _elements = Objects.requireNonNull( elements );
-    _typeUtils = Objects.requireNonNull( typeUtils );
+    _processingEnv = Objects.requireNonNull( processingEnv );
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
@@ -214,7 +210,7 @@ final class ComponentDescriptor
   @Nonnull
   Types getTypeUtils()
   {
-    return _typeUtils;
+    return _processingEnv.getTypeUtils();
   }
 
   private boolean hasDeprecatedElements()
@@ -855,14 +851,7 @@ final class ComponentDescriptor
                                      @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MemberChecks.mustBeOverridable( getElement(),
-                                    Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                    Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME,
-                                    method );
-    MemberChecks.mustBeAbstract( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustReturnAValue( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME, method );
+    ArezUtils.mustBeRefMethod( _processingEnv, this, method, Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.BOOLEAN != returnType.getKind() )
@@ -1154,7 +1143,7 @@ final class ComponentDescriptor
     }
     if ( null != _componentIdRef &&
          null != _componentId &&
-         !_typeUtils.isSameType( _componentId.getReturnType(), _componentIdRef.getReturnType() ) )
+         !_processingEnv.getTypeUtils().isSameType( _componentId.getReturnType(), _componentIdRef.getReturnType() ) )
     {
       throw new ProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
                                     " and a @ComponentId annotated method with a return type " +
@@ -1162,7 +1151,9 @@ final class ComponentDescriptor
     }
     else if ( null != _componentIdRef &&
               null == _componentId &&
-              !_typeUtils.isSameType( _typeUtils.getPrimitiveType( TypeKind.INT ), _componentIdRef.getReturnType() ) )
+              !_processingEnv.getTypeUtils()
+                .isSameType( _processingEnv.getTypeUtils().getPrimitiveType( TypeKind.INT ),
+                             _componentIdRef.getReturnType() ) )
     {
       throw new ProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
                                     " but no @ComponentId annotated method. The type is expected to be of " +
@@ -1440,12 +1431,12 @@ final class ComponentDescriptor
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement field )
   {
-    final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+    final TypeElement disposable = _processingEnv.getElementUtils().getTypeElement( Constants.DISPOSABLE_CLASSNAME );
     assert null != disposable;
     final TypeMirror typeMirror = field.asType();
-    if ( !_typeUtils.isAssignable( typeMirror, disposable.asType() ) )
+    if ( !_processingEnv.getTypeUtils().isAssignable( typeMirror, disposable.asType() ) )
     {
-      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
+      final TypeElement typeElement = (TypeElement) _processingEnv.getTypeUtils().asElement( typeMirror );
       final AnnotationMirror value =
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
@@ -1475,12 +1466,12 @@ final class ComponentDescriptor
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
   {
-    final TypeElement disposable = _elements.getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+    final TypeElement disposable = _processingEnv.getElementUtils().getTypeElement( Constants.DISPOSABLE_CLASSNAME );
     assert null != disposable;
     final TypeMirror typeMirror = method.getReturnType();
-    if ( !_typeUtils.isAssignable( typeMirror, disposable.asType() ) )
+    if ( !_processingEnv.getTypeUtils().isAssignable( typeMirror, disposable.asType() ) )
     {
-      final TypeElement typeElement = (TypeElement) _typeUtils.asElement( typeMirror );
+      final TypeElement typeElement = (TypeElement) _processingEnv.getTypeUtils().asElement( typeMirror );
       final AnnotationMirror value =
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
@@ -1714,10 +1705,11 @@ final class ComponentDescriptor
   {
     final Multiplicity multiplicity =
       ProcessorUtil
-        .getMethods( descriptor.getTargetType(), _elements, _typeUtils )
+        .getMethods( descriptor.getTargetType(), _processingEnv.getElementUtils(), _processingEnv.getTypeUtils() )
         .stream()
         .map( m -> {
-          final AnnotationMirror a = AnnotationsUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
+          final AnnotationMirror a =
+            AnnotationsUtil.findAnnotationByType( m, Constants.REFERENCE_ANNOTATION_CLASSNAME );
           if ( null != a && getReferenceName( a, m ).equals( descriptor.getReferenceName() ) )
           {
             if ( null == AnnotationsUtil.findAnnotationValueNoDefaults( a, "inverse" ) &&
@@ -1759,7 +1751,7 @@ final class ComponentDescriptor
 
   private void ensureTargetTypeAligns( @Nonnull final InverseDescriptor descriptor, @Nonnull final TypeMirror target )
   {
-    if ( !_typeUtils.isSameType( target, getElement().asType() ) )
+    if ( !_processingEnv.getTypeUtils().isSameType( target, getElement().asType() ) )
     {
       throw new ProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
                                     "a target type equal to " + descriptor.getTargetType() + " but the actual " +
@@ -1776,7 +1768,8 @@ final class ComponentDescriptor
       final ParameterizedTypeName type = (ParameterizedTypeName) typeName;
       if ( isSupportedInverseCollectionType( type.rawType.toString() ) && !type.typeArguments.isEmpty() )
       {
-        final TypeElement typeElement = _elements.getTypeElement( type.typeArguments.get( 0 ).toString() );
+        final TypeElement typeElement =
+          _processingEnv.getElementUtils().getTypeElement( type.typeArguments.get( 0 ).toString() );
         if ( AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
           return typeElement;
@@ -1898,14 +1891,15 @@ final class ComponentDescriptor
 
   private void verifyMultiplicityOfAssociatedInverseMethod( @Nonnull final ReferenceDescriptor descriptor )
   {
-    final TypeElement element = (TypeElement) _typeUtils.asElement( descriptor.getMethod().getReturnType() );
+    final TypeElement element =
+      (TypeElement) _processingEnv.getTypeUtils().asElement( descriptor.getMethod().getReturnType() );
     final String defaultInverseName =
       descriptor.hasInverse() ?
       null :
       ProcessorUtil.firstCharacterToLowerCase( getElement().getSimpleName().toString() ) + "s";
     final Multiplicity multiplicity =
       ProcessorUtil
-        .getMethods( element, _elements, _typeUtils )
+        .getMethods( element, _processingEnv.getElementUtils(), _processingEnv.getTypeUtils() )
         .stream()
         .map( m -> {
           final AnnotationMirror a = AnnotationsUtil.findAnnotationByType( m, Constants.INVERSE_ANNOTATION_CLASSNAME );
@@ -1966,7 +1960,7 @@ final class ComponentDescriptor
 
   private void ensureTargetTypeAligns( @Nonnull final ReferenceDescriptor descriptor, @Nonnull final TypeMirror target )
   {
-    if ( !_typeUtils.isSameType( target, getElement().asType() ) )
+    if ( !_processingEnv.getTypeUtils().isSameType( target, getElement().asType() ) )
     {
       throw new ProcessorException( "@Reference target expected to find an associated @Inverse annotation with " +
                                     "a target type equal to " + getElement().getQualifiedName() + " but " +
@@ -2126,11 +2120,12 @@ final class ComponentDescriptor
     }
     if ( !validateTypeAtRuntime )
     {
-      final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+      final TypeElement disposeNotifier =
+        _processingEnv.getElementUtils().getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
       assert null != disposeNotifier;
-      if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
+      if ( !_processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
       {
-        final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
+        final TypeElement typeElement = (TypeElement) _processingEnv.getTypeUtils().asElement( type );
         if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
           throw new ProcessorException( "@ComponentDependency target must return an instance compatible with " +
@@ -2165,11 +2160,12 @@ final class ComponentDescriptor
     }
     if ( !validateTypeAtRuntime )
     {
-      final TypeElement disposeNotifier = _elements.getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+      final TypeElement disposeNotifier =
+        _processingEnv.getElementUtils().getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
       assert null != disposeNotifier;
-      if ( !_typeUtils.isAssignable( type, disposeNotifier.asType() ) )
+      if ( !_processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
       {
-        final TypeElement typeElement = (TypeElement) _typeUtils.asElement( type );
+        final TypeElement typeElement = (TypeElement) _processingEnv.getTypeUtils().asElement( type );
         if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
           throw new ProcessorException( "@ComponentDependency target must be an instance compatible with " +
@@ -2844,7 +2840,7 @@ final class ComponentDescriptor
         .filter( ReferenceDescriptor::hasInverse )
         .anyMatch( reference -> {
           final TypeElement typeElement =
-            (TypeElement) _typeUtils.asElement( reference.getMethod().getReturnType() );
+            (TypeElement) _processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
 
           final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( typeElement );
           final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( getElement() );
@@ -4193,7 +4189,7 @@ final class ComponentDescriptor
     else
     {
       final ExecutableType methodType =
-        (ExecutableType) _typeUtils.asMemberOf( (DeclaredType) _element.asType(), _componentId );
+        (ExecutableType) _processingEnv.getTypeUtils().asMemberOf( (DeclaredType) _element.asType(), _componentId );
       builder.addStatement( "final $T $N = $N()",
                             methodType.getReturnType(),
                             Generator.ID_VAR_NAME,
@@ -4303,7 +4299,7 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  TypeSpec buildComponentDaggerModule(@Nonnull final ProcessingEnvironment processingEnv)
+  TypeSpec buildComponentDaggerModule( @Nonnull final ProcessingEnvironment processingEnv )
     throws ProcessorException
   {
     assert needsDaggerIntegration();
@@ -4398,7 +4394,7 @@ final class ComponentDescriptor
       "CONSUME".equals( _repositoryInjectMode ) ||
       "PROVIDE".equals( _repositoryInjectMode ) ||
       ( "AUTODETECT".equals( _repositoryInjectMode ) &&
-        null != _elements.getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME ) );
+        null != _processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME ) );
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );

@@ -12,17 +12,17 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_PackageAccessStateRefModel extends PackageAccessStateRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_DefaultComponentStateRefModel extends DefaultComponentStateRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_PackageAccessStateRefModel() {
+  Arez_DefaultComponentStateRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PackageAccessStateRefModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PackageAccessStateRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "DefaultComponentStateRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DefaultComponentStateRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -79,8 +79,8 @@ public final class Arez_PackageAccessStateRefModel extends PackageAccessStateRef
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_PackageAccessStateRefModel ) {
-        final Arez_PackageAccessStateRefModel that = (Arez_PackageAccessStateRefModel) o;
+      if ( o instanceof Arez_DefaultComponentStateRefModel ) {
+        final Arez_DefaultComponentStateRefModel that = (Arez_DefaultComponentStateRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

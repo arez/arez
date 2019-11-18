@@ -12,17 +12,17 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DisposingStateRefModel extends DisposingStateRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_PublicAccessComponentStateRefModel extends PublicAccessComponentStateRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_DisposingStateRefModel() {
+  Arez_PublicAccessComponentStateRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "DisposingStateRefModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DisposingStateRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PublicAccessComponentStateRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PublicAccessComponentStateRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -63,8 +63,8 @@ public final class Arez_DisposingStateRefModel extends DisposingStateRefModel im
   }
 
   @Override
-  protected final boolean isDisposing() {
-    return this.$$arezi$$_kernel.isDisposing();
+  public final boolean isReady() {
+    return this.$$arezi$$_kernel.isReady();
   }
 
   @Override
@@ -79,8 +79,8 @@ public final class Arez_DisposingStateRefModel extends DisposingStateRefModel im
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_DisposingStateRefModel ) {
-        final Arez_DisposingStateRefModel that = (Arez_DisposingStateRefModel) o;
+      if ( o instanceof Arez_PublicAccessComponentStateRefModel ) {
+        final Arez_PublicAccessComponentStateRefModel that = (Arez_PublicAccessComponentStateRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

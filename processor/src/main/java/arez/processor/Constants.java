@@ -51,7 +51,10 @@ final class Constants
   static final String GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.Generated";
   static final String JAVA9_GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.processing.Generated";
   static final String UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION = "Arez:UnmanagedComponentReference";
+
   static final String SENTINEL = "<default>";
+  static final String WARNING_PUBLIC_REF_METHOD = "Arez:PublicRefMethod";
+  static final String WARNING_PROTECTED_REF_METHOD = "Arez:ProtectedRefMethod";
 
   private Constants()
   {

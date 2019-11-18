@@ -4,8 +4,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentStateRef;
 
 @ArezComponent( allowEmpty = true )
-public abstract class PublicAccessStateRefModel
+abstract class ProtectedAccessComponentStateRefModel
 {
   @ComponentStateRef
-  public abstract boolean isReady();
+  protected abstract boolean isReady();
 }

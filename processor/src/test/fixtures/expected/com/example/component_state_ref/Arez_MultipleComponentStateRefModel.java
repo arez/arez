@@ -12,17 +12,17 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ConstructedStateRefModel extends ConstructedStateRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_ConstructedStateRefModel() {
+  Arez_MultipleComponentStateRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ConstructedStateRefModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ConstructedStateRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "MultipleComponentStateRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "MultipleComponentStateRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -63,8 +63,43 @@ public final class Arez_ConstructedStateRefModel extends ConstructedStateRefMode
   }
 
   @Override
-  protected final boolean isConstructed() {
+  final boolean isConstructed1() {
     return this.$$arezi$$_kernel.isConstructed();
+  }
+
+  @Override
+  final boolean isComplete1() {
+    return this.$$arezi$$_kernel.isComplete();
+  }
+
+  @Override
+  final boolean isReady1() {
+    return this.$$arezi$$_kernel.isReady();
+  }
+
+  @Override
+  final boolean isDisposing1() {
+    return this.$$arezi$$_kernel.isDisposing();
+  }
+
+  @Override
+  final boolean isConstructed2() {
+    return this.$$arezi$$_kernel.isConstructed();
+  }
+
+  @Override
+  final boolean isComplete2() {
+    return this.$$arezi$$_kernel.isComplete();
+  }
+
+  @Override
+  final boolean isReady2() {
+    return this.$$arezi$$_kernel.isReady();
+  }
+
+  @Override
+  final boolean isDisposing2() {
+    return this.$$arezi$$_kernel.isDisposing();
   }
 
   @Override
@@ -79,8 +114,8 @@ public final class Arez_ConstructedStateRefModel extends ConstructedStateRefMode
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ConstructedStateRefModel ) {
-        final Arez_ConstructedStateRefModel that = (Arez_ConstructedStateRefModel) o;
+      if ( o instanceof Arez_MultipleComponentStateRefModel ) {
+        final Arez_MultipleComponentStateRefModel that = (Arez_MultipleComponentStateRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

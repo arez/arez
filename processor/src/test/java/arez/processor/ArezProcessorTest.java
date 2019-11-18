@@ -129,14 +129,13 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_ref.SimpleComponent", false, false, false, false },
         new Object[]{ "com.example.component_ref.ProtectedAccessComponent", false, false, false, false },
 
-        new Object[]{ "com.example.component_state_ref.CompleteStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.ConstructedStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.DefaultStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.DisposingStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.MultipleStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.PackageAccessStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.PublicAccessStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.ReadyStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.CompleteComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.ConstructedComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.DefaultComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.DisposingComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.MultipleComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.ReadyComponentStateRefModel", false, false, false, false },
 
         new Object[]{ "com.example.memoize.ArezOrNoneDependenciesModel", false, false, false, false },
         new Object[]{ "com.example.memoize.NameVariationsModel", false, false, false, false },
@@ -492,6 +491,22 @@ public class ArezProcessorTest
                              daggerComponentExtensionExpected,
                              repositoryEnabled,
                              repositoryDaggerEnabled );
+  }
+
+  @Test
+  public void protectedAccessStateRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component_state_ref.ProtectedAccessComponentStateRefModel" );
+    final String messageFragment =
+      "@ComponentStateRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
   }
 
   @Test
@@ -956,9 +971,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_ref.ParametersModel",
                       "@ComponentRef target must not have any parameters" },
 
-        new Object[]{ "com.example.component_state_ref.FinalModel", "@ComponentStateRef target must not be final" },
-        new Object[]{ "com.example.component_state_ref.StaticModel", "@ComponentStateRef target must not be static" },
-        new Object[]{ "com.example.component_state_ref.PrivateModel", "@ComponentStateRef target must not be private" },
+        new Object[]{ "com.example.component_state_ref.FinalModel", "@ComponentStateRef target must be abstract" },
+        new Object[]{ "com.example.component_state_ref.StaticModel", "@ComponentStateRef target must be abstract" },
+        new Object[]{ "com.example.component_state_ref.PrivateModel", "@ComponentStateRef target must be abstract" },
         new Object[]{ "com.example.component_state_ref.VoidModel", "@ComponentStateRef target must return a value" },
         new Object[]{ "com.example.component_state_ref.BadTypeModel",
                       "Method annotated with @ComponentStateRef must return a boolean" },

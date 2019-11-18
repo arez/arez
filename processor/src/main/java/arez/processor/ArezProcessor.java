@@ -215,8 +215,7 @@ public final class ArezProcessor
                            getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( processingEnv.getElementUtils(),
-                               processingEnv.getTypeUtils(),
+      new ComponentDescriptor( processingEnv,
                                type,
                                nameIncludesId,
                                allowEmpty,

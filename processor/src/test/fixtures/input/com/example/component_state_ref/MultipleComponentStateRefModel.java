@@ -5,29 +5,29 @@ import arez.annotations.ComponentStateRef;
 import arez.annotations.State;
 
 @ArezComponent( allowEmpty = true )
-public abstract class MultipleStateRefModel
+abstract class MultipleComponentStateRefModel
 {
   @ComponentStateRef( State.CONSTRUCTED )
-  protected abstract boolean isConstructed1();
+  abstract boolean isConstructed1();
 
   @ComponentStateRef( State.COMPLETE )
-  protected abstract boolean isComplete1();
+  abstract boolean isComplete1();
 
   @ComponentStateRef( State.READY )
-  protected abstract boolean isReady1();
+  abstract boolean isReady1();
 
   @ComponentStateRef( State.DISPOSING )
-  protected abstract boolean isDisposing1();
+  abstract boolean isDisposing1();
 
   @ComponentStateRef( State.CONSTRUCTED )
-  protected abstract boolean isConstructed2();
+  abstract boolean isConstructed2();
 
   @ComponentStateRef( State.COMPLETE )
-  protected abstract boolean isComplete2();
+  abstract boolean isComplete2();
 
   @ComponentStateRef( State.READY )
-  protected abstract boolean isReady2();
+  abstract boolean isReady2();
 
   @ComponentStateRef( State.DISPOSING )
-  protected abstract boolean isDisposing2();
+  abstract boolean isDisposing2();
 }

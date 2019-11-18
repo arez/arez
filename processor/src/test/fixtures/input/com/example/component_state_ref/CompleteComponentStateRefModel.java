@@ -5,8 +5,8 @@ import arez.annotations.ComponentStateRef;
 import arez.annotations.State;
 
 @ArezComponent( allowEmpty = true )
-public abstract class ReadyStateRefModel
+abstract class CompleteComponentStateRefModel
 {
-  @ComponentStateRef( State.READY )
-  protected abstract boolean isReady();
+  @ComponentStateRef( State.COMPLETE )
+  abstract boolean isComplete();
 }
