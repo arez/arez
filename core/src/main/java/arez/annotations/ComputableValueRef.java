@@ -16,9 +16,6 @@ import javax.annotation.Nonnull;
  * <ul>
  * <li>Must have the exact same parameter types as the associated {@link Memoize} annotated method</li>
  * <li>Must not be annotated with any other arez annotation</li>
- * <li>Must not be private</li>
- * <li>Must not be static</li>
- * <li>Must not be final</li>
  * <li>Must be abstract</li>
  * <li>Must not throw any exceptions</li>
  * <li>Must return an instance of {@link ComputableValue}.</li>

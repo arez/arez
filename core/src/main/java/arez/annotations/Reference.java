@@ -21,8 +21,6 @@ import javax.annotation.Nonnull;
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must have 0 parameters</li>
  * <li>Must return a value</li>
- * <li>Must not be private</li>
- * <li>Must not be static</li>
  * <li>Must be abstract</li>
  * <li>Must not throw exceptions</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>

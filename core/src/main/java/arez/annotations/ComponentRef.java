@@ -10,9 +10,6 @@ import java.lang.annotation.Target;
  * <p>The method that is annotated with this annotation must also comply with the following constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
- * <li>Must not be private</li>
- * <li>Must not be static</li>
- * <li>Must not be final</li>
  * <li>Must be abstract</li>
  * <li>Must not throw any exceptions</li>
  * <li>Must return an instance of {@link arez.Component}.</li>
