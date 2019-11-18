@@ -1,6 +1,5 @@
 package com.example.component_name_ref;
 
-import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -14,17 +13,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComponentNameModel extends ComponentNameModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_BasicComponentNameRefModel extends BasicComponentNameRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_ComponentNameModel() {
+  Arez_BasicComponentNameRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ComponentNameModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentNameModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "BasicComponentNameRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "BasicComponentNameRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -42,9 +41,9 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
 
   @Override
   @Nonnull
-  public final String getComponentName() {
+  final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'ComponentNameModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'BasicComponentNameRefModel'" );
     }
     return this.$$arezi$$_kernel.getName();
   }
@@ -74,14 +73,6 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
   }
 
   @Override
-  public void doStuff(final long time, final float someOtherParameter) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
-    }
-    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
-  }
-
-  @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
@@ -93,8 +84,8 @@ public final class Arez_ComponentNameModel extends ComponentNameModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ComponentNameModel ) {
-        final Arez_ComponentNameModel that = (Arez_ComponentNameModel) o;
+      if ( o instanceof Arez_BasicComponentNameRefModel ) {
+        final Arez_BasicComponentNameRefModel that = (Arez_BasicComponentNameRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

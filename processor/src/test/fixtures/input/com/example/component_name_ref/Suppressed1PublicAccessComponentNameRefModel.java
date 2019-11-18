@@ -1,17 +1,13 @@
 package com.example.component_name_ref;
 
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 
-@ArezComponent
-public abstract class ComponentNameModel
+@ArezComponent( allowEmpty = true )
+abstract class Suppressed1PublicAccessComponentNameRefModel
 {
-  @Action
-  public void doStuff( final long time, float someOtherParameter )
-  {
-  }
-
+  // This uses the SOURCE retention suppression
+  @SuppressWarnings( "Arez:PublicRefMethod" )
   @ComponentNameRef
   public abstract String getComponentName();
 }

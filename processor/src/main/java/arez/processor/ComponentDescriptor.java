@@ -968,56 +968,48 @@ final class ComponentDescriptor
     }
   }
 
-  private void setComponentTypeNameRef( @Nonnull final ExecutableElement componentTypeName )
+  private void setComponentTypeNameRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MemberChecks.mustBeOverridable( getElement(),
-                                    Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                    Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
-                                    componentTypeName );
-    MemberChecks.mustBeAbstract( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
-    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
-    MemberChecks.mustReturnAValue( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME, componentTypeName );
+    ArezUtils.mustBeStandardRefMethod( _processingEnv,
+                                       this,
+                                       method,
+                                       Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
 
-    final TypeMirror returnType = componentTypeName.getReturnType();
+    final TypeMirror returnType = method.getReturnType();
     if ( !( TypeKind.DECLARED == returnType.getKind() &&
             returnType.toString().equals( String.class.getName() ) ) )
     {
-      throw new ProcessorException( "@ComponentTypeNameRef target must return a String", componentTypeName );
+      throw new ProcessorException( "@ComponentTypeNameRef target must return a String", method );
     }
 
     if ( null != _componentTypeNameRef )
     {
       throw new ProcessorException( "@ComponentTypeNameRef target duplicates existing method named " +
-                                    _componentTypeNameRef.getSimpleName(), componentTypeName );
+                                    _componentTypeNameRef.getSimpleName(), method );
     }
     else
     {
-      _componentTypeNameRef = Objects.requireNonNull( componentTypeName );
+      _componentTypeNameRef = Objects.requireNonNull( method );
     }
   }
 
-  private void setComponentNameRef( @Nonnull final ExecutableElement componentName )
+  private void setComponentNameRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    MemberChecks.mustBeOverridable( getElement(),
-                                    Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                    Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
-                                    componentName );
-    MemberChecks.mustBeAbstract( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
-    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
-    MemberChecks.mustReturnAValue( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME, componentName );
+    ArezUtils.mustBeStandardRefMethod( _processingEnv,
+                                       this,
+                                       method,
+                                       Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
 
     if ( null != _componentNameRef )
     {
       throw new ProcessorException( "@ComponentNameRef target duplicates existing method named " +
-                                    _componentNameRef.getSimpleName(), componentName );
+                                    _componentNameRef.getSimpleName(), method );
     }
     else
     {
-      _componentNameRef = Objects.requireNonNull( componentName );
+      _componentNameRef = Objects.requireNonNull( method );
     }
   }
 

@@ -1,6 +1,5 @@
 package com.example.component_name_ref;
 
-import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -14,17 +13,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComponentTypeNameAloneOnSingletonModel extends ComponentTypeNameAloneOnSingletonModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_PublicAccessViaInterfaceComponentNameRefModel extends PublicAccessViaInterfaceComponentNameRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_ComponentTypeNameAloneOnSingletonModel() {
+  Arez_PublicAccessViaInterfaceComponentNameRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ( Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ComponentTypeNameAloneOnSingletonModel" : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentTypeNameAloneOnSingletonModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PublicAccessViaInterfaceComponentNameRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PublicAccessViaInterfaceComponentNameRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -42,8 +41,11 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
 
   @Override
   @Nonnull
-  public final String getTypeName() {
-    return "ComponentTypeNameAloneOnSingletonModel";
+  public final String getComponentName() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'PublicAccessViaInterfaceComponentNameRefModel'" );
+    }
+    return this.$$arezi$$_kernel.getName();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -71,14 +73,6 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   }
 
   @Override
-  public void doStuff(final long time, final float someOtherParameter) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
-    }
-    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
-  }
-
-  @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
@@ -90,8 +84,8 @@ public final class Arez_ComponentTypeNameAloneOnSingletonModel extends Component
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ComponentTypeNameAloneOnSingletonModel ) {
-        final Arez_ComponentTypeNameAloneOnSingletonModel that = (Arez_ComponentTypeNameAloneOnSingletonModel) o;
+      if ( o instanceof Arez_PublicAccessViaInterfaceComponentNameRefModel ) {
+        final Arez_PublicAccessViaInterfaceComponentNameRefModel that = (Arez_PublicAccessViaInterfaceComponentNameRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

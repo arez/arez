@@ -1,6 +1,5 @@
 package com.example.component_name_ref;
 
-import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
@@ -14,17 +13,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NonStandardNameComponentTypeNameModel extends NonStandardNameComponentTypeNameModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_Suppressed1PublicAccessComponentNameRefModel extends Suppressed1PublicAccessComponentNameRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_NonStandardNameComponentTypeNameModel() {
+  Arez_Suppressed1PublicAccessComponentNameRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NonStandardNameComponentTypeNameModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonStandardNameComponentTypeNameModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Suppressed1PublicAccessComponentNameRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Suppressed1PublicAccessComponentNameRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -41,18 +40,13 @@ public final class Arez_NonStandardNameComponentTypeNameModel extends NonStandar
   }
 
   @Override
+  @SuppressWarnings("Arez:PublicRefMethod")
   @Nonnull
   public final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'NonStandardNameComponentTypeNameModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'Suppressed1PublicAccessComponentNameRefModel'" );
     }
     return this.$$arezi$$_kernel.getName();
-  }
-
-  @Override
-  @Nonnull
-  public final String $$$getTypeName$$$() {
-    return "NonStandardNameComponentTypeNameModel";
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -80,14 +74,6 @@ public final class Arez_NonStandardNameComponentTypeNameModel extends NonStandar
   }
 
   @Override
-  public void doStuff(final long time, final float someOtherParameter) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
-    }
-    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
-  }
-
-  @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
@@ -99,8 +85,8 @@ public final class Arez_NonStandardNameComponentTypeNameModel extends NonStandar
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NonStandardNameComponentTypeNameModel ) {
-        final Arez_NonStandardNameComponentTypeNameModel that = (Arez_NonStandardNameComponentTypeNameModel) o;
+      if ( o instanceof Arez_Suppressed1PublicAccessComponentNameRefModel ) {
+        final Arez_Suppressed1PublicAccessComponentNameRefModel that = (Arez_Suppressed1PublicAccessComponentNameRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
