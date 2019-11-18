@@ -378,8 +378,8 @@ public final class ArezProcessor
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
               "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause Please " +
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
-              "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" ) or " +
-              "@SuppressArezWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
+              "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
+              "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
             processingEnv.getMessager().printMessage( WARNING, message, field );
           }
         }
@@ -422,8 +422,8 @@ public final class ArezProcessor
                 " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
                 "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause errors. " +
                 "Please annotate the method as appropriate or suppress the warning by annotating the method with " +
-                "@SuppressWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" ) or " +
-                "@SuppressArezWarnings( \"" + Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION + "\" )";
+                "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
+                "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
               processingEnv.getMessager().printMessage( WARNING, message, getter );
             }
           }
@@ -459,7 +459,7 @@ public final class ArezProcessor
   private boolean isUnmanagedComponentReferenceNotSuppressed( @Nonnull final Element element )
   {
     return !ProcessorUtil.isWarningSuppressed( element,
-                                               Constants.UNMANAGED_COMPONENT_REFERENCE_SUPPRESSION,
+                                               Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE,
                                                Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
