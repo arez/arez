@@ -306,4 +306,20 @@ final class ProcessorUtil
         return !AnnotationsUtil.hasAnnotationOfType( element, Constants.SINGLETON_ANNOTATION_CLASSNAME );
     }
   }
+
+  static boolean doesMethodOverrideInterfaceMethod( @Nonnull final Types typeUtils,
+                                                    @Nonnull final TypeElement typeElement,
+                                                    @Nonnull final ExecutableElement method )
+  {
+    return getInterfaces( typeElement ).stream()
+      .flatMap( i -> i.getEnclosedElements().stream() )
+      .filter( e1 -> e1 instanceof ExecutableElement )
+      .map( e1 -> (ExecutableElement) e1 )
+      .collect(
+        Collectors.toList() ).stream()
+      .anyMatch( e -> isSubsignature( typeUtils,
+                                      typeElement,
+                                      (ExecutableType) typeUtils.asMemberOf( (DeclaredType) typeElement.asType(), e ),
+                                      method ) );
+  }
 }
