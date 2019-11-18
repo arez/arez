@@ -97,6 +97,31 @@ final class ProcessorUtil
   }
 
   @Nonnull
+  static List<TypeElement> getInterfaces( @Nonnull final TypeElement element )
+  {
+    final List<TypeElement> superTypes = new ArrayList<>();
+    enumerateInterfaces( element, superTypes );
+    return superTypes;
+  }
+
+  private static void enumerateInterfaces( @Nonnull final TypeElement element,
+                                           @Nonnull final List<TypeElement> superTypes )
+  {
+    final TypeMirror superclass = element.getSuperclass();
+    if ( TypeKind.NONE != superclass.getKind() )
+    {
+      final TypeElement superclassElement = (TypeElement) ( (DeclaredType) superclass ).asElement();
+      enumerateInterfaces( superclassElement, superTypes );
+    }
+    for ( final TypeMirror interfaceType : element.getInterfaces() )
+    {
+      final TypeElement interfaceElement = (TypeElement) ( (DeclaredType) interfaceType ).asElement();
+      superTypes.add( interfaceElement );
+      enumerateInterfaces( interfaceElement, superTypes );
+    }
+  }
+
+  @Nonnull
   static List<VariableElement> getFieldElements( @Nonnull final TypeElement element )
   {
     final Map<String, VariableElement> methodMap = new LinkedHashMap<>();
