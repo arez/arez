@@ -26,6 +26,8 @@ See https://github.com/arez/arez/issues/91
 * Generate a suppressable warning if any `@*Ref` method or lifecycle method is protected and in class
   annotated with `@ArezComponent`
 
+* `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
+
 * Rework lots of assertions for `@*Ref` methods so that they just assert that they are abstract. Update
   constraints in javadocs.
 
