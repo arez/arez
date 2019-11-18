@@ -108,9 +108,34 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_id.ComponentIdOnSingletonModel", false, false, false, false },
 
         new Object[]{ "com.example.component_id_ref.BasicComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
         new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel", false, false, false, false },
         new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.PackageAccessComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.Suppressed1ProtectedAccessComponentIdRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_id_ref.Suppressed1PublicAccessComponentIdRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_id_ref.Suppressed2ProtectedAccessComponentIdRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_id_ref.Suppressed2PublicAccessComponentIdRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
 
         new Object[]{ "com.example.component_name_ref.ComponentNameModel", false, false, false, false },
         new Object[]{ "com.example.component_name_ref.ComponentTypeNameModel", false, false, false, false },
@@ -623,6 +648,51 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void protectedAccessComponentIdRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component_id_ref.ProtectedAccessComponentIdRefModel" );
+    final String messageFragment =
+      "@ComponentIdRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessComponentIdRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.component_id_ref.ProtectedAccessFromBaseComponentIdRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.component_id_ref.other.BaseProtectedAccessComponentIdRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.component_id_ref.Arez_ProtectedAccessFromBaseComponentIdRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceComponentIdRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.component_id_ref.PublicAccessViaInterfaceComponentIdRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.component_id_ref.ComponentIdRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.component_id_ref.Arez_PublicAccessViaInterfaceComponentIdRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void protectedAccessComponentStateRef()
   {
     final String filename =
@@ -1117,12 +1187,12 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_id_ref.ConcreteModel", "@ComponentIdRef target must be abstract" },
         new Object[]{ "com.example.component_id_ref.DuplicateModel",
                       "@ComponentIdRef target duplicates existing method named getId" },
-        new Object[]{ "com.example.component_id_ref.FinalModel", "@ComponentIdRef target must not be final" },
+        new Object[]{ "com.example.component_id_ref.FinalModel", "@ComponentIdRef target must be abstract" },
         new Object[]{ "com.example.component_id_ref.NoReturnModel", "@ComponentIdRef target must return a value" },
         new Object[]{ "com.example.component_id_ref.ParametersModel",
                       "@ComponentIdRef target must not have any parameters" },
-        new Object[]{ "com.example.component_id_ref.PrivateModel", "@ComponentIdRef target must not be private" },
-        new Object[]{ "com.example.component_id_ref.StaticModel", "@ComponentIdRef target must not be static" },
+        new Object[]{ "com.example.component_id_ref.PrivateModel", "@ComponentIdRef target must be abstract" },
+        new Object[]{ "com.example.component_id_ref.StaticModel", "@ComponentIdRef target must be abstract" },
         new Object[]{ "com.example.component_id_ref.ThrowsModel",
                       "@ComponentIdRef target must not throw any exceptions" },
 
