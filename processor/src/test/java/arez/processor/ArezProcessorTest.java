@@ -134,8 +134,32 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_state_ref.DefaultComponentStateRefModel", false, false, false, false },
         new Object[]{ "com.example.component_state_ref.DisposingComponentStateRefModel", false, false, false, false },
         new Object[]{ "com.example.component_state_ref.MultipleComponentStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
         new Object[]{ "com.example.component_state_ref.ReadyComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.Suppressed1ProtectedAccessComponentStateRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_state_ref.Suppressed1PublicAccessComponentStateRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_state_ref.Suppressed2ProtectedAccessComponentStateRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component_state_ref.Suppressed2PublicAccessComponentStateRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
 
         new Object[]{ "com.example.memoize.ArezOrNoneDependenciesModel", false, false, false, false },
         new Object[]{ "com.example.memoize.NameVariationsModel", false, false, false, false },
@@ -507,6 +531,35 @@ public class ArezProcessorTest
       compilesWithoutError().
       withWarningCount( 1 ).
       withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessComponentManagerRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.component_state_ref.ProtectedAccessFromBaseComponentStateRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.component_state_ref.other.BaseProtectedAccessComponentStateRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.component_state_ref.Arez_ProtectedAccessFromBaseComponentStateRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceComponentStateRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.component_state_ref.PublicAccessViaInterfaceComponentStateRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.component_state_ref.ComponentStateRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.component_state_ref.Arez_PublicAccessViaInterfaceComponentStateRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
   }
 
   @Test
