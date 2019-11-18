@@ -6,7 +6,7 @@ import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public abstract class RawComputableValueModel
+public abstract class RawComputableValueRefModel
 {
   @Memoize
   public long getTime()

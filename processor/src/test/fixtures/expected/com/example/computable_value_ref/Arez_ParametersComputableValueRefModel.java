@@ -16,7 +16,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_RawComputableValueWithParamsModel extends RawComputableValueWithParamsModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+public final class Arez_ParametersComputableValueRefModel extends ParametersComputableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -24,14 +24,14 @@ public final class Arez_RawComputableValueWithParamsModel extends RawComputableV
   @Nonnull
   private final MemoizeCache<Long> $$arez$$_time;
 
-  public Arez_RawComputableValueWithParamsModel() {
+  public Arez_ParametersComputableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "RawComputableValueWithParamsModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RawComputableValueWithParamsModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ParametersComputableValueRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ParametersComputableValueRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> super.getTime((int) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> super.getTime((int) args[ 0 ], (String) args[ 1 ], args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -75,20 +75,19 @@ public final class Arez_RawComputableValueWithParamsModel extends RawComputableV
   }
 
   @Override
-  public long getTime(final int zone) {
+  public long getTime(final int i, final String s, final Object o) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arez$$_time.get( zone );
+    return this.$$arez$$_time.get( i, s, o );
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  ComputableValue getTimeComputableValue(final int zone) {
+  ComputableValue<Long> getTimeComputableValue(final int i, final String s, final Object o) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arez$$_time.getComputableValue( zone );
+    return this.$$arez$$_time.getComputableValue( i, s, o );
   }
 
   @Override
@@ -103,8 +102,8 @@ public final class Arez_RawComputableValueWithParamsModel extends RawComputableV
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_RawComputableValueWithParamsModel ) {
-        final Arez_RawComputableValueWithParamsModel that = (Arez_RawComputableValueWithParamsModel) o;
+      if ( o instanceof Arez_ParametersComputableValueRefModel ) {
+        final Arez_ParametersComputableValueRefModel that = (Arez_ParametersComputableValueRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_NonStandardName2Model extends NonStandardName2Model implements Disposable, Identifiable<Integer>, DisposeNotifier {
+public final class Arez_NonStandardName1ComputableValueRefModel extends NonStandardName1ComputableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,12 +23,12 @@ public final class Arez_NonStandardName2Model extends NonStandardName2Model impl
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  public Arez_NonStandardName2Model() {
+  public Arez_NonStandardName1ComputableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NonStandardName2Model." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonStandardName2Model", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NonStandardName1ComputableValueRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonStandardName1ComputableValueRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
@@ -82,9 +82,9 @@ public final class Arez_NonStandardName2Model extends NonStandardName2Model impl
   }
 
   @Override
-  ComputableValue<Long> $$$$timeComputableValue$$$$() {
+  ComputableValue<Long> timeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$$$timeComputableValue$$$$' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'timeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return $$arez$$_time;
   }
@@ -101,8 +101,8 @@ public final class Arez_NonStandardName2Model extends NonStandardName2Model impl
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NonStandardName2Model ) {
-        final Arez_NonStandardName2Model that = (Arez_NonStandardName2Model) o;
+      if ( o instanceof Arez_NonStandardName1ComputableValueRefModel ) {
+        final Arez_NonStandardName1ComputableValueRefModel that = (Arez_NonStandardName1ComputableValueRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

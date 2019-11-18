@@ -4,9 +4,10 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
+import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class NonStandardName2Model
+public abstract class BasicComputableValueRefModel
 {
   @Memoize
   public long getTime()
@@ -14,6 +15,7 @@ public abstract class NonStandardName2Model
     return 0;
   }
 
-  @ComputableValueRef( name = "time" )
-  abstract ComputableValue<Long> $$$$timeComputableValue$$$$();
+  @Nonnull
+  @ComputableValueRef
+  abstract ComputableValue<Long> getTimeComputableValue();
 }

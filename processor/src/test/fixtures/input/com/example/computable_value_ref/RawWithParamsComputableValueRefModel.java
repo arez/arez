@@ -4,18 +4,17 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class DefaultRefNameModel
+public abstract class RawWithParamsComputableValueRefModel
 {
   @Memoize
-  public long getTime()
+  public long getTime( final int zone )
   {
     return 0;
   }
 
-  @Nonnull
+  @SuppressWarnings( "rawtypes" )
   @ComputableValueRef
-  abstract ComputableValue<Long> getTimeComputableValue();
+  abstract ComputableValue getTimeComputableValue( int zone );
 }
