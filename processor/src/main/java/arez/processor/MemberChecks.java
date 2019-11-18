@@ -343,4 +343,20 @@ final class MemberChecks
       processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
     }
   }
+
+  static void shouldNotBeProtected( @Nonnull final ProcessingEnvironment processingEnv,
+                                    @Nonnull final ExecutableElement method,
+                                    @Nonnull final String annotationName,
+                                    @Nonnull final String warning,
+                                    @Nullable final String alternativeSuppressWarnings )
+  {
+    if ( method.getModifiers().contains( Modifier.PROTECTED ) &&
+         !ProcessorUtil.isWarningSuppressed( method, warning, alternativeSuppressWarnings ) )
+    {
+      final String message =
+        toSimpleName( annotationName ) + " target should not be protected. " +
+        suppressedBy( warning, alternativeSuppressWarnings );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
+    }
+  }
 }
