@@ -106,10 +106,12 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_id.ShortComponentId", false, false, false, false },
         new Object[]{ "com.example.component_id.ShortComponentIdRequireEquals", false, false, false, false },
         new Object[]{ "com.example.component_id.ComponentIdOnSingletonModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.BasicModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.CombinedWithComponentIdModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.NonIntTypeModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.NonStandardNameModel", false, false, false, false },
+
+        new Object[]{ "com.example.component_id_ref.BasicComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel", false, false, false, false },
+
         new Object[]{ "com.example.component_name_ref.ComponentNameModel", false, false, false, false },
         new Object[]{ "com.example.component_name_ref.ComponentTypeNameModel", false, false, false, false },
         new Object[]{ "com.example.component_name_ref.ComponentTypeNameAloneOnSingletonModel",

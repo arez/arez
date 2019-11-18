@@ -12,29 +12,35 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NonIntTypeModel extends NonIntTypeModel implements Disposable, Identifiable<String>, DisposeNotifier {
+public final class Arez_BasicComponentIdRefModel extends BasicComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+  private static volatile int $$arezi$$_nextId;
+
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_NonIntTypeModel() {
+  public Arez_BasicComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final String $$arezv$$_id = id();
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "NonIntTypeModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "NonIntTypeModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
+    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "BasicComponentIdRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "BasicComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
 
   @Override
-  final String getId() {
-    return this.id();
+  final int getId() {
+    return this.$$arezi$$_id();
+  }
+
+  final int $$arezi$$_id() {
+    return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final String getArezId() {
-    return id();
+  public final Integer getArezId() {
+    return $$arezi$$_id();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -64,7 +70,7 @@ public final class Arez_NonIntTypeModel extends NonIntTypeModel implements Dispo
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return null != id() ? id().hashCode() : System.identityHashCode( this );
+      return Integer.hashCode( $$arezi$$_id() );
     } else {
       return super.hashCode();
     }
@@ -73,9 +79,9 @@ public final class Arez_NonIntTypeModel extends NonIntTypeModel implements Dispo
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NonIntTypeModel ) {
-        final Arez_NonIntTypeModel that = (Arez_NonIntTypeModel) o;
-        return isDisposed() == that.isDisposed() && null != id() && id().equals( that.id() );
+      if ( o instanceof Arez_BasicComponentIdRefModel ) {
+        final Arez_BasicComponentIdRefModel that = (Arez_BasicComponentIdRefModel) o;
+        return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
       }

@@ -12,15 +12,15 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_CombinedWithComponentIdModel extends CombinedWithComponentIdModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+public final class Arez_ComponentIdPresentComponentIdRefModel extends ComponentIdPresentComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_CombinedWithComponentIdModel() {
+  public Arez_ComponentIdPresentComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = id();
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "CombinedWithComponentIdModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CombinedWithComponentIdModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ComponentIdPresentComponentIdRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ComponentIdPresentComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -73,8 +73,8 @@ public final class Arez_CombinedWithComponentIdModel extends CombinedWithCompone
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_CombinedWithComponentIdModel ) {
-        final Arez_CombinedWithComponentIdModel that = (Arez_CombinedWithComponentIdModel) o;
+      if ( o instanceof Arez_ComponentIdPresentComponentIdRefModel ) {
+        final Arez_ComponentIdPresentComponentIdRefModel that = (Arez_ComponentIdPresentComponentIdRefModel) o;
         return isDisposed() == that.isDisposed() && id() == that.id();
       } else {
         return false;

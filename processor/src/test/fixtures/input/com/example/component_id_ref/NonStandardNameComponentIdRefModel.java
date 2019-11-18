@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentIdRef;
 
 @ArezComponent( allowEmpty = true )
-public abstract class NonStandardNameModel
+public abstract class NonStandardNameComponentIdRefModel
 {
   @ComponentIdRef
   abstract int $$getId();
