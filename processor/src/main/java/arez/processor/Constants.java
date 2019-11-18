@@ -1,7 +1,5 @@
 package arez.processor;
 
-import javax.annotation.Nonnull;
-
 final class Constants
 {
   static final String SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME = "arez.annotations.SuppressArezWarnings";
