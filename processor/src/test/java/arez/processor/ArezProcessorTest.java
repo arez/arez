@@ -555,7 +555,7 @@ public class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessStateRef()
+  public void protectedAccessComponentStateRef()
   {
     final String filename =
       toFilename( "input", "com.example.component_state_ref.ProtectedAccessComponentStateRefModel" );
@@ -571,7 +571,7 @@ public class ArezProcessorTest
   }
 
   @Test
-  public void validProtectedAccessComponentManagerRef()
+  public void validProtectedAccessComponentStateRef()
     throws Exception
   {
     final String input1 =
