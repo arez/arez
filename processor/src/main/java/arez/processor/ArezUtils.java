@@ -12,6 +12,15 @@ final class ArezUtils
   {
   }
 
+  static void mustBeStandardRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                       @Nonnull final ComponentDescriptor descriptor,
+                                       @Nonnull final ExecutableElement method,
+                                       @Nonnull final String annotationClassname )
+  {
+    mustBeRefMethod( processingEnv, descriptor, method, annotationClassname );
+    MemberChecks.mustNotHaveAnyParameters( annotationClassname, method );
+  }
+
   static void mustBeRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                @Nonnull final ComponentDescriptor descriptor,
                                @Nonnull final ExecutableElement method,
@@ -23,7 +32,6 @@ final class ArezUtils
                                                            Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                                            annotationClassname,
                                                            method );
-    MemberChecks.mustNotHaveAnyParameters( annotationClassname, method );
     MemberChecks.mustReturnAValue( annotationClassname, method );
     MemberChecks.mustNotThrowAnyExceptions( annotationClassname, method );
 

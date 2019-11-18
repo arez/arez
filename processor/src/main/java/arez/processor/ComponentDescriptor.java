@@ -851,7 +851,10 @@ final class ComponentDescriptor
                                      @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeRefMethod( _processingEnv, this, method, Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME );
+    ArezUtils.mustBeStandardRefMethod( _processingEnv,
+                                       this,
+                                       method,
+                                       Constants.COMPONENT_STATE_REF_ANNOTATION_CLASSNAME );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.BOOLEAN != returnType.getKind() )
