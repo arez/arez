@@ -63,6 +63,7 @@ final class Arez_PackageAccessComponentStateRefModel extends PackageAccessCompon
   }
 
   @Override
+  @Nonnull
   final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();
   }

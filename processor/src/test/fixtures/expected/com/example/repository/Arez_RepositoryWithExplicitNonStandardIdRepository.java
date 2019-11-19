@@ -72,8 +72,8 @@ final class Arez_RepositoryWithExplicitNonStandardIdRepository extends Repositor
     return super.entities();
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   protected ObservableValue<Stream<RepositoryWithExplicitNonStandardId>> getEntitiesObservableValue(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {

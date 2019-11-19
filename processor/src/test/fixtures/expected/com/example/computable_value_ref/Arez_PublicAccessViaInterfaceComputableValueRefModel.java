@@ -81,8 +81,8 @@ final class Arez_PublicAccessViaInterfaceComputableValueRefModel extends PublicA
     return this.$$arez$$_time.get();
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   public ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

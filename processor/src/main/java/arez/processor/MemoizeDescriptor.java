@@ -1028,7 +1028,7 @@ final class MemoizeDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    Generator.copyWhitelistedAnnotations( _refMethod, builder );
+    Generator.copyRefWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
@@ -1040,6 +1040,7 @@ final class MemoizeDescriptor
     }
 
     builder.addAnnotation( Override.class );
+    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
     {
@@ -1093,10 +1094,7 @@ final class MemoizeDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    Generator.copyWhitelistedAnnotations( _refMethod, builder );
-
-    builder.addAnnotation( Override.class );
-    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
+    Generator.copyRefWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
@@ -1106,6 +1104,10 @@ final class MemoizeDescriptor
         addMember( "value", "$S", "rawtypes" ).
         build() );
     }
+
+    builder.addAnnotation( Override.class );
+    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
+    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
     Generator.generateNotDisposedInvariant( builder, methodName );
 

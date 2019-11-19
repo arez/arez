@@ -81,6 +81,7 @@ final class Arez_NonStandardMethodNameObserverRefModel extends NonStandardMethod
   }
 
   @Override
+  @Nonnull
   Observer observe$$$r() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'observe$$$r' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

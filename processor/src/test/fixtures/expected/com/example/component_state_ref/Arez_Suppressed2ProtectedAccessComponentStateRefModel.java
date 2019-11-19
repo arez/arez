@@ -63,6 +63,7 @@ final class Arez_Suppressed2ProtectedAccessComponentStateRefModel extends Suppre
   }
 
   @Override
+  @Nonnull
   protected final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();
   }

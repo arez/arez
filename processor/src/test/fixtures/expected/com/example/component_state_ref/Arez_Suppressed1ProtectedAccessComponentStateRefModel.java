@@ -63,6 +63,7 @@ final class Arez_Suppressed1ProtectedAccessComponentStateRefModel extends Suppre
   }
 
   @Override
+  @Nonnull
   @SuppressWarnings("Arez:ProtectedRefMethod")
   protected final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();

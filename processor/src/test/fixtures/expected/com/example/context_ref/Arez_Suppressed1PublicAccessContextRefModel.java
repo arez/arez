@@ -30,8 +30,8 @@ final class Arez_Suppressed1PublicAccessContextRefModel extends Suppressed1Publi
   }
 
   @Override
-  @SuppressWarnings("Arez:PublicRefMethod")
   @Nonnull
+  @SuppressWarnings("Arez:PublicRefMethod")
   public final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'Suppressed1PublicAccessContextRefModel'" );

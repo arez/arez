@@ -27,6 +27,7 @@ final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefM
   }
 
   @Override
+  @Nonnull
   final String getId() {
     return this.id();
   }

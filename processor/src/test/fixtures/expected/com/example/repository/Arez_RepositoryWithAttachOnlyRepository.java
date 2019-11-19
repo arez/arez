@@ -72,8 +72,8 @@ final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttach
     return super.entities();
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   protected ObservableValue<Stream<RepositoryWithAttachOnly>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

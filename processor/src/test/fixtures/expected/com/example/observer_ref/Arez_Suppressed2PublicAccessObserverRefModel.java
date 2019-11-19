@@ -81,6 +81,7 @@ final class Arez_Suppressed2PublicAccessObserverRefModel extends Suppressed2Publ
   }
 
   @Override
+  @Nonnull
   public Observer getDoStuffObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getDoStuffObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

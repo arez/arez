@@ -63,6 +63,7 @@ final class Arez_ReadyComponentStateRefModel extends ReadyComponentStateRefModel
   }
 
   @Override
+  @Nonnull
   final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();
   }

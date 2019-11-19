@@ -72,8 +72,8 @@ final class Arez_RepositoryWithProtectedConstructorRepository extends Repository
     return super.entities();
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   protected ObservableValue<Stream<RepositoryWithProtectedConstructor>> getEntitiesObservableValue(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {

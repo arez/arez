@@ -82,8 +82,8 @@ final class Arez_Suppressed1PublicAccessComputableValueRefModel extends Suppress
   }
 
   @SuppressWarnings("Arez:PublicRefMethod")
-  @Nonnull
   @Override
+  @Nonnull
   public ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

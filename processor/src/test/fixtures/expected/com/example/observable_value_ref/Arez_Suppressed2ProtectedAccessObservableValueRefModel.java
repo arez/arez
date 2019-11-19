@@ -96,8 +96,8 @@ final class Arez_Suppressed2ProtectedAccessObservableValueRefModel extends Suppr
     }
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   protected ObservableValue<Long> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

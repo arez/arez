@@ -113,6 +113,7 @@ public final class Arez_SingletonWithIdModel extends SingletonWithIdModel implem
   }
 
   @Override
+  @Nonnull
   Observer getRenderObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getRenderObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

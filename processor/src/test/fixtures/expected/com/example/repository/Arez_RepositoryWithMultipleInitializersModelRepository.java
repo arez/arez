@@ -72,8 +72,8 @@ final class Arez_RepositoryWithMultipleInitializersModelRepository extends Repos
     return super.entities();
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   protected ObservableValue<Stream<RepositoryWithMultipleInitializersModel>> getEntitiesObservableValue(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {

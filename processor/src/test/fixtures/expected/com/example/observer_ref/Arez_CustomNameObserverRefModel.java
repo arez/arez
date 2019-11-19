@@ -81,6 +81,7 @@ final class Arez_CustomNameObserverRefModel extends CustomNameObserverRefModel i
   }
 
   @Override
+  @Nonnull
   Observer observer() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'observer' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

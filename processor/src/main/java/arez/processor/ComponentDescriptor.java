@@ -135,7 +135,6 @@ final class ComponentDescriptor
   @Nullable
   private ExecutableElement _postDispose;
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
-  private final List<ComponentStateRefDescriptor> _roStateRefs = Collections.unmodifiableList( _componentStateRefs );
   private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   private final Collection<ObservableDescriptor> _roObservables =
@@ -2876,7 +2875,7 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildComponentNameMethod() );
     }
-    final MethodSpec method = buildComponentTypeNameMethod();
+    final MethodSpec method = buildComponentTypeNameRefMethod();
     if ( null != method )
     {
       builder.addMethod( method );
@@ -2912,7 +2911,7 @@ final class ComponentDescriptor
       builder.addMethod( buildLink() );
     }
 
-    _roStateRefs.forEach( e -> e.buildMethods( builder ) );
+    _componentStateRefs.forEach( e -> e.buildMethods( builder ) );
     _roObservables.forEach( e -> e.buildMethods( builder ) );
     _roObserves.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
@@ -3297,15 +3296,11 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( Override.class ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       returns( Generator.AREZ_CONTEXT_CLASSNAME );
 
-    Generator.copyWhitelistedAnnotations( _contextRef, method );
+    Generator.copyRefWhitelistedAnnotations( _contextRef, method );
     GeneratorUtil.copyAccessModifiers( _contextRef, method );
-
-    if ( !ProcessorUtil.hasNonnullAnnotation( _contextRef ) )
-    {
-      method.addAnnotation( Generator.NONNULL_CLASSNAME );
-    }
 
     Generator.generateNotInitializedInvariant( this, method, methodName );
 
@@ -3339,12 +3334,8 @@ final class ComponentDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( Override.class ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       returns( Generator.COMPONENT_CLASSNAME );
-
-    if ( !ProcessorUtil.hasNonnullAnnotation( _componentRef ) )
-    {
-      method.addAnnotation( Generator.NONNULL_CLASSNAME );
-    }
 
     Generator.generateNotInitializedInvariant( this, method, methodName );
     Generator.generateNotConstructedInvariant( method, methodName );
@@ -3363,7 +3354,7 @@ final class ComponentDescriptor
     method.addCode( block.build() );
 
     method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
-    Generator.copyWhitelistedAnnotations( _componentRef, method );
+    Generator.copyRefWhitelistedAnnotations( _componentRef, method );
     GeneratorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
@@ -3374,14 +3365,20 @@ final class ComponentDescriptor
   {
     assert null != _componentIdRef;
 
+    final TypeName returnType = TypeName.get( _componentIdRef.getReturnType() );
     final String methodName = _componentIdRef.getSimpleName().toString();
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addAnnotation( Override.class ).
       addModifiers( Modifier.FINAL ).
-      returns( TypeName.get( _componentIdRef.getReturnType() ) );
+      returns( returnType );
+
+    if ( !returnType.isPrimitive() )
+    {
+      method.addAnnotation( Generator.NONNULL_CLASSNAME );
+    }
 
     method.addStatement( "return this.$N()", getIdMethodName() );
-    Generator.copyWhitelistedAnnotations( _componentIdRef, method );
+    Generator.copyRefWhitelistedAnnotations( _componentIdRef, method );
     GeneratorUtil.copyAccessModifiers( _componentIdRef, method );
     return method.build();
   }
@@ -3427,13 +3424,10 @@ final class ComponentDescriptor
         .addAnnotation( Override.class )
         .returns( TypeName.get( String.class ) );
 
-    Generator.copyWhitelistedAnnotations( _componentNameRef, builder );
+    Generator.copyRefWhitelistedAnnotations( _componentNameRef, builder );
     GeneratorUtil.copyAccessModifiers( _componentNameRef, builder );
 
-    if ( !ProcessorUtil.hasNonnullAnnotation( _componentNameRef ) )
-    {
-      builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-    }
+    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
 
     Generator.generateNotInitializedInvariant( this, builder, methodName );
     builder.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
@@ -3441,7 +3435,7 @@ final class ComponentDescriptor
   }
 
   @Nullable
-  private MethodSpec buildComponentTypeNameMethod()
+  private MethodSpec buildComponentTypeNameRefMethod()
     throws ProcessorException
   {
     if ( null == _componentTypeNameRef )
@@ -3451,15 +3445,11 @@ final class ComponentDescriptor
 
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
-    Generator.copyWhitelistedAnnotations( _componentTypeNameRef, builder );
+    Generator.copyRefWhitelistedAnnotations( _componentTypeNameRef, builder );
     GeneratorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
     builder.addModifiers( Modifier.FINAL );
     builder.addAnnotation( Override.class );
-
-    if ( !ProcessorUtil.hasNonnullAnnotation( _componentTypeNameRef ) )
-    {
-      builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-    }
+    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
 
     builder.returns( TypeName.get( String.class ) );
     builder.addStatement( "return $S", _type );
@@ -4668,6 +4658,7 @@ final class ComponentDescriptor
            TypeName.get( _componentIdMethodType.getReturnType() );
   }
 
+  @Nonnull
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {

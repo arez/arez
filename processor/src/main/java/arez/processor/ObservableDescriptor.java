@@ -392,7 +392,7 @@ final class ObservableDescriptor
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( _refMethod, builder );
     GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    Generator.copyWhitelistedAnnotations( _refMethod, builder );
+    Generator.copyRefWhitelistedAnnotations( _refMethod, builder );
 
     final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
     if ( !( typeName instanceof ParameterizedTypeName ) &&
@@ -404,6 +404,7 @@ final class ObservableDescriptor
     }
 
     builder.addAnnotation( Override.class );
+    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
     builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
 
     Generator.generateNotDisposedInvariant( builder, methodName );

@@ -47,9 +47,10 @@ final class ComponentStateRefDescriptor
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.FINAL ).
       addAnnotation( Override.class ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
       returns( TypeName.BOOLEAN );
 
-    Generator.copyWhitelistedAnnotations( _method, method );
+    Generator.copyRefWhitelistedAnnotations( _method, method );
     GeneratorUtil.copyAccessModifiers( _method, method );
 
     final String stateMethodName =

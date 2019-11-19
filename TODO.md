@@ -28,8 +28,6 @@ See https://github.com/arez/arez/issues/91
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
-* Mark generated `@*Ref` methods as `@Nonnull`
-
 * Automagically add `@SuppressWarnings` to generated `@*Ref` methods if return value has a type parameter that
   contains raw types or deprecated types. Remove the whitelisted annotations copyingo for these `@*Ref` annotated
   methods.

@@ -109,7 +109,10 @@ final class Generator
     Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
                    Constants.NULLABLE_ANNOTATION_CLASSNAME,
                    SuppressWarnings.class.getName(),
-                   Constants.DEPRECATED_ANNOTATION_CLASSNAME );
+                   Deprecated.class.getName() );
+  @Nonnull
+  static final List<String> REF_ANNOTATION_WHITELIST =
+    Arrays.asList( SuppressWarnings.class.getName(), Deprecated.class.getName() );
 
   private Generator()
   {
@@ -406,6 +409,12 @@ final class Generator
                                           @Nonnull final TypeSpec.Builder builder )
   {
     GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyRefWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                             @Nonnull final MethodSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, REF_ANNOTATION_WHITELIST );
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,

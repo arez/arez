@@ -72,8 +72,8 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
     return super.entities();
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   protected ObservableValue<Stream<RepositoryWithInitializerNameCollisionModel>> getEntitiesObservableValue(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {

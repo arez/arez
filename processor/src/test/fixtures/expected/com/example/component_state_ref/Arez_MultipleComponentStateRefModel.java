@@ -63,41 +63,49 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
   }
 
   @Override
+  @Nonnull
   final boolean isConstructed1() {
     return this.$$arezi$$_kernel.isConstructed();
   }
 
   @Override
+  @Nonnull
   final boolean isComplete1() {
     return this.$$arezi$$_kernel.isComplete();
   }
 
   @Override
+  @Nonnull
   final boolean isReady1() {
     return this.$$arezi$$_kernel.isReady();
   }
 
   @Override
+  @Nonnull
   final boolean isDisposing1() {
     return this.$$arezi$$_kernel.isDisposing();
   }
 
   @Override
+  @Nonnull
   final boolean isConstructed2() {
     return this.$$arezi$$_kernel.isConstructed();
   }
 
   @Override
+  @Nonnull
   final boolean isComplete2() {
     return this.$$arezi$$_kernel.isComplete();
   }
 
   @Override
+  @Nonnull
   final boolean isReady2() {
     return this.$$arezi$$_kernel.isReady();
   }
 
   @Override
+  @Nonnull
   final boolean isDisposing2() {
     return this.$$arezi$$_kernel.isDisposing();
   }
