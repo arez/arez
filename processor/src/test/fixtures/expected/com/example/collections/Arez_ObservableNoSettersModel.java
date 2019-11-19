@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -35,7 +35,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   @Nonnull
   private final ObservableValue<Map<String, String>> $$arez$$_map;
 
-  public Arez_ObservableNoSettersModel() {
+  Arez_ObservableNoSettersModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
@@ -101,7 +101,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected ObservableValue<Collection<String>> getCollectionObservableValue() {
+  ObservableValue<Collection<String>> getCollectionObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollectionObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -118,7 +118,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected ObservableValue<Set<String>> getSetObservableValue() {
+  ObservableValue<Set<String>> getSetObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSetObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -135,7 +135,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected ObservableValue<List<String>> getListObservableValue() {
+  ObservableValue<List<String>> getListObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getListObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -152,7 +152,7 @@ public final class Arez_ObservableNoSettersModel extends ObservableNoSettersMode
   }
 
   @Override
-  protected ObservableValue<Map<String, String>> getMapObservableValue() {
+  ObservableValue<Map<String, String>> getMapObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMapObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

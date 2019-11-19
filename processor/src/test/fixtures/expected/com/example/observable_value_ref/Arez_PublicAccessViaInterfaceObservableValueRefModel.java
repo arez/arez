@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_RawObservableModel extends RawObservableModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_PublicAccessViaInterfaceObservableValueRefModel extends PublicAccessViaInterfaceObservableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -22,14 +22,16 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_RawObservableModel() {
+  private long $$arezd$$_time;
+
+  Arez_PublicAccessViaInterfaceObservableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "RawObservableModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RawObservableModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PublicAccessViaInterfaceObservableValueRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PublicAccessViaInterfaceObservableValueRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_time : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_time = v : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -78,7 +80,7 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arez$$_time.reportObserved();
-    return super.getTime();
+    return this.$$arezd$$_time;
   }
 
   @Override
@@ -87,17 +89,16 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final long $$arezv$$_currentValue = this.$$arezd$$_time;
     if ( time != $$arezv$$_currentValue ) {
-      super.setTime( time );
+      this.$$arezd$$_time = time;
       this.$$arez$$_time.reportChanged();
     }
   }
 
-  @SuppressWarnings("rawtypes")
   @Nonnull
   @Override
-  public ObservableValue getTimeObservableValue() {
+  public ObservableValue<Long> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -116,8 +117,8 @@ public final class Arez_RawObservableModel extends RawObservableModel implements
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_RawObservableModel ) {
-        final Arez_RawObservableModel that = (Arez_RawObservableModel) o;
+      if ( o instanceof Arez_PublicAccessViaInterfaceObservableValueRefModel ) {
+        final Arez_PublicAccessViaInterfaceObservableValueRefModel that = (Arez_PublicAccessViaInterfaceObservableValueRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

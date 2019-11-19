@@ -13,6 +13,7 @@
   * `@ComponentTypeNameRef`
   * `@ContextRef`
   * `@ComputableValueRef`
+  * `@ObservableValueRef`
 
 ### [v0.154](https://github.com/arez/arez/tree/v0.154) (2019-11-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.153...v0.154)
 

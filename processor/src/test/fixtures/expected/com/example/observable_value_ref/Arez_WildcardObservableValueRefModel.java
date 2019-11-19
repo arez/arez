@@ -1,4 +1,4 @@
-package com.example.observable;
+package com.example.observable_value_ref;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_WildcardObservableValueRefModel extends WildcardObservableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -22,14 +22,16 @@ final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter implement
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  Arez_ObservableWithNoSetter() {
+  private long $$arezd$$_time;
+
+  Arez_WildcardObservableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ObservableWithNoSetter." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ObservableWithNoSetter", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "WildcardObservableValueRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "WildcardObservableValueRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, null );
+    this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_time : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_time = v : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -78,11 +80,25 @@ final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter implement
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arez$$_time.reportObserved();
-    return super.getTime();
+    return this.$$arezd$$_time;
   }
 
   @Override
-  ObservableValue<Long> getTimeObservableValue() {
+  public void setTime(final long time) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    this.$$arez$$_time.preReportChanged();
+    final long $$arezv$$_currentValue = this.$$arezd$$_time;
+    if ( time != $$arezv$$_currentValue ) {
+      this.$$arezd$$_time = time;
+      this.$$arez$$_time.reportChanged();
+    }
+  }
+
+  @Nonnull
+  @Override
+  ObservableValue<?> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -101,8 +117,8 @@ final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter implement
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ObservableWithNoSetter ) {
-        final Arez_ObservableWithNoSetter that = (Arez_ObservableWithNoSetter) o;
+      if ( o instanceof Arez_WildcardObservableValueRefModel ) {
+        final Arez_WildcardObservableValueRefModel that = (Arez_WildcardObservableValueRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

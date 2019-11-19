@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 @ArezComponent
-public abstract class ObservableNoSettersModel
+abstract class ObservableNoSettersModel
 {
   @Observable( expectSetter = false )
   public Collection<String> getCollection()
@@ -22,7 +22,7 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue<Collection<String>> getCollectionObservableValue();
+  abstract ObservableValue<Collection<String>> getCollectionObservableValue();
 
   @Observable( expectSetter = false )
   public Set<String> getSet()
@@ -31,7 +31,7 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue<Set<String>> getSetObservableValue();
+  abstract ObservableValue<Set<String>> getSetObservableValue();
 
   @Observable( expectSetter = false )
   public List<String> getList()
@@ -40,7 +40,7 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue<List<String>> getListObservableValue();
+  abstract ObservableValue<List<String>> getListObservableValue();
 
   @Observable( expectSetter = false )
   public Map<String, String> getMap()
@@ -49,5 +49,5 @@ public abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue<Map<String, String>> getMapObservableValue();
+  abstract ObservableValue<Map<String, String>> getMapObservableValue();
 }

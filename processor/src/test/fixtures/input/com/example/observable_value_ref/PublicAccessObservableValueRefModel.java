@@ -7,19 +7,14 @@ import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class WildcardReturnTypeModel
+abstract class PublicAccessObservableValueRefModel
 {
   @Observable
-  public long getTime()
-  {
-    return 0;
-  }
+  public abstract long getTime();
 
-  public void setTime( final long time )
-  {
-  }
+  public abstract void setTime( long time );
 
   @Nonnull
   @ObservableValueRef
-  abstract ObservableValue<?> getTimeObservableValue();
+  public abstract ObservableValue<Long> getTimeObservableValue();
 }

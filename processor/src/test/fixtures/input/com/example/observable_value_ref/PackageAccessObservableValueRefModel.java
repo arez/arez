@@ -1,19 +1,20 @@
-package com.example.observable;
+package com.example.observable_value_ref;
 
 import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
+import javax.annotation.Nonnull;
 
 @ArezComponent
-abstract class ObservableWithNoSetter
+abstract class PackageAccessObservableValueRefModel
 {
-  @Observable( expectSetter = false )
-  public long getTime()
-  {
-    return 0;
-  }
+  @Observable
+  public abstract long getTime();
 
+  public abstract void setTime( long time );
+
+  @Nonnull
   @ObservableValueRef
   abstract ObservableValue<Long> getTimeObservableValue();
 }

@@ -504,12 +504,47 @@ public class ArezProcessorTest
                       false,
                       false,
                       false },
-        new Object[]{ "com.example.observable_value_ref.DefaultRefNameModel", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.GenericObservableRefModel", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.NonStandardName2Model", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.NonStandardNameModel", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.RawObservableModel", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.WildcardReturnTypeModel", false, false, false, false },
+
+        new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.GenericObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.NonStandardMethodName1ObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.NonStandardMethodName2ObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.PackageAccessObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.RawObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.Suppressed1ProtectedAccessObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.Suppressed1PublicAccessObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.Suppressed2ProtectedAccessObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.Suppressed2PublicAccessObservableValueRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observable_value_ref.WildcardObservableValueRefModel", false, false, false, false },
+
         new Object[]{ "com.example.observe.BasicObserveModel", false, false, false, false },
         new Object[]{ "com.example.observe.NestedActionsAllowedObserveModel", false, false, false, false },
         new Object[]{ "com.example.observe.HighestPriorityObserveModel", false, false, false, false },
@@ -969,6 +1004,51 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.context_ref.ContextRefInterface" );
     final String output =
       toFilename( "expected", "com.example.context_ref.Arez_PublicAccessViaInterfaceContextRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessObservableValueRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel" );
+    final String messageFragment =
+      "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessObservableValueRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.observable_value_ref.ProtectedAccessFromBaseObservableValueRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.observable_value_ref.other.BaseProtectedAccessObservableValueRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.observable_value_ref.Arez_ProtectedAccessFromBaseObservableValueRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceObservableValueRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.observable_value_ref.PublicAccessViaInterfaceObservableValueRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.observable_value_ref.ObservableValueRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.observable_value_ref.Arez_PublicAccessViaInterfaceObservableValueRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1611,7 +1691,7 @@ public class ArezProcessorTest
                       "@ObservableValueRef target has a type parameter of java.lang.String but @Observable method returns type of long" },
         new Object[]{ "com.example.observable_value_ref.DuplicateRefMethodModel",
                       "Method annotated with @ObservableValueRef defines duplicate ref accessor for observable named time" },
-        new Object[]{ "com.example.observable_value_ref.FinalModel", "@ObservableValueRef target must not be final" },
+        new Object[]{ "com.example.observable_value_ref.FinalModel", "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.NonAbstractModel",
                       "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.NonAlignedNameModel",
@@ -1621,8 +1701,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable_value_ref.ParametersModel",
                       "@ObservableValueRef target must not have any parameters" },
         new Object[]{ "com.example.observable_value_ref.PrivateModel",
-                      "@ObservableValueRef target must not be private" },
-        new Object[]{ "com.example.observable_value_ref.StaticModel", "@ObservableValueRef target must not be static" },
+                      "@ObservableValueRef target must be abstract" },
+        new Object[]{ "com.example.observable_value_ref.StaticModel", "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.ThrowsExceptionModel",
                       "@ObservableValueRef target must not throw any exceptions" },
 

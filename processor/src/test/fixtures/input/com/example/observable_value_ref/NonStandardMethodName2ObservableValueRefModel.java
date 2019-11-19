@@ -7,20 +7,14 @@ import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class NonStandardName2Model
+abstract class NonStandardMethodName2ObservableValueRefModel
 {
-  @Observable( name = "time" )
-  public long getTim$$$$e()
-  {
-    return 0;
-  }
+  @Observable
+  public abstract long getTime();
 
-  @Observable( name = "time" )
-  public void setTime( final long tim$e )
-  {
-  }
+  public abstract void setTime( long time );
 
   @Nonnull
   @ObservableValueRef( name = "time" )
-  public abstract ObservableValue<Long> timeObserv$$$able();
+  abstract ObservableValue<Long> timeObserv$$$able();
 }

@@ -7,23 +7,15 @@ import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class GenericObservableRefModel
+abstract class RawObservableValueRefModel
 {
-  public interface MyValue<T>
-  {
-  }
-
   @Observable
-  public MyValue<String> getMyValue()
-  {
-    return null;
-  }
+  public abstract long getTime();
 
-  public void setMyValue( final MyValue<String> time )
-  {
-  }
+  public abstract void setTime( long time );
 
+  @SuppressWarnings( "rawtypes" )
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue<MyValue<String>> getMyValueObservableValue();
+  abstract ObservableValue getTimeObservableValue();
 }

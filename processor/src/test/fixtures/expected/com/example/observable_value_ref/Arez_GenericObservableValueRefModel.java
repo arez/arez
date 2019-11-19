@@ -9,27 +9,30 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
+import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_WildcardReturnTypeModel extends WildcardReturnTypeModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_GenericObservableValueRefModel extends GenericObservableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
-  private final ObservableValue<Long> $$arez$$_time;
+  private final ObservableValue<GenericObservableValueRefModel.MyValue<String>> $$arez$$_myValue;
 
-  public Arez_WildcardReturnTypeModel() {
+  private GenericObservableValueRefModel.MyValue<String> $$arezd$$_myValue;
+
+  Arez_GenericObservableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "WildcardReturnTypeModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "WildcardReturnTypeModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "GenericObservableValueRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "GenericObservableValueRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getTime() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime( v ) : null );
+    this.$$arez$$_myValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -69,38 +72,38 @@ public final class Arez_WildcardReturnTypeModel extends WildcardReturnTypeModel 
   }
 
   private void $$arezi$$_dispose() {
-    this.$$arez$$_time.dispose();
+    this.$$arez$$_myValue.dispose();
   }
 
   @Override
-  public long getTime() {
+  public GenericObservableValueRefModel.MyValue<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arez$$_time.reportObserved();
-    return super.getTime();
+    this.$$arez$$_myValue.reportObserved();
+    return this.$$arezd$$_myValue;
   }
 
   @Override
-  public void setTime(final long time) {
+  public void setMyValue(final GenericObservableValueRefModel.MyValue<String> time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
-    if ( time != $$arezv$$_currentValue ) {
-      super.setTime( time );
-      this.$$arez$$_time.reportChanged();
+    this.$$arez$$_myValue.preReportChanged();
+    final GenericObservableValueRefModel.MyValue<String> $$arezv$$_currentValue = this.$$arezd$$_myValue;
+    if ( !Objects.equals( time, $$arezv$$_currentValue ) ) {
+      this.$$arezd$$_myValue = time;
+      this.$$arez$$_myValue.reportChanged();
     }
   }
 
   @Nonnull
   @Override
-  ObservableValue<?> getTimeObservableValue() {
+  ObservableValue<GenericObservableValueRefModel.MyValue<String>> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValueObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return $$arez$$_time;
+    return $$arez$$_myValue;
   }
 
   @Override
@@ -115,8 +118,8 @@ public final class Arez_WildcardReturnTypeModel extends WildcardReturnTypeModel 
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_WildcardReturnTypeModel ) {
-        final Arez_WildcardReturnTypeModel that = (Arez_WildcardReturnTypeModel) o;
+      if ( o instanceof Arez_GenericObservableValueRefModel ) {
+        final Arez_GenericObservableValueRefModel that = (Arez_GenericObservableValueRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
