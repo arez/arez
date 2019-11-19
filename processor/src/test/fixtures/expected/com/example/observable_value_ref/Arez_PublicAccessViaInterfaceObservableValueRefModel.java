@@ -98,7 +98,7 @@ final class Arez_PublicAccessViaInterfaceObservableValueRefModel extends PublicA
 
   @Override
   @Nonnull
-  public ObservableValue<Long> getTimeObservableValue() {
+  public final ObservableValue<Long> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

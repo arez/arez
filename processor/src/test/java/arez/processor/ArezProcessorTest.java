@@ -116,6 +116,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel", false, false, false, false },
         new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel", false, false, false, false },
         new Object[]{ "com.example.component_id_ref.PackageAccessComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.RawTypeComponentIdRefModel", false, false, false, false },
         new Object[]{ "com.example.component_id_ref.Suppressed1ProtectedAccessComponentIdRefModel",
                       false,
                       false,

@@ -74,7 +74,8 @@ final class Arez_RepositoryWithCreateOrAttachRepository extends RepositoryWithCr
 
   @Override
   @Nonnull
-  protected ObservableValue<Stream<RepositoryWithCreateOrAttach>> getEntitiesObservableValue() {
+  protected final ObservableValue<Stream<RepositoryWithCreateOrAttach>> getEntitiesObservableValue(
+      ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

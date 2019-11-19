@@ -2227,7 +2227,7 @@ final class ComponentDescriptor
       final ObserveDescriptor observed = _observes.get( key );
       if ( null != observed )
       {
-        observed.setRefMethod( method.getMethod(), method.getMethodType() );
+        observed.setRefMethod( method.getMethod() );
       }
       else
       {
@@ -2873,12 +2873,11 @@ final class ComponentDescriptor
     builder.addMethod( buildArezIdMethod() );
     if ( null != _componentNameRef )
     {
-      builder.addMethod( buildComponentNameMethod() );
+      builder.addMethod( buildComponentNameRefMethod() );
     }
-    final MethodSpec method = buildComponentTypeNameRefMethod();
-    if ( null != method )
+    if ( null != _componentTypeNameRef )
     {
-      builder.addMethod( method );
+      builder.addMethod( buildComponentTypeNameRefMethod() );
     }
 
     if ( _observable )
@@ -2911,7 +2910,7 @@ final class ComponentDescriptor
       builder.addMethod( buildLink() );
     }
 
-    _componentStateRefs.forEach( e -> e.buildMethods( builder ) );
+    _componentStateRefs.forEach( e -> e.buildMethods( processingEnv, _element, builder ) );
     _roObservables.forEach( e -> e.buildMethods( builder ) );
     _roObserves.forEach( e -> e.buildMethods( builder ) );
     _roActions.forEach( e -> e.buildMethods( builder ) );
@@ -3292,17 +3291,8 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     assert null != _contextRef;
-    final String methodName = _contextRef.getSimpleName().toString();
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
-      addModifiers( Modifier.FINAL ).
-      addAnnotation( Override.class ).
-      addAnnotation( Generator.NONNULL_CLASSNAME ).
-      returns( Generator.AREZ_CONTEXT_CLASSNAME );
-
-    GeneratorUtil.copyAccessModifiers( _contextRef, method );
-
-    Generator.generateNotInitializedInvariant( this, method, methodName );
-
+    final MethodSpec.Builder method = Generator.refMethod( _processingEnv, _element, _contextRef );
+    Generator.generateNotInitializedInvariant( this, method, _contextRef.getSimpleName().toString() );
     method.addStatement( "return this.$N.getContext()", Generator.KERNEL_FIELD_NAME );
     return method.build();
   }
@@ -3329,13 +3319,9 @@ final class ComponentDescriptor
   {
     assert null != _componentRef;
 
-    final String methodName = _componentRef.getSimpleName().toString();
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
-      addModifiers( Modifier.FINAL ).
-      addAnnotation( Override.class ).
-      addAnnotation( Generator.NONNULL_CLASSNAME ).
-      returns( Generator.COMPONENT_CLASSNAME );
+    final MethodSpec.Builder method = Generator.refMethod( _processingEnv, _element, _componentRef );
 
+    final String methodName = _componentRef.getSimpleName().toString();
     Generator.generateNotInitializedInvariant( this, method, methodName );
     Generator.generateNotConstructedInvariant( method, methodName );
     Generator.generateNotCompleteInvariant( method, methodName );
@@ -3353,7 +3339,6 @@ final class ComponentDescriptor
     method.addCode( block.build() );
 
     method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
-    GeneratorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
 
@@ -3362,23 +3347,9 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     assert null != _componentIdRef;
-
-    final TypeName returnType = TypeName.get( _componentIdRef.getReturnType() );
-    final String methodName = _componentIdRef.getSimpleName().toString();
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
-      addAnnotation( Override.class ).
-      addModifiers( Modifier.FINAL ).
-      returns( returnType );
-
-    if ( !returnType.isPrimitive() )
-    {
-      method.addAnnotation( Generator.NONNULL_CLASSNAME );
-    }
-
-    method.addStatement( "return this.$N()", getIdMethodName() );
-    Generator.copyRefWhitelistedAnnotations( _componentIdRef, method );
-    GeneratorUtil.copyAccessModifiers( _componentIdRef, method );
-    return method.build();
+    return Generator.refMethod( _processingEnv, _element, _componentIdRef )
+      .addStatement( "return this.$N()", getIdMethodName() )
+      .build();
   }
 
   @Nonnull
@@ -3410,46 +3381,24 @@ final class ComponentDescriptor
    * Generate the getter for component name.
    */
   @Nonnull
-  private MethodSpec buildComponentNameMethod()
+  private MethodSpec buildComponentNameRefMethod()
     throws ProcessorException
   {
     assert null != _componentNameRef;
-    final String methodName = _componentNameRef.getSimpleName().toString();
-    final MethodSpec.Builder builder =
-      MethodSpec
-        .methodBuilder( methodName )
-        .addModifiers( Modifier.FINAL )
-        .addAnnotation( Override.class )
-        .returns( TypeName.get( String.class ) );
-
-    GeneratorUtil.copyAccessModifiers( _componentNameRef, builder );
-
-    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-
-    Generator.generateNotInitializedInvariant( this, builder, methodName );
-    builder.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
-    return builder.build();
+    final MethodSpec.Builder method = Generator.refMethod( _processingEnv, _element, _componentNameRef );
+    Generator.generateNotInitializedInvariant( this, method, _componentNameRef.getSimpleName().toString() );
+    method.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
+    return method.build();
   }
 
-  @Nullable
+  @Nonnull
   private MethodSpec buildComponentTypeNameRefMethod()
     throws ProcessorException
   {
-    if ( null == _componentTypeNameRef )
-    {
-      return null;
-    }
-
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
-    GeneratorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
-    builder.addModifiers( Modifier.FINAL );
-    builder.addAnnotation( Override.class );
-    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-
-    builder.returns( TypeName.get( String.class ) );
-    builder.addStatement( "return $S", _type );
-    return builder.build();
+    assert null != _componentTypeNameRef;
+    return Generator.refMethod( _processingEnv, _element, _componentTypeNameRef )
+      .addStatement( "return $S", _type )
+      .build();
   }
 
   @Nonnull
@@ -4723,5 +4672,11 @@ final class ComponentDescriptor
       default:
         return false;
     }
+  }
+
+  @Nonnull
+  ProcessingEnvironment getProcessingEnv()
+  {
+    return _processingEnv;
   }
 }

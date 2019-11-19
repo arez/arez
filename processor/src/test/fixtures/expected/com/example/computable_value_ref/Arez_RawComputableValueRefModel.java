@@ -81,10 +81,10 @@ final class Arez_RawComputableValueRefModel extends RawComputableValueRefModel i
     return this.$$arez$$_time.get();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
   @Nonnull
-  ComputableValue getTimeComputableValue() {
+  @SuppressWarnings("rawtypes")
+  final ComputableValue getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

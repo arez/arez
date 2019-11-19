@@ -48,8 +48,6 @@ final class ObserveDescriptor
   @Nullable
   private ExecutableElement _refMethod;
   @Nullable
-  private ExecutableType _refMethodType;
-  @Nullable
   private CandidateMethod _priorityOverride;
 
   ObserveDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
@@ -64,10 +62,9 @@ final class ObserveDescriptor
     return _name;
   }
 
-  void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
+  void setRefMethod( @Nonnull final ExecutableElement method )
   {
     _refMethod = Objects.requireNonNull( method );
-    _refMethodType = Objects.requireNonNull( methodType );
   }
 
   @Nonnull
@@ -474,21 +471,12 @@ final class ObserveDescriptor
     throws ProcessorException
   {
     assert null != _refMethod;
-    assert null != _refMethodType;
-    final String methodName = _refMethod.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
-    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
+    final MethodSpec.Builder method =
+      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
 
-    builder.addAnnotation( Override.class );
-    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
+    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
 
-    Generator.generateNotDisposedInvariant( builder, methodName );
-
-    builder.addStatement( "return $N", getFieldName() );
-
-    return builder.build();
+    return method.addStatement( "return $N", getFieldName() ).build();
   }
 
   /**

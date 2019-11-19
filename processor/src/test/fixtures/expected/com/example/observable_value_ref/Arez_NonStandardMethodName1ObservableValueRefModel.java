@@ -98,7 +98,7 @@ final class Arez_NonStandardMethodName1ObservableValueRefModel extends NonStanda
 
   @Override
   @Nonnull
-  ObservableValue<Long> timeObservable() {
+  final ObservableValue<Long> timeObservable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'timeObservable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

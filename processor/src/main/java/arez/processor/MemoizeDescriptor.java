@@ -1024,45 +1024,26 @@ final class MemoizeDescriptor
   {
     assert null != _refMethod;
     assert null != _refMethodType;
-    final String methodName = _refMethod.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
-    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    Generator.copyRefWhitelistedAnnotations( _refMethod, builder );
+    final MethodSpec.Builder method =
+      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
+    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
 
-    final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
-    if ( !( typeName instanceof ParameterizedTypeName ) &&
-         !AnnotationsUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
+    final List<? extends VariableElement> parameters = _refMethod.getParameters();
+    final int paramCount = parameters.size();
+    for ( int i = 0; i < paramCount; i++ )
     {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
-        addMember( "value", "$S", "rawtypes" ).
-        build() );
+      final VariableElement element = parameters.get( i );
+      final TypeName parameterType = TypeName.get( _refMethodType.getParameterTypes().get( i ) );
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+      Generator.copyWhitelistedAnnotations( element, param );
+      method.addParameter( param.build() );
     }
-
-    builder.addAnnotation( Override.class );
-    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
-
-    {
-      final List<? extends VariableElement> parameters = _refMethod.getParameters();
-      final int paramCount = parameters.size();
-      for ( int i = 0; i < paramCount; i++ )
-      {
-        final VariableElement element = parameters.get( i );
-        final TypeName parameterType = TypeName.get( _refMethodType.getParameterTypes().get( i ) );
-        final ParameterSpec.Builder param =
-          ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-        Generator.copyWhitelistedAnnotations( element, param );
-        builder.addParameter( param.build() );
-      }
-    }
-
-    Generator.generateNotDisposedInvariant( builder, methodName );
 
     final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> parameters = new ArrayList<>();
+    final ArrayList<Object> params = new ArrayList<>();
     sb.append( "return this.$N.getComputableValue( " );
-    parameters.add( getFieldName() );
+    params.add( getFieldName() );
 
     boolean first = true;
     for ( final VariableElement element : _refMethod.getParameters() )
@@ -1073,12 +1054,12 @@ final class MemoizeDescriptor
       }
       first = false;
       sb.append( "$N" );
-      parameters.add( element.getSimpleName().toString() );
+      params.add( element.getSimpleName().toString() );
     }
     sb.append( " )" );
 
-    builder.addStatement( sb.toString(), parameters.toArray() );
-    return builder.build();
+    method.addStatement( sb.toString(), params.toArray() );
+    return method.build();
   }
 
   /**
@@ -1089,31 +1070,12 @@ final class MemoizeDescriptor
     throws ProcessorException
   {
     assert null != _refMethod;
-    assert null != _refMethodType;
-    final String methodName = _refMethod.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
-    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    Generator.copyRefWhitelistedAnnotations( _refMethod, builder );
-
-    final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
-    if ( !( typeName instanceof ParameterizedTypeName ) &&
-         !AnnotationsUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
-    {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
-        addMember( "value", "$S", "rawtypes" ).
-        build() );
-    }
-
-    builder.addAnnotation( Override.class );
-    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
-
-    Generator.generateNotDisposedInvariant( builder, methodName );
-
-    builder.addStatement( "return $N", getFieldName() );
-
-    return builder.build();
+    final MethodSpec.Builder method =
+      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
+    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
+    return method
+      .addStatement( "return $N", getFieldName() )
+      .build();
   }
 
   private boolean isCollectionType()

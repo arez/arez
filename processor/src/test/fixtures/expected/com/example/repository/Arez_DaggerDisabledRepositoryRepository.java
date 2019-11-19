@@ -74,7 +74,7 @@ final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledReposi
 
   @Override
   @Nonnull
-  protected ObservableValue<Stream<DaggerDisabledRepository>> getEntitiesObservableValue() {
+  protected final ObservableValue<Stream<DaggerDisabledRepository>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

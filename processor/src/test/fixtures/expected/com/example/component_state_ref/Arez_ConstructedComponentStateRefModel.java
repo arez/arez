@@ -63,7 +63,6 @@ final class Arez_ConstructedComponentStateRefModel extends ConstructedComponentS
   }
 
   @Override
-  @Nonnull
   final boolean isConstructed() {
     return this.$$arezi$$_kernel.isConstructed();
   }

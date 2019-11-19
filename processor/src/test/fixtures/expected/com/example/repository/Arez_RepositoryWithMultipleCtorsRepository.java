@@ -74,7 +74,8 @@ final class Arez_RepositoryWithMultipleCtorsRepository extends RepositoryWithMul
 
   @Override
   @Nonnull
-  protected ObservableValue<Stream<RepositoryWithMultipleCtors>> getEntitiesObservableValue() {
+  protected final ObservableValue<Stream<RepositoryWithMultipleCtors>> getEntitiesObservableValue(
+      ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

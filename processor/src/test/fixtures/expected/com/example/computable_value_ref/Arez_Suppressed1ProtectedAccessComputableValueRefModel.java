@@ -81,10 +81,9 @@ final class Arez_Suppressed1ProtectedAccessComputableValueRefModel extends Suppr
     return this.$$arez$$_time.get();
   }
 
-  @SuppressWarnings("Arez:ProtectedRefMethod")
   @Override
   @Nonnull
-  protected ComputableValue<Long> getTimeComputableValue() {
+  protected final ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

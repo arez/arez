@@ -63,7 +63,6 @@ final class Arez_CompleteComponentStateRefModel extends CompleteComponentStateRe
   }
 
   @Override
-  @Nonnull
   final boolean isComplete() {
     return this.$$arezi$$_kernel.isComplete();
   }

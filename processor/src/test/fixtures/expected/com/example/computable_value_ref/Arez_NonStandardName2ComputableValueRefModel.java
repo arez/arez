@@ -83,7 +83,7 @@ final class Arez_NonStandardName2ComputableValueRefModel extends NonStandardName
 
   @Override
   @Nonnull
-  ComputableValue<Long> $$$$timeComputableValue$$$$() {
+  final ComputableValue<Long> $$$$timeComputableValue$$$$() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$$$timeComputableValue$$$$' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

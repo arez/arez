@@ -82,7 +82,7 @@ final class Arez_PackageAccessObserverRefModel extends PackageAccessObserverRefM
 
   @Override
   @Nonnull
-  Observer getDoStuffObserver() {
+  final Observer getDoStuffObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getDoStuffObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

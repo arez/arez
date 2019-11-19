@@ -63,7 +63,6 @@ final class Arez_ProtectedAccessFromBaseComponentStateRefModel extends Protected
   }
 
   @Override
-  @Nonnull
   protected final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();
   }

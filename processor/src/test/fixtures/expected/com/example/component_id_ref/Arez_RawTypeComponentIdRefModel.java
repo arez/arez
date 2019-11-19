@@ -11,36 +11,33 @@ import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
-final class Arez_Suppressed1PublicAccessComponentIdRefModel extends Suppressed1PublicAccessComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
-  private static volatile int $$arezi$$_nextId;
-
+final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel implements Disposable, Identifiable<RawTypeComponentIdRefModel.MyId>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_Suppressed1PublicAccessComponentIdRefModel() {
+  Arez_RawTypeComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Suppressed1PublicAccessComponentIdRefModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Suppressed1PublicAccessComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
+    final RawTypeComponentIdRefModel.MyId $$arezv$$_id = id();
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "RawTypeComponentIdRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "RawTypeComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
 
   @Override
-  public final int getId() {
-    return this.$$arezi$$_id();
-  }
-
-  final int $$arezi$$_id() {
-    return this.$$arezi$$_kernel.getId();
+  @Nonnull
+  @SuppressWarnings("rawtypes")
+  final RawTypeComponentIdRefModel.MyId getId() {
+    return this.id();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
-    return $$arezi$$_id();
+  public final RawTypeComponentIdRefModel.MyId getArezId() {
+    return id();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -70,7 +67,7 @@ final class Arez_Suppressed1PublicAccessComponentIdRefModel extends Suppressed1P
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
+      return null != id() ? id().hashCode() : System.identityHashCode( this );
     } else {
       return super.hashCode();
     }
@@ -79,9 +76,9 @@ final class Arez_Suppressed1PublicAccessComponentIdRefModel extends Suppressed1P
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_Suppressed1PublicAccessComponentIdRefModel ) {
-        final Arez_Suppressed1PublicAccessComponentIdRefModel that = (Arez_Suppressed1PublicAccessComponentIdRefModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
+      if ( o instanceof Arez_RawTypeComponentIdRefModel ) {
+        final Arez_RawTypeComponentIdRefModel that = (Arez_RawTypeComponentIdRefModel) o;
+        return isDisposed() == that.isDisposed() && null != id() && id().equals( that.id() );
       } else {
         return false;
       }

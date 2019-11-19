@@ -63,7 +63,6 @@ final class Arez_DisposingComponentStateRefModel extends DisposingComponentState
   }
 
   @Override
-  @Nonnull
   final boolean isDisposing() {
     return this.$$arezi$$_kernel.isDisposing();
   }

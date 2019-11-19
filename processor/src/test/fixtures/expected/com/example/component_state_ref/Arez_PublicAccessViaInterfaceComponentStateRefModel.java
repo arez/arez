@@ -63,7 +63,6 @@ final class Arez_PublicAccessViaInterfaceComponentStateRefModel extends PublicAc
   }
 
   @Override
-  @Nonnull
   public final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();
   }

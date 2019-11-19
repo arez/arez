@@ -84,7 +84,7 @@ final class Arez_ParametersComputableValueRefModel extends ParametersComputableV
 
   @Override
   @Nonnull
-  ComputableValue<Long> getTimeComputableValue(final int i, final String s, final Object o) {
+  final ComputableValue<Long> getTimeComputableValue(final int i, final String s, final Object o) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

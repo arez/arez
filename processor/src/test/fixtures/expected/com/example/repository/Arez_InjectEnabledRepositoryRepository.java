@@ -74,7 +74,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
 
   @Override
   @Nonnull
-  protected ObservableValue<Stream<InjectEnabledRepository>> getEntitiesObservableValue() {
+  protected final ObservableValue<Stream<InjectEnabledRepository>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -102,7 +102,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  ObservableValue<Collection<String>> getCollectionObservableValue() {
+  final ObservableValue<Collection<String>> getCollectionObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollectionObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -120,7 +120,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  ObservableValue<Set<String>> getSetObservableValue() {
+  final ObservableValue<Set<String>> getSetObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSetObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -138,7 +138,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  ObservableValue<List<String>> getListObservableValue() {
+  final ObservableValue<List<String>> getListObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getListObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -156,7 +156,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  ObservableValue<Map<String, String>> getMapObservableValue() {
+  final ObservableValue<Map<String, String>> getMapObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMapObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

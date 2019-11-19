@@ -83,7 +83,7 @@ final class Arez_ObservableWithNoSetter extends ObservableWithNoSetter implement
 
   @Override
   @Nonnull
-  ObservableValue<Long> getTimeObservableValue() {
+  final ObservableValue<Long> getTimeObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

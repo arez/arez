@@ -233,7 +233,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected ObservableValue<String> getMyValueObservableValue() {
+  protected final ObservableValue<String> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValueObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -277,7 +277,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected Observer getMyWatcherObserver() {
+  protected final Observer getMyWatcherObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyWatcherObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -310,7 +310,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected ComputableValue<Long> getTimeComputableValue() {
+  protected final ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

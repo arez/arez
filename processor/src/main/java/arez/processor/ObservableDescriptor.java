@@ -387,31 +387,13 @@ final class ObservableDescriptor
     throws ProcessorException
   {
     assert null != _refMethod;
-    assert null != _refMethodType;
-    final String methodName = _refMethod.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _refMethod, builder );
-    GeneratorUtil.copyTypeParameters( _refMethodType, builder );
-    Generator.copyRefWhitelistedAnnotations( _refMethod, builder );
 
-    final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
-    if ( !( typeName instanceof ParameterizedTypeName ) &&
-         !AnnotationsUtil.hasAnnotationOfType( _refMethod, SuppressWarnings.class.getName() ) )
-    {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
-        addMember( "value", "$S", "rawtypes" ).
-        build() );
-    }
+    final MethodSpec.Builder method =
+      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
 
-    builder.addAnnotation( Override.class );
-    builder.addAnnotation( Generator.NONNULL_CLASSNAME );
-    builder.returns( TypeName.get( _refMethodType.getReturnType() ) );
+    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
 
-    Generator.generateNotDisposedInvariant( builder, methodName );
-
-    builder.addStatement( "return $N", getFieldName() );
-
-    return builder.build();
+    return method.addStatement( "return $N", getFieldName() ).build();
   }
 
   @Nonnull

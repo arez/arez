@@ -29,7 +29,6 @@ final class Arez_Suppressed1ProtectedAccessComponentIdRefModel extends Suppresse
   }
 
   @Override
-  @SuppressWarnings("Arez:ProtectedRefMethod")
   protected final int getId() {
     return this.$$arezi$$_id();
   }
