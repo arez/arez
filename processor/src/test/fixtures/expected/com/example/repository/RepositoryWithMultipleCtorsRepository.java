@@ -15,7 +15,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
   }
 
   @Nonnull
-  public static RepositoryWithMultipleCtorsRepository newRepository() {
+  static RepositoryWithMultipleCtorsRepository newRepository() {
     return new Arez_RepositoryWithMultipleCtorsRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
       name = "create_packageName_name"
   )
   @Nonnull
-  public RepositoryWithMultipleCtors create(@Nonnull final String packageName,
+  RepositoryWithMultipleCtors create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(packageName,name);
     attach( entity );
@@ -34,7 +34,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithMultipleCtors create(@Nonnull final String name) {
+  RepositoryWithMultipleCtors create(@Nonnull final String name) {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors(name);
     attach( entity );
     return entity;
@@ -44,7 +44,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
       name = "create"
   )
   @Nonnull
-  public RepositoryWithMultipleCtors create() {
+  RepositoryWithMultipleCtors create() {
     final Arez_RepositoryWithMultipleCtors entity = new Arez_RepositoryWithMultipleCtors();
     attach( entity );
     return entity;
@@ -54,7 +54,7 @@ public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepo
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
+  protected void destroy(@Nonnull final RepositoryWithMultipleCtors entity) {
     super.destroy( entity );
   }
 }

@@ -7,7 +7,7 @@ import arez.annotations.OnDepsChange;
 import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class NormalPriorityTrackedModel
+abstract class NormalPriorityTrackedModel
 {
   @Observe( executor = Executor.EXTERNAL, priority = Priority.NORMAL )
   public void render( final long time, float someOtherParameter )

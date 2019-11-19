@@ -7,7 +7,7 @@ import arez.component.DisposeNotifier;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class NonnullFieldDependencyModel
+abstract class NonnullFieldDependencyModel
 {
   @Nonnull
   @ComponentDependency( action = ComponentDependency.Action.CASCADE )

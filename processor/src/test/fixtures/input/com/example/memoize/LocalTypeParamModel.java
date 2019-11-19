@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public abstract class LocalTypeParamModel
+abstract class LocalTypeParamModel
 {
   @Memoize
   public <T> T count( final String param )

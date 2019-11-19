@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public abstract class NewTypeParametersModel
+abstract class NewTypeParametersModel
 {
   @Action
   public <T extends Integer> T doStuff()

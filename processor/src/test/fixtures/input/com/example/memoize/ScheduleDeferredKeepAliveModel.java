@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent( deferSchedule = true )
-public abstract class ScheduleDeferredKeepAliveModel
+abstract class ScheduleDeferredKeepAliveModel
 {
   @Memoize( keepAlive = true )
   public long getTime()

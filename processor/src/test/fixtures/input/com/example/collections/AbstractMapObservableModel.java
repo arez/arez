@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import java.util.Map;
 
 @ArezComponent
-public abstract class AbstractMapObservableModel
+abstract class AbstractMapObservableModel
 {
   @Observable
   public abstract Map<String, String> getMyValue();

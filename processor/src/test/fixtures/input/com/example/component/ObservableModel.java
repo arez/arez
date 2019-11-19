@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
 @ArezComponent( observable = Feature.ENABLE )
-public abstract class ObservableModel
+abstract class ObservableModel
 {
   @Action
   public void doStuff( final long time, float someOtherParameter )

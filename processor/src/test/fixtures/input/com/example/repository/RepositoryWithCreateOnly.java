@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @Repository( attach = Repository.AttachType.CREATE_ONLY )
 @ArezComponent
-public abstract class RepositoryWithCreateOnly
+abstract class RepositoryWithCreateOnly
 {
   @Nonnull
   private String _name;

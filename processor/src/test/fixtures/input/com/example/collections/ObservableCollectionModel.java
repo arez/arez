@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import java.util.Collection;
 
 @ArezComponent
-public abstract class ObservableCollectionModel
+abstract class ObservableCollectionModel
 {
   @Observable
   public Collection<String> getMyValue()

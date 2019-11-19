@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
 @ArezComponent( disposeNotifier = Feature.DISABLE )
-public abstract class NoDisposeNotifierModel
+abstract class NoDisposeNotifierModel
 {
   @Action
   public void someValue()

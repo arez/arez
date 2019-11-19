@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_SetNullObservableDependency extends SetNullObservableDependency implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_SetNullObservableDependency extends SetNullObservableDependency implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -25,7 +25,7 @@ public final class Arez_SetNullObservableDependency extends SetNullObservableDep
 
   private DisposeNotifier $$arezd$$_value;
 
-  public Arez_SetNullObservableDependency() {
+  Arez_SetNullObservableDependency() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

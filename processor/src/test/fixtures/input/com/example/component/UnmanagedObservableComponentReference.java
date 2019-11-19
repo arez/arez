@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class UnmanagedObservableComponentReference
+abstract class UnmanagedObservableComponentReference
 {
   @Observable
   abstract MyComponent getMyComponent();

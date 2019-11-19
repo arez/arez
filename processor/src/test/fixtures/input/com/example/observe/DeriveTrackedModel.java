@@ -6,7 +6,7 @@ import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
 
 @ArezComponent
-public abstract class DeriveTrackedModel
+abstract class DeriveTrackedModel
 {
   void render()
   {

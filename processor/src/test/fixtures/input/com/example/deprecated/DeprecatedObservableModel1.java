@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class DeprecatedObservableModel1
+abstract class DeprecatedObservableModel1
 {
   @Deprecated
   @Observable

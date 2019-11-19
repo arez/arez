@@ -17,7 +17,7 @@ public abstract class RepositoryWithRawTypeRepository extends AbstractRepository
   }
 
   @Nonnull
-  public static RepositoryWithRawTypeRepository newRepository() {
+  static RepositoryWithRawTypeRepository newRepository() {
     return new Arez_RepositoryWithRawTypeRepository();
   }
 
@@ -25,7 +25,7 @@ public abstract class RepositoryWithRawTypeRepository extends AbstractRepository
       name = "create"
   )
   @Nonnull
-  public RepositoryWithRawType create(@Nonnull final Callable action) {
+  RepositoryWithRawType create(@Nonnull final Callable action) {
     final Arez_RepositoryWithRawType entity = new Arez_RepositoryWithRawType(action);
     attach( entity );
     return entity;
@@ -35,7 +35,7 @@ public abstract class RepositoryWithRawTypeRepository extends AbstractRepository
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithRawType entity) {
+  protected void destroy(@Nonnull final RepositoryWithRawType entity) {
     super.destroy( entity );
   }
 }

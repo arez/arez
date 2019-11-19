@@ -7,7 +7,7 @@ import arez.annotations.OnDepsChange;
 import java.text.ParseException;
 
 @ArezComponent
-public abstract class BasicTrackedWithExceptionsModel
+abstract class BasicTrackedWithExceptionsModel
 {
   @Observe( executor = Executor.EXTERNAL )
   public void render()

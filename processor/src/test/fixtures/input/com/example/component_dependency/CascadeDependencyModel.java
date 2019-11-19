@@ -5,7 +5,7 @@ import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-public abstract class CascadeDependencyModel
+abstract class CascadeDependencyModel
 {
   @ComponentDependency( action = ComponentDependency.Action.CASCADE )
   public final DisposeNotifier getTime()

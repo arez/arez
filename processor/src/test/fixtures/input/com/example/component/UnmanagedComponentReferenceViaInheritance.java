@@ -2,7 +2,7 @@ package com.example.component;
 
 import arez.annotations.ArezComponent;
 
-public abstract class UnmanagedComponentReferenceViaInheritance
+abstract class UnmanagedComponentReferenceViaInheritance
 {
   @ArezComponent( allowEmpty = true )
   public static abstract class MyComponent

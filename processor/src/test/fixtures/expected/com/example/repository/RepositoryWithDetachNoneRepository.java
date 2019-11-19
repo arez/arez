@@ -15,7 +15,7 @@ public abstract class RepositoryWithDetachNoneRepository extends AbstractReposit
   }
 
   @Nonnull
-  public static RepositoryWithDetachNoneRepository newRepository() {
+  static RepositoryWithDetachNoneRepository newRepository() {
     return new Arez_RepositoryWithDetachNoneRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithDetachNoneRepository extends AbstractReposit
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithDetachNone create(@Nonnull final String name) {
+  RepositoryWithDetachNone create(@Nonnull final String name) {
     final Arez_RepositoryWithDetachNone entity = new Arez_RepositoryWithDetachNone(name);
     attach( entity );
     return entity;

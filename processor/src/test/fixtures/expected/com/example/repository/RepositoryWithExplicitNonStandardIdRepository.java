@@ -16,7 +16,7 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
   }
 
   @Nonnull
-  public static RepositoryWithExplicitNonStandardIdRepository newRepository() {
+  static RepositoryWithExplicitNonStandardIdRepository newRepository() {
     return new Arez_RepositoryWithExplicitNonStandardIdRepository();
   }
 
@@ -24,7 +24,7 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
       name = "create_packageName_name"
   )
   @Nonnull
-  public RepositoryWithExplicitNonStandardId create(@Nonnull final String packageName,
+  RepositoryWithExplicitNonStandardId create(@Nonnull final String packageName,
       @Nonnull final String name) {
     final Arez_RepositoryWithExplicitNonStandardId entity = new Arez_RepositoryWithExplicitNonStandardId(packageName,name);
     attach( entity );
@@ -32,12 +32,12 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
   }
 
   @Nullable
-  public final RepositoryWithExplicitNonStandardId findById(final int id) {
+  final RepositoryWithExplicitNonStandardId findById(final int id) {
     return findByArezId( id );
   }
 
   @Nonnull
-  public final RepositoryWithExplicitNonStandardId getById(final int id) {
+  final RepositoryWithExplicitNonStandardId getById(final int id) {
     return getByArezId( id );
   }
 
@@ -45,7 +45,7 @@ public abstract class RepositoryWithExplicitNonStandardIdRepository extends Abst
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithExplicitNonStandardId entity) {
+  protected void destroy(@Nonnull final RepositoryWithExplicitNonStandardId entity) {
     super.destroy( entity );
   }
 }

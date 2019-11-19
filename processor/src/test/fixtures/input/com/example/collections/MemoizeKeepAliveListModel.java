@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ArezComponent
-public abstract class MemoizeKeepAliveListModel
+abstract class MemoizeKeepAliveListModel
 {
   @Memoize( keepAlive = true )
   public List<String> getMyValue()

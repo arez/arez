@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.DepType;
 
 @ArezComponent
-public abstract class CustomDepTypeModel
+abstract class CustomDepTypeModel
 {
   @Memoize( depType = DepType.AREZ_OR_NONE )
   public long count( final long time, float someOtherParameter )

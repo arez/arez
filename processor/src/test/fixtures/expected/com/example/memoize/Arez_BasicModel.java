@@ -16,7 +16,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_BasicModel extends BasicModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_BasicModel extends BasicModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -27,7 +27,7 @@ public final class Arez_BasicModel extends BasicModel implements Disposable, Ide
   @Nonnull
   private final MemoizeCache<Long> $$arez$$_count;
 
-  public Arez_BasicModel() {
+  Arez_BasicModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

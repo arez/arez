@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public abstract class NoReportResultActionModel
+abstract class NoReportResultActionModel
 {
   @Action( reportResult = false )
   public int doStuff()

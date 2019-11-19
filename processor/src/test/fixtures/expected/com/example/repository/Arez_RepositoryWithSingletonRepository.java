@@ -82,7 +82,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithSingleton entity) {
+  protected void destroy(@Nonnull final RepositoryWithSingleton entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_RepositoryWithSingletonRepository extends RepositoryWithSinglet
 
   @Nonnull
   @Override
-  public RepositoryWithSingleton create(@Nonnull final String name) {
+  RepositoryWithSingleton create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

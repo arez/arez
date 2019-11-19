@@ -15,7 +15,7 @@ public abstract class RepositoryWithDestroyAndDetachRepository extends AbstractR
   }
 
   @Nonnull
-  public static RepositoryWithDestroyAndDetachRepository newRepository() {
+  static RepositoryWithDestroyAndDetachRepository newRepository() {
     return new Arez_RepositoryWithDestroyAndDetachRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithDestroyAndDetachRepository extends AbstractR
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithDestroyAndDetach create(@Nonnull final String name) {
+  RepositoryWithDestroyAndDetach create(@Nonnull final String name) {
     final Arez_RepositoryWithDestroyAndDetach entity = new Arez_RepositoryWithDestroyAndDetach(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithDestroyAndDetachRepository extends AbstractR
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithDestroyAndDetach entity) {
+  protected void destroy(@Nonnull final RepositoryWithDestroyAndDetach entity) {
     super.destroy( entity );
   }
 
@@ -41,7 +41,7 @@ public abstract class RepositoryWithDestroyAndDetachRepository extends AbstractR
   @Action(
       reportParameters = false
   )
-  public void detach(@Nonnull final RepositoryWithDestroyAndDetach entity) {
+  protected void detach(@Nonnull final RepositoryWithDestroyAndDetach entity) {
     super.detach( entity );
   }
 }

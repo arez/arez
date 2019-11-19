@@ -15,7 +15,7 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
   }
 
   @Nonnull
-  public static RepositoryPreDisposeHookRepository newRepository() {
+  static RepositoryPreDisposeHookRepository newRepository() {
     return new Arez_RepositoryPreDisposeHookRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
       name = "create_name"
   )
   @Nonnull
-  public RepositoryPreDisposeHook create(@Nonnull final String name) {
+  RepositoryPreDisposeHook create(@Nonnull final String name) {
     final Arez_RepositoryPreDisposeHook entity = new Arez_RepositoryPreDisposeHook(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryPreDisposeHookRepository extends AbstractReposit
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
+  protected void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
     super.destroy( entity );
   }
 }

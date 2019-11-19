@@ -12,12 +12,12 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_MyArezReactComponent_ extends MyArezReactComponent_ implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_MyArezReactComponent_ extends MyArezReactComponent_ implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_MyArezReactComponent_() {
+  Arez_MyArezReactComponent_() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

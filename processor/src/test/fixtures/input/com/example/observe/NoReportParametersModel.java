@@ -6,7 +6,7 @@ import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 
 @ArezComponent
-public abstract class NoReportParametersModel
+abstract class NoReportParametersModel
 {
   @Observe( executor = Executor.EXTERNAL, reportParameters = false )
   public void render( final long time, float someOtherParameter )

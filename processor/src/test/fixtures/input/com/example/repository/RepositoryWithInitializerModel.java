@@ -7,7 +7,7 @@ import arez.annotations.Repository;
 
 @Repository
 @ArezComponent
-public abstract class RepositoryWithInitializerModel
+abstract class RepositoryWithInitializerModel
 {
   @Observable( initializer = Feature.ENABLE )
   public abstract long getTime();

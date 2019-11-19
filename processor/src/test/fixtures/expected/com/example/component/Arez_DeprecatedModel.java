@@ -13,12 +13,12 @@ import javax.annotation.Nonnull;
 
 @Deprecated
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DeprecatedModel extends DeprecatedModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_DeprecatedModel extends DeprecatedModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_DeprecatedModel() {
+  Arez_DeprecatedModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

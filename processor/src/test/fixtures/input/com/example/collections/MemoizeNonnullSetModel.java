@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class MemoizeNonnullSetModel
+abstract class MemoizeNonnullSetModel
 {
   @Nonnull
   @Memoize

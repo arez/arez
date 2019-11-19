@@ -84,7 +84,7 @@ final class Arez_RepositoryWithRawTypeRepository extends RepositoryWithRawTypeRe
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithRawType entity) {
+  protected void destroy(@Nonnull final RepositoryWithRawType entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -93,7 +93,7 @@ final class Arez_RepositoryWithRawTypeRepository extends RepositoryWithRawTypeRe
 
   @Nonnull
   @Override
-  public RepositoryWithRawType create(@Nonnull final Callable action) {
+  RepositoryWithRawType create(@Nonnull final Callable action) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

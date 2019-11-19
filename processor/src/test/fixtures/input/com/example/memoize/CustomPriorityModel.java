@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class CustomPriorityModel
+abstract class CustomPriorityModel
 {
   @Memoize( priority = Priority.LOWEST )
   public long count( final long time, float someOtherParameter )

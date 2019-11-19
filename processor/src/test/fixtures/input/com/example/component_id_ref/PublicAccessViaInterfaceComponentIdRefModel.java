@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentIdRef;
 
 @ArezComponent( allowEmpty = true )
-public abstract class PublicAccessViaInterfaceComponentIdRefModel
+abstract class PublicAccessViaInterfaceComponentIdRefModel
   implements ComponentIdRefInterface
 {
   @Override

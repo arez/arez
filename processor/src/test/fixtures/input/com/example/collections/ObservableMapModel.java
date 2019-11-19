@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ArezComponent
-public abstract class ObservableMapModel
+abstract class ObservableMapModel
 {
   @Observable
   public Map<String, String> getMyValue()

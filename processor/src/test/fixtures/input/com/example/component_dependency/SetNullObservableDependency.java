@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-public abstract class SetNullObservableDependency
+abstract class SetNullObservableDependency
 {
   @Observable
   @ComponentDependency( action = ComponentDependency.Action.SET_NULL )

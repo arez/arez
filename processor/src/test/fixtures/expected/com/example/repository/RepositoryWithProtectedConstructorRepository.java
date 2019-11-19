@@ -15,7 +15,7 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
   }
 
   @Nonnull
-  public static RepositoryWithProtectedConstructorRepository newRepository() {
+  static RepositoryWithProtectedConstructorRepository newRepository() {
     return new Arez_RepositoryWithProtectedConstructorRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithProtectedConstructor create(@Nonnull final String name) {
+  RepositoryWithProtectedConstructor create(@Nonnull final String name) {
     final Arez_RepositoryWithProtectedConstructor entity = new Arez_RepositoryWithProtectedConstructor(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithProtectedConstructorRepository extends Abstr
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
+  protected void destroy(@Nonnull final RepositoryWithProtectedConstructor entity) {
     super.destroy( entity );
   }
 }

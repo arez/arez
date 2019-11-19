@@ -5,7 +5,7 @@ import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-public abstract class BasicFieldDependencyModel
+abstract class BasicFieldDependencyModel
 {
   @ComponentDependency
   public final DisposeNotifier time = null;

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import java.text.ParseException;
 
 @ArezComponent
-public abstract class UnsafeSpecificFunctionActionModel
+abstract class UnsafeSpecificFunctionActionModel
 {
   @Action
   public int doStuff( final long time )

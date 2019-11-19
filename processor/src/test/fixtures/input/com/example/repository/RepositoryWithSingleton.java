@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @Repository
 @ArezComponent( nameIncludesId = false )
-public abstract class RepositoryWithSingleton
+abstract class RepositoryWithSingleton
 {
   @Nonnull
   private String _name;

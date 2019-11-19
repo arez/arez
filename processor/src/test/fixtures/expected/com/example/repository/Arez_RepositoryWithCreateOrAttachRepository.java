@@ -82,7 +82,7 @@ final class Arez_RepositoryWithCreateOrAttachRepository extends RepositoryWithCr
   }
 
   @Override
-  public void attach(@Nonnull final RepositoryWithCreateOrAttach entity) {
+  protected void attach(@Nonnull final RepositoryWithCreateOrAttach entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'attach' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -90,7 +90,7 @@ final class Arez_RepositoryWithCreateOrAttachRepository extends RepositoryWithCr
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithCreateOrAttach entity) {
+  protected void destroy(@Nonnull final RepositoryWithCreateOrAttach entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -99,7 +99,7 @@ final class Arez_RepositoryWithCreateOrAttachRepository extends RepositoryWithCr
 
   @Nonnull
   @Override
-  public RepositoryWithCreateOrAttach create(@Nonnull final String name) {
+  RepositoryWithCreateOrAttach create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

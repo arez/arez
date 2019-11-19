@@ -18,7 +18,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implements Disposable, Identifiable<IOException>, DisposeNotifier {
+final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implements Disposable, Identifiable<IOException>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
@@ -27,7 +27,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   @Nonnull
   private final ComputableValue<IOException> $$arez$$_compError;
 
-  public Arez_ConcreteModel(final W writer) {
+  Arez_ConcreteModel(final W writer) {
     super(writer);
     final ArezContext $$arezv$$_context = Arez.context();
     final IOException $$arezv$$_id = getComponentId();
@@ -40,7 +40,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_kernel.componentReady();
   }
 
-  public Arez_ConcreteModel(final IOException error) {
+  Arez_ConcreteModel(final IOException error) {
     super(error);
     final ArezContext $$arezv$$_context = Arez.context();
     final IOException $$arezv$$_id = getComponentId();
@@ -53,7 +53,7 @@ public final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_kernel.componentReady();
   }
 
-  public Arez_ConcreteModel(final IOException error, final W writer, final int i) {
+  Arez_ConcreteModel(final IOException error, final W writer, final int i) {
     super(error,writer,i);
     final ArezContext $$arezv$$_context = Arez.context();
     final IOException $$arezv$$_id = getComponentId();

@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 
 @Repository
 @ArezComponent
-public abstract class RepositoryPreDisposeHook
+abstract class RepositoryPreDisposeHook
 {
   @Nonnull
   private String _name;

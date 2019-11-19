@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentIdRef;
 
 @ArezComponent( allowEmpty = true )
-public abstract class Suppressed1ProtectedAccessComponentIdRefModel
+abstract class Suppressed1ProtectedAccessComponentIdRefModel
 {
   // This uses the SOURCE retention suppression
   @SuppressWarnings( "Arez:ProtectedRefMethod" )

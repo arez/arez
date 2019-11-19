@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class AbstractNonPrimitiveNonnullObservablesModel
+abstract class AbstractNonPrimitiveNonnullObservablesModel
 {
   @Observable
   @Nonnull

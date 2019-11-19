@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class GenericObservableModel
+abstract class GenericObservableModel
 {
   public interface MyValue<T>
   {

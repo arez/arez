@@ -82,7 +82,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
+  protected void destroy(@Nonnull final RepositoryPreDisposeHook entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_RepositoryPreDisposeHookRepository extends RepositoryPreDispose
 
   @Nonnull
   @Override
-  public RepositoryPreDisposeHook create(@Nonnull final String name) {
+  RepositoryPreDisposeHook create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

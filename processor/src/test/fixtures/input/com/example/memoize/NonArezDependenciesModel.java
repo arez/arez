@@ -8,7 +8,7 @@ import arez.annotations.DepType;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class NonArezDependenciesModel
+abstract class NonArezDependenciesModel
 {
   @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public long getTime()

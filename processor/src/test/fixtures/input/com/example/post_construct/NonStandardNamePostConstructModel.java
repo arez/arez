@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
-public abstract class NonStandardNamePostConstructModel
+abstract class NonStandardNamePostConstructModel
 {
   @PostConstruct
   void postConst$$$ruct()

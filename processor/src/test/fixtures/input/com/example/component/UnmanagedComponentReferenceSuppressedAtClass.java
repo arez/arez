@@ -5,7 +5,7 @@ import arez.component.DisposeNotifier;
 
 @SuppressWarnings( "Arez:UnmanagedComponentReference" )
 @ArezComponent( allowEmpty = true )
-public abstract class UnmanagedComponentReferenceSuppressedAtClass
+abstract class UnmanagedComponentReferenceSuppressedAtClass
 {
   final DisposeNotifier time = null;
 }

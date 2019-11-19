@@ -8,7 +8,7 @@ import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
 
 @ArezComponent
-public abstract class CustomNameRefOnObserveModel2
+abstract class CustomNameRefOnObserveModel2
 {
   @Observe( executor = Executor.EXTERNAL )
   public void render()

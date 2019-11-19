@@ -15,7 +15,7 @@ public abstract class RepositoryWithInitializerModelRepository extends AbstractR
   }
 
   @Nonnull
-  public static RepositoryWithInitializerModelRepository newRepository() {
+  static RepositoryWithInitializerModelRepository newRepository() {
     return new Arez_RepositoryWithInitializerModelRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithInitializerModelRepository extends AbstractR
       name = "create"
   )
   @Nonnull
-  public RepositoryWithInitializerModel create(final long time) {
+  RepositoryWithInitializerModel create(final long time) {
     final Arez_RepositoryWithInitializerModel entity = new Arez_RepositoryWithInitializerModel(time);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithInitializerModelRepository extends AbstractR
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithInitializerModel entity) {
+  protected void destroy(@Nonnull final RepositoryWithInitializerModel entity) {
     super.destroy( entity );
   }
 }

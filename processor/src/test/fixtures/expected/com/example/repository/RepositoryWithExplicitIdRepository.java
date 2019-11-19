@@ -16,7 +16,7 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
   }
 
   @Nonnull
-  public static RepositoryWithExplicitIdRepository newRepository() {
+  static RepositoryWithExplicitIdRepository newRepository() {
     return new Arez_RepositoryWithExplicitIdRepository();
   }
 
@@ -24,20 +24,19 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
       name = "create_packageName_name"
   )
   @Nonnull
-  public RepositoryWithExplicitId create(@Nonnull final String packageName,
-      @Nonnull final String name) {
+  RepositoryWithExplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     final Arez_RepositoryWithExplicitId entity = new Arez_RepositoryWithExplicitId(packageName,name);
     attach( entity );
     return entity;
   }
 
   @Nullable
-  public final RepositoryWithExplicitId findById(final int id) {
+  final RepositoryWithExplicitId findById(final int id) {
     return findByArezId( id );
   }
 
   @Nonnull
-  public final RepositoryWithExplicitId getById(final int id) {
+  final RepositoryWithExplicitId getById(final int id) {
     return getByArezId( id );
   }
 
@@ -45,7 +44,7 @@ public abstract class RepositoryWithExplicitIdRepository extends AbstractReposit
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithExplicitId entity) {
+  protected void destroy(@Nonnull final RepositoryWithExplicitId entity) {
     super.destroy( entity );
   }
 }

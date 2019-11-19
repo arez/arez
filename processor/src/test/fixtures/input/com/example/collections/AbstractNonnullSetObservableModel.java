@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class AbstractNonnullSetObservableModel
+abstract class AbstractNonnullSetObservableModel
 {
   @Nonnull
   @Observable

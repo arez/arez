@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 
 @Repository( detach = Repository.DetachType.DESTROY_OR_DETACH )
 @ArezComponent
-public abstract class RepositoryWithDestroyAndDetach
+abstract class RepositoryWithDestroyAndDetach
 {
   @Nonnull
   private String _name;

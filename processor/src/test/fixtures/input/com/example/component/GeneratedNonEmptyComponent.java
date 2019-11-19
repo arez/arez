@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated( "Some Generator" )
 @ArezComponent( allowEmpty = true )
-public abstract class GeneratedNonEmptyComponent
+abstract class GeneratedNonEmptyComponent
 {
   @Action
   void foo()

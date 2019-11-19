@@ -15,7 +15,7 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
   }
 
   @Nonnull
-  public static RepositoryWithSingletonRepository newRepository() {
+  static RepositoryWithSingletonRepository newRepository() {
     return new Arez_RepositoryWithSingletonRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithSingleton create(@Nonnull final String name) {
+  RepositoryWithSingleton create(@Nonnull final String name) {
     final Arez_RepositoryWithSingleton entity = new Arez_RepositoryWithSingleton(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithSingletonRepository extends AbstractReposito
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithSingleton entity) {
+  protected void destroy(@Nonnull final RepositoryWithSingleton entity) {
     super.destroy( entity );
   }
 }

@@ -5,7 +5,7 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class InitializerAndConstructorParamNameCollisionModel
+abstract class InitializerAndConstructorParamNameCollisionModel
 {
   InitializerAndConstructorParamNameCollisionModel( int time )
   {

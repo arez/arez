@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 
 @ArezComponent
-public abstract class NonStandardNameDisposableCascadeDisposeModel
+abstract class NonStandardNameDisposableCascadeDisposeModel
 {
   @CascadeDispose
   protected Disposable $$_myElement$$;

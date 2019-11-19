@@ -7,7 +7,7 @@ import java.util.HashSet;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class MemoizeNonnullCollectionModel
+abstract class MemoizeNonnullCollectionModel
 {
   @Nonnull
   @Memoize

@@ -15,7 +15,7 @@ public abstract class RepositoryWithMultipleInitializersModelRepository extends 
   }
 
   @Nonnull
-  public static RepositoryWithMultipleInitializersModelRepository newRepository() {
+  static RepositoryWithMultipleInitializersModelRepository newRepository() {
     return new Arez_RepositoryWithMultipleInitializersModelRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithMultipleInitializersModelRepository extends 
       name = "create"
   )
   @Nonnull
-  public RepositoryWithMultipleInitializersModel create(final long time, final long value) {
+  RepositoryWithMultipleInitializersModel create(final long time, final long value) {
     final Arez_RepositoryWithMultipleInitializersModel entity = new Arez_RepositoryWithMultipleInitializersModel(time,value);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithMultipleInitializersModelRepository extends 
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithMultipleInitializersModel entity) {
+  protected void destroy(@Nonnull final RepositoryWithMultipleInitializersModel entity) {
     super.destroy( entity );
   }
 }

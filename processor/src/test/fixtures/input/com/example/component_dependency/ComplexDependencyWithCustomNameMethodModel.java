@@ -8,7 +8,7 @@ import arez.component.DisposeNotifier;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class ComplexDependencyWithCustomNameMethodModel
+abstract class ComplexDependencyWithCustomNameMethodModel
 {
   @Nonnull
   @ComponentNameRef

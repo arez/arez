@@ -6,7 +6,7 @@ import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 
 @ArezComponent
-public abstract class TrackedNoOtherSchedulableModel
+abstract class TrackedNoOtherSchedulableModel
 {
   @Observe( executor = Executor.EXTERNAL )
   public void render1()

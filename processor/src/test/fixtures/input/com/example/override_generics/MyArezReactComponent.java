@@ -3,7 +3,7 @@ package com.example.override_generics;
 import java.util.ArrayList;
 import javax.annotation.Nullable;
 
-public abstract class MyArezReactComponent
+abstract class MyArezReactComponent
   extends ArezReactComponent<ArrayList<?>>
 {
   @Override

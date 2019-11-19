@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentIdRef;
 
 @ArezComponent( allowEmpty = true )
-public abstract class PackageAccessComponentIdRefModel
+abstract class PackageAccessComponentIdRefModel
 {
   @ComponentIdRef
   abstract int getId();

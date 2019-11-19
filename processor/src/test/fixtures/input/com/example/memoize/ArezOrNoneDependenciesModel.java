@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.DepType;
 
 @ArezComponent
-public abstract class ArezOrNoneDependenciesModel
+abstract class ArezOrNoneDependenciesModel
 {
   @Memoize( depType = DepType.AREZ_OR_NONE )
   public long getTime()

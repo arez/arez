@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 @ArezComponent
-public abstract class MultiThrowAction
+abstract class MultiThrowAction
 {
   @Action
   void myAction()

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 
 @ArezComponent
-public abstract class ActAsComponentFieldDependencyModel
+abstract class ActAsComponentFieldDependencyModel
 {
   @ComponentDependency
   public final MyType time = null;

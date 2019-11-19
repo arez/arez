@@ -7,7 +7,7 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public abstract class NonArezDependenciesModel
+abstract class NonArezDependenciesModel
 {
   @Observe( depType = DepType.AREZ_OR_EXTERNAL )
   void render()

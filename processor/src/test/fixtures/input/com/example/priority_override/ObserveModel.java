@@ -6,7 +6,7 @@ import arez.annotations.Observe;
 import arez.annotations.PriorityOverride;
 
 @ArezComponent
-public abstract class ObserveModel
+abstract class ObserveModel
 {
   @Observe
   protected void doStuff()

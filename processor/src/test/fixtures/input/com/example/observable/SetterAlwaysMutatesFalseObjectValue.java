@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class SetterAlwaysMutatesFalseObjectValue
+abstract class SetterAlwaysMutatesFalseObjectValue
 {
   private String _field;
 

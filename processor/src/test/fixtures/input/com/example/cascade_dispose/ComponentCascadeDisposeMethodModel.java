@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 
 @ArezComponent
-public abstract class ComponentCascadeDisposeMethodModel
+abstract class ComponentCascadeDisposeMethodModel
 {
   @CascadeDispose
   protected final MyComponent myElement()

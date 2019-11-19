@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 @Repository
 @ArezComponent
-public abstract class RepositoryWithExplicitNonStandardId
+abstract class RepositoryWithExplicitNonStandardId
 {
   private final int _id;
   @Nonnull

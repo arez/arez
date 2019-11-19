@@ -3,7 +3,7 @@ package com.example.component;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
-public abstract class UnmanagedObservableComponentReferenceViaInheritance
+abstract class UnmanagedObservableComponentReferenceViaInheritance
 {
   @ArezComponent
   public static abstract class MyComponent

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public abstract class NonStandardNameModel
+abstract class NonStandardNameModel
 {
   @Memoize
   public long $$$getTime()

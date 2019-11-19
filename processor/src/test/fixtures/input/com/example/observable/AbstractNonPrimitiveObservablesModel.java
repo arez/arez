@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import java.util.Date;
 
 @ArezComponent
-public abstract class AbstractNonPrimitiveObservablesModel
+abstract class AbstractNonPrimitiveObservablesModel
 {
   @Observable
   public abstract Date getTime();

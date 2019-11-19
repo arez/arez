@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
 @ArezComponent( allowEmpty = true )
-public abstract class UnmanagedComponentReferenceToNonVerify
+abstract class UnmanagedComponentReferenceToNonVerify
 {
   final MyComponent _myComponent = null;
 

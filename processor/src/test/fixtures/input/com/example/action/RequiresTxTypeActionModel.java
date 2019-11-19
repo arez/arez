@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public abstract class RequiresTxTypeActionModel
+abstract class RequiresTxTypeActionModel
 {
   @SuppressWarnings( "DefaultAnnotationParam" )
   @Action( requireNewTransaction = false )

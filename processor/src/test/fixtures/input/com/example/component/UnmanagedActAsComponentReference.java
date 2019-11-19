@@ -4,7 +4,7 @@ import arez.annotations.ActAsComponent;
 import arez.annotations.ArezComponent;
 
 @ArezComponent( allowEmpty = true )
-public abstract class UnmanagedActAsComponentReference
+abstract class UnmanagedActAsComponentReference
 {
   final MyComponent _myComponent = null;
 

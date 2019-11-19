@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class UnmanagedObservableActAsComponentReferenceSuppressedOnSetter
+abstract class UnmanagedObservableActAsComponentReferenceSuppressedOnSetter
 {
   @Observable
   abstract MyComponent getMyComponent();

@@ -12,10 +12,10 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEquals implements Disposable, Identifiable<Character>, DisposeNotifier {
+final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEquals implements Disposable, Identifiable<Character>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_CharComponentIdRequireEquals() {
+  Arez_CharComponentIdRequireEquals() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final char $$arezv$$_id = getId();

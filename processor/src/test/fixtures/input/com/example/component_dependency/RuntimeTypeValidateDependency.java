@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 
 @ArezComponent
-public abstract class RuntimeTypeValidateDependency
+abstract class RuntimeTypeValidateDependency
 {
   @ComponentDependency( validateTypeAtRuntime = true )
   public final Object getValue()

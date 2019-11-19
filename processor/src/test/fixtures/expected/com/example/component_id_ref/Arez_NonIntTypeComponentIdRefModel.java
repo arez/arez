@@ -12,10 +12,10 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefModel implements Disposable, Identifiable<String>, DisposeNotifier {
+final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefModel implements Disposable, Identifiable<String>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_NonIntTypeComponentIdRefModel() {
+  Arez_NonIntTypeComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final String $$arezv$$_id = id();

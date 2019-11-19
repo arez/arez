@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class NonStandardNameModel
+abstract class NonStandardNameModel
 {
   @Observable( name = "time" )
   public abstract long $$getTime();

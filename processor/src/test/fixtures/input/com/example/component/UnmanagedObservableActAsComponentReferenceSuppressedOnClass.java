@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 
 @SuppressWarnings( "Arez:UnmanagedComponentReference" )
 @ArezComponent
-public abstract class UnmanagedObservableActAsComponentReferenceSuppressedOnClass
+abstract class UnmanagedObservableActAsComponentReferenceSuppressedOnClass
 {
   @Observable
   abstract MyComponent getMyComponent();

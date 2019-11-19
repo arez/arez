@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.annotation.Nullable;
 
 @ArezComponent
-public abstract class NullableInitializerModel
+abstract class NullableInitializerModel
 {
   @Observable( initializer = Feature.ENABLE )
   @Nullable

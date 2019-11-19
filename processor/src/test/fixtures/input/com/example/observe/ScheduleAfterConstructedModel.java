@@ -5,7 +5,7 @@ import arez.annotations.Observe;
 import arez.annotations.PostConstruct;
 
 @ArezComponent
-public abstract class ScheduleAfterConstructedModel
+abstract class ScheduleAfterConstructedModel
 {
   @PostConstruct
   public void postConstruct()

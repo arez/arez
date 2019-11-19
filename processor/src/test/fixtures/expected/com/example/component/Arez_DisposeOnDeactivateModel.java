@@ -15,12 +15,12 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_DisposeOnDeactivateModel() {
+  Arez_DisposeOnDeactivateModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

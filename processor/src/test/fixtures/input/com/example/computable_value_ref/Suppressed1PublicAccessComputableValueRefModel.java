@@ -7,7 +7,7 @@ import arez.annotations.Memoize;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class Suppressed1PublicAccessComputableValueRefModel
+abstract class Suppressed1PublicAccessComputableValueRefModel
 {
   @Memoize
   public long getTime()

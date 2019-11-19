@@ -6,7 +6,7 @@ import arez.annotations.Feature;
 import arez.annotations.PostDispose;
 
 @ArezComponent( disposeNotifier = Feature.DISABLE )
-public abstract class PostDisposeWithDisabledDisposeNotifierModel
+abstract class PostDisposeWithDisabledDisposeNotifierModel
 {
   @PostDispose
   void postDispose()

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import javax.annotation.Nonnull;
 
 @ArezComponent( allowEmpty = true )
-public abstract class LeafModel
+abstract class LeafModel
   extends MiddleModel
 {
   @Override

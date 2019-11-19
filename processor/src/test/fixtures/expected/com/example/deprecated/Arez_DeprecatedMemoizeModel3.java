@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -24,7 +24,7 @@ public final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 
   private final ComputableValue<Long> $$arez$$_time;
 
   @SuppressWarnings("deprecation")
-  public Arez_DeprecatedMemoizeModel3() {
+  Arez_DeprecatedMemoizeModel3() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

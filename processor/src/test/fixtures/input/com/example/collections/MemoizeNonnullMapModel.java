@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class MemoizeNonnullMapModel
+abstract class MemoizeNonnullMapModel
 {
   @Nonnull
   @Memoize

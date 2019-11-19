@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 
 @ArezComponent
-public abstract class ComponentDependencyModel
+abstract class ComponentDependencyModel
 {
   @ArezComponent( allowEmpty = true )
   static abstract class Foo

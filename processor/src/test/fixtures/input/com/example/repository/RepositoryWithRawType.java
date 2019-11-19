@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 @Repository
 @ArezComponent
 @SuppressWarnings( "rawtypes" )
-public abstract class RepositoryWithRawType
+abstract class RepositoryWithRawType
 {
   @Observable
   @Nonnull

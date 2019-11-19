@@ -15,7 +15,7 @@ public abstract class RepositoryWithCreateOnlyRepository extends AbstractReposit
   }
 
   @Nonnull
-  public static RepositoryWithCreateOnlyRepository newRepository() {
+  static RepositoryWithCreateOnlyRepository newRepository() {
     return new Arez_RepositoryWithCreateOnlyRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithCreateOnlyRepository extends AbstractReposit
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithCreateOnly create(@Nonnull final String name) {
+  RepositoryWithCreateOnly create(@Nonnull final String name) {
     final Arez_RepositoryWithCreateOnly entity = new Arez_RepositoryWithCreateOnly(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithCreateOnlyRepository extends AbstractReposit
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithCreateOnly entity) {
+  protected void destroy(@Nonnull final RepositoryWithCreateOnly entity) {
     super.destroy( entity );
   }
 }

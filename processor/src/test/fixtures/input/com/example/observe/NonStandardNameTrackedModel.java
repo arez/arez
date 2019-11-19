@@ -6,7 +6,7 @@ import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 
 @ArezComponent
-public abstract class NonStandardNameTrackedModel
+abstract class NonStandardNameTrackedModel
 {
   @Observe( executor = Executor.EXTERNAL, name = "render" )
   public void ren$$$der( final long $$time, float $$someOtherParameter )

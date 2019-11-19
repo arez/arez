@@ -3,7 +3,7 @@ package com.example.component;
 import arez.annotations.ArezComponent;
 
 @ArezComponent( allowEmpty = true )
-public abstract class UnmanagedComponentReference
+abstract class UnmanagedComponentReference
 {
   final MyComponent _myComponent = null;
 

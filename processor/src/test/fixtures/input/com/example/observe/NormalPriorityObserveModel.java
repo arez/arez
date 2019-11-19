@@ -5,7 +5,7 @@ import arez.annotations.Observe;
 import arez.annotations.Priority;
 
 @ArezComponent
-public abstract class NormalPriorityObserveModel
+abstract class NormalPriorityObserveModel
 {
   @Observe( priority = Priority.NORMAL )
   protected void doStuff()

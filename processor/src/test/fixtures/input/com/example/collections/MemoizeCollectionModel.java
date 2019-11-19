@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @ArezComponent
-public abstract class MemoizeCollectionModel
+abstract class MemoizeCollectionModel
 {
   @Memoize
   public Collection<String> getMyValue()

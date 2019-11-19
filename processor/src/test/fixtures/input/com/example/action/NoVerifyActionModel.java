@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public abstract class NoVerifyActionModel
+abstract class NoVerifyActionModel
 {
   @Action( verifyRequired = false )
   public void doStuff1()

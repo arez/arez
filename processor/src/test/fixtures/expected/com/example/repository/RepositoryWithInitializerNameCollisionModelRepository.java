@@ -15,7 +15,7 @@ public abstract class RepositoryWithInitializerNameCollisionModelRepository exte
   }
 
   @Nonnull
-  public static RepositoryWithInitializerNameCollisionModelRepository newRepository() {
+  static RepositoryWithInitializerNameCollisionModelRepository newRepository() {
     return new Arez_RepositoryWithInitializerNameCollisionModelRepository();
   }
 
@@ -23,8 +23,7 @@ public abstract class RepositoryWithInitializerNameCollisionModelRepository exte
       name = "create_time"
   )
   @Nonnull
-  public RepositoryWithInitializerNameCollisionModel create(final int time,
-      final long $$arezip$$_time) {
+  RepositoryWithInitializerNameCollisionModel create(final int time, final long $$arezip$$_time) {
     final Arez_RepositoryWithInitializerNameCollisionModel entity = new Arez_RepositoryWithInitializerNameCollisionModel(time,$$arezip$$_time);
     attach( entity );
     return entity;
@@ -34,7 +33,7 @@ public abstract class RepositoryWithInitializerNameCollisionModelRepository exte
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithInitializerNameCollisionModel entity) {
+  protected void destroy(@Nonnull final RepositoryWithInitializerNameCollisionModel entity) {
     super.destroy( entity );
   }
 }

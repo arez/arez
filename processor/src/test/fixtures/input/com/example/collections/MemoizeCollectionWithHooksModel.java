@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @ArezComponent
-public abstract class MemoizeCollectionWithHooksModel
+abstract class MemoizeCollectionWithHooksModel
 {
   @Memoize
   public Collection<Long> getTime()

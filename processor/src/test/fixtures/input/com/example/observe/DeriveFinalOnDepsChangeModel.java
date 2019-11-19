@@ -5,7 +5,7 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class DeriveFinalOnDepsChangeModel
+abstract class DeriveFinalOnDepsChangeModel
 {
   @Observe( executor = Executor.EXTERNAL )
   public void render( final long time, float someOtherParameter )

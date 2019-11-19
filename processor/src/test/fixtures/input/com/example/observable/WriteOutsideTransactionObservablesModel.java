@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class WriteOutsideTransactionObservablesModel
+abstract class WriteOutsideTransactionObservablesModel
 {
   @Observable( writeOutsideTransaction = true )
   public abstract long getTime();

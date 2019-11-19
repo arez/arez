@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class DeprecatedObservableModel2
+abstract class DeprecatedObservableModel2
 {
   @Observable
   public long getTime()

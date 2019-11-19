@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.component.DisposeNotifier;
 
 @ArezComponent( allowEmpty = true )
-public abstract class UnmanagedDisposeNotifierReference
+abstract class UnmanagedDisposeNotifierReference
 {
   final DisposeNotifier time = null;
 }

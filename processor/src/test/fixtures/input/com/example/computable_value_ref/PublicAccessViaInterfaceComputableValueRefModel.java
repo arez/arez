@@ -7,7 +7,7 @@ import arez.annotations.Memoize;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class PublicAccessViaInterfaceComputableValueRefModel
+abstract class PublicAccessViaInterfaceComputableValueRefModel
   implements ComputableValueRefInterface
 {
   @Memoize

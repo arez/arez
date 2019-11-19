@@ -5,7 +5,7 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class UnmanagedObservableComponentReferenceToNonVerify
+abstract class UnmanagedObservableComponentReferenceToNonVerify
 {
   @Observable
   abstract MyComponent getMyComponent();

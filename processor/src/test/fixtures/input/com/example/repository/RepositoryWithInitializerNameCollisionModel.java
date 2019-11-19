@@ -7,7 +7,7 @@ import arez.annotations.Repository;
 
 @Repository
 @ArezComponent
-public abstract class RepositoryWithInitializerNameCollisionModel
+abstract class RepositoryWithInitializerNameCollisionModel
 {
   RepositoryWithInitializerNameCollisionModel( int time )
   {

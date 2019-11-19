@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 
 @ArezComponent
-public abstract class ObserveLowerPriorityModel
+abstract class ObserveLowerPriorityModel
 {
   @Memoize( observeLowerPriorityDependencies = true )
   public long getTime()

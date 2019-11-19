@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_TrackedImplicitOnDepsChangeAcceptsObserverModel extends TrackedImplicitOnDepsChangeAcceptsObserverModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_TrackedImplicitOnDepsChangeAcceptsObserverModel extends TrackedImplicitOnDepsChangeAcceptsObserverModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -22,7 +22,7 @@ public final class Arez_TrackedImplicitOnDepsChangeAcceptsObserverModel extends 
   @Nonnull
   private final Observer $$arez$$_render;
 
-  public Arez_TrackedImplicitOnDepsChangeAcceptsObserverModel() {
+  Arez_TrackedImplicitOnDepsChangeAcceptsObserverModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

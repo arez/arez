@@ -6,7 +6,7 @@ import arez.annotations.ArezComponent;
  * These names are all valid as they have parameters and wont collide with built in Arez intrinsics.
  */
 @ArezComponent( allowEmpty = true )
-public abstract class NonReservedNameModel
+abstract class NonReservedNameModel
 {
   void dispose( int i )
   {

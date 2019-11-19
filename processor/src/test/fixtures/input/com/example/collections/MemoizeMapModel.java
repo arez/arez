@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ArezComponent
-public abstract class MemoizeMapModel
+abstract class MemoizeMapModel
 {
   @Memoize
   public Map<String, String> getMyValue()

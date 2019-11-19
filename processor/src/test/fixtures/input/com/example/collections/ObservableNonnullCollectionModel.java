@@ -7,7 +7,7 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class ObservableNonnullCollectionModel
+abstract class ObservableNonnullCollectionModel
 {
   @Nonnull
   @Observable

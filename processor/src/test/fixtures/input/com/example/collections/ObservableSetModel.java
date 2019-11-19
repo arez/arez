@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @ArezComponent
-public abstract class ObservableSetModel
+abstract class ObservableSetModel
 {
   @Observable
   public Set<String> getMyValue()

@@ -18,7 +18,7 @@ import org.realityforge.braincheck.Guards;
 
 @SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -28,7 +28,7 @@ public final class Arez_RepositoryWithRawType extends RepositoryWithRawType impl
 
   private Callable $$arezd$$_action;
 
-  public Arez_RepositoryWithRawType(@Nonnull final Callable action) {
+  Arez_RepositoryWithRawType(@Nonnull final Callable action) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

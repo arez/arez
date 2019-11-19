@@ -83,7 +83,7 @@ final class Arez_RepositoryWithMultipleInitializersModelRepository extends Repos
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithMultipleInitializersModel entity) {
+  protected void destroy(@Nonnull final RepositoryWithMultipleInitializersModel entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -92,7 +92,7 @@ final class Arez_RepositoryWithMultipleInitializersModelRepository extends Repos
 
   @Nonnull
   @Override
-  public RepositoryWithMultipleInitializersModel create(final long time, final long value) {
+  RepositoryWithMultipleInitializersModel create(final long time, final long value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

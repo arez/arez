@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import java.util.Set;
 
 @ArezComponent
-public abstract class AbstractSetObservableModel
+abstract class AbstractSetObservableModel
 {
   @Observable
   public abstract Set<String> getMyValue();

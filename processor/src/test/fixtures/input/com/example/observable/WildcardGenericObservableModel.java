@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class WildcardGenericObservableModel<T>
+abstract class WildcardGenericObservableModel<T>
 {
   public interface MyValue<T>
   {

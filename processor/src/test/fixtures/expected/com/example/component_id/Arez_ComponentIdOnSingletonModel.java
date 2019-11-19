@@ -14,13 +14,13 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSingletonModel implements Disposable, Identifiable<Long>, DisposeNotifier {
+final class Arez_ComponentIdOnSingletonModel extends ComponentIdOnSingletonModel implements Disposable, Identifiable<Long>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
   private final ObservableValue<Long> $$arez$$_field;
 
-  public Arez_ComponentIdOnSingletonModel() {
+  Arez_ComponentIdOnSingletonModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final long $$arezv$$_id = getId();

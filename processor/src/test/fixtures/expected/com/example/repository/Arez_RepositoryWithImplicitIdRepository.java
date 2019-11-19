@@ -82,7 +82,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
   }
 
   @Override
-  public void destroy(@Nonnull final RepositoryWithImplicitId entity) {
+  protected void destroy(@Nonnull final RepositoryWithImplicitId entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,8 +91,7 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
 
   @Nonnull
   @Override
-  public RepositoryWithImplicitId create(@Nonnull final String packageName,
-      @Nonnull final String name) {
+  RepositoryWithImplicitId create(@Nonnull final String packageName, @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

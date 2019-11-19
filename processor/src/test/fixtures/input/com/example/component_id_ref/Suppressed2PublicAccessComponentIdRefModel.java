@@ -5,7 +5,7 @@ import arez.annotations.ComponentIdRef;
 import arez.annotations.SuppressArezWarnings;
 
 @ArezComponent( allowEmpty = true )
-public abstract class Suppressed2PublicAccessComponentIdRefModel
+abstract class Suppressed2PublicAccessComponentIdRefModel
 {
   // This uses the CLASS retention suppression
   @SuppressArezWarnings( "Arez:PublicRefMethod" )

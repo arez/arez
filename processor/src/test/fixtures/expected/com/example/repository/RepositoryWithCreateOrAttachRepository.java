@@ -15,7 +15,7 @@ public abstract class RepositoryWithCreateOrAttachRepository extends AbstractRep
   }
 
   @Nonnull
-  public static RepositoryWithCreateOrAttachRepository newRepository() {
+  static RepositoryWithCreateOrAttachRepository newRepository() {
     return new Arez_RepositoryWithCreateOrAttachRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithCreateOrAttachRepository extends AbstractRep
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithCreateOrAttach create(@Nonnull final String name) {
+  RepositoryWithCreateOrAttach create(@Nonnull final String name) {
     final Arez_RepositoryWithCreateOrAttach entity = new Arez_RepositoryWithCreateOrAttach(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithCreateOrAttachRepository extends AbstractRep
   @Action(
       reportParameters = false
   )
-  public void attach(@Nonnull final RepositoryWithCreateOrAttach entity) {
+  protected void attach(@Nonnull final RepositoryWithCreateOrAttach entity) {
     super.attach( entity );
   }
 
@@ -41,7 +41,7 @@ public abstract class RepositoryWithCreateOrAttachRepository extends AbstractRep
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithCreateOrAttach entity) {
+  protected void destroy(@Nonnull final RepositoryWithCreateOrAttach entity) {
     super.destroy( entity );
   }
 }

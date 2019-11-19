@@ -6,7 +6,7 @@ import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-public abstract class AbstractObservableDependency
+abstract class AbstractObservableDependency
 {
   @Observable
   @ComponentDependency

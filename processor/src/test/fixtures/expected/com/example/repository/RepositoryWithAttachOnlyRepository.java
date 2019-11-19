@@ -15,7 +15,7 @@ public abstract class RepositoryWithAttachOnlyRepository extends AbstractReposit
   }
 
   @Nonnull
-  public static RepositoryWithAttachOnlyRepository newRepository() {
+  static RepositoryWithAttachOnlyRepository newRepository() {
     return new Arez_RepositoryWithAttachOnlyRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithAttachOnlyRepository extends AbstractReposit
   @Action(
       reportParameters = false
   )
-  public void attach(@Nonnull final RepositoryWithAttachOnly entity) {
+  protected void attach(@Nonnull final RepositoryWithAttachOnly entity) {
     super.attach( entity );
   }
 
@@ -31,7 +31,7 @@ public abstract class RepositoryWithAttachOnlyRepository extends AbstractReposit
   @Action(
       reportParameters = false
   )
-  public void destroy(@Nonnull final RepositoryWithAttachOnly entity) {
+  protected void destroy(@Nonnull final RepositoryWithAttachOnly entity) {
     super.destroy( entity );
   }
 }

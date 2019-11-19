@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_NullableInitializerModel extends NullableInitializerModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_NullableInitializerModel extends NullableInitializerModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -27,7 +27,7 @@ public final class Arez_NullableInitializerModel extends NullableInitializerMode
 
   private Date $$arezd$$_time;
 
-  public Arez_NullableInitializerModel(@Nullable final Date time) {
+  Arez_NullableInitializerModel(@Nullable final Date time) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

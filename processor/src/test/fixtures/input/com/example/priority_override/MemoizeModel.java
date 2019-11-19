@@ -6,7 +6,7 @@ import arez.annotations.Memoize;
 import arez.annotations.PriorityOverride;
 
 @ArezComponent
-public abstract class MemoizeModel
+abstract class MemoizeModel
 {
   @Memoize
   public long getTime()

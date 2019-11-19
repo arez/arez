@@ -3,7 +3,7 @@ package com.example.to_string;
 import arez.annotations.ArezComponent;
 
 @ArezComponent( allowEmpty = true )
-public abstract class ToStringPresent
+abstract class ToStringPresent
 {
   @Override
   public String toString()

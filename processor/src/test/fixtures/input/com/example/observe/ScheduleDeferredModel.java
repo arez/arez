@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 
 @ArezComponent( deferSchedule = true )
-public abstract class ScheduleDeferredModel
+abstract class ScheduleDeferredModel
 {
   @Observe
   protected void doStuff()

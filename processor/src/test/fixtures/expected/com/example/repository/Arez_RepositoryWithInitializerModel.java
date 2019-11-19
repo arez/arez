@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_RepositoryWithInitializerModel extends RepositoryWithInitializerModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class Arez_RepositoryWithInitializerModel extends RepositoryWithInitializerModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -25,7 +25,7 @@ public final class Arez_RepositoryWithInitializerModel extends RepositoryWithIni
 
   private long $$arezd$$_time;
 
-  public Arez_RepositoryWithInitializerModel(final long time) {
+  Arez_RepositoryWithInitializerModel(final long time) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

@@ -5,7 +5,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Memoize;
 import java.io.Writer;
 
-public abstract class AbstractModel<T extends Throwable, W extends Writer>
+abstract class AbstractModel<T extends Throwable, W extends Writer>
 {
   public AbstractModel( W writer )
   {

@@ -7,7 +7,7 @@ import arez.annotations.OnDeactivate;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public abstract class WithHooksModel
+abstract class WithHooksModel
 {
   @Memoize
   public long getTime()

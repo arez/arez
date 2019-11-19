@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,7 +23,7 @@ public final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableM
   private final ObservableValue<Long> $$arez$$_time;
 
   @SuppressWarnings("deprecation")
-  public Arez_DeprecatedObservableModel2() {
+  Arez_DeprecatedObservableModel2() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

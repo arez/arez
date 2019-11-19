@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class AbstractNonnullMapObservableModel
+abstract class AbstractNonnullMapObservableModel
 {
   @Nonnull
   @Observable

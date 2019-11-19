@@ -5,7 +5,7 @@ import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-public abstract class UnmanagedObservableDisposeNotifierReference
+abstract class UnmanagedObservableDisposeNotifierReference
 {
   @Observable
   abstract MyComponent getMyComponent();

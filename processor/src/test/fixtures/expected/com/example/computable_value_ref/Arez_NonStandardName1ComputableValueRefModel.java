@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_NonStandardName1ComputableValueRefModel extends NonStandardName1ComputableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_NonStandardName1ComputableValueRefModel extends NonStandardName1ComputableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,7 +23,7 @@ public final class Arez_NonStandardName1ComputableValueRefModel extends NonStand
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  public Arez_NonStandardName1ComputableValueRefModel() {
+  Arez_NonStandardName1ComputableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

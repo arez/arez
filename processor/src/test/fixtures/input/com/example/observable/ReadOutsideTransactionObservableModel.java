@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class ReadOutsideTransactionObservableModel
+abstract class ReadOutsideTransactionObservableModel
 {
   @Observable( readOutsideTransaction = true )
   @Nonnull

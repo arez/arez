@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.OnStale;
 
 @ArezComponent
-public abstract class OnStaleModel
+abstract class OnStaleModel
 {
   @Memoize
   long getTime()

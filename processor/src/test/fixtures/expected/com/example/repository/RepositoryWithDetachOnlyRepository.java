@@ -15,7 +15,7 @@ public abstract class RepositoryWithDetachOnlyRepository extends AbstractReposit
   }
 
   @Nonnull
-  public static RepositoryWithDetachOnlyRepository newRepository() {
+  static RepositoryWithDetachOnlyRepository newRepository() {
     return new Arez_RepositoryWithDetachOnlyRepository();
   }
 
@@ -23,7 +23,7 @@ public abstract class RepositoryWithDetachOnlyRepository extends AbstractReposit
       name = "create_name"
   )
   @Nonnull
-  public RepositoryWithDetachOnly create(@Nonnull final String name) {
+  RepositoryWithDetachOnly create(@Nonnull final String name) {
     final Arez_RepositoryWithDetachOnly entity = new Arez_RepositoryWithDetachOnly(name);
     attach( entity );
     return entity;
@@ -33,7 +33,7 @@ public abstract class RepositoryWithDetachOnlyRepository extends AbstractReposit
   @Action(
       reportParameters = false
   )
-  public void detach(@Nonnull final RepositoryWithDetachOnly entity) {
+  protected void detach(@Nonnull final RepositoryWithDetachOnly entity) {
     super.detach( entity );
   }
 }

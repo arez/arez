@@ -6,7 +6,7 @@ import arez.annotations.Observe;
 import arez.annotations.PriorityOverride;
 
 @ArezComponent
-public abstract class CustomNameModel
+abstract class CustomNameModel
 {
   @Observe
   protected void doStuff()

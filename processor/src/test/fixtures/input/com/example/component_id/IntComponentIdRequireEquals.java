@@ -5,7 +5,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Feature;
 
 @ArezComponent( allowEmpty = true, requireEquals = Feature.ENABLE )
-public abstract class IntComponentIdRequireEquals
+abstract class IntComponentIdRequireEquals
 {
   @ComponentId
   public final int getId()

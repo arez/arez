@@ -5,7 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.OnDeactivate;
 
 @ArezComponent
-public abstract class OnDeactivateModel
+abstract class OnDeactivateModel
 {
   @Memoize
   long getTime()

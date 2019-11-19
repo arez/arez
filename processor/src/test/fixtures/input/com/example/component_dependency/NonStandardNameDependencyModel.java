@@ -5,7 +5,7 @@ import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-public abstract class NonStandardNameDependencyModel
+abstract class NonStandardNameDependencyModel
 {
   @ComponentDependency
   public final DisposeNotifier $$MYDEP$$()

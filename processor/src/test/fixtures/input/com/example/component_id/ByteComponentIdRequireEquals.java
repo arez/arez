@@ -5,7 +5,7 @@ import arez.annotations.ComponentId;
 import arez.annotations.Feature;
 
 @ArezComponent( allowEmpty = true, requireEquals = Feature.ENABLE )
-public abstract class ByteComponentIdRequireEquals
+abstract class ByteComponentIdRequireEquals
 {
   @ComponentId
   public final byte getId()

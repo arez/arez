@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
 @ArezComponent( allowEmpty = true )
-public abstract class UnmanagedComponentReferenceToNonDisposeNotifier
+abstract class UnmanagedComponentReferenceToNonDisposeNotifier
 {
   final MyComponent _myComponent = null;
 

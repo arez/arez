@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent
-public abstract class OverloadedActions
+abstract class OverloadedActions
 {
   @Action
   public void myAction()
