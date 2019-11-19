@@ -627,14 +627,10 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     ArezUtils.mustBeStandardRefMethod( _processingEnv, this, method, Constants.OBSERVER_REF_ANNOTATION_CLASSNAME );
-
-    final TypeMirror returnType = method.getReturnType();
-    if ( TypeKind.DECLARED != returnType.getKind() ||
-         !returnType.toString().equals( "arez.Observer" ) )
-    {
-      throw new ProcessorException( "Method annotated with @ObserverRef must return an instance of " +
-                                    "arez.Observer", method );
-    }
+    MemberChecks.mustReturnAnInstanceOf( _processingEnv,
+                                         method,
+                                         Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
+                                         Constants.OBSERVER_CLASSNAME );
 
     final String declaredName = getAnnotationParameter( annotation, "name" );
     final String name;
@@ -856,14 +852,10 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     ArezUtils.mustBeStandardRefMethod( _processingEnv, this, method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
-
-    final TypeMirror returnType = method.getReturnType();
-    if ( TypeKind.DECLARED != returnType.getKind() ||
-         !returnType.toString().equals( "arez.ArezContext" ) )
-    {
-      throw new ProcessorException( "Method annotated with @ContextRef must return an instance of " +
-                                    "arez.ArezContext", method );
-    }
+    MemberChecks.mustReturnAnInstanceOf( _processingEnv,
+                                         method,
+                                         Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
+                                         "arez.ArezContext" );
 
     if ( null != _contextRef )
     {
@@ -900,15 +892,10 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     ArezUtils.mustBeStandardRefMethod( _processingEnv, this, method, Constants.COMPONENT_REF_ANNOTATION_CLASSNAME );
-
-    final TypeMirror returnType = method.getReturnType();
-    if ( TypeKind.DECLARED != returnType.getKind() ||
-         !returnType.toString().equals( "arez.Component" ) )
-    {
-      throw new ProcessorException( "Method annotated with @ComponentRef must return an instance of " +
-                                    "arez.Component", method );
-    }
-
+    MemberChecks.mustReturnAnInstanceOf( _processingEnv,
+                                         method,
+                                         Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
+                                         "arez.Component" );
     if ( null != _componentRef )
     {
       throw new ProcessorException( "@ComponentRef target duplicates existing method named " +
@@ -958,13 +945,10 @@ final class ComponentDescriptor
                                        this,
                                        method,
                                        Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
-
-    final TypeMirror returnType = method.getReturnType();
-    if ( !( TypeKind.DECLARED == returnType.getKind() &&
-            returnType.toString().equals( String.class.getName() ) ) )
-    {
-      throw new ProcessorException( "@ComponentTypeNameRef target must return a String", method );
-    }
+    MemberChecks.mustReturnAnInstanceOf( _processingEnv,
+                                         method,
+                                         Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME,
+                                         String.class.getName() );
 
     if ( null != _componentTypeNameRef )
     {
@@ -984,6 +968,10 @@ final class ComponentDescriptor
                                        this,
                                        method,
                                        Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
+    MemberChecks.mustReturnAnInstanceOf( _processingEnv,
+                                         method,
+                                         Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
+                                         String.class.getName() );
 
     if ( null != _componentNameRef )
     {

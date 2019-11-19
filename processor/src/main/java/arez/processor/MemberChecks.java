@@ -13,6 +13,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 
 @SuppressWarnings( { "SameParameterValue", "WeakerAccess", "unused" } )
@@ -357,6 +358,23 @@ final class MemberChecks
         toSimpleName( annotationName ) + " target should not be protected. " +
         suppressedBy( warning, alternativeSuppressWarnings );
       processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
+    }
+  }
+
+  static void mustReturnAnInstanceOf( @Nonnull final ProcessingEnvironment processingEnv,
+                                      @Nonnull final ExecutableElement method,
+                                      @Nonnull final String annotationClassname,
+                                      @Nonnull final String expectedTypename )
+  {
+    final TypeElement typeElement = processingEnv.getElementUtils().getTypeElement( expectedTypename );
+    assert null != typeElement;
+    final TypeMirror expected = typeElement.asType();
+
+    final TypeMirror actual = method.getReturnType();
+    if ( !processingEnv.getTypeUtils().isSameType( actual, expected ) )
+    {
+      final String message = must( annotationClassname, "return an instance of " + expected );
+      throw new ProcessorException( message, method );
     }
   }
 }
