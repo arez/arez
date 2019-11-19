@@ -14,6 +14,7 @@
   * `@ContextRef`
   * `@ComputableValueRef`
   * `@ObservableValueRef`
+* Fix bug in annotation where a package-access entity that was annotated with the `@Repository` annotation would generate bad code.
 
 ### [v0.154](https://github.com/arez/arez/tree/v0.154) (2019-11-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.153...v0.154)
 

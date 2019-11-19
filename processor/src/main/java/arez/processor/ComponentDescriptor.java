@@ -4468,35 +4468,31 @@ final class ComponentDescriptor
   @Nonnull
   private MethodSpec buildRepositoryAttach()
   {
-    final TypeName entityType = TypeName.get( getElement().asType() );
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( "attach" ).
+    return MethodSpec.methodBuilder( "attach" ).
       addAnnotation( Override.class ).
+      addModifiers( getElement().getModifiers().contains( Modifier.PUBLIC ) ? Modifier.PUBLIC : Modifier.PROTECTED ).
       addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
-      addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
+      addParameter( ParameterSpec.builder( TypeName.get( getElement().asType() ), "entity", Modifier.FINAL )
                       .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
-      addStatement( "super.attach( entity )" );
-    GeneratorUtil.copyAccessModifiers( getElement(), method );
-    return method.build();
+      addStatement( "super.attach( entity )" ).build();
   }
 
   @Nonnull
   private MethodSpec buildRepositoryDetach()
   {
-    final TypeName entityType = TypeName.get( getElement().asType() );
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( "detach" ).
+    return MethodSpec.methodBuilder( "detach" ).
       addAnnotation( Override.class ).
+      addModifiers( getElement().getModifiers().contains( Modifier.PUBLIC ) ? Modifier.PUBLIC : Modifier.PROTECTED ).
       addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
-      addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
+      addParameter( ParameterSpec.builder( TypeName.get( getElement().asType() ), "entity", Modifier.FINAL )
                       .addAnnotation( Generator.NONNULL_CLASSNAME )
                       .build() ).
-      addStatement( "super.detach( entity )" );
-    GeneratorUtil.copyAccessModifiers( getElement(), method );
-    return method.build();
+      addStatement( "super.detach( entity )" ).build();
   }
 
   @Nonnull
