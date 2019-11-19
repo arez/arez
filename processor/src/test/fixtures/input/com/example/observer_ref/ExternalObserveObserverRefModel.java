@@ -8,7 +8,7 @@ import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
 
 @ArezComponent
-abstract class RefOnBothModel
+abstract class ExternalObserveObserverRefModel
 {
   @Observe( executor = Executor.EXTERNAL )
   public void render( final long time, float someOtherParameter )
@@ -22,12 +22,4 @@ abstract class RefOnBothModel
 
   @ObserverRef
   abstract Observer getRenderObserver();
-
-  @Observe
-  protected void doStuff()
-  {
-  }
-
-  @ObserverRef
-  abstract Observer getDoStuffObserver();
 }

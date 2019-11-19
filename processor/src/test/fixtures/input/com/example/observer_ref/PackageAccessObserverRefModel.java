@@ -6,13 +6,13 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-abstract class CustomNameRefOnObserveModel1
+abstract class PackageAccessObserverRefModel
 {
   @Observe
   protected void doStuff()
   {
   }
 
-  @ObserverRef( name = "doStuff" )
-  abstract Observer observer();
+  @ObserverRef
+  abstract Observer getDoStuffObserver();
 }
