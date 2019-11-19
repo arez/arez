@@ -21,9 +21,9 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
-* Generate a suppressable warning if any `@*Ref` method or lifecycle method is public
+* Generate a suppressable warning if any lifecycle method is public
 
-* Generate a suppressable warning if any `@*Ref` method or lifecycle method is protected and in class
+* Generate a suppressable warning if any lifecycle method is protected and in class
   annotated with `@ArezComponent`
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
@@ -33,9 +33,6 @@ See https://github.com/arez/arez/issues/91
 * Automagically add `@SuppressWarnings` to generated `@*Ref` methods if return value has a type parameter that
   contains raw types or deprecated types. Remove the whitelisted annotations copyingo for these `@*Ref` annotated
   methods.
-
-* Rework lots of assertions for `@*Ref` methods so that they just assert that they are abstract. Update
-  constraints in javadocs.
 
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
   is concern for code duplication.

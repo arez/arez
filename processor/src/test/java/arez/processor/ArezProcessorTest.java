@@ -583,12 +583,25 @@ public class ArezProcessorTest
                       false },
         new Object[]{ "com.example.observe.TrackedNoOtherSchedulableModel", false, false, false, false },
         new Object[]{ "com.example.observe.TrackedOnDepsChangeAcceptsObserverModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel1", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel2", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.CustomNameRefOnObserveModel3", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.RefOnObserveModel1", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.RefOnBothModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.RefOnObserveModel2", false, false, false, false },
+
+        new Object[]{ "com.example.observer_ref.BasicObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.CustomNameObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.ExternalObserveObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.NonStandardMethodNameObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.Suppressed1ProtectedAccessObserverRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observer_ref.Suppressed1PublicAccessObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.Suppressed2ProtectedAccessObserverRefModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.observer_ref.Suppressed2PublicAccessObserverRefModel", false, false, false, false },
+
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
         new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.PostConstructModel", false, false, false, false },
@@ -1049,6 +1062,51 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.observable_value_ref.ObservableValueRefInterface" );
     final String output =
       toFilename( "expected", "com.example.observable_value_ref.Arez_PublicAccessViaInterfaceObservableValueRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessObserverRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.observer_ref.ProtectedAccessObserverRefModel" );
+    final String messageFragment =
+      "@ObserverRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessObserverRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.observer_ref.ProtectedAccessFromBaseObserverRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.observer_ref.other.BaseProtectedAccessObserverRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.observer_ref.Arez_ProtectedAccessFromBaseObserverRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceObserverRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.observer_ref.PublicAccessViaInterfaceObserverRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.observer_ref.ObserverRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.observer_ref.Arez_PublicAccessViaInterfaceObserverRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1745,16 +1803,15 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.DuplicateNameModel",
                       "Method annotated with @ObserverRef defines duplicate ref accessor for observer named doStuff" },
         new Object[]{ "com.example.observer_ref.ExceptionModel", "@ObserverRef target must not throw any exceptions" },
-        new Object[]{ "com.example.observer_ref.FinalModel", "@ObserverRef target must not be final" },
+        new Object[]{ "com.example.observer_ref.FinalModel", "@ObserverRef target must be abstract" },
         new Object[]{ "com.example.observer_ref.NoNameModel",
                       "Method annotated with @ObserverRef should specify name or be named according to the convention get[Name]Observer" },
         new Object[]{ "com.example.observer_ref.ParametersModel", "@ObserverRef target must not have any parameters" },
-        new Object[]{ "com.example.observer_ref.PrivateModel", "@ObserverRef target must not be private" },
+        new Object[]{ "com.example.observer_ref.PrivateModel", "@ObserverRef target must be abstract" },
         new Object[]{ "com.example.observer_ref.RefOnNeitherModel",
                       "@ObserverRef target defined observer named 'render' but no @Observe method with that name exists" },
-        new Object[]{ "com.example.observer_ref.StaticModel", "@ObserverRef target must not be static" },
-        new Object[]{ "com.example.observer_ref.VoidReturnModel",
-                      "Method annotated with @ObserverRef must return an instance of arez.Observer" },
+        new Object[]{ "com.example.observer_ref.StaticModel", "@ObserverRef target must be abstract" },
+        new Object[]{ "com.example.observer_ref.VoidReturnModel", "@ObserverRef target must return a value" },
 
         new Object[]{ "com.example.name_duplicates.ActionDuplicatesObservableNameModel",
                       "Method annotated with @Action specified name field that duplicates @Observable defined by method getField" },

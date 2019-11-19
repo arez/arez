@@ -16,7 +16,7 @@ abstract class NonStandardMethodNameObserverRefModel
   }
 
   @OnDepsChange( name = "render" )
-  public void onRenderDepsChan$$$$$ge()
+  void onRenderDepsChan$$$$$ge()
   {
   }
 
