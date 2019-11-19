@@ -40,7 +40,6 @@ final class Arez_Suppressed1PublicAccessComponentNameRefModel extends Suppressed
   }
 
   @Override
-  @SuppressWarnings("Arez:PublicRefMethod")
   @Nonnull
   public final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {

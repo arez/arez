@@ -40,7 +40,6 @@ final class Arez_Suppressed1ProtectedAccessComponentNameRefModel extends Suppres
   }
 
   @Override
-  @SuppressWarnings("Arez:ProtectedRefMethod")
   @Nonnull
   protected final String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {

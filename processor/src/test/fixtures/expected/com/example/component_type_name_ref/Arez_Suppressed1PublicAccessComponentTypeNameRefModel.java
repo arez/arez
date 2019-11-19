@@ -38,7 +38,6 @@ final class Arez_Suppressed1PublicAccessComponentTypeNameRefModel extends Suppre
     return $$arezi$$_id();
   }
 
-  @SuppressWarnings("Arez:PublicRefMethod")
   @Override
   @Nonnull
   public final String getTypeName() {

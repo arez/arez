@@ -50,7 +50,6 @@ final class ComponentStateRefDescriptor
       addAnnotation( Generator.NONNULL_CLASSNAME ).
       returns( TypeName.BOOLEAN );
 
-    Generator.copyRefWhitelistedAnnotations( _method, method );
     GeneratorUtil.copyAccessModifiers( _method, method );
 
     final String stateMethodName =

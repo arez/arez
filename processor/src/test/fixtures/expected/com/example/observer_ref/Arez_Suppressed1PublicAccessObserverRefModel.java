@@ -80,7 +80,6 @@ final class Arez_Suppressed1PublicAccessObserverRefModel extends Suppressed1Publ
     super.doStuff();
   }
 
-  @SuppressWarnings("Arez:PublicRefMethod")
   @Override
   @Nonnull
   public Observer getDoStuffObserver() {

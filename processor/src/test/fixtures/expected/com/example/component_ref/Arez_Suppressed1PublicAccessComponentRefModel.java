@@ -31,7 +31,6 @@ final class Arez_Suppressed1PublicAccessComponentRefModel extends Suppressed1Pub
 
   @Override
   @Nonnull
-  @SuppressWarnings("Arez:PublicRefMethod")
   public final Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'Suppressed1PublicAccessComponentRefModel'" );

@@ -80,7 +80,6 @@ final class Arez_Suppressed1ProtectedAccessObserverRefModel extends Suppressed1P
     super.doStuff();
   }
 
-  @SuppressWarnings("Arez:ProtectedRefMethod")
   @Override
   @Nonnull
   protected Observer getDoStuffObserver() {

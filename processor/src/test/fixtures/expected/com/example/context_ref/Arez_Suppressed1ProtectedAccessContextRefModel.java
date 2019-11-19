@@ -31,7 +31,6 @@ final class Arez_Suppressed1ProtectedAccessContextRefModel extends Suppressed1Pr
 
   @Override
   @Nonnull
-  @SuppressWarnings("Arez:ProtectedRefMethod")
   protected final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'Suppressed1ProtectedAccessContextRefModel'" );

@@ -3299,7 +3299,6 @@ final class ComponentDescriptor
       addAnnotation( Generator.NONNULL_CLASSNAME ).
       returns( Generator.AREZ_CONTEXT_CLASSNAME );
 
-    Generator.copyRefWhitelistedAnnotations( _contextRef, method );
     GeneratorUtil.copyAccessModifiers( _contextRef, method );
 
     Generator.generateNotInitializedInvariant( this, method, methodName );
@@ -3354,7 +3353,6 @@ final class ComponentDescriptor
     method.addCode( block.build() );
 
     method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
-    Generator.copyRefWhitelistedAnnotations( _componentRef, method );
     GeneratorUtil.copyAccessModifiers( _componentRef, method );
     return method.build();
   }
@@ -3424,7 +3422,6 @@ final class ComponentDescriptor
         .addAnnotation( Override.class )
         .returns( TypeName.get( String.class ) );
 
-    Generator.copyRefWhitelistedAnnotations( _componentNameRef, builder );
     GeneratorUtil.copyAccessModifiers( _componentNameRef, builder );
 
     builder.addAnnotation( Generator.NONNULL_CLASSNAME );
@@ -3445,7 +3442,6 @@ final class ComponentDescriptor
 
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( _componentTypeNameRef.getSimpleName().toString() );
-    Generator.copyRefWhitelistedAnnotations( _componentTypeNameRef, builder );
     GeneratorUtil.copyAccessModifiers( _componentTypeNameRef, builder );
     builder.addModifiers( Modifier.FINAL );
     builder.addAnnotation( Override.class );

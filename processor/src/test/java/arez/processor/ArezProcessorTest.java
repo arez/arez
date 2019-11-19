@@ -161,7 +161,6 @@ public class ArezProcessorTest
                       false,
                       false },
 
-        new Object[]{ "com.example.component_ref.AnnotatedComponentRefModel", false, false, false, false },
         new Object[]{ "com.example.component_ref.BasicComponentRefModel", false, false, false, false },
         new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel", false, false, false, false },
         new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel", false, false, false, false },
@@ -332,7 +331,6 @@ public class ArezProcessorTest
                       false,
                       false },
 
-        new Object[]{ "com.example.context_ref.AnnotatedContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.BasicContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.Suppressed1ProtectedAccessContextRefModel", false, false, false, false },

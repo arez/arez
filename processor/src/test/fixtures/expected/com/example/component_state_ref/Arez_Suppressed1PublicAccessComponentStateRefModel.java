@@ -64,7 +64,6 @@ final class Arez_Suppressed1PublicAccessComponentStateRefModel extends Suppresse
 
   @Override
   @Nonnull
-  @SuppressWarnings("Arez:PublicRefMethod")
   public final boolean isReady() {
     return this.$$arezi$$_kernel.isReady();
   }
