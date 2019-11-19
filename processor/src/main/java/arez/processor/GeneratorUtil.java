@@ -260,7 +260,12 @@ final class GeneratorUtil
     method.addAnnotation( Override.class );
     if ( !TypeName.get( returnType ).isPrimitive() )
     {
-      method.addAnnotation( Generator.NONNULL_CLASSNAME );
+      // If @Nonnull is present on the class path then generate ref using it
+      final TypeElement nonnull = processingEnv.getElementUtils().getTypeElement( "javax.annotation.Nonnull" );
+      if ( null != nonnull )
+      {
+        method.addAnnotation( ClassName.get( "javax.annotation", "Nonnull" ) );
+      }
     }
 
     if ( hasRawTypes( processingEnv, returnType ) )
