@@ -13,17 +13,17 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_Suppressed2ProtectedAccessContextRefModel extends Suppressed2ProtectedAccessContextRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_ProtectedAccessComponent() {
+  Arez_Suppressed2ProtectedAccessContextRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ProtectedAccessComponent." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ProtectedAccessComponent", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Suppressed2ProtectedAccessContextRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Suppressed2ProtectedAccessContextRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -33,7 +33,7 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Nonnull
   protected final ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'ProtectedAccessComponent'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'Suppressed2ProtectedAccessContextRefModel'" );
     }
     return this.$$arezi$$_kernel.getContext();
   }
@@ -84,8 +84,8 @@ final class Arez_ProtectedAccessComponent extends ProtectedAccessComponent imple
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ProtectedAccessComponent ) {
-        final Arez_ProtectedAccessComponent that = (Arez_ProtectedAccessComponent) o;
+      if ( o instanceof Arez_Suppressed2ProtectedAccessContextRefModel ) {
+        final Arez_Suppressed2ProtectedAccessContextRefModel that = (Arez_Suppressed2ProtectedAccessContextRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

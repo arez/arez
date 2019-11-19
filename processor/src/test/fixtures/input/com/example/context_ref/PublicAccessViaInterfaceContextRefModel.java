@@ -5,8 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-abstract class NonStandardNameComponent
+abstract class PublicAccessViaInterfaceContextRefModel
+  implements ContextRefInterface
 {
+  @Override
   @ContextRef
-  abstract ArezContext $$$getContext$$$();
+  public abstract ArezContext getContext();
 }

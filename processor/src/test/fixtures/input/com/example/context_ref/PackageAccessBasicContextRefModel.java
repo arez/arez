@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-abstract class SimpleComponent
+abstract class PackageAccessBasicContextRefModel
 {
   @ContextRef
   abstract ArezContext getContext();

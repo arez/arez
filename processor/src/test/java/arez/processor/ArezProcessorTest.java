@@ -331,10 +331,15 @@ public class ArezProcessorTest
                       false,
                       false,
                       false },
-        new Object[]{ "com.example.context_ref.AnnotatedComponent", false, false, false, false },
-        new Object[]{ "com.example.context_ref.NonStandardNameComponent", false, false, false, false },
-        new Object[]{ "com.example.context_ref.SimpleComponent", false, false, false, false },
-        new Object[]{ "com.example.context_ref.ProtectedAccessComponent", false, false, false, false },
+
+        new Object[]{ "com.example.context_ref.AnnotatedContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.BasicContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.Suppressed1ProtectedAccessContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.Suppressed1PublicAccessContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.Suppressed2ProtectedAccessContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.Suppressed2PublicAccessContextRefModel", false, false, false, false },
+
         new Object[]{ "com.example.component_dependency.AbstractObservableDependency", false, false, false, false },
         new Object[]{ "com.example.component_dependency.ActAsComponentFieldDependencyModel",
                       false,
@@ -924,6 +929,51 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void protectedAccessContextRef()
+  {
+    final String filename =
+      toFilename( "input", "com.example.context_ref.ProtectedAccessContextRefModel" );
+    final String messageFragment =
+      "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessContextRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.context_ref.ProtectedAccessFromBaseContextRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.context_ref.other.BaseProtectedAccessContextRefModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.context_ref.Arez_ProtectedAccessFromBaseContextRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceContextRef()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.context_ref.PublicAccessViaInterfaceContextRefModel" );
+    final String input2 =
+      toFilename( "input", "com.example.context_ref.ContextRefInterface" );
+    final String output =
+      toFilename( "expected", "com.example.context_ref.Arez_PublicAccessViaInterfaceContextRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulMultipleInverseWithSameTarget()
     throws Exception
   {
@@ -1396,9 +1446,9 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_state_ref.ParametersModel",
                       "@ComponentStateRef target must not have any parameters" },
 
-        new Object[]{ "com.example.context_ref.FinalModel", "@ContextRef target must not be final" },
-        new Object[]{ "com.example.context_ref.StaticModel", "@ContextRef target must not be static" },
-        new Object[]{ "com.example.context_ref.PrivateModel", "@ContextRef target must not be private" },
+        new Object[]{ "com.example.context_ref.FinalModel", "@ContextRef target must be abstract" },
+        new Object[]{ "com.example.context_ref.StaticModel", "@ContextRef target must be abstract" },
+        new Object[]{ "com.example.context_ref.PrivateModel", "@ContextRef target must be abstract" },
         new Object[]{ "com.example.context_ref.VoidModel", "@ContextRef target must return a value" },
         new Object[]{ "com.example.context_ref.BadTypeModel",
                       "Method annotated with @ContextRef must return an instance of arez.ArezContext" },
