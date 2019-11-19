@@ -1025,7 +1025,7 @@ final class MemoizeDescriptor
     assert null != _refMethod;
     assert null != _refMethodType;
     final MethodSpec.Builder method =
-      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
+      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
     Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
 
     final List<? extends VariableElement> parameters = _refMethod.getParameters();
@@ -1071,7 +1071,7 @@ final class MemoizeDescriptor
   {
     assert null != _refMethod;
     final MethodSpec.Builder method =
-      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
+      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
     Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
     return method
       .addStatement( "return $N", getFieldName() )

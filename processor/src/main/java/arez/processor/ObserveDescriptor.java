@@ -472,7 +472,7 @@ final class ObserveDescriptor
   {
     assert null != _refMethod;
     final MethodSpec.Builder method =
-      Generator.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
+      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
 
     Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
 

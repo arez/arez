@@ -3291,7 +3291,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     assert null != _contextRef;
-    final MethodSpec.Builder method = Generator.refMethod( _processingEnv, _element, _contextRef );
+    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, _contextRef );
     Generator.generateNotInitializedInvariant( this, method, _contextRef.getSimpleName().toString() );
     method.addStatement( "return this.$N.getContext()", Generator.KERNEL_FIELD_NAME );
     return method.build();
@@ -3319,7 +3319,7 @@ final class ComponentDescriptor
   {
     assert null != _componentRef;
 
-    final MethodSpec.Builder method = Generator.refMethod( _processingEnv, _element, _componentRef );
+    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, _componentRef );
 
     final String methodName = _componentRef.getSimpleName().toString();
     Generator.generateNotInitializedInvariant( this, method, methodName );
@@ -3347,7 +3347,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     assert null != _componentIdRef;
-    return Generator.refMethod( _processingEnv, _element, _componentIdRef )
+    return GeneratorUtil.refMethod( _processingEnv, _element, _componentIdRef )
       .addStatement( "return this.$N()", getIdMethodName() )
       .build();
   }
@@ -3385,7 +3385,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     assert null != _componentNameRef;
-    final MethodSpec.Builder method = Generator.refMethod( _processingEnv, _element, _componentNameRef );
+    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, _componentNameRef );
     Generator.generateNotInitializedInvariant( this, method, _componentNameRef.getSimpleName().toString() );
     method.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
     return method.build();
@@ -3396,7 +3396,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     assert null != _componentTypeNameRef;
-    return Generator.refMethod( _processingEnv, _element, _componentTypeNameRef )
+    return GeneratorUtil.refMethod( _processingEnv, _element, _componentTypeNameRef )
       .addStatement( "return $S", _type )
       .build();
   }

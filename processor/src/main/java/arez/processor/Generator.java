@@ -18,12 +18,7 @@ import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.AnnotatedConstruct;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
@@ -405,60 +400,6 @@ final class Generator
     sb.append( "Arez_" );
     sb.append( simpleNames.get( end ) );
     return ClassName.bestGuess( sb.toString() );
-  }
-
-  @Nonnull
-  static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                       @Nonnull final TypeElement typeElement,
-                                       @Nonnull final ExecutableElement original )
-  {
-    final ExecutableType originalExecutableType =
-      (ExecutableType) processingEnv.getTypeUtils().asMemberOf( (DeclaredType) typeElement.asType(), original );
-    final TypeMirror returnType = originalExecutableType.getReturnType();
-
-    final String methodName = original.getSimpleName().toString();
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName );
-    method.addModifiers( Modifier.FINAL );
-    if ( AnnotationsUtil.hasAnnotationOfType( original, Deprecated.class.getName() ) )
-    {
-      method.addAnnotation( Deprecated.class );
-    }
-    method.addAnnotation( Override.class );
-    if ( !TypeName.get( returnType ).isPrimitive() )
-    {
-      method.addAnnotation( Generator.NONNULL_CLASSNAME );
-    }
-
-    if ( hasRawTypes( processingEnv, returnType ) )
-    {
-      method.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
-        addMember( "value", "$S", "rawtypes" ).
-        build() );
-    }
-    GeneratorUtil.copyAccessModifiers( original, method );
-    GeneratorUtil.copyTypeParameters( originalExecutableType, method );
-    method.returns( TypeName.get( returnType ) );
-    return method;
-  }
-
-  private static boolean hasRawTypes( @Nonnull final ProcessingEnvironment processingEnv,
-                                      @Nonnull final TypeMirror type )
-  {
-    if ( type instanceof ArrayType )
-    {
-      return hasRawTypes( processingEnv, ( (ArrayType) type ).getComponentType() );
-    }
-    else if ( type instanceof DeclaredType )
-    {
-      final DeclaredType declaredType = (DeclaredType) type;
-      final int typeArgumentCount = declaredType.getTypeArguments().size();
-      final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
-      return typeArgumentCount != typeElement.getTypeParameters().size();
-    }
-    else
-    {
-      return false;
-    }
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,

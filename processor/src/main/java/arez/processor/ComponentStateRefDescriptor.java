@@ -43,7 +43,7 @@ final class ComponentStateRefDescriptor
       State.COMPLETE == _state ? "isComplete" :
       "isDisposing";
 
-    builder.addMethod( Generator
+    builder.addMethod( GeneratorUtil
                          .refMethod( processingEnv, typeElement, _method )
                          .addStatement( "return this.$N.$N()", Generator.KERNEL_FIELD_NAME, stateMethodName )
                          .build() );
