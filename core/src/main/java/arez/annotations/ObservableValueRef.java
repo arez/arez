@@ -23,6 +23,17 @@ import javax.annotation.Nonnull;
  *   wildcard {@code ?} or the type of the corresponding {@link Observable} method. The value
  *   may also be "raw" (i.e. without a type parameter).
  * </li>
+ * <li>
+ *   Should not be public as not expected to be invoked outside the component. A warning will be generated but can
+ *   be suppressed by the {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key
+ *   "Arez:PublicRefMethod". This warning is also suppressed by the annotation processor if it is implementing
+ *   an interface method.
+ * </li>
+ * <li>
+ *   Should not be protected if in the class annotated with the {@link ArezComponent} annotation as the method is not
+ *   expected to be invoked outside the component. A warning will be generated but can be suppressed by the
+ *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedRefMethod".
+ * </li>
  * </ul>
  */
 @Documented
