@@ -322,10 +322,10 @@ final class MemberChecks
                               @Nullable final String alternativeSuppressWarnings )
   {
     return "This warning can be suppressed by annotating the element with " +
-           "@SuppressWarnings( \\\"" + warning + "\\\" )" +
+           "@SuppressWarnings( \"" + warning + "\" )" +
            ( null == alternativeSuppressWarnings ?
              "" :
-             " or " + toSimpleName( alternativeSuppressWarnings ) + "( \\\"" + warning + "\\\" )" );
+             " or " + toSimpleName( alternativeSuppressWarnings ) + "( \"" + warning + "\" )" );
 
   }
 
