@@ -62,8 +62,6 @@ final class MemoizeDescriptor
   private ExecutableElement _refMethod;
   @Nullable
   private ExecutableType _refMethodType;
-  @Nullable
-  private CandidateMethod _priorityOverride;
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -627,25 +625,6 @@ final class MemoizeDescriptor
       parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
     }
 
-    if ( null != _priorityOverride )
-    {
-      final int parameterCount = _priorityOverride.getMethod().getParameters().size();
-      if ( 0 == parameterCount )
-      {
-        sb.append( " | ($T.PRIORITY_MASK & $N())" );
-        parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( _priorityOverride.getMethod().getSimpleName() );
-      }
-      else
-      {
-        sb.append( " | ($T.PRIORITY_MASK & $N( $T.$N ))" );
-        parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( _priorityOverride.getMethod().getSimpleName() );
-        parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( "PRIORITY_" + _priority.name() );
-      }
-    }
-
     sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
@@ -728,25 +707,6 @@ final class MemoizeDescriptor
       parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
     }
 
-    if ( null != _priorityOverride )
-    {
-      final int parameterCount = _priorityOverride.getMethod().getParameters().size();
-      if ( 0 == parameterCount )
-      {
-        sb.append( " | ($T.PRIORITY_MASK & $N())" );
-        parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( _priorityOverride.getMethod().getSimpleName() );
-      }
-      else
-      {
-        sb.append( " | ($T.PRIORITY_MASK & $N( $T.$N ))" );
-        parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( _priorityOverride.getMethod().getSimpleName() );
-        parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( "PRIORITY_" + _priority.name() );
-      }
-    }
-
     sb.append( " )" );
   }
 
@@ -754,7 +714,7 @@ final class MemoizeDescriptor
   private ArrayList<String> generateFlags()
   {
     final ArrayList<String> flags = new ArrayList<>();
-    if ( null == _priorityOverride && !Priority.NORMAL.equals( _priority ) )
+    if ( Priority.NORMAL != _priority )
     {
       flags.add( "PRIORITY_" + _priority.name() );
     }
@@ -1169,10 +1129,5 @@ final class MemoizeDescriptor
     builder.addStatement( sb.toString(), parameters.toArray() );
 
     return builder.build();
-  }
-
-  void setPriorityOverride( @Nonnull final CandidateMethod priorityOverride )
-  {
-    _priorityOverride = priorityOverride;
   }
 }

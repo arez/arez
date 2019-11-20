@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove the `@PriorityOverride` annotation as the functionality has been replaced by the `defaultPriority` parameter on the `@ArezComponent` annotation.
+
 ### [v0.155](https://github.com/arez/arez/tree/v0.155) (2019-11-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.154...v0.155) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.154&new=0.155)
 
 The release includes 4 non breaking API changes and 1 breaking API change.

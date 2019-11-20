@@ -1,0 +1,18 @@
+[
+  {
+    "code": "java.annotation.noLongerPresent",
+    "description": "Old API referenced the annotation type but the new API version no longer does.",
+    "oldElement": "@interface arez.annotations.PriorityOverride",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.PriorityOverride",
+      "classSimpleName": "PriorityOverride",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  }
+]

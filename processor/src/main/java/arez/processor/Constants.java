@@ -28,7 +28,6 @@ final class Constants
   static final String ON_ACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnActivate";
   static final String ON_DEACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnDeactivate";
   static final String ON_DEPS_CHANGE_ANNOTATION_CLASSNAME = "arez.annotations.OnDepsChange";
-  static final String PRIORITY_OVERRIDE_ANNOTATION_CLASSNAME = "arez.annotations.PriorityOverride";
   static final String ON_STALE_ANNOTATION_CLASSNAME = "arez.annotations.OnStale";
   static final String POST_CONSTRUCT_ANNOTATION_CLASSNAME = "arez.annotations.PostConstruct";
   static final String POST_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PostDispose";
