@@ -18,6 +18,7 @@
 * Fix bug in annotation where a package-access entity that was annotated with the `@Repository` annotation would generate bad code.
 * Ensure that the generated implementations of all of the `@*Ref` annotations are annotated with `@Nonnull` if possible.
 * Avoid copying the `@Deprecated` and `@SuppressWarnings` from the `@*Ref` annotated methods to the implementations when the annotations usage defines an explicit type without a user-controlled type parameter.
+* Added a parameter `defaultPriority` to the `@ArezComponent` annotation that specifies the priority of any `@Memoize` annotated method or `@Observe` annotated method that does specify a specific priority. This simplifies setting the priority for multiple active elements on an Arez component.
 
 ### [v0.154](https://github.com/arez/arez/tree/v0.154) (2019-11-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.153...v0.154)
 

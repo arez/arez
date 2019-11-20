@@ -70,7 +70,7 @@ public @interface Memoize
    *
    * @return the priority of the ComputableValue observer.
    */
-  Priority priority() default Priority.NORMAL;
+  Priority priority() default Priority.DEFAULT;
 
   /**
    * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.

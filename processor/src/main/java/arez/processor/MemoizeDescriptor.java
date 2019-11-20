@@ -47,7 +47,7 @@ final class MemoizeDescriptor
   @Nullable
   private ExecutableType _methodType;
   private boolean _keepAlive;
-  private String _priority;
+  private Priority _priority;
   private boolean _reportResult;
   private boolean _observeLowerPriorityDependencies;
   private boolean _readOutsideTransaction;
@@ -126,7 +126,7 @@ final class MemoizeDescriptor
   void setMemoize( @Nonnull final ExecutableElement method,
                    @Nonnull final ExecutableType methodType,
                    final boolean keepAlive,
-                   @Nonnull final String priority,
+                   @Nonnull final Priority priority,
                    final boolean reportResult,
                    final boolean observeLowerPriorityDependencies,
                    final boolean readOutsideTransaction,
@@ -642,7 +642,7 @@ final class MemoizeDescriptor
         parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
         parameters.add( _priorityOverride.getMethod().getSimpleName() );
         parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( "PRIORITY_" + _priority );
+        parameters.add( "PRIORITY_" + _priority.name() );
       }
     }
 
@@ -743,7 +743,7 @@ final class MemoizeDescriptor
         parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
         parameters.add( _priorityOverride.getMethod().getSimpleName() );
         parameters.add( Generator.COMPUTABLE_VALUE_FLAGS_CLASSNAME );
-        parameters.add( "PRIORITY_" + _priority );
+        parameters.add( "PRIORITY_" + _priority.name() );
       }
     }
 
@@ -754,9 +754,9 @@ final class MemoizeDescriptor
   private ArrayList<String> generateFlags()
   {
     final ArrayList<String> flags = new ArrayList<>();
-    if ( null == _priorityOverride && !"NORMAL".equals( _priority ) )
+    if ( null == _priorityOverride && !Priority.NORMAL.equals( _priority ) )
     {
-      flags.add( "PRIORITY_" + _priority );
+      flags.add( "PRIORITY_" + _priority.name() );
     }
 
     if ( !_reportResult )

@@ -29,7 +29,7 @@ public enum Priority
    */
   HIGH,
   /**
-   * Normal priority if not otherwise specified.
+   * Normal priority.
    */
   NORMAL,
   /**
@@ -47,5 +47,11 @@ public enum Priority
    * also used for (i.e. {@link ComputableValue}s) that may be unobserved when a {@link #LOW}
    * priority reaction runs.
    */
-  LOWEST
+  LOWEST,
+  /**
+   * Default priority.
+   * Use the value of the {@link ArezComponent#defaultPriority} specified at the component level or {@link #NORMAL}
+   * if for the value of {@link ArezComponent#defaultPriority}.
+   */
+  DEFAULT
 }

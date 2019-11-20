@@ -214,11 +214,16 @@ public final class ArezProcessor
                          "java.lang".equals( processingEnv.getElementUtils().
                            getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
 
+    final String priority = getDefaultPriority( arezComponent );
+    final Priority defaultPriority =
+      null == priority ? null : "DEFAULT".equals( priority ) ? Priority.NORMAL : Priority.valueOf( priority );
+
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( processingEnv,
                                type,
                                nameIncludesId,
                                allowEmpty,
+                               defaultPriority,
                                generated,
                                observableFlag,
                                disposeNotifierFlag,
@@ -577,6 +582,14 @@ public final class ArezProcessor
       default:
         return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.REPOSITORY_ANNOTATION_CLASSNAME );
     }
+  }
+
+  @Nullable
+  private String getDefaultPriority( @Nonnull final AnnotationMirror arezComponent )
+  {
+    final AnnotationValue value =
+      AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultPriority" );
+    return null == value ? null : ( (VariableElement) value.getValue() ).getSimpleName().toString();
   }
 
   private boolean isIdRequired( @Nonnull final ComponentDescriptor descriptor,

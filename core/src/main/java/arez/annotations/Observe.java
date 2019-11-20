@@ -64,7 +64,7 @@ public @interface Observe
    *
    * @return the priority of the observer.
    */
-  Priority priority() default Priority.NORMAL;
+  Priority priority() default Priority.DEFAULT;
 
   /**
    * The actor responsible for calling the observed method.

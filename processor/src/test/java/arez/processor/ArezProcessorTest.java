@@ -53,6 +53,8 @@ public class ArezProcessorTest
         new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel", false, false, false, false },
         new Object[]{ "com.example.component.DeprecatedModel", false, false, false, false },
         new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false, false },
+        new Object[]{ "com.example.component.Suppressed1UnnecessaryDefaultPriorityPresentComponent", false, false, false, false },
+        new Object[]{ "com.example.component.Suppressed2UnnecessaryDefaultPriorityPresentComponent", false, false, false, false },
         new Object[]{ "com.example.collections.AbstractCollectionObservableModel", false, false, false, false },
         new Object[]{ "com.example.collections.AbstractListObservableModel", false, false, false, false },
         new Object[]{ "com.example.collections.AbstractMapObservableModel", false, false, false, false },
@@ -469,6 +471,26 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.BasicModel", false, false, false, false },
         new Object[]{ "com.example.memoize.CustomDepTypeModel", false, false, false, false },
         new Object[]{ "com.example.memoize.CustomPriorityModel", false, false, false, false },
+        new Object[]{ "com.example.memoize.DefaultDefaultPriorityUnspecifiedLocalPriorityMemoizeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.memoize.DefaultPriorityDefaultLocalPriorityMemoizeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.memoize.DefaultPrioritySpecifiedLocalPriorityMemoizeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.memoize.DefaultPriorityUnspecifiedLocalPriorityMemoizeModel",
+                      false,
+                      false,
+                      false,
+                      false },
         new Object[]{ "com.example.memoize.LocalTypeParamModel", false, false, false, false },
         new Object[]{ "com.example.memoize.NonStandardNameModel", false, false, false, false },
         new Object[]{ "com.example.memoize.TypeParamModel", false, false, false, false },
@@ -558,6 +580,10 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.ArezOrNoneDependenciesModel", false, false, false, false },
         new Object[]{ "com.example.observe.BasicTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.BasicTrackedWithExceptionsModel", false, false, false, false },
+        new Object[]{ "com.example.observe.DefaultDefaultPriorityUnspecifiedLocalPriorityObserveModel", false, false, false, false },
+        new Object[]{ "com.example.observe.DefaultPriorityDefaultLocalPriorityObserveModel", false, false, false, false },
+        new Object[]{ "com.example.observe.DefaultPrioritySpecifiedLocalPriorityObserveModel", false, false, false, false },
+        new Object[]{ "com.example.observe.DefaultPriorityUnspecifiedLocalPriorityObserveModel", false, false, false, false },
         new Object[]{ "com.example.observe.NestedActionsAllowedTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.NonArezDependenciesModel", false, false, false, false },
         new Object[]{ "com.example.observe.NonStandardNameTrackedModel", false, false, false, false },
@@ -2389,6 +2415,22 @@ public class ArezProcessorTest
       withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
       processedWith( new ArezProcessor() ).
       compilesWithoutWarnings();
+  }
+
+  @Test
+  public void unnecessaryDefaultPriorityPresent()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnnecessaryDefaultPriorityPresentComponent" );
+    final String messageFragment =
+      "@ArezComponent target should not specify the defaultPriority parameter unless it contains methods annotated with either the @Memoize annotation or the @Observe annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefaultPriority\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefaultPriority\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )

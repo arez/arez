@@ -32,7 +32,7 @@ final class ObserveDescriptor
   @Nonnull
   private final String _name;
   private boolean _mutation;
-  private String _priority;
+  private Priority _priority;
   private boolean _internalExecutor;
   private boolean _reportParameters;
   private boolean _reportResult;
@@ -80,7 +80,7 @@ final class ObserveDescriptor
   }
 
   void setObserveMethod( final boolean mutation,
-                         @Nonnull final String priority,
+                         @Nonnull final Priority priority,
                          final boolean internalExecutor,
                          final boolean reportParameters,
                          final boolean reportResult,
@@ -381,9 +381,9 @@ final class ObserveDescriptor
     {
       flags.add( "READ_WRITE" );
     }
-    if ( null == _priorityOverride && !"NORMAL".equals( _priority ) )
+    if ( null == _priorityOverride && Priority.NORMAL != _priority )
     {
-      flags.add( "PRIORITY_" + _priority );
+      flags.add( "PRIORITY_" + _priority.name() );
     }
 
     expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
@@ -407,7 +407,7 @@ final class ObserveDescriptor
         parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
         parameters.add( _priorityOverride.getMethod().getSimpleName() );
         parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
-        parameters.add( "PRIORITY_" + _priority );
+        parameters.add( "PRIORITY_" + _priority.name() );
       }
     }
   }

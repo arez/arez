@@ -41,6 +41,7 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
+import javax.tools.Diagnostic;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.
@@ -83,6 +84,8 @@ final class ComponentDescriptor
   private final String _type;
   private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
+  @Nullable
+  private final Priority _defaultPriority;
   /**
    * Flag indicating that there is a @Generated annotation on arez.
    * In this scenario we are a little more forgiving with our errors as otherwise the generating tool would need to
@@ -166,6 +169,7 @@ final class ComponentDescriptor
                        @Nonnull final String type,
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
+                       @Nullable final Priority defaultPriority,
                        final boolean generated,
                        final boolean observable,
                        final boolean disposeNotifier,
@@ -184,6 +188,7 @@ final class ComponentDescriptor
     _type = Objects.requireNonNull( type );
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
+    _defaultPriority = defaultPriority;
     _generated = generated;
     _observable = observable;
     _disposeNotifier = disposeNotifier;
@@ -573,7 +578,7 @@ final class ComponentDescriptor
     final VariableElement depType = getAnnotationParameter( annotation, "depType" );
 
     findOrCreateObserve( name ).setObserveMethod( mutation,
-                                                  priority.getSimpleName().toString(),
+                                                  toPriority( priority ),
                                                   executor.getSimpleName().toString().equals( "INTERNAL" ),
                                                   reportParameters,
                                                   reportResult,
@@ -689,11 +694,20 @@ final class ComponentDescriptor
     findOrCreateMemoize( name ).setMemoize( method,
                                             methodType,
                                             keepAlive,
-                                            priority.getSimpleName().toString(),
+                                            toPriority( priority ),
                                             reportResult,
                                             observeLowerPriorityDependencies,
                                             readOutsideTransaction,
                                             depTypeAsString );
+  }
+
+  @Nonnull
+  private Priority toPriority( @Nonnull final VariableElement priorityElement )
+  {
+    final String priorityName = priorityElement.getSimpleName().toString();
+    return "DEFAULT".equals( priorityName ) ?
+           null != _defaultPriority ? _defaultPriority : Priority.NORMAL :
+           Priority.valueOf( priorityName );
   }
 
   private void addComputableValueRef( @Nonnull final AnnotationMirror annotation,
@@ -1068,6 +1082,19 @@ final class ComponentDescriptor
       _roInverses.isEmpty() &&
       _roObserves.isEmpty();
 
+    if ( null != _defaultPriority &&
+         _roMemoizes.isEmpty() &&
+         _roObserves.isEmpty() &&
+         !isWarningSuppressed( _element, Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY ) )
+    {
+      final String message =
+        MemberChecks.toSimpleName( Constants.COMPONENT_ANNOTATION_CLASSNAME ) + " target should not specify " +
+        "the defaultPriority parameter unless it contains methods annotated with either the " +
+        MemberChecks.toSimpleName( Constants.MEMOIZE_ANNOTATION_CLASSNAME ) + " annotation or the " +
+        MemberChecks.toSimpleName( Constants.OBSERVE_ANNOTATION_CLASSNAME ) + " annotation. " +
+        suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY );
+      _processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
+    }
     if ( !_allowEmpty && hasReactiveElements )
     {
       throw new ProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
@@ -2285,7 +2312,7 @@ final class ComponentDescriptor
         if ( null != candidate )
         {
           observe.setObserveMethod( false,
-                                    "NORMAL",
+                                    Priority.NORMAL,
                                     true,
                                     true,
                                     true,
@@ -4666,5 +4693,18 @@ final class ComponentDescriptor
   ProcessingEnvironment getProcessingEnv()
   {
     return _processingEnv;
+  }
+
+  @Nonnull
+  private String suppressedBy( @Nonnull final String warning )
+  {
+    return MemberChecks.suppressedBy( warning, Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+  }
+
+  private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
+  {
+    return ProcessorUtil.isWarningSuppressed( element,
+                                              warning,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 }
