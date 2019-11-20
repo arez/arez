@@ -19,6 +19,7 @@ final class Arez_PublicCtorNonPublicModel extends PublicCtorNonPublicModel imple
 
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("WeakerAccess")
   Arez_PublicCtorNonPublicModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
