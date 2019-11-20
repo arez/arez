@@ -21,6 +21,9 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Remove `_generated` flag from `ComponentDescriptor` and instead make the relevant errors into warnings and
+  suppressable.
+
 * Generate a suppressable warning if any lifecycle method is public
 
 * Generate a suppressable warning if any lifecycle method is protected and in class
