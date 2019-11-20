@@ -306,7 +306,7 @@ final class MemberChecks
   }
 
   @Nonnull
-  private static String mustNot( @Nonnull final String annotationName, @Nonnull final String message )
+  static String mustNot( @Nonnull final String annotationName, @Nonnull final String message )
   {
     return must( annotationName, "not " + message );
   }
