@@ -6,6 +6,7 @@ import arez.annotations.ArezComponent;
 @ArezComponent
 abstract class PublicCtorNonPublicModel
 {
+  @SuppressWarnings( "WeakerAccess" )
   public PublicCtorNonPublicModel()
   {
   }
