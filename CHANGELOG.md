@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.80](https://github.com/arez/arez-promise/tree/v0.80) (2019-11-20) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.79...v0.80)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.155'
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.27`.
