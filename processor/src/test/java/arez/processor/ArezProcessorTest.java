@@ -736,7 +736,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.component_ref.ProtectedAccessComponentRefModel" );
     final String messageFragment =
-      "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -781,7 +781,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.component_id_ref.ProtectedAccessComponentIdRefModel" );
     final String messageFragment =
-      "@ComponentIdRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ComponentIdRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -826,7 +826,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.component_name_ref.ProtectedAccessComponentNameRefModel" );
     final String messageFragment =
-      "@ComponentNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ComponentNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -871,7 +871,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.component_state_ref.ProtectedAccessComponentStateRefModel" );
     final String messageFragment =
-      "@ComponentStateRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ComponentStateRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -916,7 +916,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.component_type_name_ref.ProtectedAccessComponentTypeNameRefModel" );
     final String messageFragment =
-      "@ComponentTypeNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ComponentTypeNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -962,7 +962,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.computable_value_ref.ProtectedAccessComputableValueRefModel" );
     final String messageFragment =
-      "@ComputableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ComputableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -1007,7 +1007,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.context_ref.ProtectedAccessContextRefModel" );
     final String messageFragment =
-      "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -1052,7 +1052,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel" );
     final String messageFragment =
-      "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
@@ -1097,7 +1097,7 @@ public class ArezProcessorTest
     final String filename =
       toFilename( "input", "com.example.observer_ref.ProtectedAccessObserverRefModel" );
     final String messageFragment =
-      "@ObserverRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \\\"Arez:ProtectedRefMethod\\\" ) or @SuppressArezWarnings( \\\"Arez:ProtectedRefMethod\\\" )";
+      "@ObserverRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
