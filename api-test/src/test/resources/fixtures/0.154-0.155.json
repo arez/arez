@@ -1,5 +1,75 @@
 [
   {
+    "code": "java.field.addedStaticField",
+    "description": "Static field added to class.",
+    "newElement": "field arez.annotations.Priority.DEFAULT",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Priority",
+      "classSimpleName": "Priority",
+      "elementKind": "enumConstant",
+      "fieldName": "DEFAULT",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method arez.annotations.Priority arez.annotations.ArezComponent::defaultPriority()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "defaultPriority",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.defaultValueChanged",
+    "description": "Default value of attribute 'priority' of annotation 'arez.annotations.Memoize' changed value from 'arez.annotations.Priority.NORMAL' to 'arez.annotations.Priority.DEFAULT'.",
+    "element": "method arez.annotations.Priority arez.annotations.Memoize::priority()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Memoize",
+      "classSimpleName": "Memoize",
+      "elementKind": "method",
+      "methodName": "priority",
+      "newValue": "arez.annotations.Priority.DEFAULT",
+      "oldValue": "arez.annotations.Priority.NORMAL",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.defaultValueChanged",
+    "description": "Default value of attribute 'priority' of annotation 'arez.annotations.Observe' changed value from 'arez.annotations.Priority.NORMAL' to 'arez.annotations.Priority.DEFAULT'.",
+    "element": "method arez.annotations.Priority arez.annotations.Observe::priority()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Observe",
+      "classSimpleName": "Observe",
+      "elementKind": "method",
+      "methodName": "priority",
+      "newValue": "arez.annotations.Priority.DEFAULT",
+      "oldValue": "arez.annotations.Priority.NORMAL",
+      "package": "arez.annotations"
+    }
+  },
+  {
     "code": "java.method.attributeRemovedFromAnnotationType",
     "description": "The annotation no longer has an attribute.",
     "oldElement": "method boolean arez.annotations.ArezComponent::allowConcrete()",
