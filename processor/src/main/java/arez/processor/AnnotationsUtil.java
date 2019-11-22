@@ -4,10 +4,12 @@ import com.google.auto.common.AnnotationMirrors;
 import com.google.common.collect.ImmutableMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.AnnotatedConstruct;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
@@ -103,5 +105,43 @@ final class AnnotationsUtil
                                       @Nonnull final String annotationClassName )
   {
     return null != findAnnotationByType( annotated, annotationClassName );
+  }
+
+  @Nonnull
+  static String extractName( @Nonnull final ExecutableElement method,
+                             @Nonnull final Function<ExecutableElement, String> defaultExtractor,
+                             @Nonnull final String annotationClassname,
+                             @Nonnull final String parameterName,
+                             @Nonnull final String sentinelValue )
+  {
+    final String declaredName =
+      (String) getAnnotationValue( method, annotationClassname, parameterName ).getValue();
+    if ( sentinelValue.equals( declaredName ) )
+    {
+      final String defaultValue = defaultExtractor.apply( method );
+      if ( null == defaultValue )
+      {
+        throw new ProcessorException( MemberChecks.toSimpleName( annotationClassname ) + " target did not specify " +
+                                      "the parameter " + parameterName + " and the default value could not be derived",
+                                      method );
+      }
+      return defaultValue;
+    }
+    else
+    {
+      if ( !SourceVersion.isIdentifier( declaredName ) )
+      {
+        throw new ProcessorException( MemberChecks.toSimpleName( annotationClassname ) + " target specified an " +
+                                      "invalid value '" + declaredName + "' for the parameter " + parameterName + ". " +
+                                      "The value must be a valid java identifier", method );
+      }
+      else if ( SourceVersion.isKeyword( declaredName ) )
+      {
+        throw new ProcessorException( MemberChecks.toSimpleName( annotationClassname ) + " target specified an " +
+                                      "invalid value '" + declaredName + "' for the parameter " + parameterName + ". " +
+                                      "The value must not be a java keyword", method );
+      }
+      return declaredName;
+    }
   }
 }

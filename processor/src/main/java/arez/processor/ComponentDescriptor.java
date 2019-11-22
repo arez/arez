@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -513,7 +514,7 @@ final class ComponentDescriptor
                                   Constants.ACTION_ANNOTATION_CLASSNAME,
                                   method );
 
-    final String name = deriveActionName( method, annotation );
+    final String name = extractName( method, m -> m.getSimpleName().toString(), Constants.ACTION_ANNOTATION_CLASSNAME );
     checkNameUnique( name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
     final boolean mutation = getAnnotationParameter( annotation, "mutation" );
     final boolean requireNewTransaction = getAnnotationParameter( annotation, "requireNewTransaction" );
@@ -531,31 +532,6 @@ final class ComponentDescriptor
                             method,
                             methodType );
     _actions.put( action.getName(), action );
-  }
-
-  @Nonnull
-  private String deriveActionName( @Nonnull final ExecutableElement method, @Nonnull final AnnotationMirror annotation )
-    throws ProcessorException
-  {
-    final String name = getAnnotationParameter( annotation, "name" );
-    if ( Constants.SENTINEL.equals( name ) )
-    {
-      return method.getSimpleName().toString();
-    }
-    else
-    {
-      if ( !SourceVersion.isIdentifier( name ) )
-      {
-        throw new ProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
-                                      "name must be a valid java identifier.", method );
-      }
-      else if ( SourceVersion.isKeyword( name ) )
-      {
-        throw new ProcessorException( "@Action target specified an invalid name '" + name + "'. The " +
-                                      "name must not be a java keyword.", method );
-      }
-      return name;
-    }
   }
 
   private void addObserve( @Nonnull final AnnotationMirror annotation,
@@ -4607,5 +4583,13 @@ final class ComponentDescriptor
     return ProcessorUtil.isWarningSuppressed( element,
                                               warning,
                                               Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+  }
+
+  @Nonnull
+  private String extractName( @Nonnull final ExecutableElement method,
+                              @Nonnull final Function<ExecutableElement, String> function,
+                              @Nonnull final String annotationClassname )
+  {
+    return AnnotationsUtil.extractName( method, function, annotationClassname, "name", Constants.SENTINEL );
   }
 }

@@ -1412,10 +1412,10 @@ public class ArezProcessorTest
                       "Method defined on a class annotated by @ArezComponent uses a name reserved by Arez" },
 
         new Object[]{ "com.example.action.AbstractActionModel", "@Action target must not be abstract" },
+        new Object[]{ "com.example.action.BadActionName1Model",
+                      "@Action target specified an invalid value 'assert' for the parameter name. The value must not be a java keyword" },
         new Object[]{ "com.example.action.BadActionName2Model",
-                      "@Action target specified an invalid name 'ace-'. The name must be a valid java identifier." },
-        new Object[]{ "com.example.action.BadActionNameModel",
-                      "@Action target specified an invalid name 'assert'. The name must not be a java keyword." },
+                      "@Action target specified an invalid value 'ace-' for the parameter name. The value must be a valid java identifier" },
         new Object[]{ "com.example.action.DuplicateActionModel",
                       "Method annotated with @Action specified name ace that duplicates @Action defined by method setField" },
         new Object[]{ "com.example.action.PrivateActionModel", "@Action target must not be private" },
