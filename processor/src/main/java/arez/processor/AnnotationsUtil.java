@@ -97,8 +97,11 @@ final class AnnotationsUtil
   static AnnotationMirror findAnnotationByType( @Nonnull final AnnotatedConstruct annotated,
                                                 @Nonnull final String annotationClassName )
   {
-    return annotated.getAnnotationMirrors().stream().
-      filter( a -> a.getAnnotationType().toString().equals( annotationClassName ) ).findFirst().orElse( null );
+    return
+      annotated.getAnnotationMirrors().stream()
+        .filter( a -> a.getAnnotationType().toString().equals( annotationClassName ) )
+        .findFirst()
+        .orElse( null );
   }
 
   static boolean hasAnnotationOfType( @Nonnull final AnnotatedConstruct annotated,
