@@ -4504,11 +4504,11 @@ final class ComponentDescriptor
 
   private boolean shouldRepositoryDefineCreate()
   {
-    final VariableElement injectParameter = (VariableElement)
+    final VariableElement parameter = (VariableElement)
       AnnotationsUtil.getAnnotationValue( getElement(),
                                           Constants.REPOSITORY_ANNOTATION_CLASSNAME,
                                           "attach" ).getValue();
-    switch ( injectParameter.getSimpleName().toString() )
+    switch ( parameter.getSimpleName().toString() )
     {
       case "CREATE_ONLY":
       case "CREATE_OR_ATTACH":
