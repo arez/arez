@@ -17,12 +17,12 @@ final class ArezUtils
                                        @Nonnull final ExecutableElement method,
                                        @Nonnull final String annotationClassname )
   {
-    mustBeRefMethod( processingEnv, descriptor, method, annotationClassname );
+    mustBeRefMethod( descriptor, method, annotationClassname );
     MemberChecks.mustNotHaveAnyParameters( annotationClassname, method );
+    musrBeInternalRefMethod( processingEnv, descriptor, method, annotationClassname );
   }
 
-  static void mustBeRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                               @Nonnull final ComponentDescriptor descriptor,
+  static void mustBeRefMethod( @Nonnull final ComponentDescriptor descriptor,
                                @Nonnull final ExecutableElement method,
                                @Nonnull final String annotationClassname )
   {
@@ -34,7 +34,14 @@ final class ArezUtils
                                                            method );
     MemberChecks.mustReturnAValue( annotationClassname, method );
     MemberChecks.mustNotThrowAnyExceptions( annotationClassname, method );
+  }
 
+  static void musrBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                       @Nonnull final ComponentDescriptor descriptor,
+                                       @Nonnull final ExecutableElement method,
+                                       @Nonnull final String annotationClassname )
+  {
+    final TypeElement typeElement = descriptor.getElement();
     if ( doesMethodNotOverrideInterfaceMethod( processingEnv, typeElement, method ) )
     {
       MemberChecks.shouldNotBePublic( processingEnv,

@@ -12,17 +12,17 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_PublicAccessViaInterfaceComponentIdRefModel extends PublicAccessViaInterfaceComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_PublicAccessComponentIdRefModel extends PublicAccessComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_PublicAccessViaInterfaceComponentIdRefModel() {
+  Arez_PublicAccessComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PublicAccessViaInterfaceComponentIdRefModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PublicAccessViaInterfaceComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PublicAccessComponentIdRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PublicAccessComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -79,8 +79,8 @@ final class Arez_PublicAccessViaInterfaceComponentIdRefModel extends PublicAcces
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_PublicAccessViaInterfaceComponentIdRefModel ) {
-        final Arez_PublicAccessViaInterfaceComponentIdRefModel that = (Arez_PublicAccessViaInterfaceComponentIdRefModel) o;
+      if ( o instanceof Arez_PublicAccessComponentIdRefModel ) {
+        final Arez_PublicAccessComponentIdRefModel that = (Arez_PublicAccessComponentIdRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

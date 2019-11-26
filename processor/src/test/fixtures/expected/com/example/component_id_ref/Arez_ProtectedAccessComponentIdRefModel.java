@@ -12,24 +12,24 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_Suppressed1PublicAccessComponentIdRefModel extends Suppressed1PublicAccessComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ProtectedAccessComponentIdRefModel extends ProtectedAccessComponentIdRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_Suppressed1PublicAccessComponentIdRefModel() {
+  Arez_ProtectedAccessComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Suppressed1PublicAccessComponentIdRefModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Suppressed1PublicAccessComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ProtectedAccessComponentIdRefModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ProtectedAccessComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
 
   @Override
-  public final int getId() {
+  protected final int getId() {
     return this.$$arezi$$_id();
   }
 
@@ -79,8 +79,8 @@ final class Arez_Suppressed1PublicAccessComponentIdRefModel extends Suppressed1P
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_Suppressed1PublicAccessComponentIdRefModel ) {
-        final Arez_Suppressed1PublicAccessComponentIdRefModel that = (Arez_Suppressed1PublicAccessComponentIdRefModel) o;
+      if ( o instanceof Arez_ProtectedAccessComponentIdRefModel ) {
+        final Arez_ProtectedAccessComponentIdRefModel that = (Arez_ProtectedAccessComponentIdRefModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

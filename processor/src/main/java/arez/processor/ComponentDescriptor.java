@@ -689,7 +689,11 @@ final class ComponentDescriptor
                                       @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    ArezUtils.mustBeRefMethod( _processingEnv, this, method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
+    ArezUtils.mustBeRefMethod( this, method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
+    ArezUtils.musrBeInternalRefMethod( _processingEnv,
+                                       this,
+                                       method,
+                                       Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -863,7 +867,8 @@ final class ComponentDescriptor
 
   private void setComponentIdRef( @Nonnull final ExecutableElement method )
   {
-    ArezUtils.mustBeStandardRefMethod( _processingEnv, this, method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
+    ArezUtils.mustBeRefMethod( this, method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
+    MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
 
     if ( null != _componentIdRef )
     {

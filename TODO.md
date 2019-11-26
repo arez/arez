@@ -23,8 +23,6 @@ See https://github.com/arez/arez/issues/91
 
 * `AnnotationsUtil.extractName()` wherever possible
 
-* Consider removing warnings from `ComponentIdRef` about public and protected access as may be legitimately public
-
 * Remove `_generated` flag from `ComponentDescriptor` and instead make the relevant errors into warnings and
   suppressable.
 
