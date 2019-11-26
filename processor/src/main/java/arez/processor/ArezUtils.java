@@ -19,7 +19,7 @@ final class ArezUtils
   {
     mustBeRefMethod( descriptor, method, annotationClassname );
     MemberChecks.mustNotHaveAnyParameters( annotationClassname, method );
-    musrBeInternalRefMethod( processingEnv, descriptor, method, annotationClassname );
+    mustBeInternalRefMethod( processingEnv, descriptor, method, annotationClassname );
   }
 
   static void mustBeRefMethod( @Nonnull final ComponentDescriptor descriptor,
@@ -36,7 +36,7 @@ final class ArezUtils
     MemberChecks.mustNotThrowAnyExceptions( annotationClassname, method );
   }
 
-  static void musrBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+  static void mustBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                        @Nonnull final ComponentDescriptor descriptor,
                                        @Nonnull final ExecutableElement method,
                                        @Nonnull final String annotationClassname )

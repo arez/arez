@@ -690,7 +690,7 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     ArezUtils.mustBeRefMethod( this, method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
-    ArezUtils.musrBeInternalRefMethod( _processingEnv,
+    ArezUtils.mustBeInternalRefMethod( _processingEnv,
                                        this,
                                        method,
                                        Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
