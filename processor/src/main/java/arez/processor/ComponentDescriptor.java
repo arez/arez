@@ -977,60 +977,60 @@ final class ComponentDescriptor
     }
   }
 
-  private void setPostConstruct( @Nonnull final ExecutableElement postConstruct )
+  private void setPostConstruct( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
-                                      postConstruct );
+                                      method );
 
     if ( null != _postConstruct )
     {
       throw new ProcessorException( "@PostConstruct target duplicates existing method named " +
-                                    _postConstruct.getSimpleName(), postConstruct );
+                                    _postConstruct.getSimpleName(), method );
     }
     else
     {
-      _postConstruct = postConstruct;
+      _postConstruct = method;
     }
   }
 
-  private void setPreDispose( @Nonnull final ExecutableElement preDispose )
+  private void setPreDispose( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
-                                      preDispose );
+                                      method );
 
     if ( null != _preDispose )
     {
       throw new ProcessorException( "@PreDispose target duplicates existing method named " +
-                                    _preDispose.getSimpleName(), preDispose );
+                                    _preDispose.getSimpleName(), method );
     }
     else
     {
-      _preDispose = preDispose;
+      _preDispose = method;
     }
   }
 
-  private void setPostDispose( @Nonnull final ExecutableElement postDispose )
+  private void setPostDispose( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
-                                      postDispose );
+                                      method );
 
     if ( null != _postDispose )
     {
       throw new ProcessorException( "@PostDispose target duplicates existing method named " +
-                                    _postDispose.getSimpleName(), postDispose );
+                                    _postDispose.getSimpleName(), method );
     }
     else
     {
-      _postDispose = postDispose;
+      _postDispose = method;
     }
   }
 

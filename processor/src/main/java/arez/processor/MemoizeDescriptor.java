@@ -228,41 +228,41 @@ final class MemoizeDescriptor
     }
   }
 
-  void setOnDeactivate( @Nonnull final ExecutableElement onDeactivate )
+  void setOnDeactivate( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
-                                      onDeactivate );
+                                      method );
     if ( null != _onDeactivate )
     {
       throw new ProcessorException( "@OnDeactivate target duplicates existing method named " +
                                     _onDeactivate.getSimpleName(),
-                                    onDeactivate );
+                                    method );
     }
     else
     {
-      _onDeactivate = Objects.requireNonNull( onDeactivate );
+      _onDeactivate = Objects.requireNonNull( method );
     }
   }
 
-  void setOnStale( @Nonnull final ExecutableElement onStale )
+  void setOnStale( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_STALE_ANNOTATION_CLASSNAME,
-                                      onStale );
+                                      method );
     if ( null != _onStale )
     {
       throw new ProcessorException( "@OnStale target duplicates existing method named " +
                                     _onStale.getSimpleName(),
-                                    onStale );
+                                    method );
     }
     else
     {
-      _onStale = Objects.requireNonNull( onStale );
+      _onStale = Objects.requireNonNull( method );
     }
   }
 
