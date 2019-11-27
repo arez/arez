@@ -12,7 +12,7 @@ abstract class DeriveOnDepsChangeModel
   {
   }
 
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

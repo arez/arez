@@ -14,7 +14,7 @@ abstract class ProtectedAccessTrackedModel
   }
 
   @OnDepsChange
-  protected final void onRenderDepsChange()
+  final void onRenderDepsChange()
   {
   }
 }

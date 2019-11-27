@@ -13,12 +13,12 @@ public abstract class OnDepsChangeDuplicatedModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 
   @OnDepsChange( name = "render" )
-  public void onRenderDepsChange2()
+  void onRenderDepsChange2()
   {
   }
 }

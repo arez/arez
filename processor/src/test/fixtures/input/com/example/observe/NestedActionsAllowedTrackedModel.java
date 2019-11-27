@@ -14,7 +14,7 @@ abstract class NestedActionsAllowedTrackedModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

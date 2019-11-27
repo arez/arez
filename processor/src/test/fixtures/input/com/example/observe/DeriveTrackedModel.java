@@ -13,7 +13,7 @@ abstract class DeriveTrackedModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 

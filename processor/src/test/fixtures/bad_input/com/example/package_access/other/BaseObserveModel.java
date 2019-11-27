@@ -17,7 +17,7 @@ public abstract class BaseObserveModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

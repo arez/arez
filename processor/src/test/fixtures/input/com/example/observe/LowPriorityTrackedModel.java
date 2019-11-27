@@ -15,7 +15,7 @@ abstract class LowPriorityTrackedModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

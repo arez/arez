@@ -39,7 +39,7 @@ public abstract class ImplicitSingletonModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 

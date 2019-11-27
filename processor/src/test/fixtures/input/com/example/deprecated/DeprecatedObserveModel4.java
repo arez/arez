@@ -14,7 +14,7 @@ abstract class DeprecatedObserveModel4
 
   @Deprecated
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 

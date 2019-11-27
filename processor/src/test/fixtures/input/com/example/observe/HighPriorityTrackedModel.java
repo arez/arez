@@ -15,7 +15,7 @@ abstract class HighPriorityTrackedModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

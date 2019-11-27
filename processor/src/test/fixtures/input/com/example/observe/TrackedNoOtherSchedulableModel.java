@@ -14,7 +14,7 @@ abstract class TrackedNoOtherSchedulableModel
   }
 
   @OnDepsChange
-  public void onRender1DepsChange()
+  void onRender1DepsChange()
   {
   }
 }

@@ -44,7 +44,7 @@ public abstract class OverrideNamesInModel
   }
 
   @OnDepsChange( name = "XX" )
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

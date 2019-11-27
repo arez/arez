@@ -14,7 +14,7 @@ abstract class NonStandardNameTrackedModel
   }
 
   @OnDepsChange( name = "render" )
-  public void onRenderDepsCha$$$$$$nge()
+  void onRenderDepsCha$$$$$$nge()
   {
   }
 }

@@ -34,7 +34,7 @@ abstract class TrackedAllTypesModel
   }
 
   @OnDepsChange
-  public void onRender1DepsChange()
+  void onRender1DepsChange()
   {
   }
 
@@ -44,12 +44,12 @@ abstract class TrackedAllTypesModel
   }
 
   @OnDepsChange
-  protected void onRender3DepsChange()
+  void onRender3DepsChange()
   {
   }
 
   @OnDepsChange
-  public void onRender4DepsChange()
+  void onRender4DepsChange()
   {
   }
 }

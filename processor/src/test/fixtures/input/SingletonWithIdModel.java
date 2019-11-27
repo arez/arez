@@ -42,7 +42,7 @@ public abstract class SingletonWithIdModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 
@@ -55,7 +55,7 @@ public abstract class SingletonWithIdModel
   }
 
   @OnDepsChange
-  protected void onRender2DepsChange()
+  void onRender2DepsChange()
   {
   }
 

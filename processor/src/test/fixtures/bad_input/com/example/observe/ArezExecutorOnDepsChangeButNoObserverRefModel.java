@@ -13,7 +13,7 @@ public abstract class ArezExecutorOnDepsChangeButNoObserverRefModel
   }
 
   @OnDepsChange
-  public void onDoStuffDepsChange()
+  void onDoStuffDepsChange()
   {
   }
 }

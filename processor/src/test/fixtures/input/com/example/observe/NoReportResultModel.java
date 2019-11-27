@@ -15,7 +15,7 @@ abstract class NoReportResultModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

@@ -16,7 +16,7 @@ abstract class BasicTrackedWithExceptionsModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 }

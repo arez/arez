@@ -37,7 +37,7 @@ public abstract class SingletonModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 

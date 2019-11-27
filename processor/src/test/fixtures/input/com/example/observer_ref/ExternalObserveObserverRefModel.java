@@ -16,7 +16,7 @@ abstract class ExternalObserveObserverRefModel
   }
 
   @OnDepsChange
-  public void onRenderDepsChange()
+  void onRenderDepsChange()
   {
   }
 
