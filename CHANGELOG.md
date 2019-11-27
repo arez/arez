@@ -11,7 +11,7 @@
   * `@PostConstruct`
   * `@PostDispose`
   * `@PreDispose`
-* Remove the `@OnStale` annotation. It has never been used in any downstream library.
+* Remove the `@OnStale` annotation. It has never been used in any downstream library or application.
 
 ### [v0.156](https://github.com/arez/arez/tree/v0.156) (2019-11-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.155...v0.156) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.155&new=0.156)
 
