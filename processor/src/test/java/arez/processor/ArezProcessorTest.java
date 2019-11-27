@@ -679,6 +679,17 @@ public class ArezProcessorTest
                       false },
         new Object[]{ "com.example.post_dispose.Suppressed2PublicAccessPostDisposeModel", false, false, false, false },
 
+        new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.pre_dispose.Suppressed1ProtectedAccessPreDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.pre_dispose.Suppressed1PublicAccessPreDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.pre_dispose.Suppressed2ProtectedAccessPreDisposeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.pre_dispose.Suppressed2PublicAccessPreDisposeModel", false, false, false, false },
+
         new Object[]{ "com.example.reference.CascadeDisposeReferenceModel", false, false, false, false },
         new Object[]{ "com.example.reference.CustomNameReferenceModel2", false, false, false, false },
         new Object[]{ "com.example.reference.CustomNameReferenceModel", false, false, false, false },
@@ -1374,6 +1385,67 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.post_dispose.PostDisposeInterface" );
     final String output =
       toFilename( "expected", "com.example.post_dispose.Arez_PublicAccessViaInterfacePostDisposeModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessPreDispose()
+  {
+    final String filename =
+      toFilename( "input", "com.example.pre_dispose.ProtectedAccessPreDisposeModel" );
+    final String messageFragment =
+      "@PreDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessPreDispose()
+  {
+    final String filename =
+      toFilename( "input", "com.example.pre_dispose.PublicAccessPreDisposeModel" );
+    final String messageFragment =
+      "@PreDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessPreDispose()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.pre_dispose.ProtectedAccessFromBasePreDisposeModel" );
+    final String input2 =
+      toFilename( "input", "com.example.pre_dispose.other.BaseProtectedAccessPreDisposeModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.pre_dispose.Arez_ProtectedAccessFromBasePreDisposeModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfacePreDispose()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.pre_dispose.PublicAccessViaInterfacePreDisposeModel" );
+    final String input2 =
+      toFilename( "input", "com.example.pre_dispose.PreDisposeInterface" );
+    final String output =
+      toFilename( "expected", "com.example.pre_dispose.Arez_PublicAccessViaInterfacePreDisposeModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }

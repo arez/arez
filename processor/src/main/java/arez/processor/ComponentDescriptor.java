@@ -1007,6 +1007,10 @@ final class ComponentDescriptor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
                                       method );
+    ArezUtils.mustBeInternalLifecycleMethod( _processingEnv,
+                                             this,
+                                             method,
+                                             Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
 
     if ( null != _preDispose )
     {

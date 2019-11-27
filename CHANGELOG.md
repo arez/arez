@@ -7,6 +7,7 @@
 * Generate a suppressable warning if a lifecycle method is protected and in the same class that is annotated by `@ArezComponent` or is public and not an implementation of an interface method. These methods are not expected to be invoked from outside the component instance and this warning discourages incorrect usage. This constraint has been applied to the annotations:
   * `@PostConstruct`
   * `@PostDispose`
+  * `@PreDispose`
 
 ### [v0.156](https://github.com/arez/arez/tree/v0.156) (2019-11-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.155...v0.156) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.155&new=0.156)
 
