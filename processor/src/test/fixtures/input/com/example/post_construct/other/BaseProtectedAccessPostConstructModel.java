@@ -1,14 +1,12 @@
-package com.example.post_construct;
+package com.example.post_construct.other;
 
-import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.PostConstruct;
 
-@ArezComponent
-abstract class PostConstructModel
+public abstract class BaseProtectedAccessPostConstructModel
 {
   @PostConstruct
-  void postConstruct()
+  protected void postConstruct()
   {
   }
 

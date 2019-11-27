@@ -984,6 +984,10 @@ final class ComponentDescriptor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                                       method );
+    ArezUtils.mustBeInternalLifecycleMethod( _processingEnv,
+                                             this,
+                                             method,
+                                             Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
 
     if ( null != _postConstruct )
     {

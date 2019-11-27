@@ -8,7 +8,7 @@ import arez.annotations.PostConstruct;
 abstract class ScheduleAfterConstructedModel
 {
   @PostConstruct
-  public void postConstruct()
+  void postConstruct()
   {
   }
 

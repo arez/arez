@@ -610,8 +610,15 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.Suppressed2PublicAccessObserverRefModel", false, false, false, false },
 
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
+
+        new Object[]{ "com.example.post_construct.BasicPostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false, false },
-        new Object[]{ "com.example.post_construct.PostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_construct.PackageAccessPostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_construct.Suppressed1ProtectedAccessPostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_construct.Suppressed1PublicAccessPostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_construct.Suppressed2ProtectedAccessPostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_construct.Suppressed2PublicAccessPostConstructModel", false, false, false, false },
+
         new Object[]{ "com.example.post_dispose.PostDisposeModel", false, false, false, false },
         new Object[]{ "com.example.post_dispose.PostDisposeWithDisabledDisposeNotifierModel",
                       false,
@@ -1064,6 +1071,67 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.observer_ref.ObserverRefInterface" );
     final String output =
       toFilename( "expected", "com.example.observer_ref.Arez_PublicAccessViaInterfaceObserverRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessPostConstruct()
+  {
+    final String filename =
+      toFilename( "input", "com.example.post_construct.ProtectedAccessPostConstructModel" );
+    final String messageFragment =
+      "@PostConstruct target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessPostConstruct()
+  {
+    final String filename =
+      toFilename( "input", "com.example.post_construct.PublicAccessPostConstructModel" );
+    final String messageFragment =
+      "@PostConstruct target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessPostConstruct()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.post_construct.ProtectedAccessFromBasePostConstructModel" );
+    final String input2 =
+      toFilename( "input", "com.example.post_construct.other.BaseProtectedAccessPostConstructModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.post_construct.Arez_ProtectedAccessFromBasePostConstructModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfacePostConstruct()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.post_construct.PublicAccessViaInterfacePostConstructModel" );
+    final String input2 =
+      toFilename( "input", "com.example.post_construct.PostConstructInterface" );
+    final String output =
+      toFilename( "expected", "com.example.post_construct.Arez_PublicAccessViaInterfacePostConstructModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }

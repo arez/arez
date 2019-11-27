@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_PostConstructModel extends PostConstructModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_Suppressed1ProtectedAccessPostConstructModel extends Suppressed1ProtectedAccessPostConstructModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,12 +23,12 @@ final class Arez_PostConstructModel extends PostConstructModel implements Dispos
   @Nonnull
   private final ComputableValue<Integer> $$arez$$_someValue;
 
-  Arez_PostConstructModel() {
+  Arez_Suppressed1ProtectedAccessPostConstructModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "PostConstructModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PostConstructModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Suppressed1ProtectedAccessPostConstructModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Suppressed1ProtectedAccessPostConstructModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_someValue = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".someValue" : null, () -> super.someValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
@@ -94,8 +94,8 @@ final class Arez_PostConstructModel extends PostConstructModel implements Dispos
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_PostConstructModel ) {
-        final Arez_PostConstructModel that = (Arez_PostConstructModel) o;
+      if ( o instanceof Arez_Suppressed1ProtectedAccessPostConstructModel ) {
+        final Arez_Suppressed1ProtectedAccessPostConstructModel that = (Arez_Suppressed1ProtectedAccessPostConstructModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
