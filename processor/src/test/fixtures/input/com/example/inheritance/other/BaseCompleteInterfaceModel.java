@@ -22,7 +22,6 @@ import arez.annotations.ObserverRef;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import arez.annotations.OnDepsChange;
-import arez.annotations.OnStale;
 import arez.annotations.PostConstruct;
 import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
@@ -92,11 +91,6 @@ public interface BaseCompleteInterfaceModel
 
   @OnDeactivate
   default void onTimeDeactivate()
-  {
-  }
-
-  @OnStale
-  default void onTimeStale()
   {
   }
 

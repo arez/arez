@@ -4,7 +4,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import arez.annotations.OnStale;
 
 @ArezComponent
 abstract class DeprecatedMemoizeModel3
@@ -23,11 +22,6 @@ abstract class DeprecatedMemoizeModel3
   @Deprecated
   @OnDeactivate
   final void onTimeDeactivate()
-  {
-  }
-
-  @OnStale
-  final void onTimeStale()
   {
   }
 }

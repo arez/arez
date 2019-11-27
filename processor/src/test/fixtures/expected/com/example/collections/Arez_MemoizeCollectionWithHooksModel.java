@@ -115,7 +115,6 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.areCollectionsPropertiesUnmodifiable() && this.$$arezd$$_$$cache_active$$_time ) {
       this.$$arezd$$_$$cache$$_time = null;
     }
-    onTimeStale();
   }
 
   @Override

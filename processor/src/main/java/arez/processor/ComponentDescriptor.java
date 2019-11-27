@@ -229,8 +229,7 @@ final class ComponentDescriptor
                                                   ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
            _roMemoizes.stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
                                                isDeprecated( e.getOnActivate() ) ||
-                                               isDeprecated( e.getOnDeactivate() ) ||
-                                               isDeprecated( e.getOnStale() ) ) ||
+                                               isDeprecated( e.getOnDeactivate() ) ) ||
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _roDependencies.stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
                                                    ( !e.isMethodDependency() && isDeprecated( e.getField() ) ) ) ||
@@ -777,17 +776,6 @@ final class ComponentDescriptor
                       "Deactivate",
                       getAnnotationParameter( annotation, "name" ) );
     findOrCreateMemoize( name ).setOnDeactivate( method );
-  }
-
-  private void addOnStale( @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method )
-    throws ProcessorException
-  {
-    final String name =
-      deriveHookName( method,
-                      MemoizeDescriptor.ON_STALE_PATTERN,
-                      "Stale",
-                      getAnnotationParameter( annotation, "name" ) );
-    findOrCreateMemoize( name ).setOnStale( method );
   }
 
   @Nonnull
@@ -2372,8 +2360,6 @@ final class ComponentDescriptor
       AnnotationsUtil.findAnnotationByType( method, Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onDeactivate =
       AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
-    final AnnotationMirror onStale =
-      AnnotationsUtil.findAnnotationByType( method, Constants.ON_STALE_ANNOTATION_CLASSNAME );
     final AnnotationMirror onDepsChange =
       AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observerRef =
@@ -2523,11 +2509,6 @@ final class ComponentDescriptor
       addOnDeactivate( onDeactivate, method );
       return true;
     }
-    else if ( null != onStale )
-    {
-      addOnStale( onStale, method );
-      return true;
-    }
     else if ( null != dependency )
     {
       addDependency( method );
@@ -2612,7 +2593,6 @@ final class ComponentDescriptor
                      Constants.REFERENCE_ID_ANNOTATION_CLASSNAME,
                      Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME,
                      Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
-                     Constants.ON_STALE_ANNOTATION_CLASSNAME,
                      Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME );
     final Map<String, Collection<String>> exceptions = new HashMap<>();
     exceptions.put( Constants.OBSERVABLE_ANNOTATION_CLASSNAME,

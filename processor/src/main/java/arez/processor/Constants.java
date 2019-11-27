@@ -28,7 +28,6 @@ final class Constants
   static final String ON_ACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnActivate";
   static final String ON_DEACTIVATE_ANNOTATION_CLASSNAME = "arez.annotations.OnDeactivate";
   static final String ON_DEPS_CHANGE_ANNOTATION_CLASSNAME = "arez.annotations.OnDepsChange";
-  static final String ON_STALE_ANNOTATION_CLASSNAME = "arez.annotations.OnStale";
   static final String POST_CONSTRUCT_ANNOTATION_CLASSNAME = "arez.annotations.PostConstruct";
   static final String POST_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PostDispose";
   static final String PRE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.PreDispose";
@@ -46,7 +45,6 @@ final class Constants
   static final String NULLABLE_ANNOTATION_CLASSNAME = "javax.annotation.Nullable";
   static final String GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.Generated";
   static final String JAVA9_GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.processing.Generated";
-
   static final String SENTINEL = "<default>";
   static final String WARNING_PUBLIC_LIFECYCLE_METHOD = "Arez:PublicLifecycleMethod";
   static final String WARNING_PROTECTED_LIFECYCLE_METHOD = "Arez:ProtectedLifecycleMethod";

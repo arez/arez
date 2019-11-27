@@ -37,7 +37,6 @@ final class MemoizeDescriptor
 {
   static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
   static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
-  static final Pattern ON_STALE_PATTERN = Pattern.compile( "^on([A-Z].*)Stale$" );
   @Nonnull
   private final ComponentDescriptor _componentDescriptor;
   @Nonnull
@@ -56,8 +55,6 @@ final class MemoizeDescriptor
   private ExecutableElement _onActivate;
   @Nullable
   private ExecutableElement _onDeactivate;
-  @Nullable
-  private ExecutableElement _onStale;
   @Nullable
   private ExecutableElement _refMethod;
   @Nullable
@@ -113,12 +110,6 @@ final class MemoizeDescriptor
   ExecutableElement getOnDeactivate()
   {
     return _onDeactivate;
-  }
-
-  @Nullable
-  ExecutableElement getOnStale()
-  {
-    return _onStale;
   }
 
   void setMemoize( @Nonnull final ExecutableElement method,
@@ -247,25 +238,6 @@ final class MemoizeDescriptor
     }
   }
 
-  void setOnStale( @Nonnull final ExecutableElement method )
-    throws ProcessorException
-  {
-    MemberChecks.mustBeLifecycleHook( _componentDescriptor.getElement(),
-                                      Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                      Constants.ON_STALE_ANNOTATION_CLASSNAME,
-                                      method );
-    if ( null != _onStale )
-    {
-      throw new ProcessorException( "@OnStale target duplicates existing method named " +
-                                    _onStale.getSimpleName(),
-                                    method );
-    }
-    else
-    {
-      _onStale = Objects.requireNonNull( method );
-    }
-  }
-
   void validate()
     throws ProcessorException
   {
@@ -281,16 +253,11 @@ final class MemoizeDescriptor
         throw new ProcessorException( "@OnDeactivate exists but there is no corresponding @Memoize",
                                       _onDeactivate );
       }
-      else if ( null != _refMethod )
-      {
-        throw new ProcessorException( "@ComputableValueRef exists but there is no corresponding @Memoize",
-                                      _refMethod );
-      }
       else
       {
-        final ExecutableElement onStale = _onStale;
-        assert null != onStale;
-        throw new ProcessorException( "@OnStale exists but there is no corresponding @Memoize", onStale );
+        assert null != _refMethod;
+        throw new ProcessorException( "@ComputableValueRef exists but there is no corresponding @Memoize",
+                                      _refMethod );
       }
     }
     if ( _keepAlive )
@@ -322,11 +289,6 @@ final class MemoizeDescriptor
       {
         throw new ProcessorException( "@OnDeactivate target associated with @Memoize method that has parameters.",
                                       _onDeactivate );
-      }
-      else if ( null != _onStale )
-      {
-        throw new ProcessorException( "@OnStale target associated with @Memoize method that has parameters.",
-                                      _onStale );
       }
     }
 
@@ -681,11 +643,6 @@ final class MemoizeDescriptor
         sb.append( "this::$N" );
         parameters.add( getOnStaleHookMethodName() );
       }
-      else if ( null != _onStale )
-      {
-        sb.append( "this::$N" );
-        parameters.add( _onStale.getSimpleName().toString() );
-      }
       else
       {
         sb.append( "null" );
@@ -766,7 +723,7 @@ final class MemoizeDescriptor
 
   private boolean hasHooks()
   {
-    return null != _onActivate || null != _onDeactivate || null != _onStale;
+    return null != _onActivate || null != _onDeactivate;
   }
 
   void buildDisposer( @Nonnull final MethodSpec.Builder codeBlock )
@@ -875,10 +832,6 @@ final class MemoizeDescriptor
     block.endControlFlow();
     builder.addCode( block.build() );
 
-    if ( null != _onStale )
-    {
-      builder.addStatement( "$N()", _onStale.getSimpleName().toString() );
-    }
     return builder.build();
   }
 

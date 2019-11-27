@@ -2,7 +2,6 @@ package com.example.memoize;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
-import arez.annotations.OnStale;
 
 @ArezComponent
 abstract class OnStaleModel
@@ -11,10 +10,5 @@ abstract class OnStaleModel
   long getTime()
   {
     return 0;
-  }
-
-  @OnStale
-  final void onTimeStale()
-  {
   }
 }

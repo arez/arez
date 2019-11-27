@@ -31,8 +31,6 @@ See https://github.com/arez/arez/issues/91
 * Generate a suppressable warning if any lifecycle method is protected and in class
   annotated with `@ArezComponent`
 
-* Asses whether we can remove `@OnStale`
-
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
