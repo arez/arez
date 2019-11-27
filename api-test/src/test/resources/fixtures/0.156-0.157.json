@@ -1,0 +1,18 @@
+[
+  {
+    "code": "java.annotation.noLongerPresent",
+    "description": "Old API referenced the annotation type but the new API version no longer does.",
+    "oldElement": "@interface arez.annotations.OnStale",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.OnStale",
+      "classSimpleName": "OnStale",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  }
+]
