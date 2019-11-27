@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 
 @ArezComponent( allowEmpty = true )
-public abstract class NonEmptyComponent
+abstract class AllowEmptyOnNonEmptyComponent
 {
   @Action
   void foo()

@@ -1080,11 +1080,17 @@ final class ComponentDescriptor
                                     "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
                                     "@Reference, @ComponentDependency or @Observe", _element );
     }
-    else if ( _allowEmpty && !hasReactiveElements && !_generated )
+    else if ( _allowEmpty &&
+              !hasReactiveElements &&
+              !_generated &&
+              !isWarningSuppressed( _element, Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
     {
-      throw new ProcessorException( "@ArezComponent target has specified allowEmpty = true but has methods " +
-                                    "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
-                                    "@Reference, @ComponentDependency or @Observe", _element );
+      final String message =
+        "@ArezComponent target has specified allowEmpty = true but has methods " +
+        "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
+        "@Reference, @ComponentDependency or @Observe. " +
+        suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
+      _processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
     }
 
     if ( _deferSchedule && !requiresSchedule() )

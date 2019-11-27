@@ -54,6 +54,7 @@ final class Constants
   static final String WARNING_PROTECTED_REF_METHOD = "Arez:ProtectedRefMethod";
   static final String WARNING_UNMANAGED_COMPONENT_REFERENCE = "Arez:UnmanagedComponentReference";
   static final String WARNING_UNNECESSARY_DEFAULT_PRIORITY = "Arez:UnnecessaryDefaultPriority";
+  static final String WARNING_UNNECESSARY_ALLOW_EMPTY = "Arez:UnnecessaryAllowEmpty";
 
   private Constants()
   {

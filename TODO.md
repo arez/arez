@@ -23,8 +23,7 @@ See https://github.com/arez/arez/issues/91
 
 * `AnnotationsUtil.extractName()` wherever possible
 
-* Remove `_generated` flag from `ComponentDescriptor` and instead make the relevant errors into warnings and
-  suppressable.
+* Remove `_generated` flag from `ComponentDescriptor` and all the associated infrastructure.
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 

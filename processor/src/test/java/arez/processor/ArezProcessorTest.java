@@ -53,7 +53,17 @@ public class ArezProcessorTest
         new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel", false, false, false, false },
         new Object[]{ "com.example.component.DeprecatedModel", false, false, false, false },
         new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false, false },
+        new Object[]{ "com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent",
+                      false,
+                      false,
+                      false,
+                      false },
         new Object[]{ "com.example.component.Suppressed1UnnecessaryDefaultPriorityPresentComponent",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.component.Suppressed2UnnecessaryAllowEmptyPresentComponent",
                       false,
                       false,
                       false,
@@ -827,6 +837,22 @@ public class ArezProcessorTest
                              daggerComponentExtensionExpected,
                              repositoryEnabled,
                              repositoryDaggerEnabled );
+  }
+
+  @Test
+  public void allowEmptyOnNonEmptyComponent()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.AllowEmptyOnNonEmptyComponent" );
+    final String messageFragment =
+      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
   }
 
   @Test
@@ -2034,8 +2060,6 @@ public class ArezProcessorTest
                       "@ArezComponent target has specified the deferSchedule = true annotation parameter but has no methods annotated with @Observe" },
         new Object[]{ "com.example.component.ModelWithAbstractMethod",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named someMethod" },
-        new Object[]{ "com.example.component.NonEmptyComponent",
-                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
         new Object[]{ "com.example.component.BadTypeComponent",
                       "@ArezComponent target specified an invalid type ''. The type must be a valid java identifier." },
         new Object[]{ "com.example.component.BadTypeComponent2",
