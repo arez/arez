@@ -1,4 +1,4 @@
-package com.example.memoize;
+package com.example.on_deactivate;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_OnDeactivateModel extends OnDeactivateModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ProtectedAccessFromBaseOnDeactivateModel extends ProtectedAccessFromBaseOnDeactivateModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,12 +23,12 @@ final class Arez_OnDeactivateModel extends OnDeactivateModel implements Disposab
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  Arez_OnDeactivateModel() {
+  Arez_ProtectedAccessFromBaseOnDeactivateModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "OnDeactivateModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "OnDeactivateModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ProtectedAccessFromBaseOnDeactivateModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ProtectedAccessFromBaseOnDeactivateModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), null, this::onTimeDeactivate, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
@@ -74,7 +74,7 @@ final class Arez_OnDeactivateModel extends OnDeactivateModel implements Disposab
   }
 
   @Override
-  long getTime() {
+  protected long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -93,8 +93,8 @@ final class Arez_OnDeactivateModel extends OnDeactivateModel implements Disposab
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_OnDeactivateModel ) {
-        final Arez_OnDeactivateModel that = (Arez_OnDeactivateModel) o;
+      if ( o instanceof Arez_ProtectedAccessFromBaseOnDeactivateModel ) {
+        final Arez_ProtectedAccessFromBaseOnDeactivateModel that = (Arez_ProtectedAccessFromBaseOnDeactivateModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

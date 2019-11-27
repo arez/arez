@@ -264,7 +264,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.KeepAliveModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ObserveLowerPriorityModel", false, false, false, false },
 
-        new Object[]{ "com.example.memoize.OnDeactivateModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ReadOutsideTransactionModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ScheduleDeferredKeepAliveModel", false, false, false, false },
         new Object[]{ "com.example.memoize.TypeParametersModel", false, false, false, false },
@@ -633,6 +632,29 @@ public class ArezProcessorTest
         new Object[]{ "com.example.on_activate.Suppressed2ProtectedAccessOnActivateModel", false, false, false, false },
         new Object[]{ "com.example.on_activate.Suppressed2PublicAccessOnActivateModel", false, false, false, false },
         new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel",
+                      false,
+                      false,
+                      false,
+                      false },
+
+        new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_deactivate.Suppressed1ProtectedAccessOnDeactivateModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.on_deactivate.Suppressed1PublicAccessOnDeactivateModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.on_deactivate.Suppressed2ProtectedAccessOnDeactivateModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.on_deactivate.Suppressed2PublicAccessOnDeactivateModel",
                       false,
                       false,
                       false,
@@ -1329,6 +1351,67 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.on_activate.OnActivateInterface" );
     final String output =
       toFilename( "expected", "com.example.on_activate.Arez_PublicAccessViaInterfaceOnActivateModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessOnDeactivate()
+  {
+    final String filename =
+      toFilename( "input", "com.example.on_deactivate.ProtectedAccessOnDeactivateModel" );
+    final String messageFragment =
+      "@OnDeactivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessOnDeactivate()
+  {
+    final String filename =
+      toFilename( "input", "com.example.on_deactivate.PublicAccessOnDeactivateModel" );
+    final String messageFragment =
+      "@OnDeactivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessOnDeactivate()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.on_deactivate.ProtectedAccessFromBaseOnDeactivateModel" );
+    final String input2 =
+      toFilename( "input", "com.example.on_deactivate.other.BaseProtectedAccessOnDeactivateModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.on_deactivate.Arez_ProtectedAccessFromBaseOnDeactivateModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceOnDeactivate()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.on_deactivate.PublicAccessViaInterfaceOnDeactivateModel" );
+    final String input2 =
+      toFilename( "input", "com.example.on_deactivate.OnDeactivateInterface" );
+    final String output =
+      toFilename( "expected", "com.example.on_deactivate.Arez_PublicAccessViaInterfaceOnDeactivateModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }

@@ -230,6 +230,10 @@ final class MemoizeDescriptor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                                       method );
+    ArezUtils.mustBeInternalHookMethod( _componentDescriptor.getProcessingEnv(),
+                                        _componentDescriptor,
+                                        method,
+                                        Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
     if ( null != _onDeactivate )
     {
       throw new ProcessorException( "@OnDeactivate target duplicates existing method named " +
