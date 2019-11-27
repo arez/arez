@@ -48,6 +48,8 @@ final class Constants
   static final String SENTINEL = "<default>";
   static final String WARNING_PUBLIC_LIFECYCLE_METHOD = "Arez:PublicLifecycleMethod";
   static final String WARNING_PROTECTED_LIFECYCLE_METHOD = "Arez:ProtectedLifecycleMethod";
+  static final String WARNING_PUBLIC_HOOK_METHOD = "Arez:PublicHookMethod";
+  static final String WARNING_PROTECTED_HOOK_METHOD = "Arez:ProtectedHookMethod";
   static final String WARNING_PUBLIC_REF_METHOD = "Arez:PublicRefMethod";
   static final String WARNING_PROTECTED_REF_METHOD = "Arez:ProtectedRefMethod";
   static final String WARNING_UNMANAGED_COMPONENT_REFERENCE = "Arez:UnmanagedComponentReference";

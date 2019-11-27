@@ -193,6 +193,10 @@ final class MemoizeDescriptor
 
     MemberChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
+    ArezUtils.mustBeInternalHookMethod( _componentDescriptor.getProcessingEnv(),
+                                        _componentDescriptor,
+                                        method,
+                                        Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
 
     if ( null != _onActivate )
     {

@@ -84,6 +84,30 @@ final class ArezUtils
     }
   }
 
+  static void mustBeInternalHookMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                        @Nonnull final ComponentDescriptor descriptor,
+                                        @Nonnull final ExecutableElement method,
+                                        @Nonnull final String annotationClassname )
+  {
+    final TypeElement typeElement = descriptor.getElement();
+    if ( doesMethodNotOverrideInterfaceMethod( processingEnv, typeElement, method ) )
+    {
+      MemberChecks.shouldNotBePublic( processingEnv,
+                                      method,
+                                      annotationClassname,
+                                      Constants.WARNING_PUBLIC_HOOK_METHOD,
+                                      Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    }
+    if ( Objects.equals( typeElement, method.getEnclosingElement() ) )
+    {
+      MemberChecks.shouldNotBeProtected( processingEnv,
+                                         method,
+                                         annotationClassname,
+                                         Constants.WARNING_PROTECTED_HOOK_METHOD,
+                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    }
+  }
+
   private static boolean doesMethodNotOverrideInterfaceMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                                                @Nonnull final TypeElement typeElement,
                                                                @Nonnull final ExecutableElement method )

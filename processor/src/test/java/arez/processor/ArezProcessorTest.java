@@ -626,7 +626,12 @@ public class ArezProcessorTest
 
         new Object[]{ "com.example.on_activate.BasicOnActivateModel", false, false, false, false },
         new Object[]{ "com.example.on_activate.ComputableValueParamOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel", false, false, false, false },
         new Object[]{ "com.example.on_activate.RawComputableValueParamOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.Suppressed1ProtectedAccessOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.Suppressed1PublicAccessOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.Suppressed2ProtectedAccessOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.Suppressed2PublicAccessOnActivateModel", false, false, false, false },
         new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel",
                       false,
                       false,
@@ -1263,6 +1268,67 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.observer_ref.ObserverRefInterface" );
     final String output =
       toFilename( "expected", "com.example.observer_ref.Arez_PublicAccessViaInterfaceObserverRefModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessOnActivate()
+  {
+    final String filename =
+      toFilename( "input", "com.example.on_activate.ProtectedAccessOnActivateModel" );
+    final String messageFragment =
+      "@OnActivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessOnActivate()
+  {
+    final String filename =
+      toFilename( "input", "com.example.on_activate.PublicAccessOnActivateModel" );
+    final String messageFragment =
+      "@OnActivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessOnActivate()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.on_activate.ProtectedAccessFromBaseOnActivateModel" );
+    final String input2 =
+      toFilename( "input", "com.example.on_activate.other.BaseProtectedAccessOnActivateModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.on_activate.Arez_ProtectedAccessFromBaseOnActivateModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceOnActivate()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.on_activate.PublicAccessViaInterfaceOnActivateModel" );
+    final String input2 =
+      toFilename( "input", "com.example.on_activate.OnActivateInterface" );
+    final String output =
+      toFilename( "expected", "com.example.on_activate.Arez_PublicAccessViaInterfaceOnActivateModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
