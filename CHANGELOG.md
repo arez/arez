@@ -7,6 +7,7 @@
 * Generate a suppressable warning if a lifecycle or hook method is protected and in the same class that is annotated by `@ArezComponent` or is public and not an implementation of an interface method. These methods are not expected to be invoked from outside the component instance and this warning discourages incorrect usage. This constraint has been applied to the annotations:
   * `@OnActivate`
   * `@OnDeactivate`
+  * `@OnDepsChange`
   * `@PostConstruct`
   * `@PostDispose`
   * `@PreDispose`

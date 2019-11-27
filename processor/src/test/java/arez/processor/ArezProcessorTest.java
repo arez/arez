@@ -583,8 +583,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.NestedActionsAllowedTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.NonArezDependenciesModel", false, false, false, false },
         new Object[]{ "com.example.observe.NonStandardNameTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.DeriveFinalOnDepsChangeModel", false, false, false, false },
-        new Object[]{ "com.example.observe.DeriveOnDepsChangeModel", false, false, false, false },
         new Object[]{ "com.example.observe.DeriveTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.HighestPriorityTrackedModel", false, false, false, false },
         new Object[]{ "com.example.observe.HighPriorityTrackedModel", false, false, false, false },
@@ -655,6 +653,31 @@ public class ArezProcessorTest
                       false,
                       false },
         new Object[]{ "com.example.on_deactivate.Suppressed2PublicAccessOnDeactivateModel",
+                      false,
+                      false,
+                      false,
+                      false },
+
+        new Object[]{ "com.example.on_deps_change.BasicOnDepsChangeModel", false, false, false, false },
+        new Object[]{ "com.example.on_deps_change.DeriveFinalOnDepsChangeModel", false, false, false, false },
+        new Object[]{ "com.example.on_deps_change.DeriveOnDepsChangeModel", false, false, false, false },
+        new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel", false, false, false, false },
+        new Object[]{ "com.example.on_deps_change.Suppressed1ProtectedAccessOnDepsChangeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.on_deps_change.Suppressed1PublicAccessOnDepsChangeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.on_deps_change.Suppressed2ProtectedAccessOnDepsChangeModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.on_deps_change.Suppressed2PublicAccessOnDepsChangeModel",
                       false,
                       false,
                       false,
@@ -1412,6 +1435,67 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.on_deactivate.OnDeactivateInterface" );
     final String output =
       toFilename( "expected", "com.example.on_deactivate.Arez_PublicAccessViaInterfaceOnDeactivateModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessOnDepsChange()
+  {
+    final String filename =
+      toFilename( "input", "com.example.on_deps_change.ProtectedAccessOnDepsChangeModel" );
+    final String messageFragment =
+      "@OnDepsChange target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessOnDepsChange()
+  {
+    final String filename =
+      toFilename( "input", "com.example.on_deps_change.PublicAccessOnDepsChangeModel" );
+    final String messageFragment =
+      "@OnDepsChange target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessOnDepsChange()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.on_deps_change.ProtectedAccessFromBaseOnDepsChangeModel" );
+    final String input2 =
+      toFilename( "input", "com.example.on_deps_change.other.BaseProtectedAccessOnDepsChangeModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.on_deps_change.Arez_ProtectedAccessFromBaseOnDepsChangeModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfaceOnDepsChange()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.on_deps_change.PublicAccessViaInterfaceOnDepsChangeModel" );
+    final String input2 =
+      toFilename( "input", "com.example.on_deps_change.OnDepsChangeInterface" );
+    final String output =
+      toFilename( "expected", "com.example.on_deps_change.Arez_PublicAccessViaInterfaceOnDepsChangeModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }

@@ -183,6 +183,10 @@ final class ObserveDescriptor
 
     MemberChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
+    ArezUtils.mustBeInternalHookMethod( _componentDescriptor.getProcessingEnv(),
+                                        _componentDescriptor,
+                                        method,
+                                        Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
     if ( null != _onDepsChange )
     {
       throw new ProcessorException( "@OnDepsChange target duplicates existing method named " +

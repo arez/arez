@@ -18,6 +18,17 @@ import javax.annotation.Nonnull;
  * <li>Must not return a value</li>
  * <li>Must not throw an exception</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
+ * <li>
+ *   Should not be public as not expected to be invoked outside the component. A warning will be generated but can
+ *   be suppressed by the {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key
+ *   "Arez:PublicHookMethod". This warning is also suppressed by the annotation processor if it is implementing
+ *   an interface method.
+ * </li>
+ * <li>
+ *   Should not be protected if in the class annotated with the {@link ArezComponent} annotation as the method is not
+ *   expected to be invoked outside the component. A warning will be generated but can be suppressed by the
+ *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedHookMethod".
+ * </li>
  * </ul>
  *
  * <p>If the annotated method has a parameter of type {@link arez.Observer} then the underlying {@link arez.Observer}

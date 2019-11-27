@@ -26,11 +26,6 @@ See https://github.com/arez/arez/issues/91
 * Remove `_generated` flag from `ComponentDescriptor` and instead make the relevant errors into warnings and
   suppressable.
 
-* Generate a suppressable warning if any lifecycle method is public
-
-* Generate a suppressable warning if any lifecycle method is protected and in class
-  annotated with `@ArezComponent`
-
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there

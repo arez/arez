@@ -1,4 +1,4 @@
-package com.example.observe;
+package com.example.on_deps_change;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_DeriveOnDepsChangeModel extends DeriveOnDepsChangeModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ProtectedAccessFromBaseOnDepsChangeModel extends ProtectedAccessFromBaseOnDepsChangeModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -22,12 +22,12 @@ final class Arez_DeriveOnDepsChangeModel extends DeriveOnDepsChangeModel impleme
   @Nonnull
   private final Observer $$arez$$_render;
 
-  Arez_DeriveOnDepsChangeModel() {
+  Arez_ProtectedAccessFromBaseOnDepsChangeModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "DeriveOnDepsChangeModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeriveOnDepsChangeModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ProtectedAccessFromBaseOnDepsChangeModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ProtectedAccessFromBaseOnDepsChangeModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
@@ -73,11 +73,11 @@ final class Arez_DeriveOnDepsChangeModel extends DeriveOnDepsChangeModel impleme
   }
 
   @Override
-  public void render(final long time, final float someOtherParameter) {
+  public void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.render( time, someOtherParameter ), Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.render(), null );
   }
 
   @Override
@@ -92,8 +92,8 @@ final class Arez_DeriveOnDepsChangeModel extends DeriveOnDepsChangeModel impleme
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_DeriveOnDepsChangeModel ) {
-        final Arez_DeriveOnDepsChangeModel that = (Arez_DeriveOnDepsChangeModel) o;
+      if ( o instanceof Arez_ProtectedAccessFromBaseOnDepsChangeModel ) {
+        final Arez_ProtectedAccessFromBaseOnDepsChangeModel that = (Arez_ProtectedAccessFromBaseOnDepsChangeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
