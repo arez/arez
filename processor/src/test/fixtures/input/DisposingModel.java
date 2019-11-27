@@ -7,12 +7,12 @@ import arez.annotations.PreDispose;
 public abstract class DisposingModel
 {
   @PreDispose
-  protected void preDispose()
+  void preDispose()
   {
   }
 
   @PostDispose
-  protected void postDispose()
+  void postDispose()
   {
   }
 
