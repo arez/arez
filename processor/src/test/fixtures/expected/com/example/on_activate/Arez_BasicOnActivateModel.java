@@ -1,4 +1,4 @@
-package com.example.memoize;
+package com.example.on_activate;
 
 import arez.Arez;
 import arez.ArezContext;
@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_OnActivateWithRawComputableValueParamModel extends OnActivateWithRawComputableValueParamModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_BasicOnActivateModel extends BasicOnActivateModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,14 +23,14 @@ final class Arez_OnActivateWithRawComputableValueParamModel extends OnActivateWi
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  Arez_OnActivateWithRawComputableValueParamModel() {
+  Arez_BasicOnActivateModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "OnActivateWithRawComputableValueParamModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "OnActivateWithRawComputableValueParamModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "BasicOnActivateModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "BasicOnActivateModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::$$arezi$$_onActivate_time, null, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::onTimeActivate, null, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -81,10 +81,6 @@ final class Arez_OnActivateWithRawComputableValueParamModel extends OnActivateWi
     return this.$$arez$$_time.get();
   }
 
-  private void $$arezi$$_onActivate_time() {
-    onTimeActivate( $$arez$$_time );
-  }
-
   @Override
   public final int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
@@ -97,8 +93,8 @@ final class Arez_OnActivateWithRawComputableValueParamModel extends OnActivateWi
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_OnActivateWithRawComputableValueParamModel ) {
-        final Arez_OnActivateWithRawComputableValueParamModel that = (Arez_OnActivateWithRawComputableValueParamModel) o;
+      if ( o instanceof Arez_BasicOnActivateModel ) {
+        final Arez_BasicOnActivateModel that = (Arez_BasicOnActivateModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

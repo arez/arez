@@ -1,4 +1,4 @@
-package com.example.memoize;
+package com.example.on_activate;
 
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
@@ -7,7 +7,7 @@ import arez.annotations.OnActivate;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-abstract class OnActivateWithWildcardComputableValueParamModel
+abstract class WildcardComputableValueParamOnActivateModel
 {
   @Memoize
   long getTime()

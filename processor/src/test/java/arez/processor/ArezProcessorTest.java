@@ -263,14 +263,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.memoize.WithHooksModel", false, false, false, false },
         new Object[]{ "com.example.memoize.KeepAliveModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ObserveLowerPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.OnActivateModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.OnActivateWithComputableValueParamModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.OnActivateWithRawComputableValueParamModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.OnActivateWithWildcardComputableValueParamModel",
-                      false,
-                      false,
-                      false,
-                      false },
+
         new Object[]{ "com.example.memoize.OnDeactivateModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ReadOutsideTransactionModel", false, false, false, false },
         new Object[]{ "com.example.memoize.ScheduleDeferredKeepAliveModel", false, false, false, false },
@@ -630,6 +623,15 @@ public class ArezProcessorTest
                       false,
                       false },
         new Object[]{ "com.example.observer_ref.Suppressed2PublicAccessObserverRefModel", false, false, false, false },
+
+        new Object[]{ "com.example.on_activate.BasicOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.ComputableValueParamOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.RawComputableValueParamOnActivateModel", false, false, false, false },
+        new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel",
+                      false,
+                      false,
+                      false,
+                      false },
 
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
 

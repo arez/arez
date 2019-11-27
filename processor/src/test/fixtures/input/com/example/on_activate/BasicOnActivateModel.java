@@ -1,11 +1,11 @@
-package com.example.memoize;
+package com.example.on_activate;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 
 @ArezComponent
-abstract class OnActivateModel
+abstract class BasicOnActivateModel
 {
   @Memoize
   long getTime()
