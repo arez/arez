@@ -377,4 +377,37 @@ final class MemberChecks
       throw new ProcessorException( message, method );
     }
   }
+
+  static void mustBeInternalMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                    @Nonnull final TypeElement typeElement,
+                                    @Nonnull final ExecutableElement method,
+                                    @Nonnull final String annotationClassname,
+                                    @Nonnull final String publicWarning,
+                                    @Nonnull final String protectedWarning,
+                                    @Nullable final String alternativeSuppressWarnings )
+  {
+    if ( doesMethodNotOverrideInterfaceMethod( processingEnv, typeElement, method ) )
+    {
+      shouldNotBePublic( processingEnv,
+                         method,
+                         annotationClassname,
+                         publicWarning,
+                         alternativeSuppressWarnings );
+    }
+    if ( Objects.equals( typeElement, method.getEnclosingElement() ) )
+    {
+      shouldNotBeProtected( processingEnv,
+                            method,
+                            annotationClassname,
+                            protectedWarning,
+                            alternativeSuppressWarnings );
+    }
+  }
+
+  private static boolean doesMethodNotOverrideInterfaceMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                               @Nonnull final TypeElement typeElement,
+                                                               @Nonnull final ExecutableElement method )
+  {
+    return !ProcessorUtil.doesMethodOverrideInterfaceMethod( processingEnv.getTypeUtils(), typeElement, method );
+  }
 }
