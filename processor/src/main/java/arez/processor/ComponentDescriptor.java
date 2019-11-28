@@ -86,13 +86,6 @@ final class ComponentDescriptor
   private final boolean _allowEmpty;
   @Nullable
   private final Priority _defaultPriority;
-  /**
-   * Flag indicating that there is a @Generated annotation on arez.
-   * In this scenario we are a little more forgiving with our errors as otherwise the generating tool would need to
-   * have a deep understanding of the component model to generate the code which may be too demanding for downstream
-   * generators.
-   */
-  private final boolean _generated;
   private final boolean _observable;
   private final boolean _disposeNotifier;
   private final boolean _disposeOnDeactivate;
@@ -169,7 +162,6 @@ final class ComponentDescriptor
                        final boolean nameIncludesId,
                        final boolean allowEmpty,
                        @Nullable final Priority defaultPriority,
-                       final boolean generated,
                        final boolean observable,
                        final boolean disposeNotifier,
                        final boolean disposeOnDeactivate,
@@ -188,7 +180,6 @@ final class ComponentDescriptor
     _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _defaultPriority = defaultPriority;
-    _generated = generated;
     _observable = observable;
     _disposeNotifier = disposeNotifier;
     _disposeOnDeactivate = disposeOnDeactivate;
@@ -1082,7 +1073,6 @@ final class ComponentDescriptor
     }
     else if ( _allowEmpty &&
               !hasReactiveElements &&
-              !_generated &&
               !isWarningSuppressed( _element, Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
     {
       final String message =

@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove the suppression of warnings when `allowEmpty=true` is present but reactive components are present when components are annotated with `@Generated`.
+
 ### [v0.157](https://github.com/arez/arez/tree/v0.157) (2019-11-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.156...v0.157) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.156&new=0.157)
 
 The release includes 1 breaking API change.

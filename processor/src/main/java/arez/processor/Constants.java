@@ -43,8 +43,6 @@ final class Constants
   static final String DAGGER_MODULE_CLASSNAME = "dagger.Module";
   static final String NONNULL_ANNOTATION_CLASSNAME = "javax.annotation.Nonnull";
   static final String NULLABLE_ANNOTATION_CLASSNAME = "javax.annotation.Nullable";
-  static final String GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.Generated";
-  static final String JAVA9_GENERATED_ANNOTATION_CLASSNAME = "javax.annotation.processing.Generated";
   static final String SENTINEL = "<default>";
   static final String WARNING_PUBLIC_LIFECYCLE_METHOD = "Arez:PublicLifecycleMethod";
   static final String WARNING_PROTECTED_LIFECYCLE_METHOD = "Arez:ProtectedLifecycleMethod";

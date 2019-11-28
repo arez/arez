@@ -95,10 +95,6 @@ public final class ArezProcessor
     {
       throw new ProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
     }
-    // Is the component marked as generated
-    final boolean generated =
-      AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.GENERATED_ANNOTATION_CLASSNAME ) ||
-      AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.JAVA9_GENERATED_ANNOTATION_CLASSNAME );
     final AnnotationMirror arezComponent =
       AnnotationsUtil.getAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final String declaredType = getAnnotationParameter( arezComponent, "name" );
@@ -224,7 +220,6 @@ public final class ArezProcessor
                                nameIncludesId,
                                allowEmpty,
                                defaultPriority,
-                               generated,
                                observableFlag,
                                disposeNotifierFlag,
                                disposeOnDeactivate,

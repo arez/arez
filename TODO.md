@@ -23,8 +23,6 @@ See https://github.com/arez/arez/issues/91
 
 * `AnnotationsUtil.extractName()` wherever possible
 
-* Remove `_generated` flag from `ComponentDescriptor` and all the associated infrastructure.
-
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
