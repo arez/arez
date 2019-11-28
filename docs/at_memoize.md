@@ -34,8 +34,8 @@ model is memoized as follows.
 
 The component model also supports the definition of callback methods as described in the
 [computable values](computable_values.md) document. This feature is currently only available if the memoized method
-accepts zero parameters. The callbacks are defined by using the annotations: {@api_url: annotations.OnActivate},
-{@api_url: annotations.OnDeactivate} and {@api_url: annotations.OnStale}. These methods are associated with the
+accepts zero parameters. The callbacks are defined by using the annotations {@api_url: annotations.OnActivate}
+and {@api_url: annotations.OnDeactivate}. These methods are associated with the
 {@api_url: annotations.Memoize} annotated method via naming conventions or through explicit configuration. The
 exact requirements for methods annotated by these annotations is defined in the API documentation.
 
