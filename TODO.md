@@ -37,6 +37,10 @@ See https://github.com/arez/arez/issues/91
   generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
   from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
 
+* Consider removing `@Repository` annotation and instead forcing the user to specify interface for repository.
+  This would eliminate the unresolved types during processing of `@ArezComponent` and allow us to change
+  annotation processor to non-api in bazel.
+
 * Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
   Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.
   It can either collect all types or only types that participate in reference relationships. If injection is
