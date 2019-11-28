@@ -28,6 +28,9 @@ See https://github.com/arez/arez/issues/91
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
   is concern for code duplication.
 
+* Consider moving `@SuppressArezWarnings` to a separate package and renaming it and replacing usages of
+  `@SuppressReact4jWarnings`, `@SuppressSpritzWarnings`, etc with this common annotation.
+
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
