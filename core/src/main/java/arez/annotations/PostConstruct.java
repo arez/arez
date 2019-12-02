@@ -7,10 +7,10 @@ import java.lang.annotation.Target;
 /**
  * Annotation to identify method that is invoked after the component is constructed.
  * At most 1 method should be annotated with this annotation.
- * The PostConstruct method is invoked after the component classes constructor has been invoked and after all
- * the Arez elements have been constructed and observers (if any) scheduled but before the scheduler has been
- * triggered which would result in the first execution of observers or {@link Memoize#keepAlive()} computable
- * values.
+ * The method is invoked after the component classes constructor has been invoked and all
+ * the Arez elements have been constructed and scheduled but before the scheduler has been
+ * triggered. Thus this method is invoked before the first execution of any observers or
+ * {@link Memoize#keepAlive()} computable values.
  *
  * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
