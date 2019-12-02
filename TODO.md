@@ -28,6 +28,9 @@ See https://github.com/arez/arez/issues/91
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
   is concern for code duplication.
 
+* Add integration test that verifies the sequencing of all the calls when multiple lifecycle steps present.
+  Particularly when some are from parent classes and/or types.
+
 * Consider moving `@SuppressArezWarnings` to a separate package and renaming it and replacing usages of
   `@SuppressReact4jWarnings`, `@SuppressSpritzWarnings`, etc with this common annotation.
 
