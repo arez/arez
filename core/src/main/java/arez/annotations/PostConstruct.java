@@ -6,11 +6,14 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to identify method that is invoked after the component is constructed.
- * At most 1 method should be annotated with this annotation.
  * The method is invoked after the component classes constructor has been invoked and all
  * the Arez elements have been constructed and scheduled but before the scheduler has been
  * triggered. Thus this method is invoked before the first execution of any observers or
  * {@link Memoize#keepAlive()} computable values.
+ *
+ * <p>If there are multiple methods annotated with this annotation then the methods declared in parent
+ * classes will be invoked first and multiple methods within a single class will be invoked in declaration
+ * order.</p>
  *
  * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>

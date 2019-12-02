@@ -1,18 +1,11 @@
 package com.example.post_construct;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
 import arez.annotations.PostConstruct;
 
-@ArezComponent
-public abstract class PostConstructDuplicateModel
+@ArezComponent( allowEmpty = true )
+public abstract class MultiPostConstructModel
 {
-  @Memoize
-  public int getMyValue()
-  {
-    return 0;
-  }
-
   @PostConstruct
   void postConstruct1()
   {

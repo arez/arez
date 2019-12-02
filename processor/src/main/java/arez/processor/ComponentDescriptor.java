@@ -110,8 +110,8 @@ final class ComponentDescriptor
   private boolean _idRequired;
   @Nonnull
   private final TypeElement _element;
-  @Nullable
-  private ExecutableElement _postConstruct;
+  @Nonnull
+  private final List<ExecutableElement> _postConstructs = new ArrayList<>();
   @Nullable
   private ExecutableElement _componentId;
   @Nullable
@@ -208,7 +208,7 @@ final class ComponentDescriptor
 
   private boolean hasDeprecatedElements()
   {
-    return isDeprecated( _postConstruct ) ||
+    return _postConstructs.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
            isDeprecated( _componentRef ) ||
            isDeprecated( _contextRef ) ||
@@ -956,7 +956,7 @@ final class ComponentDescriptor
     }
   }
 
-  private void setPostConstruct( @Nonnull final ExecutableElement method )
+  private void addPostConstruct( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( getElement(),
@@ -967,16 +967,7 @@ final class ComponentDescriptor
                                              this,
                                              method,
                                              Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
-
-    if ( null != _postConstruct )
-    {
-      throw new ProcessorException( "@PostConstruct target duplicates existing method named " +
-                                    _postConstruct.getSimpleName(), method );
-    }
-    else
-    {
-      _postConstruct = method;
-    }
+    _postConstructs.add( method );
   }
 
   private void setPreDispose( @Nonnull final ExecutableElement method )
@@ -2482,7 +2473,7 @@ final class ComponentDescriptor
     }
     else if ( null != postConstruct )
     {
-      setPostConstruct( method );
+      addPostConstruct( method );
       return true;
     }
     else if ( null != preDispose )
@@ -3782,15 +3773,18 @@ final class ComponentDescriptor
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
     }
 
-    if ( null != _postConstruct )
+    if ( !_postConstructs.isEmpty() )
     {
-      if ( isClassType() )
+      for ( final ExecutableElement postConstruct : _postConstructs )
       {
-        builder.addStatement( "super.$N()", _postConstruct.getSimpleName().toString() );
-      }
-      else
-      {
-        builder.addStatement( "$T.super.$N()", getClassName(), _postConstruct.getSimpleName().toString() );
+        if ( isClassType() )
+        {
+          builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+        }
+        else
+        {
+          builder.addStatement( "$T.super.$N()", getClassName(), postConstruct.getSimpleName().toString() );
+        }
       }
     }
 

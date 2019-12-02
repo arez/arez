@@ -695,6 +695,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
 
         new Object[]{ "com.example.post_construct.BasicPostConstructModel", false, false, false, false },
+        new Object[]{ "com.example.post_construct.MultiPostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.PackageAccessPostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.Suppressed1ProtectedAccessPostConstructModel",
@@ -1583,6 +1584,28 @@ public class ArezProcessorTest
     final String output =
       toFilename( "expected", "com.example.post_construct.Arez_PublicAccessViaInterfacePostConstructModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void multiViaInheritancePostConstruct()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.post_construct.MultiViaInheritanceChainPostConstructModel" );
+    final String input2 = toFilename( "input", "com.example.post_construct.other.AbstractMultiModel" );
+    final String input3 = toFilename( "input", "com.example.post_construct.other.MiddleMultiModel" );
+    final String input4 = toFilename( "input", "com.example.post_construct.other.MultiModelInterface1" );
+    final String input5 = toFilename( "input", "com.example.post_construct.other.MultiModelInterface2" );
+    final String input6 = toFilename( "input", "com.example.post_construct.other.MultiModelInterface3" );
+    final String output =
+      toFilename( "expected", "com.example.post_construct.Arez_MultiViaInheritanceChainPostConstructModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ),
+                                            fixture( input2 ),
+                                            fixture( input3 ),
+                                            fixture( input4 ),
+                                            fixture( input5 ),
+                                            fixture( input6 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -2561,8 +2584,6 @@ public class ArezProcessorTest
                       "@javax.annotation.PostConstruct annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.PostConstruct annotation instead." },
         new Object[]{ "com.example.post_construct.PostConstructAbstractModel",
                       "@PostConstruct target must not be abstract" },
-        new Object[]{ "com.example.post_construct.PostConstructDuplicateModel",
-                      "@PostConstruct target duplicates existing method named postConstruct1" },
         new Object[]{ "com.example.post_construct.PostConstructMustNotHaveParametersModel",
                       "@PostConstruct target must not have any parameters" },
         new Object[]{ "com.example.post_construct.PostConstructMustNotReturnValueModel",
