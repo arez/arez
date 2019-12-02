@@ -5,7 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to identify method invoked after disposing element.
+ * Annotation to identify method that is invoked after the component is disposed.
  * At most 1 method should be annotated with this annotation.
  * The PostDispose method is the last method invoked during dispose operation and it occurs within the scope
  * of the transaction that dispose is occurring within.
