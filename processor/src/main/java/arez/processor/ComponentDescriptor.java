@@ -1055,7 +1055,7 @@ final class ComponentDescriptor
     if ( null != _defaultPriority &&
          _roMemoizes.isEmpty() &&
          _roObserves.isEmpty() &&
-         !isWarningSuppressed( _element, Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY ) )
+         isWarningNotSuppressed( _element, Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY ) )
     {
       final String message =
         MemberChecks.toSimpleName( Constants.COMPONENT_ANNOTATION_CLASSNAME ) + " target should not specify " +
@@ -1073,7 +1073,7 @@ final class ComponentDescriptor
     }
     else if ( _allowEmpty &&
               !hasReactiveElements &&
-              !isWarningSuppressed( _element, Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
+              isWarningNotSuppressed( _element, Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
     {
       final String message =
         "@ArezComponent target has specified allowEmpty = true but has methods " +
@@ -4571,11 +4571,11 @@ final class ComponentDescriptor
     return MemberChecks.suppressedBy( warning, Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
-  private boolean isWarningSuppressed( @Nonnull final Element element, @Nonnull final String warning )
+  private boolean isWarningNotSuppressed( @Nonnull final Element element, @Nonnull final String warning )
   {
-    return ProcessorUtil.isWarningSuppressed( element,
-                                              warning,
-                                              Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    return !ProcessorUtil.isWarningSuppressed( element,
+                                               warning,
+                                               Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
   @Nonnull
