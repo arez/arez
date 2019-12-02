@@ -130,32 +130,46 @@ final class ComponentDescriptor
   private ExecutableElement _preDispose;
   @Nullable
   private ExecutableElement _postDispose;
+  @Nonnull
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
+  @Nonnull
   private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
+  @Nonnull
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
+  @Nonnull
   private final Collection<ObservableDescriptor> _roObservables =
     Collections.unmodifiableCollection( _observables.values() );
+  @Nonnull
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
-  private final Collection<ActionDescriptor> _roActions =
-    Collections.unmodifiableCollection( _actions.values() );
+  @Nonnull
+  private final Collection<ActionDescriptor> _roActions = Collections.unmodifiableCollection( _actions.values() );
+  @Nonnull
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
-  private final Collection<MemoizeDescriptor> _roMemoizes =
-    Collections.unmodifiableCollection( _memoizes.values() );
+  @Nonnull
+  private final Collection<MemoizeDescriptor> _roMemoizes = Collections.unmodifiableCollection( _memoizes.values() );
+  @Nonnull
   private final Map<String, ObserveDescriptor> _observes = new LinkedHashMap<>();
-  private final Collection<ObserveDescriptor> _roObserves =
-    Collections.unmodifiableCollection( _observes.values() );
+  @Nonnull
+  private final Collection<ObserveDescriptor> _roObserves = Collections.unmodifiableCollection( _observes.values() );
+  @Nonnull
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
+  @Nonnull
   private final Collection<DependencyDescriptor> _roDependencies =
     Collections.unmodifiableCollection( _dependencies.values() );
+  @Nonnull
   private final Map<Element, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
+  @Nonnull
   private final Collection<CascadeDisposableDescriptor> _roCascadeDisposes =
     Collections.unmodifiableCollection( _cascadeDisposes.values() );
+  @Nonnull
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
+  @Nonnull
   private final Collection<ReferenceDescriptor> _roReferences =
     Collections.unmodifiableCollection( _references.values() );
+  @Nonnull
   private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
-  private final Collection<InverseDescriptor> _roInverses =
-    Collections.unmodifiableCollection( _inverses.values() );
+  @Nonnull
+  private final Collection<InverseDescriptor> _roInverses = Collections.unmodifiableCollection( _inverses.values() );
 
   ComponentDescriptor( @Nonnull final ProcessingEnvironment processingEnv,
                        @Nonnull final String type,
