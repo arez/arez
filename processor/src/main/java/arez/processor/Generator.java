@@ -78,6 +78,7 @@ final class Generator
   static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME =
     FRAMEWORK_PREFIX + "nativeComponentPreDispose";
   static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
+  static final String INTERNAL_POST_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "postDispose";
   static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";

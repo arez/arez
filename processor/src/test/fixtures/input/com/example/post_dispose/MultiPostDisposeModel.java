@@ -3,16 +3,16 @@ package com.example.post_dispose;
 import arez.annotations.ArezComponent;
 import arez.annotations.PostDispose;
 
-@ArezComponent
-public abstract class PostDisposeDuplicateModel
+@ArezComponent( allowEmpty = true )
+abstract class MultiPostDisposeModel
 {
   @PostDispose
-  void foo()
+  void postDispose1()
   {
   }
 
   @PostDispose
-  void doStuff()
+  void postDispose2()
   {
   }
 }

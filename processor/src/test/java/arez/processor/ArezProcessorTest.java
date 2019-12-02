@@ -720,6 +720,7 @@ public class ArezProcessorTest
                       false },
 
         new Object[]{ "com.example.post_dispose.BasicPostDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.post_dispose.MultiPostDisposeModel", false, false, false, false },
         new Object[]{ "com.example.post_dispose.PackageAccessPostDisposeModel", false, false, false, false },
         new Object[]{ "com.example.post_dispose.PostDisposeWithDisabledDisposeNotifierModel",
                       false,
@@ -1671,6 +1672,28 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void multiViaInheritancePostDispose()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.post_dispose.MultiViaInheritanceChainPostDisposeModel" );
+    final String input2 = toFilename( "input", "com.example.post_dispose.other.AbstractMultiModel" );
+    final String input3 = toFilename( "input", "com.example.post_dispose.other.MiddleMultiModel" );
+    final String input4 = toFilename( "input", "com.example.post_dispose.other.MultiModelInterface1" );
+    final String input5 = toFilename( "input", "com.example.post_dispose.other.MultiModelInterface2" );
+    final String input6 = toFilename( "input", "com.example.post_dispose.other.MultiModelInterface3" );
+    final String output =
+      toFilename( "expected", "com.example.post_dispose.Arez_MultiViaInheritanceChainPostDisposeModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ),
+                                            fixture( input2 ),
+                                            fixture( input3 ),
+                                            fixture( input4 ),
+                                            fixture( input5 ),
+                                            fixture( input6 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void protectedAccessPreDispose()
   {
     final String filename =
@@ -2504,8 +2527,6 @@ public class ArezProcessorTest
                       "@PostDispose target must not return a value" },
         new Object[]{ "com.example.post_dispose.PostDisposeThrowsExceptionModel",
                       "@PostDispose target must not throw any exceptions" },
-        new Object[]{ "com.example.post_dispose.PostDisposeDuplicateModel",
-                      "@PostDispose target duplicates existing method named foo" },
         new Object[]{ "com.example.observable.PrivateObservableGetterModel", "@Observable target must not be private" },
         new Object[]{ "com.example.observable.PrivateObservableSetterModel", "@Observable target must not be private" },
         new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseOnAbstractMethods",

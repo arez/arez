@@ -112,6 +112,8 @@ final class ComponentDescriptor
   private final TypeElement _element;
   @Nonnull
   private final List<ExecutableElement> _postConstructs = new ArrayList<>();
+  @Nonnull
+  private final List<ExecutableElement> _postDisposes = new ArrayList<>();
   @Nullable
   private ExecutableElement _componentId;
   @Nullable
@@ -128,8 +130,6 @@ final class ComponentDescriptor
   private ExecutableElement _componentNameRef;
   @Nullable
   private ExecutableElement _preDispose;
-  @Nullable
-  private ExecutableElement _postDispose;
   @Nonnull
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
   @Nonnull
@@ -223,13 +223,13 @@ final class ComponentDescriptor
   private boolean hasDeprecatedElements()
   {
     return _postConstructs.stream().anyMatch( this::isDeprecated ) ||
+           _postDisposes.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
            isDeprecated( _componentRef ) ||
            isDeprecated( _contextRef ) ||
            isDeprecated( _componentTypeNameRef ) ||
            isDeprecated( _componentNameRef ) ||
            isDeprecated( _preDispose ) ||
-           isDeprecated( _postDispose ) ||
            _roObservables.stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
                                                   ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
            _roMemoizes.stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
@@ -1007,7 +1007,7 @@ final class ComponentDescriptor
     }
   }
 
-  private void setPostDispose( @Nonnull final ExecutableElement method )
+  private void addPostDispose( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( getElement(),
@@ -1018,16 +1018,7 @@ final class ComponentDescriptor
                                              this,
                                              method,
                                              Constants.POST_DISPOSE_ANNOTATION_CLASSNAME );
-
-    if ( null != _postDispose )
-    {
-      throw new ProcessorException( "@PostDispose target duplicates existing method named " +
-                                    _postDispose.getSimpleName(), method );
-    }
-    else
-    {
-      _postDispose = method;
-    }
+    _postDisposes.add( method );
   }
 
   @Nonnull
@@ -2497,7 +2488,7 @@ final class ComponentDescriptor
     }
     else if ( null != postDispose )
     {
-      setPostDispose( method );
+      addPostDispose( method );
       return true;
     }
     else if ( null != onActivate )
@@ -2783,6 +2774,10 @@ final class ComponentDescriptor
       builder.addMethod( buildNativeComponentPreDispose() );
       builder.addMethod( buildAddOnDisposeListener() );
       builder.addMethod( buildRemoveOnDisposeListener() );
+    }
+    if ( hasInternalPostDispose() )
+    {
+      builder.addMethod( buildInternalPostDispose() );
     }
     builder.addMethod( buildIsDisposed() );
     builder.addMethod( buildDispose() );
@@ -3395,6 +3390,11 @@ final class ComponentDescriptor
            _roReferences.stream().anyMatch( ReferenceDescriptor::hasInverse );
   }
 
+  private boolean hasInternalPostDispose()
+  {
+    return _postDisposes.size() > 1;
+  }
+
   /**
    * Generate the isDisposed method.
    */
@@ -3561,6 +3561,30 @@ final class ComponentDescriptor
       }
     }
 
+    return builder.build();
+  }
+
+  @Nonnull
+  private MethodSpec buildInternalPostDispose()
+    throws ProcessorException
+  {
+    assert hasInternalPostDispose();
+    final MethodSpec.Builder builder =
+      MethodSpec
+        .methodBuilder( Generator.INTERNAL_POST_DISPOSE_METHOD_NAME )
+        .addModifiers( Modifier.PRIVATE );
+
+    for ( final ExecutableElement postDispose : _postDisposes )
+    {
+      if ( isClassType() )
+      {
+        builder.addStatement( "super.$N()", postDispose.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.super.$N()", getClassName(), postDispose.getSimpleName() );
+      }
+    }
     return builder.build();
   }
 
@@ -3880,25 +3904,31 @@ final class ComponentDescriptor
       sb.append( "null, " );
     }
 
-    if ( null != _postDispose )
+    if ( _postDisposes.isEmpty() )
+    {
+      sb.append( "null, " );
+    }
+    else if ( 1 == _postDisposes.size() )
     {
       if ( isClassType() )
       {
         sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
         params.add( Generator.AREZ_CLASSNAME );
-        params.add( _postDispose.getSimpleName() );
+        params.add( _postDisposes.get( 0 ).getSimpleName() );
       }
       else
       {
         sb.append( "$T.areNativeComponentsEnabled() ? null : () -> $T.super.$N(), " );
         params.add( Generator.AREZ_CLASSNAME );
         params.add( getClassName() );
-        params.add( _postDispose.getSimpleName() );
+        params.add( _postDisposes.get( 0 ).getSimpleName() );
       }
     }
     else
     {
-      sb.append( "null, " );
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( Generator.AREZ_CLASSNAME );
+      params.add( Generator.INTERNAL_POST_DISPOSE_METHOD_NAME );
     }
 
     sb.append( _disposeNotifier );
@@ -3996,7 +4026,7 @@ final class ComponentDescriptor
     params.add( _type );
     params.add( Generator.ID_VAR_NAME );
     params.add( Generator.NAME_VAR_NAME );
-    if ( _disposeNotifier || null != _preDispose || null != _postDispose )
+    if ( _disposeNotifier || null != _preDispose || !_postDisposes.isEmpty() )
     {
       sb.append( ", " );
       if ( _disposeNotifier )
@@ -4022,19 +4052,23 @@ final class ComponentDescriptor
       {
         sb.append( "null" );
       }
-
-      if ( null != _postDispose )
+      if ( _postDisposes.size() > 1 )
+      {
+        sb.append( ",  this::$N" );
+        params.add( Generator.INTERNAL_POST_DISPOSE_METHOD_NAME );
+      }
+      else if ( 1 == _postDisposes.size() )
       {
         if ( isClassType() )
         {
           sb.append( ",  () -> super.$N()" );
-          params.add( _postDispose.getSimpleName().toString() );
+          params.add( _postDisposes.get( 0 ).getSimpleName().toString() );
         }
         else
         {
           sb.append( ",  () -> $T.super.$N()" );
           params.add( getClassName() );
-          params.add( _postDispose.getSimpleName().toString() );
+          params.add( _postDisposes.get( 0 ).getSimpleName().toString() );
         }
       }
     }
