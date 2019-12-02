@@ -5,7 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to identify method invoked after constructing component.
+ * Annotation to identify method that is invoked after the component is constructed.
  * At most 1 method should be annotated with this annotation.
  * The PostConstruct method is invoked after the component classes constructor has been invoked and after all
  * the Arez elements have been constructed and observers (if any) scheduled but before the scheduler has been
