@@ -53,8 +53,8 @@ final class Arez_MultiPostDisposeModel extends MultiPostDisposeModel implements 
   }
 
   private void $$arezi$$_postDispose() {
-    super.postDispose1();
     super.postDispose2();
+    super.postDispose1();
   }
 
   @Override

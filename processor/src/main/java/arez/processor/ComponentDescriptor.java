@@ -3573,7 +3573,9 @@ final class ComponentDescriptor
         .methodBuilder( Generator.INTERNAL_POST_DISPOSE_METHOD_NAME )
         .addModifiers( Modifier.PRIVATE );
 
-    for ( final ExecutableElement postDispose : _postDisposes )
+    final List<ExecutableElement> postDisposes = new ArrayList<>( _postDisposes );
+    Collections.reverse( postDisposes );
+    for ( final ExecutableElement postDispose : postDisposes )
     {
       if ( isClassType() )
       {
