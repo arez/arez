@@ -137,39 +137,19 @@ final class ComponentDescriptor
   @Nonnull
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   @Nonnull
-  private final Collection<ObservableDescriptor> _roObservables =
-    Collections.unmodifiableCollection( _observables.values() );
-  @Nonnull
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
-  @Nonnull
-  private final Collection<ActionDescriptor> _roActions = Collections.unmodifiableCollection( _actions.values() );
   @Nonnull
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   @Nonnull
-  private final Collection<MemoizeDescriptor> _roMemoizes = Collections.unmodifiableCollection( _memoizes.values() );
-  @Nonnull
   private final Map<String, ObserveDescriptor> _observes = new LinkedHashMap<>();
-  @Nonnull
-  private final Collection<ObserveDescriptor> _roObserves = Collections.unmodifiableCollection( _observes.values() );
   @Nonnull
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   @Nonnull
-  private final Collection<DependencyDescriptor> _roDependencies =
-    Collections.unmodifiableCollection( _dependencies.values() );
-  @Nonnull
   private final Map<Element, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
-  @Nonnull
-  private final Collection<CascadeDisposableDescriptor> _roCascadeDisposes =
-    Collections.unmodifiableCollection( _cascadeDisposes.values() );
   @Nonnull
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
   @Nonnull
-  private final Collection<ReferenceDescriptor> _roReferences =
-    Collections.unmodifiableCollection( _references.values() );
-  @Nonnull
   private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
-  @Nonnull
-  private final Collection<InverseDescriptor> _roInverses = Collections.unmodifiableCollection( _inverses.values() );
 
   ComponentDescriptor( @Nonnull final ProcessingEnvironment processingEnv,
                        @Nonnull final String type,
@@ -230,17 +210,18 @@ final class ComponentDescriptor
            isDeprecated( _contextRef ) ||
            isDeprecated( _componentTypeNameRef ) ||
            isDeprecated( _componentNameRef ) ||
-           _roObservables.stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
-                                                  ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
-           _roMemoizes.stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
-                                               isDeprecated( e.getOnActivate() ) ||
-                                               isDeprecated( e.getOnDeactivate() ) ) ||
+           _observables.values().stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
+                                                         ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
+           _memoizes.values().stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
+                                                      isDeprecated( e.getOnActivate() ) ||
+                                                      isDeprecated( e.getOnDeactivate() ) ) ||
            _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
-           _roDependencies.stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
-                                                   ( !e.isMethodDependency() && isDeprecated( e.getField() ) ) ) ||
-           _roActions.stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
-           _roObserves.stream().anyMatch( e -> ( e.hasObserve() && isDeprecated( e.getObserve() ) ) ||
-                                               ( e.hasOnDepsChange() && isDeprecated( e.getOnDepsChange() ) ) );
+           _dependencies.values().stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
+                                                          ( !e.isMethodDependency() &&
+                                                            isDeprecated( e.getField() ) ) ) ||
+           _actions.values().stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
+           _observes.values().stream().anyMatch( e -> ( e.hasObserve() && isDeprecated( e.getObserve() ) ) ||
+                                                      ( e.hasOnDepsChange() && isDeprecated( e.getOnDepsChange() ) ) );
 
   }
 
@@ -1015,33 +996,33 @@ final class ComponentDescriptor
   @Nonnull
   Collection<ObservableDescriptor> getObservables()
   {
-    return _roObservables;
+    return _observables.values();
   }
 
   void validate()
     throws ProcessorException
   {
     _cascadeDisposes.values().forEach( CascadeDisposableDescriptor::validate );
-    _roObservables.forEach( ObservableDescriptor::validate );
-    _roMemoizes.forEach( MemoizeDescriptor::validate );
-    _roObserves.forEach( ObserveDescriptor::validate );
-    _roDependencies.forEach( DependencyDescriptor::validate );
-    _roReferences.forEach( ReferenceDescriptor::validate );
-    _roInverses.forEach( InverseDescriptor::validate );
+    _observables.values().forEach( ObservableDescriptor::validate );
+    _memoizes.values().forEach( MemoizeDescriptor::validate );
+    _observes.values().forEach( ObserveDescriptor::validate );
+    _dependencies.values().forEach( DependencyDescriptor::validate );
+    _references.values().forEach( ReferenceDescriptor::validate );
+    _inverses.values().forEach( InverseDescriptor::validate );
 
     final boolean hasReactiveElements =
-      _roObservables.isEmpty() &&
-      _roActions.isEmpty() &&
-      _roMemoizes.isEmpty() &&
-      _roDependencies.isEmpty() &&
-      _roCascadeDisposes.isEmpty() &&
-      _roReferences.isEmpty() &&
-      _roInverses.isEmpty() &&
-      _roObserves.isEmpty();
+      _observables.isEmpty() &&
+      _actions.isEmpty() &&
+      _memoizes.isEmpty() &&
+      _dependencies.isEmpty() &&
+      _cascadeDisposes.isEmpty() &&
+      _references.isEmpty() &&
+      _inverses.isEmpty() &&
+      _observes.isEmpty();
 
     if ( null != _defaultPriority &&
-         _roMemoizes.isEmpty() &&
-         _roObserves.isEmpty() &&
+         _memoizes.isEmpty() &&
+         _observes.isEmpty() &&
          isWarningNotSuppressed( _element, Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY ) )
     {
       final String message =
@@ -1124,8 +1105,8 @@ final class ComponentDescriptor
 
   private boolean requiresSchedule()
   {
-    return _roObserves.stream().anyMatch( ObserveDescriptor::isInternalExecutor ) ||
-           !_roDependencies.isEmpty() ||
+    return _observes.values().stream().anyMatch( ObserveDescriptor::isInternalExecutor ) ||
+           !_dependencies.isEmpty() ||
            _memoizes.values().stream().anyMatch( MemoizeDescriptor::isKeepAlive );
   }
 
@@ -1442,13 +1423,15 @@ final class ComponentDescriptor
 
   private void linkDependencies( @Nonnull final Collection<CandidateMethod> candidates )
   {
-    _roObservables
+    _observables
+      .values()
       .stream()
       .filter( ObservableDescriptor::hasGetter )
       .filter( o -> hasDependencyAnnotation( o.getGetter() ) )
       .forEach( o -> addOrUpdateDependency( o.getGetter(), o ) );
 
-    _roMemoizes
+    _memoizes
+      .values()
       .stream()
       .filter( MemoizeDescriptor::hasMemoize )
       .map( MemoizeDescriptor::getMethod )
@@ -2216,7 +2199,7 @@ final class ComponentDescriptor
                                            @Nonnull final Map<String, CandidateMethod> setters )
     throws ProcessorException
   {
-    for ( final ObservableDescriptor observable : _roObservables )
+    for ( final ObservableDescriptor observable : _observables.values() )
     {
       if ( !observable.hasSetter() && !observable.hasGetter() )
       {
@@ -2264,7 +2247,7 @@ final class ComponentDescriptor
                                         @Nonnull final Map<String, CandidateMethod> onDepsChanges )
     throws ProcessorException
   {
-    for ( final ObserveDescriptor observe : _roObserves )
+    for ( final ObserveDescriptor observe : _observes.values() )
     {
       if ( !observe.hasObserve() )
       {
@@ -2640,7 +2623,7 @@ final class ComponentDescriptor
     }
 
     Generator.addGeneratedAnnotation( processingEnv, builder );
-    if ( !_roMemoizes.isEmpty() &&
+    if ( !_memoizes.isEmpty() &&
          !AnnotationsUtil.hasAnnotationOfType( getElement(), SuppressWarnings.class.getName() ) )
     {
       builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
@@ -2659,13 +2642,17 @@ final class ComponentDescriptor
         needsDaggerComponentExtension()
       );
     final boolean hasInverseReferencedOutsideClass =
-      _roInverses.stream().anyMatch( inverse -> {
-        final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( inverse.getTargetType() );
-        final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( getElement() );
-        return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
-      } );
+      _inverses
+        .values()
+        .stream()
+        .anyMatch( inverse -> {
+          final PackageElement targetPackageElement = GeneratorUtil.getPackageElement( inverse.getTargetType() );
+          final PackageElement selfPackageElement = GeneratorUtil.getPackageElement( getElement() );
+          return !Objects.equals( targetPackageElement.getQualifiedName(), selfPackageElement.getQualifiedName() );
+        } );
     final boolean hasReferenceWithInverseOutsidePackage =
-      _roReferences
+      _references
+        .values()
         .stream()
         .filter( ReferenceDescriptor::hasInverse )
         .anyMatch( reference -> {
@@ -2787,12 +2774,12 @@ final class ComponentDescriptor
     }
 
     _componentStateRefs.forEach( e -> e.buildMethods( processingEnv, _element, builder ) );
-    _roObservables.forEach( e -> e.buildMethods( builder ) );
-    _roObserves.forEach( e -> e.buildMethods( builder ) );
-    _roActions.forEach( e -> e.buildMethods( builder ) );
-    _roMemoizes.forEach( e -> e.buildMethods( builder ) );
-    _roReferences.forEach( e -> e.buildMethods( builder ) );
-    _roInverses.forEach( e -> e.buildMethods( builder ) );
+    _observables.values().forEach( e -> e.buildMethods( builder ) );
+    _observes.values().forEach( e -> e.buildMethods( builder ) );
+    _actions.values().forEach( e -> e.buildMethods( builder ) );
+    _memoizes.values().forEach( e -> e.buildMethods( builder ) );
+    _references.values().forEach( e -> e.buildMethods( builder ) );
+    _inverses.values().forEach( e -> e.buildMethods( builder ) );
 
     builder.addMethod( buildHashcodeMethod() );
     builder.addMethod( buildEqualsMethod() );
@@ -2928,7 +2915,7 @@ final class ComponentDescriptor
 
   private boolean needsExplicitLink()
   {
-    return _roReferences.stream().anyMatch( r -> r.getLinkType().equals( "EXPLICIT" ) );
+    return _references.values().stream().anyMatch( r -> r.getLinkType().equals( "EXPLICIT" ) );
   }
 
   @Nonnull
@@ -3287,7 +3274,7 @@ final class ComponentDescriptor
 
     Generator.generateNotDisposedInvariant( builder, "verify" );
 
-    if ( !_roReferences.isEmpty() || !_roInverses.isEmpty() )
+    if ( !_references.isEmpty() || !_inverses.isEmpty() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.isVerifyEnabled() )",
@@ -3306,12 +3293,12 @@ final class ComponentDescriptor
                           Generator.LOCATOR_METHOD_NAME,
                           getElement(),
                           getIdMethodName() );
-      for ( final ReferenceDescriptor reference : _roReferences )
+      for ( final ReferenceDescriptor reference : _references.values() )
       {
         reference.buildVerify( block );
       }
 
-      for ( final InverseDescriptor inverse : _roInverses )
+      for ( final InverseDescriptor inverse : _inverses.values() )
       {
         inverse.buildVerify( block );
       }
@@ -3333,7 +3320,7 @@ final class ComponentDescriptor
     Generator.generateNotDisposedInvariant( builder, "link" );
 
     final List<ReferenceDescriptor> explicitReferences =
-      _roReferences.stream().filter( r -> r.getLinkType().equals( "EXPLICIT" ) ).collect( Collectors.toList() );
+      _references.values().stream().filter( r -> r.getLinkType().equals( "EXPLICIT" ) ).collect( Collectors.toList() );
     for ( final ReferenceDescriptor reference : explicitReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
@@ -3366,9 +3353,9 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( Generator.INTERNAL_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
-    _roObserves.forEach( observe -> observe.buildDisposer( builder ) );
-    _roMemoizes.forEach( memoize -> memoize.buildDisposer( builder ) );
-    _roObservables.forEach( observable -> observable.buildDisposer( builder ) );
+    _observes.values().forEach( observe -> observe.buildDisposer( builder ) );
+    _memoizes.values().forEach( memoize -> memoize.buildDisposer( builder ) );
+    _observables.values().forEach( observable -> observable.buildDisposer( builder ) );
 
     return builder.build();
   }
@@ -3376,10 +3363,10 @@ final class ComponentDescriptor
   private boolean hasInternalPreDispose()
   {
     return _preDisposes.size() > 1 ||
-           !_roInverses.isEmpty() ||
-           !_roCascadeDisposes.isEmpty() ||
-           ( _disposeNotifier && !_roDependencies.isEmpty() ) ||
-           _roReferences.stream().anyMatch( ReferenceDescriptor::hasInverse );
+           !_inverses.isEmpty() ||
+           !_cascadeDisposes.isEmpty() ||
+           ( _disposeNotifier && !_dependencies.isEmpty() ) ||
+           _references.values().stream().anyMatch( ReferenceDescriptor::hasInverse );
   }
 
   private boolean hasInternalPostDispose()
@@ -3482,12 +3469,12 @@ final class ComponentDescriptor
         builder.addStatement( "$T.super.$N()", getClassName(), preDispose.getSimpleName() );
       }
     }
-    _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
-    _roReferences.forEach( r -> r.buildDisposer( builder ) );
-    _roInverses.forEach( r -> Generator.buildInverseDisposer( r, builder ) );
+    _cascadeDisposes.values().forEach( r -> r.buildDisposer( builder ) );
+    _references.values().forEach( r -> r.buildDisposer( builder ) );
+    _inverses.values().forEach( r -> Generator.buildInverseDisposer( r, builder ) );
     if ( _disposeNotifier )
     {
-      for ( final DependencyDescriptor dependency : _roDependencies )
+      for ( final DependencyDescriptor dependency : _dependencies.values() )
       {
         final Element element = dependency.getElement();
 
@@ -3654,10 +3641,10 @@ final class ComponentDescriptor
       builder.addField( nextIdField.build() );
     }
 
-    _roObservables.forEach( observable -> observable.buildFields( builder ) );
-    _roMemoizes.forEach( memoize -> memoize.buildFields( builder ) );
-    _roObserves.forEach( observe -> observe.buildFields( builder ) );
-    _roReferences.forEach( r -> r.buildFields( builder ) );
+    _observables.values().forEach( observable -> observable.buildFields( builder ) );
+    _memoizes.values().forEach( memoize -> memoize.buildFields( builder ) );
+    _observes.values().forEach( observe -> observe.buildFields( builder ) );
+    _references.values().forEach( r -> r.buildFields( builder ) );
   }
 
   /**
@@ -3797,16 +3784,16 @@ final class ComponentDescriptor
       }
     }
 
-    _roObservables.forEach( observable -> observable.buildInitializer( builder ) );
-    _roMemoizes.forEach( memoize -> memoize.buildInitializer( builder ) );
-    _roObserves.forEach( observe -> observe.buildInitializer( builder ) );
-    _roInverses.forEach( e -> e.buildInitializer( builder ) );
-    _roDependencies.forEach( e -> e.buildInitializer( builder ) );
+    _observables.values().forEach( observable -> observable.buildInitializer( builder ) );
+    _memoizes.values().forEach( memoize -> memoize.buildInitializer( builder ) );
+    _observes.values().forEach( observe -> observe.buildInitializer( builder ) );
+    _inverses.values().forEach( e -> e.buildInitializer( builder ) );
+    _dependencies.values().forEach( e -> e.buildInitializer( builder ) );
 
     builder.addStatement( "this.$N.componentConstructed()", Generator.KERNEL_FIELD_NAME );
 
     final List<ReferenceDescriptor> eagerReferences =
-      _roReferences.stream().filter( r -> r.getLinkType().equals( "EAGER" ) ).collect( Collectors.toList() );
+      _references.values().stream().filter( r -> r.getLinkType().equals( "EAGER" ) ).collect( Collectors.toList() );
     for ( final ReferenceDescriptor reference : eagerReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
@@ -3944,7 +3931,7 @@ final class ComponentDescriptor
 
   private boolean needsInternalDispose()
   {
-    return !_roObserves.isEmpty() || !_roMemoizes.isEmpty() || !_roObservables.isEmpty();
+    return !_observes.isEmpty() || !_memoizes.isEmpty() || !_observables.isEmpty();
   }
 
   private void buildContextVar( @Nonnull final MethodSpec.Builder builder )
