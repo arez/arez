@@ -26,7 +26,16 @@ See https://github.com/arez/arez/issues/91
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
-  is concern for code duplication.
+  is concern for code duplication. Annotations to apply change to:
+  - `@ComponentIdRef`
+  - `@ComponentNameRef`
+  - `@ComponentRef`
+  - `@ComponentStateRef`
+  - `@ComponentTypeNameRef`
+  - `@ComponentValueRef`
+  - `@ContextRef`
+  - `@ObservableValueRef`
+  - `@ObserverRef`
 
 * Add integration test that verifies the sequencing of all the calls when multiple lifecycle steps present.
   Particularly when some are from parent classes and/or types.
