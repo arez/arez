@@ -5,7 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to identify method invoked prior to disposing element.
+ * Annotation to identify method that is invoked before the component is disposed.
  * The PreDispose method is the first method invoked during dispose operation and it occurs at the start
  * of the transaction that dispose is occurring within.
  *
