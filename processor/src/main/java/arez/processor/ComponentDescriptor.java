@@ -114,6 +114,8 @@ final class ComponentDescriptor
   private final List<ExecutableElement> _postConstructs = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _postDisposes = new ArrayList<>();
+  @Nonnull
+  private final List<ExecutableElement> _preDisposes = new ArrayList<>();
   @Nullable
   private ExecutableElement _componentId;
   @Nullable
@@ -128,8 +130,6 @@ final class ComponentDescriptor
   private ExecutableElement _componentTypeNameRef;
   @Nullable
   private ExecutableElement _componentNameRef;
-  @Nullable
-  private ExecutableElement _preDispose;
   @Nonnull
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
   @Nonnull
@@ -224,12 +224,12 @@ final class ComponentDescriptor
   {
     return _postConstructs.stream().anyMatch( this::isDeprecated ) ||
            _postDisposes.stream().anyMatch( this::isDeprecated ) ||
+           _preDisposes.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
            isDeprecated( _componentRef ) ||
            isDeprecated( _contextRef ) ||
            isDeprecated( _componentTypeNameRef ) ||
            isDeprecated( _componentNameRef ) ||
-           isDeprecated( _preDispose ) ||
            _roObservables.stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
                                                   ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
            _roMemoizes.stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
@@ -984,7 +984,7 @@ final class ComponentDescriptor
     _postConstructs.add( method );
   }
 
-  private void setPreDispose( @Nonnull final ExecutableElement method )
+  private void addPreDispose( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     MemberChecks.mustBeLifecycleHook( getElement(),
@@ -995,16 +995,7 @@ final class ComponentDescriptor
                                              this,
                                              method,
                                              Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
-
-    if ( null != _preDispose )
-    {
-      throw new ProcessorException( "@PreDispose target duplicates existing method named " +
-                                    _preDispose.getSimpleName(), method );
-    }
-    else
-    {
-      _preDispose = method;
-    }
+    _preDisposes.add( method );
   }
 
   private void addPostDispose( @Nonnull final ExecutableElement method )
@@ -2483,7 +2474,7 @@ final class ComponentDescriptor
     }
     else if ( null != preDispose )
     {
-      setPreDispose( method );
+      addPreDispose( method );
       return true;
     }
     else if ( null != postDispose )
@@ -3384,7 +3375,8 @@ final class ComponentDescriptor
 
   private boolean hasInternalPreDispose()
   {
-    return !_roInverses.isEmpty() ||
+    return _preDisposes.size() > 1 ||
+           !_roInverses.isEmpty() ||
            !_roCascadeDisposes.isEmpty() ||
            ( _disposeNotifier && !_roDependencies.isEmpty() ) ||
            _roReferences.stream().anyMatch( ReferenceDescriptor::hasInverse );
@@ -3444,15 +3436,20 @@ final class ComponentDescriptor
     {
       builder.addStatement( "this.$N()", Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
-    else if ( null != _preDispose )
+    else
     {
-      if ( isClassType() )
+      final List<ExecutableElement> preDisposes = new ArrayList<>( _preDisposes );
+      Collections.reverse( preDisposes );
+      for ( final ExecutableElement preDispose : preDisposes )
       {
-        builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
-      }
-      else
-      {
-        builder.addStatement( "$T.super.$N()", getClassName(), _preDispose.getSimpleName() );
+        if ( isClassType() )
+        {
+          builder.addStatement( "super.$N()", preDispose.getSimpleName() );
+        }
+        else
+        {
+          builder.addStatement( "$T.super.$N()", getClassName(), preDispose.getSimpleName() );
+        }
       }
     }
     builder.addStatement( "this.$N.notifyOnDisposeListeners()", Generator.KERNEL_FIELD_NAME );
@@ -3472,15 +3469,17 @@ final class ComponentDescriptor
       MethodSpec.methodBuilder( Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
 
-    if ( null != _preDispose )
+    final List<ExecutableElement> preDisposes = new ArrayList<>( _preDisposes );
+    Collections.reverse( preDisposes );
+    for ( final ExecutableElement preDispose : preDisposes )
     {
       if ( isClassType() )
       {
-        builder.addStatement( "super.$N()", _preDispose.getSimpleName() );
+        builder.addStatement( "super.$N()", preDispose.getSimpleName() );
       }
       else
       {
-        builder.addStatement( "$T.super.$N()", getClassName(), _preDispose.getSimpleName() );
+        builder.addStatement( "$T.super.$N()", getClassName(), preDispose.getSimpleName() );
       }
     }
     _roCascadeDisposes.forEach( r -> r.buildDisposer( builder ) );
@@ -3873,20 +3872,20 @@ final class ComponentDescriptor
       params.add( Generator.AREZ_CLASSNAME );
       params.add( Generator.INTERNAL_PRE_DISPOSE_METHOD_NAME );
     }
-    else if ( null != _preDispose )
+    else if ( !_preDisposes.isEmpty() )
     {
       if ( isClassType() )
       {
         sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
         params.add( Generator.AREZ_CLASSNAME );
-        params.add( _preDispose.getSimpleName() );
+        params.add( _preDisposes.get( 0 ).getSimpleName() );
       }
       else
       {
         sb.append( "$T.areNativeComponentsEnabled() ? null : () -> $T.super.$N(), " );
         params.add( Generator.AREZ_CLASSNAME );
         params.add( getClassName() );
-        params.add( _preDispose.getSimpleName() );
+        params.add( _preDisposes.get( 0 ).getSimpleName() );
       }
     }
     else
@@ -4026,26 +4025,26 @@ final class ComponentDescriptor
     params.add( _type );
     params.add( Generator.ID_VAR_NAME );
     params.add( Generator.NAME_VAR_NAME );
-    if ( _disposeNotifier || null != _preDispose || !_postDisposes.isEmpty() )
+    if ( _disposeNotifier || !_preDisposes.isEmpty() || !_postDisposes.isEmpty() )
     {
       sb.append( ", " );
-      if ( _disposeNotifier )
+      if ( _disposeNotifier || _preDisposes.size() > 1 )
       {
         sb.append( "() -> $N()" );
         params.add( Generator.INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
       }
-      else if ( null != _preDispose )
+      else if ( 1 == _preDisposes.size() )
       {
         if ( isClassType() )
         {
           sb.append( "() -> super.$N()" );
-          params.add( _preDispose.getSimpleName().toString() );
+          params.add( _preDisposes.get( 0 ).getSimpleName().toString() );
         }
         else
         {
           sb.append( "() -> $T.super.$N()" );
           params.add( getClassName() );
-          params.add( _preDispose.getSimpleName().toString() );
+          params.add( _preDisposes.get( 0 ).getSimpleName().toString() );
         }
       }
       else

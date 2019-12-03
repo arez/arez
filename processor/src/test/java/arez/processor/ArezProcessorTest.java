@@ -741,6 +741,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.post_dispose.Suppressed2PublicAccessPostDisposeModel", false, false, false, false },
 
         new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel", false, false, false, false },
+        new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel", false, false, false, false },
         new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel", false, false, false, false },
         new Object[]{ "com.example.pre_dispose.Suppressed1ProtectedAccessPreDisposeModel", false, false, false, false },
         new Object[]{ "com.example.pre_dispose.Suppressed1PublicAccessPreDisposeModel", false, false, false, false },
@@ -1755,6 +1756,28 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void multiViaInheritancePreDispose()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.pre_dispose.MultiViaInheritanceChainPreDisposeModel" );
+    final String input2 = toFilename( "input", "com.example.pre_dispose.other.AbstractMultiModel" );
+    final String input3 = toFilename( "input", "com.example.pre_dispose.other.MiddleMultiModel" );
+    final String input4 = toFilename( "input", "com.example.pre_dispose.other.MultiModelInterface1" );
+    final String input5 = toFilename( "input", "com.example.pre_dispose.other.MultiModelInterface2" );
+    final String input6 = toFilename( "input", "com.example.pre_dispose.other.MultiModelInterface3" );
+    final String output =
+      toFilename( "expected", "com.example.pre_dispose.Arez_MultiViaInheritanceChainPreDisposeModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ),
+                                            fixture( input2 ),
+                                            fixture( input3 ),
+                                            fixture( input4 ),
+                                            fixture( input5 ),
+                                            fixture( input6 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulMultipleInverseWithSameTarget()
     throws Exception
   {
@@ -2516,8 +2539,7 @@ public class ArezProcessorTest
                       "@PreDispose target must not return a value" },
         new Object[]{ "com.example.pre_dispose.PreDisposeThrowsExceptionModel",
                       "@PreDispose target must not throw any exceptions" },
-        new Object[]{ "com.example.pre_dispose.PreDisposeDuplicateModel",
-                      "@PreDispose target duplicates existing method named foo" },
+
         new Object[]{ "com.example.post_dispose.PostDisposeAbstractModel", "@PostDispose target must not be abstract" },
         new Object[]{ "com.example.post_dispose.PostDisposePrivateModel", "@PostDispose target must not be private" },
         new Object[]{ "com.example.post_dispose.PostDisposeStaticModel", "@PostDispose target must not be static" },
@@ -2527,6 +2549,7 @@ public class ArezProcessorTest
                       "@PostDispose target must not return a value" },
         new Object[]{ "com.example.post_dispose.PostDisposeThrowsExceptionModel",
                       "@PostDispose target must not throw any exceptions" },
+
         new Object[]{ "com.example.observable.PrivateObservableGetterModel", "@Observable target must not be private" },
         new Object[]{ "com.example.observable.PrivateObservableSetterModel", "@Observable target must not be private" },
         new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseOnAbstractMethods",
