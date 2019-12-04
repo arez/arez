@@ -208,6 +208,7 @@ final class ComponentDescriptor
            _componentIdRefs.stream().anyMatch( this::isDeprecated ) ||
            _componentNameRefs.stream().anyMatch( this::isDeprecated ) ||
            _componentRefs.stream().anyMatch( this::isDeprecated ) ||
+           _componentStateRefs.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            isDeprecated( _componentId ) ||
            isDeprecated( _contextRef ) ||
            isDeprecated( _componentTypeNameRef ) ||

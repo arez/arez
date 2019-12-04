@@ -32,6 +32,12 @@ final class ComponentStateRefDescriptor
     _state = Objects.requireNonNull( state );
   }
 
+  @Nonnull
+  ExecutableElement getMethod()
+  {
+    return _method;
+  }
+
   void buildMethods( @Nonnull final ProcessingEnvironment processingEnv,
                      @Nonnull final TypeElement typeElement,
                      @Nonnull final TypeSpec.Builder builder )
