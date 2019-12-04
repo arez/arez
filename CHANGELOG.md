@@ -4,6 +4,7 @@
 
 * Remove the suppression of warnings when `allowEmpty=true` is present but reactive components are present when components are annotated with `@Generated`.
 * Rework the annotation processor to support multiple instances of lifecycle and ref annotations. When multiple instances are present then instances on parent classes are sorted first and if multiple occur within a class, then declaration order is used. This has been applied to the following annotations:
+  * `@ComponentIdRef`
   * `@PostConstruct`
   * `@PostDispose`
   * `@PreDispose`

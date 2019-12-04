@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentIdRef;
 
 @ArezComponent( allowEmpty = true )
-public abstract class DuplicateModel
+public abstract class MultiComponentIdRefModel
 {
   @ComponentIdRef
   abstract int getId();

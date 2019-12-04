@@ -118,8 +118,8 @@ final class ComponentDescriptor
   private final List<ExecutableElement> _preDisposes = new ArrayList<>();
   @Nullable
   private ExecutableElement _componentId;
-  @Nullable
-  private ExecutableElement _componentIdRef;
+  @Nonnull
+  private final List<ExecutableElement> _componentIdRefs = new ArrayList<>();
   @Nullable
   private ExecutableType _componentIdMethodType;
   @Nullable
@@ -834,25 +834,17 @@ final class ComponentDescriptor
     }
   }
 
-  boolean hasComponentIdRefMethod()
+  @Nonnull
+  List<ExecutableElement> getComponentIdRefs()
   {
-    return null != _componentIdRef;
+    return _componentIdRefs;
   }
 
-  private void setComponentIdRef( @Nonnull final ExecutableElement method )
+  private void addComponentIdRef( @Nonnull final ExecutableElement method )
   {
     ArezUtils.mustBeRefMethod( this, method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
     MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME, method );
-
-    if ( null != _componentIdRef )
-    {
-      throw new ProcessorException( "@ComponentIdRef target duplicates existing method named " +
-                                    _componentIdRef.getSimpleName(), method );
-    }
-    else
-    {
-      _componentIdRef = Objects.requireNonNull( method );
-    }
+    _componentIdRefs.add( method );
   }
 
   private void setComponentRef( @Nonnull final ExecutableElement method )
@@ -1057,25 +1049,26 @@ final class ComponentDescriptor
                                     "annotation parameter but has no methods annotated with @Observe, " +
                                     "@ComponentDependency or @Memoize(keepAlive=true)", _element );
     }
-    if ( null != _componentIdRef &&
-         null != _componentId &&
-         !_processingEnv.getTypeUtils().isSameType( _componentId.getReturnType(), _componentIdRef.getReturnType() ) )
+    for ( final ExecutableElement componentIdRef : _componentIdRefs )
     {
-      throw new ProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
-                                    " and a @ComponentId annotated method with a return type " +
-                                    _componentIdRef.getReturnType() + ". The types must match.", _element );
+      if ( null != _componentId &&
+           !_processingEnv.getTypeUtils().isSameType( _componentId.getReturnType(), componentIdRef.getReturnType() ) )
+      {
+        throw new ProcessorException( "@ComponentIdRef target has a return type " + componentIdRef.getReturnType() +
+                                      " and a @ComponentId annotated method with a return type " +
+                                      componentIdRef.getReturnType() + ". The types must match.", _element );
+      }
+      else if ( null == _componentId &&
+                !_processingEnv.getTypeUtils()
+                  .isSameType( _processingEnv.getTypeUtils().getPrimitiveType( TypeKind.INT ),
+                               componentIdRef.getReturnType() ) )
+      {
+        throw new ProcessorException( "@ComponentIdRef target has a return type " + componentIdRef.getReturnType() +
+                                      " but no @ComponentId annotated method. The type is expected to be of " +
+                                      "type int.", _element );
+      }
     }
-    else if ( null != _componentIdRef &&
-              null == _componentId &&
-              !_processingEnv.getTypeUtils()
-                .isSameType( _processingEnv.getTypeUtils().getPrimitiveType( TypeKind.INT ),
-                             _componentIdRef.getReturnType() ) )
-    {
-      throw new ProcessorException( "@ComponentIdRef target has a return type " + _componentIdRef.getReturnType() +
-                                    " but no @ComponentId annotated method. The type is expected to be of " +
-                                    "type int.", _element );
-    }
-    else if ( InjectMode.NONE != _injectMode )
+    if ( InjectMode.NONE != _injectMode )
     {
       for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( getElement() ) )
       {
@@ -2420,7 +2413,7 @@ final class ComponentDescriptor
     }
     else if ( null != componentIdRef )
     {
-      setComponentIdRef( method );
+      addComponentIdRef( method );
       return true;
     }
     else if ( null != componentRef )
@@ -2717,9 +2710,11 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildComponentRefMethod() );
     }
-    if ( null != _componentIdRef )
+    for ( final ExecutableElement componentIdRef : _componentIdRefs )
     {
-      builder.addMethod( buildComponentIdRefMethod() );
+      builder.addMethod( GeneratorUtil.refMethod( _processingEnv, _element, componentIdRef )
+                           .addStatement( "return this.$N()", getIdMethodName() )
+                           .build() );
     }
     if ( !_references.isEmpty() || hasInverses() )
     {
@@ -3203,16 +3198,6 @@ final class ComponentDescriptor
 
     method.addStatement( "return this.$N.getComponent()", Generator.KERNEL_FIELD_NAME );
     return method.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildComponentIdRefMethod()
-    throws ProcessorException
-  {
-    assert null != _componentIdRef;
-    return GeneratorUtil.refMethod( _processingEnv, _element, _componentIdRef )
-      .addStatement( "return this.$N()", getIdMethodName() )
-      .build();
   }
 
   @Nonnull

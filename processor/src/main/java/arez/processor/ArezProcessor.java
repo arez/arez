@@ -304,7 +304,7 @@ public final class ArezProcessor
                                       "annotation parameter but also has annotated a method with @ComponentId " +
                                       "that requires idRequired = ENABLE.", typeElement );
       }
-      if ( descriptor.hasComponentIdRefMethod() )
+      if ( !descriptor.getComponentIdRefs().isEmpty() )
       {
         throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
                                       "annotation parameter but also has annotated a method with @ComponentIdRef " +
@@ -600,7 +600,7 @@ public final class ArezProcessor
       default:
         return descriptor.hasRepository() ||
                descriptor.hasComponentIdMethod() ||
-               descriptor.hasComponentIdRefMethod() ||
+               !descriptor.getComponentIdRefs().isEmpty() ||
                descriptor.hasInverses();
     }
   }
