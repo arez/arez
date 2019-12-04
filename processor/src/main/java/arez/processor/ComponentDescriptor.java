@@ -133,7 +133,7 @@ final class ComponentDescriptor
   @Nonnull
   private final List<ExecutableElement> _contextRefs = new ArrayList<>();
   @Nonnull
-  private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
+  private final Map<String, List<CandidateMethod>> _observerRefs = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   @Nonnull
@@ -217,7 +217,10 @@ final class ComponentDescriptor
            _memoizes.values().stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
                                                       isDeprecated( e.getOnActivate() ) ||
                                                       isDeprecated( e.getOnDeactivate() ) ) ||
-           _observerRefs.values().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
+           _observerRefs.values()
+             .stream()
+             .flatMap( Collection::stream )
+             .anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _dependencies.values().stream().anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
                                                           ( !e.isMethodDependency() &&
                                                             isDeprecated( e.getField() ) ) ) ||
@@ -623,12 +626,7 @@ final class ComponentDescriptor
                                       "name must not be a java keyword.", method );
       }
     }
-    if ( _observerRefs.containsKey( name ) )
-    {
-      throw new ProcessorException( "Method annotated with @ObserverRef defines duplicate ref accessor for " +
-                                    "observer named " + name, method );
-    }
-    _observerRefs.put( name, new CandidateMethod( method, methodType ) );
+    _observerRefs.computeIfAbsent( name, s -> new ArrayList<>() ).add( new CandidateMethod( method, methodType ) );
   }
 
   @Nonnull
@@ -2138,19 +2136,19 @@ final class ComponentDescriptor
 
   private void linkObserverRefs()
   {
-    for ( final Map.Entry<String, CandidateMethod> entry : _observerRefs.entrySet() )
+    for ( final Map.Entry<String, List<CandidateMethod>> entry : _observerRefs.entrySet() )
     {
       final String key = entry.getKey();
-      final CandidateMethod method = entry.getValue();
+      final List<CandidateMethod> methods = entry.getValue();
       final ObserveDescriptor observed = _observes.get( key );
       if ( null != observed )
       {
-        observed.setRefMethod( method.getMethod() );
+        methods.stream().map( CandidateMethod::getMethod ).forEach( observed::addRefMethod );
       }
       else
       {
         throw new ProcessorException( "@ObserverRef target defined observer named '" + key + "' but no " +
-                                      "@Observe method with that name exists", method.getMethod() );
+                                      "@Observe method with that name exists", methods.get( 0 ).getMethod() );
       }
     }
   }

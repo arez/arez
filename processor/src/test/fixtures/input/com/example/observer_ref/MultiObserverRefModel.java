@@ -6,16 +6,16 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 
 @ArezComponent
-public abstract class DuplicateNameModel
+abstract class MultiObserverRefModel
 {
   @Observe
   protected void doStuff()
   {
   }
 
-  @ObserverRef
-  abstract Observer getDoStuffObserver();
+  @ObserverRef( name = "doStuff" )
+  abstract Observer obs1();
 
   @ObserverRef( name = "doStuff" )
-  abstract Observer getDoStuffObserver2();
+  abstract Observer obs2();
 }

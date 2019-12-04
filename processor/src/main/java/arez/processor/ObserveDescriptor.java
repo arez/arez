@@ -45,8 +45,8 @@ final class ObserveDescriptor
   private ExecutableType _observedType;
   @Nullable
   private ExecutableElement _onDepsChange;
-  @Nullable
-  private ExecutableElement _refMethod;
+  @Nonnull
+  private List<ExecutableElement> _refMethods = new ArrayList<>();
 
   ObserveDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -60,9 +60,9 @@ final class ObserveDescriptor
     return _name;
   }
 
-  void setRefMethod( @Nonnull final ExecutableElement method )
+  void addRefMethod( @Nonnull final ExecutableElement method )
   {
-    _refMethod = Objects.requireNonNull( method );
+    _refMethods.add( Objects.requireNonNull( method ) );
   }
 
   @Nonnull
@@ -218,7 +218,10 @@ final class ObserveDescriptor
 
   void validate()
   {
-    if ( _internalExecutor && null != _onDepsChange && null == _refMethod && _onDepsChange.getParameters().isEmpty() )
+    if ( _internalExecutor &&
+         null != _onDepsChange &&
+         _refMethods.isEmpty() &&
+         _onDepsChange.getParameters().isEmpty() )
     {
       assert null != _observe;
       throw new ProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
@@ -232,7 +235,7 @@ final class ObserveDescriptor
       throw new ProcessorException( "@Observe target defined parameter executor=EXTERNAL but does not " +
                                     "specify an @OnDepsChange method.", _observe );
     }
-    if ( "AREZ_OR_EXTERNAL".equals( _depType ) && null == _refMethod )
+    if ( "AREZ_OR_EXTERNAL".equals( _depType ) && _refMethods.isEmpty() )
     {
       assert null != _observe;
       throw new ProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
@@ -411,9 +414,14 @@ final class ObserveDescriptor
     {
       builder.addMethod( buildTracked() );
     }
-    if ( null != _refMethod )
+    for ( final ExecutableElement refMethod : _refMethods )
     {
-      builder.addMethod( buildObserverRefMethod() );
+      final MethodSpec.Builder method =
+        GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(),
+                                 _componentDescriptor.getElement(),
+                                 refMethod );
+      Generator.generateNotDisposedInvariant( method, refMethod.getSimpleName().toString() );
+      builder.addMethod( method.addStatement( "return $N", getFieldName() ).build() );
     }
     if ( null != _onDepsChange && !_onDepsChange.getParameters().isEmpty() )
     {
@@ -444,22 +452,6 @@ final class ObserveDescriptor
     }
 
     return builder.build();
-  }
-
-  /**
-   * Generate the accessor for ref method.
-   */
-  @Nonnull
-  private MethodSpec buildObserverRefMethod()
-    throws ProcessorException
-  {
-    assert null != _refMethod;
-    final MethodSpec.Builder method =
-      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
-
-    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
-
-    return method.addStatement( "return $N", getFieldName() ).build();
   }
 
   /**

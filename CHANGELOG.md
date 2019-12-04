@@ -9,6 +9,7 @@
   * `@ComponentRef`
   * `@ComponentTypeNameRef`
   * `@ContextRef`
+  * `@ObserverRef`
   * `@PostConstruct`
   * `@PostDispose`
   * `@PreDispose`

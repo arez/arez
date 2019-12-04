@@ -622,6 +622,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observe.TrackedOnDepsChangeAcceptsObserverModel", false, false, false, false },
 
         new Object[]{ "com.example.observer_ref.BasicObserverRefModel", false, false, false, false },
+        new Object[]{ "com.example.observer_ref.MultiObserverRefModel", false, false, false, false },
         new Object[]{ "com.example.observer_ref.CustomNameObserverRefModel", false, false, false, false },
         new Object[]{ "com.example.observer_ref.ExternalObserveObserverRefModel", false, false, false, false },
         new Object[]{ "com.example.observer_ref.NonStandardMethodNameObserverRefModel", false, false, false, false },
@@ -2463,8 +2464,6 @@ public class ArezProcessorTest
                       "@ObserverRef target specified an invalid name 'int'. The name must not be a java keyword." },
         new Object[]{ "com.example.observer_ref.BadReturnTypeModel",
                       "@ObserverRef target must return an instance of arez.Observer" },
-        new Object[]{ "com.example.observer_ref.DuplicateNameModel",
-                      "Method annotated with @ObserverRef defines duplicate ref accessor for observer named doStuff" },
         new Object[]{ "com.example.observer_ref.ExceptionModel", "@ObserverRef target must not throw any exceptions" },
         new Object[]{ "com.example.observer_ref.FinalModel", "@ObserverRef target must be abstract" },
         new Object[]{ "com.example.observer_ref.NoNameModel",
