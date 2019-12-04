@@ -1,18 +1,12 @@
-package com.example.component_type_name;
+package com.example.component_type_name_ref;
 
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentTypeNameRef;
 import java.io.IOException;
 
-@ArezComponent
-public abstract class ComponentTypeNameThrowsExceptionModel
+@ArezComponent( allowEmpty = true )
+public abstract class ThrowsComponentTypeNameRefModel
 {
-  @Action
-  void myAction()
-  {
-  }
-
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ComponentTypeNameRef
   abstract String getTypeName()
