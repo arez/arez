@@ -205,6 +205,7 @@ final class ComponentDescriptor
     return _postConstructs.stream().anyMatch( this::isDeprecated ) ||
            _postDisposes.stream().anyMatch( this::isDeprecated ) ||
            _preDisposes.stream().anyMatch( this::isDeprecated ) ||
+           _componentIdRefs.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
            isDeprecated( _componentRef ) ||
            isDeprecated( _contextRef ) ||
