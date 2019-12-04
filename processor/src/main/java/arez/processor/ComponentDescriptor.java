@@ -124,8 +124,8 @@ final class ComponentDescriptor
   private final List<ExecutableElement> _componentIdRefs = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
-  @Nullable
-  private ExecutableElement _componentRef;
+  @Nonnull
+  private final List<ExecutableElement> _componentRefs = new ArrayList<>();
   @Nullable
   private ExecutableElement _contextRef;
   @Nullable
@@ -207,8 +207,8 @@ final class ComponentDescriptor
            _preDisposes.stream().anyMatch( this::isDeprecated ) ||
            _componentIdRefs.stream().anyMatch( this::isDeprecated ) ||
            _componentNameRefs.stream().anyMatch( this::isDeprecated ) ||
+           _componentRefs.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
-           isDeprecated( _componentRef ) ||
            isDeprecated( _contextRef ) ||
            isDeprecated( _componentTypeNameRef ) ||
            _observables.values().stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
@@ -856,15 +856,7 @@ final class ComponentDescriptor
                                          method,
                                          Constants.COMPONENT_REF_ANNOTATION_CLASSNAME,
                                          "arez.Component" );
-    if ( null != _componentRef )
-    {
-      throw new ProcessorException( "@ComponentRef target duplicates existing method named " +
-                                    _componentRef.getSimpleName(), method );
-    }
-    else
-    {
-      _componentRef = Objects.requireNonNull( method );
-    }
+    _componentRefs.add( method );
   }
 
   boolean hasComponentIdMethod()
@@ -2698,9 +2690,9 @@ final class ComponentDescriptor
     {
       builder.addMethod( buildContextRefMethod() );
     }
-    if ( null != _componentRef )
+    for ( final ExecutableElement componentRef : _componentRefs )
     {
-      builder.addMethod( buildComponentRefMethod() );
+      builder.addMethod( buildComponentRefMethod( componentRef ) );
     }
     for ( final ExecutableElement componentIdRef : _componentIdRefs )
     {
@@ -3167,14 +3159,12 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  private MethodSpec buildComponentRefMethod()
+  private MethodSpec buildComponentRefMethod( @Nonnull final ExecutableElement componentRef )
     throws ProcessorException
   {
-    assert null != _componentRef;
+    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, componentRef );
 
-    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, _componentRef );
-
-    final String methodName = _componentRef.getSimpleName().toString();
+    final String methodName = componentRef.getSimpleName().toString();
     Generator.generateNotInitializedInvariant( this, method, methodName );
     Generator.generateNotConstructedInvariant( method, methodName );
     Generator.generateNotCompleteInvariant( method, methodName );

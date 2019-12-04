@@ -6,6 +6,7 @@
 * Rework the annotation processor to support multiple instances of lifecycle and ref annotations. When multiple instances are present then instances on parent classes are sorted first and if multiple occur within a class, then declaration order is used. This has been applied to the following annotations:
   * `@ComponentIdRef`
   * `@ComponentNameRef`
+  * `@ComponentRef`
   * `@PostConstruct`
   * `@PostDispose`
   * `@PreDispose`

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 @ArezComponent( allowEmpty = true )
-abstract class DuplicateModel
+abstract class MultiComponentRefModel
 {
   @ComponentRef
   abstract Component getComponent();

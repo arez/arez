@@ -166,6 +166,7 @@ public class ArezProcessorTest
                       false },
 
         new Object[]{ "com.example.component_ref.BasicComponentRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_ref.MultiComponentRefModel", false, false, false, false },
         new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel", false, false, false, false },
         new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel", false, false, false, false },
         new Object[]{ "com.example.component_ref.Suppressed1ProtectedAccessComponentRefModel",
@@ -2230,8 +2231,6 @@ public class ArezProcessorTest
                       "@ComponentRef target must return an instance of arez.Component" },
         new Object[]{ "com.example.component_ref.ThrowsExceptionModel",
                       "@ComponentRef target must not throw any exceptions" },
-        new Object[]{ "com.example.component_ref.DuplicateModel",
-                      "@ComponentRef target duplicates existing method named getComponent" },
         new Object[]{ "com.example.component_ref.ParametersModel",
                       "@ComponentRef target must not have any parameters" },
 
