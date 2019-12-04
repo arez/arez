@@ -9,6 +9,7 @@
   * `@ComponentRef`
   * `@ComponentTypeNameRef`
   * `@ContextRef`
+  * `@ComputableValueRef`
   * `@ObservableValueRef`
   * `@ObserverRef`
   * `@PostConstruct`

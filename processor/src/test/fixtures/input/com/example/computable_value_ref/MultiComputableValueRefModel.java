@@ -7,7 +7,7 @@ import arez.annotations.Memoize;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class DuplicateRefMethodModel
+public abstract class MultiComputableValueRefModel
 {
   @Memoize
   public long getTime()
@@ -17,8 +17,8 @@ public abstract class DuplicateRefMethodModel
 
   @Nonnull
   @ComputableValueRef
-  public abstract ComputableValue<Long> getTimeComputableValue();
+  abstract ComputableValue<Long> getTimeComputableValue();
 
   @ComputableValueRef( name = "time" )
-  public abstract ComputableValue<Long> getTimeComputableValue2();
+  abstract ComputableValue<Long> getTimeComputableValue2();
 }

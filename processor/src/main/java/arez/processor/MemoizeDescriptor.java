@@ -55,10 +55,8 @@ final class MemoizeDescriptor
   private ExecutableElement _onActivate;
   @Nullable
   private ExecutableElement _onDeactivate;
-  @Nullable
-  private ExecutableElement _refMethod;
-  @Nullable
-  private ExecutableType _refMethodType;
+  @Nonnull
+  private List<CandidateMethod> _refMethods = new ArrayList<>();
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
   {
@@ -148,7 +146,7 @@ final class MemoizeDescriptor
     }
   }
 
-  void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
+  void addRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
     MemberChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
@@ -156,17 +154,7 @@ final class MemoizeDescriptor
                                          Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME,
                                          method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME, method );
-
-    if ( null != _refMethod )
-    {
-      throw new ProcessorException( "@ComputableValueRef target duplicates existing method named " +
-                                    _refMethod.getSimpleName(), method );
-    }
-    else
-    {
-      _refMethod = Objects.requireNonNull( method );
-      _refMethodType = Objects.requireNonNull( methodType );
-    }
+    _refMethods.add( new CandidateMethod( method, methodType ) );
   }
 
   void setOnActivate( @Nonnull final ExecutableElement method )
@@ -263,9 +251,8 @@ final class MemoizeDescriptor
       }
       else
       {
-        assert null != _refMethod;
         throw new ProcessorException( "@ComputableValueRef exists but there is no corresponding @Memoize",
-                                      _refMethod );
+                                      _refMethods.get( 0 ).getMethod() );
       }
     }
     if ( _keepAlive )
@@ -324,9 +311,9 @@ final class MemoizeDescriptor
       }
     }
 
-    if ( null != _refMethod )
+    for ( final CandidateMethod refMethod : _refMethods )
     {
-      final TypeName typeName = TypeName.get( _refMethod.getReturnType() );
+      final TypeName typeName = TypeName.get( refMethod.getMethod().getReturnType() );
       if ( typeName instanceof ParameterizedTypeName )
       {
         final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
@@ -335,14 +322,13 @@ final class MemoizeDescriptor
         if ( !actual.box().toString().equals( expectedType.toString() ) )
         {
           throw new ProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
-                                        " but @Memoize method returns type of " + actual, _refMethod );
+                                        " but @Memoize method returns type of " + actual, refMethod.getMethod() );
         }
       }
 
       assert null != _methodType;
-      assert null != _refMethodType;
       final List<? extends TypeMirror> parameterTypes = _methodType.getParameterTypes();
-      final List<? extends TypeMirror> refParameterTypes = _refMethodType.getParameterTypes();
+      final List<? extends TypeMirror> refParameterTypes = refMethod.getMethodType().getParameterTypes();
 
       final boolean sizeMatch = parameterTypes.size() == refParameterTypes.size();
       boolean typesMatch = true;
@@ -365,7 +351,7 @@ final class MemoizeDescriptor
                                       "target do not have the same parameters.", _method );
       }
     }
-    else if ( _depType.equals( "AREZ_OR_EXTERNAL" ) )
+    if ( _refMethods.isEmpty() && _depType.equals( "AREZ_OR_EXTERNAL" ) )
     {
       assert null != _method;
       throw new ProcessorException( "@Memoize target specified depType = AREZ_OR_EXTERNAL but " +
@@ -756,17 +742,24 @@ final class MemoizeDescriptor
         builder.addMethod( buildOnDeactivateWrapperHook() );
         builder.addMethod( buildOnStaleWrapperHook() );
       }
-      if ( null != _refMethod )
+      for ( final CandidateMethod refMethod : _refMethods )
       {
-        builder.addMethod( buildNoParamsRefMethod() );
+        final MethodSpec.Builder method =
+          GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(),
+                                   _componentDescriptor.getElement(),
+                                   refMethod.getMethod() );
+        Generator.generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
+        builder.addMethod( method
+                             .addStatement( "return $N", getFieldName() )
+                             .build() );
       }
     }
     else
     {
       builder.addMethod( buildParamsMemoize() );
-      if ( null != _refMethod )
+      for ( final CandidateMethod refMethod : _refMethods )
       {
-        builder.addMethod( buildParamsRefMethod() );
+        builder.addMethod( buildParamsRefMethod( refMethod ) );
       }
     }
   }
@@ -940,21 +933,21 @@ final class MemoizeDescriptor
   }
 
   @Nonnull
-  private MethodSpec buildParamsRefMethod()
+  private MethodSpec buildParamsRefMethod( @Nonnull final CandidateMethod refMethod )
     throws ProcessorException
   {
-    assert null != _refMethod;
-    assert null != _refMethodType;
     final MethodSpec.Builder method =
-      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
-    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
+      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(),
+                               _componentDescriptor.getElement(),
+                               refMethod.getMethod() );
+    Generator.generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
-    final List<? extends VariableElement> parameters = _refMethod.getParameters();
+    final List<? extends VariableElement> parameters = refMethod.getMethod().getParameters();
     final int paramCount = parameters.size();
     for ( int i = 0; i < paramCount; i++ )
     {
       final VariableElement element = parameters.get( i );
-      final TypeName parameterType = TypeName.get( _refMethodType.getParameterTypes().get( i ) );
+      final TypeName parameterType = TypeName.get( refMethod.getMethodType().getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
       Generator.copyWhitelistedAnnotations( element, param );
@@ -967,7 +960,7 @@ final class MemoizeDescriptor
     params.add( getFieldName() );
 
     boolean first = true;
-    for ( final VariableElement element : _refMethod.getParameters() )
+    for ( final VariableElement element : refMethod.getMethod().getParameters() )
     {
       if ( !first )
       {
@@ -981,22 +974,6 @@ final class MemoizeDescriptor
 
     method.addStatement( sb.toString(), params.toArray() );
     return method.build();
-  }
-
-  /**
-   * Generate the accessor for ref method.
-   */
-  @Nonnull
-  private MethodSpec buildNoParamsRefMethod()
-    throws ProcessorException
-  {
-    assert null != _refMethod;
-    final MethodSpec.Builder method =
-      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
-    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
-    return method
-      .addStatement( "return $N", getFieldName() )
-      .build();
   }
 
   private boolean isCollectionType()

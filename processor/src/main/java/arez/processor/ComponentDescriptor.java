@@ -707,7 +707,7 @@ final class ComponentDescriptor
       }
     }
 
-    findOrCreateMemoize( name ).setRefMethod( method, methodType );
+    findOrCreateMemoize( name ).addRefMethod( method, methodType );
   }
 
   @Nonnull
