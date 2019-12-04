@@ -1,17 +1,11 @@
 package com.example.component_name_ref;
 
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 
-@ArezComponent
-public abstract class ComponentNameRefDuplicateModel
+@ArezComponent( allowEmpty = true )
+public abstract class MultiComponentNameRefModel
 {
-  @Action
-  void myAction()
-  {
-  }
-
   @ComponentNameRef
   abstract String getTypeName();
 

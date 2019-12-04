@@ -10,10 +10,6 @@ import java.lang.annotation.Target;
  * {@link arez.Observer} instances or {@link arez.ComputableValue} instances etc) and wants to use the same naming
  * convention as the generated Arez subclass.
  *
- * <p>This annotation should appear at most once on a component. The
- * annotation should be on a method that accepts no parameters and returns
- * a String.</p>
- *
  * <p>The method that is annotated with the annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>

@@ -128,8 +128,8 @@ final class ComponentDescriptor
   private ExecutableElement _contextRef;
   @Nullable
   private ExecutableElement _componentTypeNameRef;
-  @Nullable
-  private ExecutableElement _componentNameRef;
+  @Nonnull
+  private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
   @Nonnull
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
   @Nonnull
@@ -206,11 +206,11 @@ final class ComponentDescriptor
            _postDisposes.stream().anyMatch( this::isDeprecated ) ||
            _preDisposes.stream().anyMatch( this::isDeprecated ) ||
            _componentIdRefs.stream().anyMatch( this::isDeprecated ) ||
+           _componentNameRefs.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
            isDeprecated( _componentRef ) ||
            isDeprecated( _contextRef ) ||
            isDeprecated( _componentTypeNameRef ) ||
-           isDeprecated( _componentNameRef ) ||
            _observables.values().stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
                                                          ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
            _memoizes.values().stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
@@ -921,7 +921,7 @@ final class ComponentDescriptor
     }
   }
 
-  private void setComponentNameRef( @Nonnull final ExecutableElement method )
+  private void addComponentNameRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     ArezUtils.mustBeStandardRefMethod( _processingEnv,
@@ -932,16 +932,7 @@ final class ComponentDescriptor
                                          method,
                                          Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME,
                                          String.class.getName() );
-
-    if ( null != _componentNameRef )
-    {
-      throw new ProcessorException( "@ComponentNameRef target duplicates existing method named " +
-                                    _componentNameRef.getSimpleName(), method );
-    }
-    else
-    {
-      _componentNameRef = Objects.requireNonNull( method );
-    }
+    _componentNameRefs.add( method );
   }
 
   private void addPostConstruct( @Nonnull final ExecutableElement method )
@@ -2306,7 +2297,7 @@ final class ComponentDescriptor
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror componentTypeName =
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_ANNOTATION_CLASSNAME );
-    final AnnotationMirror componentName =
+    final AnnotationMirror componentNameRef =
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_ANNOTATION_CLASSNAME );
     final AnnotationMirror postConstruct =
       AnnotationsUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
@@ -2427,9 +2418,9 @@ final class ComponentDescriptor
       setComponentId( method, methodType );
       return true;
     }
-    else if ( null != componentName )
+    else if ( null != componentNameRef )
     {
-      setComponentNameRef( method );
+      addComponentNameRef( method );
       return true;
     }
     else if ( null != componentTypeName )
@@ -2726,9 +2717,12 @@ final class ComponentDescriptor
       builder.addMethod( buildComponentIdMethod() );
     }
     builder.addMethod( buildArezIdMethod() );
-    if ( null != _componentNameRef )
+    for ( final ExecutableElement componentNameRef : _componentNameRefs )
     {
-      builder.addMethod( buildComponentNameRefMethod() );
+      final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, componentNameRef );
+      Generator.generateNotInitializedInvariant( this, method, componentNameRef.getSimpleName().toString() );
+      method.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
+      builder.addMethod( method.build() );
     }
     if ( null != _componentTypeNameRef )
     {
@@ -3224,20 +3218,6 @@ final class ComponentDescriptor
       addModifiers( Modifier.FINAL ).
       returns( Generator.DEFAULT_ID_TYPE );
     return method.addStatement( "return this.$N.getId()", Generator.KERNEL_FIELD_NAME ).build();
-  }
-
-  /**
-   * Generate the getter for component name.
-   */
-  @Nonnull
-  private MethodSpec buildComponentNameRefMethod()
-    throws ProcessorException
-  {
-    assert null != _componentNameRef;
-    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, _componentNameRef );
-    Generator.generateNotInitializedInvariant( this, method, _componentNameRef.getSimpleName().toString() );
-    method.addStatement( "return this.$N.getName()", Generator.KERNEL_FIELD_NAME );
-    return method.build();
   }
 
   @Nonnull

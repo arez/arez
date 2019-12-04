@@ -141,6 +141,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_id_ref.RawTypeComponentIdRefModel", false, false, false, false },
 
         new Object[]{ "com.example.component_name_ref.BasicComponentNameRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_name_ref.MultiComponentNameRefModel", false, false, false, false },
         new Object[]{ "com.example.component_name_ref.NonStandardMethodNameComponentNameRefModel",
                       false,
                       false,
@@ -2188,8 +2189,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_id_ref.ThrowsModel",
                       "@ComponentIdRef target must not throw any exceptions" },
 
-        new Object[]{ "com.example.component_name_ref.ComponentNameRefDuplicateModel",
-                      "@ComponentNameRef target duplicates existing method named getTypeName" },
         new Object[]{ "com.example.component_name_ref.ComponentNameRefFinalModel",
                       "@ComponentNameRef target must be abstract" },
         new Object[]{ "com.example.component_name_ref.ComponentNameRefMustNotHaveParametersModel",

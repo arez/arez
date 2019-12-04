@@ -27,7 +27,6 @@ See https://github.com/arez/arez/issues/91
 
 * Support multiple instances of `@*Ref` methods. We can just delegate to the same underlying ref method if there
   is concern for code duplication. Annotations to apply change to:
-  - `@ComponentNameRef`
   - `@ComponentRef`
   - `@ComponentStateRef`
   - `@ComponentTypeNameRef`
