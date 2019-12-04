@@ -118,12 +118,12 @@ final class ComponentDescriptor
   private final List<ExecutableElement> _preDisposes = new ArrayList<>();
   @Nullable
   private ExecutableElement _componentId;
+  @Nullable
+  private ExecutableType _componentIdMethodType;
   @Nonnull
   private final List<ExecutableElement> _componentIdRefs = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
-  @Nullable
-  private ExecutableType _componentIdMethodType;
   @Nullable
   private ExecutableElement _componentRef;
   @Nullable
