@@ -525,6 +525,7 @@ public class ArezProcessorTest
                       false },
 
         new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.MultiObservableValueRefModel", false, false, false, false },
         new Object[]{ "com.example.observable_value_ref.GenericObservableValueRefModel", false, false, false, false },
         new Object[]{ "com.example.observable_value_ref.NonStandardMethodName1ObservableValueRefModel",
                       false,
@@ -2411,8 +2412,6 @@ public class ArezProcessorTest
                       "Method annotated with @ObservableValueRef must return an instance of arez.ObservableValue" },
         new Object[]{ "com.example.observable_value_ref.BadReturnTypeParameterModel",
                       "@ObservableValueRef target has a type parameter of java.lang.String but @Observable method returns type of long" },
-        new Object[]{ "com.example.observable_value_ref.DuplicateRefMethodModel",
-                      "Method annotated with @ObservableValueRef defines duplicate ref accessor for observable named time" },
         new Object[]{ "com.example.observable_value_ref.FinalModel", "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.NonAbstractModel",
                       "@ObservableValueRef target must be abstract" },

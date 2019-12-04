@@ -7,7 +7,7 @@ import arez.annotations.ObservableValueRef;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class DuplicateRefMethodModel
+public abstract class MultiObservableValueRefModel
 {
   @Observable
   public long getTime()
@@ -21,9 +21,9 @@ public abstract class DuplicateRefMethodModel
 
   @Nonnull
   @ObservableValueRef
-  public abstract ObservableValue<Long> getTimeObservableValue();
+  abstract ObservableValue<Long> getTimeObservableValue();
 
   @Nonnull
   @ObservableValueRef( name = "time" )
-  public abstract ObservableValue<Long> getTimeObservable2Value();
+  abstract ObservableValue<Long> getTimeObservable2Value();
 }

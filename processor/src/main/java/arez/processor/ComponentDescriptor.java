@@ -470,14 +470,7 @@ final class ComponentDescriptor
       }
     }
 
-    final ObservableDescriptor observable = findOrCreateObservable( name );
-
-    if ( observable.hasRefMethod() )
-    {
-      throw new ProcessorException( "Method annotated with @ObservableValueRef defines duplicate ref " +
-                                    "accessor for observable named " + name, method );
-    }
-    observable.setRefMethod( method, methodType );
+    findOrCreateObservable( name ).addRefMethod( method, methodType );
   }
 
   @Nonnull
@@ -2162,7 +2155,7 @@ final class ComponentDescriptor
       if ( !observable.hasSetter() && !observable.hasGetter() )
       {
         throw new ProcessorException( "@ObservableValueRef target unable to be associated with an " +
-                                      "Observable property", observable.getRefMethod() );
+                                      "Observable property", observable.getRefMethods().get( 0 ).getMethod() );
       }
       else if ( !observable.hasSetter() && observable.expectSetter() )
       {

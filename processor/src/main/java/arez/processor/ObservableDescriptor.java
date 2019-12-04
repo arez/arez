@@ -49,10 +49,8 @@ final class ObservableDescriptor
   private ExecutableElement _setter;
   @Nullable
   private ExecutableType _setterType;
-  @Nullable
-  private ExecutableElement _refMethod;
-  @Nullable
-  private ExecutableType _refMethodType;
+  @Nonnull
+  private List<CandidateMethod> _refMethods = new ArrayList<>();
   @Nullable
   private DependencyDescriptor _dependencyDescriptor;
   @Nullable
@@ -130,23 +128,15 @@ final class ObservableDescriptor
     return _expectSetter;
   }
 
-  boolean hasRefMethod()
-  {
-    return null != _refMethod;
-  }
-
   @Nonnull
-  ExecutableElement getRefMethod()
-    throws ProcessorException
+  List<CandidateMethod> getRefMethods()
   {
-    assert null != _refMethod;
-    return _refMethod;
+    return _refMethods;
   }
 
-  void setRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
+  void addRefMethod( @Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType )
   {
-    _refMethod = Objects.requireNonNull( method );
-    _refMethodType = Objects.requireNonNull( methodType );
+    _refMethods.add( new CandidateMethod( method, methodType ) );
   }
 
   boolean hasGetter()
@@ -373,27 +363,17 @@ final class ObservableDescriptor
         builder.addMethod( buildObservableInternalSetter() );
       }
     }
-    if ( hasRefMethod() )
+    for ( final CandidateMethod refMethod : _refMethods )
     {
-      builder.addMethod( buildRefMethod() );
+      final MethodSpec.Builder method =
+        GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(),
+                                 _componentDescriptor.getElement(),
+                                 refMethod.getMethod() );
+
+      Generator.generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
+
+      builder.addMethod( method.addStatement( "return $N", getFieldName() ).build() );
     }
-  }
-
-  /**
-   * Generate the accessor for ref method.
-   */
-  @Nonnull
-  private MethodSpec buildRefMethod()
-    throws ProcessorException
-  {
-    assert null != _refMethod;
-
-    final MethodSpec.Builder method =
-      GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(), _componentDescriptor.getElement(), _refMethod );
-
-    Generator.generateNotDisposedInvariant( method, _refMethod.getSimpleName().toString() );
-
-    return method.addStatement( "return $N", getFieldName() ).build();
   }
 
   @Nonnull
@@ -985,7 +965,7 @@ final class ObservableDescriptor
                                       "setterAlwaysMutates = false but this is an invalid configuration.",
                                       getGetter() );
       }
-      if ( !hasRefMethod() && null == _inverseDescriptor )
+      if ( _refMethods.isEmpty() && null == _inverseDescriptor )
       {
         throw new ProcessorException( "@Observable target defines expectSetter = false but there is no ref " +
                                       "method for observable and thus never possible to report it as changed " +
@@ -993,9 +973,9 @@ final class ObservableDescriptor
       }
     }
 
-    if ( null != _refMethodType )
+    for ( final CandidateMethod refMethod : _refMethods )
     {
-      final TypeName typeName = TypeName.get( _refMethodType.getReturnType() );
+      final TypeName typeName = TypeName.get( refMethod.getMethodType().getReturnType() );
       if ( typeName instanceof ParameterizedTypeName )
       {
         final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
@@ -1006,9 +986,8 @@ final class ObservableDescriptor
           final TypeName actual = TypeName.get( _getterType.getReturnType() );
           if ( !actual.box().toString().equals( expectedType.toString() ) )
           {
-            assert null != _refMethod;
             throw new ProcessorException( "@ObservableValueRef target has a type parameter of " + expectedType +
-                                          " but @Observable method returns type of " + actual, _refMethod );
+                                          " but @Observable method returns type of " + actual, refMethod.getMethod() );
           }
         }
       }
