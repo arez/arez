@@ -7,6 +7,7 @@
   * `@ComponentIdRef`
   * `@ComponentNameRef`
   * `@ComponentRef`
+  * `@ComponentTypeNameRef`
   * `@PostConstruct`
   * `@PostDispose`
   * `@PreDispose`
