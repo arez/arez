@@ -126,12 +126,12 @@ final class ComponentDescriptor
   private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _componentRefs = new ArrayList<>();
-  @Nullable
-  private ExecutableElement _contextRef;
   @Nonnull
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _componentTypeNameRefs = new ArrayList<>();
+  @Nullable
+  private ExecutableElement _contextRef;
   @Nonnull
   private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
   @Nonnull
