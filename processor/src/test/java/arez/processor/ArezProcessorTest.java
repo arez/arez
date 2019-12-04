@@ -333,6 +333,7 @@ public class ArezProcessorTest
                       false },
 
         new Object[]{ "com.example.context_ref.BasicContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.MultiContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.Suppressed1ProtectedAccessContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.Suppressed1PublicAccessContextRefModel", false, false, false, false },
@@ -2256,8 +2257,6 @@ public class ArezProcessorTest
                       "@ObserverRef target must return an instance of arez.ArezContext" },
         new Object[]{ "com.example.context_ref.ThrowsExceptionModel",
                       "@ContextRef target must not throw any exceptions" },
-        new Object[]{ "com.example.context_ref.DuplicateModel",
-                      "@ContextRef target duplicates existing method named getContext" },
         new Object[]{ "com.example.context_ref.ParametersModel", "@ContextRef target must not have any parameters" },
 
         new Object[]{ "com.example.component_dependency.AbstractDependency",

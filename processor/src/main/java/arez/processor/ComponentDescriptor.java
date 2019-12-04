@@ -130,8 +130,8 @@ final class ComponentDescriptor
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _componentTypeNameRefs = new ArrayList<>();
-  @Nullable
-  private ExecutableElement _contextRef;
+  @Nonnull
+  private final List<ExecutableElement> _contextRefs = new ArrayList<>();
   @Nonnull
   private final Map<String, CandidateMethod> _observerRefs = new LinkedHashMap<>();
   @Nonnull
@@ -210,8 +210,8 @@ final class ComponentDescriptor
            _componentRefs.stream().anyMatch( this::isDeprecated ) ||
            _componentStateRefs.stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
            _componentTypeNameRefs.stream().anyMatch( this::isDeprecated ) ||
+           _contextRefs.stream().anyMatch( this::isDeprecated ) ||
            isDeprecated( _componentId ) ||
-           isDeprecated( _contextRef ) ||
            _observables.values().stream().anyMatch( e -> ( e.hasSetter() && isDeprecated( e.getSetter() ) ) ||
                                                          ( e.hasGetter() && isDeprecated( e.getGetter() ) ) ) ||
            _memoizes.values().stream().anyMatch( e -> ( e.hasMemoize() && isDeprecated( e.getMethod() ) ) ||
@@ -816,7 +816,7 @@ final class ComponentDescriptor
     _componentStateRefs.add( new ComponentStateRefDescriptor( method, state ) );
   }
 
-  private void setContextRef( @Nonnull final ExecutableElement method )
+  private void addContextRef( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     ArezUtils.mustBeStandardRefMethod( _processingEnv, this, method, Constants.CONTEXT_REF_ANNOTATION_CLASSNAME );
@@ -824,16 +824,7 @@ final class ComponentDescriptor
                                          method,
                                          Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                                          "arez.ArezContext" );
-
-    if ( null != _contextRef )
-    {
-      throw new ProcessorException( "@ContextRef target duplicates existing method named " +
-                                    _contextRef.getSimpleName(), method );
-    }
-    else
-    {
-      _contextRef = Objects.requireNonNull( method );
-    }
+    _contextRefs.add( method );
   }
 
   @Nonnull
@@ -2354,7 +2345,7 @@ final class ComponentDescriptor
     }
     else if ( null != contextRef )
     {
-      setContextRef( method );
+      addContextRef( method );
       return true;
     }
     else if ( null != stateRef )
@@ -2678,9 +2669,12 @@ final class ComponentDescriptor
       builder.addMethod( buildConstructor( null, null, hasDeprecatedElements() ) );
     }
 
-    if ( null != _contextRef )
+    for ( final ExecutableElement contextRef : _contextRefs )
     {
-      builder.addMethod( buildContextRefMethod() );
+      final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, contextRef );
+      Generator.generateNotInitializedInvariant( this, method, contextRef.getSimpleName().toString() );
+      method.addStatement( "return this.$N.getContext()", Generator.KERNEL_FIELD_NAME );
+      builder.addMethod( method.build() );
     }
     for ( final ExecutableElement componentRef : _componentRefs )
     {
@@ -3122,17 +3116,6 @@ final class ComponentDescriptor
       method.addCode( guardBlock.build() );
     }
 
-    return method.build();
-  }
-
-  @Nonnull
-  private MethodSpec buildContextRefMethod()
-    throws ProcessorException
-  {
-    assert null != _contextRef;
-    final MethodSpec.Builder method = GeneratorUtil.refMethod( _processingEnv, _element, _contextRef );
-    Generator.generateNotInitializedInvariant( this, method, _contextRef.getSimpleName().toString() );
-    method.addStatement( "return this.$N.getContext()", Generator.KERNEL_FIELD_NAME );
     return method.build();
   }
 

@@ -5,7 +5,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 
 @ArezComponent( allowEmpty = true )
-abstract class DuplicateModel
+abstract class MultiContextRefModel
 {
   @ContextRef
   abstract ArezContext getContext();
