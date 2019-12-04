@@ -120,6 +120,8 @@ final class ComponentDescriptor
   private ExecutableElement _componentId;
   @Nonnull
   private final List<ExecutableElement> _componentIdRefs = new ArrayList<>();
+  @Nonnull
+  private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
   @Nullable
   private ExecutableType _componentIdMethodType;
   @Nullable
@@ -128,8 +130,6 @@ final class ComponentDescriptor
   private ExecutableElement _contextRef;
   @Nullable
   private ExecutableElement _componentTypeNameRef;
-  @Nonnull
-  private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
   @Nonnull
   private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
   @Nonnull
