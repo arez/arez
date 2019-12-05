@@ -99,7 +99,7 @@ public abstract class AbstractStandardProcessor
     }
     else
     {
-      processingEnv.getMessager().printMessage( MANDATORY_WARNING, message, element );
+      processingEnv.getMessager().printMessage( WARNING, message, element );
     }
   }
 
