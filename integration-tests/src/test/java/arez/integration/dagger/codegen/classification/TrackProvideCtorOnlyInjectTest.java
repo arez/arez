@@ -33,7 +33,7 @@ public class TrackProvideCtorOnlyInjectTest
     }
 
     @OnDepsChange
-    public void onRenderDepsChange()
+    void onRenderDepsChange()
     {
     }
   }
