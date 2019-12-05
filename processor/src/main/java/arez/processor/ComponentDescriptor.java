@@ -981,7 +981,7 @@ final class ComponentDescriptor
         MemberChecks.toSimpleName( Constants.MEMOIZE_ANNOTATION_CLASSNAME ) + " annotation or the " +
         MemberChecks.toSimpleName( Constants.OBSERVE_ANNOTATION_CLASSNAME ) + " annotation. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY );
-      _processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
+      _processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, _element );
     }
     if ( !_allowEmpty && hasReactiveElements )
     {
@@ -998,7 +998,7 @@ final class ComponentDescriptor
         "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
         "@Reference, @ComponentDependency or @Observe. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
-      _processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message );
+      _processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, _element );
     }
 
     if ( _deferSchedule && !requiresSchedule() )

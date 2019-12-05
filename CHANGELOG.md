@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Include the location of the problem when generating warnings for unnecessary public or protected access on members.
+
 ### [v0.158](https://github.com/arez/arez/tree/v0.158) (2019-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.157...v0.158)
 
 Changes in this release:
