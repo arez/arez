@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.158](https://github.com/arez/arez/tree/v0.158) (2019-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.157...v0.158)
+
+Changes in this release:
 
 * Remove the suppression of warnings when `allowEmpty=true` is present but reactive components are present when components are annotated with `@Generated`.
 * Rework the annotation processor to support multiple instances of lifecycle and ref annotations. When multiple instances are present then instances on parent classes are sorted first and if multiple occur within a class, then declaration order is used. This has been applied to the following annotations:
