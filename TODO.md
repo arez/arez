@@ -51,9 +51,6 @@ See https://github.com/arez/arez/issues/91
   repositories in the constructor.
   - implementation will assert that references config is enabled? Probably not. Could use locators for other reasons.
 
-* If there is a pair of unannotated, abstract methods that match the pattern for setter/getter then
-  they can be assumed to be an `@Observable`.
-
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them

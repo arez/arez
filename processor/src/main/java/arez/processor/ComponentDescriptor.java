@@ -2190,6 +2190,25 @@ final class ComponentDescriptor
         }
       }
     }
+
+    // Find pairs of un-annotated abstract setter/getter pairs and treat them as if they
+    // are annotated with @Observable
+    for ( final Map.Entry<String, CandidateMethod> entry : new ArrayList<>( getters.entrySet() ) )
+    {
+      final CandidateMethod getter = entry.getValue();
+      if ( getter.getMethod().getModifiers().contains( Modifier.ABSTRACT ) )
+      {
+        final String name = entry.getKey();
+        final CandidateMethod setter = setters.remove( name );
+        if ( null != setter && setter.getMethod().getModifiers().contains( Modifier.ABSTRACT ) )
+        {
+          final ObservableDescriptor observable = findOrCreateObservable( name );
+          observable.setGetter( getter.getMethod(), getter.getMethodType() );
+          observable.setSetter( setter.getMethod(), setter.getMethodType() );
+          getters.remove( name );
+        }
+      }
+    }
   }
 
   private void linkUnAnnotatedObserves( @Nonnull final Map<String, CandidateMethod> observes,

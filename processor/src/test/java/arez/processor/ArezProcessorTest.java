@@ -507,6 +507,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.observable.ReadOutsideTransactionObservableModel", false, false, false, false },
         new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseObjectValue", false, false, false, false },
         new Object[]{ "com.example.observable.SetterAlwaysMutatesFalsePrimitiveValue", false, false, false, false },
+        new Object[]{ "com.example.observable.UnannotatedObservableModel", false, false, false, false },
         new Object[]{ "com.example.observable.WildcardGenericObservableModel", false, false, false, false },
         new Object[]{ "com.example.observable.WriteOutsideTransactionObservablesModel", false, false, false, false },
         new Object[]{ "com.example.observable.WriteOutsideTransactionThrowingObservablesModel",

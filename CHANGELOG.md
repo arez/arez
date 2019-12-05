@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Include the location of the problem when generating warnings for unnecessary public or protected access on members.
+* If a component contains a pair of abstract methods that follow the pattern of setter and getter and the methods are not annotated by any other Arez annotation then the annotation processor will treat the methods as if they are annotated with the `@Observable` annotation. This simplifies the process of writing observable models.
 
 ### [v0.158](https://github.com/arez/arez/tree/v0.158) (2019-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.157...v0.158)
 
