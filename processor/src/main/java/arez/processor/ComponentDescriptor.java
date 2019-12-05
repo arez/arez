@@ -1191,16 +1191,14 @@ final class ComponentDescriptor
             continue;
           }
         }
-        name =
-          ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
+        name = ProcessorUtil.deriveName( method, ObserveDescriptor.ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
         if ( voidReturn && null != name )
         {
-          if (
-            0 == parameterCount ||
-            (
-              1 == parameterCount &&
-              Constants.OBSERVER_CLASSNAME.equals( method.getParameters().get( 0 ).asType().toString() )
-            )
+          if ( 0 == parameterCount ||
+               (
+                 1 == parameterCount &&
+                 Constants.OBSERVER_CLASSNAME.equals( method.getParameters().get( 0 ).asType().toString() )
+               )
           )
           {
             onDepsChanges.put( name, candidateMethod );
