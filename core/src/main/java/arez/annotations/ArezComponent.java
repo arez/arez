@@ -38,8 +38,8 @@ import javax.annotation.Nonnull;
  *
  * <p>The annotation processor that handles this annotation will analyze all super classes and super
  * interfaces. This includes analysis of default methods on interfaces. So it is perfectly valid to
- * add {@link Observable}, {@link Memoize}, {@link Action}, {@link PreDispose} and {@link PostDispose}
- * annotations to default methods on implemented interfaces.</p>
+ * add annotations such as {@link Observable}, {@link Memoize}, {@link Action}, {@link PreDispose} and/or
+ * {@link PostDispose} to default methods on implemented interfaces.</p>
  */
 @Documented
 @Target( ElementType.TYPE )
