@@ -18,7 +18,7 @@ final class ArezUtils
   {
     mustBeRefMethod( descriptor, method, annotationClassname );
     MemberChecks.mustNotHaveAnyParameters( annotationClassname, method );
-    mustBeInternalRefMethod( processingEnv, descriptor, method, annotationClassname );
+    shouldBeInternalRefMethod( processingEnv, descriptor, method, annotationClassname );
   }
 
   static void mustBeRefMethod( @Nonnull final ComponentDescriptor descriptor,
@@ -35,32 +35,32 @@ final class ArezUtils
     MemberChecks.mustNotThrowAnyExceptions( annotationClassname, method );
   }
 
-  static void mustBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                       @Nonnull final ComponentDescriptor descriptor,
-                                       @Nonnull final ExecutableElement method,
-                                       @Nonnull final String annotationClassname )
+  static void shouldBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                         @Nonnull final ComponentDescriptor descriptor,
+                                         @Nonnull final ExecutableElement method,
+                                         @Nonnull final String annotationClassname )
   {
-    MemberChecks.mustBeInternalMethod( processingEnv,
-                                       descriptor.getElement(),
-                                       method,
-                                       annotationClassname,
-                                       Constants.WARNING_PUBLIC_REF_METHOD,
-                                       Constants.WARNING_PROTECTED_REF_METHOD,
-                                       Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    MemberChecks.shouldBeInternalMethod( processingEnv,
+                                         descriptor.getElement(),
+                                         method,
+                                         annotationClassname,
+                                         Constants.WARNING_PUBLIC_REF_METHOD,
+                                         Constants.WARNING_PROTECTED_REF_METHOD,
+                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
-  static void mustBeInternalLifecycleMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final ComponentDescriptor descriptor,
-                                             @Nonnull final ExecutableElement method,
-                                             @Nonnull final String annotationClassname )
+  static void shouldBeInternalLifecycleMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                               @Nonnull final ComponentDescriptor descriptor,
+                                               @Nonnull final ExecutableElement method,
+                                               @Nonnull final String annotationClassname )
   {
-    MemberChecks.mustBeInternalMethod( processingEnv,
-                                       descriptor.getElement(),
-                                       method,
-                                       annotationClassname,
-                                       Constants.WARNING_PUBLIC_LIFECYCLE_METHOD,
-                                       Constants.WARNING_PROTECTED_LIFECYCLE_METHOD,
-                                       Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    MemberChecks.shouldBeInternalMethod( processingEnv,
+                                         descriptor.getElement(),
+                                         method,
+                                         annotationClassname,
+                                         Constants.WARNING_PUBLIC_LIFECYCLE_METHOD,
+                                         Constants.WARNING_PROTECTED_LIFECYCLE_METHOD,
+                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
   static void mustBeInternalHookMethod( @Nonnull final ProcessingEnvironment processingEnv,
@@ -68,12 +68,12 @@ final class ArezUtils
                                         @Nonnull final ExecutableElement method,
                                         @Nonnull final String annotationClassname )
   {
-    MemberChecks.mustBeInternalMethod( processingEnv,
-                                       descriptor.getElement(),
-                                       method,
-                                       annotationClassname,
-                                       Constants.WARNING_PUBLIC_HOOK_METHOD,
-                                       Constants.WARNING_PROTECTED_HOOK_METHOD,
-                                       Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    MemberChecks.shouldBeInternalMethod( processingEnv,
+                                         descriptor.getElement(),
+                                         method,
+                                         annotationClassname,
+                                         Constants.WARNING_PUBLIC_HOOK_METHOD,
+                                         Constants.WARNING_PROTECTED_HOOK_METHOD,
+                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 }

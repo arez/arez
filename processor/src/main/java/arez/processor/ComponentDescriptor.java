@@ -668,10 +668,10 @@ final class ComponentDescriptor
     throws ProcessorException
   {
     ArezUtils.mustBeRefMethod( this, method, Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
-    ArezUtils.mustBeInternalRefMethod( _processingEnv,
-                                       this,
-                                       method,
-                                       Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalRefMethod( _processingEnv,
+                                         this,
+                                         method,
+                                         Constants.COMPUTABLE_VALUE_REF_ANNOTATION_CLASSNAME );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -908,10 +908,10 @@ final class ComponentDescriptor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
                                       method );
-    ArezUtils.mustBeInternalLifecycleMethod( _processingEnv,
-                                             this,
-                                             method,
-                                             Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalLifecycleMethod( _processingEnv,
+                                               this,
+                                               method,
+                                               Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME );
     _postConstructs.add( method );
   }
 
@@ -922,10 +922,10 @@ final class ComponentDescriptor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME,
                                       method );
-    ArezUtils.mustBeInternalLifecycleMethod( _processingEnv,
-                                             this,
-                                             method,
-                                             Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalLifecycleMethod( _processingEnv,
+                                               this,
+                                               method,
+                                               Constants.PRE_DISPOSE_ANNOTATION_CLASSNAME );
     _preDisposes.add( method );
   }
 
@@ -936,10 +936,10 @@ final class ComponentDescriptor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.POST_DISPOSE_ANNOTATION_CLASSNAME,
                                       method );
-    ArezUtils.mustBeInternalLifecycleMethod( _processingEnv,
-                                             this,
-                                             method,
-                                             Constants.POST_DISPOSE_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalLifecycleMethod( _processingEnv,
+                                               this,
+                                               method,
+                                               Constants.POST_DISPOSE_ANNOTATION_CLASSNAME );
     _postDisposes.add( method );
   }
 
