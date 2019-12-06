@@ -19,13 +19,9 @@ import javax.annotation.Nonnull;
  * of this object. If not specified it will default to the SimpleName of the class.
  * i.e. The class <tt>com.biz.models.MyModel</tt> will default to a name of
  * "MyModel".</li>
- * <li>The {@link #nameIncludesId()} method indicates whether the names in generated components
- * should include the id. If you expect only one instance of this component, it can be simpler
- * to elide the id.</li>
  * </ul>
  * <p>The name of any elements contained within the component follows the pattern
- * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>". If the value of {@link #nameIncludesId()}
- * is false then the "<tt>[ArezComponent.id].</tt>" element of the name will be elided.</p>
+ * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>".</p>
  *
  * <p>The type that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
@@ -53,15 +49,6 @@ public @interface ArezComponent
    */
   @Nonnull
   String name() default "<default>";
-
-  /**
-   * Return true if the name derived for component should include the id, false otherwise.
-   * If the user does not specify a value for this parameter but does specify the <tt>javax.inject.Singleton</tt>
-   * on the same type then the default value of this parameter is false, otherwise it is true.
-   *
-   * @return true to include the id in the component name, false otherwise.
-   */
-  boolean nameIncludesId() default true;
 
   /**
    * Return true if the component does not need to explicitly declare elements.
@@ -160,7 +147,7 @@ public @interface ArezComponent
    *
    * <p>The feature is also enabled on every components if
    * {@link Arez#areNativeComponentsEnabled()} is true, {@link Arez#areRegistriesEnabled()} is true or
-   * {@link Arez#areNamesEnabled()} is true and {@link #nameIncludesId()} is true.</p>
+   * {@link Arez#areNamesEnabled()} is true.</p>
    *
    * @return enum controlling whether a unique if of the component can be accessed via {@link arez.component.Identifiable#getArezId(Object)}.
    */

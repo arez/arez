@@ -98,13 +98,6 @@ public final class ArezProcessor
     final AnnotationMirror arezComponent =
       AnnotationsUtil.getAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final String declaredType = getAnnotationParameter( arezComponent, "name" );
-    final AnnotationValue nameIncludesIdValue =
-      AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "nameIncludesId" );
-    final AnnotationMirror singletonAnnotation =
-      AnnotationsUtil.findAnnotationByType( typeElement, Constants.SINGLETON_ANNOTATION_CLASSNAME );
-    final boolean nameIncludesIdDefault = null == singletonAnnotation;
-    final boolean nameIncludesId =
-      null == nameIncludesIdValue ? nameIncludesIdDefault : (boolean) nameIncludesIdValue.getValue();
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
     final boolean disposeNotifierFlag = ProcessorUtil.isDisposableTrackableRequired( typeElement );
@@ -217,7 +210,6 @@ public final class ArezProcessor
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( processingEnv,
                                type,
-                               nameIncludesId,
                                allowEmpty,
                                defaultPriority,
                                observableFlag,

@@ -82,7 +82,6 @@ final class ComponentDescriptor
   private final ProcessingEnvironment _processingEnv;
   @Nonnull
   private final String _type;
-  private final boolean _nameIncludesId;
   private final boolean _allowEmpty;
   @Nullable
   private final Priority _defaultPriority;
@@ -153,7 +152,6 @@ final class ComponentDescriptor
 
   ComponentDescriptor( @Nonnull final ProcessingEnvironment processingEnv,
                        @Nonnull final String type,
-                       final boolean nameIncludesId,
                        final boolean allowEmpty,
                        @Nullable final Priority defaultPriority,
                        final boolean observable,
@@ -171,7 +169,6 @@ final class ComponentDescriptor
   {
     _processingEnv = Objects.requireNonNull( processingEnv );
     _type = Objects.requireNonNull( type );
-    _nameIncludesId = nameIncludesId;
     _allowEmpty = allowEmpty;
     _defaultPriority = defaultPriority;
     _observable = observable;
@@ -3875,23 +3872,11 @@ final class ComponentDescriptor
 
   private void buildNameVar( @Nonnull final MethodSpec.Builder builder )
   {
-    // This is the same logic used to synthesize name in the getName() method
-    // Duplication is okay as it will be optimized out in production builds.
-    if ( _nameIncludesId )
-    {
-      builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S + $N : null",
-                            Generator.NAME_VAR_NAME,
-                            Generator.AREZ_CLASSNAME,
-                            _type.isEmpty() ? "" : _type + ".",
-                            Generator.ID_VAR_NAME );
-    }
-    else
-    {
-      builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S : null",
-                            Generator.NAME_VAR_NAME,
-                            Generator.AREZ_CLASSNAME,
-                            _type );
-    }
+    builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S + $N : null",
+                          Generator.NAME_VAR_NAME,
+                          Generator.AREZ_CLASSNAME,
+                          _type + ".",
+                          Generator.ID_VAR_NAME );
   }
 
   private void buildSyntheticIdVarIfRequired( @Nonnull final MethodSpec.Builder builder )
@@ -3902,21 +3887,12 @@ final class ComponentDescriptor
       {
         builder.addStatement( "final int $N = ++$N", Generator.ID_VAR_NAME, Generator.NEXT_ID_FIELD_NAME );
       }
-      else if ( _nameIncludesId )
+      else
       {
         builder.addStatement( "final int $N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || " +
                               "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
                               Generator.ID_VAR_NAME,
                               Generator.AREZ_CLASSNAME,
-                              Generator.AREZ_CLASSNAME,
-                              Generator.AREZ_CLASSNAME,
-                              Generator.NEXT_ID_FIELD_NAME );
-      }
-      else
-      {
-        builder.addStatement( "final int $N = ( $T.areRegistriesEnabled() || " +
-                              "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
-                              Generator.ID_VAR_NAME,
                               Generator.AREZ_CLASSNAME,
                               Generator.AREZ_CLASSNAME,
                               Generator.NEXT_ID_FIELD_NAME );
@@ -4138,10 +4114,6 @@ final class ComponentDescriptor
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );
-    if ( !addSingletonAnnotation )
-    {
-      arezComponent.addMember( "nameIncludesId", "false" );
-    }
     if ( !"AUTODETECT".equals( _repositoryInjectMode ) )
     {
       arezComponent.addMember( "inject", "$T.$N", Generator.INJECT_MODE_CLASSNAME, _repositoryInjectMode );

@@ -5,6 +5,7 @@
 * Include the location of the problem when generating warnings for unnecessary public or protected access on members.
 * If a component contains a pair of abstract methods that follow the pattern of setter and getter and the methods are not annotated by any other Arez annotation then the annotation processor will treat the methods as if they are annotated with the `@Observable` annotation. This simplifies the process of writing observable models.
 * Deferred errors from the annotation tool are output at `WARNING` level rather than `MANDATORY_WARNING` as some tooling seems to prefer it.
+* Remove the `nameIncludesId` parameter from the `@ArezComponent` annotation. It was initially used as part of the early debugging mechanisms but has been superseded by improvements in the spy subsystem and native components.
 
 ### [v0.158](https://github.com/arez/arez/tree/v0.158) (2019-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.157...v0.158)
 

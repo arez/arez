@@ -23,19 +23,6 @@ public class AccessingDisposedTest
     }
   }
 
-  @ArezComponent( nameIncludesId = false )
-  static abstract class TestSingletonComponent
-  {
-    int invokeCount;
-
-    @Action
-    void myAction()
-    {
-      Arez.context().observable().reportObserved();
-      invokeCount++;
-    }
-  }
-
   @Test
   public void accessingDisposedComponentResultsInError()
   {
@@ -52,23 +39,5 @@ public class AccessingDisposedTest
     assertTrue( Disposable.isDisposed( component ) );
     assertInvariant( component::myAction,
                      "Method named 'myAction' invoked on disposed component named 'TestComponent.1'" );
-  }
-
-  @Test
-  public void accessingDisposedSingletonComponentResultsInError()
-  {
-    final TestSingletonComponent component = new AccessingDisposedTest_Arez_TestSingletonComponent();
-
-    assertEquals( component.invokeCount, 0 );
-
-    component.myAction();
-
-    assertEquals( component.invokeCount, 1 );
-
-    Disposable.dispose( component );
-
-    assertTrue( Disposable.isDisposed( component ) );
-    assertInvariant( component::myAction,
-                     "Method named 'myAction' invoked on disposed component named 'TestSingletonComponent'" );
   }
 }

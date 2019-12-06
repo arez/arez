@@ -9,7 +9,6 @@ import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
-    nameIncludesId = false,
     inject = InjectMode.NONE
 )
 public abstract class InjectDisabledRepositoryRepository extends AbstractRepository<Integer, InjectDisabledRepository, InjectDisabledRepositoryRepository> {
