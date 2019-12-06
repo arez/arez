@@ -23,6 +23,8 @@ See https://github.com/arez/arez/issues/91
 
 * `AnnotationsUtil.extractName()` wherever possible
 
+* Update domgen to use pairs of abstract `@Observable` methods
+
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * Add separate `ArezIdentifiable` interface that is for internal use of Arez and is not expected to be
