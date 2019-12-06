@@ -53,7 +53,7 @@ import javax.annotation.Nonnull;
  * }
  * }</pre>
  */
-@ArezComponent( nameIncludesId = false )
+@ArezComponent
 public abstract class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;

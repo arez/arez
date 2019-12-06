@@ -40,7 +40,7 @@ import javax.annotation.Nonnull;
  * }
  * }</pre>
  */
-@ArezComponent( nameIncludesId = false )
+@ArezComponent
 public abstract class MediaQuery
 {
   private final MediaQueryListListener _listener;
