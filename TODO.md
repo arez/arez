@@ -25,6 +25,11 @@ See https://github.com/arez/arez/issues/91
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
+* Add separate `ArezIdentifiable` interface that is for internal use of Arez and is not expected to be
+  used outside of the framework. This will be the infrastructure that is used when `Arez.areNamesEnabled()`
+  returns true and a name is synthesized or when `Arez.areRegistriesEnabled()` or
+  `Arez.areNativeComponentsEnabled()` returns true. It will be optimized out in normal production apps. `Identifiable` will be used by application code.
+
 * Add integration test that verifies the sequencing of all the calls when multiple lifecycle steps present.
   Particularly when some are from parent classes and/or types.
 
