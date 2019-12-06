@@ -30,27 +30,13 @@ import static javax.tools.Diagnostic.Kind.*;
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
 @SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors" } )
 public final class ArezProcessor
-  extends AbstractStandardProcessor
+  extends AbstractArezProcessor
 {
   @Nonnull
   @Override
   protected String getRootAnnotationClassname()
   {
     return Constants.COMPONENT_ANNOTATION_CLASSNAME;
-  }
-
-  @Override
-  @Nonnull
-  protected final String getIssueTrackerURL()
-  {
-    return "https://github.com/arez/arez/issues";
-  }
-
-  @Nonnull
-  @Override
-  protected String getOptionPrefix()
-  {
-    return "arez";
   }
 
   @Override
