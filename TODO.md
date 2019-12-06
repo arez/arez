@@ -93,13 +93,6 @@ See https://github.com/arez/arez/issues/91
 * Could also record fan out and fan in for each node and rates of change for each node to see what problems could
   arise and where the potential bottlenecks are located.
 
-* Consider support N version of the `@*Ref` annotations on each component. That way if different users or tools are
-  responsible for different layers in inheritance chain, each can still get access to the require elements. We could
-  maintain the restriction that only one `@*Ref` method per resource per class if needed.
-
-* Several of the constraints in the annotation processor are stylistic - we should identify those and make them
-  into warning that are only emitted when the annotation processor is configured to emit bad style warnings
-
 * Implement something similar to `getDependencyTree` from mobx
 
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
