@@ -176,8 +176,8 @@ public @interface ArezComponent
 
   /**
    * The default priority used by {@link Memoize} and {@link Observe} annotated methods.
-   * This parameter should not be specified only be specified
-   * if there are {@link Memoize} or {@link Observe} annotated methods present on the component.
+   * This parameter should only be specified if there are {@link Memoize} or {@link Observe} annotated
+   * methods present on the component.
    *
    * @return the default priority used by {@link Memoize} and {@link Observe} annotated methods.
    */
