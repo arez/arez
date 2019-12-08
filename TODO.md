@@ -27,6 +27,8 @@ See https://github.com/arez/arez/issues/91
 
 * Support multiple instances of `@OnDepsChange`
 
+* Extract `@RepositoryDescriptor` inside annotation processor to simplify code base
+
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * generate a suppressable warning if `defaultPriority` parameter is present without any `@Memoize` or `@Observer`
