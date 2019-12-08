@@ -4,6 +4,7 @@ import com.squareup.javapoet.MethodSpec;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -38,6 +39,12 @@ final class CascadeDisposableDescriptor
     {
       setObservable( observable );
     }
+  }
+
+  @Nonnull
+  Element getElement()
+  {
+    return null != _method ? _method : Objects.requireNonNull( _field );
   }
 
   void setObservable( @Nonnull final ObservableDescriptor observable )
