@@ -338,4 +338,9 @@ final class ProcessorUtil
       return typeName;
     }
   }
+
+  static boolean anyParametersNamed( @Nonnull final ExecutableElement element, @Nonnull final String name )
+  {
+    return element.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) );
+  }
 }
