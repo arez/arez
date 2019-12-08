@@ -13,6 +13,7 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
 @SuppressWarnings( { "SameParameterValue", "WeakerAccess", "unused", "RedundantSuppression" } )
@@ -33,6 +34,16 @@ final class AnnotationsUtil
     return ( (List<AnnotationValue>) annotationValue.getValue() )
       .stream()
       .map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
+  }
+
+  @Nonnull
+  static String getEnumAnnotationParameter( @Nonnull final AnnotatedConstruct annotated,
+                                            @Nonnull final String annotationClassname,
+                                            @Nonnull final String parameterName )
+  {
+    final VariableElement parameter = (VariableElement)
+      getAnnotationValue( annotated, annotationClassname, parameterName ).getValue();
+    return parameter.getSimpleName().toString();
   }
 
   @Nonnull
