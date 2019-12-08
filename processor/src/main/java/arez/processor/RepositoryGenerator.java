@@ -8,7 +8,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -276,7 +275,7 @@ final class RepositoryGenerator
     for ( final ObservableDescriptor observable : component.getInitializers() )
     {
       final String candidateName = observable.getName();
-      final String name = component.isNameCollision( constructor, Collections.emptyList(), candidateName ) ?
+      final String name = ProcessorUtil.anyParametersNamed( constructor, candidateName ) ?
                           Generator.INITIALIZER_PREFIX + candidateName :
                           candidateName;
       final ParameterSpec.Builder param =
