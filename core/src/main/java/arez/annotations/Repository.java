@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Annotation that indicates that a repository must be generated for component.
@@ -48,16 +47,6 @@ import javax.annotation.Nonnull;
 @Target( ElementType.TYPE )
 public @interface Repository
 {
-  /**
-   * Return the name of the repository.
-   * The value must conform to the requirements of a java identifier.
-   * The default value if not specified is the name of the associated ArezComponent suffixed with "Repository".
-   *
-   * @return the name of the repository.
-   */
-  @Nonnull
-  String name() default "<default>";
-
   /**
    * Return the list of extension interfaces that the repository will implement.
    * The extension interfaces should not define any non-default methods besides
