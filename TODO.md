@@ -25,6 +25,8 @@ See https://github.com/arez/arez/issues/91
 
 * Update domgen to use pairs of abstract `@Observable` methods
 
+* Support multiple instances of `@OnDepsChange`
+
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
 * generate a suppressable warning if `defaultPriority` parameter is present without any `@Memoize` or `@Observer`
