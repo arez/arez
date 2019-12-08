@@ -1,5 +1,7 @@
 package arez.processor;
 
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -321,5 +323,19 @@ final class ProcessorUtil
                                       typeElement,
                                       (ExecutableType) typeUtils.asMemberOf( (DeclaredType) typeElement.asType(), e ),
                                       method ) );
+  }
+
+  @Nonnull
+  static TypeName toRawType( @Nonnull final TypeMirror type )
+  {
+    final TypeName typeName = TypeName.get( type );
+    if ( typeName instanceof ParameterizedTypeName )
+    {
+      return ( (ParameterizedTypeName) typeName ).rawType;
+    }
+    else
+    {
+      return typeName;
+    }
   }
 }
