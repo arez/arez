@@ -8,11 +8,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
@@ -34,6 +36,19 @@ final class AnnotationsUtil
     return ( (List<AnnotationValue>) annotationValue.getValue() )
       .stream()
       .map( v -> (TypeMirror) v.getValue() ).collect( Collectors.toList() );
+  }
+
+  @Nonnull
+  static List<TypeElement> getTypeElementsAnnotationParameter( @Nonnull final ProcessingEnvironment processingEnv,
+                                                               @Nonnull final AnnotatedConstruct annotated,
+                                                               @Nonnull final String annotationClassName,
+                                                               @Nonnull final String parameterName )
+  {
+    return AnnotationsUtil.getTypeMirrorsAnnotationParameter( annotated,
+                                                              annotationClassName,
+                                                              parameterName ).stream().
+      map( typeMirror -> (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror ) ).
+      collect( Collectors.toList() );
   }
 
   @Nonnull
