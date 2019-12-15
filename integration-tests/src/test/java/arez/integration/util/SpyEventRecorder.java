@@ -121,7 +121,7 @@ public final class SpyEventRecorder
       if ( key.equals( "value" ) && value instanceof Collection )
       {
         // Useful for debugging repositories
-        output.put( key, ( (Collection) value ).size() + " items" );
+        output.put( key, ( (Collection<?>) value ).size() + " items" );
       }
       else if ( null != value && value.getClass().isArray() )
       {
