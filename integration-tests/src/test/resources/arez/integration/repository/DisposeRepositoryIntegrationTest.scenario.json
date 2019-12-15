@@ -1,11 +1,11 @@
 
 [
     {
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -13,7 +13,7 @@
     },
     {
         "mutation": true,
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
@@ -172,7 +172,7 @@
         "type": "ComponentDisposeComplete"
     },
     {
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities.dispose",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.entities.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -180,7 +180,7 @@
     },
     {
         "result": null,
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities.dispose",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.entities.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -189,18 +189,18 @@
         ]
     },
     {
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.entities",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.entities",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.dispose",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -209,7 +209,7 @@
         ]
     },
     {
-        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository",
+        "name": "DisposeRepositoryIntegrationTest_TestComponentRepository.1",
         "type": "ComponentDisposeComplete"
     }
 ]
