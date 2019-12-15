@@ -1,21 +1,5 @@
 [
   {
-    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
-    "description": "The annotation has a new attribute with a default value.",
-    "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::defaultReadOutsideTransaction()",
-    "classification": {
-      "SOURCE": "NON_BREAKING",
-      "BINARY": "NON_BREAKING"
-    },
-    "attachments": {
-      "classQualifiedName": "arez.annotations.ArezComponent",
-      "classSimpleName": "ArezComponent",
-      "elementKind": "method",
-      "methodName": "defaultReadOutsideTransaction",
-      "package": "arez.annotations"
-    }
-  },
-  {
     "code": "java.method.attributeRemovedFromAnnotationType",
     "description": "The annotation no longer has an attribute.",
     "oldElement": "method boolean arez.annotations.ArezComponent::nameIncludesId()",
