@@ -7,6 +7,13 @@
 * Deferred errors from the annotation tool are output at `WARNING` level rather than `MANDATORY_WARNING` as some tooling seems to prefer it.
 * Remove the `nameIncludesId` parameter from the `@ArezComponent` annotation. It was initially used as part of the early debugging mechanisms but has been superseded by improvements in the spy subsystem and native components.
 * Remove the `name` parameter from the `@Repository` annotation as it was never used.
+* Significant internal restructure of the annotation processor that starts to morph the architecture so that rather than grouping by domain the internals of the annotation processor are grouped by phase or function. The intent is to simplify the code base for upcoming changes. The practical effect of this has been to
+  * Move most of the verification from the model (i.e. the `*Descriptor` classes) back to the `ArezProcessor`.
+  * Move and refactor the code generation from the model to static methods defined by the `Generator` class.
+  * Introduce a repository model abstraction as `RepositoryDescriptor` and move generation of the repository to `RepositoryGenerator`
+  * Extract a `DaggerModuleGenerator` class to generate the dagger module when required.
+  * Extract a `DaggerComponentExtensionGenerator` class to generate the dagger component extension when required.
+  * Rename `Generator` class to `ComponentGenerator` to reflect intent.
 
 ### [v0.158](https://github.com/arez/arez/tree/v0.158) (2019-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.157...v0.158)
 

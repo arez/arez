@@ -1,20 +1,9 @@
 package arez.processor;
 
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
-import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
 
 /**
  * The class that represents the parsed state of @Action methods on a @ArezComponent annotated class.
@@ -23,7 +12,7 @@ import javax.lang.model.type.TypeMirror;
 final class ActionDescriptor
 {
   @Nonnull
-  private final ComponentDescriptor _componentDescriptor;
+  private final ComponentDescriptor _component;
   @Nonnull
   private final String _name;
   private final boolean _requireNewTransaction;
@@ -36,7 +25,7 @@ final class ActionDescriptor
   @Nonnull
   private final ExecutableType _actionType;
 
-  ActionDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
+  ActionDescriptor( @Nonnull final ComponentDescriptor component,
                     @Nonnull final String name,
                     final boolean requireNewTransaction,
                     final boolean mutation,
@@ -46,7 +35,7 @@ final class ActionDescriptor
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
+    _component = Objects.requireNonNull( component );
     _name = Objects.requireNonNull( name );
     _requireNewTransaction = requireNewTransaction;
     _mutation = mutation;
@@ -69,184 +58,40 @@ final class ActionDescriptor
     return _action;
   }
 
-  void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ProcessorException
-  {
-    builder.addMethod( buildAction() );
-  }
-
-  /**
-   * Generate the action wrapper.
-   */
   @Nonnull
-  private MethodSpec buildAction()
-    throws ProcessorException
+  ComponentDescriptor getComponent()
   {
-    final String methodName = _action.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _action, builder );
-    GeneratorUtil.copyExceptions( _actionType, builder );
-    GeneratorUtil.copyTypeParameters( _actionType, builder );
-    Generator.copyWhitelistedAnnotations( _action, builder );
-    builder.addAnnotation( Override.class );
-    final TypeMirror returnType = _actionType.getReturnType();
-    builder.returns( TypeName.get( returnType ) );
-
-    final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
-    final List<? extends TypeMirror> thrownTypes = _action.getThrownTypes();
-    final boolean isSafe = thrownTypes.isEmpty();
-
-    final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
-
-    if ( !isProcedure )
-    {
-      statement.append( "return " );
-    }
-
-    statement.append( "this.$N.getContext()." );
-    params.add( Generator.KERNEL_FIELD_NAME );
-
-    if ( isProcedure && isSafe )
-    {
-      statement.append( "safeAction" );
-    }
-    else if ( isProcedure )
-    {
-      statement.append( "action" );
-    }
-    else if ( isSafe )
-    {
-      statement.append( "safeAction" );
-    }
-    else
-    {
-      statement.append( "action" );
-    }
-
-    statement.append( "(" );
-
-    statement.append( "$T.areNamesEnabled() ? this.$N.getName() + $S : null" );
-    params.add( Generator.AREZ_CLASSNAME );
-    params.add( Generator.KERNEL_FIELD_NAME );
-    params.add( "." + getName() );
-
-    statement.append( ", () -> " );
-    if ( _componentDescriptor.isInterfaceType() )
-    {
-      statement.append( "$T." );
-      params.add( _componentDescriptor.getClassName() );
-    }
-    statement.append( "super.$N(" );
-    params.add( _action.getSimpleName().toString() );
-
-    final List<? extends VariableElement> parameters = _action.getParameters();
-    final int paramCount = parameters.size();
-
-    boolean firstParam = true;
-    if ( 0 != paramCount )
-    {
-      statement.append( " " );
-    }
-    for ( int i = 0; i < paramCount; i++ )
-    {
-      final VariableElement element = parameters.get( i );
-      final TypeName parameterType = TypeName.get( _actionType.getParameterTypes().get( i ) );
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      Generator.copyWhitelistedAnnotations( element, param );
-      builder.addParameter( param.build() );
-      params.add( element.getSimpleName().toString() );
-      if ( !firstParam )
-      {
-        statement.append( ", " );
-      }
-      firstParam = false;
-      statement.append( "$N" );
-    }
-    if ( 0 != paramCount )
-    {
-      statement.append( " " );
-    }
-
-    statement.append( "), " );
-
-    appendFlags( statement, params );
-
-    statement.append( ", " );
-
-    if ( _reportParameters && !parameters.isEmpty() )
-    {
-      statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
-      params.add( Generator.AREZ_CLASSNAME );
-      params.add( Object.class );
-      firstParam = true;
-      for ( final VariableElement parameter : parameters )
-      {
-        if ( !firstParam )
-        {
-          statement.append( ", " );
-        }
-        firstParam = false;
-        params.add( parameter.getSimpleName().toString() );
-        statement.append( "$N" );
-      }
-      statement.append( " } : null" );
-    }
-    else
-    {
-      statement.append( "null" );
-    }
-    statement.append( " )" );
-
-    Generator.generateNotDisposedInvariant( builder, methodName );
-    if ( isSafe )
-    {
-      builder.addStatement( statement.toString(), params.toArray() );
-    }
-    else
-    {
-      Generator.generateTryBlock( builder,
-                                  thrownTypes,
-                                  b -> b.addStatement( statement.toString(), params.toArray() ) );
-    }
-
-    return builder.build();
+    return _component;
   }
 
-  private void appendFlags( @Nonnull final StringBuilder expression, @Nonnull final ArrayList<Object> parameters )
+  boolean isRequireNewTransaction()
   {
-    final ArrayList<String> flags = new ArrayList<>();
+    return _requireNewTransaction;
+  }
 
-    if ( _requireNewTransaction )
-    {
-      flags.add( "REQUIRE_NEW_TRANSACTION" );
-    }
-    if ( _mutation )
-    {
-      flags.add( "READ_WRITE" );
-    }
-    else
-    {
-      flags.add( "READ_ONLY" );
-    }
-    if ( _verifyRequired )
-    {
-      flags.add( "VERIFY_ACTION_REQUIRED" );
-    }
-    else
-    {
-      flags.add( "NO_VERIFY_ACTION_REQUIRED" );
-    }
-    if ( !_reportResult )
-    {
-      flags.add( "NO_REPORT_RESULT" );
-    }
+  boolean isMutation()
+  {
+    return _mutation;
+  }
 
-    expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
-    for ( int i = 0; i < flags.size(); i++ )
-    {
-      parameters.add( Generator.ACTION_FLAGS_CLASSNAME );
-    }
+  boolean isVerifyRequired()
+  {
+    return _verifyRequired;
+  }
+
+  boolean isReportParameters()
+  {
+    return _reportParameters;
+  }
+
+  boolean isReportResult()
+  {
+    return _reportResult;
+  }
+
+  @Nonnull
+  ExecutableType getActionType()
+  {
+    return _actionType;
   }
 }

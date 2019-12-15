@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.google.auto.common.MoreElements;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
@@ -13,12 +12,15 @@ import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
@@ -36,6 +38,38 @@ final class GeneratorUtil
 {
   private GeneratorUtil()
   {
+  }
+
+  @Nonnull
+  static ClassName getGeneratedClassName( @Nonnull final ClassName className,
+                                          @Nonnull final String prefix,
+                                          @Nonnull final String postfix )
+  {
+    return ClassName.get( className.packageName(), getGeneratedSimpleClassName( className, prefix, postfix ) );
+  }
+
+  @Nonnull
+  static String getGeneratedSimpleClassName( @Nonnull final ClassName className,
+                                             @Nonnull final String prefix,
+                                             @Nonnull final String postfix )
+  {
+    return getNestedClassPrefix( className ) + prefix + className.simpleName() + postfix;
+  }
+
+  @Nonnull
+  private static String getNestedClassPrefix( @Nonnull final ClassName className )
+  {
+    final StringBuilder name = new StringBuilder();
+    final List<String> simpleNames = className.simpleNames();
+    if ( simpleNames.size() > 1 )
+    {
+      for ( final String simpleName : simpleNames.subList( 0, simpleNames.size() - 1 ) )
+      {
+        name.append( simpleName );
+        name.append( "_" );
+      }
+    }
+    return name.toString();
   }
 
   @Nonnull
@@ -75,9 +109,14 @@ final class GeneratorUtil
 
   @SuppressWarnings( "UnstableApiUsage" )
   @Nonnull
-  static PackageElement getPackageElement( @Nonnull final TypeElement element )
+  static PackageElement getPackageElement( @Nonnull final Element source )
   {
-    return MoreElements.getPackage( element );
+    Element element = source;
+    while ( ElementKind.PACKAGE != element.getKind() )
+    {
+      element = element.getEnclosingElement();
+    }
+    return (PackageElement) element;
   }
 
   static void emitJavaType( @Nonnull final String packageName,
@@ -298,5 +337,19 @@ final class GeneratorUtil
     {
       return false;
     }
+  }
+
+  static boolean areTypesInDifferentPackage( @Nonnull final TypeElement typeElement1,
+                                             @Nonnull final TypeElement typeElement2 )
+  {
+    return !areTypesInSamePackage( typeElement1, typeElement2 );
+  }
+
+  static boolean areTypesInSamePackage( @Nonnull final TypeElement typeElement1,
+                                        @Nonnull final TypeElement typeElement2 )
+  {
+    final PackageElement packageElement1 = getPackageElement( typeElement1 );
+    final PackageElement packageElement2 = getPackageElement( typeElement2 );
+    return Objects.equals( packageElement1.getQualifiedName(), packageElement2.getQualifiedName() );
   }
 }

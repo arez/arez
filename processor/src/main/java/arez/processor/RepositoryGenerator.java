@@ -21,13 +21,17 @@ import javax.lang.model.type.ExecutableType;
 
 final class RepositoryGenerator
 {
+  private static final ClassName ABSTRACT_REPOSITORY_CLASSNAME =
+    ClassName.get( "arez.component.internal", "AbstractRepository" );
+  private static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
+
   private RepositoryGenerator()
   {
   }
 
   @Nonnull
-  static TypeSpec buildRepository( @Nonnull final ProcessingEnvironment processingEnv,
-                                   @Nonnull final RepositoryDescriptor repository )
+  static TypeSpec buildType( @Nonnull final ProcessingEnvironment processingEnv,
+                             @Nonnull final RepositoryDescriptor repository )
     throws ProcessorException
   {
     final ComponentDescriptor component = repository.getComponent();
@@ -36,10 +40,10 @@ final class RepositoryGenerator
     final TypeSpec.Builder builder =
       TypeSpec.classBuilder( getRepositoryClassName( repository ).simpleName() ).
         addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) );
-    Generator.copyWhitelistedAnnotations( component.getElement(), builder );
+    ComponentGenerator.copyWhitelistedAnnotations( component.getElement(), builder );
     GeneratorUtil.addOriginatingTypes( element, builder );
 
-    Generator.addGeneratedAnnotation( processingEnv, builder );
+    GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
 
     final String injectMode = repository.getInjectMode();
     final boolean addSingletonAnnotation =
@@ -52,20 +56,20 @@ final class RepositoryGenerator
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );
     if ( !"AUTODETECT".equals( injectMode ) )
     {
-      arezComponent.addMember( "inject", "$T.$N", Generator.INJECT_MODE_CLASSNAME, injectMode );
+      arezComponent.addMember( "inject", "$T.$N", ClassName.get( "arez.annotations", "InjectMode" ), injectMode );
     }
     final String daggerConfig = repository.getDaggerConfig();
     if ( !"AUTODETECT".equals( daggerConfig ) )
     {
-      arezComponent.addMember( "dagger", "$T.$N", Generator.FEATURE_CLASSNAME, daggerConfig );
+      arezComponent.addMember( "dagger", "$T.$N", ClassName.get( "arez.annotations", "Feature" ), daggerConfig );
     }
     builder.addAnnotation( arezComponent.build() );
     if ( addSingletonAnnotation )
     {
-      builder.addAnnotation( Generator.SINGLETON_CLASSNAME );
+      builder.addAnnotation( ClassName.get( "javax.inject", "Singleton" ) );
     }
 
-    builder.superclass( ParameterizedTypeName.get( Generator.ABSTRACT_REPOSITORY_CLASSNAME,
+    builder.superclass( ParameterizedTypeName.get( ABSTRACT_REPOSITORY_CLASSNAME,
                                                    component.getIdType().box(),
                                                    ClassName.get( element ),
                                                    getRepositoryClassName( repository ) ) );
@@ -138,7 +142,7 @@ final class RepositoryGenerator
       addModifiers( element.getModifiers().contains( Modifier.PUBLIC ) ?
                     Modifier.PUBLIC :
                     Modifier.PROTECTED ).
-      addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
+      addAnnotation( AnnotationSpec.builder( ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL )
@@ -156,7 +160,7 @@ final class RepositoryGenerator
       addModifiers( element.getModifiers().contains( Modifier.PUBLIC ) ?
                     Modifier.PUBLIC :
                     Modifier.PROTECTED ).
-      addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
+      addAnnotation( AnnotationSpec.builder( ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL )
@@ -172,7 +176,7 @@ final class RepositoryGenerator
     final TypeName entityType = TypeName.get( element.asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "destroy" ).
       addAnnotation( Override.class ).
-      addAnnotation( AnnotationSpec.builder( Generator.ACTION_CLASSNAME )
+      addAnnotation( AnnotationSpec.builder( ACTION_CLASSNAME )
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
@@ -261,7 +265,7 @@ final class RepositoryGenerator
     {
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      Generator.copyWhitelistedAnnotations( element, param );
+      ComponentGenerator.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameters.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -276,13 +280,13 @@ final class RepositoryGenerator
     {
       final String candidateName = observable.getName();
       final String name = ProcessorUtil.anyParametersNamed( constructor, candidateName ) ?
-                          Generator.INITIALIZER_PREFIX + candidateName :
+                          ComponentGenerator.INITIALIZER_PREFIX + candidateName :
                           candidateName;
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                name,
                                Modifier.FINAL );
-      Generator.copyWhitelistedAnnotations( observable.getGetter(), param );
+      ComponentGenerator.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       parameters.add( name );
       if ( !firstParam )
@@ -304,13 +308,13 @@ final class RepositoryGenerator
   private static MethodSpec buildFactoryMethod( @Nonnull final RepositoryDescriptor repository )
   {
     final ComponentDescriptor component = repository.getComponent();
-    final ClassName repositoryClassName = getRepositoryClassName( repository );
+    final ClassName className = getRepositoryClassName( repository );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "newRepository" ).
       addModifiers( Modifier.STATIC ).
       addAnnotation( Generator.NONNULL_CLASSNAME ).
-      returns( repositoryClassName ).
+      returns( className ).
       addStatement( "return new $T()",
-                    ClassName.get( component.getPackageName(), "Arez_" + repositoryClassName.simpleName() ) );
+                    ClassName.bestGuess( GeneratorUtil.getGeneratedSimpleClassName( className, "Arez_", "" ) ) );
     GeneratorUtil.copyAccessModifiers( component.getElement(), method );
     return method.build();
   }

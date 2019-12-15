@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.squareup.javapoet.MethodSpec;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,7 +43,8 @@ final class CascadeDisposableDescriptor
   @Nonnull
   Element getElement()
   {
-    return null != _method ? _method : Objects.requireNonNull( _field );
+    final ExecutableElement method = getMethod();
+    return null != method ? method : Objects.requireNonNull( getField() );
   }
 
   void setObservable( @Nonnull final ObservableDescriptor observable )
@@ -59,58 +59,56 @@ final class CascadeDisposableDescriptor
     reference.setCascadeDisposableDescriptor( this );
   }
 
-  void buildDisposer( @Nonnull final MethodSpec.Builder builder )
+  void validate()
   {
-    if ( null != _field )
+    if ( null != getMethod() )
     {
-      builder.addStatement( "$T.dispose( $N )", Generator.DISPOSABLE_CLASSNAME, _field.getSimpleName().toString() );
-    }
-    else
-    {
-      assert null != _method;
-      if ( null != _observable )
+      if ( null == getObservable() && null == getReference() )
       {
-        builder.addStatement( "$T.dispose( $N )", Generator.DISPOSABLE_CLASSNAME, _observable.getDataFieldName() );
-      }
-      else if ( null != _reference )
-      {
-        builder.addStatement( "$T.dispose( $N )", Generator.DISPOSABLE_CLASSNAME, _reference.getFieldName() );
+        if ( getMethod().getModifiers().contains( Modifier.ABSTRACT ) )
+        {
+          throw new ProcessorException( "@CascadeDispose target must not be abstract unless the method is " +
+                                        "also annotated with the @Observable or @Reference annotation.",
+                                        getMethod() );
+        }
+        if ( ElementKind.CLASS == getMethod().getEnclosingElement().getKind() )
+        {
+          MemberChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, getMethod() );
+        }
       }
       else
       {
-        builder.addStatement( "$T.dispose( $N() )",
-                              Generator.DISPOSABLE_CLASSNAME,
-                              _method.getSimpleName().toString() );
+        if ( !getMethod().getModifiers().contains( Modifier.ABSTRACT ) )
+        {
+          throw new ProcessorException( "@CascadeDispose target must be abstract if the method is " +
+                                        "also annotated with the @Observable or @Reference annotation.",
+                                        getMethod() );
+        }
       }
     }
   }
 
-  void validate()
+  @Nullable
+  ExecutableElement getMethod()
   {
-    if ( null != _method )
-    {
-      if ( null == _observable && null == _reference )
-      {
-        if ( _method.getModifiers().contains( Modifier.ABSTRACT ) )
-        {
-          throw new ProcessorException( "@CascadeDispose target must not be abstract unless the method is " +
-                                        "also annotated with the @Observable or @Reference annotation.",
-                                        _method );
-        }
-        if ( ElementKind.CLASS == _method.getEnclosingElement().getKind() )
-        {
-          MemberChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, _method );
-        }
-      }
-      else
-      {
-        if ( !_method.getModifiers().contains( Modifier.ABSTRACT ) )
-        {
-          throw new ProcessorException( "@CascadeDispose target must be abstract if the method is " +
-                                        "also annotated with the @Observable or @Reference annotation.",
-                                        _method );
-        }
-      }
-    }
+    return _method;
+  }
+
+  @Nullable
+  VariableElement getField()
+  {
+    return _field;
+  }
+
+  @Nullable
+  ObservableDescriptor getObservable()
+  {
+    return _observable;
+  }
+
+  @Nullable
+  ReferenceDescriptor getReference()
+  {
+    return _reference;
   }
 }

@@ -1,24 +1,14 @@
 package arez.processor;
 
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
 
 /**
  * The class that represents the parsed state of @Observe methods on a @ArezComponent annotated class.
@@ -26,9 +16,8 @@ import javax.lang.model.type.TypeMirror;
 @SuppressWarnings( "Duplicates" )
 final class ObserveDescriptor
 {
-  static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChange" );
   @Nonnull
-  private final ComponentDescriptor _componentDescriptor;
+  private final ComponentDescriptor _component;
   @Nonnull
   private final String _name;
   private boolean _mutation;
@@ -40,18 +29,24 @@ final class ObserveDescriptor
   private boolean _observeLowerPriorityDependencies;
   private boolean _nestedActionsAllowed;
   @Nullable
-  private ExecutableElement _observe;
+  private ExecutableElement _method;
   @Nullable
-  private ExecutableType _observedType;
+  private ExecutableType _methodType;
   @Nullable
   private ExecutableElement _onDepsChange;
   @Nonnull
   private List<ExecutableElement> _refMethods = new ArrayList<>();
 
-  ObserveDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final String name )
+  ObserveDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
+    _component = Objects.requireNonNull( component );
     _name = Objects.requireNonNull( name );
+  }
+
+  @Nonnull
+  ComponentDescriptor getComponent()
+  {
+    return _component;
   }
 
   @Nonnull
@@ -62,19 +57,32 @@ final class ObserveDescriptor
 
   void addRefMethod( @Nonnull final ExecutableElement method )
   {
-    _refMethods.add( Objects.requireNonNull( method ) );
+    getRefMethods().add( Objects.requireNonNull( method ) );
   }
 
   @Nonnull
-  ExecutableElement getObserve()
+  List<ExecutableElement> getRefMethods()
   {
-    assert null != _observe;
-    return _observe;
+    return _refMethods;
+  }
+
+  @Nonnull
+  ExecutableElement getMethod()
+  {
+    assert null != _method;
+    return _method;
+  }
+
+  @Nonnull
+  ExecutableType getMethodType()
+  {
+    assert null != _methodType;
+    return _methodType;
   }
 
   boolean hasObserve()
   {
-    return null != _observe;
+    return null != _method;
   }
 
   void setObserveMethod( final boolean mutation,
@@ -88,7 +96,7 @@ final class ObserveDescriptor
                          @Nonnull final ExecutableElement method,
                          @Nonnull final ExecutableType trackedMethodType )
   {
-    MemberChecks.mustBeWrappable( _componentDescriptor.getElement(),
+    MemberChecks.mustBeWrappable( _component.getElement(),
                                   Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                   Constants.OBSERVE_ANNOTATION_CLASSNAME,
                                   method );
@@ -109,7 +117,7 @@ final class ObserveDescriptor
       {
         throw new ProcessorException( "@Observe target must not return a value when executor=INTERNAL", method );
       }
-      if ( _componentDescriptor.isClassType() && method.getModifiers().contains( Modifier.PUBLIC ) )
+      if ( _component.isClassType() && method.getModifiers().contains( Modifier.PUBLIC ) )
       {
         throw new ProcessorException( "@Observe target must not be public when executor=INTERNAL", method );
       }
@@ -125,10 +133,10 @@ final class ObserveDescriptor
       }
     }
 
-    if ( null != _observe )
+    if ( hasObserve() )
     {
       throw new ProcessorException( "@Observe target duplicates existing method named " +
-                                    _observe.getSimpleName(), method );
+                                    getMethod().getSimpleName(), method );
     }
     else
     {
@@ -140,8 +148,8 @@ final class ObserveDescriptor
       _depType = Objects.requireNonNull( depType );
       _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
       _nestedActionsAllowed = nestedActionsAllowed;
-      _observe = Objects.requireNonNull( method );
-      _observedType = Objects.requireNonNull( trackedMethodType );
+      _method = Objects.requireNonNull( method );
+      _methodType = Objects.requireNonNull( trackedMethodType );
     }
   }
 
@@ -164,29 +172,6 @@ final class ObserveDescriptor
 
   void setOnDepsChange( @Nonnull final ExecutableElement method )
   {
-    MemberChecks.mustNotBeAbstract( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustBeSubclassCallable( _componentDescriptor.getElement(),
-                                         Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                         Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME,
-                                         method );
-    final List<? extends VariableElement> parameters = method.getParameters();
-    if (
-      !(
-        parameters.isEmpty() ||
-        ( 1 == parameters.size() && Constants.OBSERVER_CLASSNAME.equals( parameters.get( 0 ).asType().toString() ) )
-      )
-    )
-    {
-      throw new ProcessorException( "@OnDepsChange target must not have any parameters or must have a single " +
-                                    "parameter of type arez.Observer", method );
-    }
-
-    MemberChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
-    ArezUtils.mustBeInternalHookMethod( _componentDescriptor.getProcessingEnv(),
-                                        _componentDescriptor,
-                                        method,
-                                        Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
     if ( null != _onDepsChange )
     {
       throw new ProcessorException( "@OnDepsChange target duplicates existing method named " +
@@ -199,438 +184,72 @@ final class ObserveDescriptor
     }
   }
 
-  /**
-   * Build any fields required by
-   */
-  void buildFields( @Nonnull final TypeSpec.Builder builder )
-  {
-    final FieldSpec.Builder field =
-      FieldSpec.builder( Generator.OBSERVER_CLASSNAME, getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
-        addAnnotation( Generator.NONNULL_CLASSNAME );
-    builder.addField( field.build() );
-  }
-
   @Nonnull
-  private String getFieldName()
+  String getFieldName()
   {
-    return Generator.FIELD_PREFIX + getName();
+    return ComponentGenerator.FIELD_PREFIX + getName();
   }
 
   void validate()
   {
-    if ( _internalExecutor &&
-         null != _onDepsChange &&
-         _refMethods.isEmpty() &&
+    if ( isInternalExecutor() &&
+         hasOnDepsChange() &&
+         getRefMethods().isEmpty() &&
          _onDepsChange.getParameters().isEmpty() )
     {
-      assert null != _observe;
+      assert hasObserve();
       throw new ProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +
                                     "method but has not defined an @ObserverRef method nor does the " +
                                     "@OnDepsChange annotated method have an arez.Observer parameter. This results " +
-                                    "in an impossible to schedule observer.", _observe );
+                                    "in an impossible to schedule observer.", getMethod() );
     }
-    if ( !_internalExecutor && null == _onDepsChange )
+    if ( !isInternalExecutor() && !hasOnDepsChange() )
     {
-      assert null != _observe;
+      assert hasObserve();
       throw new ProcessorException( "@Observe target defined parameter executor=EXTERNAL but does not " +
-                                    "specify an @OnDepsChange method.", _observe );
+                                    "specify an @OnDepsChange method.", getMethod() );
     }
-    if ( "AREZ_OR_EXTERNAL".equals( _depType ) && _refMethods.isEmpty() )
+    if ( "AREZ_OR_EXTERNAL".equals( getDepType() ) && getRefMethods().isEmpty() )
     {
-      assert null != _observe;
+      assert hasObserve();
       throw new ProcessorException( "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not " +
                                     "defined an @ObserverRef method and thus can not invoke reportStale().",
-                                    _observe );
+                                    getMethod() );
     }
   }
 
-  /**
-   * Setup initial state of observed in constructor.
-   */
-  void buildInitializer( @Nonnull final MethodSpec.Builder builder )
+  boolean isMutation()
   {
-    if ( _internalExecutor )
-    {
-      buildObserverInitializer( builder );
-    }
-    else
-    {
-      buildTrackerInitializer( builder );
-    }
+    return _mutation;
   }
 
-  private void buildObserverInitializer( @Nonnull final MethodSpec.Builder builder )
+  Priority getPriority()
   {
-    final ArrayList<Object> parameters = new ArrayList<>();
-    final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
-               "$T.areNamesEnabled() ? $N + $S : null, " );
-    parameters.add( getFieldName() );
-    parameters.add( Generator.CONTEXT_VAR_NAME );
-    parameters.add( Generator.AREZ_CLASSNAME );
-    parameters.add( Generator.COMPONENT_VAR_NAME );
-    parameters.add( Generator.AREZ_CLASSNAME );
-    parameters.add( Generator.NAME_VAR_NAME );
-    parameters.add( "." + getName() );
-    if ( _componentDescriptor.isClassType() )
-    {
-      sb.append( "() -> super.$N(), " );
-      parameters.add( getObserve().getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "() -> $T.super.$N(), " );
-      parameters.add( _componentDescriptor.getClassName() );
-      parameters.add( getObserve().getSimpleName().toString() );
-    }
-    if ( null != _onDepsChange )
-    {
-      if ( !_onDepsChange.getParameters().isEmpty() )
-      {
-        sb.append( "this::$N, " );
-        parameters.add( Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString() );
-      }
-      else if ( _componentDescriptor.isClassType() )
-      {
-        sb.append( "() -> super.$N(), " );
-        parameters.add( _onDepsChange.getSimpleName().toString() );
-      }
-      else
-      {
-        sb.append( "() -> $T.super.$N(), " );
-        parameters.add( _componentDescriptor.getClassName() );
-        parameters.add( _onDepsChange.getSimpleName().toString() );
-      }
-    }
-
-    appendFlags( parameters, sb );
-
-    sb.append( " )" );
-
-    builder.addStatement( sb.toString(), parameters.toArray() );
+    return _priority;
   }
 
-  private void buildTrackerInitializer( @Nonnull final MethodSpec.Builder builder )
+  boolean isReportParameters()
   {
-    assert null != _onDepsChange;
-    final ArrayList<Object> parameters = new ArrayList<>();
-    final StringBuilder sb = new StringBuilder();
-    sb.append( "this.$N = $N.tracker( " +
-               "$T.areNativeComponentsEnabled() ? $N : null, " +
-               "$T.areNamesEnabled() ? $N + $S : null, " );
-    parameters.add( getFieldName() );
-    parameters.add( Generator.CONTEXT_VAR_NAME );
-    parameters.add( Generator.AREZ_CLASSNAME );
-    parameters.add( Generator.COMPONENT_VAR_NAME );
-    parameters.add( Generator.AREZ_CLASSNAME );
-    parameters.add( Generator.NAME_VAR_NAME );
-    parameters.add( "." + getName() );
-
-    if ( !_onDepsChange.getParameters().isEmpty() )
-    {
-      sb.append( "this::$N, " );
-      parameters.add( Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString() );
-    }
-    else if ( _componentDescriptor.isClassType() )
-    {
-      sb.append( "() -> super.$N(), " );
-      parameters.add( _onDepsChange.getSimpleName().toString() );
-    }
-    else
-    {
-      sb.append( "() -> $T.super.$N(), " );
-      parameters.add( _componentDescriptor.getClassName() );
-      parameters.add( _onDepsChange.getSimpleName().toString() );
-    }
-    appendFlags( parameters, sb );
-
-    sb.append( " )" );
-
-    builder.addStatement( sb.toString(), parameters.toArray() );
+    return _reportParameters;
   }
 
-  private void appendFlags( @Nonnull final ArrayList<Object> parameters, @Nonnull final StringBuilder expression )
+  boolean isReportResult()
   {
-    final ArrayList<String> flags = new ArrayList<>();
-    flags.add( "RUN_LATER" );
-
-    if ( _observeLowerPriorityDependencies )
-    {
-      flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
-    }
-    if ( !_reportResult )
-    {
-      flags.add( "NO_REPORT_RESULT" );
-    }
-    if ( _nestedActionsAllowed )
-    {
-      flags.add( "NESTED_ACTIONS_ALLOWED" );
-    }
-    else
-    {
-      flags.add( "NESTED_ACTIONS_DISALLOWED" );
-    }
-    switch ( _depType )
-    {
-      case "AREZ":
-        flags.add( "AREZ_DEPENDENCIES" );
-        break;
-      case "AREZ_OR_NONE":
-        flags.add( "AREZ_OR_NO_DEPENDENCIES" );
-        break;
-      default:
-        flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
-        break;
-    }
-    if ( _mutation )
-    {
-      flags.add( "READ_WRITE" );
-    }
-    if ( Priority.NORMAL != _priority )
-    {
-      flags.add( "PRIORITY_" + _priority.name() );
-    }
-
-    expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
-    for ( int i = 0; i < flags.size(); i++ )
-    {
-      parameters.add( Generator.OBSERVER_FLAGS_CLASSNAME );
-    }
+    return _reportResult;
   }
 
-  void buildDisposer( @Nonnull final MethodSpec.Builder codeBlock )
+  String getDepType()
   {
-    codeBlock.addStatement( "this.$N.dispose()", getFieldName() );
+    return _depType;
   }
 
-  void buildMethods( @Nonnull final TypeSpec.Builder builder )
-    throws ProcessorException
+  boolean isObserveLowerPriorityDependencies()
   {
-    if ( _internalExecutor )
-    {
-      builder.addMethod( buildObserve() );
-    }
-    else
-    {
-      builder.addMethod( buildTracked() );
-    }
-    for ( final ExecutableElement refMethod : _refMethods )
-    {
-      final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( _componentDescriptor.getProcessingEnv(),
-                                 _componentDescriptor.getElement(),
-                                 refMethod );
-      Generator.generateNotDisposedInvariant( method, refMethod.getSimpleName().toString() );
-      builder.addMethod( method.addStatement( "return $N", getFieldName() ).build() );
-    }
-    if ( null != _onDepsChange && !_onDepsChange.getParameters().isEmpty() )
-    {
-      builder.addMethod( buildNativeOnDepsChangeMethod() );
-    }
+    return _observeLowerPriorityDependencies;
   }
 
-  @Nonnull
-  private MethodSpec buildNativeOnDepsChangeMethod()
-    throws ProcessorException
+  boolean isNestedActionsAllowed()
   {
-    assert null != _onDepsChange;
-    final String methodName = Generator.FRAMEWORK_PREFIX + _onDepsChange.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    builder.addModifiers( Modifier.PRIVATE );
-
-    Generator.generateNotDisposedInvariant( builder, methodName );
-    if ( _componentDescriptor.isClassType() )
-    {
-      builder.addStatement( "super.$N( $N )", _onDepsChange.getSimpleName().toString(), getFieldName() );
-    }
-    else
-    {
-      builder.addStatement( "$T.super.$N( $N )",
-                            _componentDescriptor.getClassName(),
-                            _onDepsChange.getSimpleName().toString(),
-                            getFieldName() );
-    }
-
-    return builder.build();
-  }
-
-  /**
-   * Generate the tracked wrapper.
-   */
-  @Nonnull
-  private MethodSpec buildTracked()
-    throws ProcessorException
-  {
-    assert null != _observe;
-    assert null != _observedType;
-
-    final String methodName = _observe.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _observe, builder );
-    GeneratorUtil.copyExceptions( _observedType, builder );
-    GeneratorUtil.copyTypeParameters( _observedType, builder );
-    Generator.copyWhitelistedAnnotations( _observe, builder );
-    builder.addAnnotation( Override.class );
-    final TypeMirror returnType = _observedType.getReturnType();
-    builder.returns( TypeName.get( returnType ) );
-
-    final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
-    final List<? extends TypeMirror> thrownTypes = _observe.getThrownTypes();
-    final boolean isSafe = thrownTypes.isEmpty();
-
-    final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
-
-    Generator.generateNotDisposedInvariant( builder, methodName );
-    if ( !isProcedure )
-    {
-      statement.append( "return " );
-    }
-    statement.append( "this.$N.getContext()." );
-    params.add( Generator.KERNEL_FIELD_NAME );
-
-    if ( isProcedure && isSafe )
-    {
-      statement.append( "safeObserve" );
-    }
-    else if ( isProcedure )
-    {
-      statement.append( "observe" );
-    }
-    else if ( isSafe )
-    {
-      statement.append( "safeObserve" );
-    }
-    else
-    {
-      statement.append( "observe" );
-    }
-
-    statement.append( "( this.$N, " );
-    params.add( getFieldName() );
-
-    if ( _componentDescriptor.isClassType() )
-    {
-      statement.append( "() -> super.$N(" );
-      params.add( _observe.getSimpleName() );
-    }
-    else
-    {
-      statement.append( "() -> $T.super.$N(" );
-      params.add( _componentDescriptor.getClassName() );
-      params.add( _observe.getSimpleName() );
-    }
-
-    final List<? extends VariableElement> parameters = _observe.getParameters();
-    final int paramCount = parameters.size();
-    if ( 0 != paramCount )
-    {
-      statement.append( " " );
-    }
-
-    boolean firstParam = true;
-    for ( int i = 0; i < paramCount; i++ )
-    {
-      final VariableElement element = parameters.get( i );
-      final TypeName parameterType = TypeName.get( _observedType.getParameterTypes().get( i ) );
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      Generator.copyWhitelistedAnnotations( element, param );
-      builder.addParameter( param.build() );
-      params.add( element.getSimpleName().toString() );
-      if ( !firstParam )
-      {
-        statement.append( ", " );
-      }
-      firstParam = false;
-      statement.append( "$N" );
-    }
-    if ( 0 != paramCount )
-    {
-      statement.append( " " );
-    }
-
-    statement.append( "), " );
-    if ( _reportParameters && !parameters.isEmpty() )
-    {
-      statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
-      params.add( Generator.AREZ_CLASSNAME );
-      params.add( Object.class );
-      firstParam = true;
-      for ( final VariableElement parameter : parameters )
-      {
-        if ( !firstParam )
-        {
-          statement.append( ", " );
-        }
-        firstParam = false;
-        params.add( parameter.getSimpleName().toString() );
-        statement.append( "$N" );
-      }
-      statement.append( " } : null" );
-    }
-    else
-    {
-      statement.append( "null" );
-    }
-    statement.append( " )" );
-
-    if ( isSafe )
-    {
-      builder.addStatement( statement.toString(), params.toArray() );
-    }
-    else
-    {
-      Generator.generateTryBlock( builder,
-                                  thrownTypes,
-                                  b -> b.addStatement( statement.toString(), params.toArray() ) );
-    }
-
-    return builder.build();
-  }
-
-  /**
-   * Generate the observed wrapper.
-   * This is wrapped to block user from directly invoking observed method.
-   */
-  @Nonnull
-  private MethodSpec buildObserve()
-    throws ProcessorException
-  {
-    assert null != _observe;
-    assert null != _observedType;
-    final String methodName = _observe.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( _observe, builder );
-    GeneratorUtil.copyExceptions( _observedType, builder );
-    GeneratorUtil.copyTypeParameters( _observedType, builder );
-    Generator.copyWhitelistedAnnotations( _observe, builder );
-    builder.addAnnotation( Override.class );
-    final TypeMirror returnType = _observe.getReturnType();
-    builder.returns( TypeName.get( returnType ) );
-
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", Generator.AREZ_CLASSNAME );
-    block.addStatement( "$T.fail( () -> \"Observe method named '$N' invoked but @Observe(executor=INTERNAL) " +
-                        "annotated methods should only be invoked by the runtime.\" )",
-                        Generator.GUARDS_CLASSNAME,
-                        methodName );
-    block.endControlFlow();
-
-    builder.addCode( block.build() );
-    // This super is generated so that the GWT compiler in production model will identify this as a method
-    // that only contains a super invocation and will thus inline it. If the body is left empty then the
-    // GWT compiler will be required to keep the empty method present because it can not determine that the
-    // empty method will never be invoked.
-    if ( _componentDescriptor.isClassType() )
-    {
-      builder.addStatement( "super.$N()", _observe.getSimpleName() );
-    }
-    else
-    {
-      builder.addStatement( "$T.super.$N()", _componentDescriptor.getClassName(), _observe.getSimpleName() );
-    }
-
-    return builder.build();
+    return _nestedActionsAllowed;
   }
 }

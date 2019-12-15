@@ -1,13 +1,10 @@
 package arez.processor;
 
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.MethodSpec;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
 
 /**
@@ -17,7 +14,7 @@ import javax.lang.model.element.VariableElement;
 final class DependencyDescriptor
 {
   @Nonnull
-  private final ComponentDescriptor _componentDescriptor;
+  private final ComponentDescriptor _component;
   @Nullable
   private final ExecutableElement _method;
   @Nullable
@@ -26,22 +23,28 @@ final class DependencyDescriptor
   @Nullable
   private ObservableDescriptor _observable;
 
-  DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor,
+  DependencyDescriptor( @Nonnull final ComponentDescriptor component,
                         @Nonnull final ExecutableElement method,
                         final boolean cascade )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
+    _component = Objects.requireNonNull( component );
     _method = Objects.requireNonNull( method );
     _field = null;
     _cascade = cascade;
   }
 
-  DependencyDescriptor( @Nonnull final ComponentDescriptor componentDescriptor, @Nonnull final VariableElement field )
+  DependencyDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final VariableElement field )
   {
-    _componentDescriptor = Objects.requireNonNull( componentDescriptor );
+    _component = Objects.requireNonNull( component );
     _method = null;
     _field = Objects.requireNonNull( field );
     _cascade = true;
+  }
+
+  @Nonnull
+  ComponentDescriptor getComponent()
+  {
+    return _component;
   }
 
   boolean shouldCascadeDispose()
@@ -80,6 +83,11 @@ final class DependencyDescriptor
     _observable.setDependencyDescriptor( this );
   }
 
+  private boolean hasObservable()
+  {
+    return null != _observable;
+  }
+
   @Nonnull
   ObservableDescriptor getObservable()
   {
@@ -87,181 +95,32 @@ final class DependencyDescriptor
     return _observable;
   }
 
-  void buildInitializer( @Nonnull final MethodSpec.Builder builder )
-  {
-    if ( null != _field )
-    {
-      assert _cascade;
-      final String fieldName = _field.getSimpleName().toString();
-      if ( ProcessorUtil.hasNonnullAnnotation( _field ) )
-      {
-        builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
-                              Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                              fieldName );
-      }
-      else
-      {
-        final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-        listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-        listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
-                                    Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                    _field.getSimpleName() );
-        listenerBlock.endControlFlow();
-        builder.addCode( listenerBlock.build() );
-      }
-    }
-    else
-    {
-      final ExecutableElement method = getMethod();
-      final String methodName = method.getSimpleName().toString();
-      final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
-      if ( abstractObservables )
-      {
-        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
-        {
-          assert _cascade;
-          builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
-                                Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                getObservable().getDataFieldName() );
-        }
-        // Abstract methods that do not require initializer have no chance to be non-null in the constructor
-        // so there is no need to try and add listener as this can not occur
-        else if ( getObservable().requireInitializer() )
-        {
-          final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
-          builder.addStatement( "final $T $N = this.$N",
-                                getMethod().getReturnType(),
-                                varName,
-                                getObservable().getDataFieldName() );
-          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          if ( _cascade )
-          {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
-                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                        getObservable().getDataFieldName() );
-          }
-          else
-          {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
-                                        Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                        getObservable().getDataFieldName(),
-                                        getObservable().getSetter().getSimpleName().toString() );
-          }
-          listenerBlock.endControlFlow();
-          builder.addCode( listenerBlock.build() );
-        }
-      }
-      else
-      {
-        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
-        {
-          assert _cascade;
-          if ( _componentDescriptor.isClassType() )
-          {
-            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose )",
-                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                  method.getSimpleName().toString() );
-          }
-          else
-          {
-            builder.addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( this, this::dispose )",
-                                  Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                  _componentDescriptor.getClassName(),
-                                  method.getSimpleName().toString() );
-          }
-        }
-        else
-        {
-          final String varName = Generator.VARIABLE_PREFIX + methodName + "_dependency";
-          if ( _componentDescriptor.isClassType() )
-          {
-            builder.addStatement( "final $T $N = super.$N()",
-                                  getMethod().getReturnType(),
-                                  varName,
-                                  method.getSimpleName().toString() );
-          }
-          else
-          {
-            builder.addStatement( "final $T $N = $T.super.$N()",
-                                  getMethod().getReturnType(),
-                                  varName,
-                                  _componentDescriptor.getClassName(),
-                                  method.getSimpleName().toString() );
-          }
-          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
-          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          if ( _cascade )
-          {
-            if ( _componentDescriptor.isClassType() )
-            {
-              listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                          "addOnDisposeListener( this, this::dispose )",
-                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                          method.getSimpleName() );
-            }
-            else
-            {
-              listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
-                                          "addOnDisposeListener( this, this::dispose )",
-                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                          _componentDescriptor.getClassName(),
-                                          method.getSimpleName() );
-            }
-          }
-          else
-          {
-            if ( _componentDescriptor.isClassType() )
-            {
-              listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                          "addOnDisposeListener( this, () -> $N( null ) )",
-                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                          method.getSimpleName(),
-                                          getObservable().getSetter().getSimpleName().toString() );
-            }
-            else
-            {
-              listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
-                                          "addOnDisposeListener( this, () -> $N( null ) )",
-                                          Generator.DISPOSE_TRACKABLE_CLASSNAME,
-                                          _componentDescriptor.getClassName(),
-                                          method.getSimpleName(),
-                                          getObservable().getSetter().getSimpleName().toString() );
-            }
-          }
-          listenerBlock.endControlFlow();
-          builder.addCode( listenerBlock.build() );
-        }
-      }
-    }
-  }
-
   void validate()
   {
-    assert null == _observable || null == _field;
-    if ( null == _observable && null != _method )
+    assert !hasObservable() || isMethodDependency();
+    if ( !hasObservable() && isMethodDependency() )
     {
-      MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, _method );
+      MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, getMethod() );
     }
-    if ( !_cascade && null != _method )
+    if ( !shouldCascadeDispose() && isMethodDependency() )
     {
-      if ( null == _observable )
+      if ( !hasObservable() )
       {
         throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
                                       "dependency is not an observable so the annotation processor does not " +
-                                      "know how to set the value to null.", _method );
+                                      "know how to set the value to null.", getMethod() );
       }
-      else if ( !_observable.hasSetter() )
+      else if ( !getObservable().hasSetter() )
       {
         throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
                                       "dependency is an observable with no setter defined so the annotation " +
-                                      "processor does not know how to set the value to null.", _method );
+                                      "processor does not know how to set the value to null.", getMethod() );
       }
-      else if ( AnnotationsUtil.hasAnnotationOfType( _observable.getSetter().getParameters().get( 0 ),
+      else if ( AnnotationsUtil.hasAnnotationOfType( getObservable().getSetter().getParameters().get( 0 ),
                                                      Constants.NONNULL_ANNOTATION_CLASSNAME ) )
       {
         throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
-                                      "setter is annotated with @javax.annotation.Nonnull.", _method );
+                                      "setter is annotated with @javax.annotation.Nonnull.", getMethod() );
       }
     }
   }

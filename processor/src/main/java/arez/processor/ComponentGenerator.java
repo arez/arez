@@ -1,0 +1,4567 @@
+package arez.processor;
+
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
+import com.squareup.javapoet.WildcardTypeName;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.AnnotatedConstruct;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
+
+@SuppressWarnings( "Duplicates" )
+final class ComponentGenerator
+{
+  private static final ClassName INJECT_CLASSNAME = ClassName.get( "javax.inject", "Inject" );
+  private static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
+  private static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
+  private static final ClassName ACTION_FLAGS_CLASSNAME = ClassName.get( "arez", "ActionFlags" );
+  private static final ClassName OBSERVER_FLAGS_CLASSNAME = ClassName.get( "arez", "Observer", "Flags" );
+  private static final ClassName COMPUTABLE_VALUE_FLAGS_CLASSNAME = ClassName.get( "arez", "ComputableValue", "Flags" );
+  private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
+  private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "ObservableValue" );
+  private static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );
+  private static final ClassName COMPUTABLE_VALUE_CLASSNAME = ClassName.get( "arez", "ComputableValue" );
+  private static final ClassName DISPOSABLE_CLASSNAME = ClassName.get( "arez", "Disposable" );
+  private static final ClassName COMPONENT_CLASSNAME = ClassName.get( "arez", "Component" );
+  private static final ClassName SAFE_PROCEDURE_CLASSNAME = ClassName.get( "arez", "SafeProcedure" );
+  private static final ClassName KERNEL_CLASSNAME = ClassName.get( "arez.component.internal", "ComponentKernel" );
+  private static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get( "arez.component.internal", "MemoizeCache" );
+  private static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Identifiable" );
+  private static final ClassName COMPONENT_OBSERVABLE_CLASSNAME =
+    ClassName.get( "arez.component", "ComponentObservable" );
+  private static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
+  private static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component", "CollectionsUtil" );
+  private static final ClassName LOCATOR_CLASSNAME = ClassName.get( "arez", "Locator" );
+  private static final ClassName LINKABLE_CLASSNAME = ClassName.get( "arez.component", "Linkable" );
+  private static final ClassName VERIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Verifiable" );
+  /**
+   * Prefix for fields that are used to generate Arez elements.
+   */
+  static final String FIELD_PREFIX = "$$arez$$_";
+  /**
+   * For fields that are synthesized to hold data for abstract observable properties.
+   */
+  static final String OBSERVABLE_DATA_FIELD_PREFIX = "$$arezd$$_";
+  /**
+   * For fields that are synthesized to hold resolved references.
+   */
+  static final String REFERENCE_FIELD_PREFIX = "$$arezr$$_";
+  /**
+   * For methods/fields used internally for the component to manage lifecycle or implement support functionality.
+   */
+  static final String FRAMEWORK_PREFIX = "$$arezi$$_";
+  private static final String INTERNAL_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "dispose";
+  private static final String INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME =
+    FRAMEWORK_PREFIX + "nativeComponentPreDispose";
+  private static final String INTERNAL_PRE_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "preDispose";
+  private static final String INTERNAL_POST_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "postDispose";
+  private static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
+  private static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
+  static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
+  private static final String LOCATOR_METHOD_NAME = FRAMEWORK_PREFIX + "locator";
+  /**
+   * For constructor initializer args where it collides with existing name.
+   */
+  static final String INITIALIZER_PREFIX = "$$arezip$$_";
+  /**
+   * For variables used within generated methods that need a unique name.
+   */
+  private static final String VARIABLE_PREFIX = "$$arezv$$_";
+  private static final String COMPONENT_VAR_NAME = VARIABLE_PREFIX + "component";
+  private static final String NAME_VAR_NAME = VARIABLE_PREFIX + "name";
+  private static final String ID_VAR_NAME = VARIABLE_PREFIX + "id";
+  private static final String CONTEXT_VAR_NAME = VARIABLE_PREFIX + "context";
+  private static final TypeKind DEFAULT_ID_KIND = TypeKind.INT;
+  static final TypeName DEFAULT_ID_TYPE = TypeName.INT;
+  /**
+   * For fields that are synthesized to hold resolved references.
+   */
+  private static final String INVERSE_REFERENCE_METHOD_PREFIX = "$$arezir$$_";
+  @Nonnull
+  private static final List<String> ANNOTATION_WHITELIST =
+    Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
+                   Constants.NULLABLE_ANNOTATION_CLASSNAME,
+                   SuppressWarnings.class.getName(),
+                   Deprecated.class.getName() );
+
+  private ComponentGenerator()
+  {
+  }
+
+  /**
+   * Build the enhanced class for the component.
+   */
+  @Nonnull
+  static TypeSpec buildType( @Nonnull final ProcessingEnvironment processingEnv,
+                             @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    final TypeSpec.Builder builder = TypeSpec.classBuilder( component.getEnhancedClassName().simpleName() ).
+      addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) ).
+      addModifiers( Modifier.FINAL );
+    GeneratorUtil.addOriginatingTypes( component.getElement(), builder );
+    copyWhitelistedAnnotations( component.getElement(), builder );
+
+    if ( component.isClassType() )
+    {
+      builder.superclass( TypeName.get( component.getElement().asType() ) );
+    }
+    else
+    {
+      builder.addSuperinterface( TypeName.get( component.getElement().asType() ) );
+    }
+
+    GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
+    if ( !component.getMemoizes().isEmpty() &&
+         !AnnotationsUtil.hasAnnotationOfType( component.getElement(), SuppressWarnings.class.getName() ) )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
+        addMember( "value", "$S", "unchecked" ).
+        build() );
+    }
+    final boolean publicType =
+      (
+        component.getElement().getModifiers().contains( Modifier.PUBLIC ) &&
+        ProcessorUtil.getConstructors( component.getElement() ).
+          stream().
+          anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) )
+      ) || (
+        //Ahh dagger.... due the way we actually inject components that have to create a dagger component
+        // extension, this class needs to be public
+        component.needsDaggerComponentExtension()
+      );
+    final boolean hasInverseReferencedOutsideClass =
+      component.getInverses()
+        .values()
+        .stream()
+        .anyMatch( inverse -> !GeneratorUtil.areTypesInSamePackage( inverse.getTargetType(), component.getElement() ) );
+    final boolean hasReferenceWithInverseOutsidePackage =
+      component.getReferences()
+        .values()
+        .stream()
+        .filter( ReferenceDescriptor::hasInverse )
+        .anyMatch( reference -> {
+          final TypeElement typeElement =
+            (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
+          return !GeneratorUtil.areTypesInSamePackage( typeElement, component.getElement() );
+        } );
+    if ( publicType || hasInverseReferencedOutsideClass || hasReferenceWithInverseOutsidePackage )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    if ( null != component.getScopeAnnotation() )
+    {
+      final DeclaredType annotationType = component.getScopeAnnotation().getAnnotationType();
+      final TypeElement typeElement = (TypeElement) annotationType.asElement();
+      builder.addAnnotation( ClassName.get( typeElement ) );
+    }
+
+    builder.addSuperinterface( DISPOSABLE_CLASSNAME );
+    builder.addSuperinterface( ParameterizedTypeName.get( IDENTIFIABLE_CLASSNAME, component.getIdType().box() ) );
+    if ( component.isObservable() )
+    {
+      builder.addSuperinterface( COMPONENT_OBSERVABLE_CLASSNAME );
+    }
+    if ( component.shouldVerify() )
+    {
+      builder.addSuperinterface( VERIFIABLE_CLASSNAME );
+    }
+    if ( component.isDisposeNotifier() )
+    {
+      builder.addSuperinterface( DISPOSE_TRACKABLE_CLASSNAME );
+    }
+    if ( component.needsExplicitLink() )
+    {
+      builder.addSuperinterface( LINKABLE_CLASSNAME );
+    }
+
+    if ( component.isInjectFactory() )
+    {
+      builder.addType( buildFactoryClass( component ).build() );
+    }
+
+    buildFields( component, builder );
+
+    if ( component.isClassType() )
+    {
+      buildConstructors( processingEnv, component, builder );
+    }
+    else
+    {
+      builder.addMethod( buildConstructor( processingEnv, component, null, null, component.hasDeprecatedElements() ) );
+    }
+
+    for ( final ExecutableElement contextRef : component.getContextRefs() )
+    {
+      final MethodSpec.Builder method =
+        GeneratorUtil.refMethod( processingEnv, component.getElement(), contextRef );
+      generateNotInitializedInvariant( component, method, contextRef.getSimpleName().toString() );
+      method.addStatement( "return this.$N.getContext()", KERNEL_FIELD_NAME );
+      builder.addMethod( method.build() );
+    }
+    for ( final ExecutableElement componentRef : component.getComponentRefs() )
+    {
+      builder.addMethod( buildComponentRefMethod( processingEnv, component, componentRef ) );
+    }
+    for ( final ExecutableElement componentIdRef : component.getComponentIdRefs() )
+    {
+      builder.addMethod( GeneratorUtil.refMethod( processingEnv, component.getElement(), componentIdRef )
+                           .addStatement( "return this.$N()", component.getIdMethodName() )
+                           .build() );
+    }
+    if ( !component.getReferences().isEmpty() || component.hasInverses() )
+    {
+      builder.addMethod( buildLocatorRefMethod( component ) );
+    }
+    if ( null == component.getComponentId() )
+    {
+      builder.addMethod( buildComponentIdMethod( component ) );
+    }
+    builder.addMethod( buildArezIdMethod( component ) );
+    for ( final ExecutableElement componentNameRef : component.getComponentNameRefs() )
+    {
+      final MethodSpec.Builder method =
+        GeneratorUtil.refMethod( processingEnv, component.getElement(), componentNameRef );
+      generateNotInitializedInvariant( component, method, componentNameRef.getSimpleName().toString() );
+      method.addStatement( "return this.$N.getName()", KERNEL_FIELD_NAME );
+      builder.addMethod( method.build() );
+    }
+    for ( final ExecutableElement componentTypeNameRef : component.getComponentTypeNameRefs() )
+    {
+      builder.addMethod( GeneratorUtil.refMethod( processingEnv,
+                                                  component.getElement(),
+                                                  componentTypeNameRef )
+                           .addStatement( "return $S", component.getType() )
+                           .build() );
+    }
+
+    if ( component.isObservable() )
+    {
+      builder.addMethod( buildObserve() );
+    }
+    if ( hasInternalPreDispose( component ) )
+    {
+      builder.addMethod( buildInternalPreDispose( component ) );
+    }
+    if ( component.isDisposeNotifier() )
+    {
+      builder.addMethod( buildNativeComponentPreDispose( component ) );
+      builder.addMethod( buildAddOnDisposeListener() );
+      builder.addMethod( buildRemoveOnDisposeListener() );
+    }
+    if ( component.hasInternalPostDispose() )
+    {
+      builder.addMethod( buildInternalPostDispose( component ) );
+    }
+    builder.addMethod( buildIsDisposed() );
+    builder.addMethod( buildDispose() );
+    if ( component.needsInternalDispose() )
+    {
+      builder.addMethod( buildInternalDispose( component ) );
+    }
+    if ( component.shouldVerify() )
+    {
+      builder.addMethod( buildVerify( component ) );
+    }
+
+    if ( component.needsExplicitLink() )
+    {
+      builder.addMethod( buildLink( component ) );
+    }
+
+    component.getComponentStateRefs().forEach( e -> buildComponentStateRefMethods( processingEnv,
+                                                                                   e,
+                                                                                   component.getElement(),
+                                                                                   builder ) );
+    component.getObservables().values().forEach( e -> buildObservableMethods( processingEnv, e, builder ) );
+    component.getObserves().values().forEach( e -> buildObserveMethods( processingEnv, e, builder ) );
+    component.getActions().values().forEach( e -> builder.addMethod( buildAction( e ) ) );
+    component.getMemoizes().values().forEach( e -> buildMemoizeMethods( processingEnv, e, builder ) );
+    component.getReferences().values().forEach( e -> buildReferenceMethods( processingEnv, e, builder ) );
+    component.getInverses().values().forEach( e -> buildInverseMethods( e, builder ) );
+
+    builder.addMethod( buildHashcodeMethod( component ) );
+    builder.addMethod( buildEqualsMethod( component ) );
+
+    if ( component.isGenerateToString() )
+    {
+      builder.addMethod( buildToStringMethod( component ) );
+    }
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static String getInverseAddMethodName( @Nonnull final String name )
+  {
+    return INVERSE_REFERENCE_METHOD_PREFIX + name + "_add";
+  }
+
+  @Nonnull
+  private static String getInverseRemoveMethodName( @Nonnull final String name )
+  {
+    return INVERSE_REFERENCE_METHOD_PREFIX + name + "_remove";
+  }
+
+  @Nonnull
+  private static String getInverseSetMethodName( @Nonnull final String name )
+  {
+    return INVERSE_REFERENCE_METHOD_PREFIX + name + "_set";
+  }
+
+  @Nonnull
+  private static String getInverseUnsetMethodName( @Nonnull final String name )
+  {
+    return INVERSE_REFERENCE_METHOD_PREFIX + name + "_unset";
+  }
+
+  @Nonnull
+  private static String getInverseZSetMethodName( @Nonnull final String name )
+  {
+    // Use different names for linking/unlinking if there is different multiplicities to
+    // avoid scenario where classes that are not consistent will be able to be loaded
+    // by the jvm
+    return INVERSE_REFERENCE_METHOD_PREFIX + name + "_zset";
+  }
+
+  @Nonnull
+  private static String getInverseZUnsetMethodName( @Nonnull final String name )
+  {
+    return INVERSE_REFERENCE_METHOD_PREFIX + name + "_zunset";
+  }
+
+  @Nonnull
+  static String getLinkMethodName( @Nonnull final String name )
+  {
+    return FRAMEWORK_PREFIX + "link_" + name;
+  }
+
+  @Nonnull
+  static String getDelinkMethodName( @Nonnull final String name )
+  {
+    return FRAMEWORK_PREFIX + "delink_" + name;
+  }
+
+  private static void generateNotInitializedInvariant( @Nonnull final ComponentDescriptor descriptor,
+                                                       @Nonnull final MethodSpec.Builder builder,
+                                                       @Nonnull final String methodName )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenInitialized(), " +
+                        "() -> \"Method named '$N' invoked on uninitialized component of type '$N'\" )",
+                        GUARDS_CLASSNAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        methodName,
+                        descriptor.getType() );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+  }
+
+  private static void generateNotConstructedInvariant( @Nonnull final MethodSpec.Builder builder,
+                                                       @Nonnull final String methodName )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenConstructed(), " +
+                        "() -> \"Method named '$N' invoked on un-constructed component named '\" + " +
+                        "( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        methodName,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+  }
+
+  private static void generateNotCompleteInvariant( @Nonnull final MethodSpec.Builder builder,
+                                                    @Nonnull final String methodName )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.hasBeenCompleted(), " +
+                        "() -> \"Method named '$N' invoked on incomplete component named '\" + " +
+                        "( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        methodName,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+  }
+
+  private static void generateNotDisposedInvariant( @Nonnull final MethodSpec.Builder builder,
+                                                    @Nonnull final String methodName )
+  {
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.isActive(), " +
+                        "() -> \"Method named '$N' invoked on \" + this.$N.describeState() + \" component " +
+                        "named '\" + ( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        methodName,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME,
+                        KERNEL_FIELD_NAME );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+  }
+
+  private static void generateTryBlock( @Nonnull final MethodSpec.Builder builder,
+                                        @Nonnull final List<? extends TypeMirror> expectedThrowTypes,
+                                        @Nonnull final Consumer<CodeBlock.Builder> action )
+  {
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "try" );
+
+    action.accept( codeBlock );
+
+    final boolean catchThrowable =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Throwable" ) );
+    final boolean catchException =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.Exception" ) );
+    final boolean catchRuntimeException =
+      expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
+    int thrownCount = expectedThrowTypes.size();
+    final ArrayList<Object> args = new ArrayList<>( expectedThrowTypes );
+    if ( !catchThrowable && !catchRuntimeException && !catchException )
+    {
+      thrownCount++;
+      args.add( TypeName.get( RuntimeException.class ) );
+    }
+    if ( !catchThrowable )
+    {
+      thrownCount++;
+      args.add( TypeName.get( Error.class ) );
+    }
+
+    final String caughtThrowableName = "$$arez_exception$$";
+    args.add( caughtThrowableName );
+
+    final String code =
+      "catch( final " +
+      IntStream.range( 0, thrownCount ).mapToObj( t -> "$T" ).collect( Collectors.joining( " | " ) ) +
+      " $N )";
+    codeBlock.nextControlFlow( code, args.toArray() );
+    codeBlock.addStatement( "throw $N", caughtThrowableName );
+
+    if ( !catchThrowable )
+    {
+      codeBlock.nextControlFlow( "catch( final $T $N )", Throwable.class, caughtThrowableName );
+      codeBlock.addStatement( "throw new $T( $N )", IllegalStateException.class, caughtThrowableName );
+    }
+    codeBlock.endControlFlow();
+    builder.addCode( codeBlock.build() );
+  }
+
+  private static void buildInverseDisposer( @Nonnull final InverseDescriptor inverse,
+                                            @Nonnull final MethodSpec.Builder builder )
+  {
+    final ObservableDescriptor observable = inverse.getObservable();
+    final String delinkMethodName = getDelinkMethodName( inverse.getReferenceName() );
+    final ClassName arezClassName = getArezClassName( inverse );
+    if ( Multiplicity.MANY == inverse.getMultiplicity() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "for ( final $T other : new $T<>( $N ) )",
+                              inverse.getTargetType(),
+                              TypeName.get( ArrayList.class ),
+                              observable.getDataFieldName() );
+      block.addStatement( "( ($T) other ).$N()", arezClassName, delinkMethodName );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+    else
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( null != $N )", observable.getDataFieldName() );
+      block.addStatement( "( ($T) $N ).$N()",
+                          arezClassName,
+                          observable.getDataFieldName(),
+                          delinkMethodName );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+  }
+
+  @Nonnull
+  private static ClassName getArezClassName( @Nonnull final InverseDescriptor inverseDescriptor )
+  {
+    final TypeName typeName = TypeName.get( inverseDescriptor.getObservable().getGetter().getReturnType() );
+    final ClassName other = typeName instanceof ClassName ?
+                            (ClassName) typeName :
+                            (ClassName) ( (ParameterizedTypeName) typeName ).typeArguments.get( 0 );
+    final StringBuilder sb = new StringBuilder();
+    final String packageName = other.packageName();
+    if ( null != packageName )
+    {
+      sb.append( packageName );
+      sb.append( "." );
+    }
+
+    final List<String> simpleNames = other.simpleNames();
+    final int end = simpleNames.size() - 1;
+    for ( int i = 0; i < end; i++ )
+    {
+      sb.append( simpleNames.get( i ) );
+      sb.append( "_" );
+    }
+    sb.append( "Arez_" );
+    sb.append( simpleNames.get( end ) );
+    return ClassName.bestGuess( sb.toString() );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  private static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                  @Nonnull final MethodSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final ParameterSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  private static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                  @Nonnull final FieldSpec.Builder builder )
+  {
+    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  @Nonnull
+  private static MethodSpec buildAction( @Nonnull final ActionDescriptor action )
+    throws ProcessorException
+  {
+    final String methodName = action.getAction().getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( action.getAction(), builder );
+    GeneratorUtil.copyExceptions( action.getActionType(), builder );
+    GeneratorUtil.copyTypeParameters( action.getActionType(), builder );
+    copyWhitelistedAnnotations( action.getAction(), builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = action.getActionType().getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
+    final List<? extends TypeMirror> thrownTypes = action.getAction().getThrownTypes();
+    final boolean isSafe = thrownTypes.isEmpty();
+
+    final StringBuilder statement = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+
+    if ( !isProcedure )
+    {
+      statement.append( "return " );
+    }
+
+    statement.append( "this.$N.getContext()." );
+    params.add( KERNEL_FIELD_NAME );
+
+    if ( isProcedure && isSafe )
+    {
+      statement.append( "safeAction" );
+    }
+    else if ( isProcedure )
+    {
+      statement.append( "action" );
+    }
+    else if ( isSafe )
+    {
+      statement.append( "safeAction" );
+    }
+    else
+    {
+      statement.append( "action" );
+    }
+
+    statement.append( "(" );
+
+    statement.append( "$T.areNamesEnabled() ? this.$N.getName() + $S : null" );
+    params.add( AREZ_CLASSNAME );
+    params.add( KERNEL_FIELD_NAME );
+    params.add( "." + action.getName() );
+
+    statement.append( ", () -> " );
+    if ( action.getComponent().isInterfaceType() )
+    {
+      statement.append( "$T." );
+      params.add( action.getComponent().getClassName() );
+    }
+    statement.append( "super.$N(" );
+    params.add( action.getAction().getSimpleName().toString() );
+
+    final List<? extends VariableElement> parameters = action.getAction().getParameters();
+    final int paramCount = parameters.size();
+
+    boolean firstParam = true;
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
+    for ( int i = 0; i < paramCount; i++ )
+    {
+      final VariableElement element = parameters.get( i );
+      final TypeName parameterType = TypeName.get( action.getActionType().getParameterTypes().get( i ) );
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+      copyWhitelistedAnnotations( element, param );
+      builder.addParameter( param.build() );
+      params.add( element.getSimpleName().toString() );
+      if ( !firstParam )
+      {
+        statement.append( ", " );
+      }
+      firstParam = false;
+      statement.append( "$N" );
+    }
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
+
+    statement.append( "), " );
+
+    appendActionFlags( action, statement, params );
+
+    statement.append( ", " );
+
+    if ( action.isReportParameters() && !parameters.isEmpty() )
+    {
+      statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
+      params.add( AREZ_CLASSNAME );
+      params.add( Object.class );
+      firstParam = true;
+      for ( final VariableElement parameter : parameters )
+      {
+        if ( !firstParam )
+        {
+          statement.append( ", " );
+        }
+        firstParam = false;
+        params.add( parameter.getSimpleName().toString() );
+        statement.append( "$N" );
+      }
+      statement.append( " } : null" );
+    }
+    else
+    {
+      statement.append( "null" );
+    }
+    statement.append( " )" );
+
+    generateNotDisposedInvariant( builder, methodName );
+    if ( isSafe )
+    {
+      builder.addStatement( statement.toString(), params.toArray() );
+    }
+    else
+    {
+      generateTryBlock( builder,
+                        thrownTypes,
+                        b -> b.addStatement( statement.toString(), params.toArray() ) );
+    }
+
+    return builder.build();
+  }
+
+  private static void appendActionFlags( @Nonnull final ActionDescriptor action,
+                                         @Nonnull final StringBuilder expression,
+                                         @Nonnull final ArrayList<Object> parameters )
+  {
+    final ArrayList<String> flags = new ArrayList<>();
+
+    if ( action.isRequireNewTransaction() )
+    {
+      flags.add( "REQUIRE_NEW_TRANSACTION" );
+    }
+    if ( action.isMutation() )
+    {
+      flags.add( "READ_WRITE" );
+    }
+    else
+    {
+      flags.add( "READ_ONLY" );
+    }
+    if ( action.isVerifyRequired() )
+    {
+      flags.add( "VERIFY_ACTION_REQUIRED" );
+    }
+    else
+    {
+      flags.add( "NO_VERIFY_ACTION_REQUIRED" );
+    }
+    if ( !action.isReportResult() )
+    {
+      flags.add( "NO_REPORT_RESULT" );
+    }
+
+    expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( ACTION_FLAGS_CLASSNAME );
+    }
+  }
+
+  private static void buildCascadeDisposeDisposer( @Nonnull final CascadeDisposableDescriptor cascadeDisposable,
+                                                   @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( null != cascadeDisposable.getField() )
+    {
+      builder.addStatement( "$T.dispose( $N )",
+                            DISPOSABLE_CLASSNAME,
+                            cascadeDisposable.getField().getSimpleName().toString() );
+    }
+    else
+    {
+      assert null != cascadeDisposable.getMethod();
+      if ( null != cascadeDisposable.getObservable() )
+      {
+        builder.addStatement( "$T.dispose( $N )",
+                              DISPOSABLE_CLASSNAME,
+                              cascadeDisposable.getObservable().getDataFieldName() );
+      }
+      else if ( null != cascadeDisposable.getReference() )
+      {
+        builder.addStatement( "$T.dispose( $N )",
+                              DISPOSABLE_CLASSNAME,
+                              cascadeDisposable.getReference().getFieldName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.dispose( $N() )",
+                              DISPOSABLE_CLASSNAME,
+                              cascadeDisposable.getMethod().getSimpleName().toString() );
+      }
+    }
+  }
+
+  private static void buildDependencyInitializer( @Nonnull final DependencyDescriptor dependency,
+                                                  @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( !dependency.isMethodDependency() )
+    {
+      assert dependency.shouldCascadeDispose();
+      final String fieldName = dependency.getField().getSimpleName().toString();
+      if ( ProcessorUtil.hasNonnullAnnotation( dependency.getField() ) )
+      {
+        builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
+                              DISPOSE_TRACKABLE_CLASSNAME,
+                              fieldName );
+      }
+      else
+      {
+        final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+        listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
+        listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
+                                    DISPOSE_TRACKABLE_CLASSNAME,
+                                    dependency.getField().getSimpleName() );
+        listenerBlock.endControlFlow();
+        builder.addCode( listenerBlock.build() );
+      }
+    }
+    else
+    {
+      final ExecutableElement method = dependency.getMethod();
+      final String methodName = method.getSimpleName().toString();
+      final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+      if ( abstractObservables )
+      {
+        final ObservableDescriptor observable = dependency.getObservable();
+        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
+        {
+          assert dependency.shouldCascadeDispose();
+          builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+                                DISPOSE_TRACKABLE_CLASSNAME,
+                                observable.getDataFieldName() );
+        }
+        // Abstract methods that do not require initializer have no chance to be non-null in the constructor
+        // so there is no need to try and add listener as this can not occur
+        else if ( observable.requireInitializer() )
+        {
+          final String varName = VARIABLE_PREFIX + methodName + "_dependency";
+          builder.addStatement( "final $T $N = this.$N",
+                                dependency.getMethod().getReturnType(),
+                                varName,
+                                observable.getDataFieldName() );
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          if ( dependency.shouldCascadeDispose() )
+          {
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+                                        DISPOSE_TRACKABLE_CLASSNAME,
+                                        observable.getDataFieldName() );
+          }
+          else
+          {
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+                                        DISPOSE_TRACKABLE_CLASSNAME,
+                                        observable.getDataFieldName(),
+                                        observable.getSetter().getSimpleName().toString() );
+          }
+          listenerBlock.endControlFlow();
+          builder.addCode( listenerBlock.build() );
+        }
+      }
+      else
+      {
+        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
+        {
+          assert dependency.shouldCascadeDispose();
+          if ( dependency.getComponent().isClassType() )
+          {
+            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose )",
+                                  DISPOSE_TRACKABLE_CLASSNAME,
+                                  method.getSimpleName().toString() );
+          }
+          else
+          {
+            builder.addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( this, this::dispose )",
+                                  DISPOSE_TRACKABLE_CLASSNAME,
+                                  dependency.getComponent().getClassName(),
+                                  method.getSimpleName().toString() );
+          }
+        }
+        else
+        {
+          final String varName = VARIABLE_PREFIX + methodName + "_dependency";
+          if ( dependency.getComponent().isClassType() )
+          {
+            builder.addStatement( "final $T $N = super.$N()",
+                                  dependency.getMethod().getReturnType(),
+                                  varName,
+                                  method.getSimpleName().toString() );
+          }
+          else
+          {
+            builder.addStatement( "final $T $N = $T.super.$N()",
+                                  dependency.getMethod().getReturnType(),
+                                  varName,
+                                  dependency.getComponent().getClassName(),
+                                  method.getSimpleName().toString() );
+          }
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          if ( dependency.shouldCascadeDispose() )
+          {
+            if ( dependency.getComponent().isClassType() )
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
+                                          "addOnDisposeListener( this, this::dispose )",
+                                          DISPOSE_TRACKABLE_CLASSNAME,
+                                          method.getSimpleName() );
+            }
+            else
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
+                                          "addOnDisposeListener( this, this::dispose )",
+                                          DISPOSE_TRACKABLE_CLASSNAME,
+                                          dependency.getComponent().getClassName(),
+                                          method.getSimpleName() );
+            }
+          }
+          else
+          {
+            final ObservableDescriptor observable = dependency.getObservable();
+            if ( dependency.getComponent().isClassType() )
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
+                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          DISPOSE_TRACKABLE_CLASSNAME,
+                                          method.getSimpleName(),
+                                          observable.getSetter().getSimpleName().toString() );
+            }
+            else
+            {
+              listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
+                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          DISPOSE_TRACKABLE_CLASSNAME,
+                                          dependency.getComponent().getClassName(),
+                                          method.getSimpleName(),
+                                          observable.getSetter().getSimpleName().toString() );
+            }
+          }
+          listenerBlock.endControlFlow();
+          builder.addCode( listenerBlock.build() );
+        }
+      }
+    }
+  }
+
+  @Nonnull
+  private static TypeSpec.Builder buildFactoryClass( @Nonnull final ComponentDescriptor component )
+  {
+    final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
+      .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
+
+    final ExecutableElement constructor = ProcessorUtil.getConstructors( component.getElement() ).get( 0 );
+    assert null != constructor;
+
+    final List<? extends VariableElement> injectedParameters = constructor
+      .getParameters()
+      .stream()
+      .filter( f -> !AnnotationsUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
+      .collect( Collectors.toList() );
+    for ( final VariableElement parameter : injectedParameters )
+    {
+      final FieldSpec.Builder field = FieldSpec
+        .builder( TypeName.get( parameter.asType() ),
+                  parameter.getSimpleName().toString(),
+                  Modifier.PRIVATE,
+                  Modifier.FINAL );
+      copyWhitelistedAnnotations( parameter, field );
+      factory.addField( field.build() );
+    }
+
+    final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
+    ctor.addAnnotation( INJECT_CLASSNAME );
+    copyWhitelistedAnnotations( constructor, ctor );
+
+    for ( final VariableElement parameter : injectedParameters )
+    {
+      final String name = parameter.getSimpleName().toString();
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
+      copyWhitelistedAnnotations( parameter, param );
+      ctor.addParameter( param.build() );
+      if ( ProcessorUtil.hasNonnullAnnotation( parameter ) )
+      {
+        ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
+      }
+      else
+      {
+        ctor.addStatement( "this.$N = $N", name, name );
+      }
+    }
+
+    factory.addMethod( ctor.build() );
+
+    {
+      final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
+      creator.addAnnotation( Generator.NONNULL_CLASSNAME );
+      creator.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      creator.returns( component.getEnhancedClassName() );
+
+      final StringBuilder sb = new StringBuilder();
+      final ArrayList<Object> params = new ArrayList<>();
+      sb.append( "return new $T(" );
+      params.add( component.getEnhancedClassName() );
+
+      boolean firstParam = true;
+
+      for ( final VariableElement parameter : constructor.getParameters() )
+      {
+        final boolean perInstance =
+          AnnotationsUtil.hasAnnotationOfType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
+
+        final String name = parameter.getSimpleName().toString();
+
+        if ( perInstance )
+        {
+          final ParameterSpec.Builder param =
+            ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
+          copyWhitelistedAnnotations( parameter, param );
+          creator.addParameter( param.build() );
+        }
+
+        if ( firstParam )
+        {
+          sb.append( " " );
+        }
+        else
+        {
+          sb.append( ", " );
+        }
+        firstParam = false;
+        if ( perInstance && ProcessorUtil.hasNonnullAnnotation( parameter ) )
+        {
+          sb.append( "$T.requireNonNull( $N )" );
+          params.add( Objects.class );
+        }
+        else
+        {
+          sb.append( "$N" );
+        }
+        params.add( name );
+      }
+
+      if ( !firstParam )
+      {
+        sb.append( " " );
+      }
+
+      sb.append( ")" );
+      creator.addStatement( sb.toString(), params.toArray() );
+      factory.addMethod( creator.build() );
+    }
+
+    return factory;
+  }
+
+  @Nonnull
+  private static MethodSpec buildToStringMethod( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    assert component.isGenerateToString();
+
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( "toString" ).
+        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addAnnotation( Override.class ).
+        returns( TypeName.get( String.class ) );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "if ( $T.areNamesEnabled() )", AREZ_CLASSNAME );
+    codeBlock.addStatement( "return $S + this.$N.getName() + $S",
+                            "ArezComponent[",
+                            KERNEL_FIELD_NAME,
+                            "]" );
+    codeBlock.nextControlFlow( "else" );
+    if ( component.isInterfaceType() )
+    {
+      codeBlock.addStatement( "return $T.super.toString()", component.getClassName() );
+    }
+    else
+    {
+      codeBlock.addStatement( "return super.toString()" );
+    }
+    codeBlock.endControlFlow();
+    method.addCode( codeBlock.build() );
+    return method.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildHashcodeMethod( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    final String idMethod = component.getIdMethodName();
+
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( "hashCode" ).
+        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addAnnotation( Override.class ).
+        returns( TypeName.INT );
+    final TypeKind kind =
+      null != component.getComponentId() ? component.getComponentId().getReturnType().getKind() : DEFAULT_ID_KIND;
+    if ( component.isRequireEquals() )
+    {
+      if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+      {
+        method.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
+                             idMethod,
+                             idMethod,
+                             System.class );
+      }
+      else if ( kind == TypeKind.BYTE )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Byte.class, idMethod );
+      }
+      else if ( kind == TypeKind.CHAR )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Character.class, idMethod );
+      }
+      else if ( kind == TypeKind.SHORT )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Short.class, idMethod );
+      }
+      else if ( kind == TypeKind.INT )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Integer.class, idMethod );
+      }
+      else if ( kind == TypeKind.LONG )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Long.class, idMethod );
+      }
+      else if ( kind == TypeKind.FLOAT )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Float.class, idMethod );
+      }
+      else if ( kind == TypeKind.DOUBLE )
+      {
+        method.addStatement( "return $T.hashCode( $N() )", Double.class, idMethod );
+      }
+      else
+      {
+        // So very unlikely but will cover it for completeness
+        assert kind == TypeKind.BOOLEAN;
+        method.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
+      }
+    }
+    else
+    {
+      final CodeBlock.Builder guardBlock = CodeBlock.builder();
+      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", AREZ_CLASSNAME );
+      if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+      {
+        guardBlock.addStatement( "return null != $N() ? $N().hashCode() : $T.identityHashCode( this )",
+                                 idMethod,
+                                 idMethod,
+                                 System.class );
+      }
+      else if ( kind == TypeKind.BYTE )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Byte.class, idMethod );
+      }
+      else if ( kind == TypeKind.CHAR )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Character.class, idMethod );
+      }
+      else if ( kind == TypeKind.SHORT )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Short.class, idMethod );
+      }
+      else if ( kind == TypeKind.INT )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Integer.class, idMethod );
+      }
+      else if ( kind == TypeKind.LONG )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Long.class, idMethod );
+      }
+      else if ( kind == TypeKind.FLOAT )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Float.class, idMethod );
+      }
+      else if ( kind == TypeKind.DOUBLE )
+      {
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Double.class, idMethod );
+      }
+      else
+      {
+        // So very unlikely but will cover it for completeness
+        assert kind == TypeKind.BOOLEAN;
+        guardBlock.addStatement( "return $T.hashCode( $N() )", Boolean.class, idMethod );
+      }
+      guardBlock.nextControlFlow( "else" );
+      if ( component.isClassType() )
+      {
+        guardBlock.addStatement( "return super.hashCode()" );
+      }
+      else
+      {
+        guardBlock.addStatement( "return $T.super.hashCode()", component.getClassName() );
+      }
+      guardBlock.endControlFlow();
+      method.addCode( guardBlock.build() );
+    }
+
+    return method.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildLocatorRefMethod( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    final String methodName = LOCATOR_METHOD_NAME;
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
+      addModifiers( Modifier.FINAL ).
+      returns( LOCATOR_CLASSNAME );
+
+    generateNotInitializedInvariant( component, method, methodName );
+
+    method.addStatement( "return this.$N.getContext().locator()", KERNEL_FIELD_NAME );
+    return method.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildComponentRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                     @Nonnull final ComponentDescriptor component,
+                                                     @Nonnull final ExecutableElement componentRef )
+    throws ProcessorException
+  {
+    final MethodSpec.Builder method = GeneratorUtil.refMethod( processingEnv, component.getElement(), componentRef );
+
+    final String methodName = componentRef.getSimpleName().toString();
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+    generateNotCompleteInvariant( method, methodName );
+    generateNotDisposedInvariant( method, methodName );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.invariant( () -> $T.areNativeComponentsEnabled(), () -> \"Invoked @ComponentRef " +
+                        "method '$N' but Arez.areNativeComponentsEnabled() returned false.\" )",
+                        GUARDS_CLASSNAME,
+                        AREZ_CLASSNAME,
+                        methodName );
+    block.endControlFlow();
+
+    method.addCode( block.build() );
+
+    method.addStatement( "return this.$N.getComponent()", KERNEL_FIELD_NAME );
+    return method.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildArezIdMethod( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    return MethodSpec.methodBuilder( "getArezId" ).
+      addAnnotation( Override.class ).
+      addAnnotation( Generator.NONNULL_CLASSNAME ).
+      addModifiers( Modifier.PUBLIC ).
+      addModifiers( Modifier.FINAL ).
+      returns( component.getIdType().box() ).
+      addStatement( "return $N()", component.getIdMethodName() ).build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildComponentIdMethod( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    assert null == component.getComponentId();
+
+    return MethodSpec
+      .methodBuilder( ID_FIELD_NAME )
+      .addModifiers( Modifier.FINAL )
+      .returns( DEFAULT_ID_TYPE )
+      .addStatement( "return this.$N.getId()", KERNEL_FIELD_NAME )
+      .build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildVerify( @Nonnull final ComponentDescriptor component )
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "verify" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    generateNotDisposedInvariant( builder, "verify" );
+
+    if ( !component.getReferences().isEmpty() || !component.getInverses().isEmpty() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() && $T.isVerifyEnabled() )",
+                              AREZ_CLASSNAME,
+                              AREZ_CLASSNAME );
+
+      block.addStatement( "$T.apiInvariant( () -> this == $N().findById( $T.class, $N() ), () -> \"Attempted to " +
+                          "lookup self in Locator with type $T and id '\" + $N() + \"' but unable to locate " +
+                          "self. Actual value: \" + $N().findById( $T.class, $N() ) )",
+                          GUARDS_CLASSNAME,
+                          LOCATOR_METHOD_NAME,
+                          component.getElement(),
+                          component.getIdMethodName(),
+                          component.getElement(),
+                          component.getIdMethodName(),
+                          LOCATOR_METHOD_NAME,
+                          component.getElement(),
+                          component.getIdMethodName() );
+      for ( final ReferenceDescriptor reference : component.getReferences().values() )
+      {
+        buildReferenceVerify( reference, block );
+      }
+
+      for ( final InverseDescriptor inverse : component.getInverses().values() )
+      {
+        buildInverseVerify( inverse, block );
+      }
+
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildLink( @Nonnull final ComponentDescriptor component )
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "link" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    generateNotDisposedInvariant( builder, "link" );
+
+    final List<ReferenceDescriptor> explicitReferences =
+      component.getReferences().values()
+        .stream()
+        .filter( r -> r.getLinkType().equals( "EXPLICIT" ) )
+        .collect( Collectors.toList() );
+    for ( final ReferenceDescriptor reference : explicitReferences )
+    {
+      builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+    }
+    return builder.build();
+  }
+
+  /**
+   * Generate the dispose method.
+   */
+  @Nonnull
+  private static MethodSpec buildDispose()
+    throws ProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "dispose" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class );
+
+    builder.addStatement( "this.$N.dispose()", KERNEL_FIELD_NAME );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildInternalDispose( @Nonnull final ComponentDescriptor componentDescriptor )
+    throws ProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( INTERNAL_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    componentDescriptor.getObserves().values().forEach( observe -> buildObserveDisposer( observe,
+                                                                                         builder ) );
+    componentDescriptor.getMemoizes().values().forEach( memoize -> buildMemoizeDisposer( memoize,
+                                                                                         builder ) );
+    componentDescriptor.getObservables().values().forEach( observable -> buildObservableDisposer( observable,
+                                                                                                  builder ) );
+
+    return builder.build();
+  }
+
+  private static boolean hasInternalPreDispose( @Nonnull final ComponentDescriptor component )
+  {
+    return component.getPreDisposes().size() > 1 ||
+           !component.getInverses().isEmpty() ||
+           !component.getCascadeDisposes().isEmpty() ||
+           ( component.isDisposeNotifier() && !component.getDependencies().isEmpty() ) ||
+           component.getReferences().values().stream().anyMatch( ReferenceDescriptor::hasInverse );
+  }
+
+  /**
+   * Generate the isDisposed method.
+   */
+  @Nonnull
+  private static MethodSpec buildIsDisposed()
+    throws ProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "isDisposed" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        returns( TypeName.BOOLEAN );
+
+    builder.addStatement( "return this.$N.isDisposed()", KERNEL_FIELD_NAME );
+    return builder.build();
+  }
+
+  /**
+   * Generate the observe method.
+   */
+  @Nonnull
+  private static MethodSpec buildObserve()
+    throws ProcessorException
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( "observe" ).
+        addModifiers( Modifier.PUBLIC ).
+        addAnnotation( Override.class ).
+        returns( TypeName.BOOLEAN );
+    builder.addStatement( "return this.$N.observe()", KERNEL_FIELD_NAME );
+    return builder.build();
+  }
+
+  /**
+   * Generate the preDispose method only used when native components are enabled.
+   */
+  @Nonnull
+  private static MethodSpec buildNativeComponentPreDispose( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    assert component.isDisposeNotifier();
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    if ( hasInternalPreDispose( component ) )
+    {
+      builder.addStatement( "this.$N()", INTERNAL_PRE_DISPOSE_METHOD_NAME );
+    }
+    else
+    {
+      final List<ExecutableElement> preDisposes = new ArrayList<>( component.getPreDisposes() );
+      Collections.reverse( preDisposes );
+      for ( final ExecutableElement preDispose : preDisposes )
+      {
+        if ( component.isClassType() )
+        {
+          builder.addStatement( "super.$N()", preDispose.getSimpleName() );
+        }
+        else
+        {
+          builder.addStatement( "$T.super.$N()", component.getClassName(), preDispose.getSimpleName() );
+        }
+      }
+    }
+    builder.addStatement( "this.$N.notifyOnDisposeListeners()", KERNEL_FIELD_NAME );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the preDispose method.
+   */
+  @Nonnull
+  private static MethodSpec buildInternalPreDispose( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    assert hasInternalPreDispose( component );
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( INTERNAL_PRE_DISPOSE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    final List<ExecutableElement> preDisposes = new ArrayList<>( component.getPreDisposes() );
+    Collections.reverse( preDisposes );
+    for ( final ExecutableElement preDispose : preDisposes )
+    {
+      if ( component.isClassType() )
+      {
+        builder.addStatement( "super.$N()", preDispose.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.super.$N()", component.getClassName(), preDispose.getSimpleName() );
+      }
+    }
+    component.getCascadeDisposes().values().forEach( r -> buildCascadeDisposeDisposer( r, builder ) );
+    component.getReferences().values().forEach( r -> buildReferenceDisposer( r, builder ) );
+    component.getInverses().values().forEach( r -> buildInverseDisposer( r, builder ) );
+    if ( component.isDisposeNotifier() )
+    {
+      for ( final DependencyDescriptor dependency : component.getDependencies().values() )
+      {
+        final Element element = dependency.getElement();
+
+        if ( dependency.isMethodDependency() )
+        {
+          final ExecutableElement method = dependency.getMethod();
+          final String methodName = method.getSimpleName().toString();
+          if ( ProcessorUtil.hasNonnullAnnotation( element ) )
+          {
+            builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this )",
+                                  DISPOSE_TRACKABLE_CLASSNAME,
+                                  methodName );
+          }
+          else
+          {
+            final String varName = VARIABLE_PREFIX + methodName + "_dependency";
+            final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+            if ( abstractObservables )
+            {
+              builder.addStatement( "final $T $N = this.$N",
+                                    method.getReturnType(),
+                                    varName,
+                                    dependency.getObservable().getDataFieldName() );
+            }
+            else
+            {
+              if ( component.isClassType() )
+              {
+                builder.addStatement( "final $T $N = super.$N()", method.getReturnType(), varName, methodName );
+              }
+              else
+              {
+                builder.addStatement( "final $T $N = $T.super.$N()",
+                                      method.getReturnType(),
+                                      varName,
+                                      component.getClassName(),
+                                      methodName );
+              }
+            }
+            final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+            listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+                                        DISPOSE_TRACKABLE_CLASSNAME,
+                                        varName );
+            listenerBlock.endControlFlow();
+            builder.addCode( listenerBlock.build() );
+          }
+        }
+        else
+        {
+          final VariableElement field = dependency.getField();
+          final String fieldName = field.getSimpleName().toString();
+          if ( ProcessorUtil.hasNonnullAnnotation( element ) )
+          {
+            builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
+                                  DISPOSE_TRACKABLE_CLASSNAME,
+                                  fieldName );
+          }
+          else
+          {
+            final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+            listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
+            listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
+                                        DISPOSE_TRACKABLE_CLASSNAME,
+                                        fieldName );
+            listenerBlock.endControlFlow();
+            builder.addCode( listenerBlock.build() );
+          }
+        }
+      }
+    }
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildInternalPostDispose( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    assert component.hasInternalPostDispose();
+    final MethodSpec.Builder builder =
+      MethodSpec
+        .methodBuilder( INTERNAL_POST_DISPOSE_METHOD_NAME )
+        .addModifiers( Modifier.PRIVATE );
+
+    final List<ExecutableElement> postDisposes = new ArrayList<>( component.getPostDisposes() );
+    Collections.reverse( postDisposes );
+    for ( final ExecutableElement postDispose : postDisposes )
+    {
+      if ( component.isClassType() )
+      {
+        builder.addStatement( "super.$N()", postDispose.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "$T.super.$N()", component.getClassName(), postDispose.getSimpleName() );
+      }
+    }
+    return builder.build();
+  }
+
+  /**
+   * Generate the addOnDisposeListener method.
+   */
+  @Nonnull
+  private static MethodSpec buildAddOnDisposeListener()
+    throws ProcessorException
+  {
+    return MethodSpec.methodBuilder( "addOnDisposeListener" ).
+      addModifiers( Modifier.PUBLIC ).
+      addAnnotation( Override.class ).
+      addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .build() ).
+      addParameter( ParameterSpec.builder( SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "this.$N.addOnDisposeListener( key, action )", KERNEL_FIELD_NAME ).build();
+  }
+
+  /**
+   * Generate the removeOnDisposeListener method.
+   */
+  @Nonnull
+  private static MethodSpec buildRemoveOnDisposeListener()
+    throws ProcessorException
+  {
+    return MethodSpec.methodBuilder( "removeOnDisposeListener" ).
+      addModifiers( Modifier.PUBLIC ).
+      addAnnotation( Override.class ).
+      addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
+                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .build() ).
+      addStatement( "this.$N.removeOnDisposeListener( key )", KERNEL_FIELD_NAME ).build();
+  }
+
+  private static void buildComponentKernel( @Nonnull final ProcessingEnvironment processingEnv,
+                                            @Nonnull final ComponentDescriptor component,
+                                            @Nonnull final MethodSpec.Builder builder )
+  {
+    buildContextVar( builder );
+    buildSyntheticIdVarIfRequired( processingEnv, component, builder );
+    buildNameVar( component, builder );
+    buildNativeComponentVar( component, builder );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+
+    sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $T.areNamesEnabled() ? $N : null, " );
+    params.add( KERNEL_FIELD_NAME );
+    params.add( KERNEL_CLASSNAME );
+    params.add( AREZ_CLASSNAME );
+    params.add( CONTEXT_VAR_NAME );
+    params.add( AREZ_CLASSNAME );
+    params.add( NAME_VAR_NAME );
+    if ( null == component.getComponentId() )
+    {
+      sb.append( "$N, " );
+      params.add( ID_VAR_NAME );
+    }
+    else
+    {
+      sb.append( "0, " );
+    }
+    sb.append( "$T.areNativeComponentsEnabled() ? $N : null, " );
+    params.add( AREZ_CLASSNAME );
+    params.add( COMPONENT_VAR_NAME );
+
+    if ( hasInternalPreDispose( component ) )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( AREZ_CLASSNAME );
+      params.add( INTERNAL_PRE_DISPOSE_METHOD_NAME );
+    }
+    else if ( !component.getPreDisposes().isEmpty() )
+    {
+      if ( component.isClassType() )
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+        params.add( AREZ_CLASSNAME );
+        params.add( component.getPreDisposes().get( 0 ).getSimpleName() );
+      }
+      else
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> $T.super.$N(), " );
+        params.add( AREZ_CLASSNAME );
+        params.add( component.getClassName() );
+        params.add( component.getPreDisposes().get( 0 ).getSimpleName() );
+      }
+    }
+    else
+    {
+      sb.append( "null, " );
+    }
+    if ( component.needsInternalDispose() )
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( AREZ_CLASSNAME );
+      params.add( INTERNAL_DISPOSE_METHOD_NAME );
+    }
+    else
+    {
+      sb.append( "null, " );
+    }
+
+    if ( component.getPostDisposes().isEmpty() )
+    {
+      sb.append( "null, " );
+    }
+    else if ( 1 == component.getPostDisposes().size() )
+    {
+      if ( component.isClassType() )
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> super.$N(), " );
+        params.add( AREZ_CLASSNAME );
+        params.add( component.getPostDisposes().get( 0 ).getSimpleName() );
+      }
+      else
+      {
+        sb.append( "$T.areNativeComponentsEnabled() ? null : () -> $T.super.$N(), " );
+        params.add( AREZ_CLASSNAME );
+        params.add( component.getClassName() );
+        params.add( component.getPostDisposes().get( 0 ).getSimpleName() );
+      }
+    }
+    else
+    {
+      sb.append( "$T.areNativeComponentsEnabled() ? null : this::$N, " );
+      params.add( AREZ_CLASSNAME );
+      params.add( INTERNAL_POST_DISPOSE_METHOD_NAME );
+    }
+
+    sb.append( component.isDisposeNotifier() );
+    sb.append( ", " );
+    sb.append( component.isObservable() );
+    sb.append( ", " );
+    sb.append( component.isDisposeOnDeactivate() );
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), params.toArray() );
+  }
+
+  private static void buildContextVar( @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement( "final $T $N = $T.context()",
+                          AREZ_CONTEXT_CLASSNAME,
+                          CONTEXT_VAR_NAME,
+                          AREZ_CLASSNAME );
+  }
+
+  private static void buildNameVar( @Nonnull final ComponentDescriptor component,
+                                    @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S + $N : null",
+                          NAME_VAR_NAME,
+                          AREZ_CLASSNAME,
+                          component.getType() + ".",
+                          ID_VAR_NAME );
+  }
+
+  private static void buildSyntheticIdVarIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                     @Nonnull final ComponentDescriptor component,
+                                                     @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( null == component.getComponentId() )
+    {
+      if ( component.isIdRequired() )
+      {
+        builder.addStatement( "final int $N = ++$N", ID_VAR_NAME, NEXT_ID_FIELD_NAME );
+      }
+      else
+      {
+        builder.addStatement( "final int $N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || " +
+                              "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
+                              ID_VAR_NAME,
+                              AREZ_CLASSNAME,
+                              AREZ_CLASSNAME,
+                              AREZ_CLASSNAME,
+                              NEXT_ID_FIELD_NAME );
+      }
+    }
+    else
+    {
+      final ExecutableType methodType =
+        (ExecutableType) processingEnv.getTypeUtils().asMemberOf( (DeclaredType) component.getElement().asType(),
+                                                                  component.getComponentId() );
+      builder.addStatement( "final $T $N = $N()",
+                            methodType.getReturnType(),
+                            ID_VAR_NAME,
+                            component.getComponentId().getSimpleName() );
+    }
+  }
+
+  private static void buildNativeComponentVar( @Nonnull final ComponentDescriptor component,
+                                               @Nonnull final MethodSpec.Builder builder )
+  {
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+    sb.append( "final $T $N = $T.areNativeComponentsEnabled() ? $N.component( $S, $N, $N" );
+    params.add( COMPONENT_CLASSNAME );
+    params.add( COMPONENT_VAR_NAME );
+    params.add( AREZ_CLASSNAME );
+    params.add( CONTEXT_VAR_NAME );
+    params.add( component.getType() );
+    params.add( ID_VAR_NAME );
+    params.add( NAME_VAR_NAME );
+    if ( component.isDisposeNotifier() ||
+         !component.getPreDisposes().isEmpty() ||
+         !component.getPostDisposes().isEmpty() )
+    {
+      sb.append( ", " );
+      if ( component.isDisposeNotifier() || component.getPreDisposes().size() > 1 )
+      {
+        sb.append( "() -> $N()" );
+        params.add( INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
+      }
+      else if ( 1 == component.getPreDisposes().size() )
+      {
+        if ( component.isClassType() )
+        {
+          sb.append( "() -> super.$N()" );
+          params.add( component.getPreDisposes().get( 0 ).getSimpleName().toString() );
+        }
+        else
+        {
+          sb.append( "() -> $T.super.$N()" );
+          params.add( component.getClassName() );
+          params.add( component.getPreDisposes().get( 0 ).getSimpleName().toString() );
+        }
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      if ( component.getPostDisposes().size() > 1 )
+      {
+        sb.append( ",  this::$N" );
+        params.add( INTERNAL_POST_DISPOSE_METHOD_NAME );
+      }
+      else if ( 1 == component.getPostDisposes().size() )
+      {
+        if ( component.isClassType() )
+        {
+          sb.append( ",  () -> super.$N()" );
+          params.add( component.getPostDisposes().get( 0 ).getSimpleName().toString() );
+        }
+        else
+        {
+          sb.append( ",  () -> $T.super.$N()" );
+          params.add( component.getClassName() );
+          params.add( component.getPostDisposes().get( 0 ).getSimpleName().toString() );
+        }
+      }
+    }
+    sb.append( " ) : null" );
+    builder.addStatement( sb.toString(), params.toArray() );
+  }
+
+  /**
+   * Build all constructors as they appear on the ArezComponent class.
+   * Arez Observable fields are populated as required and parameters are passed up to superclass.
+   */
+  private static void buildConstructors( @Nonnull final ProcessingEnvironment processingEnv,
+                                         @Nonnull final ComponentDescriptor component,
+                                         @Nonnull final TypeSpec.Builder builder )
+  {
+    final boolean requiresDeprecatedSuppress = component.hasDeprecatedElements();
+    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( component.getElement() ) )
+    {
+      final ExecutableType methodType =
+        (ExecutableType) processingEnv.getTypeUtils()
+          .asMemberOf( (DeclaredType) component.getElement().asType(), constructor );
+      builder.addMethod( buildConstructor( processingEnv,
+                                           component,
+                                           constructor,
+                                           methodType,
+                                           requiresDeprecatedSuppress ) );
+    }
+  }
+
+  /**
+   * Build a constructor based on the supplied constructor
+   */
+  @Nonnull
+  private static MethodSpec buildConstructor( @Nonnull final ProcessingEnvironment processingEnv,
+                                              @Nonnull final ComponentDescriptor component,
+                                              @Nullable final ExecutableElement constructor,
+                                              @Nullable final ExecutableType constructorType,
+                                              final boolean requiresDeprecatedSuppress )
+  {
+    final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
+    if ( component.isInjectFactory() )
+    {
+      // The constructor is as the factory is responsible for creating component.
+      builder.addModifiers( Modifier.PRIVATE );
+    }
+    else if ( null != constructor &&
+              constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+              component.getElement().getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      /*
+       * The constructor MUST be public if annotated class is public as that implies that we expect
+       * that code outside the package may construct the component.
+       */
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    if ( null != constructorType )
+    {
+      GeneratorUtil.copyExceptions( constructorType, builder );
+      GeneratorUtil.copyTypeParameters( constructorType, builder );
+    }
+    if ( null != constructor )
+    {
+      copyWhitelistedAnnotations( constructor, builder );
+    }
+    if ( requiresDeprecatedSuppress &&
+         !AnnotationsUtil.hasAnnotationOfType( component.getElement(), SuppressWarnings.class.getName() ) )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "deprecation" )
+                               .build() );
+    }
+
+    if ( InjectMode.NONE != component.getInjectMode() && !component.isInjectFactory() )
+    {
+      builder.addAnnotation( INJECT_CLASSNAME );
+    }
+
+    final List<ObservableDescriptor> initializers = component.getInitializers();
+
+    final StringBuilder superCall = new StringBuilder();
+    superCall.append( "super(" );
+    final ArrayList<String> parameterNames = new ArrayList<>();
+
+    boolean firstParam = true;
+    if ( null != constructor )
+    {
+      for ( final VariableElement element : constructor.getParameters() )
+      {
+        final ParameterSpec.Builder param =
+          ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
+        copyWhitelistedAnnotations( element, param );
+        builder.addParameter( param.build() );
+        parameterNames.add( element.getSimpleName().toString() );
+        if ( !firstParam )
+        {
+          superCall.append( "," );
+        }
+        firstParam = false;
+        superCall.append( "$N" );
+      }
+    }
+
+    superCall.append( ")" );
+    builder.addStatement( superCall.toString(), parameterNames.toArray() );
+
+    if ( !component.getReferences().isEmpty() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      block.addStatement( "$T.apiInvariant( () -> $T.areReferencesEnabled(), () -> \"Attempted to create instance " +
+                          "of component of type '$N' that contains references but Arez.areReferencesEnabled() " +
+                          "returns false. References need to be enabled to use this component\" )",
+                          GUARDS_CLASSNAME,
+                          AREZ_CLASSNAME,
+                          component.getType() );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+
+    buildComponentKernel( processingEnv, component, builder );
+
+    for ( final ObservableDescriptor observable : initializers )
+    {
+      final String candidateName = observable.getName();
+      final String name =
+        null != constructor && ProcessorUtil.anyParametersNamed( constructor, candidateName ) ?
+        INITIALIZER_PREFIX + candidateName :
+        candidateName;
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
+                               name,
+                               Modifier.FINAL );
+      copyWhitelistedAnnotations( observable.getGetter(), param );
+      builder.addParameter( param.build() );
+      final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
+      if ( isPrimitive )
+      {
+        builder.addStatement( "this.$N = $N", observable.getDataFieldName(), name );
+      }
+      else if ( observable.isGetterNonnull() )
+      {
+        builder.addStatement( "this.$N = $T.requireNonNull( $N )",
+                              observable.getDataFieldName(),
+                              Objects.class,
+                              name );
+      }
+      else
+      {
+        builder.addStatement( "this.$N = $N", observable.getDataFieldName(), name );
+      }
+    }
+
+    component.getObservables().values().forEach( observable -> buildObservableInitializer( observable,
+                                                                                           builder ) );
+    component.getMemoizes().values().forEach( memoize -> buildMemoizeInitializer( memoize, builder ) );
+    component.getObserves().values().forEach( observe -> buildObserveInitializer( observe, builder ) );
+    component.getInverses().values().forEach( e -> buildInverseInitializer( e, builder ) );
+    component.getDependencies().values().forEach( e -> buildDependencyInitializer( e, builder ) );
+
+    builder.addStatement( "this.$N.componentConstructed()", KERNEL_FIELD_NAME );
+
+    final List<ReferenceDescriptor> eagerReferences =
+      component.getReferences()
+        .values()
+        .stream()
+        .filter( r -> r.getLinkType().equals( "EAGER" ) )
+        .collect( Collectors.toList() );
+    for ( final ReferenceDescriptor reference : eagerReferences )
+    {
+      builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+    }
+
+    if ( !component.getPostConstructs().isEmpty() )
+    {
+      for ( final ExecutableElement postConstruct : component.getPostConstructs() )
+      {
+        if ( component.isClassType() )
+        {
+          builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+        }
+        else
+        {
+          builder.addStatement( "$T.super.$N()", component.getClassName(), postConstruct.getSimpleName().toString() );
+        }
+      }
+    }
+
+    if ( !component.isDeferSchedule() && component.requiresSchedule() )
+    {
+      builder.addStatement( "this.$N.componentComplete()", KERNEL_FIELD_NAME );
+    }
+    else
+    {
+      builder.addStatement( "this.$N.componentReady()", KERNEL_FIELD_NAME );
+    }
+    return builder.build();
+  }
+
+  /**
+   * Build the fields required to make class Observable. This involves;
+   * <ul>
+   * <li>the context field if there is any @Action methods.</li>
+   * <li>the observable object for every @Observable.</li>
+   * <li>the ComputableValue object for every @Memoize method.</li>
+   * </ul>
+   */
+  private static void buildFields( @Nonnull final ComponentDescriptor component,
+                                   @Nonnull final TypeSpec.Builder builder )
+  {
+
+    final FieldSpec.Builder idField =
+      FieldSpec.builder( KERNEL_CLASSNAME,
+                         KERNEL_FIELD_NAME,
+                         Modifier.FINAL,
+                         Modifier.PRIVATE );
+    builder.addField( idField.build() );
+
+    // If we don't have a method for object id but we need one then synthesize it
+    if ( null == component.getComponentId() )
+    {
+      final FieldSpec.Builder nextIdField =
+        FieldSpec.builder( DEFAULT_ID_TYPE,
+                           NEXT_ID_FIELD_NAME,
+                           Modifier.VOLATILE,
+                           Modifier.STATIC,
+                           Modifier.PRIVATE );
+      builder.addField( nextIdField.build() );
+    }
+
+    component.getObservables().values().forEach( observable -> buildObservableFields( observable, builder ) );
+    component.getMemoizes().values().forEach( memoize -> buildMemoizeFields( memoize, builder ) );
+    component.getObserves().values().forEach( observe -> buildObserveFields( observe, builder ) );
+    component.getReferences().values().forEach( r -> buildReferenceFields( r, builder ) );
+  }
+
+  @Nonnull
+  private static MethodSpec buildEqualsMethod( @Nonnull final ComponentDescriptor component )
+    throws ProcessorException
+  {
+    final String idMethod = component.getIdMethodName();
+
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( "equals" ).
+        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addAnnotation( Override.class ).
+        addParameter( Object.class, "o", Modifier.FINAL ).
+        returns( TypeName.BOOLEAN );
+
+    final ClassName generatedClass = component.getEnhancedClassName();
+    final List<? extends TypeParameterElement> typeParameters = component.getElement().getTypeParameters();
+
+    if ( !typeParameters.isEmpty() )
+    {
+      method.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
+        addMember( "value", "$S", "unchecked" ).
+        build() );
+    }
+
+    final TypeName typeName =
+      typeParameters.isEmpty() ?
+      generatedClass :
+      ParameterizedTypeName.get( generatedClass,
+                                 typeParameters.stream().map( TypeVariableName::get ).toArray( TypeName[]::new ) );
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    codeBlock.beginControlFlow( "if ( o instanceof $T )", generatedClass );
+    codeBlock.addStatement( "final $T that = ($T) o", typeName, typeName );
+    /*
+     * If componentId is null then it is using synthetic id which is monotonically increasing and
+     * thus if the id matches then the instance match. As a result no need to check isDisposed as
+     * they will always match. Whereas if componentId is not null then the application controls the
+     * id and there maybe be multiple entities with the same id where one has been disposed. They
+     * should not match.
+     */
+    final String prefix = null != component.getComponentId() ? "isDisposed() == that.isDisposed() && " : "";
+    final TypeKind kind =
+      null != component.getComponentId() ? component.getComponentId().getReturnType().getKind() : DEFAULT_ID_KIND;
+    if ( kind == TypeKind.DECLARED || kind == TypeKind.TYPEVAR )
+    {
+      codeBlock.addStatement( "return " + prefix + "null != $N() && $N().equals( that.$N() )",
+                              idMethod,
+                              idMethod,
+                              idMethod );
+    }
+    else
+    {
+      codeBlock.addStatement( "return " + prefix + "$N() == that.$N()",
+                              idMethod,
+                              idMethod );
+    }
+    codeBlock.nextControlFlow( "else" );
+    codeBlock.addStatement( "return false" );
+    codeBlock.endControlFlow();
+
+    if ( component.isRequireEquals() )
+    {
+      method.addCode( codeBlock.build() );
+    }
+    else
+    {
+      final CodeBlock.Builder guardBlock = CodeBlock.builder();
+      guardBlock.beginControlFlow( "if ( $T.areNativeComponentsEnabled() )", AREZ_CLASSNAME );
+      guardBlock.add( codeBlock.build() );
+      guardBlock.nextControlFlow( "else" );
+      if ( component.isClassType() )
+      {
+        guardBlock.addStatement( "return super.equals( o )" );
+      }
+      else
+      {
+        guardBlock.addStatement( "return $T.super.equals( o )", component.getClassName() );
+      }
+      guardBlock.endControlFlow();
+      method.addCode( guardBlock.build() );
+    }
+    return method.build();
+  }
+
+  /**
+   * Build any fields required by
+   */
+  private static void buildObserveFields( @Nonnull final ObserveDescriptor observe,
+                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    final FieldSpec.Builder field =
+      FieldSpec.builder( OBSERVER_CLASSNAME, observe.getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
+        addAnnotation( Generator.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+  }
+
+  /**
+   * Setup initial state of observed in constructor.
+   */
+  private static void buildObserveInitializer( @Nonnull final ObserveDescriptor observe,
+                                               @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( observe.isInternalExecutor() )
+    {
+      buildObserverInitializer( observe, builder );
+    }
+    else
+    {
+      buildTrackerInitializer( observe, builder );
+    }
+  }
+
+  private static void buildObserverInitializer( @Nonnull final ObserveDescriptor observe,
+                                                @Nonnull final MethodSpec.Builder builder )
+  {
+    final ComponentDescriptor component = observe.getComponent();
+    final List<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, " );
+    parameters.add( observe.getFieldName() );
+    parameters.add( CONTEXT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( COMPONENT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( NAME_VAR_NAME );
+    parameters.add( "." + observe.getName() );
+    if ( component.isClassType() )
+    {
+      sb.append( "() -> super.$N(), " );
+      parameters.add( observe.getMethod().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "() -> $T.super.$N(), " );
+      parameters.add( component.getClassName() );
+      parameters.add( observe.getMethod().getSimpleName().toString() );
+    }
+    if ( observe.hasOnDepsChange() )
+    {
+      final ExecutableElement onDepsChange = observe.getOnDepsChange();
+      if ( !onDepsChange.getParameters().isEmpty() )
+      {
+        sb.append( "this::$N, " );
+        parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString() );
+      }
+      else if ( component.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( onDepsChange.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( component.getClassName() );
+        parameters.add( onDepsChange.getSimpleName().toString() );
+      }
+    }
+
+    appendFlags( observe, parameters, sb );
+
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private static void buildTrackerInitializer( @Nonnull final ObserveDescriptor observe,
+                                               @Nonnull final MethodSpec.Builder builder )
+  {
+    assert observe.hasOnDepsChange();
+    final ComponentDescriptor component = observe.getComponent();
+    final List<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "this.$N = $N.tracker( " +
+               "$T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, " );
+    parameters.add( observe.getFieldName() );
+    parameters.add( CONTEXT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( COMPONENT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( NAME_VAR_NAME );
+    parameters.add( "." + observe.getName() );
+
+    final ExecutableElement onDepsChange = observe.getOnDepsChange();
+    if ( !onDepsChange.getParameters().isEmpty() )
+    {
+      sb.append( "this::$N, " );
+      parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString() );
+    }
+    else if ( component.isClassType() )
+    {
+      sb.append( "() -> super.$N(), " );
+      parameters.add( onDepsChange.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "() -> $T.super.$N(), " );
+      parameters.add( component.getClassName() );
+      parameters.add( onDepsChange.getSimpleName().toString() );
+    }
+    appendFlags( observe, parameters, sb );
+
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private static void appendFlags( @Nonnull final ObserveDescriptor observe,
+                                   @Nonnull final List<Object> parameters,
+                                   @Nonnull final StringBuilder expression )
+  {
+    final List<String> flags = new ArrayList<>();
+    flags.add( "RUN_LATER" );
+
+    if ( observe.isObserveLowerPriorityDependencies() )
+    {
+      flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( !observe.isReportResult() )
+    {
+      flags.add( "NO_REPORT_RESULT" );
+    }
+    if ( observe.isNestedActionsAllowed() )
+    {
+      flags.add( "NESTED_ACTIONS_ALLOWED" );
+    }
+    else
+    {
+      flags.add( "NESTED_ACTIONS_DISALLOWED" );
+    }
+    switch ( observe.getDepType() )
+    {
+      case "AREZ":
+        flags.add( "AREZ_DEPENDENCIES" );
+        break;
+      case "AREZ_OR_NONE":
+        flags.add( "AREZ_OR_NO_DEPENDENCIES" );
+        break;
+      default:
+        flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
+        break;
+    }
+    if ( observe.isMutation() )
+    {
+      flags.add( "READ_WRITE" );
+    }
+    if ( Priority.NORMAL != observe.getPriority() )
+    {
+      flags.add( "PRIORITY_" + observe.getPriority().name() );
+    }
+
+    expression.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( OBSERVER_FLAGS_CLASSNAME );
+    }
+  }
+
+  private static void buildMemoizeDisposer( @Nonnull final MemoizeDescriptor memoize,
+                                            @Nonnull final MethodSpec.Builder codeBlock )
+  {
+    codeBlock.addStatement( "this.$N.dispose()", getMemoizeFieldName( memoize ) );
+  }
+
+  private static void buildMemoizeMethods( @Nonnull final ProcessingEnvironment processingEnv,
+                                           @Nonnull final MemoizeDescriptor memoize,
+                                           @Nonnull final TypeSpec.Builder builder )
+    throws ProcessorException
+  {
+    if ( memoize.getMethod().getParameters().isEmpty() )
+    {
+      builder.addMethod( buildMemoizeWithoutParams( memoize ) );
+      final ExecutableElement onActivate = memoize.getOnActivate();
+      if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) ||
+           isCollectionType( memoize.getMethod() ) )
+      {
+        builder.addMethod( buildOnActivateWrapperHook( memoize ) );
+      }
+
+      if ( isCollectionType( memoize.getMethod() ) )
+      {
+        builder.addMethod( buildOnDeactivateWrapperHook( memoize ) );
+        builder.addMethod( buildOnStaleWrapperHook( memoize ) );
+      }
+      for ( final CandidateMethod refMethod : memoize.getRefMethods() )
+      {
+        final MethodSpec.Builder method =
+          GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
+        generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
+        builder.addMethod( method
+                             .addStatement( "return $N", getMemoizeFieldName( memoize ) )
+                             .build() );
+      }
+    }
+    else
+    {
+      builder.addMethod( buildMemoizeWithParams( memoize ) );
+      for ( final CandidateMethod refMethod : memoize.getRefMethods() )
+      {
+        builder.addMethod( buildMemoizeWithParamsComputableValueRef( processingEnv, memoize, refMethod ) );
+      }
+    }
+  }
+
+  @Nonnull
+  private static MethodSpec buildOnActivateWrapperHook( @Nonnull final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName( memoize ) );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    if ( isCollectionType( memoize.getMethod() ) )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+      block.addStatement( "this.$N = true", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
+      block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+
+    final ExecutableElement onActivate = memoize.getOnActivate();
+    if ( null != onActivate )
+    {
+      if ( onActivate.getParameters().isEmpty() )
+      {
+        builder.addStatement( "$N()", onActivate.getSimpleName().toString() );
+      }
+      else
+      {
+        builder.addStatement( "$N( $N )", onActivate.getSimpleName().toString(), getMemoizeFieldName( memoize ) );
+      }
+    }
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildOnDeactivateWrapperHook( @Nonnull final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    assert isCollectionType( memoize.getMethod() );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName(
+      memoize ) );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+    block.addStatement( "this.$N = false", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
+    block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    final ExecutableElement onDeactivate = memoize.getOnDeactivate();
+    if ( null != onDeactivate )
+    {
+      builder.addStatement( "$N()", onDeactivate.getSimpleName().toString() );
+    }
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildOnStaleWrapperHook( @Nonnull final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    assert isCollectionType( memoize.getMethod() );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnStaleHookMethodName( memoize ) );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() && this.$N )",
+                            AREZ_CLASSNAME,
+                            getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
+    block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the wrapper around Memoize method.
+   */
+  @Nonnull
+  private static MethodSpec buildMemoizeWithoutParams( @Nonnull final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    final ExecutableElement method = memoize.getMethod();
+    final ExecutableType methodType = memoize.getMethodType();
+    final String methodName = method.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( method, builder );
+    GeneratorUtil.copyExceptions( methodType, builder );
+    GeneratorUtil.copyTypeParameters( methodType, builder );
+    copyWhitelistedAnnotations( method, builder );
+    builder.addAnnotation( Override.class );
+    final TypeName returnType = TypeName.get( methodType.getReturnType() );
+    builder.returns( returnType );
+    generateNotDisposedInvariant( builder, methodName );
+
+    if ( isCollectionType( memoize.getMethod() ) )
+    {
+      if ( ProcessorUtil.hasNonnullAnnotation( memoize.getMethod() ) )
+      {
+        final CodeBlock.Builder block = CodeBlock.builder();
+        block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+
+        final CodeBlock.Builder guard = CodeBlock.builder();
+        guard.beginControlFlow( "if ( null == this.$N )", getMemoizeCollectionCacheDataFieldName(
+          memoize ) );
+        guard.addStatement( "this.$N = $T.wrap( this.$N.get() )",
+                            getMemoizeCollectionCacheDataFieldName( memoize ),
+                            COLLECTIONS_UTIL_CLASSNAME,
+                            getMemoizeFieldName( memoize ) );
+        guard.nextControlFlow( "else" );
+        guard.add( "// Make sure that we are observing computable value\n" );
+        guard.addStatement( "this.$N.get()", getMemoizeFieldName( memoize ) );
+        guard.endControlFlow();
+        block.add( guard.build() );
+        block.addStatement( "return $N", getMemoizeCollectionCacheDataFieldName( memoize ) );
+
+        block.nextControlFlow( "else" );
+
+        block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
+        block.endControlFlow();
+
+        builder.addCode( block.build() );
+      }
+      else
+      {
+        final CodeBlock.Builder block = CodeBlock.builder();
+        block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+
+        final String result = "$$ar$$_result";
+        if ( returnType.isPrimitive() )
+        {
+          block.addStatement( "final $T $N = ($T) this.$N.get()",
+                              returnType,
+                              result,
+                              returnType.box(),
+                              getMemoizeFieldName( memoize ) );
+        }
+        else
+        {
+          block.addStatement( "final $T $N = this.$N.get()", returnType, result, getMemoizeFieldName( memoize ) );
+        }
+        final CodeBlock.Builder guard = CodeBlock.builder();
+        guard.beginControlFlow( "if ( null == this.$N && null != $N )",
+                                getMemoizeCollectionCacheDataFieldName( memoize ),
+                                result );
+        guard.addStatement( "this.$N = $T.wrap( $N )",
+                            getMemoizeCollectionCacheDataFieldName( memoize ),
+                            COLLECTIONS_UTIL_CLASSNAME,
+                            result );
+        guard.endControlFlow();
+        block.add( guard.build() );
+        block.addStatement( "return $N", getMemoizeCollectionCacheDataFieldName( memoize ) );
+
+        block.nextControlFlow( "else" );
+
+        block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
+        block.endControlFlow();
+
+        builder.addCode( block.build() );
+      }
+    }
+    else if ( method.getTypeParameters().isEmpty() )
+    {
+      builder.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
+    }
+    else
+    {
+      builder.addStatement( "return ($T) this.$N.get()", returnType.box(), getMemoizeFieldName( memoize ) );
+    }
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildMemoizeWithParamsComputableValueRef( @Nonnull final ProcessingEnvironment processingEnv,
+                                                                      @Nonnull final MemoizeDescriptor memoize,
+                                                                      @Nonnull final CandidateMethod refMethod )
+    throws ProcessorException
+  {
+    final MethodSpec.Builder method =
+      GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
+    generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
+
+    final List<? extends VariableElement> parameters = refMethod.getMethod().getParameters();
+    final int paramCount = parameters.size();
+    for ( int i = 0; i < paramCount; i++ )
+    {
+      final VariableElement element = parameters.get( i );
+      final TypeName parameterType = TypeName.get( refMethod.getMethodType().getParameterTypes().get( i ) );
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+      copyWhitelistedAnnotations( element, param );
+      method.addParameter( param.build() );
+    }
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+    sb.append( "return this.$N.getComputableValue( " );
+    params.add( getMemoizeFieldName( memoize ) );
+
+    boolean first = true;
+    for ( final VariableElement element : refMethod.getMethod().getParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N" );
+      params.add( element.getSimpleName().toString() );
+    }
+    sb.append( " )" );
+
+    method.addStatement( sb.toString(), params.toArray() );
+    return method.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildMemoizeWithParams( final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    final ExecutableElement method = memoize.getMethod();
+    final ExecutableType methodType = memoize.getMethodType();
+    final String methodName = method.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( method, builder );
+    GeneratorUtil.copyExceptions( methodType, builder );
+    GeneratorUtil.copyTypeParameters( methodType, builder );
+    copyWhitelistedAnnotations( method, builder );
+    builder.addAnnotation( Override.class );
+    final TypeName returnType = TypeName.get( methodType.getReturnType() );
+    builder.returns( returnType );
+
+    final boolean hasTypeParameters = !method.getTypeParameters().isEmpty();
+    if ( hasTypeParameters )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "unchecked" )
+                               .build() );
+    }
+
+    {
+      final List<? extends VariableElement> parameters = method.getParameters();
+      final int paramCount = parameters.size();
+      for ( int i = 0; i < paramCount; i++ )
+      {
+        final VariableElement element = parameters.get( i );
+        final TypeName parameterType = TypeName.get( methodType.getParameterTypes().get( i ) );
+        final ParameterSpec.Builder param =
+          ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+        copyWhitelistedAnnotations( element, param );
+        builder.addParameter( param.build() );
+      }
+    }
+
+    generateNotDisposedInvariant( builder, methodName );
+
+    final StringBuilder sb = new StringBuilder();
+    final ArrayList<Object> parameters = new ArrayList<>();
+    sb.append( "return " );
+    if ( hasTypeParameters )
+    {
+      sb.append( "($T) " );
+      parameters.add( returnType.box() );
+    }
+    sb.append( "this.$N.get( " );
+    parameters.add( getMemoizeFieldName( memoize ) );
+
+    boolean first = true;
+    for ( final VariableElement element : method.getParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N" );
+      parameters.add( element.getSimpleName().toString() );
+    }
+    sb.append( " )" );
+
+    builder.addStatement( sb.toString(), parameters.toArray() );
+
+    return builder.build();
+  }
+
+  private static void buildMemoizeFields( @Nonnull final MemoizeDescriptor memoize,
+                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    if ( memoize.getMethod().getParameters().isEmpty() )
+    {
+      buildMemoizeWithNoParametersFields( memoize, builder );
+    }
+    else
+    {
+      buildMemoizeWithParametersFields( memoize, builder );
+    }
+  }
+
+  private static void buildMemoizeWithNoParametersFields( @Nonnull final MemoizeDescriptor memoize,
+                                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    final ExecutableElement method = memoize.getMethod();
+    final ExecutableType methodType = memoize.getMethodType();
+    final TypeName parameterType =
+      method.getTypeParameters().isEmpty() ? TypeName.get( methodType.getReturnType() ).box() :
+      WildcardTypeName.subtypeOf( TypeName.OBJECT );
+    final ParameterizedTypeName typeName =
+      ParameterizedTypeName.get( COMPUTABLE_VALUE_CLASSNAME, parameterType );
+    final FieldSpec.Builder field =
+      FieldSpec.builder( typeName, getMemoizeFieldName( memoize ), Modifier.FINAL, Modifier.PRIVATE ).
+        addAnnotation( Generator.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+    if ( isCollectionType( memoize.getMethod() ) )
+    {
+      builder.addField( FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
+                                           OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName(),
+                                           Modifier.PRIVATE ).build() );
+      builder.addField( FieldSpec.builder( TypeName.BOOLEAN,
+                                           getMemoizeCollectionCacheDataActiveFieldName( memoize ),
+                                           Modifier.PRIVATE ).build() );
+    }
+  }
+
+  private static void buildMemoizeWithParametersFields( @Nonnull final MemoizeDescriptor memoize,
+                                                        @Nonnull final TypeSpec.Builder builder )
+  {
+    final TypeName parameterType =
+      memoize.getMethod().getTypeParameters().isEmpty() ?
+      TypeName.get( memoize.getMethodType().getReturnType() ).box() :
+      WildcardTypeName.subtypeOf( TypeName.OBJECT );
+    final ParameterizedTypeName typeName =
+      ParameterizedTypeName.get( MEMOIZE_CACHE_CLASSNAME, parameterType );
+    final FieldSpec.Builder field =
+      FieldSpec.builder( typeName,
+                         getMemoizeFieldName( memoize ),
+                         Modifier.FINAL,
+                         Modifier.PRIVATE ).
+        addAnnotation( Generator.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+  }
+
+  @Nonnull
+  private static String getMemoizeFieldName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return FIELD_PREFIX + memoize.getName();
+  }
+
+  private static void buildMemoizeInitializer( @Nonnull final MemoizeDescriptor memoize,
+                                               @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( memoize.getMethod().getParameters().isEmpty() )
+    {
+      buildMemoizeWithNoParameters( memoize, builder );
+    }
+    else
+    {
+      buildMemoizeWithParametersInitializer( memoize, builder );
+    }
+  }
+
+  private static void buildMemoizeWithNoParameters( @Nonnull final MemoizeDescriptor memoize,
+                                                    @Nonnull final MethodSpec.Builder builder )
+  {
+    final List<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+
+    final ComponentDescriptor component = memoize.getComponent();
+    final ExecutableElement method = memoize.getMethod();
+    if ( isCollectionType( memoize.getMethod() ) && !memoize.hasHooks() )
+    {
+      sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
+                 "$N.computable( " +
+                 "$T.areNativeComponentsEnabled() ? $N : null, " +
+                 "$T.areNamesEnabled() ? $N + $S : null, " );
+      parameters.add( getMemoizeFieldName( memoize ) );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( CONTEXT_VAR_NAME );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( COMPONENT_VAR_NAME );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( NAME_VAR_NAME );
+      parameters.add( "." + memoize.getName() );
+
+      if ( component.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( method.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( component.getClassName() );
+        parameters.add( method.getSimpleName().toString() );
+      }
+      appendInitializerSuffix( memoize, parameters, sb, true );
+
+      // Else part of ternary
+      sb.append( " : $N.computable( " +
+                 "$T.areNativeComponentsEnabled() ? $N : null, " +
+                 "$T.areNamesEnabled() ? $N + $S : null, " );
+      parameters.add( CONTEXT_VAR_NAME );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( COMPONENT_VAR_NAME );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( NAME_VAR_NAME );
+      parameters.add( "." + memoize.getName() );
+      if ( component.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( method.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( component.getClassName() );
+        parameters.add( method.getSimpleName().toString() );
+      }
+      appendInitializerSuffix( memoize, parameters, sb, false );
+    }
+    else // hasHooks()
+    {
+      sb.append( "this.$N = $N.computable( " +
+                 "$T.areNativeComponentsEnabled() ? $N : null, " +
+                 "$T.areNamesEnabled() ? $N + $S : null, " );
+      parameters.add( getMemoizeFieldName( memoize ) );
+      parameters.add( CONTEXT_VAR_NAME );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( COMPONENT_VAR_NAME );
+      parameters.add( AREZ_CLASSNAME );
+      parameters.add( NAME_VAR_NAME );
+      parameters.add( "." + memoize.getName() );
+
+      if ( component.isClassType() )
+      {
+        sb.append( "() -> super.$N(), " );
+        parameters.add( method.getSimpleName().toString() );
+      }
+      else
+      {
+        sb.append( "() -> $T.super.$N(), " );
+        parameters.add( component.getClassName() );
+        parameters.add( method.getSimpleName().toString() );
+      }
+      appendInitializerSuffix( memoize, parameters, sb, true );
+    }
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private static void buildMemoizeWithParametersInitializer( @Nonnull final MemoizeDescriptor memoize,
+                                                             @Nonnull final MethodSpec.Builder builder )
+  {
+    final List<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "this.$N = new $T<>( $T.areZonesEnabled() ? $N : null, " +
+               "$T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, " );
+    parameters.add( getMemoizeFieldName( memoize ) );
+    parameters.add( MEMOIZE_CACHE_CLASSNAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( CONTEXT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( COMPONENT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( NAME_VAR_NAME );
+    parameters.add( "." + memoize.getName() );
+
+    final ComponentDescriptor component = memoize.getComponent();
+    final ExecutableElement method = memoize.getMethod();
+    if ( component.isClassType() )
+    {
+      sb.append( "args -> super.$N(" );
+      parameters.add( method.getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "args -> $T.super.$N(" );
+      parameters.add( component.getClassName() );
+      parameters.add( method.getSimpleName().toString() );
+    }
+
+    int index = 0;
+    for ( final TypeMirror arg : memoize.getMethodType().getParameterTypes() )
+    {
+      if ( 0 != index )
+      {
+        sb.append( ", " );
+      }
+      if ( TypeName.get( arg ).equals( TypeName.OBJECT ) )
+      {
+        sb.append( "args[ " ).append( index ).append( " ]" );
+      }
+      else
+      {
+        sb.append( "($T) args[ " ).append( index ).append( " ]" );
+        parameters.add( arg );
+      }
+      index++;
+    }
+
+    sb.append( "), " );
+    sb.append( memoize.getMethod().getParameters().size() );
+    sb.append( ", " );
+
+    final List<String> flags = generateMemoizeFlags( memoize );
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( COMPUTABLE_VALUE_FLAGS_CLASSNAME );
+    }
+
+    sb.append( " )" );
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private static void appendInitializerSuffix( @Nonnull final MemoizeDescriptor memoize,
+                                               @Nonnull final List<Object> parameters,
+                                               @Nonnull final StringBuilder sb,
+                                               final boolean areCollectionsPropertiesUnmodifiable )
+  {
+    final boolean isCollectionType = isCollectionType( memoize.getMethod() );
+    if ( memoize.hasHooks() || ( isCollectionType && areCollectionsPropertiesUnmodifiable ) )
+    {
+      if ( isCollectionType )
+      {
+        sb.append( "this::$N" );
+        parameters.add( getOnActivateHookMethodName( memoize ) );
+      }
+      else
+      {
+        final ExecutableElement onActivate = memoize.getOnActivate();
+        if ( null != onActivate )
+        {
+          if ( onActivate.getParameters().isEmpty() )
+          {
+            sb.append( "this::$N" );
+            parameters.add( onActivate.getSimpleName().toString() );
+          }
+          else
+          {
+            sb.append( "this::$N" );
+            parameters.add( getOnActivateHookMethodName( memoize ) );
+          }
+        }
+        else
+        {
+          sb.append( "null" );
+        }
+      }
+      sb.append( ", " );
+
+      if ( isCollectionType )
+      {
+        sb.append( "this::$N" );
+        parameters.add( getOnDeactivateHookMethodName( memoize ) );
+      }
+      else
+      {
+        final ExecutableElement onDeactivate = memoize.getOnDeactivate();
+        if ( null != onDeactivate )
+        {
+          sb.append( "this::$N" );
+          parameters.add( onDeactivate.getSimpleName().toString() );
+        }
+        else
+        {
+          sb.append( "null" );
+        }
+      }
+      sb.append( ", " );
+
+      if ( isCollectionType )
+      {
+        sb.append( "this::$N" );
+        parameters.add( getOnStaleHookMethodName( memoize ) );
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+
+      sb.append( ", " );
+    }
+
+    final List<String> flags = generateMemoizeFlags( memoize );
+    flags.add( "RUN_LATER" );
+    if ( memoize.isKeepAlive() )
+    {
+      flags.add( "KEEPALIVE" );
+    }
+
+    sb.append( flags.stream().map( flag -> "$T." + flag ).collect( Collectors.joining( " | " ) ) );
+    for ( int i = 0; i < flags.size(); i++ )
+    {
+      parameters.add( COMPUTABLE_VALUE_FLAGS_CLASSNAME );
+    }
+
+    sb.append( " )" );
+  }
+
+  @Nonnull
+  private static List<String> generateMemoizeFlags( @Nonnull final MemoizeDescriptor memoize )
+  {
+    final List<String> flags = new ArrayList<>();
+    final Priority priority = memoize.getPriority();
+    if ( Priority.NORMAL != priority )
+    {
+      flags.add( "PRIORITY_" + priority.name() );
+    }
+
+    if ( !memoize.isReportResult() )
+    {
+      flags.add( "NO_REPORT_RESULT" );
+    }
+    if ( memoize.isObserveLowerPriorityDependencies() )
+    {
+      flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
+    }
+    if ( memoize.isReadOutsideTransaction() )
+    {
+      flags.add( "READ_OUTSIDE_TRANSACTION" );
+    }
+    switch ( memoize.getDepType() )
+    {
+      case "AREZ":
+        flags.add( "AREZ_DEPENDENCIES" );
+        break;
+      case "AREZ_OR_NONE":
+        flags.add( "AREZ_OR_NO_DEPENDENCIES" );
+        break;
+      default:
+        flags.add( "AREZ_OR_EXTERNAL_DEPENDENCIES" );
+        break;
+    }
+    return flags;
+  }
+
+  private static boolean isCollectionType( @Nonnull final ExecutableElement method )
+  {
+    return isMethodReturnType( method, Collection.class ) ||
+           isMethodReturnType( method, Set.class ) ||
+           isMethodReturnType( method, List.class ) ||
+           isMethodReturnType( method, Map.class );
+  }
+
+  static boolean isMethodReturnType( @Nonnull final ExecutableElement method, @Nonnull final Class<?> type )
+  {
+    final TypeMirror returnType = method.getReturnType();
+    final TypeKind kind = returnType.getKind();
+    if ( TypeKind.DECLARED != kind )
+    {
+      return false;
+    }
+    else
+    {
+      final DeclaredType declaredType = (DeclaredType) returnType;
+      final TypeElement element = (TypeElement) declaredType.asElement();
+      return element.getQualifiedName().toString().equals( type.getName() );
+    }
+  }
+
+  @Nonnull
+  private static String getOnActivateHookMethodName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return FRAMEWORK_PREFIX + "onActivate_" + memoize.getName();
+  }
+
+  @Nonnull
+  private static String getOnDeactivateHookMethodName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return FRAMEWORK_PREFIX + "onDeactivate_" + memoize.getName();
+  }
+
+  @Nonnull
+  private static String getOnStaleHookMethodName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return FRAMEWORK_PREFIX + "onStale_" + memoize.getName();
+  }
+
+  @Nonnull
+  private static String getMemoizeCollectionCacheDataActiveFieldName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache_active$$_" + memoize.getName();
+  }
+
+  @Nonnull
+  private static String getMemoizeCollectionCacheDataFieldName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName();
+  }
+
+  private static void buildObservableFields( @Nonnull final ObservableDescriptor observable,
+                                             @Nonnull final TypeSpec.Builder builder )
+  {
+    final ExecutableType getterType = observable.getGetterType();
+    final ParameterizedTypeName typeName =
+      ParameterizedTypeName.get( OBSERVABLE_CLASSNAME,
+                                 TypeName.get( getterType.getReturnType() ).box() );
+    final FieldSpec.Builder field =
+      FieldSpec.builder( typeName,
+                         observable.getFieldName(),
+                         Modifier.FINAL,
+                         Modifier.PRIVATE ).
+        addAnnotation( Generator.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+    if ( observable.isAbstract() )
+    {
+      final TypeName type = TypeName.get( getterType.getReturnType() );
+      final FieldSpec.Builder dataField =
+        FieldSpec.builder( type,
+                           observable.getDataFieldName(),
+                           Modifier.PRIVATE );
+      builder.addField( dataField.build() );
+    }
+    if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
+    {
+      final TypeName type = TypeName.get( getterType.getReturnType() );
+      final FieldSpec.Builder dataField =
+        FieldSpec.builder( type,
+                           observable.getCollectionCacheDataFieldName(),
+                           Modifier.PRIVATE );
+      builder.addField( dataField.build() );
+    }
+  }
+
+  private static void buildObservableInitializer( @Nonnull final ObservableDescriptor observable,
+                                                  @Nonnull final MethodSpec.Builder builder )
+  {
+    final List<Object> parameters = new ArrayList<>();
+    final StringBuilder sb = new StringBuilder();
+    sb.append( "this.$N = $N.observable( " +
+               "$T.areNativeComponentsEnabled() ? $N : null, " +
+               "$T.areNamesEnabled() ? $N + $S : null, " +
+               "$T.arePropertyIntrospectorsEnabled() ? () -> " );
+    parameters.add( observable.getFieldName() );
+    parameters.add( CONTEXT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( COMPONENT_VAR_NAME );
+    parameters.add( AREZ_CLASSNAME );
+    parameters.add( NAME_VAR_NAME );
+    parameters.add( "." + observable.getName() );
+    parameters.add( AREZ_CLASSNAME );
+
+    final boolean abstractObservables = observable.isAbstract();
+    if ( abstractObservables )
+    {
+      sb.append( "this.$N" );
+      parameters.add( observable.getDataFieldName() );
+    }
+    else
+    {
+      sb.append( "super.$N()" );
+      parameters.add( observable.getGetter().getSimpleName() );
+    }
+    sb.append( " : null" );
+
+    if ( observable.hasSetter() )
+    {
+      //setter
+      sb.append( ", $T.arePropertyIntrospectorsEnabled() ? v -> " );
+      parameters.add( AREZ_CLASSNAME );
+      if ( abstractObservables )
+      {
+        sb.append( "this.$N = v" );
+        parameters.add( observable.getDataFieldName() );
+      }
+      else
+      {
+        sb.append( "super.$N( v )" );
+        parameters.add( observable.getSetter().getSimpleName() );
+      }
+      sb.append( " : null" );
+    }
+    else
+    {
+      sb.append( ", null" );
+    }
+
+    sb.append( " )" );
+    builder.addStatement( sb.toString(), parameters.toArray() );
+  }
+
+  private static void buildObservableDisposer( @Nonnull final ObservableDescriptor observable,
+                                               @Nonnull final MethodSpec.Builder codeBlock )
+  {
+    codeBlock.addStatement( "this.$N.dispose()", observable.getFieldName() );
+  }
+
+  private static void buildObservableMethods( @Nonnull final ProcessingEnvironment processingEnv,
+                                              @Nonnull final ObservableDescriptor observable,
+                                              @Nonnull final TypeSpec.Builder builder )
+    throws ProcessorException
+  {
+    builder.addMethod( buildObservableGetter( observable ) );
+    if ( observable.expectSetter() )
+    {
+      builder.addMethod( buildObservableSetter( observable ) );
+      if ( observable.canWriteOutsideTransaction() )
+      {
+        builder.addMethod( buildObservableInternalSetter( observable ) );
+      }
+    }
+    for ( final CandidateMethod refMethod : observable.getRefMethods() )
+    {
+      final MethodSpec.Builder method =
+        GeneratorUtil.refMethod( processingEnv, observable.getComponent().getElement(), refMethod.getMethod() );
+
+      generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
+
+      builder.addMethod( method.addStatement( "return $N", observable.getFieldName() ).build() );
+    }
+  }
+
+  @Nonnull
+  private static MethodSpec buildObservableSetter( @Nonnull final ObservableDescriptor observable )
+    throws ProcessorException
+  {
+    final ExecutableElement setter = observable.getSetter();
+    final ExecutableType setterType = observable.getSetterType();
+    final String methodName = setter.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( setter, builder );
+    GeneratorUtil.copyExceptions( setterType, builder );
+    GeneratorUtil.copyTypeParameters( setterType, builder );
+    copyWhitelistedAnnotations( setter, builder );
+
+    builder.addAnnotation( Override.class );
+
+    if ( observable.canWriteOutsideTransaction() )
+    {
+      final VariableElement element = setter.getParameters().get( 0 );
+      final String paramName = element.getSimpleName().toString();
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( TypeName.get( setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
+      copyWhitelistedAnnotations( element, param );
+      builder.addParameter( param.build() );
+
+      if ( setterType.getThrownTypes().isEmpty() )
+      {
+        builder.addStatement( "this.$N.safeSetObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                              "() -> this.$N( $N ) )",
+                              KERNEL_FIELD_NAME,
+                              AREZ_CLASSNAME,
+                              KERNEL_FIELD_NAME,
+                              "." + methodName,
+                              FRAMEWORK_PREFIX + methodName,
+                              paramName );
+      }
+      else
+      {
+        //noinspection CodeBlock2Expr
+        generateTryBlock( builder, setterType.getThrownTypes(), b -> {
+          b.addStatement( "this.$N.setObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                          "() -> this.$N( $N ) )",
+                          KERNEL_FIELD_NAME,
+                          AREZ_CLASSNAME,
+                          KERNEL_FIELD_NAME,
+                          "." + methodName,
+                          FRAMEWORK_PREFIX + methodName,
+                          paramName );
+        } );
+      }
+    }
+    else
+    {
+      buildObservableSetterImpl( observable, builder );
+    }
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the internal setter.
+   */
+  @Nonnull
+  private static MethodSpec buildObservableInternalSetter( @Nonnull final ObservableDescriptor observable )
+    throws ProcessorException
+  {
+    final ExecutableElement setter = observable.getSetter();
+    final ExecutableType setterType = observable.getSetterType();
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( FRAMEWORK_PREFIX + setter.getSimpleName().toString() );
+    builder.addModifiers( Modifier.PRIVATE );
+    GeneratorUtil.copyExceptions( setterType, builder );
+    GeneratorUtil.copyTypeParameters( setterType, builder );
+    copyWhitelistedAnnotations( setter, builder );
+    buildObservableSetterImpl( observable, builder );
+
+    return builder.build();
+  }
+
+  private static void buildObservableSetterImpl( @Nonnull final ObservableDescriptor observable,
+                                                 @Nonnull final MethodSpec.Builder builder )
+  {
+    final ExecutableElement setter = observable.getSetter();
+    final ExecutableElement getter = observable.getGetter();
+    final String methodName = setter.getSimpleName().toString();
+
+    // If the getter is deprecated but the setter is not
+    // then we need to suppress deprecation warnings on setter
+    // as we invoked getter from within it to verify value is
+    // actually changed
+    if ( null == setter.getAnnotation( Deprecated.class ) && null != getter.getAnnotation( Deprecated.class ) )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
+                               .addMember( "value", "$S", "deprecation" )
+                               .build() );
+    }
+
+    final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
+    final VariableElement element = setter.getParameters().get( 0 );
+    final String paramName = element.getSimpleName().toString();
+    final TypeName type = TypeName.get( parameterType );
+    final ParameterSpec.Builder param =
+      ParameterSpec.builder( type, paramName, Modifier.FINAL );
+    copyWhitelistedAnnotations( element, param );
+    builder.addParameter( param.build() );
+    generateNotDisposedInvariant( builder, methodName );
+    builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
+
+    final String varName = VARIABLE_PREFIX + "currentValue";
+
+    final CodeBlock.Builder codeBlock = CodeBlock.builder();
+    final boolean abstractObservables = observable.isAbstract();
+    final ComponentDescriptor component = observable.getComponent();
+    if ( abstractObservables )
+    {
+      builder.addStatement( "final $T $N = this.$N", type, varName, observable.getDataFieldName() );
+    }
+    else
+    {
+      if ( component.isClassType() )
+      {
+        builder.addStatement( "final $T $N = super.$N()", type, varName, getter.getSimpleName() );
+      }
+      else
+      {
+        builder.addStatement( "final $T $N = $T.super.$N()",
+                              type,
+                              varName,
+                              component.getClassName(),
+                              getter.getSimpleName() );
+      }
+    }
+    if ( type.isPrimitive() )
+    {
+      codeBlock.beginControlFlow( "if ( $N != $N )", paramName, varName );
+    }
+    else
+    {
+      // We have a nonnull setter so lets enforce it
+      if ( observable.isSetterNonnull() )
+      {
+        builder.addStatement( "assert null != $N", paramName );
+      }
+      codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
+    }
+    if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+      block.addStatement( "this.$N = null", observable.getCollectionCacheDataFieldName() );
+      block.endControlFlow();
+
+      builder.addCode( block.build() );
+    }
+    if ( abstractObservables )
+    {
+      if ( null != observable.getDependencyDescriptor() )
+      {
+        if ( observable.isGetterNonnull() )
+        {
+          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+                                  DISPOSE_TRACKABLE_CLASSNAME,
+                                  varName );
+        }
+        else
+        {
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+                                      DISPOSE_TRACKABLE_CLASSNAME,
+                                      varName );
+          listenerBlock.endControlFlow();
+          codeBlock.add( listenerBlock.build() );
+        }
+      }
+      codeBlock.addStatement( "this.$N = $N", observable.getDataFieldName(), paramName );
+      if ( null != observable.getDependencyDescriptor() )
+      {
+        if ( observable.getDependencyDescriptor().shouldCascadeDispose() )
+        {
+          if ( observable.isGetterNonnull() )
+          {
+            codeBlock
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+                             DISPOSE_TRACKABLE_CLASSNAME,
+                             paramName );
+          }
+          else
+          {
+            final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+            listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
+            listenerBlock
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+                             DISPOSE_TRACKABLE_CLASSNAME,
+                             paramName );
+            listenerBlock.endControlFlow();
+            codeBlock.add( listenerBlock.build() );
+          }
+        }
+        else
+        {
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
+          listenerBlock
+            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+                           DISPOSE_TRACKABLE_CLASSNAME,
+                           paramName,
+                           setter.getSimpleName().toString() );
+          listenerBlock.endControlFlow();
+          codeBlock.add( listenerBlock.build() );
+        }
+      }
+    }
+    else
+    {
+      if ( null != observable.getDependencyDescriptor() )
+      {
+        if ( observable.isGetterNonnull() )
+        {
+          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+                                  DISPOSE_TRACKABLE_CLASSNAME,
+                                  varName );
+        }
+        else
+        {
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", varName );
+          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+                                      DISPOSE_TRACKABLE_CLASSNAME,
+                                      varName );
+          listenerBlock.endControlFlow();
+          codeBlock.add( listenerBlock.build() );
+        }
+      }
+      codeBlock.addStatement( "super.$N( $N )", setter.getSimpleName(), paramName );
+      if ( null != observable.getDependencyDescriptor() )
+      {
+        if ( observable.getDependencyDescriptor().shouldCascadeDispose() )
+        {
+          if ( observable.isGetterNonnull() )
+          {
+            codeBlock
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+                             DISPOSE_TRACKABLE_CLASSNAME,
+                             paramName );
+          }
+          else
+          {
+            final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+            listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
+            listenerBlock
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+                             DISPOSE_TRACKABLE_CLASSNAME,
+                             paramName );
+            listenerBlock.endControlFlow();
+            codeBlock.add( listenerBlock.build() );
+          }
+        }
+        else
+        {
+          final CodeBlock.Builder listenerBlock = CodeBlock.builder();
+          listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
+          listenerBlock
+            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+                           DISPOSE_TRACKABLE_CLASSNAME,
+                           paramName,
+                           setter.getSimpleName().toString() );
+          listenerBlock.endControlFlow();
+          codeBlock.add( listenerBlock.build() );
+        }
+      }
+    }
+    if ( observable.doesSetterAlwaysMutate() )
+    {
+      codeBlock.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
+    }
+    else
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      if ( type.isPrimitive() )
+      {
+        if ( component.isClassType() )
+        {
+          block.beginControlFlow( "if ( $N != super.$N() )", varName, getter.getSimpleName() );
+        }
+        else
+        {
+          block.beginControlFlow( "if ( $N != $T.super.$N() )",
+                                  varName,
+                                  component.getClassName(),
+                                  getter.getSimpleName() );
+        }
+      }
+      else
+      {
+        if ( component.isClassType() )
+        {
+          block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
+                                  Objects.class,
+                                  varName,
+                                  getter.getSimpleName() );
+        }
+        else
+        {
+          block.beginControlFlow( "if ( !$T.equals( $N, $T.super.$N() ) )",
+                                  Objects.class,
+                                  varName,
+                                  component.getClassName(),
+                                  getter.getSimpleName() );
+        }
+      }
+      block.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
+      block.endControlFlow();
+      codeBlock.add( block.build() );
+    }
+    if ( null != observable.getReferenceDescriptor() )
+    {
+      if ( observable.getReferenceDescriptor().hasInverse() )
+      {
+        codeBlock.addStatement( "this.$N()", observable.getReferenceDescriptor().getDelinkMethodName() );
+      }
+      if ( "EAGER".equals( observable.getReferenceDescriptor().getLinkType() ) )
+      {
+        codeBlock.addStatement( "this.$N()", observable.getReferenceDescriptor().getLinkMethodName() );
+      }
+      else
+      {
+        codeBlock.addStatement( "this.$N = null", observable.getReferenceDescriptor().getFieldName() );
+      }
+    }
+
+    codeBlock.endControlFlow();
+    builder.addCode( codeBlock.build() );
+  }
+
+  /**
+   * Generate the getter that ensures that the access is reported.
+   */
+  @Nonnull
+  private static MethodSpec buildObservableGetter( @Nonnull final ObservableDescriptor observable )
+    throws ProcessorException
+  {
+    final ExecutableElement getter = observable.getGetter();
+    final ExecutableType getterType = observable.getGetterType();
+    final String methodName = getter.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( getter, builder );
+    GeneratorUtil.copyExceptions( getterType, builder );
+    GeneratorUtil.copyTypeParameters( getterType, builder );
+    copyWhitelistedAnnotations( getter, builder );
+
+    builder.addAnnotation( Override.class );
+    builder.returns( TypeName.get( getterType.getReturnType() ) );
+    generateNotDisposedInvariant( builder, methodName );
+
+    if ( observable.canReadOutsideTransaction() )
+    {
+      builder.addStatement( "this.$N.reportObservedIfTrackingTransactionActive()", observable.getFieldName() );
+    }
+    else
+    {
+      builder.addStatement( "this.$N.reportObserved()", observable.getFieldName() );
+    }
+
+    if ( observable.isAbstract() )
+    {
+      if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
+      {
+        if ( observable.isGetterNonnull() )
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N )", observable.getCollectionCacheDataFieldName() );
+          guard.addStatement( "this.$N = $T.wrap( this.$N )",
+                              observable.getCollectionCacheDataFieldName(),
+                              COLLECTIONS_UTIL_CLASSNAME,
+                              observable.getDataFieldName() );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", observable.getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          block.addStatement( "return this.$N", observable.getDataFieldName() );
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+        else
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+
+          final String result = "$$ar$$_result";
+          block.addStatement( "final $T $N = this.$N",
+                              TypeName.get( observable.getGetterType().getReturnType() ),
+                              result,
+                              observable.getDataFieldName() );
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N && null != $N )",
+                                  observable.getCollectionCacheDataFieldName(),
+                                  result );
+          guard.addStatement( "this.$N = $T.wrap( $N )",
+                              observable.getCollectionCacheDataFieldName(),
+                              COLLECTIONS_UTIL_CLASSNAME,
+                              result );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", observable.getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          block.addStatement( "return this.$N", observable.getDataFieldName() );
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+      }
+      else
+      {
+        builder.addStatement( "return this.$N", observable.getDataFieldName() );
+      }
+    }
+    else
+    {
+      final ComponentDescriptor component = observable.getComponent();
+      if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
+      {
+        if ( observable.isGetterNonnull() )
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N )", observable.getCollectionCacheDataFieldName() );
+          if ( component.isClassType() )
+          {
+            guard.addStatement( "this.$N = $T.wrap( super.$N() )",
+                                observable.getCollectionCacheDataFieldName(),
+                                COLLECTIONS_UTIL_CLASSNAME,
+                                getter.getSimpleName() );
+          }
+          else
+          {
+            guard.addStatement( "this.$N = $T.wrap( $T.super.$N() )",
+                                observable.getCollectionCacheDataFieldName(),
+                                COLLECTIONS_UTIL_CLASSNAME,
+                                component.getClassName(),
+                                getter.getSimpleName() );
+          }
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", observable.getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+          if ( component.isClassType() )
+          {
+            block.addStatement( "return super.$N()", getter.getSimpleName() );
+          }
+          else
+          {
+            block.addStatement( "return $T.super.$N()", component.getClassName(), getter.getSimpleName() );
+          }
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+        else
+        {
+          final CodeBlock.Builder block = CodeBlock.builder();
+          block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+
+          final String result = "$$ar$$_result";
+          if ( component.isClassType() )
+          {
+            block.addStatement( "final $T $N = super.$N()",
+                                TypeName.get( observable.getGetterType().getReturnType() ),
+                                result,
+                                getter.getSimpleName() );
+          }
+          else
+          {
+            block.addStatement( "final $T $N = $T.super.$N()",
+                                TypeName.get( observable.getGetterType().getReturnType() ),
+                                result,
+                                component.getClassName(),
+                                getter.getSimpleName() );
+          }
+          final CodeBlock.Builder guard = CodeBlock.builder();
+          guard.beginControlFlow( "if ( null == this.$N && null != $N )",
+                                  observable.getCollectionCacheDataFieldName(),
+                                  result );
+          guard.addStatement( "this.$N = $T.wrap( $N )",
+                              observable.getCollectionCacheDataFieldName(),
+                              COLLECTIONS_UTIL_CLASSNAME,
+                              result );
+          guard.endControlFlow();
+          block.add( guard.build() );
+          block.addStatement( "return $N", observable.getCollectionCacheDataFieldName() );
+
+          block.nextControlFlow( "else" );
+
+          if ( component.isClassType() )
+          {
+            block.addStatement( "return super.$N()", getter.getSimpleName() );
+          }
+          else
+          {
+            block.addStatement( "return $T.super.$N()", component.getClassName(), getter.getSimpleName() );
+          }
+          block.endControlFlow();
+
+          builder.addCode( block.build() );
+        }
+      }
+      else
+      {
+        if ( component.isClassType() )
+        {
+          builder.addStatement( "return super.$N()", getter.getSimpleName() );
+        }
+        else
+        {
+          builder.addStatement( "return $T.super.$N()", component.getClassName(), getter.getSimpleName() );
+        }
+      }
+    }
+    return builder.build();
+  }
+
+  private static void buildComponentStateRefMethods( @Nonnull final ProcessingEnvironment processingEnv,
+                                                     @Nonnull final ComponentStateRefDescriptor componentStateRef,
+                                                     @Nonnull final TypeElement typeElement,
+                                                     @Nonnull final TypeSpec.Builder builder )
+    throws ProcessorException
+  {
+    final ComponentStateRefDescriptor.State state = componentStateRef.getState();
+    final String stateMethodName =
+      ComponentStateRefDescriptor.State.READY == state ? "isReady" :
+      ComponentStateRefDescriptor.State.CONSTRUCTED == state ? "isConstructed" :
+      ComponentStateRefDescriptor.State.COMPLETE == state ? "isComplete" :
+      "isDisposing";
+
+    builder.addMethod( GeneratorUtil
+                         .refMethod( processingEnv, typeElement, componentStateRef.getMethod() )
+                         .addStatement( "return this.$N.$N()", KERNEL_FIELD_NAME, stateMethodName )
+                         .build() );
+  }
+
+  @Nonnull
+  private static MethodSpec buildInverseAddMethod( @Nonnull final InverseDescriptor inverse )
+    throws ProcessorException
+  {
+    final ObservableDescriptor observable = inverse.getObservable();
+    final String methodName = getInverseAddMethodName( observable.getName() );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    final String otherName = inverse.getOtherName();
+    final ParameterSpec parameter =
+      ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL )
+        .addAnnotation( Generator.NONNULL_CLASSNAME )
+        .build();
+    builder.addParameter( parameter );
+    generateNotDisposedInvariant( builder, methodName );
+
+    builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.invariant( () -> !this.$N.contains( $N ), " +
+                        "() -> \"Attempted to add reference '$N' to inverse '$N' " +
+                        "but inverse already contained element. Inverse = \" + $N )",
+                        GUARDS_CLASSNAME,
+                        observable.getDataFieldName(),
+                        otherName,
+                        otherName,
+                        observable.getName(),
+                        observable.getFieldName() );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    builder.addStatement( "this.$N.add( $N )", observable.getDataFieldName(), otherName );
+    final CodeBlock.Builder clearCacheBlock = CodeBlock.builder();
+    clearCacheBlock.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )",
+                                      AREZ_CLASSNAME );
+    clearCacheBlock.addStatement( "this.$N = null", observable.getCollectionCacheDataFieldName() );
+    clearCacheBlock.endControlFlow();
+    builder.addCode( clearCacheBlock.build() );
+    builder.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildInverseRemoveMethod( @Nonnull final InverseDescriptor inverse )
+    throws ProcessorException
+  {
+    final ObservableDescriptor observable = inverse.getObservable();
+    final String methodName = getInverseRemoveMethodName( observable.getName() );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    final String otherName = inverse.getOtherName();
+    final ParameterSpec parameter =
+      ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL )
+        .addAnnotation( Generator.NONNULL_CLASSNAME )
+        .build();
+    builder.addParameter( parameter );
+    generateNotDisposedInvariant( builder, methodName );
+
+    builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.invariant( () -> this.$N.contains( $N ), " +
+                        "() -> \"Attempted to remove reference '$N' from inverse '$N' " +
+                        "but inverse does not contain element. Inverse = \" + $N )",
+                        GUARDS_CLASSNAME,
+                        observable.getDataFieldName(),
+                        otherName,
+                        otherName,
+                        observable.getName(),
+                        observable.getFieldName() );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+
+    builder.addStatement( "this.$N.remove( $N )", observable.getDataFieldName(), otherName );
+    final CodeBlock.Builder clearCacheBlock = CodeBlock.builder();
+    clearCacheBlock.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )",
+                                      AREZ_CLASSNAME );
+    clearCacheBlock.addStatement( "this.$N = null", observable.getCollectionCacheDataFieldName() );
+    clearCacheBlock.endControlFlow();
+    builder.addCode( clearCacheBlock.build() );
+    builder.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildInverseSetMethod( @Nonnull final InverseDescriptor inverse )
+    throws ProcessorException
+  {
+    final Multiplicity multiplicity = inverse.getMultiplicity();
+    final ObservableDescriptor observable = inverse.getObservable();
+    final String methodName =
+      Multiplicity.ONE == multiplicity ?
+      getInverseSetMethodName( observable.getName() ) :
+      getInverseZSetMethodName( observable.getName() );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    final String otherName = inverse.getOtherName();
+    final ParameterSpec.Builder parameter =
+      ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL );
+    if ( Multiplicity.ONE == multiplicity )
+    {
+      parameter.addAnnotation( Generator.NONNULL_CLASSNAME );
+    }
+    else
+    {
+      parameter.addAnnotation( Generator.NULLABLE_CLASSNAME );
+    }
+    builder.addParameter( parameter.build() );
+    generateNotDisposedInvariant( builder, methodName );
+
+    builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
+    builder.addStatement( "this.$N = $N", observable.getDataFieldName(), otherName );
+    builder.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildInverseUnsetMethod( @Nonnull final InverseDescriptor inverse )
+    throws ProcessorException
+  {
+    final ObservableDescriptor observable = inverse.getObservable();
+    final String methodName =
+      Multiplicity.ONE == inverse.getMultiplicity() ?
+      getInverseUnsetMethodName( observable.getName() ) :
+      getInverseZUnsetMethodName( observable.getName() );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    final String otherName = inverse.getOtherName();
+    final ParameterSpec parameter =
+      ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL )
+        .addAnnotation( Generator.NONNULL_CLASSNAME )
+        .build();
+    builder.addParameter( parameter );
+    generateNotDisposedInvariant( builder, methodName );
+
+    builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( this.$N == $N )", observable.getDataFieldName(), otherName );
+    block.addStatement( "this.$N = null", observable.getDataFieldName() );
+    block.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+
+    return builder.build();
+  }
+
+  private static void buildInverseVerify( @Nonnull final InverseDescriptor inverse,
+                                          @Nonnull final CodeBlock.Builder code )
+  {
+    if ( Multiplicity.MANY == inverse.getMultiplicity() )
+    {
+      buildInverseManyVerify( inverse, code );
+    }
+    else
+    {
+      buildInverseSingularVerify( inverse, code );
+    }
+  }
+
+  private static void buildInverseSingularVerify( @Nonnull final InverseDescriptor inverse,
+                                                  @Nonnull final CodeBlock.Builder code )
+  {
+    final CodeBlock.Builder builder = CodeBlock.builder();
+    builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    final ObservableDescriptor observable = inverse.getObservable();
+    builder.addStatement( "$T.apiInvariant( () -> $T.isNotDisposed( this.$N ), () -> \"Inverse relationship " +
+                          "named '$N' on component named '\" + this.$N.getName() + \"' contains disposed element " +
+                          "'\" + this.$N + \"'\" )",
+                          GUARDS_CLASSNAME,
+                          DISPOSABLE_CLASSNAME,
+                          observable.getDataFieldName(),
+                          observable.getName(),
+                          KERNEL_FIELD_NAME,
+                          observable.getDataFieldName() );
+    builder.endControlFlow();
+    code.add( builder.build() );
+  }
+
+  private static void buildInverseManyVerify( @Nonnull final InverseDescriptor inverse,
+                                              @Nonnull final CodeBlock.Builder code )
+  {
+    final CodeBlock.Builder builder = CodeBlock.builder();
+    final ObservableDescriptor observable = inverse.getObservable();
+    builder.beginControlFlow( "for( final $T element : this.$N )",
+                              inverse.getTargetType(),
+                              observable.getDataFieldName() );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> $T.isNotDisposed( element ), () -> \"Inverse relationship " +
+                        "named '$N' on component named '\" + this.$N.getName() + \"' contains disposed element " +
+                        "'\" + element + \"'\" )",
+                        GUARDS_CLASSNAME,
+                        DISPOSABLE_CLASSNAME,
+                        observable.getName(),
+                        KERNEL_FIELD_NAME );
+    block.endControlFlow();
+    builder.add( block.build() );
+
+    builder.endControlFlow();
+    code.add( builder.build() );
+  }
+
+  private static void buildInverseInitializer( @Nonnull final InverseDescriptor inverse,
+                                               @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( Multiplicity.MANY == inverse.getMultiplicity() )
+    {
+      final ObservableDescriptor observable = inverse.getObservable();
+      final ParameterizedTypeName typeName =
+        (ParameterizedTypeName) TypeName.get( observable.getGetter().getReturnType() );
+      final boolean isList = List.class.getName().equals( typeName.rawType.toString() );
+      builder.addStatement( "this.$N = new $T<>()",
+                            observable.getDataFieldName(),
+                            isList ? ArrayList.class : HashSet.class );
+      builder.addStatement( "this.$N = null", observable.getCollectionCacheDataFieldName() );
+    }
+  }
+
+  private static void buildInverseMethods( @Nonnull final InverseDescriptor inverse,
+                                           @Nonnull final TypeSpec.Builder builder )
+    throws ProcessorException
+  {
+    if ( Multiplicity.MANY == inverse.getMultiplicity() )
+    {
+      builder.addMethod( buildInverseAddMethod( inverse ) );
+      builder.addMethod( buildInverseRemoveMethod( inverse ) );
+    }
+    else
+    {
+      builder.addMethod( buildInverseSetMethod( inverse ) );
+      builder.addMethod( buildInverseUnsetMethod( inverse ) );
+    }
+  }
+
+  private static void buildReferenceFields( @Nonnull final ReferenceDescriptor reference,
+                                            @Nonnull final TypeSpec.Builder builder )
+  {
+    final FieldSpec.Builder field =
+      FieldSpec.builder( TypeName.get( reference.getMethod().getReturnType() ),
+                         reference.getFieldName(),
+                         Modifier.PRIVATE ).
+        addAnnotation( Generator.NULLABLE_CLASSNAME );
+    builder.addField( field.build() );
+  }
+
+  private static void buildReferenceMethods( @Nonnull final ProcessingEnvironment processingEnv,
+                                             @Nonnull final ReferenceDescriptor reference,
+                                             @Nonnull final TypeSpec.Builder builder )
+    throws ProcessorException
+  {
+    builder.addMethod( buildReferenceMethod( reference ) );
+    builder.addMethod( buildReferenceLinkMethod( reference ) );
+    if ( reference.hasInverse() || reference.getComponent().shouldVerify() )
+    {
+      builder.addMethod( buildReferenceDelinkMethod( processingEnv, reference ) );
+    }
+  }
+
+  @Nonnull
+  private static MethodSpec buildReferenceMethod( final ReferenceDescriptor reference )
+    throws ProcessorException
+  {
+    final ExecutableElement method = reference.getMethod();
+    final ExecutableElement idMethod = reference.getIdMethod();
+
+    final String methodName = method.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( method, builder );
+    GeneratorUtil.copyTypeParameters( reference.getMethodType(), builder );
+    copyWhitelistedAnnotations( method, builder );
+
+    builder.addAnnotation( Override.class );
+    builder.returns( TypeName.get( method.getReturnType() ) );
+    generateNotDisposedInvariant( builder, methodName );
+
+    final ObservableDescriptor observable = reference.getObservable();
+    if ( !"LAZY".equals( reference.getLinkType() ) )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      if ( reference.isNullable() )
+      {
+        block.addStatement( "$T.apiInvariant( () -> null != $N || null == $N(), () -> \"Nullable reference method " +
+                            "named '$N' invoked on component named '\" + this.$N.getName() + \"' and reference has not been " +
+                            "resolved yet is not lazy. Id = \" + $N() )",
+                            GUARDS_CLASSNAME,
+                            reference.getFieldName(),
+                            idMethod.getSimpleName(),
+                            method.getSimpleName(),
+                            KERNEL_FIELD_NAME,
+                            idMethod.getSimpleName() );
+      }
+      else
+      {
+        block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Nonnull reference method named '$N' " +
+                            "invoked on component named '\" + this.$N.getName() + \"' but reference has not been resolved yet " +
+                            "is not lazy. Id = \" + $N() )",
+                            GUARDS_CLASSNAME,
+                            reference.getFieldName(),
+                            method.getSimpleName(),
+                            KERNEL_FIELD_NAME,
+                            idMethod.getSimpleName() );
+      }
+      block.endControlFlow();
+
+      builder.addCode( block.build() );
+
+      if ( null != observable )
+      {
+        if ( observable.canReadOutsideTransaction() )
+        {
+          builder.addStatement( "this.$N.reportObservedIfTrackingTransactionActive()", observable.getFieldName() );
+        }
+        else
+        {
+          builder.addStatement( "this.$N.reportObserved()", observable.getFieldName() );
+        }
+      }
+    }
+    else
+    {
+      if ( null == observable )
+      {
+        builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+      }
+      else
+      {
+        final CodeBlock.Builder block = CodeBlock.builder();
+        block.beginControlFlow( "if ( null == this.$N )", reference.getFieldName() );
+        block.addStatement( "this.$N()", reference.getLinkMethodName() );
+        block.nextControlFlow( "else" );
+        if ( observable.canReadOutsideTransaction() )
+        {
+          block.addStatement( "this.$N.reportObservedIfTrackingTransactionActive()", observable.getFieldName() );
+        }
+        else
+        {
+          block.addStatement( "this.$N.reportObserved()", observable.getFieldName() );
+        }
+        block.endControlFlow();
+        builder.addCode( block.build() );
+      }
+    }
+
+    builder.addStatement( "return this.$N", reference.getFieldName() );
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildReferenceLinkMethod( @Nonnull final ReferenceDescriptor reference )
+    throws ProcessorException
+  {
+    final String methodName = reference.getLinkMethodName();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    builder.addModifiers( Modifier.PRIVATE );
+    generateNotDisposedInvariant( builder, methodName );
+
+    if ( "EAGER".equals( reference.getLinkType() ) )
+    {
+      /*
+       * Linking under eager should always proceed and does not need a null check
+       * as the link method only called when a link is required.
+       */
+      builder.addStatement( "final $T id = this.$N()",
+                            reference.getIdMethod().getReturnType(),
+                            reference.getIdMethod().getSimpleName() );
+      if ( reference.isNullable() )
+      {
+        final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+        nestedBlock.beginControlFlow( "if ( null != id )" );
+        buildReferenceLookup( reference, nestedBlock );
+        nestedBlock.nextControlFlow( "else" );
+        nestedBlock.addStatement( "this.$N = null", reference.getFieldName() );
+        nestedBlock.endControlFlow();
+        builder.addCode( nestedBlock.build() );
+      }
+      else
+      {
+        buildReferenceLookup( reference, builder );
+      }
+    }
+    else
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( null == this.$N )", reference.getFieldName() );
+      block.addStatement( "final $T id = this.$N()",
+                          reference.getIdMethod().getReturnType(),
+                          reference.getIdMethod().getSimpleName() );
+      if ( reference.isNullable() )
+      {
+        final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+        nestedBlock.beginControlFlow( "if ( null != id )" );
+        buildReferenceLookup( reference, nestedBlock );
+        nestedBlock.endControlFlow();
+        block.add( nestedBlock.build() );
+      }
+      else
+      {
+        buildReferenceLookup( reference, block );
+      }
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
+    return builder.build();
+  }
+
+  private static void buildReferenceLookup( @Nonnull final ReferenceDescriptor reference,
+                                            @Nonnull final MethodSpec.Builder builder )
+  {
+    builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
+                          reference.getFieldName(),
+                          LOCATOR_METHOD_NAME,
+                          reference.getMethod().getReturnType() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
+                        "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
+                        "and id = \" + $N() )",
+                        GUARDS_CLASSNAME,
+                        reference.getFieldName(),
+                        reference.getName(),
+                        KERNEL_FIELD_NAME,
+                        reference.getMethod().getReturnType().toString(),
+                        reference.getIdMethod().getSimpleName() );
+    block.endControlFlow();
+    builder.addCode( block.build() );
+    if ( reference.hasInverse() )
+    {
+      final Multiplicity inverseMultiplicity = reference.getInverseMultiplicity();
+      final String inverseName = reference.getInverseName();
+      final String linkMethodName =
+        Multiplicity.MANY == inverseMultiplicity ? getInverseAddMethodName( inverseName ) :
+        Multiplicity.ONE == inverseMultiplicity ? getInverseSetMethodName( inverseName ) :
+        getInverseZSetMethodName( inverseName );
+      builder.addStatement( "( ($T) this.$N ).$N( this )",
+                            reference.getArezClassName(),
+                            reference.getFieldName(),
+                            linkMethodName );
+    }
+  }
+
+  private static void buildReferenceLookup( @Nonnull final ReferenceDescriptor reference,
+                                            @Nonnull final CodeBlock.Builder builder )
+  {
+    builder.addStatement( "this.$N = this.$N().findById( $T.class, id )",
+                          reference.getFieldName(),
+                          LOCATOR_METHOD_NAME,
+                          reference.getMethod().getReturnType() );
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
+                        "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
+                        "and id = \" + $N() )",
+                        GUARDS_CLASSNAME,
+                        reference.getFieldName(),
+                        reference.getName(),
+                        KERNEL_FIELD_NAME,
+                        reference.getMethod().getReturnType().toString(),
+                        reference.getIdMethod().getSimpleName() );
+    block.endControlFlow();
+    builder.add( block.build() );
+    if ( reference.hasInverse() )
+    {
+      final Multiplicity inverseMultiplicity = reference.getInverseMultiplicity();
+      final String inverseName = reference.getInverseName();
+      final String linkMethodName =
+        Multiplicity.MANY == inverseMultiplicity ? getInverseAddMethodName( inverseName ) :
+        Multiplicity.ONE == inverseMultiplicity ? getInverseSetMethodName( inverseName ) :
+        getInverseZSetMethodName( inverseName );
+      builder.addStatement( "( ($T) this.$N ).$N( this )",
+                            reference.getArezClassName(),
+                            reference.getFieldName(),
+                            linkMethodName );
+    }
+  }
+
+  private static void buildReferenceDisposer( @Nonnull final ReferenceDescriptor reference,
+                                              @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( reference.hasInverse() )
+    {
+      builder.addStatement( "this.$N()", reference.getDelinkMethodName() );
+    }
+  }
+
+  @Nonnull
+  private static MethodSpec buildReferenceDelinkMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                        @Nonnull final ReferenceDescriptor reference )
+    throws ProcessorException
+  {
+    final String methodName = reference.getDelinkMethodName();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+
+    final TypeElement typeElement =
+      (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
+    if ( GeneratorUtil.areTypesInDifferentPackage( typeElement, reference.getComponent().getElement() ) )
+    {
+      builder.addModifiers( Modifier.PUBLIC );
+    }
+    else if ( !reference.hasInverse() )
+    {
+      builder.addModifiers( Modifier.PRIVATE );
+    }
+
+    if ( reference.hasInverse() )
+    {
+      final String inverseName = reference.getInverseName();
+      final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+      nestedBlock.beginControlFlow( "if ( null != $N && $T.isNotDisposed( $N ) )",
+                                    reference.getFieldName(),
+                                    DISPOSABLE_CLASSNAME,
+                                    reference.getFieldName() );
+      final Multiplicity inverseMultiplicity = reference.getInverseMultiplicity();
+      final String delinkMethodName =
+        Multiplicity.MANY == inverseMultiplicity ?
+        getInverseRemoveMethodName( inverseName ) :
+        Multiplicity.ONE == inverseMultiplicity ?
+        getInverseUnsetMethodName( inverseName ) :
+        getInverseZUnsetMethodName( inverseName );
+      nestedBlock.addStatement( "( ($T) this.$N ).$N( this )",
+                                reference.getArezClassName(),
+                                reference.getFieldName(),
+                                delinkMethodName );
+      nestedBlock.endControlFlow();
+      builder.addCode( nestedBlock.build() );
+    }
+    builder.addStatement( "this.$N = null", reference.getFieldName() );
+
+    return builder.build();
+  }
+
+  private static void buildReferenceVerify( @Nonnull final ReferenceDescriptor reference,
+                                            @Nonnull final CodeBlock.Builder builder )
+  {
+    final String name = reference.getName();
+    final String idName = VARIABLE_PREFIX + name + "Id";
+    final String refName = VARIABLE_PREFIX + name;
+
+    final ExecutableElement idMethod = reference.getIdMethod();
+    builder.addStatement( "final $T $N = this.$N()", idMethod.getReturnType(), idName, idMethod.getSimpleName() );
+    if ( reference.isNullable() )
+    {
+      final CodeBlock.Builder nestedBlock = CodeBlock.builder();
+      nestedBlock.beginControlFlow( "if ( null != $N )", idName );
+      buildReferenceVerify( reference, nestedBlock, idName, refName );
+      nestedBlock.endControlFlow();
+      builder.add( nestedBlock.build() );
+    }
+    else
+    {
+      buildReferenceVerify( reference, builder, idName, refName );
+    }
+  }
+
+  private static void buildReferenceVerify( @Nonnull final ReferenceDescriptor reference,
+                                            @Nonnull final CodeBlock.Builder builder,
+                                            @Nonnull final String idName,
+                                            @Nonnull final String refName )
+  {
+    builder.addStatement( "final $T $N = this.$N().findById( $T.class, $N )",
+                          reference.getMethod().getReturnType(),
+                          refName,
+                          LOCATOR_METHOD_NAME,
+                          reference.getMethod().getReturnType(),
+                          idName );
+    builder.addStatement( "$T.apiInvariant( () -> null != $N, () -> \"Reference named '$N' " +
+                          "on component named '\" + this.$N.getName() + \"' is unable to resolve entity of type $N " +
+                          "and id = \" + $N() )",
+                          GUARDS_CLASSNAME,
+                          refName,
+                          reference.getName(),
+                          KERNEL_FIELD_NAME,
+                          reference.getMethod().getReturnType().toString(),
+                          reference.getIdMethod().getSimpleName() );
+  }
+
+  private static void buildObserveDisposer( @Nonnull final ObserveDescriptor observe,
+                                            @Nonnull final MethodSpec.Builder codeBlock )
+  {
+    codeBlock.addStatement( "this.$N.dispose()", observe.getFieldName() );
+  }
+
+  private static void buildObserveMethods( @Nonnull final ProcessingEnvironment processingEnv,
+                                           @Nonnull final ObserveDescriptor observe,
+                                           @Nonnull final TypeSpec.Builder builder )
+    throws ProcessorException
+  {
+    if ( observe.isInternalExecutor() )
+    {
+      builder.addMethod( buildObserve( observe ) );
+    }
+    else
+    {
+      builder.addMethod( buildObserveTrackWrapper( observe ) );
+    }
+    for ( final ExecutableElement refMethod : observe.getRefMethods() )
+    {
+      final ComponentDescriptor component = observe.getComponent();
+      final MethodSpec.Builder method = GeneratorUtil.refMethod( processingEnv, component.getElement(), refMethod );
+      generateNotDisposedInvariant( method, refMethod.getSimpleName().toString() );
+      builder.addMethod( method.addStatement( "return $N", observe.getFieldName() ).build() );
+    }
+    if ( observe.hasOnDepsChange() && !observe.getOnDepsChange().getParameters().isEmpty() )
+    {
+      builder.addMethod( buildNativeOnDepsChangeMethod( observe ) );
+    }
+  }
+
+  @Nonnull
+  private static MethodSpec buildNativeOnDepsChangeMethod( @Nonnull final ObserveDescriptor observe )
+    throws ProcessorException
+  {
+    final ExecutableElement onDepsChange = observe.getOnDepsChange();
+    final String methodName = FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    builder.addModifiers( Modifier.PRIVATE );
+
+    generateNotDisposedInvariant( builder, methodName );
+    final ComponentDescriptor component = observe.getComponent();
+    if ( component.isClassType() )
+    {
+      builder.addStatement( "super.$N( $N )", onDepsChange.getSimpleName().toString(), observe.getFieldName() );
+    }
+    else
+    {
+      builder.addStatement( "$T.super.$N( $N )",
+                            component.getClassName(),
+                            onDepsChange.getSimpleName().toString(),
+                            observe.getFieldName() );
+    }
+
+    return builder.build();
+  }
+
+  @Nonnull
+  private static MethodSpec buildObserveTrackWrapper( @Nonnull final ObserveDescriptor observe )
+    throws ProcessorException
+  {
+    assert observe.hasObserve();
+    final ExecutableType methodType = observe.getMethodType();
+    final ExecutableElement method = observe.getMethod();
+    final String methodName = method.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( method, builder );
+    GeneratorUtil.copyExceptions( methodType, builder );
+    GeneratorUtil.copyTypeParameters( methodType, builder );
+    copyWhitelistedAnnotations( method, builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = methodType.getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
+    final List<? extends TypeMirror> thrownTypes = method.getThrownTypes();
+    final boolean isSafe = thrownTypes.isEmpty();
+
+    final StringBuilder statement = new StringBuilder();
+    final ArrayList<Object> params = new ArrayList<>();
+
+    generateNotDisposedInvariant( builder, methodName );
+    if ( !isProcedure )
+    {
+      statement.append( "return " );
+    }
+    statement.append( "this.$N.getContext()." );
+    params.add( KERNEL_FIELD_NAME );
+
+    if ( isProcedure && isSafe )
+    {
+      statement.append( "safeObserve" );
+    }
+    else if ( isProcedure )
+    {
+      statement.append( "observe" );
+    }
+    else if ( isSafe )
+    {
+      statement.append( "safeObserve" );
+    }
+    else
+    {
+      statement.append( "observe" );
+    }
+
+    statement.append( "( this.$N, " );
+    params.add( observe.getFieldName() );
+
+    final ComponentDescriptor component = observe.getComponent();
+    if ( component.isClassType() )
+    {
+      statement.append( "() -> super.$N(" );
+      params.add( method.getSimpleName() );
+    }
+    else
+    {
+      statement.append( "() -> $T.super.$N(" );
+      params.add( component.getClassName() );
+      params.add( method.getSimpleName() );
+    }
+
+    final List<? extends VariableElement> parameters = method.getParameters();
+    final int paramCount = parameters.size();
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
+
+    boolean firstParam = true;
+    for ( int i = 0; i < paramCount; i++ )
+    {
+      final VariableElement element = parameters.get( i );
+      final TypeName parameterType = TypeName.get( methodType.getParameterTypes().get( i ) );
+      final ParameterSpec.Builder param =
+        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
+      copyWhitelistedAnnotations( element, param );
+      builder.addParameter( param.build() );
+      params.add( element.getSimpleName().toString() );
+      if ( !firstParam )
+      {
+        statement.append( ", " );
+      }
+      firstParam = false;
+      statement.append( "$N" );
+    }
+    if ( 0 != paramCount )
+    {
+      statement.append( " " );
+    }
+
+    statement.append( "), " );
+    if ( observe.isReportParameters() && !parameters.isEmpty() )
+    {
+      statement.append( "$T.areSpiesEnabled() ? new $T[] { " );
+      params.add( AREZ_CLASSNAME );
+      params.add( Object.class );
+      firstParam = true;
+      for ( final VariableElement parameter : parameters )
+      {
+        if ( !firstParam )
+        {
+          statement.append( ", " );
+        }
+        firstParam = false;
+        params.add( parameter.getSimpleName().toString() );
+        statement.append( "$N" );
+      }
+      statement.append( " } : null" );
+    }
+    else
+    {
+      statement.append( "null" );
+    }
+    statement.append( " )" );
+
+    if ( isSafe )
+    {
+      builder.addStatement( statement.toString(), params.toArray() );
+    }
+    else
+    {
+      generateTryBlock( builder,
+                        thrownTypes,
+                        b -> b.addStatement( statement.toString(), params.toArray() ) );
+    }
+
+    return builder.build();
+  }
+
+  /**
+   * Generate the observed wrapper.
+   * This is wrapped to block user from directly invoking observed method.
+   */
+  @Nonnull
+  private static MethodSpec buildObserve( @Nonnull final ObserveDescriptor observe )
+    throws ProcessorException
+  {
+    assert observe.hasObserve();
+    final ExecutableElement method = observe.getMethod();
+    final ExecutableType observedType = observe.getMethodType();
+    final String methodName = method.getSimpleName().toString();
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
+    GeneratorUtil.copyAccessModifiers( method, builder );
+    GeneratorUtil.copyExceptions( observedType, builder );
+    GeneratorUtil.copyTypeParameters( observedType, builder );
+    copyWhitelistedAnnotations( method, builder );
+    builder.addAnnotation( Override.class );
+    final TypeMirror returnType = method.getReturnType();
+    builder.returns( TypeName.get( returnType ) );
+
+    final CodeBlock.Builder block = CodeBlock.builder();
+    block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+    block.addStatement( "$T.fail( () -> \"Observe method named '$N' invoked but @Observe(executor=INTERNAL) " +
+                        "annotated methods should only be invoked by the runtime.\" )",
+                        GUARDS_CLASSNAME,
+                        methodName );
+    block.endControlFlow();
+
+    builder.addCode( block.build() );
+    // This super is generated so that the GWT compiler in production model will identify this as a method
+    // that only contains a super invocation and will thus inline it. If the body is left empty then the
+    // GWT compiler will be required to keep the empty method present because it can not determine that the
+    // empty method will never be invoked.
+    final ComponentDescriptor component = observe.getComponent();
+    if ( component.isClassType() )
+    {
+      builder.addStatement( "super.$N()", method.getSimpleName() );
+    }
+    else
+    {
+      builder.addStatement( "$T.super.$N()", component.getClassName(), method.getSimpleName() );
+    }
+
+    return builder.build();
+  }
+}
