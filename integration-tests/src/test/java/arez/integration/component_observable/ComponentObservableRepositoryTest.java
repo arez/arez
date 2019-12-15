@@ -75,7 +75,7 @@ public class ComponentObservableRepositoryTest
       final List<ObservableValueInfo> dependencies = context.getSpy().asObserverInfo( observer ).getDependencies();
       assertEquals( dependencies.size(), 1 );
       assertEquals( dependencies.get( 0 ).getName(),
-                    "ComponentObservableRepositoryTest_TestComponentRepository.entities" );
+                    "ComponentObservableRepositoryTest_TestComponentRepository.1.entities" );
     }
   }
 }
