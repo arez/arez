@@ -27,6 +27,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
+@SuppressWarnings( "WeakerAccess" )
 final class ProcessorUtil
 {
   private ProcessorUtil()
