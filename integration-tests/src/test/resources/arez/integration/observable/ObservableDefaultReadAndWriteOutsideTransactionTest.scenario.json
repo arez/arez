@@ -1,0 +1,225 @@
+
+[
+    {
+        "name": "MyComponent.1",
+        "type": "ComponentCreateStart"
+    },
+    {
+        "name": "MyComponent.1.time",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "MyComponent.1",
+        "type": "ComponentCreateComplete"
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserverCreate"
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "Observer@1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "ObservableValue@2",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Observer@1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "MyComponent.1.setTime",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "MyComponent.1.setTime",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "MyComponent.1.time",
+        "type": "ObservableValueChange",
+        "value": 37
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": true,
+        "name": "MyComponent.1.setTime",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "MyComponent.1.setTime",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "Observer@1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "ObservableValue@3",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Observer@1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "MyComponent.1.setTime",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "MyComponent.1.setTime",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "MyComponent.1.time",
+        "type": "ObservableValueChange",
+        "value": 42
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": true,
+        "name": "MyComponent.1.setTime",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "MyComponent.1.setTime",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "Observer@1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "ObservableValue@4",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "mutation": false,
+        "name": "Observer@1",
+        "tracker": "Observer@1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Observer@1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "Observer@1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    }
+]
