@@ -2123,8 +2123,8 @@ public final class ArezProcessor
                                deferSchedule,
                                generateToString,
                                typeElement,
-                               defaultReadOutsideTransaction.getSimpleName().toString().equals( "ENABLE" ),
-                               defaultWriteOutsideTransaction.getSimpleName().toString().equals( "ENABLE" ) );
+                               defaultReadOutsideTransaction.getSimpleName().toString(),
+                               defaultWriteOutsideTransaction.getSimpleName().toString() );
 
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
     validate( allowEmpty, descriptor );

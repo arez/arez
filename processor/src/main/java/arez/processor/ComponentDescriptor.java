@@ -90,8 +90,10 @@ final class ComponentDescriptor
   private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
   @Nullable
   private Boolean _hasDeprecatedElements;
-  private final boolean _defaultReadOutsideTransaction;
-  private final boolean _defaultWriteOutsideTransaction;
+  @Nullable
+  private final String _defaultReadOutsideTransaction;
+  @Nullable
+  private final String _defaultWriteOutsideTransaction;
 
   ComponentDescriptor( @Nonnull final String type,
                        @Nullable final Priority defaultPriority,
@@ -107,7 +109,8 @@ final class ComponentDescriptor
                        final boolean deferSchedule,
                        final boolean generateToString,
                        @Nonnull final TypeElement element,
-                       final boolean defaultReadOutsideTransaction, final boolean defaultWriteOutsideTransaction )
+                       @Nullable final String defaultReadOutsideTransaction,
+                       @Nullable final String defaultWriteOutsideTransaction )
   {
     _type = Objects.requireNonNull( type );
     _defaultPriority = defaultPriority;
@@ -197,10 +200,22 @@ final class ComponentDescriptor
 
   boolean defaultReadOutsideTransaction()
   {
-    return _defaultReadOutsideTransaction;
+    return "ENABLED".equals( _defaultReadOutsideTransaction );
   }
 
   boolean defaultWriteOutsideTransaction()
+  {
+    return "ENABLED".equals( _defaultWriteOutsideTransaction );
+  }
+
+  @Nullable
+  String getDeclaredDefaultReadOutsideTransaction()
+  {
+    return _defaultReadOutsideTransaction;
+  }
+
+  @Nullable
+  String getDeclaredDefaultWriteOutsideTransaction()
   {
     return _defaultWriteOutsideTransaction;
   }
