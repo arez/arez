@@ -31,7 +31,7 @@ final class ObservableDescriptor
   private final String _name;
   private boolean _expectSetter;
   private String _readOutsideTransaction = "AUTODETECT";
-  private boolean _writeOutsideTransaction;
+  private String _writeOutsideTransaction = "AUTODETECT";
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
   @Nullable
@@ -58,7 +58,6 @@ final class ObservableDescriptor
     _component = Objects.requireNonNull( component );
     _name = Objects.requireNonNull( name );
     setExpectSetter( true );
-    setWriteOutsideTransaction( false );
     setSetterAlwaysMutates( true );
   }
 
@@ -109,10 +108,11 @@ final class ObservableDescriptor
 
   boolean canWriteOutsideTransaction()
   {
-    return _writeOutsideTransaction;
+    return "ENABLE".equals( _writeOutsideTransaction ) ||
+           ( "AUTODETECT".equals( _writeOutsideTransaction ) && getComponent().defaultWriteOutsideTransaction() );
   }
 
-  void setWriteOutsideTransaction( final boolean writeOutsideTransaction )
+  void setWriteOutsideTransaction( @Nonnull final String writeOutsideTransaction )
   {
     _writeOutsideTransaction = writeOutsideTransaction;
   }

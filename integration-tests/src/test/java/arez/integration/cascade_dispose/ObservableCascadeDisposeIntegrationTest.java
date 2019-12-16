@@ -3,6 +3,7 @@ package arez.integration.cascade_dispose;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
@@ -61,7 +62,7 @@ public class ObservableCascadeDisposeIntegrationTest
     @Nonnull
     abstract Model2 getModel2();
 
-    @Observable( writeOutsideTransaction = true )
+    @Observable( writeOutsideTransaction = Feature.ENABLE )
     abstract void setModel2( @Nonnull Model2 model2 );
   }
 

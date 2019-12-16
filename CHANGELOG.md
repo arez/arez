@@ -15,6 +15,7 @@
   * Extract a `DaggerComponentExtensionGenerator` class to generate the dagger component extension when required.
   * Rename `Generator` class to `ComponentGenerator` to reflect intent.
 * Add the parameter `defaultReadOutsideTransaction` to the `@ArezComponent` annotation that defines the default value of the `readOutsideTransaction` parameter on the `@Observable` annotation and the `@Memoize` annotation on any methods contained within the type annotated by `@ArezComponent`. This makes it possible to simplify specifying the `readOutsideTransaction` parameter for all observables and memoized values on a class. The type of the `readOutsideTransaction` parameter on the `@Observable` and `@Memoize` annotations was also changed from a `boolean` type to a `Feature` so the default behaviour of deriving the default value can be explicitly specified via an `AUOTDETECT` value.
+* Add the parameter `defaultWriteOutsideTransaction` to the `@ArezComponent` annotation that defines the default value of the `writeOutsideTransaction` parameter on the `@Observable` annotation on any methods contained within the type annotated by `@ArezComponent`. The type of the `writeOutsideTransaction` parameter on the `@Observable` annotation was also changed from a `boolean` type to a `Feature` so the default behaviour of deriving the default value can be explicitly specified via an `AUOTDETECT` value.
 
 ### [v0.158](https://github.com/arez/arez/tree/v0.158) (2019-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.157...v0.158)
 

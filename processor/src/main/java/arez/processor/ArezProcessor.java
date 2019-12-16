@@ -82,7 +82,8 @@ public final class ArezProcessor
     final boolean expectSetter = AnnotationsUtil.getAnnotationValue( annotation, "expectSetter" );
     final VariableElement readOutsideTransaction =
       AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
-    final boolean writeOutsideTransaction = AnnotationsUtil.getAnnotationValue( annotation, "writeOutsideTransaction" );
+    final VariableElement writeOutsideTransaction =
+      AnnotationsUtil.getAnnotationValue( annotation, "writeOutsideTransaction" );
     final boolean setterAlwaysMutates = AnnotationsUtil.getAnnotationValue( annotation, "setterAlwaysMutates" );
     final Boolean requireInitializer = isInitializerRequired( method );
 
@@ -140,10 +141,7 @@ public final class ArezProcessor
 
     final ObservableDescriptor observable = component.findOrCreateObservable( name );
     observable.setReadOutsideTransaction( readOutsideTransaction.getSimpleName().toString() );
-    if ( writeOutsideTransaction )
-    {
-      observable.setWriteOutsideTransaction( true );
-    }
+    observable.setWriteOutsideTransaction( writeOutsideTransaction.getSimpleName().toString() );
     if ( !setterAlwaysMutates )
     {
       observable.setSetterAlwaysMutates( false );
@@ -1221,7 +1219,8 @@ public final class ArezProcessor
     final boolean reportResult = AnnotationsUtil.getAnnotationValue( annotation, "reportResult" );
     final boolean observeLowerPriorityDependencies =
       AnnotationsUtil.getAnnotationValue( annotation, "observeLowerPriorityDependencies" );
-    final VariableElement readOutsideTransaction = AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
+    final VariableElement readOutsideTransaction =
+      AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
     final VariableElement priority = AnnotationsUtil.getAnnotationValue( annotation, "priority" );
     final VariableElement depType = AnnotationsUtil.getAnnotationValue( annotation, "depType" );
     final String depTypeAsString = depType.getSimpleName().toString();
@@ -2008,7 +2007,10 @@ public final class ArezProcessor
     ensureNoMethodInjections( typeElement );
     final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
     final String daggerMode = daggerParameter.getSimpleName().toString();
-    final VariableElement defaultReadOutsideTransaction = getAnnotationParameter( arezComponent, "defaultReadOutsideTransaction" );
+    final VariableElement defaultReadOutsideTransaction =
+      getAnnotationParameter( arezComponent, "defaultReadOutsideTransaction" );
+    final VariableElement defaultWriteOutsideTransaction =
+      getAnnotationParameter( arezComponent, "defaultWriteOutsideTransaction" );
 
     final String injectMode = getInjectMode( arezComponent, typeElement, scopeAnnotation, daggerMode );
     final boolean dagger =
@@ -2121,7 +2123,8 @@ public final class ArezProcessor
                                deferSchedule,
                                generateToString,
                                typeElement,
-                               defaultReadOutsideTransaction.getSimpleName().toString().equals( "ENABLE" ) );
+                               defaultReadOutsideTransaction.getSimpleName().toString().equals( "ENABLE" ),
+                               defaultWriteOutsideTransaction.getSimpleName().toString().equals( "ENABLE" ) );
 
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
     validate( allowEmpty, descriptor );

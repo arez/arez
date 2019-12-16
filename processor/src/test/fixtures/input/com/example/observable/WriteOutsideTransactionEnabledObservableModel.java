@@ -5,19 +5,10 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 
 @ArezComponent
-abstract class WriteOutsideTransactionThrowingObservablesModel
+abstract class WriteOutsideTransactionEnabledObservableModel
 {
-  private long _time;
-
   @Observable( writeOutsideTransaction = Feature.ENABLE )
-  public long getTime()
-  {
-    return _time;
-  }
+  public abstract long getTime();
 
-  public void setTime( long value )
-    throws Exception
-  {
-    _time = value;
-  }
+  public abstract void setTime( long value );
 }

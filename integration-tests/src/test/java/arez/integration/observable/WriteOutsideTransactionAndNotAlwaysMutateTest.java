@@ -1,6 +1,7 @@
 package arez.integration.observable;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +18,7 @@ public class WriteOutsideTransactionAndNotAlwaysMutateTest
     @Nonnull
     private String _name = "";
 
-    @Observable( writeOutsideTransaction = true, setterAlwaysMutates = false )
+    @Observable( writeOutsideTransaction = Feature.ENABLE, setterAlwaysMutates = false )
     @Nonnull
     String getName()
     {

@@ -93,7 +93,7 @@ public @interface Observable
    *
    * @return true to allow writes to create an action if needed, false to require a transaction to write observable.
    */
-  boolean writeOutsideTransaction() default false;
+  Feature writeOutsideTransaction() default Feature.AUTODETECT;
 
   /**
    * Return false if the setter should verify observable value has changed before propagating change.

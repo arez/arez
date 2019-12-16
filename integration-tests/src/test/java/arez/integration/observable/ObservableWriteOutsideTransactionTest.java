@@ -1,6 +1,7 @@
 package arez.integration.observable;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,7 +14,7 @@ public class ObservableWriteOutsideTransactionTest
   @ArezComponent
   static abstract class MyComponent
   {
-    @Observable( writeOutsideTransaction = true )
+    @Observable( writeOutsideTransaction = Feature.ENABLE )
     abstract long getTime();
 
     abstract void setTime( long value );

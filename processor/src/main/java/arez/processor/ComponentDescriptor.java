@@ -91,6 +91,7 @@ final class ComponentDescriptor
   @Nullable
   private Boolean _hasDeprecatedElements;
   private final boolean _defaultReadOutsideTransaction;
+  private final boolean _defaultWriteOutsideTransaction;
 
   ComponentDescriptor( @Nonnull final String type,
                        @Nullable final Priority defaultPriority,
@@ -106,7 +107,7 @@ final class ComponentDescriptor
                        final boolean deferSchedule,
                        final boolean generateToString,
                        @Nonnull final TypeElement element,
-                       final boolean defaultReadOutsideTransaction )
+                       final boolean defaultReadOutsideTransaction, final boolean defaultWriteOutsideTransaction )
   {
     _type = Objects.requireNonNull( type );
     _defaultPriority = defaultPriority;
@@ -123,6 +124,7 @@ final class ComponentDescriptor
     _generateToString = generateToString;
     _element = Objects.requireNonNull( element );
     _defaultReadOutsideTransaction = defaultReadOutsideTransaction;
+    _defaultWriteOutsideTransaction = defaultWriteOutsideTransaction;
   }
 
   @Nonnull
@@ -196,6 +198,11 @@ final class ComponentDescriptor
   boolean defaultReadOutsideTransaction()
   {
     return _defaultReadOutsideTransaction;
+  }
+
+  boolean defaultWriteOutsideTransaction()
+  {
+    return _defaultWriteOutsideTransaction;
   }
 
   @Nonnull
