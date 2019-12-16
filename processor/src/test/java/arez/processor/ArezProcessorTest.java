@@ -3089,6 +3089,22 @@ public class ArezProcessorTest
       withWarningContaining( messageFragment );
   }
 
+  @Test
+  public void unnecessaryDefaultWriteOutsideTransactionComponentModel()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel" );
+    final String messageFragment =
+      "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
   public Object[][] packageAccessElementInDifferentPackage()
   {

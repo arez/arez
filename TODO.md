@@ -34,9 +34,6 @@ See https://github.com/arez/arez/issues/91
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
-* generate a suppressable warning if `defaultReadOutsideTransaction` parameter is present without any `@Observable`
-  or `@Memoize` annotated methods. The suppression should be `UnnecessaryDefault`
-
 * Add separate `ArezIdentifiable` interface that is for internal use of Arez and is not expected to be
   used outside of the framework. This will be the infrastructure that is used when `Arez.areNamesEnabled()`
   returns true and a name is synthesized or when `Arez.areRegistriesEnabled()` or

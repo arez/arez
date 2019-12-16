@@ -2030,8 +2030,8 @@ public final class ArezProcessor
     final String daggerMode = daggerParameter.getSimpleName().toString();
     final AnnotationValue defaultReadOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultReadOutsideTransaction" );
-    final VariableElement defaultWriteOutsideTransaction =
-      getAnnotationParameter( arezComponent, "defaultWriteOutsideTransaction" );
+    final AnnotationValue defaultWriteOutsideTransaction =
+      AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultWriteOutsideTransaction" );
 
     final String injectMode = getInjectMode( arezComponent, typeElement, scopeAnnotation, daggerMode );
     final boolean dagger =
@@ -2133,6 +2133,11 @@ public final class ArezProcessor
       null == defaultReadOutsideTransaction ?
       null :
       ( (VariableElement) defaultReadOutsideTransaction.getValue() ).getSimpleName().toString();
+    final String defaultWriteOutsideTransactionValue =
+      null == defaultWriteOutsideTransaction ?
+      null :
+      ( (VariableElement) defaultWriteOutsideTransaction.getValue() ).getSimpleName().toString();
+
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( type,
                                defaultPriority,
@@ -2149,7 +2154,7 @@ public final class ArezProcessor
                                generateToString,
                                typeElement,
                                defaultReadOutsideTransactionValue,
-                               defaultWriteOutsideTransaction.getSimpleName().toString() );
+                               defaultWriteOutsideTransactionValue );
 
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
     validate( allowEmpty, descriptor );
