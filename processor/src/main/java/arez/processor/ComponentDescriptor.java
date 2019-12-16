@@ -200,12 +200,12 @@ final class ComponentDescriptor
 
   boolean defaultReadOutsideTransaction()
   {
-    return "ENABLED".equals( _defaultReadOutsideTransaction );
+    return "ENABLE".equals( _defaultReadOutsideTransaction );
   }
 
   boolean defaultWriteOutsideTransaction()
   {
-    return "ENABLED".equals( _defaultWriteOutsideTransaction );
+    return "ENABLE".equals( _defaultWriteOutsideTransaction );
   }
 
   @Nullable
