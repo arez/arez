@@ -886,6 +886,27 @@ public final class ArezProcessor
                                       component.getElement() );
       }
     }
+    if ( null != component.getDeclaredDefaultReadOutsideTransaction() &&
+         component.getObservables().isEmpty() &&
+         component.getMemoizes().isEmpty() &&
+         isWarningNotSuppressed( component.getElement(), Constants.WARNING_UNNECESSARY_DEFAULT ) )
+    {
+      final String message =
+        "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not " +
+        "contain any methods annotated with either @Memoize or @Observable. " +
+        suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
+      processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
+    }
+    if ( null != component.getDeclaredDefaultWriteOutsideTransaction() &&
+         component.getObservables().isEmpty() &&
+         isWarningNotSuppressed( component.getElement(), Constants.WARNING_UNNECESSARY_DEFAULT ) )
+    {
+      final String message =
+        "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not " +
+        "contain any methods annotated with @Observable. " +
+        suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
+      processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
+    }
   }
 
   private void processCascadeDisposeFields( @Nonnull final ComponentDescriptor component )
@@ -2007,8 +2028,8 @@ public final class ArezProcessor
     ensureNoMethodInjections( typeElement );
     final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
     final String daggerMode = daggerParameter.getSimpleName().toString();
-    final VariableElement defaultReadOutsideTransaction =
-      getAnnotationParameter( arezComponent, "defaultReadOutsideTransaction" );
+    final AnnotationValue defaultReadOutsideTransaction =
+      AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultReadOutsideTransaction" );
     final VariableElement defaultWriteOutsideTransaction =
       getAnnotationParameter( arezComponent, "defaultWriteOutsideTransaction" );
 
@@ -2108,6 +2129,10 @@ public final class ArezProcessor
     final Priority defaultPriority =
       null == priority ? null : "DEFAULT".equals( priority ) ? Priority.NORMAL : Priority.valueOf( priority );
 
+    final String defaultReadOutsideTransactionValue =
+      null == defaultReadOutsideTransaction ?
+      null :
+      ( (VariableElement) defaultReadOutsideTransaction.getValue() ).getSimpleName().toString();
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( type,
                                defaultPriority,
@@ -2123,7 +2148,7 @@ public final class ArezProcessor
                                deferSchedule,
                                generateToString,
                                typeElement,
-                               defaultReadOutsideTransaction.getSimpleName().toString(),
+                               defaultReadOutsideTransactionValue,
                                defaultWriteOutsideTransaction.getSimpleName().toString() );
 
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
