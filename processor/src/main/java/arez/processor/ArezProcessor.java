@@ -80,7 +80,8 @@ public final class ArezProcessor
 
     final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
     final boolean expectSetter = AnnotationsUtil.getAnnotationValue( annotation, "expectSetter" );
-    final boolean readOutsideTransaction = AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
+    final VariableElement readOutsideTransaction =
+      AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
     final boolean writeOutsideTransaction = AnnotationsUtil.getAnnotationValue( annotation, "writeOutsideTransaction" );
     final boolean setterAlwaysMutates = AnnotationsUtil.getAnnotationValue( annotation, "setterAlwaysMutates" );
     final Boolean requireInitializer = isInitializerRequired( method );
@@ -138,10 +139,7 @@ public final class ArezProcessor
     }
 
     final ObservableDescriptor observable = component.findOrCreateObservable( name );
-    if ( readOutsideTransaction )
-    {
-      observable.setReadOutsideTransaction( true );
-    }
+    observable.setReadOutsideTransaction( readOutsideTransaction.getSimpleName().toString() );
     if ( writeOutsideTransaction )
     {
       observable.setWriteOutsideTransaction( true );
@@ -2010,6 +2008,7 @@ public final class ArezProcessor
     ensureNoMethodInjections( typeElement );
     final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
     final String daggerMode = daggerParameter.getSimpleName().toString();
+    final VariableElement defaultReadOutsideTransaction = getAnnotationParameter( arezComponent, "defaultReadOutsideTransaction" );
 
     final String injectMode = getInjectMode( arezComponent, typeElement, scopeAnnotation, daggerMode );
     final boolean dagger =
@@ -2121,7 +2120,8 @@ public final class ArezProcessor
                                scopeAnnotation,
                                deferSchedule,
                                generateToString,
-                               typeElement );
+                               typeElement,
+                               defaultReadOutsideTransaction.getSimpleName().toString().equals( "ENABLE" ) );
 
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
     validate( allowEmpty, descriptor );

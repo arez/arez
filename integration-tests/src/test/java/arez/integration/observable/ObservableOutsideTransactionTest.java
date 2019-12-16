@@ -1,6 +1,7 @@
 package arez.integration.observable;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -14,7 +15,7 @@ public class ObservableOutsideTransactionTest
   @ArezComponent
   static abstract class MyComponent
   {
-    @Observable( readOutsideTransaction = true )
+    @Observable( readOutsideTransaction = Feature.ENABLE )
     abstract long getTime();
 
     abstract void setTime( long value );

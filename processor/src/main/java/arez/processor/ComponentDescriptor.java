@@ -90,6 +90,7 @@ final class ComponentDescriptor
   private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
   @Nullable
   private Boolean _hasDeprecatedElements;
+  private final boolean _defaultReadOutsideTransaction;
 
   ComponentDescriptor( @Nonnull final String type,
                        @Nullable final Priority defaultPriority,
@@ -104,7 +105,8 @@ final class ComponentDescriptor
                        @Nullable final AnnotationMirror scopeAnnotation,
                        final boolean deferSchedule,
                        final boolean generateToString,
-                       @Nonnull final TypeElement element )
+                       @Nonnull final TypeElement element,
+                       final boolean defaultReadOutsideTransaction )
   {
     _type = Objects.requireNonNull( type );
     _defaultPriority = defaultPriority;
@@ -120,6 +122,7 @@ final class ComponentDescriptor
     _deferSchedule = deferSchedule;
     _generateToString = generateToString;
     _element = Objects.requireNonNull( element );
+    _defaultReadOutsideTransaction = defaultReadOutsideTransaction;
   }
 
   @Nonnull
@@ -188,6 +191,11 @@ final class ComponentDescriptor
   private boolean isDeprecated( @Nullable final Element element )
   {
     return null != element && null != element.getAnnotation( Deprecated.class );
+  }
+
+  boolean defaultReadOutsideTransaction()
+  {
+    return _defaultReadOutsideTransaction;
   }
 
   @Nonnull

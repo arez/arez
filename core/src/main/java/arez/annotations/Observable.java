@@ -74,16 +74,19 @@ public @interface Observable
   Feature initializer() default Feature.AUTODETECT;
 
   /**
-   * Return true if the observable be read outside a transaction.
-   * If the observable can be read outside a transaction then {@link ObservableValue#reportObserved()} will
-   * only be invoked in a tracking transaction (i.e. when an {@link arez.Observer} created the transaction).
-   * Thus {@link Action} annotated methods that only access observables that set the readOutsideTransaction
-   * parameter to true and neither access nor modify other arez elements no longer need to be annotated with
-   * {@link Action} annotations.
+   * Indicate whether the observable can be read outside a transaction.
+   * If the value is {@link Feature#AUTODETECT} then the value will be derived from the
+   * {@link ArezComponent#defaultReadOutsideTransaction()} parameter on the {@link ArezComponent} annotation. If
+   * the value is set to {@link Feature#ENABLE} then the observable can be read outside a transaction and the
+   * {@link ObservableValue#reportObserved()} will only be invoked if the observables is accessed from within
+   * a tracking transaction (i.e. when an {@link arez.Observer} or {@link arez.ComputableValue} creates the
+   * transaction). Thus, {@link Action} annotated methods that only access observables that set the
+   * readOutsideTransaction parameter to {@link Feature#ENABLE} and neither access nor modify other arez elements
+   * no longer need to be annotated with {@link Action} annotations.
    *
-   * @return true to allow reads outside a transaction, false to require a transaction to read observable.
+   * @return flag that determines whether the observable allows reads outside a transaction by default, false to require a transaction to read the observable.
    */
-  boolean readOutsideTransaction() default false;
+  Feature readOutsideTransaction() default Feature.AUTODETECT;
 
   /**
    * Return true if the observable will create an action if the write occurs outside a transaction.

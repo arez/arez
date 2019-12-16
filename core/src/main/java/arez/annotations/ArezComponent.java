@@ -182,4 +182,12 @@ public @interface ArezComponent
    * @return the default priority used by {@link Memoize} and {@link Observe} annotated methods.
    */
   Priority defaultPriority() default Priority.NORMAL;
+
+  /**
+   * The default value for the readOutsideTransaction parameter of {@link Memoize} and {@link Observable}
+   * annotated methods.
+   *
+   * @return true to allow reads outside a transaction by default, false to default to requiring a transaction to read observables and memoized values.
+   */
+  Feature defaultReadOutsideTransaction() default Feature.AUTODETECT;
 }

@@ -3,6 +3,7 @@ package arez.integration.references;
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
@@ -91,7 +92,7 @@ public class ReferenceOutsideTransactionIntegrationTest
     abstract Model2 getModel2();
 
     @ReferenceId
-    @Observable( readOutsideTransaction = true )
+    @Observable( readOutsideTransaction = Feature.ENABLE )
     @Nonnull
     Object getModel2Id()
     {

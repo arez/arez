@@ -1,6 +1,7 @@
 package com.example.reference;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.LinkType;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
@@ -13,7 +14,7 @@ abstract class LazyObservableReadOutsideTransactionReferenceModel
   abstract MyEntity getMyEntity();
 
   @ReferenceId
-  @Observable( readOutsideTransaction = true )
+  @Observable( readOutsideTransaction = Feature.ENABLE )
   abstract int getMyEntityId();
 
   abstract void setMyEntityId( int id );
