@@ -1,12 +1,13 @@
 package com.example.memoize;
 
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 
 @ArezComponent
-abstract class ReadOutsideTransactionModel
+abstract class ReadOutsideTransactionDisableMemoizeModel
 {
-  @Memoize( readOutsideTransaction = true )
+  @Memoize( readOutsideTransaction = Feature.DISABLE )
   public long getTime()
   {
     return 0;

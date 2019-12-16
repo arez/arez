@@ -1221,7 +1221,7 @@ public final class ArezProcessor
     final boolean reportResult = AnnotationsUtil.getAnnotationValue( annotation, "reportResult" );
     final boolean observeLowerPriorityDependencies =
       AnnotationsUtil.getAnnotationValue( annotation, "observeLowerPriorityDependencies" );
-    final boolean readOutsideTransaction = AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
+    final VariableElement readOutsideTransaction = AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
     final VariableElement priority = AnnotationsUtil.getAnnotationValue( annotation, "priority" );
     final VariableElement depType = AnnotationsUtil.getAnnotationValue( annotation, "depType" );
     final String depTypeAsString = depType.getSimpleName().toString();
@@ -1232,7 +1232,7 @@ public final class ArezProcessor
                                                                   priority ),
                                                       reportResult,
                                                       observeLowerPriorityDependencies,
-                                                      readOutsideTransaction,
+                                                      readOutsideTransaction.getSimpleName().toString(),
                                                       depTypeAsString );
   }
 

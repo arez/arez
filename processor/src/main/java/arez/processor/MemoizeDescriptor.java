@@ -33,7 +33,7 @@ final class MemoizeDescriptor
   private Priority _priority;
   private boolean _reportResult;
   private boolean _observeLowerPriorityDependencies;
-  private boolean _readOutsideTransaction;
+  private String _readOutsideTransaction;
   private String _depType;
   @Nullable
   private ExecutableElement _onActivate;
@@ -106,7 +106,7 @@ final class MemoizeDescriptor
                    @Nonnull final Priority priority,
                    final boolean reportResult,
                    final boolean observeLowerPriorityDependencies,
-                   final boolean readOutsideTransaction,
+                   @Nonnull final String readOutsideTransaction,
                    @Nonnull final String depType )
     throws ProcessorException
   {
@@ -317,9 +317,10 @@ final class MemoizeDescriptor
     return _observeLowerPriorityDependencies;
   }
 
-  boolean isReadOutsideTransaction()
+  boolean canReadOutsideTransaction()
   {
-    return _readOutsideTransaction;
+    return "ENABLE".equals( _readOutsideTransaction ) ||
+           ( "AUTODETECT".equals( _readOutsideTransaction ) && getComponent().defaultReadOutsideTransaction() );
   }
 
   String getDepType()

@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_ReadOutsideTransactionModel extends ReadOutsideTransactionModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ReadOutsideTransactionFromEnabledDefaultMemoizeModel extends ReadOutsideTransactionFromEnabledDefaultMemoizeModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -23,12 +23,12 @@ final class Arez_ReadOutsideTransactionModel extends ReadOutsideTransactionModel
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  Arez_ReadOutsideTransactionModel() {
+  Arez_ReadOutsideTransactionFromEnabledDefaultMemoizeModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ReadOutsideTransactionModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ReadOutsideTransactionModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ReadOutsideTransactionFromEnabledDefaultMemoizeModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ReadOutsideTransactionFromEnabledDefaultMemoizeModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.READ_OUTSIDE_TRANSACTION | ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
@@ -93,8 +93,8 @@ final class Arez_ReadOutsideTransactionModel extends ReadOutsideTransactionModel
   @Override
   public final boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ReadOutsideTransactionModel ) {
-        final Arez_ReadOutsideTransactionModel that = (Arez_ReadOutsideTransactionModel) o;
+      if ( o instanceof Arez_ReadOutsideTransactionFromEnabledDefaultMemoizeModel ) {
+        final Arez_ReadOutsideTransactionFromEnabledDefaultMemoizeModel that = (Arez_ReadOutsideTransactionFromEnabledDefaultMemoizeModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;

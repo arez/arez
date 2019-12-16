@@ -2987,7 +2987,7 @@ final class ComponentGenerator
     {
       flags.add( "OBSERVE_LOWER_PRIORITY_DEPENDENCIES" );
     }
-    if ( memoize.isReadOutsideTransaction() )
+    if ( memoize.canReadOutsideTransaction() )
     {
       flags.add( "READ_OUTSIDE_TRANSACTION" );
     }

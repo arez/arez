@@ -106,11 +106,13 @@ public @interface Memoize
   boolean reportResult() default true;
 
   /**
-   * Return true if the memoized value can be read outside a transaction.
-   * It should be noted that if there is no Observer tracking the memoized value, then the value will be
-   * calculated each time it is accessed.
+   * Indicate whether the memoized value can be read outside a transaction.
+   * If the value is {@link Feature#AUTODETECT} then the value will be derived from the
+   * {@link ArezComponent#defaultReadOutsideTransaction()} parameter on the {@link ArezComponent} annotation. If
+   * the value is set to {@link Feature#ENABLE} then the memoized value can be read outside a transaction. It should
+   * be noted that in this scenario the memoized value will be recalculated each time it is accessed.
    *
-   * @return true to allow reads outside a transaction, false to require a transaction to read memoized value.
+   * @return flag that determines whether the memoized value allows reads outside a transaction, false to require a transaction to read the memoized value.
    */
-  boolean readOutsideTransaction() default false;
+  Feature readOutsideTransaction() default Feature.AUTODETECT;
 }

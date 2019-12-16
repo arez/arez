@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
@@ -53,7 +54,7 @@ public class MemoizeReadOutsideTransactionTest
       return new MemoizeReadOutsideTransactionTest_Arez_Element();
     }
 
-    @Memoize( readOutsideTransaction = true, depType = DepType.AREZ_OR_NONE )
+    @Memoize( readOutsideTransaction = Feature.ENABLE, depType = DepType.AREZ_OR_NONE )
     @Nonnull
     String getMemoized()
     {
