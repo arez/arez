@@ -37,6 +37,12 @@ See https://github.com/arez/arez/issues/91
 * generate a suppressable warning if `defaultPriority` parameter is present without any `@Memoize` or `@Observer`
   annotated methods. The suppression should be `UnnecessaryDefault`
 
+* generate a suppressable warning if `defaultReadOutsideTransaction` parameter is present without any `@Observable`
+  or `@Memoize` annotated methods. The suppression should be `UnnecessaryDefault`
+
+* generate a suppressable warning if `defaultWriteOutsideTransaction` parameter is present without any `@Observable`
+  annotated methods. The suppression should be `UnnecessaryDefault`
+
 * Add separate `ArezIdentifiable` interface that is for internal use of Arez and is not expected to be
   used outside of the framework. This will be the infrastructure that is used when `Arez.areNamesEnabled()`
   returns true and a name is synthesized or when `Arez.areRegistriesEnabled()` or
