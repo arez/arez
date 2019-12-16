@@ -28,8 +28,6 @@ See https://github.com/arez/arez/issues/91
 * Avoid copying whitelisted annotations and instead created those we expect. i.e. Manually copy `@Deprecated`,
   `@SuppressWarnings` for `rawtypes` and copy `@Nullable`/`@Nonnull` explicitly.
 
-* Update domgen to use pairs of abstract `@Observable` methods
-
 * Support multiple instances of `@OnDepsChange`
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
