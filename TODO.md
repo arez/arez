@@ -34,9 +34,6 @@ See https://github.com/arez/arez/issues/91
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
 
-* generate a suppressable warning if `defaultPriority` parameter is present without any `@Memoize` or `@Observer`
-  annotated methods. The suppression should be `UnnecessaryDefault`
-
 * generate a suppressable warning if `defaultReadOutsideTransaction` parameter is present without any `@Observable`
   or `@Memoize` annotated methods. The suppression should be `UnnecessaryDefault`
 
