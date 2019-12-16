@@ -84,7 +84,7 @@ public @interface Observable
    * readOutsideTransaction parameter to {@link Feature#ENABLE} and neither access nor modify other arez elements
    * no longer need to be annotated with {@link Action} annotations.
    *
-   * @return flag that determines whether the observable allows reads outside a transaction by default, false to require a transaction to read the observable.
+   * @return flag that determines whether the observable allows reads outside a transaction, false to require a transaction to read the observable.
    */
   Feature readOutsideTransaction() default Feature.AUTODETECT;
 
