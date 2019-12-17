@@ -63,10 +63,10 @@ final class ArezUtils
                                          Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
-  static void mustBeInternalHookMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                        @Nonnull final ComponentDescriptor descriptor,
-                                        @Nonnull final ExecutableElement method,
-                                        @Nonnull final String annotationClassname )
+  static void shouldBeInternalHookMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                          @Nonnull final ComponentDescriptor descriptor,
+                                          @Nonnull final ExecutableElement method,
+                                          @Nonnull final String annotationClassname )
   {
     MemberChecks.shouldBeInternalMethod( processingEnv,
                                          descriptor.getElement(),

@@ -361,10 +361,10 @@ public final class ArezProcessor
 
     MemberChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
-    ArezUtils.mustBeInternalHookMethod( processingEnv,
-                                        component,
-                                        method,
-                                        Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalHookMethod( processingEnv,
+                                          component,
+                                          method,
+                                          Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME );
 
     component.findOrCreateMemoize( name ).setOnActivate( method );
   }
@@ -383,10 +383,10 @@ public final class ArezProcessor
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
                                       method );
-    ArezUtils.mustBeInternalHookMethod( processingEnv,
-                                        component,
-                                        method,
-                                        Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalHookMethod( processingEnv,
+                                          component,
+                                          method,
+                                          Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME );
     component.findOrCreateMemoize( name ).setOnDeactivate( method );
   }
 
@@ -708,10 +708,10 @@ public final class ArezProcessor
 
     MemberChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME, method );
-    ArezUtils.mustBeInternalHookMethod( processingEnv,
-                                        component,
-                                        method,
-                                        Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
+    ArezUtils.shouldBeInternalHookMethod( processingEnv,
+                                          component,
+                                          method,
+                                          Constants.ON_DEPS_CHANGE_ANNOTATION_CLASSNAME );
     observe.setOnDepsChange( method );
   }
 
