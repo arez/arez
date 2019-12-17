@@ -12,11 +12,6 @@ public abstract class BasicModelWithDifferentAccessLevels
   {
   }
 
-  protected BasicModelWithDifferentAccessLevels( final String value )
-  {
-    _value = value;
-  }
-
   public BasicModelWithDifferentAccessLevels( final String value, final long time )
   {
     _value = value;

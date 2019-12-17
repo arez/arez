@@ -52,7 +52,12 @@ public class ArezProcessorTest
                       false },
         new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel", false, false, false, false },
         new Object[]{ "com.example.component.DeprecatedModel", false, false, false, false },
+        new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false, false },
+        new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false, false },
+        new Object[]{ "com.example.component.NotObservableModel", false, false, false, false },
+        new Object[]{ "com.example.component.ObservableModel", false, false, false, false },
         new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false, false },
+        new Object[]{ "com.example.component.Suppressed1ProtectedCtorModel", false, false, false, false },
         new Object[]{ "com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent",
                       false,
                       false,
@@ -63,6 +68,7 @@ public class ArezProcessorTest
                       false,
                       false,
                       false },
+        new Object[]{ "com.example.component.Suppressed2ProtectedCtorModel", false, false, false, false },
         new Object[]{ "com.example.component.Suppressed2UnnecessaryAllowEmptyPresentComponent",
                       false,
                       false,
@@ -100,10 +106,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.collections.ObservableNonnullSetModel", false, false, false, false },
         new Object[]{ "com.example.collections.ObservableNoSettersModel", false, false, false, false },
         new Object[]{ "com.example.collections.ObservableSetModel", false, false, false, false },
-        new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false, false },
-        new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false, false },
-        new Object[]{ "com.example.component.NotObservableModel", false, false, false, false },
-        new Object[]{ "com.example.component.ObservableModel", false, false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentId", false, false, false, false },
         new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals", false, false, false, false },
         new Object[]{ "com.example.component_id.ByteComponentId", false, false, false, false },
@@ -918,7 +920,6 @@ public class ArezProcessorTest
         new Object[]{ "com.example.repository.RepositoryWithInitializerNameCollisionModel", false, false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", false, false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithMultipleInitializersModel", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithProtectedConstructor", false, false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithRawType", false, false, true, true },
         new Object[]{ "com.example.reserved_names.NonReservedNameModel", false, false, false, false },
         new Object[]{ "com.example.to_string.NoToStringPresent", false, false, false, false },
@@ -967,6 +968,22 @@ public class ArezProcessorTest
       toFilename( "input", "com.example.component.AllowEmptyOnNonEmptyComponent" );
     final String messageFragment =
       "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void protectedCtorModel()
+  {
+    final String filename =
+      toFilename( "input", "com.example.component.ProtectedCtorModel" );
+    final String messageFragment =
+      "@ArezComponent target has a protected constructor. The constructor should be public or package access. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )";
     assert_().about( JavaSourcesSubjectFactory.javaSources() ).
       that( Collections.singletonList( fixture( filename ) ) ).
       withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).

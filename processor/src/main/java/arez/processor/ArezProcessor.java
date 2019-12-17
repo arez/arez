@@ -2081,6 +2081,18 @@ public final class ArezProcessor
                                     typeElement );
     }
 
+    for ( final ExecutableElement constructor : constructors )
+    {
+      if ( constructor.getModifiers().contains( Modifier.PROTECTED ) &&
+           isWarningNotSuppressed( constructor, Constants.WARNING_PROTECTED_CONSTRUCTOR ) )
+      {
+        final String message =
+          "@ArezComponent target has a protected constructor. The constructor should be public or package access. " +
+          suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR );
+        processingEnv.getMessager().printMessage( WARNING, message, constructor );
+      }
+    }
+
     if ( scopeAnnotations.size() > 1 )
     {
       final List<String> scopes = scopeAnnotations.stream()
