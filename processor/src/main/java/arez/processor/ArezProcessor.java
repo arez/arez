@@ -65,6 +65,8 @@ public final class ArezProcessor
   private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
   private static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChange" );
+  private static final Pattern PRE_INVERSE_REMOVE_PATTERN = Pattern.compile( "^pre([A-Z].*)Remove" );
+  private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
 
   @Nonnull
   private ObservableDescriptor addObservable( @Nonnull final ComponentDescriptor component,
@@ -790,7 +792,7 @@ public final class ArezProcessor
     component.getObserves().values().forEach( ObserveDescriptor::validate );
     component.getDependencies().values().forEach( DependencyDescriptor::validate );
     component.getReferences().values().forEach( ReferenceDescriptor::validate );
-    component.getInverses().values().forEach( InverseDescriptor::validate );
+    component.getInverses().values().forEach( e -> e.validate( processingEnv ) );
 
     final boolean hasReactiveElements =
       component.getObservables().isEmpty() &&
@@ -2495,6 +2497,10 @@ public final class ArezProcessor
       AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_ID_ANNOTATION_CLASSNAME );
     final AnnotationMirror inverse =
       AnnotationsUtil.findAnnotationByType( method, Constants.INVERSE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror preInverseRemove =
+      AnnotationsUtil.findAnnotationByType( method, Constants.PRE_INVERSE_REMOVE_ANNOTATION_CLASSNAME );
+    final AnnotationMirror postInverseAdd =
+      AnnotationsUtil.findAnnotationByType( method, Constants.POST_INVERSE_ADD_ANNOTATION_CLASSNAME );
     final AnnotationMirror cascadeDispose =
       AnnotationsUtil.findAnnotationByType( method, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME );
 
@@ -2648,6 +2654,16 @@ public final class ArezProcessor
       addInverse( descriptor, inverse, method, methodType );
       return true;
     }
+    else if ( null != preInverseRemove )
+    {
+      addPreInverseRemove( descriptor, preInverseRemove, method );
+      return true;
+    }
+    else if ( null != postInverseAdd )
+    {
+      addPostInverseAdd( descriptor, postInverseAdd, method );
+      return true;
+    }
     else
     {
       return false;
@@ -2731,6 +2747,119 @@ public final class ArezProcessor
     return name;
   }
 
+  private void addPreInverseRemove( @Nonnull final ComponentDescriptor component,
+                                    @Nonnull final AnnotationMirror annotation,
+                                    @Nonnull final ExecutableElement method )
+    throws ProcessorException
+  {
+    ArezUtils.mustBeHookHook( component.getElement(),
+                              Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                              Constants.PRE_INVERSE_REMOVE_ANNOTATION_CLASSNAME,
+                              method );
+    ArezUtils.shouldBeInternalHookMethod( processingEnv,
+                                          component,
+                                          method,
+                                          Constants.PRE_INVERSE_REMOVE_ANNOTATION_CLASSNAME );
+    if ( 1 != method.getParameters().size() )
+    {
+      throw new ProcessorException( MemberChecks.must( Constants.PRE_INVERSE_REMOVE_ANNOTATION_CLASSNAME,
+                                                       "have exactly 1 parameter" ), method );
+    }
+
+    final String name = getPreInverseRemoveName( annotation, method );
+    findOrCreateInverseDescriptor( component, name ).addPreInverseRemoveHook( method );
+  }
+
+  @Nonnull
+  private String getPreInverseRemoveName( @Nonnull final AnnotationMirror annotation,
+                                          @Nonnull final ExecutableElement method )
+  {
+    final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    if ( Constants.SENTINEL.equals( name ) )
+    {
+      final String candidate = ProcessorUtil.deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
+      if ( null == candidate )
+      {
+        throw new ProcessorException( "@PreInverseRemove target has not specified a name and does not follow " +
+                                      "the convention \"pre[Name]Remove\"", method );
+      }
+      else
+      {
+        return candidate;
+      }
+    }
+    else
+    {
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ProcessorException( "@PreInverseRemove target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ProcessorException( "@PreInverseRemove target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword", method );
+      }
+      return name;
+    }
+  }
+
+  private void addPostInverseAdd( @Nonnull final ComponentDescriptor component,
+                                  @Nonnull final AnnotationMirror annotation,
+                                  @Nonnull final ExecutableElement method )
+    throws ProcessorException
+  {
+    ArezUtils.mustBeHookHook( component.getElement(),
+                              Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                              Constants.POST_INVERSE_ADD_ANNOTATION_CLASSNAME,
+                              method );
+    ArezUtils.shouldBeInternalHookMethod( processingEnv,
+                                          component,
+                                          method,
+                                          Constants.POST_INVERSE_ADD_ANNOTATION_CLASSNAME );
+    if ( 1 != method.getParameters().size() )
+    {
+      throw new ProcessorException( MemberChecks.must( Constants.POST_INVERSE_ADD_ANNOTATION_CLASSNAME,
+                                                       "have exactly 1 parameter" ), method );
+    }
+    final String name = getPostInverseAddName( annotation, method );
+    findOrCreateInverseDescriptor( component, name ).addPostInverseAddHook( method );
+  }
+
+  @Nonnull
+  private String getPostInverseAddName( @Nonnull final AnnotationMirror annotation,
+                                        @Nonnull final ExecutableElement method )
+  {
+    final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    if ( Constants.SENTINEL.equals( name ) )
+    {
+      final String candidate = ProcessorUtil.deriveName( method, POST_INVERSE_ADD_PATTERN, name );
+      if ( null == candidate )
+      {
+        throw new ProcessorException( "@PostInverseAdd target has not specified a name and does not follow " +
+                                      "the convention \"post[Name]Add\"", method );
+      }
+      else
+      {
+        return candidate;
+      }
+    }
+    else
+    {
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ProcessorException( "@PostInverseAdd target specified an invalid name '" + name + "'. The " +
+                                      "name must be a valid java identifier", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ProcessorException( "@PostInverseAdd target specified an invalid name '" + name + "'. The " +
+                                      "name must not be a java keyword", method );
+      }
+      return name;
+    }
+  }
+
   private void addInverse( @Nonnull final ComponentDescriptor descriptor,
                            @Nonnull final AnnotationMirror annotation,
                            @Nonnull final ExecutableElement method,
@@ -2768,7 +2897,7 @@ public final class ArezProcessor
 
     final String name = getInverseName( annotation, method );
     final InverseDescriptor existing = descriptor.getInverses().get( name );
-    if ( null != existing )
+    if ( null != existing && existing.hasObservable() )
     {
       throw new ProcessorException( "@Inverse target defines duplicate inverse for name '" + name +
                                     "'. The other inverse is " + existing.getObservable().getGetter(),
@@ -2810,11 +2939,18 @@ public final class ArezProcessor
         }
       }
       final String referenceName = getInverseReferenceNameParameter( descriptor, method );
-      final InverseDescriptor inverse =
-        new InverseDescriptor( descriptor, observable, referenceName, multiplicity, targetType );
-      descriptor.getInverses().put( name, inverse );
+
+      final InverseDescriptor inverse = findOrCreateInverseDescriptor( descriptor, name );
+      inverse.setInverse( observable, referenceName, multiplicity, targetType );
       verifyMultiplicityOfAssociatedReferenceMethod( descriptor, inverse );
     }
+  }
+
+  @Nonnull
+  private InverseDescriptor findOrCreateInverseDescriptor( @Nonnull final ComponentDescriptor descriptor,
+                                                           @Nonnull final String name )
+  {
+    return descriptor.getInverses().computeIfAbsent( name, n -> new InverseDescriptor( descriptor, name ) );
   }
 
   @Nonnull

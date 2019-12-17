@@ -809,6 +809,31 @@ public class ArezProcessorTest
                       false },
         new Object[]{ "com.example.post_dispose.Suppressed2PublicAccessPostDisposeModel", false, false, false, false },
 
+        new Object[]{ "com.example.post_inverse_add.BasicPostInverseAddModel", false, false, false, false },
+        new Object[]{ "com.example.post_inverse_add.MultiPostInverseAddModel", false, false, false, false },
+        new Object[]{ "com.example.post_inverse_add.PackageAccessPostInverseAddModel", false, false, false, false },
+        new Object[]{ "com.example.post_inverse_add.SingularInversePostInverseAddModel", false, false, false, false },
+        new Object[]{ "com.example.post_inverse_add.Suppressed1ProtectedAccessPostInverseAddModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.post_inverse_add.Suppressed1PublicAccessPostInverseAddModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.post_inverse_add.Suppressed2ProtectedAccessPostInverseAddModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.post_inverse_add.Suppressed2PublicAccessPostInverseAddModel",
+                      false,
+                      false,
+                      false,
+                      false },
+
         new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel", false, false, false, false },
         new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel", false, false, false, false },
         new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel", false, false, false, false },
@@ -820,6 +845,35 @@ public class ArezProcessorTest
                       false,
                       false },
         new Object[]{ "com.example.pre_dispose.Suppressed2PublicAccessPreDisposeModel", false, false, false, false },
+
+        new Object[]{ "com.example.pre_inverse_remove.BasicPreInverseRemoveModel", false, false, false, false },
+        new Object[]{ "com.example.pre_inverse_remove.MultiPreInverseRemoveModel", false, false, false, false },
+        new Object[]{ "com.example.pre_inverse_remove.PackageAccessPreInverseRemoveModel", false, false, false, false },
+        new Object[]{ "com.example.pre_inverse_remove.SingularInversePreInverseRemoveModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.pre_inverse_remove.Suppressed1ProtectedAccessPreInverseRemoveModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.pre_inverse_remove.Suppressed1PublicAccessPreInverseRemoveModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.pre_inverse_remove.Suppressed2ProtectedAccessPreInverseRemoveModel",
+                      false,
+                      false,
+                      false,
+                      false },
+        new Object[]{ "com.example.pre_inverse_remove.Suppressed2PublicAccessPreInverseRemoveModel",
+                      false,
+                      false,
+                      false,
+                      false },
 
         new Object[]{ "com.example.reference.CascadeDisposeReferenceModel", false, false, false, false },
         new Object[]{ "com.example.reference.CustomNameReferenceModel2", false, false, false, false },
@@ -1760,6 +1814,67 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void protectedAccessPostInverseAdd()
+  {
+    final String filename =
+      toFilename( "input", "com.example.post_inverse_add.ProtectedAccessPostInverseAddModel" );
+    final String messageFragment =
+      "@PostInverseAdd target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessPostInverseAdd()
+  {
+    final String filename =
+      toFilename( "input", "com.example.post_inverse_add.PublicAccessPostInverseAddModel" );
+    final String messageFragment =
+      "@PostInverseAdd target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessPostInverseAdd()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel" );
+    final String input2 =
+      toFilename( "input", "com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.post_inverse_add.Arez_ProtectedAccessFromBasePostInverseAddModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfacePostInverseAdd()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.post_inverse_add.PublicAccessViaInterfacePostInverseAddModel" );
+    final String input2 =
+      toFilename( "input", "com.example.post_inverse_add.PostInverseAddInterface" );
+    final String output =
+      toFilename( "expected", "com.example.post_inverse_add.Arez_PublicAccessViaInterfacePostInverseAddModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void protectedAccessPreDispose()
   {
     final String filename =
@@ -1839,6 +1954,67 @@ public class ArezProcessorTest
                                             fixture( input4 ),
                                             fixture( input5 ),
                                             fixture( input6 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void protectedAccessPreInverseRemove()
+  {
+    final String filename =
+      toFilename( "input", "com.example.pre_inverse_remove.ProtectedAccessPreInverseRemoveModel" );
+    final String messageFragment =
+      "@PreInverseRemove target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void publicAccessPreInverseRemove()
+  {
+    final String filename =
+      toFilename( "input", "com.example.pre_inverse_remove.PublicAccessPreInverseRemoveModel" );
+    final String messageFragment =
+      "@PreInverseRemove target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( Collections.singletonList( fixture( filename ) ) ).
+      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
+      processedWith( new ArezProcessor() ).
+      compilesWithoutError().
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
+  }
+
+  @Test
+  public void validProtectedAccessPreInverseRemove()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel" );
+    final String input2 =
+      toFilename( "input", "com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel" );
+    final String output =
+      toFilename( "expected",
+                  "com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validPublicAccessViaInterfacePreInverseRemove()
+    throws Exception
+  {
+    final String input1 =
+      toFilename( "input", "com.example.pre_inverse_remove.PublicAccessViaInterfacePreInverseRemoveModel" );
+    final String input2 =
+      toFilename( "input", "com.example.pre_inverse_remove.PreInverseRemoveInterface" );
+    final String output =
+      toFilename( "expected", "com.example.pre_inverse_remove.Arez_PublicAccessViaInterfacePreInverseRemoveModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -2598,6 +2774,56 @@ public class ArezProcessorTest
                       "@PostDispose target must not return a value" },
         new Object[]{ "com.example.post_dispose.PostDisposeThrowsExceptionModel",
                       "@PostDispose target must not throw any exceptions" },
+
+        new Object[]{ "com.example.post_inverse_add.AbstractPostInverseAddModel",
+                      "@PostInverseAdd target must not be abstract" },
+        new Object[]{ "com.example.post_inverse_add.BadName1PostInverseAddModel",
+                      "@PostInverseAdd target has not specified a name and does not follow the convention \"post[Name]Add\"" },
+        new Object[]{ "com.example.post_inverse_add.BadName2PostInverseAddModel",
+                      "@PostInverseAdd target specified an invalid name '-ace'. The name must be a valid java identifier" },
+        new Object[]{ "com.example.post_inverse_add.BadName3PostInverseAddModel",
+                      "@PostInverseAdd target specified an invalid name 'int'. The name must not be a java keyword" },
+        new Object[]{ "com.example.post_inverse_add.BadParamCount1PostInverseAddModel",
+                      "@PostInverseAdd target must have exactly 1 parameter" },
+        new Object[]{ "com.example.post_inverse_add.BadParamCount2PostInverseAddModel",
+                      "@PostInverseAdd target must have exactly 1 parameter" },
+        new Object[]{ "com.example.post_inverse_add.BadParamTypePostInverseAddModel",
+                      "@PostInverseAdd target has a parameter that is not the expected type. Actual type: java.lang.String Expected Type: com.example.post_inverse_add.BadParamTypePostInverseAddModel.Element" },
+        new Object[]{ "com.example.post_inverse_add.MissingInversePostInverseAddModel",
+                      "@PostInverseAdd target with name 'element' is not associated an @Inverse annotated method with the same name" },
+        new Object[]{ "com.example.post_inverse_add.PrivatePostInverseAddModel",
+                      "@PostInverseAdd target must not be private" },
+        new Object[]{ "com.example.post_inverse_add.ReturnsPostInverseAddModel",
+                      "@PostInverseAdd target must not return a value" },
+        new Object[]{ "com.example.post_inverse_add.StaticPostInverseAddModel",
+                      "@PostInverseAdd target must not be static" },
+        new Object[]{ "com.example.post_inverse_add.ThrowsPostInverseAddModel",
+                      "@PostInverseAdd target must not throw any exceptions" },
+
+        new Object[]{ "com.example.pre_inverse_remove.AbstractPreInverseRemoveModel",
+                      "@PreInverseRemove target must not be abstract" },
+        new Object[]{ "com.example.pre_inverse_remove.BadName1PreInverseRemoveModel",
+                      "@PreInverseRemove target specified an invalid name '-e-e-'. The name must be a valid java identifier" },
+        new Object[]{ "com.example.pre_inverse_remove.BadName2PreInverseRemoveModel",
+                      "@PreInverseRemove target specified an invalid name 'double'. The name must not be a java keyword" },
+        new Object[]{ "com.example.pre_inverse_remove.BadName3PreInverseRemoveModel",
+                      "@PreInverseRemove target has not specified a name and does not follow the convention \"pre[Name]Remove\"" },
+        new Object[]{ "com.example.pre_inverse_remove.BadParamCount1PreInverseRemoveModel",
+                      "@PreInverseRemove target must have exactly 1 parameter" },
+        new Object[]{ "com.example.pre_inverse_remove.BadParamCount2PreInverseRemoveModel",
+                      "@PreInverseRemove target must have exactly 1 parameter" },
+        new Object[]{ "com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel",
+                      "@PreInverseRemove target has a parameter that is not the expected type. Actual type: java.lang.String Expected Type: com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel.Element" },
+        new Object[]{ "com.example.pre_inverse_remove.MissingInversePreInverseRemoveModel",
+                      "@PreInverseRemove target with name 'element' is not associated an @Inverse annotated method with the same name" },
+        new Object[]{ "com.example.pre_inverse_remove.PrivatePreInverseRemoveModel",
+                      "@PreInverseRemove target must not be private" },
+        new Object[]{ "com.example.pre_inverse_remove.ReturnsPreInverseRemoveModel",
+                      "@PreInverseRemove target must not return a value" },
+        new Object[]{ "com.example.pre_inverse_remove.StaticPreInverseRemoveModel",
+                      "@PreInverseRemove target must not be static" },
+        new Object[]{ "com.example.pre_inverse_remove.ThrowsPreInverseRemoveModel",
+                      "@PreInverseRemove target must not throw any exceptions" },
 
         new Object[]{ "com.example.observable.PrivateObservableGetterModel", "@Observable target must not be private" },
         new Object[]{ "com.example.observable.PrivateObservableSetterModel", "@Observable target must not be private" },

@@ -3776,6 +3776,11 @@ final class ComponentGenerator
     builder.addCode( clearCacheBlock.build() );
     builder.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
 
+    for ( final ExecutableElement hook : inverse.getPostInverseAddHooks() )
+    {
+      builder.addStatement( "$N( $N )", hook.getSimpleName(), otherName );
+    }
+
     return builder.build();
   }
 
@@ -3812,6 +3817,11 @@ final class ComponentGenerator
                         observable.getFieldName() );
     block.endControlFlow();
     builder.addCode( block.build() );
+
+    for ( final ExecutableElement hook : inverse.getPreInverseRemoveHooks() )
+    {
+      builder.addStatement( "$N( $N )", hook.getSimpleName(), otherName );
+    }
 
     builder.addStatement( "this.$N.remove( $N )", observable.getDataFieldName(), otherName );
     final CodeBlock.Builder clearCacheBlock = CodeBlock.builder();
@@ -3858,6 +3868,11 @@ final class ComponentGenerator
     builder.addStatement( "this.$N = $N", observable.getDataFieldName(), otherName );
     builder.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
 
+    for ( final ExecutableElement hook : inverse.getPostInverseAddHooks() )
+    {
+      builder.addStatement( "$N( $N )", hook.getSimpleName(), otherName );
+    }
+
     return builder.build();
   }
 
@@ -3887,6 +3902,11 @@ final class ComponentGenerator
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( this.$N == $N )", observable.getDataFieldName(), otherName );
+    for ( final ExecutableElement hook : inverse.getPreInverseRemoveHooks() )
+    {
+      block.addStatement( "$N( $N )", hook.getSimpleName(), otherName );
+    }
+
     block.addStatement( "this.$N = null", observable.getDataFieldName() );
     block.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
     block.endControlFlow();

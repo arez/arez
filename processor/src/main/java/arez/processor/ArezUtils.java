@@ -35,6 +35,18 @@ final class ArezUtils
     MemberChecks.mustNotThrowAnyExceptions( annotationClassname, method );
   }
 
+  static void mustBeHookHook( @Nonnull final TypeElement targetType,
+                              @Nonnull final String scopeAnnotationName,
+                              @Nonnull final String annotationName,
+                              @Nonnull final ExecutableElement method )
+    throws ProcessorException
+  {
+    MemberChecks.mustNotBeAbstract( annotationName, method );
+    MemberChecks.mustBeSubclassCallable( targetType, scopeAnnotationName, annotationName, method );
+    MemberChecks.mustNotReturnAnyValue( annotationName, method );
+    MemberChecks.mustNotThrowAnyExceptions( annotationName, method );
+  }
+
   static void shouldBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                          @Nonnull final ComponentDescriptor descriptor,
                                          @Nonnull final ExecutableElement method,
