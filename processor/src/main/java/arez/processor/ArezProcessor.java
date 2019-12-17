@@ -2067,14 +2067,15 @@ public final class ArezProcessor
                                     "type must not be a java keyword.", typeElement );
     }
 
-    if ( !scopeAnnotations.isEmpty() && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
+    final List<ExecutableElement> constructors = getConstructors( typeElement );
+    if ( !scopeAnnotations.isEmpty() && constructors.size() > 1 )
     {
       throw new ProcessorException( "@ArezComponent target has specified a scope annotation but has more than " +
                                     "one constructor and thus is not a candidate for injection",
                                     typeElement );
     }
 
-    if ( !"NONE".equals( injectMode ) && ProcessorUtil.getConstructors( typeElement ).size() > 1 )
+    if ( !"NONE".equals( injectMode ) && constructors.size() > 1 )
     {
       throw new ProcessorException( "@ArezComponent specified inject parameter but has more than one constructor",
                                     typeElement );
@@ -2097,7 +2098,7 @@ public final class ArezProcessor
     boolean generatesFactoryToInject = false;
     if ( dagger )
     {
-      final ExecutableElement ctor = ProcessorUtil.getConstructors( typeElement ).get( 0 );
+      final ExecutableElement ctor = constructors.get( 0 );
       assert null != ctor;
       final List<? extends VariableElement> perInstanceParameters = ctor.getParameters()
         .stream()
