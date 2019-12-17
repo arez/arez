@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.159'
 * Remove usage of the `nameIncludesId` parameter on the `@ArezComponent` annotation as it is scheduled for removal.
 
 ### [v0.41](https://github.com/arez/arez-dom/tree/v0.41) (2019-12-05) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.40...v0.41)
