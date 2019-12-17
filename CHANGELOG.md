@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.42](https://github.com/arez/arez-dom/tree/v0.42) (2019-12-17) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.41...v0.42)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.159'
 * Remove usage of the `nameIncludesId` parameter on the `@ArezComponent` annotation as it is scheduled for removal.
