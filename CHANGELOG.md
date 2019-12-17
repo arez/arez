@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.159](https://github.com/arez/arez/tree/v0.159) (2019-12-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.158...v0.159) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.158&new=0.159)
 
 The release includes 5 non breaking API changes, 3 potentially breaking API changes and 2 breaking API changes.
