@@ -214,6 +214,7 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
 * There is no way to indicate that certain components are not lazy/`@Eager` and should be created when the Dagger
   component is created. Our applications end up adding accessors on the component just so that we can call them
   and create them after the component is instantiated.
+* It should be a code warning if `@Inject` occurs on a protected or public constructor
 
 In the future we may have the cycles to address these issues. However a solution seems to be to either replace
 dagger with a better injection framework or build tooling on top of dagger that hides it's complexities.
