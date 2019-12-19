@@ -1300,7 +1300,7 @@ public final class ArezProcessor
     if ( !processingEnv.getTypeUtils().isSameType( target, component.getElement().asType() ) )
     {
       throw new ProcessorException( "@Inverse target expected to find an associated @Reference annotation with " +
-                                    "a target type equal to " + descriptor.getTargetType() + " but the actual " +
+                                    "a target type equal to " + component.getElement().asType() + " but the actual " +
                                     "target type is " + target, descriptor.getObservable().getGetter() );
     }
   }
