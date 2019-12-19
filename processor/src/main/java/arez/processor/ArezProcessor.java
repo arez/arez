@@ -1595,8 +1595,8 @@ public final class ArezProcessor
                                                  Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
       {
         throw new ProcessorException( "@Reference target expected to return a type annotated with " +
-                                      Constants.COMPONENT_ANNOTATION_CLASSNAME + " if there is an " +
-                                      "inverse reference.", method );
+                                      MemberChecks.toSimpleName( Constants.COMPONENT_ANNOTATION_CLASSNAME ) +
+                                      " if there is an inverse reference", method );
       }
     }
     else

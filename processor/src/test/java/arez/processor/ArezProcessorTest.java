@@ -2645,7 +2645,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.inverse.ParametersInverseModel", "@Inverse target must not have any parameters" },
         new Object[]{ "com.example.inverse.PrivateInverseModel", "@Inverse target must not be private" },
         new Object[]{ "com.example.inverse.ReferenceSpecifiesNonComponentInverseModel",
-                      "@Reference target expected to return a type annotated with arez.annotations.ArezComponent if there is an inverse reference." },
+                      "@Reference target expected to return a type annotated with @ArezComponent if there is an inverse reference" },
         new Object[]{ "com.example.inverse.StaticInverseModel", "@Inverse target must not be static" },
         new Object[]{ "com.example.inverse.ThrowsInverseModel", "@Inverse target must not throw any exceptions" },
         new Object[]{ "com.example.inverse.UnexpectedInverseForReferenceModel",
