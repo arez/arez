@@ -563,9 +563,7 @@ final class ComponentGenerator
     final MethodSpec.Builder method =
       GeneratorUtil.overrideMethod( processingEnv, component.getElement(), action.getAction() );
 
-    final TypeMirror returnType = action.getActionType().getReturnType();
-
-    final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
+    final boolean isProcedure = action.getActionType().getReturnType().getKind() == TypeKind.VOID;
     final List<? extends TypeMirror> thrownTypes = action.getAction().getThrownTypes();
     final boolean isSafe = thrownTypes.isEmpty();
 
