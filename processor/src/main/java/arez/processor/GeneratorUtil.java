@@ -321,15 +321,12 @@ final class GeneratorUtil
       (ExecutableType) processingEnv.getTypeUtils().asMemberOf( declaredType, executableElement );
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( executableElement.getSimpleName().toString() );
-    if ( AnnotationsUtil.hasAnnotationOfType( executableElement, Deprecated.class.getName() ) )
-    {
-      method.addAnnotation( Deprecated.class );
-    }
     method.addAnnotation( Override.class );
 
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, executableType );
     copyAccessModifiers( executableElement, method );
     copyTypeParameters( executableType, method );
+    copyWhitelistedAnnotations( executableElement, method );
 
     method.varargs( executableElement.isVarArgs() );
 
