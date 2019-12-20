@@ -13,9 +13,12 @@ import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.Filer;
@@ -340,9 +343,7 @@ final class GeneratorUtil
       }
     }
 
-    final AnnotationSpec suppress =
-      maybeSuppressWarningsAnnotation( hasRawTypes( processingEnv, returnType ) ? "rawtypes" : null,
-                                       hasDeprecatedTypes( processingEnv, returnType ) ? "deprecation" : null );
+    final AnnotationSpec suppress = maybeSuppressWarningsAnnotation( processingEnv, returnType );
     if ( null != suppress )
     {
       method.addAnnotation( suppress );
@@ -351,6 +352,54 @@ final class GeneratorUtil
     copyTypeParameters( originalExecutableType, method );
     method.returns( TypeName.get( returnType ) );
     return method;
+  }
+
+  /**
+   * Generate a suppress warnings annotation if any of the types passed in are either deprecated or rawtypes.
+   *
+   * @param types the types to analyze to determine if suppressions are required.
+   * @return a suppress annotation if required.
+   */
+  @Nullable
+  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
+                                                         @Nonnull final TypeMirror... types )
+  {
+    return maybeSuppressWarningsAnnotation( processingEnv, Collections.emptyList(), types );
+  }
+
+  /**
+   * Generate a suppress warnings annotation if any of the types passed in are either deprecated or rawtypes.
+   * The additionalSuppressions parameter will also be added to list of suppressions.
+   *
+   * @param additionalSuppressions the suppressions that must be added to suppression annotation.
+   * @param types                  the types to analyze to determine if suppressions are required.
+   * @return a suppress annotation if required.
+   */
+  @Nullable
+  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
+                                                         @Nonnull final Collection<String> additionalSuppressions,
+                                                         @Nonnull final TypeMirror... types )
+  {
+    final boolean hasRawTypes = Stream.of( types ).anyMatch( t -> hasRawTypes( processingEnv, t ) );
+    final boolean hasDeprecatedTypes = Stream.of( types ).anyMatch( t -> hasDeprecatedTypes( processingEnv, t ) );
+
+    if ( hasRawTypes || hasDeprecatedTypes || !additionalSuppressions.isEmpty() )
+    {
+      final ArrayList<String> suppressions = new ArrayList<>( additionalSuppressions );
+      if ( hasRawTypes )
+      {
+        suppressions.add( "rawtypes" );
+      }
+      if ( hasDeprecatedTypes )
+      {
+        suppressions.add( "deprecation" );
+      }
+      return suppressWarningsAnnotation( suppressions.toArray( new String[ 0 ] ) );
+    }
+    else
+    {
+      return null;
+    }
   }
 
   private static boolean hasDeprecatedTypes( @Nonnull final ProcessingEnvironment processingEnv,
@@ -364,8 +413,9 @@ final class GeneratorUtil
     {
       final DeclaredType declaredType = (DeclaredType) type;
       return declaredType.getAnnotationMirrors()
-        .stream()
-        .anyMatch( a -> a.getAnnotationType().toString().equals( Deprecated.class.getName() ) );
+               .stream()
+               .anyMatch( a -> a.getAnnotationType().toString().equals( Deprecated.class.getName() ) ) ||
+             declaredType.getTypeArguments().stream().anyMatch( a -> hasDeprecatedTypes( processingEnv, a ) );
     }
     else
     {
