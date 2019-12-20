@@ -74,7 +74,7 @@ final class Arez_Suppressed2ProtectedAccessComputableValueRefModel extends Suppr
   }
 
   @Override
-  public long getTime() {
+  public final long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

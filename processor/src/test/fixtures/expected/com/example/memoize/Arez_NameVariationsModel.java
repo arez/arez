@@ -89,7 +89,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public long getTime() {
+  public final long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -97,7 +97,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public boolean isReady() {
+  public final boolean isReady() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'isReady' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -105,7 +105,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public String helper() {
+  public final String helper() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'helper' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -113,7 +113,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public String myFooHelperMethod() {
+  public final String myFooHelperMethod() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myFooHelperMethod' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

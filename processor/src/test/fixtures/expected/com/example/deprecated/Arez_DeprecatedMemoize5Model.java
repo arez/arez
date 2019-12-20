@@ -75,9 +75,9 @@ final class Arez_DeprecatedMemoize5Model extends DeprecatedMemoize5Model impleme
     this.$$arez$$_count.dispose();
   }
 
-  @Deprecated
   @Override
-  public long count(final long time, final float someOtherParameter) {
+  @Deprecated
+  public final long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

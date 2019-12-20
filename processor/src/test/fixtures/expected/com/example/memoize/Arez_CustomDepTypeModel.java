@@ -75,7 +75,7 @@ final class Arez_CustomDepTypeModel extends CustomDepTypeModel implements Dispos
   }
 
   @Override
-  public long count(final long time, final float someOtherParameter) {
+  public final long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

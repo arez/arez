@@ -80,7 +80,7 @@ final class Arez_MemoizeKeepAliveListModel extends MemoizeKeepAliveListModel imp
   }
 
   @Override
-  public List<String> getMyValue() {
+  public final List<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

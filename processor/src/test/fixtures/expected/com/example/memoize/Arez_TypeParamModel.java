@@ -75,7 +75,7 @@ final class Arez_TypeParamModel<T> extends TypeParamModel<T> implements Disposab
   }
 
   @Override
-  public T count(final String param) {
+  public final T count(final String param) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

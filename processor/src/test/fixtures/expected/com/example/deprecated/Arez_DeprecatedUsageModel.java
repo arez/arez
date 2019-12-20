@@ -235,27 +235,27 @@ public final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implem
     this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( entity ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { entity } : null );
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  MyDeprecatedEntity genEntity() {
+  @SuppressWarnings("deprecation")
+  final MyDeprecatedEntity genEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return this.$$arez$$_genEntity.get();
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  int genEntityStat1(final MyDeprecatedEntity entity) {
+  @SuppressWarnings("deprecation")
+  final int genEntityStat1(final MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntityStat1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return this.$$arez$$_genEntityStat1.get( entity );
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  int genEntityStat2(final List<Consumer<MyDeprecatedEntity>> other) {
+  @SuppressWarnings("deprecation")
+  final int genEntityStat2(final List<Consumer<MyDeprecatedEntity>> other) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntityStat2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -91,7 +91,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  protected int myMemoize() {
+  protected final int myMemoize() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myMemoize' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

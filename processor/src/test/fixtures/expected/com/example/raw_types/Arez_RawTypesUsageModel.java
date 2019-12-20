@@ -235,27 +235,27 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( callable ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { callable } : null );
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  Callable genCallable() {
+  @SuppressWarnings("rawtypes")
+  final Callable genCallable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genCallable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return this.$$arez$$_genCallable.get();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  int genCallableStat1(final Callable callable) {
+  @SuppressWarnings("rawtypes")
+  final int genCallableStat1(final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genCallableStat1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return this.$$arez$$_genCallableStat1.get( callable );
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  int genCallableStat2(final List<Consumer<Callable>> other) {
+  @SuppressWarnings("rawtypes")
+  final int genCallableStat2(final List<Consumer<Callable>> other) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genCallableStat2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

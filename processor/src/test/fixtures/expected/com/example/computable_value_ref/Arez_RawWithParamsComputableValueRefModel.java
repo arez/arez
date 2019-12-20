@@ -75,7 +75,7 @@ final class Arez_RawWithParamsComputableValueRefModel extends RawWithParamsCompu
   }
 
   @Override
-  public long getTime(final int zone) {
+  public final long getTime(final int zone) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -79,9 +79,9 @@ final class Arez_MemoizeNonnullCollectionModel extends MemoizeNonnullCollectionM
     this.$$arez$$_myValue.dispose();
   }
 
-  @Nonnull
   @Override
-  public Collection<String> getMyValue() {
+  @Nonnull
+  public final Collection<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

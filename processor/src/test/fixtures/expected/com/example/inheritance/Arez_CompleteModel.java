@@ -301,7 +301,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected long getTime() {
+  protected final long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -318,7 +318,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected long calcStuff(final int i) {
+  protected final long calcStuff(final int i) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'calcStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

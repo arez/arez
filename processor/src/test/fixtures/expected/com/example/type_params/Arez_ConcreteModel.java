@@ -134,7 +134,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public W compWriter() {
+  public final W compWriter() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'compWriter' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -142,7 +142,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public IOException compError() {
+  public final IOException compError() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'compError' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

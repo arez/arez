@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -2436,19 +2435,13 @@ final class ComponentGenerator
                                                        @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
-    final ExecutableElement method = memoize.getMethod();
-    final ExecutableType methodType = memoize.getMethodType();
-    final String methodName = method.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( method, builder );
-    GeneratorUtil.copyExceptions( methodType, builder );
-    GeneratorUtil.copyTypeParameters( methodType, builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
-    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
-    builder.addAnnotation( Override.class );
-    final TypeName returnType = TypeName.get( methodType.getReturnType() );
-    builder.returns( returnType );
-    generateNotDisposedInvariant( builder, methodName );
+    final ExecutableElement executableElement = memoize.getMethod();
+    final ComponentDescriptor component = memoize.getComponent();
+    final MethodSpec.Builder method =
+      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), executableElement );
+
+    final TypeName returnType = TypeName.get( memoize.getMethodType().getReturnType() );
+    generateNotDisposedInvariant( method, executableElement.getSimpleName().toString() );
 
     if ( isCollectionType( memoize.getMethod() ) )
     {
@@ -2476,7 +2469,7 @@ final class ComponentGenerator
         block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
         block.endControlFlow();
 
-        builder.addCode( block.build() );
+        method.addCode( block.build() );
       }
       else
       {
@@ -2513,18 +2506,18 @@ final class ComponentGenerator
         block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
         block.endControlFlow();
 
-        builder.addCode( block.build() );
+        method.addCode( block.build() );
       }
     }
-    else if ( method.getTypeParameters().isEmpty() )
+    else if ( executableElement.getTypeParameters().isEmpty() )
     {
-      builder.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
+      method.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
     }
     else
     {
-      builder.addStatement( "return ($T) this.$N.get()", returnType.box(), getMemoizeFieldName( memoize ) );
+      method.addStatement( "return ($T) this.$N.get()", returnType.box(), getMemoizeFieldName( memoize ) );
     }
-    return builder.build();
+    return method.build();
   }
 
   @Nonnull
@@ -2564,42 +2557,19 @@ final class ComponentGenerator
                                                     @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
-    final ExecutableElement method = memoize.getMethod();
-    final ExecutableType methodType = memoize.getMethodType();
-    final String methodName = method.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( method, builder );
-    GeneratorUtil.copyExceptions( methodType, builder );
-    GeneratorUtil.copyTypeParameters( methodType, builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, methodType );
-    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
-    builder.addAnnotation( Override.class );
-    final TypeName returnType = TypeName.get( methodType.getReturnType() );
-    builder.returns( returnType );
+    final ExecutableElement executableElement = memoize.getMethod();
 
-    final boolean hasTypeParameters = !method.getTypeParameters().isEmpty();
-    if ( hasTypeParameters )
-    {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
-                               .addMember( "value", "$S", "unchecked" )
-                               .build() );
-    }
+    final boolean hasTypeParameters = !executableElement.getTypeParameters().isEmpty();
+    final List<String> additionalSuppressions =
+      hasTypeParameters ? Collections.singletonList( "unchecked" ) : Collections.emptyList();
+    final MethodSpec.Builder builder =
+      GeneratorUtil.overrideMethod( processingEnv,
+                                    memoize.getComponent().getElement(),
+                                    executableElement,
+                                    additionalSuppressions,
+                                    false );
 
-    {
-      final List<? extends VariableElement> parameters = method.getParameters();
-      final int paramCount = parameters.size();
-      for ( int i = 0; i < paramCount; i++ )
-      {
-        final VariableElement element = parameters.get( i );
-        final TypeName parameterType = TypeName.get( methodType.getParameterTypes().get( i ) );
-        final ParameterSpec.Builder param =
-          ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-        GeneratorUtil.copyWhitelistedAnnotations( element, param );
-        builder.addParameter( param.build() );
-      }
-    }
-
-    generateNotDisposedInvariant( builder, methodName );
+    generateNotDisposedInvariant( builder, executableElement.getSimpleName().toString() );
 
     final StringBuilder sb = new StringBuilder();
     final List<Object> parameters = new ArrayList<>();
@@ -2607,13 +2577,13 @@ final class ComponentGenerator
     if ( hasTypeParameters )
     {
       sb.append( "($T) " );
-      parameters.add( returnType.box() );
+      parameters.add( TypeName.get( memoize.getMethodType().getReturnType() ).box() );
     }
     sb.append( "this.$N.get( " );
     parameters.add( getMemoizeFieldName( memoize ) );
 
     boolean first = true;
-    for ( final VariableElement element : method.getParameters() )
+    for ( final VariableElement element : executableElement.getParameters() )
     {
       if ( !first )
       {

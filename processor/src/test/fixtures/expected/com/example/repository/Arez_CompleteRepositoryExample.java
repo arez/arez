@@ -162,9 +162,9 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     }
   }
 
-  @Nonnull
   @Override
-  public String getQualifiedName() {
+  @Nonnull
+  public final String getQualifiedName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getQualifiedName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

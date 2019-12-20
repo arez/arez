@@ -13,6 +13,8 @@ import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -318,13 +320,14 @@ final class GeneratorUtil
                                             @Nonnull final TypeElement typeElement,
                                             @Nonnull final ExecutableElement executableElement )
   {
-    return overrideMethod( processingEnv, typeElement, executableElement, true );
+    return overrideMethod( processingEnv, typeElement, executableElement, Collections.emptyList(), true );
   }
 
   @Nonnull
   static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                             @Nonnull final TypeElement typeElement,
                                             @Nonnull final ExecutableElement executableElement,
+                                            @Nonnull final Collection<String> additionalSuppressions,
                                             final boolean copyNullabilityAnnotations )
   {
     final DeclaredType declaredType = (DeclaredType) typeElement.asType();
@@ -384,7 +387,8 @@ final class GeneratorUtil
                                        @Nonnull final TypeElement typeElement,
                                        @Nonnull final ExecutableElement executableElement )
   {
-    final MethodSpec.Builder method = overrideMethod( processingEnv, typeElement, executableElement, false );
+    final MethodSpec.Builder method =
+      overrideMethod( processingEnv, typeElement, executableElement, Collections.emptyList(), false );
     if ( !executableElement.getReturnType().getKind().isPrimitive() )
     {
       method.addAnnotation( NONNULL_CLASSNAME );

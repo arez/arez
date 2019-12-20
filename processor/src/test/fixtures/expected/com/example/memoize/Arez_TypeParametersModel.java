@@ -74,7 +74,7 @@ final class Arez_TypeParametersModel extends TypeParametersModel implements Disp
   }
 
   @Override
-  public <T extends Integer> T getTime() {
+  public final <T extends Integer> T getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

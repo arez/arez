@@ -79,9 +79,9 @@ final class Arez_MemoizeNonnullMapModel extends MemoizeNonnullMapModel implement
     this.$$arez$$_myValue.dispose();
   }
 
-  @Nonnull
   @Override
-  public Map<String, String> getMyValue() {
+  @Nonnull
+  public final Map<String, String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
