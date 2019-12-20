@@ -366,7 +366,7 @@ final class GeneratorUtil
   {
     final MethodSpec.Builder method = overrideMethod( processingEnv, typeElement, executableElement );
     method.addModifiers( Modifier.FINAL );
-    if ( !TypeName.get( executableElement.getReturnType() ).isPrimitive() )
+    if ( !executableElement.getReturnType().getKind().isPrimitive() )
     {
       method.addAnnotation( NONNULL_CLASSNAME );
     }
