@@ -215,7 +215,7 @@ Dagger2 is not a great injection framework for our context. Some annoyances that
   component is created. Our applications end up adding accessors on the component just so that we can call them
   and create them after the component is instantiated.
 * Not only should objects be eagerly instantiated we should have the ability to run arbitrary code snippets
-  after eager components are created. (i.e. binding code in react4j codebase). 
+  after eager components are created. (i.e. binding code in react4j codebase).
 * It should be a code warning if `@Inject` occurs on a protected or public constructor
 * It should be easy to override module for test scenarios and override specific parts of module locally.
   We are often forced to use dagger for "production" cases and guice for unit testing.
