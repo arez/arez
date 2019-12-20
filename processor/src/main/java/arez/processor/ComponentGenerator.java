@@ -559,15 +559,11 @@ final class ComponentGenerator
     throws ProcessorException
   {
     final String methodName = action.getAction().getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( action.getAction(), builder );
-    GeneratorUtil.copyExceptions( action.getActionType(), builder );
-    GeneratorUtil.copyTypeParameters( action.getActionType(), builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, action.getActionType() );
-    GeneratorUtil.copyWhitelistedAnnotations( action.getAction(), builder );
-    builder.addAnnotation( Override.class );
+    final ComponentDescriptor component = action.getComponent();
+    final MethodSpec.Builder method =
+      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), action.getAction() );
+
     final TypeMirror returnType = action.getActionType().getReturnType();
-    builder.returns( TypeName.get( returnType ) );
 
     final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
     final List<? extends TypeMirror> thrownTypes = action.getAction().getThrownTypes();
@@ -609,10 +605,10 @@ final class ComponentGenerator
     params.add( "." + action.getName() );
 
     statement.append( ", () -> " );
-    if ( action.getComponent().isInterfaceType() )
+    if ( component.isInterfaceType() )
     {
       statement.append( "$T." );
-      params.add( action.getComponent().getClassName() );
+      params.add( component.getClassName() );
     }
     statement.append( "super.$N(" );
     params.add( action.getAction().getSimpleName().toString() );
@@ -625,14 +621,8 @@ final class ComponentGenerator
     {
       statement.append( " " );
     }
-    for ( int i = 0; i < paramCount; i++ )
+    for ( final VariableElement element : parameters )
     {
-      final VariableElement element = parameters.get( i );
-      final TypeName parameterType = TypeName.get( action.getActionType().getParameterTypes().get( i ) );
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      GeneratorUtil.copyWhitelistedAnnotations( element, param );
-      builder.addParameter( param.build() );
       params.add( element.getSimpleName().toString() );
       if ( !firstParam )
       {
@@ -676,19 +666,19 @@ final class ComponentGenerator
     }
     statement.append( " )" );
 
-    generateNotDisposedInvariant( builder, methodName );
+    generateNotDisposedInvariant( method, methodName );
     if ( isSafe )
     {
-      builder.addStatement( statement.toString(), params.toArray() );
+      method.addStatement( statement.toString(), params.toArray() );
     }
     else
     {
-      generateTryBlock( builder,
+      generateTryBlock( method,
                         thrownTypes,
                         b -> b.addStatement( statement.toString(), params.toArray() ) );
     }
 
-    return builder.build();
+    return method.build();
   }
 
   private static void appendActionFlags( @Nonnull final ActionDescriptor action,

@@ -90,9 +90,9 @@ final class Arez_DeprecatedUsageModelRepository extends DeprecatedUsageModelRepo
     this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".destroy" : null, () -> super.destroy( entity ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, null );
   }
 
+  @Override
   @SuppressWarnings("deprecation")
   @Nonnull
-  @Override
   public DeprecatedUsageModel create(final MyDeprecatedEntity myEntity,
       final List<MyDeprecatedEntity> myEntityList) {
     if ( Arez.shouldCheckApiInvariants() ) {

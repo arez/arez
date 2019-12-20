@@ -90,8 +90,8 @@ final class Arez_PackageAccessRepositoryExampleRepository extends PackageAccessR
     this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".destroy" : null, () -> super.destroy( entity ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, null );
   }
 
-  @Nonnull
   @Override
+  @Nonnull
   PackageAccessRepositoryExample create(@Nonnull final String packageName,
       @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {

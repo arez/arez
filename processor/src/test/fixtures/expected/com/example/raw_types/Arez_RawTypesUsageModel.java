@@ -226,8 +226,8 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.render( callable ), Arez.areSpiesEnabled() ? new Object[] { callable } : null );
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
+  @SuppressWarnings("rawtypes")
   public void doStuff(@Nonnull final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

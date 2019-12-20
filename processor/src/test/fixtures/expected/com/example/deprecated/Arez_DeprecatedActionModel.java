@@ -65,8 +65,8 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel implements 
     this.$$arezi$$_kernel.dispose();
   }
 
-  @Deprecated
   @Override
+  @Deprecated
   public void doStuff(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

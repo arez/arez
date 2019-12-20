@@ -226,8 +226,8 @@ public final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implem
     this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.render( entity ), Arez.areSpiesEnabled() ? new Object[] { entity } : null );
   }
 
-  @SuppressWarnings("deprecation")
   @Override
+  @SuppressWarnings("deprecation")
   public void doStuff(@Nonnull final MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
