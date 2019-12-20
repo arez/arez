@@ -73,7 +73,7 @@ final class Arez_TrackedImplicitOnDepsChangeAcceptsObserverModel extends Tracked
   }
 
   @Override
-  public void render(final long time, final float someOtherParameter) {
+  public final void render(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

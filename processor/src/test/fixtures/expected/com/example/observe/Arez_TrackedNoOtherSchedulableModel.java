@@ -73,7 +73,7 @@ final class Arez_TrackedNoOtherSchedulableModel extends TrackedNoOtherSchedulabl
   }
 
   @Override
-  public void render1() {
+  public final void render1() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

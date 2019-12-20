@@ -73,7 +73,7 @@ final class Arez_Suppressed1ProtectedAccessObserverRefModel extends Suppressed1P
   }
 
   @Override
-  protected void doStuff() {
+  protected final void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

@@ -217,9 +217,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     }
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public void render(@Nonnull final Callable callable) {
+  @SuppressWarnings("rawtypes")
+  public final void render(@Nonnull final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -61,7 +61,7 @@ final class Arez_CtorInjectWithObserveModel extends CtorInjectWithObserveModel i
   }
 
   @Override
-  void autorun() {
+  final void autorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'autorun' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

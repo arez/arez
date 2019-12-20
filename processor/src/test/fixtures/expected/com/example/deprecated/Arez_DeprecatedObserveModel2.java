@@ -74,7 +74,7 @@ final class Arez_DeprecatedObserveModel2 extends DeprecatedObserveModel2 impleme
   }
 
   @Override
-  void render() {
+  final void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -89,7 +89,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Di
   }
 
   @Override
-  public void render1() {
+  public final void render1() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -97,7 +97,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Di
   }
 
   @Override
-  public void render2() throws ParseException {
+  public final void render2() throws ParseException {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -111,7 +111,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Di
   }
 
   @Override
-  protected int render3() {
+  protected final int render3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -119,7 +119,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Di
   }
 
   @Override
-  int render4() throws ParseException {
+  final int render4() throws ParseException {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render4' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

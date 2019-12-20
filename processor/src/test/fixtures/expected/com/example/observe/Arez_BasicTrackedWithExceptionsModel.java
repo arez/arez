@@ -74,7 +74,7 @@ final class Arez_BasicTrackedWithExceptionsModel extends BasicTrackedWithExcepti
   }
 
   @Override
-  public void render() throws ParseException {
+  public final void render() throws ParseException {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -78,7 +78,7 @@ final class Arez_TrackedAndSchedulableModel extends TrackedAndSchedulableModel i
   }
 
   @Override
-  public void render1() {
+  public final void render1() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -86,7 +86,7 @@ final class Arez_TrackedAndSchedulableModel extends TrackedAndSchedulableModel i
   }
 
   @Override
-  void render2() {
+  final void render2() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'render2' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

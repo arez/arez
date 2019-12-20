@@ -73,7 +73,7 @@ final class Arez_Suppressed1PublicAccessOnDepsChangeModel extends Suppressed1Pub
   }
 
   @Override
-  public void render() {
+  public final void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

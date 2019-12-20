@@ -4390,15 +4390,11 @@ final class ComponentGenerator
     final ExecutableType methodType = observe.getMethodType();
     final ExecutableElement method = observe.getMethod();
     final String methodName = method.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( method, builder );
-    GeneratorUtil.copyExceptions( methodType, builder );
-    GeneratorUtil.copyTypeParameters( methodType, builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, methodType );
-    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
-    builder.addAnnotation( Override.class );
+    final ComponentDescriptor component = observe.getComponent();
+    final MethodSpec.Builder builder =
+      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
+
     final TypeMirror returnType = methodType.getReturnType();
-    builder.returns( TypeName.get( returnType ) );
 
     final boolean isProcedure = returnType.getKind() == TypeKind.VOID;
     final List<? extends TypeMirror> thrownTypes = method.getThrownTypes();
@@ -4435,7 +4431,6 @@ final class ComponentGenerator
     statement.append( "( this.$N, " );
     params.add( observe.getFieldName() );
 
-    final ComponentDescriptor component = observe.getComponent();
     if ( component.isClassType() )
     {
       statement.append( "() -> super.$N(" );
@@ -4456,14 +4451,8 @@ final class ComponentGenerator
     }
 
     boolean firstParam = true;
-    for ( int i = 0; i < paramCount; i++ )
+    for ( final VariableElement element : parameters )
     {
-      final VariableElement element = parameters.get( i );
-      final TypeName parameterType = TypeName.get( methodType.getParameterTypes().get( i ) );
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      GeneratorUtil.copyWhitelistedAnnotations( element, param );
-      builder.addParameter( param.build() );
       params.add( element.getSimpleName().toString() );
       if ( !firstParam )
       {
@@ -4526,42 +4515,32 @@ final class ComponentGenerator
     throws ProcessorException
   {
     assert observe.hasObserve();
-    final ExecutableElement method = observe.getMethod();
-    final ExecutableType observedType = observe.getMethodType();
-    final String methodName = method.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( method, builder );
-    GeneratorUtil.copyExceptions( observedType, builder );
-    GeneratorUtil.copyTypeParameters( observedType, builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, observedType );
-    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
-    builder.addAnnotation( Override.class );
-    final TypeMirror returnType = method.getReturnType();
-    builder.returns( TypeName.get( returnType ) );
+    final ComponentDescriptor component = observe.getComponent();
+    final MethodSpec.Builder method =
+      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
     block.addStatement( "$T.fail( () -> \"Observe method named '$N' invoked but @Observe(executor=INTERNAL) " +
                         "annotated methods should only be invoked by the runtime.\" )",
                         GUARDS_CLASSNAME,
-                        methodName );
+                        observe.getMethod().getSimpleName().toString() );
     block.endControlFlow();
 
-    builder.addCode( block.build() );
+    method.addCode( block.build() );
     // This super is generated so that the GWT compiler in production model will identify this as a method
     // that only contains a super invocation and will thus inline it. If the body is left empty then the
     // GWT compiler will be required to keep the empty method present because it can not determine that the
     // empty method will never be invoked.
-    final ComponentDescriptor component = observe.getComponent();
     if ( component.isClassType() )
     {
-      builder.addStatement( "super.$N()", method.getSimpleName() );
+      method.addStatement( "super.$N()", observe.getMethod().getSimpleName() );
     }
     else
     {
-      builder.addStatement( "$T.super.$N()", component.getClassName(), method.getSimpleName() );
+      method.addStatement( "$T.super.$N()", component.getClassName(), observe.getMethod().getSimpleName() );
     }
 
-    return builder.build();
+    return method.build();
   }
 }

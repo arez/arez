@@ -73,7 +73,7 @@ final class Arez_NonStandardNameTrackedModel extends NonStandardNameTrackedModel
   }
 
   @Override
-  public void ren$$$der(final long $$time, final float $$someOtherParameter) {
+  public final void ren$$$der(final long $$time, final float $$someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'ren$$$der' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

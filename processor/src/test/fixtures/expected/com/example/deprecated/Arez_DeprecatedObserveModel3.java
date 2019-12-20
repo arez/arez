@@ -73,9 +73,9 @@ final class Arez_DeprecatedObserveModel3 extends DeprecatedObserveModel3 impleme
     this.$$arez$$_render.dispose();
   }
 
-  @Deprecated
   @Override
-  void render() {
+  @Deprecated
+  final void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'render' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

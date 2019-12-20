@@ -73,9 +73,9 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
     this.$$arez$$_doStuff.dispose();
   }
 
-  @Deprecated
   @Override
-  protected void doStuff() {
+  @Deprecated
+  protected final void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

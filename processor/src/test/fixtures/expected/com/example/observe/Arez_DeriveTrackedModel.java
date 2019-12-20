@@ -73,7 +73,7 @@ final class Arez_DeriveTrackedModel extends DeriveTrackedModel implements Dispos
   }
 
   @Override
-  void render() {
+  final void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'render' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

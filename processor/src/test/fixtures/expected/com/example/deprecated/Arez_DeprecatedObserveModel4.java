@@ -74,7 +74,7 @@ final class Arez_DeprecatedObserveModel4 extends DeprecatedObserveModel4 impleme
   }
 
   @Override
-  void render() {
+  final void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'render' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

@@ -73,7 +73,7 @@ final class Arez_PackageAccessObserverRefModel extends PackageAccessObserverRefM
   }
 
   @Override
-  protected void doStuff() {
+  protected final void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'doStuff' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
