@@ -465,7 +465,7 @@ final class ComponentGenerator
     final boolean catchRuntimeException =
       expectedThrowTypes.stream().anyMatch( t -> t.toString().equals( "java.lang.RuntimeException" ) );
     int thrownCount = expectedThrowTypes.size();
-    final ArrayList<Object> args = new ArrayList<>( expectedThrowTypes );
+    final List<Object> args = new ArrayList<>( expectedThrowTypes );
     if ( !catchThrowable && !catchRuntimeException && !catchException )
     {
       thrownCount++;
@@ -568,7 +568,7 @@ final class ComponentGenerator
     final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
+    final List<Object> params = new ArrayList<>();
 
     if ( !isProcedure )
     {
@@ -681,9 +681,9 @@ final class ComponentGenerator
 
   private static void appendActionFlags( @Nonnull final ActionDescriptor action,
                                          @Nonnull final StringBuilder expression,
-                                         @Nonnull final ArrayList<Object> parameters )
+                                         @Nonnull final List<Object> parameters )
   {
-    final ArrayList<String> flags = new ArrayList<>();
+    final List<String> flags = new ArrayList<>();
 
     if ( action.isRequireNewTransaction() )
     {
@@ -960,7 +960,7 @@ final class ComponentGenerator
       creator.returns( component.getEnhancedClassName() );
 
       final StringBuilder sb = new StringBuilder();
-      final ArrayList<Object> params = new ArrayList<>();
+      final List<Object> params = new ArrayList<>();
       sb.append( "return new $T(" );
       params.add( component.getEnhancedClassName() );
 
@@ -1604,7 +1604,7 @@ final class ComponentGenerator
     buildNativeComponentVar( component, builder );
 
     final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
+    final List<Object> params = new ArrayList<>();
 
     sb.append( "this.$N = new $T( $T.areZonesEnabled() ? $N : null, $T.areNamesEnabled() ? $N : null, " );
     params.add( KERNEL_FIELD_NAME );
@@ -1755,7 +1755,7 @@ final class ComponentGenerator
                                                @Nonnull final MethodSpec.Builder builder )
   {
     final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
+    final List<Object> params = new ArrayList<>();
     sb.append( "final $T $N = $T.areNativeComponentsEnabled() ? $N.component( $S, $N, $N" );
     params.add( COMPONENT_CLASSNAME );
     params.add( COMPONENT_VAR_NAME );
@@ -1894,7 +1894,7 @@ final class ComponentGenerator
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );
-    final ArrayList<String> parameterNames = new ArrayList<>();
+    final List<String> parameterNames = new ArrayList<>();
 
     boolean firstParam = true;
     if ( null != constructor )
@@ -2538,7 +2538,7 @@ final class ComponentGenerator
     generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
     final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
+    final List<Object> params = new ArrayList<>();
     sb.append( "return this.$N.getComputableValue( " );
     params.add( getMemoizeFieldName( memoize ) );
 
@@ -2602,7 +2602,7 @@ final class ComponentGenerator
     generateNotDisposedInvariant( builder, methodName );
 
     final StringBuilder sb = new StringBuilder();
-    final ArrayList<Object> parameters = new ArrayList<>();
+    final List<Object> parameters = new ArrayList<>();
     sb.append( "return " );
     if ( hasTypeParameters )
     {
@@ -4421,7 +4421,7 @@ final class ComponentGenerator
     final boolean isSafe = thrownTypes.isEmpty();
 
     final StringBuilder statement = new StringBuilder();
-    final ArrayList<Object> params = new ArrayList<>();
+    final List<Object> params = new ArrayList<>();
 
     generateNotDisposedInvariant( builder, methodName );
     if ( !isProcedure )
