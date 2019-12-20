@@ -145,9 +145,7 @@ final class ComponentGenerator
     if ( !component.getMemoizes().isEmpty() &&
          !AnnotationsUtil.hasAnnotationOfType( component.getElement(), SuppressWarnings.class.getName() ) )
     {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
-        addMember( "value", "$S", "unchecked" ).
-        build() );
+      builder.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "unchecked" ) );
     }
     final boolean publicType =
       (
@@ -1897,9 +1895,7 @@ final class ComponentGenerator
     if ( requiresDeprecatedSuppress &&
          !AnnotationsUtil.hasAnnotationOfType( component.getElement(), SuppressWarnings.class.getName() ) )
     {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
-                               .addMember( "value", "$S", "deprecation" )
-                               .build() );
+      builder.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "deprecation" ) );
     }
 
     if ( InjectMode.NONE != component.getInjectMode() && !component.isInjectFactory() )
@@ -2083,9 +2079,7 @@ final class ComponentGenerator
 
     if ( !typeParameters.isEmpty() )
     {
-      method.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class ).
-        addMember( "value", "$S", "unchecked" ).
-        build() );
+      method.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "unchecked" ) );
     }
 
     final TypeName typeName =
