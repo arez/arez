@@ -3267,9 +3267,7 @@ final class ComponentGenerator
     // actually changed
     if ( null == setter.getAnnotation( Deprecated.class ) && null != getter.getAnnotation( Deprecated.class ) )
     {
-      builder.addAnnotation( AnnotationSpec.builder( SuppressWarnings.class )
-                               .addMember( "value", "$S", "deprecation" )
-                               .build() );
+      builder.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "deprecation" ) );
     }
 
     final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
