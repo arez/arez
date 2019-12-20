@@ -29,8 +29,23 @@ abstract class AbstractArezProcessorTest
                                 final boolean repositoryDaggerEnabled )
     throws Exception
   {
+    final String[] expectedOutputResources =
+      deriveExpectedOutputs( classname,
+                             daggerModuleExpected,
+                             daggerComponentExtensionExpected,
+                             repositoryEnabled,
+                             repositoryDaggerEnabled );
+    assertSuccessfulCompile( toFilename( "input", classname ), expectedOutputResources );
+  }
+
+  @Nonnull
+  final String[] deriveExpectedOutputs( @Nonnull final String classname,
+                                          final boolean daggerModuleExpected,
+                                          final boolean daggerComponentExtensionExpected,
+                                          final boolean repositoryEnabled,
+                                          final boolean repositoryDaggerEnabled )
+  {
     final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
-    final StringBuilder input = new StringBuilder();
     final StringBuilder arezComponent = new StringBuilder();
     final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
@@ -38,7 +53,6 @@ abstract class AbstractArezProcessorTest
     final StringBuilder componentExtension = daggerComponentExtensionExpected ? new StringBuilder() : null;
     final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
     final StringBuilder repositoryDaggerModule = repositoryDaggerEnabled ? new StringBuilder() : null;
-    input.append( "input" );
     arezComponent.append( "expected" );
     if ( daggerModuleExpected )
     {
@@ -60,8 +74,6 @@ abstract class AbstractArezProcessorTest
     }
     for ( int i = 0; i < elements.length; i++ )
     {
-      input.append( '/' );
-      input.append( elements[ i ] );
       arezComponent.append( '/' );
       if ( daggerModuleExpected )
       {
@@ -129,7 +141,6 @@ abstract class AbstractArezProcessorTest
         }
       }
     }
-    input.append( ".java" );
     arezComponent.append( ".java" );
     final ArrayList<String> expectedOutputs = new ArrayList<>();
     expectedOutputs.add( arezComponent.toString() );
@@ -157,7 +168,7 @@ abstract class AbstractArezProcessorTest
       repositoryDaggerModule.append( ".java" );
       expectedOutputs.add( repositoryDaggerModule.toString() );
     }
-    assertSuccessfulCompile( input.toString(), expectedOutputs.toArray( new String[ 0 ] ) );
+    return expectedOutputs.toArray( new String[ 0 ] );
   }
 
   void assertSuccessfulCompile( @Nonnull final String inputResource, @Nonnull final String... expectedOutputResources )
