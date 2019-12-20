@@ -996,7 +996,7 @@ public class ArezProcessorTest
     final String[] expectedOutputResources =
       deriveExpectedOutputs( classname, false, false, true, true );
     final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
-    assertSuccessfulCompile( Arrays.asList( input1 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulCompile( Collections.singletonList( input1 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
