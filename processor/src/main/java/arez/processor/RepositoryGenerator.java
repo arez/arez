@@ -42,7 +42,7 @@ final class RepositoryGenerator
     final TypeSpec.Builder builder =
       TypeSpec.classBuilder( getRepositoryClassName( repository ).simpleName() ).
         addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) );
-    ComponentGenerator.copyWhitelistedAnnotations( component.getElement(), builder );
+    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder );
     GeneratorUtil.addOriginatingTypes( element, builder );
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
@@ -164,7 +164,7 @@ final class RepositoryGenerator
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL )
-                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.attach( entity )" ).build();
   }
@@ -182,7 +182,7 @@ final class RepositoryGenerator
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( TypeName.get( element.asType() ), "entity", Modifier.FINAL )
-                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.detach( entity )" ).build();
   }
@@ -198,7 +198,7 @@ final class RepositoryGenerator
                        .addMember( "reportParameters", "false" )
                        .build() ).
       addParameter( ParameterSpec.builder( entityType, "entity", Modifier.FINAL )
-                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "super.destroy( entity )" );
     GeneratorUtil.copyAccessModifiers( element, method );
@@ -222,7 +222,7 @@ final class RepositoryGenerator
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "findBy" + getIdName( component ) ).
       addModifiers( Modifier.FINAL ).
       addParameter( ParameterSpec.builder( component.getIdType(), "id", Modifier.FINAL ).build() ).
-      addAnnotation( Generator.NULLABLE_CLASSNAME ).
+      addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME ).
       returns( TypeName.get( component.getElement().asType() ) ).
       addStatement( "return findByArezId( id )" );
     GeneratorUtil.copyAccessModifiers( component.getElement(), method );
@@ -237,7 +237,7 @@ final class RepositoryGenerator
     final TypeName entityType = TypeName.get( element.asType() );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "getBy" + getIdName( component ) ).
       addModifiers( Modifier.FINAL ).
-      addAnnotation( Generator.NONNULL_CLASSNAME ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addParameter( ParameterSpec.builder( component.getIdType(), "id", Modifier.FINAL ).build() ).
       returns( entityType ).
       addStatement( "return getByArezId( id )" );
@@ -264,7 +264,7 @@ final class RepositoryGenerator
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "create" ).
         addAnnotation( annotationSpec ).
-        addAnnotation( Generator.NONNULL_CLASSNAME ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
         returns( TypeName.get( component.asDeclaredType() ) );
 
     GeneratorUtil.copyAccessModifiers( component.getElement(), builder );
@@ -301,7 +301,7 @@ final class RepositoryGenerator
     {
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-      ComponentGenerator.copyWhitelistedAnnotations( element, param );
+      GeneratorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       parameters.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -322,7 +322,7 @@ final class RepositoryGenerator
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                name,
                                Modifier.FINAL );
-      ComponentGenerator.copyWhitelistedAnnotations( observable.getGetter(), param );
+      GeneratorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       parameters.add( name );
       if ( !firstParam )
@@ -347,7 +347,7 @@ final class RepositoryGenerator
     final ClassName rawRepositoryClassName = getRepositoryClassName( repository );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "newRepository" ).
       addModifiers( Modifier.STATIC ).
-      addAnnotation( Generator.NONNULL_CLASSNAME );
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
 
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, component.asDeclaredType() );
 

@@ -21,7 +21,7 @@ final class DaggerComponentExtensionGenerator
   {
     assert descriptor.shouldGenerateFactory();
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( descriptor.getDaggerComponentExtensionClassName() );
-    ComponentGenerator.copyWhitelistedAnnotations( descriptor.getElement(), builder );
+    GeneratorUtil.copyWhitelistedAnnotations( descriptor.getElement(), builder );
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
     GeneratorUtil.addOriginatingTypes( descriptor.getElement(), builder );
 
@@ -56,7 +56,7 @@ final class DaggerComponentExtensionGenerator
                          .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
                          .addParameter( ParameterSpec
                                           .builder( descriptor.getEnhancedClassName(), "component" )
-                                          .addAnnotation( Generator.NONNULL_CLASSNAME )
+                                          .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                                           .build() )
                          .build() );
 

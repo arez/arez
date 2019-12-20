@@ -12,6 +12,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -26,6 +27,7 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
@@ -38,6 +40,14 @@ import javax.lang.model.type.TypeVariable;
                      "BooleanMethodIsAlwaysInverted" } )
 final class GeneratorUtil
 {
+  static final ClassName NONNULL_CLASSNAME = ClassName.get( "javax.annotation", "Nonnull" );
+  static final ClassName NULLABLE_CLASSNAME = ClassName.get( "javax.annotation", "Nullable" );
+  @Nonnull
+  private static final List<String> ANNOTATION_WHITELIST =
+    Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
+                   Constants.NULLABLE_ANNOTATION_CLASSNAME,
+                   Deprecated.class.getName() );
+
   private GeneratorUtil()
   {
   }
@@ -199,6 +209,12 @@ final class GeneratorUtil
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final TypeSpec.Builder builder )
+  {
+    copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final TypeSpec.Builder builder,
                                           @Nonnull final List<String> whitelist )
   {
@@ -209,6 +225,12 @@ final class GeneratorUtil
         builder.addAnnotation( AnnotationSpec.get( annotation ) );
       }
     }
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final MethodSpec.Builder builder )
+  {
+    copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
@@ -225,6 +247,12 @@ final class GeneratorUtil
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final ParameterSpec.Builder builder )
+  {
+    copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
                                           @Nonnull final ParameterSpec.Builder builder,
                                           @Nonnull final List<String> whitelist )
   {
@@ -235,6 +263,12 @@ final class GeneratorUtil
         builder.addAnnotation( AnnotationSpec.get( annotation ) );
       }
     }
+  }
+
+  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                          @Nonnull final FieldSpec.Builder builder )
+  {
+    copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
   static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,

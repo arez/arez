@@ -12,7 +12,6 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.WildcardTypeName;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,7 +25,6 @@ import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -107,11 +105,6 @@ final class ComponentGenerator
    * For fields that are synthesized to hold resolved references.
    */
   private static final String INVERSE_REFERENCE_METHOD_PREFIX = "$$arezir$$_";
-  @Nonnull
-  private static final List<String> ANNOTATION_WHITELIST =
-    Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
-                   Constants.NULLABLE_ANNOTATION_CLASSNAME,
-                   Deprecated.class.getName() );
 
   private ComponentGenerator()
   {
@@ -129,7 +122,7 @@ final class ComponentGenerator
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     GeneratorUtil.addOriginatingTypes( component.getElement(), builder );
-    copyWhitelistedAnnotations( component.getElement(), builder );
+    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder );
 
     if ( component.isClassType() )
     {
@@ -560,30 +553,6 @@ final class ComponentGenerator
     return ClassName.bestGuess( sb.toString() );
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final TypeSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
-  private static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                                  @Nonnull final MethodSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final ParameterSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
-  private static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                                  @Nonnull final FieldSpec.Builder builder )
-  {
-    GeneratorUtil.copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
-  }
-
   @Nonnull
   private static MethodSpec buildAction( @Nonnull final ProcessingEnvironment processingEnv,
                                          @Nonnull final ActionDescriptor action )
@@ -595,7 +564,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( action.getActionType(), builder );
     GeneratorUtil.copyTypeParameters( action.getActionType(), builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, action.getActionType() );
-    copyWhitelistedAnnotations( action.getAction(), builder );
+    GeneratorUtil.copyWhitelistedAnnotations( action.getAction(), builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = action.getActionType().getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -662,7 +631,7 @@ final class ComponentGenerator
       final TypeName parameterType = TypeName.get( action.getActionType().getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      copyWhitelistedAnnotations( element, param );
+      GeneratorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       params.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -968,21 +937,21 @@ final class ComponentGenerator
                   Modifier.PRIVATE,
                   Modifier.FINAL );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, constructor.asType() );
-      copyWhitelistedAnnotations( parameter, field );
+      GeneratorUtil.copyWhitelistedAnnotations( parameter, field );
       factory.addField( field.build() );
     }
 
     final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
     ctor.addAnnotation( INJECT_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, ctor, constructor.asType() );
-    copyWhitelistedAnnotations( constructor, ctor );
+    GeneratorUtil.copyWhitelistedAnnotations( constructor, ctor );
 
     for ( final VariableElement parameter : injectedParameters )
     {
       final String name = parameter.getSimpleName().toString();
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
-      copyWhitelistedAnnotations( parameter, param );
+      GeneratorUtil.copyWhitelistedAnnotations( parameter, param );
       ctor.addParameter( param.build() );
       if ( ProcessorUtil.hasNonnullAnnotation( parameter ) )
       {
@@ -998,7 +967,7 @@ final class ComponentGenerator
 
     {
       final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
-      creator.addAnnotation( Generator.NONNULL_CLASSNAME );
+      creator.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
       creator.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
       creator.returns( component.getEnhancedClassName() );
 
@@ -1020,7 +989,7 @@ final class ComponentGenerator
         {
           final ParameterSpec.Builder param =
             ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
-          copyWhitelistedAnnotations( parameter, param );
+          GeneratorUtil.copyWhitelistedAnnotations( parameter, param );
           creator.addParameter( param.build() );
         }
 
@@ -1214,7 +1183,7 @@ final class ComponentGenerator
   {
     final String methodName = LOCATOR_METHOD_NAME;
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
-      addAnnotation( Generator.NONNULL_CLASSNAME ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addModifiers( Modifier.FINAL ).
       returns( LOCATOR_CLASSNAME );
 
@@ -1260,7 +1229,7 @@ final class ComponentGenerator
   {
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "getArezId" ).
       addAnnotation( Override.class ).
-      addAnnotation( Generator.NONNULL_CLASSNAME ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addModifiers( Modifier.PUBLIC ).
       addModifiers( Modifier.FINAL ).
       returns( component.getIdType().box() ).
@@ -1613,10 +1582,10 @@ final class ComponentGenerator
       addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
-                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addParameter( ParameterSpec.builder( SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
-                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "this.$N.addOnDisposeListener( key, action )", KERNEL_FIELD_NAME ).build();
   }
@@ -1632,7 +1601,7 @@ final class ComponentGenerator
       addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
-                      .addAnnotation( Generator.NONNULL_CLASSNAME )
+                      .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addStatement( "this.$N.removeOnDisposeListener( key )", KERNEL_FIELD_NAME ).build();
   }
@@ -1946,7 +1915,7 @@ final class ComponentGenerator
       {
         final ParameterSpec.Builder param =
           ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-        copyWhitelistedAnnotations( element, param );
+        GeneratorUtil.copyWhitelistedAnnotations( element, param );
         builder.addParameter( param.build() );
         parameterNames.add( element.getSimpleName().toString() );
         if ( !firstParam )
@@ -1988,7 +1957,7 @@ final class ComponentGenerator
         ParameterSpec.builder( TypeName.get( observable.getGetterType().getReturnType() ),
                                name,
                                Modifier.FINAL );
-      copyWhitelistedAnnotations( observable.getGetter(), param );
+      GeneratorUtil.copyWhitelistedAnnotations( observable.getGetter(), param );
       builder.addParameter( param.build() );
       final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
       if ( isPrimitive )
@@ -2183,7 +2152,7 @@ final class ComponentGenerator
   {
     final FieldSpec.Builder field =
       FieldSpec.builder( OBSERVER_CLASSNAME, observe.getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
-        addAnnotation( Generator.NONNULL_CLASSNAME );
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
   }
 
@@ -2487,7 +2456,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
-    copyWhitelistedAnnotations( method, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( methodType.getReturnType() );
     builder.returns( returnType );
@@ -2588,7 +2557,7 @@ final class ComponentGenerator
       final TypeName parameterType = TypeName.get( refMethod.getMethodType().getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      copyWhitelistedAnnotations( element, param );
+      GeneratorUtil.copyWhitelistedAnnotations( element, param );
       method.addParameter( param.build() );
     }
 
@@ -2627,7 +2596,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, methodType );
-    copyWhitelistedAnnotations( method, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( methodType.getReturnType() );
     builder.returns( returnType );
@@ -2649,7 +2618,7 @@ final class ComponentGenerator
         final TypeName parameterType = TypeName.get( methodType.getParameterTypes().get( i ) );
         final ParameterSpec.Builder param =
           ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-        copyWhitelistedAnnotations( element, param );
+        GeneratorUtil.copyWhitelistedAnnotations( element, param );
         builder.addParameter( param.build() );
       }
     }
@@ -2712,7 +2681,7 @@ final class ComponentGenerator
       ParameterizedTypeName.get( COMPUTABLE_VALUE_CLASSNAME, parameterType );
     final FieldSpec.Builder field =
       FieldSpec.builder( typeName, getMemoizeFieldName( memoize ), Modifier.FINAL, Modifier.PRIVATE ).
-        addAnnotation( Generator.NONNULL_CLASSNAME );
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, methodType.getReturnType() );
     builder.addField( field.build() );
     if ( isCollectionType( memoize.getMethod() ) )
@@ -2742,7 +2711,7 @@ final class ComponentGenerator
                          getMemoizeFieldName( memoize ),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
-        addAnnotation( Generator.NONNULL_CLASSNAME );
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, memoize.getMethodType().getReturnType() );
     builder.addField( field.build() );
   }
@@ -3110,7 +3079,7 @@ final class ComponentGenerator
                          observable.getFieldName(),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
-        addAnnotation( Generator.NONNULL_CLASSNAME );
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, getterType.getReturnType() );
     builder.addField( field.build() );
     if ( observable.isAbstract() )
@@ -3236,7 +3205,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( setterType, builder );
     GeneratorUtil.copyTypeParameters( setterType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, setterType );
-    copyWhitelistedAnnotations( setter, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( setter, builder );
 
     builder.addAnnotation( Override.class );
 
@@ -3246,7 +3215,7 @@ final class ComponentGenerator
       final String paramName = element.getSimpleName().toString();
       final ParameterSpec.Builder param =
         ParameterSpec.builder( TypeName.get( setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
-      copyWhitelistedAnnotations( element, param );
+      GeneratorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
 
       if ( setterType.getThrownTypes().isEmpty() )
@@ -3299,7 +3268,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( setterType, builder );
     GeneratorUtil.copyTypeParameters( setterType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, setterType );
-    copyWhitelistedAnnotations( setter, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( setter, builder );
     buildObservableSetterImpl( observable, builder );
 
     return builder.build();
@@ -3327,7 +3296,7 @@ final class ComponentGenerator
     final TypeName type = TypeName.get( parameterType );
     final ParameterSpec.Builder param =
       ParameterSpec.builder( type, paramName, Modifier.FINAL );
-    copyWhitelistedAnnotations( element, param );
+    GeneratorUtil.copyWhitelistedAnnotations( element, param );
     builder.addParameter( param.build() );
     generateNotDisposedInvariant( builder, methodName );
     builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
@@ -3575,7 +3544,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( getterType, builder );
     GeneratorUtil.copyTypeParameters( getterType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, getterType );
-    copyWhitelistedAnnotations( getter, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( getter, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( getterType.getReturnType() ) );
@@ -3791,7 +3760,7 @@ final class ComponentGenerator
     final String otherName = inverse.getOtherName();
     final ParameterSpec parameter =
       ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL )
-        .addAnnotation( Generator.NONNULL_CLASSNAME )
+        .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
         .build();
     builder.addParameter( parameter );
     generateNotDisposedInvariant( builder, methodName );
@@ -3843,7 +3812,7 @@ final class ComponentGenerator
     final String otherName = inverse.getOtherName();
     final ParameterSpec parameter =
       ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL )
-        .addAnnotation( Generator.NONNULL_CLASSNAME )
+        .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
         .build();
     builder.addParameter( parameter );
     generateNotDisposedInvariant( builder, methodName );
@@ -3900,11 +3869,11 @@ final class ComponentGenerator
       ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL );
     if ( Multiplicity.ONE == multiplicity )
     {
-      parameter.addAnnotation( Generator.NONNULL_CLASSNAME );
+      parameter.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     }
     else
     {
-      parameter.addAnnotation( Generator.NULLABLE_CLASSNAME );
+      parameter.addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
     }
     builder.addParameter( parameter.build() );
     generateNotDisposedInvariant( builder, methodName );
@@ -3938,7 +3907,7 @@ final class ComponentGenerator
     final String otherName = inverse.getOtherName();
     final ParameterSpec parameter =
       ParameterSpec.builder( TypeName.get( inverse.getTargetType().asType() ), otherName, Modifier.FINAL )
-        .addAnnotation( Generator.NONNULL_CLASSNAME )
+        .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
         .build();
     builder.addParameter( parameter );
     generateNotDisposedInvariant( builder, methodName );
@@ -4057,7 +4026,7 @@ final class ComponentGenerator
       FieldSpec.builder( TypeName.get( reference.getMethod().getReturnType() ),
                          reference.getFieldName(),
                          Modifier.PRIVATE ).
-        addAnnotation( Generator.NULLABLE_CLASSNAME );
+        addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
     builder.addField( field.build() );
   }
 
@@ -4087,7 +4056,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyTypeParameters( reference.getMethodType(), builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
-    copyWhitelistedAnnotations( method, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
 
     builder.addAnnotation( Override.class );
     builder.returns( TypeName.get( method.getReturnType() ) );
@@ -4466,7 +4435,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, methodType );
-    copyWhitelistedAnnotations( method, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = methodType.getReturnType();
     builder.returns( TypeName.get( returnType ) );
@@ -4533,7 +4502,7 @@ final class ComponentGenerator
       final TypeName parameterType = TypeName.get( methodType.getParameterTypes().get( i ) );
       final ParameterSpec.Builder param =
         ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      copyWhitelistedAnnotations( element, param );
+      GeneratorUtil.copyWhitelistedAnnotations( element, param );
       builder.addParameter( param.build() );
       params.add( element.getSimpleName().toString() );
       if ( !firstParam )
@@ -4605,7 +4574,7 @@ final class ComponentGenerator
     GeneratorUtil.copyExceptions( observedType, builder );
     GeneratorUtil.copyTypeParameters( observedType, builder );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, observedType );
-    copyWhitelistedAnnotations( method, builder );
+    GeneratorUtil.copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = method.getReturnType();
     builder.returns( TypeName.get( returnType ) );

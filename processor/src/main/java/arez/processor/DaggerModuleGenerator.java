@@ -24,7 +24,7 @@ final class DaggerModuleGenerator
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( component.getComponentDaggerModuleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) );
-    ComponentGenerator.copyWhitelistedAnnotations( component.getElement(), builder );
+    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder );
     GeneratorUtil.addOriginatingTypes( component.getElement(), builder );
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
