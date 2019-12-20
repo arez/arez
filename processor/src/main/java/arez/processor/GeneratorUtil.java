@@ -340,14 +340,37 @@ final class GeneratorUtil
       }
     }
 
-    if ( hasRawTypes( processingEnv, returnType ) )
+    final AnnotationSpec suppress =
+      maybeSuppressWarningsAnnotation( hasRawTypes( processingEnv, returnType ) ? "rawtypes" : null,
+                                       hasDeprecatedTypes( processingEnv, returnType ) ? "deprecation" : null );
+    if ( null != suppress )
     {
-      method.addAnnotation( suppressWarningsAnnotation( "rawtypes" ) );
+      method.addAnnotation( suppress );
     }
     copyAccessModifiers( original, method );
     copyTypeParameters( originalExecutableType, method );
     method.returns( TypeName.get( returnType ) );
     return method;
+  }
+
+  private static boolean hasDeprecatedTypes( @Nonnull final ProcessingEnvironment processingEnv,
+                                             @Nonnull final TypeMirror type )
+  {
+    if ( type instanceof ArrayType )
+    {
+      return hasDeprecatedTypes( processingEnv, ( (ArrayType) type ).getComponentType() );
+    }
+    else if ( type instanceof DeclaredType )
+    {
+      final DeclaredType declaredType = (DeclaredType) type;
+      return declaredType.getAnnotationMirrors()
+        .stream()
+        .anyMatch( a -> a.getAnnotationType().toString().equals( Deprecated.class.getName() ) );
+    }
+    else
+    {
+      return false;
+    }
   }
 
   private static boolean hasRawTypes( @Nonnull final ProcessingEnvironment processingEnv,
