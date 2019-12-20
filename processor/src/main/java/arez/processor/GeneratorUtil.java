@@ -351,7 +351,7 @@ final class GeneratorUtil
       final VariableElement variableElement = executableElement.getParameters().get( paramIndex );
       final String name = variableElement.getSimpleName().toString();
       final ParameterSpec.Builder parameter = ParameterSpec.builder( typeName, name, Modifier.FINAL );
-      copyWhitelistedAnnotations( variableElement, method );
+      copyWhitelistedAnnotations( variableElement, parameter );
       method.addParameter( parameter.build() );
       paramIndex++;
     }
