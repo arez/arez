@@ -83,7 +83,7 @@ final class Arez_RepositoryWithDestroyAndDetachRepository extends RepositoryWith
   }
 
   @Override
-  protected void destroy(@Nonnull final RepositoryWithDestroyAndDetach entity) {
+  protected final void destroy(@Nonnull final RepositoryWithDestroyAndDetach entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_RepositoryWithDestroyAndDetachRepository extends RepositoryWith
   }
 
   @Override
-  protected void detach(@Nonnull final RepositoryWithDestroyAndDetach entity) {
+  protected final void detach(@Nonnull final RepositoryWithDestroyAndDetach entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'detach' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -100,7 +100,7 @@ final class Arez_RepositoryWithDestroyAndDetachRepository extends RepositoryWith
 
   @Override
   @Nonnull
-  RepositoryWithDestroyAndDetach create(@Nonnull final String name) {
+  final RepositoryWithDestroyAndDetach create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

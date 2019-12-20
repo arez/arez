@@ -82,7 +82,7 @@ final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledReposito
   }
 
   @Override
-  public void destroy(@Nonnull final DaggerEnabledRepository entity) {
+  public final void destroy(@Nonnull final DaggerEnabledRepository entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_DaggerEnabledRepositoryRepository extends DaggerEnabledReposito
 
   @Override
   @Nonnull
-  public DaggerEnabledRepository create(@Nonnull final String name) {
+  public final DaggerEnabledRepository create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

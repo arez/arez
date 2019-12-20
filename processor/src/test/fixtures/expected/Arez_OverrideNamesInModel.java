@@ -135,7 +135,7 @@ public final class Arez_OverrideNamesInModel extends OverrideNamesInModel implem
   }
 
   @Override
-  public void doAction() {
+  public final void doAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

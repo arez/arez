@@ -82,7 +82,7 @@ final class Arez_RepositoryWithCreateOnlyRepository extends RepositoryWithCreate
   }
 
   @Override
-  protected void destroy(@Nonnull final RepositoryWithCreateOnly entity) {
+  protected final void destroy(@Nonnull final RepositoryWithCreateOnly entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_RepositoryWithCreateOnlyRepository extends RepositoryWithCreate
 
   @Override
   @Nonnull
-  RepositoryWithCreateOnly create(@Nonnull final String name) {
+  final RepositoryWithCreateOnly create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -83,7 +83,7 @@ final class Arez_MultiExtensionRepositoryExampleRepository extends MultiExtensio
   }
 
   @Override
-  protected void destroy(@Nonnull final MultiExtensionRepositoryExample entity) {
+  protected final void destroy(@Nonnull final MultiExtensionRepositoryExample entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -92,7 +92,7 @@ final class Arez_MultiExtensionRepositoryExampleRepository extends MultiExtensio
 
   @Override
   @Nonnull
-  MultiExtensionRepositoryExample create(@Nonnull final String name) {
+  final MultiExtensionRepositoryExample create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -49,7 +49,7 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel extends PostDispose
   }
 
   @Override
-  public int someValue() {
+  public final int someValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'someValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

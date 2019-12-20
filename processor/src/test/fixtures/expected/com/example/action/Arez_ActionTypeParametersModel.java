@@ -65,7 +65,7 @@ final class Arez_ActionTypeParametersModel<T extends Integer> extends ActionType
   }
 
   @Override
-  public T doStuff() {
+  public final T doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

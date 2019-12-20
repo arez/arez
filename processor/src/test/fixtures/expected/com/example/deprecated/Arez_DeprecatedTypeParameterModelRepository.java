@@ -101,7 +101,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
 
   @Override
   @SuppressWarnings("deprecation")
-  public void destroy(@Nonnull final DeprecatedTypeParameterModel<T> entity) {
+  public final void destroy(@Nonnull final DeprecatedTypeParameterModel<T> entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -111,7 +111,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   @Override
   @SuppressWarnings("deprecation")
   @Nonnull
-  public DeprecatedTypeParameterModel<T> create() {
+  public final DeprecatedTypeParameterModel<T> create() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -83,7 +83,7 @@ final class Arez_RepositoryWithExplicitNonStandardIdRepository extends Repositor
   }
 
   @Override
-  protected void destroy(@Nonnull final RepositoryWithExplicitNonStandardId entity) {
+  protected final void destroy(@Nonnull final RepositoryWithExplicitNonStandardId entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -92,7 +92,7 @@ final class Arez_RepositoryWithExplicitNonStandardIdRepository extends Repositor
 
   @Override
   @Nonnull
-  RepositoryWithExplicitNonStandardId create(@Nonnull final String packageName,
+  final RepositoryWithExplicitNonStandardId create(@Nonnull final String packageName,
       @Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

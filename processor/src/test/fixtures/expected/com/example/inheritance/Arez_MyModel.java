@@ -75,7 +75,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  public void doStuff() {
+  public final void doStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -83,7 +83,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  public void doOtherStuff() {
+  public final void doOtherStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doOtherStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

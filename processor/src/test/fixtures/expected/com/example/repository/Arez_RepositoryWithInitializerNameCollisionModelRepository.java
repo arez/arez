@@ -83,7 +83,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
   }
 
   @Override
-  protected void destroy(@Nonnull final RepositoryWithInitializerNameCollisionModel entity) {
+  protected final void destroy(@Nonnull final RepositoryWithInitializerNameCollisionModel entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -92,7 +92,8 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
 
   @Override
   @Nonnull
-  RepositoryWithInitializerNameCollisionModel create(final int time, final long $$arezip$$_time) {
+  final RepositoryWithInitializerNameCollisionModel create(final int time,
+      final long $$arezip$$_time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

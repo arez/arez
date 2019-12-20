@@ -333,6 +333,7 @@ final class GeneratorUtil
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( executableElement.getSimpleName().toString() );
     method.addAnnotation( Override.class );
+    method.addModifiers( Modifier.FINAL );
 
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, executableType );
     copyAccessModifiers( executableElement, method );
@@ -384,7 +385,6 @@ final class GeneratorUtil
                                        @Nonnull final ExecutableElement executableElement )
   {
     final MethodSpec.Builder method = overrideMethod( processingEnv, typeElement, executableElement, false );
-    method.addModifiers( Modifier.FINAL );
     if ( !executableElement.getReturnType().getKind().isPrimitive() )
     {
       method.addAnnotation( NONNULL_CLASSNAME );

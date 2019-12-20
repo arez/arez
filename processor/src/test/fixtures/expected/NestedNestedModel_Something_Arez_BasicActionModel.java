@@ -63,7 +63,7 @@ public final class NestedNestedModel_Something_Arez_BasicActionModel extends Nes
   }
 
   @Override
-  void doStuff(final long time) {
+  final void doStuff(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

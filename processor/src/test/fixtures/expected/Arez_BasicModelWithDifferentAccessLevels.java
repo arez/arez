@@ -135,7 +135,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   }
 
   @Override
-  public void doAction() {
+  public final void doAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -143,7 +143,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   }
 
   @Override
-  protected void doAction2() {
+  protected final void doAction2() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doAction2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -151,7 +151,7 @@ public final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWi
   }
 
   @Override
-  void doAction3() {
+  final void doAction3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doAction3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

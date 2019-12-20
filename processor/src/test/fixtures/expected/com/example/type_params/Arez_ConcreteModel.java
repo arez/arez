@@ -102,7 +102,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public void handleWriter(final W writer) {
+  public final void handleWriter(final W writer) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'handleWriter' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -110,7 +110,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public void handleError(final IOException error) {
+  public final void handleError(final IOException error) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'handleError' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -118,7 +118,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public W genWriter() {
+  public final W genWriter() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genWriter' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -126,7 +126,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public IOException genError() {
+  public final IOException genError() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genError' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

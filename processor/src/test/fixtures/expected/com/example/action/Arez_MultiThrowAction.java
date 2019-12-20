@@ -67,7 +67,7 @@ final class Arez_MultiThrowAction extends MultiThrowAction implements Disposable
   }
 
   @Override
-  void myAction() throws ParseException, IOException {
+  final void myAction() throws ParseException, IOException {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

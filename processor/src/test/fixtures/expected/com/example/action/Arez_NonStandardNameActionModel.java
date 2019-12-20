@@ -65,7 +65,7 @@ final class Arez_NonStandardNameActionModel extends NonStandardNameActionModel i
   }
 
   @Override
-  public void $$my$Funky$Action$$_(final long $$time, final float someOtherParameter$$) {
+  public final void $$my$Funky$Action$$_(final long $$time, final float someOtherParameter$$) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$my$Funky$Action$$_' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

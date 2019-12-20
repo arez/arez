@@ -67,7 +67,7 @@ public final class Arez_DefaultCtorModel extends DefaultCtorModel implements Dis
   }
 
   @Override
-  public void myActionStuff() {
+  public final void myActionStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myActionStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -82,7 +82,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
   }
 
   @Override
-  public void destroy(@Nonnull final InjectEnabledRepository entity) {
+  public final void destroy(@Nonnull final InjectEnabledRepository entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_InjectEnabledRepositoryRepository extends InjectEnabledReposito
 
   @Override
   @Nonnull
-  public InjectEnabledRepository create(@Nonnull final String name) {
+  public final InjectEnabledRepository create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -65,7 +65,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
   }
 
   @Override
-  public void doStuff1() {
+  public final void doStuff1() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -73,7 +73,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
   }
 
   @Override
-  public void doStuff2() throws Throwable {
+  public final void doStuff2() throws Throwable {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -85,7 +85,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
   }
 
   @Override
-  public int doStuff3() {
+  public final int doStuff3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -93,7 +93,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
   }
 
   @Override
-  public int doStuff4() throws Throwable {
+  public final int doStuff4() throws Throwable {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff4' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

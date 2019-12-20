@@ -65,7 +65,7 @@ final class Arez_GenericsModel extends GenericsModel implements Disposable, Iden
   }
 
   @Override
-  public void foo(final Integer v) {
+  public final void foo(final Integer v) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'foo' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

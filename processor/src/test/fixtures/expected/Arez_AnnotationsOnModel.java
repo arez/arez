@@ -104,7 +104,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   }
 
   @Override
-  public void doStuff(@Nonnull final String time) {
+  public final void doStuff(@Nonnull final String time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

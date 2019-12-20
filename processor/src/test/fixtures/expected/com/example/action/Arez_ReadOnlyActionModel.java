@@ -65,7 +65,7 @@ final class Arez_ReadOnlyActionModel extends ReadOnlyActionModel implements Disp
   }
 
   @Override
-  public int queryStuff(final long time) {
+  public final int queryStuff(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'queryStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

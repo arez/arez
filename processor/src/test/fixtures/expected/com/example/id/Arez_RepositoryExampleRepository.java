@@ -82,7 +82,7 @@ final class Arez_RepositoryExampleRepository extends RepositoryExampleRepository
   }
 
   @Override
-  protected void destroy(@Nonnull final RepositoryExample entity) {
+  protected final void destroy(@Nonnull final RepositoryExample entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_RepositoryExampleRepository extends RepositoryExampleRepository
 
   @Override
   @Nonnull
-  RepositoryExample create() {
+  final RepositoryExample create() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

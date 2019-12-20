@@ -65,7 +65,7 @@ final class Arez_UnsafeFunctionActionModel extends UnsafeFunctionActionModel imp
   }
 
   @Override
-  public int doStuff(final long time) throws Exception {
+  public final int doStuff(final long time) throws Exception {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

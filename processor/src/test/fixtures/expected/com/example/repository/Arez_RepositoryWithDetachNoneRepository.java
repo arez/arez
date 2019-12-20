@@ -83,7 +83,7 @@ final class Arez_RepositoryWithDetachNoneRepository extends RepositoryWithDetach
 
   @Override
   @Nonnull
-  RepositoryWithDetachNone create(@Nonnull final String name) {
+  final RepositoryWithDetachNone create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

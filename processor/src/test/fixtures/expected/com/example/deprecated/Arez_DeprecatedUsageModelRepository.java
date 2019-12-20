@@ -83,7 +83,7 @@ final class Arez_DeprecatedUsageModelRepository extends DeprecatedUsageModelRepo
   }
 
   @Override
-  public void destroy(@Nonnull final DeprecatedUsageModel entity) {
+  public final void destroy(@Nonnull final DeprecatedUsageModel entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -93,7 +93,7 @@ final class Arez_DeprecatedUsageModelRepository extends DeprecatedUsageModelRepo
   @Override
   @SuppressWarnings("deprecation")
   @Nonnull
-  public DeprecatedUsageModel create(final MyDeprecatedEntity myEntity,
+  public final DeprecatedUsageModel create(final MyDeprecatedEntity myEntity,
       final List<MyDeprecatedEntity> myEntityList) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
