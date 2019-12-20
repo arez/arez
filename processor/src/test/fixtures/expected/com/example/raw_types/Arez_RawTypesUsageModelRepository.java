@@ -51,12 +51,12 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   }
 
   @Override
-  public boolean isDisposed() {
+  public final boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public void dispose() {
+  public final void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 

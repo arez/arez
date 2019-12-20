@@ -65,22 +65,23 @@ final class Arez_PublicAccessViaInterfaceComponentRefModel extends PublicAccessV
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public final void addOnDisposeListener(@Nonnull final Object key,
+      @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public final void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public boolean isDisposed() {
+  public final boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public void dispose() {
+  public final void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 

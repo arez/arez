@@ -69,22 +69,23 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public final void addOnDisposeListener(@Nonnull final Object key,
+      @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public final void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public boolean isDisposed() {
+  public final boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public void dispose() {
+  public final void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -93,7 +94,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
   }
 
   @Override
-  public void verify() {
+  public final void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

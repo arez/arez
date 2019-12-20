@@ -74,27 +74,28 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public final void addOnDisposeListener(@Nonnull final Object key,
+      @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public final void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public boolean isDisposed() {
+  public final boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public void dispose() {
+  public final void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
   @Override
-  public void verify() {
+  public final void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -110,7 +111,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  public void link() {
+  public final void link() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'link' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -140,7 +141,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
     ( (Arez_CompleteInterfaceModel) this.$$arezr$$_completeInterfaceModel ).$$arezir$$_otherElements_add( this );
   }
 
-  public void $$arezi$$_delink_completeInterfaceModel() {
+  public final void $$arezi$$_delink_completeInterfaceModel() {
     if ( null != $$arezr$$_completeInterfaceModel && Disposable.isNotDisposed( $$arezr$$_completeInterfaceModel ) ) {
       ( (Arez_CompleteInterfaceModel) this.$$arezr$$_completeInterfaceModel ).$$arezir$$_otherElements_remove( this );
     }
@@ -173,7 +174,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
     }
   }
 
-  public void $$arezi$$_delink_child() {
+  public final void $$arezi$$_delink_child() {
     if ( null != $$arezr$$_child && Disposable.isNotDisposed( $$arezr$$_child ) ) {
       ( (Arez_CompleteInterfaceModel) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zunset( this );
     }

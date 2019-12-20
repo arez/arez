@@ -43,12 +43,12 @@ final class Arez_CtorInjectModel extends CtorInjectModel implements Disposable, 
   }
 
   @Override
-  public boolean isDisposed() {
+  public final boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public void dispose() {
+  public final void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
