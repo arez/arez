@@ -312,36 +312,65 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                       @Nonnull final TypeElement typeElement,
-                                       @Nonnull final ExecutableElement original )
+  static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                            @Nonnull final TypeElement typeElement,
+                                            @Nonnull final ExecutableElement executableElement )
   {
-    final ExecutableType originalExecutableType =
-      (ExecutableType) processingEnv.getTypeUtils().asMemberOf( (DeclaredType) typeElement.asType(), original );
-    final TypeMirror returnType = originalExecutableType.getReturnType();
+    final DeclaredType declaredType = (DeclaredType) typeElement.asType();
+    final ExecutableType executableType =
+      (ExecutableType) processingEnv.getTypeUtils().asMemberOf( declaredType, executableElement );
 
-    final String methodName = original.getSimpleName().toString();
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName );
-    method.addModifiers( Modifier.FINAL );
-    if ( AnnotationsUtil.hasAnnotationOfType( original, Deprecated.class.getName() ) )
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( executableElement.getSimpleName().toString() );
+    if ( AnnotationsUtil.hasAnnotationOfType( executableElement, Deprecated.class.getName() ) )
     {
       method.addAnnotation( Deprecated.class );
     }
     method.addAnnotation( Override.class );
-    if ( !TypeName.get( returnType ).isPrimitive() )
-    {
-      // If @Nonnull is present on the class path then generate ref using it
-      final TypeElement nonnull = processingEnv.getElementUtils().getTypeElement( "javax.annotation.Nonnull" );
-      if ( null != nonnull )
-      {
-        method.addAnnotation( ClassName.get( "javax.annotation", "Nonnull" ) );
-      }
-    }
 
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, returnType );
-    copyAccessModifiers( original, method );
-    copyTypeParameters( originalExecutableType, method );
-    method.returns( TypeName.get( returnType ) );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, executableType );
+    copyAccessModifiers( executableElement, method );
+    copyTypeParameters( executableType, method );
+
+    method.varargs( executableElement.isVarArgs() );
+
+    // Copy all the parameters across
+    copyParameters( executableElement, executableType, method );
+
+    copyExceptions( executableType, method );
+
+    // Copy return type
+    method.returns( TypeName.get( executableType.getReturnType() ) );
+    return method;
+  }
+
+  static void copyParameters( @Nonnull final ExecutableElement executableElement,
+                              @Nonnull final ExecutableType executableType,
+                              @Nonnull final MethodSpec.Builder method )
+  {
+    int paramIndex = 0;
+    for ( final TypeMirror parameterType : executableType.getParameterTypes() )
+    {
+      final TypeName typeName = TypeName.get( parameterType );
+      final VariableElement variableElement = executableElement.getParameters().get( paramIndex );
+      final String name = variableElement.getSimpleName().toString();
+      final ParameterSpec.Builder parameter = ParameterSpec.builder( typeName, name, Modifier.FINAL );
+      copyWhitelistedAnnotations( variableElement, method );
+      method.addParameter( parameter.build() );
+      paramIndex++;
+    }
+  }
+
+  @Nonnull
+  static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                       @Nonnull final TypeElement typeElement,
+                                       @Nonnull final ExecutableElement executableElement )
+  {
+    final MethodSpec.Builder method = overrideMethod( processingEnv, typeElement, executableElement );
+    method.addModifiers( Modifier.FINAL );
+    if ( !TypeName.get( executableElement.getReturnType() ).isPrimitive() )
+    {
+      method.addAnnotation( NONNULL_CLASSNAME );
+    }
     return method;
   }
 
