@@ -114,7 +114,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   @Override
-  List<ObservableListInverseModel.Element> getElements() {
+  final List<ObservableListInverseModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

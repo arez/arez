@@ -115,7 +115,7 @@ final class Arez_Suppressed2PublicAccessPostInverseAddModel extends Suppressed2P
   }
 
   @Override
-  Collection<Suppressed2PublicAccessPostInverseAddModel.Element> getElements() {
+  final Collection<Suppressed2PublicAccessPostInverseAddModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

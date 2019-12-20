@@ -63,9 +63,9 @@ final class Arez_DeprecatedUsageModelRepository extends DeprecatedUsageModelRepo
     this.$$arez$$_entities.dispose();
   }
 
-  @Nonnull
   @Override
-  public Stream<DeprecatedUsageModel> entities() {
+  @Nonnull
+  public final Stream<DeprecatedUsageModel> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -106,7 +106,7 @@ final class Arez_EagerLoadObservableReferenceModel extends EagerLoadObservableRe
   }
 
   @Override
-  int getMyEntityId() {
+  final int getMyEntityId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -115,7 +115,7 @@ final class Arez_EagerLoadObservableReferenceModel extends EagerLoadObservableRe
   }
 
   @Override
-  void setMyEntityId(final int id) {
+  final void setMyEntityId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

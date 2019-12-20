@@ -73,9 +73,9 @@ final class Arez_DeprecatedObservableModel1 extends DeprecatedObservableModel1 i
     this.$$arez$$_time.dispose();
   }
 
-  @Deprecated
   @Override
-  public long getTime() {
+  @Deprecated
+  public final long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -85,7 +85,7 @@ final class Arez_DeprecatedObservableModel1 extends DeprecatedObservableModel1 i
 
   @Override
   @SuppressWarnings("deprecation")
-  void setTime(final long time) {
+  final void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

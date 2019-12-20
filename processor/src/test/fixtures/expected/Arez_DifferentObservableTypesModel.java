@@ -112,7 +112,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public boolean isV1() {
+  public final boolean isV1() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'isV1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -121,7 +121,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV1(final boolean v1) {
+  public final void setV1(final boolean v1) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -134,7 +134,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public byte getV2() {
+  public final byte getV2() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -143,7 +143,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV2(final byte v2) {
+  public final void setV2(final byte v2) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -156,7 +156,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public char getV3() {
+  public final char getV3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -165,7 +165,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV3(final char v3) {
+  public final void setV3(final char v3) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -178,7 +178,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public short getV4() {
+  public final short getV4() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV4' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -187,7 +187,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV4(final short v4) {
+  public final void setV4(final short v4) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV4' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -200,7 +200,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public int getV5() {
+  public final int getV5() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV5' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -209,7 +209,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV5(final int v5) {
+  public final void setV5(final int v5) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV5' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -222,7 +222,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public long getV6() {
+  public final long getV6() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV6' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -231,7 +231,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV6(final long v6) {
+  public final void setV6(final long v6) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV6' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -244,7 +244,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public float getV7() {
+  public final float getV7() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV7' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -253,7 +253,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV7(final float v7) {
+  public final void setV7(final float v7) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV7' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -266,7 +266,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public double getV8() {
+  public final double getV8() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV8' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -275,7 +275,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV8(final double v8) {
+  public final void setV8(final double v8) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV8' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -288,7 +288,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public Object getV9() {
+  public final Object getV9() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getV9' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -297,7 +297,7 @@ public final class Arez_DifferentObservableTypesModel extends DifferentObservabl
   }
 
   @Override
-  public void setV9(final Object v9) {
+  public final void setV9(final Object v9) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setV9' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

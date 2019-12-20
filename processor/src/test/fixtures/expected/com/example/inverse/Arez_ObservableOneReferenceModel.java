@@ -104,9 +104,9 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     }
   }
 
-  @Nonnull
   @Override
-  ObservableOneReferenceModel.Element getElement() {
+  @Nonnull
+  final ObservableOneReferenceModel.Element getElement() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElement' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

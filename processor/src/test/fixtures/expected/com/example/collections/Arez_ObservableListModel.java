@@ -78,7 +78,7 @@ final class Arez_ObservableListModel extends ObservableListModel implements Disp
   }
 
   @Override
-  public List<String> getMyValue() {
+  public final List<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -95,7 +95,7 @@ final class Arez_ObservableListModel extends ObservableListModel implements Disp
   }
 
   @Override
-  public void setMyValue(final List<String> value) {
+  public final void setMyValue(final List<String> value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

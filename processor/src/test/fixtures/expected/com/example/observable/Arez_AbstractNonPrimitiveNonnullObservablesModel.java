@@ -77,9 +77,9 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
     this.$$arez$$_time.dispose();
   }
 
-  @Nonnull
   @Override
-  public Date getTime() {
+  @Nonnull
+  public final Date getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -88,7 +88,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
   }
 
   @Override
-  public void setTime(@Nonnull final Date value) {
+  public final void setTime(@Nonnull final Date value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

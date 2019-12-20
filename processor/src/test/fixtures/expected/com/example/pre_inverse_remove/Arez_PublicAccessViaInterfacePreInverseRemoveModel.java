@@ -115,7 +115,7 @@ final class Arez_PublicAccessViaInterfacePreInverseRemoveModel extends PublicAcc
   }
 
   @Override
-  Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element> getElements() {
+  final Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

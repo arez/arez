@@ -73,7 +73,7 @@ final class Arez_WriteOutsideTransactionThrowingObservablesModel extends WriteOu
   }
 
   @Override
-  public long getTime() {
+  public final long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -82,7 +82,7 @@ final class Arez_WriteOutsideTransactionThrowingObservablesModel extends WriteOu
   }
 
   @Override
-  public void setTime(final long value) throws Exception {
+  public final void setTime(final long value) throws Exception {
     try {
       this.$$arezi$$_kernel.setObservable( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".setTime" : null, () -> this.$$arezi$$_setTime( value ) );
     } catch( final Exception | Error $$arez_exception$$ ) {

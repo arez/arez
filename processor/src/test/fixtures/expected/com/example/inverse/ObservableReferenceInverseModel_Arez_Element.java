@@ -111,7 +111,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
   }
 
   @Override
-  int getObservableReferenceInverseModelId() {
+  final int getObservableReferenceInverseModelId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableReferenceInverseModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -120,7 +120,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
   }
 
   @Override
-  void setObservableReferenceInverseModelId(final int id) {
+  final void setObservableReferenceInverseModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setObservableReferenceInverseModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

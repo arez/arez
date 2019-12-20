@@ -115,7 +115,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
   }
 
   @Override
-  Set<ObservableSetInverseModel.Element> getElements() {
+  final Set<ObservableSetInverseModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

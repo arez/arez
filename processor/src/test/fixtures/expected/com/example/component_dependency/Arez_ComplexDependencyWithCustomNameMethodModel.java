@@ -103,7 +103,7 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  DisposeNotifier getValue3() {
+  final DisposeNotifier getValue3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -112,7 +112,7 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  void setValue3(final DisposeNotifier value) {
+  final void setValue3(final DisposeNotifier value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

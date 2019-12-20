@@ -86,10 +86,10 @@ final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements 
     this.$$arez$$_action.dispose();
   }
 
+  @Override
   @SuppressWarnings("rawtypes")
   @Nonnull
-  @Override
-  public Callable getAction() {
+  public final Callable getAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -97,9 +97,9 @@ final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements 
     return this.$$arezd$$_action;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public void setAction(@Nonnull final Callable action) {
+  @SuppressWarnings("rawtypes")
+  public final void setAction(@Nonnull final Callable action) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -115,7 +115,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel implements 
   }
 
   @Override
-  Set<NonGetterInverseModel.Element> elements() {
+  final Set<NonGetterInverseModel.Element> elements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'elements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

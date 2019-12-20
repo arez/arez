@@ -62,9 +62,9 @@ final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_Basi
     this.$$arez$$_entities.dispose();
   }
 
-  @Nonnull
   @Override
-  public Stream<NestedModel.BasicActionModel> entities() {
+  @Nonnull
+  public final Stream<NestedModel.BasicActionModel> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -115,7 +115,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel implements Di
   }
 
   @Override
-  Collection<NonStandardNameModel.Element> getY$$$() {
+  final Collection<NonStandardNameModel.Element> getY$$$() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getY$$$' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -111,7 +111,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element extends ObservableZer
   }
 
   @Override
-  int getObservableZeroOrOneReferenceModelId() {
+  final int getObservableZeroOrOneReferenceModelId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableZeroOrOneReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -120,7 +120,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element extends ObservableZer
   }
 
   @Override
-  void setObservableZeroOrOneReferenceModelId(final int id) {
+  final void setObservableZeroOrOneReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setObservableZeroOrOneReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

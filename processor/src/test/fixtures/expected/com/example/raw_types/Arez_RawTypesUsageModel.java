@@ -134,9 +134,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     this.$$arez$$_myCallableList.dispose();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  Callable getMyCallable() {
+  @SuppressWarnings("rawtypes")
+  final Callable getMyCallable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -144,9 +144,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     return this.$$arezd$$_myCallable;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  void setMyCallable(final Callable callable) {
+  @SuppressWarnings("rawtypes")
+  final void setMyCallable(final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyCallable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -158,9 +158,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     }
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  Callable getMyCallable2() {
+  @SuppressWarnings("rawtypes")
+  final Callable getMyCallable2() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallable2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -168,9 +168,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     return super.getMyCallable2();
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  void setMyCallable2(final Callable callable) {
+  @SuppressWarnings("rawtypes")
+  final void setMyCallable2(final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyCallable2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -182,9 +182,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     }
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  List<Callable> getMyCallableList() {
+  @SuppressWarnings("rawtypes")
+  final List<Callable> getMyCallableList() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -200,9 +200,9 @@ public final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements
     }
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  void setMyCallableList(final List<Callable> callable) {
+  @SuppressWarnings("rawtypes")
+  final void setMyCallableList(final List<Callable> callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

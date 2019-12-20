@@ -78,9 +78,9 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
     this.$$arez$$_time.dispose();
   }
 
-  @Nullable
   @Override
-  public Date getTime() {
+  @Nullable
+  public final Date getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -89,7 +89,7 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   }
 
   @Override
-  public void setTime(final Date value) {
+  public final void setTime(final Date value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -74,7 +74,7 @@ final class Arez_WildcardGenericObservableModel<T> extends WildcardGenericObserv
   }
 
   @Override
-  public WildcardGenericObservableModel.MyValue<T> getMyValue() {
+  public final WildcardGenericObservableModel.MyValue<T> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -83,7 +83,7 @@ final class Arez_WildcardGenericObservableModel<T> extends WildcardGenericObserv
   }
 
   @Override
-  public void setMyValue(final WildcardGenericObservableModel.MyValue<T> time) {
+  public final void setMyValue(final WildcardGenericObservableModel.MyValue<T> time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

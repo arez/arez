@@ -115,7 +115,7 @@ final class Arez_PackageAccessPreInverseRemoveModel extends PackageAccessPreInve
   }
 
   @Override
-  Collection<PackageAccessPreInverseRemoveModel.Element> getElements() {
+  final Collection<PackageAccessPreInverseRemoveModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

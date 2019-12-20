@@ -92,7 +92,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public Collection<String> getCollection() {
+  public final Collection<String> getCollection() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollection' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -110,7 +110,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public Set<String> getSet() {
+  public final Set<String> getSet() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSet' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -128,7 +128,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public List<String> getList() {
+  public final List<String> getList() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -146,7 +146,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public Map<String, String> getMap() {
+  public final Map<String, String> getMap() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMap' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

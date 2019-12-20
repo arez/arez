@@ -3176,39 +3176,29 @@ final class ComponentGenerator
     final ExecutableElement setter = observable.getSetter();
     final ExecutableType setterType = observable.getSetterType();
     final String methodName = setter.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( setter, builder );
-    GeneratorUtil.copyExceptions( setterType, builder );
-    GeneratorUtil.copyTypeParameters( setterType, builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, setterType );
-    GeneratorUtil.copyWhitelistedAnnotations( setter, builder );
-
-    builder.addAnnotation( Override.class );
+    final ComponentDescriptor component = observable.getComponent();
+    final MethodSpec.Builder method = GeneratorUtil.overrideMethod( processingEnv, component.getElement(), setter );
 
     if ( observable.canWriteOutsideTransaction() )
     {
       final VariableElement element = setter.getParameters().get( 0 );
       final String paramName = element.getSimpleName().toString();
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( TypeName.get( setterType.getParameterTypes().get( 0 ) ), paramName, Modifier.FINAL );
-      GeneratorUtil.copyWhitelistedAnnotations( element, param );
-      builder.addParameter( param.build() );
 
       if ( setterType.getThrownTypes().isEmpty() )
       {
-        builder.addStatement( "this.$N.safeSetObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
-                              "() -> this.$N( $N ) )",
-                              KERNEL_FIELD_NAME,
-                              AREZ_CLASSNAME,
-                              KERNEL_FIELD_NAME,
-                              "." + methodName,
-                              FRAMEWORK_PREFIX + methodName,
-                              paramName );
+        method.addStatement( "this.$N.safeSetObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
+                             "() -> this.$N( $N ) )",
+                             KERNEL_FIELD_NAME,
+                             AREZ_CLASSNAME,
+                             KERNEL_FIELD_NAME,
+                             "." + methodName,
+                             FRAMEWORK_PREFIX + methodName,
+                             paramName );
       }
       else
       {
         //noinspection CodeBlock2Expr
-        generateTryBlock( builder, setterType.getThrownTypes(), b -> {
+        generateTryBlock( method, setterType.getThrownTypes(), b -> {
           b.addStatement( "this.$N.setObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, " +
                           "() -> this.$N( $N ) )",
                           KERNEL_FIELD_NAME,
@@ -3222,10 +3212,10 @@ final class ComponentGenerator
     }
     else
     {
-      buildObservableSetterImpl( observable, builder );
+      buildObservableSetterImpl( observable, method );
     }
 
-    return builder.build();
+    return method.build();
   }
 
   /**
@@ -3246,6 +3236,13 @@ final class ComponentGenerator
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, setterType );
     GeneratorUtil.copyWhitelistedAnnotations( setter, builder );
     buildObservableSetterImpl( observable, builder );
+    final VariableElement element = setter.getParameters().get( 0 );
+    final ParameterSpec.Builder param =
+      ParameterSpec.builder( TypeName.get( observable.getSetterType().getParameterTypes().get( 0 ) ),
+                             element.getSimpleName().toString(),
+                             Modifier.FINAL );
+    GeneratorUtil.copyWhitelistedAnnotations( element, param );
+    builder.addParameter( param.build() );
 
     return builder.build();
   }
@@ -3270,10 +3267,6 @@ final class ComponentGenerator
     final VariableElement element = setter.getParameters().get( 0 );
     final String paramName = element.getSimpleName().toString();
     final TypeName type = TypeName.get( parameterType );
-    final ParameterSpec.Builder param =
-      ParameterSpec.builder( type, paramName, Modifier.FINAL );
-    GeneratorUtil.copyWhitelistedAnnotations( element, param );
-    builder.addParameter( param.build() );
     generateNotDisposedInvariant( builder, methodName );
     builder.addStatement( "this.$N.preReportChanged()", observable.getFieldName() );
 
@@ -3512,27 +3505,19 @@ final class ComponentGenerator
                                                    @Nonnull final ObservableDescriptor observable )
     throws ProcessorException
   {
+    final ComponentDescriptor component = observable.getComponent();
     final ExecutableElement getter = observable.getGetter();
-    final ExecutableType getterType = observable.getGetterType();
-    final String methodName = getter.getSimpleName().toString();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    GeneratorUtil.copyAccessModifiers( getter, builder );
-    GeneratorUtil.copyExceptions( getterType, builder );
-    GeneratorUtil.copyTypeParameters( getterType, builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, getterType );
-    GeneratorUtil.copyWhitelistedAnnotations( getter, builder );
+    final MethodSpec.Builder method = GeneratorUtil.overrideMethod( processingEnv, component.getElement(), getter );
 
-    builder.addAnnotation( Override.class );
-    builder.returns( TypeName.get( getterType.getReturnType() ) );
-    generateNotDisposedInvariant( builder, methodName );
+    generateNotDisposedInvariant( method, getter.getSimpleName().toString() );
 
     if ( observable.canReadOutsideTransaction() )
     {
-      builder.addStatement( "this.$N.reportObservedIfTrackingTransactionActive()", observable.getFieldName() );
+      method.addStatement( "this.$N.reportObservedIfTrackingTransactionActive()", observable.getFieldName() );
     }
     else
     {
-      builder.addStatement( "this.$N.reportObserved()", observable.getFieldName() );
+      method.addStatement( "this.$N.reportObserved()", observable.getFieldName() );
     }
 
     if ( observable.isAbstract() )
@@ -3559,7 +3544,7 @@ final class ComponentGenerator
           block.addStatement( "return this.$N", observable.getDataFieldName() );
           block.endControlFlow();
 
-          builder.addCode( block.build() );
+          method.addCode( block.build() );
         }
         else
         {
@@ -3588,17 +3573,16 @@ final class ComponentGenerator
           block.addStatement( "return this.$N", observable.getDataFieldName() );
           block.endControlFlow();
 
-          builder.addCode( block.build() );
+          method.addCode( block.build() );
         }
       }
       else
       {
-        builder.addStatement( "return this.$N", observable.getDataFieldName() );
+        method.addStatement( "return this.$N", observable.getDataFieldName() );
       }
     }
     else
     {
-      final ComponentDescriptor component = observable.getComponent();
       if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
       {
         if ( observable.isGetterNonnull() )
@@ -3638,7 +3622,7 @@ final class ComponentGenerator
           }
           block.endControlFlow();
 
-          builder.addCode( block.build() );
+          method.addCode( block.build() );
         }
         else
         {
@@ -3685,22 +3669,22 @@ final class ComponentGenerator
           }
           block.endControlFlow();
 
-          builder.addCode( block.build() );
+          method.addCode( block.build() );
         }
       }
       else
       {
         if ( component.isClassType() )
         {
-          builder.addStatement( "return super.$N()", getter.getSimpleName() );
+          method.addStatement( "return super.$N()", getter.getSimpleName() );
         }
         else
         {
-          builder.addStatement( "return $T.super.$N()", component.getClassName(), getter.getSimpleName() );
+          method.addStatement( "return $T.super.$N()", component.getClassName(), getter.getSimpleName() );
         }
       }
     }
-    return builder.build();
+    return method.build();
   }
 
   private static void buildComponentStateRefMethods( @Nonnull final ProcessingEnvironment processingEnv,

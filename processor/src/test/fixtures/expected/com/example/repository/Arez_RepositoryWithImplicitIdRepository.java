@@ -62,9 +62,9 @@ final class Arez_RepositoryWithImplicitIdRepository extends RepositoryWithImplic
     this.$$arez$$_entities.dispose();
   }
 
-  @Nonnull
   @Override
-  public Stream<RepositoryWithImplicitId> entities() {
+  @Nonnull
+  public final Stream<RepositoryWithImplicitId> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

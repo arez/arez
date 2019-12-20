@@ -103,9 +103,9 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
     this.$$arez$$_name.dispose();
   }
 
-  @Nonnull
   @Override
-  public String getName() {
+  @Nonnull
+  public final String getName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -114,7 +114,7 @@ final class Arez_RepositoryWithMultipleCtors extends RepositoryWithMultipleCtors
   }
 
   @Override
-  public void setName(@Nonnull final String name) {
+  public final void setName(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

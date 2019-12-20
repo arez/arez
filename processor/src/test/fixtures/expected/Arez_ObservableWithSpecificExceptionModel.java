@@ -72,7 +72,7 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
   }
 
   @Override
-  public long getTime() throws ParseException {
+  public final long getTime() throws ParseException {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -81,7 +81,7 @@ public final class Arez_ObservableWithSpecificExceptionModel extends ObservableW
   }
 
   @Override
-  public void setTime(final long time) throws ParseException {
+  public final void setTime(final long time) throws ParseException {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

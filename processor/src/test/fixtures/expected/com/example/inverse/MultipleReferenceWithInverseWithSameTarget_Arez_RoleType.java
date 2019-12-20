@@ -127,9 +127,9 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
     }
   }
 
-  @Nonnull
   @Override
-  List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> getChildGeneralisations(
+  @Nonnull
+  final List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> getChildGeneralisations(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getChildGeneralisations' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -145,9 +145,10 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
     }
   }
 
-  @Nullable
   @Override
-  MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation getParentGeneralisation() {
+  @Nullable
+  final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation getParentGeneralisation(
+      ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParentGeneralisation' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

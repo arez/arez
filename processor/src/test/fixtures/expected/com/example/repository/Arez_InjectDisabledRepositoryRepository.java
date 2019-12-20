@@ -75,9 +75,9 @@ final class Arez_InjectDisabledRepositoryRepository extends InjectDisabledReposi
     this.$$arez$$_entities.dispose();
   }
 
-  @Nonnull
   @Override
-  public Stream<InjectDisabledRepository> entities() {
+  @Nonnull
+  public final Stream<InjectDisabledRepository> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

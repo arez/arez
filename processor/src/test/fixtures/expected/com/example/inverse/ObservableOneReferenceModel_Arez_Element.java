@@ -111,7 +111,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
   }
 
   @Override
-  int getObservableOneReferenceModelId() {
+  final int getObservableOneReferenceModelId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableOneReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -120,7 +120,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
   }
 
   @Override
-  void setObservableOneReferenceModelId(final int id) {
+  final void setObservableOneReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setObservableOneReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

@@ -79,9 +79,9 @@ final class Arez_AbstractNonnullMapObservableModel extends AbstractNonnullMapObs
     this.$$arez$$_myValue.dispose();
   }
 
-  @Nonnull
   @Override
-  public Map<String, String> getMyValue() {
+  @Nonnull
+  public final Map<String, String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -97,7 +97,7 @@ final class Arez_AbstractNonnullMapObservableModel extends AbstractNonnullMapObs
   }
 
   @Override
-  public void setMyValue(final Map<String, String> value) {
+  public final void setMyValue(final Map<String, String> value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

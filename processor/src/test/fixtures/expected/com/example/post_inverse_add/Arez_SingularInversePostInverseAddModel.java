@@ -104,9 +104,9 @@ final class Arez_SingularInversePostInverseAddModel extends SingularInversePostI
     }
   }
 
-  @Nonnull
   @Override
-  SingularInversePostInverseAddModel.Element getElement() {
+  @Nonnull
+  final SingularInversePostInverseAddModel.Element getElement() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElement' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

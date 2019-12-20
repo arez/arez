@@ -111,7 +111,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   @Override
-  int getObservableManyReferenceModelId() {
+  final int getObservableManyReferenceModelId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableManyReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -120,7 +120,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   @Override
-  void setObservableManyReferenceModelId(final int id) {
+  final void setObservableManyReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setObservableManyReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

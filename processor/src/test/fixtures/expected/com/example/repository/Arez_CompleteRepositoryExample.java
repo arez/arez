@@ -91,9 +91,9 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     this.$$arez$$_rawQualifiedName.dispose();
   }
 
-  @Nonnull
   @Override
-  public String getName() {
+  @Nonnull
+  public final String getName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -102,7 +102,7 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   }
 
   @Override
-  public void setName(@Nonnull final String name) {
+  public final void setName(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -115,9 +115,9 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     }
   }
 
-  @Nonnull
   @Override
-  public String getPackageName() {
+  @Nonnull
+  public final String getPackageName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getPackageName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -126,7 +126,7 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   }
 
   @Override
-  public void setPackageName(@Nonnull final String packageName) {
+  public final void setPackageName(@Nonnull final String packageName) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setPackageName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -139,9 +139,9 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
     }
   }
 
-  @Nullable
   @Override
-  public String getRawQualifiedName() {
+  @Nullable
+  public final String getRawQualifiedName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getRawQualifiedName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -150,7 +150,7 @@ final class Arez_CompleteRepositoryExample extends CompleteRepositoryExample imp
   }
 
   @Override
-  public void setQualifiedName(@Nullable final String qualifiedName) {
+  public final void setQualifiedName(@Nullable final String qualifiedName) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setQualifiedName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

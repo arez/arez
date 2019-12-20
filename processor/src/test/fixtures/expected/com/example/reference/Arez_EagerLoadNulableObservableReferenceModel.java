@@ -108,9 +108,9 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     }
   }
 
-  @Nullable
   @Override
-  String getMyEntityId() {
+  @Nullable
+  final String getMyEntityId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -119,7 +119,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  void setMyEntityId(@Nullable final String id) {
+  final void setMyEntityId(@Nullable final String id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

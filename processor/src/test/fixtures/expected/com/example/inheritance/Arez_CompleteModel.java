@@ -210,7 +210,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected String getMyValue() {
+  protected final String getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -219,7 +219,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public void setMyValue(final String value) {
+  public final void setMyValue(final String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -241,7 +241,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected List<Element> getElements() {
+  protected final List<Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -257,9 +257,9 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     }
   }
 
-  @Nullable
   @Override
-  Element getParentGeneralisation() {
+  @Nullable
+  final Element getParentGeneralisation() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParentGeneralisation' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

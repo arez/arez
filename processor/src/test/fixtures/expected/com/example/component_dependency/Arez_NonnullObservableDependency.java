@@ -79,9 +79,9 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
     this.$$arez$$_value.dispose();
   }
 
-  @Nonnull
   @Override
-  DisposeNotifier getValue() {
+  @Nonnull
+  final DisposeNotifier getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -90,7 +90,7 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
   }
 
   @Override
-  void setValue(@Nonnull final DisposeNotifier value) {
+  final void setValue(@Nonnull final DisposeNotifier value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

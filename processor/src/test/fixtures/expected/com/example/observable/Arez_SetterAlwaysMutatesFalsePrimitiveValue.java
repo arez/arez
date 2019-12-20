@@ -73,7 +73,7 @@ final class Arez_SetterAlwaysMutatesFalsePrimitiveValue extends SetterAlwaysMuta
   }
 
   @Override
-  public int getField() {
+  public final int getField() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getField' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -82,7 +82,7 @@ final class Arez_SetterAlwaysMutatesFalsePrimitiveValue extends SetterAlwaysMuta
   }
 
   @Override
-  public void setField(final int field) {
+  public final void setField(final int field) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setField' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

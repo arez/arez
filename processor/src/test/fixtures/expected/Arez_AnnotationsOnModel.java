@@ -79,9 +79,9 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
     this.$$arez$$_time.dispose();
   }
 
-  @Nonnull
   @Override
-  public String getTime() {
+  @Nonnull
+  public final String getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -90,7 +90,7 @@ public final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements
   }
 
   @Override
-  public void setTime(@Nonnull final String time) {
+  public final void setTime(@Nonnull final String time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

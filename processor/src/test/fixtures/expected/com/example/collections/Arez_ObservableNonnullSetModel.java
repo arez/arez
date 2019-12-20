@@ -77,9 +77,9 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel imp
     this.$$arez$$_myValue.dispose();
   }
 
-  @Nonnull
   @Override
-  public Set<String> getMyValue() {
+  @Nonnull
+  public final Set<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -95,7 +95,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel imp
   }
 
   @Override
-  public void setMyValue(final Set<String> value) {
+  public final void setMyValue(final Set<String> value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

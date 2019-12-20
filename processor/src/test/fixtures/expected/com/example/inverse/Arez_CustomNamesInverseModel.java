@@ -115,7 +115,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   }
 
   @Override
-  Collection<CustomNamesInverseModel.Element> getY() {
+  final Collection<CustomNamesInverseModel.Element> getY() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getY' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
