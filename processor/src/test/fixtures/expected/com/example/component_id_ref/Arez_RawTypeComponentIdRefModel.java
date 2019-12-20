@@ -29,8 +29,8 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
   }
 
   @Override
-  @Nonnull
   @SuppressWarnings("rawtypes")
+  @Nonnull
   final RawTypeComponentIdRefModel.MyId getId() {
     return this.id();
   }

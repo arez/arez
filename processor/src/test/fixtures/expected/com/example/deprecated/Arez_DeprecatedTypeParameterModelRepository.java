@@ -89,8 +89,8 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   }
 
   @Override
-  @Nonnull
   @SuppressWarnings("deprecation")
+  @Nonnull
   protected final ObservableValue<Stream<DeprecatedTypeParameterModel<T>>> getEntitiesObservableValue(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {

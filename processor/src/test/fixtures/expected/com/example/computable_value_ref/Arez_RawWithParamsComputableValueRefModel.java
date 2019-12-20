@@ -83,8 +83,8 @@ final class Arez_RawWithParamsComputableValueRefModel extends RawWithParamsCompu
   }
 
   @Override
-  @Nonnull
   @SuppressWarnings("rawtypes")
+  @Nonnull
   final ComputableValue getTimeComputableValue(final int zone) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
