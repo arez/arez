@@ -13,7 +13,6 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
-@SuppressWarnings("Arez:UnnecessaryAllowEmpty")
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_Suppressed1UnnecessaryAllowEmptyPresentComponent extends Suppressed1UnnecessaryAllowEmptyPresentComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;

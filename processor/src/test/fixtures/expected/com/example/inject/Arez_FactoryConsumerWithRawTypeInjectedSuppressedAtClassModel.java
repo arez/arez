@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
 @Singleton
 public final class Arez_FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel extends FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel implements Disposable, Identifiable<Integer> {
@@ -22,6 +21,7 @@ public final class Arez_FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel
 
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("rawtypes")
   private Arez_FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel(final int count,
       final Callable action) {
     super(count,action);
@@ -95,9 +95,11 @@ public final class Arez_FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel
   }
 
   public static final class Factory {
+    @SuppressWarnings("rawtypes")
     private final Callable action;
 
     @Inject
+    @SuppressWarnings("rawtypes")
     Factory(final Callable action) {
       this.action = action;
     }

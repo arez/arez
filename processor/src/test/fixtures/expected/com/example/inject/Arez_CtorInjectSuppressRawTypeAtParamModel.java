@@ -21,9 +21,9 @@ final class Arez_CtorInjectSuppressRawTypeAtParamModel extends CtorInjectSuppres
 
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("rawtypes")
   @Inject
-  Arez_CtorInjectSuppressRawTypeAtParamModel(
-      @SuppressWarnings("rawtypes") @Nonnull final Callable action) {
+  Arez_CtorInjectSuppressRawTypeAtParamModel(@Nonnull final Callable action) {
     super(action);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

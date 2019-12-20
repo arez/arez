@@ -11,7 +11,6 @@ import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("Arez:UnnecessaryDefaultPriority")
 @Generated("arez.processor.ArezProcessor")
 public final class Arez_Suppressed1UnnecessaryDefaultPriorityPresentComponent extends Suppressed1UnnecessaryDefaultPriorityPresentComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;

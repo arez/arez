@@ -8,6 +8,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -18,6 +19,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeMirror;
 
 final class RepositoryGenerator
 {
@@ -44,6 +46,7 @@ final class RepositoryGenerator
     GeneratorUtil.addOriginatingTypes( element, builder );
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, component.asDeclaredType() );
 
     final String injectMode = repository.getInjectMode();
     final boolean addSingletonAnnotation =
@@ -69,10 +72,25 @@ final class RepositoryGenerator
       builder.addAnnotation( ClassName.get( "javax.inject", "Singleton" ) );
     }
 
+    final ClassName rawRepositoryClassName = getRepositoryClassName( repository );
+    final TypeName[] typeParameters = component.getElement()
+      .getTypeParameters()
+      .stream()
+      .map( p -> TypeName.get( p.asType() ) )
+      .toArray( TypeName[]::new );
+    final TypeName repositoryClassName =
+      0 == typeParameters.length ?
+      rawRepositoryClassName :
+      ParameterizedTypeName.get( rawRepositoryClassName, typeParameters );
+    final ClassName rawComponentClassName = ClassName.get( element );
+    final TypeName componentClassName =
+      0 == typeParameters.length ?
+      rawComponentClassName :
+      ParameterizedTypeName.get( rawComponentClassName, typeParameters );
     builder.superclass( ParameterizedTypeName.get( ABSTRACT_REPOSITORY_CLASSNAME,
                                                    component.getIdType().box(),
-                                                   ClassName.get( element ),
-                                                   getRepositoryClassName( repository ) ) );
+                                                   componentClassName,
+                                                   repositoryClassName ) );
 
     repository.getExtensions().forEach( e -> builder.addSuperinterface( TypeName.get( e.asType() ) ) );
 
@@ -96,7 +114,7 @@ final class RepositoryGenerator
     builder.addMethod( MethodSpec.constructorBuilder().build() );
 
     // Add the factory method
-    builder.addMethod( buildFactoryMethod( repository ) );
+    builder.addMethod( buildFactoryMethod( processingEnv, repository ) );
 
     if ( repository.shouldRepositoryDefineCreate() )
     {
@@ -233,7 +251,6 @@ final class RepositoryGenerator
                                                    @Nonnull final ExecutableElement constructor )
   {
     final ComponentDescriptor component = repository.getComponent();
-    final ClassName enhancedClassName = component.getEnhancedClassName();
     final ExecutableType methodType =
       (ExecutableType) processingEnv.getTypeUtils()
         .asMemberOf( (DeclaredType) component.getElement().asType(), constructor );
@@ -253,12 +270,31 @@ final class RepositoryGenerator
     GeneratorUtil.copyAccessModifiers( component.getElement(), builder );
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
+    final List<TypeMirror> types = new ArrayList<>();
+    for ( final ObservableDescriptor initializer : component.getInitializers() )
+    {
+      types.add( initializer.getGetterType() );
+    }
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, types );
+
+    final TypeElement typeElement = component.getElement();
+    final TypeName[] typeParameters = typeElement
+      .getTypeParameters()
+      .stream()
+      .map( p -> TypeName.get( p.asType() ) )
+      .toArray( TypeName[]::new );
+
+    final ClassName enhancedClassName = component.getEnhancedClassName();
+    final TypeName componentClassName =
+      0 == typeParameters.length ?
+      enhancedClassName :
+      ParameterizedTypeName.get( enhancedClassName, typeParameters );
 
     final StringBuilder newCall = new StringBuilder();
     newCall.append( "final $T entity = new $T(" );
-    final ArrayList<Object> parameters = new ArrayList<>();
-    parameters.add( enhancedClassName );
-    parameters.add( enhancedClassName );
+    final List<Object> parameters = new ArrayList<>();
+    parameters.add( componentClassName );
+    parameters.add( componentClassName );
 
     boolean firstParam = true;
     for ( final VariableElement element : constructor.getParameters() )
@@ -305,17 +341,34 @@ final class RepositoryGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildFactoryMethod( @Nonnull final RepositoryDescriptor repository )
+  private static MethodSpec buildFactoryMethod( @Nonnull final ProcessingEnvironment processingEnv,@Nonnull final RepositoryDescriptor repository )
   {
     final ComponentDescriptor component = repository.getComponent();
-    final ClassName className = getRepositoryClassName( repository );
+    final ClassName rawRepositoryClassName = getRepositoryClassName( repository );
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "newRepository" ).
       addModifiers( Modifier.STATIC ).
-      addAnnotation( Generator.NONNULL_CLASSNAME ).
-      returns( className ).
-      addStatement( "return new $T()",
-                    ClassName.bestGuess( GeneratorUtil.getGeneratedSimpleClassName( className, "Arez_", "" ) ) );
-    GeneratorUtil.copyAccessModifiers( component.getElement(), method );
+      addAnnotation( Generator.NONNULL_CLASSNAME );
+
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, component.asDeclaredType() );
+
+    final TypeElement typeElement = component.getElement();
+    final TypeName[] typeParameters = typeElement
+      .getTypeParameters()
+      .stream()
+      .map( p -> TypeName.get( p.asType() ) )
+      .toArray( TypeName[]::new );
+
+    final TypeName repositoryClassName =
+      0 == typeParameters.length ?
+      rawRepositoryClassName :
+      ParameterizedTypeName.get( rawRepositoryClassName, typeParameters );
+    method.returns( repositoryClassName );
+    GeneratorUtil.copyTypeParameters( typeElement, method );
+
+    final ClassName arezRepositoryClass =
+      ClassName.bestGuess( GeneratorUtil.getGeneratedSimpleClassName( rawRepositoryClassName, "Arez_", "" ) );
+    method.addStatement( "return new $T" + ( 0 == typeParameters.length ? "" : "<>" ) + "()", arezRepositoryClass );
+    GeneratorUtil.copyAccessModifiers( typeElement, method );
     return method.build();
   }
 

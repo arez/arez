@@ -64,7 +64,6 @@ final class Arez_RequiresTxTypeActionModel extends RequiresTxTypeActionModel imp
     this.$$arezi$$_kernel.dispose();
   }
 
-  @SuppressWarnings("DefaultAnnotationParam")
   @Override
   public void doStuff(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {

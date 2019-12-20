@@ -111,7 +111,6 @@ final class ComponentGenerator
   private static final List<String> ANNOTATION_WHITELIST =
     Arrays.asList( Constants.NONNULL_ANNOTATION_CLASSNAME,
                    Constants.NULLABLE_ANNOTATION_CLASSNAME,
-                   SuppressWarnings.class.getName(),
                    Deprecated.class.getName() );
 
   private ComponentGenerator()
@@ -142,11 +141,20 @@ final class ComponentGenerator
     }
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
-    if ( !component.getMemoizes().isEmpty() &&
-         !AnnotationsUtil.hasAnnotationOfType( component.getElement(), SuppressWarnings.class.getName() ) )
+
+    final List<String> additionalSuppressions =
+      component.getMemoizes().isEmpty() ? Collections.emptyList() : Collections.singletonList( "unchecked" );
+    final List<TypeMirror> types = new ArrayList<>();
+    final ExecutableElement componentId = component.getComponentId();
+    if ( null != componentId )
     {
-      builder.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "unchecked" ) );
+      //If Identifiable interface is ever optionally applied to component then this need not
+      // be added when Identifiable interface need not be present
+      types.add( processingEnv.getTypeUtils().asMemberOf( component.asDeclaredType(), componentId ) );
     }
+    types.add( component.asDeclaredType() );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
+
     final boolean publicType =
       (
         component.getElement().getModifiers().contains( Modifier.PUBLIC ) &&
@@ -185,6 +193,8 @@ final class ComponentGenerator
     }
 
     builder.addSuperinterface( DISPOSABLE_CLASSNAME );
+    // when/if IDENTIFIABLE becomes optional then change suppressions above so null != componentId will
+    // not result in suppress when IDENTIFIABLE is not present
     builder.addSuperinterface( ParameterizedTypeName.get( IDENTIFIABLE_CLASSNAME, component.getIdType().box() ) );
     if ( component.isObservable() )
     {
@@ -205,10 +215,10 @@ final class ComponentGenerator
 
     if ( component.isInjectFactory() )
     {
-      builder.addType( buildFactoryClass( component ).build() );
+      builder.addType( buildFactoryClass( processingEnv, component ).build() );
     }
 
-    buildFields( component, builder );
+    buildFields( processingEnv, component, builder );
 
     if ( component.isClassType() )
     {
@@ -216,7 +226,7 @@ final class ComponentGenerator
     }
     else
     {
-      builder.addMethod( buildConstructor( processingEnv, component, null, null, component.hasDeprecatedElements() ) );
+      builder.addMethod( buildConstructor( processingEnv, component, null, null ) );
     }
 
     for ( final ExecutableElement contextRef : component.getContextRefs() )
@@ -245,7 +255,7 @@ final class ComponentGenerator
     {
       builder.addMethod( buildComponentIdMethod( component ) );
     }
-    builder.addMethod( buildArezIdMethod( component ) );
+    builder.addMethod( buildArezIdMethod( processingEnv, component ) );
     for ( final ExecutableElement componentNameRef : component.getComponentNameRefs() )
     {
       final MethodSpec.Builder method =
@@ -303,7 +313,7 @@ final class ComponentGenerator
                                                                                    builder ) );
     component.getObservables().values().forEach( e -> buildObservableMethods( processingEnv, e, builder ) );
     component.getObserves().values().forEach( e -> buildObserveMethods( processingEnv, e, builder ) );
-    component.getActions().values().forEach( e -> builder.addMethod( buildAction( e ) ) );
+    component.getActions().values().forEach( e -> builder.addMethod( buildAction( processingEnv, e ) ) );
     component.getMemoizes().values().forEach( e -> buildMemoizeMethods( processingEnv, e, builder ) );
     component.getReferences().values().forEach( e -> buildReferenceMethods( processingEnv, e, builder ) );
     component.getInverses().values().forEach( e -> buildInverseMethods( e, builder ) );
@@ -575,7 +585,8 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildAction( @Nonnull final ActionDescriptor action )
+  private static MethodSpec buildAction( @Nonnull final ProcessingEnvironment processingEnv,
+                                         @Nonnull final ActionDescriptor action )
     throws ProcessorException
   {
     final String methodName = action.getAction().getSimpleName().toString();
@@ -583,6 +594,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( action.getAction(), builder );
     GeneratorUtil.copyExceptions( action.getActionType(), builder );
     GeneratorUtil.copyTypeParameters( action.getActionType(), builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, action.getActionType() );
     copyWhitelistedAnnotations( action.getAction(), builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = action.getActionType().getReturnType();
@@ -934,7 +946,8 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static TypeSpec.Builder buildFactoryClass( @Nonnull final ComponentDescriptor component )
+  private static TypeSpec.Builder buildFactoryClass( @Nonnull final ProcessingEnvironment processingEnv,
+                                                     @Nonnull final ComponentDescriptor component )
   {
     final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
       .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
@@ -954,12 +967,14 @@ final class ComponentGenerator
                   parameter.getSimpleName().toString(),
                   Modifier.PRIVATE,
                   Modifier.FINAL );
+      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, constructor.asType() );
       copyWhitelistedAnnotations( parameter, field );
       factory.addField( field.build() );
     }
 
     final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
     ctor.addAnnotation( INJECT_CLASSNAME );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, ctor, constructor.asType() );
     copyWhitelistedAnnotations( constructor, ctor );
 
     for ( final VariableElement parameter : injectedParameters )
@@ -1239,16 +1254,25 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildArezIdMethod( @Nonnull final ComponentDescriptor component )
+  private static MethodSpec buildArezIdMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                               @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    return MethodSpec.methodBuilder( "getArezId" ).
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( "getArezId" ).
       addAnnotation( Override.class ).
       addAnnotation( Generator.NONNULL_CLASSNAME ).
       addModifiers( Modifier.PUBLIC ).
       addModifiers( Modifier.FINAL ).
       returns( component.getIdType().box() ).
-      addStatement( "return $N()", component.getIdMethodName() ).build();
+      addStatement( "return $N()", component.getIdMethodName() );
+    final ExecutableElement componentId = component.getComponentId();
+    if ( null != componentId )
+    {
+      final TypeMirror componentIdType =
+        processingEnv.getTypeUtils().asMemberOf( component.asDeclaredType(), componentId );
+      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, componentIdType );
+    }
+    return method.build();
   }
 
   @Nonnull
@@ -1843,17 +1867,12 @@ final class ComponentGenerator
                                          @Nonnull final ComponentDescriptor component,
                                          @Nonnull final TypeSpec.Builder builder )
   {
-    final boolean requiresDeprecatedSuppress = component.hasDeprecatedElements();
     for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( component.getElement() ) )
     {
       final ExecutableType methodType =
         (ExecutableType) processingEnv.getTypeUtils()
           .asMemberOf( (DeclaredType) component.getElement().asType(), constructor );
-      builder.addMethod( buildConstructor( processingEnv,
-                                           component,
-                                           constructor,
-                                           methodType,
-                                           requiresDeprecatedSuppress ) );
+      builder.addMethod( buildConstructor( processingEnv, component, constructor, methodType ) );
     }
   }
 
@@ -1864,8 +1883,7 @@ final class ComponentGenerator
   private static MethodSpec buildConstructor( @Nonnull final ProcessingEnvironment processingEnv,
                                               @Nonnull final ComponentDescriptor component,
                                               @Nullable final ExecutableElement constructor,
-                                              @Nullable final ExecutableType constructorType,
-                                              final boolean requiresDeprecatedSuppress )
+                                              @Nullable final ExecutableType constructorType )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
     if ( component.isInjectFactory() )
@@ -1888,22 +1906,34 @@ final class ComponentGenerator
       GeneratorUtil.copyExceptions( constructorType, builder );
       GeneratorUtil.copyTypeParameters( constructorType, builder );
     }
+    final List<ObservableDescriptor> initializers = component.getInitializers();
+
+    final List<String> additionalSuppressions =
+      component.hasDeprecatedElements() ? Collections.singletonList( "deprecation" ) : Collections.emptyList();
+    final List<TypeMirror> types = new ArrayList<>();
+    final ExecutableElement componentId = component.getComponentId();
+    if ( null != componentId )
+    {
+      types.add( processingEnv.getTypeUtils().asMemberOf( component.asDeclaredType(), componentId ) );
+    }
     if ( null != constructor )
     {
-      copyWhitelistedAnnotations( constructor, builder );
+      types.add( processingEnv.getTypeUtils().asMemberOf( component.asDeclaredType(), constructor ) );
     }
-    if ( requiresDeprecatedSuppress &&
-         !AnnotationsUtil.hasAnnotationOfType( component.getElement(), SuppressWarnings.class.getName() ) )
+    for ( final ObservableDescriptor initializer : initializers )
     {
-      builder.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "deprecation" ) );
+      types.add( initializer.getGetterType() );
     }
+    for ( final MemoizeDescriptor memoize : component.getMemoizes().values() )
+    {
+      types.addAll( memoize.getMethodType().getParameterTypes() );
+    }
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
 
     if ( InjectMode.NONE != component.getInjectMode() && !component.isInjectFactory() )
     {
       builder.addAnnotation( INJECT_CLASSNAME );
     }
-
-    final List<ObservableDescriptor> initializers = component.getInitializers();
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );
@@ -2032,7 +2062,8 @@ final class ComponentGenerator
    * <li>the ComputableValue object for every @Memoize method.</li>
    * </ul>
    */
-  private static void buildFields( @Nonnull final ComponentDescriptor component,
+  private static void buildFields( @Nonnull final ProcessingEnvironment processingEnv,
+                                   @Nonnull final ComponentDescriptor component,
                                    @Nonnull final TypeSpec.Builder builder )
   {
 
@@ -2055,8 +2086,10 @@ final class ComponentGenerator
       builder.addField( nextIdField.build() );
     }
 
-    component.getObservables().values().forEach( observable -> buildObservableFields( observable, builder ) );
-    component.getMemoizes().values().forEach( memoize -> buildMemoizeFields( memoize, builder ) );
+    component.getObservables()
+      .values()
+      .forEach( observable -> buildObservableFields( processingEnv, observable, builder ) );
+    component.getMemoizes().values().forEach( memoize -> buildMemoizeFields( processingEnv, memoize, builder ) );
     component.getObserves().values().forEach( observe -> buildObserveFields( observe, builder ) );
     component.getReferences().values().forEach( r -> buildReferenceFields( r, builder ) );
   }
@@ -2079,7 +2112,7 @@ final class ComponentGenerator
 
     if ( !typeParameters.isEmpty() )
     {
-      method.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "unchecked" ) );
+      method.addAnnotation( SuppressWarningsUtil.suppressWarningsAnnotation( "unchecked" ) );
     }
 
     final TypeName typeName =
@@ -2330,7 +2363,7 @@ final class ComponentGenerator
   {
     if ( memoize.getMethod().getParameters().isEmpty() )
     {
-      builder.addMethod( buildMemoizeWithoutParams( memoize ) );
+      builder.addMethod( buildMemoizeWithoutParams( processingEnv, memoize ) );
       final ExecutableElement onActivate = memoize.getOnActivate();
       if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) ||
            isCollectionType( memoize.getMethod() ) )
@@ -2355,7 +2388,7 @@ final class ComponentGenerator
     }
     else
     {
-      builder.addMethod( buildMemoizeWithParams( memoize ) );
+      builder.addMethod( buildMemoizeWithParams( processingEnv, memoize ) );
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
         builder.addMethod( buildMemoizeWithParamsComputableValueRef( processingEnv, memoize, refMethod ) );
@@ -2442,7 +2475,8 @@ final class ComponentGenerator
    * Generate the wrapper around Memoize method.
    */
   @Nonnull
-  private static MethodSpec buildMemoizeWithoutParams( @Nonnull final MemoizeDescriptor memoize )
+  private static MethodSpec buildMemoizeWithoutParams( @Nonnull final ProcessingEnvironment processingEnv,
+                                                       @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
     final ExecutableElement method = memoize.getMethod();
@@ -2452,6 +2486,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
     copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( methodType.getReturnType() );
@@ -2580,7 +2615,8 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildMemoizeWithParams( final MemoizeDescriptor memoize )
+  private static MethodSpec buildMemoizeWithParams( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
     final ExecutableElement method = memoize.getMethod();
@@ -2590,6 +2626,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, methodType );
     copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeName returnType = TypeName.get( methodType.getReturnType() );
@@ -2648,20 +2685,22 @@ final class ComponentGenerator
     return builder.build();
   }
 
-  private static void buildMemoizeFields( @Nonnull final MemoizeDescriptor memoize,
+  private static void buildMemoizeFields( @Nonnull final ProcessingEnvironment processingEnv,
+                                          @Nonnull final MemoizeDescriptor memoize,
                                           @Nonnull final TypeSpec.Builder builder )
   {
     if ( memoize.getMethod().getParameters().isEmpty() )
     {
-      buildMemoizeWithNoParametersFields( memoize, builder );
+      buildMemoizeWithNoParametersFields( processingEnv, memoize, builder );
     }
     else
     {
-      buildMemoizeWithParametersFields( memoize, builder );
+      buildMemoizeWithParametersFields( processingEnv, memoize, builder );
     }
   }
 
-  private static void buildMemoizeWithNoParametersFields( @Nonnull final MemoizeDescriptor memoize,
+  private static void buildMemoizeWithNoParametersFields( @Nonnull final ProcessingEnvironment processingEnv,
+                                                          @Nonnull final MemoizeDescriptor memoize,
                                                           @Nonnull final TypeSpec.Builder builder )
   {
     final ExecutableElement method = memoize.getMethod();
@@ -2674,33 +2713,37 @@ final class ComponentGenerator
     final FieldSpec.Builder field =
       FieldSpec.builder( typeName, getMemoizeFieldName( memoize ), Modifier.FINAL, Modifier.PRIVATE ).
         addAnnotation( Generator.NONNULL_CLASSNAME );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, methodType.getReturnType() );
     builder.addField( field.build() );
     if ( isCollectionType( memoize.getMethod() ) )
     {
-      builder.addField( FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
-                                           OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName(),
-                                           Modifier.PRIVATE ).build() );
+      final FieldSpec.Builder cacheField =
+        FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
+                           OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName(),
+                           Modifier.PRIVATE );
+      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, cacheField, methodType.getReturnType() );
+      builder.addField( cacheField.build() );
       builder.addField( FieldSpec.builder( TypeName.BOOLEAN,
                                            getMemoizeCollectionCacheDataActiveFieldName( memoize ),
                                            Modifier.PRIVATE ).build() );
     }
   }
 
-  private static void buildMemoizeWithParametersFields( @Nonnull final MemoizeDescriptor memoize,
+  private static void buildMemoizeWithParametersFields( @Nonnull final ProcessingEnvironment processingEnv,
+                                                        @Nonnull final MemoizeDescriptor memoize,
                                                         @Nonnull final TypeSpec.Builder builder )
   {
     final TypeName parameterType =
       memoize.getMethod().getTypeParameters().isEmpty() ?
       TypeName.get( memoize.getMethodType().getReturnType() ).box() :
       WildcardTypeName.subtypeOf( TypeName.OBJECT );
-    final ParameterizedTypeName typeName =
-      ParameterizedTypeName.get( MEMOIZE_CACHE_CLASSNAME, parameterType );
     final FieldSpec.Builder field =
-      FieldSpec.builder( typeName,
+      FieldSpec.builder( ParameterizedTypeName.get( MEMOIZE_CACHE_CLASSNAME, parameterType ),
                          getMemoizeFieldName( memoize ),
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
         addAnnotation( Generator.NONNULL_CLASSNAME );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, memoize.getMethodType().getReturnType() );
     builder.addField( field.build() );
   }
 
@@ -3054,7 +3097,8 @@ final class ComponentGenerator
     return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName();
   }
 
-  private static void buildObservableFields( @Nonnull final ObservableDescriptor observable,
+  private static void buildObservableFields( @Nonnull final ProcessingEnvironment processingEnv,
+                                             @Nonnull final ObservableDescriptor observable,
                                              @Nonnull final TypeSpec.Builder builder )
   {
     final ExecutableType getterType = observable.getGetterType();
@@ -3067,6 +3111,7 @@ final class ComponentGenerator
                          Modifier.FINAL,
                          Modifier.PRIVATE ).
         addAnnotation( Generator.NONNULL_CLASSNAME );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, getterType.getReturnType() );
     builder.addField( field.build() );
     if ( observable.isAbstract() )
     {
@@ -3075,6 +3120,7 @@ final class ComponentGenerator
         FieldSpec.builder( type,
                            observable.getDataFieldName(),
                            Modifier.PRIVATE );
+      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, dataField, getterType.getReturnType() );
       builder.addField( dataField.build() );
     }
     if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
@@ -3084,6 +3130,7 @@ final class ComponentGenerator
         FieldSpec.builder( type,
                            observable.getCollectionCacheDataFieldName(),
                            Modifier.PRIVATE );
+      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, dataField, getterType.getReturnType() );
       builder.addField( dataField.build() );
     }
   }
@@ -3156,13 +3203,13 @@ final class ComponentGenerator
                                               @Nonnull final TypeSpec.Builder builder )
     throws ProcessorException
   {
-    builder.addMethod( buildObservableGetter( observable ) );
+    builder.addMethod( buildObservableGetter( processingEnv, observable ) );
     if ( observable.expectSetter() )
     {
-      builder.addMethod( buildObservableSetter( observable ) );
+      builder.addMethod( buildObservableSetter( processingEnv, observable ) );
       if ( observable.canWriteOutsideTransaction() )
       {
-        builder.addMethod( buildObservableInternalSetter( observable ) );
+        builder.addMethod( buildObservableInternalSetter( processingEnv, observable ) );
       }
     }
     for ( final CandidateMethod refMethod : observable.getRefMethods() )
@@ -3177,7 +3224,8 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildObservableSetter( @Nonnull final ObservableDescriptor observable )
+  private static MethodSpec buildObservableSetter( @Nonnull final ProcessingEnvironment processingEnv,
+                                                   @Nonnull final ObservableDescriptor observable )
     throws ProcessorException
   {
     final ExecutableElement setter = observable.getSetter();
@@ -3187,6 +3235,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( setter, builder );
     GeneratorUtil.copyExceptions( setterType, builder );
     GeneratorUtil.copyTypeParameters( setterType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, setterType );
     copyWhitelistedAnnotations( setter, builder );
 
     builder.addAnnotation( Override.class );
@@ -3238,7 +3287,8 @@ final class ComponentGenerator
    * Generate the internal setter.
    */
   @Nonnull
-  private static MethodSpec buildObservableInternalSetter( @Nonnull final ObservableDescriptor observable )
+  private static MethodSpec buildObservableInternalSetter( @Nonnull final ProcessingEnvironment processingEnv,
+                                                           @Nonnull final ObservableDescriptor observable )
     throws ProcessorException
   {
     final ExecutableElement setter = observable.getSetter();
@@ -3248,6 +3298,7 @@ final class ComponentGenerator
     builder.addModifiers( Modifier.PRIVATE );
     GeneratorUtil.copyExceptions( setterType, builder );
     GeneratorUtil.copyTypeParameters( setterType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, setterType );
     copyWhitelistedAnnotations( setter, builder );
     buildObservableSetterImpl( observable, builder );
 
@@ -3267,7 +3318,7 @@ final class ComponentGenerator
     // actually changed
     if ( null == setter.getAnnotation( Deprecated.class ) && null != getter.getAnnotation( Deprecated.class ) )
     {
-      builder.addAnnotation( GeneratorUtil.suppressWarningsAnnotation( "deprecation" ) );
+      builder.addAnnotation( SuppressWarningsUtil.suppressWarningsAnnotation( "deprecation" ) );
     }
 
     final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
@@ -3512,7 +3563,8 @@ final class ComponentGenerator
    * Generate the getter that ensures that the access is reported.
    */
   @Nonnull
-  private static MethodSpec buildObservableGetter( @Nonnull final ObservableDescriptor observable )
+  private static MethodSpec buildObservableGetter( @Nonnull final ProcessingEnvironment processingEnv,
+                                                   @Nonnull final ObservableDescriptor observable )
     throws ProcessorException
   {
     final ExecutableElement getter = observable.getGetter();
@@ -3522,6 +3574,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( getter, builder );
     GeneratorUtil.copyExceptions( getterType, builder );
     GeneratorUtil.copyTypeParameters( getterType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, getterType );
     copyWhitelistedAnnotations( getter, builder );
 
     builder.addAnnotation( Override.class );
@@ -4013,7 +4066,7 @@ final class ComponentGenerator
                                              @Nonnull final TypeSpec.Builder builder )
     throws ProcessorException
   {
-    builder.addMethod( buildReferenceMethod( reference ) );
+    builder.addMethod( buildReferenceMethod( processingEnv, reference ) );
     builder.addMethod( buildReferenceLinkMethod( reference ) );
     if ( reference.hasInverse() || reference.getComponent().shouldVerify() )
     {
@@ -4022,7 +4075,8 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildReferenceMethod( final ReferenceDescriptor reference )
+  private static MethodSpec buildReferenceMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                  @Nonnull final ReferenceDescriptor reference )
     throws ProcessorException
   {
     final ExecutableElement method = reference.getMethod();
@@ -4032,6 +4086,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyTypeParameters( reference.getMethodType(), builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
     copyWhitelistedAnnotations( method, builder );
 
     builder.addAnnotation( Override.class );
@@ -4352,11 +4407,11 @@ final class ComponentGenerator
   {
     if ( observe.isInternalExecutor() )
     {
-      builder.addMethod( buildObserve( observe ) );
+      builder.addMethod( buildObserve( processingEnv, observe ) );
     }
     else
     {
-      builder.addMethod( buildObserveTrackWrapper( observe ) );
+      builder.addMethod( buildObserveTrackWrapper( processingEnv, observe ) );
     }
     for ( final ExecutableElement refMethod : observe.getRefMethods() )
     {
@@ -4398,7 +4453,8 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildObserveTrackWrapper( @Nonnull final ObserveDescriptor observe )
+  private static MethodSpec buildObserveTrackWrapper( @Nonnull final ProcessingEnvironment processingEnv,
+                                                      @Nonnull final ObserveDescriptor observe )
     throws ProcessorException
   {
     assert observe.hasObserve();
@@ -4409,6 +4465,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyExceptions( methodType, builder );
     GeneratorUtil.copyTypeParameters( methodType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, methodType );
     copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = methodType.getReturnType();
@@ -4535,7 +4592,8 @@ final class ComponentGenerator
    * This is wrapped to block user from directly invoking observed method.
    */
   @Nonnull
-  private static MethodSpec buildObserve( @Nonnull final ObserveDescriptor observe )
+  private static MethodSpec buildObserve( @Nonnull final ProcessingEnvironment processingEnv,
+                                          @Nonnull final ObserveDescriptor observe )
     throws ProcessorException
   {
     assert observe.hasObserve();
@@ -4546,6 +4604,7 @@ final class ComponentGenerator
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyExceptions( observedType, builder );
     GeneratorUtil.copyTypeParameters( observedType, builder );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, observedType );
     copyWhitelistedAnnotations( method, builder );
     builder.addAnnotation( Override.class );
     final TypeMirror returnType = method.getReturnType();

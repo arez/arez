@@ -12,15 +12,9 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.AnnotatedConstruct;
@@ -32,7 +26,6 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
-import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
@@ -285,38 +278,6 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static AnnotationSpec suppressWarningsAnnotation( @Nonnull final String... warnings )
-  {
-    return Objects.requireNonNull( maybeSuppressWarningsAnnotation( warnings ) );
-  }
-
-  @Nullable
-  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final String... warnings )
-  {
-    final List<String> actualWarnings =
-      Arrays.stream( warnings ).filter( Objects::nonNull ).collect( Collectors.toList() );
-    if ( actualWarnings.isEmpty() )
-    {
-      return null;
-    }
-    else if ( 1 == actualWarnings.size() )
-    {
-      return AnnotationSpec
-        .builder( SuppressWarnings.class )
-        .addMember( "value", "$S", actualWarnings.get( 0 ) )
-        .build();
-    }
-    else
-    {
-      final String formatString = "{ " + String.join( ", ", actualWarnings ) + " }";
-      return AnnotationSpec
-        .builder( SuppressWarnings.class )
-        .addMember( "value", formatString, actualWarnings.toArray() )
-        .build();
-    }
-  }
-
-  @Nonnull
   static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                        @Nonnull final TypeElement typeElement,
                                        @Nonnull final ExecutableElement original )
@@ -343,104 +304,11 @@ final class GeneratorUtil
       }
     }
 
-    final AnnotationSpec suppress = maybeSuppressWarningsAnnotation( processingEnv, returnType );
-    if ( null != suppress )
-    {
-      method.addAnnotation( suppress );
-    }
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, returnType );
     copyAccessModifiers( original, method );
     copyTypeParameters( originalExecutableType, method );
     method.returns( TypeName.get( returnType ) );
     return method;
-  }
-
-  /**
-   * Generate a suppress warnings annotation if any of the types passed in are either deprecated or rawtypes.
-   *
-   * @param types the types to analyze to determine if suppressions are required.
-   * @return a suppress annotation if required.
-   */
-  @Nullable
-  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
-                                                         @Nonnull final TypeMirror... types )
-  {
-    return maybeSuppressWarningsAnnotation( processingEnv, Collections.emptyList(), types );
-  }
-
-  /**
-   * Generate a suppress warnings annotation if any of the types passed in are either deprecated or rawtypes.
-   * The additionalSuppressions parameter will also be added to list of suppressions.
-   *
-   * @param additionalSuppressions the suppressions that must be added to suppression annotation.
-   * @param types                  the types to analyze to determine if suppressions are required.
-   * @return a suppress annotation if required.
-   */
-  @Nullable
-  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
-                                                         @Nonnull final Collection<String> additionalSuppressions,
-                                                         @Nonnull final TypeMirror... types )
-  {
-    final boolean hasRawTypes = Stream.of( types ).anyMatch( t -> hasRawTypes( processingEnv, t ) );
-    final boolean hasDeprecatedTypes = Stream.of( types ).anyMatch( t -> hasDeprecatedTypes( processingEnv, t ) );
-
-    if ( hasRawTypes || hasDeprecatedTypes || !additionalSuppressions.isEmpty() )
-    {
-      final ArrayList<String> suppressions = new ArrayList<>( additionalSuppressions );
-      if ( hasRawTypes )
-      {
-        suppressions.add( "rawtypes" );
-      }
-      if ( hasDeprecatedTypes )
-      {
-        suppressions.add( "deprecation" );
-      }
-      return suppressWarningsAnnotation( suppressions.toArray( new String[ 0 ] ) );
-    }
-    else
-    {
-      return null;
-    }
-  }
-
-  private static boolean hasDeprecatedTypes( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final TypeMirror type )
-  {
-    if ( type instanceof ArrayType )
-    {
-      return hasDeprecatedTypes( processingEnv, ( (ArrayType) type ).getComponentType() );
-    }
-    else if ( type instanceof DeclaredType )
-    {
-      final DeclaredType declaredType = (DeclaredType) type;
-      return declaredType.getAnnotationMirrors()
-               .stream()
-               .anyMatch( a -> a.getAnnotationType().toString().equals( Deprecated.class.getName() ) ) ||
-             declaredType.getTypeArguments().stream().anyMatch( a -> hasDeprecatedTypes( processingEnv, a ) );
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  private static boolean hasRawTypes( @Nonnull final ProcessingEnvironment processingEnv,
-                                      @Nonnull final TypeMirror type )
-  {
-    if ( type instanceof ArrayType )
-    {
-      return hasRawTypes( processingEnv, ( (ArrayType) type ).getComponentType() );
-    }
-    else if ( type instanceof DeclaredType )
-    {
-      final DeclaredType declaredType = (DeclaredType) type;
-      final int typeArgumentCount = declaredType.getTypeArguments().size();
-      final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
-      return typeArgumentCount != typeElement.getTypeParameters().size();
-    }
-    else
-    {
-      return false;
-    }
   }
 
   static boolean areTypesInDifferentPackage( @Nonnull final TypeElement typeElement1,

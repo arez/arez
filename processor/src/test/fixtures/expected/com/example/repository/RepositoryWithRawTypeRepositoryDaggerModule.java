@@ -5,7 +5,6 @@ import dagger.Module;
 import javax.annotation.Generated;
 import javax.inject.Singleton;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
 @Module
 public interface RepositoryWithRawTypeRepositoryDaggerModule {

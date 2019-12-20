@@ -8,7 +8,6 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent
 @Singleton
@@ -25,6 +24,7 @@ public abstract class RepositoryWithRawTypeRepository extends AbstractRepository
       name = "create"
   )
   @Nonnull
+  @SuppressWarnings("rawtypes")
   RepositoryWithRawType create(@Nonnull final Callable action) {
     final Arez_RepositoryWithRawType entity = new Arez_RepositoryWithRawType(action);
     attach( entity );

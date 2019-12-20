@@ -25,9 +25,6 @@ See https://github.com/arez/arez/issues/91
 
 * Remove `_methodType` cached values inside processor and resolve at use.
 
-* Avoid copying whitelisted annotations and instead created those we expect. i.e. Manually copy `@Deprecated`,
-  `@SuppressWarnings` for `rawtypes` and copy `@Nullable`/`@Nonnull` explicitly.
-
 * Support multiple instances of `@OnDepsChange`
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class

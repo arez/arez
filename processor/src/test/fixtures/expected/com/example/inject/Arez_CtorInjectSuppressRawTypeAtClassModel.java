@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
 @Singleton
 final class Arez_CtorInjectSuppressRawTypeAtClassModel extends CtorInjectSuppressRawTypeAtClassModel implements Disposable, Identifiable<Integer> {
@@ -22,6 +21,7 @@ final class Arez_CtorInjectSuppressRawTypeAtClassModel extends CtorInjectSuppres
 
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("rawtypes")
   @Inject
   Arez_CtorInjectSuppressRawTypeAtClassModel(@Nonnull final Callable action) {
     super(action);

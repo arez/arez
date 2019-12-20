@@ -21,8 +21,8 @@ public final class Arez_FactoryConsumerWithRawTypeInjectedModel extends FactoryC
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  private Arez_FactoryConsumerWithRawTypeInjectedModel(final int count,
-      @SuppressWarnings("rawtypes") final Callable action) {
+  @SuppressWarnings("rawtypes")
+  private Arez_FactoryConsumerWithRawTypeInjectedModel(final int count, final Callable action) {
     super(count,action);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
@@ -98,7 +98,8 @@ public final class Arez_FactoryConsumerWithRawTypeInjectedModel extends FactoryC
     private final Callable action;
 
     @Inject
-    Factory(@SuppressWarnings("rawtypes") final Callable action) {
+    @SuppressWarnings("rawtypes")
+    Factory(final Callable action) {
       this.action = action;
     }
 

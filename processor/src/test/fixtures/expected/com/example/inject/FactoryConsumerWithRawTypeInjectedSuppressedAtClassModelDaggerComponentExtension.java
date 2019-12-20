@@ -4,7 +4,6 @@ import dagger.Subcomponent;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
 public interface FactoryConsumerWithRawTypeInjectedSuppressedAtClassModelDaggerComponentExtension {
   DaggerSubcomponent getFactoryConsumerWithRawTypeInjectedSuppressedAtClassModelDaggerSubcomponent(

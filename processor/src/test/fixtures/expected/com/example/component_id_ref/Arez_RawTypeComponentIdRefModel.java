@@ -11,11 +11,12 @@ import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
+@SuppressWarnings("rawtypes")
 final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel implements Disposable, Identifiable<RawTypeComponentIdRefModel.MyId>, DisposeNotifier {
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("rawtypes")
   Arez_RawTypeComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -36,6 +37,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
 
   @Override
   @Nonnull
+  @SuppressWarnings("rawtypes")
   public final RawTypeComponentIdRefModel.MyId getArezId() {
     return id();
   }

@@ -79,7 +79,6 @@ final class Arez_NonnullObservableDependency extends NonnullObservableDependency
     this.$$arez$$_value.dispose();
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Nonnull
   @Override
   DisposeNotifier getValue() {

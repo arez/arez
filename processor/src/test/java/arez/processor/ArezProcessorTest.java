@@ -962,6 +962,44 @@ public class ArezProcessorTest
   }
 
   @Test
+  public void deprecatedUsageModel()
+    throws Exception
+  {
+    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.deprecated.DeprecatedUsageModel";
+    final String[] expectedOutputResources =
+      deriveExpectedOutputs( classname, false, false, true, true );
+    final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
+    final JavaFileObject input2 = fixture( toFilename( "input", "com.example.deprecated.MyDeprecatedEntity" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void deprecatedTypeParameterModel()
+    throws Exception
+  {
+    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.deprecated.DeprecatedTypeParameterModel";
+    final String[] expectedOutputResources =
+      deriveExpectedOutputs( classname, false, false, true, false );
+    final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
+    final JavaFileObject input2 = fixture( toFilename( "input", "com.example.deprecated.MyDeprecatedEntity" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void rawTypesUsageModel()
+    throws Exception
+  {
+    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.raw_types.RawTypesUsageModel";
+    final String[] expectedOutputResources =
+      deriveExpectedOutputs( classname, false, false, true, true );
+    final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
+    assertSuccessfulCompile( Arrays.asList( input1 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
   public void allowEmptyOnNonEmptyComponent()
   {
     final String filename =

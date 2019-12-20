@@ -17,7 +17,6 @@ final class Arez_Suppressed1ProtectedCtorModel extends Suppressed1ProtectedCtorM
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  @SuppressWarnings("Arez:ProtectedConstructor")
   Arez_Suppressed1ProtectedCtorModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

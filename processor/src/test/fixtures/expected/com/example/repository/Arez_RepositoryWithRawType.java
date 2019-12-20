@@ -16,7 +16,6 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
-@SuppressWarnings("rawtypes")
 @Generated("arez.processor.ArezProcessor")
 final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -24,10 +23,13 @@ final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements 
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
+  @SuppressWarnings("rawtypes")
   private final ObservableValue<Callable> $$arez$$_action;
 
+  @SuppressWarnings("rawtypes")
   private Callable $$arezd$$_action;
 
+  @SuppressWarnings("rawtypes")
   Arez_RepositoryWithRawType(@Nonnull final Callable action) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -84,6 +86,7 @@ final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements 
     this.$$arez$$_action.dispose();
   }
 
+  @SuppressWarnings("rawtypes")
   @Nonnull
   @Override
   public Callable getAction() {
@@ -94,6 +97,7 @@ final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements 
     return this.$$arezd$$_action;
   }
 
+  @SuppressWarnings("rawtypes")
   @Override
   public void setAction(@Nonnull final Callable action) {
     if ( Arez.shouldCheckApiInvariants() ) {
