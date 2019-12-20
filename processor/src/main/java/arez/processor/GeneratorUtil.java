@@ -318,6 +318,15 @@ final class GeneratorUtil
                                             @Nonnull final TypeElement typeElement,
                                             @Nonnull final ExecutableElement executableElement )
   {
+    return overrideMethod( processingEnv, typeElement, executableElement, true );
+  }
+
+  @Nonnull
+  static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                            @Nonnull final TypeElement typeElement,
+                                            @Nonnull final ExecutableElement executableElement,
+                                            final boolean copyNullabilityAnnotations )
+  {
     final DeclaredType declaredType = (DeclaredType) typeElement.asType();
     final ExecutableType executableType =
       (ExecutableType) processingEnv.getTypeUtils().asMemberOf( declaredType, executableElement );
@@ -328,7 +337,17 @@ final class GeneratorUtil
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, executableType );
     copyAccessModifiers( executableElement, method );
     copyTypeParameters( executableType, method );
-    copyWhitelistedAnnotations( executableElement, method );
+    if ( copyNullabilityAnnotations )
+    {
+      copyWhitelistedAnnotations( executableElement, method );
+    }
+    else
+    {
+      if ( AnnotationsUtil.hasAnnotationOfType( executableElement, Deprecated.class.getName() ) )
+      {
+        method.addAnnotation( Deprecated.class );
+      }
+    }
 
     method.varargs( executableElement.isVarArgs() );
 
@@ -364,7 +383,7 @@ final class GeneratorUtil
                                        @Nonnull final TypeElement typeElement,
                                        @Nonnull final ExecutableElement executableElement )
   {
-    final MethodSpec.Builder method = overrideMethod( processingEnv, typeElement, executableElement );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, typeElement, executableElement, false );
     method.addModifiers( Modifier.FINAL );
     if ( !executableElement.getReturnType().getKind().isPrimitive() )
     {
