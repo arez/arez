@@ -117,7 +117,7 @@ final class DependencyDescriptor
                                       "processor does not know how to set the value to null.", getMethod() );
       }
       else if ( AnnotationsUtil.hasAnnotationOfType( getObservable().getSetter().getParameters().get( 0 ),
-                                                     Constants.NONNULL_ANNOTATION_CLASSNAME ) )
+                                                     GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME ) )
       {
         throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
                                       "setter is annotated with @javax.annotation.Nonnull.", getMethod() );

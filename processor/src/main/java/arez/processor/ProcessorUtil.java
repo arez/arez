@@ -290,7 +290,7 @@ final class ProcessorUtil
 
   static boolean hasNonnullAnnotation( @Nonnull final Element element )
   {
-    return AnnotationsUtil.hasAnnotationOfType( element, Constants.NONNULL_ANNOTATION_CLASSNAME );
+    return AnnotationsUtil.hasAnnotationOfType( element, GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME );
   }
 
   static boolean isDisposableTrackableRequired( @Nonnull final Element element )

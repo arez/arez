@@ -1479,7 +1479,7 @@ public final class ArezProcessor
                // Setter
                1 == element.getParameters().size() &&
                AnnotationsUtil.hasAnnotationOfType( element.getParameters().get( 0 ),
-                                                    Constants.NONNULL_ANNOTATION_CLASSNAME )
+                                                    GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME )
              )
            );
   }
@@ -2940,15 +2940,15 @@ public final class ArezProcessor
         {
           multiplicity = Multiplicity.ONE;
         }
-        else if ( AnnotationsUtil.hasAnnotationOfType( method, Constants.NULLABLE_ANNOTATION_CLASSNAME ) )
+        else if ( AnnotationsUtil.hasAnnotationOfType( method, GeneratorUtil.NULLABLE_ANNOTATION_CLASSNAME ) )
         {
           multiplicity = Multiplicity.ZERO_OR_ONE;
         }
         else
         {
           throw new ProcessorException( "@Inverse target expected to be annotated with either " +
-                                        Constants.NULLABLE_ANNOTATION_CLASSNAME + " or " +
-                                        Constants.NONNULL_ANNOTATION_CLASSNAME, method );
+                                        GeneratorUtil.NULLABLE_ANNOTATION_CLASSNAME + " or " +
+                                        GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME, method );
         }
       }
       final String referenceName = getInverseReferenceNameParameter( descriptor, method );
