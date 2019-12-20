@@ -2549,18 +2549,6 @@ final class ComponentGenerator
       GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
     generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
-    final List<? extends VariableElement> parameters = refMethod.getMethod().getParameters();
-    final int paramCount = parameters.size();
-    for ( int i = 0; i < paramCount; i++ )
-    {
-      final VariableElement element = parameters.get( i );
-      final TypeName parameterType = TypeName.get( refMethod.getMethodType().getParameterTypes().get( i ) );
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( parameterType, element.getSimpleName().toString(), Modifier.FINAL );
-      GeneratorUtil.copyWhitelistedAnnotations( element, param );
-      method.addParameter( param.build() );
-    }
-
     final StringBuilder sb = new StringBuilder();
     final ArrayList<Object> params = new ArrayList<>();
     sb.append( "return this.$N.getComputableValue( " );
