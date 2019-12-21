@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_Suppressed2UnnecessaryAllowEmptyPresentComponent extends Suppressed2UnnecessaryAllowEmptyPresentComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_Suppressed2UnnecessaryAllowEmptyPresentComponent extends Suppressed2UnnecessaryAllowEmptyPresentComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

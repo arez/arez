@@ -21,6 +21,9 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
+  inverse references and potentially by generating a `@Provide` method and module for dagger.
+
 * `AnnotationsUtil.extractName()` wherever possible
 
 * Remove `_methodType` cached values inside processor and resolve at use.

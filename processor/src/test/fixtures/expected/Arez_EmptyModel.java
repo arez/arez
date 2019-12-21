@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_EmptyModel extends EmptyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_EmptyModel extends EmptyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

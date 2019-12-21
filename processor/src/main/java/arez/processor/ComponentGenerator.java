@@ -147,22 +147,14 @@ final class ComponentGenerator
     types.add( component.asDeclaredType() );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
 
-    final boolean publicType =
-      (
-        component.getElement().getModifiers().contains( Modifier.PUBLIC ) &&
-        ProcessorUtil.getConstructors( component.getElement() ).
-          stream().
-          anyMatch( c -> c.getModifiers().contains( Modifier.PUBLIC ) )
-      ) || (
-        //Ahh dagger.... due the way we actually inject components that have to create a dagger component
-        // extension, this class needs to be public
-        component.needsDaggerComponentExtension()
-      );
-    final boolean hasInverseReferencedOutsideClass =
+    //Ahh dagger.... due the way we actually inject components that have to create a dagger component
+    // extension, this class needs to be public
+    final boolean publicType = component.needsDaggerComponentExtension();
+    final boolean hasInverseReferencedOutsidePackage =
       component.getInverses()
         .values()
         .stream()
-        .anyMatch( inverse -> !GeneratorUtil.areTypesInSamePackage( inverse.getTargetType(), component.getElement() ) );
+        .anyMatch( inverse -> GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), component.getElement() ) );
     final boolean hasReferenceWithInverseOutsidePackage =
       component.getReferences()
         .values()
@@ -171,9 +163,9 @@ final class ComponentGenerator
         .anyMatch( reference -> {
           final TypeElement typeElement =
             (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
-          return !GeneratorUtil.areTypesInSamePackage( typeElement, component.getElement() );
+          return GeneratorUtil.areTypesInDifferentPackage(  typeElement, component.getElement() );
         } );
-    if ( publicType || hasInverseReferencedOutsideClass || hasReferenceWithInverseOutsidePackage )
+    if ( publicType || hasInverseReferencedOutsidePackage || hasReferenceWithInverseOutsidePackage )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }

@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("deprecation")
-public final class Arez_DeprecatedTypeParameterModel<T extends MyDeprecatedEntity> extends DeprecatedTypeParameterModel<T> implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class Arez_DeprecatedTypeParameterModel<T extends MyDeprecatedEntity> extends DeprecatedTypeParameterModel<T> implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;

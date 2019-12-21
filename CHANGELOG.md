@@ -7,6 +7,7 @@
 * Fixed compile errors that occurred when the type of the component has type parameters and is annotated with `@Repository`.
 * Improve the code generation so that rather than copying the `@SuppressWarnings` annotation from the input source code, Arez will analyze the type of the code being generated and add a `@SuppressWarning` when and if it is needed. In particular the annotation processor will attempt to detect when `unchecked`, `rawtypes` and `deprecation` suppressions are required.
 * Continue to refactor the annotation processor infrastructure and ensure that the generated code is internally consistent and easier to maintain. The changes should have had no practical impact on how end-users use the results.
+* Stop making the generated component class public unless needed to support dagger injection or to support inverse references in a different package.
 
 ### [v0.160](https://github.com/arez/arez/tree/v0.160) (2019-12-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.159...v0.160) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.159&new=0.160)
 

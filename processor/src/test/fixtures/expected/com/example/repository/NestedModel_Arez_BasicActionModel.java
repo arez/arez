@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicActionModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class NestedModel_Arez_BasicActionModel extends NestedModel.BasicActionModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
