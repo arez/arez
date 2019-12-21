@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -242,6 +243,27 @@ final class ComponentDescriptor
   Map<String, ReferenceDescriptor> getReferences()
   {
     return _references;
+  }
+
+  boolean hasReferenceWithInverseOutsidePackage( @Nonnull final ProcessingEnvironment processingEnv )
+  {
+    return getReferences()
+      .values()
+      .stream()
+      .filter( ReferenceDescriptor::hasInverse )
+      .anyMatch( reference -> {
+        final TypeElement typeElement =
+          (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
+        return GeneratorUtil.areTypesInDifferentPackage( typeElement, getElement() );
+      } );
+  }
+
+  boolean hasInverseReferencedOutsidePackage()
+  {
+    return getInverses()
+      .values()
+      .stream()
+      .anyMatch( inverse -> GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), getElement() ) );
   }
 
   @Nonnull

@@ -149,23 +149,9 @@ final class ComponentGenerator
 
     //Ahh dagger.... due the way we actually inject components that have to create a dagger component
     // extension, this class needs to be public
-    final boolean publicType = component.needsDaggerComponentExtension();
-    final boolean hasInverseReferencedOutsidePackage =
-      component.getInverses()
-        .values()
-        .stream()
-        .anyMatch( inverse -> GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), component.getElement() ) );
-    final boolean hasReferenceWithInverseOutsidePackage =
-      component.getReferences()
-        .values()
-        .stream()
-        .filter( ReferenceDescriptor::hasInverse )
-        .anyMatch( reference -> {
-          final TypeElement typeElement =
-            (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
-          return GeneratorUtil.areTypesInDifferentPackage(  typeElement, component.getElement() );
-        } );
-    if ( publicType || hasInverseReferencedOutsidePackage || hasReferenceWithInverseOutsidePackage )
+    if ( component.needsDaggerComponentExtension() ||
+         component.hasReferenceWithInverseOutsidePackage( processingEnv ) ||
+         component.hasInverseReferencedOutsidePackage() )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
