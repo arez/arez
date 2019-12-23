@@ -35,7 +35,7 @@ final class ComponentDescriptor
   @Nonnull
   private final InjectMode _injectMode;
   private final boolean _dagger;
-  private final boolean _injectFactory;
+  private final boolean _generateFactory;
   private final boolean _requireEquals;
   /**
    * Flag indicating whether generated component should implement arez.component.Verifiable.
@@ -103,7 +103,7 @@ final class ComponentDescriptor
                        final boolean disposeOnDeactivate,
                        @Nonnull final String injectMode,
                        final boolean dagger,
-                       final boolean injectFactory,
+                       final boolean generateFactory,
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -120,7 +120,7 @@ final class ComponentDescriptor
     _disposeOnDeactivate = disposeOnDeactivate;
     _injectMode = InjectMode.valueOf( injectMode );
     _dagger = dagger;
-    _injectFactory = injectFactory;
+    _generateFactory = generateFactory;
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
@@ -407,7 +407,7 @@ final class ComponentDescriptor
 
   boolean shouldGenerateFactory()
   {
-    return isInjectFactory();
+    return _generateFactory;
   }
 
   @Nonnull
@@ -423,7 +423,7 @@ final class ComponentDescriptor
 
   boolean needsDaggerComponentExtension()
   {
-    return needsDaggerIntegration() && isInjectFactory();
+    return needsDaggerIntegration() && shouldGenerateFactory();
   }
 
   boolean hasRepository()
@@ -590,11 +590,6 @@ final class ComponentDescriptor
   boolean isDagger()
   {
     return _dagger;
-  }
-
-  boolean isInjectFactory()
-  {
-    return _injectFactory;
   }
 
   /**

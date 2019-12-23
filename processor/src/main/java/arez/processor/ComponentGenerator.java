@@ -183,7 +183,7 @@ final class ComponentGenerator
       builder.addSuperinterface( LINKABLE_CLASSNAME );
     }
 
-    if ( component.isInjectFactory() )
+    if ( component.shouldGenerateFactory() )
     {
       builder.addType( buildFactoryClass( processingEnv, component ).build() );
     }
@@ -1819,7 +1819,7 @@ final class ComponentGenerator
                                               @Nullable final ExecutableType constructorType )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    if ( component.isInjectFactory() )
+    if ( component.shouldGenerateFactory() )
     {
       // The constructor is as the factory is responsible for creating component.
       builder.addModifiers( Modifier.PRIVATE );
@@ -1863,7 +1863,7 @@ final class ComponentGenerator
     }
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
 
-    if ( InjectMode.NONE != component.getInjectMode() && !component.isInjectFactory() )
+    if ( InjectMode.NONE != component.getInjectMode() && !component.shouldGenerateFactory() )
     {
       builder.addAnnotation( INJECT_CLASSNAME );
     }

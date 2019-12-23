@@ -2107,7 +2107,7 @@ public final class ArezProcessor
                                     "disposeOnDeactivate = true which is not a valid combination", typeElement );
     }
 
-    boolean generatesFactoryToInject = false;
+    boolean generateFactory = false;
     if ( dagger )
     {
       final ExecutableElement ctor = constructors.get( 0 );
@@ -2127,7 +2127,7 @@ public final class ArezProcessor
                                         "parameter to CONSUME or remove the @PerInstance parameter.",
                                         ctor );
         }
-        generatesFactoryToInject = true;
+        generateFactory = true;
       }
     }
 
@@ -2161,7 +2161,7 @@ public final class ArezProcessor
                                disposeOnDeactivate,
                                injectMode,
                                dagger,
-                               generatesFactoryToInject,
+                               generateFactory,
                                requireEquals,
                                requireVerify,
                                scopeAnnotation,
