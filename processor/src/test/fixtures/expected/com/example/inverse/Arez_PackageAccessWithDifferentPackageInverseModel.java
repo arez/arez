@@ -33,7 +33,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
 
   private List<Element> $$arezd$$_$$cache$$_elements;
 
-  Arez_PackageAccessWithDifferentPackageInverseModel() {
+  public Arez_PackageAccessWithDifferentPackageInverseModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

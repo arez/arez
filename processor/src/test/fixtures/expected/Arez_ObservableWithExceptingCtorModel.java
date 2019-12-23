@@ -20,7 +20,7 @@ final class Arez_ObservableWithExceptingCtorModel extends ObservableWithExceptin
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_ObservableWithExceptingCtorModel() throws Exception {
+  Arez_ObservableWithExceptingCtorModel() throws Exception {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

@@ -64,7 +64,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   private final Observer $$arez$$_render;
 
   @SuppressWarnings("deprecation")
-  public Arez_DeprecatedUsageModel(final MyDeprecatedEntity myEntity,
+  Arez_DeprecatedUsageModel(final MyDeprecatedEntity myEntity,
       final List<MyDeprecatedEntity> myEntityList) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

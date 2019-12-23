@@ -21,7 +21,7 @@ final class Arez_ObservableWithSpecificExceptionModel extends ObservableWithSpec
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_ObservableWithSpecificExceptionModel() {
+  Arez_ObservableWithSpecificExceptionModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

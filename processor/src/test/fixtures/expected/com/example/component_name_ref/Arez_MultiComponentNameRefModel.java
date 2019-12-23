@@ -18,7 +18,7 @@ final class Arez_MultiComponentNameRefModel extends MultiComponentNameRefModel i
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_MultiComponentNameRefModel() {
+  Arez_MultiComponentNameRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

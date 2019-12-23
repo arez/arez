@@ -21,7 +21,7 @@ final class Arez_ObservableTypeParametersModel<T extends Integer> extends Observ
   @Nonnull
   private final ObservableValue<T> $$arez$$_time;
 
-  public Arez_ObservableTypeParametersModel() {
+  Arez_ObservableTypeParametersModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

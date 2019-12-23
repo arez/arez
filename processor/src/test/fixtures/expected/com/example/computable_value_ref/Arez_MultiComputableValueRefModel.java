@@ -23,7 +23,7 @@ final class Arez_MultiComputableValueRefModel extends MultiComputableValueRefMod
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  public Arez_MultiComputableValueRefModel() {
+  Arez_MultiComputableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

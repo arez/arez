@@ -17,7 +17,7 @@ final class Arez_MultiComponentIdRefModel extends MultiComponentIdRefModel imple
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_MultiComponentIdRefModel() {
+  Arez_MultiComponentIdRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

@@ -27,7 +27,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   @Nonnull
   private final ObservableValue<String> $$arez$$_string;
 
-  public Arez_ObservableGuessingModel() {
+  Arez_ObservableGuessingModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

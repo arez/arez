@@ -26,7 +26,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel implements Disp
   @Nonnull
   private final ComputableValue<Integer> $$arez$$_someValue;
 
-  public Arez_DefaultMethodsModel() {
+  Arez_DefaultMethodsModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

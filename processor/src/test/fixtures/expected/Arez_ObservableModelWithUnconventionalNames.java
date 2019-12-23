@@ -20,7 +20,7 @@ final class Arez_ObservableModelWithUnconventionalNames extends ObservableModelW
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_ObservableModelWithUnconventionalNames() {
+  Arez_ObservableModelWithUnconventionalNames() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

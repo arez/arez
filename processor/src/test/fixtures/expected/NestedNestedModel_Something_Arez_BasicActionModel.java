@@ -17,7 +17,7 @@ final class NestedNestedModel_Something_Arez_BasicActionModel extends NestedNest
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public NestedNestedModel_Something_Arez_BasicActionModel() {
+  NestedNestedModel_Something_Arez_BasicActionModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

@@ -65,7 +65,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
   private final Observer $$arez$$_render;
 
   @SuppressWarnings("rawtypes")
-  public Arez_RawTypesUsageModel(final Callable myCallable, final List<Callable> myCallableList) {
+  Arez_RawTypesUsageModel(final Callable myCallable, final List<Callable> myCallableList) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

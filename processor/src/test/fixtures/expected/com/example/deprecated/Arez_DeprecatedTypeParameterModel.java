@@ -19,7 +19,7 @@ final class Arez_DeprecatedTypeParameterModel<T extends MyDeprecatedEntity> exte
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_DeprecatedTypeParameterModel() {
+  Arez_DeprecatedTypeParameterModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

@@ -17,7 +17,7 @@ final class Arez_Suppressed2UnnecessaryDefaultPriorityPresentComponent extends S
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_Suppressed2UnnecessaryDefaultPriorityPresentComponent() {
+  Arez_Suppressed2UnnecessaryDefaultPriorityPresentComponent() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

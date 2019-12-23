@@ -72,7 +72,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   @Nullable
   private BaseCompleteInterfaceModel.MyEntity $$arezr$$_myEntity;
 
-  Arez_CompleteInterfaceModel() {
+  public Arez_CompleteInterfaceModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'CompleteInterfaceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );

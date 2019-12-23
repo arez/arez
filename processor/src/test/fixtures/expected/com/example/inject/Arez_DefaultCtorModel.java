@@ -21,7 +21,7 @@ final class Arez_DefaultCtorModel extends DefaultCtorModel implements Disposable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Inject
-  public Arez_DefaultCtorModel() {
+  Arez_DefaultCtorModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

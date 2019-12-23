@@ -38,7 +38,7 @@ final class Arez_BasicModelWithDifferentAccessLevels extends BasicModelWithDiffe
     this.$$arezi$$_kernel.componentReady();
   }
 
-  public Arez_BasicModelWithDifferentAccessLevels(final String value, final long time) {
+  Arez_BasicModelWithDifferentAccessLevels(final String value, final long time) {
     super(value,time);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

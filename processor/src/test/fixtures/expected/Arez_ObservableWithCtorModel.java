@@ -20,7 +20,7 @@ final class Arez_ObservableWithCtorModel extends ObservableWithCtorModel impleme
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_ObservableWithCtorModel(final long time) {
+  Arez_ObservableWithCtorModel(final long time) {
     super(time);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

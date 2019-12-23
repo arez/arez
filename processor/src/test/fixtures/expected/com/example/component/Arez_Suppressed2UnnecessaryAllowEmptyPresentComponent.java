@@ -19,7 +19,7 @@ final class Arez_Suppressed2UnnecessaryAllowEmptyPresentComponent extends Suppre
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_Suppressed2UnnecessaryAllowEmptyPresentComponent() {
+  Arez_Suppressed2UnnecessaryAllowEmptyPresentComponent() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

@@ -1820,14 +1820,8 @@ final class ComponentGenerator
       // The constructor is as the factory is responsible for creating component.
       builder.addModifiers( Modifier.PRIVATE );
     }
-    else if ( null != constructor &&
-              constructor.getModifiers().contains( Modifier.PUBLIC ) &&
-              component.getElement().getModifiers().contains( Modifier.PUBLIC ) )
+    else if ( component.shouldGeneratedClassBePublic( processingEnv ) )
     {
-      /*
-       * The constructor MUST be public if annotated class is public as that implies that we expect
-       * that code outside the package may construct the component.
-       */
       builder.addModifiers( Modifier.PUBLIC );
     }
     if ( null != constructorType )

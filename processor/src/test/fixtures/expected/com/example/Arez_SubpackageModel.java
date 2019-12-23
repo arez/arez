@@ -28,7 +28,7 @@ final class Arez_SubpackageModel extends SubpackageModel implements Disposable, 
   @Nonnull
   private final ComputableValue<Integer> $$arez$$_someValue;
 
-  public Arez_SubpackageModel() {
+  Arez_SubpackageModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

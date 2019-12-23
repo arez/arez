@@ -15,7 +15,7 @@ final class Arez_EmptyModel extends EmptyModel implements Disposable, Identifiab
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_EmptyModel() {
+  Arez_EmptyModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

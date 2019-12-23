@@ -45,7 +45,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   @Nonnull
   private final ObservableValue<Object> $$arez$$_v9;
 
-  public Arez_DifferentObservableTypesModel() {
+  Arez_DifferentObservableTypesModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

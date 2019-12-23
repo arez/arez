@@ -34,7 +34,7 @@ final class Arez_OverrideNamesInModel extends OverrideNamesInModel implements Di
   @Nonnull
   private final Observer $$arez$$_XX;
 
-  public Arez_OverrideNamesInModel() {
+  Arez_OverrideNamesInModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

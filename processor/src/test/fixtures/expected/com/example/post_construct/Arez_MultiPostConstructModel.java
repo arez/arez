@@ -17,7 +17,7 @@ final class Arez_MultiPostConstructModel extends MultiPostConstructModel impleme
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_MultiPostConstructModel() {
+  Arez_MultiPostConstructModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

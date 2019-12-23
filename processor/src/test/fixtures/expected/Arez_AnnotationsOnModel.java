@@ -27,7 +27,7 @@ final class Arez_AnnotationsOnModel extends AnnotationsOnModel implements Dispos
   @Nonnull
   private final ComputableValue<Integer> $$arez$$_someValue;
 
-  public Arez_AnnotationsOnModel() {
+  Arez_AnnotationsOnModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

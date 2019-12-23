@@ -20,7 +20,7 @@ final class Arez_BasicObservableModel extends BasicObservableModel implements Di
   @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  public Arez_BasicObservableModel() {
+  Arez_BasicObservableModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

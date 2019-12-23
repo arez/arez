@@ -17,7 +17,7 @@ final class Arez_MultiPreDisposeModel extends MultiPreDisposeModel implements Di
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  public Arez_MultiPreDisposeModel() {
+  Arez_MultiPreDisposeModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
