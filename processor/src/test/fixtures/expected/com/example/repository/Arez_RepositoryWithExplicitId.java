@@ -36,12 +36,12 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return getId();
   }
 
   @Override
-  public final boolean observe() {
+  public boolean observe() {
     return this.$$arezi$$_kernel.observe();
   }
 
@@ -50,23 +50,22 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -76,7 +75,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
 
   @Override
   @Nonnull
-  public final String getName() {
+  public String getName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -85,7 +84,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   }
 
   @Override
-  public final void setName(@Nonnull final String name) {
+  public void setName(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setName' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -99,12 +98,12 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     return Integer.hashCode( getId() );
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( o instanceof Arez_RepositoryWithExplicitId ) {
       final Arez_RepositoryWithExplicitId that = (Arez_RepositoryWithExplicitId) o;
       return isDisposed() == that.isDisposed() && getId() == that.getId();
@@ -114,7 +113,7 @@ final class Arez_RepositoryWithExplicitId extends RepositoryWithExplicitId imple
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

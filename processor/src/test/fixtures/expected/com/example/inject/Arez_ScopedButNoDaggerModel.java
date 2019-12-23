@@ -32,28 +32,28 @@ final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel implement
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
   @Override
-  public final void myActionStuff() {
+  public void myActionStuff() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myActionStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -61,7 +61,7 @@ final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel implement
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -70,7 +70,7 @@ final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel implement
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ScopedButNoDaggerModel ) {
         final Arez_ScopedButNoDaggerModel that = (Arez_ScopedButNoDaggerModel) o;
@@ -84,7 +84,7 @@ final class Arez_ScopedButNoDaggerModel extends ScopedButNoDaggerModel implement
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

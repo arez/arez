@@ -49,20 +49,20 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Nonnull
-  final Locator $$arezi$$_locator() {
+  private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'ProtectedAccessFromBasePostInverseAddModel'" );
     }
     return this.$$arezi$$_kernel.getContext().locator();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -78,23 +78,22 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -103,7 +102,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Override
-  public final void verify() {
+  public void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -118,7 +117,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Override
-  protected final Collection<BaseProtectedAccessPostInverseAddModel.Element> getElements() {
+  protected Collection<BaseProtectedAccessPostInverseAddModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -134,7 +133,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
     }
   }
 
-  public final void $$arezir$$_elements_add(
+  public void $$arezir$$_elements_add(
       @Nonnull final BaseProtectedAccessPostInverseAddModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -151,7 +150,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
     postElementsAdd( element );
   }
 
-  public final void $$arezir$$_elements_remove(
+  public void $$arezir$$_elements_remove(
       @Nonnull final BaseProtectedAccessPostInverseAddModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -168,7 +167,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -177,7 +176,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ProtectedAccessFromBasePostInverseAddModel ) {
         final Arez_ProtectedAccessFromBasePostInverseAddModel that = (Arez_ProtectedAccessFromBasePostInverseAddModel) o;
@@ -191,7 +190,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

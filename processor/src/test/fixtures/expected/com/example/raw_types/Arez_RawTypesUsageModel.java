@@ -85,18 +85,18 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
-  public final boolean observe() {
+  public boolean observe() {
     return this.$$arezi$$_kernel.observe();
   }
 
@@ -105,23 +105,22 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -137,7 +136,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final Callable getMyCallable() {
+  Callable getMyCallable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -147,7 +146,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final void setMyCallable(final Callable callable) {
+  void setMyCallable(final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyCallable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -161,7 +160,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final Callable getMyCallable2() {
+  Callable getMyCallable2() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallable2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -171,7 +170,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final void setMyCallable2(final Callable callable) {
+  void setMyCallable2(final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyCallable2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -185,7 +184,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final List<Callable> getMyCallableList() {
+  List<Callable> getMyCallableList() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -203,7 +202,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final void setMyCallableList(final List<Callable> callable) {
+  void setMyCallableList(final List<Callable> callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -220,7 +219,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  public final void render(@Nonnull final Callable callable) {
+  public void render(@Nonnull final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -229,7 +228,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  public final void doStuff(@Nonnull final Callable callable) {
+  public void doStuff(@Nonnull final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -238,7 +237,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final Callable genCallable() {
+  Callable genCallable() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genCallable' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -247,7 +246,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final int genCallableStat1(final Callable callable) {
+  int genCallableStat1(final Callable callable) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genCallableStat1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -256,7 +255,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  final int genCallableStat2(final List<Consumer<Callable>> other) {
+  int genCallableStat2(final List<Consumer<Callable>> other) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genCallableStat2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -264,12 +263,12 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     return Integer.hashCode( $$arezi$$_id() );
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( o instanceof Arez_RawTypesUsageModel ) {
       final Arez_RawTypesUsageModel that = (Arez_RawTypesUsageModel) o;
       return $$arezi$$_id() == that.$$arezi$$_id();
@@ -279,7 +278,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

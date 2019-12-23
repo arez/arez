@@ -40,20 +40,20 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Nonnull
-  final Locator $$arezi$$_locator() {
+  private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'NonObservableNullableZeroOrOneReferenceModel'" );
     }
     return this.$$arezi$$_kernel.getContext().locator();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -69,23 +69,22 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -94,7 +93,7 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Override
-  public final void verify() {
+  public void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -108,7 +107,7 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
 
   @Override
   @Nullable
-  final NonObservableNullableZeroOrOneReferenceModel.Element getElement() {
+  NonObservableNullableZeroOrOneReferenceModel.Element getElement() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElement' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -139,7 +138,7 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -148,7 +147,7 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonObservableNullableZeroOrOneReferenceModel ) {
         final Arez_NonObservableNullableZeroOrOneReferenceModel that = (Arez_NonObservableNullableZeroOrOneReferenceModel) o;
@@ -162,7 +161,7 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

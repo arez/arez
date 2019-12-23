@@ -35,13 +35,13 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -50,23 +50,22 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -75,7 +74,7 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
   }
 
   @Override
-  public final long getTime() {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -85,7 +84,7 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
 
   @Override
   @Deprecated
-  final void setTime(final long time) {
+  void setTime(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -98,7 +97,7 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -107,7 +106,7 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeprecatedObservableModel2 ) {
         final Arez_DeprecatedObservableModel2 that = (Arez_DeprecatedObservableModel2) o;
@@ -121,7 +120,7 @@ final class Arez_DeprecatedObservableModel2 extends DeprecatedObservableModel2 i
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

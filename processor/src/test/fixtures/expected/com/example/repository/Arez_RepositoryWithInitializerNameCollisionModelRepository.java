@@ -38,23 +38,23 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -64,7 +64,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
 
   @Override
   @Nonnull
-  public final Stream<RepositoryWithInitializerNameCollisionModel> entities() {
+  public Stream<RepositoryWithInitializerNameCollisionModel> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -74,7 +74,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
 
   @Override
   @Nonnull
-  protected final ObservableValue<Stream<RepositoryWithInitializerNameCollisionModel>> getEntitiesObservableValue(
+  protected ObservableValue<Stream<RepositoryWithInitializerNameCollisionModel>> getEntitiesObservableValue(
       ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -83,7 +83,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
   }
 
   @Override
-  protected final void destroy(@Nonnull final RepositoryWithInitializerNameCollisionModel entity) {
+  protected void destroy(@Nonnull final RepositoryWithInitializerNameCollisionModel entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -92,8 +92,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
 
   @Override
   @Nonnull
-  final RepositoryWithInitializerNameCollisionModel create(final int time,
-      final long $$arezip$$_time) {
+  RepositoryWithInitializerNameCollisionModel create(final int time, final long $$arezip$$_time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -101,7 +100,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -110,7 +109,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithInitializerNameCollisionModelRepository ) {
         final Arez_RepositoryWithInitializerNameCollisionModelRepository that = (Arez_RepositoryWithInitializerNameCollisionModelRepository) o;
@@ -124,7 +123,7 @@ final class Arez_RepositoryWithInitializerNameCollisionModelRepository extends R
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

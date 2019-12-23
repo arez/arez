@@ -91,7 +91,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected final ArezContext getContext() {
+  protected ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'CompleteModel'" );
     }
@@ -100,7 +100,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected final Component getComponent() {
+  protected Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'CompleteModel'" );
     }
@@ -120,7 +120,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Nonnull
-  final Locator $$arezi$$_locator() {
+  private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'CompleteModel'" );
     }
@@ -129,13 +129,13 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  public final Byte getArezId() {
+  public Byte getArezId() {
     return getId();
   }
 
   @Override
   @Nonnull
-  protected final String getComponentName() {
+  protected String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'CompleteModel'" );
     }
@@ -159,23 +159,22 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -190,7 +189,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final void verify() {
+  public void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -211,7 +210,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected final String getMyValue() {
+  protected String getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -220,7 +219,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final void setMyValue(final String value) {
+  public void setMyValue(final String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -234,7 +233,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected final ObservableValue<String> getMyValueObservableValue() {
+  protected ObservableValue<String> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValueObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -242,7 +241,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected final List<Element> getElements() {
+  protected List<Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -260,7 +259,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nullable
-  final Element getParentGeneralisation() {
+  Element getParentGeneralisation() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParentGeneralisation' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -269,7 +268,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected final void myWatcher() {
+  protected void myWatcher() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'myWatcher' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
@@ -278,7 +277,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected final Observer getMyWatcherObserver() {
+  protected Observer getMyWatcherObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyWatcherObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -286,7 +285,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final void render(final long time, final float someOtherParameter) {
+  public void render(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -294,7 +293,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final void myAction() {
+  public void myAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -302,7 +301,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected final long getTime() {
+  protected long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -311,7 +310,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Override
   @Nonnull
-  protected final ComputableValue<Long> getTimeComputableValue() {
+  protected ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -319,7 +318,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected final long calcStuff(final int i) {
+  protected long calcStuff(final int i) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'calcStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -348,11 +347,11 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     }
   }
 
-  public final void $$arezi$$_delink_myEntity() {
+  public void $$arezi$$_delink_myEntity() {
     this.$$arezr$$_myEntity = null;
   }
 
-  public final void $$arezir$$_elements_add(@Nonnull final Element element) {
+  public void $$arezir$$_elements_add(@Nonnull final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -367,7 +366,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements.reportChanged();
   }
 
-  public final void $$arezir$$_elements_remove(@Nonnull final Element element) {
+  public void $$arezir$$_elements_remove(@Nonnull final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -382,7 +381,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements.reportChanged();
   }
 
-  public final void $$arezir$$_parentGeneralisation_zset(@Nullable final Element element) {
+  public void $$arezir$$_parentGeneralisation_zset(@Nullable final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -391,7 +390,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public final void $$arezir$$_parentGeneralisation_zunset(@Nonnull final Element element) {
+  public void $$arezir$$_parentGeneralisation_zunset(@Nonnull final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zunset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -403,7 +402,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Byte.hashCode( getId() );
     } else {
@@ -412,7 +411,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CompleteModel ) {
         final Arez_CompleteModel that = (Arez_CompleteModel) o;
@@ -426,7 +425,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

@@ -28,7 +28,7 @@ final class Arez_ByteComponentIdRequireEquals extends ByteComponentIdRequireEqua
 
   @Override
   @Nonnull
-  public final Byte getArezId() {
+  public Byte getArezId() {
     return getId();
   }
 
@@ -37,33 +37,32 @@ final class Arez_ByteComponentIdRequireEquals extends ByteComponentIdRequireEqua
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     return Byte.hashCode( getId() );
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( o instanceof Arez_ByteComponentIdRequireEquals ) {
       final Arez_ByteComponentIdRequireEquals that = (Arez_ByteComponentIdRequireEquals) o;
       return isDisposed() == that.isDisposed() && getId() == that.getId();
@@ -73,7 +72,7 @@ final class Arez_ByteComponentIdRequireEquals extends ByteComponentIdRequireEqua
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

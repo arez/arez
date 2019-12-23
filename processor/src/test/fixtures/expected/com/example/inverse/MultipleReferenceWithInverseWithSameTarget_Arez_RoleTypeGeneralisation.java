@@ -44,20 +44,20 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Nonnull
-  final Locator $$arezi$$_locator() {
+  private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'RoleTypeGeneralisation'" );
     }
     return this.$$arezi$$_kernel.getContext().locator();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -72,28 +72,27 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
   @Override
-  public final void verify() {
+  public void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -109,7 +108,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  public final void link() {
+  public void link() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'link' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -184,7 +183,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -193,7 +192,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation ) {
         final MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation that = (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) o;
@@ -207,7 +206,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

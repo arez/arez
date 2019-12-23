@@ -101,7 +101,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   @Override
   @Nonnull
-  public final ArezContext getContext() {
+  public ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'CompleteInterfaceModel'" );
     }
@@ -110,7 +110,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   @Override
   @Nonnull
-  public final Component getComponent() {
+  public Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'CompleteInterfaceModel'" );
     }
@@ -130,26 +130,26 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Nonnull
-  final Locator $$arezi$$_locator() {
+  private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'CompleteInterfaceModel'" );
     }
     return this.$$arezi$$_kernel.getContext().locator();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
   @Nonnull
-  public final String getComponentName() {
+  public String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'CompleteInterfaceModel'" );
     }
@@ -173,23 +173,22 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -206,7 +205,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void verify() {
+  public void verify() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -227,7 +226,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final String getMyValue() {
+  public String getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -236,7 +235,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void setMyValue(final String value) {
+  public void setMyValue(final String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -250,7 +249,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   @Override
   @Nonnull
-  public final ObservableValue<String> getMyValueObservableValue() {
+  public ObservableValue<String> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValueObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -258,7 +257,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final List<OtherElement> getOtherElements() {
+  public List<OtherElement> getOtherElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getOtherElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -276,7 +275,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   @Override
   @Nullable
-  public final OtherElement getParentGeneralisation() {
+  public OtherElement getParentGeneralisation() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParentGeneralisation' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -285,7 +284,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void myWatcher() {
+  public void myWatcher() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'myWatcher' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
@@ -294,7 +293,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   @Override
   @Nonnull
-  public final Observer getMyWatcherObserver() {
+  public Observer getMyWatcherObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyWatcherObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -302,7 +301,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void render(final long time, final float someOtherParameter) {
+  public void render(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -310,7 +309,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void render2(final long time, final float someOtherParameter) {
+  public void render2(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -325,7 +324,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void render3() {
+  public void render3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'render3' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
@@ -340,7 +339,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final void myAction() {
+  public void myAction() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myAction' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -348,7 +347,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final long getTime() {
+  public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -357,7 +356,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   @Override
   @Nonnull
-  public final ComputableValue<Long> getTimeComputableValue() {
+  public ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -365,7 +364,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final long calcStuff(final int i) {
+  public long calcStuff(final int i) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'calcStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -394,11 +393,11 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     }
   }
 
-  public final void $$arezi$$_delink_myEntity() {
+  public void $$arezi$$_delink_myEntity() {
     this.$$arezr$$_myEntity = null;
   }
 
-  public final void $$arezir$$_otherElements_add(@Nonnull final OtherElement otherElement) {
+  public void $$arezir$$_otherElements_add(@Nonnull final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_otherElements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -413,7 +412,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_otherElements.reportChanged();
   }
 
-  public final void $$arezir$$_otherElements_remove(@Nonnull final OtherElement otherElement) {
+  public void $$arezir$$_otherElements_remove(@Nonnull final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_otherElements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -428,8 +427,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_otherElements.reportChanged();
   }
 
-  public final void $$arezir$$_parentGeneralisation_zset(
-      @Nullable final OtherElement otherElement) {
+  public void $$arezir$$_parentGeneralisation_zset(@Nullable final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -438,8 +436,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public final void $$arezir$$_parentGeneralisation_zunset(
-      @Nonnull final OtherElement otherElement) {
+  public void $$arezir$$_parentGeneralisation_zunset(@Nonnull final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zunset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -451,7 +448,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -460,7 +457,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CompleteInterfaceModel ) {
         final Arez_CompleteInterfaceModel that = (Arez_CompleteInterfaceModel) o;
@@ -474,7 +471,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

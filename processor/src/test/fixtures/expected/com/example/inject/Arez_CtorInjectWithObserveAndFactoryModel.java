@@ -37,23 +37,23 @@ public final class Arez_CtorInjectWithObserveAndFactoryModel extends CtorInjectW
     this.$$arezi$$_kernel.componentComplete();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -62,7 +62,7 @@ public final class Arez_CtorInjectWithObserveAndFactoryModel extends CtorInjectW
   }
 
   @Override
-  final void autorun() {
+  void autorun() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'autorun' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }
@@ -70,7 +70,7 @@ public final class Arez_CtorInjectWithObserveAndFactoryModel extends CtorInjectW
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -79,7 +79,7 @@ public final class Arez_CtorInjectWithObserveAndFactoryModel extends CtorInjectW
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_CtorInjectWithObserveAndFactoryModel ) {
         final Arez_CtorInjectWithObserveAndFactoryModel that = (Arez_CtorInjectWithObserveAndFactoryModel) o;
@@ -93,7 +93,7 @@ public final class Arez_CtorInjectWithObserveAndFactoryModel extends CtorInjectW
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {
@@ -111,7 +111,7 @@ public final class Arez_CtorInjectWithObserveAndFactoryModel extends CtorInjectW
     }
 
     @Nonnull
-    public final Arez_CtorInjectWithObserveAndFactoryModel create(final int count) {
+    public Arez_CtorInjectWithObserveAndFactoryModel create(final int count) {
       return new Arez_CtorInjectWithObserveAndFactoryModel( action, count );
     }
   }

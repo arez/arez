@@ -28,13 +28,13 @@ final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefM
 
   @Override
   @Nonnull
-  final String getId() {
+  String getId() {
     return this.id();
   }
 
   @Override
   @Nonnull
-  public final String getArezId() {
+  public String getArezId() {
     return id();
   }
 
@@ -43,28 +43,27 @@ final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefM
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return null != id() ? id().hashCode() : System.identityHashCode( this );
     } else {
@@ -73,7 +72,7 @@ final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefM
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_NonIntTypeComponentIdRefModel ) {
         final Arez_NonIntTypeComponentIdRefModel that = (Arez_NonIntTypeComponentIdRefModel) o;
@@ -87,7 +86,7 @@ final class Arez_NonIntTypeComponentIdRefModel extends NonIntTypeComponentIdRefM
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

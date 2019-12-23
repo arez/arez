@@ -40,23 +40,23 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -66,7 +66,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
 
   @Override
   @Nonnull
-  public final Stream<RawTypesUsageModel> entities() {
+  public Stream<RawTypesUsageModel> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -76,7 +76,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
 
   @Override
   @Nonnull
-  protected final ObservableValue<Stream<RawTypesUsageModel>> getEntitiesObservableValue() {
+  protected ObservableValue<Stream<RawTypesUsageModel>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -84,7 +84,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   }
 
   @Override
-  public final void destroy(@Nonnull final RawTypesUsageModel entity) {
+  public void destroy(@Nonnull final RawTypesUsageModel entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -94,8 +94,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   @Override
   @SuppressWarnings("rawtypes")
   @Nonnull
-  public final RawTypesUsageModel create(final Callable myCallable,
-      final List<Callable> myCallableList) {
+  public RawTypesUsageModel create(final Callable myCallable, final List<Callable> myCallableList) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -103,7 +102,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -112,7 +111,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RawTypesUsageModelRepository ) {
         final Arez_RawTypesUsageModelRepository that = (Arez_RawTypesUsageModelRepository) o;
@@ -126,7 +125,7 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

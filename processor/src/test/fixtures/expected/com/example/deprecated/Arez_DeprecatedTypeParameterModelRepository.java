@@ -38,13 +38,13 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -54,23 +54,22 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -81,7 +80,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   @Override
   @SuppressWarnings("deprecation")
   @Nonnull
-  public final Stream<DeprecatedTypeParameterModel<T>> entities() {
+  public Stream<DeprecatedTypeParameterModel<T>> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -92,8 +91,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   @Override
   @SuppressWarnings("deprecation")
   @Nonnull
-  protected final ObservableValue<Stream<DeprecatedTypeParameterModel<T>>> getEntitiesObservableValue(
-      ) {
+  protected ObservableValue<Stream<DeprecatedTypeParameterModel<T>>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -102,7 +100,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
 
   @Override
   @SuppressWarnings("deprecation")
-  public final void destroy(@Nonnull final DeprecatedTypeParameterModel<T> entity) {
+  public void destroy(@Nonnull final DeprecatedTypeParameterModel<T> entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -112,7 +110,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   @Override
   @SuppressWarnings("deprecation")
   @Nonnull
-  public final DeprecatedTypeParameterModel<T> create() {
+  public DeprecatedTypeParameterModel<T> create() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -120,7 +118,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -130,7 +128,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
 
   @Override
   @SuppressWarnings("unchecked")
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_DeprecatedTypeParameterModelRepository ) {
         final Arez_DeprecatedTypeParameterModelRepository<T> that = (Arez_DeprecatedTypeParameterModelRepository<T>) o;
@@ -144,7 +142,7 @@ final class Arez_DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEn
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

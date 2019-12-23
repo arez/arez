@@ -933,7 +933,7 @@ final class ComponentGenerator
     {
       final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
       creator.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      creator.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      creator.addModifiers( Modifier.PUBLIC );
       creator.returns( component.getEnhancedClassName() );
 
       final StringBuilder sb = new StringBuilder();
@@ -1000,7 +1000,7 @@ final class ComponentGenerator
 
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "toString" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.get( String.class ) );
 
@@ -1032,7 +1032,7 @@ final class ComponentGenerator
 
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "hashCode" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.INT );
     final TypeKind kind =
@@ -1149,7 +1149,7 @@ final class ComponentGenerator
     final String methodName = LOCATOR_METHOD_NAME;
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addModifiers( Modifier.FINAL ).
+      addModifiers( Modifier.PRIVATE ).
       returns( LOCATOR_CLASSNAME );
 
     generateNotInitializedInvariant( component, method, methodName );
@@ -1195,7 +1195,7 @@ final class ComponentGenerator
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "getArezId" ).
       addAnnotation( Override.class ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+      addModifiers( Modifier.PUBLIC ).
       returns( component.getIdType().box() ).
       addStatement( "return $N()", component.getIdMethodName() );
     final ExecutableElement componentId = component.getComponentId();
@@ -1216,7 +1216,7 @@ final class ComponentGenerator
 
     return MethodSpec
       .methodBuilder( ID_FIELD_NAME )
-      .addModifiers( Modifier.FINAL )
+      .addModifiers( Modifier.PRIVATE )
       .returns( DEFAULT_ID_TYPE )
       .addStatement( "return this.$N.getId()", KERNEL_FIELD_NAME )
       .build();
@@ -1227,7 +1227,7 @@ final class ComponentGenerator
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "verify" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
     generateNotDisposedInvariant( builder, "verify" );
@@ -1272,7 +1272,7 @@ final class ComponentGenerator
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "link" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
     generateNotDisposedInvariant( builder, "link" );
@@ -1298,7 +1298,7 @@ final class ComponentGenerator
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "dispose" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
     builder.addStatement( "this.$N.dispose()", KERNEL_FIELD_NAME );
@@ -1342,7 +1342,7 @@ final class ComponentGenerator
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "isDisposed" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
@@ -1359,7 +1359,7 @@ final class ComponentGenerator
   {
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( "observe" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
     builder.addStatement( "return this.$N.observe()", KERNEL_FIELD_NAME );
@@ -1543,7 +1543,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     return MethodSpec.methodBuilder( "addOnDisposeListener" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+      addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
@@ -1562,7 +1562,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     return MethodSpec.methodBuilder( "removeOnDisposeListener" ).
-      addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+      addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
@@ -2035,7 +2035,7 @@ final class ComponentGenerator
 
     final MethodSpec.Builder method =
       MethodSpec.methodBuilder( "equals" ).
-        addModifiers( Modifier.PUBLIC, Modifier.FINAL ).
+        addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         addParameter( Object.class, "o", Modifier.FINAL ).
         returns( TypeName.BOOLEAN );
@@ -3662,7 +3662,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
-      builder.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      builder.addModifiers( Modifier.PUBLIC );
     }
     final String otherName = inverse.getOtherName();
     final ParameterSpec parameter =
@@ -3714,7 +3714,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
-      builder.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      builder.addModifiers( Modifier.PUBLIC );
     }
     final String otherName = inverse.getOtherName();
     final ParameterSpec parameter =
@@ -3769,7 +3769,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
-      builder.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      builder.addModifiers( Modifier.PUBLIC );
     }
     final String otherName = inverse.getOtherName();
     final ParameterSpec.Builder parameter =
@@ -3809,7 +3809,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
-      builder.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      builder.addModifiers( Modifier.PUBLIC );
     }
     final String otherName = inverse.getOtherName();
     final ParameterSpec parameter =
@@ -4191,7 +4191,7 @@ final class ComponentGenerator
       (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
     if ( GeneratorUtil.areTypesInDifferentPackage( typeElement, reference.getComponent().getElement() ) )
     {
-      builder.addModifiers( Modifier.PUBLIC, Modifier.FINAL );
+      builder.addModifiers( Modifier.PUBLIC );
     }
     else if ( !reference.hasInverse() )
     {

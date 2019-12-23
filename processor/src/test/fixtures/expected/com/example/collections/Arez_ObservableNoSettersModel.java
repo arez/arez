@@ -50,13 +50,13 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
@@ -65,23 +65,22 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final void addOnDisposeListener(@Nonnull final Object key,
-      @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
-  public final void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key) {
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -93,7 +92,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final Collection<String> getCollection() {
+  public Collection<String> getCollection() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollection' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -103,7 +102,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  final ObservableValue<Collection<String>> getCollectionObservableValue() {
+  ObservableValue<Collection<String>> getCollectionObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollectionObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -111,7 +110,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final Set<String> getSet() {
+  public Set<String> getSet() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSet' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -121,7 +120,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  final ObservableValue<Set<String>> getSetObservableValue() {
+  ObservableValue<Set<String>> getSetObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSetObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -129,7 +128,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final List<String> getList() {
+  public List<String> getList() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -139,7 +138,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  final ObservableValue<List<String>> getListObservableValue() {
+  ObservableValue<List<String>> getListObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getListObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -147,7 +146,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final Map<String, String> getMap() {
+  public Map<String, String> getMap() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMap' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -157,7 +156,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
 
   @Override
   @Nonnull
-  final ObservableValue<Map<String, String>> getMapObservableValue() {
+  ObservableValue<Map<String, String>> getMapObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMapObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -165,7 +164,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -174,7 +173,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_ObservableNoSettersModel ) {
         final Arez_ObservableNoSettersModel that = (Arez_ObservableNoSettersModel) o;
@@ -188,7 +187,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel imple
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {

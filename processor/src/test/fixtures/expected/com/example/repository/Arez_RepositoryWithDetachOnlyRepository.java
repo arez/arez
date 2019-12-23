@@ -38,23 +38,23 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
     this.$$arezi$$_kernel.componentReady();
   }
 
-  final int $$arezi$$_id() {
+  private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
 
   @Override
   @Nonnull
-  public final Integer getArezId() {
+  public Integer getArezId() {
     return $$arezi$$_id();
   }
 
   @Override
-  public final boolean isDisposed() {
+  public boolean isDisposed() {
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
-  public final void dispose() {
+  public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
 
@@ -64,7 +64,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
 
   @Override
   @Nonnull
-  public final Stream<RepositoryWithDetachOnly> entities() {
+  public Stream<RepositoryWithDetachOnly> entities() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'entities' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -74,7 +74,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
 
   @Override
   @Nonnull
-  protected final ObservableValue<Stream<RepositoryWithDetachOnly>> getEntitiesObservableValue() {
+  protected ObservableValue<Stream<RepositoryWithDetachOnly>> getEntitiesObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntitiesObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -82,7 +82,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
   }
 
   @Override
-  protected final void detach(@Nonnull final RepositoryWithDetachOnly entity) {
+  protected void detach(@Nonnull final RepositoryWithDetachOnly entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'detach' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -91,7 +91,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
 
   @Override
   @Nonnull
-  final RepositoryWithDetachOnly create(@Nonnull final String name) {
+  RepositoryWithDetachOnly create(@Nonnull final String name) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
@@ -99,7 +99,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
   }
 
   @Override
-  public final int hashCode() {
+  public int hashCode() {
     if ( Arez.areNativeComponentsEnabled() ) {
       return Integer.hashCode( $$arezi$$_id() );
     } else {
@@ -108,7 +108,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
   }
 
   @Override
-  public final boolean equals(final Object o) {
+  public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
       if ( o instanceof Arez_RepositoryWithDetachOnlyRepository ) {
         final Arez_RepositoryWithDetachOnlyRepository that = (Arez_RepositoryWithDetachOnlyRepository) o;
@@ -122,7 +122,7 @@ final class Arez_RepositoryWithDetachOnlyRepository extends RepositoryWithDetach
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
     } else {
