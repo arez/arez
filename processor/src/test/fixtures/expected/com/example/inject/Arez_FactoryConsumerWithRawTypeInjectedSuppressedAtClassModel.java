@@ -11,11 +11,9 @@ import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@Singleton
 public final class Arez_FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel extends FactoryConsumerWithRawTypeInjectedSuppressedAtClassModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 

@@ -10,11 +10,9 @@ import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@Singleton
 public final class Arez_FactoryConsumerBasicModel extends FactoryConsumerBasicModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 

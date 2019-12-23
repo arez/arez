@@ -11,11 +11,9 @@ import java.util.Objects;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@Singleton
 public final class Arez_CtorInjectWithPostConstructAndFactoryModel extends CtorInjectWithPostConstructAndFactoryModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 

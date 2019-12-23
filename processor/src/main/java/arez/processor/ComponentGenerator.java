@@ -155,7 +155,7 @@ final class ComponentGenerator
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
-    if ( null != component.getScopeAnnotation() )
+    if ( null != component.getScopeAnnotation() && !component.shouldGenerateFactory() )
     {
       final DeclaredType annotationType = component.getScopeAnnotation().getAnnotationType();
       final TypeElement typeElement = (TypeElement) annotationType.asElement();
