@@ -147,11 +147,7 @@ final class ComponentGenerator
     types.add( component.asDeclaredType() );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
 
-    //Ahh dagger.... due the way we actually inject components that have to create a dagger component
-    // extension, this class needs to be public
-    if ( component.needsDaggerComponentExtension() ||
-         component.hasReferenceWithInverseOutsidePackage( processingEnv ) ||
-         component.hasInverseReferencedOutsidePackage() )
+    if ( component.shouldGeneratedClassBePublic( processingEnv ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
