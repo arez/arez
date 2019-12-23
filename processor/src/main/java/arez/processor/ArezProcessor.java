@@ -435,7 +435,7 @@ public final class ArezProcessor
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.BOOLEAN != returnType.getKind() )
     {
-      throw new ProcessorException( "Method annotated with @ComponentStateRef must return a boolean", method );
+      throw new ProcessorException( "@ComponentStateRef target must return a boolean", method );
     }
     final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "value" );
     final ComponentStateRefDescriptor.State state =

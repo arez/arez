@@ -2530,7 +2530,7 @@ public class ArezProcessorTest
         new Object[]{ "com.example.component_state_ref.PrivateModel", "@ComponentStateRef target must be abstract" },
         new Object[]{ "com.example.component_state_ref.VoidModel", "@ComponentStateRef target must return a value" },
         new Object[]{ "com.example.component_state_ref.BadTypeModel",
-                      "Method annotated with @ComponentStateRef must return a boolean" },
+                      "@ComponentStateRef target must return a boolean" },
         new Object[]{ "com.example.component_state_ref.ThrowsExceptionModel",
                       "@ComponentStateRef target must not throw any exceptions" },
         new Object[]{ "com.example.component_state_ref.ParametersModel",
