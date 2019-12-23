@@ -49,7 +49,7 @@ public class TypeVisibilityTest
   public void typeVisibilities()
   {
     assertFalse( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel.class.getModifiers() ) );
-    assertTrue( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel2.class.getModifiers() ) );
+    assertFalse( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel2.class.getModifiers() ) );
     assertTrue( Modifier.isPublic( TypeVisibilityTest_PersonModelDaggerModule.class.getModifiers() ) );
     assertTrue( Modifier.isPublic( TypeVisibilityTest_PersonModel2DaggerModule.class.getModifiers() ) );
   }
