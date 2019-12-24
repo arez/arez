@@ -7,17 +7,15 @@ import arez.annotations.Observable;
 public enum EnumModel
 {
   A, B;
-  private long _field;
 
   @Observable
   public long getField()
   {
-    return _field;
+    return 0;
   }
 
   @Observable
   public void setField( final long field )
   {
-    _field = field;
   }
 }
