@@ -1,6 +1,7 @@
 package arez.processor;
 
 import com.google.testing.compile.JavaSourcesSubjectFactory;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.annotation.Nonnull;
@@ -9,8 +10,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static com.google.common.truth.Truth.*;
 
-public class ArezProcessorTest
-  extends AbstractArezProcessorTest
+public final class ArezProcessorTest
+  extends AbstractProcessorTest
 {
   @DataProvider( name = "successfulCompiles" )
   public Object[][] successfulCompiles()
@@ -3485,5 +3486,168 @@ public class ArezProcessorTest
                                  "@Observable target must not be package access if " +
                                  "the method is in a different package from the type annotated with the " +
                                  "@ArezComponent annotation" );
+  }
+
+  void assertSuccessfulCompile( @Nonnull final String classname,
+                                final boolean daggerModuleExpected,
+                                final boolean daggerComponentExtensionExpected,
+                                final boolean repositoryEnabled,
+                                final boolean repositoryDaggerEnabled )
+    throws Exception
+  {
+    final String[] expectedOutputResources =
+      deriveExpectedOutputs( classname,
+                             daggerModuleExpected,
+                             daggerComponentExtensionExpected,
+                             repositoryEnabled,
+                             repositoryDaggerEnabled );
+    assertSuccessfulCompile( toFilename( "input", classname ), expectedOutputResources );
+  }
+
+  @Nonnull
+  String[] deriveExpectedOutputs( @Nonnull final String classname,
+                                  final boolean daggerModuleExpected,
+                                  final boolean daggerComponentExtensionExpected,
+                                  final boolean repositoryEnabled,
+                                  final boolean repositoryDaggerEnabled )
+  {
+    final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
+    final StringBuilder arezComponent = new StringBuilder();
+    final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder componentDaggerModule = daggerModuleExpected ? new StringBuilder() : null;
+    final StringBuilder componentExtension = daggerComponentExtensionExpected ? new StringBuilder() : null;
+    final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
+    final StringBuilder repositoryDaggerModule = repositoryDaggerEnabled ? new StringBuilder() : null;
+    arezComponent.append( "expected" );
+    if ( daggerModuleExpected )
+    {
+      componentDaggerModule.append( "expected" );
+    }
+    if ( daggerComponentExtensionExpected )
+    {
+      componentExtension.append( "expected" );
+    }
+    if ( repositoryEnabled )
+    {
+      repository.append( "expected" );
+      arezRepository.append( "expected" );
+      repositoryExtension.append( "expected" );
+    }
+    if ( repositoryDaggerEnabled )
+    {
+      repositoryDaggerModule.append( "expected" );
+    }
+    for ( int i = 0; i < elements.length; i++ )
+    {
+      arezComponent.append( '/' );
+      if ( daggerModuleExpected )
+      {
+        componentDaggerModule.append( '/' );
+      }
+      if ( daggerComponentExtensionExpected )
+      {
+        componentExtension.append( '/' );
+      }
+      if ( repositoryEnabled )
+      {
+        repository.append( '/' );
+        arezRepository.append( '/' );
+        repositoryExtension.append( '/' );
+      }
+      if ( repositoryDaggerEnabled )
+      {
+        repositoryDaggerModule.append( '/' );
+      }
+      final boolean isLastElement = i == elements.length - 1;
+      if ( isLastElement )
+      {
+        arezComponent.append( "Arez_" );
+        if ( repositoryEnabled )
+        {
+          arezRepository.append( "Arez_" );
+        }
+      }
+      arezComponent.append( elements[ i ] );
+      if ( daggerModuleExpected )
+      {
+        componentDaggerModule.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          componentDaggerModule.append( "DaggerModule" );
+        }
+      }
+      if ( daggerComponentExtensionExpected )
+      {
+        componentExtension.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          componentExtension.append( "DaggerComponentExtension" );
+        }
+      }
+
+      if ( repositoryEnabled )
+      {
+        repository.append( elements[ i ] );
+        arezRepository.append( elements[ i ] );
+        repositoryExtension.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          repository.append( "Repository" );
+          arezRepository.append( "Repository" );
+          repositoryExtension.append( "Repository" );
+        }
+      }
+      if ( repositoryDaggerEnabled )
+      {
+        repositoryDaggerModule.append( elements[ i ] );
+        if ( isLastElement )
+        {
+          repositoryDaggerModule.append( "RepositoryDaggerModule" );
+        }
+      }
+    }
+    arezComponent.append( ".java" );
+    final ArrayList<String> expectedOutputs = new ArrayList<>();
+    expectedOutputs.add( arezComponent.toString() );
+    if ( daggerModuleExpected )
+    {
+      componentDaggerModule.append( ".java" );
+      expectedOutputs.add( componentDaggerModule.toString() );
+    }
+    if ( daggerComponentExtensionExpected )
+    {
+      componentExtension.append( ".java" );
+      expectedOutputs.add( componentExtension.toString() );
+    }
+    if ( repositoryEnabled )
+    {
+      repository.append( ".java" );
+      arezRepository.append( ".java" );
+      repositoryExtension.append( ".java" );
+      expectedOutputs.add( repository.toString() );
+      expectedOutputs.add( arezRepository.toString() );
+      expectedOutputs.add( repositoryExtension.toString() );
+    }
+    if ( repositoryDaggerEnabled )
+    {
+      repositoryDaggerModule.append( ".java" );
+      expectedOutputs.add( repositoryDaggerModule.toString() );
+    }
+    return expectedOutputs.toArray( new String[ 0 ] );
+  }
+
+  @Nonnull
+  @Override
+  protected String getOptionPrefix()
+  {
+    return "arez";
+  }
+
+  @Nonnull
+  @Override
+  protected ArezProcessor processor()
+  {
+    return new ArezProcessor();
   }
 }
