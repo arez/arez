@@ -9,6 +9,7 @@
 * Continue to refactor the annotation processor infrastructure and ensure that the generated code is internally consistent and easier to maintain. The changes should have had no practical impact on how end-users use the results. The changes include removing final qualifier from methods in final class, adding the private qualifier to internal methods, adding the `@Override` annotation where appropriate etc.
 * Stop making the generated component class public unless needed to support dagger injection or to support inverse references in a different package.
 * Stop copying the scope annotation to the generated class when the generated class is not directly injected but is exposed via a factory class.
+* Extract the non-Arez specific annotation processor utility methods into a separate project `org.realityforge.proton:proton-processor-pack`. These were previously copy-paste shared between several projects. This is the first step towards sharing the code directly. The code is relocated as part of the build process to eliminate conflicts.
 
 ### [v0.160](https://github.com/arez/arez/tree/v0.160) (2019-12-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.159...v0.160) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.159&new=0.160)
 

@@ -1,7 +1,7 @@
 package arez.processor;
 
-import arez.processor.support.AbstractStandardProcessor;
 import javax.annotation.Nonnull;
+import org.realityforge.proton.AbstractStandardProcessor;
 
 /**
  * Abstract base annotation processor for Arez.

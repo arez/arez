@@ -1,7 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.MemberChecks;
-import arez.processor.support.ProcessorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +9,8 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
+import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.ProcessorException;
 
 /**
  * The class that represents the parsed state of @Observe methods on a @ArezComponent annotated class.

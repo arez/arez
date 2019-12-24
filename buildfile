@@ -115,6 +115,7 @@ define 'arez' do
     pom.dependency_filter = Proc.new { |_| false }
 
     compile.with :javax_annotation,
+                 :proton_processor_pack,
                  :autocommon,
                  :javapoet,
                  :guava
@@ -136,6 +137,7 @@ define 'arez' do
       jar.merge(artifact(:javapoet))
       jar.merge(artifact(:guava))
       jar.merge(artifact(:autocommon))
+      jar.merge(artifact(:proton_processor_pack))
       jar.enhance do |f|
         shaded_jar = (f.to_s + '-shaded')
         Buildr.ant 'shade_jar' do |ant|
@@ -145,6 +147,7 @@ define 'arez' do
           ant.shade :jar => f.to_s, :uberJar => shaded_jar do
             ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'arez.processor.vendor.javapoet'
             ant.relocation :pattern => 'com.google', :shadedPattern => 'arez.processor.vendor.google'
+            ant.relocation :pattern => 'org.realityforge.proton', :shadedPattern => 'arez.processor.vendor.proton'
           end
         end
         FileUtils.mv shaded_jar, f.to_s

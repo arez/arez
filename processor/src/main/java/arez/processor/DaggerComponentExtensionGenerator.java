@@ -1,6 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.GeneratorUtil;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -9,6 +8,7 @@ import com.squareup.javapoet.TypeSpec;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
+import org.realityforge.proton.GeneratorUtil;
 
 final class DaggerComponentExtensionGenerator
 {

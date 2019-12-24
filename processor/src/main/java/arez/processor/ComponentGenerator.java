@@ -1,10 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.AnnotationsUtil;
-import arez.processor.support.ElementsUtil;
-import arez.processor.support.GeneratorUtil;
-import arez.processor.support.ProcessorException;
-import arez.processor.support.SuppressWarningsUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -39,6 +34,11 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.ElementsUtil;
+import org.realityforge.proton.GeneratorUtil;
+import org.realityforge.proton.ProcessorException;
+import org.realityforge.proton.SuppressWarningsUtil;
 
 final class ComponentGenerator
 {

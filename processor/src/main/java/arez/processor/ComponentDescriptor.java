@@ -1,6 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.GeneratorUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
+import org.realityforge.proton.GeneratorUtil;
 
 /**
  * The class that represents the parsed state of ArezComponent annotated class.

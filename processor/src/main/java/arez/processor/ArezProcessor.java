@@ -1,10 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.AnnotationsUtil;
-import arez.processor.support.ElementsUtil;
-import arez.processor.support.GeneratorUtil;
-import arez.processor.support.MemberChecks;
-import arez.processor.support.ProcessorException;
 import com.google.auto.common.SuperficialValidation;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -44,6 +39,11 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
+import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.ElementsUtil;
+import org.realityforge.proton.GeneratorUtil;
+import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.ProcessorException;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**

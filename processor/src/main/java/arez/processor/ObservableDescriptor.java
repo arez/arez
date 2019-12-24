@@ -1,7 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.AnnotationsUtil;
-import arez.processor.support.ProcessorException;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.WildcardTypeName;
@@ -20,6 +18,8 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.ProcessorException;
 
 /**
  * The class that represents the parsed state of ObservableValue properties on a @ArezComponent annotated class.

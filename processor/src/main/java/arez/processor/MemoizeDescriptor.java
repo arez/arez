@@ -1,7 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.MemberChecks;
-import arez.processor.support.ProcessorException;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.WildcardTypeName;
@@ -16,6 +14,8 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.ProcessorException;
 
 /**
  * The class that represents the parsed state of @Memoize methods on a @ArezComponent annotated class.

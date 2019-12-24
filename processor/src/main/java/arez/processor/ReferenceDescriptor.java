@@ -1,8 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.AnnotationsUtil;
-import arez.processor.support.GeneratorUtil;
-import arez.processor.support.ProcessorException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 import java.util.Objects;
@@ -10,6 +7,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
+import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.GeneratorUtil;
+import org.realityforge.proton.ProcessorException;
 
 /**
  * Declaration of a reference.

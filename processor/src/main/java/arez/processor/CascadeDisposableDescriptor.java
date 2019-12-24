@@ -1,7 +1,5 @@
 package arez.processor;
 
-import arez.processor.support.MemberChecks;
-import arez.processor.support.ProcessorException;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,6 +8,8 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.ProcessorException;
 
 /**
  * Declaration of a method or field that must be cascade disposed.

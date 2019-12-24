@@ -1,15 +1,15 @@
 package arez.processor;
 
-import arez.processor.support.AnnotationsUtil;
-import arez.processor.support.GeneratorUtil;
-import arez.processor.support.MemberChecks;
-import arez.processor.support.ProcessorException;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
+import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.GeneratorUtil;
+import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.ProcessorException;
 
 /**
  * Declaration of a component's dependency.
