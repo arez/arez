@@ -7,10 +7,6 @@ import arez.annotations.Feature;
 @ArezComponent( dagger = Feature.ENABLE )
 abstract class DaggerEnableNonPublicModel
 {
-  DaggerEnableNonPublicModel()
-  {
-  }
-
   @Action
   void myAction()
   {
