@@ -1,7 +1,6 @@
 package com.example.component_ref.other;
 
 import arez.Component;
-import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 
 public abstract class BaseProtectedAccessComponentRefModel

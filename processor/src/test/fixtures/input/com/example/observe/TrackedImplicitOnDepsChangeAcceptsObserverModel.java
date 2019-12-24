@@ -4,7 +4,6 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import arez.annotations.OnDepsChange;
 import javax.annotation.Nonnull;
 
 @ArezComponent

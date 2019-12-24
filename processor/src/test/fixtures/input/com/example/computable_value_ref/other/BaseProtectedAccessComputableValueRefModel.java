@@ -1,7 +1,6 @@
 package com.example.computable_value_ref.other;
 
 import arez.ComputableValue;
-import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
 import javax.annotation.Nonnull;

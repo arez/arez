@@ -6,7 +6,6 @@ import arez.annotations.Inverse;
 import arez.annotations.PostInverseAdd;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import java.io.IOException;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 
