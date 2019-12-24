@@ -40,7 +40,6 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
-@SuppressWarnings( "Duplicates" )
 final class ComponentGenerator
 {
   private static final ClassName INJECT_CLASSNAME = ClassName.get( "javax.inject", "Inject" );

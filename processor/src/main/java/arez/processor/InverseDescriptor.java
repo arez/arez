@@ -15,7 +15,6 @@ import javax.lang.model.type.TypeMirror;
 /**
  * Declaration of an inverse.
  */
-@SuppressWarnings( "Duplicates" )
 final class InverseDescriptor
 {
   @Nonnull

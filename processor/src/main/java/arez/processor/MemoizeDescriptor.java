@@ -20,7 +20,6 @@ import javax.lang.model.type.TypeMirror;
 /**
  * The class that represents the parsed state of @Memoize methods on a @ArezComponent annotated class.
  */
-@SuppressWarnings( "Duplicates" )
 final class MemoizeDescriptor
 {
   @Nonnull

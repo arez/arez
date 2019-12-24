@@ -24,7 +24,6 @@ import javax.lang.model.type.TypeMirror;
 /**
  * The class that represents the parsed state of ObservableValue properties on a @ArezComponent annotated class.
  */
-@SuppressWarnings( "Duplicates" )
 final class ObservableDescriptor
 {
   @Nonnull

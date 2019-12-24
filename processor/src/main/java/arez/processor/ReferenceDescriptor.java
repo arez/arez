@@ -14,7 +14,6 @@ import javax.lang.model.type.ExecutableType;
 /**
  * Declaration of a reference.
  */
-@SuppressWarnings( "Duplicates" )
 final class ReferenceDescriptor
 {
   @Nonnull

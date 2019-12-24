@@ -8,7 +8,6 @@ import javax.lang.model.type.ExecutableType;
 /**
  * The class that represents the parsed state of @Action methods on a @ArezComponent annotated class.
  */
-@SuppressWarnings( "Duplicates" )
 final class ActionDescriptor
 {
   @Nonnull

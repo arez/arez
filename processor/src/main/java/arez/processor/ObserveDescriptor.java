@@ -15,7 +15,6 @@ import javax.lang.model.type.TypeKind;
 /**
  * The class that represents the parsed state of @Observe methods on a @ArezComponent annotated class.
  */
-@SuppressWarnings( "Duplicates" )
 final class ObserveDescriptor
 {
   @Nonnull
