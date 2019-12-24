@@ -21,6 +21,14 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Merge all `validPublicAccessViaInterface*` processor tests into a single test. 
+
+* Merge all `validProtectedAccess*` processor tests into a single test. 
+
+* Enhance the `CompleteInterfaceModel` processor test and the the `CompleteModel` processor test so that it includes all modern annotations including duplicates where possible.
+
+* Add a `CompleteX` processor test that incorporates multiple levels of inheritance with interface inheritance and multiple implements on each class level. It should also include multiple instances of all hooks so ordering can be verified. 
+
 * Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
   inverse references and potentially by generating a `@Provide` method and module for dagger.
 
