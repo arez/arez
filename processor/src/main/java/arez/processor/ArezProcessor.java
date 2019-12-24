@@ -55,10 +55,10 @@ import static javax.tools.Diagnostic.Kind.*;
 public final class ArezProcessor
   extends AbstractArezProcessor
 {
+  static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
   private static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
-  static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
   private static final List<String> OBJECT_METHODS =
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
@@ -72,6 +72,41 @@ public final class ArezProcessor
   private static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChange" );
   private static final Pattern PRE_INVERSE_REMOVE_PATTERN = Pattern.compile( "^pre([A-Z].*)Remove" );
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
+
+  @SuppressWarnings( "unchecked" )
+  @Nonnull
+  @Override
+  protected Set<TypeElement> getTypeElementsToProcess( @Nonnull final RoundEnvironment env )
+  {
+    final TypeElement annotation =
+      processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
+    return (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
+  }
+
+  @Override
+  protected void process( @Nonnull final TypeElement element )
+    throws IOException, ProcessorException
+  {
+    final ComponentDescriptor descriptor = parse( element );
+    final String packageName = descriptor.getPackageName();
+    emitTypeSpec( packageName, ComponentGenerator.buildType( processingEnv, descriptor ) );
+    if ( descriptor.needsDaggerIntegration() )
+    {
+      if ( descriptor.needsDaggerComponentExtension() )
+      {
+        assert InjectMode.CONSUME == descriptor.getInjectMode();
+        emitTypeSpec( packageName, DaggerComponentExtensionGenerator.buildType( processingEnv, descriptor ) );
+      }
+      else if ( descriptor.needsDaggerModule() )
+      {
+        emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
+      }
+    }
+    if ( descriptor.hasRepository() )
+    {
+      emitTypeSpec( packageName, RepositoryGenerator.buildType( processingEnv, descriptor.getRepository() ) );
+    }
+  }
 
   @Nonnull
   private ObservableDescriptor addObservable( @Nonnull final ComponentDescriptor component,
@@ -1970,41 +2005,6 @@ public final class ArezProcessor
   {
     return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
            ArezUtils.isDisposableTrackableRequired( typeElement );
-  }
-
-  @SuppressWarnings( "unchecked" )
-  @Nonnull
-  @Override
-  protected Set<TypeElement> getTypeElementsToProcess( @Nonnull final RoundEnvironment env )
-  {
-    final TypeElement annotation =
-      processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
-    return (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
-  }
-
-  @Override
-  protected void process( @Nonnull final TypeElement element )
-    throws IOException, ProcessorException
-  {
-    final ComponentDescriptor descriptor = parse( element );
-    final String packageName = descriptor.getPackageName();
-    emitTypeSpec( packageName, ComponentGenerator.buildType( processingEnv, descriptor ) );
-    if ( descriptor.needsDaggerIntegration() )
-    {
-      if ( descriptor.needsDaggerComponentExtension() )
-      {
-        assert InjectMode.CONSUME == descriptor.getInjectMode();
-        emitTypeSpec( packageName, DaggerComponentExtensionGenerator.buildType( processingEnv, descriptor ) );
-      }
-      else if ( descriptor.needsDaggerModule() )
-      {
-        emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
-      }
-    }
-    if ( descriptor.hasRepository() )
-    {
-      emitTypeSpec( packageName, RepositoryGenerator.buildType( processingEnv, descriptor.getRepository() ) );
-    }
   }
 
   @Nonnull
