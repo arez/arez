@@ -45,7 +45,7 @@ final class ObservableDescriptor
   @Nullable
   private ExecutableType _setterType;
   @Nonnull
-  private List<CandidateMethod> _refMethods = new ArrayList<>();
+  private final List<CandidateMethod> _refMethods = new ArrayList<>();
   @Nullable
   private DependencyDescriptor _dependencyDescriptor;
   @Nullable

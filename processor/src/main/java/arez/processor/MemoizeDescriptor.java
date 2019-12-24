@@ -42,7 +42,7 @@ final class MemoizeDescriptor
   @Nullable
   private ExecutableElement _onDeactivate;
   @Nonnull
-  private List<CandidateMethod> _refMethods = new ArrayList<>();
+  private final List<CandidateMethod> _refMethods = new ArrayList<>();
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {

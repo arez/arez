@@ -37,7 +37,7 @@ final class ObserveDescriptor
   @Nullable
   private ExecutableElement _onDepsChange;
   @Nonnull
-  private List<ExecutableElement> _refMethods = new ArrayList<>();
+  private final List<ExecutableElement> _refMethods = new ArrayList<>();
 
   ObserveDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
