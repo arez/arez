@@ -9,7 +9,7 @@ import arez.annotations.ReferenceId;
 abstract class DisableInverseModel
 {
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverse = Feature.DISABLE )
     abstract DisableInverseModel getOther();

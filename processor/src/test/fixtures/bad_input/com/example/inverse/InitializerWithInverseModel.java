@@ -18,7 +18,7 @@ abstract class InitializerWithInverseModel
   abstract MyEntity getMyEntity();
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.ONE )
     abstract InitializerWithInverseModel getInitializerWithInverseModel();

@@ -15,7 +15,7 @@ abstract class NonObservableNullableZeroOrOneReferenceModel
   abstract Element getElement();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
     @Nullable

@@ -15,7 +15,7 @@ abstract class BadMultiplicity3InverseModel
   abstract MyEntity getMyEntity();
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
     abstract BadMultiplicity3InverseModel getBadMultiplicity3InverseModel();

@@ -9,7 +9,7 @@ abstract class UnmanagedComponentReferenceToNonVerify
   final MyComponent _myComponent = null;
 
   @ArezComponent( allowEmpty = true, verifyReferencesToComponent = Feature.DISABLE )
-  public static abstract class MyComponent
+  public abstract static class MyComponent
   {
   }
 }

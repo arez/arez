@@ -13,7 +13,7 @@ abstract class NonStandardNameModel
   abstract Collection<Element> getY$$$();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( name = "zoom", inverseName = "zap" )
     abstract NonStandardNameModel $$$getX();

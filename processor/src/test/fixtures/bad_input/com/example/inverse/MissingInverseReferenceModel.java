@@ -18,7 +18,7 @@ abstract class MissingInverseReferenceModel
   }
 
   @ArezComponent( allowEmpty = true )
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
   }
 }

@@ -10,7 +10,7 @@ import java.util.Collection;
 class UnexpectedInverseForReferenceModel
 {
   @ArezComponent
-  static abstract class Wheel
+  abstract static class Wheel
   {
     @Reference
     abstract Car getCar();
@@ -23,7 +23,7 @@ class UnexpectedInverseForReferenceModel
   }
 
   @ArezComponent
-  static abstract class Car
+  abstract static class Car
   {
     @Inverse
     abstract Collection<Wheel> getWheels();

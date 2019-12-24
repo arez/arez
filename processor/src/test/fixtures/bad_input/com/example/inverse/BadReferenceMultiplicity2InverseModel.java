@@ -20,7 +20,7 @@ abstract class BadReferenceMultiplicity2InverseModel
   }
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Inverse
     abstract Collection<BadReferenceMultiplicity2InverseModel> getBadReferenceMultiplicity2InverseModel();

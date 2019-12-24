@@ -20,7 +20,7 @@ abstract class BadParamCount1PostInverseAddModel
   abstract Collection<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
     abstract BadParamCount1PostInverseAddModel getOther();

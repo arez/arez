@@ -14,7 +14,7 @@ abstract class MissingReference1InverseModel
   abstract Collection<MyEntity> getMyEntity();
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( name = "NotMatch", inverseMultiplicity = Multiplicity.MANY )
     abstract MissingReference1InverseModel getMissingReference1InverseModel();

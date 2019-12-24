@@ -20,7 +20,7 @@ abstract class BadReferenceMultiplicity3InverseModel
   }
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Inverse
     @Nonnull

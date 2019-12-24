@@ -12,7 +12,7 @@ abstract class UnmanagedObservableDisposeNotifierReference
 
   abstract void setMyComponent( MyComponent component );
 
-  public static abstract class MyComponent
+  public abstract static class MyComponent
     implements DisposeNotifier
   {
   }

@@ -22,7 +22,7 @@ abstract class SingularInversePreInverseRemoveModel
   abstract Element getElement();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE, inverseMultiplicity = Multiplicity.ONE )
     abstract SingularInversePreInverseRemoveModel getOther();

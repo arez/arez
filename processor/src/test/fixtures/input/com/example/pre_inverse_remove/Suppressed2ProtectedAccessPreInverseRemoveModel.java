@@ -24,7 +24,7 @@ abstract class Suppressed2ProtectedAccessPreInverseRemoveModel
   abstract Collection<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
     abstract Suppressed2ProtectedAccessPreInverseRemoveModel getOther();

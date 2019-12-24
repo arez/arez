@@ -9,7 +9,7 @@ abstract class UnmanagedActAsComponentReference
   final MyComponent _myComponent = null;
 
   @ActAsComponent
-  public static abstract class MyComponent
+  public abstract static class MyComponent
   {
   }
 }

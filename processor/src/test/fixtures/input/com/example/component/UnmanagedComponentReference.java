@@ -8,7 +8,7 @@ abstract class UnmanagedComponentReference
   final MyComponent _myComponent = null;
 
   @ArezComponent( allowEmpty = true )
-  public static abstract class MyComponent
+  public abstract static class MyComponent
   {
   }
 }

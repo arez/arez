@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 public class MultipleReferenceWithInverseWithSameTarget
 {
   @ArezComponent
-  static abstract class RoleTypeGeneralisation
+  abstract static class RoleTypeGeneralisation
   {
     private final int _parentId;
     private final int _childId;
@@ -46,7 +46,7 @@ public class MultipleReferenceWithInverseWithSameTarget
   }
 
   @ArezComponent
-  static abstract class RoleType
+  abstract static class RoleType
   {
     @Inverse( name = "childGeneralisations", referenceName = "parent" )
     @Nonnull

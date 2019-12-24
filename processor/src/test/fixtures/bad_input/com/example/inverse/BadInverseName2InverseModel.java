@@ -14,7 +14,7 @@ abstract class BadInverseName2InverseModel
   abstract Collection<MyEntity> getMyEntity();
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( inverseName = "byte", inverseMultiplicity = Multiplicity.MANY )
     abstract BadInverseName2InverseModel getOther();

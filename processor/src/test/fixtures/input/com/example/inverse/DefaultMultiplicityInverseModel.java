@@ -14,7 +14,7 @@ abstract class DefaultMultiplicityInverseModel
   abstract Collection<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
     abstract DefaultMultiplicityInverseModel getDefaultMultiplicityInverseModel();

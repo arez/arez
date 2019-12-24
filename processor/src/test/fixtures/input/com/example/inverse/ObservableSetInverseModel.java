@@ -16,7 +16,7 @@ abstract class ObservableSetInverseModel
   abstract Set<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract ObservableSetInverseModel getObservableSetInverseModel();

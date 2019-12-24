@@ -12,7 +12,7 @@ abstract class UnmanagedObservableComponentReference
   abstract void setMyComponent( MyComponent component );
 
   @ArezComponent( allowEmpty = true )
-  public static abstract class MyComponent
+  public abstract static class MyComponent
   {
   }
 }

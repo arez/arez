@@ -17,7 +17,7 @@ abstract class DuplicateInverseModel
   abstract Collection<MyEntity> getMyEntity2();
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract DuplicateInverseModel getDuplicateInverseModel();

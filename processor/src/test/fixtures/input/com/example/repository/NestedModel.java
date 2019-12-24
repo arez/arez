@@ -8,7 +8,7 @@ abstract class NestedModel
 {
   @Repository
   @ArezComponent
-  public static abstract class BasicActionModel
+  public abstract static class BasicActionModel
   {
     @Action
     public void doStuff( final long time )

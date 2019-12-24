@@ -15,7 +15,7 @@ abstract class NonObservableCollectionInverseModel
   abstract Collection<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract NonObservableCollectionInverseModel getNonObservableCollectionInverseModel();

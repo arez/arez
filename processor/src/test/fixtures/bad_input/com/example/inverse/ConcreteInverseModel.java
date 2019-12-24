@@ -17,7 +17,7 @@ abstract class ConcreteInverseModel
   }
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract ConcreteInverseModel getOther();

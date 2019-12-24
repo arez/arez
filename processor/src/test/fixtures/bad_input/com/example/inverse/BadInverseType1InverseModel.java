@@ -14,7 +14,7 @@ abstract class BadInverseType1InverseModel
   abstract Collection<OtherEntity> getMyEntitys();
 
   @ArezComponent()
-  static abstract class OtherEntity
+  abstract static class OtherEntity
   {
     @Reference( inverse = Feature.ENABLE )
     abstract MyEntity getBadInverseType1InverseModel();
@@ -27,7 +27,7 @@ abstract class BadInverseType1InverseModel
   }
 
   @ArezComponent( allowEmpty = true )
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
   }
 }

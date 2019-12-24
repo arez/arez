@@ -16,7 +16,7 @@ abstract class ObservableListInverseModel
   abstract List<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract ObservableListInverseModel getObservableListInverseModel();

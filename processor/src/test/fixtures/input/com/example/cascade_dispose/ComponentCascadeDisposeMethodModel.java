@@ -13,7 +13,7 @@ abstract class ComponentCascadeDisposeMethodModel
   }
 
   @ArezComponent( allowEmpty = true )
-  static abstract class MyComponent
+  abstract static class MyComponent
   {
   }
 }

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 public class NestedModel
 {
   @ArezComponent
-  public static abstract class BasicActionModel
+  public abstract static class BasicActionModel
   {
     @Action
     void doStuff( final long time )

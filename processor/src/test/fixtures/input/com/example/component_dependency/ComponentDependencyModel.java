@@ -7,7 +7,7 @@ import arez.annotations.ComponentDependency;
 abstract class ComponentDependencyModel
 {
   @ArezComponent( allowEmpty = true )
-  static abstract class Foo
+  abstract static class Foo
   {
   }
 

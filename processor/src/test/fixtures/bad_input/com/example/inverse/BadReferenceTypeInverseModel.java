@@ -20,7 +20,7 @@ abstract class BadReferenceTypeInverseModel
   }
 
   @ArezComponent
-  static abstract class OtherEntity
+  abstract static class OtherEntity
   {
     @Reference
     abstract MyEntity getMyEntity();
@@ -33,7 +33,7 @@ abstract class BadReferenceTypeInverseModel
   }
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Inverse
     abstract Collection<OtherEntity> getBadReferenceTypeInverseModels();

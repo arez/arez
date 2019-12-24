@@ -13,7 +13,7 @@ abstract class UnmanagedObservableComponentReferenceToNonVerify
   abstract void setMyComponent( MyComponent component );
 
   @ArezComponent( allowEmpty = true, verifyReferencesToComponent = Feature.DISABLE )
-  public static abstract class MyComponent
+  public abstract static class MyComponent
   {
   }
 }

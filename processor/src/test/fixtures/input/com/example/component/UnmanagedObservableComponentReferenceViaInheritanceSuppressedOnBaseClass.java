@@ -6,13 +6,13 @@ import arez.annotations.Observable;
 abstract class UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass
 {
   @ArezComponent
-  public static abstract class MyComponent
+  public abstract static class MyComponent
     extends Base
   {
   }
 
   @SuppressWarnings( "Arez:UnmanagedComponentReference" )
-  static abstract class Base
+  abstract static class Base
   {
     @Observable
     abstract OtherComponent getMyComponent();
@@ -21,7 +21,7 @@ abstract class UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBa
   }
 
   @ArezComponent( allowEmpty = true )
-  static abstract class OtherComponent
+  abstract static class OtherComponent
   {
   }
 }

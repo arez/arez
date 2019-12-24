@@ -16,7 +16,7 @@ abstract class NonGetterInverseModel
   abstract Set<Element> elements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract NonGetterInverseModel getNonGetterInverseModel();

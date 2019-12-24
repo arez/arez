@@ -15,7 +15,7 @@ abstract class ZeroOrOneMultiplicityInverseModel
   abstract Element getElement();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
     abstract ZeroOrOneMultiplicityInverseModel getZeroOrOneMultiplicityInverseModel();

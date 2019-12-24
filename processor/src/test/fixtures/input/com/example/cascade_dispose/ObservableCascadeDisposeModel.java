@@ -15,7 +15,7 @@ abstract class ObservableCascadeDisposeModel
   abstract void setElement( @Nonnull MyComponent element );
 
   @ArezComponent( allowEmpty = true )
-  static abstract class MyComponent
+  abstract static class MyComponent
   {
   }
 }

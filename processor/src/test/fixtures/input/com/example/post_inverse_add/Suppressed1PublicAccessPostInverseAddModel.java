@@ -23,7 +23,7 @@ abstract class Suppressed1PublicAccessPostInverseAddModel
   abstract Collection<Element> getElements();
 
   @ArezComponent
-  static abstract class Element
+  abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
     abstract Suppressed1PublicAccessPostInverseAddModel getOther();

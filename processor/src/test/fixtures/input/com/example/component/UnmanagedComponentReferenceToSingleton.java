@@ -10,7 +10,7 @@ abstract class UnmanagedComponentReferenceToSingleton
 
   @Singleton
   @ArezComponent( allowEmpty = true )
-  public static abstract class MyComponent
+  public abstract static class MyComponent
   {
   }
 }

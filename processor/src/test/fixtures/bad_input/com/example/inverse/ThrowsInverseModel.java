@@ -16,7 +16,7 @@ abstract class ThrowsInverseModel
     throws Exception;
 
   @ArezComponent
-  static abstract class MyEntity
+  abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
     abstract ThrowsInverseModel getOther();
